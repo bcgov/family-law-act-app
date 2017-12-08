@@ -1,0 +1,59 @@
+<div id="wrap">
+  <header>
+    <div class="container">
+      <a href="http://www2.gov.bc.ca/" tabindex="-1">
+        <img class="header-logo"
+             tabindex="-1" alt="B.C. Government Logo"
+             src="https://cdn.rawgit.com/bcgov/mygovbc-bootstrap-theme/v0.2.0/dist/images/gov3_bc_logo.png">
+      </a>
+      <span class="title" role="banner">Put your title here</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="page-header" id="banner">
+
+      <div class="row">
+        <div class="col-lg-8 col-md-7 col-sm-6">
+          <h1>Theming your app</h1>
+          <p class="lead"><a href="https://bcgov.github.io/mygovbc-bootstrap-theme/" target="_blank">See a demonstration of all bootstrap styles under the MyGovBC theme</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="pad">
+    <div class="container">
+      <nav>
+          <ul class="nav navbar-nav">
+            <li><a href="" [routerLink]="['/dashboard']">Dashboard</a></li>
+            <li><a href="" [routerLink]="['/customer']">Customer</a></li>
+          </ul>
+      </nav>
+
+    </div>
+
+
+    <div class="container">
+      <breadcrumb></breadcrumb>
+
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <nav class="navbar navbar-default navbar-footer navbar-static-bottom">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li><a href="http://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a></li>
+        <li><a href="http://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a></li>
+        <li><a href="http://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a></li>
+        <li><a href="http://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a></li>
+        <li><a href="http://www2.gov.bc.ca/gov/content/home/contact-us"
+               target="_blank">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+</footer>
