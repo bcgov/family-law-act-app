@@ -4,7 +4,7 @@
 # JSON Template File: templates/python-libindy/python-libindy-build.json
 #=========================================================
 NAME=python-libindy
-GIT_REPO_URL=https://github.com/bcgov/TheOrgBook.git
+GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=tob-api/openshift/templates/python-libindy
 OUTPUT_IMAGE_TAG=latest

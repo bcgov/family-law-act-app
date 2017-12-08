@@ -1,5 +1,5 @@
 """
-Definition of urls for tob_api.
+Definition of urls for fpo_api.
 """
 
 from django.conf.urls import include, url

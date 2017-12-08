@@ -15,7 +15,7 @@ export PROD=prod
 # Templates NOT in this list will have they GIT referances over-ridden
 # with the values of GIT_URI and GIT_REF
 export -a skip_git_overrides=("schema-spy-build.json" "solr-base-build.json")
-export GIT_URI="https://github.com/bcgov/TheOrgBook.git"
+export GIT_URI="https://github.com/bcgov/Family-Protection-Order.git"
 export GIT_REF="master"
 
 export PROJECT_NAMESPACE="devex-von"

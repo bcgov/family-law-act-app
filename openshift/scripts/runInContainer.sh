@@ -32,9 +32,9 @@ usage () {
   echo "Examples:"
   echo "${0} postgresql 'psql -c \"\l\"'"
   echo "${0} postgresql 'psql -c \"\du\"'"
-  echo "${0} postgresql \"psql -c 'DROP DATABASE \"TheOrgBook_Database\";'\""
-  echo "${0} postgresql \"psql -c 'CREATE DATABASE \"TheOrgBook_Database\";'\""
-  echo "${0} postgresql \"psql -c 'GRANT ALL ON DATABASE \"TheOrgBook_Database\" TO \"TheOrgBook_User\";'\""
+  echo "${0} postgresql \"psql -c 'DROP DATABASE \"FPO_Database\";'\""
+  echo "${0} postgresql \"psql -c 'CREATE DATABASE \"FPO_Database\";'\""
+  echo "${0} postgresql \"psql -c 'GRANT ALL ON DATABASE \"FPO_Database\" TO \"FPO_User\";'\""
   echo
   echo "${0} django 'python ./manage.py migrate'"
   echo "${0} django 'python ./manage.py createsuperuser'"

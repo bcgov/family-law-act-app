@@ -17,7 +17,7 @@ usage () {
   echo " - <DatabaseUserName> is the name of the database user."
   echo
   echo "Examples:"
-  echo "${0} devex-von-dev postgresql TheOrgBook_Database TheOrgBook_User"
+  echo "${0} devex-von-dev postgresql FPO_Database FPO_User"
   echo "========================================================================================"
   exit 1
 }

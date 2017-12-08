@@ -46,7 +46,7 @@ if [ ! -z "${DEBUG}" ]; then
 fi
 
 # Load Test Data
-echo -e "Loading data into TheOrgBook Server: ${LOAD_DATA_SERVER}"
+echo -e "Loading data into Family Protection Order Server: ${LOAD_DATA_SERVER}"
 pushd ../APISpec/TestData >/dev/null
 ./load-all.sh ${LOAD_DATA_SERVER}
 popd >/dev/null

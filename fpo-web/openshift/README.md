@@ -84,7 +84,7 @@ Use:
 
 Example:
 ```
-./generateBuilds.sh devex-von-tools master https://github.com/bcgov/TheOrgBook.git
+./generateBuilds.sh devex-von-tools master https://github.com/bcgov/Family-Protection-Order.git
 ```
 
 ### generateDeployments.sh

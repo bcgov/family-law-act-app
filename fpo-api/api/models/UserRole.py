@@ -1,7 +1,5 @@
 """
-    REST API Documentation for TheOrgBook
-
-    TheOrgBook is a repository for Verifiable Claims made about Organizations related to a known foundational Verifiable Claim. See https://github.com/bcgov/VON
+    REST API Documentation for Family Protection Order
 
     OpenAPI spec version: v1
         

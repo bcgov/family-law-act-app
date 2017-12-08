@@ -1,9 +1,9 @@
-# Running TheOrgBook Locally on OpenShift
+# Running Family Protection Order Locally on OpenShift
 
 These instructions assume:
 
 * a moderate to advanced knowledge of OpenShift. There are two good PDFs available from Red Hat and O'Reilly on [OpenShift for Developers](https://www.openshift.com/promotions/for-developers.html) and [DevOps with OpenShift](https://www.openshift.com/promotions/devops-with-openshift.html) that should be read and understood first.
-* you have forked and cloned [TheOrgBook repo](https://github.com/bcgov/TheOrgBook) and are accessing it on the command line.
+* you have forked and cloned [Family Protection Order repo](https://github.com/bcgov/Family-Protection-Order) and are accessing it on the command line.
 * you are using a reasonable shell. A "reasonable shell" is obvious on Linux and Mac, and is assumed to be the git-bash shell on Windows. ~~PowerShell~~
 * you have a Docker environment installed and running happily.
 
@@ -13,7 +13,7 @@ Get a recent stable (or the latest) [Openshift Command Line tool](https://github
 
 **Login** to your local OpenShift instance on the command line and the Web Console.
 
-# Change into the openshift folder at the root of TheOrgBook
+# Change into the openshift folder at the root of Family Protection Order
 
 ```
 cd openshift
@@ -21,7 +21,7 @@ cd openshift
 
 # Create projects
 
-If you are resetting your environment, change into the "openshift" folder in the root of TheOrgBook repo and run the following script.  Give this operation a bit of time to complete before recreating the projects.
+If you are resetting your environment, change into the "openshift" folder in the root of Family Protection Order repo and run the following script.  Give this operation a bit of time to complete before recreating the projects.
 
 ```
 ./generateLocalProjects.sh -D
@@ -45,7 +45,7 @@ If you are running locally you will see some "No resources found." messages whic
 
 # Generate the Build and Images in the "tools" project; Deploy Jenkins
 
-On the command line, change into the "openshift" folder in the root of TheOrgBook repo and run the script:
+On the command line, change into the "openshift" folder in the root of Family Protection Order repo and run the script:
 
 ```
 ./genBuilds.sh -h
@@ -65,7 +65,7 @@ If you are adding and updating build and image configurations, run the script **
 
 # Generate the Deployment Configurations and Deploy the Components
 
-On the command line, change into the "openshift" folder in the root of TheOrgBook repo and run the script:
+On the command line, change into the "openshift" folder in the root of Family Protection Order repo and run the script:
 
 ```
 ./genDepls.sh -h
