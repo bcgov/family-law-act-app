@@ -44,62 +44,9 @@ Jenkins is responsible for:
 
 ## Quick Start
 
-A set of automation scripts have been wrapped around the project templates (described below) to make it quick and simple to deploy the OpenShift resources into an OpenShift environment such as the **`pathfinder.gov.bc.ca`** environment.
+## Development
 
-The scripts and templates have been configured to allow you to specify the GIT Repo, branch, and context directory for the builds.  This allows you to quickly redirect the build configurations to a different repository, branch, and folder structure.
-
-_A word of caution… When deploying this application into a local cluster you will need to adjust the rules for the Nginx server, as they are preconfigured to only allow IP ranges that correspond to those in the `pathfinder.gov.bc.ca` environment._
-
-### initializeProjects.sh
-
-Use this script to initialize your project environments; assuming you are working with a standard `pathfinder.gov.bc.ca` OpenShift project set.
-
-This script grants your deployment projects with access to pull images from your `tools` project.
-
-Use:
-```
-./initializeProjects.sh <project-namespace> [tools-project-name:tools] [dev-project-name:dev] [test-project-name:test] [prod-project-name:prod]
-```
-
-Examples:
-
-_Short Version:_
-```
-./initializeProjects.sh devex-von
-```
-
-_Full Version:_
-```
-./initializeProjects.sh devex-von tools dev test prod
-```
-
-#### generateBuilds.sh
-
-Use this script to generate the build configurations for the project.
-
-Use:
-```
-./generateBuilds.sh [project_name] [git_ref] [git_uri]
-```
-
-Example:
-```
-./generateBuilds.sh devex-von-tools master https://github.com/bcgov/Family-Protection-Order.git
-```
-
-### generateDeployments.sh
-
-Use this script to generate the deployment configurations for the project.  You will need to run this script once for each of your deployment environments; dev, test, prod for example.
-
-Use:
-```
-./generateDeployments.sh [project_namespace] [deployment_env_name] [build_env_name]
-```
-
-Example:
-```
-./generateDeployments.sh devex-von dev tools
-```
+To deploy the application on an instance of OpenShift, see [the instructions](../../RunningLocal.md) in the file RunningLocal.md.
 
 ## Template/Component Descriptions
 
