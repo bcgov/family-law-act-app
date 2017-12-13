@@ -1,6 +1,6 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: tob-api
+# Component: fpo-api
 # JSON Template File: templates/schema-spy/schema-spy-build.json
 #=========================================================
 NAME=schema-spy

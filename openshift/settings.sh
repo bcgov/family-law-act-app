@@ -18,7 +18,7 @@ export -a skip_git_overrides=("schema-spy-build.json")
 export GIT_URI="https://github.com/bcgov/Family-Protection-Order.git"
 export GIT_REF="master"
 
-export PROJECT_NAMESPACE="devex-von"
+export PROJECT_NAMESPACE="jag-csb-jes-family-protection-order"
 export TOOLS=${PROJECT_NAMESPACE}-tools
 export DEPLOYMENT_ENV_NAME="${DEV}"
 export BUILD_ENV_NAME="tools"
@@ -40,7 +40,7 @@ export GLUSTER_SVC_CONFIG=https://raw.githubusercontent.com/BCDevOps/openshift-t
 export GLUSTER_SVC_NAME=glusterfs-cluster-app
 
 # The project components
-export -a components=("tob-db" "tob-api" "tob-web")
+export -a components=("fpo-db" "fpo-api" "fpo-web")
 
 # The builds to be triggered after buildconfigs created (not auto-triggered)
 export -a builds=("nginx-runtime" "angular-builder")

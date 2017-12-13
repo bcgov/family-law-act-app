@@ -1,6 +1,6 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: tob-api
+# Component: fpo-api
 # JSON Template File: templates/django/django-build.json
 #=========================================================
 NAME=django
@@ -8,7 +8,8 @@ GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=tob-api
 KIND_OF_IMAGE=ImageStreamTag
-SOURCE_IMAGE_NAME=python-libindy
-SOURCE_IMAGE_TAG=latest
+SOURCE_IMAGE_NAME=python
+SOURCE_IMAGE_TAG=3.6
+SOURCE_IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
 PIP_INDEX_URL=
 OUTPUT_IMAGE_TAG=latest

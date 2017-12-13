@@ -1,6 +1,6 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: tob-web
+# Component: fpo-web
 # JSON Template File: templates/angular-on-nginx/angular-on-nginx-build.json
 #=========================================================
 NAME=angular-on-nginx

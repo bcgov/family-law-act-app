@@ -1,11 +1,11 @@
 #=========================================================
 # OpenShift Jenkins pipeline template parameters for:
-# Jenkinsfile: ./fpo-api/Jenkinsfile
+# Jenkinsfile: ./fpo-web/Jenkinsfile
 # JSON Template File: https://raw.githubusercontent.com/BCDevOps/openshift-tools/master/provisioning/pipeline/resources/pipeline-build.json
 #=========================================================
-NAME=fpo-api
+NAME=fpo-web
 # GITHUB_WEBHOOK_SECRET=[a-zA-Z0-9]{40}
 SOURCE_REPOSITORY_URL=https://github.com/bcgov/Family-Protection-Order.git
 SOURCE_REPOSITORY_REF=master
-CONTEXT_DIR=fpo-api
+CONTEXT_DIR=fpo-web
 JENKINSFILE_PATH=Jenkinsfile
