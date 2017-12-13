@@ -6,7 +6,7 @@
 NAME=django
 GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
 GIT_REF=master
-SOURCE_CONTEXT_DIR=tob-api
+SOURCE_CONTEXT_DIR=fpo-api
 KIND_OF_IMAGE=ImageStreamTag
 SOURCE_IMAGE_NAME=python
 SOURCE_IMAGE_TAG=3.6
