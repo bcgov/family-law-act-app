@@ -22,4 +22,3 @@ Migrations are triggered automatically when the Django/Python container is deplo
 ## ToDo:
 - The auto-generated views are constructed using generics and a number of mixins.
   - Determine if there is a better way to do this.  Since it's not as clean as something constructed from ModelSerializer or HyperlinkedModelSerializer.
-- Logging; ref gwells
