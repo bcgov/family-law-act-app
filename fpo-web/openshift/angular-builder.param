@@ -6,5 +6,5 @@
 NAME=angular-builder
 GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
 GIT_REF=master
-SOURCE_CONTEXT_DIR=tob-web/openshift/templates/angular-builder/
+SOURCE_CONTEXT_DIR=fpo-web/openshift/templates/angular-builder/
 OUTPUT_IMAGE_TAG=latest

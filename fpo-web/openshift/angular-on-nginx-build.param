@@ -6,7 +6,7 @@
 NAME=angular-on-nginx
 GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
 GIT_REF=master
-SOURCE_CONTEXT_DIR=tob-web
+SOURCE_CONTEXT_DIR=fpo-web
 OUTPUT_IMAGE_TAG=latest
 CPU_LIMIT=1
 MEMORY_LIMIT=4Gi
