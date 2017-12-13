@@ -8,7 +8,7 @@ def TAG_NAMES = ['dev', 'test', 'prod']
 def BUILD_CONFIG = APP_NAME
 def IMAGESTREAM_NAME = APP_NAME
 def SCHEMA_SPY_IMAGSTREAM_NAME = 'schema-spy'
-def PROJECT_NAMESPACE = 'devex-von-'
+def PROJECT_NAMESPACE = 'jag-csb-jes-family-protection-order-'
 def CONTEXT_DIRECTORY = 'fpo-api'
 
 @NonCPS
