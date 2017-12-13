@@ -176,7 +176,7 @@
       "displayName": "Image Namespace",
       "required": true,
       "description": "The namespace of the OpenShift project containing the imagestream for the application.",
-      "value": "devex-von-tools"
+      "value": "jag-csb-jes-family-protection-order-tools"
     },
     {
       "name": "MEMORY_LIMIT",

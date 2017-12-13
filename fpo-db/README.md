@@ -2,7 +2,7 @@
 
 ## Overview
 
-Family Protection Order DB is used to store the core Organizational data for searching (notably names, locations/addresses and claims held) and the claims themselves.
+Family Protection Order DB is used to store ...
 
 ## Development
 

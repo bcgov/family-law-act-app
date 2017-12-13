@@ -4,7 +4,7 @@ This project is using a series of scripts created to support BC Government proje
 
 ## projects
 
-The scripts assume that the project will have a name (e.g. "devex-von") and four associated OpenShift projects - tools, dev, test and prod.
+The scripts assume that the project will have a name (e.g. "jag-csb-jes-family-protection-order") and four associated OpenShift projects - tools, dev, test and prod.
 
 ## Folder /openshift
 
@@ -63,7 +63,7 @@ The basic logic of the scripts are as follows. See the "Running Local" markdown 
 
 ## Current Status
 
-The scripts are functional in the "devex-von" project only in this repo. Some work will be needed to fully externalize them - independent of any single project.
+The scripts are functional in the "jag-csb-jes-family-protection-order" project only in this repo. Some work will be needed to fully externalize them - independent of any single project.
 
 As noted above - the scripts expect the settings, file layouts and conventions described above to be in place. For use on any project, those conditions must be met.
 

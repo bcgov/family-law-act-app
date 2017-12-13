@@ -258,7 +258,7 @@
       "displayName": "API URL",
       "name": "API_URL",
       "required": true,
-      "value": "https://django-devex-von-dev.pathfinder.gov.bc.ca/api/v1/"
+      "value": "https://django-jag-csb-jes-family-protection-order.pathfinder.gov.bc.ca/api/v1/"
     },
     {
       "description": "The name of the service endpoint for the API.  Used to wire up to an API endpoint within the same project; overriding the URL defined by API_URL.",

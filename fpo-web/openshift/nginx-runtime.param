@@ -1,6 +1,6 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: tob-web
+# Component: fpo-web
 # JSON Template File: templates/nginx-runtime/nginx-runtime.json
 #=========================================================
 NAME=nginx-runtime

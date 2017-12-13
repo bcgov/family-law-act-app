@@ -40,6 +40,7 @@
           "sourceStrategy": {
             "from": {
               "kind": "${KIND_OF_IMAGE}",
+              "namespace": "${SOURCE_IMAGE_NAMESPACE}",
               "name": "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
             },
             "env": [
@@ -108,15 +109,22 @@
       "displayName": "Source Image Name",
       "required": true,
       "description": "The name of the source image.",
-      "value": "python-libindy"
+      "value": "python"
     },
     {
       "name": "SOURCE_IMAGE_TAG",
       "displayName": "Source Image Tag",
       "required": true,
       "description": "The tag of the source image.",
-      "value": "latest"
+      "value": "3.6"
     },
+    {
+      "name": "SOURCE_IMAGE_NAMESPACE",
+      "displayName": "Namespace",
+      "required": true,
+      "description": "The Namespace where the ImageStream resides.",
+      "value": "openshift"
+    },    
     {
       "name": "PIP_INDEX_URL",
       "displayName": "Custom PyPi Index URL",

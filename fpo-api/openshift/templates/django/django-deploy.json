@@ -17,7 +17,7 @@
         "name": "${NAME}",
         "annotations": {
           "description": "Exposes and load balances the application pods",
-          "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"},{\"name\": \"${SOLR_SERVICE_NAME}\", \"kind\": \"Service\"}]"
+          "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]"
         }
       },
       "spec": {
@@ -208,14 +208,6 @@
                   {
                     "name": "DJANGO_DEBUG",
                     "value": "${DJANGO_DEBUG}"
-                  },
-                  {
-                    "name": "SOLR_SERVICE_NAME",
-                    "value": "${SOLR_SERVICE_NAME}"
-                  },
-                  {
-                    "name": "SOLR_CORE_NAME",
-                    "value": "${SOLR_CORE_NAME}"
                   }
                 ],
                 "resources": {
@@ -263,7 +255,7 @@
       "displayName": "Image Namespace",
       "required": true,
       "description": "The namespace of the OpenShift project containing the imagestream for the application.",
-      "value": "devex-von-tools"
+      "value": "jag-csb-jes-family-protection-order-tools"
     },
     {
       "name": "MEMORY_LIMIT",
@@ -319,20 +311,6 @@
       "value": "False"
     },
     {
-      "name": "SOLR_SERVICE_NAME",
-      "displayName": "SOLR Service Name",
-      "description": "The name of the service associated with the SOLR search engine.",
-      "required": false,
-      "value": "solr"
-    },
-    {
-      "name": "SOLR_CORE_NAME",
-      "displayName": "SOLR Core Name",
-      "description": "The name of the core to use when connecting with SOLR.",
-      "required": false,
-      "value": "the_org_book"
-    },
-	{
       "name": "TAG_NAME",
       "displayName": "Environment TAG name",
       "description": "The TAG name for this environment, e.g., dev, test, prod",
