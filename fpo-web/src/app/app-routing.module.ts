@@ -1,32 +1,39 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from 'app/dashboard/dashboard.component';
-import { CustomerComponent } from 'app/customer/customer.component';
+import { HomeComponent } from 'app/home/home.component';
+import { SurveyPrimaryComponent } from 'app/survey/primary.component';
+import { SurveyTestComponent } from 'app/survey/test.component';
+import { SurveyResolver }   from 'app/survey/survey-resolver.service';
 
 const routes: Routes = [
   {
     path: '',
-    children: []
+    //children: []
+    component: HomeComponent
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'survey',
+    component: SurveyPrimaryComponent,
+    resolve: {
+      survey: SurveyResolver,
+    },
     data: {
-      breadcrumb: 'Dashboard'
+      breadcrumb: 'Survey',
+      survey_path: 'assets/survey-primary.json',
     }
   },
   {
-    path: 'customer',
-    component: CustomerComponent,
+    path: 'survey-test',
+    component: SurveyTestComponent,
     data: {
-      breadcrumb: 'Customer'
+      breadcrumb: 'Survey Test'
     }
-    
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [SurveyResolver]
 })
 export class AppRoutingModule { }

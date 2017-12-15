@@ -1,2 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~mygovbc-bootstrap-theme/dist/mygovbc-bootstrap-theme.min.css";
+
+body, h5, .h5, .btn {
+  font-size: 15px;
+}
+
+.app-content {
+  padding-bottom: 80px;
+}
+h1, .h1 {
+  font-size: 36px;
+}
+h2, .h2 {
+  font-size: 28px;
+}
+h3, .h3 {
+  font-size: 24px;
+}
+
+.mrgn-tp-sm {
+  margin-top: 8px;
+}
+.mrgn-tp-md {
+  margin-top: 1.5rem;
+}
+.mrgn-tp-lg {
+  margin-top: 3rem;
+}
+
+.mrgn-bttm-sm {
+  margin-bottom: 8px;
+}
+.mrgn-bttm-md {
+  margin-bottom: 1.5rem;
+}
+.mrgn-bttm-lg {
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.btn-group > .btn {
+  // why is this necessary??
+  margin-right: 0;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+  font-size: 20px;
+}
