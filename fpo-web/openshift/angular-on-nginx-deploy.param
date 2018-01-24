@@ -12,6 +12,7 @@ API_PATH=/api/v1/
 AdditionalRealIpFromRules=
 IpFilterRules=
 APPLICATION_DOMAIN=jag-csb-jes-family-protection-order-dev.pathfinder.gov.bc.ca
+SITEMINDER_APPLICATION_DOMAIN=protection-order-dev.pathfinder.bcgov
 TAG_NAME=dev
 HTTP_BASIC=
 HTTP_BASIC_USERNAME=
