@@ -13,6 +13,7 @@
 # IpFilterRules=
 APPLICATION_DOMAIN=jag-csb-jes-family-protection-order-prod.pathfinder.gov.bc.ca
 SITEMINDER_APPLICATION_DOMAIN=protection-order-prod.pathfinder.bcgov
+# SITEMINDER_WHITE_LIST=142.34.49.76 142.34.49.77 142.34.157.10 142.34.157.11
 TAG_NAME=prod
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=
