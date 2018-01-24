@@ -12,6 +12,7 @@
 # AdditionalRealIpFromRules=
 # IpFilterRules=
 # APPLICATION_DOMAIN=angular-on-nginx-jag-csb-jes-family-protection-order-dev.pathfinder.gov.bc.ca
+# SITEMINDER_APPLICATION_DOMAIN=protection-order-dev.pathfinder.bcgov
 # TAG_NAME=dev
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

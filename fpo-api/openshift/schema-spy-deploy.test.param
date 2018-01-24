@@ -6,8 +6,8 @@
 # NAME=schema-spy
 # IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
 # MEMORY_LIMIT=512Mi
-# APPLICATION_DOMAIN=schema-spy-jag-csb-jes-family-protection-order-test.pathfinder.gov.bc.ca
+APPLICATION_DOMAIN=schema-spy-jag-csb-jes-family-protection-order-test.pathfinder.gov.bc.ca
 # DATABASE_SERVICE_NAME=postgresql
 # DATABASE_NAME=FPO_Database
-# TAG_NAME=test
+TAG_NAME=test
 # DATABASE_DEPLOYMENT_NAME=postgresql
