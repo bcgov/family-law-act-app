@@ -214,10 +214,13 @@
       "apiVersion": "v1",
       "kind": "Route",
       "metadata": {
+        "name": "${NAME}-siteminder-route",
         "labels": {
           "app": "${NAME}-siteminder-route"
         },
-        "name": "${NAME}-siteminder-route"
+        "annotations": {
+          "haproxy.router.openshift.io/ip_whitelist": "${SITEMINDER_WHITE_LIST}"
+        }
       },
       "spec": {
         "host": "${SITEMINDER_APPLICATION_DOMAIN}",
@@ -317,6 +320,12 @@
       "displayName": "SiteMinder Application Domain",
       "name": "SITEMINDER_APPLICATION_DOMAIN",
       "value": "protection-order-dev.pathfinder.bcgov"
+    },
+    {
+      "description": "The whitelist containing all of the trusted siteminder IPs.",
+      "displayName": "SiteMinder Whitelist",
+      "name": "SITEMINDER_WHITE_LIST",
+      "value": "142.34.49.76 142.34.49.77 142.34.157.10 142.34.157.11"
     },
     {
       "description": "The TAG name for this environment, e.g., dev, test, prod",
