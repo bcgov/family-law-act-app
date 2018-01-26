@@ -51,3 +51,60 @@ h3, .h3 {
 .btn-group-lg>.btn, .btn-lg {
   font-size: 20px;
 }
+
+.survey-container {
+  font-size: 16px;
+  .sv_qstn_title {
+    color: #556077;
+    font-size: 18px;
+    margin-top: 15px;
+  }
+  .sv_qstn {
+    margin-bottom: 5px;
+  }
+  .panel-footer {
+    background: none;
+    border: none;
+  }
+}
+
+.sv_p_container {
+  // survey panel
+  background: #f8f8f8;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+}
+
+.survey-helptext {
+  background: #f8faff;
+  border: 1px solid #d3d3d8;
+  border-radius: 4px;
+  margin: 0.5em;
+  .panel-heading {
+    color: #55555a;
+  }
+  .panel-title {
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+  }
+  .panel-body {
+    background: #fff;
+    border: 1px solid #e0e3e9;
+    border-radius: 2px;
+    display: none;
+    margin: 0 5px 5px 5px;
+    padding: 10px;
+  }
+  .heading-icon {
+    margin-right: 0.5em;
+  }
+  .heading-expand {
+    float: right;
+  }
+  &.expanded .panel-body {
+    display: block;
+  }
+}
