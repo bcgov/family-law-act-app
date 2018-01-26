@@ -12,7 +12,12 @@ export class SurveyComponent  {
     ngOnInit() {
         let surveyModel = new Survey.ReactSurveyModel(this.json);
         Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
-        Survey.defaultBootstrapCss.question.title = "sv_qstn_title";
+        Survey.defaultBootstrapCss.question.title = "sv_q_title";
+        Survey.defaultBootstrapCss.panel.title = "sv_p_title";
+        Survey.defaultBootstrapCss.panel.description = "sv_p_description";
+        Survey.defaultBootstrapCss.matrixdynamic.button = "btn btn-default";
+        Survey.defaultBootstrapCss.paneldynamic.button = "btn btn-default";
+        Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic"; // not added?
         Survey.Survey.cssType = "bootstrap";
         surveyModel.onComplete.add((sender, options) => {
           if(this.onComplete) this.onComplete(sender.data)

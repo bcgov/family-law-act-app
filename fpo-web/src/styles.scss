@@ -54,13 +54,23 @@ h3, .h3 {
 
 .survey-container {
   font-size: 16px;
-  .sv_qstn_title {
+  h4 {
     color: #556077;
-    font-size: 18px;
-    margin-top: 15px;
+    font-size: 20px;
+    margin: 5px 0;
+  }
+  .sv_p_title {
+    margin: 5px 0 8px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #e0e3ee;
   }
   .sv_qstn {
     margin-bottom: 5px;
+  }
+  .sv_q_title {
+    color: #556077;
+    font-size: 17px;
+    margin-top: 15px;
   }
   .panel-footer {
     background: none;
@@ -81,14 +91,14 @@ h3, .h3 {
   background: #f8faff;
   border: 1px solid #d3d3d8;
   border-radius: 4px;
-  margin: 0.5em;
+  margin: 0.5em 0;
   .panel-heading {
     color: #55555a;
   }
   .panel-title {
     cursor: pointer;
     display: block;
-    font-size: 20px;
+    font-size: 18px;
   }
   .panel-body {
     background: #fff;

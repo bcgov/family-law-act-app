@@ -1,146 +1,602 @@
 {
-  "title": "Product Feedback Survey Example",
-  "showProgressBar": "top",
   "pages": [
     {
-      "questions": [
+      "name": "Applicant",
+      "elements": [
         {
-          "type": "matrix",
-          "name": "Quality",
-          "title": "Please indicate if you agree or disagree with the following statements",
-          "columns": [
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
             {
-              "value": 1,
-              "text": "Strongly Disagree"
+              "type": "text",
+              "name": "question5",
+              "title": "Full name"
             },
             {
-              "value": 2,
-              "text": "Disagree"
-            },
-            {
-              "value": 3,
-              "text": "Neutral"
-            },
-            {
-              "value": 4,
-              "text": "Agree"
-            },
-            {
-              "value": 5,
-              "text": "Strongly Agree"
+              "type": "text",
+              "name": "question6",
+              "title": "Date of Birth",
+              "inputType": "date"
             }
           ],
-          "rows": [
+          "title": "About you"
+        },
+        {
+          "type": "panel",
+          "name": "panel5",
+          "elements": [
             {
-              "value": "affordable",
-              "text": "Product is affordable"
+              "type": "boolean",
+              "name": "faq_home_address",
+              "title": "What if I don't want to use my home address?",
+              "label": "You don't need to use your home address. You need to be able to receive mail? there (but probably not a PO Box?). Or is it about personal service?"
             },
             {
-              "value": "does what it claims",
-              "text": "Product does what it claims"
+              "type": "text",
+              "name": "question13",
+              "title": "Street Address",
+              "placeHolder": "For example, 800 Hornby Street"
             },
             {
-              "value": "better then others",
-              "text": "Product is better than other products on the market"
+              "type": "text",
+              "name": "Second Address Line",
+              "placeHolder": "(optional if you need it)"
             },
             {
-              "value": "easy to use",
-              "text": "Product is easy to use"
+              "type": "text",
+              "name": "question12",
+              "title": "City"
+            },
+            {
+              "type": "text",
+              "name": "question14",
+              "startWithNewLine": false,
+              "title": "Province / State / Region"
+            },
+            {
+              "type": "text",
+              "name": "question16",
+              "title": "Country",
+              "placeHolder": "Default to Canada - Pull from a list?"
+            },
+            {
+              "type": "text",
+              "name": "question15",
+              "startWithNewLine": false,
+              "title": "Postal Code",
+              "placeHolder": "Can we have a custom input field for postal code?"
+            },
+            {
+              "type": "radiogroup",
+              "name": "question17",
+              "title": "Is this a lawyer's address? You can use one if you pay your lawyer to send and receive mail for you. ",
+              "choices": [
+                {
+                  "value": "item1",
+                  "text": "Yes"
+                },
+                {
+                  "value": "item2",
+                  "text": "No"
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "name": "panel4",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "question18",
+                  "title": "Full Name of Lawyer"
+                },
+                {
+                  "type": "text",
+                  "name": "question7",
+                  "startWithNewLine": false,
+                  "title": "Lawyer's Email",
+                  "inputType": "email"
+                },
+                {
+                  "type": "text",
+                  "name": "Lawyer's phone number",
+                  "inputType": "tel"
+                },
+                {
+                  "type": "text",
+                  "name": "question8",
+                  "startWithNewLine": false,
+                  "title": "Lawyer's Fax",
+                  "inputType": "tel"
+                }
+              ],
+              "visible": false,
+              "visibleIf": "{question17} = 'item1'",
+              "title": "Lawyer Information"
+            },
+            {
+              "type": "panel",
+              "name": "panel6",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "question10",
+                  "title": "Email"
+                },
+                {
+                  "type": "text",
+                  "name": "question9",
+                  "title": "Daytime phone number"
+                },
+                {
+                  "type": "text",
+                  "name": "question11",
+                  "startWithNewLine": false,
+                  "title": "Fax Number (Optional)"
+                }
+              ],
+              "visible": false,
+              "visibleIf": "{question17} = 'item2'",
+              "title": "Additional Contact Informtion"
+            }
+          ],
+          "title": "Address for Service",
+          "description": "This is an address for other people to serve you"
+        },
+        {
+          "type": "paneldynamic",
+          "name": "question23",
+          "title": "Add new applicant?",
+          "templateElements": [
+            {
+              "type": "panel",
+              "name": "panel8",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "question5",
+                  "title": "Full name"
+                },
+                {
+                  "type": "text",
+                  "name": "question6",
+                  "title": "Date of Birth",
+                  "inputType": "date"
+                }
+              ],
+              "title": "About you"
+            },
+            {
+              "type": "panel",
+              "name": "panel9",
+              "elements": [
+                {
+                  "type": "boolean",
+                  "name": "faq_home_address",
+                  "title": "What if I don't want to use my home address?",
+                  "label": "You don't need to use your home address. You need to be able to receive mail? there (but probably not a PO Box?). Or is it about personal service?"
+                },
+                {
+                  "type": "text",
+                  "name": "question13",
+                  "title": "Street Address",
+                  "placeHolder": "For example, 800 Hornby Street"
+                },
+                {
+                  "type": "text",
+                  "name": "Second Address Line",
+                  "placeHolder": "(optional if you need it)"
+                },
+                {
+                  "type": "text",
+                  "name": "question12",
+                  "title": "City"
+                },
+                {
+                  "type": "text",
+                  "name": "question14",
+                  "startWithNewLine": false,
+                  "title": "Province / State / Region"
+                },
+                {
+                  "type": "text",
+                  "name": "question16",
+                  "title": "Country",
+                  "placeHolder": "Default to Canada - Pull from a list?"
+                },
+                {
+                  "type": "text",
+                  "name": "question15",
+                  "startWithNewLine": false,
+                  "title": "Postal Code",
+                  "placeHolder": "Can we have a custom input field for postal code?"
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question17",
+                  "title": "Is this a lawyer's address? You can use one if you pay your lawyer to send and receive mail for you. ",
+                  "choices": [
+                    {
+                      "value": "item1",
+                      "text": "Yes"
+                    },
+                    {
+                      "value": "item2",
+                      "text": "No"
+                    }
+                  ]
+                },
+                {
+                  "type": "panel",
+                  "name": "panel4",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "name": "question18",
+                      "title": "Full Name of Lawyer"
+                    },
+                    {
+                      "type": "text",
+                      "name": "question7",
+                      "startWithNewLine": false,
+                      "title": "Lawyer's Email",
+                      "inputType": "email"
+                    },
+                    {
+                      "type": "text",
+                      "name": "Lawyer's phone number",
+                      "inputType": "tel"
+                    },
+                    {
+                      "type": "text",
+                      "name": "question8",
+                      "startWithNewLine": false,
+                      "title": "Lawyer's Fax",
+                      "inputType": "tel"
+                    }
+                  ],
+                  "visible": false,
+                  "visibleIf": "{question17} = 'item1'",
+                  "title": "Lawyer Information"
+                },
+                {
+                  "type": "panel",
+                  "name": "panel6",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "name": "question10",
+                      "title": "Email"
+                    },
+                    {
+                      "type": "text",
+                      "name": "question9",
+                      "title": "Daytime phone number"
+                    },
+                    {
+                      "type": "text",
+                      "name": "question11",
+                      "startWithNewLine": false,
+                      "title": "Fax Number (Optional)"
+                    }
+                  ],
+                  "visible": false,
+                  "visibleIf": "{question17} = 'item2'",
+                  "title": "Additional Contact Informtion"
+                }
+              ],
+              "title": "Address for Service",
+              "description": "This is an address for other people to serve you"
+            }
+          ],
+          "panelAddText": "Add New Applicant"
+        }
+      ],
+      "title": "Applicant"
+    },
+    {
+      "name": "Respondent",
+      "title": "About the other party"
+    },
+    {
+      "name": "Children",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "childrenornot",
+              "title": "Are there any children under your care, or under the care of [Respondent]?",
+              "choices": [
+                "Yes",
+                "No"
+              ]
             }
           ]
         },
         {
           "type": "panel",
+          "name": "panel11",
           "elements": [
             {
-              "type": "checkbox",
-              "name": "price2",
-              "title": "Do you feel our current price is merited by our product?",
+              "type": "radiogroup",
+              "name": "careingforadultchild",
+              "title": "Are any of these children 19 years of age or older?",
               "choices": [
-                "correct|Yes, the price is about right",
-                "low|No, the price is too low for your product",
-                "high|No, the price is too high for your product"
+                "Yes",
+                "No"
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "question22",
+              "visible": false,
+              "visibleIf": "{careingforadultchild} = 'Yes'",
+              "title": "list their special circumstances as to why you are caring for them",
+              "description": "Explain that maybe adult children are not under their care?",
+              "choices": [
+                "College or University Tuition",
+                "Disability",
+                "other?"
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "question26",
+              "visible": false,
+              "visibleIf": "{careingforadultchild} = 'No'",
+              "title": "Do any of your children over the age of 19 need protection from [Respondents]",
+              "description": "Should also pop up the child info panel",
+              "choices": [
+                "Yes",
+                "No"
+              ]
+            }
+          ],
+          "visible": false,
+          "visibleIf": "{childrenornot} = 'Yes'"
+        },
+        {
+          "type": "paneldynamic",
+          "name": "child panel",
+          "visible": false,
+          "visibleIf": "{careingforadultchild} = 'Yes'",
+          "templateElements": [
+            {
+              "type": "panel",
+              "name": "panel2",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "question1",
+                  "title": "Full name:"
+                },
+                {
+                  "type": "text",
+                  "name": "Date of Birth",
+                  "title": "Date of Birth",
+                  "inputType": "date"
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question3",
+                  "startWithNewLine": false,
+                  "title": "Don't know exact date of birthday",
+                  "choices": [
+                    "I don't know the exact date of birth"
+                  ],
+                  "colCount": 2
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question4",
+                  "title": "Relation to the [Insert Applicant Name] (in the future there may be more than 1 applicant so we need to dynamically present this question for each applicant).",
+                  "hasOther": true,
+                  "choices": [
+                    {
+                      "value": "father",
+                      "text": "Father"
+                    },
+                    {
+                      "value": "item2",
+                      "text": "Mother"
+                    },
+                    {
+                      "value": "item3",
+                      "text": "Step-Parent"
+                    },
+                    {
+                      "value": "item4",
+                      "text": "Legal Guardian"
+                    }
+                  ]
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question2",
+                  "title": "Relation to the [Insert Respondent Name] (in the future there may be more than 1 respondent so we need to dynamically present this question for each respondent).",
+                  "hasOther": true,
+                  "choices": [
+                    {
+                      "value": "father",
+                      "text": "Father"
+                    },
+                    {
+                      "value": "item2",
+                      "text": "Mother"
+                    },
+                    {
+                      "value": "item3",
+                      "text": "Step-Parent"
+                    },
+                    {
+                      "value": "item4",
+                      "text": "Legal Guardian"
+                    }
+                  ]
+                }
               ],
-              "defaultValue": ["correct"]
-            },
+              "title": "Information about Child X"
+            }
+          ],
+          "panelCount": 1
+        },
+        {
+          "type": "panel",
+          "name": "panel10",
+          "elements": [
             {
-              "type": "boolean",
-              "title": "Help text here",
-              "label": "Blah de blah\nblah",
-              "defaultValue": "true"
+              "type": "radiogroup",
+              "name": "childrenunder19",
+              "title": "Are any of these children under 19 years old?",
+              "choices": [
+                "Yes",
+                "No"
+              ]
+            }
+          ],
+          "visible": false,
+          "visibleIf": "{childrenornot} = 'Yes'"
+        },
+        {
+          "type": "paneldynamic",
+          "name": "question25",
+          "visible": false,
+          "visibleIf": "{childrenunder19} = 'Yes'",
+          "title": "Children Under 19",
+          "templateElements": [
+            {
+              "type": "panel",
+              "name": "panel2",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "question1",
+                  "title": "Full name:"
+                },
+                {
+                  "type": "text",
+                  "name": "Date of Birth",
+                  "title": "Date of Birth",
+                  "inputType": "date"
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question3",
+                  "startWithNewLine": false,
+                  "title": "Don't know exact date of birthday",
+                  "choices": [
+                    "I don't know the exact date of birth"
+                  ],
+                  "colCount": 2
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question4",
+                  "title": "Relation to the [Insert Applicant Name] (in the future there may be more than 1 applicant so we need to dynamically present this question for each applicant).",
+                  "hasOther": true,
+                  "choices": [
+                    {
+                      "value": "father",
+                      "text": "Father"
+                    },
+                    {
+                      "value": "item2",
+                      "text": "Mother"
+                    },
+                    {
+                      "value": "item3",
+                      "text": "Step-Parent"
+                    },
+                    {
+                      "value": "item4",
+                      "text": "Legal Guardian"
+                    }
+                  ]
+                },
+                {
+                  "type": "radiogroup",
+                  "name": "question2",
+                  "title": "Relation to the [Insert Respondent Name] (in the future there may be more than 1 respondent so we need to dynamically present this question for each respondent).",
+                  "hasOther": true,
+                  "choices": [
+                    {
+                      "value": "father",
+                      "text": "Father"
+                    },
+                    {
+                      "value": "item2",
+                      "text": "Mother"
+                    },
+                    {
+                      "value": "item3",
+                      "text": "Step-Parent"
+                    },
+                    {
+                      "value": "item4",
+                      "text": "Legal Guardian"
+                    }
+                  ]
+                }
+              ],
+              "title": "Information about Child X"
+            }
+          ],
+          "panelCount": 1
+        }
+      ],
+      "title": "Children"
+    },
+    {
+      "name": "Guardianship",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "question24",
+          "title": "Who are [Child1]'s Guardians?",
+          "description": "We will define guardians because this is confusing",
+          "choices": [
+            "Applicant1",
+            "Repsondent1",
+            "Respondent2"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "question21",
+          "title": "Does Child1 have any other guardians?",
+          "choices": [
+            "Yes",
+            "No",
+            "I don't know"
+          ]
+        },
+        {
+          "type": "paneldynamic",
+          "name": "question28",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "Guardian Full Name"
             }
           ]
         },
         {
-          "type": "rating",
-          "name": "satisfaction",
-          "title": "How satisfied are you with the Product?",
-          "mininumRateDescription": "Not Satisfied",
-          "maximumRateDescription": "Completely satisfied"
-        },
-        {
-          "type": "rating",
-          "name": "recommend friends",
-          "visibleIf": "{satisfaction} > 3",
-          "title": "How likely are you to recommend the Product to a friend or co-worker?",
-          "mininumRateDescription": "Will not recommend",
-          "maximumRateDescription": "I will recommend"
-        },
-        {
-          "type": "comment",
-          "name": "suggestions",
-          "title": "What would make you more satisfied with the Product?"
-        }
-      ]
-    },
-    {
-      "questions": [
-        {
-          "type": "radiogroup",
-          "name": "price to competitors",
-          "title": "Compared to our competitors, do you feel the Product is",
+          "type": "checkbox",
+          "name": "question27",
+          "title": "Are [Child2]'s Guardians the same as [Child1]'s",
           "choices": [
-            "Less expensive",
-            "Priced about the same",
-            "More expensive",
-            "Not sure"
-          ]
-        },
-        {
-          "type": "radiogroup",
-          "name": "price",
-          "title": "Do you feel our current price is merited by our product?",
-          "choices": [
-            "correct|Yes, the price is about right",
-            "low|No, the price is too low for your product",
-            "high|No, the price is too high for your product"
-          ]
-        },
-        {
-          "type": "multipletext",
-          "name": "pricelimit",
-          "title": "What is the... ",
-          "items": [
-            {
-              "name": "mostamount",
-              "title": "Most amount you would every pay for a product like ours"
-            },
-            {
-              "name": "leastamount",
-              "title": "The least amount you would feel comfortable paying"
-            }
+            "Yes",
+            "No"
           ]
         }
-      ]
-    },
-    {
-      "questions": [
-        {
-          "type": "text",
-          "name": "email",
-          "title": "Thank you for taking our survey. Your survey is almost complete, please enter your email address in the box below if you wish to participate in our drawing, then press the 'Submit' button."
-        }
-      ]
+      ],
+      "visible": false,
+      "visibleIf": "{careingforadultchild} = 'Yes'",
+      "title": "About the Children's Guardians"
     }
-  ]
+  ],
+  "title": "Provincial Family Test"
 }
