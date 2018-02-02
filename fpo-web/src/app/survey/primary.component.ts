@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'survey-primary',
@@ -8,12 +8,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SurveyPrimaryComponent implements OnInit {
 
-  survey : any;
+  public survey : any;
+  public complete : Function;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.survey = this.route.snapshot.data.survey;
+    this.complete = (data) => this.onComplete(data);
+  }
+
+  onComplete(data) {
+    if(this.route.snapshot.url[0].path === 'qualify') {
+      let ok = (data.question1 === 'Yes') ? 'qualified' : 'unqualified';
+      this.router.navigate(['result', ok]);
+    }
   }
 
 }

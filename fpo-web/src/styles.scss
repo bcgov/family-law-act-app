@@ -1,13 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~mygovbc-bootstrap-theme/dist/mygovbc-bootstrap-theme.min.css";
 
+body {
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 body, h5, .h5, .btn {
-  font-size: 15px;
+  font-size: 16px;
+  //line-height: 24px;
 }
 
-.app-content {
-  padding-bottom: 80px;
+.ctx-home {
+  background: #2e4a72;
+  .app-content {
+    background: url('assets/landing.jpg') no-repeat top center fixed;
+    background-size: cover;
+  }
 }
+
 h1, .h1 {
   font-size: 36px;
 }
@@ -52,14 +63,26 @@ h3, .h3 {
   font-size: 20px;
 }
 
+
+// survey styles
+
 .survey-container {
   font-size: 16px;
+  .sv_page_description {
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 34px;
+    font-weight: 600;
+  }
   h4 {
     color: #556077;
-    font-size: 20px;
+    font-size: 22px;
     margin: 5px 0;
   }
   .sv_p_title {
+    font-size: 20px;
+    font-weight: 600;
     margin: 5px 0 8px;
     padding-bottom: 3px;
     border-bottom: 2px solid #e0e3ee;
@@ -70,11 +93,15 @@ h3, .h3 {
   .sv_q_title {
     color: #556077;
     font-size: 17px;
-    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
   }
   .panel-footer {
     background: none;
     border: none;
+  }
+  .form-control {
+    font-size: 16px;
   }
 }
 

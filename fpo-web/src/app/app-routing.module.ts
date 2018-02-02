@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from 'app/home/home.component';
+import { ResultComponent } from 'app/result/result.component';
 import { SurveyPrimaryComponent } from 'app/survey/primary.component';
 import { SurveyTestComponent } from 'app/survey/test.component';
 import { SurveyResolver }   from 'app/survey/survey-resolver.service';
@@ -12,14 +13,36 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'survey',
+    path: 'qualify',
     component: SurveyPrimaryComponent,
     resolve: {
       survey: SurveyResolver,
     },
     data: {
-      breadcrumb: 'Survey',
+      breadcrumb: 'Prequalification Survey',
+      survey_path: 'assets/survey-qualify.json',
+    }
+  },
+  {
+    path: 'prv',
+    redirectTo: 'prv/survey'
+  },
+  {
+    path: 'prv/survey',
+    component: SurveyPrimaryComponent,
+    resolve: {
+      survey: SurveyResolver,
+    },
+    data: {
+      breadcrumb: 'Provincial Family Test',
       survey_path: 'assets/survey-primary.json',
+    }
+  },
+  {
+    path: 'result/:state',
+    component: ResultComponent,
+    data: {
+      breadcrumb: 'Survey Results'
     }
   },
   {
