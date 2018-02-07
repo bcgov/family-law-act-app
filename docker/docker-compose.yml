@@ -1,0 +1,87 @@
+version: '3'
+services:
+  # 
+  # fpo-web
+  # 
+  fpo-web:
+    image: angular-on-nginx
+    environment:
+      - API_URL=${API_URL}
+      - IpFilterRules=${IpFilterRules}
+      - RealIpFrom=${RealIpFrom}
+    networks:
+      - fpo
+    ports:
+      - "${WEB_HTTP_PORT}:8080"
+    depends_on:
+      - fpo-api
+
+  # 
+  # fpo-api
+  #
+  fpo-api:
+    image: django
+    environment:
+      - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
+      - DATABASE_ENGINE=${DATABASE_ENGINE}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_DEBUG=${DJANGO_DEBUG}
+      - FPO_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
+      - FPO_DB_SERVICE_PORT=5432
+    volumes:
+      - ../fpo-api/api:/opt/app-root/src/api
+    networks:
+      - fpo
+    ports:
+      - "${API_HTTP_PORT}:8080"
+    depends_on:
+      - fpo-db
+    command: >
+      /bin/bash -c "
+        /usr/libexec/s2i/run;
+      "      
+
+  # 
+  # schema-spy
+  #
+  schema-spy:
+    image: schema-spy
+    environment:
+      - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
+      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+      - POSTGRESQL_USER=${POSTGRESQL_USER}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+    networks:
+      - fpo
+    ports:
+      - 8082:8080
+    depends_on:
+      - fpo-db
+    command: >
+      /bin/bash -c "
+        exec npm start;
+      "      
+  # 
+  # fpo-db
+  # 
+  fpo-db:
+    image: registry.access.redhat.com/rhscl/postgresql-95-rhel7@sha256:155cf81a3d3a8bbcab3a1f61b177cab75a4105306146d172ef8fb29488cf58b4
+    environment:
+      - POSTGRESQL_USER=${POSTGRESQL_USER}
+      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
+      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+    networks:
+      - fpo
+    ports:
+      - 5432:5432
+    # volumes:
+      # - fpo-data:/var/lib/pgsql/data     
+
+networks:
+  fpo:
+
+# volumes:
+  # fpo-data:

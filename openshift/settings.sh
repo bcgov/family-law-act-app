@@ -10,7 +10,6 @@ export GIT_URI="https://github.com/bcgov/Family-Protection-Order.git"
 export GIT_REF="master"
 
 # The project components
-# - defaults to the support the Simple Project Structure
 export components=${components:-"fpo-db fpo-api fpo-web"}
 
 # The builds to be triggered after buildconfigs created (not auto-triggered)
