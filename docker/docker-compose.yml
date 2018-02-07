@@ -78,7 +78,19 @@ services:
     ports:
       - 5432:5432
     # volumes:
-      # - fpo-data:/var/lib/pgsql/data     
+      # - fpo-data:/var/lib/pgsql/data 
+
+  # 
+  # fpo-pdf
+  # 
+  fpo-pdf:
+    image: pdf
+    networks:
+      - fpo
+    ports:
+      - 8083:5001
+    # volumes:
+      # - fpo-data:/var/lib/pgsql/data
 
 networks:
   fpo:

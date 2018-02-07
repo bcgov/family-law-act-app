@@ -52,7 +52,7 @@ exit 1
 # -----------------------------------------------------------------------------------------------------------------
 # Default Settings:
 # -----------------------------------------------------------------------------------------------------------------
-DEFAULT_CONTAINERS="fpo-db fpo-api schema-spy fpo-web"
+DEFAULT_CONTAINERS="fpo-db fpo-api schema-spy fpo-web fpo-pdf"
 # -----------------------------------------------------------------------------------------------------------------
 # Functions:
 # -----------------------------------------------------------------------------------------------------------------
@@ -109,11 +109,21 @@ build-api() {
     'django'
 }
 
+build-pdf() {
+  #
+  # fpo-pdf
+  #
+  echo -e "\nGetting pdf image ..."
+  docker pull aquavitae/weasyprint
+  docker tag aquavitae/weasyprint pdf
+}
+
 buildImages() {
   build-web
   build-db
   build-schema-spy
   build-api
+  build-pdf
 }
 
 configureEnvironment () {
