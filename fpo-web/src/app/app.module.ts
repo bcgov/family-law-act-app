@@ -11,6 +11,7 @@ import { GeneralDataService } from 'app/general-data.service';
 import { AdminModule } from 'app/admin/admin.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { HomeComponent } from './home/home.component';
+import { ResultComponent } from './result/result.component';
 
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyPrimaryComponent } from './survey/primary.component';
@@ -23,6 +24,7 @@ import { SurveyTestComponent } from './survey/test.component';
     AppComponent,
     SearchBoxDirective,
     HomeComponent,
+    ResultComponent,
     BreadcrumbComponent,
     SurveyComponent,
     SurveyPrimaryComponent,

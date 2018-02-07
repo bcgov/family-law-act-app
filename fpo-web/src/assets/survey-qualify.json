@@ -1,0 +1,40 @@
+{
+  "pages": [
+    {
+      "title": "",
+      "description": "Some families are more complicated than others, and not everyone should use this online tool. So let's start by asking you a few questions to make sure that this website is right for your situation.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "question1",
+              "title": "Are you qualified to complete the survey?",
+              "choices": [
+                "Yes",
+                "No",
+                "I don't know"
+              ],
+              "isRequired": true
+            },
+            {
+              "type": "radiogroup",
+              "name": "question2",
+              "title": "Are you sure?",
+              "choices": [
+                "Yes",
+                "No",
+                "I don't know"
+              ],
+              "isRequired": true
+            }
+          ],
+          "title": "About you"
+        }
+      ]
+    }
+  ],
+  "title": "Prequalification Survey"
+}

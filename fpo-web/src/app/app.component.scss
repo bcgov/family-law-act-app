@@ -1,2 +1,13 @@
 $bootstrap-sass-asset-helper: true;
 // @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.app-outer {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100%;
+}
+
+.app-content {
+  flex: 1 0 auto;
+  padding-bottom: 80px;
+}

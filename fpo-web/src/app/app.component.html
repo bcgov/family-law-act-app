@@ -1,4 +1,4 @@
-<div id="wrap">
+<div class="app-outer">
   <header class="app-header">
     <div class="container">
       <a href="http://www2.gov.bc.ca/" tabindex="-1">
@@ -10,23 +10,24 @@
     </div>
   </header>
 
-  <main class="container app-content">
+  <main class="app-content">
+    <breadcrumb></breadcrumb>
+
     <router-outlet></router-outlet>
   </main>
 
+  <footer class="app-footer">
+    <nav class="navbar navbar-default navbar-footer navbar-static-bottom">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a href="http://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a></li>
+          <li><a href="http://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a></li>
+          <li><a href="http://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a></li>
+          <li><a href="http://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a></li>
+          <li><a href="http://www2.gov.bc.ca/gov/content/home/contact-us"
+                 target="_blank">Contact Us</a></li>
+        </ul>
+      </div>
+    </nav>
+  </footer>
 </div>
-
-<footer class="app-footer">
-  <nav class="navbar navbar-default navbar-footer navbar-static-bottom">
-    <div class="container">
-      <ul class="nav navbar-nav">
-        <li><a href="http://www2.gov.bc.ca/gov/content/home/disclaimer" target="_blank">Disclaimer</a></li>
-        <li><a href="http://www2.gov.bc.ca/gov/content/home/privacy" target="_blank">Privacy</a></li>
-        <li><a href="http://www2.gov.bc.ca/gov/content/home/accessibility" target="_blank">Accessibility</a></li>
-        <li><a href="http://www2.gov.bc.ca/gov/content/home/copyright" target="_blank">Copyright</a></li>
-        <li><a href="http://www2.gov.bc.ca/gov/content/home/contact-us"
-               target="_blank">Contact Us</a></li>
-      </ul>
-    </div>
-  </nav>
-</footer>

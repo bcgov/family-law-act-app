@@ -1,13 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~mygovbc-bootstrap-theme/dist/mygovbc-bootstrap-theme.min.css";
 
+body {
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 body, h5, .h5, .btn {
-  font-size: 15px;
+  font-size: 16px;
+  //line-height: 24px;
 }
 
-.app-content {
-  padding-bottom: 80px;
+.ctx-home {
+  background: #2e4a72;
+  .app-content {
+    background: url('assets/landing.jpg') no-repeat top center fixed;
+    background-size: cover;
+  }
 }
+
 h1, .h1 {
   font-size: 36px;
 }
@@ -50,4 +61,87 @@ h3, .h3 {
 
 .btn-group-lg>.btn, .btn-lg {
   font-size: 20px;
+}
+
+
+// survey styles
+
+.survey-container {
+  font-size: 16px;
+  .sv_page_description {
+    margin-bottom: 10px;
+  }
+  h3 {
+    font-size: 34px;
+    font-weight: 600;
+  }
+  h4 {
+    color: #556077;
+    font-size: 22px;
+    margin: 5px 0;
+  }
+  .sv_p_title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 5px 0 8px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #e0e3ee;
+  }
+  .sv_qstn {
+    margin-bottom: 5px;
+  }
+  .sv_q_title {
+    color: #556077;
+    font-size: 17px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  .panel-footer {
+    background: none;
+    border: none;
+  }
+  .form-control {
+    font-size: 16px;
+  }
+}
+
+.sv_p_container {
+  // survey panel
+  background: #f8f8f8;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  margin: 0.5em 0;
+}
+
+.survey-helptext {
+  background: #f8faff;
+  border: 1px solid #d3d3d8;
+  border-radius: 4px;
+  margin: 0.5em 0;
+  .panel-heading {
+    color: #55555a;
+  }
+  .panel-title {
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+  }
+  .panel-body {
+    background: #fff;
+    border: 1px solid #e0e3e9;
+    border-radius: 2px;
+    display: none;
+    margin: 0 5px 5px 5px;
+    padding: 10px;
+  }
+  .heading-icon {
+    margin-right: 0.5em;
+  }
+  .heading-expand {
+    float: right;
+  }
+  &.expanded .panel-body {
+    display: block;
+  }
 }
