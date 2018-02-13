@@ -1,16 +1,18 @@
-# Running Family-Protection-Order with Docker Compose
+# Running with Docker Compose
 
-The following instructions provide details on how to deploy the project using Docker Compose.  This method of deployment is intended for local development and demonstration purposes.  It is **NOT** intended to be support production level deployments where security, availability, resilience, and data integrity are important.
+The following instructions provide details on how to deploy the project using Docker Compose.  This method of deployment is intended for local development and demonstration purposes.  It is **NOT** intended to support production level deployments where security, availability, resilience, and data integrity are important.
 
 All application services are exposed to the host so they may be easily accessed individually for development and testing purposes.
 
 ## Prerequisites
 
 * Docker and Docker Compose
-  * Install and configure Docker and Docker compose for your system.
+  * Install and configure Docker and Docker Compose on your system.  The recommended approach is to use either [Homebrew](https://brew.sh/) (MAC) or [Chocolatey](https://chocolatey.org/) (Windows) to install Docker (which includes Docker Compose).
 * The S2I CLI
   * Download and install the S2I CLI tool; [source-to-image](https://github.com/openshift/source-to-image)
   * Make sure it is avaialble on your `PATH`.  The `manage.sh` will look for the `s2i` executable on your `PATH`.  If it is not found you will get a message asking you to download and set it on your `PATH`.
+* If you are working on Windows, use Git Bash (or equivalent shell) to run the scripts.
+* Fork and clone a local working copy of the project source code.
 
 ## Management Script
 
@@ -32,7 +34,7 @@ To build the images run:
 
 ### Troubleshooting the Building
 
-If you get errors during the build that reference scripts such as the following, check the line endings of your local copy of the file.  Replace `CRLF` line endings with `LF` and rebuild the image.
+If you get errors during the build that references scripts such as the following, check the line endings of your local copy of the file.  Replace `CRLF` line endings with `LF` and rebuild the image.
 
 The `.gitattributes` file for the project has been updated, but if your local copy predates the update, your files may still be affected.
 
