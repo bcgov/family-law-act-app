@@ -87,21 +87,46 @@ h3, .h3 {
     padding-bottom: 3px;
     border-bottom: 2px solid #e0e3ee;
   }
-  .sv_qstn {
-    margin-bottom: 5px;
+  .sv_row {
+    // border: 1px solid #ccf;
+    // padding: 10px;
+  }
+  .sv_page .sv_qstn {
+    padding-top: 0;
+    padding-bottom: 1em;
+  }
+  .sv_page > .sv_row {
+    margin: 1em 0;
+  }
+  .sv_page > .sv_row > .sv_qstn {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding-top: 1em;
   }
   .sv_q_title {
     color: #556077;
-    font-size: 17px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin-bottom: 0.5em;
     margin-top: 5px;
+  }
+  .sv_q_description {
+    font-size: 16px;
+    margin-bottom: 0.8em;
   }
   .panel-footer {
     background: none;
     border: none;
+    padding: 0;
   }
   .form-control {
     font-size: 16px;
+  }
+  .survey-address-line + .survey-address-line {
+    margin-top: 0.8em;
+  }
+  .survey-address-label {
+    font-size: 16px;
+    font-weight: normal;
   }
 }
 
@@ -110,7 +135,7 @@ h3, .h3 {
   background: #f8f8f8;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  padding: 0.5em 1em;
+  padding: 1em 0.5em 0.5em;
   margin: 0.5em 0;
 }
 
@@ -118,7 +143,7 @@ h3, .h3 {
   background: #f8faff;
   border: 1px solid #d3d3d8;
   border-radius: 4px;
-  margin: 0.5em 0;
+  margin: 0.5em 0 0 0;
   .panel-heading {
     color: #55555a;
   }

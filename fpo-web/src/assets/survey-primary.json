@@ -1,5 +1,6 @@
 {
  "title": "Provincial Family Test",
+ "showProgressBar": "top",
  "pages": [
   {
    "name": "Applicant",
@@ -63,10 +64,11 @@
        "inputType": "date"
       },
       {
-       "type": "boolean",
+       "type": "helptext",
        "name": "question7",
        "title": "What if I don't want to use my home address?",
-       "label": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one."
+       "body": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one.",
+       "titleLocation": "hidden"
       },
       {
        "type": "text",
@@ -198,107 +200,16 @@
        "inputType": "date"
       },
       {
-       "type": "boolean",
+       "type": "helptext",
        "name": "question7",
        "title": "What if I don't want to use my home address?",
-       "label": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one."
+       "body": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one.",
+       "titleLocation": "hidden"
       },
       {
-       "type": "text",
-       "name": "ApplicantStreet1",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "ApplicantStreet2",
-       "title": "Second Address Line",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "ApplicantCity",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "ApplicantProvince",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "ApplicantCountry",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "ApplicantPostalcode",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "type": "address",
+       "name": "ApplicantAddress",
+       "title": "What is your mailing address?"
       },
       {
        "type": "radiogroup",
@@ -514,107 +425,16 @@
        ]
       },
       {
-       "type": "boolean",
+       "type": "helptext",
        "name": "question7",
        "title": "What if I don't know what address to use?",
-       "label": "You don't need to use {respondent2.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying."
+       "body": "You don't need to use {respondent2.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying.",
+       "titleLocation": "hidden"
       },
       {
-       "type": "text",
-       "name": "Respondent1Street1",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "Respondent1Street2",
-       "title": "Second Address Line",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "Respondent1City",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "Respondent1Province",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "Respondent1Country",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "Respondent1Postalcode",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "type": "address",
+       "name": "Respondent1Address",
+       "title": "What is {respondent1.name's} mailing address?"
       },
       {
        "type": "text",
@@ -772,107 +592,16 @@
        ]
       },
       {
-       "type": "boolean",
+       "type": "helptext",
        "name": "question15",
        "title": "What if I don't know what address to use?",
-       "label": "You don't need to use {respondent1.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying."
+       "body": "You don't need to use {respondent1.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying.",
+       "titleLocation": "hidden"
       },
       {
-       "type": "text",
-       "name": "Respondent2Street1",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "Respondent2Street2",
-       "title": "Second Address Line",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "Respondent2City",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "Respondent2Province",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "Respondent2Country",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "Respondent2Postalcode",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "type": "address",
+       "name": "Respondent2Address",
+       "title": "What is {respondent2.name's} mailing address?"
       },
       {
        "type": "text",
@@ -2050,101 +1779,9 @@
        ]
       },
       {
-       "type": "text",
+       "type": "address",
        "name": "question30",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "question31",
-       "title": "Second Address Line",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "question32",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "question33",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "question34",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "question35",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "title": "Address"
       }
      ],
      "visible": false,

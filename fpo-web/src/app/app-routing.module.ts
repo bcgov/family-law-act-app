@@ -5,6 +5,7 @@ import { ResultComponent } from 'app/result/result.component';
 import { SurveyPrimaryComponent } from 'app/survey/primary.component';
 import { SurveyTestComponent } from 'app/survey/test.component';
 import { SurveyResolver }   from 'app/survey/survey-resolver.service';
+import { SurveyEditorComponent } from 'app/survey/editor.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,17 @@ const routes: Routes = [
     component: SurveyTestComponent,
     data: {
       breadcrumb: 'Survey Test'
+    }
+  },
+  {
+    path: 'survey-editor',
+    component: SurveyEditorComponent,
+    resolve: {
+      survey: SurveyResolver,
+    },
+    data: {
+      breadcrumb: 'Survey Editor',
+      survey_path: 'assets/survey-primary.json'
     }
   }
 ];

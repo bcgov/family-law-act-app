@@ -16,7 +16,7 @@ import { ResultComponent } from './result/result.component';
 import { SurveyComponent } from './survey/survey.component';
 import { SurveyPrimaryComponent } from './survey/primary.component';
 import { SurveyTestComponent } from './survey/test.component';
-//import { SurveyEditorComponent } from './survey/survey.editor.component';
+import { SurveyEditorComponent } from './survey/editor.component';
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { SurveyTestComponent } from './survey/test.component';
     SurveyComponent,
     SurveyPrimaryComponent,
     SurveyTestComponent,
-    //SurveyEditorComponent,
+    SurveyEditorComponent,
   ],
   imports: [
     BrowserModule,
