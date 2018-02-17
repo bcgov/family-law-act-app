@@ -139,7 +139,7 @@ h3, .h3 {
   margin: 0.5em 0;
 }
 
-.survey-helptext {
+.survey-helptext, .survey-infotext {
   background: #f8faff;
   border: 1px solid #d3d3d8;
   border-radius: 4px;
@@ -168,5 +168,17 @@ h3, .h3 {
   }
   &.expanded .panel-body {
     display: block;
+  }
+}
+
+.survey-helptext {
+  background: #fff6f6;
+  border: 1px solid #d8d0d0;
+  .panel-heading {
+    color: #5a5555;
+  }
+  .panel-body {
+    background: #fff;
+    border: 1px solid #e9e0e0;
   }
 }

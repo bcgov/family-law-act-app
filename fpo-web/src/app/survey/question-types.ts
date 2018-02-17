@@ -38,7 +38,8 @@ function fixCheckboxes(Survey) {
         let wrap = contain;
         if(wrap.tagName.toLowerCase() !== 'div') {
           wrap = document.createElement('div');
-          wrap.className = newInput.type;
+          if(question.getType() !== 'boolean')
+            wrap.className = newInput.type;
           contain.insertBefore(wrap, outer);
           wrap.appendChild(outer);
         }
@@ -152,7 +153,7 @@ function initHelpText(Survey) {
         question.value = target.checked;
       });
       let icon = document.createElement('span');
-      icon.className = 'heading-icon fa fa-info-circle';
+      icon.className = 'heading-icon fa fa-question-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
       title.appendChild(document.createTextNode(question.title));
@@ -175,6 +176,61 @@ function initHelpText(Survey) {
         expander.className = 'heading-expand ' + (question.value ? 'fa fa-chevron-up' : 'fa fa-chevron-down');
       };
       question.valueChangedCallback();
+    },
+    willUnmount: function(question, el) {}
+  };
+
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+
+function initInfoText(Survey) {
+  var widget = {
+    name: "infotext",
+    title: "Info Text",
+    iconName: "icon-panel",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question) {
+      return question.getType() === "infotext";
+    },
+    activatedByChanged: function(activatedBy) {
+      Survey.JsonObject.metaData.addClass("infotext", [], null, "empty");
+      Survey.JsonObject.metaData.addProperties("infotext", [
+        {
+          name: "body:text",
+        }
+      ]);
+    },
+    htmlTemplate: "<div></div>",
+    afterRender: function(question, el) {
+      while(el.childNodes.length)
+        el.removeChild(el.childNodes[0]);
+
+      let outer = document.createElement('div');
+      let outerCls = 'panel panel-default survey-infotext expanded';
+      outer.className = outerCls;
+      let header = document.createElement('div');
+      header.className = 'panel-heading';
+      let lbl = document.createElement('label');
+      lbl.className = 'panel-title';
+      let icon = document.createElement('span');
+      icon.className = 'heading-icon fa fa-info-circle';
+      let title = document.createElement('span');
+      title.className = 'title-text';
+      title.appendChild(document.createTextNode(question.title));
+      lbl.appendChild(icon);
+      lbl.appendChild(title);
+      header.appendChild(lbl);
+      outer.appendChild(header);
+      if(question.body) {
+        let body = document.createElement('div');
+        body.className = 'panel-body';
+        body.appendChild(document.createTextNode(question.body || ''));
+        outer.appendChild(body);
+      }
+      el.appendChild(outer);
     },
     willUnmount: function(question, el) {}
   };
@@ -386,11 +442,24 @@ function initAddressBlock(Survey) {
 
 export function addQuestionTypes(Survey) {
   fixCheckboxes(Survey);
+  initInfoText(Survey);
   initHelpText(Survey);
   initAddressBlock(Survey);
 }
 
 export function addToolboxOptions(editor) {
+  editor.toolbox.addItem(
+    {
+      name: "infotext",
+      title: "Info Text",
+      isCopied: true,
+      iconName: "icon-panel",
+      json: {
+        type: "infotext",
+        titleLocation: "hidden"
+      }
+    }
+  );
   editor.toolbox.addItem(
     {
       name: "helptext",

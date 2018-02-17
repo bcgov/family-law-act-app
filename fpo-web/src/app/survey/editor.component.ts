@@ -27,7 +27,9 @@ export class SurveyEditorComponent  {
 
     addQuestionTypes(SurveyKO);
 
-    var editorOptions = {showTestSurveyTab: false};
+    var editorOptions = {
+      // showTestSurveyTab: false
+    };
     var editor = new SurveyEditor.SurveyEditor("editorElement", editorOptions);
     if(this.jsonData) {
       editor.text = JSON.stringify(this.jsonData, null, 2);

@@ -39,12 +39,12 @@
      ]
     },
     {
-     "type": "expression",
+     "type": "infotext",
      "name": "ThirdPartyApplicantYes",
      "visible": false,
      "visibleIf": "{ThirdPartyApplicant} = 'y'",
      "title": "We need your information as the person who is applying, but we also need the information for the person who needs protection.",
-     "displayStyle": "none"
+     "titleLocation": "hidden"
     },
     {
      "type": "panel",
@@ -71,101 +71,9 @@
        "titleLocation": "hidden"
       },
       {
-       "type": "text",
-       "name": "ThirdPartyStreet1",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "ThirdPartyStreet2",
-       "title": "Street Address Line 2 (Optional)",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "ThirdPartyCity",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "ThirdPartyProvince",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "ThirdPartyCountry",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "ThirdPartyPostalcode",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "type": "address",
+       "name": "ThirdPartyAddress",
+       "title": "Address"
       }
      ],
      "visible": false,
@@ -292,12 +200,12 @@
      "visibleIf": "{LawyerAddress} = 'n'"
     },
     {
-     "type": "expression",
+     "type": "infotext",
      "name": "applicant.page.end",
      "visible": false,
      "visibleIf": "{LawyerAddress} = 'y' or {LawyerAddress} = 'n'",
      "title": "Finished this page. You can add children and other adults later if you need to.",
-     "displayStyle": "none"
+     "titleLocation": "hidden"
     }
    ],
    "title": "Applicant"
@@ -400,12 +308,12 @@
        ]
       },
       {
-       "type": "expression",
+       "type": "infotext",
        "name": "Respondent1NotFamily",
        "visible": false,
        "visibleIf": "{Respondent1IsLiveInRelative} = 'n'",
        "title": "{respondent1.name} needs to be a family member of {applicant.name} (or their children). You can't just put in any random citizen. Try a peace bond maybe.",
-       "displayStyle": "none"
+       "titleLocation": "hidden"
       },
       {
        "type": "text",
@@ -567,12 +475,12 @@
        ]
       },
       {
-       "type": "expression",
+       "type": "infotext",
        "name": "Respondent2NotFamily",
        "visible": false,
        "visibleIf": "{Respondent2IsLiveInRelative} = 'n'",
        "title": "{respondent2.name} needs to be a family member of {applicant.name} (or their children). You can't just put in any random citizen. Try a peace bond maybe.",
-       "displayStyle": "none"
+       "titleLocation": "hidden"
       },
       {
        "type": "text",
@@ -1565,9 +1473,10 @@
    "name": "POR Protected Parties",
    "elements": [
     {
-     "type": "checkbox",
+     "type": "infotext",
      "name": "question10",
-     "title": "This is a list of people who qualify to be on a Family Law Protection Order from {respondent1.name} and/or {respondent2.name}.\n{applicant.name}\n{child1.name}\n{child2.name}\n{child1otherguardianname}"
+     "title": "This is a list of people who qualify to be on a Family Law Protection Order from {respondent1.name} and/or {respondent2.name}.\n{applicant.name}\n{child1.name}\n{child2.name}\n{child1otherguardianname}",
+     "titleLocation": "hidden"
     },
     {
      "type": "checkbox",
@@ -1838,101 +1747,9 @@
        ]
       },
       {
-       "type": "text",
-       "name": "question29",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "question36",
-       "title": "Second Address Line",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "question37",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "question38",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "question39",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "question40",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "type": "address",
+       "name": "question42",
+       "title": "Address"
       }
      ],
      "visible": false,
@@ -1990,101 +1807,9 @@
        ]
       },
       {
-       "type": "text",
+       "type": "address",
        "name": "question45",
-       "title": "Street Address",
-       "placeHolder": "For example, 800 Hornby Street"
-      },
-      {
-       "type": "text",
-       "name": "question46",
-       "title": "Second Address Line",
-       "placeHolder": "(optional if you need it)"
-      },
-      {
-       "type": "text",
-       "name": "question47",
-       "title": "City / Town"
-      },
-      {
-       "type": "dropdown",
-       "name": "question48",
-       "startWithNewLine": false,
-       "title": "Province / State / Region",
-       "choices": [
-        {
-         "value": "AB",
-         "text": "Alberta"
-        },
-        {
-         "value": "BC",
-         "text": "British Columbia"
-        },
-        {
-         "value": "MB",
-         "text": "Manitoba"
-        },
-        {
-         "value": "NB",
-         "text": "New Brunswick"
-        },
-        {
-         "value": "NF",
-         "text": "Newfoundland and Labrador"
-        },
-        {
-         "value": "NT",
-         "text": "Northwest Territories"
-        },
-        {
-         "value": "NS",
-         "text": "Nova Scotia"
-        },
-        {
-         "value": "NU",
-         "text": "Nunavut"
-        },
-        {
-         "value": "ON",
-         "text": "Ontario"
-        },
-        {
-         "value": "PE",
-         "text": "Prince Edward Island"
-        },
-        {
-         "value": "QC",
-         "text": "Quebec"
-        },
-        {
-         "value": "SK",
-         "text": "Saskatchewan"
-        },
-        {
-         "value": "YT",
-         "text": "Yukon"
-        }
-       ]
-      },
-      {
-       "type": "dropdown",
-       "name": "question49",
-       "title": "Country",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "CAN",
-         "text": "Canada"
-        },
-        "USA"
-       ]
-      },
-      {
-       "type": "text",
-       "name": "question50",
-       "startWithNewLine": false,
-       "title": "Postal Code",
-       "placeHolder": "Can we have a custom input field for postal code?"
+       "title": "Address"
       }
      ],
      "visible": false,
@@ -2239,15 +1964,9 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "boolean",
      "name": "question60",
-     "title": "By selecting no above, you are saying there is no need for a judge to order [respondent] to give up their weapons if they have any. They also won't be able to possess any weapons for the duraction of this protection order. If there is no concern over weapons, hit \"there is no concern over weapons\" Otherwise, consider going back to the last question and selecting 'yes' instead.",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "acknowledge"
-      }
-     ]
+     "title": "By selecting no above, you are saying there is no need for a judge to order [respondent] to give up their weapons if they have any. They also won't be able to possess any weapons for the duraction of this protection order. If there is no concern over weapons, hit \"there is no concern over weapons\" Otherwise, consider going back to the last question and selecting 'yes' instead."
     },
     {
      "type": "radiogroup",
@@ -2286,10 +2005,10 @@
    "name": "POR Review",
    "elements": [
     {
-     "type": "expression",
+     "type": "infotext",
      "name": "question63",
      "title": "This is a review of everything. Show the box and show summary. Edit button to go back to topic page.",
-     "displayStyle": "none"
+     "titleLocation": "hidden"
     },
     {
      "type": "radiogroup",
@@ -2329,10 +2048,10 @@
      ]
     },
     {
-     "type": "expression",
+     "type": "infotext",
      "name": "question67",
      "title": "Tell someone they finish the form. This is what it looks like. Here's next steps. By the way, urgency questions",
-     "displayStyle": "none"
+     "titleLocation": "hidden"
     }
    ],
    "title": "POR Review"
