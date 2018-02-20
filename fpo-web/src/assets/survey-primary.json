@@ -6,37 +6,17 @@
    "name": "Applicant",
    "elements": [
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "YouNeedProtection",
-     "title": "Do you (and/or your children) need protection from family violence?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Do you (and/or your children) need protection from family violence?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "ThirdPartyApplicant",
      "visible": false,
      "visibleIf": "{YouNeedProtection} = 'n'",
      "title": "Are you applying on behalf of someone else?",
-     "description": "Anybody can apply on behalf of an at-risk family of the respondent. Even a police officer, an advocate or a neighbour.",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "description": "Anybody can apply on behalf of an at-risk family of the respondent. Even a police officer, an advocate or a neighbour."
     },
     {
      "type": "infotext",
@@ -120,20 +100,10 @@
        "title": "What is your mailing address?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "LawyerAddress",
        "title": "Is this a lawyer's address?",
-       "description": "You can use one if you pay your lawyer to send and receive mail for you. ",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "description": "You can use one if you pay your lawyer to send and receive mail for you."
       }
      ],
      "visible": false,
@@ -225,87 +195,37 @@
        "placeHolder": "Full Name Here If you know it"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent1IsExPartner",
-       "title": "Is {respondent1.name} a current or ex-partner of {applicant.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent1.name} a current or ex-partner of {applicant.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent1IsChildsParent",
        "visible": false,
        "visibleIf": "{Respondent1IsExPartner} = 'n'",
-       "title": "Is {respondent1.name} a parent or guardian of any of {applicant.name}'s child?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent1.name} a parent or guardian of any of {applicant.name}'s child?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent1IsChildParentsRelative",
        "visible": false,
        "visibleIf": "{Respondent1IsChildsParent} = 'n'",
-       "title": "Is {respondent1.name} a relative of {applicant.name}'s child's parent or guardian?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent1.name} a relative of {applicant.name}'s child's parent or guardian?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent1IsExPartnersPartner",
        "visible": false,
        "visibleIf": "{Respondent1IsChildParentsRelative} = 'n'",
-       "title": "Is {respondent1.name} a current partner of {applicant.name}'s ex-partner?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent1.name} a current partner of {applicant.name}'s ex-partner?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent1IsLiveInRelative",
        "visible": false,
        "visibleIf": "{Respondent1IsExPartnersPartner} = 'n'",
-       "title": "Is {respondent1.name} a relative of {applicant.name} who lives with {applicant.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent1.name} a relative of {applicant.name} who lives with {applicant.name}?"
       },
       {
        "type": "infotext",
@@ -322,15 +242,10 @@
        "inputType": "date"
       },
       {
-       "type": "radiogroup",
+       "type": "boolean",
        "name": "Respondent1DOBIDK",
        "startWithNewLine": false,
-       "choices": [
-        {
-         "value": "n",
-         "text": "I don't know the exact date"
-        }
-       ]
+       "title": "I don't know the exact date"
       },
       {
        "type": "helptext",
@@ -366,19 +281,9 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "Respondent2Needed",
-     "title": "Is there anyone else, other than {respondent1.name}, that {applicant} (or their children) needs protection from?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Is there anyone else, other than {respondent1.name}, that {applicant} (or their children) needs protection from?"
     },
     {
      "type": "panel",
@@ -392,87 +297,37 @@
        "placeHolder": "Full Name Here If you know it"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent2IsExPartner",
-       "title": "Is {respondent2.name} a current or ex-partner of {applicant.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent2.name} a current or ex-partner of {applicant.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent2IsChildsParent",
        "visible": false,
        "visibleIf": "{Respondent2IsExPartner} = 'n'",
-       "title": "Is {respondent2.name} a parent or guardian of any of {applicant.name}'s child?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent2.name} a parent or guardian of any of {applicant.name}'s child?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent2IsChildParentsRelative",
        "visible": false,
        "visibleIf": "{Respondent2IsChildsParent} = 'n'",
-       "title": "Is {respondent2.name} a relative of {applicant.name}'s child's parent or guardian?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent2.name} a relative of {applicant.name}'s child's parent or guardian?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent2IsExPartnersPartner",
        "visible": false,
        "visibleIf": "{Respondent2IsChildParentsRelative} = 'n'",
-       "title": "Is {respondent2.name} a current partner of {applicant.name}'s ex-partner?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent2.name} a current partner of {applicant.name}'s ex-partner?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Respondent2IsLiveInRelative",
        "visible": false,
        "visibleIf": "{Respondent2IsExPartnersPartner} = 'n'",
-       "title": "Is {respondent2.name} a relative of {applicant.name} who lives with {applicant.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent2.name} a relative of {applicant.name} who lives with {applicant.name}?"
       },
       {
        "type": "infotext",
@@ -489,15 +344,10 @@
        "inputType": "date"
       },
       {
-       "type": "radiogroup",
+       "type": "boolean",
        "name": "Respondent2DOBIDK",
        "startWithNewLine": false,
-       "choices": [
-        {
-         "value": "n",
-         "text": "I don't know the exact date"
-        }
-       ]
+       "title": "I don't know the exact date"
       },
       {
        "type": "helptext",
@@ -535,21 +385,11 @@
      "visibleIf": "{Respondent2Needed} = 'y'"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "Respondent3Needed",
      "visible": false,
      "visibleIf": "{Respondent2Needed} = 'y'",
-     "title": "Is there anyone else, other than {respondent1.name} and {respondent2.name} that {applicant} (or their children) needs protection from?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Is there anyone else, other than {respondent1.name} and {respondent2.name} that {applicant} (or their children) needs protection from?"
     }
    ]
   },
@@ -557,25 +397,15 @@
    "name": "Children",
    "elements": [
     {
-     "type": "radiogroup",
-     "name": "ChildrenInvolved",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "type": "yesno",
+     "name": "ChildrenInvolved"
     },
     {
      "type": "text",
      "name": "ChildrenAmount",
      "visible": false,
      "visibleIf": "{ChildrenInvolved} = 'y'",
-     "title": "What is the total amount of children that have {applicant} and {respondent1} have?",
+     "title": "What is the total number of children that have {applicant} and {respondent1} have?",
      "inputType": "number"
     },
     {
@@ -631,21 +461,11 @@
        ]
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1AdultNeedsProtection",
        "visible": false,
        "visibleIf": "{Child1DOBIDK} = 'adult' and {Child1IsAdult} = 'none'",
-       "title": "Does {child1.name} need protection from {respondent1.name} (or {respondent2.name})?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child1.name} need protection from {respondent1.name} (or {respondent2.name})?"
       },
       {
        "type": "panel",
@@ -787,38 +607,18 @@
        ]
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child2AdultNeedsProtection",
        "visible": false,
        "visibleIf": "{Child2DOBIDK} = 'adult' and {Child2IsAdult} = 'none'",
-       "title": "Does {child2.name} need protection from {respondent1.name} (or {respondent2.name})?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child2.name} need protection from {respondent1.name} (or {respondent2.name})?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child2RelationshipsSame",
        "visible": false,
        "visibleIf": "{Child2DOBIDK} = 'minor' or {Child2AdultNeedsProtection} = 'y' or {Child2IsAdult} = 'item1' or {Child2IsAdult} = 'item2'",
-       "title": "Are {child2}'s relationship to {applicant} and {respondent1}, {respondent2} the same as {child1}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Are {child2}'s relationship to {applicant} and {respondent1}, {respondent2} the same as {child1}?"
       },
       {
        "type": "panel",
@@ -918,66 +718,26 @@
      "name": "Child1GuardianshipPanel",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1ApplicantGuardian",
-       "title": "Is {applicant.name} a guardian of {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {applicant.name} a guardian of {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1Respondent1Guardian",
-       "title": "Is {respondent1.name} a guardian of {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent1.name} a guardian of {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1Respondent2Guardian",
        "visible": false,
        "visibleIf": "{Respondent2Needed} = 'y'",
-       "title": "Is {respondent2.name} a guardian of {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is {respondent2.name} a guardian of {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1OtherGuardians",
-       "title": "Does {child1.name} have any more guardians?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child1.name} have any more guardians?"
       },
       {
        "type": "text",
@@ -1010,85 +770,35 @@
      "name": "Child2GuardianshipSamePanel",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child2GuardiansSame",
-       "title": "Are {child2.name}'s guardians the same as {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Are {child2.name}'s guardians the same as {child1.name}?"
       },
       {
        "type": "panel",
        "name": "Child2GuardianshipPanel",
        "elements": [
         {
-         "type": "radiogroup",
+         "type": "yesno",
          "name": "Child2ApplicantGuardian",
-         "title": "Is {applicant.name} a guardian of {child2.name}?",
-         "choices": [
-          {
-           "value": "y",
-           "text": "Yes"
-          },
-          {
-           "value": "n",
-           "text": "No"
-          }
-         ]
+         "title": "Is {applicant.name} a guardian of {child2.name}?"
         },
         {
-         "type": "radiogroup",
+         "type": "yesno",
          "name": "Child2Respondent1Guardian",
-         "title": "Is {respondent1.name} a guardian of {child2.name}?",
-         "choices": [
-          {
-           "value": "y",
-           "text": "Yes"
-          },
-          {
-           "value": "n",
-           "text": "No"
-          }
-         ]
+         "title": "Is {respondent1.name} a guardian of {child2.name}?"
         },
         {
-         "type": "radiogroup",
+         "type": "yesno",
          "name": "Child2Respondent2Guardian",
          "visible": false,
          "visibleIf": "{Respondent2Needed} = 'y'",
-         "title": "Is {respondent2.name} a guardian of {child2.name}?",
-         "choices": [
-          {
-           "value": "y",
-           "text": "Yes"
-          },
-          {
-           "value": "n",
-           "text": "No"
-          }
-         ]
+         "title": "Is {respondent2.name} a guardian of {child2.name}?"
         },
         {
-         "type": "radiogroup",
+         "type": "yesno",
          "name": "Child2OtherGuardians",
-         "title": "Does {child2.name} have any more guardians?",
-         "choices": [
-          {
-           "value": "y",
-           "text": "Yes"
-          },
-          {
-           "value": "n",
-           "text": "No"
-          }
-         ]
+         "title": "Does {child2.name} have any more guardians?"
         },
         {
          "type": "text",
@@ -1133,106 +843,46 @@
      "name": "panel1",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1ApplicantPTime",
        "visible": false,
        "visibleIf": "{Child1ApplicantGuardian} = 'y'",
-       "title": "Does {applicant.name} spend time with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {applicant.name} spend time with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1Respondent1PTime",
        "visible": false,
        "visibleIf": "{Child1Respondent1Guardian} = 'y'",
-       "title": "Does {respondent1.name} spend time with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {respondent1.name} spend time with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1Respondent2PTime",
        "visible": false,
        "visibleIf": "{Child1Respondent2Guardian} = 'y'",
-       "title": "Does {respondent2.name} spend time with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {respondent2.name} spend time with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1OtherGuardian1PTime",
        "visible": false,
        "visibleIf": "{Child1OtherGuardian1} notempty",
-       "title": "Does {child1.other.guardian1.name} spend time with {child1}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child1.other.guardian1.name} spend time with {child1}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1OtherGuardian2PTime",
        "visible": false,
        "visibleIf": "{Child1OtherGuardian2} notempty",
-       "title": "Does {child1.other.guardian2.name} spend time with {child1}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child1.other.guardian2.name} spend time with {child1}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "Child1EqualPTime",
        "visible": false,
        "title": "Does {child1} spend time equally between [GuardianX] and [GuardianY]?",
-       "description": "Visible If {child1} spends time with more than 1 Guardian",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "description": "Visible If {child1} spends time with more than 1 Guardian"
       },
       {
        "type": "checkbox",
@@ -1297,19 +947,9 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "Child2PTimeSame",
-     "title": "Is the amount of time that {child1.name}'s guardians spend with {child1.name} the same for {child2.name}?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Is the amount of time that {child1.name}'s guardians spend with {child1.name} the same for {child2.name}?"
     }
    ],
    "title": "Parenting Time",
@@ -1319,34 +959,14 @@
    "name": "P Responsibilities",
    "elements": [
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question1",
-     "title": "Can [Guardian1] make parenting decisions for {child1.name}?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Can [Guardian1] make parenting decisions for {child1.name}?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question2",
-     "title": "Can [Guardian2] make parenting decisions for {child1.name}?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Can [Guardian2] make parenting decisions for {child1.name}?"
     }
    ]
   },
@@ -1358,35 +978,15 @@
      "name": "panel2",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question3",
-       "title": "Does {applicant.name} have contact with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {applicant.name} have contact with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question20",
        "visible": false,
-       "title": "Is there an agreement or court order respecting this contact?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Is there an agreement or court order respecting this contact?"
       },
       {
        "type": "radiogroup",
@@ -1397,73 +997,33 @@
        "choices": [
         {
          "value": "y",
-         "text": "as agreed upon to between {applicant.name} and {respondent1.name}"
+         "text": "As agreed upon to between {applicant.name} and {respondent1.name}"
         },
         {
          "value": "n",
-         "text": "supervised contact/in presence of someone else"
+         "text": "Supervised contact/in presence of someone else"
         }
        ]
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question5",
-       "title": "Does {respondent1.name} have contact with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {respondent1.name} have contact with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question4",
-       "title": "Does {respondent2.name} have contact with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {respondent2.name} have contact with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question6",
-       "title": "Does {child1otherguardian1name} have contact with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child1otherguardian1name} have contact with {child1.name}?"
       },
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question8",
-       "title": "Does {child1otherguardian2name} have contact with {child1.name}?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Does {child1otherguardian2name} have contact with {child1.name}?"
       }
      ]
     }
@@ -1498,19 +1058,9 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question9",
-     "title": "Are there any other family members of {applicant.name} (, {child1.name} or {child2.name}) who need protection from {respondent1.name}?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Are there any other family members of {applicant.name} (, {child1.name} or {child2.name}) who need protection from {respondent1.name}?"
     },
     {
      "type": "panel",
@@ -1528,15 +1078,10 @@
        "inputType": "date"
       },
       {
-       "type": "radiogroup",
+       "type": "boolean",
        "name": "question13",
        "startWithNewLine": false,
-       "choices": [
-        {
-         "value": "n",
-         "text": "I don't know the exact date"
-        }
-       ]
+       "title": "I don't know the exact date"
       },
       {
        "type": "radiogroup",
@@ -1585,15 +1130,10 @@
          "inputType": "date"
         },
         {
-         "type": "radiogroup",
+         "type": "boolean",
          "name": "question18",
          "startWithNewLine": false,
-         "choices": [
-          {
-           "value": "n",
-           "text": "I don't know the exact date"
-          }
-         ]
+         "title": "I don't know the exact date"
         },
         {
          "type": "radiogroup",
@@ -1623,35 +1163,15 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question23",
      "title": "Does {respondent1.name} currently live with any of [names of pending protect parties]?",
-     "description": "we'll need lots of info here or expanding question topic about what it means to \"currently live\" with someone. in other words, ran away to a shelter/couch surfing vs moved out a month ago. FLA 184(4)",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "description": "we'll need lots of info here or expanding question topic about what it means to \"currently live\" with someone. in other words, ran away to a shelter/couch surfing vs moved out a month ago. FLA 184(4)"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question26",
-     "title": "Does anyone want to stay in the family home?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Does anyone want to stay in the family home?"
     },
     {
      "type": "radiogroup",
@@ -1673,19 +1193,9 @@
      "name": "panel5",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question42",
-       "title": "Same as {applicant.name}'s address provided?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Same as {applicant.name}'s address provided?"
       },
       {
        "type": "address",
@@ -1698,53 +1208,23 @@
      "title": "What is the address of the family home?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question24",
-     "title": "Does {respondent1.name} have any of [list of pending protected parties]'s personal belongings?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Does {respondent1.name} have any of [list of pending protected parties]'s personal belongings?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question27",
-     "title": "Do you think you need the police assistance to get personal belongings from {respondent1.name}?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Do you think you need the police assistance to get personal belongings from {respondent1.name}?"
     },
     {
      "type": "panel",
      "name": "panel6",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question41",
-       "title": "Same as {applicant.name}'s address provided?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Same as {applicant.name}'s address provided?"
       },
       {
        "type": "address",
@@ -1757,54 +1237,24 @@
      "title": "What is the address of the family home?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question28",
      "title": "Does [names of pending protected parties] have any {respondent1.name}'s personal belongings?",
-     "description": "Leave out the stolen items. make the help text more about clothing and daily-needed items. the whole point is to avoid having to come back and forth to grab stuff each time.",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "description": "Leave out the stolen items. make the help text more about clothing and daily-needed items. the whole point is to avoid having to come back and forth to grab stuff each time."
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question43",
-     "title": "Do you think you need the police to accompany you to remove personal belongings from where {respondent1.name} lives?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Do you think you need the police to accompany you to remove personal belongings from where {respondent1.name} lives?"
     },
     {
      "type": "panel",
      "name": "panel7",
      "elements": [
       {
-       "type": "radiogroup",
+       "type": "yesno",
        "name": "question51",
-       "title": "Same as {respondent1.name}'s address you provided?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "Yes"
-        },
-        {
-         "value": "n",
-         "text": "No"
-        }
-       ]
+       "title": "Same as {respondent1.name}'s address you provided?"
       },
       {
        "type": "address",
@@ -1817,35 +1267,15 @@
      "title": "What is the address of the family home?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question44",
      "title": "Would {respondent1.name} need to contact you for ongoing court thing?",
-     "description": "Even with a No Contact order, there may be times where it is important to contact each for certain purposes.",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "description": "Even with a No Contact order, there may be times where it is important to contact each for certain purposes."
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question52",
-     "title": "Is there any third parties that {respondent1.name} and {applicant} you can communicate through?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Is there any third parties that {respondent1.name} and {applicant} you can communicate through?"
     },
     {
      "type": "checkbox",
@@ -1868,19 +1298,9 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question54",
-     "title": "Does {respondent1.name} need to contact {appliant.name} to arrange parentingtime/childcare/etc",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Does {respondent1.name} need to contact {appliant.name} to arrange parentingtime/childcare/etc"
     },
     {
      "type": "checkbox",
@@ -1903,19 +1323,9 @@
      ]
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question56",
-     "title": "Any other reason that {respondent1.name} would need to contact {applicant}?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Any other reason that {respondent1.name} would need to contact {applicant}?"
     },
     {
      "type": "text",
@@ -1929,19 +1339,9 @@
    "name": "POR No Go",
    "elements": [
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question58",
-     "title": "Are there any places where [respondent] needs to stay away from?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Are there any places where [respondent] needs to stay away from?"
     }
    ]
   },
@@ -1949,19 +1349,9 @@
    "name": "POR Weapons",
    "elements": [
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question59",
-     "title": "Are you afraid [Respondent] will harm you or family members with weapons (including guns, explosives)?",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "Yes"
-      },
-      {
-       "value": "item2",
-       "text": "No"
-      }
-     ]
+     "title": "Are you afraid [Respondent] will harm you or family members with weapons (including guns, explosives)?"
     },
     {
      "type": "boolean",
@@ -1969,34 +1359,14 @@
      "title": "By selecting no above, you are saying there is no need for a judge to order [respondent] to give up their weapons if they have any. They also won't be able to possess any weapons for the duraction of this protection order. If there is no concern over weapons, hit \"there is no concern over weapons\" Otherwise, consider going back to the last question and selecting 'yes' instead."
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question61",
-     "title": "Do you think [Respondent1] have guns, explosives or something?",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "Yes"
-      },
-      {
-       "value": "item2",
-       "text": "No"
-      }
-     ]
+     "title": "Do you think [Respondent1] have guns, explosives or something?"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question62",
-     "title": "Does you think [Respondent1] have weapons that are not guns, explosives?",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "Yes"
-      },
-      {
-       "value": "item2",
-       "text": "No"
-      }
-     ]
+     "title": "Does you think [Respondent1] have weapons that are not guns, explosives?"
     }
    ],
    "title": "POR Weapons"
@@ -2011,19 +1381,9 @@
      "titleLocation": "hidden"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question64",
-     "title": "Protection Orders usually last 1 year from the date the judge makes the order. Do you wish to make the order last a different amount of time?",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "Yes"
-      },
-      {
-       "value": "item2",
-       "text": "No"
-      }
-     ]
+     "title": "Protection Orders usually last 1 year from the date the judge makes the order. Do you wish to make the order last a different amount of time?"
     },
     {
      "type": "text",
@@ -2033,19 +1393,9 @@
      "inputType": "date"
     },
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question66",
-     "title": "Do you need [Respondent1] to carry a copy of this order (if it is granted) on their person at all times for the duration of order.",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "Yes"
-      },
-      {
-       "value": "item2",
-       "text": "No"
-      }
-     ]
+     "title": "Do you need [Respondent1] to carry a copy of this order (if it is granted) on their person at all times for the duration of order."
     },
     {
      "type": "infotext",
@@ -2060,19 +1410,9 @@
    "name": "POR Emergency",
    "elements": [
     {
-     "type": "radiogroup",
+     "type": "yesno",
      "name": "question68",
-     "title": "Do you feel you need this protection order sooner?",
-     "choices": [
-      {
-       "value": "y",
-       "text": "Yes"
-      },
-      {
-       "value": "n",
-       "text": "No"
-      }
-     ]
+     "title": "Do you feel you need this protection order sooner?"
     },
     {
      "type": "radiogroup",

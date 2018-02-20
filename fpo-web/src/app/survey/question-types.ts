@@ -239,11 +239,71 @@ function initInfoText(Survey) {
 }
 
 
+function initYesNo(Survey) {
+  var widget = {
+    name: "yesno",
+    title: "Yes/No",
+    iconName: "icon-radiogroup",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question) {
+      return question.getType() === "yesno";
+    },
+    activatedByChanged: function(activatedBy) {
+      Survey.JsonObject.metaData.addClass("yesno", [], null, "empty");
+    },
+    htmlTemplate: "<div></div>",
+    makeButton: function(name, label, value, question) {
+      let chk = document.createElement('input');
+      chk.type = 'radio';
+      chk.name = name;
+      chk.value = value;
+      chk.checked = (question.value === value);
+      chk.onclick = function() {
+        if((<HTMLInputElement>this).checked)
+          question.value = value;
+      }
+      let outer = document.createElement('label');
+      outer.className = 'survey-yesno';
+      outer.appendChild(chk);
+      let div = document.createElement('span');
+      div.className = 'survey-yesno-button';
+      div.appendChild(document.createTextNode(label));
+      outer.appendChild(div);
+      return outer;
+    },
+    afterRender: function(question, el) {
+      while(el.childNodes.length)
+        el.removeChild(el.childNodes[0]);
+
+      let choices : any[] = [
+        {label: 'Yes', value: 'y'},
+        {label: 'No', value: 'n'}
+      ];
+      for(let opt of choices) {
+        let btn = this.makeButton(question.name, opt.label, opt.value, question);
+        opt.button = btn;
+        el.appendChild(btn);
+      }
+      question.valueChangedCallback = function() {
+        for(let opt of choices) {
+          if(opt.value === question.value) opt.button.checked = true;
+        }
+      };
+    },
+    willUnmount: function(question, el) {}
+  };
+
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+
 function initAddressBlock(Survey) {
   var widget = {
     name: "address",
     title: "Postal Address",
-    iconName: "icon-default",
+    iconName: "icon-multipletext",
     widgetIsLoaded: function() {
       return true;
     },
@@ -442,12 +502,24 @@ function initAddressBlock(Survey) {
 
 export function addQuestionTypes(Survey) {
   fixCheckboxes(Survey);
+  initYesNo(Survey);
   initInfoText(Survey);
   initHelpText(Survey);
   initAddressBlock(Survey);
 }
 
 export function addToolboxOptions(editor) {
+  editor.toolbox.addItem(
+    {
+      name: "yesno",
+      title: "Yes/No Choice",
+      isCopied: true,
+      iconName: "icon-radiogroup",
+      json: {
+        type: "yesno"
+      }
+    }
+  );
   editor.toolbox.addItem(
     {
       name: "infotext",
@@ -477,7 +549,7 @@ export function addToolboxOptions(editor) {
       name: "address",
       title: "Postal Address",
       isCopied: true,
-      iconName: "icon-default",
+      iconName: "icon-multipletext",
       json: {
         type: "address"
       }

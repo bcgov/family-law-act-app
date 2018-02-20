@@ -99,7 +99,7 @@ h3, .h3 {
     margin: 1em 0;
   }
   .sv_page > .sv_row > .sv_qstn {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
     padding-top: 1em;
   }
@@ -168,6 +168,42 @@ h3, .h3 {
   }
   &.expanded .panel-body {
     display: block;
+  }
+}
+
+.survey-yesno {
+  position: relative;
+  input {
+    position: absolute;
+    visibility: hidden;
+  }
+  span {
+    background: #eee;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    color: #666;
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 4px;
+    margin-right: 0.8em;
+    overflow: hidden;
+    text-align: center;
+    text-transform: uppercase;
+    width: 60px;
+    user-select: none;
+  }
+  input + span:hover {
+    border-color: #38598a;
+    box-shadow: 0 1px 2px 1px rgba(#000, 0.1);
+    color: #38598a;
+  }
+  input:checked + span {
+    background: #38598a;
+    border: 2px solid #ccc;
+    color: #fff;
   }
 }
 
