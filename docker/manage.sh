@@ -60,24 +60,25 @@ build-web() {
   #
   # fpo-web
   #
-  echo -e "\nBuilding angular-builder image ..."
-  docker build \
-    -t 'angular-builder' \
-    -f '../fpo-web/openshift/templates/angular-builder/Dockerfile' '../fpo-web/openshift/templates/angular-builder/'
-
+  # The nginx-runtime image is used for the final runtime image.
+  # The angular-app image is used to build the artifacts for the angular distribution.
+  # The angular-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
+  #
   echo -e "\nBuilding nginx-runtime image ..."
   docker build \
     -t 'nginx-runtime' \
     -f '../fpo-web/openshift/templates/nginx-runtime/Dockerfile' '../fpo-web/openshift/templates/nginx-runtime/'
-
-  echo -e "\nBuilding angular-on-nginx image ..."
+  
+  echo -e "\nBuilding angular-app image ..."
   ${S2I_EXE} build \
     '../fpo-web' \
-    'angular-builder' \
-    'angular-on-nginx' \
-    --runtime-image \
-    "nginx-runtime" \
-    -a "/opt/app-root/src/dist/:app"
+    'centos/nodejs-6-centos7:6' \
+    'angular-app'
+
+  echo -e "\nBuilding angular-on-nginx image ..."
+  docker build \
+    -t 'angular-on-nginx' \
+    -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
 }
 
 build-db() {
