@@ -69,6 +69,8 @@ urlpatterns = [
     url(r'^userroles$', views.userrolesGet.as_view()),
     url(r'^userroles/(?P<id>[0-9]+)/delete$', views.userrolesIdDeletePost.as_view()),
     url(r'^userroles/(?P<id>[0-9]+)$', views.userrolesIdGet.as_view()),    
+
+    url(r'^pdf$', views.pdf.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

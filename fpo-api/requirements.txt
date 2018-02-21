@@ -17,3 +17,6 @@ django_rest_swagger>=2.1.2,<3
 # Testing
 pytest-cov>=2.5.1,<3
 pytest-django>=3.1.2,<4
+
+# Util
+requests>=2.18.4,<3
