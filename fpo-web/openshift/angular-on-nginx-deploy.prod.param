@@ -1,7 +1,7 @@
 #=========================================================
 # OpenShift template parameters for:
 # Component: fpo-web
-# JSON Template File: templates/angular-on-nginx-deploy.json
+# JSON Template File: templates/angular-on-nginx/angular-on-nginx-deploy.json
 #=========================================================
 # NAME=angular-on-nginx
 # IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
