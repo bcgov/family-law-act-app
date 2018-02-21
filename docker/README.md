@@ -4,15 +4,24 @@ The following instructions provide details on how to deploy the project using Do
 
 All application services are exposed to the host so they may be easily accessed individually for development and testing purposes.
 
+## Benefits
+
+The benefits to using this approach are;
+* Ease of getting the project up and running on your local system.
+* Builds the images using the source code from your local working copy.  This allows you to test your changes without having to commit code it a branch.
+* Fewer moving parts for developers to have to content with when developing locally; when compared with the OpenShift approach.
+* Greater control.  You have greater control over which containers (services) are started up and how they are wired together.  For example, you could spin up an instance of just the client application and wire it to your Visual Studio development instance of the REST API, making it easy to test the effects of your API development on the client application.
+
 ## Prerequisites
 
 * Docker and Docker Compose
   * Install and configure Docker and Docker Compose on your system.  The recommended approach is to use either [Homebrew](https://brew.sh/) (MAC) or [Chocolatey](https://chocolatey.org/) (Windows) to install Docker (which includes Docker Compose).
 * The S2I CLI
   * Download and install the S2I CLI tool; [source-to-image](https://github.com/openshift/source-to-image)
-  * Make sure it is avaialble on your `PATH`.  The `manage.sh` will look for the `s2i` executable on your `PATH`.  If it is not found you will get a message asking you to download and set it on your `PATH`.
+  * Make sure it is available on your `PATH`.  The `manage.sh` will look for the `s2i` executable on your `PATH`.  If it is not found you will get a message asking you to download and set it on your `PATH`.
 * If you are working on Windows, use Git Bash (or equivalent shell) to run the scripts.
 * Fork and clone a local working copy of the project source code.
+* Open a command/shell window to the project's `./docker` folder.
 
 ## Management Script
 
@@ -54,7 +63,7 @@ To start the project run:
 ./manage.sh start
 ```
 
-This will start the project interactively; with all of the logs being written to the command line.
+This will start the project interactively; with all of the logs being written to the command line.  Press `Ctrl-C` to shut down the services from the same shell window.
 
 ## Stopping the Project
 
@@ -63,7 +72,9 @@ To stop the project run:
 ./manage.sh stop
 ```
 
-This will shutdown all of the containers in the project.
+This will shut down and clean up all of the containers in the project.  This is a non-destructive process.  The containers are not deleted so they will be reused the next time you run start.
+
+Since the services are started interactively, you will have to issue this command from another shell window.  This command can also be run after shutting down the services using the `Ctrl-C` method to clean up any services that may not have shutdown correctly.
 
 ## Using the Application
 
