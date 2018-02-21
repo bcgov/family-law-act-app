@@ -65,6 +65,42 @@ genParams.sh -l
 ```
 Local param files are ignored by Git, so you cannot accidentally commit them to the repository.
 
+## Update the local parameters
+
+### `django-build.local.param`
+
+The `python:3.6` image that the django build uses may not be available in your local openshift cluster.
+
+To solve this update your `django-build.local.param` as follows;
+
+Replace the line:
+```
+# SOURCE_IMAGE_TAG=3.6
+```
+
+With:
+```
+SOURCE_IMAGE_TAG=3.5
+```
+
+### `angular-on-nginx-build.local.param`
+
+The `openshift/nginx-runtime:latest` image that the angular-on-nginx build uses is not available to your local openshift cluster.
+
+To solve this problem an nginx-runtime build configuration has been included in the project.  This build configuration will build an equivanent nginx-runtime image.
+
+You will need to update `angular-on-nginx-build.local.param` to use the local version of the image, as follows;
+
+Replace the line:
+```
+# RUNTIME_IMAGE_NAMESPACE=openshift
+```
+
+With:
+```
+RUNTIME_IMAGE_NAMESPACE=
+```
+
 # Generate the Build and Images in the "tools" project; Deploy Jenkins
 ```
 genBuilds.sh
