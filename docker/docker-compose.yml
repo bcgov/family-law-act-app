@@ -36,6 +36,7 @@ services:
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - PDF_SERVICE_URL=${PDF_SERVICE_URL}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_DEBUG=${DJANGO_DEBUG}
       - FPO_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
@@ -98,7 +99,17 @@ services:
     ports:
       - 5432:5432
     # volumes:
-      # - fpo-data:/var/lib/pgsql/data     
+      # - fpo-data:/var/lib/pgsql/data 
+
+  # 
+  # fpo-pdf
+  # 
+  fpo-pdf:
+    image: pdf
+    networks:
+      - fpo
+    ports:
+      - 8083:5001
 
 networks:
   fpo:

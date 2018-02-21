@@ -24,7 +24,8 @@ import random
 
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from wsgiref.util import FileWrapper
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -40,6 +41,9 @@ from .models.Role import Role
 from .models.RolePermission import RolePermission
 from .models.User import User
 from .models.UserRole import UserRole
+
+from api.pdf import render as render_pdf
+
 
 class permissionsBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView):
   """  
@@ -375,3 +379,14 @@ class userrolesIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateMode
     Updates the specified UserRole object
     """
     return self.update(request, *args, **kwargs)
+
+
+class pdf(generics.GenericAPIView):
+  def get(self, request, *args, **kwargs):
+    pdf_content = render_pdf("<html>hello world</html>")
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    response.write(pdf_content)
+
+    return response
