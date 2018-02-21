@@ -15,7 +15,7 @@ For the commands mentioned in these instructions, you can use the `-h` parameter
 
 ## Working with OpenShift
 
-When working with openshift, commands are typically issued against the `server-project` pair to which you are currently connected.  Therefore, when you are working with multiple servers (local, and remote for instance) you should always be aware of your current context so you don't inadvertantly issue a command against the wrong server and project.  Although you can login to more than one server at a time it's always a good idea to completely logout of one server before working on another.
+When working with openshift, commands are typically issued against the `server-project` pair to which you are currently connected.  Therefore, when you are working with multiple servers (local, and remote for instance) you should always be aware of your current context so you don't inadvertently issue a command against the wrong server and project.  Although you can login to more than one server at a time it's always a good idea to completely logout of one server before working on another.
 
 The automation tools provided by `openshift-project-tools` hide some of these details from you, in that they perform project context switching automatically.  However, what they don't do is provide server context switching.  They assume you are aware of your server context and you have logged into the correct server.
 
@@ -87,7 +87,7 @@ SOURCE_IMAGE_TAG=3.5
 
 The `openshift/nginx-runtime:latest` image that the angular-on-nginx build uses is not available to your local openshift cluster.
 
-To solve this problem an nginx-runtime build configuration has been included in the project.  This build configuration will build an equivanent nginx-runtime image.
+To solve this problem an nginx-runtime build configuration has been included in the project.  This build configuration will build an equivalent nginx-runtime image.
 
 You will need to update `angular-on-nginx-build.local.param` to use the local version of the image, as follows;
 
