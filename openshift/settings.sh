@@ -20,4 +20,4 @@ export builds=${builds:-""}
 export images=${images:-"angular-on-nginx django schema-spy weasyprint"}
 
 # The routes for the project
-export routes=${routes:-"angular-on-nginx django schema-spy weasyprint"}
+export routes=${routes:-"angular-on-nginx django schema-spy"}
