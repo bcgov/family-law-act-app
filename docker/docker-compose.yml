@@ -18,7 +18,16 @@ services:
 
   # 
   # fpo-api
+  #-------------------------------------------------
+  # The API performs the migrations on the database.
+  # Therefore, it needs to come up after the database
+  # has had time to fully initialize.
   #
+  # We are using a simple sleep command to do this 
+  # for the moment; refer to the `command` section 
+  # of the configuration for details.  It would be 
+  # nice to implement a more deterministic solution.
+  # 
   fpo-api:
     image: django
     environment:
@@ -41,11 +50,21 @@ services:
       - fpo-db
     command: >
       /bin/bash -c "
-        /usr/libexec/s2i/run;
-      "      
+        echo Waiting for the database service to start up ...;
+        sleep 10;
+        /usr/libexec/s2i/run;"
 
   # 
   # schema-spy
+  #-------------------------------------------------
+  # Needs to wait for the schema to be created/migrated
+  # by the API server; it's not enough to wait for the
+  # database to be available.
+  #
+  # We are using a simple sleep command to do this 
+  # for the moment; refer to the `command` section 
+  # of the configuration for details.  It would be 
+  # nice to implement a more deterministic solution.
   #
   schema-spy:
     image: schema-spy
@@ -62,8 +81,9 @@ services:
       - fpo-db
     command: >
       /bin/bash -c "
-        exec npm start;
-      "      
+        echo Waiting for the database service to start up and the migrations to be run ...;
+        sleep 20;
+        exec npm start;"
   # 
   # fpo-db
   # 
