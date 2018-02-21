@@ -14,7 +14,7 @@ export GIT_REF="master"
 export components=${components:-"fpo-db fpo-api fpo-web fpo-pdf"}
 
 # The builds to be triggered after buildconfigs created (not auto-triggered)
-export builds=${builds:-"angular-app"}
+export builds=${builds:-""}
 
 # The images to be tagged after build
 export images=${images:-"angular-on-nginx django schema-spy weasyprint"}

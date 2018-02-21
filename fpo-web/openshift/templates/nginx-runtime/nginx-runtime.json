@@ -2,8 +2,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "nginx-runtime",
-    "creationTimestamp": null
+    "name": "${NAME}"
   },
   "objects": [
     {
@@ -18,12 +17,16 @@
       "apiVersion": "v1",
       "metadata": {
         "name": "${NAME}",
-        "creationTimestamp": null,
         "labels": {
           "app": "${NAME}"
         }
       },
       "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
         "runPolicy": "Serial",
         "source": {
           "type": "Git",
@@ -41,12 +44,7 @@
             "kind": "ImageStreamTag",
             "name": "${NAME}:${OUTPUT_IMAGE_TAG}"
           }
-        },
-        "resources": {},
-        "postCommit": {}
-      },
-      "status": {
-        "lastVersion": 0
+        }
       }
     }
   ],

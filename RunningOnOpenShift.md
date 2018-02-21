@@ -13,6 +13,18 @@ Good to have:
 
 For the commands mentioned in these instructions, you can use the `-h` parameter for usage help and options information.
 
+## Working with OpenShift
+
+When working with openshift, commands are typically issued against the `server-project` pair to which you are currently connected.  Therefore, when you are working with multiple servers (local, and remote for instance) you should always be aware of your current context so you don't inadvertently issue a command against the wrong server and project.  Although you can login to more than one server at a time it's always a good idea to completely logout of one server before working on another.
+
+The automation tools provided by `openshift-project-tools` hide some of these details from you, in that they perform project context switching automatically.  However, what they don't do is provide server context switching.  They assume you are aware of your server context and you have logged into the correct server.
+
+Some useful commands to help you determine your current context:
+* `oc whoami -c` - Lists your current server and user context.
+* `oc project` - Lists your current project context.
+* `oc project [NAME]` - Switch to a different project context.
+* `oc projects` - Lists the projects available to you on the current server.
+
 # Change into the top level openshift folder
 ```
 cd /<PathToWorkingCopy>/openshift
@@ -32,7 +44,7 @@ This will start your local OpenShift cluster using persistence so your configura
 ```
 generateLocalProjects.sh
 ```
-This will generate four OpenShift projects; tools, dev, test, and prod.  The tools project is used for builds and DevOps activities, and dev, test, and prod are a set of deployment environments.
+**This command will only work on a local server context.  It will fail if you are logged into a remote server.**  This will generate four OpenShift projects; tools, dev, test, and prod.  The tools project is used for builds and DevOps activities, and dev, test, and prod are a set of deployment environments.
 
 If you need (or want) to reset your local environments you can run `generateLocalProjects.sh -D` to delete all of the OpenShift projects.
 
@@ -52,6 +64,42 @@ To generate a set of local params, run;
 genParams.sh -l
 ```
 Local param files are ignored by Git, so you cannot accidentally commit them to the repository.
+
+## Update the local parameters
+
+### `django-build.local.param`
+
+The `python:3.6` image that the django build uses may not be available in your local openshift cluster.
+
+To solve this update your `django-build.local.param` as follows;
+
+Replace the line:
+```
+# SOURCE_IMAGE_TAG=3.6
+```
+
+With:
+```
+SOURCE_IMAGE_TAG=3.5
+```
+
+### `angular-on-nginx-build.local.param`
+
+The `openshift/nginx-runtime:latest` image that the angular-on-nginx build uses is not available to your local openshift cluster.
+
+To solve this problem an nginx-runtime build configuration has been included in the project.  This build configuration will build an equivalent nginx-runtime image.
+
+You will need to update `angular-on-nginx-build.local.param` to use the local version of the image, as follows;
+
+Replace the line:
+```
+# RUNTIME_IMAGE_NAMESPACE=openshift
+```
+
+With:
+```
+RUNTIME_IMAGE_NAMESPACE=
+```
 
 # Generate the Build and Images in the "tools" project; Deploy Jenkins
 ```
