@@ -148,6 +148,7 @@ configureEnvironment () {
 
   # fpo-api
   export API_HTTP_PORT=${API_HTTP_PORT-8081}
+  export PDF_SERVICE_URL=${PDF_SERVICE_URL-http://fpo-pdf:5001}
   export DATABASE_SERVICE_NAME="fpo-db"
   export DATABASE_ENGINE="postgresql"
   export DATABASE_NAME=${POSTGRESQL_DATABASE}
