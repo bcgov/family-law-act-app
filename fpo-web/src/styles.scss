@@ -87,21 +87,46 @@ h3, .h3 {
     padding-bottom: 3px;
     border-bottom: 2px solid #e0e3ee;
   }
-  .sv_qstn {
-    margin-bottom: 5px;
+  .sv_row {
+    // border: 1px solid #ccf;
+    // padding: 10px;
+  }
+  .sv_page .sv_qstn {
+    padding-top: 0;
+    padding-bottom: 1em;
+  }
+  .sv_page > .sv_row {
+    margin: 1em 0;
+  }
+  .sv_page > .sv_row > .sv_qstn {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-top: 1em;
   }
   .sv_q_title {
     color: #556077;
-    font-size: 17px;
-    margin-bottom: 5px;
+    font-size: 20px;
+    margin-bottom: 0.5em;
     margin-top: 5px;
+  }
+  .sv_q_description {
+    font-size: 16px;
+    margin-bottom: 0.8em;
   }
   .panel-footer {
     background: none;
     border: none;
+    padding: 0;
   }
   .form-control {
     font-size: 16px;
+  }
+  .survey-address-line + .survey-address-line {
+    margin-top: 0.8em;
+  }
+  .survey-address-label {
+    font-size: 16px;
+    font-weight: normal;
   }
 }
 
@@ -110,15 +135,15 @@ h3, .h3 {
   background: #f8f8f8;
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  padding: 0.5em 1em;
+  padding: 1em 0.5em 0.5em;
   margin: 0.5em 0;
 }
 
-.survey-helptext {
+.survey-helptext, .survey-infotext {
   background: #f8faff;
   border: 1px solid #d3d3d8;
   border-radius: 4px;
-  margin: 0.5em 0;
+  margin: 0.5em 0 0 0;
   .panel-heading {
     color: #55555a;
   }
@@ -143,5 +168,53 @@ h3, .h3 {
   }
   &.expanded .panel-body {
     display: block;
+  }
+}
+
+.survey-yesno {
+  position: relative;
+  input {
+    position: absolute;
+    visibility: hidden;
+  }
+  span {
+    background: #eee;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    color: #666;
+    cursor: pointer;
+    display: block;
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 4px;
+    margin-right: 0.8em;
+    overflow: hidden;
+    text-align: center;
+    text-transform: uppercase;
+    width: 60px;
+    user-select: none;
+  }
+  input + span:hover {
+    border-color: #38598a;
+    box-shadow: 0 1px 2px 1px rgba(#000, 0.1);
+    color: #38598a;
+  }
+  input:checked + span {
+    background: #38598a;
+    border: 2px solid #ccc;
+    color: #fff;
+  }
+}
+
+.survey-helptext {
+  background: #fff6f6;
+  border: 1px solid #d8d0d0;
+  .panel-heading {
+    color: #5a5555;
+  }
+  .panel-body {
+    background: #fff;
+    border: 1px solid #e9e0e0;
   }
 }

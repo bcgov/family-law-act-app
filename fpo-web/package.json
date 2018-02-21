@@ -26,13 +26,15 @@
     "core-js": "^2.5.1",
     "mygovbc-bootstrap-theme": "^0.4.1",
     "rxjs": "^5.4.3",
-    "survey-angular": "^0.98.0",
+    "survey-angular": "1.0.6",
+    "surveyjs-editor": "1.0.6",
     "typescript": ">=2.1.0 <2.4.0",
     "zone.js": "^0.8.17"
   },
   "devDependencies": {
     "@angular/cli": "^1.4.2",
     "@types/jasmine": "^2.6.0",
+    "@types/knockout": "^3.4.40",
     "@types/node": "^8.0.28",
     "ajv": "^5.2.2",
     "codelyzer": "^3.2.0",

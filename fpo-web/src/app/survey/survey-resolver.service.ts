@@ -16,7 +16,7 @@ export class SurveyResolver implements Resolve<any> {
     }
 
     if(route.data.survey_path) {
-      return this.http.get(route.data.survey_path)
+      return this.http.get(route.data.survey_path, {params: {t: new Date().getTime()}})
             .map((x) => x.json())
             ; //.catch(this.handleLoadError);
     }
