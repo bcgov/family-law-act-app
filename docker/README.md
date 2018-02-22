@@ -81,4 +81,5 @@ Since the services are started interactively, you will have to issue this comman
 * The main UI is exposed at; http://localhost:8080/
 * The API is exposed at; http://localhost:8081/
 * Schema-Spy is exposed at; http://localhost:8082/
+* PDF service is exposed at; http://localhost:8083/
 * The database is exposed at; localhost:5432
