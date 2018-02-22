@@ -64,21 +64,30 @@ build-web() {
   # The angular-app image is used to build the artifacts for the angular distribution.
   # The angular-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
   #
-  echo -e "\nBuilding nginx-runtime image ..."
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building the nginx-runtime image using Docker ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
     -t 'nginx-runtime' \
     -f '../fpo-web/openshift/templates/nginx-runtime/Dockerfile' '../fpo-web/openshift/templates/nginx-runtime/'
+  echo -e "===================================================================================================="
   
-  echo -e "\nBuilding angular-app image ..."
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building the angular-app image using s2i ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     '../fpo-web' \
     'centos/nodejs-6-centos7:6' \
     'angular-app'
+  echo -e "===================================================================================================="
 
-  echo -e "\nBuilding angular-on-nginx image ..."
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building the angular-on-nginx image using Docker ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
     -t 'angular-on-nginx' \
     -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
+  echo -e "===================================================================================================="
 }
 
 build-db() {
