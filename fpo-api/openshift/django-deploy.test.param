@@ -15,5 +15,3 @@ APPLICATION_DOMAIN=django-jag-csb-jes-family-protection-order-test.pathfinder.go
 # DJANGO_DEBUG=False
 TAG_NAME=test
 # DATABASE_DEPLOYMENT_NAME=postgresql
-# PERSISTENT_VOLUME_SIZE=1Gi
-# MOUNT_PATH=/opt/app-root/src/,indy_client
