@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import * as Survey from 'survey-angular';
+import { InsertService } from '../insert/insert.service';
 import { addQuestionTypes } from './question-types';
+import { SurveySidebarComponent } from './sidebar.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'survey',
@@ -10,6 +13,10 @@ import { addQuestionTypes } from './question-types';
 export class SurveyComponent  {
   @Input() jsonData: any;
   @Input() onComplete: Function;
+  public surveyModel : Survey.SurveyModel;
+  public onPageUpdate: BehaviorSubject<Survey.SurveyModel> = new BehaviorSubject<Survey.SurveyModel>(null);
+
+  constructor(private insertService: InsertService) {}
 
   ngOnInit() {
     addQuestionTypes(Survey);
@@ -33,7 +40,20 @@ export class SurveyComponent  {
     surveyModel.onComplete.add((sender, options) => {
       if(this.onComplete) this.onComplete(sender.data)
     });
+    surveyModel.onCurrentPageChanged.add((sender, options) => {
+      this.onPageUpdate.next(sender)
+    });
     Survey.SurveyNG.render('surveyElement', { model: surveyModel });
+    this.surveyModel = surveyModel;
+
+    this.insertService.updateInsert('sidebar-left',
+      {component: SurveySidebarComponent, inputs: {survey: this}});
+    this.onPageUpdate.next(surveyModel);
   }
+
+  changePage(pageNo: number) {
+    this.surveyModel.currentPageNo = pageNo;
+  }
+
 }
 
