@@ -6,6 +6,11 @@ import { InsertService } from './insert.service';
 import { StaticComponent } from '../static/static.component';
 import { SurveySidebarComponent } from '../survey/sidebar.component';
 
+export const INSERT_TYPES = {
+  'html': StaticComponent,
+  'survey-sidebar': SurveySidebarComponent
+};
+
 // based on http://blog.rangle.io/dynamically-creating-components-with-angular-2/
 @Component({
   selector: 'app-insert',
@@ -30,15 +35,16 @@ export class InsertComponent implements OnInit {
     }
   }
 
-  @Input() set componentSpec(data: {component: any, inputs: any}) {
-    if(! data) {
+  @Input() set componentSpec(spec: {type: string, inputs?: any, options?: any}) {
+    let compCls = spec && INSERT_TYPES[spec.type];
+    if(! compCls) {
       this.hidden = true;
       return;
     }
 
     // Inputs need to be in the following format to be resolved properly
-    let inputProviders = Object.keys(data.inputs).map((inputName) => {
-      return {provide: inputName, useValue: data.inputs[inputName]};
+    let inputProviders = Object.keys(spec.inputs).map((inputName) => {
+      return {provide: inputName, useValue: spec.inputs[inputName]};
     });
     let resolvedInputs = ReflectiveInjector.resolve(inputProviders);
 
@@ -48,7 +54,7 @@ export class InsertComponent implements OnInit {
       this.container.parentInjector);
 
     // We create a factory out of the component we want to create
-    let factory = this.resolver.resolveComponentFactory(data.component);
+    let factory = this.resolver.resolveComponentFactory(compCls);
 
     // We create the component using the factory and the injector
     let component = factory.create(injector);
