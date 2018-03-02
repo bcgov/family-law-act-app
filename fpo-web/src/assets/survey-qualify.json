@@ -1,40 +1,78 @@
 {
-  "pages": [
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
     {
-      "title": "",
-      "description": "Some families are more complicated than others, and not everyone should use this online tool. So let's start by asking you a few questions to make sure that this website is right for your situation.",
-      "elements": [
-        {
-          "type": "panel",
-          "name": "panel3",
-          "elements": [
-            {
-              "type": "radiogroup",
-              "name": "question1",
-              "title": "Are you qualified to complete the survey?",
-              "choices": [
-                "Yes",
-                "No",
-                "I don't know"
-              ],
-              "isRequired": true
-            },
-            {
-              "type": "radiogroup",
-              "name": "question2",
-              "title": "Are you sure?",
-              "choices": [
-                "Yes",
-                "No",
-                "I don't know"
-              ],
-              "isRequired": true
-            }
-          ],
-          "title": "About you"
-        }
-      ]
+     "type": "yesno",
+     "name": "question1",
+     "title": "Is there a risk of family violence?"
     }
-  ],
-  "title": "Prequalification Survey"
+   ],
+   "description": "You can get more than 1 kind of order to protect you and your family. This service is for applying for a protection order under the Family Law act but maybe a peace bond is better for you. The next questions will help you decide if the Family Law protection order is right for you."
+  },
+  {
+   "name": "Existing Case Information",
+   "elements": [
+    {
+     "type": "yesno",
+     "name": "ExistingFamilyCase",
+     "title": "Do you already have a case open in Provincial Family Court?"
+    },
+    {
+     "type": "yesno",
+     "name": "ExistingPOR",
+     "visible": false,
+     "visibleIf": "{ExistingFamilyCase} = 'y'",
+     "title": "Do you need to change or add more time to a FLA protection order you already have?"
+    },
+    {
+     "type": "infotext",
+     "name": "ExistingPORYes",
+     "visible": false,
+     "visibleIf": "{ExistingFamilyCase} = 'y' and {ExistingPOR} = 'n'",
+     "title": "If you already have a FLA Protection Order, do a Form 2. You can copy most of the content from your original Form 1. ",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "panel",
+     "name": "panel1",
+     "elements": [
+      {
+       "type": "text",
+       "name": "ExistingStyleOfProceeding",
+       "title": "Existing Style of Proceeding",
+       "description": "This is at the top of the documents and usually looks like \"Name vs Name2\""
+      },
+      {
+       "type": "dropdown",
+       "name": "ExistingCourt",
+       "title": "Court Location",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "Robson Square (Vancouver)"
+        },
+        {
+         "value": "item2",
+         "text": "North Vancouver Provincial Court"
+        },
+        {
+         "value": "item3",
+         "text": "Port Coquitlam Provincial Court"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "name": "ExistingFileNumber",
+       "title": "File number"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{ExistingFamilyCase} = 'y' and {ExistingPOR} = 'y'"
+    }
+   ]
+  }
+ ]
 }
