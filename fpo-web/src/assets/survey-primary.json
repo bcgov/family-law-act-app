@@ -171,6 +171,7 @@
        "type": "text",
        "name": "Respondent1DOB",
        "title": "What is {respondent1.name}'s date of birth?",
+       "description": "You can still use this service without this information. A Protection Order is most effective with this information.",
        "inputType": "date"
       },
       {
@@ -216,112 +217,6 @@
      "type": "yesno",
      "name": "Respondent2Needed",
      "title": "Is there anyone else, other than {respondent1.name}, that {applicant} (or their children) needs protection from?"
-    },
-    {
-     "type": "panel",
-     "name": "Respondent2Panel",
-     "elements": [
-      {
-       "type": "text",
-       "name": "Respondent2Name",
-       "title": "What is the name of the person that {applicant.name} (and/or their children) needs protection from?",
-       "valueName": "respondent2.name",
-       "placeHolder": "Full Name Here If you know it"
-      },
-      {
-       "type": "yesno",
-       "name": "Respondent2IsExPartner",
-       "title": "Is {respondent2.name} a current or ex-partner of {applicant.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Respondent2IsChildsParent",
-       "visible": false,
-       "visibleIf": "{Respondent2IsExPartner} = 'n'",
-       "title": "Is {respondent2.name} a parent or guardian of any of {applicant.name}'s child?"
-      },
-      {
-       "type": "yesno",
-       "name": "Respondent2IsChildParentsRelative",
-       "visible": false,
-       "visibleIf": "{Respondent2IsChildsParent} = 'n'",
-       "title": "Is {respondent2.name} a relative of {applicant.name}'s child's parent or guardian?"
-      },
-      {
-       "type": "yesno",
-       "name": "Respondent2IsExPartnersPartner",
-       "visible": false,
-       "visibleIf": "{Respondent2IsChildParentsRelative} = 'n'",
-       "title": "Is {respondent2.name} a current partner of {applicant.name}'s ex-partner?"
-      },
-      {
-       "type": "yesno",
-       "name": "Respondent2IsLiveInRelative",
-       "visible": false,
-       "visibleIf": "{Respondent2IsExPartnersPartner} = 'n'",
-       "title": "Is {respondent2.name} a relative of {applicant.name} who lives with {applicant.name}?"
-      },
-      {
-       "type": "infotext",
-       "name": "Respondent2NotFamily",
-       "visible": false,
-       "visibleIf": "{Respondent2IsLiveInRelative} = 'n'",
-       "title": "{respondent2.name} needs to be a family member of {applicant.name} (or their children). You can't just put in any random citizen. Try a peace bond maybe.",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "text",
-       "name": "Respondent2DOB",
-       "title": "What is {respondent2.name}'s date of birth?",
-       "inputType": "date"
-      },
-      {
-       "type": "boolean",
-       "name": "Respondent2DOBIDK",
-       "startWithNewLine": false,
-       "title": "I don't know the exact date"
-      },
-      {
-       "type": "helptext",
-       "name": "question15",
-       "title": "What if I don't know what address to use?",
-       "titleLocation": "hidden",
-       "body": "You don't need to use {respondent1.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying."
-      },
-      {
-       "type": "address",
-       "name": "Respondent2Address",
-       "title": "What is {respondent2.name's} mailing address?"
-      },
-      {
-       "type": "text",
-       "name": "Respondent2Email",
-       "title": "Email (Optional)"
-      },
-      {
-       "type": "text",
-       "name": "Respondent2Phone",
-       "startWithNewLine": false,
-       "title": "Phone Number",
-       "inputType": "tel"
-      },
-      {
-       "type": "text",
-       "name": "Respondent2Fax",
-       "startWithNewLine": false,
-       "title": "Fax Number (Optional)",
-       "inputType": "tel"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{Respondent2Needed} = 'y'"
-    },
-    {
-     "type": "yesno",
-     "name": "Respondent3Needed",
-     "visible": false,
-     "visibleIf": "{Respondent2Needed} = 'y'",
-     "title": "Is there anyone else, other than {respondent1.name} and {respondent2.name} that {applicant} (or their children) needs protection from?"
     }
    ]
   },
@@ -330,7 +225,8 @@
    "elements": [
     {
      "type": "yesno",
-     "name": "ChildrenInvolved"
+     "name": "ChildrenInvolved",
+     "title": "Does {applicant} and/or {respondent1} have children?"
     },
     {
      "type": "text",
@@ -450,36 +346,190 @@
            "text": "Legal Guardian"
           }
          ]
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1DOBIDK} = 'minor' or {Child1AdultNeedsProtection} = 'y' or {Child1IsAdult} = 'item1' or {Child1IsAdult} = 'item2'"
+      },
+      {
+       "type": "panel",
+       "name": "Guardianship",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantGuardian",
+         "title": "Is {applicant.name} a guardian of {child1.name}?"
         },
         {
-         "type": "radiogroup",
-         "name": "Child1RelationshipWRespondent2",
+         "type": "yesno",
+         "name": "Child1Respondent1Guardian",
+         "title": "Is {respondent1.name} a guardian of {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1OtherGuardians",
+         "title": "Does {child1.name} have any more guardians?"
+        },
+        {
+         "type": "text",
+         "name": "Child1OtherGuardiansAmount",
          "visible": false,
-         "visibleIf": "{Respondent2Needed} = 'y'",
-         "title": "How is {respondent2.name} related to {child1.name}?",
-         "hasOther": true,
-         "choices": [
+         "visibleIf": "{Child1OtherGuardians} = 'y'",
+         "title": "How many other guardians does {child1.name} have?",
+         "inputType": "number"
+        },
+        {
+         "type": "paneldynamic",
+         "name": "question50",
+         "visible": false,
+         "visibleIf": "{Child1OtherGuardiansAmount} >= '1'",
+         "templateElements": [
           {
-           "value": "father",
-           "text": "Father"
-          },
-          {
-           "value": "item2",
-           "text": "Mother"
-          },
-          {
-           "value": "item3",
-           "text": "Step-Parent"
-          },
-          {
-           "value": "item4",
-           "text": "Legal Guardian"
+           "type": "text",
+           "name": "Child1OtherGuardian1",
+           "visible": false,
+           "visibleIf": "{Child1OtherGuardiansAmount} >= 1",
+           "title": "Full name of {child1.name}'s other guardian"
           }
          ]
         }
        ],
        "visible": false,
-       "visibleIf": "{Child1DOBIDK} = 'minor' or {Child1AdultNeedsProtection} = 'y' or {Child1IsAdult} = 'item1' or {Child1IsAdult} = 'item2'"
+       "visibleIf": "{ChildrenAmount} >= '1'",
+       "title": "Guardianship is not the same as being parent. Here is what guardian means..."
+      },
+      {
+       "type": "yesno",
+       "name": "AllGuardiansEntered",
+       "title": "Have you listed all of {child1.name}'s guardians?"
+      },
+      {
+       "type": "panel",
+       "name": "panel9",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantPTime",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantGuardian} = 'y'",
+         "title": "Does {applicant.name} spend time with {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1Respondent1PTime",
+         "visible": false,
+         "visibleIf": "{Child1Respondent1Guardian} = 'y'",
+         "title": "Does {respondent1.name} spend time with {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1OtherGuardian1PTime",
+         "visible": false,
+         "visibleIf": "{Child1OtherGuardian1} notempty",
+         "title": "Does {child1.other.guardian1.name} spend time with {child1}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1EqualPTime",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantPTime} = 'y' and {Child1Respondent1PTime} = 'y'",
+         "title": "Does {child1.name} spend time equally between {applicant.name} and {respondent1.name}?",
+         "description": "Visible If {child1} spends time with more than 1 Guardian"
+        },
+        {
+         "type": "checkbox",
+         "name": "question38",
+         "visible": false,
+         "visibleIf": "{Child1EqualPTime} = 'n'",
+         "title": "Which guardian(s) does Child1 spend the most time with?",
+         "choices": [
+          {
+           "value": "item1",
+           "text": "{applicant.name}"
+          },
+          {
+           "value": "item2",
+           "text": "{respondent1.name}"
+          },
+          {
+           "value": "item3",
+           "text": "{respondent2.name}"
+          },
+          {
+           "value": "item4",
+           "text": "{child1otherguardian1.name}"
+          }
+         ]
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1UnequalPTime",
+         "visible": false,
+         "visibleIf": "{Child1EqualPTime} = 'n'",
+         "title": "How much time does [Unequal GuardianX] spend with {child1.name}?",
+         "description": "Display this question for each guardian not selected in above question",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "3pw",
+           "text": "More than twice a week [generous and liberal]"
+          },
+          {
+           "value": "2pw",
+           "text": "At least twice a week"
+          },
+          {
+           "value": "1pw",
+           "text": "At least once a week"
+          },
+          {
+           "value": "2pm",
+           "text": "At least every other week"
+          },
+          {
+           "value": "1pm",
+           "text": "At least once a month"
+          },
+          {
+           "value": "1py",
+           "text": "At least once a year"
+          }
+         ]
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{AllGuardiansEntered} = 'y'",
+       "title": "Parenting Time"
+      },
+      {
+       "type": "panel",
+       "name": "panel8",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "question2",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantGuardian} = 'y'",
+         "title": "Can {applicant.name} make parenting decisions for {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "question15",
+         "visible": false,
+         "visibleIf": "{Child1Respondent1Guardian} = 'y'",
+         "title": "Can {respondent1.name} make parenting decisions for {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "question29",
+         "visible": false,
+         "visibleIf": "{Child1OtherGuardian1} notempty",
+         "title": "Can {child1.other.guardian1.name} make parenting decisions for {child1.name}?"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1EqualPTime} = 'y' or {Child1EqualPTime} = 'n'",
+       "title": "Parenting Decisions"
       }
      ],
      "visible": false,
@@ -488,419 +538,86 @@
     },
     {
      "type": "panel",
-     "name": "Child2Panel",
+     "name": "panel10",
      "elements": [
       {
-       "type": "text",
-       "name": "Child2Name",
-       "title": "Full name",
-       "valueName": "child2.name"
+       "type": "yesno",
+       "name": "question8",
+       "visible": false,
+       "title": "Does {applicant.name} have contact with {child1.name}?"
       },
       {
-       "type": "text",
-       "name": "Child2DOB",
-       "title": "Date of Birth",
-       "inputType": "date"
+       "type": "yesno",
+       "name": "question40",
+       "visible": false,
+       "title": "Is there an agreement or court order respecting this contact?"
       },
       {
        "type": "radiogroup",
-       "name": "Child2DOBIDK",
-       "startWithNewLine": false,
-       "choices": [
-        {
-         "value": "adult",
-         "text": "I don't know {child2.name}'s exact date of birth but I know they are 19 or older"
-        },
-        {
-         "value": "minor",
-         "text": "I don't know {child2.name}'s exact date of birth but I know they are younger than 19"
-        }
-       ]
-      },
-      {
-       "type": "checkbox",
-       "name": "Child2IsAdult",
+       "name": "question46",
        "visible": false,
-       "visibleIf": "{Child2DOBIDK} = 'adult'",
-       "title": "{child2.name} is considered an adult. For the purposes of this service, we need to ask additional questions about their care, we need to know who they are living with etc..",
-       "choices": [
-        {
-         "value": "item1",
-         "text": "Post-secondary tuition"
-        },
-        {
-         "value": "item2",
-         "text": "Accessibility Issues"
-        },
-        {
-         "value": "none",
-         "text": "None of the above"
-        }
-       ]
-      },
-      {
-       "type": "yesno",
-       "name": "Child2AdultNeedsProtection",
-       "visible": false,
-       "visibleIf": "{Child2DOBIDK} = 'adult' and {Child2IsAdult} = 'none'",
-       "title": "Does {child2.name} need protection from {respondent1.name} (or {respondent2.name})?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child2RelationshipsSame",
-       "visible": false,
-       "visibleIf": "{Child2DOBIDK} = 'minor' or {Child2AdultNeedsProtection} = 'y' or {Child2IsAdult} = 'item1' or {Child2IsAdult} = 'item2'",
-       "title": "Are {child2}'s relationship to {applicant} and {respondent1}, {respondent2} the same as {child1}?"
-      },
-      {
-       "type": "panel",
-       "name": "Child2PanelRelationships",
-       "elements": [
-        {
-         "type": "radiogroup",
-         "name": "Child2RelationshipWApplicant",
-         "title": "How is {applicant.name} related to {child2.name}?",
-         "hasOther": true,
-         "choices": [
-          {
-           "value": "father",
-           "text": "Father"
-          },
-          {
-           "value": "item2",
-           "text": "Mother"
-          },
-          {
-           "value": "item3",
-           "text": "Step-Parent"
-          },
-          {
-           "value": "item4",
-           "text": "Legal Guardian"
-          }
-         ]
-        },
-        {
-         "type": "radiogroup",
-         "name": "Child2RelationshipWRespondent1",
-         "title": "How is {respondent1.name} related to {child2.name}?",
-         "hasOther": true,
-         "choices": [
-          {
-           "value": "father",
-           "text": "Father"
-          },
-          {
-           "value": "item2",
-           "text": "Mother"
-          },
-          {
-           "value": "item3",
-           "text": "Step-Parent"
-          },
-          {
-           "value": "item4",
-           "text": "Legal Guardian"
-          }
-         ]
-        },
-        {
-         "type": "radiogroup",
-         "name": "Child2RelationshipWRespondent2",
-         "visible": false,
-         "visibleIf": "{Respondent2Needed} = 'y'",
-         "title": "How is {respondent2.name} related to {child2.name}?",
-         "hasOther": true,
-         "choices": [
-          {
-           "value": "father",
-           "text": "Father"
-          },
-          {
-           "value": "item2",
-           "text": "Mother"
-          },
-          {
-           "value": "item3",
-           "text": "Step-Parent"
-          },
-          {
-           "value": "item4",
-           "text": "Legal Guardian"
-          }
-         ]
-        }
-       ],
-       "visible": false,
-       "visibleIf": "{Child2RelationshipsSame} = 'n'"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{ChildrenAmount} >= '2'",
-     "title": "Information about Child 2"
-    }
-   ],
-   "title": "Children"
-  },
-  {
-   "name": "Guardianship",
-   "elements": [
-    {
-     "type": "panel",
-     "name": "Child1GuardianshipPanel",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "Child1ApplicantGuardian",
-       "title": "Is {applicant.name} a guardian of {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1Respondent1Guardian",
-       "title": "Is {respondent1.name} a guardian of {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1Respondent2Guardian",
-       "visible": false,
-       "visibleIf": "{Respondent2Needed} = 'y'",
-       "title": "Is {respondent2.name} a guardian of {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1OtherGuardians",
-       "title": "Does {child1.name} have any more guardians?"
-      },
-      {
-       "type": "text",
-       "name": "Child1OtherGuardiansAmount",
-       "visible": false,
-       "visibleIf": "{Child1OtherGuardians} = 'y'",
-       "title": "How many other guardians does {child1.name} have?",
-       "inputType": "number"
-      },
-      {
-       "type": "text",
-       "name": "Child1OtherGuardian1",
-       "visible": false,
-       "visibleIf": "{Child1OtherGuardiansAmount} >= 1",
-       "title": "Full name of guardian"
-      },
-      {
-       "type": "text",
-       "name": "Child1OtherGuardian2",
-       "visible": false,
-       "visibleIf": "{Child1OtherGuardiansAmount} >= 2",
-       "title": "Full name of guardian"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{ChildrenAmount} >= '1'"
-    },
-    {
-     "type": "panel",
-     "name": "Child2GuardianshipSamePanel",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "Child2GuardiansSame",
-       "title": "Are {child2.name}'s guardians the same as {child1.name}?"
-      },
-      {
-       "type": "panel",
-       "name": "Child2GuardianshipPanel",
-       "elements": [
-        {
-         "type": "yesno",
-         "name": "Child2ApplicantGuardian",
-         "title": "Is {applicant.name} a guardian of {child2.name}?"
-        },
-        {
-         "type": "yesno",
-         "name": "Child2Respondent1Guardian",
-         "title": "Is {respondent1.name} a guardian of {child2.name}?"
-        },
-        {
-         "type": "yesno",
-         "name": "Child2Respondent2Guardian",
-         "visible": false,
-         "visibleIf": "{Respondent2Needed} = 'y'",
-         "title": "Is {respondent2.name} a guardian of {child2.name}?"
-        },
-        {
-         "type": "yesno",
-         "name": "Child2OtherGuardians",
-         "title": "Does {child2.name} have any more guardians?"
-        },
-        {
-         "type": "text",
-         "name": "Child2OtherGuardiansAmount",
-         "visible": false,
-         "visibleIf": "{Child2OtherGuardians} = 'y'",
-         "title": "How many other guardians does {child2.name} have?",
-         "inputType": "number"
-        },
-        {
-         "type": "text",
-         "name": "Child2OtherGuardian1",
-         "visible": false,
-         "visibleIf": "{Child2OtherGuardiansAmount} >= 1",
-         "title": "Full name of guardian"
-        },
-        {
-         "type": "text",
-         "name": "Child2OtherGuardian2",
-         "visible": false,
-         "visibleIf": "{Child2OtherGuardiansAmount} >= 2",
-         "title": "Full name of guardian"
-        }
-       ],
-       "visible": false,
-       "visibleIf": "{Child2GuardiansSame} = 'n'"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{ChildrenAmount} >= '2'"
-    }
-   ],
-   "visible": false,
-   "visibleIf": "{ChildrenAmount} > '0'",
-   "title": "Guardianship"
-  },
-  {
-   "name": "P Time",
-   "elements": [
-    {
-     "type": "panel",
-     "name": "panel1",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "Child1ApplicantPTime",
-       "visible": false,
-       "visibleIf": "{Child1ApplicantGuardian} = 'y'",
-       "title": "Does {applicant.name} spend time with {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1Respondent1PTime",
-       "visible": false,
-       "visibleIf": "{Child1Respondent1Guardian} = 'y'",
-       "title": "Does {respondent1.name} spend time with {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1Respondent2PTime",
-       "visible": false,
-       "visibleIf": "{Child1Respondent2Guardian} = 'y'",
-       "title": "Does {respondent2.name} spend time with {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1OtherGuardian1PTime",
-       "visible": false,
-       "visibleIf": "{Child1OtherGuardian1} notempty",
-       "title": "Does {child1.other.guardian1.name} spend time with {child1}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1OtherGuardian2PTime",
-       "visible": false,
-       "visibleIf": "{Child1OtherGuardian2} notempty",
-       "title": "Does {child1.other.guardian2.name} spend time with {child1}?"
-      },
-      {
-       "type": "yesno",
-       "name": "Child1EqualPTime",
-       "visible": false,
-       "title": "Does {child1} spend time equally between [GuardianX] and [GuardianY]?",
-       "description": "Visible If {child1} spends time with more than 1 Guardian"
-      },
-      {
-       "type": "checkbox",
-       "name": "Child1MainGuardians",
-       "visible": false,
-       "visibleIf": "{Child1EqualPTime} = 'n'",
-       "title": "Which guardian(s) does Child1 spend the most time with?",
-       "choices": [
-        {
-         "value": "item1",
-         "text": "{applicant.name}"
-        },
-        {
-         "value": "item2",
-         "text": "{respondent1.name}"
-        },
-        {
-         "value": "item3",
-         "text": "{respondent2.name}"
-        },
-        {
-         "value": "item4",
-         "text": "{child1otherguardian1.name"
-        }
-       ]
-      },
-      {
-       "type": "radiogroup",
-       "name": "Child1UnequalPTime",
-       "visible": false,
-       "visibleIf": "{Child1EqualPTime} = 'n'",
-       "title": "How much time does [Unequal GuardianX] spend with {child1.name}?",
-       "description": "Display this question for each guardian not selected in above question",
+       "title": "What kind of contact does {applicant.name} have with {child1.name}?",
        "hasOther": true,
        "choices": [
         {
-         "value": "3pw",
-         "text": "More than twice a week [generous and liberal]"
+         "value": "y",
+         "text": "As agreed upon to between {applicant.name} and {respondent1.name}"
         },
         {
-         "value": "2pw",
-         "text": "At least twice a week"
-        },
-        {
-         "value": "1pw",
-         "text": "At least once a week"
-        },
-        {
-         "value": "2pm",
-         "text": "At least every other week"
-        },
-        {
-         "value": "1pm",
-         "text": "At least once a month"
-        },
-        {
-         "value": "1py",
-         "text": "At least once a year"
+         "value": "n",
+         "text": "Supervised contact/in presence of someone else"
         }
        ]
+      },
+      {
+       "type": "yesno",
+       "name": "question47",
+       "visibleIf": "{Child1ApplicantGuardian} = 'n'",
+       "title": "Does {respondent1.name} have contact with {child1.name}?"
+      },
+      {
+       "type": "yesno",
+       "name": "question48",
+       "visibleIf": "{Child1Respondent1Guardian} = 'n'",
+       "title": "Does {respondent2.name} have contact with {child1.name}?"
+      },
+      {
+       "type": "yesno",
+       "name": "question1",
+       "visible": false,
+       "visibleIf": "{question48} = 'y'",
+       "title": "Is there an agreement or court order respecting this contact?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "question4",
+       "visible": false,
+       "visibleIf": "{question1}= 'y'",
+       "title": "What kind of contact does {applicant.name} have with {child1.name}?",
+       "hasOther": true,
+       "choices": [
+        {
+         "value": "y",
+         "text": "As agreed upon to between {applicant.name} and {respondent1.name}"
+        },
+        {
+         "value": "n",
+         "text": "Supervised contact/in presence of someone else"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "question49",
+       "visible": false,
+       "visibleIf": "{question29} = 'n'",
+       "title": "Does {child1otherguardian1name} have contact with {child1.name}?"
       }
-     ]
-    },
-    {
-     "type": "yesno",
-     "name": "Child2PTimeSame",
-     "title": "Is the amount of time that {child1.name}'s guardians spend with {child1.name} the same for {child2.name}?"
+     ],
+     "visible": false
     }
    ],
-   "title": "Parenting Time",
-   "description": "This page displays if there are any children with more than 1 guardian"
-  },
-  {
-   "name": "P Responsibilities",
-   "elements": [
-    {
-     "type": "yesno",
-     "name": "question1",
-     "title": "Can [Guardian1] make parenting decisions for {child1.name}?"
-    },
-    {
-     "type": "yesno",
-     "name": "question2",
-     "title": "Can [Guardian2] make parenting decisions for {child1.name}?"
-    }
-   ]
+   "title": "Children"
   },
   {
    "name": "Contact",
@@ -936,26 +653,6 @@
          "text": "Supervised contact/in presence of someone else"
         }
        ]
-      },
-      {
-       "type": "yesno",
-       "name": "question5",
-       "title": "Does {respondent1.name} have contact with {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "question4",
-       "title": "Does {respondent2.name} have contact with {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "question6",
-       "title": "Does {child1otherguardian1name} have contact with {child1.name}?"
-      },
-      {
-       "type": "yesno",
-       "name": "question8",
-       "title": "Does {child1otherguardian2name} have contact with {child1.name}?"
       }
      ]
     }
