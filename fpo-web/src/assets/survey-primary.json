@@ -5,80 +5,15 @@
    "name": "Applicant",
    "elements": [
     {
-     "type": "yesno",
-     "name": "YouNeedProtection",
-     "title": "Do you (and/or your children) need protection from family violence?"
-    },
-    {
-     "type": "yesno",
-     "name": "ThirdPartyApplicant",
-     "visible": false,
-     "visibleIf": "{YouNeedProtection} = 'n'",
-     "title": "Are you applying on behalf of someone else?",
-     "description": "Anybody can apply on behalf of an at-risk family of the respondent. Even a police officer, an advocate or a neighbour."
-    },
-    {
-     "type": "infotext",
-     "name": "ThirdPartyApplicantYes",
-     "visible": false,
-     "visibleIf": "{ThirdPartyApplicant} = 'y'",
-     "title": "We need your information as the person who is applying, but we also need the information for the person who needs protection.",
-     "titleLocation": "hidden"
-    },
-    {
-     "type": "panel",
-     "name": "ThirdPartyPanel",
-     "elements": [
-      {
-       "type": "text",
-       "name": "ThirdPartyName",
-       "title": "What is your name?",
-       "valueName": "third.party.name",
-       "placeHolder": "Full name"
-      },
-      {
-       "type": "text",
-       "name": "ThirdPartyDOB",
-       "title": "What is your Date of Birth?",
-       "inputType": "date"
-      },
-      {
-       "type": "helptext",
-       "name": "question7",
-       "title": "What if I don't want to use my home address?",
-       "body": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one.",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "address",
-       "name": "ThirdPartyAddress",
-       "title": "Address"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{ThirdPartyApplicant} = 'y'"
-    },
-    {
      "type": "panel",
      "name": "ApplicantPanel",
      "elements": [
       {
        "type": "text",
        "name": "ApplicantNameNoThirdParty",
-       "visible": false,
-       "visibleIf": "{YouNeedProtection} = 'y'",
        "title": "What is your name?",
        "valueName": "applicant.name",
        "placeHolder": "Full name - Is it OK if two questions have the same name?"
-      },
-      {
-       "type": "text",
-       "name": "ApplicantNameYesThirdParty",
-       "visible": false,
-       "visibleIf": "{ThirdPartyApplicant} = 'y' and {YouNeedProtection} = 'n'",
-       "title": "What is the name of the person who needs protection?",
-       "valueName": "applicant.name",
-       "placeHolder": "Is it OK if two questions have the same name?"
       },
       {
        "type": "text",
@@ -90,8 +25,8 @@
        "type": "helptext",
        "name": "question7",
        "title": "What if I don't want to use my home address?",
-       "body": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one.",
-       "titleLocation": "hidden"
+       "titleLocation": "hidden",
+       "body": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one."
       },
       {
        "type": "address",
@@ -103,43 +38,41 @@
        "name": "LawyerAddress",
        "title": "Is this a lawyer's address?",
        "description": "You can use one if you pay your lawyer to send and receive mail for you."
+      },
+      {
+       "type": "panel",
+       "name": "LawyerContactPanel",
+       "elements": [
+        {
+         "type": "text",
+         "name": "LawyerName",
+         "title": "What is the lawyer's name?",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "LawyerEmail",
+         "title": "Lawyer's Email (Optional)"
+        },
+        {
+         "type": "text",
+         "name": "LawyerPhone",
+         "startWithNewLine": false,
+         "title": "Lawyer's Phone Number",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "LawyerFax",
+         "startWithNewLine": false,
+         "title": "Lawyer's Fax Number (Optional)",
+         "inputType": "tel"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{LawyerAddress} = 'y'"
       }
-     ],
-     "visible": false,
-     "visibleIf": "{YouNeedProtection} = 'y' or {ThirdPartyApplicant} = 'y'"
-    },
-    {
-     "type": "panel",
-     "name": "LawyerContactPanel",
-     "elements": [
-      {
-       "type": "text",
-       "name": "LawyerName",
-       "title": "What is the lawyer's name?",
-       "inputType": "tel"
-      },
-      {
-       "type": "text",
-       "name": "LawyerEmail",
-       "title": "Lawyer's Email (Optional)"
-      },
-      {
-       "type": "text",
-       "name": "LawyerPhone",
-       "startWithNewLine": false,
-       "title": "Lawyer's Phone Number",
-       "inputType": "tel"
-      },
-      {
-       "type": "text",
-       "name": "LawyerFax",
-       "startWithNewLine": false,
-       "title": "Lawyer's Fax Number (Optional)",
-       "inputType": "tel"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{LawyerAddress} = 'y'"
+     ]
     },
     {
      "type": "panel",
@@ -250,8 +183,8 @@
        "type": "helptext",
        "name": "question7",
        "title": "What if I don't know what address to use?",
-       "body": "You don't need to use {respondent2.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying.",
-       "titleLocation": "hidden"
+       "titleLocation": "hidden",
+       "body": "You don't need to use {respondent2.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying."
       },
       {
        "type": "address",
@@ -352,8 +285,8 @@
        "type": "helptext",
        "name": "question15",
        "title": "What if I don't know what address to use?",
-       "body": "You don't need to use {respondent1.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying.",
-       "titleLocation": "hidden"
+       "titleLocation": "hidden",
+       "body": "You don't need to use {respondent1.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondent1.name} will be staying."
       },
       {
        "type": "address",
