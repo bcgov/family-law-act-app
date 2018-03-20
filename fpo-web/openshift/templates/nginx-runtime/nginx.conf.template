@@ -68,7 +68,7 @@ http {
 
         # Forward URL if not using path prefix
         if ($request_uri !~ "^/protection-order/") {
-            return 302 //$hostname/protection-order$request_uri;
+            return 302 //$host/protection-order$request_uri;
         }
 
         # Remove path prefix when handling files
