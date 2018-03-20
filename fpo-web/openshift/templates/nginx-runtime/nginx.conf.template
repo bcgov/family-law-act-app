@@ -55,8 +55,9 @@ http {
     auth_basic_user_file /tmp/.htpasswd;
 
     server {
-        listen       8080;
+        listen       8080 proxy_protocol;
         server_name  localhost;
+        real_ip_header proxy_protocol;
 
         # add in most common security headers
         add_header Content-Security-Policy "default-src * data: blob: filesystem: 'unsafe-inline' 'unsafe-eval'";
@@ -67,7 +68,7 @@ http {
 
         # Forward URL if not using path prefix
         if ($request_uri !~ "^/protection-order/") {
-            return 302 /protection-order$request_uri;
+            return 302 //$hostname/protection-order$request_uri;
         }
 
         # Remove path prefix when handling files
