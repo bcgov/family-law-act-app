@@ -65,8 +65,13 @@ http {
         add_header X-XSS-Protection 1;
         add_header X-Frame-Options DENY;
 
-        # Remove path prefix used by SiteMinder
-        rewrite ^/protection-order/(.*)\$ /\$1 last;
+        # Forward URL if not using path prefix
+        if ($request_uri !~ "^/protection-order/") {
+            return 302 /protection-order$request_uri;
+        }
+
+        # Remove path prefix when handling files
+        rewrite ^/protection-order/(.*)$ /$1 last;
 
         %API_CONFIG_SECTION%
 

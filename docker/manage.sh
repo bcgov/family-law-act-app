@@ -221,6 +221,9 @@ case "$1" in
   build-api)
     build-api
     ;;
+  build-web)
+    build-web
+    ;;
   *)
     usage
 esac
