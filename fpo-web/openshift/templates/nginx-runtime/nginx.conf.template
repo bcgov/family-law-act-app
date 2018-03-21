@@ -21,6 +21,12 @@ http {
         %RealIpFrom% 0;
     }
 
+    # use schema suggested by proxy if any
+    map $http_x_forwarded_proto $real_scheme {
+        default $http_x_forwarded_proto;
+        ''      $scheme;
+    }
+
     # Use a w3c standard log format
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" '
@@ -55,9 +61,8 @@ http {
     auth_basic_user_file /tmp/.htpasswd;
 
     server {
-        listen       8080 proxy_protocol;
+        listen       8080;
         server_name  localhost;
-        real_ip_header proxy_protocol;
 
         # add in most common security headers
         add_header Content-Security-Policy "default-src * data: blob: filesystem: 'unsafe-inline' 'unsafe-eval'";
@@ -68,7 +73,7 @@ http {
 
         # Forward URL if not using path prefix
         if ($request_uri !~ "^/protection-order/") {
-            return 302 //$host/protection-order$request_uri;
+            return 301 $real_scheme://$http_host/protection-order$request_uri;
         }
 
         # Remove path prefix when handling files
