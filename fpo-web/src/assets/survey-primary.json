@@ -532,153 +532,92 @@
       "title": "Children"
      },
      {
-      "name": "POR Protected Parties",
+      "name": "Other Protected Parties",
       "elements": [
        {
         "type": "infotext",
-        "name": "question10",
-        "title": "This is a list of people who qualify to be on a Family Law Protection Order from {respondentName} and/or {respondent2.name}.\n{ApplicantName}\n{childName}\n{child2.name}\n{child1otherguardianname}",
+        "name": "helpProtectedParties",
+        "title": "So far, we have determined that the applicant needs protection through this Family Protection Order, as well as any children you marked as needing protection.  In the following, you can add any other family members that likewise need protection from the respondent.",
         "titleLocation": "hidden"
        },
        {
-        "type": "checkbox",
-        "name": "question22",
-        "title": "Who needs to be on the FLA Protection Order from {respondentName}?",
-        "choices": [
-         {
-          "value": "item1",
-          "text": "{ApplicantName}"
-         },
-         {
-          "value": "item2",
-          "text": "{childName}"
-         },
-         {
-          "value": "item3",
-          "text": "{child2.name}"
-         }
-        ]
-       },
-       {
         "type": "yesno",
-        "name": "question9",
-        "title": "Are there any other family members of {ApplicantName} (, {childName} or {child2.name}) who need protection from {respondentName}?"
+        "name": "isMoreProtectees",
+        "title": "Are there any other family members who need protection from {respondentName}?"
        },
        {
-        "type": "panel",
-        "name": "panel3",
-        "elements": [
+        "type": "paneldynamic",
+        "name": "otherProtectees",
+        "visible": false,
+        "visibleIf": "{isMoreProtectees} = 'y'",
+        "title": "Add other family members needing protection",
+        "templateElements": [
          {
           "type": "text",
-          "name": "question11",
+          "name": "protecteeName",
           "title": "Full Name"
          },
          {
           "type": "text",
-          "name": "question12",
-          "title": "What is {.name}'s date of birth?",
+          "name": "protcteeDOB",
+          "title": "What is {protecteeName}'s date of birth?",
           "inputType": "date"
          },
          {
           "type": "boolean",
-          "name": "question13",
+          "name": "protecteeDOBIDK",
           "startWithNewLine": false,
           "title": "I don't know the exact date"
          },
          {
           "type": "radiogroup",
-          "name": "question",
-          "title": "How is {name} related to {applicant}, {child1} etc?",
+          "name": "protecteeRelationship",
+          "title": "How is {protecteeName} related to {applicant} or one of the children?",
           "choices": [
            {
-            "value": "item3",
+            "value": "currentPartnerApplicant",
             "text": "current partner of applicant"
            },
            {
-            "value": "item1",
+            "value": "familyMemberApplicant",
             "text": "family member of applicant"
            },
            {
-            "value": "item2",
+            "value": "familyMemberChild",
             "text": "family member of one of the children"
            },
            {
-            "value": "none",
+            "value": "None",
             "text": "none of the above"
            }
           ]
          }
         ],
-        "visible": false,
-        "visibleIf": "{question9} = 'y'"
-       },
-       {
-        "type": "paneldynamic",
-        "name": "question14",
-        "templateElements": [
-         {
-          "type": "panel",
-          "name": "panel4",
-          "elements": [
-           {
-            "type": "text",
-            "name": "question16",
-            "title": "Full Name"
-           },
-           {
-            "type": "text",
-            "name": "question17",
-            "title": "What is {.name}'s date of birth?",
-            "inputType": "date"
-           },
-           {
-            "type": "boolean",
-            "name": "question18",
-            "startWithNewLine": false,
-            "title": "I don't know the exact date"
-           },
-           {
-            "type": "radiogroup",
-            "name": "question19",
-            "title": "How is {name} related to {applicant}, {child1} etc?",
-            "choices": [
-             {
-              "value": "item3",
-              "text": "current partner of applicant"
-             },
-             {
-              "value": "item1",
-              "text": "family member of applicant"
-             },
-             {
-              "value": "item2",
-              "text": "family member of one of the children"
-             },
-             {
-              "value": "none",
-              "text": "none of the above"
-             }
-            ]
-           }
-          ]
-         }
-        ]
-       },
+        "panelAddText": "Add Family Member to be added to Family Protection Order",
+        "panelRemoveText": "Remove"
+       }
+      ],
+      "title": "Other Protected Parties",
+      "description": "Click the \"Add Family Member\" button to add individuals needing protection as part of this Family Protection Order."
+     },
+     {
+      "name": "Living Situation",
+      "elements": [
        {
         "type": "yesno",
-        "name": "question23",
-        "title": "Does {respondentName} currently live with any of [names of pending protect parties]?",
+        "name": "isRespondentLivingWithProtectees",
+        "title": "Does {respondentName} currently live with any of individuals to be protected as a result of this Family Protection Order?",
         "description": "we'll need lots of info here or expanding question topic about what it means to \"currently live\" with someone. in other words, ran away to a shelter/couch surfing vs moved out a month ago. FLA 184(4)"
        },
        {
         "type": "yesno",
-        "name": "question26",
+        "name": "ynStayInFamilyHome",
         "title": "Does anyone want to stay in the family home?"
        },
        {
         "type": "radiogroup",
-        "name": "question25",
-        "title": "Do you think you need the police to remove [respondent1] from where [applicants/children] live or are they leaving on their own?",
+        "name": "needPoliceForRespondentToLeave",
+        "title": "Do you think you need the police to remove {respondentName} from where any of those to be protected live or are they leaving on their own?",
         "choices": [
          {
           "value": "y",
@@ -692,96 +631,72 @@
        },
        {
         "type": "panel",
-        "name": "panel5",
+        "name": "removeRespondentAddress",
         "elements": [
          {
           "type": "yesno",
-          "name": "question42",
-          "title": "Same as {ApplicantName}'s address provided?"
+          "name": "isRemoveAddressSameAsApplicant",
+          "title": "The address provided for {ApplicantName}?"
          },
          {
           "type": "address",
-          "name": "question30",
-          "title": "Address"
+          "name": "removeAddress",
+          "visible": false,
+          "visibleIf": "{isRemoveAddressSameAsApplicant} = 'n'",
+          "title": "Address where police assistance will be needed to remove {respondentName}"
          }
         ],
         "visible": false,
-        "visibleIf": "{YouNeedProtection} = 'y' or {ThirdPartyApplicant} = 'y'",
-        "title": "What is the address of the family home?"
+        "visibleIf": "{needPoliceForRespondentToLeave} = 'y'",
+        "title": "What is the address from which you need police assistance in removing {respondentName}?"
        },
        {
         "type": "yesno",
-        "name": "question24",
-        "title": "Does {respondentName} have any of [list of pending protected parties]'s personal belongings?"
+        "name": "doesRespondentHavePersonalBelongings",
+        "title": "Does {respondentName} have personal belongings of any of the individuals to be protected through this order that needs to be retrieved?"
        },
        {
         "type": "yesno",
-        "name": "question27",
+        "name": "needPoliceAssistanceToGetBelongings",
+        "visible": false,
+        "visibleIf": "{doesRespondentHavePersonalBelongings} = 'y'",
         "title": "Do you think you need the police assistance to get personal belongings from {respondentName}?"
        },
        {
         "type": "panel",
-        "name": "panel6",
+        "name": "getBelongsAddressPanel",
         "elements": [
          {
           "type": "yesno",
-          "name": "question41",
-          "title": "Same as {ApplicantName}'s address provided?"
+          "name": "isApplicantAddressGetBelongingsAddress",
+          "title": "The address provided for {ApplicantName}?"
          },
          {
           "type": "address",
-          "name": "question42",
-          "title": "Address"
+          "name": "addressGetBelongings",
+          "visible": false,
+          "visibleIf": "{isApplicantAddressGetBelongingsAddress} = 'n'",
+          "title": "Address at which you need police assistance to get personal belongings"
          }
         ],
         "visible": false,
-        "visibleIf": "{YouNeedProtection} = 'y' or {ThirdPartyApplicant} = 'y'",
-        "title": "What is the address of the family home?"
+        "visibleIf": "{needPoliceAssistanceToGetBelongings} = 'y'",
+        "title": "What is the address at which you need police assistance in getting personal belongings from {respondentName}?"
        },
        {
         "type": "yesno",
-        "name": "question28",
-        "title": "Does [names of pending protected parties] have any {respondentName}'s personal belongings?",
-        "description": "Leave out the stolen items. make the help text more about clothing and daily-needed items. the whole point is to avoid having to come back and forth to grab stuff each time."
-       },
-       {
-        "type": "yesno",
-        "name": "question43",
-        "title": "Do you think you need the police to accompany you to remove personal belongings from where {respondentName} lives?"
-       },
-       {
-        "type": "panel",
-        "name": "panel7",
-        "elements": [
-         {
-          "type": "yesno",
-          "name": "question51",
-          "title": "Same as {respondentName}'s address you provided?"
-         },
-         {
-          "type": "address",
-          "name": "question45",
-          "title": "Address"
-         }
-        ],
-        "visible": false,
-        "visibleIf": "{YouNeedProtection} = 'y' or {ThirdPartyApplicant} = 'y'",
-        "title": "What is the address of the family home?"
-       },
-       {
-        "type": "yesno",
-        "name": "question44",
+        "name": "question30",
         "title": "Would {respondentName} need to contact you for ongoing court thing?",
         "description": "Even with a No Contact order, there may be times where it is important to contact each for certain purposes."
        },
        {
         "type": "yesno",
-        "name": "question52",
+        "name": "question41",
         "title": "Is there any third parties that {respondentName} and {applicant} you can communicate through?"
        },
        {
         "type": "checkbox",
-        "name": "question53",
+        "name": "question42",
         "title": "Tell us who",
         "hasOther": true,
         "choices": [
@@ -801,12 +716,12 @@
        },
        {
         "type": "yesno",
-        "name": "question54",
+        "name": "question43",
         "title": "Does {respondentName} need to contact {appliant.name} to arrange parentingtime/childcare/etc"
        },
        {
         "type": "checkbox",
-        "name": "question55",
+        "name": "question44",
         "title": "methods?",
         "hasOther": true,
         "choices": [
@@ -826,16 +741,96 @@
        },
        {
         "type": "yesno",
-        "name": "question56",
+        "name": "question45",
         "title": "Any other reason that {respondentName} would need to contact {applicant}?"
        },
        {
         "type": "text",
-        "name": "question57",
+        "name": "question51",
         "title": "What reason(s)?"
        }
       ],
-      "title": "POR Protected Parties"
+      "title": "Living Situation"
+     },
+     {
+      "name": "Contacts",
+      "elements": [
+       {
+        "type": "yesno",
+        "name": "needContactForCourtMatter",
+        "title": "Would {respondentName} need to contact you regarding ongoing court matters?",
+        "description": "Even with a No Contact order, there may be times where it is important to contact each for certain purposes."
+       },
+       {
+        "type": "yesno",
+        "name": "isThirdPartiesForCommunication",
+        "visible": false,
+        "visibleIf": "{needContactForCourtMatter} = 'y'",
+        "title": "Are there any third parties through which {respondentName} and {applicantName} can communicate?"
+       },
+       {
+        "type": "checkbox",
+        "name": "thirdPartiesForContact",
+        "visible": false,
+        "visibleIf": "{isThirdPartiesForCommunication} = 'y'",
+        "title": "Check each which can/should be used",
+        "hasOther": true,
+        "choices": [
+         {
+          "value": "lawyer",
+          "text": "Lawyer"
+         },
+         {
+          "value": "socialWorker",
+          "text": "Social Worker"
+         },
+         {
+          "value": "mutualFamilyMember",
+          "text": "Mutual Family Member"
+         }
+        ]
+       },
+       {
+        "type": "yesno",
+        "name": "needContactForParentingTime",
+        "title": "Does {respondentName} need to contact {applicantName} to arrange parenting time/childcare/etc.?"
+       },
+       {
+        "type": "checkbox",
+        "name": "contactMethodsForParentingTime",
+        "visible": false,
+        "visibleIf": "{needContactForParentingTime} = 'y'",
+        "title": "What contact methods can/should be used for coordinating parenting time, childcare, etc?",
+        "hasOther": true,
+        "choices": [
+         {
+          "value": "email",
+          "text": "EMail"
+         },
+         {
+          "value": "text",
+          "text": "SMS/text messaging"
+         },
+         {
+          "value": "phone",
+          "text": "Telephone"
+         }
+        ]
+       },
+       {
+        "type": "yesno",
+        "name": "isOtherReasonForContact",
+        "title": "Are there any other reasons that {respondentName} would need to contact {applicantName}?"
+       },
+       {
+        "type": "text",
+        "name": "otherReasonForContact",
+        "visible": false,
+        "visibleIf": "{isOtherReasonForContact} = 'y'",
+        "title": "Describe the other reasons for contact"
+       }
+      ],
+      "title": "Contact from Respondent"
      },
      {
       "name": "POR No Go",
