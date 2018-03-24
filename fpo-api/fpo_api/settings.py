@@ -192,3 +192,16 @@ LOGGING = {
         'propagate': False,
     },
 }
+
+# FPO survey cache
+from django.core.cache.backends import locmem
+SURVEY_CACHE = locmem.LocMemCache(
+	'survey-cache',
+	{
+		'TIMEOUT': 30*24*3600,
+		'MAX_ENTRIES': 1000,
+	})
+
+# For development (when no SiteMinder available)
+OVERRIDE_USER_ID = os.getenv('OVERRIDE_USER_ID')
+
