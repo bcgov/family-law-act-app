@@ -1,0 +1,7 @@
+<div class="survey-cache-info" *ngIf="cacheLoadTime">
+  <span class="cache-time">{{ cacheLoadTime | date: 'medium' }}</span>
+  <button class="btn btn-default btn-sm" (click)="resetCache()">Restart Survey</button>
+</div>
+<div class="survey-container contentcontainer codecontainer">
+  <div id="surveyElement"></div>
+</div>

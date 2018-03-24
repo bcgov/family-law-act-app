@@ -116,6 +116,15 @@ $indicator-thickness: 0.2em;
   .sv_page_description {
     margin-bottom: 10px;
   }
+  .sv_container {
+    > .panel-heading {
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+    > .panel-body {
+      padding-top: 0;
+    }
+  }
   h3 {
     font-size: 34px;
     font-weight: 600;
@@ -126,11 +135,12 @@ $indicator-thickness: 0.2em;
     margin: 5px 0;
   }
   .sv_p_title {
+    border-bottom: 2px solid #e0e3ee;
     font-size: 20px;
     font-weight: 600;
-    margin: 5px 0 8px;
+    margin: 5px 0 1.6rem;
     padding-bottom: 3px;
-    border-bottom: 2px solid #e0e3ee;
+    padding-left: 0.8em;
   }
   .sv_row {
     // border: 1px solid #ccf;

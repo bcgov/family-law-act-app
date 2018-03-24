@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SurveyPrimaryComponent implements OnInit {
 
+  public cacheName : string;
   public survey : any;
   public complete : Function;
 
@@ -15,6 +16,7 @@ export class SurveyPrimaryComponent implements OnInit {
 
   ngOnInit() {
     this.survey = this.route.snapshot.data.survey;
+    this.cacheName = this.route.snapshot.data.cache_name;
     this.complete = (data) => this.onComplete(data);
   }
 

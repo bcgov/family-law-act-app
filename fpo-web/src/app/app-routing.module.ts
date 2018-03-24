@@ -36,6 +36,7 @@ const routes: Routes = [
     },
     data: {
       breadcrumb: 'Provincial Family Test',
+      cache_name: 'primary',
       survey_path: 'assets/survey-primary.json',
     }
   },
@@ -47,20 +48,24 @@ const routes: Routes = [
     }
   },
   {
-    path: 'survey-test',
+    path: 'prv/survey-test',
     component: SurveyTestComponent,
     data: {
       breadcrumb: 'Survey Test'
     }
   },
+  { path: 'survey-editor',
+    redirectTo: 'prv/survey-editor'
+  },
   {
-    path: 'survey-editor',
+    path: 'prv/survey-editor',
     component: SurveyEditorComponent,
     resolve: {
       survey: SurveyResolver,
     },
     data: {
       breadcrumb: 'Survey Editor',
+      cache_name: 'editor',
       survey_path: 'assets/survey-primary.json'
     }
   }
