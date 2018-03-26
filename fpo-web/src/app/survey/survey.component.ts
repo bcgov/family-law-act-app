@@ -19,6 +19,7 @@ export class SurveyComponent  {
   public surveyModel: Survey.SurveyModel;
   public onPageUpdate: BehaviorSubject<Survey.SurveyModel> = new BehaviorSubject<Survey.SurveyModel>(null);
   private useLocalCache = false;
+  private disableCache = false;
 
   constructor(
     private dataService: GeneralDataService,
@@ -52,7 +53,7 @@ export class SurveyComponent  {
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
       this.onPageUpdate.next(sender);
-      this.saveCache();
+      if(! this.disableCache) this.saveCache();
     });
 
     this.surveyModel = surveyModel;
@@ -65,7 +66,7 @@ export class SurveyComponent  {
     this.onPageUpdate.next(surveyModel);
 
     // fetch previous survey results
-    this.loadCache();
+    if(! this.disableCache) this.loadCache();
   }
 
   get isFirstPage() {

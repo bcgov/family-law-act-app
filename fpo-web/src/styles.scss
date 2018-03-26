@@ -129,17 +129,14 @@ $indicator-thickness: 0.2em;
     margin-bottom: 10px;
   }
   .sv_container {
-    > .panel-heading {
-      padding-bottom: 0;
-      padding-top: 0;
-    }
-    > .panel-body {
-      padding-top: 0;
+    > .panel-heading, > .panel-body {
+      padding: 0;
     }
   }
   h3 {
     font-size: 34px;
     font-weight: 600;
+    margin: 0;
   }
   h4 {
     color: #556077;
@@ -150,9 +147,9 @@ $indicator-thickness: 0.2em;
     border-bottom: 2px solid #e0e3ee;
     font-size: 20px;
     font-weight: 600;
-    margin: 5px 0 1.6rem;
+    margin: 5px 0.3em 1.6rem;
     padding-bottom: 3px;
-    padding-left: 0.8em;
+    padding-left: 0.5em;
   }
   .sv_row {
     // border: 1px solid #ccf;
@@ -275,7 +272,7 @@ $indicator-thickness: 0.2em;
 }
 
 .survey-helptext {
-  background: #fff6f6;
+  background: #faf5e6;
   border: 1px solid #d8d0d0;
   .panel-heading {
     color: #5a5555;
