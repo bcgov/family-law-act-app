@@ -204,8 +204,8 @@ $indicator-thickness: 0.2em;
 }
 
 .survey-helptext, .survey-infotext {
-  background: #f8faff;
-  border: 1px solid #d3d3d8;
+  background: #e7efff;
+  border: 1px solid #c9d0d8;
   border-radius: 4px;
   margin: 0.5em 0 0 0;
   .panel-heading {
@@ -232,6 +232,18 @@ $indicator-thickness: 0.2em;
   }
   &.expanded .panel-body {
     display: block;
+  }
+}
+
+.survey-helptext {
+  background: #faf5e6;
+  border: 1px solid #d8d0d0;
+  .panel-heading {
+    color: #5a5555;
+  }
+  .panel-body {
+    background: #fff;
+    border: 1px solid #e9e0e0;
   }
 }
 
@@ -268,17 +280,5 @@ $indicator-thickness: 0.2em;
     background: #38598a;
     border: 2px solid #ccc;
     color: #fff;
-  }
-}
-
-.survey-helptext {
-  background: #faf5e6;
-  border: 1px solid #d8d0d0;
-  .panel-heading {
-    color: #5a5555;
-  }
-  .panel-body {
-    background: #fff;
-    border: 1px solid #e9e0e0;
   }
 }
