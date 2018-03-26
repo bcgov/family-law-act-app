@@ -24,7 +24,7 @@ export class SurveySidebarComponent  {
     if(model) {
       this.title = 'Survey Steps'; // model.title;
       let links = [];
-      model.pages.forEach( (page, idx) => {
+      model.visiblePages.forEach( (page, idx) => {
         links.push({
           index: idx,
           title: page.title || page.name,
