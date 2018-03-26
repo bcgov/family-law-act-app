@@ -152,11 +152,14 @@ function initHelpText(Survey) {
         let target = (<HTMLInputElement>event.target);
         question.value = target.checked;
       });
+
       let icon = document.createElement('span');
       icon.className = 'heading-icon fa fa-question-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      title.appendChild(document.createTextNode(question.title));
+      let titleContent = question.fullTitle;
+      title.innerHTML = titleContent;
+
       let expander = document.createElement('span');
       expander.className = 'heading-expand fa fa-chevron-down';
       lbl.appendChild(chk);
@@ -167,9 +170,16 @@ function initHelpText(Survey) {
       outer.appendChild(header);
       let body = document.createElement('div');
       body.className = 'panel-body';
+      //let bodyContent = question.getLocalizableString("body");
+      //bodyContent = question.getProcessedHtml(bodyContent.textOrHtml);
       body.appendChild(document.createTextNode(question.body || ''));
       outer.appendChild(body);
       el.appendChild(outer);
+
+      question.titleChangedCallback = function() {
+        let titleContent = question.fullTitle;
+        title.innerHTML = titleContent;
+      }
 
       question.valueChangedCallback = function() {
         outer.className = outerCls + (question.value ? ' expanded' : '');
@@ -215,13 +225,16 @@ function initInfoText(Survey) {
       header.className = 'panel-heading';
       let lbl = document.createElement('label');
       lbl.className = 'panel-title';
+
       let icon = document.createElement('span');
       icon.className = 'heading-icon fa fa-info-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      title.appendChild(document.createTextNode(question.title));
+      let titleContent = question.fullTitle;
+      title.innerHTML = titleContent;
       lbl.appendChild(icon);
       lbl.appendChild(title);
+
       header.appendChild(lbl);
       outer.appendChild(header);
       if(question.body) {
@@ -231,6 +244,11 @@ function initInfoText(Survey) {
         outer.appendChild(body);
       }
       el.appendChild(outer);
+
+      question.titleChangedCallback = function() {
+        let titleContent = question.fullTitle;
+        title.innerHTML = titleContent;
+      }
     },
     willUnmount: function(question, el) {}
   };
