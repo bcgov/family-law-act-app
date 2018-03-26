@@ -45,6 +45,7 @@ export class SurveyComponent  {
 
     let surveyModel = new Survey.Model(this.jsonData);
     surveyModel.showQuestionNumbers = 'off';
+    surveyModel.showNavigationButtons = false;
 
     surveyModel.onComplete.add((sender, options) => {
       if(this.onComplete) this.onComplete(sender.data)
@@ -54,8 +55,8 @@ export class SurveyComponent  {
       this.saveCache();
     });
 
-    Survey.SurveyNG.render('surveyElement', { model: surveyModel });
     this.surveyModel = surveyModel;
+    Survey.SurveyNG.render('surveyElement', { model: surveyModel });
 
     this.insertService.updateInsert('sidebar-left',
       {type: 'survey-sidebar', inputs: {survey: this}});
@@ -67,8 +68,28 @@ export class SurveyComponent  {
     this.loadCache();
   }
 
+  get isFirstPage() {
+    return this.surveyModel.isFirstPage;
+  }
+
+  get isLastPage() {
+    return this.surveyModel.isLastPage;
+  }
+
   changePage(pageNo: number) {
     this.surveyModel.currentPageNo = pageNo;
+  }
+
+  prevPage() {
+    this.surveyModel.prevPage();
+  }
+
+  nextPage() {
+    this.surveyModel.nextPage();
+  }
+
+  complete() {
+    this.surveyModel.completeLastPage();
   }
 
   resetCache() {

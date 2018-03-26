@@ -5,3 +5,18 @@
 <div class="survey-container contentcontainer codecontainer">
   <div id="surveyElement"></div>
 </div>
+<div class="survey-nav">
+  <div class="survey-nav-left" *ngIf="! isFirstPage">
+    <button class="btn btn-default btn-lg" (click)="prevPage()">
+      <span class="fa fa-arrow-circle-left"></span> Previous
+    </button>
+  </div>
+  <div class="survey-nav-right text-right">
+    <button class="btn btn-default btn-lg" (click)="nextPage()" *ngIf="! isLastPage">
+      Next <span class="fa fa-arrow-circle-right"></span>
+    </button>
+    <button class="btn btn-success btn-lg" (click)="complete()" *ngIf="isLastPage">
+      <span class="fa fa-check-circle"></span> Complete
+    </button>
+  </div>
+</div>

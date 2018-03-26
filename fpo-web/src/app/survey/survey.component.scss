@@ -5,3 +5,11 @@
 .cache-time {
   padding-right: 1em;
 }
+
+.survey-nav {
+  display: flex;
+  padding: 0 15px;
+  > div {
+    flex: auto;
+  }
+}
