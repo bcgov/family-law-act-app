@@ -18,7 +18,9 @@ h3 {
   margin-top: 0;
 }
 
-$link-active-color: #394;
+$link-active-color: #349;
+$link-current-color: #394;
+$link-hover-color: #57d;
 
 .links {
   display: block;
@@ -30,15 +32,33 @@ $link-active-color: #394;
     display: flex;
     flex-flow: row nowrap;
     list-style-type: none;
-    margin: 0;
-    padding: 0 0 5px 0;
-    &.active {
+    margin: 0 0 5px 0;
+    padding: 0;
+    &:not(.current):not(:active):not(:focus):not(.disabled):hover {
+      .link-icon {
+        border-color: $link-hover-color;
+        color: $link-hover-color;
+      }
+      .link-label {
+        color: $link-hover-color;
+      }
+    }
+    &:active, &:focus {
       .link-icon {
         border-color: $link-active-color;
         color: $link-active-color;
       }
       .link-label {
         color: $link-active-color;
+      }
+    }
+    &.current {
+      .link-icon {
+        border-color: $link-current-color;
+        color: $link-current-color;
+      }
+      .link-label {
+        color: $link-current-color;
       }
     }
   }

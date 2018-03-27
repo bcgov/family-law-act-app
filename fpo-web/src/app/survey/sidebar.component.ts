@@ -26,9 +26,10 @@ export class SurveySidebarComponent  {
       let links = [];
       model.visiblePages.forEach( (page, idx) => {
         links.push({
+          disabled: false,
           index: idx,
           title: page.title || page.name,
-          active: idx === model.currentPageNo});
+          current: idx === model.currentPageNo});
       });
       this.links = links;
     }
@@ -36,6 +37,18 @@ export class SurveySidebarComponent  {
 
   changePage(pageNo: number) {
     this.survey.changePage(pageNo);
+  }
+
+  activateLink(link: any) {
+    if(link && ! link.disabled) {
+      this.changePage(link.index);
+    }
+  }
+
+  keyDown(event, link) {
+    // allow space or enter to activate page
+    if(event && (event.keyCode === 13 || event.keyCode === 32))
+      this.activateLink(link);
   }
 
 }

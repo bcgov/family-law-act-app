@@ -244,7 +244,6 @@ $indicator-thickness: 0.2em;
     color: #55555a;
   }
   .panel-title {
-    cursor: pointer;
     display: block;
     font-size: 18px;
   }
@@ -272,6 +271,9 @@ $indicator-thickness: 0.2em;
   border: 1px solid #d8d0d0;
   .panel-heading {
     color: #5a5555;
+  }
+  .panel-title {
+    cursor: pointer;
   }
   .panel-body {
     background: #fff;
