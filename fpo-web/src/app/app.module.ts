@@ -10,6 +10,7 @@ import { SearchBoxDirective } from './search-box/search-box.directive';
 import { GeneralDataService } from 'app/general-data.service';
 import { AdminModule } from 'app/admin/admin.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { GlossaryService } from './glossary/glossary.service';
 import { InsertComponent } from './insert/insert.component';
 import { InsertService } from './insert/insert.service';
 import { StaticComponent } from './static/static.component';
@@ -46,7 +47,7 @@ import { ResultComponent } from './result/result.component';
     NgbModule,
     AdminModule,
   ],
-  providers: [GeneralDataService, InsertService],
+  providers: [GeneralDataService, GlossaryService, InsertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

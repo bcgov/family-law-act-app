@@ -168,11 +168,11 @@ function initHelpText(Survey) {
       lbl.appendChild(expander);
       header.appendChild(lbl);
       outer.appendChild(header);
+
       let body = document.createElement('div');
       body.className = 'panel-body';
-      //let bodyContent = question.getLocalizableString("body");
-      //bodyContent = question.getProcessedHtml(bodyContent.textOrHtml);
-      body.appendChild(document.createTextNode(question.body || ''));
+      let bodyHtml = question.getMarkdownHtml(question.body || '');
+      body.innerHTML = question.getProcessedHtml(bodyHtml);
       outer.appendChild(body);
       el.appendChild(outer);
 
@@ -240,7 +240,8 @@ function initInfoText(Survey) {
       if(question.body) {
         let body = document.createElement('div');
         body.className = 'panel-body';
-        body.appendChild(document.createTextNode(question.body || ''));
+        let bodyHtml = question.getMarkdownHtml(question.body || '');
+        body.innerHTML = question.getProcessedHtml(bodyHtml);
         outer.appendChild(body);
       }
       el.appendChild(outer);

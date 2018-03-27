@@ -61,6 +61,12 @@ h3, .h3 {
 .btn-default {
   margin: 0;
 }
+.btn-icon-left {
+  margin-right: 0.25em;
+}
+.btn-icon-right {
+  margin-left: 0.25em;
+}
 
 .btn-group-lg>.btn, .btn-lg {
   font-size: 20px;
@@ -118,6 +124,28 @@ $indicator-thickness: 0.2em;
 
 .page-load {
   font-size: 2rem;
+}
+
+.glossary-link {
+  border-bottom-style: dotted;
+  border-bottom-width: 1px;
+  margin-bottom: -1px;
+  text-decoration: none;
+}
+.glossary-link:hover, .glossary-link.active {
+  border-bottom-style: solid;
+  text-decoration: none;
+}
+
+.tooltip-inner {
+  font-size: 14px;
+}
+.glossary > .tooltip-inner {
+  h1, h2, h3, h4, h5 {
+    color: #fff;
+    margin: 0;
+  }
+  text-align: left;
 }
 
 

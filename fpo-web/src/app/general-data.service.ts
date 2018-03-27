@@ -15,12 +15,25 @@ export class GeneralDataService {
     private platformLocation: PlatformLocation
   ) { }
 
-  getBaseHref() {
+  getBaseHref() : string {
     return this.platformLocation.getBaseHrefFromDOM() || '/';
   }
 
-  getApiUrl(action: string) {
+  getApiUrl(action: string) : string {
     return this.getBaseHref() + 'api/' + action;
+  }
+
+  loadJson(url: string, params?: any, relative?: boolean) {
+    if(! url)
+      return Promise.reject('Cache name not defined');
+    if(relative)
+      url = this.getBaseHref() + url;
+    return this.http.get(url, { params })
+      .map((x) => x.json())
+      .toPromise()
+      .catch((error: any) => {
+        return Promise.reject(error.message || error);
+      });
   }
 
   clearSurveyCache(name: string, key?: string, useLocal?: boolean) {
@@ -35,9 +48,7 @@ export class GeneralDataService {
       return Promise.reject('Cache name not defined');
     let url = this.getApiUrl('survey-cache/' + encodeURIComponent(name));
     if(key) url += '/' + encodeURIComponent(key);
-    return this.http.get(url, { params: { t: new Date().getTime() } })
-      .map((x) => x.json())
-      .toPromise()
+    return this.loadJson(url, { t: new Date().getTime() })
       .then((result) => {
         if(! result.key && useLocal) {
           let localKey = 'survey-' + name;
@@ -48,10 +59,6 @@ export class GeneralDataService {
           }
         }
         return result;
-      })
-      .catch((error: any) => {
-        console.error(error.message || error);
-        return Promise.reject(error.message || error);
       });
   }
 

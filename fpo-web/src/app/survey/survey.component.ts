@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as Survey from 'survey-angular';
+import * as showdown from 'showdown';
 import { GeneralDataService } from '../general-data.service';
+import { GlossaryService } from '../glossary/glossary.service';
 import { InsertService } from '../insert/insert.service';
 import { addQuestionTypes } from './question-types';
 
@@ -18,12 +20,16 @@ export class SurveyComponent  {
   public cacheKey: string;
   public surveyModel: Survey.SurveyModel;
   public onPageUpdate: BehaviorSubject<Survey.SurveyModel> = new BehaviorSubject<Survey.SurveyModel>(null);
+  private useMarkdown = true;
   private useLocalCache = false;
   private disableCache = false;
+  private markdownConverter: any;
+  private showMissingTerms = true;
 
   constructor(
     private dataService: GeneralDataService,
-    private insertService: InsertService
+    private insertService: InsertService,
+    private glossaryService: GlossaryService
   ) {}
 
   ngOnInit() {
@@ -48,12 +54,45 @@ export class SurveyComponent  {
     surveyModel.showQuestionNumbers = 'off';
     surveyModel.showNavigationButtons = false;
 
+    // Create showdown mardown converter
+    if(this.useMarkdown) {
+      this.markdownConverter = new showdown.Converter({
+        noHeaderId: true
+      });
+      surveyModel.onTextMarkdown.add((survey, options) => {
+        let str = this.markdownConverter.makeHtml(options.text);
+        // remove root paragraph <p></p>
+        let m = str.match(/^<p>(.*)<\/p>$/m);
+        if(m) {
+          str = m[1];
+        }
+        // convert <code> into glossary tags
+        str = str.replace(/<code>(.*?)<\/code>/g,
+          (wholeMatch, m1) => {
+            if(this.glossaryService.hasTerm(m1)) {
+              return '<a href="#" class="glossary-link" data-glossary="' + m1 + '">' + m1 + '</a>';
+            }
+            if(this.showMissingTerms) {
+              return '<code>' + m1 + '</code>';
+            }
+            return m1;
+          });
+        options.html = str;
+      });
+    }
+
     surveyModel.onComplete.add((sender, options) => {
       if(this.onComplete) this.onComplete(sender.data)
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
       this.onPageUpdate.next(sender);
       if(! this.disableCache) this.saveCache();
+    });
+    surveyModel.onPageVisibleChanged.add((sender, options) => {
+      this.onPageUpdate.next(sender);
+    });
+    surveyModel.onAfterRenderQuestion.add((sender, options) => {
+      this.glossaryService.registerTargets(options.htmlElement);
     });
 
     this.surveyModel = surveyModel;
