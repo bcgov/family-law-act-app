@@ -202,7 +202,7 @@ function initHelpText(Survey) {
 function initInfoText(Survey) {
   var widget = {
     name: "infotext",
-    title: "Info Text",
+    title: "Message Text",
     iconName: "icon-panel",
     widgetIsLoaded: function() {
       return true;
@@ -215,6 +215,14 @@ function initInfoText(Survey) {
       Survey.JsonObject.metaData.addProperties("infotext", [
         {
           name: "body:text",
+        },
+        {
+          name: "messageStyle",
+          'default': "info",
+          choices: [
+            "info",
+            "error"
+          ]
         }
       ]);
     },
@@ -225,6 +233,8 @@ function initInfoText(Survey) {
 
       let outer = document.createElement('div');
       let outerCls = 'panel panel-default survey-infotext expanded';
+      if(question.messageStyle === 'error')
+        outerCls += ' error';
       outer.className = outerCls;
       let header = document.createElement('div');
       header.className = 'panel-heading';
@@ -232,7 +242,10 @@ function initInfoText(Survey) {
       lbl.className = 'panel-title';
 
       let icon = document.createElement('span');
-      icon.className = 'heading-icon fa fa-info-circle';
+      if(question.messageStyle === 'error')
+        icon.className = 'heading-icon fa fa-ban';
+      else
+        icon.className = 'heading-icon fa fa-info-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
       lbl.appendChild(icon);
@@ -554,24 +567,24 @@ export function addToolboxOptions(editor) {
   );
   editor.toolbox.addItem(
     {
-      name: "infotext",
-      title: "Info Text",
-      isCopied: true,
-      iconName: "icon-panel",
-      json: {
-        type: "infotext",
-        titleLocation: "hidden"
-      }
-    }
-  );
-  editor.toolbox.addItem(
-    {
       name: "helptext",
       title: "Help Text",
       isCopied: true,
       iconName: "icon-panel",
       json: {
         type: "helptext",
+        titleLocation: "hidden"
+      }
+    }
+  );
+  editor.toolbox.addItem(
+    {
+      name: "infotext",
+      title: "Message Text",
+      isCopied: true,
+      iconName: "icon-panel",
+      json: {
+        type: "infotext",
         titleLocation: "hidden"
       }
     }
