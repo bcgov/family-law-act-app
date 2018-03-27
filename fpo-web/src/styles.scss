@@ -11,6 +11,11 @@ body, h5, .h5, .btn {
   //line-height: 24px;
 }
 
+.breadcrumb {
+  margin-bottom: 0;
+}
+
+// ctx-* class is automatically added to the body element
 .ctx-home {
   background: #2e4a72;
   .app-content {
@@ -164,7 +169,6 @@ $indicator-thickness: 0.2em;
   h3 {
     font-size: 34px;
     font-weight: 600;
-    margin: 0;
   }
   h4 {
     color: #556077;

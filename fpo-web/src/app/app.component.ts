@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
         this.isPopState = false;
 
         let prevSlug = this.previousUrl;
-        let nextSlug = event.url.slice(1);
+        let nextSlug = event.url.slice(1).replace(/^prv\//, '').replace('/', '-');
         if (!nextSlug) nextSlug = 'home';
         if (prevSlug) {
           this.renderer.removeClass(document.body, 'ctx-' + prevSlug);
