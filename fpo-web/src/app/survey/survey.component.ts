@@ -16,6 +16,7 @@ export class SurveyComponent  {
   @Input() jsonData: any;
   @Input() cacheName: string;
   @Input() onComplete: Function;
+  @Input() showSidebar = true;
   public cacheLoadTime: any;
   public cacheKey: string;
   public surveyModel: Survey.SurveyModel;
@@ -35,8 +36,10 @@ export class SurveyComponent  {
   ngOnInit() {
     this.initSurvey();
     this.glossaryService.onLoaded(this.renderSurvey.bind(this));
-    this.insertService.updateInsert('sidebar-left',
-      {type: 'survey-sidebar', inputs: {survey: this}});
+    if(this.showSidebar) {
+      this.insertService.updateInsert('sidebar-left',
+        {type: 'survey-sidebar', inputs: {survey: this}});
+    }
   }
 
   initSurvey() {

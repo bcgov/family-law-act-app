@@ -22,6 +22,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Prequalification Survey',
       survey_path: 'assets/survey-qualify.json',
+      show_sidebar: false,
     }
   },
   {

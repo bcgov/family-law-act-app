@@ -11,23 +11,23 @@ export class GlossaryService {
   constructor(
     private dataService: GeneralDataService
   ) {
-    this.loaded = new Promise((resolve, reject) => {
-      this.dataService.loadJson('assets/glossary.json', null, true)
-        .then((data) => {
-          this.terms = data;
-          resolve(this);
-        })
-        .catch((err) => {
-          resolve(this);
-        });
-    });
+    this.loaded = this.dataService.loadJson('assets/glossary.json', null, true)
+      .then((data) => {
+        this.terms = data;
+      });
     this.markdownConverter = new showdown.Converter({
       noHeaderId: true
     });
   }
 
-  onLoaded(callback) {
-    this.loaded.then(callback);
+  onLoaded(callback: Function) {
+    this.loaded.then((result) => {
+      callback(this);
+      return result;
+    }).catch((err) => {
+      callback(this);
+      return err;
+    });
   }
 
   getTerm(term: string, formatted?: boolean) {

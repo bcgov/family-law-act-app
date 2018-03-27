@@ -8,15 +8,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SurveyPrimaryComponent implements OnInit {
 
-  public cacheName : string;
-  public survey : any;
-  public complete : Function;
+  public cacheName: string;
+  public showSidebar: boolean = true;
+  public survey: any;
+  public complete: Function;
 
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.survey = this.route.snapshot.data.survey;
-    this.cacheName = this.route.snapshot.data.cache_name;
+    let routeData = this.route.snapshot.data;
+    this.survey = routeData.survey;
+    this.cacheName = routeData.cache_name;
+    if('show_sidebar' in routeData)
+      this.showSidebar = routeData.show_sidebar;
     this.complete = (data) => this.onComplete(data);
   }
 
