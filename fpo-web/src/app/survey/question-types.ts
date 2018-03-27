@@ -178,7 +178,6 @@ function initHelpText(Survey) {
 
         let bodyContent = question.body || '';
         let bodyHtml = question.getMarkdownHtml(bodyContent);
-        console.log(JSON.stringify(bodyHtml));
         if(bodyHtml !== null)
           body.innerHTML = question.getProcessedHtml(bodyHtml);
         else
