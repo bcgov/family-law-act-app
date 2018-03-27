@@ -33,8 +33,14 @@ export class SurveyComponent  {
   ) {}
 
   ngOnInit() {
-    addQuestionTypes(Survey);
+    this.initSurvey();
+    this.glossaryService.onLoaded(this.renderSurvey.bind(this));
+    this.insertService.updateInsert('sidebar-left',
+      {type: 'survey-sidebar', inputs: {survey: this}});
+  }
 
+  initSurvey() {
+    addQuestionTypes(Survey);
     Survey.Survey.cssType = "bootstrap";
     Survey.defaultBootstrapCss.page.root = "sv_page";
     Survey.defaultBootstrapCss.pageDescription = "sv_page_description";
@@ -49,12 +55,14 @@ export class SurveyComponent  {
     Survey.defaultBootstrapCss.matrixdynamic.button = "btn btn-default";
     Survey.defaultBootstrapCss.paneldynamic.button = "btn btn-default";
     Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic"; // not used?
+  }
 
+  renderSurvey() {
     let surveyModel = new Survey.Model(this.jsonData);
     surveyModel.showQuestionNumbers = 'off';
     surveyModel.showNavigationButtons = false;
 
-    // Create showdown mardown converter
+    // Create showdown markdown converter
     if(this.useMarkdown) {
       this.markdownConverter = new showdown.Converter({
         noHeaderId: true
@@ -98,9 +106,6 @@ export class SurveyComponent  {
     this.surveyModel = surveyModel;
     Survey.SurveyNG.render('surveyElement', { model: surveyModel });
 
-    this.insertService.updateInsert('sidebar-left',
-      {type: 'survey-sidebar', inputs: {survey: this}});
-
     // update sidebar
     this.onPageUpdate.next(surveyModel);
 
@@ -108,12 +113,16 @@ export class SurveyComponent  {
     if(! this.disableCache) this.loadCache();
   }
 
-  get isFirstPage() {
-    return this.surveyModel.isFirstPage;
+  get isLoaded(): boolean {
+    return !! this.surveyModel;
   }
 
-  get isLastPage() {
-    return this.surveyModel.isLastPage;
+  get isFirstPage(): boolean {
+    return this.surveyModel ? this.surveyModel.isFirstPage : false;
+  }
+
+  get isLastPage(): boolean {
+    return this.surveyModel ? this.surveyModel.isLastPage : false;
   }
 
   changePage(pageNo: number) {

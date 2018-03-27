@@ -6,15 +6,28 @@ import { GeneralDataService } from '../general-data.service';
 export class GlossaryService {
   terms = {}
   markdownConverter: any;
+  loaded: any;
 
   constructor(
     private dataService: GeneralDataService
   ) {
-    this.dataService.loadJson('assets/glossary.json', null, true)
-      .then((data) => { this.terms = data; });
+    this.loaded = new Promise((resolve, reject) => {
+      this.dataService.loadJson('assets/glossary.json', null, true)
+        .then((data) => {
+          this.terms = data;
+          resolve(this);
+        })
+        .catch((err) => {
+          resolve(this);
+        });
+    });
     this.markdownConverter = new showdown.Converter({
       noHeaderId: true
     });
+  }
+
+  onLoaded(callback) {
+    this.loaded.then(callback);
   }
 
   getTerm(term: string, formatted?: boolean) {
