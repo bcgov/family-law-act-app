@@ -157,8 +157,6 @@ function initHelpText(Survey) {
       icon.className = 'heading-icon fa fa-question-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      let titleContent = question.fullTitle;
-      title.innerHTML = titleContent;
 
       let expander = document.createElement('span');
       expander.className = 'heading-expand fa fa-chevron-down';
@@ -171,15 +169,23 @@ function initHelpText(Survey) {
 
       let body = document.createElement('div');
       body.className = 'panel-body';
-      let bodyHtml = question.getMarkdownHtml(question.body || '');
-      body.innerHTML = question.getProcessedHtml(bodyHtml);
       outer.appendChild(body);
       el.appendChild(outer);
 
-      question.titleChangedCallback = function() {
+      let updateContent = () => {
         let titleContent = question.fullTitle;
         title.innerHTML = titleContent;
+
+        let bodyContent = question.body || '';
+        let bodyHtml = question.getMarkdownHtml(bodyContent);
+        console.log(JSON.stringify(bodyHtml));
+        if(bodyHtml !== null)
+          body.innerHTML = question.getProcessedHtml(bodyHtml);
+        else
+          body.innerText = question.getProcessedHtml(bodyContent);
       }
+      question.titleChangedCallback = updateContent;
+      updateContent();
 
       question.valueChangedCallback = function() {
         outer.className = outerCls + (question.value ? ' expanded' : '');
@@ -230,26 +236,34 @@ function initInfoText(Survey) {
       icon.className = 'heading-icon fa fa-info-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      let titleContent = question.fullTitle;
-      title.innerHTML = titleContent;
       lbl.appendChild(icon);
       lbl.appendChild(title);
-
       header.appendChild(lbl);
       outer.appendChild(header);
+
+      let body = null;
       if(question.body) {
         let body = document.createElement('div');
         body.className = 'panel-body';
-        let bodyHtml = question.getMarkdownHtml(question.body || '');
-        body.innerHTML = question.getProcessedHtml(bodyHtml);
         outer.appendChild(body);
       }
       el.appendChild(outer);
 
-      question.titleChangedCallback = function() {
+      let updateContent = () => {
         let titleContent = question.fullTitle;
         title.innerHTML = titleContent;
+
+        if(body) {
+          let bodyContent = question.body || '';
+          let bodyHtml = question.getMarkdownHtml(bodyContent);
+          if(bodyHtml !== null)
+            body.innerHTML = question.getProcessedHtml(bodyHtml);
+          else
+            body.innerText = question.getProcessedHtml(bodyContent);
+        }
       }
+      question.titleChangedCallback = updateContent;
+      updateContent();
     },
     willUnmount: function(question, el) {}
   };
