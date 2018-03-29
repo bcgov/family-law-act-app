@@ -1,953 +1,1034 @@
 {
-    "title": "Provincial Family Test",
-    "pages": [
-     {
-      "name": "Applicant",
-      "elements": [
-       {
-        "type": "panel",
-        "name": "ApplicantPanel",
-        "elements": [
-         {
-          "type": "text",
-          "name": "ApplicantName",
-          "title": "What is your name?",
-          "placeHolder": "Full name"
-         },
-         {
-          "type": "text",
-          "name": "ApplicantDOB",
-          "title": "What is your Date of Birth?",
-          "inputType": "date"
-         },
-         {
-          "type": "helptext",
-          "name": "helpNoHomeAddress",
-          "title": "What if I don't want to use my home address?",
-          "titleLocation": "hidden",
-          "body": "You don't need to use your home address but you need to be able to served court documents. You can pick a daytime address such as your workplace or a lawyer's address if you have one."
-         },
-         {
-          "type": "address",
-          "name": "ApplicantAddress",
-          "title": "What is your mailing address?"
-         },
-         {
-          "type": "yesno",
-          "name": "isLawyerAddress",
-          "title": "Is this a lawyer's address?",
-          "description": "You can use one if you pay your lawyer to send and receive mail for you."
-         },
-         {
-          "type": "panel",
-          "name": "LawyerContactPanel",
-          "elements": [
-           {
-            "type": "text",
-            "name": "LawyerName",
-            "title": "What is the lawyer's name?",
-            "inputType": "tel"
-           },
-           {
-            "type": "text",
-            "name": "LawyerEmail",
-            "title": "Lawyer's Email (Optional)"
-           },
-           {
-            "type": "text",
-            "name": "lawyerPhoneNumber",
-            "startWithNewLine": false,
-            "title": "Lawyer's Phone Number",
-            "inputType": "tel"
-           },
-           {
-            "type": "text",
-            "name": "LawyerFax",
-            "startWithNewLine": false,
-            "title": "Lawyer's Fax Number (Optional)",
-            "inputType": "tel"
-           }
-          ],
-          "visible": false,
-          "visibleIf": "{isLawyerAddress} = 'y'",
-          "title": "Your Lawyer's Information"
-         }
-        ],
-        "title": "Information about You (the Applicant)"
-       },
-       {
-        "type": "panel",
-        "name": "ApplicantContactPanel",
-        "elements": [
-         {
-          "type": "text",
-          "name": "ApplicantEmail",
-          "title": "Email (Optional)"
-         },
-         {
-          "type": "text",
-          "name": "applicantPhoneNumber",
-          "startWithNewLine": false,
-          "title": "Phone Number",
-          "inputType": "tel"
-         },
-         {
-          "type": "text",
-          "name": "ApplicantFax",
-          "startWithNewLine": false,
-          "title": "Fax Number (Optional)",
-          "inputType": "tel"
-         }
-        ],
-        "visible": false,
-        "visibleIf": "{isLawyerAddress} = 'n'",
-        "title": "Your Contact Information"
-       },
-       {
-        "type": "infotext",
-        "name": "applicant.page.end",
-        "visible": false,
-        "visibleIf": "{applicantPhoneNumber} notempty or {lawyerPhoneNumber} notEmpty",
-        "title": "Finished this page. You can add children and other adults later if you need to.",
-        "titleLocation": "hidden"
-       }
-      ],
-      "title": "Applicant"
-     },
-     {
-      "name": "Respondent",
-      "elements": [
-       {
-        "type": "panel",
-        "name": "respondentPanel",
-        "elements": [
-         {
-          "type": "text",
-          "name": "respondentName",
-          "title": "What is the name of the person that {applicantName} (and/or their children) needs protection from? \n\nThis is the person that will be the \"respondent\".",
-          "placeHolder": "Full Name - if known"
-         },
-         {
-          "type": "yesno",
-          "name": "RespondentIsExPartner",
-          "title": "Is {respondentName} a current or ex-partner of {applicantName}?"
-         },
-         {
-          "type": "yesno",
-          "name": "RespondentIsChildsParent",
-          "visible": false,
-          "visibleIf": "{RespondentIsExPartner} = 'n'",
-          "title": "Is {respondentName} a parent or guardian of any of {applicantName}'s child?"
-         },
-         {
-          "type": "yesno",
-          "name": "RespondentIsChildParentsRelative",
-          "visible": false,
-          "visibleIf": "{RespondentIsChildsParent} = 'n'",
-          "title": "Is {respondentName} a relative of {applicantName}'s child's parent or guardian?"
-         },
-         {
-          "type": "yesno",
-          "name": "RespondentIsExPartnersPartner",
-          "visible": false,
-          "visibleIf": "{RespondentIsChildParentsRelative} = 'n'",
-          "title": "Is {respondentName} a current partner of {applicantName}'s ex-partner?"
-         },
-         {
-          "type": "yesno",
-          "name": "RespondentIsLiveInRelative",
-          "visible": false,
-          "visibleIf": "{RespondentIsExPartnersPartner} = 'n'",
-          "title": "Is {respondentName} a relative of {applicantName} who lives with {applicantName}?"
-         },
-         {
-          "type": "infotext",
-          "name": "RespondentNotFamily",
-          "visible": false,
-          "visibleIf": "{RespondentIsLiveInRelative} = 'n'",
-          "title": "{respondentName} needs to be a family member of {applicantName} (or their children). You can't just put in any random citizen. Try a peace bond maybe.",
-          "titleLocation": "hidden"
-         },
-         {
-          "type": "text",
-          "name": "RespondentDOB",
-          "title": "What is {respondentName}'s date of birth?",
-          "description": "You can still file for a Protection Order without this information. However, a Protection Order is most effective if this information is provided.",
-          "inputType": "date"
-         },
-         {
-          "type": "boolean",
-          "name": "RespondentDOBIDK",
-          "startWithNewLine": false,
-          "title": "I don't know the exact date"
-         },
-         {
-          "type": "helptext",
-          "name": "question7",
-          "title": "What if I don't know what address to use?",
-          "titleLocation": "hidden",
-          "body": "You don't need to use {respondent2.name's} home address but you need to be able to served court documents. You can pick a daytime address such as their workplace or somewhere you know {respondentName} will be staying."
-         },
-         {
-          "type": "address",
-          "name": "RespondentAddress",
-          "title": "What is {respondentName}'s mailing address?"
-         },
-         {
-          "type": "text",
-          "name": "RespondentEmail",
-          "title": "Email (Optional)"
-         },
-         {
-          "type": "text",
-          "name": "RespondentPhone",
-          "startWithNewLine": false,
-          "title": "Phone Number",
-          "inputType": "tel"
-         },
-         {
-          "type": "text",
-          "name": "RespondentFax",
-          "startWithNewLine": false,
-          "title": "Fax Number (Optional)",
-          "inputType": "tel"
-         }
-        ],
-        "title": "Information about the Respondent"
-       },
-       {
-        "type": "yesno",
-        "name": "Respondent2Needed",
-        "title": "Is there anyone else, other than {respondentName}, from whom {applicantName} (or their children) needs protection from?"
-       }
-      ]
-     },
-     {
-      "name": "Children",
-      "elements": [
-       {
-        "type": "yesno",
-        "name": "HaveChildren",
-        "title": "Does {applicantName} and/or {respondentName} have children?"
-       },
-       {
-        "type": "panel",
-        "name": "ChildPanel",
-        "elements": [
-         {
-          "type": "text",
-          "name": "ChildName",
-          "title": "Full name",
-          "valueName": "childName"
-         },
-         {
-          "type": "yesno",
-          "name": "ChildNeedsProtection",
-          "title": "Does the Family Law Protection Order against {respondentName} need to include {childName}?"
-         },
-         {
-          "type": "infotext",
-          "name": "helpChildNotNeedingProtection",
-          "visible": false,
-          "visibleIf": "{ChildNeedsProtection} = 'n'",
-          "title": "Even if {childName} does not need to be included in the Protection Order, the judge will still want to know about them.",
-          "titleLocation": "hidden"
-         },
-         {
-          "type": "text",
-          "name": "ChildDOB",
-          "title": "Date of Birth",
-          "inputType": "date"
-         },
-         {
-          "type": "radiogroup",
-          "name": "ChildDOBIDK",
-          "startWithNewLine": false,
-          "title": "If you don't know the {childName}'s exact date of birth, please choose one of the following:",
-          "choices": [
-           {
-            "value": "minor",
-            "text": "I know the child is younger than 19"
-           },
-           {
-            "value": "adult",
-            "text": "I know the child is 19 or older"
-           }
-          ]
-         },
-         {
-          "type": "checkbox",
-          "name": "ChildIsAdult",
-          "visible": false,
-          "visibleIf": "{ChildDOBIDK} = 'adult'",
-          "title": "{childName} is considered an adult. For the purposes of this service, we need to ask additional questions about their care, we need to know who they are living with etc..",
-          "choices": [
-           {
-            "value": "item1",
-            "text": "Post-secondary tuition"
-           },
-           {
-            "value": "item2",
-            "text": "Accessibility Issues"
-           },
-           {
-            "value": "none",
-            "text": "None of the above"
-           }
-          ]
-         },
-         {
-          "type": "panel",
-          "name": "Guardianship",
-          "elements": [
-           {
-            "type": "matrixdropdown",
-            "name": "applicantChildRelationship",
-            "title": "Describe the relationship between {applicantName} (applicant), {respondentName} (respondent) and {childName}",
-            "columns": [
-             {
-              "name": "type",
-              "title": "Type",
-              "cellType": "dropdown",
-              "hasOther": true,
-              "choices": [
-               {
-                "value": "father",
-                "text": "Father"
-               },
-               {
-                "value": "mother",
-                "text": "Mother"
-               },
-               {
-                "value": "stepparent",
-                "text": "Step-Parent"
-               },
-               {
-                "value": "legalguardian",
-                "text": "Legal Guardian"
-               }
-              ],
-              "otherText": "Describe"
-             },
-             {
-              "name": "isGuardian",
-              "title": "Is Guardian?",
-              "cellType": "boolean"
-             },
-             {
-              "name": "parentingTime",
-              "title": "Parenting Time with child",
-              "cellType": "dropdown",
-              "hasOther": true,
-              "choices": [
-               {
-                "value": "doesNotSpendTime",
-                "text": "Does not spend time with child"
-               },
-               {
-                "value": "spendsEqualTime",
-                "text": "Spends equal time with child"
-               },
-               {
-                "value": "spendsMostTime",
-                "text": "Spends most time with child"
-               },
-               {
-                "value": "spendsMoreThanTwiceWeek",
-                "text": "Spends more than twice a week with child"
-               },
-               {
-                "value": "spendsAtLeastTwiceWeek",
-                "text": "Spends at least twice a week with Child"
-               },
-               {
-                "value": "spendsAtLeastOnceWeek",
-                "text": "Spends at least once a week with Child"
-               },
-               {
-                "value": "spendsAtLeastEveryOtherWeek",
-                "text": "Spends at least every other week with child"
-               },
-               {
-                "value": "spendsAtLeastOnceAMonth",
-                "text": "Spends at least once a month with child"
-               },
-               {
-                "value": "spendsAtLeastOnceAYear",
-                "text": "Spends at least once a year with child"
-               }
-              ],
-              "otherText": "Describe"
-             },
-             {
-              "name": "parentingDecisions",
-              "title": "Can make Parenting Decisions?",
-              "cellType": "boolean"
-             },
-             {
-              "name": "contact",
-              "title": "Contact with child",
-              "cellType": "dropdown",
-              "hasOther": true,
-              "choices": [
-               {
-                "value": "hasContact",
-                "text": "Has contact without court ordered constraints"
-               },
-               {
-                "value": "hasAgreedUponContact",
-                "text": "Has contact with child as agreed upon"
-               },
-               {
-                "value": "hasSupervisedContact",
-                "text": "Has contact with child under supervision/in presence of someone else"
-               }
-              ],
-              "otherText": "Describe"
-             }
-            ],
-            "rows": [
-             {
-              "value": "applicant",
-              "text": "Applicant"
-             },
-             {
-              "value": "respondent",
-              "text": "Respondent"
-             }
-            ]
-           },
-           {
-            "type": "infotext",
-            "name": "helpGuardianship",
-            "title": "Guardianship is not the same as parenting.",
-            "titleLocation": "hidden"
-           },
-           {
-            "type": "yesno",
-            "name": "hasOtherGuardians",
-            "title": "Does {childName} have additional guardians other than the {applicantName} (Applicant) and {respondentName} (Respondent)?"
-           },
-           {
-            "type": "matrixdynamic",
-            "name": "otherGuardians",
-            "visible": false,
-            "visibleIf": "{hasOtherGuardians} = 'y'",
-            "title": "Other guardians of {childName} and their role in the child's life.",
-            "columns": [
-             {
-              "name": "guardianName",
-              "title": "Full Name",
-              "cellType": "text",
-              "placeHolder": "Full Name"
-             },
-             {
-              "name": "parentingTime",
-              "title": "Parenting Time with Child",
-              "cellType": "dropdown",
-              "hasOther": true,
-              "choices": [
-               {
-                "value": "doesNotSpendTime",
-                "text": "Does not spend time with child"
-               },
-               {
-                "value": "spendsEqualTime",
-                "text": "Spends equal time with child"
-               },
-               {
-                "value": "spendsMostTime",
-                "text": "Spends most time with child"
-               },
-               {
-                "value": "spendsMoreThanTwiceWeek",
-                "text": "Spends more than twice a week with child"
-               },
-               {
-                "value": "spendsAtLeastTwiceWeek",
-                "text": "Spends at least twice a week with Child"
-               },
-               {
-                "value": "spendsAtLeastOnceWeek",
-                "text": "Spends at least once a week with Child"
-               },
-               {
-                "value": "spendsAtLeastEveryOtherWeek",
-                "text": "Spends at least every other week with child"
-               },
-               {
-                "value": "spendsAtLeastOnceAMonth",
-                "text": "Spends at least once a month with child"
-               },
-               {
-                "value": "spendsAtLeastOnceAYear",
-                "text": "Spends at least once a year with child"
-               }
-              ],
-              "otherText": "Describe"
-             },
-             {
-              "name": "decisionMaking",
-              "title": "Can make Parenting Decisions",
-              "cellType": "boolean"
-             },
-             {
-              "name": "contact",
-              "title": "Contact with child",
-              "cellType": "dropdown",
-              "hasOther": true,
-              "choices": [
-               {
-                "value": "hasContact",
-                "text": "Has contact without court ordered constraints"
-               },
-               {
-                "value": "hasAgreedUponContact",
-                "text": "Has contact with child as agreed upon"
-               },
-               {
-                "value": "hasSupervisedContact",
-                "text": "Has contact with child under supervision/in presence of someone else"
-               }
-              ],
-              "otherText": "Describe"
-             }
-            ],
-            "cellType": "text",
-            "addRowText": "Add Guardian",
-            "removeRowText": "Remove"
-           }
-          ],
-          "visible": false,
-          "visibleIf": "{HaveChildren} = 'y'",
-          "title": "Guardians of {childName}"
-         }
-        ],
-        "visible": false,
-        "visibleIf": "{HaveChildren} = 'y'",
-        "title": "Information about Child"
-       }
-      ],
-      "title": "Children"
-     },
-     {
-      "name": "Other Protected Parties",
-      "elements": [
-       {
-        "type": "infotext",
-        "name": "helpProtectedParties",
-        "title": "So far, we have determined that the applicant needs protection through this Family Protection Order, as well as any children you marked as needing protection.  In the following, you can add any other family members that likewise need protection from the respondent.",
-        "titleLocation": "hidden"
-       },
-       {
-        "type": "yesno",
-        "name": "isMoreProtectees",
-        "title": "Are there any other family members who need protection from {respondentName}?"
-       },
-       {
-        "type": "paneldynamic",
-        "name": "otherProtectees",
-        "visible": false,
-        "visibleIf": "{isMoreProtectees} = 'y'",
-        "title": "Add other family members needing protection",
-        "templateElements": [
-         {
-          "type": "text",
-          "name": "protecteeName",
-          "title": "Full Name"
-         },
-         {
-          "type": "text",
-          "name": "protcteeDOB",
-          "title": "What is {protecteeName}'s date of birth?",
-          "inputType": "date"
-         },
-         {
-          "type": "boolean",
-          "name": "protecteeDOBIDK",
-          "startWithNewLine": false,
-          "title": "I don't know the exact date"
-         },
-         {
-          "type": "radiogroup",
-          "name": "protecteeRelationship",
-          "title": "How is {protecteeName} related to {applicant} or one of the children?",
-          "choices": [
-           {
-            "value": "currentPartnerApplicant",
-            "text": "current partner of applicant"
-           },
-           {
-            "value": "familyMemberApplicant",
-            "text": "family member of applicant"
-           },
-           {
-            "value": "familyMemberChild",
-            "text": "family member of one of the children"
-           },
-           {
-            "value": "None",
-            "text": "none of the above"
-           }
-          ]
-         }
-        ],
-        "panelAddText": "Add Family Member to be added to Family Protection Order",
-        "panelRemoveText": "Remove"
-       }
-      ],
-      "title": "Other Protected Parties",
-      "description": "Click the \"Add Family Member\" button to add individuals needing protection as part of this Family Protection Order."
-     },
-     {
-      "name": "Living Situation",
-      "elements": [
-       {
-        "type": "yesno",
-        "name": "isRespondentLivingWithProtectees",
-        "title": "Does {respondentName} currently live with any of individuals to be protected as a result of this Family Protection Order?",
-        "description": "we'll need lots of info here or expanding question topic about what it means to \"currently live\" with someone. in other words, ran away to a shelter/couch surfing vs moved out a month ago. FLA 184(4)"
-       },
-       {
-        "type": "yesno",
-        "name": "ynStayInFamilyHome",
-        "title": "Does anyone want to stay in the family home?"
-       },
-       {
-        "type": "radiogroup",
-        "name": "needPoliceForRespondentToLeave",
-        "title": "Do you think you need the police to remove {respondentName} from where any of those to be protected live or are they leaving on their own?",
-        "choices": [
-         {
-          "value": "y",
-          "text": "I need police assistance"
-         },
-         {
-          "value": "n",
-          "text": "{respondentName} will probably leave on their own"
-         }
-        ]
-       },
-       {
-        "type": "panel",
-        "name": "removeRespondentAddress",
-        "elements": [
-         {
-          "type": "yesno",
-          "name": "isRemoveAddressSameAsApplicant",
-          "title": "The address provided for {ApplicantName}?"
-         },
-         {
-          "type": "address",
-          "name": "removeAddress",
-          "visible": false,
-          "visibleIf": "{isRemoveAddressSameAsApplicant} = 'n'",
-          "title": "Address where police assistance will be needed to remove {respondentName}"
-         }
-        ],
-        "visible": false,
-        "visibleIf": "{needPoliceForRespondentToLeave} = 'y'",
-        "title": "What is the address from which you need police assistance in removing {respondentName}?"
-       },
-       {
-        "type": "yesno",
-        "name": "doesRespondentHavePersonalBelongings",
-        "title": "Does {respondentName} have personal belongings of any of the individuals to be protected through this order that needs to be retrieved?"
-       },
-       {
-        "type": "yesno",
-        "name": "needPoliceAssistanceToGetBelongings",
-        "visible": false,
-        "visibleIf": "{doesRespondentHavePersonalBelongings} = 'y'",
-        "title": "Do you think you need the police assistance to get personal belongings from {respondentName}?"
-       },
-       {
-        "type": "panel",
-        "name": "getBelongsAddressPanel",
-        "elements": [
-         {
-          "type": "yesno",
-          "name": "isApplicantAddressGetBelongingsAddress",
-          "title": "The address provided for {ApplicantName}?"
-         },
-         {
-          "type": "address",
-          "name": "addressGetBelongings",
-          "visible": false,
-          "visibleIf": "{isApplicantAddressGetBelongingsAddress} = 'n'",
-          "title": "Address at which you need police assistance to get personal belongings"
-         }
-        ],
-        "visible": false,
-        "visibleIf": "{needPoliceAssistanceToGetBelongings} = 'y'",
-        "title": "What is the address at which you need police assistance in getting personal belongings from {respondentName}?"
-       },
-       {
-        "type": "yesno",
-        "name": "question30",
-        "title": "Would {respondentName} need to contact you for ongoing court thing?",
-        "description": "Even with a No Contact order, there may be times where it is important to contact each for certain purposes."
-       },
-       {
-        "type": "yesno",
-        "name": "question41",
-        "title": "Is there any third parties that {respondentName} and {applicant} you can communicate through?"
-       },
-       {
-        "type": "checkbox",
-        "name": "question42",
-        "title": "Tell us who",
-        "hasOther": true,
-        "choices": [
-         {
-          "value": "item1",
-          "text": "lawyer"
-         },
-         {
-          "value": "item2",
-          "text": "social worker"
-         },
-         {
-          "value": "item3",
-          "text": "mutual family member"
-         }
-        ]
-       },
-       {
-        "type": "yesno",
-        "name": "question43",
-        "title": "Does {respondentName} need to contact {appliant.name} to arrange parentingtime/childcare/etc"
-       },
-       {
-        "type": "checkbox",
-        "name": "question44",
-        "title": "methods?",
-        "hasOther": true,
-        "choices": [
-         {
-          "value": "item1",
-          "text": "email"
-         },
-         {
-          "value": "item2",
-          "text": "text"
-         },
-         {
-          "value": "item3",
-          "text": "phone"
-         }
-        ]
-       },
-       {
-        "type": "yesno",
-        "name": "question45",
-        "title": "Any other reason that {respondentName} would need to contact {applicant}?"
-       },
-       {
-        "type": "text",
-        "name": "question51",
-        "title": "What reason(s)?"
-       }
-      ],
-      "title": "Living Situation"
-     },
-     {
-      "name": "Contacts",
-      "elements": [
-       {
-        "type": "yesno",
-        "name": "needContactForCourtMatter",
-        "title": "Would {respondentName} need to contact you regarding ongoing court matters?",
-        "description": "Even with a No Contact order, there may be times where it is important to contact each for certain purposes."
-       },
-       {
-        "type": "yesno",
-        "name": "isThirdPartiesForCommunication",
-        "visible": false,
-        "visibleIf": "{needContactForCourtMatter} = 'y'",
-        "title": "Are there any third parties through which {respondentName} and {applicantName} can communicate?"
-       },
-       {
-        "type": "checkbox",
-        "name": "thirdPartiesForContact",
-        "visible": false,
-        "visibleIf": "{isThirdPartiesForCommunication} = 'y'",
-        "title": "Check each which can/should be used",
-        "hasOther": true,
-        "choices": [
-         {
-          "value": "lawyer",
-          "text": "Lawyer"
-         },
-         {
-          "value": "socialWorker",
-          "text": "Social Worker"
-         },
-         {
-          "value": "mutualFamilyMember",
-          "text": "Mutual Family Member"
-         }
-        ]
-       },
-       {
-        "type": "yesno",
-        "name": "needContactForParentingTime",
-        "title": "Does {respondentName} need to contact {applicantName} to arrange parenting time/childcare/etc.?"
-       },
-       {
-        "type": "checkbox",
-        "name": "contactMethodsForParentingTime",
-        "visible": false,
-        "visibleIf": "{needContactForParentingTime} = 'y'",
-        "title": "What contact methods can/should be used for coordinating parenting time, childcare, etc?",
-        "hasOther": true,
-        "choices": [
-         {
-          "value": "email",
-          "text": "EMail"
-         },
-         {
-          "value": "text",
-          "text": "SMS/text messaging"
-         },
-         {
-          "value": "phone",
-          "text": "Telephone"
-         }
-        ]
-       },
-       {
-        "type": "yesno",
-        "name": "isOtherReasonForContact",
-        "title": "Are there any other reasons that {respondentName} would need to contact {applicantName}?"
-       },
-       {
-        "type": "text",
-        "name": "otherReasonForContact",
-        "visible": false,
-        "visibleIf": "{isOtherReasonForContact} = 'y'",
-        "title": "Describe the other reasons for contact"
-       }
-      ],
-      "title": "Contact from Respondent"
-     },
-     {
-      "name": "POR No Go",
-      "elements": [
-       {
-        "type": "yesno",
-        "name": "question58",
-        "title": "Are there any places where [respondent] needs to stay away from?"
-       }
-      ]
-     },
-     {
-      "name": "POR Weapons",
-      "elements": [
-       {
-        "type": "yesno",
-        "name": "question59",
-        "title": "Are you afraid [Respondent] will harm you or family members with weapons (including guns, explosives)?"
-       },
-       {
-        "type": "boolean",
-        "name": "question60",
-        "title": "By selecting no above, you are saying there is no need for a judge to order [respondent] to give up their weapons if they have any. They also won't be able to possess any weapons for the duraction of this protection order. If there is no concern over weapons, hit \"there is no concern over weapons\" Otherwise, consider going back to the last question and selecting 'yes' instead."
-       },
-       {
-        "type": "yesno",
-        "name": "question61",
-        "title": "Do you think [Respondent1] have guns, explosives or something?"
-       },
-       {
-        "type": "yesno",
-        "name": "question62",
-        "title": "Does you think [Respondent1] have weapons that are not guns, explosives?"
-       }
-      ],
-      "title": "POR Weapons"
-     },
-     {
-      "name": "POR Review",
-      "elements": [
-       {
-        "type": "infotext",
-        "name": "question63",
-        "title": "This is a review of everything. Show the box and show summary. Edit button to go back to topic page.",
-        "titleLocation": "hidden"
-       },
-       {
-        "type": "yesno",
-        "name": "question64",
-        "title": "Protection Orders usually last 1 year from the date the judge makes the order. Do you wish to make the order last a different amount of time?"
-       },
-       {
-        "type": "text",
-        "name": "question65",
-        "title": "What date do you think the POR should expire?",
-        "description": "You will need to explain to the judge why you think this new date matters.",
-        "inputType": "date"
-       },
-       {
-        "type": "yesno",
-        "name": "question66",
-        "title": "Do you need [Respondent1] to carry a copy of this order (if it is granted) on their person at all times for the duration of order."
-       },
-       {
-        "type": "infotext",
-        "name": "question67",
-        "title": "Tell someone they finish the form. This is what it looks like. Here's next steps. By the way, urgency questions",
-        "titleLocation": "hidden"
-       }
-      ],
-      "title": "POR Review"
-     },
-     {
-      "name": "POR Emergency",
-      "elements": [
-       {
-        "type": "yesno",
-        "name": "question68",
-        "title": "Do you feel you need this protection order sooner?"
-       },
-       {
-        "type": "radiogroup",
-        "name": "question69",
-        "title": "How soon do you need this protection order?",
-        "choices": [
-         {
-          "value": "y",
-          "text": "Normal Timeline with notice; "
-         },
-         {
-          "value": "n",
-          "text": "ASAP W Notice;"
-         },
-         {
-          "value": "3",
-          "text": "ASAP W/O Notice"
-         }
-        ]
-       },
-       {
-        "type": "text",
-        "name": "question70",
-        "title": "Q1 What Happened? (This stuff should not be saved into the database)"
-       },
-       {
-        "type": "text",
-        "name": "question71",
-        "title": "Q2 Why do you need the POR Faster? (This stuff should not be saved into the database)"
-       },
-       {
-        "type": "text",
-        "name": "question72",
-        "title": "Q3 Why do you need the POR granted with no notice? (This stuff should not be saved into the database)"
-       }
-      ],
-      "title": "POR Emergency"
-     }
-    ],
-    "showQuestionNumbers": "off"
-   }
+ "title": "Provincial Family Test",
+ "pages": [
+  {
+   "name": "Applicant",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "ApplicantPanel",
+     "elements": [
+      {
+       "type": "text",
+       "name": "ApplicantName",
+       "title": "What is your name?",
+       "description": "You may enter a name you use in your everday life even if it does not match your ID exactly.",
+       "valueName": "applicant.name"
+      },
+      {
+       "type": "text",
+       "name": "ApplicantDOB",
+       "title": "What is your Date of Birth?",
+       "inputType": "date"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationServiceAddress",
+       "title": "You need to give an address where you can receive court documents. You do not have to use your home address. You can pick any address, such as your workplace or a lawyer's address, if you have one. The family member making you or your family feel unsafe will see this address.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "address",
+       "name": "ApplicantAddress",
+       "title": "What is your address for receiving court documents?"
+      },
+      {
+       "type": "yesno",
+       "name": "LawyerAddress",
+       "title": "Is this a lawyer's address?",
+       "description": "You can use one if you pay your lawyer to send and receive mail for you."
+      },
+      {
+       "type": "panel",
+       "name": "LawyerContactPanel",
+       "elements": [
+        {
+         "type": "text",
+         "name": "LawyerName",
+         "title": "What is the lawyer's name?",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "LawyerEmail",
+         "title": "Lawyer's Email (Optional)"
+        },
+        {
+         "type": "text",
+         "name": "LawyerPhone",
+         "startWithNewLine": false,
+         "title": "Lawyer's Phone Number",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "LawyerFax",
+         "startWithNewLine": false,
+         "title": "Lawyer's Fax Number (Optional)",
+         "inputType": "tel"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{LawyerAddress} = 'y'"
+      },
+      {
+       "type": "panel",
+       "name": "ApplicantContactPanel",
+       "elements": [
+        {
+         "type": "text",
+         "name": "ApplicantPhone",
+         "title": "Daytime Phone Number",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "ApplicantFax",
+         "startWithNewLine": false,
+         "title": "Fax Number (Optional)",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "ApplicantEmail",
+         "startWithNewLine": false,
+         "title": "Email (Optional)"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{LawyerAddress} = 'n'"
+      }
+     ]
+    },
+    {
+     "type": "infotext",
+     "name": "ApplicantPageEnd",
+     "visible": false,
+     "visibleIf": "{LawyerAddress} = 'y' or {LawyerAddress} = 'n'",
+     "title": "Finished this page. You can add children and other adults later if you need to.",
+     "titleLocation": "hidden"
+    }
+   ],
+   "title": "Applicant"
+  },
+  {
+   "name": "Respondent",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "Respondent1Panel",
+     "elements": [
+      {
+       "type": "text",
+       "name": "Respondent1Name",
+       "title": "What is the name of the person that is making you (or your family) feel unsafe?",
+       "description": "If you know how their name is written on their ID cards, that will be the most useful.",
+       "valueName": "respondent1.name",
+       "placeHolder": "Full Name Here If you know it"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1IsExPartner",
+       "title": "Is {respondent1.name} a current or ex-partner of {applicant.name}?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1IsChildsParent",
+       "visible": false,
+       "visibleIf": "{Respondent1IsExPartner} = 'n'",
+       "title": "Is {respondent1.name} a parent or guardian of any of {applicant.name}'s child?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1IsChildParentsRelative",
+       "visible": false,
+       "visibleIf": "{Respondent1IsChildsParent} = 'n'",
+       "title": "Is {respondent1.name} a relative of {applicant.name}'s child's parent or guardian?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1IsExPartnersPartner",
+       "visible": false,
+       "visibleIf": "{Respondent1IsChildParentsRelative} = 'n'",
+       "title": "Is {respondent1.name} a current partner of {applicant.name}'s ex-partner?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1IsLiveInRelative",
+       "visible": false,
+       "visibleIf": "{Respondent1IsExPartnersPartner} = 'n'",
+       "title": "Is {respondent1.name} a relative of {applicant.name} who lives with {applicant.name}?"
+      },
+      {
+       "type": "infotext",
+       "name": "Respondent1NotFamily",
+       "visible": false,
+       "visibleIf": "{Respondent1IsLiveInRelative} = 'n'",
+       "title": "{respondent1.name} needs to be a family member of {applicant.name} (or their children). You can't just put in any random citizen. Try a peace bond maybe.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "text",
+       "name": "Respondent1DOB",
+       "title": "What is {respondent1.name}'s date of birth?",
+       "description": "You can still use this service without this information. A Protection Order is most effective with this information.",
+       "inputType": "date"
+      },
+      {
+       "type": "boolean",
+       "name": "Respondent1DOBIDK",
+       "startWithNewLine": false,
+       "title": "I don't know the exact date"
+      },
+      {
+       "type": "address",
+       "name": "Respondent1Address",
+       "title": "What is an address where {Respondent1} can receive court documents?",
+       "description": "You can pick a daytime address such as {respondent1.name}'s workplace or somewhere you know {respondent1.name} will be staying."
+      },
+      {
+       "type": "text",
+       "name": "Respondent1Phone",
+       "title": "Daytime Phone Number",
+       "inputType": "tel"
+      },
+      {
+       "type": "text",
+       "name": "Respondent1Fax",
+       "startWithNewLine": false,
+       "title": "Fax Number (Optional)",
+       "inputType": "tel"
+      },
+      {
+       "type": "text",
+       "name": "Respondent1Email",
+       "startWithNewLine": false,
+       "title": "Email (Optional)"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "ExistingFamilyCasePanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "ExistingFamilyCase",
+       "title": "Is there already a Family Law case open between {applicant.name} and {respondent1.name} in the Provincial Court of British Columbia?"
+      },
+      {
+       "type": "dropdown",
+       "name": "ExistingCourt",
+       "visible": false,
+       "visibleIf": "{ExistingFamilyCase} = 'y'",
+       "title": "Court Location",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "Vancouver Robson Square"
+        },
+        {
+         "value": "item2",
+         "text": "Victoria Law Courts"
+        },
+        {
+         "value": "item3",
+         "text": "etc"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "name": "ExistingFileNumber",
+       "visible": false,
+       "visibleIf": "{ExistingFamilyCase} = 'y'",
+       "startWithNewLine": false,
+       "title": "File Number"
+      },
+      {
+       "type": "text",
+       "name": "ExistingStyleOfProceeding",
+       "visible": false,
+       "visibleIf": "{ExistingFamilyCase} = 'y'",
+       "title": "Spell out the exact Style of Proceeding",
+       "description": "This is at the top of the documents and usually looks like \"Name1 vs Name2\".",
+       "placeHolder": "Name1 vs Name2"
+      }
+     ],
+     "title": "Existing Family Case Information"
+    }
+   ]
+  },
+  {
+   "name": "Children",
+   "elements": [
+    {
+     "type": "yesno",
+     "name": "ChildrenInvolved",
+     "title": "Does {applicant.name} and/or {respondent1.name} have children?"
+    },
+    {
+     "type": "text",
+     "name": "ChildrenAmount",
+     "visible": false,
+     "visibleIf": "{ChildrenInvolved} = 'y'",
+     "title": "What is the total number of children that have {applicant.name} and {respondent1.name} have? ",
+     "inputType": "number"
+    },
+    {
+     "type": "panel",
+     "name": "Child1Panel",
+     "elements": [
+      {
+       "type": "text",
+       "name": "Child1Name",
+       "title": "What is the child's name?",
+       "valueName": "child1.name"
+      },
+      {
+       "type": "text",
+       "name": "Child1DOB",
+       "title": "Date of Birth",
+       "inputType": "date"
+      },
+      {
+       "type": "radiogroup",
+       "name": "Child1DOBIDK",
+       "startWithNewLine": false,
+       "choices": [
+        {
+         "value": "adult",
+         "text": "I don't know {child1.name}'s exact date of birth but I know they are 19 or older"
+        },
+        {
+         "value": "minor",
+         "text": "I don't know {child1.name}'s exact date of birth but I know they are younger than 19"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "Child1IsAdult",
+       "title": "[Need Help - Placeholder for validation to determine if Child1 is an adult]"
+      },
+      {
+       "type": "checkbox",
+       "name": "Child1AdultCare",
+       "visible": false,
+       "visibleIf": "{Child1IsAdult} = 'y'",
+       "title": "[Need Help - If No is selected, cancel other selections] {child1.name} is considered an adult. Does {child1.name} depend on either {applicant.name} or {respondent1.name} for any of the following reasons?",
+       "hasOther": true,
+       "choices": [
+        {
+         "value": "careno",
+         "text": "No"
+        },
+        {
+         "value": "school",
+         "text": "Yes, attending post secondary institution"
+        },
+        {
+         "value": "disability",
+         "text": "Yes, due to disabilty"
+        },
+        {
+         "value": "illness",
+         "text": "Yes, due to illness"
+        }
+       ],
+       "otherText": "Yes, due to other reason(s)"
+      },
+      {
+       "type": "yesno",
+       "name": "Child1ApplicantCare",
+       "visible": false,
+       "visibleIf": "{Child1AdultCare} = 'school' or {Child1AdultCare} = 'disability' or {Child1AdultCare} = 'illness'",
+       "title": "Is {applicant.name} provide financing support to {child1.name} for any of these situations?"
+      },
+      {
+       "type": "yesno",
+       "name": "Child1Respondent1Care",
+       "visible": false,
+       "visibleIf": "{Child1AdultCare} = 'school' or {Child1AdultCare} = 'disability' or {Child1AdultCare} = 'illness'",
+       "startWithNewLine": false,
+       "title": "Is {resondent1.name} providing financing support to {child1.name} for any of these situations?"
+      },
+      {
+       "type": "yesno",
+       "name": "Child1NeedsProtection",
+       "title": "Does {child1.name} need to be included on the Family Law Protection Order against {respondent1.name}?"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationChild1IsAdultNoProtectionNo",
+       "visible": false,
+       "visibleIf": "{Child1IsAdult} = 'n' and {Child1NeedsProtection} = 'n'",
+       "title": "Even if {child1.name} does not need to be included in the Protection Order, the judge will still need information about {child1.name} in order to make fair decision.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationChild1IsAdultNoPOR",
+       "visible": false,
+       "visibleIf": "{Child1IsAdult} = 'y' and {Child1NeedsProtection} = 'n' and {Child1AdultCare} = 'careno'",
+       "title": "Because {child1.name} is an adult, not supported financially for a special obligation and does not need to be included in the Protection Order, {child1.name} will not be included on your documents.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "panel",
+       "name": "Child1PanelRelationships",
+       "elements": [
+        {
+         "type": "radiogroup",
+         "name": "Child1RelationshipWApplicant",
+         "title": "How is {applicant.name} related to {child1.name}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "father",
+           "text": "Father"
+          },
+          {
+           "value": "item2",
+           "text": "Mother"
+          },
+          {
+           "value": "item3",
+           "text": "Step-Parent"
+          },
+          {
+           "value": "item4",
+           "text": "Legal Guardian"
+          }
+         ]
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1RelationshipWRespondent1",
+         "startWithNewLine": false,
+         "title": "How is {respondent1.name} related to {child1.name}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "father",
+           "text": "Father"
+          },
+          {
+           "value": "item2",
+           "text": "Mother"
+          },
+          {
+           "value": "item3",
+           "text": "Step-Parent"
+          },
+          {
+           "value": "item4",
+           "text": "Legal Guardian"
+          }
+         ]
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1IsAdult} = 'n' or {Child1NeedsProtection} = 'y'"
+      },
+      {
+       "type": "panel",
+       "name": "Child1PanelGuardianship",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantGuardian",
+         "title": "Is {applicant.name} a guardian of {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1Respondent1Guardian",
+         "startWithNewLine": false,
+         "title": "Is {respondent1.name} a guardian of {child1.name}?"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1IsAdult} = 'n'",
+       "title": "Guardianship is not the same as being parent. Here is what guardian means..."
+      },
+      {
+       "type": "panel",
+       "name": "Child1PanelParentingTime",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantPTime",
+         "title": "Does {applicant.name} spend time with {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1Respondent1PTime",
+         "startWithNewLine": false,
+         "title": "Does {respondent1.name} spend time with {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1EqualPTime",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantPTime} = 'y' and {Child1Respondent1PTime} = 'y'",
+         "title": "Does {child1.name} spend time equally between {applicant.name} and {respondent1.name}?",
+         "description": "Visible If {child1} spends time with more than 1 Guardian"
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1MainGuardians",
+         "visible": false,
+         "visibleIf": "{Child1EqualPTime} = 'n'",
+         "title": "Who does {child1.name} spend the most time with?",
+         "choices": [
+          {
+           "value": "applicantmoreptime",
+           "text": "{applicant.name}"
+          },
+          {
+           "value": "respondent1moreptime",
+           "text": "{respondent1.name}"
+          }
+         ]
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1ApplicantUnequalPTime",
+         "visible": false,
+         "visibleIf": "{Child1MainGuardians} = 'applicantmoreptime'",
+         "title": "How much time does {respondent1.name} spend with {child1.name}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "3pw",
+           "text": "More than twice a week"
+          },
+          {
+           "value": "2pw",
+           "text": "At least twice a week"
+          },
+          {
+           "value": "1pw",
+           "text": "At least once a week"
+          },
+          {
+           "value": "2pm",
+           "text": "At least every other week"
+          },
+          {
+           "value": "1pm",
+           "text": "At least once a month"
+          },
+          {
+           "value": "1py",
+           "text": "At least once a year"
+          }
+         ]
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1Respondent1UnequalPTime",
+         "visible": false,
+         "visibleIf": "{Child1MainGuardians} = 'respondent1moreptime'",
+         "title": "How much time does {applicant.name} spend with {child1.name}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "3pw",
+           "text": "More than twice a week"
+          },
+          {
+           "value": "2pw",
+           "text": "At least twice a week"
+          },
+          {
+           "value": "1pw",
+           "text": "At least once a week"
+          },
+          {
+           "value": "2pm",
+           "text": "At least every other week"
+          },
+          {
+           "value": "1pm",
+           "text": "At least once a month"
+          },
+          {
+           "value": "1py",
+           "text": "At least once a year"
+          }
+         ]
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1ApplicantGuardian} = 'y' and {Child1Respondent1Guardian} = 'y'",
+       "title": "Parenting Time"
+      },
+      {
+       "type": "panel",
+       "name": "Child1PanelParentingDecisions",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantPDecisions",
+         "title": "Can {applicant.name} make parenting decisions for {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1Respondent1PDecisions",
+         "startWithNewLine": false,
+         "title": "Can {respondent1.name} make parenting decisions for {child1.name}?"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1ApplicantGuardian} = 'y' and {Child1Respondent1Guardian} = 'y'",
+       "title": "Parenting Decisions"
+      },
+      {
+       "type": "panel",
+       "name": "Child1PanelContactOrder",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantContact",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantGuardian} = 'n'",
+         "title": "Does {applicant.name} have contact with {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1ApplicantContactOrder",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantContact} = 'y'",
+         "title": "Is there an agreement or court order respecting this contact?"
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1ApplicantContactTerms",
+         "visible": false,
+         "visibleIf": "{Child1ApplicantContactOrder} = 'y'",
+         "title": "What kind of contact does {applicant.name} have with {child1.name}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "y",
+           "text": "As agreed upon to between {applicant.name} and {respondent1.name}"
+          },
+          {
+           "value": "n",
+           "text": "Supervised contact in presence of someone else"
+          }
+         ]
+        },
+        {
+         "type": "yesno",
+         "name": "Child1Respondent1Contact",
+         "visibleIf": " and {Child1Respondent1Guardian} = 'y'",
+         "title": "Does {respondent1.name} have contact with {child1.name}?"
+        },
+        {
+         "type": "yesno",
+         "name": "Child1Respondent1ContactOrder",
+         "visible": false,
+         "visibleIf": "{Child1Respondent1Contact} = 'y'",
+         "title": "Is there an agreement or court order respecting this contact?"
+        },
+        {
+         "type": "radiogroup",
+         "name": "Child1Respondent1ContactTerms",
+         "visible": false,
+         "visibleIf": "{Child1Respondent1ContactOrder}= 'y'",
+         "title": "What kind of contact does {applicant.name} have with {child1.name}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "y",
+           "text": "As agreed upon to between {applicant.name} and {respondent1.name}"
+          },
+          {
+           "value": "n",
+           "text": "Supervised contact in presence of someone else"
+          }
+         ]
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{Child1ApplicantGuardian} = 'n' or {Child1Respondent1Guardian} = 'n'",
+       "title": "Orders Respecting Contact"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{ChildrenAmount} >= '1'",
+     "title": "Information about Child 1"
+    }
+   ],
+   "title": "Children"
+  },
+  {
+   "name": "Protection Order Details",
+   "elements": [
+    {
+     "type": "infotext",
+     "name": "NoContactRespondent1Summary",
+     "title": "This is a list of people who you want to be included on a Family Law Protection Order against {respondent1.name}:\n<br>\n{applicant.name}\n<br>\n{child1.name}\n<br>\n{child2.name}\nIf the judge grants this Protection Order, {respondent1.name} must stay away from [names] or they will be charged as a criminal.",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelNoContactExceptions",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "Respondent1ApplicantContact",
+       "title": "Would {respondent1.name} need to contact {applicant.name} for an ongoing court case?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1ApplicantThirdParties",
+       "visible": false,
+       "visibleIf": "{Respondent1ApplicantContact} = 'y'"
+      },
+      {
+       "type": "checkbox",
+       "name": "Respondent1ApplicantContactParties",
+       "title": "Are there any third parties that {respondent1.name} and {applicant.name} can communicate through?",
+       "hasOther": true,
+       "choices": [
+        {
+         "value": "none",
+         "text": "No"
+        },
+        {
+         "value": "lawyer",
+         "text": "Yes, a lawyer"
+        },
+        {
+         "value": "socialworker",
+         "text": "Yes, a social worker"
+        },
+        {
+         "value": "mutualfamily",
+         "text": "Yes, a mutual family member"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1ApplicantArrangeChildren",
+       "title": "[Need help with logic - If there is at least one child who does not need protection] Does {respondent1.name} need to contact you to arrange parenting responsibilities?"
+      },
+      {
+       "type": "checkbox",
+       "name": "Respondent1ApplicantArrangeMethods",
+       "visible": false,
+       "visibleIf": "{Respondent1ApplicantArrangeChildren} = 'y'",
+       "title": "What is your preferred method for {respondent1.name} to contact you?",
+       "hasOther": true,
+       "choices": [
+        {
+         "value": "phone",
+         "text": "By phone"
+        },
+        {
+         "value": "text",
+         "text": "By text message"
+        },
+        {
+         "value": "email",
+         "text": "By email"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1ApplicantContactOther",
+       "title": "Is there any other reason that {respondent1.name} would need to contact you?"
+      },
+      {
+       "type": "text",
+       "name": "Respondent1ApplicantContactOtherReason",
+       "title": "Describe the reason(s)?"
+      }
+     ],
+     "title": "Even with a Protection Order in place, there may be times where it is important to contact each other."
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelFamilyHome",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "Respondent1LiveTogether",
+       "title": "Does {respondent1.name} currently live with {applicant.name} or {child1.name}?",
+       "description": "we'll need lots of info here or expanding question topic about what it means to \"currently live\" with someone. in other words, ran away to a shelter/couch surfing vs moved out a month ago. FLA 184(4)"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1Leaving",
+       "visible": false,
+       "visibleIf": "{Respondent1LiveTogether} = 'y'",
+       "title": "Do you, {applicant.name}, want to stay in the family home?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "Respondent1NeedPolice",
+       "visible": false,
+       "visibleIf": "{Respondent1Leaving} = 'y'",
+       "title": "Do you think you need the police to remove {respondent1.name} from your family home or are they leaving on their own?",
+       "choices": [
+        {
+         "value": "y",
+         "text": "I need police assistance"
+        },
+        {
+         "value": "n",
+         "text": "{respondent1.name} will probably leave on their own"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "HomeAddressSame",
+       "title": "Is the address of your family home the same as the address you provided for receiving court documents? [Display applicant's service address]"
+      },
+      {
+       "type": "address",
+       "name": "FamilyHomeAddress",
+       "visible": false,
+       "visibleIf": "{HomeAddressSame} = 'n'",
+       "title": "What is the address of your family home?"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelBelongings",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "Respondent1HasStuff",
+       "title": "Does {respondent1.name} have any of [list of pending protected parties]'s personal belongings?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1HasStuffPolice",
+       "visible": false,
+       "visibleIf": "{Respondent1HasStuff} = 'y'",
+       "title": "Do you think you need police assistance to get personal belongings from {respondent1.name}?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1HasStuffAddressSame",
+       "visible": false,
+       "visibleIf": "{Respondent1HasStuffPolice} = 'y'",
+       "title": "Same as {respondent1.name}'s address that you provided for receiving court documents? [Display respondent's service address]"
+      },
+      {
+       "type": "address",
+       "name": "Respondent1HasStuffAddress",
+       "visible": false,
+       "visibleIf": "{Respondent1HasStuffAddressSame} = 'n'",
+       "title": "What is the address where your personal belongs are being held?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1NeedsStuff",
+       "title": "Does [names of pending protected parties] have any {respondent1.name}'s personal belongings?",
+       "description": "Leave out the stolen items. make the help text more about clothing and daily-needed items. the whole point is to avoid having to come back and forth to grab stuff each time."
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1NeedsStuffPolice",
+       "visible": false,
+       "visibleIf": "{Respondent1NeedsStuff} = 'y'",
+       "title": "Does you need the police to go with {respondent1.name} to get their personal belongings from you?"
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1NeedsStuffAddressSame",
+       "visible": false,
+       "visibleIf": "{Respondent1NeedsStuffPolice} = 'y'",
+       "title": "Is the address where you are holding {respondent1.name}'s personal belongings the same as the address you provided for receiving court documents? [Display applicant's service address]"
+      },
+      {
+       "type": "address",
+       "name": "Respondent1NeedsStuffAddress",
+       "visible": false,
+       "visibleIf": "{Respondent1NeedsStuffAddressSame} = 'n'",
+       "title": "Address"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelNoGo",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "Respondent1NoGo",
+       "title": "Are there any places, other than your home, where {respondent1.name} needs to stay away from?"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationNoGoAddresses",
+       "visible": false,
+       "visibleIf": "{Respondent1NoGo} = 'y'",
+       "title": "For this service, you do not need to give the addresses of the places you want {respondent1.name} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the address into the courtroom with you.",
+       "titleLocation": "hidden"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelWeapons",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "Respondent1Weapons",
+       "title": "Are you afraid [Respondent] will harm you or family members with weapons (including guns, explosives)?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "Respondent1NoWeapons",
+       "visible": false,
+       "visibleIf": "{Respondent1Weapons} = 'n'",
+       "title": "By selecting no above, you are saying there is no need for a judge to order {respondent1.name} to give up their weapons if they have any. They also won't be able to possess any weapons for the duration of this Protection Order. If there is no concern over weapons, select \"There is no concern over weapons\" Otherwise, consider going back to the last question and selecting 'yes' instead.",
+       "choices": [
+        {
+         "value": "confirmed",
+         "text": "There is no concern over weapons"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "Resident1Firearms",
+       "visible": false,
+       "visibleIf": "{Respondent1Weapons} = 'y'",
+       "title": "Do you think {respondent1.name} has guns, explosives or any other kind of firearm?",
+       "description": "Use definition of Criminal Code."
+      },
+      {
+       "type": "yesno",
+       "name": "Respondent1NonFirearms",
+       "visible": false,
+       "visibleIf": "{Respondent1Weapons} = 'y'",
+       "title": "Do you think {respondent1.name} has weapons that are not guns or explosives?",
+       "description": "Knives are for cooking but could be used a weapon. Say Yes if they're particularly stabby but no if they're just an avid cook. Use this quesiton as a place to define what weapons are and why we are asking. Use definition of Criminal Code."
+      }
+     ]
+    }
+   ],
+   "title": "Protection Order Details"
+  },
+  {
+   "name": "Review",
+   "elements": [
+    {
+     "type": "infotext",
+     "name": "ApplicationReview",
+     "title": "This is a review of everything. Show the box and show summary. Edit button to go back to topic page.",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "yesno",
+     "name": "Respondent1PORTime",
+     "title": "Protection Orders usually last 1 year from the date the judge makes the order. Do you wish to make the order last a different amount of time?"
+    },
+    {
+     "type": "text",
+     "name": "Respondent1PORNewTime",
+     "visible": false,
+     "visibleIf": "{Respondent1PORTime} = 'y'",
+     "title": "What date do you think the POR should expire?",
+     "description": "You will need to explain to the judge why you think this new date matters.",
+     "inputType": "date"
+    },
+    {
+     "type": "yesno",
+     "name": "Respondent1CarryCopy",
+     "title": "Do you need [Respondent1] to carry a copy of this order (if it is granted) on their person at all times for the duration of order."
+    },
+    {
+     "type": "infotext",
+     "name": "ExplanationDoneMainForm",
+     "title": "Tell someone they finish the form. This is what it looks like. Here's next steps. By the way, urgency questions",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "yesno",
+     "name": "PORSpeedup",
+     "title": "Do you feel you need this protection order sooner?"
+    },
+    {
+     "type": "radiogroup",
+     "name": "PORSpeed",
+     "visible": false,
+     "visibleIf": "{PORSpeedup} = 'y'",
+     "title": "How soon do you need this protection order?",
+     "choices": [
+      {
+       "value": "normal",
+       "text": "Normal Timeline with notice; "
+      },
+      {
+       "value": "speedupwithnotice",
+       "text": "ASAP W Notice;"
+      },
+      {
+       "value": "speedupwithoutnotice",
+       "text": "ASAP W/O Notice"
+      }
+     ]
+    },
+    {
+     "type": "yesno",
+     "name": "PORSpeedNormalAffidavit",
+     "visible": false,
+     "visibleIf": "{PORSpeed} = 'normal'",
+     "title": "Does you want to write an affidavit using this service?",
+     "description": "Writing an affidavit is optional. Some judges really like it and may actually request it at a later date."
+    },
+    {
+     "type": "infotext",
+     "name": "ExplanationYesSpeedup",
+     "visible": false,
+     "visibleIf": "{PORSpeed} = 'fasterwithnotice' or {PORSpeed} = 'fasterwithoutnotice'",
+     "title": "This means that you need fill out more forms and wait for a judge to decide whether they will hear you or not.",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "text",
+     "name": "PORWhatHappened",
+     "visible": false,
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or {PORSpeed} = 'fasterwithnotice' or {PORSpeed} = 'fasterwithoutnotice'",
+     "title": "Q1 What Happened? (This stuff should not be saved into the database)"
+    },
+    {
+     "type": "text",
+     "name": "PORWhyASAP",
+     "visible": false,
+     "visibleIf": "{PORSpeed} = 'fasterwithnotice' or {PORSpeed} = 'fasterwithoutnotice'",
+     "title": "Q2 Why do you need the POR Faster? (This stuff should not be saved into the database)"
+    },
+    {
+     "type": "text",
+     "name": "PORWhyNoNotice",
+     "visible": false,
+     "visibleIf": "{PORSpeed} = 'fasterwithnotice' and {PORSpeed} = 'fasterwithoutnotice'",
+     "title": "Q3 Why do you need the POR granted with no notice? (This stuff should not be saved into the database)"
+    },
+    {
+     "type": "infotext",
+     "name": "PageEndReview",
+     "visible": false,
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or {PORSpeedNormalAffidavit} = 'n'",
+     "title": "Print Forms and take them to the courthouse",
+     "titleLocation": "hidden"
+    }
+   ],
+   "title": "POR Review"
+  }
+ ],
+ "showQuestionNumbers": "off"
+}
