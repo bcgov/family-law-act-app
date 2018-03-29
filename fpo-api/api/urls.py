@@ -73,10 +73,10 @@ urlpatterns = [
     url(r'^userroles/(?P<id>[0-9]+)/delete$', views.userrolesIdDeletePost.as_view()),
     url(r'^userroles/(?P<id>[0-9]+)$', views.userrolesIdGet.as_view()),
 
-    url(r'^pdf$', views.pdf.as_view()),
-
     url(r'^survey-cache/(?P<name>[a-zA-Z0-9_\-:]+)$', survey.SurveyCacheView.as_view()),
     url(r'^survey-cache/(?P<name>[a-zA-Z0-9_\-:]+)/(?P<id>[a-zA-Z0-9_\-:]+)$', survey.SurveyCacheView.as_view()),
+
+    url(r'^survey-print/(?P<name>[a-zA-Z0-9_\-:]+)$', views.surveyPdf.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

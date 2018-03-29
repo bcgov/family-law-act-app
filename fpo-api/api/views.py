@@ -2,7 +2,7 @@
     REST API Documentation for Family Protection Order
 
     OpenAPI spec version: v1
-        
+
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -22,15 +22,16 @@ import json
 import os
 import random
 
+from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
+from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import JsonResponse, HttpResponse
 from wsgiref.util import FileWrapper
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import permissions 
+from rest_framework import permissions
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework_bulk import BulkCreateModelMixin
@@ -46,12 +47,12 @@ from api.pdf import render as render_pdf
 
 
 class permissionsBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView):
-  """  
-  Bulk create / update a number of Permission object  
+  """
+  Bulk create / update a number of Permission object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Permission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Permission.objects.all()
   serializer_class = serializers.PermissionSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -60,12 +61,12 @@ class permissionsBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericA
     return self.create(request, *args, **kwargs)
 
 class permissionsGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-  """  
-  Lists available Permission objects  
+  """
+  Lists available Permission objects
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Permission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Permission.objects.all()
   serializer_class = serializers.PermissionSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -79,12 +80,12 @@ class permissionsGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMix
     return self.create(request, *args, **kwargs)
 
 class permissionsIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.GenericAPIView):
-  """  
-  Deletes a specific Permission object  
+  """
+  Deletes a specific Permission object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Permission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Permission.objects.all()
   serializer_class = serializers.PermissionSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -94,12 +95,12 @@ class permissionsIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.
 
 
 class permissionsIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
-  """  
-  Gets a specific Permission object  
+  """
+  Gets a specific Permission object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Permission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Permission.objects.all()
   serializer_class = serializers.PermissionSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -113,12 +114,12 @@ class permissionsIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateMo
     return self.update(request, *args, **kwargs)
 
 class rolesBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView):
-  """  
-  Bulk create / update a number of Role object  
+  """
+  Bulk create / update a number of Role object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Role.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Role.objects.all()
   serializer_class = serializers.RoleSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -127,12 +128,12 @@ class rolesBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView
     return self.create(request, *args, **kwargs)
 
 class rolesGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-  """  
-  Lists available Role objects  
+  """
+  Lists available Role objects
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Role.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Role.objects.all()
   serializer_class = serializers.RoleSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -146,12 +147,12 @@ class rolesGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, ge
     return self.create(request, *args, **kwargs)
 
 class rolesIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.GenericAPIView):
-  """  
-  Deletes a specific Role object  
+  """
+  Deletes a specific Role object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Role.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Role.objects.all()
   serializer_class = serializers.RoleSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -161,12 +162,12 @@ class rolesIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.Generi
 
 
 class rolesIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
-  """  
-  Gets a specific Role object  
+  """
+  Gets a specific Role object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = Role.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = Role.objects.all()
   serializer_class = serializers.RoleSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -180,12 +181,12 @@ class rolesIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMix
     return self.update(request, *args, **kwargs)
 
 class rolepermissionsBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView):
-  """  
-  Bulk create / update a number of RolePermission object  
+  """
+  Bulk create / update a number of RolePermission object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = RolePermission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = RolePermission.objects.all()
   serializer_class = serializers.RolePermissionSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -194,12 +195,12 @@ class rolepermissionsBulkPost(AuditableMixin,BulkCreateModelMixin, generics.Gene
     return self.create(request, *args, **kwargs)
 
 class rolepermissionsGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-  """  
-  Lists available RolePermission objects  
+  """
+  Lists available RolePermission objects
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = RolePermission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = RolePermission.objects.all()
   serializer_class = serializers.RolePermissionSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -213,12 +214,12 @@ class rolepermissionsGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateMode
     return self.create(request, *args, **kwargs)
 
 class rolepermissionsIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.GenericAPIView):
-  """  
-  Deletes a specific RolePermission object  
+  """
+  Deletes a specific RolePermission object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = RolePermission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = RolePermission.objects.all()
   serializer_class = serializers.RolePermissionSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -228,12 +229,12 @@ class rolepermissionsIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, gener
 
 
 class rolepermissionsIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
-  """  
-  Gets a specific RolePermission object  
+  """
+  Gets a specific RolePermission object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = RolePermission.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = RolePermission.objects.all()
   serializer_class = serializers.RolePermissionSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -247,12 +248,12 @@ class rolepermissionsIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.Upda
     return self.update(request, *args, **kwargs)
 
 class usersBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView):
-  """  
-  Bulk create / update a number of User object  
+  """
+  Bulk create / update a number of User object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = User.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = User.objects.all()
   serializer_class = serializers.UserSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -261,12 +262,12 @@ class usersBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView
     return self.create(request, *args, **kwargs)
 
 class usersGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-  """  
-  Lists available User objects  
+  """
+  Lists available User objects
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = User.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = User.objects.all()
   serializer_class = serializers.UserSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -280,12 +281,12 @@ class usersGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, ge
     return self.create(request, *args, **kwargs)
 
 class usersIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.GenericAPIView):
-  """  
-  Deletes a specific User object  
+  """
+  Deletes a specific User object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = User.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = User.objects.all()
   serializer_class = serializers.UserSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -295,12 +296,12 @@ class usersIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.Generi
 
 
 class usersIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
-  """  
-  Gets a specific User object  
+  """
+  Gets a specific User object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = User.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = User.objects.all()
   serializer_class = serializers.UserSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -314,12 +315,12 @@ class usersIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMix
     return self.update(request, *args, **kwargs)
 
 class userrolesBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPIView):
-  """  
-  Bulk create / update a number of UserRole object  
+  """
+  Bulk create / update a number of UserRole object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = UserRole.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = UserRole.objects.all()
   serializer_class = serializers.UserRoleSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -328,12 +329,12 @@ class userrolesBulkPost(AuditableMixin,BulkCreateModelMixin, generics.GenericAPI
     return self.create(request, *args, **kwargs)
 
 class userrolesGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-  """  
-  Lists available UserRole objects  
+  """
+  Lists available UserRole objects
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = UserRole.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = UserRole.objects.all()
   serializer_class = serializers.UserRoleSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -347,12 +348,12 @@ class userrolesGet(AuditableMixin,mixins.ListModelMixin, mixins.CreateModelMixin
     return self.create(request, *args, **kwargs)
 
 class userrolesIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.GenericAPIView):
-  """  
-  Deletes a specific UserRole object  
+  """
+  Deletes a specific UserRole object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = UserRole.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = UserRole.objects.all()
   serializer_class = serializers.UserRoleSerializer
   def post(self, request, *args, **kwargs):
     """
@@ -362,12 +363,12 @@ class userrolesIdDeletePost(AuditableMixin,mixins.DestroyModelMixin, generics.Ge
 
 
 class userrolesIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
-  """  
-  Gets a specific UserRole object  
+  """
+  Gets a specific UserRole object
   """
   lookup_field = 'id'
-  permission_classes = (permissions.AllowAny,)  
-  queryset = UserRole.objects.all()  
+  permission_classes = (permissions.AllowAny,)
+  queryset = UserRole.objects.all()
   serializer_class = serializers.UserRoleSerializer
   def get(self, request, *args, **kwargs):
     """
@@ -381,9 +382,18 @@ class userrolesIdGet(AuditableMixin,mixins.RetrieveModelMixin, mixins.UpdateMode
     return self.update(request, *args, **kwargs)
 
 
-class pdf(generics.GenericAPIView):
-  def get(self, request, *args, **kwargs):
-    pdf_content = render_pdf("<html>hello world</html>")
+class surveyPdf(generics.GenericAPIView):
+  def post(self, request, name=None):
+    tpl_name = 'survey-{}.html'.format(name)
+    #return HttpResponseBadRequest('Unknown survey name')
+
+    responses = json.loads(request.POST['data'])
+    # responses = {'question1': 'test value'}
+
+    template = get_template(tpl_name)
+    html_content = template.render(responses)
+
+    pdf_content = render_pdf(html_content)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 

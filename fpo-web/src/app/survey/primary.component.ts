@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GeneralDataService } from '../general-data.service';
 
 @Component({
   selector: 'survey-primary',
@@ -10,10 +11,16 @@ export class SurveyPrimaryComponent implements OnInit {
 
   public cacheName: string;
   public showSidebar: boolean = true;
+  public printUrl: string;
+  public resultJson: any;
   public survey: any;
   public complete: Function;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dataService: GeneralDataService
+  ) { }
 
   ngOnInit() {
     let routeData = this.route.snapshot.data;
@@ -25,9 +32,14 @@ export class SurveyPrimaryComponent implements OnInit {
   }
 
   onComplete(data) {
-    if(this.route.snapshot.url[0].path === 'qualify') {
+    let path = this.route.snapshot.url[0].path;
+    if(path === 'qualify') {
       let ok = (data.ExistingPOR === 'n') ? 'qualified' : 'unqualified';
       this.router.navigate(['result', ok]);
+    }
+    else if(this.cacheName) {
+      this.resultJson = JSON.stringify(data);
+      this.printUrl = this.dataService.getApiUrl('survey-print/' + this.cacheName);
     }
   }
 

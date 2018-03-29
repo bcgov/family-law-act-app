@@ -1,7 +1,14 @@
 <div class="container survey-content survey-primary">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="! printUrl">
       <survey [jsonData]="survey" [cacheName]="cacheName" [onComplete]="complete" [showSidebar]="showSidebar"></survey>
+    </div>
+    <div class="col-md-12" *ngIf="printUrl">
+      <h2>You have completed the survey</h2>
+      <form method="post" [action]="printUrl" target="_blank" ngNoForm class="mrgn-tp-lg">
+        <input name="data" type="hidden" [value]="resultJson">
+        <button type="submit" class="btn btn-default btn-lg"><span class="fa fa-print btn-icon-left"></span> Print Survey</button>
+      </form>
     </div>
   </div>
 </div>
