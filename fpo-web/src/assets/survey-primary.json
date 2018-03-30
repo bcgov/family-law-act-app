@@ -105,7 +105,7 @@
      "name": "ApplicantPageEnd",
      "visible": false,
      "visibleIf": "{LawyerAddress} = 'y' or {LawyerAddress} = 'n'",
-     "title": "Finished this page. You can add children and other adults later if you need to.",
+     "title": "Finished this page. Next you will add information about the person who is making you or your children feel unsafe. After that you will add children.",
      "titleLocation": "hidden"
     }
    ],
@@ -256,6 +256,14 @@
       }
      ],
      "title": "Existing Family Case Information"
+    },
+    {
+     "type": "infotext",
+     "name": "PageEndRespondent",
+     "visible": false,
+     "visibleIf": "{ExistingFamilyCase} = 'y' or {ExistingFamilyCase} = 'n'",
+     "title": "Finished this page. Next you will add information about the person who is making you or your children feel unsafe. After that you will add children.",
+     "titleLocation": "hidden"
     }
    ]
   },
@@ -683,14 +691,10 @@
        "title": "Would {respondent1.name} need to contact {applicant.name} for an ongoing court case?"
       },
       {
-       "type": "yesno",
-       "name": "Respondent1ApplicantThirdParties",
-       "visible": false,
-       "visibleIf": "{Respondent1ApplicantContact} = 'y'"
-      },
-      {
        "type": "checkbox",
        "name": "Respondent1ApplicantContactParties",
+       "visible": false,
+       "visibleIf": "{Respondent1ApplicantContact} = 'y'",
        "title": "Are there any third parties that {respondent1.name} and {applicant.name} can communicate through?",
        "hasOther": true,
        "choices": [
@@ -747,6 +751,8 @@
       {
        "type": "text",
        "name": "Respondent1ApplicantContactOtherReason",
+       "visible": false,
+       "visibleIf": "{Respondent1ApplicantContactOther} = 'y'",
        "title": "Describe the reason(s)?"
       }
      ],
@@ -789,6 +795,8 @@
       {
        "type": "yesno",
        "name": "HomeAddressSame",
+       "visible": false,
+       "visibleIf": "{Respondent1NeedPolice} = 'y'",
        "title": "Is the address of your family home the same as the address you provided for receiving court documents? [Display applicant's service address]"
       },
       {
@@ -797,6 +805,25 @@
        "visible": false,
        "visibleIf": "{HomeAddressSame} = 'n'",
        "title": "What is the address of your family home?"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelNoGo",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "Respondent1NoGo",
+       "title": "Are there any places, other than your home, where {respondent1.name} needs to stay away from?"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationNoGoAddresses",
+       "visible": false,
+       "visibleIf": "{Respondent1NoGo} = 'y'",
+       "title": "For this service, you do not need to give the addresses of the places you want {respondent1.name} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the address into the courtroom with you.",
+       "titleLocation": "hidden"
       }
      ]
     },
@@ -856,25 +883,6 @@
        "visible": false,
        "visibleIf": "{Respondent1NeedsStuffAddressSame} = 'n'",
        "title": "Address"
-      }
-     ]
-    },
-    {
-     "type": "panel",
-     "name": "PORPanelNoGo",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "Respondent1NoGo",
-       "title": "Are there any places, other than your home, where {respondent1.name} needs to stay away from?"
-      },
-      {
-       "type": "infotext",
-       "name": "ExplanationNoGoAddresses",
-       "visible": false,
-       "visibleIf": "{Respondent1NoGo} = 'y'",
-       "title": "For this service, you do not need to give the addresses of the places you want {respondent1.name} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the address into the courtroom with you.",
-       "titleLocation": "hidden"
       }
      ]
     },
@@ -1001,21 +1009,21 @@
      "type": "text",
      "name": "PORWhatHappened",
      "visible": false,
-     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or {PORSpeed} = 'fasterwithnotice' or {PORSpeed} = 'fasterwithoutnotice'",
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or {PORSpeed} = 'speedupwithnotice' or {PORSpeed} = 'speedupwithoutnotice'",
      "title": "Q1 What Happened? (This stuff should not be saved into the database)"
     },
     {
      "type": "text",
      "name": "PORWhyASAP",
      "visible": false,
-     "visibleIf": "{PORSpeed} = 'fasterwithnotice' or {PORSpeed} = 'fasterwithoutnotice'",
+     "visibleIf": "{PORSpeed} = 'speedupwithnotice' or {PORSpeed} = 'speedupwithoutnotice'",
      "title": "Q2 Why do you need the POR Faster? (This stuff should not be saved into the database)"
     },
     {
      "type": "text",
      "name": "PORWhyNoNotice",
      "visible": false,
-     "visibleIf": "{PORSpeed} = 'fasterwithnotice' and {PORSpeed} = 'fasterwithoutnotice'",
+     "visibleIf": "{PORSpeed} = 'speedupwithoutnotice'",
      "title": "Q3 Why do you need the POR granted with no notice? (This stuff should not be saved into the database)"
     },
     {
