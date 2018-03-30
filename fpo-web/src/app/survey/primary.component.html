@@ -1,7 +1,7 @@
 <div class="container survey-content survey-primary">
   <div class="row">
     <div class="col-md-12" *ngIf="! printUrl">
-      <survey [jsonData]="survey" [cacheName]="cacheName" [onComplete]="complete" [showSidebar]="showSidebar"></survey>
+      <survey [surveyPath]="surveyPath" [surveyJson]="surveyJson" [cacheName]="cacheName" [onComplete]="complete" [showSidebar]="showSidebar"></survey>
     </div>
     <div class="col-md-12" *ngIf="printUrl">
       <h2>You have completed the survey</h2>

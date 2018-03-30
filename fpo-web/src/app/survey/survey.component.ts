@@ -13,19 +13,24 @@ import { addQuestionTypes } from './question-types';
   styleUrls: ['./survey.component.scss']
 })
 export class SurveyComponent  {
-  @Input() jsonData: any;
+  private _jsonData: any;
+  private _ready = false;
   @Input() cacheName: string;
   @Input() onComplete: Function;
   @Input() showSidebar = true;
+  @Input() surveyPath: string;
   public cacheLoadTime: any;
   public cacheKey: string;
   public surveyModel: Survey.SurveyModel;
   public onPageUpdate: BehaviorSubject<Survey.SurveyModel> = new BehaviorSubject<Survey.SurveyModel>(null);
+  public error: string;
+  public loading = true;
   private useMarkdown = true;
   private useLocalCache = false;
   private disableCache = false;
   private markdownConverter: any;
   private showMissingTerms = true;
+  private prevPageIndex = null;
 
   constructor(
     private dataService: GeneralDataService,
@@ -35,7 +40,7 @@ export class SurveyComponent  {
 
   ngOnInit() {
     this.initSurvey();
-    this.glossaryService.onLoaded(this.renderSurvey.bind(this));
+    this.glossaryService.onLoaded(() => this.loadSurvey(true));
     if(this.showSidebar) {
       this.insertService.updateInsert('sidebar-left',
         {type: 'survey-sidebar', inputs: {survey: this}});
@@ -60,8 +65,33 @@ export class SurveyComponent  {
     Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic"; // not used?
   }
 
+  get surveyJson() {
+    return this._jsonData;
+  }
+
+  @Input('surveyJson')
+  set surveyJson(value) {
+    this._jsonData = value;
+    this.loadSurvey();
+  }
+
+  loadSurvey(ready?) {
+    if(ready) this._ready = ready;
+    if(this._jsonData) {
+      this.loading = false;
+      if(this._ready && ! this.surveyModel) {
+        this.renderSurvey();
+      }
+    } else if(this.surveyPath) {
+      this.dataService.loadJson(this.surveyPath).then((data) => {
+        this.surveyJson = data;
+      }); // .catch( (err) => ...)
+    }
+    // else this.error = 'Missing survey definition';
+  }
+
   renderSurvey() {
-    let surveyModel = new Survey.Model(this.jsonData);
+    let surveyModel = new Survey.Model(this._jsonData);
     surveyModel.showQuestionNumbers = 'off';
     surveyModel.showNavigationButtons = false;
 
@@ -81,6 +111,7 @@ export class SurveyComponent  {
         str = str.replace(/<code>(.*?)<\/code>/g,
           (wholeMatch, m1) => {
             if(this.glossaryService.hasTerm(m1)) {
+              // note: m1 is already html format
               return '<a href="#" class="glossary-link" data-glossary="' + m1 + '">' + m1 + '</a>';
             }
             if(this.showMissingTerms) {
@@ -97,7 +128,10 @@ export class SurveyComponent  {
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
       this.onPageUpdate.next(sender);
-      if(! this.disableCache) this.saveCache();
+      if(! this.disableCache && this.prevPageIndex !== sender.currentPageNo) {
+        this.saveCache();
+      }
+      this.prevPageIndex = sender.currentPageNo;
     });
     surveyModel.onPageVisibleChanged.add((sender, options) => {
       this.onPageUpdate.next(sender);
@@ -145,11 +179,14 @@ export class SurveyComponent  {
   }
 
   resetCache() {
+    if(this.surveyModel) {
+      this.prevPageIndex = 0;
+      this.surveyModel.data = {};
+      this.surveyModel.currentPageNo = 0;
+    }
     this.dataService.clearSurveyCache(this.cacheName, this.cacheKey, this.useLocalCache);
     this.cacheLoadTime = null;
     this.cacheKey = null;
-    this.surveyModel.data = {};
-    this.surveyModel.currentPageNo = 0;
   }
 
   loadCache() {
@@ -158,14 +195,14 @@ export class SurveyComponent  {
   }
 
   doneLoadCache(response) {
-    console.log('loaded cache', response);
     if(response && response.result) {
       let cache = response.result;
       if(cache.data) {
-        this.surveyModel.currentPageNo = cache.page || 0;
+        this.prevPageIndex = cache.page || 0;
+        this.surveyModel.currentPageNo = this.prevPageIndex;
         this.surveyModel.data = cache.data;
         this.cacheLoadTime = cache.time;
-        this.cacheKey = response.result.key;
+        this.cacheKey = response.key;
       }
     }
   }
@@ -176,16 +213,15 @@ export class SurveyComponent  {
       'data': this.surveyModel.data,
       'page': this.surveyModel.currentPageNo,
     };
-    console.log('saving cache', cache);
     this.dataService.saveSurveyCache(this.cacheName, cache, this.cacheKey, this.useLocalCache)
-      .then(this.doneSaveCache.bind(this));
+      .then(this.doneSaveCache.bind(this))
+      .catch((err) => this.doneSaveCache(null, err));
   }
 
-  doneSaveCache(response) {
-    console.log('saved cache', response);
-    if(response.result && response.result.status === 'ok') {
-      // save cache key to local cache?
-      this.cacheKey = response.result.key;
+  doneSaveCache(response, err?) {
+    if(response && response.status === 'ok' && response.result) {
+      this.cacheLoadTime = response.result.time;
+      this.cacheKey = response.key;
     }
   }
 

@@ -15,13 +15,16 @@ import { GeneralDataService } from '../general-data.service';
   ]
 })
 export class SurveyEditorComponent  {
-  @Input() jsonData: any;
+  @Input() surveyJson: any;
+  @Input() surveyPath: any;
   @Input() cacheName: string;
   @Input() onComplete: Function;
 
   public cacheKey: string;
   public cacheLoadTime: any;
   public editor: SurveyEditor.SurveyEditor;
+  public loading = true;
+  public error: string;
   private useLocalCache = true;
 
   constructor(
@@ -30,33 +33,51 @@ export class SurveyEditorComponent  {
   ) {}
 
   ngOnInit() {
-
-    if(! this.jsonData) {
-      this.jsonData = this.route.snapshot.data.survey;
-    }
     if(! this.cacheName) {
       this.cacheName = this.route.snapshot.data.cache_name;
     }
-
-    addQuestionTypes(SurveyKO);
-
-    var editorOptions = {
-      // showTestSurveyTab: false
-    };
-    this.editor = new SurveyEditor.SurveyEditor('editorElement', editorOptions);
-    this.editor.isAutoSave = true;
-    this.editor.saveSurveyFunc = (saveNo, callback) => {
-      this.saveCache(callback);
-    };
-    addToolboxOptions(this.editor);
-    this.initSurveyData();
-
-    this.loadCache();
+    if(! this.surveyPath) {
+      this.surveyPath = this.route.snapshot.data.survey_path;
+    }
+    if(! this.surveyJson) {
+      this.surveyJson = this.route.snapshot.data.survey;
+    }
+    this.loadSurvey();
   }
 
-  initSurveyData() {
-    if(this.jsonData) {
-      this.editor.text = JSON.stringify(this.jsonData, null, 2);
+  loadSurvey() {
+    if(this.surveyJson) {
+      this.loading = false;
+      this.renderEditor();
+    } else {
+      this.loadCache().then((ok) => {
+        if(!ok && this.surveyPath) {
+          this.dataService.loadJson(this.surveyPath).then((data) => {
+            this.surveyJson = data;
+            this.loadSurvey();
+          }); // .catch( (err) => ...)
+        } else {
+          this.loadSurvey();
+        }
+      });
+    }
+  }
+
+  renderEditor() {
+    if(! this.editor) {
+      addQuestionTypes(SurveyKO);
+          var editorOptions = {
+        // showTestSurveyTab: false
+      };
+      this.editor = new SurveyEditor.SurveyEditor('editorElement', editorOptions);
+      this.editor.isAutoSave = true;
+      this.editor.saveSurveyFunc = (saveNo, callback) => {
+        this.saveCache(callback);
+      };
+      addToolboxOptions(this.editor);
+    }
+    if(this.surveyJson) {
+      this.editor.text = JSON.stringify(this.surveyJson, null, 2);
     }
   }
 
@@ -64,28 +85,30 @@ export class SurveyEditorComponent  {
     this.dataService.clearSurveyCache(this.cacheName, this.cacheKey, this.useLocalCache);
     this.cacheLoadTime = null;
     this.cacheKey = null;
-    this.initSurveyData();
+    this.surveyJson = null;
+    this.loadSurvey();
   }
 
   loadCache() {
-    this.dataService.loadSurveyCache(this.cacheName, this.cacheKey, this.useLocalCache)
-      .then(this.doneLoadCache.bind(this));
+    return this.dataService.loadSurveyCache(this.cacheName, this.cacheKey, this.useLocalCache)
+      .then(this.doneLoadCache.bind(this))
+      .catch((err) => this.doneLoadCache(null, err));
   }
 
-  doneLoadCache(response) {
-    console.log('loaded cache', response);
+  doneLoadCache(response, err) {
     if(response && response.result) {
       let cache = response.result;
       if(cache.data) {
         this.cacheLoadTime = cache.time;
-        this.editor.text = JSON.stringify(cache.data);
+        this.surveyJson = cache.data;
       }
+      return true;
     }
+    return false;
   }
 
   saveCache(saveNo?, callback?) {
     let survey = JSON.parse(this.editor.text);
-    console.log('saving survey', survey);
     let cache = {
       'time': new Date().getTime(),
       'data': survey,
@@ -97,8 +120,9 @@ export class SurveyEditorComponent  {
   }
 
   doneSaveCache(response, err, saveNo?, callback?) {
-    console.log('saved cache', response);
-    // save cache key to local cache?
+    if(response && response.status === 'ok' && response.result) {
+      this.cacheLoadTime = response.result.time;
+    }
     !!callback && callback(saveNo, ! err);
   }
 

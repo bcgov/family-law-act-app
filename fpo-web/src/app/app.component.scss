@@ -25,7 +25,7 @@ $bootstrap-sass-asset-helper: true;
   flex: none;
   overflow: hidden;
   position: relative;
-  transition: width 0.2s linear;
+  transition: width 0.2s ease-in;
   width: $sidebar-width;
   &.insert-hidden {
     width: 0;

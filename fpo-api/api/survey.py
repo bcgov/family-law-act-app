@@ -40,11 +40,14 @@ class SurveyCacheView(View):
         if key:
             key = key[:32]
         if uid and cache_mgr:
+            fetch_key = key
             newest = cache_mgr.get(uid + '-most-recent-' + survey_name)
-            if not key:
-                key = newest
-            if key:
-                result = cache_mgr.get(uid + '-survey-' + survey_name + '-' + key)
+            if not fetch_key:
+                fetch_key = newest
+            if fetch_key:
+                result = cache_mgr.get(uid + '-survey-' + survey_name + '-' + fetch_key)
+                if result:
+                    key = fetch_key
         return JsonResponse({
             'uid': uid,
             'name': survey_name,
@@ -61,20 +64,35 @@ class SurveyCacheView(View):
         survey_name = survey_name[:32]
         uid = self.get_request_user_id(request)
         body = request.body
-        try:
-            survey = json.loads(body)
-        except json.decoder.JSONDecodeError:
-
-            survey = None
-        if not survey:
-            return HttpResponseBadRequest()
 
         if key:
             key = key[:32]
         else:
+            if not body:
+                return HttpResponseBadRequest()
             key = str(uuid.uuid4())
-        if uid and cache_mgr and survey:
-            cache_mgr.set(uid + '-survey-' + survey_name + '-' + key, survey)
+
+        cache_key = uid + '-survey-' + survey_name + '-' + key if uid else None
+
+        LOGGER.error(body)
+        if not body:
+            if cache_key and cache_mgr:
+                cache_mgr.delete(cache_key)
+            return JsonResponse({
+                'uid': uid,
+                'name': survey_name,
+                'key': None,
+                'status': 'clear'})
+
+        try:
+            survey = json.loads(body)
+        except json.decoder.JSONDecodeError:
+            survey = None
+        if not survey:
+            return HttpResponseBadRequest()
+
+        if cache_key and cache_mgr:
+            cache_mgr.set(cache_key, survey)
             cache_mgr.set(uid + '-most-recent-' + survey_name, key)
             return JsonResponse({
                 'uid': uid,

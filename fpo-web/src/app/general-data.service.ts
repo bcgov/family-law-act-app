@@ -37,10 +37,13 @@ export class GeneralDataService {
   }
 
   clearSurveyCache(name: string, key?: string, useLocal?: boolean) {
+    if(! name)
+      return Promise.reject('Cache name not defined');
     if(useLocal) {
       let localKey = 'survey-' + name;
       window.localStorage.removeItem(localKey);
     }
+    return this.saveSurveyCache(name, null, key);
   }
 
   loadSurveyCache(name: string, key?: string, useLocal?: boolean) {
@@ -49,17 +52,20 @@ export class GeneralDataService {
     let url = this.getApiUrl('survey-cache/' + encodeURIComponent(name));
     if(key) url += '/' + encodeURIComponent(key);
     return this.loadJson(url, { t: new Date().getTime() })
-      .then((result) => {
-        if(! result.key && useLocal) {
-          let localKey = 'survey-' + name;
-          let cached = window.localStorage.getItem(localKey);
-          if(cached) {
-            cached = JSON.parse(cached);
-            return {'uid': null, 'local': true, 'key': null, 'result': cached};
-          }
-        }
-        return result;
-      });
+      .then((result) => this.returnSurveyCache(name, result, null, useLocal))
+      .catch((err) => this.returnSurveyCache(name, null, err, useLocal));
+  }
+
+  returnSurveyCache(name, result, err, useLocal?: boolean) {
+    if((! result || ! result.key) && useLocal) {
+      let localKey = 'survey-' + name;
+      let cached = window.localStorage.getItem(localKey);
+      if(cached) {
+        cached = JSON.parse(cached);
+        result = {'uid': null, 'local': true, 'key': null, 'result': cached};
+      }
+    }
+    return result;
   }
 
   saveSurveyCache(name: string, data: object, key?: string, useLocal?: boolean) {
@@ -68,16 +74,24 @@ export class GeneralDataService {
     let url = this.getApiUrl('survey-cache/' + encodeURIComponent(name));
     if(key) url += '/' + encodeURIComponent(key);
     let headers = new Headers({"Content-Type": "application/json"});
-    let postData = JSON.stringify(data);
-    if(useLocal) {
+    let postData = data === null ? '' : JSON.stringify(data);
+    let savedLocal = false;
+    if(useLocal && postData) {
       let localKey = 'survey-' + name;
       window.localStorage.setItem(localKey, postData);
+      savedLocal = true;
     }
     return this.http.post(url, postData, {headers})
-      .map((x) => x.json())
+      .map((result) => {
+        let json = result.json();
+        if(json && json.key) json.result = data;
+        return json;
+      })
       .toPromise()
       .catch((error: any) => {
-        console.error(error.message || error);
+        if(savedLocal) {
+          return Promise.resolve({'uid': null, 'local': true, 'key': null, 'status': 'ok', 'result': data});
+        }
         return Promise.reject(error.message || error);
       });
   }

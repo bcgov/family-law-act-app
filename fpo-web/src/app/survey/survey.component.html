@@ -2,10 +2,18 @@
   <span class="cache-time">{{ cacheLoadTime | date: 'medium' }}</span>
   <button class="btn btn-default btn-sm" (click)="resetCache()">Restart Survey</button>
 </div>
+
+<div class="page-load" *ngIf="loading && ! error">
+  <div class="loading-indicator"></div>
+</div>
+<div class="alert alert-danger" *ngIf="error">
+  {{error}}
+</div>
+
 <div class="survey-container contentcontainer codecontainer">
   <div id="surveyElement"></div>
 </div>
-<div class="survey-nav">
+<div class="survey-nav" *ngIf="! loading">
   <div class="survey-nav-left" *ngIf="! isFirstPage">
     <button class="btn btn-default btn-lg" (click)="prevPage()">
       <span class="fa fa-arrow-circle-left btn-icon-left"></span> Previous

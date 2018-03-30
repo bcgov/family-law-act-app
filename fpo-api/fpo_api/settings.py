@@ -194,9 +194,9 @@ LOGGING = {
 }
 
 # FPO survey cache
-from django.core.cache.backends import locmem
-SURVEY_CACHE = locmem.LocMemCache(
-	'survey-cache',
+from django.core.cache.backends import filebased
+SURVEY_CACHE = filebased.FileBasedCache(
+	os.getenv('SURVEY_CACHE_DIR', '/tmp/survey-cache/'),
 	{
 		'TIMEOUT': 30*24*3600,
 		'MAX_ENTRIES': 1000,

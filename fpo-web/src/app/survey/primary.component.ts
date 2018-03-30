@@ -13,7 +13,8 @@ export class SurveyPrimaryComponent implements OnInit {
   public showSidebar: boolean = true;
   public printUrl: string;
   public resultJson: any;
-  public survey: any;
+  public surveyPath: string;
+  public surveyJson: any;
   public complete: Function;
 
   constructor(
@@ -24,7 +25,8 @@ export class SurveyPrimaryComponent implements OnInit {
 
   ngOnInit() {
     let routeData = this.route.snapshot.data;
-    this.survey = routeData.survey;
+    this.surveyPath = routeData.survey_path;
+    this.surveyJson = routeData.survey;
     this.cacheName = routeData.cache_name;
     if('show_sidebar' in routeData)
       this.showSidebar = routeData.show_sidebar;

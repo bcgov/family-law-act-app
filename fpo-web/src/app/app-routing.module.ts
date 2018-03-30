@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from 'app/home/home.component';
 import { ResultComponent } from 'app/result/result.component';
 import { SurveyPrimaryComponent } from 'app/survey/primary.component';
-import { SurveyTestComponent } from 'app/survey/test.component';
 import { SurveyResolver }   from 'app/survey/survey-resolver.service';
 import { SurveyEditorComponent } from 'app/survey/editor.component';
 
@@ -17,7 +16,7 @@ const routes: Routes = [
     path: 'qualify',
     component: SurveyPrimaryComponent,
     resolve: {
-      survey: SurveyResolver,
+      // survey: SurveyResolver,
     },
     data: {
       breadcrumb: 'Prequalification Survey',
@@ -33,7 +32,8 @@ const routes: Routes = [
     path: 'prv/survey',
     component: SurveyPrimaryComponent,
     resolve: {
-      survey: SurveyResolver,
+      // to resolve survey json before rendering the component:
+      // survey: SurveyResolver,
     },
     data: {
       breadcrumb: 'Provincial Family Test',
@@ -48,13 +48,6 @@ const routes: Routes = [
       breadcrumb: 'Survey Results'
     }
   },
-  {
-    path: 'prv/survey-test',
-    component: SurveyTestComponent,
-    data: {
-      breadcrumb: 'Survey Test'
-    }
-  },
   { path: 'survey-editor',
     redirectTo: 'prv/survey-editor'
   },
@@ -62,7 +55,7 @@ const routes: Routes = [
     path: 'prv/survey-editor',
     component: SurveyEditorComponent,
     resolve: {
-      survey: SurveyResolver,
+      // survey: SurveyResolver,
     },
     data: {
       breadcrumb: 'Survey Editor',
