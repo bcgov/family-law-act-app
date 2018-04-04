@@ -1,40 +1,105 @@
 {
-  "pages": [
+ "pages": [
+  {
+   "name": "Qualifying Questions",
+   "elements": [
     {
-      "title": "",
-      "description": "Some families are more complicated than others, and not everyone should use this online tool. So let's start by asking you a few questions to make sure that this website is right for your situation.",
-      "elements": [
-        {
-          "type": "panel",
-          "name": "panel3",
-          "elements": [
-            {
-              "type": "radiogroup",
-              "name": "question1",
-              "title": "Are you qualified to complete the survey?",
-              "choices": [
-                "Yes",
-                "No",
-                "I don't know"
-              ],
-              "isRequired": true
-            },
-            {
-              "type": "radiogroup",
-              "name": "question2",
-              "title": "Are you sure?",
-              "choices": [
-                "Yes",
-                "No",
-                "I don't know"
-              ],
-              "isRequired": true
-            }
-          ],
-          "title": "About you"
-        }
-      ]
+     "type": "yesno",
+     "name": "Unsafe",
+     "title": "Is someone making you or your family feel unsafe?"
+    },
+    {
+     "type": "yesno",
+     "name": "UnsafeFamilyMember",
+     "visible": false,
+     "visibleIf": "{Unsafe} =  'y'",
+     "title": "Is this person a family member?",
+     "description": "A family member includes... A family does not include ..."
+    },
+    {
+     "type": "infotext",
+     "name": "UnsafeNonFamilyMember",
+     "visible": false,
+     "visibleIf": "{UnsafeFamilyMember} = 'n'",
+     "title": "A peace bond might be good. Go to the police.",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "yesno",
+     "name": "UnsafeFamilyMemberMultiple",
+     "visible": false,
+     "visibleIf": "{UnsafeFamilyMember} = 'y'",
+     "title": "Is there more than one family member making you feel unsafe?",
+     "description": "There could be more one person making you feel unsafe."
+    },
+    {
+     "type": "infotext",
+     "name": "ExplanationUnsafeFamilyMemberMultiple",
+     "visible": false,
+     "visibleIf": "{UnsafeFamilyMemberMultiple} = 'y'",
+     "title": "You will still be able to use this service but it currently can only accomodate 1 family member making you feel unsafe at a time. You can use this service more than once for each of the famliy members making you feel unsafe. Also, you can put an any number of children but only 1 main applicant. ",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "infotext",
+     "name": "ExplanationFamilyViolence",
+     "visible": false,
+     "visibleIf": "{UnsafeFamilyMemberMultiple} = 'y' or {UnsafeFamilyMemberMultiple} = 'n'",
+     "title": "This is called Family Violence is ..... TDB. ",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "yesno",
+     "name": "OutsideOfBCPOR",
+     "visible": false,
+     "visibleIf": "{UnsafeFamilyMemberMultiple} = 'y' or {UnsafeFamilyMemberMultiple} = 'n'",
+     "title": "Does the Protection Order need to be in place outside of BC?",
+     "description": "A Protection Order usually lasts for one year."
+    },
+    {
+     "type": "infotext",
+     "name": "ExplanationOutsideOfBCPOR",
+     "visible": false,
+     "visibleIf": "{OutsideOfBCPOR} = 'y'",
+     "title": "Depending on the place, a Provincial Court Familiy Law Protection Order may not be valid outside of British Columbia. Consider a Peace Bond or a Supreme Court Family Law Protection Order. This onine service cannot help apply for either of these at this time. Consider legal advice for looking into the place where the family member making you feel unsafe is located.",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "radiogroup",
+     "name": "PORorPeaceBond",
+     "visible": false,
+     "visibleIf": "{OutsideOfBCPOR} = 'n'",
+     "title": "You appear to meet the requirements to get a FLA POR. You may also want to consider a Peace Bond. Confirm which type of Protection Order you want.",
+     "description": "describe similarities, where do I start?   (under the button for FLA POR: The family law protection order is a civil order made in family court. It is a criminal offense for the person named in the order to disobey (“breach”) it. If they do so, the police can enforce the order under the Criminal Code and the individual may face significant consequences.)",
+     "choices": [
+      {
+       "value": "PB",
+       "text": "I will try to and get a Peace Bond"
+      },
+      {
+       "value": "FLAPOR",
+       "text": "I want a Provincial Court Family Law Protection Order"
+      }
+     ]
+    },
+    {
+     "type": "yesno",
+     "name": "ExistingPOR",
+     "visible": false,
+     "visibleIf": "{PORorPeaceBond} = 'FLAPOR'",
+     "title": "Do you already have a Provincial Court Family Law Protection Order and you need to change it or add more time?"
+    },
+    {
+     "type": "infotext",
+     "name": "ExplanationExistingPOR",
+     "visible": false,
+     "visibleIf": "{ExistingPOR} = 'y'",
+     "title": "If you already have a FLA Protection Order, do a Form 2. You can copy most of the content from the original Form 1 or Form 3.",
+     "titleLocation": "hidden"
     }
-  ],
-  "title": "Prequalification Survey"
+   ],
+   "title": "Before we begin...",
+   "description": "There is more than one kind of order that can protect you and your family. This service is for applying for a protection order under the Family Law Act. The following questions will help you decide if the Provincial Court Family Law Protection Order is right for you."
+  }
+ ]
 }

@@ -6,7 +6,7 @@
 # NAME=weasyprint
 # SOURCE_IMAGE_NAME=weasyprint
 # IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
-# TAG_NAME=dev
+TAG_NAME=dev
 # CPU_LIMIT=2
 # MEMORY_LIMIT=1Gi
 # CPU_REQUEST=250m

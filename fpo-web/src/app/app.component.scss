@@ -1,5 +1,6 @@
 $bootstrap-sass-asset-helper: true;
 // @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../variables";
 
 .app-outer {
   display: flex;
@@ -8,6 +9,25 @@ $bootstrap-sass-asset-helper: true;
 }
 
 .app-content {
+  display: flex;
   flex: 1 0 auto;
-  padding-bottom: 80px;
+  flex-flow: row nowrap;
+  max-width: 100%;
+}
+
+.app-main {
+  flex: auto;
+  padding: 0 15px 80px;
+}
+
+.sidebar-left, .sidebar-right {
+  display: block;
+  flex: none;
+  overflow: hidden;
+  position: relative;
+  transition: width 0.2s ease-in;
+  width: $sidebar-width;
+  &.insert-hidden {
+    width: 0;
+  }
 }

@@ -152,11 +152,12 @@ function initHelpText(Survey) {
         let target = (<HTMLInputElement>event.target);
         question.value = target.checked;
       });
+
       let icon = document.createElement('span');
       icon.className = 'heading-icon fa fa-question-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      title.appendChild(document.createTextNode(question.title));
+
       let expander = document.createElement('span');
       expander.className = 'heading-expand fa fa-chevron-down';
       lbl.appendChild(chk);
@@ -165,11 +166,25 @@ function initHelpText(Survey) {
       lbl.appendChild(expander);
       header.appendChild(lbl);
       outer.appendChild(header);
+
       let body = document.createElement('div');
       body.className = 'panel-body';
-      body.appendChild(document.createTextNode(question.body || ''));
       outer.appendChild(body);
       el.appendChild(outer);
+
+      let updateContent = () => {
+        let titleContent = question.fullTitle;
+        title.innerHTML = titleContent;
+
+        let bodyContent = question.body || '';
+        let bodyHtml = question.getMarkdownHtml(bodyContent);
+        if(bodyHtml !== null)
+          body.innerHTML = question.getProcessedHtml(bodyHtml);
+        else
+          body.innerText = question.getProcessedHtml(bodyContent);
+      }
+      question.titleChangedCallback = updateContent;
+      updateContent();
 
       question.valueChangedCallback = function() {
         outer.className = outerCls + (question.value ? ' expanded' : '');
@@ -187,7 +202,7 @@ function initHelpText(Survey) {
 function initInfoText(Survey) {
   var widget = {
     name: "infotext",
-    title: "Info Text",
+    title: "Message Text",
     iconName: "icon-panel",
     widgetIsLoaded: function() {
       return true;
@@ -200,6 +215,14 @@ function initInfoText(Survey) {
       Survey.JsonObject.metaData.addProperties("infotext", [
         {
           name: "body:text",
+        },
+        {
+          name: "messageStyle",
+          'default': "info",
+          choices: [
+            "info",
+            "error"
+          ]
         }
       ]);
     },
@@ -210,27 +233,49 @@ function initInfoText(Survey) {
 
       let outer = document.createElement('div');
       let outerCls = 'panel panel-default survey-infotext expanded';
+      if(question.messageStyle === 'error')
+        outerCls += ' error';
       outer.className = outerCls;
       let header = document.createElement('div');
       header.className = 'panel-heading';
       let lbl = document.createElement('label');
       lbl.className = 'panel-title';
+
       let icon = document.createElement('span');
-      icon.className = 'heading-icon fa fa-info-circle';
+      if(question.messageStyle === 'error')
+        icon.className = 'heading-icon fa fa-ban';
+      else
+        icon.className = 'heading-icon fa fa-info-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      title.appendChild(document.createTextNode(question.title));
       lbl.appendChild(icon);
       lbl.appendChild(title);
       header.appendChild(lbl);
       outer.appendChild(header);
+
+      let body = null;
       if(question.body) {
         let body = document.createElement('div');
         body.className = 'panel-body';
-        body.appendChild(document.createTextNode(question.body || ''));
         outer.appendChild(body);
       }
       el.appendChild(outer);
+
+      let updateContent = () => {
+        let titleContent = question.fullTitle;
+        title.innerHTML = titleContent;
+
+        if(body) {
+          let bodyContent = question.body || '';
+          let bodyHtml = question.getMarkdownHtml(bodyContent);
+          if(bodyHtml !== null)
+            body.innerHTML = question.getProcessedHtml(bodyHtml);
+          else
+            body.innerText = question.getProcessedHtml(bodyContent);
+        }
+      }
+      question.titleChangedCallback = updateContent;
+      updateContent();
     },
     willUnmount: function(question, el) {}
   };
@@ -522,24 +567,24 @@ export function addToolboxOptions(editor) {
   );
   editor.toolbox.addItem(
     {
-      name: "infotext",
-      title: "Info Text",
-      isCopied: true,
-      iconName: "icon-panel",
-      json: {
-        type: "infotext",
-        titleLocation: "hidden"
-      }
-    }
-  );
-  editor.toolbox.addItem(
-    {
       name: "helptext",
       title: "Help Text",
       isCopied: true,
       iconName: "icon-panel",
       json: {
         type: "helptext",
+        titleLocation: "hidden"
+      }
+    }
+  );
+  editor.toolbox.addItem(
+    {
+      name: "infotext",
+      title: "Message Text",
+      isCopied: true,
+      iconName: "icon-panel",
+      json: {
+        type: "infotext",
         titleLocation: "hidden"
       }
     }

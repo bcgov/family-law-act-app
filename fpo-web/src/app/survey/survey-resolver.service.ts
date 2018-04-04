@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SurveyResolver implements Resolve<any> {
-  constructor(private router: Router, private http:Http) {}
+  constructor(private router: Router, private http : Http) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 

@@ -15,7 +15,7 @@ import posixpath
 import logging.config
 
 try:
-     from . import database  
+     from . import database
 except:
      import database
 
@@ -78,7 +78,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -192,3 +192,16 @@ LOGGING = {
         'propagate': False,
     },
 }
+
+# FPO survey cache
+from django.core.cache.backends import filebased
+SURVEY_CACHE = filebased.FileBasedCache(
+	os.getenv('SURVEY_CACHE_DIR', '/tmp/survey-cache/'),
+	{
+		'TIMEOUT': 30*24*3600,
+		'MAX_ENTRIES': 1000,
+	})
+
+# For development (when no SiteMinder available)
+OVERRIDE_USER_ID = os.getenv('OVERRIDE_USER_ID')
+

@@ -159,6 +159,7 @@ configureEnvironment () {
   # fpo-api
   export API_HTTP_PORT=${API_HTTP_PORT-8081}
   export PDF_SERVICE_URL=${PDF_SERVICE_URL-http://fpo-pdf:5001}
+  export OVERRIDE_USER_ID=${OVERRIDE_USER_ID-}
   export DATABASE_SERVICE_NAME="fpo-db"
   export DATABASE_ENGINE="postgresql"
   export DATABASE_NAME=${POSTGRESQL_DATABASE}
@@ -220,6 +221,9 @@ case "$1" in
     ;;
   build-api)
     build-api
+    ;;
+  build-web)
+    build-web
     ;;
   *)
     usage
