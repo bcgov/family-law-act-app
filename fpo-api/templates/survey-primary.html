@@ -1,12 +1,613 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Survey Results</title>
+    <meta charset="UTF-8">
+    <title>Application to Obtain an Order</title>
+    <style type="text/css">
+        @page {
+            size: Letter;
+            margin: .44in 0.44in 0.2in 0.5in;
+            font-size: 10pt;
+            font-family: Helvetica, Arial, sans-serif;
+            @bottom-center { content: 'COURT FILE'; font-size: 10pt; }
+            @bottom-right {
+                counter-increment: page;
+                content:"Page " counter(page) " of " counter(pages);
+                font-size: 8pt;
+            }
+        }
+        @page label{font-size: 8pt;}
+        body{margin: 0; padding: 0; max-width: 100%;}
+        table{
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+            }
+        td{padding: .25em; width: 25%;}
+        /* wrappers / containers */
+        .container{
+            background-color: #FFFFFF;
+            color: #000000;
+            font-size: .85em;
+            margin:0;
+            font-family: Helvetica, Arial, sans-serif;
+            line-height: 1.15;
+        }
+        .dataset-wrapper,
+        .data-item span{
+            display: block;
+        }
+        /* base visuals */
+        .bordered{border: 1px solid #000;}
+        .brdr-btm{border-bottom: 1px solid #000; margin-bottom: .5em;}
+
+        .section{
+            padding-top: .75em;
+        }
+        .spacer{height: .5em;}
+        span.check{border: 1px solid #000!important; width: 1em; height: 1em; float: left; margin-right: .5em; font-size: 1.2em;}
+
+        /* typography */
+        label,
+        legend,
+        span,
+        aside{display: block;}
+
+        label, .label-num:after, .label-date:after, .name-party:after{
+            font-size: .5em;
+            text-transform: uppercase;
+            margin: .5em 0;
+            padding: 0 0 .15em;
+        }
+
+        .label-num:after, .label-date:after, .name-party:after{
+             position: relative; top: 13px; left: 0;
+            }
+        .label-num:after{content: 'number';}
+        .label-date:after{content: '(MMM/DD/YYYY)';}
+        .name-party:after{content: 'Name of party';}
+        legend{
+            font-weight: bold; font-size: 1.1em;
+
+        }
+        legend .sub{
+            font-weight: normal;
+            font-style: italic;
+            display: inline-block;
+            }
+        .party-label{
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 1.25em;
+            text-align: right;
+        }
+        aside {
+            font-style: italic;
+            font-size: .75em;
+        }
+        h1   {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0.67em 0;
+            text-transform: uppercase;
+            float: left;
+            width: 65%;
+        }
+        span.sub-heading{
+            display: block;
+            font-size: .85em;
+            text-transform: none;
+            font-weight: normal;
+            margin-top: .5em;
+        }
+        .addendum, .short, .medium{display: inline-block; margin: 0 .5em;}
+        .short{width: 20%;}
+        .medium{width: 30%;}
+        .long{width: 60%;}
+        ul li {padding: .25em; line-height 1.25;}
+        ul li ul{list-style-type: disc;}
+        .signature-area{
+            padding: 2em;
+        }
+        .box{border: 1px solid #000; display: block; height: 4em;}
+        .separation{border-top: 2px solid #000;}
+        ol.lower-alpha {list-style-type: lower-alpha;}
+    </style>
 </head>
 <body>
+<div class="wrapper">
+    <div class="container">
+        <table>
+            <tbody>
+            <tr class="header-row">
+                <td colspan="3">
+                    <h1>Application to Obtain an Order
+                        <span class="sub-heading">In the Provincial Court of British Columbia</span>
+                    </h1>
+                </td>
+                <td colspan="1" style="padding: 0;">
+                    <table class="bordered">
+                        <tr class="brdr-btm">
+                            <td>
+                                <label>Court File No.:</label>
+                                <span>Data 1.1</span>
+                            </td>
+                        </tr>
+                        <tr class="brdr-btm">
+                            <td>
+                                <label>Court Location:</label>
+                                <span>Data 1.2</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>FMEP NO.:</label>
+                                <span>Data 1.3</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="section spacer">&nbsp;</tr>
+            <!-- SECTION 1 -->
+            <tr class="bordered">
+                <td colspan="4" style="padding: 0;">
+                    <table>
+                        <tr>
+                            <td colspan="4"><legend>In the case between:</legend></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="brdr-btm">Data 1.4</span>
+                                <label class="label-btm">Name</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><legend>And:</legend></td>
+                        </tr>
+                        <tr class="brdr-btm">
+                            <td colspan="4">
+                                <span class="brdr-btm">Data 1.5</span>
+                                <label class="label-btm">Name</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><legend>Filed By:</legend></td>
+                            <td colspan="2"><legend class="party-label">Applicant</legend></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Data 1.6</span>
+                                <label class="label-btm">Name</label>
+                            </td>
+                            <td colspan="2">
+                                <span class="brdr-btm">Data 1.7</span>
+                                <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding-top: 0;">
+                                <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Data 1.8</span>
+                                <label class="label-btm">ADDRESS FOR SERVICE</label>
+                            </td>
+                            <td colspan="1">
+                                <span class="brdr-btm">Data 1.8</span>
+                                <label class="label-btm">City</label>
+                            </td>
+                            <td colspan="1">
+                                <span class="brdr-btm">Data 1.8</span>
+                                <label class="label-btm">Province</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="brdr-btm">Data 1.8</span>
+                                <label class="label-btm">Postal Code</label>
+                            </td>
+                            <td>
+                                <span class="brdr-btm">Data 1.9</span>
+                                <label class="label-btm">Phone</label>
+                            </td>
+                            <td>
+                                <span class="brdr-btm">Data 1.10</span>
+                                <label class="label-btm">E-mail</label>
+                            </td>
+                            <td>
+                                <span class="brdr-btm">Data 1.11</span>
+                                <label class="label-btm">Fax</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><legend>Notice to:</legend></td>
+                            <td colspan="2"><legend class="party-label">Respondent</legend></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Data 1.12</span>
+                                <label class="label-btm">Name</label>
+                            </td>
+                            <td colspan="2">
+                                <span class="brdr-btm">Data 1.13</span>
+                                <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Data 1.14</span>
+                                <label class="label-btm">ADDRESS FOR SERVICE</label>
+                            </td>
+                            <td colspan="1">
+                                <span class="brdr-btm">Data 1.14</span>
+                                <label class="label-btm">City</label>
+                            </td>
+                            <td colspan="1">
+                                <span class="brdr-btm">Data 1.14</span>
+                                <label class="label-btm">Province</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="brdr-btm">Data 1.14</span>
+                                <label class="label-btm">Postal Code</label>
+                            </td>
+                            <td>
+                                <span class="brdr-btm">Data 1.15</span>
+                                <label class="label-btm">Phone</label>
+                            </td>
+                            <td>
+                                <span class="brdr-btm">Data 1.16</span>
+                                <label class="label-btm">E-mail</label>
+                            </td>
+                            <td>
+                                <span class="brdr-btm">Data 1.17</span>
+                                <label class="label-btm">Fax</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="brdr-btm">&nbsp;</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="brdr-btm">&nbsp;</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="section spacer">&nbsp;</tr>
+            <tr class="bordered">
+                <td colspan="4" style="padding: 0;">
+                    <table>
+                        <tr>
+                            <td colspan="4">
+                                <h3>IMPORTANT NOTE TO RESPONDENT:</h3>
+                                <p>If this application includes a claim for support, you are required to file financial information with your reply. If you do not, the
+                                    court may attribute income to you and set the amount of support to be paid. The applicant has estimated your gross annual
+                                    income as set out in item 3 below.</p>
+                                <p>If you fail to file a reply within 30 days after being served with this application, you will not receive notice of any part of the
+                                    proceeding and the court may make an order against you.</p>
+                                <p>I am applying for:</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="check selected">&#10003;</span>
+                                <span class="label">guardianship</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="check"></span>
+                                <span class="label">spousal support</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="check"></span>
+                                <span class="label">contact with a child</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="check"></span>
+                                <span class="label">child support</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="check selected"></span>
+                                <span class="label">parenting time</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="check selected"></span>
+                                <span class="label">protection order</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="check selected"></span>
+                                <span class="label">allocation of parental responsibilities</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="check selected"></span>
+                                <span class="label" >other order (specify) <span class="brdr-btm" style="margin-top: .5em;">1.25</span></span>
 
-<h2>Survey Results</h2>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="section spacer">&nbsp;</tr>
+            <tr class="bordered">
+                <td colspan="4" style="padding: 0;">
+                    <table>
+                        <tr>
+                            <td colspan="4">
+                                <legend>1. Orders and agreements</legend>
+                                <p>
+                                    Are there any court orders or written agreements between the parties concerning separation, guardianship,
+                                    parenting arrangements, contact with a child or support?
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="check selected">&#10003;</span>
+                                <span class="label">No orders</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="check"></span>
+                                <span class="label">I am attaching copies of all orders</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="check"></span>
+                                <span class="label">I am attaching copies of all orders</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="check"></span>
+                                <span class="label">I am attaching copies of all written agreements</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="section spacer">&nbsp;</tr>
+            <tr class="bordered">
+                <td colspan="4" style="padding: 0;">
+                    <table>
+                        <tr>
+                            <td colspan="4">
+                                <legend>2. Children</legend>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Name(s) of child(ren)</td>
+                            <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Name One</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="brdr-btm">Birthday One</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Name Two</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="brdr-btm">Birthday Two</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Name Three</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="brdr-btm">Birthday Three</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span class="brdr-btm">Name Four</span>
+                            </td>
+                            <td colspan="2">
+                                <span class="brdr-btm">Birthday Four</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">1.28b</span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">1.28c</span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
+                                <span class="brdr-btm" style="margin-top: .5em;">1.28d</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="padding-top: 0;">
+                                <aside>(Complete the following if you are asking for guardianship, parenting arrangements or contact with a child.)</aside>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="label" >I am asking for guardianship, parenting arrangements or contact with a child as follows: </span>
+                                <span class="brdr-btm" style="margin-top: .5em;">1.28d</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="section spacer">&nbsp;&nbsp;</tr>
+            <tr class="bordered">
+                <td colspan="4" style="padding: 0;">
+                    <table>
+                        <tr>
+                            <td colspan="4">
+                                <legend>3. Support <span class="sub">(Complete if you are asking for child or spousal support)</span></legend>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="label" >The current support arrangements are: </span>
+                                <span class="brdr-btm" style="margin-top: .5em;">1.31</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="label blank">I believe that the respondent’s gross annual income is $<span class="short brdr-btm">1.32</span><span class="addendum">because:</span></span>
+                                <span class="brdr-btm" style="margin-top: .5em;">1.32a</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <legend>I am asking for: <span class="sub">(Complete only if you are asking for child support)</span></legend>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="check"></span>
+                                <span class="label">support in the amount set out in the Child Support Guidelines for <span class="short brdr-btm label-num">1.33a</span><span class="addendum">children</span></span>
 
-<p>Applicant Name: {{ ApplicantName }}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="check"></span>
+                                <span class="label">special or extraordinary expenses, as follows:</span>
+                                <span class="brdr-btm" style="margin-top: .5em;">1.34a</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <legend>I am asking for: <span class="sub">(Complete only if you are asking for retroactive child support or retroactive spousal support.)</span></legend>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="check"></span>
+                                <span class="label blank">child support retroactive to<span class="short brdr-btm label-date">1.35a</span><span class="addendum">because:</span><span class="medium brdr-btm">1.35b</span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <span class="check"></span>
+                                <span class="label blank">spousal support retroactive to<span class="short brdr-btm label-date">1.36a</span><span class="addendum">because:</span><span class="medium brdr-btm">1.36b</span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <legend>Information for Applicant and Respondent</legend>
+                                <p>You must complete Form 4, following the instructions on that form, if:</p>
+                                <ul>
+                                    <li>there is a claim for spousal support,</li>
+                                    <li class="no-bullet">OR</li>
+                                    <li>there is a claim for child support and one or more of the following applies:
+                                        <ul>
+                                            <li>you are the person being asked to pay;</li>
+                                            <li>the claim is for an amount other than the amount set out in the tables of the Child Support Guidelines,
+                                                including a claim under section 8, 9 or 10 of the Child Support Guidelines;</li>
+                                            <li>there is a claim under section 7 <em>[special or extraordinary expenses]</em> of the Child Support Guidelines;</li>
+                                            <li>one or more of the children for whom support is claimed is 19 years of age or older;</li>
+                                            <li>the person who is being asked to pay is a stepparent, or a guardian who is not a parent, of one or
+                                                more of the children for whom support is claimed.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p>You may also provide this financial information before receiving the repondent’s reply, in order to avoid
+                                    delay, if you believe that the income of the respondent from whom child support is claimed is over
+                                    $150,000 per year or that the respondent will claim undue hardship, special or extraordinary expenses or
+                                    make a counterclaim for support.</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="section spacer">&nbsp;&nbsp;</tr>
+            <tr>
+                <td colspan="4" style="padding: 0;">
+                    <table>
+                        <tr>
+                            <td colspan="4" class="bordered">
+                                <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
+                                <p>I am asking for an order in the following terms:</p>
+                                <span class="brdr-btm">Data 1.37</span>
+                            </td>
+                        </tr>
+                        <!-- requirement to keep signature area with at least one other section -->
+                        <tr>
+                            <td colspan="2" class="signature-area">
+                                <span class="label blank">Dated<span class="medium brdr-btm label-date">1.38</span></span>
+                            </td>
+                            <td colspan="2" class="signature-area">
+                                <span class="box">1.39</span>
+                                <label style="text-transform: none;">Signature</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="signature-area">
+                                <span class="brdr-btm">Data 1.40</span>
+                                <label class="label-btm">Name of applicant’s lawyer</label>
+                            </td>
+                            <td colspan="2" class="signature-area">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="separation" colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <p style="text-align: center; font-style: italic; padding-bottom: .5em">If the applicant in this proceeding is represented by a lawyer, the lawyer must complete the following certificate.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="separation" colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <h2 style="text-align: center">LAWYER’S CERTIFICATE (FAMILY LAW ACT, s. 8 (2))</h2>
+                                <p class="blank">I, <span class="short brdr-btm">1.40a</span>, lawyer for <span class="medium brdr-btm name-party">1.40b</span>certify that, <br><br>in accordance with section 8 (2) of the Family Law Act, I have</p>
+                                <ol class="lower-alpha">
+                                    <li>discussed with the party the advisability of using various types of family dispute resolution to resolve the matter, and</li>
+                                    <li>informed the party of the facilities and other resources, known to me, that may be available to assist in resolving the dispute.</li>
+                                </ol>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="signature-area">
+                                <span class="label blank">Dated<span class="medium brdr-btm label-date">1.41</span></span>
+                            </td>
+                            <td colspan="2" class="signature-area">
+                                <span class="box">1.43</span>
+                                <label style="text-transform: none;">Signature of Lawyer</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="signature-area">
+                                <span class="brdr-btm">Data 1.42</span>
+                                <label class="label-btm">Type or print name</label>
+                            </td>
+                            <td colspan="2" class="signature-area">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
