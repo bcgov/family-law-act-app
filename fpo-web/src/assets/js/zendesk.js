@@ -3,15 +3,10 @@ window.zESettings = {
   webWidget: {
     launcher: {
       chatLabel: {
-        '*': 'Chat now'
+        '*': 'Need Help?'
       },
-      chatLabelOnline: { '*': 'Live Chat' },
-      chatLabelOffline: { '*': 'Chat is unavailable' }
+
     },
-    contactOptions: {
-      enabled: true,
-      chatLabelOnline: { '*': 'Live Chat' },
-      chatLabelOffline: { '*': 'Chat is unavailable' }
-    }
   }
+}
 };
