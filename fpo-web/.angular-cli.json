@@ -21,7 +21,8 @@
       "styles": [
         "styles.scss"
       ],
-      "scripts": [],
+
+      "scripts": [ "assets/js/zendesk.js" ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -55,6 +56,6 @@
     "component": {},
     "serve": {
       "port": 4300
-    }    
+    }
   }
 }
