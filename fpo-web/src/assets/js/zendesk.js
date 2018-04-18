@@ -4,9 +4,7 @@ window.zESettings = {
     launcher: {
       chatLabel: {
         '*': 'Need Help?'
-      },
-
-    },
+      }
+    }
   }
-}
 };
