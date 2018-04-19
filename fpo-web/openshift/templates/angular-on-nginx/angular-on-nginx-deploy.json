@@ -131,8 +131,7 @@
             ],
             "dnsPolicy": "ClusterFirst",
             "restartPolicy": "Always",
-            "securityContext": {
-            },
+            "securityContext": {},
             "terminationGracePeriodSeconds": 30
           }
         },
@@ -183,31 +182,6 @@
         },
         "sessionAffinity": "None",
         "type": "ClusterIP"
-      }
-    },
-    {
-      "apiVersion": "v1",
-      "kind": "Route",
-      "metadata": {
-        "labels": {
-          "app": "${NAME}"
-        },
-        "name": "${NAME}"
-      },
-      "spec": {
-        "host": "${APPLICATION_DOMAIN}",
-        "port": {
-          "targetPort": "8080-tcp"
-        },
-        "tls": {
-          "insecureEdgeTerminationPolicy": "Redirect",
-          "termination": "edge"
-        },
-        "to": {
-          "kind": "Service",
-          "name": "${NAME}",
-          "weight": 100
-        }
       }
     },
     {
@@ -308,12 +282,6 @@
       "value": ""
     },
     {
-      "description": "The exposed hostname that will route to the service, e.g., myappname.pathfinder.gov.bc.ca, if left blank a value will be defaulted.",
-      "displayName": "Application Domain",
-      "name": "APPLICATION_DOMAIN",
-      "value": "angular-scaffold-demo.pathfinder.gov.bc.ca"
-    },
-    {
       "description": "The endpoint used for SiteMinder routed access to the application.",
       "displayName": "SiteMinder Application Domain",
       "name": "SITEMINDER_APPLICATION_DOMAIN",
@@ -349,6 +317,5 @@
       "name": "HTTP_BASIC_PASSWORD",
       "value": ""
     }
-
   ]
 }
