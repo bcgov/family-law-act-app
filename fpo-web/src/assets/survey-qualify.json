@@ -32,7 +32,7 @@
      "name": "UnsafePartnerFAQ1",
      "visible": false,
      "visibleIf": "{Unsafe} =  'y'",
-     "title": "Is my ex-boyfriend or ex-girlfriend considered a partner?",
+     "title": "Does my ex-boyfriend or ex-girlfriend count as my partner?",
      "titleLocation": "hidden",
      "body": "If they lived (or live) with you in a marriage-like relationship for any period of time then, yes, they count as your partner. Also, if the two of you have a child together then, yes, they count as your partner."
     },
@@ -41,7 +41,7 @@
      "name": "ExplanationUnsafeNonPartner",
      "visible": false,
      "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'n'",
-     "title": "For now, this service has only been developed for a limited number of situations. This service can only be used to apply for a Provincial Court Family Law Protection Order against someone who is (or was) your partner.\n<br>\n<br>\nIf a family member that is not your ex-partner is making you feel unsafe, you can still apply for Provincial Court Family Law Protection Order. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nIf someone that is not a family member is making you feel unsafe, you can still apply for an order to protect you. This order is called a Peace Bond. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
+     "title": "For now, this service has only been developed for a limited number of situations. This service can only be used to apply for a Provincial Court Family Law Protection Order against someone who was (or is) your partner.\n<br>\n<br>\nIf a family member that is not your ex-partner is making you feel unsafe, you can still apply for Provincial Court Family Law Protection Order. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nIf someone that is not a family member is making you feel unsafe, you can still apply for an order to protect you. This order is called a Peace Bond. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
      "titleLocation": "hidden",
      "messageStyle": "error"
     },
