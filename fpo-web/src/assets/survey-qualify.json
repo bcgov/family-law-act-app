@@ -122,7 +122,7 @@
      "messageStyle": "error"
     },
     {
-     "type": "radiogroup",
+     "type": "checkbox",
      "name": "PORConfirmed",
      "visible": false,
      "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {UnsafePartnerMultiple} notempty and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'n'",
