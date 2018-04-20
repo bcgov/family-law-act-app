@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
-    "build": "ng build --prod",
+    "build": "ng build --prod --base-href=/protection-order/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
