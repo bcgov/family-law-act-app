@@ -533,6 +533,25 @@ function initAddressBlock(Survey) {
 
       el.appendChild(outer);
 
+      function updateValue(evt) {
+        let value = {
+          'line1': addr1.value,
+          'line2': addr2.value,
+          'city': city.value,
+          'state': state.value,
+          'country': country.value,
+          'postcode': postCode.value,
+        }
+        question.value = value;
+        console.log(question.value);
+      }
+      addr1.addEventListener('change', updateValue);
+      addr2.addEventListener('change', updateValue);
+      city.addEventListener('change', updateValue);
+      state.addEventListener('change', updateValue);
+      country.addEventListener('change', updateValue);
+      postCode.addEventListener('change', updateValue);
+
       question.valueChangedCallback = function() {
         // populate fields
       };
