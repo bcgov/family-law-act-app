@@ -145,12 +145,28 @@ $indicator-thickness: 0.2em;
 .tooltip-inner {
   font-size: 14px;
 }
-.glossary > .tooltip-inner {
-  h1, h2, h3, h4, h5 {
-    color: #fff;
-    margin: 0;
+.glossary-popup {
+  &.in {
+    opacity: 0.98;
   }
-  text-align: left;
+  &.bottom > .tooltip-arrow {
+    border-bottom-color: #365ebe;
+  }
+  > .tooltip-inner {
+    h1, h2, h3, h4, h5 {
+      color: #fff;
+      margin: 0;
+    }
+    a {
+      color: #fff;
+    }
+    background: #365ebe;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 1rem 1.25rem 0.25rem;
+    max-width: 450px;
+    text-align: left;
+  }
 }
 
 @import "survey";

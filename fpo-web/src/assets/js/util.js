@@ -16,9 +16,11 @@
   }
 
   TooltipMgr = function() {
+    this.init();
   }
   TooltipMgr.prototype = {
     init: function() {
+      this.addEvents();
     },
     setCurrent: function(tip) {
       if(this.current)
@@ -28,10 +30,20 @@
     register(target, content, params) {
       if(! target) return;
       var tip = new Tooltip(target, content, params),
-          over = function() { tip.show(); },
-          out = function() { tip.hide(); };
-      target.addEventListener('mouseover', over);
-      target.addEventListener('mouseout', out);
+          skip = function(evt) { evt.preventDefault(); evt.stopPropagation(); },
+          open = function(evt) { tip.show(); skip(evt); }.bind(this),
+          close = function() { tip.hide(); return false; };
+      target.addEventListener('click', open);
+      //target.addEventListener('mouseout', close);
+    },
+    addEvents: function() {
+      document.addEventListener('mousedown', function(evt) {
+        console.log('?');
+        this.hide();
+      }.bind(this));
+    },
+    hide: function() {
+      this.setCurrent(null);
     }
   }
 
@@ -55,6 +67,7 @@
     render: function() {
       if(this.elt) return;
       var elt = document.createElement('div');
+      elt.addEventListener('mousedown', function(evt) { evt.stopPropagation(); });
       elt.className = 'tooltip fade bottom';
       elt.setAttribute('role', 'tooltip');
       if(this.extClass) elt.className += ' ' + this.extClass;

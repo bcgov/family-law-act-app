@@ -12,8 +12,13 @@ export class GlossaryService {
     private dataService: GeneralDataService
   ) {
     this.loaded = this.dataService.loadJson('assets/glossary.json', null, true)
-      .then((data) => {
-        this.terms = data;
+      .then((data: any) => {
+        this.terms = {};
+        for(let k in data) {
+          for(let term of k.split('/')) {
+            this.terms[term.trim().toLowerCase()] = data[k];
+          }
+        }
       });
     this.markdownConverter = new showdown.Converter({
       noHeaderId: true
@@ -31,6 +36,7 @@ export class GlossaryService {
   }
 
   getTerm(term: string, formatted?: boolean) {
+    term = (''+term).toLowerCase();
     let content = this.terms[term];
     if(formatted) content = this.formatHtml(content);
     return content;
@@ -44,10 +50,10 @@ export class GlossaryService {
     if(content !== undefined) {
       content = this.markdownConverter.makeHtml(content);
       // remove root paragraph <p></p>
-      let m = content.match(/^<p>(.*)<\/p>$/m);
+      /* let m = content.match(/^<p>(.*)<\/p>$/m);
       if(m) {
         content = m[1];
-      }
+      }*/
     }
     return content;
   }
@@ -63,7 +69,7 @@ export class GlossaryService {
         let term = elt.getAttribute('data-glossary');
         let content = this.getTerm(term, true);
         if(content) {
-          window['addTooltip'](elt, content, {extClass: 'glossary'});
+          window['addTooltip'](elt, content, {extClass: 'glossary-popup'});
         }
       }
     }
