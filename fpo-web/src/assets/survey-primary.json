@@ -112,7 +112,7 @@
       {
        "type": "text",
        "name": "RespondentName",
-       "title": "What is the name of the person that is making you (or your family) feel unsafe?",
+       "title": "What is the name of the person that is making you (or your children) feel unsafe?",
        "description": "If you know how their name is written on their ID cards, that will be the most useful.",
        "placeHolder": "Full Name Here If you know it"
       },
@@ -331,24 +331,32 @@
        "titleLocation": "hidden"
       },
       {
+       "type": "panel",
+       "name": "PanelGuardianship",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "ChildApplicantGuardian",
+         "title": "Is {ApplicantName} a guardian of {panel.ChildName}?"
+        },
+        {
+         "type": "yesno",
+         "name": "ChildRespondentGuardian",
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
+         "startWithNewLine": false,
+         "title": "Is {RespondentName} a guardian of {panel.ChildName}?"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
+       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
+      },
+      {
        "type": "infotext",
        "name": "GuardianIsNotParent",
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
        "title": "Guardianship\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with a child or regularly cares for the child is a guardian. This parent is still a guardian even after they stop living with the child.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>\n",
        "titleLocation": "hidden"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildApplicantGuardian",
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Is {ApplicantName} a guardian of {panel.ChildName}?"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildRespondentGuardian",
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "startWithNewLine": false,
-       "title": "Is {RespondentName} a guardian of {panel.ChildName}?"
       },
       {
        "type": "infotext",
@@ -540,7 +548,7 @@
     {
      "type": "infotext",
      "name": "NoContactRespondentSummary",
-     "title": "This is a list of people who you want to be included on a Family Law Protection Order against {RespondentName}:\n<br>\nApplicantName\n<br>\n{panel.ChildName}\n<br>\n{panel.ChildName}\n<br>\n<br>\nIf the judge grants this Protection Order, {RespondentName} must stay away from [names] or they will be charged as a criminal.",
+     "title": "This is a list of people who you want to be included on a Family Law Protection Order against {RespondentName}:\n<br>\n{ApplicantName}\n<br>\n{panel.ChildName}\n<br>\n{panel.ChildName}\n<br>\n<br>\nIf the judge decides to make this Protection Order, {RespondentName} will be ordered to stay away from you and your family, or else they may face criminal charges.",
      "titleLocation": "hidden"
     },
     {
@@ -550,14 +558,14 @@
       {
        "type": "yesno",
        "name": "RespondentApplicantContact",
-       "title": "Would {RespondentName} need to contact {ApplicantName} for an ongoing court case?"
+       "title": "Would {RespondentName} need to contact you, {ApplicantName}, for an ongoing court case?"
       },
       {
        "type": "yesno",
        "name": "RespondentApplicantContactParties",
        "visible": false,
        "visibleIf": "{RespondentApplicantContact} = 'y'",
-       "title": "Are there any third parties that {RespondentName} and {ApplicantName} may communicate through?",
+       "title": "Are there any third parties that {RespondentName} and you, {ApplicantName}, may communicate through?",
        "description": "Third parties can include a lawyer, a family justice counsellor, a social worker, a family member or friend."
       },
       {
@@ -565,7 +573,7 @@
        "name": "RespondentApplicantContactType",
        "visible": false,
        "visibleIf": "{RespondentApplicantContactParties} = 'y'",
-       "title": "Select the third parities that {RespondentName} and {ApplicantName} may communicate through:",
+       "title": "Select the third parities that {RespondenName} and you, {ApplicantName}, may communicate through:",
        "hasOther": true,
        "choices": [
         {
@@ -624,7 +632,7 @@
       {
        "type": "yesno",
        "name": "RespondentApplicantContactOther",
-       "title": "Is there any other reason that {RespondentName} would need to contact you?"
+       "title": "Is there any other reason that {RespondentName} would need to contact you, {ApplicantName}?"
       },
       {
        "type": "text",
@@ -643,7 +651,7 @@
       {
        "type": "yesno",
        "name": "RespondentLiveTogether",
-       "title": "Does {RespondentName} currently share a home with {ApplicantName} or {panel.ChildName}?",
+       "title": "Does {RespondentName} currently share a home with {ApplicantName}?",
        "description": "Even if one of you has left home temporarily, you still share a home."
       },
       {
@@ -651,7 +659,7 @@
        "name": "RespondentLeaving",
        "visible": false,
        "visibleIf": "{RespondentLiveTogether} = 'y'",
-       "title": "Do you, {ApplicantName}, want to stay in the family home?"
+       "title": "Do you, {ApplicantName}, want to stay in this family home?"
       },
       {
        "type": "radiogroup",
@@ -712,7 +720,7 @@
       {
        "type": "yesno",
        "name": "RespondentHasStuff",
-       "title": "Does {RespondentName} have any of [list of pending protected parties]'s personal belongings?",
+       "title": "Does {RespondentName} have any of you or your children's personal belongings?",
        "description": "Personal belongings means things that you or your children need for daily life. This includes clothing and personal hygiene products."
       },
       {
@@ -740,7 +748,7 @@
       {
        "type": "yesno",
        "name": "RespondentNeedsStuff",
-       "title": "Does [names of pending protected parties] have any {RespondentName}'s personal belongings?",
+       "title": "Do you or your children have any of {RespondentName}'s personal belongings?",
        "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing and personal hygiene products."
       },
       {
@@ -748,7 +756,7 @@
        "name": "RespondentNeedsStuffPolice",
        "visible": false,
        "visibleIf": "{RespondentNeedsStuff} = 'y'",
-       "title": "Does you need the police to go with {RespondentName} to get their personal belongings from you?",
+       "title": "Do you think you need the police to go with {RespondentName} to get their personal belongings?",
        "description": "A judge can order a police officer to be there when {RespondentName} comes to get their personal belongings. "
       },
       {
@@ -774,7 +782,7 @@
       {
        "type": "yesno",
        "name": "RespondentWeapons",
-       "title": "Are you afraid [Respondent] will harm you or family members with weapons (including guns, explosives)?"
+       "title": "Are you afraid {RespondentName} will harm you or children with weapons (including guns, explosives)?"
       },
       {
        "type": "checkbox",
@@ -821,7 +829,7 @@
        "name": "RespondentPORNewTime",
        "visible": false,
        "visibleIf": "{RespondentPORTime} = 'y'",
-       "title": "What date do you think the POR should expire?",
+       "title": "What date do you think your Protection Order should expire?",
        "description": "You will need to explain to the judge why you think this new date matters.",
        "inputType": "date"
       }
@@ -863,7 +871,7 @@
      "name": "ExplanationPORSpeedNormalAffidavit",
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'n'",
-     "title": "Incomplete:\nMost judges will require that you write an affidavit. If you do not want to use this service to write an affidavit, you have other options: \nClick here for the PDF form [check for OS X compatibiltiy]\nGet a paper form at a court registry [Click here for a list of court locations]\nGet a lawyer to help you write one ",
+     "title": "Most judges will require that you write an affidavit. If you do not want to use this service to write an affidavit, you have other options: \n<ul>\n<li><a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa065a.pdf?forcedownload=true\" target=\"_blank\">Click here for the PDF form</a></li>\n<li>Get a paper form at a courthouse registry. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/courthouse-locations\" target=\"_blank\">Click here for a list of courthouse locations</a></li>\n<li>Get a lawyer to help you write one</li>\n</ul>",
      "titleLocation": "hidden"
     },
     {
@@ -887,7 +895,7 @@
      "name": "PORWhatHappened",
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-     "title": "[can we customize the question to the at-risk people instead of \"you and your family\"?]\nDescribe your relationship history with {RespondentName} and what {RespondentName} has done to make you and your family feel unsafe? ",
+     "title": "Describe your relationship history with {RespondentName} and what {RespondentName} has done to make you and your family feel unsafe? ",
      "description": "Tell your story in your own words. Include all the facts that you think the judge may need.\n<br>\n<br>\nEverything you say must to be true to the best of your knoweldge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit</a>\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/affidavit_info_checklist.php\" target=\"_blank\">Click here to get a list of information to include in your affidavit</a>\n",
      "rows": 8
     },
