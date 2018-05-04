@@ -349,7 +349,8 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
+       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
+       "description": "A guardian is someone who is legally allowed to make decisions for a child under the age of 19.  <br> <br> A biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}. <br> <br> A parent can be added or removed as a guardian by the court or by agreement between the parents. <br> <br> <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
       },
       {
        "type": "panel",
@@ -369,7 +370,8 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Parenting Decisions\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>"
+       "title": "Parenting Decisions\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>",
+       "description": "Parenting decisions are also know as parenting responsibilities. These responsibilities include: <ul> <li>making daily decisions about the child</li> <li>making decisions about your child's education and religious upbringing</li> <li>signing consent forms including healthcare treatments, and</li> <li>applying for passports</li> </ul>"
       },
       {
        "type": "panel",
@@ -486,7 +488,8 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Parenting Time\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
+       "title": "Parenting Time\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone.",
+       "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
       },
       {
        "type": "panel",
@@ -776,7 +779,7 @@
       {
        "type": "yesno",
        "name": "RespondentWeapons",
-       "title": "Are you afraid {RespondentName} will harm you or children with weapons (including guns, explosives)?"
+       "title": "Are you afraid {RespondentName} will harm you or your children with weapons (including guns, explosives)?"
       },
       {
        "type": "checkbox",
