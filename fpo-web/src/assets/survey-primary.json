@@ -270,7 +270,7 @@
     {
      "type": "yesno",
      "name": "ChildrenInvolved",
-     "title": "Do {ApplicantName} and {RespondentName} have children?",
+     "title": "Do, you, {ApplicantName} and {RespondentName} have children?",
      "description": "If {ApplicantName} or {RespondentName} have children, the court will want to know about them even if the children do not need protection."
     },
     {
@@ -278,7 +278,7 @@
      "name": "ListOfChildren",
      "visible": false,
      "visibleIf": "{ChildrenInvolved} = \"y\"",
-     "title": "List of Children",
+     "title": "Information about each child",
      "templateElements": [
       {
        "type": "text",
@@ -352,192 +352,186 @@
        "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
       },
       {
-       "type": "infotext",
-       "name": "GuardianIsNotParent",
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Guardianship\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with a child or regularly cares for the child is a guardian. This parent is still a guardian even after they stop living with the child.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>\n",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "infotext",
-       "name": "InfoParentingDecisions",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Parenting Decisions\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildApplicantPDecisions",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Does {ApplicantName} make parenting decisions for {panel.ChildName}?"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildRespondentPDecisions",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "startWithNewLine": false,
-       "title": "Does {RespondentName} make parenting decisions for {panel.ChildName}?"
-      },
-      {
-       "type": "infotext",
-       "name": "ParentingTime",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Parenting Time\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone.",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildApplicantPTime",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Does {ApplicantName} spend time with {panel.ChildName}?"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildRespondentPTime",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "startWithNewLine": false,
-       "title": "Does {RespondentName} spend time with {panel.ChildName}?"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildEqualPTime",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y'\n",
-       "title": "Do {ApplicantName} and {RespondentName} spend time equally with {panel.ChildName}?",
-       "description": "If {panel.ChildName} spends at least 40% of the year with each of you, this counts as equal time. "
-      },
-      {
-       "type": "radiogroup",
-       "name": "ChildMainGuardians",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n'",
-       "title": "Who does {panel.ChildName} spend more time with?",
-       "choices": [
+       "type": "panel",
+       "name": "PanelParentingDecisions",
+       "elements": [
         {
-         "value": "applicantmoreptime",
-         "text": "{ApplicantName}"
+         "type": "yesno",
+         "name": "ChildApplicantPDecisions",
+         "title": "Does {ApplicantName} make parenting decisions for {panel.ChildName}?"
         },
         {
-         "value": "respondentmoreptime",
-         "text": "{RespondentName}"
+         "type": "yesno",
+         "name": "ChildRespondentPDecisions",
+         "startWithNewLine": false,
+         "title": "Does {RespondentName} make parenting decisions for {panel.ChildName}?"
         }
-       ]
-      },
-      {
-       "type": "radiogroup",
-       "name": "ChildApplicantUnequalPTime",
+       ],
        "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n' and {panel.ChildMainGuardians} = 'applicantmoreptime'",
-       "title": "How much time does {RespondentName} spend with {panel.ChildName}?",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "3pw",
-         "text": "More than twice a week"
-        },
-        {
-         "value": "2pw",
-         "text": "At least twice a week"
-        },
-        {
-         "value": "1pw",
-         "text": "At least once a week"
-        },
-        {
-         "value": "2pm",
-         "text": "At least every other week"
-        },
-        {
-         "value": "1pm",
-         "text": "At least once a month"
-        },
-        {
-         "value": "1py",
-         "text": "At least once a year"
-        }
-       ]
+       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
+       "title": "Parenting Decisions\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>"
       },
       {
-       "type": "radiogroup",
-       "name": "ChildRespondentUnequalPTime",
+       "type": "panel",
+       "name": "PanelParentingTime",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "ChildApplicantPTime",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
+         "title": "Does {ApplicantName} spend time with {panel.ChildName}?"
+        },
+        {
+         "type": "yesno",
+         "name": "ChildRespondentPTime",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
+         "startWithNewLine": false,
+         "title": "Does {RespondentName} spend time with {panel.ChildName}?"
+        },
+        {
+         "type": "yesno",
+         "name": "ChildEqualPTime",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y'\n",
+         "title": "Do {ApplicantName} and {RespondentName} spend time equally with {panel.ChildName}?",
+         "description": "If {panel.ChildName} spends at least 40% of the year with each of you, this counts as equal time. "
+        },
+        {
+         "type": "radiogroup",
+         "name": "ChildMainGuardians",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n'",
+         "title": "Who does {panel.ChildName} spend more time with?",
+         "choices": [
+          {
+           "value": "applicantmoreptime",
+           "text": "{ApplicantName}"
+          },
+          {
+           "value": "respondentmoreptime",
+           "text": "{RespondentName}"
+          }
+         ]
+        },
+        {
+         "type": "radiogroup",
+         "name": "ChildApplicantUnequalPTime",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n' and {panel.ChildMainGuardians} = 'applicantmoreptime'",
+         "title": "How much time does {RespondentName} spend with {panel.ChildName}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "3pw",
+           "text": "More than twice a week"
+          },
+          {
+           "value": "2pw",
+           "text": "At least twice a week"
+          },
+          {
+           "value": "1pw",
+           "text": "At least once a week"
+          },
+          {
+           "value": "2pm",
+           "text": "At least every other week"
+          },
+          {
+           "value": "1pm",
+           "text": "At least once a month"
+          },
+          {
+           "value": "1py",
+           "text": "At least once a year"
+          }
+         ]
+        },
+        {
+         "type": "radiogroup",
+         "name": "ChildRespondentUnequalPTime",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n' and {panel.ChildMainGuardians} = 'respondentmoreptime'",
+         "title": "How much time does {ApplicantName} spend with {panel.ChildName}?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "3pw",
+           "text": "More than twice a week"
+          },
+          {
+           "value": "2pw",
+           "text": "At least twice a week"
+          },
+          {
+           "value": "1pw",
+           "text": "At least once a week"
+          },
+          {
+           "value": "2pm",
+           "text": "At least every other week"
+          },
+          {
+           "value": "1pm",
+           "text": "At least once a month"
+          },
+          {
+           "value": "1py",
+           "text": "At least once a year"
+          }
+         ]
+        }
+       ],
        "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n' and {panel.ChildMainGuardians} = 'respondentmoreptime'",
-       "title": "How much time does {ApplicantName} spend with {panel.ChildName}?",
-       "hasOther": true,
-       "choices": [
-        {
-         "value": "3pw",
-         "text": "More than twice a week"
-        },
-        {
-         "value": "2pw",
-         "text": "At least twice a week"
-        },
-        {
-         "value": "1pw",
-         "text": "At least once a week"
-        },
-        {
-         "value": "2pm",
-         "text": "At least every other week"
-        },
-        {
-         "value": "1pm",
-         "text": "At least once a month"
-        },
-        {
-         "value": "1py",
-         "text": "At least once a year"
-        }
-       ]
+       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
+       "title": "Parenting Time\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
       },
       {
-       "type": "infotext",
+       "type": "panel",
        "name": "InfoOrdersRespectingContact",
+       "elements": [
+        {
+         "type": "yesno",
+         "name": "ChildApplicantContactOrder",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'n'",
+         "title": "Is there a written agreement or court order about how {ApplicantName} can spend time with {panel.ChildName}?",
+         "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
+        },
+        {
+         "type": "infotext",
+         "name": "ExplanationChildApplicantContactOrder",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildApplicantContactOrder} = 'y'",
+         "title": "Please make a photocopy of this written agreement or court order. You will need to include it when you file your documents at the courthouse.",
+         "titleLocation": "hidden"
+        },
+        {
+         "type": "yesno",
+         "name": "ChildRespondentContactOrder",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildRespondentGuardian} = 'n'",
+         "title": "Is there a written agreement or court order about how {RespondentName} can spend time with {panel.ChildName}?",
+         "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
+        },
+        {
+         "type": "infotext",
+         "name": "ExplanationChildRespondentContactOrder",
+         "visible": false,
+         "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildRespondentGuardian} = 'n' and {panel.ChildRespondentContactOrder} = 'y'",
+         "title": "Please make a photocopy of this written agreement or court order. You will need to include it when you file your documents at the courthouse.",
+         "titleLocation": "hidden"
+        }
+       ],
        "visible": false,
        "visibleIf": "({panel.ChildIsMinor} = 'y') and ({panel.ChildApplicantGuardian} = 'n' or {panel.ChildRespondentGuardian} = 'n')",
-       "title": "Orders Respecting Contact",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildApplicantContactOrder",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'n'",
-       "title": "Is there a written agreement or court order about how {ApplicantName} can spend time with {panel.ChildName}?",
-       "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
-      },
-      {
-       "type": "infotext",
-       "name": "ExplanationChildApplicantContactOrder",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildApplicantContactOrder} = 'y'",
-       "title": "Please make a photocopy of this written agreement or court order. You will need to include it when you file your documents at the courthouse.",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "yesno",
-       "name": "ChildRespondentContactOrder",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildRespondentGuardian} = 'n'",
-       "title": "Is there a written agreement or court order about how {RespondentName} can spend time with {panel.ChildName}?",
-       "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
-      },
-      {
-       "type": "infotext",
-       "name": "ExplanationChildRespondentContactOrder",
-       "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildRespondentGuardian} = 'n' and {panel.ChildRespondentContactOrder} = 'y'",
-       "title": "Please make a photocopy of this written agreement or court order. You will need to include it when you file your documents at the courthouse.",
-       "titleLocation": "hidden"
+       "title": "Orders Respecting Contact"
       }
-     ]
+     ],
+     "panelAddText": "Add a child",
+     "panelRemoveText": "Remove this child"
     }
    ],
    "title": "Children"
