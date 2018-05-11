@@ -137,7 +137,7 @@
        "visible": false,
        "visibleIf": "{RespondentName} notempty",
        "title": "What is an address where {RespondentName} can receive court documents?",
-       "description": "You can pick a daytime address such as {RespondentName}'s workplace or somewhere you know {RespondentName} will be staying.\n<br>\n<br>\nYou can still use this service without an address but you will likely be responsible for finding {RespondentName} so that they can receive court documents."
+       "description": "You can pick a daytime address such as {RespondentName}'s workplace or somewhere you know {RespondentName} will be staying.\n<br>\n<br>\nIf you don't have an address for {RespondentName}, fill out as much information as you know. The rest can be left blank."
       },
       {
        "type": "text",
@@ -181,7 +181,7 @@
        "name": "ExplanationApplicantNeedsNoProtection",
        "visible": false,
        "visibleIf": "{ApplicantNeedsProtection} = 'n'",
-       "title": "You can still use this service to protect your children even if you, yourself, do not need to be included on the Protection Order against {RespondentName}.",
+       "title": "You can still use this service to protect your children even if you do not need to be included on the Protection Order against {RespondentName}.",
        "titleLocation": "hidden"
       }
      ],
@@ -246,7 +246,7 @@
       {
        "type": "yesno",
        "name": "ExistingOrders",
-       "title": "Has any court ever made an order between {ApplicantName} and {RespondentName} about your separation, your children or 'support'?",
+       "title": "Has any court ever made an `order` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
        "description": "An order can be made in any court in any place, including the Supreme Court or Criminal Court."
       },
       {
@@ -260,7 +260,7 @@
       {
        "type": "yesno",
        "name": "ExistingWrittenAgreements",
-       "title": "Are there any other `written agreements` between {ApplicantName} and {RespondentName} about your separation, your children or 'support'?",
+       "title": "Are there any other `written agreements` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
        "description": "For example, a separation agreement or a mediation agreement."
       },
       {
@@ -295,7 +295,7 @@
        "name": "ExplanationChildrenInvolved",
        "visible": false,
        "visibleIf": "{ChildrenInvolved} ='n' and {ApplicantNeedsProtection} = 'n'",
-       "title": "It does not look like you need this service because you don't need to be included on a Protection Order against {RespondentName}, and the two of you don't have any children.",
+       "title": "It does not look like you can use this service because you don't need to be included on a Protection Order against {RespondentName}, and the two of you don't have any children.\n<br>\n<br>\nIf {RespondentName} is making another family member feel unsafe, you can still apply for Provincial Court Family Law Protection Order. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>",
        "titleLocation": "hidden",
        "messageStyle": "error"
       }
@@ -387,8 +387,7 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.",
-       "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
+       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>\n<br>\n<br>"
       },
       {
        "type": "panel",
@@ -408,7 +407,7 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Parenting Decisions\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>"
+       "title": "Who makes Parenting Decisions for {panel.ChildName}?\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>"
       },
       {
        "type": "panel",
@@ -527,14 +526,16 @@
          "name": "RespondentApplicantArrangeChildren",
          "visible": false,
          "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or ({panel.ChildEqualPTime} ='n' and {panel.ChildApplicantUnequalPTime} notempty and ({panel.ChildApplicantUnequalPTime} notempty or {panel.ChildRespondentUnequalPTime} notempty)))",
-         "title": "If your protection order is made, will {RespondentName} need to contact you, {ApplicantName}, to arrange parenting responsibilities for {panel.ChildName}?"
+         "title": "If your Protection Order is made, does {RespondentName} need to contact you, {ApplicantName}, to make parenting arrangements for {panel.ChildName}?",
+         "description": "Parenting arrangements include making decisions about {panel.ChildName} and planning for time with {panel.ChildName}."
         },
         {
          "type": "checkbox",
          "name": "RespondentApplicantArrangeMethods",
          "visible": false,
          "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or ({panel.ChildEqualPTime} ='n' and {panel.ChildApplicantUnequalPTime} notempty and ({panel.ChildApplicantUnequalPTime} notempty or {panel.ChildRespondentUnequalPTime} notempty))) and {panel.RespondentApplicantArrangeChildren} = 'y'",
-         "title": "What is your preferred method for {RespondentName} to contact you?",
+         "title": "What is your preferred method for {RespondentName} to communicate with you?",
+         "description": "If you or {RespondentName} need to communicate about {panel.ChildName}, this will be allowed even with the Protection Order against {RespondentName} in place.",
          "hasOther": true,
          "choices": [
           {
@@ -558,8 +559,7 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPDecisions} notempty and {panel.ChildRespondentPDecisions} notempty",
-       "title": "Parenting Time\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone.",
-       "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
+       "title": "Who spends Parenting Time with {panel.ChildName}?\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
       },
       {
        "type": "panel",
@@ -570,7 +570,7 @@
          "name": "ChildApplicantContactOrder",
          "visible": false,
          "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildRespondentGuardian} = 'y'",
-         "title": "Is there a written agreement or court order about how {ApplicantName} can spend time with {panel.ChildName}?",
+         "title": "Is there a court `order` or `written agreement` about how {ApplicantName} can spend time with {panel.ChildName}?",
          "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
         },
         {
@@ -586,7 +586,7 @@
          "name": "ChildRespondentContactOrder",
          "visible": false,
          "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildRespondentGuardian} = 'n' and {panel.ChildApplicantGuardian} = 'y'",
-         "title": "Is there a written agreement or court order about how {RespondentName} can spend time with {panel.ChildName}?",
+         "title": "Is there a court `order` or `written agreement` about how {RespondentName} can spend time with {panel.ChildName}?",
          "description": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
         },
         {
@@ -615,32 +615,168 @@
     {
      "type": "infotext",
      "name": "NoContactRespondentSummary",
-     "title": "[Keep This] If the judge decides to make this Protection Order, {RespondentName} will be ordered to stay away from you and your family, or else they may face criminal charges.",
+     "title": "If the judge decides to make your `Protection Order`, {RespondentName} will be ordered to stay away from you and/or your children. If {RespondentName} doesn't follow the Protection Order, they may face criminal charges.\n<br>\n<br>\nThe following questions will guide you to personalize your safety needs for your Protection Order.",
      "titleLocation": "hidden"
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelFamilyHome",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "RespondentLiveTogether",
+       "title": "Do you, {ApplicantName}, currently share a home with {RespondentName}?",
+       "description": "Even if one of you has left home temporarily, you still share a home."
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentLeaving",
+       "visible": false,
+       "visibleIf": "{RespondentLiveTogether} = 'y'",
+       "title": "Do you, {ApplicantName}, want to stay in this family home?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "RespondentNeedPolice",
+       "visible": false,
+       "visibleIf": "{RespondentLeaving} = 'y'",
+       "title": "Do you think you need the police to remove {RespondentName} from where you live or will {RespondentName} leave on their own?",
+       "choices": [
+        {
+         "value": "y",
+         "text": "I need police assistance to remove {RespondentName} from the home"
+        },
+        {
+         "value": "n",
+         "text": "{RespondentName} will probably leave on their own"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "HomeAddressSame",
+       "visible": false,
+       "visibleIf": "{RespondentNeedPolice} = 'y'",
+       "title": "Is the address of your family home the same as the address you provided for receiving court documents? [Display applicant's service address]"
+      },
+      {
+       "type": "address",
+       "name": "FamilyHomeAddress",
+       "visible": false,
+       "visibleIf": "{HomeAddressSame} = 'n'",
+       "title": "What is the address of your family home?"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelBelongings",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "RespondentHasStuff",
+       "title": "Does {RespondentName} have any of you or your children's personal belongings?",
+       "description": "Personal belongings means things that you or your children need for daily life. This includes clothing and personal hygiene products."
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentHasStuffPolice",
+       "visible": false,
+       "visibleIf": "{RespondentHasStuff} = 'y'",
+       "title": "Do you need a police officer to supervise while you get the personal belongings?\n",
+       "description": "A judge can order a police officer to come with you to get the personal belongings. "
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentHasStuffAddressSame",
+       "visible": false,
+       "visibleIf": "{RespondentHasStuffPolice} = 'y'",
+       "title": "Same as {RespondentName}'s address that you provided for receiving court documents? [Display respondent's service address]"
+      },
+      {
+       "type": "address",
+       "name": "RespondentHasStuffAddress",
+       "visible": false,
+       "visibleIf": "{RespondentHasStuffAddressSame} = 'n'",
+       "title": "What is the address where your personal belongs are being held?"
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentNeedsStuff",
+       "title": "Do you or your children have any of {RespondentName}'s personal belongings?",
+       "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing and personal hygiene products."
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentNeedsStuffPolice",
+       "visible": false,
+       "visibleIf": "{RespondentNeedsStuff} = 'y'",
+       "title": "Do you, {ApplicantName}, need the police to supervise {RespondentName} while they get their personal belongings?",
+       "description": "A judge can order a police officer to be there when {RespondentName} comes to get their personal belongings. "
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentNeedsStuffAddressSame",
+       "visible": false,
+       "visibleIf": "{RespondentNeedsStuffPolice} = 'y'",
+       "title": "Is the address where you are holding {RespondentName}'s personal belongings the same as the address you provided for receiving court documents? [Display applicant's service address]"
+      },
+      {
+       "type": "address",
+       "name": "RespondentNeedsStuffAddress",
+       "visible": false,
+       "visibleIf": "{RespondentNeedsStuffAddressSame} = 'n'",
+       "title": "Address"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{RespondentLiveTogether} notempty"
+    },
+    {
+     "type": "panel",
+     "name": "PORPanelNoGo",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "RespondentNoGo",
+       "title": "Are there any places where you want {RespondentName} to stay away from?"
+      },
+      {
+       "type": "checkbox",
+       "name": "RespondentNoGoPlaces",
+       "visible": false,
+       "visibleIf": "{RespondentNoGo} = 'y'",
+       "title": "Select any places where you want {RespondentName} to stay away from:",
+       "description": "If there is more than one \"Other\" write them all and separate each place with a comma.",
+       "hasOther": true,
+       "choices": [
+        "Home",
+        "Workplace",
+        "School",
+        "Place of Worship"
+       ]
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationNoGoAddresses",
+       "visible": false,
+       "visibleIf": "{RespondentNoGo} = 'y'",
+       "title": "For this service, you do not need to give the addresses of the places you want {RespondentName} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the addresses into the courtroom with you.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{RespondentHasStuff} notempty and {RespondentNeedsStuff} notempty"
     },
     {
      "type": "panel",
      "name": "PORPanelNoContactExceptions",
      "elements": [
       {
-       "type": "yesno",
-       "name": "RespondentApplicantContact",
-       "title": "Would {RespondentName} need to contact you, {ApplicantName}, for an ongoing court case?"
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentApplicantContactParties",
-       "visible": false,
-       "visibleIf": "{RespondentApplicantContact} = 'y'",
-       "title": "Are there any third parties that {RespondentName} and you, {ApplicantName}, may communicate through?",
-       "description": "Third parties can include a lawyer, a family justice counsellor, a social worker, a family member or friend."
-      },
-      {
        "type": "checkbox",
        "name": "RespondentApplicantContactType",
-       "visible": false,
-       "visibleIf": "{RespondentApplicantContactParties} = 'y'",
-       "title": "Select the third parities that {RespondenName} and you, {ApplicantName}, may communicate through:",
+       "title": "Select any third parties that {RespondentName} and {ApplicantName} may communicate through for ongoing court purposes:",
+       "description": "If you or {RespondentName} need to communicate for court purposes, you will both be allowed to do so through the people the judge includes in your Protection Order.",
        "hasOther": true,
        "choices": [
         {
@@ -668,154 +804,19 @@
       {
        "type": "yesno",
        "name": "RespondentApplicantContactOther",
-       "title": "Is there any other reason that {RespondentName} would need to contact you, {ApplicantName}?"
+       "title": "Is there any other situation that {RespondentName} would need to communicate with you, {ApplicantName}?"
       },
       {
        "type": "text",
        "name": "RespondentApplicantContactOtherReason",
        "visible": false,
        "visibleIf": "{RespondentApplicantContactOther} = 'y'",
-       "title": "Describe the reason(s)?"
-      }
-     ],
-     "title": "Even with a Protection Order in place, there may be times where it is important to contact each other."
-    },
-    {
-     "type": "panel",
-     "name": "PORPanelFamilyHome",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "RespondentLiveTogether",
-       "title": "Does {RespondentName} currently share a home with {ApplicantName}?",
-       "description": "Even if one of you has left home temporarily, you still share a home."
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentLeaving",
-       "visible": false,
-       "visibleIf": "{RespondentLiveTogether} = 'y'",
-       "title": "Do you, {ApplicantName}, want to stay in this family home?"
-      },
-      {
-       "type": "radiogroup",
-       "name": "RespondentNeedPolice",
-       "visible": false,
-       "visibleIf": "{RespondentLeaving} = 'y'",
-       "title": "Do you think you need the police to remove {RespondentName} from your family home or are they leaving on their own?",
-       "choices": [
-        {
-         "value": "y",
-         "text": "I need police assistance"
-        },
-        {
-         "value": "n",
-         "text": "{RespondentName} will probably leave on their own"
-        }
-       ]
-      },
-      {
-       "type": "yesno",
-       "name": "HomeAddressSame",
-       "visible": false,
-       "visibleIf": "{RespondentNeedPolice} = 'y'",
-       "title": "Is the address of your family home the same as the address you provided for receiving court documents? [Display applicant's service address]"
-      },
-      {
-       "type": "address",
-       "name": "FamilyHomeAddress",
-       "visible": false,
-       "visibleIf": "{HomeAddressSame} = 'n'",
-       "title": "What is the address of your family home?"
+       "title": "Describe the situation(s)?"
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentApplicantContact} notempty and {RespondentApplicantContactOther} notempty"
-    },
-    {
-     "type": "panel",
-     "name": "PORPanelNoGo",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "RespondentNoGo",
-       "title": "Are there any places, other than your home, where {RespondentName} needs to stay away from?"
-      },
-      {
-       "type": "infotext",
-       "name": "ExplanationNoGoAddresses",
-       "visible": false,
-       "visibleIf": "{RespondentNoGo} = 'y'",
-       "title": "For this service, you do not need to give the addresses of the places you want {RespondentName} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the addresses into the courtroom with you.",
-       "titleLocation": "hidden"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{RespondentLiveTogether} notempty"
-    },
-    {
-     "type": "panel",
-     "name": "PORPanelBelongings",
-     "elements": [
-      {
-       "type": "yesno",
-       "name": "RespondentHasStuff",
-       "title": "Does {RespondentName} have any of you or your children's personal belongings?",
-       "description": "Personal belongings means things that you or your children need for daily life. This includes clothing and personal hygiene products."
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentHasStuffPolice",
-       "visible": false,
-       "visibleIf": "{RespondentHasStuff} = 'y'",
-       "title": "Do you think you need police assistance to get personal belongings from {RespondentName}?",
-       "description": "A judge can order a police officer to come with you to get your personal belongings. "
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentHasStuffAddressSame",
-       "visible": false,
-       "visibleIf": "{RespondentHasStuffPolice} = 'y'",
-       "title": "Same as {RespondentName}'s address that you provided for receiving court documents? [Display respondent's service address]"
-      },
-      {
-       "type": "address",
-       "name": "RespondentHasStuffAddress",
-       "visible": false,
-       "visibleIf": "{RespondentHasStuffAddressSame} = 'n'",
-       "title": "What is the address where your personal belongs are being held?"
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentNeedsStuff",
-       "title": "Do you or your children have any of {RespondentName}'s personal belongings?",
-       "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing and personal hygiene products."
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentNeedsStuffPolice",
-       "visible": false,
-       "visibleIf": "{RespondentNeedsStuff} = 'y'",
-       "title": "Do you think you need the police to go with {RespondentName} to get their personal belongings?",
-       "description": "A judge can order a police officer to be there when {RespondentName} comes to get their personal belongings. "
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentNeedsStuffAddressSame",
-       "visible": false,
-       "visibleIf": "{RespondentNeedsStuffPolice} = 'y'",
-       "title": "Is the address where you are holding {RespondentName}'s personal belongings the same as the address you provided for receiving court documents? [Display applicant's service address]"
-      },
-      {
-       "type": "address",
-       "name": "RespondentNeedsStuffAddress",
-       "visible": false,
-       "visibleIf": "{RespondentNeedsStuffAddressSame} = 'n'",
-       "title": "Address"
-      }
-     ],
-     "visible": false,
-     "visibleIf": "{RespondentNoGo} notempty"
+     "visibleIf": "{RespondentNoGo} = 'n' or {RespondentNoGoPlaces} notempty",
+     "title": "Even with a Protection Order in place, there may be times where it is important to communicate with each for certain reasons."
     },
     {
      "type": "panel",
@@ -857,7 +858,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentHasStuff} notempty and {RespondentNeedsStuff} notempty"
+     "visibleIf": "{RespondentApplicantContactOther} = 'n' or {RespondentApplicantContactOtherReason} notempty"
     },
     {
      "type": "panel",
@@ -969,6 +970,119 @@
     }
    ],
    "title": "POR Review"
+  },
+  {
+   "name": "Birthday Test",
+   "elements": [
+    {
+     "type": "dropdown",
+     "name": "question1",
+     "title": "Month",
+     "choices": [
+      {
+       "value": "item1",
+       "text": "January"
+      },
+      {
+       "value": "item2",
+       "text": "February"
+      },
+      {
+       "value": "item3",
+       "text": "March"
+      }
+     ]
+    },
+    {
+     "type": "dropdown",
+     "name": "question2",
+     "startWithNewLine": false,
+     "title": "Day",
+     "choices": [
+      {
+       "value": "item1",
+       "text": "1"
+      },
+      {
+       "value": "item2",
+       "text": "2"
+      },
+      {
+       "value": "item3",
+       "text": "3"
+      }
+     ]
+    },
+    {
+     "type": "dropdown",
+     "name": "question3",
+     "startWithNewLine": false,
+     "title": "Year",
+     "choices": [
+      {
+       "value": "item1",
+       "text": "2018"
+      },
+      {
+       "value": "item2",
+       "text": "2017"
+      },
+      {
+       "value": "item3",
+       "text": "2016"
+      }
+     ]
+    },
+    {
+     "type": "matrixdropdown",
+     "name": "question4",
+     "columns": [
+      {
+       "name": "Column 1",
+       "title": "Month",
+       "cellType": "dropdown"
+      },
+      {
+       "name": "Column 2",
+       "title": "Day",
+       "cellType": "dropdown"
+      },
+      {
+       "name": "Column 3",
+       "title": "Year",
+       "cellType": "dropdown"
+      }
+     ],
+     "choices": [
+      {
+       "value": 1,
+       "text": "January"
+      },
+      {
+       "value": 2,
+       "text": "February"
+      },
+      {
+       "value": 3,
+       "text": "March"
+      },
+      {
+       "value": 4,
+       "text": "April"
+      },
+      {
+       "value": 5,
+       "text": "May"
+      }
+     ],
+     "rows": [
+      {
+       "value": "Row 1",
+       "text": "Date of Birth"
+      }
+     ]
+    }
+   ]
   }
  ],
  "showQuestionNumbers": "off"
