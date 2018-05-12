@@ -1,25 +1,21 @@
 {
   "affidavit": "An affidavit is a document that contains facts that you swear under oath or affirm to be true. It is your story that you are telling the court.",
 
-  "explosive substance": "An **explosive substance** includes\n\n  - (a) anything intended to be used to make an explosive substance,\n  - (b) anything, or any part thereof, used or intended to be used, or adapted to cause, or to aid in causing an explosion in or with an explosive substance, and\n  - (c) an incendiary grenade, fire bomb, molotov cocktail or other similar incendiary substance or device and a delaying mechanism or other thing intended for use in connection with such a substance or device; (substance explosive)",
+  "family member": "A family member includes:\n\n - someone you are or were married to,\n  - someone you live or lived with in a marriage-like relationship,\n  • your child’s parent or legal guardian,\n  • a relative of any of the people above who lives with them,\n. • a relative of yours who lives with you, and\n  • your own child.",
 
-  "firearm": "A **firearm** means a barrelled weapon from which any shot, bullet or other projectile can be discharged and that is capable of causing serious bodily injury or death to a person, and includes any frame or receiver of such a barrelled weapon and anything that can be adapted for use as a firearm; (arme à feu)",
+  "family law protection order": "A Family Law Protection Order is a protection order from family court. It is a list of conditions set by a judge to protect one family member from another family member. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative.\n\n  [Click here for more information](https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/keeping-your-family-safe/protection-order)",
 
-  "weapon": "A *weapon* means any thing used, designed to be used or intended for use\n\n  - (a) in causing death or injury to any person, or\n  - (b) for the purpose of threatening or intimidating any person\n  \n  and, without restricting the generality of the foregoing, includes a firearm and, for the purposes of sections 88, 267 and 272, any thing used, designed to be used or intended for use in binding or tying up a person against their will; (arme)\n  Click [here for more information](http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html).",
+  "legal guardian": "A legal guardian is someone who was appointed by a court to be allowed to make decisions for a child under the age of 19.",
 
-  "children": "Under the age of 19 or special circumstance such as disability or university tuition, **NEEDS A WAY BETTER EXPLANATION**",
+  "order": "An order is a list of conditions set by a judge that you and/or the other person must follow. A judge can make an order after a trial or hearing, or when both people agree. Orders are sometimes called decisions or judgments.",
 
-  "child": "Under the age of 19 or special circumstance such as disability or university tuition, **NEEDS A WAY BETTER EXPLANATION**",
+  "peace bond": "A peace bond is a protection order from criminal court. It is a list of conditions set by a judge to protect one person from another person. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative.\n\n  [Click here for more information](https://www2.gov.bc.ca/gov/content/justice/criminal-justice/bcs-criminal-justice-system/if-you-are-convicted-of-a-crime/no-contact/peace-bond)",
 
-  "family law protection order": "A **Family Law Protection Order** is a court order to protect one family member from another family member if there is a risk of violence. The protection order limits or prohibits contact or communications between family members where there are safety concerns. It is a criminal offense for the person named in the order to disobey (“breach”) it.\n  \n  Click [here for more information](https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/keeping-your-family-safe/protection-order)",
+  "protection order": "A Protection Order is a list of conditions set by a judge that a person must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative. If the person doesn't follow the conditions, they may face criminal charges.",
 
-  "family member": "**TO BE ADDED**",
+  "support": "Support is money paid by one person to another, after their relationship ends, to provide for the financial needs of a spouse or children.",
 
-  "family violence": "**Family violence** includes physical, sexual, and psychological or emotional abuse of a family member. Psychological or emotional abuse includes intimidation, harassment, coercion, threats, financial abuse, stalking, and intentional damage to property. In the case of a child, it includes witnessing or being exposed to family violence. Family violence does not include self-defence.",
+  "written agreement": "A written agreement is a document that is signed by you and the other person.",
 
-  "peace bond": "A **peace bond** is another type of protection order available in criminal court to limit or prohibit contact or communications between people where there is a safety risk.",
-
-  "personal belongings": "**TO BE ADDED**",
-
-  "protection order": "**TO BE ADDED**"
+  "weapon": "A *weapon* means any thing used, designed to be used or intended for use\n\n  - (a) in causing death or injury to any person, or\n  - (b) for the purpose of threatening or intimidating any person\n  \n  and, without restricting the generality of the foregoing, includes a firearm and, for the purposes of sections 88, 267 and 272, any thing used, designed to be used or intended for use in binding or tying up a person against their will; (arme)\n  Click [here for more information](http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html)."
 }
