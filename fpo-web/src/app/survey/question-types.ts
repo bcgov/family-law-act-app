@@ -565,7 +565,7 @@ function initAddressBlock(Survey) {
 
 
 export function addQuestionTypes(Survey) {
-  fixCheckboxes(Survey);
+  //fixCheckboxes(Survey);
   initYesNo(Survey);
   initInfoText(Survey);
   initHelpText(Survey);
