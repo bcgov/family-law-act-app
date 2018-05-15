@@ -1,25 +1,33 @@
 .home-content {
   padding-bottom: 20px;
   padding-top: 8rem;
-  max-width: 840px;
+  max-width: 900px;
 }
 
 h1, h2 {
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-h1, h2, h3, h4 {
-  color: #fff;
 }
 
 .intro {
-  color: #f6f6f6;
   font-size: 24px;
   line-height: 1.6;
-  max-width: 80%;
   margin: 3rem auto 4rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  p {
+    margin-bottom: 1.7rem;
+  }
+}
+
+.prefix {
+  padding-right: 0.25em;
+  .fa {
+    padding-right: 0.15em;
+  }
+}
+
+.alert {
+  h2, h3, h4 {
+    color: inherit;
+  }
 }
 
 .steps {
@@ -67,7 +75,7 @@ h1, h2, h3, h4 {
 
 .login-button {
   background-color: #fcba19;
-  border: 2px solid rgba(#f8fcff, 0.4);
+  border: 2px solid rgba(#b0b8c3, 0.8);
   color: #38598a;
   margin-top: 2.5rem;
   &:hover, &:focus {
