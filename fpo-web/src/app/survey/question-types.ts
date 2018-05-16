@@ -356,7 +356,11 @@ function initAddressBlock(Survey) {
       return question.getType() === "address";
     },
     activatedByChanged: function(activatedBy) {
-      Survey.JsonObject.metaData.addClass("address", [], null, "empty");
+      Survey.JsonObject.metaData.addClass("address", [
+        {
+          name: "referLabel:text",
+        }
+      ], null, "empty");
     },
     htmlTemplate: "<div></div>",
     provinceOptions: function() {
@@ -427,17 +431,67 @@ function initAddressBlock(Survey) {
         }
       ];
     },
+    prevAddrs: {},
+    prevAddrOptions: function(skipName) {
+      let addrs = [];
+      for(let k in this.prevAddrs) {
+        if(k !== skipName) addrs.push(this.prevAddrs[k]);
+      }
+      addrs.sort((a,b) => a.localeCompare(b));
+      return addrs;
+    },
     afterRender: function(question, el) {
       while(el.childNodes.length)
         el.removeChild(el.childNodes[0]);
 
       let outer = document.createElement('div');
       let outerCls = 'survey-address';
+      let label;
+      let row;
+      let cell;
       outer.className = outerCls;
 
-      let row = document.createElement('div');
+      let selOpts = this.prevAddrOptions(question.name);
+      if(selOpts.length) {
+        row = document.createElement('div');
+        row.className = 'row survey-address-line';
+
+        cell = document.createElement('div');
+        cell.className = 'col-sm-6 form-inline';
+        label = document.createElement('label');
+        // FIXME - set label.for to province ID
+        label.className = 'survey-address-label';
+        label.appendChild(document.createTextNode('Copy from: \u00a0 '));
+        cell.appendChild(label);
+        let selAddr = document.createElement('select');
+        selAddr.className = 'form-control';
+        var opt = document.createElement('option');
+        opt.text = '(Select Address)';
+        opt.value = '';
+        selAddr.appendChild(opt);
+        for(var selIdx in selOpts) {
+          var selVal = selOpts[selIdx];
+          var opt = document.createElement('option');
+          opt.text = selVal.label;
+          opt.value = selIdx;
+          selAddr.appendChild(opt);
+        }
+        selAddr.onchange = function() {
+          var selIdx = (<HTMLInputElement>this).value;
+          if(selIdx.length) {
+            var selAddr = selOpts[selIdx].value;
+            console.log(selAddr);
+            question.value = selAddr;
+          }
+        }
+        cell.appendChild(selAddr);
+        row.appendChild(cell);
+        outer.appendChild(row);
+      }
+
+      row = document.createElement('div');
       row.className = 'row survey-address-line';
-      let cell = document.createElement('div');
+      cell = document.createElement('div');
       cell.className = 'col-sm-12';
       row.appendChild(cell);
       let addr1 = document.createElement('input');
@@ -446,7 +500,7 @@ function initAddressBlock(Survey) {
       cell.appendChild(addr1);
       outer.appendChild(row);
 
-      row = document.createElement('div');
+      /*row = document.createElement('div');
       row.className = 'row survey-address-line';
       cell = document.createElement('div');
       cell.className = 'col-sm-12';
@@ -455,14 +509,14 @@ function initAddressBlock(Survey) {
       addr2.className = 'form-control';
       addr2.placeholder = 'Second address line, if needed';
       cell.appendChild(addr2);
-      outer.appendChild(row);
+      outer.appendChild(row);*/
 
       row = document.createElement('div');
       row.className = 'row survey-address-line';
 
       cell = document.createElement('div');
       cell.className = 'col-sm-6';
-      let label = document.createElement('label');
+      label = document.createElement('label');
       // FIXME - set label.for to city ID
       label.className = 'survey-address-label';
       label.appendChild(document.createTextNode('City / Town'));
@@ -488,7 +542,6 @@ function initAddressBlock(Survey) {
         opt.value = province.value;
         state.appendChild(opt);
       }
-      state.value = 'BC';
       cell.appendChild(state);
       row.appendChild(cell);
 
@@ -513,7 +566,6 @@ function initAddressBlock(Survey) {
         opt.value = cval.value;
         country.appendChild(opt);
       }
-      country.value = 'CAN';
       cell.appendChild(country);
       row.appendChild(cell);
 
@@ -535,27 +587,40 @@ function initAddressBlock(Survey) {
 
       function updateValue(evt) {
         let value = {
-          'line1': addr1.value,
-          'line2': addr2.value,
+          'street': addr1.value,
+          //'line2': addr2.value,
           'city': city.value,
           'state': state.value,
           'country': country.value,
           'postcode': postCode.value,
         }
         question.value = value;
-        console.log(question.value);
       }
       addr1.addEventListener('change', updateValue);
-      addr2.addEventListener('change', updateValue);
+      //addr2.addEventListener('change', updateValue);
       city.addEventListener('change', updateValue);
       state.addEventListener('change', updateValue);
       country.addEventListener('change', updateValue);
       postCode.addEventListener('change', updateValue);
 
-      question.valueChangedCallback = function() {
-        // populate fields
+      question.valueChangedCallback = () => {
+        let val = question.value || {};
+        addr1.value = val.street || '';
+        city.value = val.city || '';
+        state.value = val.state || 'BC';
+        country.value = val.country || 'CAN';
+        postCode.value = val.postcode || '';
+        if(val.street && question.referLabel) {
+          this.prevAddrs[question.name] = {
+            label: question.referLabel,
+            value: Object.assign({}, val)
+          };
+        } else {
+          delete this.prevAddrs[question.name];
+        }
+        console.log(this.prevAddrs);
       };
-      // question.valueChangedCallback();
+      question.valueChangedCallback();
     },
     willUnmount: function(question, el) {}
   };
