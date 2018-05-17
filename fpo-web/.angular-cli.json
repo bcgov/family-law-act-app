@@ -22,7 +22,13 @@
         "styles.scss"
       ],
 
-      "scripts": [ "assets/js/zendesk.js" ],
+      "scripts": [
+        "assets/js/zendesk.js",
+        "assets/js/xepOnline.jqPlugin.js",
+        "../node_modules/jquery/dist/jquery.min.js"
+      ],
+
+
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

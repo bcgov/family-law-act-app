@@ -16,11 +16,16 @@ export class SurveyPrimaryComponent implements OnInit {
   public surveyPath: string;
   public surveyJson: any;
   public complete: Function;
+  public jsonObject: any;
+
+  public downloadPDF(){
+    return xepOnline.Formatter.Format('template', {render: 'download', processPseudoElem: true});
+  }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dataService: GeneralDataService
+    private dataService: GeneralDataService,
   ) { }
 
   ngOnInit() {
@@ -41,6 +46,7 @@ export class SurveyPrimaryComponent implements OnInit {
     }
     else if(this.cacheName) {
       this.resultJson = JSON.stringify(data);
+      this.jsonObject = JSON.parse(this.resultJson);
       this.printUrl = this.dataService.getApiUrl('survey-print/' + this.cacheName);
     }
   }
