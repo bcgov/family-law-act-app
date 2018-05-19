@@ -10,7 +10,7 @@
         <input name="data" type="hidden" [value]="resultJson">
           <!--<p>{{resultJson.valueOf()}}</p>-->
           <input type="text" [value]="resultJson.valueOf(ApplicantName)">
-          <p>{{jsonObject.ApplicantName}}</p>
+          <p>{{data.ApplicantName}}</p>
           <!--html template starts here-->
           <div class="wrapper" id="template">
               <div class="container">
@@ -27,13 +27,13 @@
                                   <tr class="brdr-btm">
                                       <td>
                                           <label>Court File No.:</label>
-                                          <span>{{jsonObject.ExistingCourt}}</span>
+                                          <span>{{data.ExistingCourt}}</span>
                                       </td>
                                   </tr>
                                   <tr class="brdr-btm">
                                       <td>
                                           <label>Court Location:</label>
-                                          <span>{{jsonObject.ExistingCourt}}</span>
+                                          <span>{{data.ExistingCourt}}</span>
                                       </td>
                                   </tr>
                                   <tr>
@@ -55,7 +55,7 @@
                                   </tr>
                                   <tr>
                                       <td colspan="4">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantName}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantName}}</span>
                                           <label class="label-btm">Name</label>
                                       </td>
                                   </tr>
@@ -64,7 +64,7 @@
                                   </tr>
                                   <tr class="brdr-btm">
                                       <td colspan="4">
-                                          <span class="brdr-btm">{{jsonObject.RespondentName}}</span>
+                                          <span class="brdr-btm">{{data.RespondentName}}</span>
                                           <label class="label-btm">Name</label>
                                       </td>
                                   </tr>
@@ -74,11 +74,11 @@
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantName}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantName}}</span>
                                           <label class="label-btm">Name</label>
                                       </td>
                                       <td colspan="2">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantDOB}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantDOB}}</span>
                                           <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                       </td>
                                   </tr>
@@ -89,33 +89,48 @@
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.line1}} {{jsonObject.ApplicantAddress.line2}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.line1}} {{data.ApplicantAddress.line2}}</span>
                                           <label class="label-btm">ADDRESS FOR SERVICE</label>
                                       </td>
                                       <td colspan="1">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.city}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.city}}</span>
                                           <label class="label-btm">City</label>
                                       </td>
                                       <td colspan="1">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.state}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.state}}</span>
                                           <label class="label-btm">Province</label>
                                       </td>
                                   </tr>
+                                <tr *ngIf="data.LawyerAddress != 'n'">
+
+                                    <td colspan="2">
+                                    <span class="brdr-btm">{{data.LawyerAddress?.line1}} {{data.LawyerAddress?.line2}}</span>
+                                    <label class="label-btm">ADDRESS FOR SERVICE</label>
+                                  </td>
+                                  <td colspan="1">
+                                    <span class="brdr-btm">{{data.LawyerAddress?.city}}</span>
+                                    <label class="label-btm">City</label>
+                                  </td>
+                                  <td colspan="1">
+                                    <span class="brdr-btm">{{data.LawyerAddress?.state}}</span>
+                                    <label class="label-btm">Province</label>
+                                  </td>
+                                </tr>
                                   <tr>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.postcode}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.postcode}}</span>
                                           <label class="label-btm">Postal Code</label>
                                       </td>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.ApplicantPhone}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.ApplicantPhone}}</span>
                                           <label class="label-btm">Phone</label>
                                       </td>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.ApplicantEmail}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.ApplicantEmail}}</span>
                                           <label class="label-btm">E-mail</label>
                                       </td>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.ApplicantAddress.ApplicantFax}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantAddress.ApplicantFax}}</span>
                                           <label class="label-btm">Fax</label>
                                       </td>
                                   </tr>
@@ -125,43 +140,43 @@
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span class="brdr-btm">{{jsonObject.RespondentName}}</span>
+                                          <span class="brdr-btm">{{data.RespondentName}}</span>
                                           <label class="label-btm">Name</label>
                                       </td>
                                       <td colspan="2">
-                                          <span class="brdr-btm">{{jsonObject.RespondentDOB}}</span>
+                                          <span class="brdr-btm">{{data.RespondentDOB}}</span>
                                           <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                       </td>
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span class="brdr-btm">{{jsonObject.RespondentAddress.line1}} {{jsonObject.RespondentAddress.line2}}</span>
+                                          <span class="brdr-btm">{{data.RespondentAddress.line1}} {{data.RespondentAddress.line2}}</span>
                                           <label class="label-btm">ADDRESS FOR SERVICE</label>
                                       </td>
                                       <td colspan="1">
-                                          <span class="brdr-btm">{{jsonObject.RespondentAddress.city}}</span>
+                                          <span class="brdr-btm">{{data.RespondentAddress.city}}</span>
                                           <label class="label-btm">City</label>
                                       </td>
                                       <td colspan="1">
-                                          <span class="brdr-btm">{{jsonObject.RespondentAddress.state}}</span>
+                                          <span class="brdr-btm">{{data.RespondentAddress.state}}</span>
                                           <label class="label-btm">Province</label>
                                       </td>
                                   </tr>
                                   <tr>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.RespondentAddress.postcode}}</span>
+                                          <span class="brdr-btm">{{data.RespondentAddress.postcode}}</span>
                                           <label class="label-btm">Postal Code</label>
                                       </td>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.RespondentPhone}}</span>
+                                          <span class="brdr-btm">{{data.RespondentPhone}}</span>
                                           <label class="label-btm">Phone</label>
                                       </td>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.RespondentEmail}}</span>
+                                          <span class="brdr-btm">{{data.RespondentEmail}}</span>
                                           <label class="label-btm">E-mail</label>
                                       </td>
                                       <td>
-                                          <span class="brdr-btm">{{jsonObject.RespondentFax}}</span>
+                                          <span class="brdr-btm">{{data.RespondentFax}}</span>
                                           <label class="label-btm">Fax</label>
                                       </td>
                                   </tr>
@@ -254,26 +269,26 @@
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span *ngIf="!jsonObject.ExistingFamilyCase" class="check selected">&#10003;</span>
-                                          <span *ngIf="jsonObject.ExistingFamilyCase" class="check"></span>
+                                          <span *ngIf="!data.ExistingFamilyCase" class="check selected">&#10003;</span>
+                                          <span *ngIf="data.ExistingFamilyCase" class="check"></span>
 
                                           <span class="label">No orders</span>
                                       </td>
                                       <td colspan="2">
-                                          <span *ngIf="jsonObject.ExistingFamilyCase" class="check selected">&#10003;</span>
-                                          <span *ngIf="!jsonObject.ExistingFamilyCase" class="check"></span>
+                                          <span *ngIf="data.ExistingFamilyCase" class="check selected">&#10003;</span>
+                                          <span *ngIf="!data.ExistingFamilyCase" class="check"></span>
                                           <span class="label">I am attaching copies of all orders</span>
                                       </td>
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span *ngIf="jsonObject.ExistingWrittenAgreements" class="check selected">&#10003;</span>
-                                          <span *ngIf="!jsonObject.ExistingWrittenAgreements" class="check"></span>
+                                          <span *ngIf="data.ExistingWrittenAgreements" class="check selected">&#10003;</span>
+                                          <span *ngIf="!data.ExistingWrittenAgreements" class="check"></span>
                                           <span class="label">No written agreements</span>
                                       </td>
                                       <td colspan="2">
-                                          <span *ngIf="!jsonObject.ExistingWrittenAgreements" class="check selected">&#10003;</span>
-                                          <span *ngIf="jsonObject.ExistingWrittenAgreements" class="check"></span>
+                                          <span *ngIf="!data.ExistingWrittenAgreements" class="check selected">&#10003;</span>
+                                          <span *ngIf="data.ExistingWrittenAgreements" class="check"></span>
                                           <span class="label">I am attaching copies of all written agreements</span>
                                       </td>
                                   </tr>
@@ -553,7 +568,7 @@
                                   </tr>
                                   <tr>
                                       <td colspan="4">
-                                          <span class="brdr-btm">{{jsonObject.ApplicantName}}</span>
+                                          <span class="brdr-btm">{{data.ApplicantName}}</span>
                                           <label class="label-btm">Name</label>
                                       </td>
                                   </tr>
@@ -562,7 +577,7 @@
                                   </tr>
                                   <tr class="brdr-btm">
                                       <td colspan="4">
-                                          <span class="brdr-btm">{{jsonObject.RespondentName}}</span>
+                                          <span class="brdr-btm">{{data.RespondentName}}</span>
                                           <label class="label-btm">Name</label>
                                       </td>
                                   </tr>
@@ -696,7 +711,8 @@
                                   <tr>
                                       <td colspan="4">
                                           <!-- checked if Y to faster, No to Silent -->
-                                          <span class="check selected">&#10003;</span>
+
+                                          <span class="check" [ngClass]="{'selected': data.ApplicantNeedsProtection}">&#10003;</span>
                                           <span class="label">An order shortening or extending a time limit set out in the Provincial Court (Family) Rules</span>
                                       </td>
                                   </tr>
@@ -1027,7 +1043,11 @@
         <button type="submit" class="btn btn-default btn-lg"><span class="fa fa-print btn-icon-left"></span> Print Survey</button>
 
       </form>
+
+        <div class="printme">First PDF</div>
+        <div class="printme">Second PDF</div>
         <button (click)="downloadPDF()">Download</button>
+        <button (click)="printPdf()">Print PDF</button>
     </div>
   </div>
 
