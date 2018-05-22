@@ -51,6 +51,14 @@ export class SurveyPrimaryComponent implements OnInit {
       this.router.navigate(['result', ok]);
     }
     else if(this.cacheName) {
+      if(data.ExistingCourt && data.ExistingCourt=="item1")
+      { data.ExistingCourt = "Vancouver Robson Square"}
+      else if(data.ExistingCourt && data.ExistingCourt=="item2"){
+        data.ExistingCourt = "Victoria Law Court"
+      }
+      else{
+        data.ExistingCourt = "etc"
+      }
       this.data = data;
       this.resultJson = JSON.stringify(data);
       this.printUrl = this.dataService.getApiUrl('survey-print/' + this.cacheName);

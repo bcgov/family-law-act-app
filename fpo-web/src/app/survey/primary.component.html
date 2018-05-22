@@ -27,19 +27,20 @@
                                   <tr class="brdr-btm">
                                       <td>
                                           <label>Court File No.:</label>
-                                          <span>{{data.ExistingCourt}}</span>
+                                          <span>{{data.ExistingFileNumber}}</span>
                                       </td>
                                   </tr>
                                   <tr class="brdr-btm">
                                       <td>
                                           <label>Court Location:</label>
+                                  <span *ngIf="data.LawyerAddress != 'n'"></span>
                                           <span>{{data.ExistingCourt}}</span>
                                       </td>
                                   </tr>
                                   <tr>
                                       <td>
                                           <label>FMEP NO.:</label>
-                                          <span>Data 1.3</span>
+                                          <span></span>
                                       </td>
                                   </tr>
                               </table>
@@ -235,7 +236,7 @@
                                       </td>
                                       <td colspan="2">
 
-                                          <span class="check selected"></span>
+                                          <span class="check selected">&#10003;</span>
 
                                           <span class="label">protection order</span>
                                       </td>
@@ -269,14 +270,14 @@
                                   </tr>
                                   <tr>
                                       <td colspan="2">
-                                          <span *ngIf="!data.ExistingFamilyCase" class="check selected">&#10003;</span>
-                                          <span *ngIf="data.ExistingFamilyCase" class="check"></span>
+                                          <span *ngIf="data.ExistingOrders" class="check selected">&#10003;</span>
+                                          <span *ngIf="!data.ExistingOrders" class="check"></span>
 
                                           <span class="label">No orders</span>
                                       </td>
                                       <td colspan="2">
-                                          <span *ngIf="data.ExistingFamilyCase" class="check selected">&#10003;</span>
-                                          <span *ngIf="!data.ExistingFamilyCase" class="check"></span>
+                                          <span *ngIf="!data.ExistingOrders" class="check selected">&#10003;</span>
+                                          <span *ngIf="data.ExistingOrders" class="check"></span>
                                           <span class="label">I am attaching copies of all orders</span>
                                       </td>
                                   </tr>
@@ -308,46 +309,25 @@
                                       <td colspan="2">Name(s) of child(ren)</td>
                                       <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
                                   </tr>
-                                  <tr>
+                                  <tr *ngFor="let child of data.ListOfChildren">
+
                                       <td colspan="2">
-                                          <span class="brdr-btm">Name One</span>
+                                          <span class="brdr-btm">{{child.ChildName}}</span>
+
                                       </td>
                                       <td colspan="2">
-                                          <span class="brdr-btm">Birthday One</span>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td colspan="2">
-                                          <span class="brdr-btm">Name Two</span>
-                                      </td>
-                                      <td colspan="2">
-                                          <span class="brdr-btm">Birthday Two</span>
+                                          <span class="brdr-btm">{{child.ChildDOB}}</span>
                                       </td>
                                   </tr>
+
                                   <tr>
-                                      <td colspan="2">
-                                          <span class="brdr-btm">Name Three</span>
-                                      </td>
-                                      <td colspan="2">
-                                          <span class="brdr-btm">Birthday Three</span>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td colspan="2">
-                                          <span class="brdr-btm">Name Four</span>
-                                      </td>
-                                      <td colspan="2">
-                                          <span class="brdr-btm">Birthday Four</span>
+                                      <td colspan="4">
+                                          <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">??Parent??</span></span>
                                       </td>
                                   </tr>
                                   <tr>
                                       <td colspan="4">
-                                          <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">1.28b</span></span>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td colspan="4">
-                                          <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">1.28c</span></span>
+                                          <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">??Parent??</span></span>
                                       </td>
                                   </tr>
                                   <tr>
@@ -364,7 +344,7 @@
                                   <tr>
                                       <td colspan="4">
                                           <span class="label" >I am asking for guardianship, parenting arrangements or contact with a child as follows: </span>
-                                          <span class="brdr-btm" style="margin-top: .5em;">1.28d</span>
+                                          <span class="brdr-btm" style="margin-top: .5em;" *ngFor="let child of data.ListOfChildren">{{child.ChildName}}</span>
                                       </td>
                                   </tr>
                               </table>
@@ -463,7 +443,7 @@
                                       <td colspan="4" class="bordered">
                                           <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
                                           <p>I am asking for an order in the following terms:</p>
-                                          <span class="brdr-btm">Data 1.37</span>
+                                          <span class="brdr-btm">??Family Protection Order??</span>
                                       </td>
                                   </tr>
                                   <!-- requirement to keep signature area with at least one other section -->

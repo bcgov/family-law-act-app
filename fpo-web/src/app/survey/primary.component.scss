@@ -85,6 +85,10 @@ span.check {
 label, legend, span, aside {
   display: block;
 }
+span.label {
+  color: #000000;
+  text-align: left;
+}
 
 label, .label-num:after, .label-date:after, .name-party:after, .label-name-person:after, .label-court:after, .label-time:after, .label-names:after, .label-identify:after, .label-method:after, .label-specify:after, .label-name:after, .label-occupation:after {
   font-size: .5em;
