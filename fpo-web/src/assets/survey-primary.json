@@ -235,13 +235,24 @@
        "title": "File Number"
       },
       {
-       "type": "text",
+       "type": "multipletext",
        "name": "ExistingStyleOfProceeding",
        "visible": false,
        "visibleIf": "{ExistingFamilyCase} = 'y'",
-       "title": "Spell out the exact Style of Proceeding",
-       "description": "This is at the top of the documents and usually looks like \"Name1 vs Name2\".",
-       "placeHolder": "Name1 vs Name2"
+       "title": "Enter the names exactly as they appear at the top of your existing family file forms.",
+       "description": "It is important you keep the same spellings and the same order of the names.\n",
+       "items": [
+        {
+         "name": "ExistingApplicant",
+         "placeHolder": "Name",
+         "title": "In the case between:"
+        },
+        {
+         "name": "ExistingRespondent",
+         "placeHolder": "Name",
+         "title": "And:"
+        }
+       ]
       },
       {
        "type": "yesno",
@@ -408,7 +419,7 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Who makes Parenting Decisions for {panel.ChildName}?\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments, and</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>"
+       "title": "Who makes Parenting Decisions for {panel.ChildName}?\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>"
       },
       {
        "type": "panel",
@@ -916,7 +927,7 @@
     },
     {
      "type": "infotext",
-     "name": "ExplanationPORSpeedNormalAffidavit",
+     "name": "ExplanationPORSpeedNormalAffidavitNo",
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'n'",
      "title": "Most judges will require that you write an affidavit. If you do not want to use this service to write an affidavit, you have other options: \n<ul>\n<li><a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa065a.pdf?forcedownload=true\" target=\"_blank\">Click here for the PDF form</a></li>\n<li>Get a paper form at a courthouse registry. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/courthouse-locations\" target=\"_blank\">Click here for a list of courthouse locations</a></li>\n<li>Get a lawyer to help you write one</li>\n</ul>",
@@ -924,10 +935,18 @@
     },
     {
      "type": "infotext",
+     "name": "ExplanationPORSpeedNormalAffidavitYes",
+     "visible": false,
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'y'",
+     "title": "In your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "infotext",
      "name": "ExplanationPORSpeedup",
      "visible": false,
      "visibleIf": "{PORSpeedup} = 'y' and {PORNoNotice} = 'n'",
-     "title": "A judge will need a reason why you need this Protection Order sooner. There are more questions you will need to answer in this service.",
+     "title": "The court will need a reason why you need you Protection Order sooner. The way you will tell your reason to the court is with an `affidavit`. This service will help you write an affidavit.\n<br>\n<br>\nAn affidavit is one of the ways you will tell your story to the court. A judge may also ask you to tell your story, under oath, in court.\n<br>\n<br>\nIn your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
      "titleLocation": "hidden"
     },
     {
@@ -935,16 +954,25 @@
      "name": "ExplanationPORNoNotice",
      "visible": false,
      "visibleIf": "{PORSpeedup} notempty and {PORNoNotice} = 'y'",
-     "title": "A judge will need a reason why they should hear your story without hearing {RespondentName}'s story. There are more questions you will need to answer in this service.\n<br>\n<br>\nThere will also be a paper form to fill out at the court registry. This paper form will help the judge make a Protection Order that is personalized to your safety needs. You should not need any additional information to complete this form.",
+     "title": "The court will need a reason why they should hear your story without hearing {RespondentName}'s story. The way you will tell your reason to the court is with an `affidavit`. This service will help you write an affidavit.\n<br>\n<br>\nAn affidavit is one of the ways you will tell your story to the court. A judge may also ask you to tell your story, under oath, in court.\n<br>\n<br>\nIn your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
      "titleLocation": "hidden"
+    },
+    {
+     "type": "comment",
+     "name": "PORRelationshipHistory",
+     "visible": false,
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
+     "title": "Describe your relationship history with {RespondentName} and your current living situation.",
+     "description": "If it applies to your situation, include:\n<ul>\n<li>Relationship to {RespondentName}</li>\n<li>how long you have lived together</li>\n<li>who lives with who now</li>\n<li>if you separated, when?</li>\n<li>any drug abuse</li>\n<li>any alcohol abuse</li>\n<li>any history of mental illness</li>\n<li>any criminal history</li>\n</ul>\n",
+     "rows": 8
     },
     {
      "type": "comment",
      "name": "PORWhatHappened",
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-     "title": "Describe your relationship history with {RespondentName}. Then describe what {RespondentName} has done to make you and your children feel unsafe.",
-     "description": "Tell your story in your own words. Include all the facts that you think the judge may need.\n<br>\n<br>\nEverything you say must to be true to the best of your knoweldge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit</a>\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/affidavit_info_checklist.php\" target=\"_blank\">Click here to get a list of information to include in your affidavit</a>\n",
+     "title": "Describe what {RespondentName} has done to make you and/or your children feel unsafe.\n<br>\n<br>\nFamily violence includes many things such as: \n<ul>\n<li>physical abuse (or attempted abuse),</li>\n<li>denying food or other basic needs,</li>\n<li>emotional or mental abuse (stalking, threats, intimidation or harassment),</li>\n<li>sexual abuse (or attempted abuse),</li>\n<li>children being exposed to family violence</li>\n</ul>\n",
+     "description": "Describe any recent incidents of family violence against your and/or your children. Include:\n<ul>\n<li>a description of the incident (write as much detail as possible)</li>\n<li>Who was involved</li>\n<li>Who witnessed it</li>\n</ul>",
      "rows": 8
     },
     {
@@ -959,15 +987,8 @@
      "name": "PORWhyNoNotice",
      "visible": false,
      "visibleIf": "{PORNoNotice} = 'y'",
-     "title": "Describe why you want a judge to make their decision before {RespondentName} gets to tell their story."
-    },
-    {
-     "type": "infotext",
-     "name": "PageEndReview",
-     "visible": false,
-     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or {PORSpeedNormalAffidavit} = 'n'",
-     "title": "Print Forms and take them to the courthouse. Add reminders about photocopies of court orders or written agreements.",
-     "titleLocation": "hidden"
+     "title": "Describe why you want a judge to make their decision before {RespondentName} gets to tell their story.",
+     "description": "There will also be a paper form to fill out at the court registry. This paper form will help the judge make a Protection Order that is personalized to your safety needs. You should not need any additional information to complete this form."
     }
    ],
    "title": "Your Story"
