@@ -836,37 +836,43 @@
      "elements": [
       {
        "type": "yesno",
+       "name": "RespondentFirearms",
+       "title": "Do you think {RespondentName} would threaten or harm you or your children with guns, explosives or any other kind of firearm?",
+       "description": "<a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html\" target=\"_blank\">Click here for more information about how firearms and explosive substances are defined in the Criminal Code of Canada.</a>"
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentFirearmsYes",
+       "visible": false,
+       "visibleIf": "{RespondentFirearms} = 'y'",
+       "title": "Do you think {RespondentName} has guns, explosives or any other kind of firearm?"
+      },
+      {
+       "type": "yesno",
        "name": "RespondentWeapons",
-       "title": "Are you afraid {RespondentName} will harm you or your children with weapons (including guns, explosives)?"
+       "title": "Do you think {RespondentName} would threaten or harm you or your children with weapons that are not guns or explosives?",
+       "description": "Everyday objects like a kitchen knife, a baseball bat or a hammer, could be used as weapons."
+      },
+      {
+       "type": "yesno",
+       "name": "RespondentWeaponsYes",
+       "visible": false,
+       "visibleIf": "{RespondentWeapons} = 'y'",
+       "title": "Does {RespondentName} own any weapons that are not guns or explosives?",
+       "description": "Examples of weapons that someone may own include swords, hunting knifes, nunchucks, brass knuckles or throwing stars.\n<br>\n<br>\nDo not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer."
       },
       {
        "type": "checkbox",
        "name": "RespondentNoWeapons",
        "visible": false,
-       "visibleIf": "{RespondentWeapons} = 'n'",
-       "title": "By selecting \"No\" above, you are saying there is no need for a judge to order {RespondentName} to not have any weapons. If there is a concern over weapons, go back to the last question and select \"Yes.\"\n<br>\n<br>\nIf there is no concern over weapons, select \"There is no concern over weapons.\"",
+       "visibleIf": "{RespondentWeapons} = 'n' and {RespondentFirearms} = 'n'",
+       "title": "By answering \"NO\" to the questions above, you believe there is no need for a judge to order {RespondentName} not to have any weapons or firearms. If there is a concern about {RespondentName} having or using weapons or firearms, go back to the questions above and answer \"YES.\"\n<br>\n<br>\nIf you have no concerns about weapons or firearms, please confirm by checking the statement below.",
        "choices": [
         {
          "value": "confirmed",
-         "text": "There is no concern over weapons"
+         "text": "I have no concern over weapons or firearms."
         }
        ]
-      },
-      {
-       "type": "yesno",
-       "name": "Resident1Firearms",
-       "visible": false,
-       "visibleIf": "{RespondentWeapons} = 'y'",
-       "title": "Do you think {RespondentName} has guns, explosives or any other kind of firearm?",
-       "description": "<a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html\" target=\"_blank\">Click here for more information about how firearms and explosive substances are defined in the Criminal Code of Canada.</a>"
-      },
-      {
-       "type": "yesno",
-       "name": "RespondentNonFirearms",
-       "visible": false,
-       "visibleIf": "{RespondentWeapons} = 'y'",
-       "title": "Do you think {RespondentName} would threaten or harm you or your children with weapons that are not guns or explosives?",
-       "description": "Everyday objects like a knife, a baseball bat or a hammer, could be used as weapons."
       }
      ],
      "visible": false,
@@ -892,7 +898,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentWeapons} notempty"
+     "visibleIf": "{RespondentNoWeapons} notempty\n\n{espondentFirearms} notempty and {espondentWeapons} notempty\n"
     }
    ],
    "title": "Your Safety Needs"
@@ -972,7 +978,7 @@
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
      "title": "Describe what {RespondentName} has done to make you and/or your children feel unsafe.\n<br>\n<br>\nFamily violence includes many things such as: \n<ul>\n<li>physical abuse (or attempted abuse),</li>\n<li>denying food or other basic needs,</li>\n<li>emotional or mental abuse (stalking, threats, intimidation or harassment),</li>\n<li>sexual abuse (or attempted abuse),</li>\n<li>children being exposed to family violence</li>\n</ul>\n",
-     "description": "Describe any recent incidents of family violence against your and/or your children. Include:\n<ul>\n<li>a description of the incident (write as much detail as possible)</li>\n<li>Who was involved</li>\n<li>Who witnessed it</li>\n</ul>",
+     "description": "Describe any recent incidents of family violence against your and/or your children. Include:\n<ul>\n<li>How {RespondentName} made you and/or your children feel unsafe (describe examples of {RespondentName}’s behaviour that made you afraid)</li>\n<li>A description of the incident (write as much detail as possible)</li>\n<li>Who was involved (include the police if they were involved at any time)</li>\n<li>Who witnessed it</li>\n<li>Any exposure your children have had to violence or abuse</li>\n<li>Any injuries or trauma from the incident</li>\n<li>Any doctor's notes, police reports or photographs (you must refer to them in your affidavit and make photocopies of them for the court)</li>\n</ul>\n\n\n\n\n",
      "rows": 8
     },
     {
@@ -1102,16 +1108,6 @@
        "value": "Row 1",
        "text": "Date of Birth"
       }
-     ]
-    },
-    {
-     "type": "checkbox",
-     "name": "question6",
-     "hasOther": true,
-     "choices": [
-      "item1",
-      "item2",
-      "item3"
      ]
     },
     {
