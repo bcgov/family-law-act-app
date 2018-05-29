@@ -11,6 +11,7 @@ import { GeneralDataService } from 'app/general-data.service';
 import { AdminModule } from 'app/admin/admin.module';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { GlossaryService } from './glossary/glossary.service';
+import { GlossaryEditorComponent } from './glossary/editor.component';
 import { InsertComponent } from './insert/insert.component';
 import { InsertService } from './insert/insert.service';
 import { StaticComponent } from './static/static.component';
@@ -30,6 +31,7 @@ import { ResultComponent } from './result/result.component';
     HomeComponent,
     ResultComponent,
     BreadcrumbComponent,
+    GlossaryEditorComponent,
     InsertComponent,
     SurveyComponent,
     SurveyPrimaryComponent,

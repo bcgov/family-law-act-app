@@ -255,7 +255,7 @@ function initInfoText(Survey) {
 
       let body = null;
       if(question.body) {
-        let body = document.createElement('div');
+        body = document.createElement('div');
         body.className = 'panel-body';
         outer.appendChild(body);
       }
@@ -268,6 +268,7 @@ function initInfoText(Survey) {
         if(body) {
           let bodyContent = question.body || '';
           let bodyHtml = question.getMarkdownHtml(bodyContent);
+          console.log(bodyHtml, '?', bodyContent);
           if(bodyHtml !== null)
             body.innerHTML = question.getProcessedHtml(bodyHtml);
           else

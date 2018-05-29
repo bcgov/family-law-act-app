@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from 'app/home/home.component';
 import { ResultComponent } from 'app/result/result.component';
+import { GlossaryEditorComponent } from 'app/glossary/editor.component';
 import { SurveyPrimaryComponent } from 'app/survey/primary.component';
 import { SurveyResolver }   from 'app/survey/survey-resolver.service';
 import { SurveyEditorComponent } from 'app/survey/editor.component';
@@ -48,7 +49,19 @@ const routes: Routes = [
       breadcrumb: 'Survey Results'
     }
   },
-  { path: 'survey-editor',
+  {
+    path: 'glossary-editor',
+    redirectTo: 'prv/glossary-editor'
+  },
+  {
+    path: 'prv/glossary-editor',
+    component: GlossaryEditorComponent,
+    data: {
+      breadcrumb: 'Glossary Editor',
+    }
+  },
+  {
+    path: 'survey-editor',
     redirectTo: 'prv/survey-editor'
   },
   {

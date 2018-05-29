@@ -54,8 +54,14 @@ export class GlossaryService {
       if(m) {
         content = m[1];
       }*/
+      // open all links in new tab
+      content = content.replace(/<a ([^>]+)/g, function(a) { return a + ' target="_blank"'; });
     }
     return content;
+  }
+
+  getAllTerms() {
+    return Object.assign({}, this.terms);
   }
 
   registerTargets(container?: HTMLElement) {

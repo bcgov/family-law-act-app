@@ -1,0 +1,40 @@
+<div class="container">
+
+<h2>Glossary Editor</h2>
+
+<div class="panel">
+  <div class="panel-body" *ngFor="let item of terms">
+
+    <div class="row term-head">
+      <div class="col-sm-6">
+        <input class="form-control term-name" [value]="item.term">
+      </div>
+      <div class="col-sm-6 text-right">
+        <a href="#"><span class="fa fa-remove"></span> Remove</a>
+      </div>
+    </div>
+    <div class="row term">
+      <div class="col-sm-6">
+        <textarea class="form-control term-value" rows="8"
+          (input)="updateTerm($event, item.index)"
+          (change)="updateTerm($event, item.index, true)"
+          [value]="item.value"></textarea>
+      </div>
+      <div class="col-sm-6">
+        <div class="term-html" [innerHTML]="item.html"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">JSON result</h3>
+  </div>
+  <div class="panel-body">
+    <textarea rows="20" class="form-control result-json" [value]="jsonPretty" (focus)="$event.target.select()"></textarea>
+  </div>
+</div>
+
+</div>
