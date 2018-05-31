@@ -82,10 +82,10 @@ services:
     depends_on:
       - fpo-db
     command: >
-      /bin/bash -c "
-        echo Waiting for the database service to start up and the migrations to be run ...;
+      /bin/sh -c "
+        echo sleeping ...;
         sleep 20;
-        exec npm start;"
+        ./start.sh;"
   # 
   # fpo-db
   # 
@@ -106,7 +106,7 @@ services:
   # fpo-pdf
   # 
   fpo-pdf:
-    image: pdf
+    image: aquavitae/weasyprint
     networks:
       - fpo
     ports:

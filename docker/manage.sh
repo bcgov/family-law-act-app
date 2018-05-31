@@ -11,7 +11,7 @@ if [ -z $(type -P "$S2I_EXE") ]; then
 fi
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
-export COMPOSE_PROJECT_NAME="fpo"
+export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME-fpo}"
 
 # =================================================================================================================
 # Usage:
@@ -44,8 +44,6 @@ usage() {
          are not deleted so they will be reused the next time you run start.
 
   rm - Removes any existing application containers.
-
-  build-api - Build the API server only.
 EOF
 exit 1
 }
@@ -136,6 +134,13 @@ buildImages() {
   build-pdf
 }
 
+build() {
+  # Build all containers in the docker-compose file
+  echo -e "\nBuilding containers ..."
+  echo docker-compose build $@
+  docker-compose build $@
+}
+
 configureEnvironment () {
   for arg in $@; do
     case "$arg" in
@@ -197,13 +202,36 @@ getStartupParams() {
 
   echo ${ARGS} ${CONTAINERS}
 }
+
+deleteVolumes() {
+  _projectName=${COMPOSE_PROJECT_NAME:-docker}
+
+  echo "Stopping and removing any running containers ..."
+  docker-compose rm -svf >/dev/null
+
+  _pattern="^${_projectName}_\|^docker_"
+  _volumes=$(docker volume ls -q | grep ${_pattern})
+
+  if [ ! -z "${_volumes}" ]; then
+    echo "Removing project volumes ..."
+    echo ${_volumes} |  xargs docker volume rm
+  else
+    echo "No project volumes exist."
+  fi
+}
+
+toLower() {
+  echo $(echo ${@} | tr '[:upper:]' '[:lower:]')
+}
+
 # =================================================================================================================
 
 pushd ${SCRIPT_HOME} >/dev/null
+COMMAND=$(toLower ${1})
+shift
 
-case "$1" in
+case "$COMMAND" in
   start)
-    shift
     _startupParams=$(getStartupParams $@)
     configureEnvironment $@
     docker-compose up ${_startupParams}
@@ -214,16 +242,25 @@ case "$1" in
     ;;
   rm)
     configureEnvironment
-    docker-compose rm
+    deleteVolumes
     ;;
   build)
-    buildImages
-    ;;
-  build-api)
-    build-api
-    ;;
-  build-web)
-    build-web
+    case "$@" in
+      fpo-api)
+        build-api
+        ;;
+      fpo-web)
+        build-web
+        ;;
+      fpo-solr)
+        build-solr
+        ;;
+      fpo-pdf)
+        build-pdf
+        ;;
+      *)
+       buildImages
+    esac
     ;;
   *)
     usage
