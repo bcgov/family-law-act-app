@@ -12,6 +12,7 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 
 from api.models import User
+from fpo_api.cache import SurveyCache
 
 LOGGER = logging.getLogger(__name__)
 
@@ -21,42 +22,47 @@ class SurveyCacheView(APIView):
     """Manage in-memory caching of survey results (not saved to database)"""
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get_cache_manager(self):
-        return settings.SURVEY_CACHE
+    def get_cache_manager(self, uid):
+        if uid and settings.SURVEY_CACHE_ENABLED:
+            return SurveyCache(
+                settings.SURVEY_CACHE_DIR,
+                settings.SURVEY_CACHE_TIMEOUT,
+                settings.SURVEY_CACHE_MAX_ENTRIES,
+                uid)
 
     def get_request_user_id(self, request):
         return isinstance(request.user, User) and request.user.authorization_id
 
     def get(self, request, *args, **kwargs):
-        cache_mgr = self.get_cache_manager()
         survey_name = kwargs.get('name')
         if not survey_name:
             return HttpResponseBadRequest('Missing survey name')
         survey_name = survey_name[:32]
         key = kwargs.get('id')
-        uid = self.get_request_user_id(request)
         newest = None
         result = None
         if key:
             key = key[:32]
-        if uid and cache_mgr:
+        uid = self.get_request_user_id(request)
+        cache_mgr = self.get_cache_manager(uid)
+        if cache_mgr:
             if key == 'clear':
-                cache_mgr.delete(uid + '-most-recent-' + survey_name)
+                cache_mgr.set_most_recent(survey_name, None)
                 key = None
             else:
-                newest = cache_mgr.get(uid + '-most-recent-' + survey_name)
+                newest = cache_mgr.get_most_recent(survey_name)
                 fetch_key = key or newest
                 if fetch_key:
-                    result = cache_mgr.get(uid + '-survey-' + survey_name + '-' + fetch_key)
+                    result = cache_mgr.get_survey(survey_name, fetch_key)
                     if result:
                         key = fetch_key
                         if key != 'index':
-                            cache_mgr.set(uid + '-most-recent-' + survey_name, key)
+                            cache_mgr.set_most_recent(survey_name, key)
         if key == 'index':
             if isinstance(result, list):
                 index = []
                 for idx_key in result:
-                    found = cache_mgr.get(uid + '-survey-' + survey_name + '-' + idx_key)
+                    found = cache_mgr.get_survey(survey_name, idx_key)
                     if found:
                         del found['data']
                         found['key'] = idx_key
@@ -72,14 +78,14 @@ class SurveyCacheView(APIView):
             'active': newest})
 
     def post(self, request, *args, **kwargs):
-        uid = self.get_request_user_id(request)
         survey_name = kwargs.get('name')
-        if uid:
-            cache_mgr = self.get_cache_manager()
+        if not survey_name:
+            return HttpResponseBadRequest('Missing survey name')
+        survey_name = survey_name[:32]
+        uid = self.get_request_user_id(request)
+        cache_mgr = self.get_cache_manager(uid)
+        if cache_mgr:
             key = kwargs.get('id')
-            if not survey_name:
-                return HttpResponseBadRequest('Missing survey name')
-            survey_name = survey_name[:32]
             body = request.body
 
             if key:
@@ -92,8 +98,7 @@ class SurveyCacheView(APIView):
             cache_key = uid + '-survey-' + survey_name + '-' + key if uid else None
 
             if not body:
-                if cache_key and cache_mgr:
-                    cache_mgr.delete(cache_key)
+                cache_mgr.set_survey(survey_name, key, None)
                 return JsonResponse({
                     'user_id': uid,
                     'name': survey_name,
@@ -107,21 +112,19 @@ class SurveyCacheView(APIView):
             if not survey:
                 return HttpResponseBadRequest()
 
-            if cache_key and cache_mgr:
-                cache_mgr.set(cache_key, survey)
-                cache_mgr.set(uid + '-most-recent-' + survey_name, key)
-                index_key = uid + '-survey-' + survey_name + '-index'
-                index = cache_mgr.get(index_key)
-                if not isinstance(index, list):
-                    index = []
-                if key not in index:
-                    index.append(key)
-                cache_mgr.set(index_key, index)
-                return JsonResponse({
-                    'user_id': uid,
-                    'name': survey_name,
-                    'key': key,
-                    'status': 'ok'})
+            cache_mgr.set_survey(survey_name, key, survey)
+            cache_mgr.set_most_recent(survey_name, key)
+            index = cache_mgr.get_survey(survey_name, 'index')
+            if not isinstance(index, list):
+                index = []
+            if key not in index:
+                index.append(key)
+            cache_mgr.set_survey(survey_name, 'index', index)
+            return JsonResponse({
+                'user_id': uid,
+                'name': survey_name,
+                'key': key,
+                'status': 'ok'})
 
         return JsonResponse({
             'user_id': uid,

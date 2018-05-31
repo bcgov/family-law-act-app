@@ -210,13 +210,10 @@ LOGGING = {
 }
 
 # FPO survey cache
-from django.core.cache.backends import filebased
-SURVEY_CACHE = filebased.FileBasedCache(
-	os.getenv('SURVEY_CACHE_DIR', '/tmp/survey-cache/'),
-	{
-		'TIMEOUT': 30*24*3600,
-		'MAX_ENTRIES': 1000,
-	})
+SURVEY_CACHE_ENABLED = True
+SURVEY_CACHE_DIR = os.getenv('SURVEY_CACHE_DIR', '/tmp/survey-cache/')
+SURVEY_CACHE_TIMEOUT = 30*24*3600
+SURVEY_CACHE_MAX_ENTRIES = 1000
 
 # For development (when no SiteMinder available)
 OVERRIDE_USER_ID = os.getenv('OVERRIDE_USER_ID')
