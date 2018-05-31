@@ -29,8 +29,8 @@
     "mygovbc-bootstrap-theme": "^0.4.1",
     "rxjs": "^5.4.3",
     "showdown": "~1.8.6",
-    "survey-angular": "1.0.21",
-    "surveyjs-editor": "1.0.21",
+    "survey-angular": "1.0.24",
+    "surveyjs-editor": "1.0.24",
     "typescript": ">=2.1.0 <2.4.0",
     "zone.js": "^0.8.17"
   },
