@@ -17,6 +17,9 @@ export class GlossaryEditorComponent  {
   private updateIndex;
   private updateTimer;
   private updateValue;
+  public newTermName = '';
+  public newTermValue = '';
+  public newTermHtml = '';
 
   constructor(
     private glossaryService: GlossaryService
@@ -31,7 +34,7 @@ export class GlossaryEditorComponent  {
 
   get termsJson() {
     let json = {};
-    for(let item of this.terms) {
+    for(let item of this._terms) {
       json[item.term] = item.value;
     }
     return json;
@@ -56,6 +59,15 @@ export class GlossaryEditorComponent  {
         html: this.glossaryService.formatHtml(tval),
       })
     }
+    this.terms = terms;
+  }
+
+  get terms() {
+    return this._terms.slice();
+  }
+
+  set terms(value) {
+    let terms = value ? value.slice() : [];
     terms.sort((a, b) => a.term.localeCompare(b.term))
     for(let t = 0; t < terms.length; t++) {
       terms[t].index = t;
@@ -63,25 +75,56 @@ export class GlossaryEditorComponent  {
     this._terms = terms;
   }
 
-  get terms() {
-    return this._terms;
+  updateTermName(evt, index) {
+    let val = evt.target.value;
+    if(index === null)
+      this.newTermName = val;
+    else if(this._terms[index])
+      this._terms[index].term = val;
   }
 
-  updateTerm(evt, index, changed) {
+  updateTermValue(evt, index, changed) {
     if(this.updateIndex === index)
       clearTimeout(this.updateTimer);
     this.updateIndex = index;
     this.updateValue = evt.target.value;
+    if(index === null)
+      this.newTermValue = this.updateValue;
     if(changed) {
-      this.terms[this.updateIndex].value = this.updateValue;
+      this._terms[this.updateIndex].value = this.updateValue;
       this.updateHtml();
     } else {
       this.updateTimer = setTimeout(this.updateHtml.bind(this), 150);
     }
   }
 
+  removeTerm(evt, index) {
+    let upd = this.terms;
+    upd.splice(index, 1);
+    this.terms = upd;
+    evt.preventDefault();
+  }
+
+  addTerm(evt) {
+    let upd = this.terms;
+    upd.push({
+      term: this.newTermName,
+      value: this.newTermValue,
+      html: this.newTermHtml,
+    });
+    this.terms = upd;
+    this.newTermName = '';
+    this.newTermValue = '';
+    this.newTermHtml = '';
+    evt.preventDefault();
+  }
+
   updateHtml() {
-    this.terms[this.updateIndex].html = this.glossaryService.formatHtml(this.updateValue);
+    let result = this.glossaryService.formatHtml(this.updateValue);
+    if(this.updateIndex === null)
+      this.newTermHtml = result;
+    else if(this._terms[this.updateIndex])
+      this._terms[this.updateIndex].html = result;
   }
 
 }
