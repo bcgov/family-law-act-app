@@ -70,10 +70,17 @@ MIDDLEWARE_CLASSES = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 ROOT_URLCONF = 'fpo_api.urls'
 
 CORS_URLS_REGEX = r'^/api/v1/.*$'
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+from corsheaders.defaults import default_headers
+CORS_ALLOW_HEADERS = default_headers + (
+    'x-demo-login',
+)
 
 TEMPLATES = [
     {
@@ -119,6 +126,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'api.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'api.auth.SiteMinderAuth',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
 
 
 # Internationalization
@@ -205,3 +221,4 @@ SURVEY_CACHE = filebased.FileBasedCache(
 # For development (when no SiteMinder available)
 OVERRIDE_USER_ID = os.getenv('OVERRIDE_USER_ID')
 
+DEMO_LOGIN = True

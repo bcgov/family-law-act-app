@@ -11,7 +11,7 @@ export class GlossaryService {
   constructor(
     private dataService: GeneralDataService
   ) {
-    this.loaded = this.dataService.loadJson('assets/glossary.json', null, true)
+    this.loaded = this.dataService.loadJson('assets/glossary.json', null, null, true)
       .then((data: any) => {
         this.terms = {};
         for(let k in data) {

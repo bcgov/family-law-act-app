@@ -109,7 +109,7 @@ export class SurveyComponent  {
       surveyModel.onTextMarkdown.add((survey, options) => {
         let str = this.markdownConverter.makeHtml(options.text);
         // remove root paragraph <p></p>
-        let m = str.match(/^<p>(.*)<\/p>$/m);
+        let m = str.match(/^<p>(.*)<\/p>$/);
         if(m) {
           str = m[1];
         }
@@ -224,11 +224,15 @@ export class SurveyComponent  {
       .catch((err) => this.doneSaveCache(null, err));
   }
 
-  doneSaveCache(response, err?) {
+  doneSaveCache(response, err?) {console.log(response);
     if(response && response.status === 'ok' && response.result) {
       this.cacheLoadTime = response.result.time;
       this.cacheKey = response.key;
     }
+  }
+
+  logout() {
+    this.dataService.logout();
   }
 
 }

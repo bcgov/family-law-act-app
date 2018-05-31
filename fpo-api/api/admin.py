@@ -2,7 +2,7 @@
     REST API Documentation for Family Protection Order
 
     OpenAPI spec version: v1
-        
+
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -19,15 +19,6 @@
 
 from django.contrib import admin
 
-from .models.Permission import Permission
-
-from .models.Role import Role
-from .models.RolePermission import RolePermission
 from .models.User import User
-from .models.UserRole import UserRole
 
-admin.site.register(Permission)
-admin.site.register(Role)
-admin.site.register(RolePermission)
 admin.site.register(User)
-admin.site.register(UserRole)

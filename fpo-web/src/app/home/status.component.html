@@ -1,0 +1,89 @@
+<div class="user-status-info">
+  <button type="button" *ngIf="loggedIn" class="btn btn-default btn-sm" (click)="logout()">Logout</button>
+</div>
+
+<div class="page-load" *ngIf="loading && ! error">
+  <div class="loading-indicator"></div>
+</div>
+<div class="alert alert-danger" *ngIf="error">
+  {{error}}
+</div>
+
+<div class="container mrgn-tp-lg" *ngIf="! loading">
+  <h2 *ngIf="! loggedIn">Not logged in</h2>
+
+  <div class="login mrgn-tp-md" *ngIf="! loggedIn">
+    <div class="panel" style="max-width: 600px">
+      <div class="panel-heading">
+        <h2 class="panel-title">Demo Login</h2>
+      </div>
+      <div class="panel-body">
+        <form (submit)="performLogin($event.target.elements['login'].value)">
+          <div class="row form-group">
+            <div class="col-sm-12">
+              <input class="form-control" name="login" placeholder="email address">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-right">
+              <button class="btn btn-default" type="submit">Login</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="accept-terms mrgn-tp-md" *ngIf="loggedIn && ! acceptedTerms">
+    <div class="panel terms-panel">
+      <div class="panel-heading">
+        <h2 class="panel-title">Terms and Conditions</h2>
+      </div>
+      <div class="panel-body">
+        <pre style="white-space: pre-wrap; word-break: normal">
+"Apply for a Family Law Protection Order" Terms of Use
+Version 0.1, May 28, 2018
+
+The "Apply for a Family Law Protection Order" Service ("this service") is provided as a public service by the Government of British Columbia, Box 9411, Victoria, British Columbia, Canada V8W 9V1.
+
+User Agreement
+Every person who uses this service ("User" or "You") agrees to the Terms of Use in this document and to the fact that the Government of British Columbia may amend these terms from time to time. The Government of British Columbia reserves the right, at its discretion, to change, modify, add, or remove portions of these terms at any time. Please check these terms periodically for changes. Your continued use of this service following the posting of changes to these terms will mean you accept these changes.
+
+Privacy Protection
+This service does not collect personal information about Users without their consent, and has set up means to keep personal information confidential. However, the Government of British Columbia does collect aggregate data about Users' use of this service to better understand general User trends at an aggregate level and improve web performance, web services, and website maintenance.
+
+An Internet Protocol (IP) network domain name (e.g. shaw.ca) and a partial, non-specific IP address (e.g. 216.10.100.xx) of the computer you are using may be collected and stored on servers located outside Canada. Other information that this service collects (e.g. email addresses) is stored in Canada.
+
+The anonymity of Users is therefore reasonably protected but not fully guaranteed. This service's management of personal information is described more fully on the Government of British Columbia's Privacy Policy page.
+
+Absent the use of encryption, the internet and email are not secure media and privacy cannot be ensured. The Government of British Columbia will not be responsible for any damages you or any third party may suffer as a result of the transmission of confidential information that you make to any party through the internet email links provided on this service. The Government of British Columbia is not responsible for any errors or any changes made to any transmitted information. Should you decide to transmit information using internet email links, you do so at your own risk.
+        </pre>
+      </div>
+      <div class="panel-footer">
+        <div class="checkbox">
+          <input type="checkbox" class="form-control" (change)="setPreAccept($event.target.checked)"> <label>I agree to the "Apply for a Family Law Protection Order" Terms of Use</label>
+        </div>
+        <button type="button" class="btn btn-default" (click)="acceptTerms()" [disabled]="! preAccept">Accept and Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row status" *ngIf="loggedIn && acceptedTerms">
+    <div class="col-sm-12">
+      <h2 *ngIf="surveyIndex">Previous Surveys</h2>
+      <div class="history row mrgn-tp-md" *ngIf="surveyIndex">
+        <div class="col-sm-6">
+          <div class="row form-group" *ngFor="let entry of surveyIndex">
+            <div class="col-sm-6">
+              {{ entry.time | date: 'medium' }}
+            </div>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-default btn-sm resume-button" tabindex="1" (click)="resumeSurvey(entry.key)">Resume Survey</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary btn-lg survey-button" tabindex="1" (click)="beginSurvey()">Begin the Survey</button>
+    </div>
+  </div>
+</div>

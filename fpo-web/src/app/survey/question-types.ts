@@ -619,7 +619,6 @@ function initAddressBlock(Survey) {
         } else {
           delete this.prevAddrs[question.name];
         }
-        console.log(this.prevAddrs);
       };
       question.valueChangedCallback();
     },
