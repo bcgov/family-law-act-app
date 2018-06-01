@@ -14,6 +14,14 @@
       elt.className = lst.join(' ');
     }
   }
+  function hasClass(elt, cls) {
+    if(! elt) return;
+    if(elt.classList) return elt.classList.contains(cls);
+    else {
+      var cls = elt.className.split(/\s+/);
+      return ~cls.indexOf(cls);
+    }
+  }
 
   TooltipMgr = function() {
     this.init();
@@ -38,7 +46,6 @@
     },
     addEvents: function() {
       document.addEventListener('mousedown', function(evt) {
-        console.log('?');
         this.hide();
       }.bind(this));
     },
@@ -84,6 +91,7 @@
       this.render();
       document.body.appendChild(this.elt);
       tooltipMgr.setCurrent(this);
+      this.elt.style.display = null;
       addClass(this.elt, 'in');
       requestAnimationFrame(this.position.bind(this));
     },
@@ -94,7 +102,11 @@
       this.elt.style.left = '' + (tgt.left + tgt.width / 2 - sz.width / 2 + window.pageXOffset) + 'px';
     },
     hide: function() {
-      removeClass(this.elt, 'in');
+      var elt = this.elt;
+      removeClass(elt, 'in');
+      setTimeout(function() {
+        if(! hasClass(elt, 'in')) elt.style.display = 'none';
+      }, 500);
     }
   }
 

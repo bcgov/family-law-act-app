@@ -73,10 +73,22 @@
 .sv_p_container {
   // survey panel
   background: #f8f8f8;
-  border: 1px solid #e3e3e3;
+  border: 1px solid #ccc;
   border-radius: 4px;
   padding: 1em 0.5em 0.5em;
   margin: 0.5em 0;
+}
+
+// checkbox styles
+.sv-checkbox-label {
+  cursor: pointer;
+  font-size: 110%;
+  font-weight: normal;
+  padding-left: 0.25em;
+}
+.sv_bootstrap_css .sv_qcbc input[type="checkbox"], .sv_bootstrap_css .sv_qcbc input[type="radio"] {
+  vertical-align: baseline;
+  margin: 4px;
 }
 
 .survey-helptext, .survey-infotext {
@@ -89,6 +101,7 @@
   }
   .panel-heading {
     color: #55555a;
+    padding-left: 2em;
   }
   .panel-title {
     display: block;
@@ -103,7 +116,10 @@
     padding: 10px;
   }
   .heading-icon {
+    float: left;
+    margin-left: -1.4em;
     margin-right: 0.5em;
+    margin-top: 3px;
   }
   .heading-expand {
     float: right;
