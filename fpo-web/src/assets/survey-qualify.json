@@ -6,17 +6,8 @@
     {
      "type": "yesno",
      "name": "Unsafe",
-     "title": "Is someone making you or your family feel unsafe?",
-     "description": "Unsafe could be either physical and non-physical behaviour. For example, stalking or verbal harassment could make you or your family feel unsafe.",
+     "title": "Is someone making you or your family feel `unsafe`?",
      "isRequired": true
-    },
-    {
-     "type": "infotext",
-     "name": "ExplanationFamilyViolence",
-     "visible": false,
-     "visibleIf": "{Unsafe} = 'y'",
-     "title": "The term for the things a family member does to make you feel unsafe is called Family Violence.\n<br>\n<br>\nFamily violence includes many things such as: \n<ul>\n<li>physical abuse (or attempted abuse),</li>\n<li>denying food or other basic needs,</li>\n<li>emotional or mental abuse (stalking, threats, intimidation or harassment),</li>\n<li>sexual abuse (or attempted abuse),</li>\n<li>children being exposed to family violence</li>\n</ul>\n<a href=\"http://www.justice.gc.ca/eng/cj-jp/fv-vf/laws-lois.html\" target=\"_blank\">Click here for more information for what counts as Family Violence.</a>",
-     "titleLocation": "hidden"
     },
     {
      "type": "yesno",
@@ -41,7 +32,7 @@
      "name": "ExplanationUnsafeNonPartner",
      "visible": false,
      "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'n'",
-     "title": "For now, this service has only been developed for a limited number of situations. This service can only be used to apply for a Provincial Court `Family Law Protection Order` against someone who was (or is) your partner.\n<br>\n<br>\nIf a family member that is not your ex-partner is making you feel unsafe, you can still apply for Provincial Court Family Law Protection Order. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nIf someone that is not a family member is making you feel unsafe, you can still apply for an `order` to protect you. This order is called a `Peace Bond`. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
+     "title": "For now, this service has only been developed for a limited number of situations. This service can only be used to apply for a Provincial Court `Family Law Protection Order` against someone who was (or is) your partner.\n<br>\n<br>\nIf a `family member` that is not your ex-partner is making you feel `unsafe`, you can still apply for Provincial Court Family Law Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nIf someone that is not a family member is making you feel unsafe, you can still apply for an `order` to protect you. This order is called a `Peace Bond`. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
      "titleLocation": "hidden",
      "messageStyle": "error"
     },
