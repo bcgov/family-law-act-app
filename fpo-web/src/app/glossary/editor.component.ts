@@ -83,7 +83,7 @@ export class GlossaryEditorComponent  {
       this._terms[index].term = val;
   }
 
-  updateTermValue(evt, index, changed) {
+  updateTermValue(evt, index, changed?: boolean) {
     if(this.updateIndex === index)
       clearTimeout(this.updateTimer);
     this.updateIndex = index;
