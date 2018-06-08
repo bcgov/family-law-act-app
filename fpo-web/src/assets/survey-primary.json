@@ -21,59 +21,28 @@
        "inputType": "date"
       },
       {
-       "type": "infotext",
-       "name": "ExplanationServiceAddress",
-       "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace or a lawyer's address, if you have one. The family member making you or your family feel unsafe will see this address.",
-       "titleLocation": "hidden"
-      },
-      {
-       "type": "address",
-       "name": "ApplicantAddress",
-       "title": "What is your address for receiving court documents?",
-       "description": "Court documents can include documents from the person making you (or your family) feel unsafe."
-      },
-      {
        "type": "yesno",
        "name": "LawyerAddress",
        "title": "Has a lawyer agreed to receive court documents for you?"
       },
       {
-       "type": "panel",
-       "name": "LawyerContactPanel",
-       "elements": [
-        {
-         "type": "text",
-         "name": "LawyerName",
-         "title": "What is the lawyer's name?",
-         "inputType": "tel"
-        },
-        {
-         "type": "text",
-         "name": "LawyerEmail",
-         "title": "Lawyer's Email (Optional)"
-        },
-        {
-         "type": "text",
-         "name": "LawyerPhone",
-         "startWithNewLine": false,
-         "title": "Lawyer's Phone Number",
-         "inputType": "tel"
-        },
-        {
-         "type": "text",
-         "name": "LawyerFax",
-         "startWithNewLine": false,
-         "title": "Lawyer's Fax Number (Optional)",
-         "inputType": "tel"
-        }
-       ],
+       "type": "infotext",
+       "name": "ExplanationServiceAddress",
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'y'"
+       "visibleIf": "{LawyerAddress} = 'n'",
+       "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace. The family member making you or your family feel unsafe will see this address.",
+       "titleLocation": "hidden"
       },
       {
        "type": "panel",
        "name": "ApplicantContactPanel",
        "elements": [
+        {
+         "type": "address",
+         "name": "ApplicantAddress",
+         "title": "What is your address for receiving court documents?",
+         "description": "Court documents can include documents from the person making you (or your family) feel unsafe."
+        },
         {
          "type": "text",
          "name": "ApplicantPhone",
@@ -96,6 +65,44 @@
        ],
        "visible": false,
        "visibleIf": "{LawyerAddress} = 'n'"
+      },
+      {
+       "type": "panel",
+       "name": "LawyerContactPanel",
+       "elements": [
+        {
+         "type": "text",
+         "name": "LawyerName",
+         "title": "What is the lawyer's full name?",
+         "inputType": "tel"
+        },
+        {
+         "type": "address",
+         "name": "LawyerAddress",
+         "title": "What is your lawyer's address?"
+        },
+        {
+         "type": "text",
+         "name": "LawyerPhone",
+         "title": "Lawyer's Phone Number",
+         "inputType": "tel"
+        },
+        {
+         "type": "text",
+         "name": "LawyerEmail",
+         "startWithNewLine": false,
+         "title": "Lawyer's Email (Optional)"
+        },
+        {
+         "type": "text",
+         "name": "LawyerFax",
+         "startWithNewLine": false,
+         "title": "Lawyer's Fax Number (Optional)",
+         "inputType": "tel"
+        }
+       ],
+       "visible": false,
+       "visibleIf": "{LawyerAddress} = 'y'"
       }
      ]
     }
@@ -112,7 +119,7 @@
       {
        "type": "text",
        "name": "RespondentName",
-       "title": "What is the full name of the person that is making you (or your children) feel unsafe?",
+       "title": "What is the full name of the person that is making you (or your children) feel `unsafe`?",
        "description": "If you know how their name is written on their ID cards, that will be the most useful."
       },
       {
@@ -290,7 +297,7 @@
    "title": "Your Ex-Partner's Information"
   },
   {
-   "name": "Your Children",
+   "name": "Your Children's Information",
    "elements": [
     {
      "type": "panel",
@@ -391,7 +398,7 @@
          "type": "infotext",
          "name": "ErrorNeitherGuardians",
          "visible": false,
-         "visibleIf": "{panel.ChildApplicantGuardian} = 'n' and {panel.ChildRespondentGuardian} = 'n'",
+         "visibleIf": "{ApplicantNeedsProtection} = 'n' and {panel.ChildNeedsProtection} = 'y' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildRespondentGuardian} = 'n'",
          "title": "This service is currently limited to situations where ex-partners have shared children. These children cannot have parents or guardians other than you, {ApplicantName}, and {RespondentName}.\n<br>\n<br>\nIf any children have parents or guardians other than you and {RespondentName}, you can still apply for a Provincial Court `Family Law Protection Order`.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
          "titleLocation": "hidden",
          "messageStyle": "error"
@@ -399,7 +406,8 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19. \n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with the {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>\n<br>\n<br>"
+       "title": "Who are 's Guardians?<br><br>A guardian is someone who is legally allowed to make decisions for a child under the age of 19. <br><br>A biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for  is a guardian. This parent is still a guardian even after they stop living with the .<br><br>A parent can be added or removed as a guardian by the court or by agreement between the parents.",
+       "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
       },
       {
        "type": "panel",
@@ -537,7 +545,7 @@
          "type": "yesno",
          "name": "RespondentApplicantArrangeChildren",
          "visible": false,
-         "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or ({panel.ChildEqualPTime} ='n' and {panel.ChildApplicantUnequalPTime} notempty and ({panel.ChildApplicantUnequalPTime} notempty or {panel.ChildRespondentUnequalPTime} notempty)))",
+         "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty)",
          "title": "If your Protection Order is made, does {RespondentName} need to contact you, {ApplicantName}, to make parenting arrangements for {panel.ChildName}?",
          "description": "Parenting arrangements include making decisions about {panel.ChildName} and planning for time with {panel.ChildName}."
         },
@@ -545,7 +553,7 @@
          "type": "checkbox",
          "name": "RespondentApplicantArrangeMethods",
          "visible": false,
-         "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or ({panel.ChildEqualPTime} ='n' and {panel.ChildApplicantUnequalPTime} notempty and ({panel.ChildApplicantUnequalPTime} notempty or {panel.ChildRespondentUnequalPTime} notempty))) and {panel.RespondentApplicantArrangeChildren} = 'y'",
+         "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty) and {panel.RespondentApplicantArrangeChildren} = 'y'",
          "title": "What is your preferred method for {RespondentName} to communicate with you?",
          "description": "If you or {RespondentName} need to communicate about {panel.ChildName}, this will be allowed even with the Protection Order against {RespondentName} in place.",
          "hasOther": true,
@@ -616,10 +624,10 @@
       }
      ],
      "panelAddText": "Add a child",
-     "panelRemoveText": "Remove this child"
+     "panelRemoveText": "Remove {panel.ChildName}"
     }
    ],
-   "title": "Your Children"
+   "title": "Your Children's Information"
   },
   {
    "name": "Your Safety Needs",
@@ -651,7 +659,7 @@
        "type": "radiogroup",
        "name": "RespondentNeedPolice",
        "visible": false,
-       "visibleIf": "{RespondentLeaving} = 'y'",
+       "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y'",
        "title": "Do you think you need the police to remove {RespondentName} from where you live or will {RespondentName} leave on their own?",
        "choices": [
         {
@@ -668,14 +676,14 @@
        "type": "yesno",
        "name": "HomeAddressSame",
        "visible": false,
-       "visibleIf": "{RespondentNeedPolice} = 'y'",
+       "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
        "title": "Is the address of your family home the same as the address you provided for receiving court documents? [Display applicant's service address]"
       },
       {
        "type": "address",
        "name": "FamilyHomeAddress",
        "visible": false,
-       "visibleIf": "{HomeAddressSame} = 'n'",
+       "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y' and {HomeAddressSame} = 'n'",
        "title": "What is the address of your family home?"
       }
      ]
@@ -702,14 +710,14 @@
        "type": "yesno",
        "name": "RespondentHasStuffAddressSame",
        "visible": false,
-       "visibleIf": "{RespondentHasStuffPolice} = 'y'",
+       "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
        "title": "Same as {RespondentName}'s address that you provided for receiving court documents? [Display respondent's service address]"
       },
       {
        "type": "address",
        "name": "RespondentHasStuffAddress",
        "visible": false,
-       "visibleIf": "{RespondentHasStuffAddressSame} = 'n'",
+       "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y' and {RespondentHasStuffAddressSame} = 'n'",
        "title": "What is the address where your personal belongs are being held?"
       },
       {
@@ -730,19 +738,19 @@
        "type": "yesno",
        "name": "RespondentNeedsStuffAddressSame",
        "visible": false,
-       "visibleIf": "{RespondentNeedsStuffPolice} = 'y'",
+       "visibleIf": "{RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y'",
        "title": "Is the address where you are holding {RespondentName}'s personal belongings the same as the address you provided for receiving court documents? [Display applicant's service address]"
       },
       {
        "type": "address",
        "name": "RespondentNeedsStuffAddress",
        "visible": false,
-       "visibleIf": "{RespondentNeedsStuffAddressSame} = 'n'",
+       "visibleIf": "{RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y' and {RespondentNeedsStuffAddressSame} = 'n'",
        "title": "Address"
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentLiveTogether} notempty"
+     "visibleIf": "{RespondentLiveTogether} = 'n' or ({RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'n') or ({RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'n') or ({RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y' and {HomeAddressSame} notempty)"
     },
     {
      "type": "panel",
@@ -778,17 +786,24 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentHasStuff} notempty and {RespondentNeedsStuff} notempty"
+     "visibleIf": "({RespondentHasStuff} = 'n' or ({RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'n') or ({RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y' and {RespondentHasStuffAddressSame} notempty)) and ({RespondentNeedsStuff} = 'n' or ({RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'n') or ({RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y' and {RespondentNeedsStuffAddressSame} notempty))"
     },
     {
      "type": "panel",
      "name": "PORPanelNoContactExceptions",
      "elements": [
       {
+       "type": "yesno",
+       "name": "RespondentApplicantThirdPartyContact",
+       "title": "Because you, , will now have a family court file with , you will both be allowed to communicate with each other for court purposes. You may also communicate through any third party that a judge includes in your Protection Order.\n<br>\n<br>\nAre there any third parties that you want to communicate through for court purposes?\n",
+       "description": "Examples of third parties may include a lawyer, a family justice counsellor or a mutual friend."
+      },
+      {
        "type": "checkbox",
        "name": "RespondentApplicantContactType",
+       "visible": false,
+       "visibleIf": "{RespondentApplicantThirdPartyContact} = 'y'",
        "title": "Select any third parties that {RespondentName} and {ApplicantName} may communicate through for ongoing court purposes:",
-       "description": "If you or {RespondentName} need to communicate for court purposes, you will both be allowed to do so through the people the judge includes in your Protection Order.",
        "hasOther": true,
        "choices": [
         {
@@ -827,7 +842,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentNoGo} = 'n' or {RespondentNoGoPlaces} notempty",
+     "visibleIf": "{RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty)",
      "title": "Even with a Protection Order in place, there may be times where it is important to communicate with each for certain reasons."
     },
     {
@@ -876,7 +891,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentApplicantContactOther} = 'n' or {RespondentApplicantContactOtherReason} notempty"
+     "visibleIf": "({RespondentApplicantThirdPartyContact} = 'n' or ({RespondentApplicantThirdPartyContact} = 'y' and {RespondentApplicantContactType} notempty)) and ({RespondentApplicantContactOther} = 'n' or ({RespondentApplicantContactOther} = 'y' and {RespondentApplicantContactOtherReason} notempty))"
     },
     {
      "type": "panel",
@@ -898,7 +913,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentNoWeapons} notempty\n\n{espondentFirearms} notempty and {espondentWeapons} notempty\n"
+     "visibleIf": "({RespondentFirearms} = 'n' and {RespondentWeapons} = 'n' and {RespondentNoWeapons} notempty) or \n({RespondentFirearms} = 'n' and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty) or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'n') or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty)\n\n"
     }
    ],
    "title": "Your Safety Needs"
@@ -935,7 +950,7 @@
      "type": "infotext",
      "name": "ExplanationPORSpeedNormalAffidavitNo",
      "visible": false,
-     "visibleIf": "{PORSpeedNormalAffidavit} = 'n'",
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'n' and {PORSpeedup} = 'n' and {PORNoNotice} = 'n'",
      "title": "Most judges will require that you write an affidavit. If you do not want to use this service to write an affidavit, you have other options: \n<ul>\n<li><a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa065a.pdf?forcedownload=true\" target=\"_blank\">Click here for the PDF form</a></li>\n<li>Get a paper form at a courthouse registry. <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/courthouse-locations\" target=\"_blank\">Click here for a list of courthouse locations</a></li>\n<li>Get a lawyer to help you write one</li>\n</ul>",
      "titleLocation": "hidden"
     },
@@ -943,7 +958,7 @@
      "type": "infotext",
      "name": "ExplanationPORSpeedNormalAffidavitYes",
      "visible": false,
-     "visibleIf": "{PORSpeedNormalAffidavit} = 'y'",
+     "visibleIf": "{PORSpeedup} = 'n' and {PORNoNotice} = 'n' and {PORSpeedNormalAffidavit} = 'y'",
      "title": "In your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
      "titleLocation": "hidden"
     },
@@ -966,8 +981,10 @@
     {
      "type": "text",
      "name": "ApplicantOccupation",
+     "visible": false,
+     "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
      "title": "What is your job or profession?",
-     "description": "For example: Nurse, Carpenter, Homemaker, Accountant, etc.\t"
+     "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
     },
     {
      "type": "comment",
@@ -983,8 +1000,8 @@
      "name": "PORWhatHappened",
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-     "title": "Describe what {RespondentName} has done to make you and/or your children feel unsafe.\n<br>\n<br>\nFamily violence includes many things such as: \n<ul>\n<li>physical abuse (or attempted abuse),</li>\n<li>denying food or other basic needs,</li>\n<li>emotional or mental abuse (stalking, threats, intimidation or harassment),</li>\n<li>sexual abuse (or attempted abuse),</li>\n<li>children being exposed to family violence</li>\n</ul>\n",
-     "description": "Describe any recent incidents of family violence against your and/or your children. Include:\n<ul>\n<li>How {RespondentName} made you and/or your children feel unsafe (describe examples of {RespondentName}’s behaviour that made you afraid)</li>\n<li>A description of the incident (write as much detail as possible)</li>\n<li>Who was involved (include the police if they were involved at any time)</li>\n<li>Who witnessed it</li>\n<li>Any exposure your children have had to violence or abuse</li>\n<li>Any injuries or trauma from the incident</li>\n<li>Any doctor's notes, police reports or photographs (you must refer to them in your affidavit and make photocopies of them for the court)</li>\n</ul>\n\n\n\n\n",
+     "title": "Describe what  has done to make you and/or your children feel `unsafe`.\n",
+     "description": "Describe any recent incidents of `Family Violence` against your and/or your children. Include:\n<ul>\n<li>How  made you and/or your children feel unsafe (describe examples of ’s behaviour that made you afraid)</li>\n<li>A description of the incident (write as much detail as possible)</li>\n<li>Who was involved (include the police if they were involved at any time)</li>\n<li>Who witnessed it</li>\n<li>Any exposure your children have had to violence or abuse</li>\n<li>Any injuries or trauma from the incident</li>\n<li>Any doctor's notes, police reports or photographs (you must refer to them in your affidavit and make photocopies of them for the court)</li>\n</ul>",
      "rows": 8
     },
     {
@@ -1004,125 +1021,8 @@
     }
    ],
    "title": "Your Story"
-  },
-  {
-   "name": "Birthday Test",
-   "elements": [
-    {
-     "type": "dropdown",
-     "name": "question1",
-     "title": "Month",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "January"
-      },
-      {
-       "value": "item2",
-       "text": "February"
-      },
-      {
-       "value": "item3",
-       "text": "March"
-      }
-     ]
-    },
-    {
-     "type": "dropdown",
-     "name": "question2",
-     "startWithNewLine": false,
-     "title": "Day",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "1"
-      },
-      {
-       "value": "item2",
-       "text": "2"
-      },
-      {
-       "value": "item3",
-       "text": "3"
-      }
-     ]
-    },
-    {
-     "type": "dropdown",
-     "name": "question3",
-     "startWithNewLine": false,
-     "title": "Year",
-     "choices": [
-      {
-       "value": "item1",
-       "text": "2018"
-      },
-      {
-       "value": "item2",
-       "text": "2017"
-      },
-      {
-       "value": "item3",
-       "text": "2016"
-      }
-     ]
-    },
-    {
-     "type": "matrixdropdown",
-     "name": "question4",
-     "columns": [
-      {
-       "name": "Column 1",
-       "title": "Month",
-       "cellType": "dropdown"
-      },
-      {
-       "name": "Column 2",
-       "title": "Day",
-       "cellType": "dropdown"
-      },
-      {
-       "name": "Column 3",
-       "title": "Year",
-       "cellType": "dropdown"
-      }
-     ],
-     "choices": [
-      {
-       "value": 1,
-       "text": "January"
-      },
-      {
-       "value": 2,
-       "text": "February"
-      },
-      {
-       "value": 3,
-       "text": "March"
-      },
-      {
-       "value": 4,
-       "text": "April"
-      },
-      {
-       "value": 5,
-       "text": "May"
-      }
-     ],
-     "rows": [
-      {
-       "value": "Row 1",
-       "text": "Date of Birth"
-      }
-     ]
-    },
-    {
-     "type": "text",
-     "name": "question5",
-     "title": "`Affidavit`, `Family Member`, `family law protection order`, `legal Guardian`, `oRDer`, `peace bonD`, `Protection Order`, `support`, `written agreement`, `written agreements`, `Weapon`"
-    }
-   ]
   }
  ],
- "showQuestionNumbers": "off"
+ "showQuestionNumbers": "off",
+ "requiredText": ""
 }
