@@ -624,7 +624,7 @@
       }
      ],
      "panelAddText": "Add a child",
-     "panelRemoveText": "Remove {panel.ChildName}"
+     "panelRemoveText": "Remove this child"
     }
    ],
    "title": "Your Children's Information"
@@ -795,7 +795,7 @@
       {
        "type": "yesno",
        "name": "RespondentApplicantThirdPartyContact",
-       "title": "Because you, , will now have a family court file with , you will both be allowed to communicate with each other for court purposes. You may also communicate through any third party that a judge includes in your Protection Order.\n<br>\n<br>\nAre there any third parties that you want to communicate through for court purposes?\n",
+       "title": "Because you, {ApplicantName}, will now have a family court file with {RespondentName}, you will both be allowed to communicate with each other for court purposes. You may also communicate through any third party that a judge includes in your Protection Order.\n<br>\n<br>\nAre there any third parties that you want to communicate through for court purposes?\n",
        "description": "Examples of third parties may include a lawyer, a family justice counsellor or a mutual friend."
       },
       {
