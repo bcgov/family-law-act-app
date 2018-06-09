@@ -16,12 +16,20 @@ export class SurveyPrimaryComponent implements OnInit {
   public surveyPath: string;
   public surveyJson: any;
   public complete: Function;
+<<<<<<< HEAD
   public data: any;
+=======
+  public jsonObject: any;
+
+  public downloadPDF(){
+    return xepOnline.Formatter.Format('template', {render: 'download', processPseudoElem: true});
+  }
+>>>>>>> 07724362a415cf78bc985f8312a1fd4b45010306
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dataService: GeneralDataService
+    private dataService: GeneralDataService,
   ) { }
 
   ngOnInit() {
@@ -41,6 +49,7 @@ export class SurveyPrimaryComponent implements OnInit {
       this.router.navigate(['result', ok]);
     }
     else if(this.cacheName) {
+<<<<<<< HEAD
 
         //add additional data starts here
         data.listOfChildrenArray = [];
@@ -128,6 +137,10 @@ export class SurveyPrimaryComponent implements OnInit {
 
         this.resultJson = JSON.stringify(data);
         console.log("resultJson is" + this.resultJson);
+=======
+      this.resultJson = JSON.stringify(data);
+      this.jsonObject = JSON.parse(this.resultJson);
+>>>>>>> 07724362a415cf78bc985f8312a1fd4b45010306
       this.printUrl = this.dataService.getApiUrl('survey-print/' + this.cacheName);
     }
   }
