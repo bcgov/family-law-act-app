@@ -6,8 +6,8 @@
     <style type="text/css">
         @page {
             size: Letter;
-            margin: .44in 0.44in 0.2in 0.5in;
-            font-size: 10pt;
+            margin: .3in 0.3in 0.2in 0.3in;
+            font-size: 9pt;
             font-family: Helvetica, Arial, sans-serif;
             @bottom-right {
                 counter-increment: page;
@@ -18,12 +18,13 @@
         }
         @page label{font-size: 8pt;}
         .nom-form, .affidavit-form{page-break-before: always;}
-        body{margin: 0; padding: 0; max-width: 100%;}
+        body{margin: 0; padding: 0; max-width: 100%; font-size: .85em;}
         table{
             border-collapse: collapse;
             table-layout: fixed;
             width: 100%;
         }
+
 
         td{padding: .25em; width: 25%;}
         /* wrappers / containers */
@@ -61,8 +62,8 @@
         .label-specify:after, .label-name:after, .label-occupation:after{
             font-size: .5em;
             text-transform: uppercase;
-            margin: .5em 0;
-            padding: 0 0 .15em;
+            margin: .5em 0 0;
+            padding: 0;
         }
 
         .label-num:after, .label-date:after, .name-party:after,
@@ -131,10 +132,18 @@
         .box{border: 1px solid #000; display: block; height: 4em;}
         .separation{border-top: 2px solid #000;}
         ol.lower-alpha {list-style-type: lower-alpha;}
+
+        @media print{
+            body{
+                font-size: 8pt!important;
+            }
+            table.bordered{
+                margin-bottom: 6px;
+            }
+        }
     </style>
 </head>
 <body>
-
 <div class="wrapper" id="template">
     <div class="container">
         <table>
@@ -470,34 +479,32 @@
                                 <legend>2. Children</legend>
                             </td>
                         </tr>
-                        {% if ListOfChildren %}
-                            {% load define_action %}
-                            {% define ListOfChildren.0.ChildApplicantGuardian as ChildApplicantGuardian %}
-                            <p>ChildApplicantGuardian: {{ ChildApplicantGuardian }}</p>
+                        {% regroup ListOfChildren by ChildApplicantPDecisions as ChildApplicantPDecisionsMatch %}
+                        {% regroup ListOfChildren by ChildRespondentPDecisions as ChildRespondentPDecisionsMatch %}
+                        {% regroup ListOfChildren by ChildApplicantPTime as ChildApplicantPTimeMatch %}
+                        {% regroup ListOfChildren by ChildRespondentPTime as ChildRespondentPTimeMatch %}
+                        {% regroup ListOfChildren by ChildEqualPTime as ChildEqualPTimeMatch %}
+                        {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
 
-                                {% for child in ListOfChildren %}
-                                    <p>inside for loop</p>
-                                    {% if child.ChildApplicantGuardian != ChildApplicantGuardian %}
-
-                                        {% define "n" as ChildApplicantGuardianMatch %}
-                                        <p>does not match: {{ ChildApplicantGuardianMatch }}</p>
-                                        {{ forloop|break }}
-                                    {% else %}
-                                        {% if ChildApplicantGuardianMatch != "y" %}
-                                            {% define "y" as ChildApplicantGuardianMatch %}
-                                            <p>matches: {{ ChildApplicantGuardianMatch }}</p>
-                                        {% endif %}
-                                    {% endif %}
-
-                                {% endfor %}
-                            {% for child in ListOfChildren %}
-
-
-                            {% endfor %}
                         {% endif %}
+                        {% load define_action %}
+                        {% load child_check %}
 
 
+                        {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
+                        {% define "n" as ChildAllMatch %}
+                        {% else %}
+                        {% define "y" as ChildAllMatch %}
+                        {% endif %}
                         {% for child in ListOfChildren %}
+                        {% if child.ChildNeedsProtection == "y" %}
+                        {% define "y" as ChildNeedsProtection %}
+                        {% endif %}
+                        {% endfor %}
+                        <p>child match?: {{ ChildAllMatch }}</p>
+                        {% for child in ListOfChildren %}
+
+
                         <tr>
                             <td colspan="2">Name(s) of child(ren)</td>
                             <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
@@ -512,7 +519,6 @@
                                 <span class="brdr-btm">{{ child.ChildDOB }}</span>
                             </td>
                         </tr>
-
                         <tr>
                             <td colspan="4">
                                 <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
@@ -523,15 +529,40 @@
                                 <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
                             </td>
                         </tr>
+                        {% if ChildAllMatch == "n" %}
                         <tr>
                             <td colspan="4">
                                 <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
 
-
-
-                                <span class="brdr-btm" style="margin-top: .5em;">1.28d</span>
+                                <span class="brdr-btm" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians of {{ child.ChildName }}{% if ChildApplicantPDecisions == "y" and ChildRespondentPDecisions == "y" %} and make parents decisions for {{ child.ChildName }} {% elif ChildApplicantPDecisions == "y" %} and {{ ApplicantName }} make parents decisions for {{ child.ChildName }}{% elif ChildRespondentPDecisions == "y" %} and {{ RespondentName }} make parents decisions for {{ child.ChildName }}{% endif %}</span>
+                                <span class="brdr-btm" style="margin-top: .5em;">{% if ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {{ child.ChildName }} equally.
+                                    {% elif ChildMainGuardians == "applicantmoreptime" %} {{ ApplicantName }}{% else %} {{ RespondentName }} spends more time with {{ child.ChildName }}.{% endif %}
+                                    {% if ChildMainGuardians == "applicantmoreptime" %} {{ RespondentName }}{% else %} {{ ApplicantName }}{% endif %} spends time widh{{ child.ChildName }}
+                                    {% if ChildEqualPTime == "n" %}
+                                    {% if ChildMainGuardians == "applicantmoreptime" %}
+                                        {% if ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
+                                        {% elif ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
+                                        {% elif ChildRespondentUnequalPTime == "1pw" %} At least once a week.
+                                        {% elif ChildRespondentUnequalPTime == "2pm" %} At least every other week.
+                                        {% elif ChildRespondentUnequalPTime == "1pm" %} At least once a month.
+                                        {% elif ChildRespondentUnequalPTime == "1py" %} At least twice a year.
+                                        {% else %} There is an error
+                                        {% endif %}
+                                    {% else %}
+                                        {% if ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
+                                        {% elif ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
+                                        {% elif ChildApplicantUnequalPTime == "1pw" %} At least once a week.
+                                        {% elif ChildApplicantUnequalPTime == "2pm" %} At least every other week.
+                                        {% elif ChildApplicantUnequalPTime == "1pm" %} At least once a month.
+                                        {% elif ChildApplicantUnequalPTime == "1py" %} At least twice a year.
+                                        {% else %} There is an error
+                                        {% endif %}
+                                    {% endif %}
+                                    {% endif %}
+                                </span>
                             </td>
                         </tr>
+                        {% endif %}
                         <tr>
                             <td colspan="4" style="padding-top: 0;">
                                 <aside>(Complete the following if you are asking for guardianship, parenting arrangements or contact with a child.)</aside>
@@ -543,8 +574,51 @@
                                 <span class="brdr-btm" style="margin-top: .5em;" >&nbsp;</span>
                             </td>
                         </tr>
+                        {% if forloop.last %}
+                        <p>this is the last child</p>
+                        {% endif %}
                         {% endfor %}
+                        {% if ChildAllMatch == "y" %}
+
+                        <tr>
+                            <td colspan="4">
+                                <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
+
+                                <span class="" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians and make parents decisions for {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %}</span>
+                                <span class="brdr-btm" style="margin-top: .5em;">
+                                    {% if ListOfChildren.0.ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %} equally.
+                                    {% elif ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %} {{ ApplicantName }}
+                                    {% else %} {{ RespondentName }} spends more time with {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %}.
+                                    {% endif %}
+                                    {% if ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %} {{ RespondentName }}{% elif ListOfChildren.0.ChildMainGuardians == "respondentmoreptime" %} {{ ApplicantName }} spends time widh {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %}{% endif %}
+                                    {% if ListOfChildren.0.ChildEqualPTime == "n" %}
+                                    {% if ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %}
+                                    {% if ListOfChildren.0.ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
+                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
+                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pw" %} At least once a week.
+                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pm" %} At least every other week.
+                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pm" %} At least once a month.
+                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1py" %} At least twice a year.
+                                    {% else %} There is an error
+                                    {% endif %}
+                                    {% else %}
+                                    {% if ListOfChildren.0.ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
+                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
+                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pw" %} At least once a week.
+                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pm" %} At least every other week.
+                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pm" %} At least once a month.
+                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1py" %} At least twice a year.
+                                    {% else %} There is an error
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endif %}
+                                </span>
+
+                            </td>
+                        </tr>
+                        {% endif %}
                     </table>
+
                 </td>
             </tr>
             <tr class="section spacer">&nbsp;&nbsp;</tr>
@@ -640,7 +714,29 @@
                             <td colspan="4" class="bordered">
                                 <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
                                 <p>I am asking for an order in the following terms:</p>
-                                <span class="brdr-btm">&nbsp;</span>
+                                <span class="brdr-btm">
+                                    <p>new variable here! {{ listOfChildrenWithPO }}</p>
+                                    {% if ApplicantNeedsProtection == "y" %}
+                                        {% if ChildNeedsProtection != "y" %}
+                                            {{ RespondentName }} should stay away and not communicate with {{ listOfPeople }} execpt for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
+                                        {% endif %}
+
+                                    {% elif ApplicantNeedsProtection == "n" %}
+                                        {{ RespondentName }} should stay away and not communicate with {{ listOfChildrenWithPO }} execpt for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
+                                    {% endif %}
+                                    {% if RespondentApplicantArrangeChildren == "y" and listOfChildrenWithoutPOString %}
+                                        {{ RespondentName }} should be allowed to communicate with {{ ApplicantName }}, by {{ ArrangeMethodString }}, to arrange parenting responsibilities for {{ listOfChildrenWithoutPOString }}.
+
+                                    {% endif %}
+
+
+
+
+
+
+
+
+                                </span>
                             </td>
                         </tr>
                         <!-- requirement to keep signature area with at least one other section -->
@@ -1206,37 +1302,43 @@
                         </tr>
                         <tr class="section spacer">&nbsp;</tr>
                         <tr>
-                            <td colspan="2" style="padding-top: 1em;">
+                            <td colspan="4" style="padding-top: 1em;">
                                 <!-- scope 1 always checked -->
                                 <span class="check selected">&#10003;</span>
                                 <span class="label">I am making the application* <span class="addendum" style="float: right; padding-right:25%;">OR</span></span>
                             </td>
-                            <td colspan="2" style="padding-top: 1em;">
-                                <span class="check"></span>
-                                <span class="label">I am responding to the application*</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <p>OR I am</p>
-                            </td>
+
                         </tr>
 
+                        <tr>
+                            <td colspan="4">
+                                <span class="brdr-btm">{{ PORRelationshipHistory }}</span>
+                            </td>
+                        </tr>
                         <tr>
                             <td colspan="4">
                                 <span class="brdr-btm">{{ PORWhatHappened }}</span>
                             </td>
                         </tr>
+                        {% if faster %}
                         <tr>
                             <td colspan="4">
+
                                 <span class="brdr-btm">{{ PORWhyASAP }}</span>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="4">
+                                <span class="brdr-btm">{{ PORWhyNoNotice }}</span>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td colspan="4">
                                 <p style="font-style: italic; font-size: .85em;">Sworn or affirmed by me</p>
                             </td>
                         </tr>
+
                         <tr>
                             <td colspan="2" class="signature-area" style="font-style: italic; font-size: .85em;">
                                 <span class="label blank">at<span class="long brdr-btm">&nbsp;</span><span class="addendum">British Columbia</span></span>
