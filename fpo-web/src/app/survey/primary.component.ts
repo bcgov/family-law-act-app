@@ -16,15 +16,9 @@ export class SurveyPrimaryComponent implements OnInit {
   public surveyPath: string;
   public surveyJson: any;
   public complete: Function;
-<<<<<<< HEAD
   public data: any;
-=======
   public jsonObject: any;
 
-  public downloadPDF(){
-    return xepOnline.Formatter.Format('template', {render: 'download', processPseudoElem: true});
-  }
->>>>>>> 07724362a415cf78bc985f8312a1fd4b45010306
 
   constructor(
     private route: ActivatedRoute,
@@ -49,7 +43,6 @@ export class SurveyPrimaryComponent implements OnInit {
       this.router.navigate(['result', ok]);
     }
     else if(this.cacheName) {
-<<<<<<< HEAD
 
         //add additional data starts here
         data.listOfChildrenArray = [];
@@ -57,10 +50,20 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfChildrenWithoutPOArray = [];
         data.listOfChildren = new String();
         data.listOfChildrenWithPO = new String();
+        data.listOfPeople = data.ApplicantName;
         data.listOfPeopleWithPO = data.ApplicantName;
         data.contactTypeString = new String();
         data.ArrangeMethodString = new String();
         data.listOfChildrenWithoutPOString = new String();
+        // if(data.RespondentNoGoPlaces-Comment !== undefined){
+        // data.RespondentNoGoPlacesComment = this.jsonObject['data.RespondentNoGoPlaces-Comment'];
+        // }
+        data.RespondentNoGoPlacesString = new String();
+        console.log("Variable with "+ data.RespondentNoGoPlacesComment);
+        // console.log("printing with []" + data['RespondentNoGoPlaces-Comment']);
+        if(data.ListOfChildren !== undefined){
+
+
         for (let child of data.ListOfChildren){
             console.log("Child is "+child["ChildName"]);
             if (child["ChildNeedsProtection"] == "y"){
@@ -74,6 +77,8 @@ export class SurveyPrimaryComponent implements OnInit {
             }
             // data.listOfChildren.push(child["ChildName"]);
         }
+        }
+        if (data.listOfChildrenWithPOArray !== undefined){
         for (let childWithPO of data.listOfChildrenWithPOArray){
             console.log("child name before if is " + childWithPO);
             if(childWithPO == data.listOfChildrenWithPOArray[data.listOfChildrenWithPOArray.length-1]){
@@ -87,6 +92,8 @@ export class SurveyPrimaryComponent implements OnInit {
                 data.listOfChildrenWithPO = data.listOfChildrenWithPO + ", " + childWithPO;
             }
         }
+        }
+        if(data.listOfChildrenWithoutPOArray !== undefined){
         for (let childWithoutPO of data.listOfChildrenWithoutPOArray){
             console.log("child name before if is " + childWithoutPO);
             if(childWithoutPO == data.listOfChildrenWithoutPOArray[data.listOfChildrenWithoutPOArray.length-1]){
@@ -100,47 +107,69 @@ export class SurveyPrimaryComponent implements OnInit {
                 data.listOfChildrenWithoutPOString = data.listOfChildrenWithoutPO + ", " + childWithoutPO;
             }
         }
-        if (data.listOfChildrenWithPO != null){
+        }
+        if (data.listOfChildrenWithPO != undefined){
             data.listOfPeopleWithPO = data.listOfPeopleWithPO +", " +data.listOfChildrenWithPO;
         }
-        if (data.listOfChildren != null){
+        if (data.listOfChildren != undefined){
             data.listOfPeople = data.listOfPeople +", " +data.listOfChildren;
         }
 
         console.log("appended child is " + data.listOfChildrenWithPOArray);
         console.log("appended children in string is " + data.listOfChildrenWithPO);
         console.log("people who need po are " + data.listOfPeopleWithPO);
+        console.log("RespondentApplicantContactType are " + data.RespondentApplicantContactType);
+        console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
+
+        if (data.RespondentApplicantContactType !== undefined){
         for (let contactType of data.RespondentApplicantContactType){
-            if (contactType = data.RespondentApplicantContactType[0]){
+            if (contactType == data.RespondentApplicantContactType[0]){
                 data.contactTypeString = data.contactTypeString + contactType;
             }
-            else if (contactType = data.RespondentApplicantContactType[data.RespondentApplicantContactType.length-1]){
+            else if (contactType == data.RespondentApplicantContactType[data.RespondentApplicantContactType.length-1]){
                 data.contactTypeString = data.contactTypeString + " and " + contactType;
             }
             else {
                 data.contactTypeString = data.contactTypeString + ", " + contactType;
             }
         }
+        }
+        if (data.RespondentApplicantArrangeMethods !== undefined){
         for (let ArrangeMethod of data.RespondentApplicantArrangeMethods){
-            if (ArrangeMethod = data.RespondentApplicantContactType[0]){
+            if (ArrangeMethod == data.RespondentApplicantArrangeMethods[0]){
                 data.ArrangeMethodString = data.ArrangeMethodString + ArrangeMethod;
             }
-            else if (ArrangeMethod = data.RespondentApplicantArrangeMethods[data.RespondentApplicantArrangeMethods.length-1]){
+            else if (ArrangeMethod == data.RespondentApplicantArrangeMethods[data.RespondentApplicantArrangeMethods.length-1]){
                 data.ArrangeMethodString = data.ArrangeMethodString + " and " + ArrangeMethod;
             }
             else {
                 data.ArrangeMethodString = data.ArrangeMethodString + ", " + ArrangeMethod;
             }
         }
+        }
+        if (data.RespondentNoGoPlaces !== undefined){
+            for (let RespondentNoGoPlace of data.RespondentNoGoPlaces){
+                if (RespondentNoGoPlace == data.RespondentNoGoPlaces[0]){
+                    data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + RespondentNoGoPlace;
+                }
+                else if (RespondentNoGoPlace == data.RespondentNoGoPlaces[data.RespondentNoGoPlaces.length-1]){
+                    data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + " or " + RespondentNoGoPlace;
+                }
+                else {
+                    data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + ", " + RespondentNoGoPlace;
+                }
+            }
+        }
+        console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
         //add additional data ends here
         this.data = data;
 
         this.resultJson = JSON.stringify(data);
         console.log("resultJson is" + this.resultJson);
-=======
+
       this.resultJson = JSON.stringify(data);
       this.jsonObject = JSON.parse(this.resultJson);
->>>>>>> 07724362a415cf78bc985f8312a1fd4b45010306
+
       this.printUrl = this.dataService.getApiUrl('survey-print/' + this.cacheName);
     }
   }

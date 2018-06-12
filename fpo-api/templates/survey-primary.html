@@ -484,6 +484,8 @@
                         {% regroup ListOfChildren by ChildApplicantPTime as ChildApplicantPTimeMatch %}
                         {% regroup ListOfChildren by ChildRespondentPTime as ChildRespondentPTimeMatch %}
                         {% regroup ListOfChildren by ChildEqualPTime as ChildEqualPTimeMatch %}
+
+
                         {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
 
                         {% endif %}
@@ -718,7 +720,7 @@
                                     <p>new variable here! {{ listOfChildrenWithPO }}</p>
                                     {% if ApplicantNeedsProtection == "y" %}
                                         {% if ChildNeedsProtection != "y" %}
-                                            {{ RespondentName }} should stay away and not communicate with {{ listOfPeople }} execpt for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
+                                            {{ RespondentName }} should stay away and not communicate with {{ listOfPeopleWithPO }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
                                         {% endif %}
 
                                     {% elif ApplicantNeedsProtection == "n" %}
@@ -728,9 +730,34 @@
                                         {{ RespondentName }} should be allowed to communicate with {{ ApplicantName }}, by {{ ArrangeMethodString }}, to arrange parenting responsibilities for {{ listOfChildrenWithoutPOString }}.
 
                                     {% endif %}
+                                    {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
+                                    A police office should remove {{ RespondentName }}, {{ RespondentDOB }}, from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}. {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}. {{ FamilyHomeAddress.state }}.{% endif %}
+                                    {% endif %}
+                                    {% if RespondentHasStuff == "y" and RespondentHasStuffPolice == "y" %}
+                                    A police officer should to come with {{ ApplicantName }} to get their personal belongings from {{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}. {{ RespondentHasStuffAddress.state }}.
 
-
-
+                                    {% endif %}
+                                    {% if RespondentNeedsStuff == "y" and RespondentNeedsStuffPolice == "y" %}
+                                    A police officer should supervise {{ RespondentName }} while they get their personal belongings from {% if RespondentNeedsStuffAddressSame == "y" %}{{ ApplicantAddress.street }} {{ ApplicantAddress.city }}. {{ ApplicantAddress.state }}.{% else %}{{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}. {{ RespondentHasStuffAddress.state }}{% endif %}.
+                                    {% endif %}
+                                    {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
+                                    {{ RespondentName }} should not go near {{ listOfPeopleWithPO }}’s {{ RespondentNoGoPlacesString }}{% if RespondentNoGoPlacesComment != None %}, {{ RespondentNoGoPlacesComment }}{% endif %}.
+                                    {% endif %}
+                                    {% if RespondentFirearms == "y" %}
+                                    {{ RespondentName }} should not be allowed to own or carry any firearms.
+                                    {% endif %}
+                                    {% if RespondentFirearmsYes == "y" %}
+                                    {{ RespondentName }} should have to give their firearms to the police.
+                                    {% endif %}
+                                    {% if RespondentWeapons == "y" %}
+                                    {{ RespondentName }} should not be allowed to own or carry any weapons or knives (except while cooking and eating).
+                                    {% endif %}
+                                    {% if RespondentWeaponsYes == "y" %}
+                                    The police should take {{ RespondentName }}'s weapons.
+                                    {% endif %}
+                                    {% if RespondentPORTime == "y" %}
+                                    This Protection Order should expire on {{ RespondentPORNewTime }}.
+                                    {% endif %}
 
 
 
@@ -1320,19 +1347,21 @@
                                 <span class="brdr-btm">{{ PORWhatHappened }}</span>
                             </td>
                         </tr>
-                        {% if faster %}
+                        {% if PORSpeedup == "y" %}
                         <tr>
                             <td colspan="4">
 
                                 <span class="brdr-btm">{{ PORWhyASAP }}</span>
                             </td>
                         </tr>
+                        {% elif PORNoNotice == "y" %}
                         <tr>
                             <td colspan="4">
                                 <span class="brdr-btm">{{ PORWhyNoNotice }}</span>
                             </td>
                         </tr>
                         {% endif %}
+
                         <tr>
                             <td colspan="4">
                                 <p style="font-style: italic; font-size: .85em;">Sworn or affirmed by me</p>

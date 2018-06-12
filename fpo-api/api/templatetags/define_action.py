@@ -10,5 +10,6 @@ def get_at_index(list, index):
   return list[index]
 
 
-def to_list(*args):
-  return args
+@register.filter
+def getItem(dict, key):
+  return dict.get(key)
