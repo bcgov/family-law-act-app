@@ -16,17 +16,18 @@
             }
 
         }
-        @page label{font-size: 8pt;}
+        @page label{font-size: 9pt;}
         .nom-form, .affidavit-form{page-break-before: always;}
-        body{margin: 0; padding: 0; max-width: 100%; font-size: .85em;}
+        body{margin: 0; padding: 0; max-width: 100%;}
         table{
             border-collapse: collapse;
             table-layout: fixed;
             width: 100%;
-        }
+            margin-bottom: 3px;
+          }
 
 
-        td{padding: .25em; width: 25%;}
+        td{padding: .1em .25em .125em; width: 25%;}
         /* wrappers / containers */
         .container{
             background-color: #FFFFFF;
@@ -105,7 +106,7 @@
             font-size: .75em;
         }
         h1   {
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
             margin: 0.67em 0;
             text-transform: uppercase;
@@ -135,7 +136,7 @@
 
         @media print{
             body{
-                font-size: 8pt!important;
+                font-size: 9pt!important;
             }
             table.bordered{
                 margin-bottom: 6px;
@@ -212,11 +213,11 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <span class="brdr-btm">{{ ApplicantName }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
                                 <label class="label-btm">Name</label>
                             </td>
                             <td colspan="2">
-                                <span class="brdr-btm">{{ ApplicantDOB }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
                                 <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                             </td>
                         </tr>
@@ -227,34 +228,34 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <span class="brdr-btm">{{ ApplicantAddress.street }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
                                 <label class="label-btm">ADDRESS FOR SERVICE</label>
                             </td>
                             <td colspan="1">
-                                <span class="brdr-btm">{{ ApplicantAddress.city }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city }}</span>
                                 <label class="label-btm">City</label>
                             </td>
                             <td colspan="1">
-                                <span class="brdr-btm">{{ ApplicantAddress.state }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state }}</span>
                                 <label class="label-btm">Province</label>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <span class="brdr-btm">{{ ApplicantAddress.postcode }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
                                 <label class="label-btm">Postal Code</label>
                             </td>
                             <td>
-                                <span class="brdr-btm">{{ ApplicantPhone }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantPhone }}</span>
                                 <label class="label-btm">Phone</label>
                             </td>
                             <td>
-                                <span class="brdr-btm">{{ ApplicantEmail }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantEmail }}</span>
                                 <label class="label-btm">E-mail</label>
                             </td>
                             <td>
-                                <span class="brdr-btm">{{ ApplicantFax }}</span>
+                                <span class="brdr-btm">&nbsp;{{ ApplicantFax }}</span>
                                 <label class="label-btm">Fax</label>
                             </td>
                         </tr>
@@ -266,7 +267,7 @@
                         <tr>
 
                             <td colspan="4">
-                                <span class="brdr-btm">{{ LawyerName }}</span>
+                                <span class="brdr-btm">&nbsp;{{ LawyerName }}</span>
                                 <label class="label-btm">Name</label>
                             </td>
 
@@ -275,7 +276,7 @@
 
 
                             <td colspan="2">
-                                <span class="brdr-btm">{{ LawyerEmail }}</span>
+                                <span class="brdr-btm">&nbsp;{{ LawyerEmail }}</span>
                                 <label class="label-btm">Email</label>
                             </td>
                             <td colspan="1">
@@ -398,11 +399,12 @@
                             <td colspan="2">
                                 <span class="check selected"></span>
                                 <span class="label">allocation of parental responsibilities</span>
+                                <span>&nbsp;</span><!--keep this item aligned -->
                             </td>
                             <td colspan="2">
                                 <span class="check selected"></span>
-                                <span class="label" >other order (specify) <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span></span>
-
+                                <span class="label" style="float: left;">other order (specify) </span>
+                                <span class="brdr-btm" style="margin-top: .5em;float: left;display: block;width: 80%;">&nbsp;</span>
                             </td>
                         </tr>
                     </table>
@@ -682,7 +684,7 @@
                         </tr>
                         <tr>
                             <td colspan="4">
-                                <legend>Information for Applicant and Respondent</legend>
+                                <legend style="margin-top: 1em;">Information for Applicant and Respondent</legend>
                                 <p>You must complete Form 4, following the instructions on that form, if:</p>
                                 <ul>
                                     <li>there is a claim for spousal support,</li>
@@ -1332,7 +1334,7 @@
                             <td colspan="4" style="padding-top: 1em;">
                                 <!-- scope 1 always checked -->
                                 <span class="check selected">&#10003;</span>
-                                <span class="label">I am making the application* <span class="addendum" style="float: right; padding-right:25%;">OR</span></span>
+                                <span class="label">I am making the application*</span>
                             </td>
 
                         </tr>
