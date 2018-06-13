@@ -32,6 +32,7 @@ table {
   width: 100%;
 }
 
+
 td {
   padding: .25em;
   width: 25%;
@@ -91,11 +92,13 @@ span.label {
 }
 
 label, .label-num:after, .label-date:after, .name-party:after, .label-name-person:after, .label-court:after, .label-time:after, .label-names:after, .label-identify:after, .label-method:after, .label-specify:after, .label-name:after, .label-occupation:after {
+
   font-size: .5em;
   text-transform: uppercase;
   margin: .5em 0;
   padding: 0 0 .15em;
 }
+
 
 .label-num:after, .label-date:after, .name-party:after, .label-name-person:after, .label-court:after, .label-time:after, .label-names:after, .label-identify:after, .label-method:after, .label-specify:after, .label-name:after, .label-occupation:after {
   position: relative;
@@ -162,17 +165,16 @@ legend {
 }
 
 .party-label {
+
   font-weight: normal;
   text-transform: uppercase;
   font-size: 1.25em;
   text-align: right;
 }
-
 aside {
   font-style: italic;
   font-size: .75em;
 }
-
 h1 {
   font-size: 1.5em;
   font-weight: bold;
@@ -181,7 +183,6 @@ h1 {
   float: left;
   width: 65%;
 }
-
 span.sub-heading {
   display: block;
   font-size: .85em;
@@ -189,6 +190,7 @@ span.sub-heading {
   font-weight: normal;
   margin-top: .5em;
 }
+
 
 .addendum, .short, .medium, .long, .extra-long {
   display: inline-block;

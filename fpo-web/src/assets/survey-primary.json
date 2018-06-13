@@ -985,6 +985,7 @@
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
      "title": "What is your job or profession?",
      "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
+
     },
     {
      "type": "comment",
@@ -1026,3 +1027,4 @@
  "showQuestionNumbers": "off",
  "requiredText": ""
 }
+

@@ -23,9 +23,8 @@
       ],
 
       "scripts": [
-        "assets/js/zendesk.js",
-        "assets/js/xepOnline.jqPlugin.js",
-        "../node_modules/jquery/dist/jquery.min.js"
+
+        "assets/js/zendesk.js"
       ],
 
 
