@@ -1,0 +1,16 @@
+.term-html {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: auto;
+  padding: 4px 8px;
+}
+
+.term-name, .term-value, .result-json {
+  font-family: monospace;
+}
+
+.term-value, .term-html {
+  height: 180px;
+  max-width: 100%;
+}
+

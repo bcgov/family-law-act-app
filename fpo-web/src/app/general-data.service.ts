@@ -2,6 +2,7 @@ import { PlatformLocation } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -9,6 +10,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class GeneralDataService {
+  private onUserInfo: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private userInfo: any = null;
 
   constructor(
     private http: Http,
@@ -23,17 +26,74 @@ export class GeneralDataService {
     return this.getBaseHref() + 'api/' + action;
   }
 
-  loadJson(url: string, params?: any, relative?: boolean) {
+  loadJson(url: string, params?: any, headers?: any, relative?: boolean) : Promise<any> {
     if(! url)
       return Promise.reject('Cache name not defined');
     if(relative)
       url = this.getBaseHref() + url;
-    return this.http.get(url, { params })
+    return this.http.get(url, { params, headers, withCredentials: true })
       .map((x) => x.json())
       .toPromise()
       .catch((error: any) => {
         return Promise.reject(error.message || error);
       });
+  }
+
+  loadUserInfo(demo_login?: string) {
+    let headers = null;
+    if(demo_login !== undefined) {
+      headers = new Headers({'X-DEMO-LOGIN': demo_login});
+    }
+    let url = this.getApiUrl('user-info');
+    return this.loadJson(url, { t: new Date().getTime() }, headers)
+      .then((result) => {
+        this.returnUserInfo(result);
+        return result;
+      })
+      .catch((error) => {
+        this.returnUserInfo(null);
+        return Promise.reject(error);
+      });
+  }
+
+  logout() {
+    if(this.userInfo && this.userInfo.demo_user) {
+      // clear demo login cookie
+      this.loadUserInfo('').then(() => {
+        window.location.replace(this.getBaseHref());
+      });
+    } else {
+      // redirect to siteminder logout URL
+      // ...
+    }
+  }
+
+  returnUserInfo(result) {
+    console.log('user info:', result);
+    this.userInfo = result;
+    this.onUserInfo.next(result);
+  }
+
+  subscribeUserInfo(callb) {
+    return this.onUserInfo.subscribe(callb);
+  }
+
+  requireLogin(no_terms?) {
+    if(this.userInfo && this.userInfo.user_id && (no_terms || this.userInfo.accepted_terms_at)) {
+      return Promise.resolve(this.userInfo);
+    }
+    return this.loadUserInfo().then((result) => {
+        if(result && result.user_id) return result;
+        return Promise.reject('Not logged in');
+      });
+  }
+
+  acceptTerms() {
+    let url = this.getApiUrl('accept-terms');
+    return this.http.post(url, null, { withCredentials: true })
+      .map((x) => x.json())
+      .toPromise()
+      .then((result) => this.loadUserInfo());
   }
 
   clearSurveyCache(name: string, key?: string, useLocal?: boolean) {
@@ -81,7 +141,7 @@ export class GeneralDataService {
       window.localStorage.setItem(localKey, postData);
       savedLocal = true;
     }
-    return this.http.post(url, postData, {headers})
+    return this.http.post(url, postData, { headers, withCredentials: true })
       .map((result) => {
         let json = result.json();
         if(json && json.key) json.result = data;

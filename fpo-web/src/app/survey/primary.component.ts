@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralDataService } from '../general-data.service';
 
+declare var window: any;
+
 @Component({
     selector: 'survey-primary',
     templateUrl: './primary.component.html',
     styleUrls: ['./primary.component.scss']
 })
 export class SurveyPrimaryComponent implements OnInit {
+
 
     public cacheName: string;
     public showSidebar: boolean = true;
@@ -18,6 +21,8 @@ export class SurveyPrimaryComponent implements OnInit {
     public complete: Function;
     public data: any;
     public jsonObject: any;
+
+
 
 
     constructor(
@@ -188,5 +193,4 @@ export class SurveyPrimaryComponent implements OnInit {
             this.printUrl = this.dataService.getApiUrl('survey-print/' + this.cacheName);
         }
     }
-
 }

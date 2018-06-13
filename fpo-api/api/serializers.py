@@ -2,7 +2,7 @@
     REST API Documentation for Family Protection Order
 
     OpenAPI spec version: v1
-        
+
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -16,36 +16,3 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
-
-from rest_framework import serializers
-
-from .models.Role import Role
-from .models.Permission import Permission
-from .models.RolePermission import RolePermission
-from .models.User import User
-from .models.UserRole import UserRole
-
-class PermissionSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Permission
-    fields = ('id','code','name','description')
-
-class RoleSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Role
-    fields = ('id','name','description')
-
-class RolePermissionSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = RolePermission
-    fields = ('id','roleId','permissionId')
-
-class UserSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = User
-    fields = ('id','givenName','surname','email','userId','guid','authorizationDirectory','effectiveDate','endDate')
-
-class UserRoleSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = UserRole
-    fields = ('id','userId','roleId','effectiveDate','endDate')
