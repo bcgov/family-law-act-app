@@ -23,6 +23,7 @@
       ],
 
       "scripts": [
+
         "assets/js/zendesk.js"
       ],
 

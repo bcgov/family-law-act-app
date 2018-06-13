@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from 'app/home/home.component';
 import { ResultComponent } from 'app/result/result.component';
+import { GlossaryEditorComponent } from 'app/glossary/editor.component';
 import { SurveyPrimaryComponent } from 'app/survey/primary.component';
 import { SurveyResolver }   from 'app/survey/survey-resolver.service';
 import { SurveyEditorComponent } from 'app/survey/editor.component';
+import { UserStatusComponent } from 'app/home/status.component';
+import { UserStatusResolver }   from 'app/home/status-resolver.service';
 
 const routes: Routes = [
   {
@@ -32,6 +35,7 @@ const routes: Routes = [
     path: 'prv/survey',
     component: SurveyPrimaryComponent,
     resolve: {
+      userInfo: UserStatusResolver,
       // to resolve survey json before rendering the component:
       // survey: SurveyResolver,
     },
@@ -48,7 +52,19 @@ const routes: Routes = [
       breadcrumb: 'Survey Results'
     }
   },
-  { path: 'survey-editor',
+  {
+    path: 'glossary-editor',
+    redirectTo: 'prv/glossary-editor'
+  },
+  {
+    path: 'prv/glossary-editor',
+    component: GlossaryEditorComponent,
+    data: {
+      breadcrumb: 'Glossary Editor',
+    }
+  },
+  {
+    path: 'survey-editor',
     redirectTo: 'prv/survey-editor'
   },
   {
@@ -62,7 +78,14 @@ const routes: Routes = [
       cache_name: 'editor',
       survey_path: 'assets/survey-primary.json'
     }
-  }
+  },
+  {
+    path: 'prv/status',
+    component: UserStatusComponent,
+    data: {
+      breadcrumb: 'Status',
+    }
+  },
 ];
 
 @NgModule({

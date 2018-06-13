@@ -505,7 +505,7 @@
                         {% define "y" as ChildNeedsProtection %}
                         {% endif %}
                         {% endfor %}
-                        <p>child match?: {{ ChildAllMatch }}</p>
+
                         {% for child in ListOfChildren %}
 
 
@@ -538,31 +538,38 @@
                             <td colspan="4">
                                 <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
 
-                                <span class="brdr-btm" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians of {{ child.ChildName }}{% if ChildApplicantPDecisions == "y" and ChildRespondentPDecisions == "y" %} and make parents decisions for {{ child.ChildName }} {% elif ChildApplicantPDecisions == "y" %} and {{ ApplicantName }} make parents decisions for {{ child.ChildName }}{% elif ChildRespondentPDecisions == "y" %} and {{ RespondentName }} make parents decisions for {{ child.ChildName }}{% endif %}</span>
-                                <span class="brdr-btm" style="margin-top: .5em;">{% if ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {{ child.ChildName }} equally.
-                                    {% elif ChildMainGuardians == "applicantmoreptime" %} {{ ApplicantName }}{% else %} {{ RespondentName }} spends more time with {{ child.ChildName }}.{% endif %}
-                                    {% if ChildMainGuardians == "applicantmoreptime" %} {{ RespondentName }}{% else %} {{ ApplicantName }}{% endif %} spends time widh{{ child.ChildName }}
-                                    {% if ChildEqualPTime == "n" %}
-                                    {% if ChildMainGuardians == "applicantmoreptime" %}
-                                        {% if ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
-                                        {% elif ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
-                                        {% elif ChildRespondentUnequalPTime == "1pw" %} At least once a week.
-                                        {% elif ChildRespondentUnequalPTime == "2pm" %} At least every other week.
-                                        {% elif ChildRespondentUnequalPTime == "1pm" %} At least once a month.
-                                        {% elif ChildRespondentUnequalPTime == "1py" %} At least twice a year.
-                                        {% else %} There is an error
-                                        {% endif %}
-                                    {% else %}
-                                        {% if ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
-                                        {% elif ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
-                                        {% elif ChildApplicantUnequalPTime == "1pw" %} At least once a week.
-                                        {% elif ChildApplicantUnequalPTime == "2pm" %} At least every other week.
-                                        {% elif ChildApplicantUnequalPTime == "1pm" %} At least once a month.
-                                        {% elif ChildApplicantUnequalPTime == "1py" %} At least twice a year.
-                                        {% else %} There is an error
+                                <span class="brdr-btm" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians of {{ child.ChildName }}
+                                    {% if child.ChildApplicantPDecisions == "y" and child.ChildRespondentPDecisions == "y" %} and make parents decisions for {{ child.ChildName }}
+                                    {% elif child.ChildApplicantPDecisions == "y" %} and {{ ApplicantName }} make parents decisions for {{ child.ChildName }}
+                                    {% elif child.ChildRespondentPDecisions == "y" %} and {{ RespondentName }} make parents decisions for {{ child.ChildName }}
+                                    {% endif %}</span>
+                                <span class="brdr-btm" style="margin-top: .5em;">
+                                    {% if child.ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {{ child.ChildName }} equally.
+                                    {% elif child.ChildEqualPTime == "n" %}
+                                        {% if child.ChildMainGuardians == "applicantmoreptime" %}{{ ApplicantName }} spends more time with {{ child.ChildName }}.
+                                            {{ RespondentName }} spends time with {{ child.ChildName }}
+                                            {% if child.ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
+                                            {% elif child.ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
+                                            {% elif child.ChildApplicantUnequalPTime == "1pw" %} At least once a week.
+                                            {% elif child.ChildApplicantUnequalPTime == "2pm" %} At least every other week.
+                                            {% elif child.ChildApplicantUnequalPTime == "1pm" %} At least once a month.
+                                            {% elif child.ChildApplicantUnequalPTime == "1py" %} At least twice a year.
+                                            {% else %} Please choose one of the options
+                                            {% endif %}
+
+                                        {% elif child.ChildMainGuardians == "respondentmoreptime" %} {{ RespondentName }} spends more time with {{ child.ChildName }}.
+                                            {{ ApplicantName }} spends time with {{ child.ChildName }}
+                                            {% if child.ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
+                                            {% elif child.ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
+                                            {% elif child.ChildRespondentUnequalPTime == "1pw" %} At least once a week.
+                                            {% elif child.ChildRespondentUnequalPTime == "2pm" %} At least every other week.
+                                            {% elif child.ChildRespondentUnequalPTime == "1pm" %} At least once a month.
+                                            {% elif child.ChildRespondentUnequalPTime == "1py" %} At least twice a year.
+                                            {% else %} Please choose one of the options
+                                            {% endif %}
                                         {% endif %}
                                     {% endif %}
-                                    {% endif %}
+
                                 </span>
                             </td>
                         </tr>
@@ -578,43 +585,40 @@
                                 <span class="brdr-btm" style="margin-top: .5em;" >&nbsp;</span>
                             </td>
                         </tr>
-                        {% if forloop.last %}
-                        <p>this is the last child</p>
-                        {% endif %}
                         {% endfor %}
                         {% if ChildAllMatch == "y" %}
-
                         <tr>
                             <td colspan="4">
                                 <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
 
-                                <span class="" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians and make parents decisions for {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %}</span>
+                                <span class="" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians and make parents decisions for {{ listOfChildren }}</span>
+                                {% if ListOfChildren.0.ChildApplicantPDecisions == "y" and ListOfChildren.0.ChildRespondentPDecisions == "y" %} and make parents decisions for {{ child.ChildName }}
+                                {% elif ListOfChildren.0.ChildApplicantPDecisions == "y" %} and {{ ApplicantName }} make parents decisions for {{ child.ChildName }}
+                                {% elif ListOfChildren.0.ChildRespondentPDecisions == "y" %} and {{ RespondentName }} make parents decisions for {{ child.ChildName }}
+                                {% endif %}</span>
+
                                 <span class="brdr-btm" style="margin-top: .5em;">
-                                    {% if ListOfChildren.0.ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %} equally.
-                                    {% elif ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %} {{ ApplicantName }}
-                                    {% else %} {{ RespondentName }} spends more time with {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %}.
-                                    {% endif %}
-                                    {% if ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %} {{ RespondentName }}{% elif ListOfChildren.0.ChildMainGuardians == "respondentmoreptime" %} {{ ApplicantName }} spends time widh {% for child in ListOfChildren %}{% if forloop.first %}{{ child.ChildName }}{% elif forloop.last %} and {{ child.ChildName }}{% else %}, {{ child.ChildName }}{% endif %}{% endfor %}{% endif %}
-                                    {% if ListOfChildren.0.ChildEqualPTime == "n" %}
-                                    {% if ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %}
-                                    {% if ListOfChildren.0.ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
-                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
-                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pw" %} At least once a week.
-                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pm" %} At least every other week.
-                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pm" %} At least once a month.
-                                    {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1py" %} At least twice a year.
-                                    {% else %} There is an error
-                                    {% endif %}
-                                    {% else %}
-                                    {% if ListOfChildren.0.ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
-                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
-                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pw" %} At least once a week.
-                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pm" %} At least every other week.
-                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pm" %} At least once a month.
-                                    {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1py" %} At least twice a year.
-                                    {% else %} There is an error
-                                    {% endif %}
-                                    {% endif %}
+                                    {% if ListOfChildren.0.ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {{ listOfChildrenString }} equally.
+                                    {% elif ListOfChildren.0.ChildEqualPTime == "n" %}
+                                        {% if ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %} {{ ApplicantName }} spends more time with {{ listOfChildrenString }}.
+                                            {% if ListOfChildren.0.ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
+                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
+                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pw" %} At least once a week.
+                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pm" %} At least every other week.
+                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pm" %} At least once a month.
+                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1py" %} At least twice a year.
+                                            {% else %} There is an error
+                                            {% endif %}
+                                        {% elif ListOfChildren.0.ChildMainGuardians == "respondentmoreptime" %} {{ RespondentName }} spends more time with {{ listOfChildrenString }}.
+                                            {% if ListOfChildren.0.ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
+                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
+                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pw" %} At least once a week.
+                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pm" %} At least every other week.
+                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pm" %} At least once a month.
+                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1py" %} At least twice a year.
+                                            {% else %} There is an error
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
 
@@ -719,7 +723,6 @@
                                 <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
                                 <p>I am asking for an order in the following terms:</p>
                                 <span class="brdr-btm">
-                                    <p>new variable here! {{ listOfChildrenWithPO }}</p>
                                     {% if ApplicantNeedsProtection == "y" %}
                                         {% if ChildNeedsProtection != "y" %}
                                             {{ RespondentName }} should stay away and not communicate with {{ listOfPeopleWithPO }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
@@ -1321,7 +1324,7 @@
                         </tr>
                         <tr>
                             <td colspan="4">
-                                <span class="label blank">I make this affidavit in relation to an application* by<span class="long brdr-btm label-name">Data 1.4</span></span>
+                                <span class="label blank">I make this affidavit in relation to an application* by<span class="long brdr-btm label-name">&nbsp;</span></span>
                             </td>
                         </tr>
                         <tr>

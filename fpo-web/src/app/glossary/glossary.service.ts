@@ -11,7 +11,7 @@ export class GlossaryService {
   constructor(
     private dataService: GeneralDataService
   ) {
-    this.loaded = this.dataService.loadJson('assets/glossary.json', null, true)
+    this.loaded = this.dataService.loadJson('assets/glossary.json', null, null, true)
       .then((data: any) => {
         this.terms = {};
         for(let k in data) {
@@ -54,8 +54,14 @@ export class GlossaryService {
       if(m) {
         content = m[1];
       }*/
+      // open all links in new tab
+      content = content.replace(/<a ([^>]+)/g, function(a) { return a + ' target="_blank"'; });
     }
     return content;
+  }
+
+  getAllTerms() {
+    return Object.assign({}, this.terms);
   }
 
   registerTargets(container?: HTMLElement) {

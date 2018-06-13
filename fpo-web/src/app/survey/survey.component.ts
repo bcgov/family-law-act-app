@@ -21,6 +21,7 @@ export class SurveyComponent  {
   @Input() surveyPath: string;
   public cacheLoadTime: any;
   public cacheKey: string;
+  public surveyCompleted = false;
   public surveyModel: Survey.SurveyModel;
   public onPageUpdate: BehaviorSubject<Survey.SurveyModel> = new BehaviorSubject<Survey.SurveyModel>(null);
   public error: string;
@@ -109,7 +110,7 @@ export class SurveyComponent  {
       surveyModel.onTextMarkdown.add((survey, options) => {
         let str = this.markdownConverter.makeHtml(options.text);
         // remove root paragraph <p></p>
-        let m = str.match(/^<p>(.*)<\/p>$/m);
+        let m = str.match(/^<p>(.*)<\/p>$/);
         if(m) {
           str = m[1];
         }
@@ -130,6 +131,9 @@ export class SurveyComponent  {
     }
 
     surveyModel.onComplete.add((sender, options) => {
+      this.surveyCompleted = true;
+      if(! this.disableCache)
+        this.saveCache();
       if(this.onComplete) this.onComplete(sender.data)
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
@@ -187,6 +191,7 @@ export class SurveyComponent  {
   resetCache() {
     if(this.surveyModel) {
       this.prevPageIndex = 0;
+      this.surveyCompleted = false;
       this.surveyModel.data = {};
       this.surveyModel.currentPageNo = 0;
     }
@@ -208,6 +213,7 @@ export class SurveyComponent  {
         this.surveyModel.currentPageNo = this.prevPageIndex;
         this.surveyModel.data = cache.data;
         this.cacheLoadTime = cache.time;
+        this.surveyCompleted = cache.completed || false;
         this.cacheKey = response.key;
       }
     }
@@ -218,17 +224,22 @@ export class SurveyComponent  {
       'time': new Date().getTime(),
       'data': this.surveyModel.data,
       'page': this.surveyModel.currentPageNo,
+      'completed': this.surveyCompleted,
     };
     this.dataService.saveSurveyCache(this.cacheName, cache, this.cacheKey, this.useLocalCache)
       .then(this.doneSaveCache.bind(this))
       .catch((err) => this.doneSaveCache(null, err));
   }
 
-  doneSaveCache(response, err?) {
+  doneSaveCache(response, err?) {console.log(response);
     if(response && response.status === 'ok' && response.result) {
       this.cacheLoadTime = response.result.time;
       this.cacheKey = response.key;
     }
+  }
+
+  logout() {
+    this.dataService.logout();
   }
 
 }
