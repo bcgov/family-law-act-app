@@ -115,7 +115,7 @@ class SiteMinderAuth(authentication.BaseAuthentication):
                 custom_email = request.META['HTTP_X_DEMO_LOGIN']
             else:
                 custom_email = request.COOKIES.get('x-demo-login')
-            if custom_email and re.match(r'\w+@\w+\.\w+', custom_email):
+            if custom_email and re.match(r'[\w\.\-\+]+@[\w\.\-]+\.\w+', custom_email):
                 self.__logger.info('Authenticating demo login \'%s\'', custom_email)
                 try:
                     user = User.objects.get(email=custom_email)
