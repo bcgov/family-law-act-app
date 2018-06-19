@@ -506,23 +506,24 @@
                         {% endif %}
                         {% endfor %}
 
-                        {% for child in ListOfChildren %}
+
 
 
                         <tr>
                             <td colspan="2">Name(s) of child(ren)</td>
                             <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
                         </tr>
+                        {% for child in ListOfChildren %}
                         <tr>
-
                             <td colspan="2">
-                                <span class="brdr-btm">{{ child.ChildName }}</span>
+                                <span class="brdr-btm">{{ child.ChildName }}&nbsp;</span>
 
                             </td>
                             <td colspan="2">
-                                <span class="brdr-btm">{{ child.ChildDOB }}</span>
+                                <span class="brdr-btm">{{ child.ChildDOB }}&nbsp;</span>
                             </td>
                         </tr>
+                        {% endfor %}
                         <tr>
                             <td colspan="4">
                                 <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
@@ -533,47 +534,74 @@
                                 <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
                             </td>
                         </tr>
-                        {% if ChildAllMatch == "n" %}
+
                         <tr>
                             <td colspan="4">
                                 <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
 
-                                <span class="brdr-btm" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians of {{ child.ChildName }}
-                                    {% if child.ChildApplicantPDecisions == "y" and child.ChildRespondentPDecisions == "y" %} and make parents decisions for {{ child.ChildName }}
-                                    {% elif child.ChildApplicantPDecisions == "y" %} and {{ ApplicantName }} make parents decisions for {{ child.ChildName }}
-                                    {% elif child.ChildRespondentPDecisions == "y" %} and {{ RespondentName }} make parents decisions for {{ child.ChildName }}
-                                    {% endif %}</span>
                                 <span class="brdr-btm" style="margin-top: .5em;">
-                                    {% if child.ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {{ child.ChildName }} equally.
-                                    {% elif child.ChildEqualPTime == "n" %}
-                                        {% if child.ChildMainGuardians == "applicantmoreptime" %}{{ ApplicantName }} spends more time with {{ child.ChildName }}.
-                                            {{ RespondentName }} spends time with {{ child.ChildName }}
-                                            {% if child.ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
-                                            {% elif child.ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
-                                            {% elif child.ChildApplicantUnequalPTime == "1pw" %} At least once a week.
-                                            {% elif child.ChildApplicantUnequalPTime == "2pm" %} At least every other week.
-                                            {% elif child.ChildApplicantUnequalPTime == "1pm" %} At least once a month.
-                                            {% elif child.ChildApplicantUnequalPTime == "1py" %} At least twice a year.
-                                            {% else %} Please choose one of the options
-                                            {% endif %}
 
-                                        {% elif child.ChildMainGuardians == "respondentmoreptime" %} {{ RespondentName }} spends more time with {{ child.ChildName }}.
-                                            {{ ApplicantName }} spends time with {{ child.ChildName }}
-                                            {% if child.ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
-                                            {% elif child.ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
-                                            {% elif child.ChildRespondentUnequalPTime == "1pw" %} At least once a week.
-                                            {% elif child.ChildRespondentUnequalPTime == "2pm" %} At least every other week.
-                                            {% elif child.ChildRespondentUnequalPTime == "1pm" %} At least once a month.
-                                            {% elif child.ChildRespondentUnequalPTime == "1py" %} At least twice a year.
-                                            {% else %} Please choose one of the options
-                                            {% endif %}
+                                    {% if listOfBothGuardianArray %}
+                                    {{ ApplicantName }} and {{ RespondentName }} are guardians of {{ listOfBothGuardianString }}.
+                                    {% endif %}
+                                    {% if listOfApplicantGuardianArray %}
+                                    {{ ApplicantName }} is the sole guardian of {{ listOfApplicantGuardianString }}.
+                                        {% if ChildRespondentContactOrder == "y" %}
+                                        {{ RespondentName }} has agreed-upon contact with {{ listOfApplicantGuardianString }}.
                                         {% endif %}
+                                    {% endif %}
+                                    {% if listOfRespondentGuardianArray %}
+                                    {{ RespondentName }} is the sole guardian of {{ listOfRespondentGuardianString }}.
+                                        {% if ChildApplicantContactOrder == "y" %}
+                                        {{ RespondentName }} has agreed-upon contact with {{ listOfRespondentGuardianString }}.
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if listOfBothResponsibleArray %}
+                                    {{ ApplicantName }} and {{ RespondentName }} share parenting responsibilities for {{ listOfBothResponsibleString }}.
+                                    {% endif %}
+                                    {% if listOfApplicantResponsibleArray %}
+                                    {{ ApplicantName }} has parenting responsibilities for {{ listOfApplicantResponsibleString }}.
+                                    {% endif %}
+                                    {% if listOfRespondentResponsibleArray %}
+                                    {{ RespondentName }} has parenting responsibilities for {{ listOfRespondentResponsibleString }}.
+                                    {% endif %}
+                                    {% if listOfNoResponsibleArray %}
+                                    Neither {{ ApplicantName }} nor {{ RespondentName }} has parenting responsibilities for {{ listOfNoResponsibleString }}.
+                                    {% endif %}
+                                    {% if listOfAdultChildrenArray %}
+                                    {{ listOfAdultChildrenString }} is(are) (an) adult(s).
+                                    {% endif %}
+                                    {% if listOfEqualPtimeArray %}
+                                    {{ ApplicantName }} and {{ RespondentName }} spend time with {{ listOfEqualPtimeString }} equally.
+                                    {% endif %}
+                                    {% if listOfApplicantMainGuardianArray %}
+                                        {% if ChildApplicantUnequalPTime == "y" and ChildRespondentUnequalPTime %}
+
+                                        {{ ApplicantName }} spends more time with {{ listOfApplicantMainGuardianString }}. {{ RespondentName }} spends time with {{ listOfApplicantMainGuardianString }} {{ ChildRespondentUnequalPTime }}.
+                                        {{% endif %}
+                                    {% endif %}
+                                    {% if listOfRespondentMainGuardianArray %}
+                                        {% if ChildRespondentUnequalPTime == "y" and ChildApplicantUnequalPTime %}
+                                        {{ RespondentName }} spends more time with {{ listOfRespondentMainGuardianString }}. {{ ApplicantName }} spends time with {{ listOfRespondentMainGuardianString }} {{ ChildApplicantUnequalPTime }}.
+                                        {{% endif %}
+                                    {% endif %}
+                                    {% if ChildApplicantPTime == "y" and ChildRespondentPTime == "n" %}
+                                    {{ RespondentName }} does not spend time with {{ listOfApplicantMainGuardianString }}.
+
+                                    {% endif %}
+                                    {% if ChildApplicantPTime == "n" and ChildRespondentPTime == "y" %}
+                                    {{ ApplicantName }} does not spend time with {{ listOfRespondentMainGuardianString }}.
+
+                                    {% endif %}
+                                    {% if listOfChildrenTimeNoneArray %}
+                                    Neither {{ ApplicanttName }} nor {{ RespondentName }} spends time with {{ listOfChildrenTimeNoneString }}.
                                     {% endif %}
 
                                 </span>
                             </td>
                         </tr>
-                        {% endif %}
+
+
                         <tr>
                             <td colspan="4" style="padding-top: 0;">
                                 <aside>(Complete the following if you are asking for guardianship, parenting arrangements or contact with a child.)</aside>
@@ -585,46 +613,6 @@
                                 <span class="brdr-btm" style="margin-top: .5em;" >&nbsp;</span>
                             </td>
                         </tr>
-                        {% endfor %}
-                        {% if ChildAllMatch == "y" %}
-                        <tr>
-                            <td colspan="4">
-                                <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
-
-                                <span class="" style="margin-top: .5em;">{{ ApplicantName }} and {{ RespondentName }} are guardians and make parents decisions for {{ listOfChildren }}</span>
-                                {% if ListOfChildren.0.ChildApplicantPDecisions == "y" and ListOfChildren.0.ChildRespondentPDecisions == "y" %} and make parents decisions for {{ child.ChildName }}
-                                {% elif ListOfChildren.0.ChildApplicantPDecisions == "y" %} and {{ ApplicantName }} make parents decisions for {{ child.ChildName }}
-                                {% elif ListOfChildren.0.ChildRespondentPDecisions == "y" %} and {{ RespondentName }} make parents decisions for {{ child.ChildName }}
-                                {% endif %}</span>
-
-                                <span class="brdr-btm" style="margin-top: .5em;">
-                                    {% if ListOfChildren.0.ChildEqualPTime == "y" %}{{ ApplicantName }} and {{ RespondentName }} spend time with {{ listOfChildrenString }} equally.
-                                    {% elif ListOfChildren.0.ChildEqualPTime == "n" %}
-                                        {% if ListOfChildren.0.ChildMainGuardians == "applicantmoreptime" %} {{ ApplicantName }} spends more time with {{ listOfChildrenString }}.
-                                            {% if ListOfChildren.0.ChildApplicantUnequalPTime == "3pw" %} More than twice a week.
-                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pw" %} At least twice a week.
-                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pw" %} At least once a week.
-                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "2pm" %} At least every other week.
-                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1pm" %} At least once a month.
-                                            {% elif ListOfChildren.0.ChildApplicantUnequalPTime == "1py" %} At least twice a year.
-                                            {% else %} There is an error
-                                            {% endif %}
-                                        {% elif ListOfChildren.0.ChildMainGuardians == "respondentmoreptime" %} {{ RespondentName }} spends more time with {{ listOfChildrenString }}.
-                                            {% if ListOfChildren.0.ChildRespondentUnequalPTime == "3pw" %} More than twice a week.
-                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pw" %} At least twice a week.
-                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pw" %} At least once a week.
-                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "2pm" %} At least every other week.
-                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1pm" %} At least once a month.
-                                            {% elif ListOfChildren.0.ChildRespondentUnequalPTime == "1py" %} At least twice a year.
-                                            {% else %} There is an error
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endif %}
-                                </span>
-
-                            </td>
-                        </tr>
-                        {% endif %}
                     </table>
 
                 </td>
@@ -724,13 +712,12 @@
                                 <p>I am asking for an order in the following terms:</p>
                                 <span class="brdr-btm">
                                     {% if ApplicantNeedsProtection == "y" %}
-                                        {% if ChildNeedsProtection != "y" %}
-                                            {{ RespondentName }} should stay away and not communicate with {{ listOfPeopleWithPO }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
-                                        {% endif %}
-
-                                    {% elif ApplicantNeedsProtection == "n" %}
-                                        {{ RespondentName }} should stay away and not communicate with {{ listOfChildrenWithPO }} execpt for court purposes{% if contactTypeString %} through {{ contactTypeString }} {% else %}.{% endif %}
+                                            {{ RespondentName }} should stay away and not communicate with {{ listOfPeopleWithPOString }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}.
                                     {% endif %}
+                                    {% if RespondentApplicantContactOther == "y" %}
+                                    {{ RespondentName }} should be allowed to be around and communicate with {{ ApplicantName }} for the following reason: {{ RespondentApplicantContactOtherReason }}.
+                                    {% endif %}
+
                                     {% if RespondentApplicantArrangeChildren == "y" and listOfChildrenWithoutPOString %}
                                         {{ RespondentName }} should be allowed to communicate with {{ ApplicantName }}, by {{ ArrangeMethodString }}, to arrange parenting responsibilities for {{ listOfChildrenWithoutPOString }}.
 
@@ -746,7 +733,7 @@
                                     A police officer should supervise {{ RespondentName }} while they get their personal belongings from {% if RespondentNeedsStuffAddressSame == "y" %}{{ ApplicantAddress.street }} {{ ApplicantAddress.city }}. {{ ApplicantAddress.state }}.{% else %}{{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}. {{ RespondentHasStuffAddress.state }}{% endif %}.
                                     {% endif %}
                                     {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
-                                    {{ RespondentName }} should not go near {{ listOfPeopleWithPO }}’s {{ RespondentNoGoPlacesString }}{% if RespondentNoGoPlacesComment != None %}, {{ RespondentNoGoPlacesComment }}{% endif %}.
+                                    {{ RespondentName }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}{% if RespondentNoGoPlacesComment != None %}, {{ RespondentNoGoPlacesComment }}{% endif %}.
                                     {% endif %}
                                     {% if RespondentFirearms == "y" %}
                                     {{ RespondentName }} should not be allowed to own or carry any firearms.
@@ -763,11 +750,6 @@
                                     {% if RespondentPORTime == "y" %}
                                     This Protection Order should expire on {{ RespondentPORNewTime }}.
                                     {% endif %}
-
-
-
-
-
                                 </span>
                             </td>
                         </tr>
@@ -937,12 +919,12 @@
                                 <label class="label-btm">Province</label>
                             </td>
                         </tr>
+                        {% if LawyerAddress == "n" %}
                         <tr>
                             <td>
                                 <span class="brdr-btm">{{ ApplicantAddress.postcode}}</span>
                                 <label class="label-btm">Postal Code</label>
                             </td>
-                            {% if LawyerAddress == "n" %}
                             <td>
                                 <span class="brdr-btm">{{ApplicantPhone}}</span>
                                 <label class="label-btm">Phone</label>
@@ -957,6 +939,10 @@
                             </td>
                             {% else %}
                             <td>
+                                <span class="brdr-btm">{{ ApplicantAddress.postcode}}</span>
+                                <label class="label-btm">Postal Code</label>
+                            </td>
+                            <td>
                                 <span class="brdr-btm">{{ LawyerPhone }}</span>
                                 <label class="label-btm">Phone</label>
                             </td>
@@ -968,8 +954,9 @@
                                 <span class="brdr-btm">{{ LawyerFax }}</span>
                                 <label class="label-btm">Fax</label>
                             </td>
-                            {% endif %}
+
                         </tr>
+                        {% endif %}
                         <tr>
                             <td colspan="2"><legend>Notice to:</legend></td>
                             <td colspan="2"><legend class="party-label">Respondent</legend></td>
