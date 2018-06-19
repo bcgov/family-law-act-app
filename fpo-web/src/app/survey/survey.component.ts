@@ -237,6 +237,7 @@ export class SurveyComponent  {
       this.cacheKey = response.key;
     }
   }
+
   logout() {
     this.dataService.logout();
   }
