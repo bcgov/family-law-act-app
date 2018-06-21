@@ -29,7 +29,7 @@
        "type": "infotext",
        "name": "ExplanationServiceAddress",
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'n'",
+       "visibleIf": "{Lawyer} = 'n'",
        "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace. The family member making you or your family feel unsafe will see this address.",
        "titleLocation": "hidden"
       },
@@ -64,7 +64,7 @@
         }
        ],
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'n'"
+       "visibleIf": "{Lawyer} = 'n'"
       },
       {
        "type": "panel",
@@ -102,7 +102,7 @@
         }
        ],
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'y'"
+       "visibleIf": "{Lawyer} = 'y'"
       }
      ]
     }
