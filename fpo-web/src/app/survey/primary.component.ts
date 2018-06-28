@@ -175,6 +175,10 @@ export class SurveyPrimaryComponent implements OnInit {
                             data.listOfChildrenTimeNoneArray.push(child["ChildName"]);
                         }
 
+                        if (child["ChildIsMinor"] == "n"){
+                            data.listOfAdultChildrenArray.push(child["ChildName"]);
+                        }
+
                     }
                     else if (child["ChildIsMinor"] == "n"){
                         data.childError.push("mChildNoMainGuardian");
@@ -296,7 +300,7 @@ export class SurveyPrimaryComponent implements OnInit {
                 for (let child of data.listOfAdultChildrenArray){
                     if(child == data.listOfAdultChildrenArray[data.listOfAdultChildrenArray.length-1]){
 
-                        data.listOfAdultChildrenString = data.listOfAdultChildrenString + " or "+child;
+                        data.listOfAdultChildrenString = data.listOfAdultChildrenString + " and "+child;
                     }
                     else if(child == data.listOfAdultChildrenArray[0]){
                         data.listOfAdultChildrenString = data.listOfAdultChildrenString + child;
@@ -447,11 +451,18 @@ export class SurveyPrimaryComponent implements OnInit {
                     }
                 }
             }
-            if (data.ApplicantNeedsProtection =="y"){
+            if (data.ApplicantNeedsProtection == "y"){
                 data.listOfPeopleWithPOString = data.ApplicantName;
+                console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
+                console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
+                console.log("ApplicantName is "+ data.ApplicantName);
+
             }
-            if (data.listOfChildrenWithPO != undefined){
+            if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPO != undefined){
                 data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPO;
+            }
+            else if (data.ApplicantNeedsProtection == "n" && data.listOfChildrenWithPO != undefined){
+                data.listOfPeopleWithPOString = data.listOfChildrenWithPO;
             }
             if (data.listOfChildren != undefined){
                 data.listOfPeopleString = data.listOfPeopleString +", " +data.listOfChildrenString;
