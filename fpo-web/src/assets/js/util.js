@@ -35,7 +35,7 @@
         this.current.hide();
       this.current = tip;
     },
-    register(target, content, params) {
+    register: function(target, content, params) {
       if(! target) return;
       var tip = new Tooltip(target, content, params),
           skip = function(evt) { evt.preventDefault(); evt.stopPropagation(); },
