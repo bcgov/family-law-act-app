@@ -1,0 +1,19 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: fpo-web
+# JSON Template File: templates/angular-on-nginx/angular-on-nginx-deploy.json
+#=========================================================
+# NAME=angular-on-nginx
+# IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
+# REAL_IP_FROM=172.51.0.0/16
+# API_URL=https://django-jag-csb-jes-family-protection-order.pathfinder.gov.bc.ca/api/v1/
+# API_SERVICE_NAME=django
+# API_PATH=/api/v1/
+# AdditionalRealIpFromRules=
+# IpFilterRules=
+SITEMINDER_APPLICATION_DOMAIN=protection-order-prod.pathfinder.bcgov
+# SITEMINDER_WHITE_LIST=142.34.49.76 142.34.49.77 142.34.157.10 142.34.157.11
+TAG_NAME=prod
+# HTTP_BASIC=
+# HTTP_BASIC_USERNAME=
+# HTTP_BASIC_PASSWORD=

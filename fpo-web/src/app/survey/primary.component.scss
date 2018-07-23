@@ -1,0 +1,240 @@
+@page {
+  size: Letter;
+  margin: .44in 0.44in 0.2in 0.5in;
+  font-size: 10pt;
+  font-family: Helvetica, Arial, sans-serif;
+  @bottom-right {
+    counter-increment: page;
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 8pt;
+  }
+}
+
+
+@page label {
+  font-size: 8pt;
+}
+
+
+.nom-form, .affidavit-form {
+  page-break-before: always;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+
+td {
+  padding: .25em;
+  width: 25%;
+}
+
+/* wrappers / containers */
+
+.container {
+  background-color: #FFFFFF;
+  color: #000000;
+  font-size: .85em;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.15;
+}
+
+.dataset-wrapper, .data-item span {
+  display: block;
+}
+
+/* base visuals */
+
+.bordered {
+  border: 1px solid #000;
+}
+
+.brdr-btm {
+  border-bottom: 1px solid #000;
+  margin-bottom: .5em;
+}
+
+.section {
+  padding-top: .75em;
+}
+
+.spacer {
+  height: 1em;
+}
+
+span.check {
+  border: 1px solid #000 !important;
+  width: 1em;
+  height: 1em;
+  float: left;
+  margin-right: .5em;
+  font-size: 1.2em;
+}
+
+/* typography */
+
+label, legend, span, aside {
+  display: block;
+}
+span.label {
+  color: #000000;
+  text-align: left;
+}
+
+label, .label-num:after, .label-date:after, .name-party:after, .label-name-person:after, .label-court:after, .label-time:after, .label-names:after, .label-identify:after, .label-method:after, .label-specify:after, .label-name:after, .label-occupation:after {
+
+  font-size: .5em;
+  text-transform: uppercase;
+  margin: .5em 0;
+  padding: 0 0 .15em;
+}
+
+
+.label-num:after, .label-date:after, .name-party:after, .label-name-person:after, .label-court:after, .label-time:after, .label-names:after, .label-identify:after, .label-method:after, .label-specify:after, .label-name:after, .label-occupation:after {
+  position: relative;
+  top: 13px;
+  left: 0;
+}
+
+.label-num:after {
+  content: 'number';
+}
+
+.label-date:after {
+  content: '(MMM/DD/YYYY)';
+}
+
+.label-name-person:after {
+  content: 'NAME OF PERSON MAKING APPLICATION';
+}
+
+.label-name:after {
+  content: 'NAME';
+}
+
+.label-court:after {
+  content: 'COURT LOCATION';
+}
+
+.label-time:after {
+  content: 'TIME';
+}
+
+.label-names:after {
+  content: 'NAMES';
+}
+
+.label-identify:after {
+  content: 'IDENTIFY DOCUMENTS';
+}
+
+.label-method:after {
+  content: 'METHOD OF SERVICE';
+}
+
+.label-specify:after {
+  content: 'SPECIFY';
+}
+
+.label-occupation:after {
+  content: 'OCCUPATION';
+}
+
+.name-party:after {
+  content: 'Name of party';
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.1em;
+  .sub {
+    font-weight: normal;
+    font-style: italic;
+    display: inline-block;
+  }
+}
+
+.party-label {
+
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  text-align: right;
+}
+aside {
+  font-style: italic;
+  font-size: .75em;
+}
+h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0.67em 0;
+  text-transform: uppercase;
+  float: left;
+  width: 65%;
+}
+span.sub-heading {
+  display: block;
+  font-size: .85em;
+  text-transform: none;
+  font-weight: normal;
+  margin-top: .5em;
+}
+
+
+.addendum, .short, .medium, .long, .extra-long {
+  display: inline-block;
+  margin: 0 .5em;
+}
+
+.short {
+  width: 20%;
+}
+
+.medium {
+  width: 30%;
+}
+
+.long {
+  width: 40%;
+}
+
+.extra-long {
+  width: 80%;
+}
+
+ul li {
+  padding: .25em;
+  line-height: 1.25;
+  ul {
+    list-style-type: disc;
+  }
+}
+
+.signature-area {
+  padding: 2em;
+}
+
+.box {
+  border: 1px solid #000;
+  display: block;
+  height: 4em;
+}
+
+.separation {
+  border-top: 2px solid #000;
+}
+
+ol.lower-alpha {
+  list-style-type: lower-alpha;
+}

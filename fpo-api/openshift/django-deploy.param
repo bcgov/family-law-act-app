@@ -1,0 +1,17 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: fpo-api
+# JSON Template File: templates/django/django-deploy.json
+#=========================================================
+NAME=django
+IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
+MEMORY_LIMIT=512Mi
+APPLICATION_DOMAIN=django-jag-csb-jes-family-protection-order-dev.pathfinder.gov.bc.ca
+DATABASE_SERVICE_NAME=postgresql
+DATABASE_ENGINE=postgresql
+DATABASE_NAME=FPO_Database
+APP_CONFIG=
+# DJANGO_SECRET_KEY=[\w]{50}
+DJANGO_DEBUG=False
+TAG_NAME=dev
+DATABASE_DEPLOYMENT_NAME=postgresql
