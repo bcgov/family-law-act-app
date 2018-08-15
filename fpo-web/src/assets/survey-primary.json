@@ -22,14 +22,14 @@
       },
       {
        "type": "yesno",
-       "name": "LawyerAddress",
+       "name": "Lawyer",
        "title": "Has a lawyer agreed to receive court documents for you?"
       },
       {
        "type": "infotext",
        "name": "ExplanationServiceAddress",
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'n'",
+       "visibleIf": "{Lawyer} = 'n'",
        "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace. The family member making you or your family feel unsafe will see this address.",
        "titleLocation": "hidden"
       },
@@ -64,7 +64,7 @@
         }
        ],
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'n'"
+       "visibleIf": "{Lawyer} = 'n'"
       },
       {
        "type": "panel",
@@ -102,7 +102,7 @@
         }
        ],
        "visible": false,
-       "visibleIf": "{LawyerAddress} = 'y'"
+       "visibleIf": "{Lawyer} = 'y'"
       }
      ]
     }
@@ -398,7 +398,7 @@
          "type": "infotext",
          "name": "ErrorNeitherGuardians",
          "visible": false,
-         "visibleIf": "{ApplicantNeedsProtection} = 'n' and {panel.ChildNeedsProtection} = 'y' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildRespondentGuardian} = 'n'",
+         "visibleIf": "{ApplicantNeedsProtection} = 'n' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildRespondentGuardian} = 'n'",
          "title": "This service is currently limited to situations where ex-partners have shared children. These children cannot have parents or guardians other than you, {ApplicantName}, and {RespondentName}.\n<br>\n<br>\nIf any children have parents or guardians other than you and {RespondentName}, you can still apply for a Provincial Court `Family Law Protection Order`.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
          "titleLocation": "hidden",
          "messageStyle": "error"
@@ -985,7 +985,6 @@
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
      "title": "What is your job or profession?",
      "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
-
     },
     {
      "type": "comment",
@@ -1027,4 +1026,3 @@
  "showQuestionNumbers": "off",
  "requiredText": ""
 }
-
