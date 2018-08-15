@@ -3,6 +3,10 @@ Family Protection Order Form
 
 ## Structure
 
+## Dev environment
+Currently it needs npm 5.8, node 9.4, e2s installed. 
+running on Docker is recommended
+
 ### Client Application (fpo-web)
 An AngularJS client application which serves out the SurveyJS based questionnaire.
 
