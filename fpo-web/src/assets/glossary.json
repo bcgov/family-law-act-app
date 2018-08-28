@@ -1,29 +1,16 @@
 {
-  "affidavit": "An affidavit is a document that contains facts that you swear under oath or affirm to be true. It is your story that you are telling the court.",
-
-  "family member": "A family member includes:\n - someone you are or were married to\n  - someone you live or lived with in a marriage-like relationship\n  - your child’s parent or legal guardian\n  - a relative of any of the people above who lives with them\n - a relative of yours who lives with you\n  - your own child",
-
-  "family law protection order": "A Family Law Protection Order is a protection order from family court. It is a list of conditions set by a judge to protect one family member from another family member. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative.\n\n  [Click here for more information](https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/keeping-your-family-safe/protection-order)",
-
-  "family violence": "When a family member makes you feel unsafe, this is called Family Violence. Family violence includes many things such as:\n - physical abuse (or attempted abuse)\n  - emotional or mental abuse (stalking, threats, intimidation or harassment)\n - sexual abuse (or attempted abuse)\n - denying food or other basic needs\n  - children being exposed to family violence\n\n  [Click here for more information for what counts as Family Violence](http://www.justice.gc.ca/eng/cj-jp/fv-vf/laws-lois.html).",
-
-  "legal guardian": "A legal guardian is someone who was appointed by a court to be allowed to make decisions for a child under the age of 19.",
-
-  "legal guardians": "A legal guardian is someone who was appointed by a court to be allowed to make decisions for a child under the age of 19.",
-
-  "order": "An order is a list of conditions set by a judge that you and/or the other person must follow. A judge can make an order after a trial or hearing, or when both people agree. Orders are sometimes called decisions or judgments.",
-
-  "peace bond": "A peace bond is a protection order from criminal court. It is a list of conditions set by a judge to protect one person from another person. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative.\n\n  [Click here for more information](https://www2.gov.bc.ca/gov/content/justice/criminal-justice/bcs-criminal-justice-system/if-you-are-convicted-of-a-crime/no-contact/peace-bond)",
-
-  "protection order": "A Protection Order is a list of conditions set by a judge that a person must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative. If the person doesn't follow the conditions, they may face criminal charges.",
-
-  "support": "Support is money paid by one person to another, after their relationship ends, to provide for the financial needs of a spouse or children.",
-
-  "unsafe": "When a family member makes you feel unsafe, this is called Family Violence. Family violence includes many things such as:\n - physical abuse (or attempted abuse)\n  - emotional or mental abuse (stalking, threats, intimidation or harassment)\n - sexual abuse (or attempted abuse)\n - denying food or other basic needs\n  - children being exposed to family violence\n\n  [Click here for more information for what counts as Family Violence](http://www.justice.gc.ca/eng/cj-jp/fv-vf/laws-lois.html).",
-
-  "written agreement": "A written agreement is a document that is signed by you and an other person.",
-
-  "written agreements": "A written agreement is a document that is signed by you and an other person.",
-
-  "weapon": "A *weapon* means any thing used, designed to be used or intended for use\n\n  - (a) in causing death or injury to any person, or\n  - (b) for the purpose of threatening or intimidating any person\n  \n  and, without restricting the generality of the foregoing, includes a firearm and, for the purposes of sections 88, 267 and 272, any thing used, designed to be used or intended for use in binding or tying up a person against their will; (arme)\n  Click [here for more information](http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html)."
+    "affidavit": "An affidavit is a document that contains facts that you swear under oath or affirm to be true. It is your story that you are telling the court.",
+    "family law protection order": "A Family Law Protection Order is a protection order from family court. It is a list of conditions set by a judge to protect one family member from another family member. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative.\n\n  [Click here for more information](https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/keeping-your-family-safe/protection-order)",
+    "family member": "A family member includes:\n - someone you are or were married to\n  - someone you live or lived with in a marriage-like relationship\n  - your child’s parent or legal guardian\n  - a relative of any of the people above who lives with them\n - a relative of yours who lives with you\n  - your own child",
+    "family violence": "When a family member makes you feel unsafe, this is called Family Violence. Family violence includes many things such as:\n - physical abuse (or attempted abuse)\n  - emotional or mental abuse (stalking, threats, intimidation or harassment)\n - sexual abuse (or attempted abuse)\n - denying food or other basic needs\n  - children being exposed to family violence\n\n  [Click here for more information for what counts as Family Violence](http://www.justice.gc.ca/eng/cj-jp/fv-vf/laws-lois.html).",
+    "legal guardian": "A legal guardian is someone who was appointed by a court to be allowed to make decisions for a child under the age of 19.",
+    "legal guardians": "A legal guardian is someone who was appointed by a court to be allowed to make decisions for a child under the age of 19.",
+    "order": "An order is a list of conditions set by a judge that you and/or the other person must follow. A judge can make an order after a trial or hearing, or when both people agree. Orders are sometimes called decisions or judgments.",
+    "peace bond": "A peace bond is a protection order from criminal court. It is a list of conditions set by a judge to protect one person from another person. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative.\n\n  [Click here for more information](https://www2.gov.bc.ca/gov/content/justice/criminal-justice/bcs-criminal-justice-system/if-you-are-convicted-of-a-crime/no-contact/peace-bond)",
+    "protection order": "A Protection Order is a list of conditions set by a judge that a person must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative. If the person doesn't follow the conditions, they may face criminal charges.",
+    "support": "Support is money paid by one person to another, after their relationship ends, to provide for the financial needs of a spouse or children.",
+    "unsafe": "When a family member makes you feel unsafe, this is called Family Violence. Family violence includes many things such as:\n - physical abuse (or attempted abuse)\n  - emotional or mental abuse (stalking, threats, intimidation or harassment)\n - sexual abuse (or attempted abuse)\n - denying food or other basic needs\n  - children being exposed to family violence\n\n[Click here for more information for what counts as Family Violence](http://www.justice.gc.ca/eng/cj-jp/fv-vf/laws-lois.html).",
+    "weapon": "A *weapon* means any thing used, designed to be used or intended for use\n\n  - (a) in causing death or injury to any person, or\n  - (b) for the purpose of threatening or intimidating any person\n  \n  and, without restricting the generality of the foregoing, includes a firearm and, for the purposes of sections 88, 267 and 272, any thing used, designed to be used or intended for use in binding or tying up a person against their will; (arme)\n  Click [here for more information](http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html).",
+    "written agreement": "A written agreement is a document that is signed by you and an other person.",
+    "written agreements": "A written agreement is a document that is signed by you and an other person."
 }
