@@ -41,7 +41,8 @@
          "type": "address",
          "name": "ApplicantAddress",
          "title": "What is your address for receiving court documents?",
-         "description": "Court documents can include documents from the person making you (or your family) feel unsafe."
+         "description": "Court documents can include documents from the person making you (or your family) feel unsafe.",
+         "referLabel": "Applicant's Address"
         },
         {
          "type": "text",
@@ -79,7 +80,8 @@
         {
          "type": "address",
          "name": "LawyerAddress",
-         "title": "What is your lawyer's address?"
+         "title": "What is your lawyer's address?",
+         "referLabel": "Applicant's Lawyer's Address"
         },
         {
          "type": "text",

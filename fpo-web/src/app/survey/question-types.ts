@@ -115,7 +115,7 @@ function fixCheckboxes(Survey) {
 function initHelpText(Survey) {
   var widget = {
     name: "helptext",
-    title: "Help Text",
+    title: "Expanding FAQ",
     iconName: "icon-panel",
     widgetIsLoaded: function() {
       return true;
@@ -441,13 +441,23 @@ function initAddressBlock(Survey) {
         }
       ];
     },
-    prevAddrs: {},
-    prevAddrOptions: function(skipName) {
+    prevAddrOptions: function(question) {
+      let skipName = question.name;
+      let survey = question.survey;
       let addrs = [];
-      for(let k in this.prevAddrs) {
-        if(k !== skipName) addrs.push(this.prevAddrs[k]);
+      for(let page of survey.pages) {
+        for(let otherQ of page.questions) {
+          if(otherQ.getType() === 'address' && otherQ.name !== skipName &&
+              otherQ.referLabel && otherQ.value) {
+            addrs.push({
+              name: otherQ.name,
+              label: otherQ.referLabel,
+              value: Object.assign({}, otherQ.value)
+            });
+          }
+        }
       }
-      addrs.sort((a,b) => a.localeCompare(b));
+      addrs.sort((a,b) => a.label.localeCompare(b.label));
       return addrs;
     },
     afterRender: function(question, el) {
@@ -461,7 +471,7 @@ function initAddressBlock(Survey) {
       let cell;
       outer.className = outerCls;
 
-      let selOpts = this.prevAddrOptions(question.name);
+      let selOpts = this.prevAddrOptions(question);
       if(selOpts.length) {
         row = document.createElement('div');
         row.className = 'row survey-address-line';
@@ -620,14 +630,6 @@ function initAddressBlock(Survey) {
         state.value = val.state || 'BC';
         country.value = val.country || 'CAN';
         postCode.value = val.postcode || '';
-        if(val.street && question.referLabel) {
-          this.prevAddrs[question.name] = {
-            label: question.referLabel,
-            value: Object.assign({}, val)
-          };
-        } else {
-          delete this.prevAddrs[question.name];
-        }
       };
       question.valueChangedCallback();
     },
@@ -767,7 +769,7 @@ function initCustomDate(Survey) {
     willUnmount: function(question, el) {}
   };
 
-  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "inputType");
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "property");
 }
 
 
@@ -795,7 +797,7 @@ export function addToolboxOptions(editor) {
   editor.toolbox.addItem(
     {
       name: "helptext",
-      title: "Help Text",
+      title: "Expanding FAQ",
       isCopied: true,
       iconName: "icon-panel",
       json: {
