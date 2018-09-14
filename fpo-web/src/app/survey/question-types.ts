@@ -316,6 +316,15 @@ function initYesNo(Survey) {
       let div = document.createElement('span');
       div.className = 'survey-yesno-button';
       div.appendChild(document.createTextNode(label));
+      div.tabIndex = 0;
+      div.setAttribute('role', 'button');
+      div.onkeypress = function(evt) {
+        if(evt.keyCode == 32) {
+          chk.checked = true;
+          question.value = value;
+          evt.preventDefault();
+        }
+      }
       outer.appendChild(div);
       return outer;
     },
@@ -629,12 +638,146 @@ function initAddressBlock(Survey) {
 }
 
 
+function initCustomDate(Survey) {
+  var widget = {
+    name: "date",
+    title: "Date Input",
+    iconName: "icon-date",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question) {
+      return question.inputType === "date";
+    },
+    activatedByChanged: function(activatedBy) {
+    },
+    htmlTemplate: "<div class=\"form-inline date-select\"></div>",
+    monthOptions: [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December',
+    ],
+    afterRender: function(question, el) {
+      while(el.childNodes.length)
+        el.removeChild(el.childNodes[0]);
+
+      let yearVal = '';
+      let monthVal = '';
+      let dayVal = '';
+
+      let yearSel = document.createElement('select');
+      let monthSel = document.createElement('select');
+      let daySel = document.createElement('select');
+      let updateDay = function() {
+        while(daySel.childNodes.length > 1)
+          daySel.removeChild(daySel.childNodes[1]);
+        if(yearVal && monthVal) {
+          let lastDay = (new Date(parseInt(yearVal, 10), parseInt(monthVal, 10), 0)).getDate();
+          for(let day = 1; day <= lastDay; day++) {
+            var opt = document.createElement('option');
+            opt.text = ''+day;
+            opt.value = ''+day;
+            daySel.appendChild(opt);
+          }
+          if(dayVal && parseInt(dayVal, 10) > lastDay) {
+            dayVal = '';
+          }
+        } else {
+          dayVal = '';
+        }
+        daySel.value = dayVal;
+      }
+      let updateValue = function(evt?) {
+        updateDay();
+        if(yearVal && monthVal && dayVal) {
+          let dt = '' + yearVal + '-';
+          dt += (monthVal.length < 2 ? '0' : '') + monthVal;
+          dt += '-' + (dayVal.length < 2 ? '0' : '') + dayVal;
+          question.value = dt;
+        } else {
+          question.value = null;
+        }
+      }
+
+      yearSel.className = 'form-control date-select-year';
+      var opt = document.createElement('option');
+      opt.text = '(Year)';
+      opt.value = '';
+      yearSel.appendChild(opt);
+      let curYear = (new Date()).getFullYear();
+      for(let yr = curYear; yr >= 1900; yr--) {
+        var opt = document.createElement('option');
+        opt.text = ''+yr;
+        opt.value = ''+yr;
+        yearSel.appendChild(opt);
+      }
+      yearSel.onchange = function() {
+        yearVal = (<HTMLSelectElement>this).value;
+        updateValue();
+        monthSel.focus();
+      }
+      el.appendChild(yearSel);
+
+      monthSel.className = 'form-control date-select-month';
+      var opt = document.createElement('option');
+      opt.text = '(Month)';
+      opt.value = '';
+      monthSel.appendChild(opt);
+      for(let mo = 1; mo <= 12; mo ++) {
+        var opt = document.createElement('option');
+        opt.text = this.monthOptions[mo-1];
+        opt.value = ''+mo;
+        monthSel.appendChild(opt);
+      }
+      monthSel.onchange = function() {
+        monthVal = (<HTMLSelectElement>this).value;
+        updateValue();
+        daySel.focus();
+      }
+      el.appendChild(document.createTextNode(' '));
+      el.appendChild(monthSel);
+
+      daySel.className = 'form-control date-select-day';
+      var opt = document.createElement('option');
+      opt.text = '(Day)';
+      opt.value = '';
+      daySel.appendChild(opt);
+      daySel.onchange = function() {
+        dayVal = (<HTMLSelectElement>this).value;
+        updateValue();
+      }
+      el.appendChild(document.createTextNode(' '));
+      el.appendChild(daySel);
+
+      let loadValue = function() {
+        if(question.value) {
+          let dt = new Date(question.value + ' 00:00:00');
+          if(dt) {
+            yearVal = ''+dt.getFullYear();
+            monthVal = ''+(dt.getMonth() + 1);
+            dayVal = ''+dt.getDate();
+          }
+        }
+        yearSel.value = yearVal;
+        monthSel.value = monthVal;
+        updateDay();
+      };
+      loadValue();
+      question.valueChangedCallback = loadValue;
+    },
+    willUnmount: function(question, el) {}
+  };
+
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "inputType");
+}
+
+
 export function addQuestionTypes(Survey) {
   //fixCheckboxes(Survey);
   initYesNo(Survey);
   initInfoText(Survey);
   initHelpText(Survey);
   initAddressBlock(Survey);
+  initCustomDate(Survey);
 }
 
 export function addToolboxOptions(editor) {
