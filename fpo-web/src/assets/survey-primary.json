@@ -9,7 +9,7 @@
      "name": "ApplicantPanel",
      "elements": [
       {
-       "type": "text",
+       "type": "personname",
        "name": "ApplicantName",
        "title": "What is your full name?",
        "description": "You may enter a name you use in your everday life even if it does not match your ID exactly."
@@ -45,23 +45,12 @@
          "referLabel": "Applicant's Address"
         },
         {
-         "type": "text",
-         "name": "ApplicantPhone",
-         "title": "Daytime Phone Number",
-         "inputType": "tel"
-        },
-        {
-         "type": "text",
-         "name": "ApplicantFax",
-         "startWithNewLine": false,
-         "title": "Fax Number (Optional)",
-         "inputType": "tel"
-        },
-        {
-         "type": "text",
-         "name": "ApplicantEmail",
-         "startWithNewLine": false,
-         "title": "Email (Optional)"
+         "type": "contactinfo",
+         "name": "ApplicantContact",
+         "title": "Contact Information",
+         "phoneLabel": "Daytime Phone Number",
+         "faxLabel": "Fax Number (Optional)",
+         "emailLabel": "Email (Optional)"
         }
        ],
        "visible": false,
@@ -72,10 +61,9 @@
        "name": "LawyerContactPanel",
        "elements": [
         {
-         "type": "text",
+         "type": "personname",
          "name": "LawyerName",
-         "title": "What is the lawyer's full name?",
-         "inputType": "tel"
+         "title": "What is the lawyer's full name?"
         },
         {
          "type": "address",
@@ -84,23 +72,9 @@
          "referLabel": "Applicant's Lawyer's Address"
         },
         {
-         "type": "text",
-         "name": "LawyerPhone",
-         "title": "Lawyer's Phone Number",
-         "inputType": "tel"
-        },
-        {
-         "type": "text",
-         "name": "LawyerEmail",
-         "startWithNewLine": false,
-         "title": "Lawyer's Email (Optional)"
-        },
-        {
-         "type": "text",
-         "name": "LawyerFax",
-         "startWithNewLine": false,
-         "title": "Lawyer's Fax Number (Optional)",
-         "inputType": "tel"
+         "type": "contactinfo",
+         "name": "LawyerContact",
+         "title": "Lawyer's Contact Information"
         }
        ],
        "visible": false,
@@ -119,7 +93,7 @@
      "name": "RespondentPanel",
      "elements": [
       {
-       "type": "text",
+       "type": "personname",
        "name": "RespondentName",
        "title": "What is the full name of the person that is making you (or your children) feel `unsafe`?",
        "description": "If you know how their name is written on their ID cards, that will be the most useful."
@@ -308,7 +282,7 @@
       {
        "type": "yesno",
        "name": "ChildrenInvolved",
-       "title": "Do, you, {ApplicantName} and {RespondentName} have children?",
+       "title": "Do you, {ApplicantName}, and {RespondentName} have children?",
        "description": "If {ApplicantName} or {RespondentName} have children, the court will want to know about them even if the children do not need protection."
       },
       {
@@ -330,7 +304,7 @@
      "title": "Information about each child",
      "templateElements": [
       {
-       "type": "text",
+       "type": "personname",
        "name": "ChildName",
        "title": "What is the child's full name?",
        "description": "You can still use this service without the child's full name. A Protection Order is most effective with this information.\n"

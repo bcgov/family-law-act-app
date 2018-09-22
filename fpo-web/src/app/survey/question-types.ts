@@ -268,7 +268,6 @@ function initInfoText(Survey) {
         if(body) {
           let bodyContent = question.body || '';
           let bodyHtml = question.getMarkdownHtml(bodyContent);
-          console.log(bodyHtml, '?', bodyContent);
           if(bodyHtml !== null)
             body.innerHTML = question.getProcessedHtml(bodyHtml);
           else
@@ -300,50 +299,53 @@ function initYesNo(Survey) {
       Survey.JsonObject.metaData.addClass("yesno", [], null, "empty");
     },
     htmlTemplate: "<div></div>",
-    makeButton: function(name, label, value, question) {
+    makeButton: function(question, opt) {
       let chk = document.createElement('input');
       chk.type = 'radio';
-      chk.name = name;
-      chk.value = value;
-      chk.checked = (question.value === value);
+      chk.name = question.name;
+      chk.value = opt.value;
+      chk.checked = (question.value === opt.value);
       chk.onclick = function() {
         if((<HTMLInputElement>this).checked)
-          question.value = value;
+          question.value = opt.value;
       }
+      opt.input = chk;
       let outer = document.createElement('label');
       outer.className = 'survey-yesno';
       outer.appendChild(chk);
       let div = document.createElement('span');
       div.className = 'survey-yesno-button';
-      div.appendChild(document.createTextNode(label));
+      div.appendChild(document.createTextNode(opt.label));
       div.tabIndex = 0;
       div.setAttribute('role', 'button');
+      if(opt.value === 'y')
+        div.id = question.inputId; // allow auto focus
       div.onkeypress = function(evt) {
         if(evt.keyCode == 32) {
           chk.checked = true;
-          question.value = value;
+          question.value = opt.value;
           evt.preventDefault();
         }
       }
       outer.appendChild(div);
+      opt.button = outer;
       return outer;
     },
     afterRender: function(question, el) {
       while(el.childNodes.length)
         el.removeChild(el.childNodes[0]);
 
-      let choices : any[] = [
-        {label: 'Yes', value: 'y'},
-        {label: 'No', value: 'n'}
+      let choices = [
+        {label: 'Yes', value: 'y', button: null, input: null},
+        {label: 'No', value: 'n', button: null, input: null}
       ];
       for(let opt of choices) {
-        let btn = this.makeButton(question.name, opt.label, opt.value, question);
-        opt.button = btn;
-        el.appendChild(btn);
+        let btn = this.makeButton(question, opt);
+        el.appendChild(opt.button);
       }
       question.valueChangedCallback = function() {
         for(let opt of choices) {
-          if(opt.value === question.value) opt.button.checked = true;
+          if(opt.value === question.value) opt.input.checked = true;
         }
       };
     },
@@ -445,15 +447,27 @@ function initAddressBlock(Survey) {
       let skipName = question.name;
       let survey = question.survey;
       let addrs = [];
+      let seen = {};
+      let otherQVal;
       for(let page of survey.pages) {
         for(let otherQ of page.questions) {
-          if(otherQ.getType() === 'address' && otherQ.name !== skipName &&
-              otherQ.referLabel && otherQ.value) {
-            addrs.push({
-              name: otherQ.name,
-              label: otherQ.referLabel,
-              value: Object.assign({}, otherQ.value)
-            });
+          if(otherQ.getType() === 'address' && otherQ.name !== skipName && (otherQVal = otherQ.value)) {
+            let parts = [
+              otherQVal.street,
+              otherQVal.city,
+              otherQVal.state,
+              otherQVal.country,
+              otherQVal.postcode,
+            ];
+            let lbl = parts.map(p => p.trim()).filter(p => p).join(', ');
+            if(lbl && ! seen[lbl]) {
+              seen[lbl] = 1;
+              addrs.push({
+                name: otherQ.name,
+                label: lbl, // otherQ.referLabel,
+                value: Object.assign({}, otherQ.value)
+              });
+            }
           }
         }
       }
@@ -480,7 +494,7 @@ function initAddressBlock(Survey) {
         cell.className = 'col-sm-6 form-inline';
         label = document.createElement('label');
         // FIXME - set label.for to province ID
-        label.className = 'survey-address-label';
+        label.className = 'survey-sublabel';
         label.appendChild(document.createTextNode('Copy from: \u00a0 '));
         cell.appendChild(label);
         let selAddr = document.createElement('select');
@@ -500,7 +514,6 @@ function initAddressBlock(Survey) {
           var selIdx = (<HTMLInputElement>this).value;
           if(selIdx.length) {
             var selAddr = selOpts[selIdx].value;
-            console.log(selAddr);
             question.value = selAddr;
           }
         }
@@ -517,6 +530,7 @@ function initAddressBlock(Survey) {
       let addr1 = document.createElement('input');
       addr1.className = 'form-control';
       addr1.placeholder = 'Street address, for example: 800 Hornby St.';
+      addr1.id = question.inputId; // allow auto focus
       cell.appendChild(addr1);
       outer.appendChild(row);
 
@@ -538,7 +552,7 @@ function initAddressBlock(Survey) {
       cell.className = 'col-sm-6';
       label = document.createElement('label');
       // FIXME - set label.for to city ID
-      label.className = 'survey-address-label';
+      label.className = 'survey-sublabel';
       label.appendChild(document.createTextNode('City / Town'));
       cell.appendChild(label);
       let city = document.createElement('input');
@@ -550,7 +564,7 @@ function initAddressBlock(Survey) {
       cell.className = 'col-sm-6';
       label = document.createElement('label');
       // FIXME - set label.for to province ID
-      label.className = 'survey-address-label';
+      label.className = 'survey-sublabel';
       label.appendChild(document.createTextNode('Province / State / Region'));
       cell.appendChild(label);
       let state = document.createElement('select');
@@ -574,7 +588,7 @@ function initAddressBlock(Survey) {
       cell.className = 'col-sm-6';
       label = document.createElement('label');
       // FIXME - set label.for to province ID
-      label.className = 'survey-address-label';
+      label.className = 'survey-sublabel';
       label.appendChild(document.createTextNode('Country'));
       cell.appendChild(label);
       let country = document.createElement('select');
@@ -593,7 +607,7 @@ function initAddressBlock(Survey) {
       cell.className = 'col-sm-6';
       label = document.createElement('label');
       // FIXME - set label.for to postal code ID
-      label.className = 'survey-address-label';
+      label.className = 'survey-sublabel';
       label.appendChild(document.createTextNode('Postal Code'));
       cell.appendChild(label);
       let postCode = document.createElement('input');
@@ -614,7 +628,13 @@ function initAddressBlock(Survey) {
           'country': country.value,
           'postcode': postCode.value,
         }
-        question.value = value;
+        for(let k in value) {
+          if(value[k] !== undefined && value[k].length) {
+            question.value = value;
+            return;
+          }
+        }
+        question.value = null;
       }
       addr1.addEventListener('change', updateValue);
       //addr2.addEventListener('change', updateValue);
@@ -630,6 +650,179 @@ function initAddressBlock(Survey) {
         state.value = val.state || 'BC';
         country.value = val.country || 'CAN';
         postCode.value = val.postcode || '';
+      };
+      question.valueChangedCallback();
+    },
+    willUnmount: function(question, el) {}
+  };
+
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+
+function initNameBlock(Survey) {
+  var widget = {
+    name: "personname",
+    title: "Person Name",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question) {
+      return question.getType() === "personname";
+    },
+    activatedByChanged: function(activatedBy) {
+      Survey.JsonObject.metaData.addClass("personname", [
+      ], null, "empty");
+    },
+    getDisplayValue: function(question) {
+      let name = question.value;
+      if(name)
+        return [name.first, name.middle, name.last].map(p => p.trim()).filter(p => p).join(' ');
+    },
+    htmlTemplate: "<div></div>",
+    afterRender: function(question, el) {
+      while(el.childNodes.length)
+        el.removeChild(el.childNodes[0]);
+
+      let outer = document.createElement('div');
+      let outerCls = 'survey-personname';
+      let label;
+      let row;
+      let cell;
+      let input;
+      outer.className = outerCls;
+
+      row = document.createElement('div');
+      row.className = 'row';
+
+      let fields = [
+        {name: 'first', label: 'First Name', input: null},
+        {name: 'middle', label: 'Middle Name', input: null},
+        {name: 'last', label: 'Last Name', input: null},
+      ];
+      let updateValue = function() {
+        let parts : any = {};
+        for(let field of fields) {
+          parts[field.name] = field.input.value.trim();
+        }
+        // parts.full = (('' + parts.first + ' ' + parts.middle).trim() + ' ' + parts.last).trim()
+        question.value = parts;
+      }
+
+      for(let field of fields) {
+        cell = document.createElement('div');
+        cell.className = 'col-sm-4';
+        label = document.createElement('label');
+        label.className = 'survey-sublabel';
+        label.appendChild(document.createTextNode(field.label));
+        cell.appendChild(label);
+        input = document.createElement('input');
+        input.className = 'form-control';
+        if(field.name === 'first')
+          input.id = question.inputId; // allow auto focus
+        input.addEventListener('change', updateValue);
+        field.input = input;
+        cell.appendChild(input);
+        row.appendChild(cell);
+      }
+
+      outer.appendChild(row);
+
+      el.appendChild(outer);
+
+      question.valueChangedCallback = () => {
+        for(let field of fields) {
+          field.input.value = question.value && question.value[field.name] || '';
+        }
+      };
+      question.valueChangedCallback();
+    },
+    willUnmount: function(question, el) {}
+  };
+
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+
+function initContactInfoBlock(Survey) {
+  var widget = {
+    name: "contactinfo",
+    title: "Contact Info",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question) {
+      return question.getType() === "contactinfo";
+    },
+    activatedByChanged: function(activatedBy) {
+      Survey.JsonObject.metaData.addClass("contactinfo", [
+        {
+          name: "emailLabel:text",
+        },
+        {
+          name: "faxLabel:text",
+        },
+        {
+          name: "phoneLabel:text",
+        },
+      ], null, "empty");
+    },
+    htmlTemplate: "<div></div>",
+    afterRender: function(question, el) {
+      while(el.childNodes.length)
+        el.removeChild(el.childNodes[0]);
+
+      let outer = document.createElement('div');
+      let outerCls = 'survey-contactinfo';
+      let label;
+      let row;
+      let cell;
+      let input;
+      outer.className = outerCls;
+
+      row = document.createElement('div');
+      row.className = 'row';
+
+      let fields = [
+        {name: 'phone', label: 'Phone', input: null},
+        {name: 'email', label: 'Email', input: null},
+        {name: 'fax', label: 'Fax', input: null},
+      ];
+      let updateValue = function() {
+        let parts = {};
+        for(let field of fields) {
+          parts[field.name] = field.input.value.trim();
+        }
+        question.value = parts;
+      }
+
+      for(let field of fields) {
+        let altLbl = field.name.toLowerCase() + 'Label';
+        cell = document.createElement('div');
+        cell.className = 'col-sm-4';
+        label = document.createElement('label');
+        label.className = 'survey-sublabel';
+        label.appendChild(document.createTextNode(question[altLbl] || field.label));
+        cell.appendChild(label);
+        input = document.createElement('input');
+        input.className = 'form-control';
+        if(field.name === 'phone')
+          input.id = question.inputId; // allow auto focus
+        input.addEventListener('change', updateValue);
+        field.input = input;
+        cell.appendChild(input);
+        row.appendChild(cell);
+      }
+
+      outer.appendChild(row);
+      el.appendChild(outer);
+
+      question.valueChangedCallback = () => {
+        for(let field of fields) {
+          field.input.value = question.value && question.value[field.name] || '';
+        }
       };
       question.valueChangedCallback();
     },
@@ -701,6 +894,7 @@ function initCustomDate(Survey) {
       }
 
       yearSel.className = 'form-control date-select-year';
+      yearSel.id = question.inputId; // allow auto focus
       var opt = document.createElement('option');
       opt.text = '(Year)';
       opt.value = '';
@@ -778,7 +972,9 @@ export function addQuestionTypes(Survey) {
   initYesNo(Survey);
   initInfoText(Survey);
   initHelpText(Survey);
+  initNameBlock(Survey);
   initAddressBlock(Survey);
+  initContactInfoBlock(Survey);
   initCustomDate(Survey);
 }
 
