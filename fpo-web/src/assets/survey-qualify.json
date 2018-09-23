@@ -114,5 +114,7 @@
    "title": "Before we begin...",
    "description": "There is more than one kind of order that can protect you and your family. This service is for applying for a protection order under the Family Law Act. The following questions will help you decide if the Provincial Court Family Law Protection Order is right for you."
   }
- ]
+ ],
+ "showQuestionNumbers": "off",
+ "requiredText": ""
 }
