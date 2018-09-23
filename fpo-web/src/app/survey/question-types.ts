@@ -673,12 +673,16 @@ function initNameBlock(Survey) {
     },
     activatedByChanged: function(activatedBy) {
       Survey.JsonObject.metaData.addClass("personname", [
+        {
+          name: "defaultSubstitution:text",
+        }
       ], null, "empty");
     },
     getDisplayValue: function(question) {
       let name = question.value;
       if(name)
         return [name.first, name.middle, name.last].map(p => p.trim()).filter(p => p).join(' ');
+      return question.defaultSubstitution;
     },
     htmlTemplate: "<div></div>",
     afterRender: function(question, el) {
@@ -1033,6 +1037,7 @@ export function addToolboxOptions(editor) {
     {
       name: "yesno",
       title: "Yes/No Choice",
+      category: "Custom",
       isCopied: true,
       iconName: "icon-radiogroup",
       json: {
@@ -1044,6 +1049,7 @@ export function addToolboxOptions(editor) {
     {
       name: "helptext",
       title: "Expanding FAQ",
+      category: "Custom",
       isCopied: true,
       iconName: "icon-panel",
       json: {
@@ -1056,6 +1062,7 @@ export function addToolboxOptions(editor) {
     {
       name: "infotext",
       title: "Message Text",
+      category: "Custom",
       isCopied: true,
       iconName: "icon-panel",
       json: {
@@ -1068,6 +1075,7 @@ export function addToolboxOptions(editor) {
     {
       name: "personname",
       title: "Name Input",
+      category: "Custom",
       isCopied: true,
       iconName: "icon-multipletext",
       json: {
@@ -1079,6 +1087,7 @@ export function addToolboxOptions(editor) {
     {
       name: "address",
       title: "Postal Address",
+      category: "Custom",
       isCopied: true,
       iconName: "icon-multipletext",
       json: {
@@ -1090,6 +1099,7 @@ export function addToolboxOptions(editor) {
     {
       name: "contactinfo",
       title: "Contact Information",
+      category: "Custom",
       isCopied: true,
       iconName: "icon-multipletext",
       json: {

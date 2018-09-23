@@ -12,6 +12,7 @@
        "type": "personname",
        "name": "ApplicantName",
        "title": "What is your full name?",
+       "defaultSubstitution": "(Applicant Name)",
        "description": "You may enter a name you use in your everday life even if it does not match your ID exactly."
       },
       {
@@ -96,6 +97,7 @@
        "type": "personname",
        "name": "RespondentName",
        "title": "What is the full name of the person that is making you (or your children) feel `unsafe`?",
+       "defaultSubstitution": "(Respondent Name)",
        "description": "If you know how their name is written on their ID cards, that will be the most useful."
       },
       {
@@ -123,29 +125,14 @@
        "description": "You can pick a daytime address such as {RespondentName}'s workplace or somewhere you know {RespondentName} will be staying.\n<br>\n<br>\nIf you don't have an address for {RespondentName}, fill out as much information as you know. The rest can be left blank."
       },
       {
-       "type": "text",
-       "name": "RespondentPhone",
+       "type": "contactinfo",
+       "name": "RespondentContact",
+       "title": "Contact Information",
+       "phoneLabel": "Daytime Phone Number",
+       "faxLabel": "Fax Number (Optional)",
+       "emailLabel": "Email (Optional)",
        "visible": false,
-       "visibleIf": "{RespondentName} notempty",
-       "title": "Daytime Phone Number",
-       "inputType": "tel"
-      },
-      {
-       "type": "text",
-       "name": "RespondentFax",
-       "visible": false,
-       "visibleIf": "{RespondentName} notempty",
-       "startWithNewLine": false,
-       "title": "Fax Number (Optional)",
-       "inputType": "tel"
-      },
-      {
-       "type": "text",
-       "name": "RespondentEmail",
-       "visible": false,
-       "visibleIf": "{RespondentName} notempty",
-       "startWithNewLine": false,
-       "title": "Email (Optional)"
+       "visibleIf": "{RespondentName} notempty"
       }
      ]
     },
