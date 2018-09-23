@@ -722,7 +722,7 @@ function initNameBlock(Survey) {
           }
         }
         acceptRow.style.display = visib ? 'block' : 'none';
-        acceptLbl.innerText = question.value ? 'Update' : 'Accept';
+        acceptLbl.innerText = question.value ? 'Update Name' : 'Continue';
       }
       let updateValue = function() {
         let empty = true;
