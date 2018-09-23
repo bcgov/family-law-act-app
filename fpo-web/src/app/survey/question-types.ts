@@ -691,6 +691,10 @@ function initNameBlock(Survey) {
       let row;
       let cell;
       let input;
+      let acceptLbl;
+      let acceptRow;
+      let acceptBtn;
+      let cancelBtn;
       outer.className = outerCls;
 
       row = document.createElement('div');
@@ -698,16 +702,34 @@ function initNameBlock(Survey) {
 
       let fields = [
         {name: 'first', label: 'First Name', input: null},
-        {name: 'middle', label: 'Middle Name', input: null},
+        {name: 'middle', label: 'Middle Name(s)', input: null},
         {name: 'last', label: 'Last Name', input: null},
       ];
-      let updateValue = function() {
-        let parts : any = {};
-        for(let field of fields) {
-          parts[field.name] = field.input.value.trim();
+      let curVal : any;
+      let checkAccept = function() {
+        let visib = false;
+        let qVal = question.value || {};
+        if(curVal) {
+          for(let field of fields) {
+            if(qVal[field.name] !== curVal[field.name]) {
+              visib = true;
+              break;
+            }
+          }
         }
-        // parts.full = (('' + parts.first + ' ' + parts.middle).trim() + ' ' + parts.last).trim()
-        question.value = parts;
+        acceptRow.style.display = visib ? 'block' : 'none';
+        acceptLbl.innerText = question.value ? 'Update' : 'Accept';
+      }
+      let updateValue = function() {
+        let empty = true;
+        curVal = {};
+        for(let field of fields) {
+          curVal[field.name] = field.input.value.trim();
+          if(curVal[field.name].length)
+            empty = false;
+        }
+        if(empty) curVal = null;
+        checkAccept();
       }
 
       for(let field of fields) {
@@ -722,6 +744,7 @@ function initNameBlock(Survey) {
         if(field.name === 'first')
           input.id = question.inputId; // allow auto focus
         input.addEventListener('change', updateValue);
+        input.addEventListener('input', updateValue);
         field.input = input;
         cell.appendChild(input);
         row.appendChild(cell);
@@ -729,12 +752,39 @@ function initNameBlock(Survey) {
 
       outer.appendChild(row);
 
+      acceptRow = document.createElement('div');
+      acceptRow.style.display = 'none';
+      acceptRow.className = 'row accept-row';
+      cell = document.createElement('div');
+      cell.className = 'col-sm-12 text-right'
+      cancelBtn = document.createElement('button');
+      cancelBtn.className = 'btn btn-default';
+      cancelBtn.appendChild(document.createTextNode('Cancel'));
+      cell.appendChild(cancelBtn);
+      cell.appendChild(document.createTextNode(' '));
+      cancelBtn.onclick = function() {
+        question.valueChangedCallback();
+        updateValue();
+      }
+      acceptBtn = document.createElement('button');
+      acceptBtn.className = 'btn btn-primary';
+      acceptLbl = document.createElement('span');
+      acceptBtn.appendChild(acceptLbl);
+      acceptBtn.onclick = function() {
+        question.value = curVal;
+      }
+      cell.appendChild(acceptBtn);
+      acceptRow.appendChild(cell);
+      outer.appendChild(acceptRow);
+
       el.appendChild(outer);
 
       question.valueChangedCallback = () => {
+        let val = question.value || {};
         for(let field of fields) {
-          field.input.value = question.value && question.value[field.name] || '';
+          field.input.value = val[field.name] || '';
         }
+        checkAccept();
       };
       question.valueChangedCallback();
     },
@@ -1016,12 +1066,34 @@ export function addToolboxOptions(editor) {
   );
   editor.toolbox.addItem(
     {
+      name: "personname",
+      title: "Name Input",
+      isCopied: true,
+      iconName: "icon-multipletext",
+      json: {
+        type: "personname"
+      }
+    }
+  );
+  editor.toolbox.addItem(
+    {
       name: "address",
       title: "Postal Address",
       isCopied: true,
       iconName: "icon-multipletext",
       json: {
         type: "address"
+      }
+    }
+  );
+  editor.toolbox.addItem(
+    {
+      name: "contactinfo",
+      title: "Contact Information",
+      isCopied: true,
+      iconName: "icon-multipletext",
+      json: {
+        type: "contactinfo"
       }
     }
   );
