@@ -23,8 +23,7 @@ export class GeneralDataService {
   }
 
   getApiUrl(action: string) : string {
-    return 'http://localhost:8081/api/v1/' + action;
-    // return this.getBaseHref() + 'api/' + action;
+    return this.getBaseHref() + 'api/' + action;
   }
 
   loadJson(url: string, params?: any, headers?: any, relative?: boolean) : Promise<any> {
