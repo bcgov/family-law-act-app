@@ -42,11 +42,12 @@ export class SurveyEditorComponent  {
     if(! this.surveyJson) {
       this.surveyJson = this.route.snapshot.data.survey;
     }
+    SurveyEditor.StylesManager.applyTheme("bootstrap");
     this.loadSurvey();
   }
 
-  loadSurvey() {
-    if(this.surveyJson) {
+  loadSurvey(reload: boolean = false) {
+    if(this.surveyJson && !reload) {
       this.loading = false;
       this.renderEditor();
     } else {
@@ -85,8 +86,7 @@ export class SurveyEditorComponent  {
     this.dataService.clearSurveyCache(this.cacheName, this.cacheKey, this.useLocalCache);
     this.cacheLoadTime = null;
     this.cacheKey = null;
-    this.surveyJson = null;
-    this.loadSurvey();
+    this.loadSurvey(true);
   }
 
   loadCache() {
@@ -100,6 +100,7 @@ export class SurveyEditorComponent  {
       let cache = response.result;
       if(cache.data) {
         this.cacheLoadTime = cache.time;
+        this.cacheKey = response.key;
         this.surveyJson = cache.data;
       }
       return true;
@@ -122,6 +123,7 @@ export class SurveyEditorComponent  {
   doneSaveCache(response, err, saveNo?, callback?) {
     if(response && response.status === 'ok' && response.result) {
       this.cacheLoadTime = response.result.time;
+      this.cacheKey = response.key;
     }
     !!callback && callback(saveNo, ! err);
   }

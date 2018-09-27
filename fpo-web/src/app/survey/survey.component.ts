@@ -99,6 +99,7 @@ export class SurveyComponent  {
 
   renderSurvey() {
     let surveyModel = new Survey.Model(this._jsonData);
+    surveyModel.commentPrefix = 'Comment';
     surveyModel.showQuestionNumbers = 'off';
     surveyModel.showNavigationButtons = false;
 

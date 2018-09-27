@@ -4,7 +4,7 @@ services:
   # fpo-web
   # 
   fpo-web:
-    image: angular-on-nginx
+    image: fpo-angular-on-nginx
     environment:
       - API_URL=${API_URL}
       - IpFilterRules=${IpFilterRules}
@@ -29,7 +29,7 @@ services:
   # nice to implement a more deterministic solution.
   # 
   fpo-api:
-    image: django
+    image: fpo-django
     environment:
       - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
       - DATABASE_ENGINE=${DATABASE_ENGINE}

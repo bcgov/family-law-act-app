@@ -83,7 +83,7 @@ build-web() {
   echo -e "Building the angular-on-nginx image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'angular-on-nginx' \
+    -t 'fpo-angular-on-nginx' \
     -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
   echo -e "===================================================================================================="
 }
@@ -114,7 +114,7 @@ build-api() {
   ${S2I_EXE} build \
     '../fpo-api' \
     'centos/python-36-centos7' \
-    'django'
+    'fpo-django'
 }
 
 build-pdf() {
