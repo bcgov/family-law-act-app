@@ -22,7 +22,7 @@ export class SurveySidebarComponent  {
 
   updateContent(model : SurveyModel) {
     if(model) {
-      this.title = 'Survey Steps'; // model.title;
+      this.title = 'Application Steps'; // model.title;
       let links = [];
       model.visiblePages.forEach( (page, idx) => {
         links.push({
@@ -52,4 +52,3 @@ export class SurveySidebarComponent  {
   }
 
 }
-
