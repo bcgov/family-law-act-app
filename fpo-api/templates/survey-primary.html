@@ -24,7 +24,7 @@
             table-layout: fixed;
             width: 100%;
             margin-bottom: 3px;
-          }
+        }
 
 
         td{padding: .1em .25em .125em; width: 25%;}
@@ -144,35 +144,35 @@
         }
         /* NEW SET-UP FOR REPEATED HEADER */
         .no-repeat-header{
-          position: relative;
-          top: 0;
-          left: 0;
-          width: 75%;
-          height: 8em;
-          display: inline-block;
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 75%;
+            height: 8em;
+            display: inline-block;
         }
         .repeat-header{
-          position: fixed;
-          top: 0;
-          right: 0;
-          width: 24%;
-          height: 8em;
-          border: 1px solid #000;
-          display: inline-block;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 24%;
+            height: 8em;
+            border: 1px solid #000;
+            display: inline-block;
         }
         @media print{
-          .allow-to-break{page-break-inside: auto!important;}
-          .force-break{page-break-before: always!important; margin-top: 1.25em;}
-          .dont-break-before{page-break-before: avoid!important;}
-          .new-page{
-            page-break-before: always;
-            position: relative; top: 8em;
+            .allow-to-break{page-break-inside: auto!important;}
+            .force-break{page-break-before: always!important; margin-top: 1.25em;}
+            .dont-break-before{page-break-before: avoid!important;}
+            .new-page{
+                page-break-before: always;
+                position: relative; top: 8em;
             }
             .new-form{
-              page-break-before: always;
-              }
+                page-break-before: always;
+            }
             .container-head{
-              position: relative;top: 0;right: 0;height: 12em; margin-bottom: 1em;width:  25%; float: right;
+                position: relative;top: 0;right: 0;height: 12em; margin-bottom: 1em;width:  25%; float: right;
 
 
             }
@@ -180,7 +180,7 @@
             .aff-text{font-size: 9pt!important;}
             .aff-label{font-weight: bold; display: block;}
             .next-page{page-break-before: always; margin-top: 7em;}
-          }
+        }
     </style>
 </head>
 <body>
@@ -188,217 +188,217 @@
     <div class="container">
         <!-- FORM ONE -->
         <!-- form heading -->
-          <div class="no-repeat-header">
+        <div class="no-repeat-header">
             <table width="100%;">
-              <tbody>
+                <tbody>
                 <tr>
-                  <td>
-                    <h1>Application to Obtain an Order
-                        <span class="sub-heading">In the Provincial Court of British Columbia</span>
-                    </h1>
-                  </td>
+                    <td>
+                        <h1>Application to Obtain an Order
+                            <span class="sub-heading">In the Provincial Court of British Columbia</span>
+                        </h1>
+                    </td>
                 </tr>
-              </tbody>
+                </tbody>
             </table>
-          </div><!-- /form heading -->
-          <!-- correct positioning of repeated block -->
-          <div class="container-head">
+        </div><!-- /form heading -->
+        <!-- correct positioning of repeated block -->
+        <div class="container-head">
             <div style="position: absolute; top: 0; left: 0; height: 11em;">
-              <div class="repeat-header">
-                <table width="100%;">
-                  <tbody>
-                    <tr class="brdr-btm">
-                        <td>
-                            <label>Court File No.:</label>
-                            <span>&nbsp;{{ ExistingFileNumber }}</span>
-                        </td>
-                    </tr>
-                    <tr class="brdr-btm">
-                        <td>
-                            <label>Court Location:</label>
-                            {% if ExistingCourt == "item1" %}
-                            <span>Vancouver</span>
-                            {% elif ExistingCourt == "item2" %}
-                            <span>Victoria</span>
-                            {% else %}
-                            <span>&nbsp;</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>FMEP NO.:</label>
-                            <span>&nbsp;</span>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- page 1 -->
-          <div class="section-container">
-            <table><!-- section 1 -->
-              <tbody>
-                <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
-                <tr class="bordered">
-                  <td colspan="4" style="padding: 0;">
-                    <table>
-                      <tbody>
-                        <tr>
-                            <td colspan="4"><legend>In the case between:</legend></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
-                                <label class="label-btm">Name</label>
+                <div class="repeat-header">
+                    <table width="100%;">
+                        <tbody>
+                        <tr class="brdr-btm">
+                            <td>
+                                <label>Court File No.:</label>
+                                <span>&nbsp;{{ ExistingFileNumber }}</span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4"><legend>And:</legend></td>
                         </tr>
                         <tr class="brdr-btm">
-                            <td colspan="4">
-                                <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><legend>Filed By:</legend></td>
-                            <td colspan="2"><legend class="party-label">Applicant</legend></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
-                                <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="padding-top: 0;">
-                                <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
-                                <label class="label-btm">ADDRESS FOR SERVICE</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city }}</span>
-                                <label class="label-btm">City</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state }}</span>
-                                <label class="label-btm">Province</label>
+                            <td>
+                                <label>Court Location:</label>
+                                {% if ExistingCourt == "item1" %}
+                                <span>Vancouver</span>
+                                {% elif ExistingCourt == "item2" %}
+                                <span>Victoria</span>
+                                {% else %}
+                                <span>&nbsp;</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
-                                <label class="label-btm">Postal Code</label>
-                            </td>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ ApplicantPhone }}</span>
-                                <label class="label-btm">Phone</label>
-                            </td>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ ApplicantEmail }}</span>
-                                <label class="label-btm">E-mail</label>
-                            </td>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ ApplicantFax }}</span>
-                                <label class="label-btm">Fax</label>
+                                <label>FMEP NO.:</label>
+                                <span>&nbsp;</span>
                             </td>
                         </tr>
-                        {% if LawyerAddress == "y" %}
-                        <tr>
-                            <td colspan="4"><legend>Lawyer:</legend></td>
-                        </tr>
-                        <tr>
-
-                            <td colspan="4">
-                                <span class="brdr-btm">&nbsp;{{ LawyerName }}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-
-                        </tr>
-                        <tr>
-
-
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ LawyerEmail }}</span>
-                                <label class="label-btm">Email</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ LawyerPhone }}</span>
-                                <label class="label-btm">Phone</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ LawyerFax }}</span>
-                                <label class="label-btm">Fax</label>
-                            </td>
-                        </tr>
-                        {% endif %}
-                        <tr>
-                            <td colspan="2"><legend>Notice to:</legend></td>
-                            <td colspan="2"><legend class="party-label">Respondent</legend></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ RespondentName }}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ RespondentDOB }}</span>
-                                <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.street}}</span>
-                                <label class="label-btm">ADDRESS FOR SERVICE</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.city }}</span>
-                                <label class="label-btm">City</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.state }}</span>
-                                <label class="label-btm">Province</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
-                                <label class="label-btm">Postal Code</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentPhone }}</span>
-                                <label class="label-btm">Phone</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentEmail }}</span>
-                                <label class="label-btm">E-mail</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentFax }}</span>
-                                <label class="label-btm">Fax</label>
-                            </td>
-                        </tr>
-                      </tbody>
+                        </tbody>
                     </table>
-                  </td>
+                </div>
+            </div>
+        </div>
+
+        <!-- page 1 -->
+        <div class="section-container">
+            <table><!-- section 1 -->
+                <tbody>
+                <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
+                <tr class="bordered">
+                    <td colspan="4" style="padding: 0;">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td colspan="4"><legend>In the case between:</legend></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
+                                    <label class="label-btm">Name</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><legend>And:</legend></td>
+                            </tr>
+                            <tr class="brdr-btm">
+                                <td colspan="4">
+                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
+                                    <label class="label-btm">Name</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><legend>Filed By:</legend></td>
+                                <td colspan="2"><legend class="party-label">Applicant</legend></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
+                                    <label class="label-btm">Name</label>
+                                </td>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
+                                    <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="padding-top: 0;">
+                                    <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
+                                    <label class="label-btm">ADDRESS FOR SERVICE</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city }}</span>
+                                    <label class="label-btm">City</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state }}</span>
+                                    <label class="label-btm">Province</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
+                                    <label class="label-btm">Postal Code</label>
+                                </td>
+                                <td>
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantPhone }}</span>
+                                    <label class="label-btm">Phone</label>
+                                </td>
+                                <td>
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantEmail }}</span>
+                                    <label class="label-btm">E-mail</label>
+                                </td>
+                                <td>
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantFax }}</span>
+                                    <label class="label-btm">Fax</label>
+                                </td>
+                            </tr>
+                            {% if LawyerAddress == "y" %}
+                            <tr>
+                                <td colspan="4"><legend>Lawyer:</legend></td>
+                            </tr>
+                            <tr>
+
+                                <td colspan="4">
+                                    <span class="brdr-btm">&nbsp;{{ LawyerName }}</span>
+                                    <label class="label-btm">Name</label>
+                                </td>
+
+                            </tr>
+                            <tr>
+
+
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ LawyerEmail }}</span>
+                                    <label class="label-btm">Email</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ LawyerPhone }}</span>
+                                    <label class="label-btm">Phone</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ LawyerFax }}</span>
+                                    <label class="label-btm">Fax</label>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td colspan="2"><legend>Notice to:</legend></td>
+                                <td colspan="2"><legend class="party-label">Respondent</legend></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentName }}</span>
+                                    <label class="label-btm">Name</label>
+                                </td>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentDOB }}</span>
+                                    <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentAddress.street}}</span>
+                                    <label class="label-btm">ADDRESS FOR SERVICE</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentAddress.city }}</span>
+                                    <label class="label-btm">City</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentAddress.state }}</span>
+                                    <label class="label-btm">Province</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
+                                    <label class="label-btm">Postal Code</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentPhone }}</span>
+                                    <label class="label-btm">Phone</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentEmail }}</span>
+                                    <label class="label-btm">E-mail</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ RespondentFax }}</span>
+                                    <label class="label-btm">Fax</label>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
                 </tr>
-              </tbody>
+                </tbody>
             </table><!-- /SECTION 1 -->
             <!-- SECTION 2 -->
             <table>
-              <tbody>
+                <tbody>
                 <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
                 <tr class="bordered">
                     <td colspan="4" style="padding: 0;">
@@ -461,11 +461,11 @@
                         </table>
                     </td>
                 </tr>
-              </tbody>
+                </tbody>
             </table><!-- /SECTION 2 -->
             <!-- SECTION 3 -->
             <table>
-              <tbody>
+                <tbody>
                 <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
                 <tr class="bordered">
                     <td colspan="4" style="padding: 0;">
@@ -528,13 +528,13 @@
                         </table>
                     </td>
                 </tr>
-              </tbody>
+                </tbody>
             </table>
-          </div>
-          <!-- PAGE 2 -->
-          <div class="new-page">
+        </div>
+        <!-- PAGE 2 -->
+        <div class="new-page">
             <table>
-              <tbody>
+                <tbody>
                 <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
                 <tr class="bordered">
                     <td colspan="4" style="padding: 0;">
@@ -551,58 +551,58 @@
                             {% regroup ListOfChildren by ChildEqualPTime as ChildEqualPTimeMatch %}
 
 
-                        {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
+                            {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
 
-                        {% endif %}
-                        {% load define_action %}
-                        {% load child_check %}
-
-
-                        {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
-                        {% define "n" as ChildAllMatch %}
-                        {% else %}
-                        {% define "y" as ChildAllMatch %}
-                        {% endif %}
-                        {% for child in ListOfChildren %}
-                        {% if child.ChildNeedsProtection == "y" %}
-                        {% define "y" as ChildNeedsProtection %}
-                        {% endif %}
-                        {% endfor %}
+                            {% endif %}
+                            {% load define_action %}
+                            {% load child_check %}
 
 
+                            {% if ChildApplicantPDecisionsMatch.0.list|length != ListOfChildren|length or ChildRespondentPDecisionsMatch.0.list|length != ListOfChildren|length or ChildApplicantPTimeMatch.0.list|length != ListOfChildren|length or ChildRespondentPTimeMatch.0.list|length != ListOfChildren|length or ChildEqualPTimeMatch.0.list|length != ListOfChildren|length %}
+                            {% define "n" as ChildAllMatch %}
+                            {% else %}
+                            {% define "y" as ChildAllMatch %}
+                            {% endif %}
+                            {% for child in ListOfChildren %}
+                            {% if child.ChildNeedsProtection == "y" %}
+                            {% define "y" as ChildNeedsProtection %}
+                            {% endif %}
+                            {% endfor %}
 
 
-                        <tr>
-                            <td colspan="2">Name(s) of child(ren)</td>
-                            <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
-                        </tr>
-                        {% for child in ListOfChildren %}
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">{{ child.ChildName }}&nbsp;</span>
 
-                            </td>
-                            <td colspan="2">
-                                <span class="brdr-btm">{{ child.ChildDOB }}&nbsp;</span>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            <td colspan="4">
-                                <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <td colspan="4">
-                                <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
+                            <tr>
+                                <td colspan="2">Name(s) of child(ren)</td>
+                                <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
+                            </tr>
+                            {% for child in ListOfChildren %}
+                            <tr>
+                                <td colspan="2">
+                                    <span class="brdr-btm">{{ child.ChildName }}&nbsp;</span>
 
-                                <span class="brdr-btm" style="margin-top: .5em;">
+                                </td>
+                                <td colspan="2">
+                                    <span class="brdr-btm">{{ child.ChildDOB }}&nbsp;</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4">
+                                    <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4">
+                                    <span class="label" >The present arrangements for guardianship, parenting arrangements or contact with the child(ren) are: </span>
+
+                                    <span class="brdr-btm" style="margin-top: .5em;">
 
                                     {% if listOfBothGuardianArray %}
                                     {{ ApplicantName }} and {{ RespondentName }} are guardians of {{ listOfBothGuardianString }}.
@@ -661,55 +661,55 @@
                                     {% endif %}
 
                                 </span>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
 
 
-                        <tr>
-                            <td colspan="4" style="padding-top: 0;">
-                                <aside>(Complete the following if you are asking for guardianship, parenting arrangements or contact with a child.)</aside>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="label" >I am asking for guardianship, parenting arrangements or contact with a child as follows: </span>
-                                <span class="brdr-btm" style="margin-top: .5em;" >&nbsp;</span>
-                            </td>
-                        </tr>
-                    </table>
+                            <tr>
+                                <td colspan="4" style="padding-top: 0;">
+                                    <aside>(Complete the following if you are asking for guardianship, parenting arrangements or contact with a child.)</aside>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span class="label" >I am asking for guardianship, parenting arrangements or contact with a child as follows: </span>
+                                    <span class="brdr-btm" style="margin-top: .5em;" >&nbsp;</span>
+                                </td>
+                            </tr>
+                        </table>
 
-                </td>
-            </tr>
-            <tr class="section spacer">&nbsp;&nbsp;</tr>
-            <tr class="bordered">
-                <td colspan="4" style="padding: 0;">
-                    <table>
-                        <tr>
-                            <td colspan="4">
-                                <legend>3. Support <span class="sub">(Complete if you are asking for child or spousal support)</span></legend>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="label" >The current support arrangements are: </span>
-                                <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="label blank">I believe that the respondent’s gross annual income is $<span class="short brdr-btm">&nbsp;</span><span class="addendum">because:</span></span>
-                                <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <legend>I am asking for: <span class="sub">(Complete only if you are asking for child support)</span></legend>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="check"></span>
-                                <span class="label">support in the amount set out in the Child Support Guidelines for <span class="short brdr-btm label-num">&nbsp;</span><span class="addendum">children</span></span>
+                    </td>
+                </tr>
+                <tr class="section spacer">&nbsp;&nbsp;</tr>
+                <tr class="bordered">
+                    <td colspan="4" style="padding: 0;">
+                        <table>
+                            <tr>
+                                <td colspan="4">
+                                    <legend>3. Support <span class="sub">(Complete if you are asking for child or spousal support)</span></legend>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span class="label" >The current support arrangements are: </span>
+                                    <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span class="label blank">I believe that the respondent’s gross annual income is $<span class="short brdr-btm">&nbsp;</span><span class="addendum">because:</span></span>
+                                    <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <legend>I am asking for: <span class="sub">(Complete only if you are asking for child support)</span></legend>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span class="check"></span>
+                                    <span class="label">support in the amount set out in the Child Support Guidelines for <span class="short brdr-btm label-num">&nbsp;</span><span class="addendum">children</span></span>
 
                                 </td>
                             </tr>
@@ -765,22 +765,22 @@
                         </table>
                     </td>
                 </tr>
-              </tbody>
+                </tbody>
             </table>
-          </div><!-- end Page 2 -->
-          <!-- PAGE 3  -->
-          <div class="new-page">
+        </div><!-- end Page 2 -->
+        <!-- PAGE 3  -->
+        <div class="new-page">
             <table>
-              <tbody>
+                <tbody>
                 <tr class="section spacer"><td colspan="4">&nbsp;</td>&nbsp;</tr>
-            <tr>
-                <td colspan="4" style="padding: 0;">
-                    <table>
-                        <tr>
-                            <td colspan="4" class="bordered">
-                                <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
-                                <p>I am asking for an order in the following terms:</p>
-                                <span class="brdr-btm">
+                <tr>
+                    <td colspan="4" style="padding: 0;">
+                        <table>
+                            <tr>
+                                <td colspan="4" class="bordered">
+                                    <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
+                                    <p>I am asking for an order in the following terms:</p>
+                                    <span class="brdr-btm">
                                     {% if ApplicantNeedsProtection == "y" %}
                                             {{ RespondentName }} should stay away and not communicate with {{ listOfPeopleWithPOString }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}.
                                     {% endif %}
@@ -892,545 +892,558 @@
                         </table>
                     </td>
                 </tr>
-              </tbody>
+                </tbody>
             </table>
-          </div><!--end form 1-->
+        </div><!--end form 1-->
         <!-- form two  NOTICE OF MOTION -->
         <div class="new-form">
-          <div class="no-repeat-header">
-            <table width="100%;">
-              <tbody>
-                <tr>
-                  <td>
-                    <h1>Notice of Motion
-                        <span class="sub-heading">In the Provincial Court of British Columbia</span>
-                    </h1>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div><!-- /form heading -->
-          <div style="position: relative; top: 1.25em;">
-            <table>
-              <tbody>
-                <tr class="bordered">
-                  <td colspan="4" style="padding: 0;">
-                    <table>
-                      <tbody>
-                        <tr>
-                            <td colspan="4"><legend>In the case between:</legend></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4"><legend>And:</legend></td>
-                        </tr>
-                        <tr class="brdr-btm">
-                            <td colspan="4">
-                                <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><legend>Filed By:</legend></td>
-                            <td colspan="2"><legend class="party-label">Applicant</legend></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
-                                <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" style="padding-top: 0;">
-                                <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street}}</span>
-                                <label class="label-btm">ADDRESS FOR SERVICE</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city}}</span>
-                                <label class="label-btm">City</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state}}</span>
-                                <label class="label-btm">Province</label>
-                            </td>
-                        </tr>
-                        {% if LawyerAddress == "n" %}
-                        <tr>
-                          <td colspan="1">
-                              <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode}}</span>
-                              <label class="label-btm">Postal Code</label>
-                          </td>
-
-                          <td colspan="1">
-                              <span class="brdr-btm">&nbsp;{{ApplicantPhone}}</span>
-                              <label class="label-btm">Phone</label>
-                          </td>
-                          <td colspan="1">
-                              <span class="brdr-btm">&nbsp;{{ApplicantEmail}}</span>
-                              <label class="label-btm">E-mail</label>
-                          </td>
-                          <td colspan="1">
-                              <span class="brdr-btm">&nbsp;{{ApplicantFax}}</span>
-                              <label class="label-btm">Fax</label>
-                          </td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                          <td colspan="1">
-                              <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode}}</span>
-                              <label class="label-btm">Postal Code</label>
-                          </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ LawyerPhone }}</span>
-                                <label class="label-btm">Phone</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ LawyerEmail }}</span>
-                                <label class="label-btm">E-mail</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ LawyerFax }}</span>
-                                <label class="label-btm">Fax</label>
-                            </td>
-                        </tr>
-                        {% endif %}
-                        <tr>
-                            <td colspan="2"><legend>Notice to:</legend></td>
-                            <td colspan="2"><legend class="party-label">Respondent</legend></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ RespondentName }}</span>
-                                <label class="label-btm">Name</label>
-                            </td>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ RespondentDOB }}</span>
-                                <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.street }}</span>
-                                <label class="label-btm">ADDRESS FOR SERVICE</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.city }}</span>
-                                <label class="label-btm">City</label>
-                            </td>
-                            <td colspan="1">
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.state }}</span>
-                                <label class="label-btm">Province</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
-                                <label class="label-btm">Postal Code</label>
-                            </td>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ RespondentPhone }}</span>
-                                <label class="label-btm">Phone</label>
-                            </td>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ RespondentEmail }}</span>
-                                <label class="label-btm">E-mail</label>
-                            </td>
-                            <td>
-                                <span class="brdr-btm">&nbsp;{{ RespondentFax }}</span>
-                                <label class="label-btm">Fax</label>
-                            </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr><!-- END SECTION 1 -->
-                <!-- SECTION 2 -->
-                <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
-                <tr class="bordered">
-                    <td colspan="4">
-                      <table class="nom-table">
-                          <tbody>
-                          <tr>
-                              <td colspan="4" style="padding: 0;">
-                                  <span class="label blank" style="padding-top: .5em;">I <span class="long brdr-btm">&nbsp;{{ ApplicantName }}</span>
-                                  <span class="addendum">will apply to this court at</span>
-                                  <span class="brdr-btm medium">Court Name Goes Here</span>
-                                  </span>
-                                  {% if ExistingCourt == "item1" %}
-                                  <span class="brdr-btm" style="margin-top: .5em;">Vancouver</span>
-                                  {% elif ExistingCourt == "item2" %}
-                                  <span class="brdr-btm" style="margin-top: .5em;">Victoria</span>
-                                  {% else %}
-                                  <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
-                                  {% endif %}
-
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <p class="blank">on <span class="short brdr-btm">&nbsp;</span> at <span class="medium brdr-btm">&nbsp;</span>am/pm for: </p>
-                              </td>
-                          </tr>
-                          <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
-                          <tr>
-                              <td colspan="4">
-                                  <!-- checked if Y to faster, No to Silent -->
-
-                                  <span class="check">&#10003;</span>
-                                  <span class="label">An order shortening or extending a time limit set out in the Provincial Court (Family) Rules</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label">An interim order under section 216 or 217 of the Family Law Act</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label">An order changing, suspending or terminating the attached order made in my absence</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order settling the terms of an order made<span class="short brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label">An order that a person not remove, or that a person be allowed to remove, a child from a geographical area</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label">An order to prohibit the relocation of a child</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order for blood or tissue samples, for parentage tests, to be taken from<span class="medium brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order for service of<span class="short brdr-btm">&nbsp;</span><span class="addendum">by</span><span class="medium brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label">An order for access to information under section 242 of the Family Law Act</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order for information to be disclosed by<span class="medium brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order transferring this file to the court registry at:<span class="medium brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">Directions on a procedural matter<span class="medium brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order changing or setting aside the determination of a parenting coordinator dated<span class="short brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order to enforce:</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">A review of a filed agreement or order respecting spousal support or maintenance under the Family Law Act or the Family Relations Act</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">An order determining whether there are arrears owing under a support order made under the Family Law Act or under a support or maintenance order made under the Family Relations Act and, if so, the amount of those arrears</span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="check"></span>
-                                  <span class="label blank">Other order<span class="long brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td colspan="4">
-                                  <span class="label blank">Details of order(s) requested:<span class="long brdr-btm">&nbsp;</span></span>
-                              </td>
-                          </tr>
-                          </tbody>
-                      </table>
-                    </td>
-                </tr>
-                <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
-                <tr class="bordered">
-                    <td colspan="4">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td colspan="4"><legend>NOTICE: If you do not appear, the Court may make an order in your absence.</legend></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span class="check selected">&#10003;</span>
-                                    <span class="label blank">Any affidavits in support of this notice of motion are attached.</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="signature-area">
-                        <span class="label blank">Dated<span class="medium brdr-btm label-date">&nbsp;</span></span>
-                    </td>
-                    <td colspan="2" class="signature-area">
-                        <span class="box">&nbsp;</span>
-                        <label style="text-transform: none;">Signature</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="signature-area">
-                        {% if LawyerAddress == "y" %}
-                        <span class="brdr-btm">LawyerName</span>
-                        {% else %}
-                        <span class="brdr-btm">&nbsp;</span>
-                        {% endif %}
-                        <label class="label-btm">Name of applicant’s lawyer</label>
-                    </td>
-                    <td colspan="2" class="signature-area">&nbsp;</td>
-                </tr>
-              </tbody>
-            </table>
-          </div><!-- end NOM form -->
-        </div>
-
-        {% if PORSpeedNormalAffidavit =='y' %}
-
-        {% endif %}
-        <!-- begin affidavit -->
-        <div class="new-form">
-          <div class="no-repeat-header">
-            <table width="100%;">
-              <tbody>
-                <tr>
-                  <td>
-                    <h1>AFFIDAVIT
-                        <span class="sub-heading">In the Provincial Court of British Columbia</span>
-                    </h1>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div><!-- /form heading -->
-          <!-- full content of affidavit -->
-          <div style="position: relative; top: 1.5em;">
-            <!-- the top half of the form - name etc. up to first dynamic text area -->
-            <div class="form-intro">
+            <div class="no-repeat-header">
+                <table width="100%;">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <h1>Notice of Motion
+                                <span class="sub-heading">In the Provincial Court of British Columbia</span>
+                            </h1>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- /form heading -->
+            <div style="position: relative; top: 1.25em;">
                 <table>
-                  <tbody>
-                    <tr class="bordered">
-                      <td colspan="4" style="padding: 0;">
-                        <table>
-                          <tbody>
-                            <tr>
-                                <td colspan="4"><legend>In the case between:</legend></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
-                                    <label class="label-btm">Name</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4"><legend>And:</legend></td>
-                            </tr>
-                            <tr class="brdr-btm">
-                                <td colspan="4">
-                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
-                                    <label class="label-btm">Name</label>
-                                </td>
-                            </tr>
-                        </table>
-                      </td>
-                    </tr><!-- END SECTION 1 -->
-                    <tr class="section spacer">&nbsp;</tr>
-                    <!-- SECTION 2 -->
+                    <tbody>
                     <tr class="bordered">
                         <td colspan="4" style="padding: 0;">
                             <table>
                                 <tbody>
-                            <tr>
-                                <td colspan="4"><legend>I,</legend></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span class="brdr-btm">{{ ApplicantName }}</span>
-                                    <label class="label-btm">Name</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span class="brdr-btm">{{ ApplicantOccupation }}</span>
-                                    <label class="label-btm">Occupation</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4"><legend>Of</legend></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <span class="brdr-btm">{{ ApplicantAddress.street}}</span>
-                                    <label class="label-btm">ADDRESS</label>
-                                </td>
-                                <td colspan="2">
-                                    <span class="brdr-btm">{{ ApplicantAddress.city }}</span>
-                                    <label class="label-btm">City</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <span class="brdr-btm">{{ ApplicantAddress.state }}</span>
-                                    <label class="label-btm">Province</label>
-                                </td>
-                                <td colspan="2">
-                                    <span class="brdr-btm">{{ ApplicantAddress.postcode }}</span>
-                                    <label class="label-btm">Postal Code</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4"><legend>Swear or affirm that:</legend></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4"><p>I know or believe the following facts to be true. If these facts are based on information from others,
-                                    I believe that information to be true.</p></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span class="label blank">I make this affidavit in relation to an application* by<span class="long brdr-btm label-name">&nbsp;</span></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <span class="label blank">for<span class="extra-long brdr-btm label-name">&nbsp;</span></span>
-                                </td>
-                            </tr>
-                            <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
-                            <tr>
-                                <td colspan="4" style="padding-top: 1em;">
-                                    <!-- scope 1 always checked -->
-                                    <span class="check selected">&#10003;</span>
-                                    <span class="label">I am making the application*</span>
-                                </td>
+                                <tr>
+                                    <td colspan="4"><legend>In the case between:</legend></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
+                                        <label class="label-btm">Name</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><legend>And:</legend></td>
+                                </tr>
+                                <tr class="brdr-btm">
+                                    <td colspan="4">
+                                        <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
+                                        <label class="label-btm">Name</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><legend>Filed By:</legend></td>
+                                    <td colspan="2"><legend class="party-label">Applicant</legend></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
+                                        <label class="label-btm">Name</label>
+                                    </td>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
+                                        <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="padding-top: 0;">
+                                        <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street}}</span>
+                                        <label class="label-btm">ADDRESS FOR SERVICE</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city}}</span>
+                                        <label class="label-btm">City</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state}}</span>
+                                        <label class="label-btm">Province</label>
+                                    </td>
+                                </tr>
+                                {% if LawyerAddress == "n" %}
+                                <tr>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode}}</span>
+                                        <label class="label-btm">Postal Code</label>
+                                    </td>
 
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-            <!-- affidavit text area questions content -->
-            <!-- dont let the content with the first box break to page 2 -->
-            <div class="dont-break-before">
-              <!-- first box MAX CHAR = 5,000 -->
-              <div class="aff-text bordered">
-                <span class="aff-label">Relationship History</span>
-                <span>&nbsp;{{ PORRelationshipHistory }}</span>
-              </div>
-
-              <!-- if - item 1 has > 5,000 char we need an additional div -->
-              <!-- we know this table will be the first on page 2 so it needs extra margin - Use next-page class to break to a new page -->
-              <!-- page 2 max allowed is 7100 char -->
-              <div class="aff-text next-page bordered">
-                <span class="aff-label">What Happened</span>
-                <span>&nbsp;{{ PORWhatHappened }}</span>
-              </div>
-              <!-- additional pages as required -->
-              <div class="aff-text next-page bordered">
-                {% if PORSpeedup == "y" %}
-                <span class="aff-label">Why Faster</span>
-                <span>&nbsp;{{ PORWhyASAP }}</span>
-                {% elif PORNoNotice == "y" %}
-                <span class="aff-label">Why no notice</span>
-                <span>&nbsp;{{ PORWhyNoNotice }}</span>
-                {% endif %}
-              </div>
-
-                <!-- add the footer -->
-                <table>
-                  <tbody>
-                    <tr>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ApplicantPhone}}</span>
+                                        <label class="label-btm">Phone</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ApplicantEmail}}</span>
+                                        <label class="label-btm">E-mail</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ApplicantFax}}</span>
+                                        <label class="label-btm">Fax</label>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode}}</span>
+                                        <label class="label-btm">Postal Code</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ LawyerPhone }}</span>
+                                        <label class="label-btm">Phone</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ LawyerEmail }}</span>
+                                        <label class="label-btm">E-mail</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ LawyerFax }}</span>
+                                        <label class="label-btm">Fax</label>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td colspan="2"><legend>Notice to:</legend></td>
+                                    <td colspan="2"><legend class="party-label">Respondent</legend></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ RespondentName }}</span>
+                                        <label class="label-btm">Name</label>
+                                    </td>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ RespondentDOB }}</span>
+                                        <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ RespondentAddress.street }}</span>
+                                        <label class="label-btm">ADDRESS FOR SERVICE</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ RespondentAddress.city }}</span>
+                                        <label class="label-btm">City</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ RespondentAddress.state }}</span>
+                                        <label class="label-btm">Province</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
+                                        <label class="label-btm">Postal Code</label>
+                                    </td>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ RespondentPhone }}</span>
+                                        <label class="label-btm">Phone</label>
+                                    </td>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ RespondentEmail }}</span>
+                                        <label class="label-btm">E-mail</label>
+                                    </td>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ RespondentFax }}</span>
+                                        <label class="label-btm">Fax</label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr><!-- END SECTION 1 -->
+                    <!-- SECTION 2 -->
+                    <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
+                    <tr class="bordered">
                         <td colspan="4">
-                            <p style="font-style: italic; font-size: .85em;">Sworn or affirmed by me</p>
+                            <table class="nom-table">
+                                <tbody>
+                                <tr>
+                                    <td colspan="4" style="padding: 0;">
+                                  <span class="label blank" style="padding-top: .5em;">I <span class="long brdr-btm">&nbsp;{{ ApplicantName }}</span>
+                                  <span class="addendum">will apply to this court at</span>
+                                  <span class="brdr-btm medium">Court Name Goes Here</span>
+                                  </span>
+                                        {% if ExistingCourt == "item1" %}
+                                        <span class="brdr-btm" style="margin-top: .5em;">Vancouver</span>
+                                        {% elif ExistingCourt == "item2" %}
+                                        <span class="brdr-btm" style="margin-top: .5em;">Victoria</span>
+                                        {% else %}
+                                        <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <p class="blank">on <span class="short brdr-btm">&nbsp;</span> at <span class="medium brdr-btm">&nbsp;</span>am/pm for: </p>
+                                    </td>
+                                </tr>
+                                <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <!-- checked if Y to faster, No to Silent -->
+                                        {% if PORSpeedup == "y" and PORNoNotice == "n" %}
+                                        <span class="check">&#10003;</span>
+                                        {% else %}
+                                        <span class="check"></span>
+                                        {% endif %}
+
+                                        <span class="label">An order shortening or extending a time limit set out in the Provincial Court (Family) Rules</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label">An interim order under section 216 or 217 of the Family Law Act</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label">An order changing, suspending or terminating the attached order made in my absence</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order settling the terms of an order made<span class="short brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label">An order that a person not remove, or that a person be allowed to remove, a child from a geographical area</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label">An order to prohibit the relocation of a child</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order for blood or tissue samples, for parentage tests, to be taken from<span class="medium brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order for service of<span class="short brdr-btm">&nbsp;</span><span class="addendum">by</span><span class="medium brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label">An order for access to information under section 242 of the Family Law Act</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order for information to be disclosed by<span class="medium brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order transferring this file to the court registry at:<span class="medium brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">Directions on a procedural matter<span class="medium brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order changing or setting aside the determination of a parenting coordinator dated<span class="short brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order to enforce:</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">A review of a filed agreement or order respecting spousal support or maintenance under the Family Law Act or the Family Relations Act</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="check"></span>
+                                        <span class="label blank">An order determining whether there are arrears owing under a support order made under the Family Law Act or under a support or maintenance order made under the Family Relations Act and, if so, the amount of those arrears</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        {% if PORSpeedup == "n" and PORNoNotice == "y" %}
+                                        <span class="check selected">&#10003;</span>
+                                        <span class="label blank">Other order: <u>The application for a protection order be heard without notice to the other party.</u></span>
+                                        {% elif PORSpeedup == "y" and PORNoNotice == "y" %}
+                                        <span class="check selected">&#10003;</span>
+                                        <span class="label blank">Other order: <u>The application for a protection order be heard without notice to the other party.</u></span>
+                                        {% else %}
+                                        <span class="check"></span>
+                                        <span class="label blank">Other order<span class="long brdr-btm">&nbsp;</span></span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        {% if PORSpeedup == "y" and PORNoNotice == "n" %}
+                                        <span class="check selected">&#10003;</span>
+                                        <span class="label blank">Details of order(s) requested: <u>A order shortening a time limit for the other party to reply to the application for a protection order.</u></span>
+                                        {% else %}
+                                        <span class="check"></span>
+                                        <span class="label blank">Details of order(s) requested:<span class="long brdr-btm">&nbsp;</span></span>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="label blank">A order shortening a time limit for the other party to reply to the application for a protection order.<span class="long brdr-btm">&nbsp;</span></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td colspan="2" class="signature-area" style="font-style: italic; font-size: .85em;">
-                            <span class="label blank">at<span class="long brdr-btm">&nbsp;</span><span class="addendum">British Columbia</span></span>
+                    <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
+                    <tr class="bordered">
+                        <td colspan="4">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td colspan="4"><legend>NOTICE: If you do not appear, the Court may make an order in your absence.</legend></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        {% if PORSpeedup == "n" and PORNoNotice == "n" %}
+                                        <span class="check"></span>
+                                        {% else %}
+                                        <span class="check selected">&#10003;</span>
+                                        {% endif %}
+                                        <span class="label blank">Any affidavits in support of this notice of motion are attached.</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </td>
-                        <td colspan="2" rowspan="3" class="signature-area" style="border-left: 1px solid #000;">
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="signature-area">
+                            <span class="label blank">Dated<span class="medium brdr-btm label-date">&nbsp;</span></span>
+                        </td>
+                        <td colspan="2" class="signature-area">
                             <span class="box">&nbsp;</span>
                             <label style="text-transform: none;">Signature</label>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="signature-area" style="font-style: italic; font-size: .85em;">
-                            <span class="label blank">on<span class="long brdr-btm label-date">&nbsp;</span></span>
-                        </td>
-                    </tr>
-                    <tr>
                         <td colspan="2" class="signature-area">
-                            <span class="box" style="height: 2em;">&nbsp;</span>
-                            <label class="label-btm">A Commissioner for Taking Affidavits for British Columbia</label>
+                            {% if LawyerAddress == "y" %}
+                            <span class="brdr-btm">LawyerName</span>
+                            {% else %}
+                            <span class="brdr-btm">&nbsp;</span>
+                            {% endif %}
+                            <label class="label-btm">Name of applicant’s lawyer</label>
+                        </td>
+                        <td colspan="2" class="signature-area">&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- end NOM form -->
+        </div>
+
+        <div class="new-form">
+            <div class="no-repeat-header">
+                <table width="100%;">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <h1>AFFIDAVIT
+                                <span class="sub-heading">In the Provincial Court of British Columbia</span>
+                            </h1>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="4" style="clear: both"><strong>* "Application" also includes a notice of motion.</strong></td>
-                    </tr>
-                </tbody>
-              </table><!-- END the footer -->
-            </div><!-- end affidavit questions content -->
-          </div><!-- end full content of affidavit -->
+                    </tbody>
+                </table>
+            </div><!-- /form heading -->
+            <!-- full content of affidavit -->
+            <div style="position: relative; top: 1.5em;">
+                <!-- the top half of the form - name etc. up to first dynamic text area -->
+                <div class="form-intro">
+                    <table>
+                        <tbody>
+                        <tr class="bordered">
+                            <td colspan="4" style="padding: 0;">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="4"><legend>In the case between:</legend></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
+                                            <label class="label-btm">Name</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><legend>And:</legend></td>
+                                    </tr>
+                                    <tr class="brdr-btm">
+                                        <td colspan="4">
+                                            <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
+                                            <label class="label-btm">Name</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr><!-- END SECTION 1 -->
+                        <tr class="section spacer">&nbsp;</tr>
+                        <!-- SECTION 2 -->
+                        <tr class="bordered">
+                            <td colspan="4" style="padding: 0;">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="4"><legend>I,</legend></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span class="brdr-btm">{{ ApplicantName }}</span>
+                                            <label class="label-btm">Name</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span class="brdr-btm">{{ ApplicantOccupation }}</span>
+                                            <label class="label-btm">Occupation</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><legend>Of</legend></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ ApplicantAddress.street}}</span>
+                                            <label class="label-btm">ADDRESS</label>
+                                        </td>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ ApplicantAddress.city }}</span>
+                                            <label class="label-btm">City</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ ApplicantAddress.state }}</span>
+                                            <label class="label-btm">Province</label>
+                                        </td>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ ApplicantAddress.postcode }}</span>
+                                            <label class="label-btm">Postal Code</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><legend>Swear or affirm that:</legend></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><p>I know or believe the following facts to be true. If these facts are based on information from others,
+                                            I believe that information to be true.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span class="label blank">I make this affidavit in relation to an application* by<span class="long brdr-btm label-name">&nbsp;</span></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <span class="label blank">for<span class="extra-long brdr-btm label-name">&nbsp;</span></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
+                                    <tr>
+                                        <td colspan="4" style="padding-top: 1em;">
+                                            <!-- scope 1 always checked -->
+                                            <span class="check selected">&#10003;</span>
+                                            <span class="label">I am making the application*</span>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- affidavit text area questions content -->
+                <!-- dont let the content with the first box break to page 2 -->
+                <div class="dont-break-before">
+                    <!-- first box MAX CHAR = 5,000 -->
+                    <div class="aff-text bordered">
+                        <span>{{ PORAffidavit | safe }}</span>
+                    </div>
+                    {% for Affidavit in PORAffidavitArray %}
+                    <div class="aff-text next-page bordered">
+                        <span>{{ Affidavit | safe }}</span>
+                    </div>
+                    {% endfor %}
+
+
+
+
+                    <!-- add the footer -->
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td colspan="4">
+                                <p style="font-style: italic; font-size: .85em;">Sworn or affirmed by me</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" class="signature-area" style="font-style: italic; font-size: .85em;">
+                                <span class="label blank">at<span class="long brdr-btm">&nbsp;</span><span class="addendum">British Columbia</span></span>
+                            </td>
+                            <td colspan="2" rowspan="3" class="signature-area" style="border-left: 1px solid #000;">
+                                <span class="box">&nbsp;</span>
+                                <label style="text-transform: none;">Signature</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="signature-area" style="font-style: italic; font-size: .85em;">
+                                <span class="label blank">on<span class="long brdr-btm label-date">&nbsp;</span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="signature-area">
+                                <span class="box" style="height: 2em;">&nbsp;</span>
+                                <label class="label-btm">A Commissioner for Taking Affidavits for British Columbia</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="clear: both"><strong>* "Application" also includes a notice of motion.</strong></td>
+                        </tr>
+                        </tbody>
+                    </table><!-- END the footer -->
+                </div><!-- end affidavit questions content -->
+            </div><!-- end full content of affidavit -->
         </div><!-- end affidavit form-->
     </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->

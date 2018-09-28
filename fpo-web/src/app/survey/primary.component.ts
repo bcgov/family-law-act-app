@@ -96,14 +96,12 @@ export class SurveyPrimaryComponent implements OnInit {
             data.listOfChildrenTimeNoneArray = [];
             data.listOfChildrenTimeNoneString = new String();
 
-            data.childError = [];
+            data.PORAffidavit = new String();
+            data.PORAffidavitArray = [];
 
-            // if(data.RespondentNoGoPlaces-Comment !== undefined){
-            // data.RespondentNoGoPlacesComment = this.jsonObject['data.RespondentNoGoPlaces-Comment'];
-            // }
+            data.childError = [];
             data.RespondentNoGoPlacesString = new String();
             console.log("Variable with "+ data.RespondentNoGoPlacesComment);
-            // console.log("printing with []" + data['RespondentNoGoPlaces-Comment']);
             if(data.ListOfChildren !== undefined){
                 for (let child of data.ListOfChildren){
                     console.log("Child is "+child["ChildName"]);
@@ -120,12 +118,6 @@ export class SurveyPrimaryComponent implements OnInit {
                     // data.listOfChildren.push(child["ChildName"]);
                 }
             }
-
-
-
-
-
-
 
             if(data.ListOfChildren !== undefined){
                 for (let child of data.ListOfChildren){
@@ -185,278 +177,82 @@ export class SurveyPrimaryComponent implements OnInit {
                     }
                 }
             }
-            if (data.listOfBothGuardianArray !== undefined){
-                for (let child of data.listOfBothGuardianArray){
 
-                    if(child == data.listOfBothGuardianArray[data.listOfBothGuardianArray.length-1]){
+            if (data.listOfBothGuardianArray !== undefined)
+                data.listOfBothGuardianString = data.listOfBothGuardianArray.slice(0, data.listOfBothGuardianArray.length-1).join(", ")
+                    + " and " + data.listOfBothGuardianArray[data.listOfBothGuardianArray.length-1];
 
-                        data.listOfBothGuardianString = data.listOfBothGuardianString + " and "+child;
-                    }
-                    else if(child == data.listOfBothGuardianArray[0]){
-                        data.listOfBothGuardianString = data.listOfBothGuardianString + child;
-                    }
-                    else{
-                        data.listOfBothGuardianString = data.listOfBothGuardianString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfApplicantGuardianArray !== undefined){
-                for (let child of data.listOfApplicantGuardianArray){
+            if (data.listOfApplicantGuardianArray !== undefined)
+                data.listOfApplicantGuardianString = data.listOfApplicantGuardianArray.slice(0, data.listOfApplicantGuardianArray.length-1).join(", ")
+                    + " and " + data.listOfApplicantGuardianArray[data.listOfApplicantGuardianArray.length-1];
 
-                    if(child == data.listOfApplicantGuardianArray[data.listOfApplicantGuardianArray.length-1]){
+            if (data.listOfRespondentGuardianArray !== undefined)
+                data.listOfRespondentGuardianString = data.listOfRespondentGuardianArray.slice(0, data.listOfRespondentGuardianArray.length-1).join(", ")
+                    + " and " + data.listOfRespondentGuardianArray[data.listOfRespondentGuardianArray.length-1];
 
-                        data.listOfApplicantGuardianString = data.listOfApplicantGuardianString + " and "+child;
-                    }
-                    else if(child == data.listOfApplicantGuardianArray[0]){
-                        data.listOfApplicantGuardianString = data.listOfApplicantGuardianString + child;
-                    }
-                    else{
-                        data.listOfApplicantGuardianString = data.listOfApplicantGuardianString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfRespondentGuardianArray !== undefined){
-                for (let child of data.listOfRespondentGuardianArray){
+            if (data.listOfBothResponsibleArray !== undefined)
+                data.listOfBothResponsibleString = data.listOfBothResponsibleArray.slice(0, data.listOfBothResponsibleArray.length-1).join(", ")
+                    + " and " + data.listOfBothResponsibleArray[data.listOfBothResponsibleArray.length-1];
 
-                    if(child == data.listOfRespondentGuardianArray[data.listOfRespondentGuardianArray.length-1]){
+            if (data.listOfApplicantResponsibleArray !== undefined)
+                data.listOfApplicantResponsibleString = data.listOfApplicantResponsibleArray.slice(0, data.listOfApplicantResponsibleArray.length-1).join(", ")
+                    + " and " + data.listOfApplicantResponsibleArray[data.listOfApplicantResponsibleArray.length-1];
 
-                        data.listOfRespondentGuardianString = data.listOfRespondentGuardianString + " and "+child;
-                    }
-                    else if(child == data.listOfRespondentGuardianArray[0]){
-                        data.listOfRespondentGuardianString = data.listOfRespondentGuardianString + child;
-                    }
-                    else{
-                        data.listOfRespondentGuardianString = data.listOfRespondentGuardianString + ", " + child;
-                    }
-                }
-            }
+            if (data.listOfRespondentResponsibleArray !== undefined)
+                data.listOfRespondentResponsibleString = data.listOfRespondentResponsibleArray.slice(0, data.listOfRespondentResponsibleArray.length-1).join(", ")
+                    + " and " + data.listOfRespondentResponsibleArray[data.listOfRespondentResponsibleArray.length-1];
 
+            if (data.listOfNoResponsibleArray !== undefined)
+                data.listOfNoResponsibleString = data.listOfNoResponsibleArray.slice(0, data.listOfNoResponsibleArray.length-1).join(", ")
+                    + " and " + data.listOfNoResponsibleArray[data.listOfNoResponsibleArray.length-1];
 
-
-
-
-
-            if (data.listOfBothResponsibleArray !== undefined){
-                for (let child of data.listOfBothResponsibleArray){
-
-                    if(child == data.listOfBothResponsibleArray[data.listOfBothResponsibleArray.length-1]){
-
-                        data.listOfBothResponsibleString = data.listOfBothResponsibleString + " and "+child;
-                    }
-                    else if(child == data.listOfBothResponsibleArray[0]){
-                        data.listOfBothResponsibleString = data.listOfBothResponsibleString + child;
-                    }
-                    else{
-                        data.listOfBothResponsibleString = data.listOfBothResponsibleString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfApplicantResponsibleArray !== undefined){
-                for (let child of data.listOfApplicantResponsibleArray){
-
-                    if(child == data.listOfApplicantResponsibleArray[data.listOfApplicantResponsibleArray.length-1]){
-
-                        data.listOfApplicantResponsibleString = data.listOfApplicantResponsibleString + " and "+child;
-                    }
-                    else if(child == data.listOfApplicantResponsibleArray[0]){
-                        data.listOfApplicantResponsibleString = data.listOfApplicantResponsibleString + child;
-                    }
-                    else{
-                        data.listOfApplicantResponsibleString = data.listOfApplicantResponsibleString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfRespondentResponsibleArray !== undefined){
-                for (let child of data.listOfRespondentResponsibleArray){
-
-                    if(child == data.listOfRespondentResponsibleArray[data.listOfRespondentResponsibleArray.length-1]){
-
-                        data.listOfRespondentResponsibleString = data.listOfRespondentResponsibleString + " and "+child;
-                    }
-                    else if(child == data.listOfRespondentResponsibleArray[0]){
-                        data.listOfRespondentResponsibleString = data.listOfRespondentResponsibleString + child;
-                    }
-                    else{
-                        data.listOfRespondentResponsibleString = data.listOfRespondentResponsibleString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfNoResponsibleArray !== undefined){
-                for (let child of data.listOfNoResponsibleArray){
-
-                    if(child == data.listOfNoResponsibleArray[data.listOfNoResponsibleArray.length-1]){
-
-                        data.listOfNoResponsibleString = data.listOfNoResponsibleString + " and "+child;
-                    }
-                    else if(child == data.listOfNoResponsibleArray[0]){
-                        data.listOfNoResponsibleString = data.listOfNoResponsibleString + child;
-                    }
-                    else{
-                        data.listOfNoResponsibleString = data.listOfNoResponsibleString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfAdultChildrenArray !== undefined){
-                for (let child of data.listOfAdultChildrenArray){
-                    if(child == data.listOfAdultChildrenArray[data.listOfAdultChildrenArray.length-1]){
-
-                        data.listOfAdultChildrenString = data.listOfAdultChildrenString + " and "+child;
-                    }
-                    else if(child == data.listOfAdultChildrenArray[0]){
-                        data.listOfAdultChildrenString = data.listOfAdultChildrenString + child;
-                    }
-                    else{
-                        data.listOfAdultChildrenString = data.listOfAdultChildrenString + ", " + child;
-                    }
-                }
-            }
-
+            if (data.listOfAdultChildrenArray !== undefined)
+                data.listOfAdultChildrenString = data.listOfAdultChildrenArray.slice(0, data.listOfAdultChildrenArray.length-1).join(", ")
+                    + " and " + data.listOfAdultChildrenArray[data.listOfAdultChildrenArray.length-1];
             //Child parenting time list
-            if (data.listOfEqualPtimeArray !== undefined){
-                for (let child of data.listOfEqualPtimeArray){
-                    if(child == data.listOfEqualPtimeArray[data.listOfEqualPtimeArray.length-1]){
+            if (data.listOfEqualPtimeArray !== undefined)
+                data.listOfEqualPtimeString = data.listOfEqualPtimeArray.slice(0, data.listOfEqualPtimeArray.length-1).join(", ")
+                    + " or " + data.listOfEqualPtimeArray[data.listOfEqualPtimeArray.length-1];
 
-                        data.listOfEqualPtimeString = data.listOfEqualPtimeString + " or "+child;
-                    }
-                    else if(child == data.listOfEqualPtimeArray[0]){
-                        data.listOfEqualPtimeString = data.listOfEqualPtimeString + child;
-                    }
-                    else{
-                        data.listOfEqualPtimeString = data.listOfEqualPtimeString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfApplicantMainGuardianArray !== undefined){
-                for (let child of data.listOfApplicantMainGuardianArray){
-                    if(child == data.listOfApplicantMainGuardianArray[data.listOfApplicantMainGuardianArray.length-1]){
+            if (data.listOfApplicantMainGuardianArray !== undefined)
+                data.listOfApplicantMainGuardianString = data.listOfApplicantMainGuardianArray.slice(0, data.listOfApplicantMainGuardianArray.length-1).join(", ")
+                    + " or " + data.listOfApplicantMainGuardianArray[data.listOfApplicantMainGuardianArray.length-1];
 
-                        data.listOfApplicantMainGuardianString = data.listOfApplicantMainGuardianString + " or "+child;
-                    }
-                    else if(child == data.listOfApplicantMainGuardianArray[0]){
-                        data.listOfApplicantMainGuardianString = data.listOfApplicantMainGuardianString + child;
-                    }
-                    else{
-                        data.listOfApplicantMainGuardianString = data.listOfApplicantMainGuardianString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfRespondentMainGuardianArray !== undefined){
-                for (let child of data.listOfRespondentMainGuardianArray){
-                    if(child == data.listOfRespondentMainGuardianArray[data.listOfRespondentMainGuardianArray.length-1]){
+            if (data.listOfRespondentMainGuardianArray !== undefined)
+                data.listOfRespondentMainGuardianString = data.listOfRespondentMainGuardianArray.slice(0, data.listOfRespondentMainGuardianArray.length-1).join(", ")
+                    + " or " + data.listOfRespondentMainGuardianArray[data.listOfRespondentMainGuardianArray.length-1];
 
-                        data.listOfRespondentMainGuardianString = data.listOfRespondentMainGuardianString + " or "+child;
-                    }
-                    else if(child == data.listOfRespondentMainGuardianArray[0]){
-                        data.listOfRespondentMainGuardianString = data.listOfRespondentMainGuardianString + child;
-                    }
-                    else{
-                        data.listOfRespondentMainGuardianString = data.listOfRespondentMainGuardianString + ", " + child;
-                    }
-                }
-            }
+            if (data.listOfChildrenTimeApplicantArray !== undefined)
+                data.listOfChildrenTimeApplicantString = data.listOfChildrenTimeApplicantArray.slice(0, data.listOfChildrenTimeApplicantArray.length-1).join(", ")
+                    + " or " + data.listOfChildrenTimeApplicantArray[data.listOfChildrenTimeApplicantArray.length-1];
+
+            if (data.listOfChildrenTimeRespondentArray !== undefined)
+                data.listOfChildrenTimeRespondentString = data.listOfChildrenTimeRespondentArray.slice(0, data.listOfChildrenTimeRespondentArray.length-1).join(", ")
+                    + " or " + data.listOfChildrenTimeRespondentArray[data.listOfChildrenTimeRespondentArray.length-1];
+
+            if (data.listOfChildrenTimeNoneArray !== undefined)
+                data.listOfChildrenTimeNoneString = data.listOfChildrenTimeNoneArray.slice(0, data.listOfChildrenTimeNoneArray.length-1).join(", ")
+                    + " or " + data.listOfChildrenTimeNoneArray[data.listOfChildrenTimeNoneArray.length-1];
+
+            if (data.listOfChildrenArray !== undefined)
+                data.listOfChildrenString = data.listOfChildrenArray.slice(0, data.listOfChildrenArray.length-1).join(", ")
+                    + " or " + data.listOfChildrenArray[data.listOfChildrenArray.length-1];
+
+            if (data.listOfChildrenWithPOArray !== undefined)
+                data.listOfChildrenWithPO = data.listOfChildrenWithPOArray.slice(0, data.listOfChildrenWithPOArray.length-1).join(", ")
+                    + " or " + data.listOfChildrenWithPOArray[data.listOfChildrenWithPOArray.length-1];
 
 
-            if (data.listOfChildrenTimeApplicantArray !== undefined){
-                for (let child of data.listOfChildrenTimeApplicantArray){
-                    if(child == data.listOfChildrenTimeApplicantArray[data.listOfChildrenTimeApplicantArray.length-1]){
-
-                        data.listOfChildrenTimeApplicantString = data.listOfChildrenTimeApplicantString + " or "+child;
-                    }
-                    else if(child == data.listOfChildrenTimeApplicantArray[0]){
-                        data.listOfChildrenTimeApplicantString = data.listOfChildrenTimeApplicantString + child;
-                    }
-                    else{
-                        data.listOfChildrenTimeApplicantString = data.listOfChildrenTimeApplicantString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfChildrenTimeRespondentArray !== undefined){
-                for (let child of data.listOfChildrenTimeRespondentArray){
-                    if(child == data.listOfChildrenTimeRespondentArray[data.listOfChildrenTimeRespondentArray.length-1]){
-
-                        data.listOfChildrenTimeRespondentString = data.listOfChildrenTimeRespondentString + " or "+child;
-                    }
-                    else if(child == data.listOfChildrenTimeRespondentArray[0]){
-                        data.listOfChildrenTimeRespondentString = data.listOfChildrenTimeRespondentString + child;
-                    }
-                    else{
-                        data.listOfChildrenTimeRespondentString = data.listOfChildrenTimeRespondentString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfChildrenTimeNoneArray !== undefined){
-                for (let child of data.listOfChildrenTimeNoneArray){
-                    if(child == data.listOfChildrenTimeNoneArray[data.listOfChildrenTimeNoneArray.length-1]){
-
-                        data.listOfChildrenTimeNoneString = data.listOfChildrenTimeNoneString + " or "+child;
-                    }
-                    else if(child == data.listOfChildrenTimeNoneArray[0]){
-                        data.listOfChildrenTimeNoneString = data.listOfChildrenTimeNoneString + child;
-                    }
-                    else{
-                        data.listOfChildrenTimeNoneString = data.listOfChildrenTimeNoneString + ", " + child;
-                    }
-                }
-            }
+            if(data.listOfChildrenWithoutPOArray !== undefined)
+                data.listOfChildrenWithoutPOString = data.listOfChildrenWithoutPOArray.slice(0, data.listOfChildrenWithoutPOArray.length-1).join(", ")
+                    + " or " + data.listOfChildrenWithoutPOArray[data.listOfChildrenWithoutPOArray.length-1];
 
 
-
-
-
-
-
-
-            if (data.listOfChildrenArray !== undefined){
-                for (let child of data.listOfChildrenArray){
-
-                    if(child == data.listOfChildrenArray[data.listOfChildrenArray.length-1]){
-
-                        data.listOfChildrenString = data.listOfChildrenString + " or "+child;
-                    }
-                    else if(child == data.listOfChildrenArray[0]){
-                        data.listOfChildrenString = data.listOfChildrenString + child;
-                    }
-                    else{
-                        data.listOfChildrenString = data.listOfChildrenString + ", " + child;
-                    }
-                }
-            }
-            if (data.listOfChildrenWithPOArray !== undefined){
-                for (let childWithPO of data.listOfChildrenWithPOArray){
-                    console.log("child name before if is " + childWithPO);
-                    if(childWithPO == data.listOfChildrenWithPOArray[data.listOfChildrenWithPOArray.length-1]){
-                        console.log("last child name is " + childWithPO);
-                        data.listOfChildrenWithPO = data.listOfChildrenWithPO + " or "+childWithPO;
-                    }
-                    else if(childWithPO == data.listOfChildrenWithPOArray[0]){
-                        data.listOfChildrenWithPO = data.listOfChildrenWithPO + childWithPO;
-                    }
-                    else{
-                        data.listOfChildrenWithPO = data.listOfChildrenWithPO + ", " + childWithPO;
-                    }
-                }
-            }
-            if(data.listOfChildrenWithoutPOArray !== undefined){
-                for (let childWithoutPO of data.listOfChildrenWithoutPOArray){
-                    console.log("child name before if is " + childWithoutPO);
-                    if(childWithoutPO == data.listOfChildrenWithoutPOArray[data.listOfChildrenWithoutPOArray.length-1]){
-                        console.log("last child name is " + childWithoutPO);
-                        data.listOfChildrenWithoutPOString = data.listOfChildrenWithoutPO + " or "+childWithoutPO;
-                    }
-                    else if(childWithoutPO == data.listOfChildrenWithoutPOArray[0]){
-                        data.listOfChildrenWithoutPOString = data.listOfChildrenWithoutPO + childWithoutPO;
-                    }
-                    else{
-                        data.listOfChildrenWithoutPOString = data.listOfChildrenWithoutPO + ", " + childWithoutPO;
-                    }
-                }
-            }
             if (data.ApplicantNeedsProtection == "y"){
                 data.listOfPeopleWithPOString = data.ApplicantName;
                 console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
                 console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
                 console.log("ApplicantName is "+ data.ApplicantName);
-
             }
             if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPO != undefined){
                 data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPO;
@@ -474,32 +270,14 @@ export class SurveyPrimaryComponent implements OnInit {
             console.log("RespondentApplicantContactType are " + data.RespondentApplicantContactType);
             console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
 
-            if (data.RespondentApplicantContactType !== undefined){
-                for (let contactType of data.RespondentApplicantContactType){
-                    if (contactType == data.RespondentApplicantContactType[0]){
-                        data.contactTypeString = data.contactTypeString + contactType;
-                    }
-                    else if (contactType == data.RespondentApplicantContactType[data.RespondentApplicantContactType.length-1]){
-                        data.contactTypeString = data.contactTypeString + " or " + contactType;
-                    }
-                    else {
-                        data.contactTypeString = data.contactTypeString + ", " + contactType;
-                    }
-                }
-            }
-            if (data.RespondentApplicantArrangeMethods !== undefined){
-                for (let ArrangeMethod of data.RespondentApplicantArrangeMethods){
-                    if (ArrangeMethod == data.RespondentApplicantArrangeMethods[0]){
-                        data.ArrangeMethodString = data.ArrangeMethodString + ArrangeMethod;
-                    }
-                    else if (ArrangeMethod == data.RespondentApplicantArrangeMethods[data.RespondentApplicantArrangeMethods.length-1]){
-                        data.ArrangeMethodString = data.ArrangeMethodString + " and " + ArrangeMethod;
-                    }
-                    else {
-                        data.ArrangeMethodString = data.ArrangeMethodString + ", " + ArrangeMethod;
-                    }
-                }
-            }
+            if (data.RespondentApplicantContactType !== undefined)
+                data.contactTypeString = data.RespondentApplicantContactType.slice(0, data.RespondentApplicantContactType.length-1).join(", ")
+                    + " or " + data.RespondentApplicantContactType[data.RespondentApplicantContactType.length-1];
+
+            if (data.RespondentApplicantArrangeMethods !== undefined)
+                data.ArrangeMethodString = data.RespondentApplicantArrangeMethods.slice(0, data.RespondentApplicantArrangeMethods.length-1).join(", ")
+                    + " and " + data.RespondentApplicantArrangeMethods[data.RespondentApplicantArrangeMethods.length-1];
+
             if (data.RespondentNoGoPlaces !== undefined){
                 for (let RespondentNoGoPlace of data.RespondentNoGoPlaces){
                     if (RespondentNoGoPlace == data.RespondentNoGoPlaces[0]){
@@ -513,12 +291,68 @@ export class SurveyPrimaryComponent implements OnInit {
                     }
                 }
             }
+
             console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
             //add additional data ends here
+
+            // Concate all strings to PORAffidavit
+            data.PORAffidavit = "<strong>Relationship History </strong> <br/>" + data.PORRelationshipHistory + "<br/><br/><strong>Family Violence Incidents </strong> <br/>"
+                + data.PORWhatHappened;
+            if(data.PORSpeedup == "y" && data.PORNoNotice == "n"){
+                data.PORAffidavit += "<br/><br/><strong>Reasons for shortening the time to reply </strong> <br/>" + data.PORWhyASAP;
+            }
+            else if(data.PORNoNotice == "y"){
+                data.PORAffidavit += "<br/> <br/> <strong>Reasons for the application to be heard without notice to the other party </strong> <br/>" + data.PORWhyNoNotice;
+            }
+
+            // slice PORAffidavit to each paragraph
+            data.PORAffidavit = data.PORAffidavit.replace(/\n/g, '<br/>');
+            var PORAffidavitSplit = data.PORAffidavit.split('<br/>');
+            console.log("POR Message: " + data.PORAffidavit);
+            console.log("POR Length: " + data.PORAffidavit.length);
+
+            // First page
+            var i : number = 1;
+            data.PORAffidavit = PORAffidavitSplit[0] + "<br/>";
+            var len : number = 120;
+            for(; i < PORAffidavitSplit.length; i++){
+
+                len += (PORAffidavitSplit[i].length + 120);
+                if(len < 5000){
+                    data.PORAffidavit += PORAffidavitSplit[i] + "<br/>";
+                }else{
+                    break;
+                }
+            }
+
+            // Other pages
+            var j : number = 0;
+            var sub_length : number = 0;
+            while(i < PORAffidavitSplit.length){
+                sub_length += (PORAffidavitSplit[i].length + 120);
+                if(sub_length < 7100){
+                    // Last page should have more space for signature
+                    if(i == (PORAffidavitSplit.length - 1)){
+                        if(sub_length > 5100){
+                            j++;
+                        }
+                    }
+                    if(data.PORAffidavitArray[j] !== undefined){
+                        data.PORAffidavitArray[j] += PORAffidavitSplit[i] + "<br/>";
+                    }
+                    else{
+                        data.PORAffidavitArray[j] = PORAffidavitSplit[i] + "<br/>";
+                    }
+                    i++;
+                }else{
+                    sub_length = 0;
+                    j++;
+                }
+            }
             this.data = data;
 
             this.resultJson = JSON.stringify(data);
-            console.log("resultJson is" + this.resultJson);
+            console.log("resultJson is: " + this.resultJson);
 
             this.resultJson = JSON.stringify(data);
             this.jsonObject = JSON.parse(this.resultJson);
