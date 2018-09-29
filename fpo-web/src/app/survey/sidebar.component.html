@@ -1,6 +1,5 @@
 <div class="sidebar-container">
-
-  <h3>{{title}}</h3>
+  <div class="sidebar-title"><h3>{{title}}</h3></div>
 
   <ul class="links">
     <li *ngFor="let link of links" [class]="link.current ? 'current' : ''" (keydown)="keyDown($event, link)" (click)="activateLink(link)" [tabindex]="link.disabled ? '-1' : '0'">

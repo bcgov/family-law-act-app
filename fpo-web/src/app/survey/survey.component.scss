@@ -1,14 +1,36 @@
+@import "../../variables";
+
+// utility navigation
 .survey-cache-info {
   padding: 0 1.5em;
-  text-align: right;
+  position: absolute;
+  top: -4.25em;
+  right: 0;
 }
+// util nav items, profile, log-out button
+button.util-nav, a.util-nav{
+  background: none;
+  border: none;
+  color: $gov-white;
+  padding-top: .65em;
+  font-size: 16px;
+  &:hover{
+    color: $gov-mid-blue;
+    }
+  }
+button.util-nav{
+  &:before{
+    content: " | ";
+    margin-left: .5em;
+    margin-right: .5em;
+    }
+  }
+a.util-nav{text-decoration: none;}
+
 .cache-time {
   padding-right: 1em;
-}
-
-.survey-nav {
-  display: flex;
-  > div {
-    flex: auto;
+  color: $gov-navy-blue;
   }
-}
+
+.survey-nav-left, .survey-nav-right{display: inline-block;}
+.survey-nav-left{margin-right: 1em;}
