@@ -102,18 +102,48 @@ export class SurveyPrimaryComponent implements OnInit {
             data.childError = [];
             data.RespondentNoGoPlacesString = new String();
             console.log("Variable with "+ data.RespondentNoGoPlacesComment);
+            console.log("Variable type of ApplicantDOB "+ typeof data.ApplicantDOB);
+            let newDate = new Date(data.ApplicantDOB);
+            var dd = newDate.getDate() +1;
+            var month = newDate.toLocaleString("en-us", {month: "short"});
+            var yyyy = newDate.getFullYear();
+            data.ApplicantDOBDateCompStr = month+"/"+dd+"/"+yyyy;
+            let respondentNewDate = new Date(data.RespondentDOB);
+            var dd = respondentNewDate.getDate() +1;
+            var month = respondentNewDate.toLocaleString("en-us", {month: "short"});
+            var yyyy = respondentNewDate.getFullYear();
+            data.RespondentDOBDateCompStr = month+"/"+dd+"/"+yyyy;
+            let porNewDate = new Date(data.RespondentPORNewTime);
+            var dd = porNewDate.getDate() +1;
+            var month = porNewDate.toLocaleString("en-us", {month: "short"});
+            var yyyy = porNewDate.getFullYear();
+            data.PorNewDateCompStr = month+"/"+dd+"/"+yyyy;
+
             if(data.ListOfChildren !== undefined){
                 for (let child of data.ListOfChildren){
-                    console.log("Child is "+child["ChildName"]);
-                    data.listOfChildrenArray.push(child["ChildName"]);
+
+                    let childDOBNewDate = new Date(child.ChildDOB);
+                    var dd = childDOBNewDate.getDate() +1;
+                    var month = childDOBNewDate.toLocaleString("en-us", {month: "short"});
+                    var yyyy = childDOBNewDate.getFullYear();
+                    console.log("child.childBOD is" + child.ChildDOB);
+                    child.ChildDOB = month+"/"+dd+"/"+yyyy;
+                    console.log("after conversion of child.childBOD is" + child.ChildDOB);
+                    child.ChildDOB = JSON.stringify(month+"/"+dd+"/"+yyyy);
+
+                    var childFullName = child["ChildName"].first + child["ChildName"].middle + child["ChildName"].last;
+
+
+
+                    data.listOfChildrenArray.push(childFullName);
                     if (child["ChildNeedsProtection"] == "y"){
 
-                        data.listOfChildrenWithPOArray.push(child["ChildName"]);
+                        data.listOfChildrenWithPOArray.push(childFullName);
 
                         // data.listOfChildrenWithPO.concat
                     }
                     else {
-                        data.listOfChildrenWithoutPOArray.push(child["ChildName"]);
+                        data.listOfChildrenWithoutPOArray.push(childFullName);
                     }
                     // data.listOfChildren.push(child["ChildName"]);
                 }
@@ -121,54 +151,55 @@ export class SurveyPrimaryComponent implements OnInit {
 
             if(data.ListOfChildren !== undefined){
                 for (let child of data.ListOfChildren){
+                    var childFullName = child["ChildName"].first + child["ChildName"].middle + child["ChildName"].last;
                     if (child["ChildIsMinor"] == "y"){
                         if (child["ChildApplicantGuardian"] == "y" && child["ChildRespondentGuardian"] == "y"){
-                            data.listOfBothGuardianArray.push(child["ChildName"]);
+                            data.listOfBothGuardianArray.push(childFullName);
                         }
                         else if (child["ChildApplicantGuardian"] == "y" && child["ChildRespondentGuardian"] == "n"){
-                            data.listOfApplicantGuardianArray.push(child["ChildName"]);
+                            data.listOfApplicantGuardianArray.push(childFullName);
                         }
                         else if (child["ChildApplicantGuardian"] == "n" && child["ChildRespondentGuardian"] == "y") {
-                            data.listOfRespondentGuardianArray.push(child["ChildName"]);
+                            data.listOfRespondentGuardianArray.push(childFullName);
                         }
                         else{
                             data.childError.push("mChildNoGuardian");
                         }
                         if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "y"){
-                            data.listOfBothResponsibleArray.push(child["ChildName"]);
+                            data.listOfBothResponsibleArray.push(childFullName);
                         }
                         else if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "n"){
-                            data.listOfApplicantResponsibleArray.push(child["ChildName"]);
+                            data.listOfApplicantResponsibleArray.push(childFullName);
                         }
                         else if (child["ChildApplicantPDecisions"] == "n" && child["ChildRespondentPDecisions"] == "y") {
-                            data.listOfRespondentResponsibleArray.push(child["ChildName"]);
+                            data.listOfRespondentResponsibleArray.push(childFullName);
                         }
                         else{
-                            data.listOfNoResponsibleArray.push(child["ChildName"]);
+                            data.listOfNoResponsibleArray.push(childFullName);
                         }
 
                         if (child["ChildEqualPTime"] == "y"){
-                            data.listOfEqualPtimeArray.push(child["ChildName"]);
+                            data.listOfEqualPtimeArray.push(childFullName);
                         }
                         else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "applicant"){
-                            data.listOfApplicantMainGuardianArray.push(child["ChildName"]);
+                            data.listOfApplicantMainGuardianArray.push(childFullName);
                         }
                         else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "respondent") {
-                            data.listOfRespondentMainGuardianArray.push(child["ChildName"]);
+                            data.listOfRespondentMainGuardianArray.push(childFullName);
                         }
 
                         if (child["ChildApplicantPTime"] == "y" && child["ChildRespondentPTime"] == "n"){
-                            data.listOfChildrenTimeApplicantArray.push(child["ChildName"]);
+                            data.listOfChildrenTimeApplicantArray.push(childFullName);
                         }
                         else if (child["ChildApplicantPTime"] == "n" && child["ChildRespondentPTime"] == "y") {
-                            data.listOfChildrenTimeRespondentArray.push(child["ChildName"]);
+                            data.listOfChildrenTimeRespondentArray.push(childFullName);
                         }
                         else if (child["ChildApplicantPTime"] == "n" && child["ChildRespondentPTime"] == "n") {
-                            data.listOfChildrenTimeNoneArray.push(child["ChildName"]);
+                            data.listOfChildrenTimeNoneArray.push(childFullName);
                         }
 
                         if (child["ChildIsMinor"] == "n"){
-                            data.listOfAdultChildrenArray.push(child["ChildName"]);
+                            data.listOfAdultChildrenArray.push(childFullName);
                         }
 
                     }
@@ -250,15 +281,23 @@ export class SurveyPrimaryComponent implements OnInit {
 
             if (data.ApplicantNeedsProtection == "y"){
                 data.listOfPeopleWithPOString = data.ApplicantName;
+                // console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
+                // console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
+                // console.log("ApplicantName is "+ data.ApplicantName);
+            }
+            if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPO != undefined){
+                data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPO;
+                console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
                 console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
                 console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
                 console.log("ApplicantName is "+ data.ApplicantName);
             }
-            if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPO != undefined){
-                data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPO;
-            }
             else if (data.ApplicantNeedsProtection == "n" && data.listOfChildrenWithPO != undefined){
                 data.listOfPeopleWithPOString = data.listOfChildrenWithPO;
+                console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
+                console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
+                console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
+                console.log("ApplicantName is "+ data.ApplicantName);
             }
             if (data.listOfChildren != undefined){
                 data.listOfPeopleString = data.listOfPeopleString +", " +data.listOfChildrenString;
@@ -352,6 +391,7 @@ export class SurveyPrimaryComponent implements OnInit {
             this.data = data;
 
             this.resultJson = JSON.stringify(data);
+
             console.log("resultJson is: " + this.resultJson);
 
             this.resultJson = JSON.stringify(data);

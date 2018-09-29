@@ -251,7 +251,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
+                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}{% endif %}</span>
                                     <label class="label-btm">Name</label>
                                 </td>
                             </tr>
@@ -260,7 +260,7 @@
                             </tr>
                             <tr class="brdr-btm">
                                 <td colspan="4">
-                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
+                                    <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}{% endif %}</span>
                                     <label class="label-btm">Name</label>
                                 </td>
                             </tr>
@@ -270,11 +270,11 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
+                                    <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}{% endif %}</span>
                                     <label class="label-btm">Name</label>
                                 </td>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantDOBDateCompStr }}</span>
                                     <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                 </td>
                             </tr>
@@ -322,7 +322,7 @@
                             <tr>
 
                                 <td colspan="4">
-                                    <span class="brdr-btm">&nbsp;{{ LawyerName }}</span>
+                                    <span class="brdr-btm">&nbsp;{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     <label class="label-btm">Name</label>
                                 </td>
 
@@ -350,11 +350,23 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{{ RespondentName }}</span>
+                                    {% if PORNoNotice == "y" %}
+                                    <span class="brdr-btm">&nbsp;</span>
+                                    {% else %}
+                                    <span class="brdr-btm">&nbsp;{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}</span>
+                                    {% endif %}
                                     <label class="label-btm">Name</label>
                                 </td>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{{ RespondentDOB }}</span>
+                                    {% if PORNoNotice == "y" %}
+                                    <span class="brdr-btm">&nbsp;</span>
+                                    {% else %}
+                                        {% if RespondentDOBExact == "y" %}
+                                        <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
+                                        {% else %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% endif %}
+                                    {% endif %}
                                     <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                 </td>
                             </tr>
@@ -579,11 +591,15 @@
                             {% for child in ListOfChildren %}
                             <tr>
                                 <td colspan="2">
-                                    <span class="brdr-btm">{{ child.ChildName }}&nbsp;</span>
+                                    <span class="brdr-btm">{{ child.ChildName.first }} {{ child.ChildName.middle}} {{ child.ChildName.last }}&nbsp;</span>
 
                                 </td>
                                 <td colspan="2">
+                                    {% if child.ChildDOBExact == "y" %}
                                     <span class="brdr-btm">{{ child.ChildDOB }}&nbsp;</span>
+                                    {% else%}
+                                    <span class="brdr-btm">&nbsp;</span>
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}
@@ -605,59 +621,59 @@
                                     <span class="brdr-btm" style="margin-top: .5em;">
 
                                     {% if listOfBothGuardianArray %}
-                                    {{ ApplicantName }} and {{ RespondentName }} are guardians of {{ listOfBothGuardianString }}.
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} are guardians of {{ listOfBothGuardianString }}.<br/>
                                     {% endif %}
                                     {% if listOfApplicantGuardianArray %}
-                                    {{ ApplicantName }} is the sole guardian of {{ listOfApplicantGuardianString }}.
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} is the sole guardian of {{ listOfApplicantGuardianString }}.<br/>
                                         {% if ChildRespondentContactOrder == "y" %}
-                                        {{ RespondentName }} has agreed-upon contact with {{ listOfApplicantGuardianString }}.
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has agreed-upon contact with {{ listOfApplicantGuardianString }}.<br/>
                                         {% endif %}
                                     {% endif %}
                                     {% if listOfRespondentGuardianArray %}
-                                    {{ RespondentName }} is the sole guardian of {{ listOfRespondentGuardianString }}.
+                                    {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} is the sole guardian of {{ listOfRespondentGuardianString }}.<br/>
                                         {% if ChildApplicantContactOrder == "y" %}
-                                        {{ RespondentName }} has agreed-upon contact with {{ listOfRespondentGuardianString }}.
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has agreed-upon contact with {{ listOfRespondentGuardianString }}.<br/>
                                         {% endif %}
                                     {% endif %}
                                     {% if listOfBothResponsibleArray %}
-                                    {{ ApplicantName }} and {{ RespondentName }} share parenting responsibilities for {{ listOfBothResponsibleString }}.
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} share parenting responsibilities for {{ listOfBothResponsibleString }}.<br/>
                                     {% endif %}
                                     {% if listOfApplicantResponsibleArray %}
-                                    {{ ApplicantName }} has parenting responsibilities for {{ listOfApplicantResponsibleString }}.
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} has parenting responsibilities for {{ listOfApplicantResponsibleString }}.<br/>
                                     {% endif %}
                                     {% if listOfRespondentResponsibleArray %}
-                                    {{ RespondentName }} has parenting responsibilities for {{ listOfRespondentResponsibleString }}.
+                                    {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has parenting responsibilities for {{ listOfRespondentResponsibleString }}.<br/>
                                     {% endif %}
                                     {% if listOfNoResponsibleArray %}
-                                    Neither {{ ApplicantName }} nor {{ RespondentName }} has parenting responsibilities for {{ listOfNoResponsibleString }}.
+                                    Neither {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has parenting responsibilities for {{ listOfNoResponsibleString }}.<br/>
                                     {% endif %}
                                     {% if listOfAdultChildrenArray %}
-                                    {{ listOfAdultChildrenString }} is(are) (an) adult(s).
+                                    {{ listOfAdultChildrenString }} is(are) (an) adult(s).<br/>
                                     {% endif %}
                                     {% if listOfEqualPtimeArray %}
-                                    {{ ApplicantName }} and {{ RespondentName }} spend time with {{ listOfEqualPtimeString }} equally.
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spend time with {{ listOfEqualPtimeString }} equally.<br/>
                                     {% endif %}
                                     {% if listOfApplicantMainGuardianArray %}
                                         {% if ChildApplicantUnequalPTime == "y" and ChildRespondentUnequalPTime %}
 
-                                        {{ ApplicantName }} spends more time with {{ listOfApplicantMainGuardianString }}. {{ RespondentName }} spends time with {{ listOfApplicantMainGuardianString }} {{ ChildRespondentUnequalPTime }}.
+                                        {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends more time with {{ listOfApplicantMainGuardianString }}. {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ listOfApplicantMainGuardianString }} {{ ChildRespondentUnequalPTime }}.<br/>
                                         {{% endif %}
                                     {% endif %}
                                     {% if listOfRespondentMainGuardianArray %}
                                         {% if ChildRespondentUnequalPTime == "y" and ChildApplicantUnequalPTime %}
-                                        {{ RespondentName }} spends more time with {{ listOfRespondentMainGuardianString }}. {{ ApplicantName }} spends time with {{ listOfRespondentMainGuardianString }} {{ ChildApplicantUnequalPTime }}.
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends more time with {{ listOfRespondentMainGuardianString }}. {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends time with {{ listOfRespondentMainGuardianString }} {{ ChildApplicantUnequalPTime }}.<br/>
                                         {{% endif %}
                                     {% endif %}
                                     {% if ChildApplicantPTime == "y" and ChildRespondentPTime == "n" %}
-                                    {{ RespondentName }} does not spend time with {{ listOfApplicantMainGuardianString }}.
+                                    {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} does not spend time with {{ listOfApplicantMainGuardianString }}.<br/>
 
                                     {% endif %}
                                     {% if ChildApplicantPTime == "n" and ChildRespondentPTime == "y" %}
-                                    {{ ApplicantName }} does not spend time with {{ listOfRespondentMainGuardianString }}.
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} does not spend time with {{ listOfRespondentMainGuardianString }}.<br/>
 
                                     {% endif %}
                                     {% if listOfChildrenTimeNoneArray %}
-                                    Neither {{ ApplicanttName }} nor {{ RespondentName }} spends time with {{ listOfChildrenTimeNoneString }}.
+                                    Neither {{ ApplicanttName.first }} {{ ApplicanttName.middle }} {{ ApplicanttName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ listOfChildrenTimeNoneString }}.<br/>
                                     {% endif %}
 
                                 </span>
@@ -781,45 +797,44 @@
                                     <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
                                     <p>I am asking for an order in the following terms:</p>
                                     <span class="brdr-btm">
-                                    {% if ApplicantNeedsProtection == "y" %}
-                                            {{ RespondentName }} should stay away and not communicate with {{ listOfPeopleWithPOString }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}.
-                                    {% endif %}
-                                    {% if RespondentApplicantContactOther == "y" %}
-                                    {{ RespondentName }} should be allowed to be around and communicate with {{ ApplicantName }} for the following reason: {{ RespondentApplicantContactOtherReason }}.
-                                    {% endif %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}.<br/>
+                                        {% if RespondentApplicantContactOther == "y" %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} for the following reason: {{ RespondentApplicantContactOtherReason }}.<br/>
+                                        {% endif %}
 
-                                    {% if RespondentApplicantArrangeChildren == "y" and listOfChildrenWithoutPOString %}
-                                        {{ RespondentName }} should be allowed to communicate with {{ ApplicantName }}, by {{ ArrangeMethodString }}, to arrange parenting responsibilities for {{ listOfChildrenWithoutPOString }}.
 
-                                    {% endif %}
-                                    {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
-                                    A police office should remove {{ RespondentName }}, {% if RespondentDOB %}{{ RespondentDOB }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}. {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}. {{ FamilyHomeAddress.state }}.{% endif %}
-                                    {% endif %}
-                                    {% if RespondentHasStuff == "y" and RespondentHasStuffPolice == "y" %}
-                                    A police officer should to come with {{ ApplicantName }} to get their personal belongings from {{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}. {{ RespondentHasStuffAddress.state }}.
+                                        {% if RespondentApplicantArrangeChildren == "y" and RespondentApplicantArrangeChildren == "y"  %}
+                                            {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to communicate with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to make parenting arrangements for {{ listOfChildrenWithoutPOString }} by {{ ArrangeMethodString }}.<br/>
 
-                                    {% endif %}
-                                    {% if RespondentNeedsStuff == "y" and RespondentNeedsStuffPolice == "y" %}
-                                    A police officer should supervise {{ RespondentName }} while they get their personal belongings from {% if RespondentNeedsStuffAddressSame == "y" %}{{ ApplicantAddress.street }} {{ ApplicantAddress.city }}. {{ ApplicantAddress.state }}.{% else %}{{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}. {{ RespondentHasStuffAddress.state }}{% endif %}.
-                                    {% endif %}
-                                    {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
-                                    {{ RespondentName }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}{% if RespondentNoGoPlacesComment != None %}, {{ RespondentNoGoPlacesComment }}{% endif %}.
-                                    {% endif %}
-                                    {% if RespondentFirearms == "y" %}
-                                    {{ RespondentName }} should not be allowed to own or carry any firearms.
-                                    {% endif %}
-                                    {% if RespondentFirearmsYes == "y" %}
-                                    {{ RespondentName }} should have to give their firearms to the police.
-                                    {% endif %}
-                                    {% if RespondentWeapons == "y" %}
-                                    {{ RespondentName }} should not be allowed to own or carry any weapons or knives (except while cooking and eating).
-                                    {% endif %}
-                                    {% if RespondentWeaponsYes == "y" %}
-                                    The police should take {{ RespondentName }}'s weapons.
-                                    {% endif %}
-                                    {% if RespondentPORTime == "y" %}
-                                    This Protection Order should expire on {{ RespondentPORNewTime }}.
-                                    {% endif %}
+                                        {% endif %}
+                                        {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
+                                        A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact =='y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
+                                        {% endif %}
+                                        {% if RespondentHasStuff == "y" and RespondentHasStuffPolice == "y" %}
+                                        A police officer should come with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to get their personal belongings from {{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
+
+                                        {% endif %}
+                                        {% if RespondentNeedsStuff == "y" and RespondentNeedsStuffPolice == "y" %}
+                                        A police officer should supervise {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} while they get their personal belongings from {% if RespondentNeedsStuffAddressSame == "y" %}{{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %}{{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>{% endif %}
+                                        {% endif %}
+                                        {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}{% if RespondentNoGoPlacesComment != None %}, {{ RespondentNoGoPlacesComment }}{% endif %}.<br/>
+                                        {% endif %}
+                                        {% if RespondentFirearms == "y" %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not be allowed to own or carry any firearms.<br/>
+                                        {% endif %}
+                                        {% if RespondentFirearmsYes == "y" %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should have to give their firearms to the police.<br/>
+                                        {% endif %}
+                                        {% if RespondentWeapons == "y" %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not be allowed to own or carry any weapons or knives (except while cooking and eating).<br/>
+                                        {% endif %}
+                                        {% if RespondentWeaponsYes == "y" %}
+                                        The police should take {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}'s weapons.<br/>
+                                        {% endif %}
+                                        {% if RespondentPORTime == "y" %}
+                                        This Protection Order should expire on {{ PorNewDateCompStr }}.<br/>
+                                        {% endif %}
                                     </span>
                                 </td>
                             </tr>
@@ -836,7 +851,7 @@
                             <tr>
                                 <td colspan="2" class="signature-area">
                                     {% if LawyerAddress == "y" %}
-                                    <span class="brdr-btm">{{ LawyerName }}</span>
+                                    <span class="brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     {% else %}
                                     <span class="brdr-btm">&nbsp;</span>
                                     {% endif %}
@@ -859,7 +874,8 @@
                                 <td colspan="4">
                                     <h2 style="text-align: center">LAWYER’S CERTIFICATE (FAMILY LAW ACT, s. 8 (2))</h2>
                                     {% if LawyerAddress == "y" %}
-                                    <p class="blank">I, <span class="short brdr-btm">{{ LawyerName }}</span>, lawyer for <span class="medium brdr-btm name-party">{{ ApplicantName }}</span>certify that, <br><br>in accordance with section 8 (2) of the Family Law Act, I have</p>
+                                    <p class="blank">I, <span class="short brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>, lawyer for <span class="medium brdr-btm name-party">{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span>certify that, <br><br>in accordance with section 8 (2) of the Family Law Act, I have</p>
+
                                     {% else %}
                                     <p class="blank">I, <span class="short brdr-btm">&nbsp;</span>, lawyer for <span class="medium brdr-btm name-party">&nbsp;</span>certify that, <br><br>in accordance with section 8 (2) of the Family Law Act, I have</p>
                                     {% endif %}
@@ -881,7 +897,7 @@
                             <tr>
                                 <td colspan="2" class="signature-area">
                                     {% if LawyerAddress == "y"%}
-                                    <span class="brdr-btm">{{ LawyerName }}</span>
+                                    <span class="brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     {% else %}
                                     <span class="brdr-btm">&nbsp;</span>
                                     {% endif %}
@@ -896,6 +912,7 @@
             </table>
         </div><!--end form 1-->
         <!-- form two  NOTICE OF MOTION -->
+        {% if PORSpeedup  == "y" or PORNoNotice  == "y" %}
         <div class="new-form">
             <div class="no-repeat-header">
                 <table width="100%;">
@@ -922,7 +939,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4">
-                                        <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
+                                        <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}{% endif %}</span>
                                         <label class="label-btm">Name</label>
                                     </td>
                                 </tr>
@@ -931,7 +948,7 @@
                                 </tr>
                                 <tr class="brdr-btm">
                                     <td colspan="4">
-                                        <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
+                                        <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}{% endif %}</span>
                                         <label class="label-btm">Name</label>
                                     </td>
                                 </tr>
@@ -941,11 +958,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantName }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span>
                                         <label class="label-btm">Name</label>
                                     </td>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantDOB }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantDOBDateCompStr }}</span>
                                         <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                     </td>
                                 </tr>
@@ -1014,11 +1031,23 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ RespondentName }}</span>
+                                        {% if PORNoNotice == "y" %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% else %}
+                                        <span class="brdr-btm">&nbsp;{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}</span>
+                                        {% endif %}
                                         <label class="label-btm">Name</label>
                                     </td>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ RespondentDOB }}</span>
+                                        {% if PORNoNotice == "y" %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% else %}
+                                            {% if RespondentDOBExact == "y" %}
+                                            <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
+                                            {% else %}
+                                            <span class="brdr-btm">&nbsp;</span>
+                                            {% endif %}
+                                        {% endif %}
                                         <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                     </td>
                                 </tr>
@@ -1066,10 +1095,16 @@
                                 <tbody>
                                 <tr>
                                     <td colspan="4" style="padding: 0;">
-                                  <span class="label blank" style="padding-top: .5em;">I <span class="long brdr-btm">&nbsp;{{ ApplicantName }}</span>
-                                  <span class="addendum">will apply to this court at</span>
-                                  <span class="brdr-btm medium">Court Name Goes Here</span>
-                                  </span>
+                                        <span class="label blank" style="padding-top: .5em;">I <span class="long brdr-btm">&nbsp;{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span>
+                                        <span class="addendum">will apply to this court at</span>
+                                        {% if ExistingCourt == "item1" %}
+                                        <span> class="brdr-btm medium"Vancouver</span>
+                                        {% elif ExistingCourt == "item2" %}
+                                        <span class="brdr-btm medium">Victoria</span>
+                                        {% else %}
+                                        <span>&nbsp;</span>
+                                        {% endif %}
+                                          </span>
                                         {% if ExistingCourt == "item1" %}
                                         <span class="brdr-btm" style="margin-top: .5em;">Vancouver</span>
                                         {% elif ExistingCourt == "item2" %}
@@ -1206,7 +1241,7 @@
                                     <td colspan="4">
                                         {% if PORSpeedup == "y" and PORNoNotice == "n" %}
                                         <span class="check selected">&#10003;</span>
-                                        <span class="label blank">Details of order(s) requested: <u>A order shortening a time limit for the other party to reply to the application for a protection order.</u></span>
+                                        <span class="label blank">Details of order(s) requested: <u>An order shortening a time limit for the other party to reply to the application for a protection order.</u></span>
                                         {% else %}
                                         <span class="check"></span>
                                         <span class="label blank">Details of order(s) requested:<span class="long brdr-btm">&nbsp;</span></span>
@@ -1214,11 +1249,7 @@
 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <span class="label blank">A order shortening a time limit for the other party to reply to the application for a protection order.<span class="long brdr-btm">&nbsp;</span></span>
-                                    </td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </td>
@@ -1269,7 +1300,8 @@
                 </table>
             </div><!-- end NOM form -->
         </div>
-
+        {% endif %}
+        {% if PORSpeedNormalAffidavit == "y" or PORSpeedup == "y" or PORNoNotice == "y" %}
         <div class="new-form">
             <div class="no-repeat-header">
                 <table width="100%;">
@@ -1299,7 +1331,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName }}{% endif %}</span>
+                                            <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}{% endif %}</span>
                                             <label class="label-btm">Name</label>
                                         </td>
                                     </tr>
@@ -1308,7 +1340,7 @@
                                     </tr>
                                     <tr class="brdr-btm">
                                         <td colspan="4">
-                                            <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName }}{% endif %}</span>
+                                            <span class="brdr-btm">{% if ExistingStyleOfProceeding.ExistingRespondent %}{{ ExistingStyleOfProceeding.ExistingRespondent }}{% else %}{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}{% endif %}</span>
                                             <label class="label-btm">Name</label>
                                         </td>
                                     </tr>
@@ -1326,7 +1358,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <span class="brdr-btm">{{ ApplicantName }}</span>
+                                            <span class="brdr-btm">{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span>
                                             <label class="label-btm">Name</label>
                                         </td>
                                     </tr>
@@ -1368,12 +1400,12 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <span class="label blank">I make this affidavit in relation to an application* by<span class="long brdr-btm label-name">&nbsp;</span></span>
+                                            <span class="label blank">I make this affidavit in relation to an application* by<span class="long brdr-btm label-name">&nbsp;{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span></span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <span class="label blank">for<span class="extra-long brdr-btm label-name">&nbsp;</span></span>
+                                            <span class="label blank">for<span class="extra-long brdr-btm label-name">&nbsp;a protection order</span></span>
                                         </td>
                                     </tr>
                                     <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
@@ -1445,6 +1477,7 @@
                 </div><!-- end affidavit questions content -->
             </div><!-- end full content of affidavit -->
         </div><!-- end affidavit form-->
+        {% endif %}
     </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->
 </body>
