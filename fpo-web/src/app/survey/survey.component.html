@@ -1,8 +1,8 @@
 <div class="survey-cache-info" *ngIf="! loading">
   <span class="cache-time" *ngIf="cacheLoadTime">{{ cacheLoadTime | date: 'medium' }}</span>
-  <button class="btn btn-default btn-sm" *ngIf="cacheLoadTime" (click)="resetCache()">Restart Survey</button>
-  <a class="btn btn-default btn-sm" routerLink="/prv/status">Profile</a>
-  <button class="btn btn-default btn-sm" (click)="logout()">Logout</button>
+  <button class="util-nav" *ngIf="cacheLoadTime" (click)="resetCache()">Restart Survey</button>
+  <a class="util-nav" routerLink="/prv/status">Profile</a>
+  <button class="util-nav" (click)="logout()">Logout</button>
 </div>
 
 <div class="page-load" *ngIf="loading && ! error">
@@ -21,7 +21,7 @@
       <span class="fa fa-arrow-circle-left btn-icon-left"></span> Previous
     </button>
   </div>
-  <div class="survey-nav-right text-right">
+  <div class="survey-nav-right">
     <button class="btn btn-default btn-lg" (click)="nextPage()" *ngIf="! isLastPage">
       Next <span class="fa fa-arrow-circle-right btn-icon-right"></span>
     </button>

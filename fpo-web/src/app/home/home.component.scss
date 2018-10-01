@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .home-content {
   padding-bottom: 20px;
   padding-top: 8rem;
@@ -13,7 +15,7 @@ h1, h2 {
   line-height: 1.6;
   margin: 3rem auto 4rem;
   p {
-    margin-bottom: 1.7rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -46,7 +48,7 @@ h1, h2 {
 }
 
 .step-info {
-  color: #f6f6f6;
+  color: $gov-pale-grey;
   font-size: 18px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   margin: 0 1em 0.5em;
@@ -54,7 +56,7 @@ h1, h2 {
 
 .ordinal {
   baseline-shift: -.2em;
-  border: 2px solid #fff;
+  border: 2px solid $gov-white;
   border-radius: 50%;
   display: inline-block;
   height: 1.75em;
@@ -66,35 +68,35 @@ h1, h2 {
 }
 
 .survey-button {
-  border: 2px solid rgba(#f8fcff, 0.3);
+  border: 2px solid rgba($gov-pale-grey, 0.3);
   margin-top: 2.5rem;
   &:active {
-    border: 2px solid rgba(#fff, 0.8);
+    border: 2px solid rgba($gov-white, 0.8);
   }
 }
 
 .login-button {
-  background-color: #fcba19;
-  border: 2px solid rgba(#b0b8c3, 0.8);
-  color: #38598a;
+  background-color: $gov-gold;
+  border: 2px solid rgba($gov-accent-grey, 0.8);
+  color: $gov-mid-blue;
   margin-top: 2.5rem;
   &:hover, &:focus {
-    background-color: darken(#fcba19, 8%);
+    background-color: darken($gov-gold, 8%);
     color: #222;
   }
   &:active {
-    border: 2px solid rgba(#fff, 0.8);
+    border: 2px solid rgba($gov-white, 0.8);
   }
 }
 
 .returning {
-  color: #fff;
+  color: $gov-white;
   margin-top: 2rem;
   p {
     margin-bottom: 0.4rem;
   }
   a {
-    color: #fff;
+    color: $gov-white;
     text-decoration: none;
     &:hover, &:active, &:focus {
       text-decoration: underline;
@@ -102,3 +104,12 @@ h1, h2 {
   }
 }
 
+// Need to know area
+.need-to-know{
+  color: $alert-red;
+  margin-top: 1rem;
+  border: 1px solid $alert-red;
+  border-radius: 8px;
+  padding: 1.5rem;
+  > h2{ color: $alert-red;}
+  }

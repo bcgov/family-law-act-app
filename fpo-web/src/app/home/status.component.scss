@@ -1,4 +1,31 @@
+@import "../../variables";
+
+// login/logout - position top.
 .user-status-info {
-  padding: 0 1.5em;
-  text-align: right;
-}
+  padding: 1em 1.5em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  }
+// login/log-out button
+button.util-nav{
+  background: none;
+  border: none;
+  color: #FFF;
+  padding-top: .65em;
+  }
+
+// Terms & Conditions
+.terms-panel{
+  > h2{font-size: 2em;}
+  box-shadow: none;
+  border: none;
+  background: $gov-white;
+  > h3{margin-bottom: .25em;}
+  }
+
+.terms-panel .panel-footer{
+  background-color: $gov-white;
+  border-top: 1px solid $gov-light-grey;
+  > .checkbox{margin-bottom: 1.5em;}
+  }

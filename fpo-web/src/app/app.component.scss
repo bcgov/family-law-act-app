@@ -42,3 +42,13 @@ $bootstrap-sass-asset-helper: true;
   padding: 0.25em 0.5em;
   vertical-align: text-bottom;
 }
+
+// Header styles
+.app-header .title{margin-left: 2em;}
+
+// Footer Styles
+.app-footer .navbar-default{background: $gov-navy-blue;}
+.app-footer li{
+	border-left: none;
+	border-right: 1px solid #4b5e73;
+	}

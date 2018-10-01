@@ -1,5 +1,6 @@
 @import "../../variables";
 
+// outer sidebar
 .sidebar-container {
   background: #eee;
   border-right: 2px solid #ddd;
@@ -8,18 +9,22 @@
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 10px;
+  padding: 0;
   position: absolute;
   top: 0;
   width: $sidebar-width;
 }
 
-h3 {
-  margin-top: 0;
-}
+// sidebar title
+.sidebar-title{
+  padding: 2rem 2rem 2.5rem;
+  h3 { margin: 0; }
+  }
+
+// Sidebar Nav
 
 $link-active-color: #349;
-$link-current-color: #394;
+$link-current-color: $gov-white;
 $link-hover-color: #57d;
 
 .links {
@@ -32,8 +37,8 @@ $link-hover-color: #57d;
     display: flex;
     flex-flow: row nowrap;
     list-style-type: none;
-    margin: 0 0 5px 0;
-    padding: 0;
+    margin: 0;
+    padding: .5rem 1em;
     &:not(.current):not(:active):not(:focus):not(.disabled):hover {
       .link-icon {
         border-color: $link-hover-color;
@@ -53,6 +58,7 @@ $link-hover-color: #57d;
       }
     }
     &.current {
+      background: $gov-gold;
       .link-icon {
         border-color: $link-current-color;
         color: $link-current-color;
@@ -66,23 +72,24 @@ $link-hover-color: #57d;
 }
 
 .link-icon {
-  border: 2px solid #bbb;
+  position: relative;
+  top: .15em;
+  border: 2px solid $gov-navy-blue;
   border-radius: 50%;
-  color: #bbb;
-  font-size: 30px;
+  color: $gov-navy-blue;
   flex: none;
-  height: 36px;
-  line-height: 30px;
+  height: 28px;
+  width: 28px;
+  line-height: 23px;
   padding-left: 2px;
   text-align: center;
   transition: border-color color 0.1s linear;
-  width: 36px;
 }
 
 .link-label {
   font-size: 20px;
+  color: $gov-navy-blue;
   padding-left: 10px;
   padding-top: 5px;
   transition: color 0.1s linear;
 }
-
