@@ -31,6 +31,7 @@
     "rxjs": "^5.4.3",
     "showdown": "~1.8.6",
     "survey-angular": "1.0.44",
+    "survey-knockout": "1.0.44",
     "surveyjs-editor": "1.0.44",
     "typescript": ">=2.1.0 <2.4.0",
     "zone.js": "^0.8.17"
