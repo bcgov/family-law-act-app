@@ -20,4 +20,4 @@
 """
 
 from .User import User
-
+from .SurveyResult import SurveyResult
