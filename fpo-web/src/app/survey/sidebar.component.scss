@@ -52,6 +52,7 @@ $link-hover-color: #57d;
       .link-icon {
         border-color: $link-active-color;
         color: $link-active-color;
+        font-weight: bold;
       }
       .link-label {
         color: $link-active-color;
@@ -62,6 +63,7 @@ $link-hover-color: #57d;
       .link-icon {
         border-color: $link-current-color;
         color: $link-current-color;
+        font-weight: bold;
       }
       .link-label {
         color: $link-current-color;
@@ -77,13 +79,17 @@ $link-hover-color: #57d;
   border: 2px solid $gov-navy-blue;
   border-radius: 50%;
   color: $gov-navy-blue;
+  font-size: 20px;
   flex: none;
   height: 28px;
+  line-height: 26px;
   width: 28px;
-  line-height: 23px;
-  padding-left: 2px;
   text-align: center;
   transition: border-color color 0.1s linear;
+}
+.link-icon.fa {
+  line-height: 23px;
+  padding-left: 2px;
 }
 
 .link-label {
