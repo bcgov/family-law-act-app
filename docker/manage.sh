@@ -172,6 +172,7 @@ configureEnvironment () {
   export DATABASE_PASSWORD=${POSTGRESQL_PASSWORD}
   export DJANGO_SECRET_KEY=wpn1GZrouOryH2FshRrpVHcEhMfMLtmTWMC2K5Vhx8MAi74H5y
   export DJANGO_DEBUG=True
+  export DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL-INFO}
 
   # fpo-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
