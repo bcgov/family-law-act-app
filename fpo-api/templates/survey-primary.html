@@ -808,7 +808,7 @@
 
                                         {% endif %}
                                         {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
-                                        A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact =='y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
+                                        A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact == 'y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
                                         {% endif %}
                                         {% if RespondentHasStuff == "y" and RespondentHasStuffPolice == "y" %}
                                         A police officer should come with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to get their personal belongings from {{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
