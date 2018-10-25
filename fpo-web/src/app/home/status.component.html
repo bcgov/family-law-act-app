@@ -18,7 +18,7 @@
         <h2 class="panel-title">Demo Login</h2>
       </div>
       <div class="panel-body">
-        <form (submit)="performLogin($event.target.elements['login'].value)">
+        <form action="#" (submit)="performLogin($event.target.elements['login'].value)">
           <div class="row form-group">
             <div class="col-sm-12">
               <input class="form-control" name="login" placeholder="email address">
@@ -26,7 +26,7 @@
           </div>
           <div class="row">
             <div class="col-sm-12 text-right">
-              <button class="util-nav" type="submit">Login</button>
+              <button class="btn btn-default" type="submit">Login</button>
             </div>
           </div>
         </form>
