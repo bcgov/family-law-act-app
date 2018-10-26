@@ -12,8 +12,8 @@
        "type": "personname",
        "name": "ApplicantName",
        "title": "What is your full name?",
-       "defaultSubstitution": "(Applicant Name)",
-       "description": "You may enter a name you use in your everday life even if it does not match your ID exactly."
+       "description": "You may enter a name you use in your everday life even if it does not match your ID exactly.",
+       "defaultSubstitution": "(Applicant Name)"
       },
       {
        "type": "text",
@@ -49,9 +49,9 @@
          "type": "contactinfo",
          "name": "ApplicantContact",
          "title": "Contact Information",
-         "phoneLabel": "Daytime Phone Number",
+         "emailLabel": "Email (Optional)",
          "faxLabel": "Fax Number (Optional)",
-         "emailLabel": "Email (Optional)"
+         "phoneLabel": "Daytime Phone Number"
         }
        ],
        "visible": false,
@@ -97,8 +97,8 @@
        "type": "personname",
        "name": "RespondentName",
        "title": "What is the full name of the person that is making you (or your children) feel `unsafe`?",
-       "defaultSubstitution": "(Respondent Name)",
-       "description": "If you know how their name is written on their ID cards, that will be the most useful."
+       "description": "If you know how their name is written on their ID cards, that will be the most useful.",
+       "defaultSubstitution": "(Respondent Name)"
       },
       {
        "type": "yesno",
@@ -127,12 +127,12 @@
       {
        "type": "contactinfo",
        "name": "RespondentContact",
-       "title": "Contact Information",
-       "phoneLabel": "Daytime Phone Number",
-       "faxLabel": "Fax Number (Optional)",
-       "emailLabel": "Email (Optional)",
        "visible": false,
-       "visibleIf": "{RespondentName} notempty"
+       "visibleIf": "{RespondentName} notempty",
+       "title": "Contact Information",
+       "emailLabel": "Email (Optional)",
+       "faxLabel": "Fax Number (Optional)",
+       "phoneLabel": "Daytime Phone Number"
       }
      ]
     },
@@ -369,7 +369,7 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Who are 's Guardians?<br><br>A guardian is someone who is legally allowed to make decisions for a child under the age of 19. <br><br>A biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for  is a guardian. This parent is still a guardian even after they stop living with the .<br><br>A parent can be added or removed as a guardian by the court or by agreement between the parents.",
+       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19.\n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.",
        "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
       },
       {
@@ -390,7 +390,8 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Who makes Parenting Decisions for {panel.ChildName}?\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>"
+       "title": "Who makes Parenting Decisions for {panel.ChildName}?\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>",
+       "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened."
       },
       {
        "type": "panel",
@@ -417,7 +418,7 @@
          "visible": false,
          "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y'",
          "title": "Do {ApplicantName} and {RespondentName} spend time equally with {panel.ChildName}?",
-         "description": "If {panel.ChildName} spends at least 40% of the year with each of you, this counts as equal time. "
+         "description": "If  spends at least 40% of the year with each of you, this counts as equal time.\n<br>\n<br>\nIf there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened."
         },
         {
          "type": "radiogroup",
@@ -425,6 +426,7 @@
          "visible": false,
          "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n'",
          "title": "Who does {panel.ChildName} spend more time with?",
+         "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened.",
          "choices": [
           {
            "value": "applicantmoreptime",
@@ -442,6 +444,7 @@
          "visible": false,
          "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n' and {panel.ChildMainGuardians} = 'applicantmoreptime'",
          "title": "How much time does {RespondentName} spend with {panel.ChildName}?",
+         "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened.",
          "hasOther": true,
          "choices": [
           {
@@ -476,6 +479,7 @@
          "visible": false,
          "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and {panel.ChildEqualPTime} = 'n' and {panel.ChildMainGuardians} = 'respondentmoreptime'",
          "title": "How much time does {ApplicantName} spend with {panel.ChildName}?",
+         "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened.",
          "hasOther": true,
          "choices": [
           {
@@ -508,7 +512,7 @@
          "type": "yesno",
          "name": "RespondentApplicantArrangeChildren",
          "visible": false,
-         "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty)",
+         "visibleIf": "{ApplicantNeedsProtection} = 'y' and {panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty)",
          "title": "If your Protection Order is made, does {RespondentName} need to contact you, {ApplicantName}, to make parenting arrangements for {panel.ChildName}?",
          "description": "Parenting arrangements include making decisions about {panel.ChildName} and planning for time with {panel.ChildName}."
         },
@@ -516,7 +520,7 @@
          "type": "checkbox",
          "name": "RespondentApplicantArrangeMethods",
          "visible": false,
-         "visibleIf": "{panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty) and {panel.RespondentApplicantArrangeChildren} = 'y'",
+         "visibleIf": "{ApplicantNeedsProtection} = 'y' and {panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty) and {panel.RespondentApplicantArrangeChildren} = 'y'",
          "title": "What is your preferred method for {RespondentName} to communicate with you?",
          "description": "If you or {RespondentName} need to communicate about {panel.ChildName}, this will be allowed even with the Protection Order against {RespondentName} in place.",
          "hasOther": true,
@@ -542,7 +546,8 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPDecisions} notempty and {panel.ChildRespondentPDecisions} notempty",
-       "title": "Who spends time with {panel.ChildName}?\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone."
+       "title": "Who spends time with {panel.ChildName}?\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone.",
+       "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened."
       },
       {
        "type": "panel",
@@ -598,7 +603,7 @@
     {
      "type": "infotext",
      "name": "NoContactRespondentSummary",
-     "title": "If the judge decides to make your `Protection Order`, {RespondentName} will be ordered to stay away from you and/or your children. If {RespondentName} doesn't follow the Protection Order, they may face criminal charges.\n<br>\n<br>\nThe following questions will guide you to personalize your safety needs for your Protection Order.",
+     "title": "If the judge decides to make your `Protection Order`, {RespondentName} will be ordered to stay away from you or your children or both. If {RespondentName} doesn't follow the Protection Order, they may face criminal charges.\n<br>\n<br>\nThe following questions will guide you to personalize your safety needs for your Protection Order.",
      "titleLocation": "hidden"
     },
     {
@@ -608,7 +613,7 @@
       {
        "type": "yesno",
        "name": "RespondentLiveTogether",
-       "title": "Do you, {ApplicantName}, currently share a home with {RespondentName}?",
+       "title": "Do you, {ApplicantName}, or your children currently share a home with {RespondentName}?",
        "description": "Even if one of you has left home temporarily, you still share a home."
       },
       {
@@ -616,14 +621,14 @@
        "name": "RespondentLeaving",
        "visible": false,
        "visibleIf": "{RespondentLiveTogether} = 'y'",
-       "title": "Do you, {ApplicantName}, want to stay in this family home?"
+       "title": "Do you, {ApplicantName}, or your children want to stay in this family home?"
       },
       {
        "type": "radiogroup",
        "name": "RespondentNeedPolice",
        "visible": false,
        "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y'",
-       "title": "Do you think you need the police to remove {RespondentName} from where you live or will {RespondentName} leave on their own?",
+       "title": "Do you think you need the police to remove {RespondentName} from where you or your children live, or will {RespondentName} leave on their own?",
        "choices": [
         {
          "value": "y",
@@ -636,17 +641,10 @@
        ]
       },
       {
-       "type": "yesno",
-       "name": "HomeAddressSame",
-       "visible": false,
-       "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
-       "title": "Is the address of your family home the same as the address you provided for receiving court documents? [Display applicant's service address]"
-      },
-      {
        "type": "address",
        "name": "FamilyHomeAddress",
        "visible": false,
-       "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y' and {HomeAddressSame} = 'n'",
+       "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
        "title": "What is the address of your family home?"
       }
      ]
@@ -659,7 +657,7 @@
        "type": "yesno",
        "name": "RespondentHasStuff",
        "title": "Does {RespondentName} have any of you or your children's personal belongings?",
-       "description": "Personal belongings means things that you or your children need for daily life. This includes clothing and personal hygiene products."
+       "description": "Personal belongings means things that you or your children need for daily life. This includes clothing, personal hygiene products, personal electronics and personal documents that are difficult to replace. "
       },
       {
        "type": "yesno",
@@ -670,24 +668,17 @@
        "description": "A judge can order a police officer to come with you to get the personal belongings. "
       },
       {
-       "type": "yesno",
-       "name": "RespondentHasStuffAddressSame",
-       "visible": false,
-       "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
-       "title": "Same as {RespondentName}'s address that you provided for receiving court documents? [Display respondent's service address]"
-      },
-      {
        "type": "address",
        "name": "RespondentHasStuffAddress",
        "visible": false,
-       "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y' and {RespondentHasStuffAddressSame} = 'n'",
+       "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
        "title": "What is the address where your personal belongs are being held?"
       },
       {
        "type": "yesno",
        "name": "RespondentNeedsStuff",
        "title": "Do you or your children have any of {RespondentName}'s personal belongings?",
-       "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing and personal hygiene products."
+       "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing, personal hygiene products, personal electronics and personal documents that are difficult to replace. "
       },
       {
        "type": "yesno",
@@ -698,18 +689,11 @@
        "description": "A judge can order a police officer to be there when {RespondentName} comes to get their personal belongings. "
       },
       {
-       "type": "yesno",
-       "name": "RespondentNeedsStuffAddressSame",
-       "visible": false,
-       "visibleIf": "{RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y'",
-       "title": "Is the address where you are holding {RespondentName}'s personal belongings the same as the address you provided for receiving court documents? [Display applicant's service address]"
-      },
-      {
        "type": "address",
        "name": "RespondentNeedsStuffAddress",
        "visible": false,
-       "visibleIf": "{RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y' and {RespondentNeedsStuffAddressSame} = 'n'",
-       "title": "Address"
+       "visibleIf": "{RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y'",
+       "title": "What is the address where you are holding {RespondentName}'s personal belongings?"
       }
      ],
      "visible": false,
@@ -729,8 +713,8 @@
        "name": "RespondentNoGoPlaces",
        "visible": false,
        "visibleIf": "{RespondentNoGo} = 'y'",
-       "title": "Select any places where you want {RespondentName} to stay away from:",
-       "description": "If there is more than one \"Other\" write them all and separate each place with a comma.",
+       "title": "Select the places where you want {RespondentName} to stay away from:",
+       "description": "If you select \"Other\" and need to write more than 1 place, write them all and separate each place with a comma.",
        "hasOther": true,
        "choices": [
         "Home",
@@ -805,7 +789,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty)",
+     "visibleIf": "{ApplicantNeedsProtection} = 'y' and ({RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty))",
      "title": "Even with a Protection Order in place, there may be times where it is important to communicate with each for certain reasons."
     },
     {
@@ -854,7 +838,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "({RespondentApplicantThirdPartyContact} = 'n' or ({RespondentApplicantThirdPartyContact} = 'y' and {RespondentApplicantContactType} notempty)) and ({RespondentApplicantContactOther} = 'n' or ({RespondentApplicantContactOther} = 'y' and {RespondentApplicantContactOtherReason} notempty))"
+     "visibleIf": "({ApplicantNeedsProtection} = 'n' and ({RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty)))\nor\n(({RespondentApplicantThirdPartyContact} = 'n' or ({RespondentApplicantThirdPartyContact} = 'y' and {RespondentApplicantContactType} notempty))\nand \n({RespondentApplicantContactOther} = 'n' or ({RespondentApplicantContactOther} = 'y' and {RespondentApplicantContactOtherReason} notempty)))\n\n\n"
     },
     {
      "type": "panel",
@@ -876,7 +860,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "({RespondentFirearms} = 'n' and {RespondentWeapons} = 'n' and {RespondentNoWeapons} notempty) or \n({RespondentFirearms} = 'n' and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty) or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'n') or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty)\n\n"
+     "visibleIf": "({ApplicantNeedsProtection} = 'n' and ({RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty)))\nor\n(({RespondentApplicantThirdPartyContact} = 'n' or ({RespondentApplicantThirdPartyContact} = 'y' and {RespondentApplicantContactType} notempty))\nand \n({RespondentApplicantContactOther} = 'n' or ({RespondentApplicantContactOther} = 'y' and {RespondentApplicantContactOtherReason} notempty)))\nand\n(({RespondentFirearms} = 'n' and {RespondentWeapons} = 'n' and {RespondentNoWeapons} notempty) or \n({RespondentFirearms} = 'n' and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty) or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'n') or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty))"
     }
    ],
    "title": "Your Safety Needs"
