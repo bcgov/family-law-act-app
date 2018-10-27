@@ -55,8 +55,23 @@ export class GeneralDataService {
     sessionStorage.setItem('temp-user', JSON.stringify(user));
   }
 
-  clearBrowserUser() {
+  clearSession() {
     sessionStorage.clear();
+  }
+
+  quickExit() {
+    let div = document.createElement('div');
+    div.style.background = '#fff';
+    div.style.position = 'absolute';
+    div.style.left = '0px';
+    div.style.top = '0px';
+    div.style.right = '0px';
+    div.style.bottom = '0px';
+    div.style.zIndex = '999999';
+    document.body.appendChild(div);
+    this.clearSession();
+    document.title = '';
+    location.replace('https://www.google.com');
   }
 
   loadJson(url: string, params?: any, headers?: any, relative?: boolean) : Promise<any> {
@@ -104,7 +119,7 @@ export class GeneralDataService {
 
   logout() {
     if(this.browserOnly) {
-      this.clearBrowserUser();
+      this.clearSession();
       window.location.replace(this.getBaseHref());
     }
     else if(this.userInfo && this.userInfo.demo_user) {

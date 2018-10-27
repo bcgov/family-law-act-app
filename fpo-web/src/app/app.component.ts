@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { GeneralDataService } from './general-data.service';
 import { InsertService } from './insert/insert.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
   constructor(
       private renderer: Renderer2,
       private router: Router,
-      private locStrat: LocationStrategy
+      private locStrat: LocationStrategy,
+      private dataService: GeneralDataService,
   ) { }
 
   ngOnInit(): void {
@@ -47,5 +49,9 @@ export class AppComponent implements OnInit {
         this.previousUrl = nextSlug;
       }
     });
+  }
+
+  quickExit(): void {
+    this.dataService.quickExit();
   }
 }
