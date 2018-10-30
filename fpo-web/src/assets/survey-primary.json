@@ -31,7 +31,7 @@
        "name": "ExplanationServiceAddress",
        "visible": false,
        "visibleIf": "{Lawyer} = 'n'",
-       "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace. The family member making you or your family feel unsafe will see this address.",
+       "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace, another family member or a friend. The family member making you or your family feel unsafe will see this address.",
        "titleLocation": "hidden"
       },
       {
@@ -143,7 +143,7 @@
       {
        "type": "yesno",
        "name": "ApplicantNeedsProtection",
-       "title": "Do you, {ApplicantName}, need to be included on a `Protection Order` against {RespondentName}?",
+       "title": "Do you, {ApplicantName}, need to protected from {RespondentName}, on this `Protection Order`?",
        "description": "A Protection Order is a list of conditions set by a judge that your ex-partner must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative."
       },
       {
@@ -151,7 +151,7 @@
        "name": "ExplanationApplicantNeedsNoProtection",
        "visible": false,
        "visibleIf": "{ApplicantNeedsProtection} = 'n'",
-       "title": "You can still use this service to protect your children even if you do not need to be included on the Protection Order against {RespondentName}.",
+       "title": "You can still use this service to protect your children even if you do not need to be protected from {RespondentName} on this Protection Order.",
        "titleLocation": "hidden"
       }
      ],
@@ -210,7 +210,7 @@
        "visible": false,
        "visibleIf": "{ExistingFamilyCase} = 'y'",
        "title": "Enter the names exactly as they appear at the top of your existing family file forms.",
-       "description": "It is important you keep the same spellings and the same order of the names.\n",
+       "description": "It is important you keep the same spellings and the same order of the names.\n<br>\n<br>\nIf you have existing family file forms with different spellings, copy the spellings from the very first file that was filed to the court.\n<br>\n<br>\nIf you spelled your names differently earlier in this service, you do not need to go back and change them.\n",
        "items": [
         {
          "name": "ExistingApplicant",
@@ -323,14 +323,14 @@
        "type": "yesno",
        "name": "ChildNeedsProtection",
        "visibleIf": "{panel.ChildDOBExact} notempty",
-       "title": "Does {panel.ChildName} need to be included on the `Protection Order` against {RespondentName}?"
+       "title": "Does {panel.ChildName} need to protected from {RespondentName}, on this `Protection Order`?"
       },
       {
        "type": "infotext",
        "name": "ExplanationChildIsAdultNoProtection",
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} = 'n'",
-       "title": "Even if {panel.ChildName} does not need to be included in the Protection Order, the judge will still need information about {panel.ChildName} in order to make fair decision.",
+       "title": "Even if {panel.ChildName} does not need to be protected from {RespondentName} in this Protection Order, the judge will still need information about {panel.ChildName} in order to make fair decision.",
        "titleLocation": "hidden"
       },
       {
@@ -338,7 +338,7 @@
        "name": "ExplanationChildIsAdultNoPOR",
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'n' and {panel.ChildNeedsProtection} = 'n'",
-       "title": "Because {panel.ChildName} is an adult and does not need to be included in the Protection Order, {panel.ChildName} will not be included on your documents.",
+       "title": "Because {panel.ChildName} is an adult and does not need to be protected from {RespondentName} in this Protection Order, {panel.ChildName} will not be included on your documents.",
        "titleLocation": "hidden"
       },
       {
@@ -695,9 +695,7 @@
        "visibleIf": "{RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y'",
        "title": "What is the address where you are holding {RespondentName}'s personal belongings?"
       }
-     ],
-     "visible": false,
-     "visibleIf": "{RespondentLiveTogether} = 'n' or ({RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'n') or ({RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'n') or ({RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y' and {HomeAddressSame} notempty)"
+     ]
     },
     {
      "type": "panel",
@@ -731,9 +729,7 @@
        "title": "For this service, you do not need to give the addresses of the places you want {RespondentName} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the addresses into the courtroom with you.",
        "titleLocation": "hidden"
       }
-     ],
-     "visible": false,
-     "visibleIf": "({RespondentHasStuff} = 'n' or ({RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'n') or ({RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y' and {RespondentHasStuffAddressSame} notempty)) and ({RespondentNeedsStuff} = 'n' or ({RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'n') or ({RespondentNeedsStuff} = 'y' and {RespondentNeedsStuffPolice} = 'y' and {RespondentNeedsStuffAddressSame} notempty))"
+     ]
     },
     {
      "type": "panel",
@@ -742,7 +738,7 @@
       {
        "type": "yesno",
        "name": "RespondentApplicantThirdPartyContact",
-       "title": "Because you, {ApplicantName}, will now have a family court file with {RespondentName}, you will both be allowed to communicate with each other for court purposes. You may also communicate through any third party that a judge includes in your Protection Order.\n<br>\n<br>\nAre there any third parties that you want to communicate through for court purposes?\n",
+       "title": "Even with a Protection Order in place, you, {ApplicantName}, and {RespondentName} will be allowed to be in the same courtroom together for court purposes. <br><br>Outside of the courtroom, are there any third parties that you want to communicate though, for ongoing court purposes with {RespondentName}?",
        "description": "Examples of third parties may include a lawyer, a family justice counsellor or a mutual friend."
       },
       {
@@ -750,7 +746,7 @@
        "name": "RespondentApplicantContactType",
        "visible": false,
        "visibleIf": "{RespondentApplicantThirdPartyContact} = 'y'",
-       "title": "Select any third parties that {RespondentName} and {ApplicantName} may communicate through for ongoing court purposes:",
+       "title": "Select any third parties that you, {ApplicantName}, and {RespondentName} may communicate through, for ongoing court purposes:",
        "hasOther": true,
        "choices": [
         {
@@ -789,8 +785,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{ApplicantNeedsProtection} = 'y' and ({RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty))",
-     "title": "Even with a Protection Order in place, there may be times where it is important to communicate with each for certain reasons."
+     "visibleIf": "{ApplicantNeedsProtection} = 'y'"
     },
     {
      "type": "panel",
@@ -836,9 +831,7 @@
         }
        ]
       }
-     ],
-     "visible": false,
-     "visibleIf": "({ApplicantNeedsProtection} = 'n' and ({RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty)))\nor\n(({RespondentApplicantThirdPartyContact} = 'n' or ({RespondentApplicantThirdPartyContact} = 'y' and {RespondentApplicantContactType} notempty))\nand \n({RespondentApplicantContactOther} = 'n' or ({RespondentApplicantContactOther} = 'y' and {RespondentApplicantContactOtherReason} notempty)))\n\n\n"
+     ]
     },
     {
      "type": "panel",
@@ -858,9 +851,7 @@
        "description": "You will need to explain to the judge in court why you think this date is important.",
        "inputType": "date"
       }
-     ],
-     "visible": false,
-     "visibleIf": "({ApplicantNeedsProtection} = 'n' and ({RespondentNoGo} = 'n' or ({RespondentNoGo} = 'y' and {RespondentNoGoPlaces} notempty)))\nor\n(({RespondentApplicantThirdPartyContact} = 'n' or ({RespondentApplicantThirdPartyContact} = 'y' and {RespondentApplicantContactType} notempty))\nand \n({RespondentApplicantContactOther} = 'n' or ({RespondentApplicantContactOther} = 'y' and {RespondentApplicantContactOtherReason} notempty)))\nand\n(({RespondentFirearms} = 'n' and {RespondentWeapons} = 'n' and {RespondentNoWeapons} notempty) or \n({RespondentFirearms} = 'n' and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty) or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'n') or \n({RespondentFirearms} = 'y' and {RespondentFirearmsYes} notempty and {RespondentWeapons} = 'y' and {RespondentWeaponsYes} notempty))"
+     ]
     }
    ],
    "title": "Your Safety Needs"
