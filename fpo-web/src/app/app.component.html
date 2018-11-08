@@ -1,20 +1,34 @@
 <div class="app-outer">
   <header class="app-header">
     <div class="container-fluid">
-      <a href="https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/" tabindex="-1">
-        <img class="header-logo"
-             tabindex="-1" alt="B.C. Government Logo"
-             src="assets/bc-logo.svg">
-      </a>
-      <span class="title" role="banner">Apply for a Family Law Act Protection Order <span class="tag">BETA</span></span>
+      <div class="row header-row">
+        <div class="col-sm-9 header-ident">
+          <a href="https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/" tabindex="-1" class="logo-link">
+            <img class="header-logo"
+                 tabindex="-1" alt="B.C. Government Logo"
+                 src="assets/bc-logo.svg">
+          </a>
+          <div class="title" role="banner">
+            <span class="title-text">
+              Apply for a Family Law Act Protection Order <span class="tag">BETA</span>
+            </span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="header-links">
+            <div id="app-profile" class="header-link">
+              <a routerLink="/prv/status" class="btn btn-default" *ngIf="isPrv"><span class="fa fa-user"></span> Profile</a>
+            </div>
+            <div id="app-exit" class="header-link">
+              <a target="_blank" href="https://www.google.ca" rel="external" class="btn btn-default" (click)="quickExit()"><span class="fa fa-sign-out"></span> Quick Exit</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="app-content">
-    <div id="app-exit">
-      <a target="_blank" href="https://www.google.ca" rel="external" class="btn btn-default" (click)="quickExit()"><span class="fa fa-sign-out"></span> Quick Exit</a>
-    </div>
-
     <app-insert id="sidebar-left" class="sidebar-left"></app-insert>
 
     <div class="app-main">

@@ -44,8 +44,45 @@ $bootstrap-sass-asset-helper: true;
 }
 
 // Header styles
-.app-header .title{
-  margin-left: 2em;
+
+.header-row {
+  // account for quick exit
+  margin-right: 140px;
+}
+
+.header-ident {
+  @media (max-width: 992px) {
+    > .title {
+      font-size: 16px;
+    }
+  }
+  > .title {
+    white-space: initial;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-links {
+    text-align: right;
+  }
+}
+
+@media (min-width: 992px) {
+  .header-ident {
+    display: flex;
+    flex-flow: row nowrap;
+    > .logo-link {
+      flex: none;
+    }
+    > .title {
+      flex: auto;
+      padding-left: 2em;
+    }
+  }
+}
+
+.header-links {
+  padding-top: 10px;
 }
 
 #app-exit {
