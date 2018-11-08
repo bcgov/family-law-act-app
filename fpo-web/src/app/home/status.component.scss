@@ -2,10 +2,10 @@
 
 // login/logout - position top.
 .user-status-info {
+  margin-bottom: -2em;
   padding: 1em 1.5em;
-  position: absolute;
-  right: 0;
-  top: 0;
+  text-align: right;
+  z-index: 100;
 }
 // login/log-out button
 button.util-nav {

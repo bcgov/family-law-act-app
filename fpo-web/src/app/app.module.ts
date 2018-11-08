@@ -16,6 +16,8 @@ import { InsertComponent } from './insert/insert.component';
 import { InsertService } from './insert/insert.service';
 import { StaticComponent } from './static/static.component';
 import { HomeComponent } from './home/home.component';
+import { TermsContentComponent } from './home/terms-content.component';
+import { TermsViewComponent } from './home/terms.component';
 import { UserStatusComponent } from './home/status.component';
 import { UserStatusResolver } from './home/status-resolver.service';
 
@@ -40,6 +42,8 @@ import { ResultComponent } from './result/result.component';
     SurveyEditorComponent,
     SurveySidebarComponent,
     StaticComponent,
+    TermsContentComponent,
+    TermsViewComponent,
     UserStatusComponent,
   ],
   imports: [
