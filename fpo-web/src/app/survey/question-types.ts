@@ -259,6 +259,26 @@ function initInfoText(Survey) {
         body.className = 'panel-body';
         outer.appendChild(body);
       }
+
+      if(question.isRequired && ! question.value) {
+        let acceptRow = document.createElement('div');
+        acceptRow.className = 'row accept-row';
+        let cell = document.createElement('div');
+        cell.className = 'col-sm-12'
+        let acceptBtn = document.createElement('button');
+        acceptBtn.className = 'btn btn-primary';
+        let acceptLbl = document.createElement('span');
+        acceptLbl.appendChild(document.createTextNode('Continue'));
+        acceptBtn.appendChild(acceptLbl);
+        acceptBtn.addEventListener('click', () => {
+          question.value = 1;
+          acceptRow.style.display = 'none';
+        });
+        cell.appendChild(acceptBtn);
+        acceptRow.appendChild(cell);
+        outer.appendChild(acceptRow);
+      }
+
       el.appendChild(outer);
 
       let updateContent = () => {
