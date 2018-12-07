@@ -270,7 +270,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{% if ExistingStyleOfProceeding.ExistingApplicant %}{{ ExistingStyleOfProceeding.ExistingApplicant }}{% else %}{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}{% endif %}</span>
+                                    <span class="brdr-btm">&nbsp;{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}{% endif %}</span>
                                     <label class="label-btm">Name</label>
                                 </td>
                                 <td colspan="2">
@@ -350,23 +350,18 @@
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    {% if PORNoNotice == "y" %}
-                                    <span class="brdr-btm">&nbsp;</span>
-                                    {% else %}
+
                                     <span class="brdr-btm">&nbsp;{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}</span>
-                                    {% endif %}
+
                                     <label class="label-btm">Name</label>
                                 </td>
                                 <td colspan="2">
-                                    {% if PORNoNotice == "y" %}
                                     <span class="brdr-btm">&nbsp;</span>
-                                    {% else %}
                                         {% if RespondentDOBExact == "y" %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
                                         {% else %}
                                         <span class="brdr-btm">&nbsp;</span>
                                         {% endif %}
-                                    {% endif %}
                                     <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                 </td>
                             </tr>
@@ -797,7 +792,7 @@
                                     <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
                                     <p>I am asking for an order in the following terms:</p>
                                     <span class="brdr-btm">
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}.<br/>
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }} {% if ApplicantNeedsProtection == "y" %}except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}{% endif %}.<br/>
                                         {% if RespondentApplicantContactOther == "y" %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} for the following reason: {{ RespondentApplicantContactOtherReason }}.<br/>
                                         {% endif %}
@@ -808,7 +803,7 @@
 
                                         {% endif %}
                                         {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
-                                        A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact =='y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
+                                        A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact == "y" %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
                                         {% endif %}
                                         {% if RespondentHasStuff == "y" and RespondentHasStuffPolice == "y" %}
                                         A police officer should come with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to get their personal belongings from {{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
@@ -963,6 +958,9 @@
                                     </td>
                                     <td colspan="2">
                                         <span class="brdr-btm">&nbsp;{{ ApplicantDOBDateCompStr }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ newDate }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ newDate | date:'yyyy-MM-dd' }}</span>
+
                                         <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                     </td>
                                 </tr>
@@ -1405,7 +1403,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <span class="label blank">for<span class="extra-long brdr-btm label-name">&nbsp;a protection order</span></span>
+                                            <span class="label blank">for<span class="extra-long brdr-btm ">&nbsp;a protection order.</span></span>
                                         </td>
                                     </tr>
                                     <tr class="section spacer"><td colspan="4">&nbsp;</td></tr>
