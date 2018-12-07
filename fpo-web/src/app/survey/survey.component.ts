@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import * as Survey from 'survey-angular';
 import * as showdown from 'showdown';
@@ -36,7 +37,8 @@ export class SurveyComponent  {
   constructor(
     private dataService: GeneralDataService,
     private insertService: InsertService,
-    private glossaryService: GlossaryService
+    private glossaryService: GlossaryService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -207,7 +209,10 @@ export class SurveyComponent  {
   }
 
   doneLoadCache(response) {
-    if(response && response.result) {
+    if(response && response.accept_terms) {
+      this._router.navigate(['/prv/status']);
+    }
+    else if(response && response.result) {
       let cache = response.result;
       if(cache.data) {
         this.prevPageIndex = cache.page || 0;

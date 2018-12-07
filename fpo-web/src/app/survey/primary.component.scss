@@ -10,6 +10,12 @@
   }
 }
 
+@media print {
+  .container {
+    color: #000;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+}
 
 @page label {
   font-size: 8pt;
@@ -41,11 +47,8 @@ td {
 /* wrappers / containers */
 
 .container {
-  background-color: #FFFFFF;
-  color: #000000;
   font-size: .85em;
   margin: 0;
-  font-family: Helvetica, Arial, sans-serif;
   line-height: 1.15;
 }
 

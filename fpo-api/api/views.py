@@ -69,7 +69,8 @@ class UserStatusView(APIView):
 
 
 class SurveyPdfView(generics.GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # FIXME - restore authentication?
+    permission_classes = () # permissions.IsAuthenticated,)
 
     def post(self, request, name=None):
         tpl_name = 'survey-{}.html'.format(name)

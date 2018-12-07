@@ -143,6 +143,9 @@ h4.sv_page_title {
   &.expanded .panel-body {
     display: block;
   }
+  .accept-row {
+    padding-left: 5px;
+  }
 }
 
 .survey-infotext.error {
@@ -214,4 +217,11 @@ h4.sv_page_title {
   .accept-row {
     padding-top: 0.8em;
   }
+}
+
+.glossary-link::after {
+  content: "\F059";
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 90%;
+  padding-left: 0.25em;
 }

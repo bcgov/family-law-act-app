@@ -4,115 +4,152 @@
    "name": "Qualifying Questions",
    "elements": [
     {
-     "type": "yesno",
-     "name": "Unsafe",
-     "title": "Is someone making you or your family feel `unsafe`?",
-     "isRequired": true
-    },
-    {
-     "type": "yesno",
-     "name": "UnsafePartner",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y'",
-     "title": "Was (or is) this person your partner?",
-     "description": "A partner can include someone: \n<ul>\n<li>you were (or are) married to, or</li>\n<li>you lived (or live) with in a marriage-like relationship, or</li>\n<li>you have a child with</li>\n</ul>",
-     "isRequired": true
-    },
-    {
-     "type": "helptext",
-     "name": "UnsafePartnerFAQ1",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y'",
-     "title": "Does my ex-boyfriend or ex-girlfriend count as my partner?",
-     "titleLocation": "hidden",
-     "body": "If they lived (or live) with you in a marriage-like relationship for any period of time then, yes, they count as your partner. Also, if the two of you have a child together then, yes, they count as your partner."
-    },
-    {
-     "type": "infotext",
-     "name": "ExplanationUnsafeNonPartner",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'n'",
-     "title": "For now, this service has only been developed for a limited number of situations. This service can only be used to apply for a Provincial Court `Family Law Protection Order` against someone who was (or is) your partner.\n<br>\n<br>\nIf a `family member` that is not your ex-partner is making you feel `unsafe`, you can still apply for Provincial Court Family Law Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nIf someone that is not a family member is making you feel unsafe, you can still apply for an `order` to protect you. This order is called a `Peace Bond`. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
-     "titleLocation": "hidden",
-     "messageStyle": "error"
-    },
-    {
-     "type": "yesno",
-     "name": "EitherHaveChildren",
-     "visible": false,
-     "visibleIf": "{Unsafe} = 'y' and {UnsafePartner} = 'y'",
-     "title": "Do either of you have children?",
-     "isRequired": true
-    },
-    {
-     "type": "yesno",
-     "name": "ChildrenHaveOtherGuardians",
-     "visible": false,
-     "visibleIf": "{Unsafe} = 'y' and {UnsafePartner} = 'y' and {EitherHaveChildren} = 'y'",
-     "title": "Do any of these children have parents or `legal guardians` other than you and your ex-partner?",
-     "isRequired": true
-    },
-    {
-     "type": "infotext",
-     "name": "ExplanationChildrenHaveOtherGuardians",
-     "visible": false,
-     "visibleIf": "{Unsafe} = 'y' and {UnsafePartner} = 'y' and {EitherHaveChildren} = 'y' and {ChildrenHaveOtherGuardians} = 'y'",
-     "title": "For now, this service has only been developed for a limited number of situations. This service is currently limited to situations where ex-partners have shared children. These children cannot have parents or guardians other than you and your ex-partner.\n<br>\n<br>\nIf any children have parents or guardians other than you and your ex-partner, you can still apply for Provincial Court `Family Law Protection Order`.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
-     "titleLocation": "hidden",
-     "messageStyle": "error"
-    },
-    {
-     "type": "yesno",
-     "name": "OutsideOfBCPOR",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n')",
-     "title": "Do you or your ex-partner plan to live or work outside of British Columbia within the next year?",
-     "description": "A Provincial Court Family Law Protection Order may not be valid outside of British Columbia. It will depend on the laws of the place.",
-     "isRequired": true
-    },
-    {
-     "type": "infotext",
-     "name": "ExplanationOutsideOfBCPOR",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'y'",
-     "title": "You may consider a `Peace Bond` or a Supreme Court `Family Law Protection Order`. This service cannot help apply for either of these at this time. You may consider legal advice for looking into the place where the family member making you feel unsafe is located.\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here to learn more about Peace Bonds.</a>\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms\" target=\"_blank\">Click here for Supreme Court Family Forms.</a>",
-     "titleLocation": "hidden",
-     "messageStyle": "error"
-    },
-    {
-     "type": "yesno",
-     "name": "ExistingPOR",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n'",
-     "title": "Do you already have a Provincial Court `Family Law Protection Order` and you need to change it or add more time?",
-     "isRequired": true
-    },
-    {
-     "type": "infotext",
-     "name": "ExplanationExistingPOR",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'y'",
-     "title": "If you already have a Provincial Court Family Law Protection Order, there is a different form to complete. You can copy most of the content from the original forms you used to apply for your Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa004.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form you need.</a>",
-     "titleLocation": "hidden",
-     "messageStyle": "error"
-    },
-    {
-     "type": "checkbox",
-     "name": "PORConfirmed",
-     "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'n'",
-     "title": "You appear to meet the requirements to use this service to apply for a Provincial Court `Family Law Protection Order`.\n<br>\n<br>\nYou may also want to consider applying for a `Peace Bond`, which is another kind of `Protection Order`. A Peace Bond can do everything a Provincial Court Family Law Protection Order can do. A Peace Bond can also protect your property.\n<br>\n<br>\nTo get a Peace Bond, you will need to tell your story to the police or the RCMP. The police may decide to tell your story to Crown Counsel. Crown Counsel will then decide if a judge is likely to make your Protection Order. Your ex-partner will have an opportunity to tell their story. You may be called as witness.\n<br>\n<br>\nTo apply for a Family Law Protection Order, you will need to tell your story in person to a judge in Family Court. You can apply on your own or you can hire a lawyer to help. A judge may decide to make your Protection Order without your ex-partner needing to be in court.\n<br>\n<br>\nYou can also apply for both Protection Orders at the same time. \n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here for more information about the differences between a Peace Bond and a Provincial Court Family Law Protection Order.</a>\n<br>\n<br>\nConfirm that you want to apply for a Provincial Court Family Law Protection Order.",
-     "isRequired": true,
-     "choices": [
+     "type": "panel",
+     "name": "unsafePanel",
+     "elements": [
       {
-       "value": "confirmed",
-       "text": "I want to apply for a Provincial Court Family Law Protection Order"
+       "type": "yesno",
+       "name": "Unsafe",
+       "title": "Is someone making you or your family feel `unsafe`?",
+       "isRequired": true
       }
      ]
+    },
+    {
+     "type": "panel",
+     "name": "partnerPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "UnsafePartner",
+       "title": "Was (or is) this person your partner?",
+       "description": "A partner can include someone: \n<ul>\n<li>you were (or are) married to, or</li>\n<li>you lived (or live) with in a marriage-like relationship, or</li>\n<li>you have a child with</li>\n</ul>",
+       "isRequired": true
+      },
+      {
+       "type": "helptext",
+       "name": "UnsafePartnerFAQ1",
+       "visible": false,
+       "visibleIf": "{Unsafe} =  'y'",
+       "title": "Does my ex-boyfriend or ex-girlfriend count as my partner?",
+       "titleLocation": "hidden",
+       "body": "If they lived (or live) with you in a marriage-like relationship for any period of time then, yes, they count as your partner. Also, if the two of you have a child together then, yes, they count as your partner."
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationUnsafeNonPartner",
+       "visible": false,
+       "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'n'",
+       "title": "This service cannot help you.\n<br>\n<br>\nFor now, this service has only been developed for a limited number of situations. This service can only be used to apply for a Provincial Court `Family Law Act Protection Order` against someone who was (or is) your partner.\n<br>\n<br>\nIf a `family member` that is not your ex-partner is making you feel `unsafe`, you can still apply for Provincial Court Family Law Act Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nIf someone that is not a family member is making you feel unsafe, you can still apply for an `order` to protect you. This order is called a `Peace Bond`. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{Unsafe} =  'y'"
+    },
+    {
+     "type": "panel",
+     "name": "childrenPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "EitherHaveChildren",
+       "title": "Do either of you have children?",
+       "isRequired": true
+      },
+      {
+       "type": "yesno",
+       "name": "ChildrenHaveOtherGuardians",
+       "visible": false,
+       "visibleIf": "{Unsafe} = 'y' and {UnsafePartner} = 'y' and {EitherHaveChildren} = 'y'",
+       "title": "Do any of these children have parents or `legal guardians` other than you and your ex-partner?",
+       "isRequired": true
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationChildrenHaveOtherGuardians",
+       "visible": false,
+       "visibleIf": "{Unsafe} = 'y' and {UnsafePartner} = 'y' and {EitherHaveChildren} = 'y' and {ChildrenHaveOtherGuardians} = 'y'",
+       "title": "This service cannot help you.\n<br>\n<br>\nFor now, this service has only been developed for a limited number of situations. This service is currently limited to situations where ex-partners have shared children. These children cannot have parents or guardians other than you and your ex-partner.\n<br>\n<br>\nIf any children have parents or guardians other than you and your ex-partner, you can still apply for Provincial Court `Family Law Act Protection Order`.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{Unsafe} = 'y' and {UnsafePartner} = 'y'"
+    },
+    {
+     "type": "panel",
+     "name": "outsideBCPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "OutsideOfBCPOR",
+       "title": "Do you or your ex-partner plan to live or work outside of British Columbia within the next year?",
+       "description": "A Provincial Court Family Law Act Protection Order may not be valid outside of British Columbia. It will depend on the laws of the place.",
+       "isRequired": true
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationOutsideOfBCPOR",
+       "visible": false,
+       "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'y'",
+       "title": "You may consider a `Peace Bond` or a Supreme Court `Family Law Act Protection Order`. This service cannot help apply for either of these at this time. You may consider legal advice for looking into the place where the family member making you feel unsafe is located.\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here to learn more about Peace Bonds.</a>\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms\" target=\"_blank\">Click here for Supreme Court Family Forms.</a>",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n')"
+    },
+    {
+     "type": "panel",
+     "name": "existingPORPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "ExistingPOR",
+       "title": "Do you already have a Provincial Court `Family Law Act Protection Order` and you need to change a condition or change the expiry date?",
+       "isRequired": true
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationExistingPOR",
+       "visible": false,
+       "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'y'",
+       "title": "This service cannot help you.\n<br>\n<br>\nIf you already have a Provincial Court Family Law Act Protection Order, there is a different form to complete. You can copy most of the content from the original forms you used to apply for your Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa004.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form you need.</a>",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n'"
+    },
+    {
+     "type": "panel",
+     "name": "confirmPanel",
+     "elements": [
+      {
+       "type": "checkbox",
+       "name": "PORConfirmed",
+       "title": "You appear to meet the requirements to use this service to apply for a Provincial Court `Family Law Act Protection Order`.\n<br>\nConfirm that you want to apply for a Provincial Court Family Law Act Protection Order.",
+       "description": "You may also want to consider applying for a `Peace Bond`, which is another kind of `Protection Order`. A Peace Bond can do everything a Provincial Court Family Law Act Protection Order can do.\n<br>\n<br>\nTo apply for a Family Law Act Protection Order, you will need to tell your story directly to a judge. You can apply on your own or you can hire a lawyer to help. A judge may decide to make your Protection Order without your ex-partner needing to be in court.\n<br>\n<br>\nTo get a Peace Bond, you will need to tell your story to the police, who may then decide to tell your story to Crown Counsel, who may then decide if a judge is likely to make your Protection Order. Your ex-partner will have an opportunity to tell their story. You may be called as witness.\n<br>\n<br>\nYou can also apply for both a Family law Act Protection Order and a Peace Bond at the same time.\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here for more information about the differences between a Peace Bond and a Provincial Court Family Law Act Protection Order.</a>",
+       "isRequired": true,
+       "choices": [
+        {
+         "value": "confirmed",
+         "text": "I want to apply for a Provincial Court Family Law Act Protection Order"
+        }
+       ]
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'n'"
     }
    ],
    "title": "Before we begin...",
-   "description": "There is more than one kind of order that can protect you and your family. This service is for applying for a protection order under the Family Law Act. The following questions will help you decide if the Provincial Court Family Law Protection Order is right for you."
+   "description": "There is more than one kind of order that can protect you and your family. This service will help you complete a BC Provincial Court application for a protection order under the Family Law Act. The following questions will help you decide if the Provincial Court Family Law Act Protection Order is right for you."
   }
  ],
  "showQuestionNumbers": "off",

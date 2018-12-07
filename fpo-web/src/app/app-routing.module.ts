@@ -6,6 +6,7 @@ import { GlossaryEditorComponent } from 'app/glossary/editor.component';
 import { SurveyPrimaryComponent } from 'app/survey/primary.component';
 import { SurveyResolver }   from 'app/survey/survey-resolver.service';
 import { SurveyEditorComponent } from 'app/survey/editor.component';
+import { TermsViewComponent } from 'app/home/terms.component';
 import { UserStatusComponent } from 'app/home/status.component';
 import { UserStatusResolver }   from 'app/home/status-resolver.service';
 
@@ -84,6 +85,20 @@ const routes: Routes = [
     component: UserStatusComponent,
     data: {
       breadcrumb: 'Status',
+    }
+  },
+  {
+    path: 'terms',
+    component: TermsViewComponent,
+    data: {
+      breadcrumb: 'Terms and Conditions',
+    }
+  },
+  {
+    path: 'prv/terms',
+    component: TermsViewComponent,
+    data: {
+      breadcrumb: 'Terms and Conditions',
     }
   },
 ];

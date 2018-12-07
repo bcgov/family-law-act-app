@@ -259,6 +259,26 @@ function initInfoText(Survey) {
         body.className = 'panel-body';
         outer.appendChild(body);
       }
+
+      if(question.isRequired && ! question.value) {
+        let acceptRow = document.createElement('div');
+        acceptRow.className = 'row accept-row';
+        let cell = document.createElement('div');
+        cell.className = 'col-sm-12'
+        let acceptBtn = document.createElement('button');
+        acceptBtn.className = 'btn btn-primary';
+        let acceptLbl = document.createElement('span');
+        acceptLbl.appendChild(document.createTextNode('Continue'));
+        acceptBtn.appendChild(acceptLbl);
+        acceptBtn.addEventListener('click', () => {
+          question.value = 1;
+          acceptRow.style.display = 'none';
+        });
+        cell.appendChild(acceptBtn);
+        acceptRow.appendChild(cell);
+        outer.appendChild(acceptRow);
+      }
+
       el.appendChild(outer);
 
       let updateContent = () => {
@@ -724,7 +744,17 @@ function initNameBlock(Survey) {
         acceptRow.style.display = visib ? 'block' : 'none';
         acceptLbl.innerText = question.value ? 'Update Name' : 'Continue';
       }
-      let updateValue = function() {
+      let focused = false;
+      let acceptTimeout = null;
+      let acceptValue = function(evt) {
+        question.value = curVal;
+      }
+      let updated = false;
+      let updateValue = function(evt) {
+        if(acceptTimeout) {
+          clearTimeout(acceptTimeout);
+          acceptTimeout = null;
+        }
         let empty = true;
         curVal = {};
         for(let field of fields) {
@@ -734,6 +764,18 @@ function initNameBlock(Survey) {
         }
         if(empty) curVal = null;
         checkAccept();
+        if(question.value)
+          updated = true;
+      }
+      let updateFocus = function(evt) {
+        focused = evt.type == 'focus';
+        if(acceptTimeout) {
+          clearTimeout(acceptTimeout);
+          acceptTimeout = null;
+        }
+        if(! focused && updated) {
+          acceptTimeout = setTimeout(acceptValue, 1000);
+        }
       }
 
       for(let field of fields) {
@@ -749,6 +791,8 @@ function initNameBlock(Survey) {
           input.id = question.inputId; // allow auto focus
         input.addEventListener('change', updateValue);
         input.addEventListener('input', updateValue);
+        input.addEventListener('focus', updateFocus);
+        input.addEventListener('blur', updateFocus);
         field.input = input;
         cell.appendChild(input);
         row.appendChild(cell);
@@ -760,8 +804,8 @@ function initNameBlock(Survey) {
       acceptRow.style.display = 'none';
       acceptRow.className = 'row accept-row';
       cell = document.createElement('div');
-      cell.className = 'col-sm-12 text-right'
-      cancelBtn = document.createElement('button');
+      cell.className = 'col-sm-12'
+      /*cancelBtn = document.createElement('button');
       cancelBtn.className = 'btn btn-default';
       cancelBtn.appendChild(document.createTextNode('Cancel'));
       cell.appendChild(cancelBtn);
@@ -769,14 +813,12 @@ function initNameBlock(Survey) {
       cancelBtn.onclick = function() {
         question.valueChangedCallback();
         updateValue();
-      }
+      }*/
       acceptBtn = document.createElement('button');
       acceptBtn.className = 'btn btn-primary';
       acceptLbl = document.createElement('span');
       acceptBtn.appendChild(acceptLbl);
-      acceptBtn.onclick = function() {
-        question.value = curVal;
-      }
+      acceptBtn.addEventListener('click', acceptValue);
       cell.appendChild(acceptBtn);
       acceptRow.appendChild(cell);
       outer.appendChild(acceptRow);

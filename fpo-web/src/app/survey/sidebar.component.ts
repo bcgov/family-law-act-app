@@ -28,6 +28,7 @@ export class SurveySidebarComponent  {
         links.push({
           disabled: false,
           index: idx,
+          textIndex: '' + (idx + 1),
           title: page.title || page.name,
           current: idx === model.currentPageNo});
       });
