@@ -103,9 +103,10 @@ export class SurveyPrimaryComponent implements OnInit {
             data.RespondentNoGoPlacesString = new String();
             console.log("Variable with "+ data.RespondentNoGoPlacesComment);
             console.log("Variable type of ApplicantDOB "+ typeof data.ApplicantDOB);
+            console.log("Variable ApplicantDOB is "+ data.ApplicantDOB);
             let newDate = new Date(data.ApplicantDOB);
-            data.newDate = newDate;
-            var dd = newDate.getDate() +1;
+            data.applicantDate = newDate;
+            var dd = newDate.getDate();
             var month = newDate.toLocaleString("en-us", {month: "short"});
             // var month = newDate.toLocaleString("en-us", {month: "short"});
             var yyyy = newDate.getFullYear();
