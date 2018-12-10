@@ -103,16 +103,21 @@ export class SurveyPrimaryComponent implements OnInit {
             data.RespondentNoGoPlacesString = new String();
             console.log("Variable with "+ data.RespondentNoGoPlacesComment);
             console.log("Variable type of ApplicantDOB "+ typeof data.ApplicantDOB);
+            console.log("Variable ApplicantDOB is "+ data.ApplicantDOB);
             let newDate = new Date(data.ApplicantDOB);
-            var dd = newDate.getDate() +1;
+            data.applicantDate = newDate;
+            var dd = newDate.getDate();
             var month = newDate.toLocaleString("en-us", {month: "short"});
+            // var month = newDate.toLocaleString("en-us", {month: "short"});
             var yyyy = newDate.getFullYear();
             data.ApplicantDOBDateCompStr = month+"/"+dd+"/"+yyyy;
+
             let respondentNewDate = new Date(data.RespondentDOB);
             var dd = respondentNewDate.getDate() +1;
             var month = respondentNewDate.toLocaleString("en-us", {month: "short"});
             var yyyy = respondentNewDate.getFullYear();
             data.RespondentDOBDateCompStr = month+"/"+dd+"/"+yyyy;
+
             let porNewDate = new Date(data.RespondentPORNewTime);
             var dd = porNewDate.getDate() +1;
             var month = porNewDate.toLocaleString("en-us", {month: "short"});
@@ -129,9 +134,9 @@ export class SurveyPrimaryComponent implements OnInit {
                     console.log("child.childBOD is" + child.ChildDOB);
                     child.ChildDOB = month+"/"+dd+"/"+yyyy;
                     console.log("after conversion of child.childBOD is" + child.ChildDOB);
-                    child.ChildDOB = JSON.stringify(month+"/"+dd+"/"+yyyy);
+                    // child.ChildDOB = JSON.stringify(month+"/"+dd+"/"+yyyy);
 
-                    var childFullName = child["ChildName"].first + child["ChildName"].middle + child["ChildName"].last;
+                    var childFullName = child["ChildName"].first +" "+ child["ChildName"].middle +" "+ child["ChildName"].last;
 
 
 
@@ -151,7 +156,7 @@ export class SurveyPrimaryComponent implements OnInit {
 
             if(data.ListOfChildren !== undefined){
                 for (let child of data.ListOfChildren){
-                    var childFullName = child["ChildName"].first + child["ChildName"].middle + child["ChildName"].last;
+                    var childFullName = child["ChildName"].first +" "+ child["ChildName"].middle +" "+ child["ChildName"].last;
                     if (child["ChildIsMinor"] == "y"){
                         if (child["ChildApplicantGuardian"] == "y" && child["ChildRespondentGuardian"] == "y"){
                             data.listOfBothGuardianArray.push(childFullName);
@@ -293,7 +298,7 @@ export class SurveyPrimaryComponent implements OnInit {
                 console.log("ApplicantName is "+ data.ApplicantName);
             }
             else if (data.ApplicantNeedsProtection == "n" && data.listOfChildrenWithPO != undefined){
-                data.listOfPeopleWithPOString = data.listOfChildrenWithPO;
+                data.listOfPeopleWithPOString = data.listOfChildrenWithPO.substr(0, 3);
                 console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
                 console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
                 console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
