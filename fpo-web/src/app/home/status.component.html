@@ -55,7 +55,7 @@
 
   <div class="row status" *ngIf="loggedIn && acceptedTerms">
     <div class="col-sm-12">
-      <h2 *ngIf="surveyIndex.length">Previous Surveys</h2>
+      <h2 *ngIf="surveyIndex.length">Previous Applications</h2>
       <div class="history mrgn-tp-md" *ngIf="surveyIndex.length">
         <div class="row form-group" *ngFor="let entry of surveyIndex">
           <div class="col-sm-4">
@@ -64,13 +64,13 @@
             <em *ngIf="entry.completed"> (completed)</em>
           </div>
           <div class="col-sm-8">
-            <button type="button" class="btn btn-default btn-sm resume-button" tabindex="1" (click)="resumeSurvey(entry.key)">Resume Survey</button>
+            <button type="button" class="btn btn-default btn-sm resume-button" tabindex="1" (click)="resumeSurvey(entry.key)">Resume Application</button>
             <button type="button" class="btn btn-default btn-sm remove-button" tabindex="1" (click)="removeSurvey(entry.key)">Remove</button>
-            <button type="button" class="btn btn-default btn-sm print-button" tabindex="1" disabled="disabled" *ngIf="entry.completed" (click)="showPrintSurvey(entry.key)">Print Survey</button>
+            <button type="button" class="btn btn-default btn-sm print-button" tabindex="1" disabled="disabled" *ngIf="entry.completed" (click)="showPrintSurvey(entry.key)">Print Application</button>
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-primary btn-lg survey-button" tabindex="1" (click)="beginSurvey()">Begin the Survey</button>
+      <button type="button" class="btn btn-primary btn-lg survey-button" tabindex="1" (click)="beginSurvey()">Begin the Application</button>
 
       <p class="mrgn-tp-lg">
         <a routerLink="/prv/terms">Terms and Conditions</a>
