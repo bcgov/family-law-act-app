@@ -41,6 +41,9 @@ $link-disabled-color: #777;
     list-style-type: none;
     margin: 0;
     padding: .5rem 1em;
+    &.disabled {
+      cursor: not-allowed;
+    }
     &:not(.current):not(:active):not(:focus):not(.disabled):hover {
       .link-icon {
         border-color: $link-hover-color;
