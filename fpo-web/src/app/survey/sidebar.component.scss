@@ -26,16 +26,18 @@
 $link-active-color: #349;
 $link-current-color: $gov-white;
 $link-hover-color: #57d;
+$link-disabled-color: #777;
 
 .links {
   display: block;
   list-style-type: none;
   margin: 0;
+  max-width: 100%;
   padding: 0;
   li {
     cursor: pointer;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     list-style-type: none;
     margin: 0;
     padding: .5rem 1em;
@@ -69,8 +71,24 @@ $link-hover-color: #57d;
         color: $link-current-color;
       }
     }
+    &.disabled {
+      .link-icon {
+        border-color: $link-disabled-color;
+        color: $link-disabled-color;
+      }
+      .link-label {
+        color: $link-disabled-color;
+      }
+    }
+    &.separate::before {
+      display: block;
+      content: ' ';
+      margin: 0.25em 1.5em 0.5em;
+      height: 1px;
+      background: #25b;
+      width: 100%;
+    }
   }
-  max-width: 100%;
 }
 
 .link-icon {

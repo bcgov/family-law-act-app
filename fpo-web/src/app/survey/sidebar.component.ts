@@ -32,6 +32,13 @@ export class SurveySidebarComponent  {
           title: page.title || page.name,
           current: idx === model.currentPageNo});
       });
+      links.push({
+          disabled: true,
+          index: links.length,
+          textIndex: '' + (links.length + 1),
+          title: "Print Application Forms",
+          current: false,
+          separate: true});
       this.links = links;
     }
   }
