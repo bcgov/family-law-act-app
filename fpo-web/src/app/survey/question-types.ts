@@ -741,12 +741,14 @@ function initNameBlock(Survey) {
             }
           }
         }
-        acceptRow.style.display = visib ? 'block' : 'none';
-        acceptLbl.innerText = question.value ? 'Update Name' : 'Continue';
+        if(acceptRow)
+          acceptRow.style.display = visib ? 'block' : 'none';
+        if(acceptLbl)
+          acceptLbl.innerText = question.value ? 'Update Name' : 'Continue';
       }
       let focused = false;
       let acceptTimeout = null;
-      let acceptValue = function(evt) {
+      let acceptValue = function(evt?) {
         question.value = curVal;
       }
       let updated = false;
@@ -773,9 +775,11 @@ function initNameBlock(Survey) {
           clearTimeout(acceptTimeout);
           acceptTimeout = null;
         }
-        if(! focused && updated) {
-          acceptTimeout = setTimeout(acceptValue, 1000);
-        }
+        //if(! focused && updated) {
+        //  acceptTimeout = setTimeout(acceptValue, 1000);
+        //}
+        if(updated)
+          acceptValue();
       }
 
       for(let field of fields) {
@@ -800,11 +804,11 @@ function initNameBlock(Survey) {
 
       outer.appendChild(row);
 
-      acceptRow = document.createElement('div');
+      /*acceptRow = document.createElement('div');
       acceptRow.style.display = 'none';
       acceptRow.className = 'row accept-row';
       cell = document.createElement('div');
-      cell.className = 'col-sm-12'
+      cell.className = 'col-sm-12'*/
       /*cancelBtn = document.createElement('button');
       cancelBtn.className = 'btn btn-default';
       cancelBtn.appendChild(document.createTextNode('Cancel'));
@@ -814,14 +818,14 @@ function initNameBlock(Survey) {
         question.valueChangedCallback();
         updateValue();
       }*/
-      acceptBtn = document.createElement('button');
+      /*acceptBtn = document.createElement('button');
       acceptBtn.className = 'btn btn-primary';
       acceptLbl = document.createElement('span');
       acceptBtn.appendChild(acceptLbl);
       acceptBtn.addEventListener('click', acceptValue);
       cell.appendChild(acceptBtn);
       acceptRow.appendChild(cell);
-      outer.appendChild(acceptRow);
+      outer.appendChild(acceptRow);*/
 
       el.appendChild(outer);
 
@@ -891,7 +895,7 @@ function initContactInfoBlock(Survey) {
         for(let field of fields) {
           parts[field.name] = field.input.value.trim();
         }
-        question.value = parts;
+        question.value = parts['phone'] ? parts : null;
       }
 
       for(let field of fields) {
