@@ -137,7 +137,11 @@ function initHelpText(Survey) {
         el.removeChild(el.childNodes[0]);
 
       let outer = document.createElement('div');
-      let outerCls = 'panel panel-default survey-helptext';
+      let outerCls = 'panel panel-default survey-expander ';
+      if(question.messageStyle === 'box')
+        outerCls += 'survey-helptext';
+      else
+        outerCls += 'survey-inlinetext';
       outer.className = outerCls;
       let header = document.createElement('div');
       header.className = 'panel-heading';
@@ -232,7 +236,7 @@ function initInfoText(Survey) {
         el.removeChild(el.childNodes[0]);
 
       let outer = document.createElement('div');
-      let outerCls = 'panel panel-default survey-infotext expanded';
+      let outerCls = 'panel panel-default survey-infotext survey-expander expanded';
       if(question.messageStyle === 'error')
         outerCls += ' error';
       outer.className = outerCls;
@@ -765,9 +769,10 @@ function initNameBlock(Survey) {
             empty = false;
         }
         if(empty) curVal = null;
-        checkAccept();
+        //checkAccept();
         if(question.value)
           updated = true;
+        acceptValue();
       }
       let updateFocus = function(evt) {
         focused = evt.type == 'focus';
@@ -778,8 +783,6 @@ function initNameBlock(Survey) {
         //if(! focused && updated) {
         //  acceptTimeout = setTimeout(acceptValue, 1000);
         //}
-        if(updated)
-          acceptValue();
       }
 
       for(let field of fields) {
