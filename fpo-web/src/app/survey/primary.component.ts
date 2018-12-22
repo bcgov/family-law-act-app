@@ -55,7 +55,7 @@ export class SurveyPrimaryComponent implements OnInit {
             data.listOfChildrenWithoutPOArray = [];
             data.listOfChildrenString = new String();
             data.listOfChildrenWithPO = new String();
-            data.listOfPeopleString = data.ApplicantName;
+            data.listOfPeopleString = new String();
             data.listOfPeopleArray = [];
             data.listOfPeopleWithPOArray = [];
             data.listOfPeopleWithPOString = new String();
@@ -82,6 +82,8 @@ export class SurveyPrimaryComponent implements OnInit {
             data.listOfAdultChildrenString = new String();
 
             data.listOfEqualPtimeArray = [];
+            console.log("listOfEqualPtimeArray: empty "+ data.listOfEqualPtimeArray);
+
             data.listOfEqualPtimeString = new String();
             data.listOfApplicantMainGuardianArray = [];
             data.listOfApplicantMainGuardianString = new String();
@@ -98,6 +100,7 @@ export class SurveyPrimaryComponent implements OnInit {
 
             data.PORAffidavit = new String();
             data.PORAffidavitArray = [];
+            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
             data.childError = [];
             data.RespondentNoGoPlacesString = new String();
@@ -105,34 +108,39 @@ export class SurveyPrimaryComponent implements OnInit {
             console.log("Variable type of ApplicantDOB "+ typeof data.ApplicantDOB);
             console.log("Variable ApplicantDOB is "+ data.ApplicantDOB);
             let newDate = new Date(data.ApplicantDOB);
+            let dateString = '1968-11-16T00:00:00'
+            let testDate = new Date(dateString);
+            data.newtestDate = Date.parse(dateString);
+            data.testDate=testDate;
+
+            data.applicantFullName = data.ApplicantName.first +" "+ data.ApplicantName.middle +" "+ data.ApplicantName.last;
             data.applicantDate = newDate;
-            var dd = newDate.getDate();
-            var month = newDate.toLocaleString("en-us", {month: "short"});
-            // var month = newDate.toLocaleString("en-us", {month: "short"});
+            var dd = newDate.getDate(); +1;
+            var month = newDate.getMonth();
             var yyyy = newDate.getFullYear();
-            data.ApplicantDOBDateCompStr = month+"/"+dd+"/"+yyyy;
+            data.ApplicantDOBDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
 
             let respondentNewDate = new Date(data.RespondentDOB);
             var dd = respondentNewDate.getDate() +1;
-            var month = respondentNewDate.toLocaleString("en-us", {month: "short"});
+            var month = respondentNewDate.getMonth();
             var yyyy = respondentNewDate.getFullYear();
-            data.RespondentDOBDateCompStr = month+"/"+dd+"/"+yyyy;
+            data.RespondentDOBDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
 
             let porNewDate = new Date(data.RespondentPORNewTime);
             var dd = porNewDate.getDate() +1;
-            var month = porNewDate.toLocaleString("en-us", {month: "short"});
+            var month = porNewDate.getMonth();
             var yyyy = porNewDate.getFullYear();
-            data.PorNewDateCompStr = month+"/"+dd+"/"+yyyy;
+            data.PorNewDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
 
             if(data.ListOfChildren !== undefined){
                 for (let child of data.ListOfChildren){
 
                     let childDOBNewDate = new Date(child.ChildDOB);
                     var dd = childDOBNewDate.getDate() +1;
-                    var month = childDOBNewDate.toLocaleString("en-us", {month: "short"});
+                    var month = childDOBNewDate.getMonth();
                     var yyyy = childDOBNewDate.getFullYear();
                     console.log("child.childBOD is" + child.ChildDOB);
-                    child.ChildDOB = month+"/"+dd+"/"+yyyy;
+                    child.ChildDOB = monthArray[month]+"/"+dd+"/"+yyyy;
                     console.log("after conversion of child.childBOD is" + child.ChildDOB);
                     // child.ChildDOB = JSON.stringify(month+"/"+dd+"/"+yyyy);
 
@@ -182,14 +190,16 @@ export class SurveyPrimaryComponent implements OnInit {
                         else{
                             data.listOfNoResponsibleArray.push(childFullName);
                         }
-
+                        // console.log("listOfEqualPtimeArray before push "+ JSON.stringify(data.listOfEqualPtimeArray));
                         if (child["ChildEqualPTime"] == "y"){
                             data.listOfEqualPtimeArray.push(childFullName);
+                            // console.log("listOfEqualPtimeArray after push "+ JSON.stringify(data.listOfEqualPtimeArray));
                         }
-                        else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "applicant"){
+
+                        else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "applicantmoreptime"){
                             data.listOfApplicantMainGuardianArray.push(childFullName);
                         }
-                        else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "respondent") {
+                        else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "respondentmoreptime") {
                             data.listOfRespondentMainGuardianArray.push(childFullName);
                         }
 
@@ -285,24 +295,24 @@ export class SurveyPrimaryComponent implements OnInit {
 
 
             if (data.ApplicantNeedsProtection == "y"){
-                data.listOfPeopleWithPOString = data.ApplicantName;
+                data.listOfPeopleWithPOString = data.applicantFullName;
                 // console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
                 // console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
-                // console.log("ApplicantName is "+ data.ApplicantName);
+                // console.log("applicantFullName is "+ data.applicantFullName);
             }
             if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPO != undefined){
                 data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPO;
                 console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
                 console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
                 console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
-                console.log("ApplicantName is "+ data.ApplicantName);
+                console.log("applicantFullName is "+ data.applicantFullName);
             }
             else if (data.ApplicantNeedsProtection == "n" && data.listOfChildrenWithPO != undefined){
                 data.listOfPeopleWithPOString = data.listOfChildrenWithPO.substr(0, 3);
                 console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
                 console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
                 console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
-                console.log("ApplicantName is "+ data.ApplicantName);
+                console.log("applicantFullName is "+ data.applicantFullName);
             }
             if (data.listOfChildren != undefined){
                 data.listOfPeopleString = data.listOfPeopleString +", " +data.listOfChildrenString;
