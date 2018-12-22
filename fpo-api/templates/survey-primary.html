@@ -184,8 +184,66 @@
     </style>
 </head>
 <body>
+<!--Instruction page start-->
+
+<header>
+<div class="instruction-container">
+    <h2>Instructions: Applying for a Family Law Act Protection Order</h2>
+
+    <h3>Print Your Application Package</h3>
+    {% if PORSpeedUp == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "n" %}
+    <p>Print the PDF that this service has created for you. It will contain 4 copies of 1 form:</p>
+    {% endif %}
+    {% if PORSpeedUp == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "y" %}
+    <p>Print the PDF that this service has created for you. It will contain 4 copies of 2 different forms:</p>
+    {% endif %}
+    {% if PORSpeedUp == "y" and PORNoNotice == "y" %}
+    <p>Print the PDF that this service has created for you. It will contain 4 copies of 3 different forms:</p>
+    {% endif %}
+    <ul>
+        <li>Application To Obtain An Order</li>
+        {% if PORSpeedUp == "y" and PORNoNotice == "y" %}
+        <li>Notice of Motion</li>
+        {% endif %}
+        {% if PORSpeedUp == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
+        <li>Affidavit</li>
+        {% endif %}
+    </ul>
+    {% if ExistingOrders == "y" and ExistingWrittenAgreements == "y" %}
+    <h3>Make Copies of Existing Court Orders or Written Agreements</h3>
+    <p>You will need to make 4 copies of any court orders or written agreements that involve you and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. You will need to add these copies to your Document Package. The courthouse will not make copies for you.</p>
+    {% endif %}
+    {% if RespondentNoGo == "y" %}
+    <h3>Prepare Addresses for {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from</h3>
+    <p>You should write down the addresses of the places that you want {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from. You may need to show these addresses to the judge if the judge asks for them.</p>
+    {% endif %}
+    {% if PORSpeedUp == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
+    <h3>Swearing or Affirming your Affidavit</h3>
+    <p>An affidavit is a document that contains facts about your story that you are telling the judge. You will need to swear under oath or affirm that these facts are true.</p>
+    <p>You can swear or affirm your affidavit at a courthouse registry for free. You can also swear or affirm your affidavit with a lawyer, a notary public or a family justice counsellor. Lawyers and notary publics usually charge a fee to swear or affirm affidavits.</p>
+    <p>You will need picture ID, such as a driver's license or a passport, when you swear or affirm your affidavit.</p>
+    {% endif %}
+
+    <h3>Finishing your Application Package</h3>
+    <p>You will need to sign your documents on the day you file them at a courthouse. You will also need to hand write the date and the courthouse location.</p>
+
+    <h3>Filing your Application Package</h3>
+    <p>Take all 4 copies of your Application Package to the registry at a Provincial Courthouse. It is free to file court documents for family proceedings in Provincial Court.</p>
+
+    <p>The registry staff will stamp your documents. They will return the copies you need.</p>
+    {% if PORNoNotice == "y" %}
+    <p>A judge will hear your application as soon as possible. You may need to wait in court for several hours.</p>
+    {% else %}
+    <p>You will need to "serve" (to give) a copy of your stamped application package to {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. This is to make sure that {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} knows what you are asking for.</p>
+    {% endif %}
+
+    <p>For your safety, you cannot give it to {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} yourself. You need to get someone else, who is at least 19 years old, to do it. Ask the registry if you need more instructions about service.</p>
+</div>
+<!--Instruction page ends-->
+</header>
 <div class="wrapper" id="template">
     <div class="container">
+
         <!-- FORM ONE -->
         <!-- form heading -->
         <div class="no-repeat-header">
@@ -275,9 +333,6 @@
                                 </td>
                                 <td colspan="2">
                                     <span class="brdr-btm">&nbsp;{{ ApplicantDOBDateCompStr }}</span>
-
-                                    <span class="brdr-btm">&nbsp;{{ applicantDate }}</span>
-
                                     <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                 </td>
                             </tr>
@@ -360,11 +415,11 @@
                                 </td>
                                 <td colspan="2">
                                     <span class="brdr-btm">&nbsp;</span>
-                                        {% if RespondentDOBExact == "y" %}
-                                        <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
-                                        {% else %}
-                                        <span class="brdr-btm">&nbsp;</span>
-                                        {% endif %}
+                                    {% if RespondentDOBExact == "y" %}
+                                    <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
+                                    {% else %}
+                                    <span class="brdr-btm">&nbsp;</span>
+                                    {% endif %}
                                     <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                 </td>
                             </tr>
@@ -796,15 +851,17 @@
                                     <p>I am asking for an order in the following terms:</p>
                                     <span class="brdr-btm">
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }} {% if ApplicantNeedsProtection == "y" %}except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}{% endif %}.<br/>
+
+                                        {% if ApplicantNeedsProtection == "y" and RespondentApplicantArrangeChildren == "y" %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} to make parenting arrangements for listOfChildrenWithoutPOString by {{ ArrangeMethodString }}.<br/>
+                                        {% endif %}
+
                                         {% if RespondentApplicantContactOther == "y" %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} for the following reason: {{ RespondentApplicantContactOtherReason }}.<br/>
                                         {% endif %}
 
 
-                                        {% if RespondentApplicantArrangeChildren == "y" and RespondentApplicantArrangeChildren == "y"  %}
-                                            {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to communicate with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to make parenting arrangements for {{ listOfChildrenWithoutPOString }} by {{ ArrangeMethodString }}.<br/>
 
-                                        {% endif %}
                                         {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
 
                                         A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact == 'y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
@@ -963,8 +1020,7 @@
                                     </td>
                                     <td colspan="2">
                                         <span class="brdr-btm">&nbsp;{{ ApplicantDOBDateCompStr }}</span>
-                                        <span class="brdr-btm">&nbsp;{{ newDate }}</span>
-                                        <span class="brdr-btm">&nbsp;{{ newDate | date:'yyyy-MM-dd' }}</span>
+
 
                                         <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                     </td>
@@ -1035,7 +1091,7 @@
                                 <tr>
                                     <td colspan="2">
                                         {% if PORNoNotice == "y" %}
-                                        <span class="brdr-btm">&nbsp;</span>
+                                        <span class="brdr-btm">(without notice)&nbsp;</span>
                                         {% else %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}</span>
                                         {% endif %}
@@ -1045,34 +1101,65 @@
                                         {% if PORNoNotice == "y" %}
                                         <span class="brdr-btm">&nbsp;</span>
                                         {% else %}
-                                            {% if RespondentDOBExact == "y" %}
-                                            <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
-                                            {% else %}
-                                            <span class="brdr-btm">&nbsp;</span>
-                                            {% endif %}
+                                        {% if RespondentDOBExact == "y" %}
+                                        <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
+                                        {% else %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% endif %}
                                         {% endif %}
                                         <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
+                                        {% if PORNoNotice == "y" %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% else %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentAddress.street }}</span>
+                                        {% endif %}
                                         <label class="label-btm">ADDRESS FOR SERVICE</label>
                                     </td>
                                     <td colspan="1">
+                                        {% if PORNoNotice == "y" %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% else %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentAddress.city }}</span>
+                                        {% endif %}
                                         <label class="label-btm">City</label>
                                     </td>
                                     <td colspan="1">
+                                        {% if PORNoNotice == "y" %}
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        {% else %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentAddress.state }}</span>
+                                        {% endif %}
                                         <label class="label-btm">Province</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        {% if PORNoNotice == "y" %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
+                                        {% else %}
+                                        <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
+                                        {% endif %}
                                         <label class="label-btm">Postal Code</label>
                                     </td>
+                                    {% if PORNoNotice == "y" %}
+
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        <label class="label-btm">Phone</label>
+                                    </td>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        <label class="label-btm">E-mail</label>
+                                    </td>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;</span>
+                                        <label class="label-btm">Fax</label>
+                                    </td>
+                                    {% else %}
                                     <td>
                                         <span class="brdr-btm">&nbsp;{{ RespondentContact.phone }}</span>
                                         <label class="label-btm">Phone</label>
@@ -1085,6 +1172,8 @@
                                         <span class="brdr-btm">&nbsp;{{ RespondentContact.fax }}</span>
                                         <label class="label-btm">Fax</label>
                                     </td>
+                                    {% endif %}
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -1235,7 +1324,7 @@
                                         <span class="check selected">&#10003;</span>
                                         <span class="label blank">Other order: <u>The application for a protection order be heard without notice to the other party.</u></span>
                                         {% else %}
-                                      <span class="check"></span>
+                                          <span class="check"></span>
                                         <span class="label blank">Other order<span class="long brdr-btm">&nbsp;</span></span>
                                         {% endif %}
                                     </td>
