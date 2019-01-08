@@ -147,6 +147,13 @@ function initHelpText(Survey) {
       header.className = 'panel-heading';
       let lbl = document.createElement('label');
       lbl.className = 'panel-title';
+      lbl.tabIndex = 0;
+      lbl.addEventListener('keydown', (event) => {
+        let target = (<HTMLInputElement>event.target);
+        if(event.keyCode == 32) { // space
+          question.value = ! question.value;
+        }
+      });
       let chk = document.createElement('input');
       chk.type = 'checkbox';
       chk.checked = !! question.value;
