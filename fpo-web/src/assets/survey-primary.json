@@ -14,9 +14,7 @@
        "title": "What is your full name?",
        "description": "You may enter a name you use in your everday life even if it does not match your ID exactly.",
        "defaultSubstitution": "(Applicant Name)",
-       "isRequired": true,
-       "labelFirstName": "First",
-       "descFirstName": "first name desc"
+       "isRequired": true
       },
       {
        "type": "text",
