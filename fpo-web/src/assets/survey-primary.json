@@ -13,7 +13,10 @@
        "name": "ApplicantName",
        "title": "What is your full name?",
        "description": "You may enter a name you use in your everday life even if it does not match your ID exactly.",
-       "defaultSubstitution": "(Applicant Name)"
+       "defaultSubstitution": "(Applicant Name)",
+       "isRequired": true,
+       "labelFirstName": "First",
+       "descFirstName": "first name desc"
       },
       {
        "type": "text",
@@ -49,9 +52,9 @@
          "type": "contactinfo",
          "name": "ApplicantContact",
          "title": "Contact Information",
-         "emailLabel": "Email (Optional)",
-         "faxLabel": "Fax Number (Optional)",
-         "phoneLabel": "Daytime Phone Number"
+         "labelEmail": "Email (Optional)",
+         "labelFax": "Fax Number (Optional)",
+         "labelPhone": "Daytime Phone Number"
         }
        ],
        "visible": false,
@@ -130,9 +133,9 @@
        "visible": false,
        "visibleIf": "{RespondentName} notempty",
        "title": "Contact Information",
-       "emailLabel": "Email (Optional)",
-       "faxLabel": "Fax Number (Optional)",
-       "phoneLabel": "Daytime Phone Number"
+       "labelEmail": "Email (Optional)",
+       "labelFax": "Fax Number (Optional)",
+       "labelPhone": "Daytime Phone Number"
       }
      ]
     },

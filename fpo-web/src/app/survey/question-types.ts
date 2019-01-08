@@ -706,6 +706,24 @@ function initNameBlock(Survey) {
       Survey.JsonObject.metaData.addClass("personname", [
         {
           name: "defaultSubstitution:text",
+        },
+        {
+          name: "labelFirstName:text",
+        },
+        {
+          name: "labelMiddleName:text",
+        },
+        {
+          name: "labelLastName:text",
+        },
+        {
+          name: "descFirstName:text",
+        },
+        {
+          name: "descMiddleName:text",
+        },
+        {
+          name: "descLastName:text",
         }
       ], null, "empty");
     },
@@ -723,6 +741,8 @@ function initNameBlock(Survey) {
       let outer = document.createElement('div');
       let outerCls = 'survey-personname';
       let label;
+      let sublbl;
+      let descId;
       let row;
       let cell;
       let input;
@@ -740,6 +760,15 @@ function initNameBlock(Survey) {
         {name: 'middle', label: 'Middle Name(s)', input: null},
         {name: 'last', label: 'Last Name', input: null},
       ];
+      if(question.labelFirstName) {
+        fields[0].label = question.labelFirstName;
+      }
+      if(question.labelMiddleName) {
+        fields[1].label = question.labelMiddleName;
+      }
+      if(question.labelLastName) {
+        fields[2].label = question.labelLastName;
+      }
       let curVal : any;
       let checkAccept = function() {
         let visib = false;
@@ -799,14 +828,24 @@ function initNameBlock(Survey) {
         label.className = 'survey-sublabel';
         label.appendChild(document.createTextNode(field.label));
         cell.appendChild(label);
+        descId = 'desc' + field.name[0].toUpperCase() + field.name.substring(1) + 'Name';
+        if(question[descId]) {
+          sublbl = document.createElement('p');
+          sublbl.className = 'survey-desc small';
+          sublbl.appendChild(document.createTextNode(question[descId]));
+          cell.appendChild(sublbl);
+        }
         input = document.createElement('input');
         input.className = 'form-control';
         if(field.name === 'first')
           input.id = question.inputId; // allow auto focus
+        else
+          input.id = question.inputId + '-' + field.name;
         input.addEventListener('change', updateValue);
         input.addEventListener('input', updateValue);
         input.addEventListener('focus', updateFocus);
         input.addEventListener('blur', updateFocus);
+        label.setAttribute('for', input.id);
         field.input = input;
         cell.appendChild(input);
         row.appendChild(cell);
@@ -869,13 +908,13 @@ function initContactInfoBlock(Survey) {
     activatedByChanged: function(activatedBy) {
       Survey.JsonObject.metaData.addClass("contactinfo", [
         {
-          name: "emailLabel:text",
+          name: "labelEmail:text",
         },
         {
-          name: "faxLabel:text",
+          name: "labelFax:text",
         },
         {
-          name: "phoneLabel:text",
+          name: "labelPhone:text",
         },
       ], null, "empty");
     },
@@ -909,7 +948,7 @@ function initContactInfoBlock(Survey) {
       }
 
       for(let field of fields) {
-        let altLbl = field.name.toLowerCase() + 'Label';
+        let altLbl = 'label' + field.name[0].toUpperCase() + field.name.substring(1);
         cell = document.createElement('div');
         cell.className = 'col-sm-4';
         label = document.createElement('label');
