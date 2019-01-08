@@ -16,6 +16,25 @@ services:
     depends_on:
       - fpo-api
 
+  fpo-web-dev:
+    image: fpo-angular-dev
+    environment:
+      - API_URL=${API_URL}
+      - DEV_MODE=false
+      - NODE_ENV=development
+      - NPM_CONFIG_LOGLEVEL=notice
+      - NPM_RUN=start
+    networks:
+      - fpo
+    ports:
+      - "${WEB_HTTP_PORT}:8080"
+      - 5858:5858
+    volumes:
+      - "../fpo-web/src:/opt/app-root/src/src"
+      - "../fpo-web/package.json:/opt/app-root/src/package.json"
+    depends_on:
+      - fpo-api
+
   # 
   # fpo-api
   #-------------------------------------------------

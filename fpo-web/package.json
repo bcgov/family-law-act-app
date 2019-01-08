@@ -4,7 +4,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o",
+    "start": "node --trace-warnings ./node_modules/\\@angular/cli/bin/ng serve --host 0.0.0.0 --port 8080",
     "build": "ng build --prod --base-href=/protection-order/",
     "test": "ng test",
     "lint": "ng lint",

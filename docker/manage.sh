@@ -88,6 +88,24 @@ build-web() {
   echo -e "===================================================================================================="
 }
 
+build-web-dev() {
+  echo -e "Building web-dev environment ..."
+  docker build \
+    -t 'nginx-runtime' \
+    -f '../fpo-web/openshift/templates/nginx-runtime/Dockerfile' '../fpo-web/openshift/templates/nginx-runtime/'
+  
+#-v "${COMPOSE_PROJECT_NAME}_fpo-npm-cache:/opt/app-root/src/.npm" \
+  ${S2I_EXE} build \
+    -e "DEV_MODE=true" \
+    '../fpo-web' \
+    'centos/nodejs-6-centos7:6' \
+    'fpo-angular-dev'
+
+  #docker build \
+  #  -t 'fpo-angular-on-nginx' \
+  #  -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
+}
+
 build-db() {
   #
   # fpo-db
@@ -236,6 +254,12 @@ case "$COMMAND" in
     _startupParams=$(getStartupParams $@)
     configureEnvironment $@
     docker-compose up ${_startupParams}
+    ;;
+  web-dev)
+    _startupParams=$(getStartupParams $@)
+    configureEnvironment $@
+    [ -z "$SKIP_BUILD" ] && build-web-dev
+    docker-compose run --rm --service-ports fpo-web-dev
     ;;
   stop)
     configureEnvironment
