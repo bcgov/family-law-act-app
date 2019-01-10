@@ -159,7 +159,10 @@
             height: 8em;
             border: 1px solid #000;
             display: inline-block;
+            z-index: 10;
         }
+
+
         @media print{
             .allow-to-break{page-break-inside: auto!important;}
             .force-break{page-break-before: always!important; margin-top: 1.25em;}
@@ -181,72 +184,31 @@
             .aff-label{font-weight: bold; display: block;}
             .next-page{page-break-before: always; margin-top: 7em;}
         }
+        @page :first {
+        }
+        .instruction-container {
+            z-index: 100;
+            display: block;
+            background-color: white;
+            position: absolute;
+            width: 100%;
+            top: -30px;
+        }
     </style>
 </head>
 <body>
-<!--Instruction page start-->
 
-<header>
-<div class="instruction-container">
-    <h2>Instructions: Applying for a Family Law Act Protection Order</h2>
 
-    <h3>Print Your Application Package</h3>
-    {% if PORSpeedUp == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "n" %}
-    <p>Print the PDF that this service has created for you. It will contain 4 copies of 1 form:</p>
-    {% endif %}
-    {% if PORSpeedUp == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "y" %}
-    <p>Print the PDF that this service has created for you. It will contain 4 copies of 2 different forms:</p>
-    {% endif %}
-    {% if PORSpeedUp == "y" and PORNoNotice == "y" %}
-    <p>Print the PDF that this service has created for you. It will contain 4 copies of 3 different forms:</p>
-    {% endif %}
-    <ul>
-        <li>Application To Obtain An Order</li>
-        {% if PORSpeedUp == "y" and PORNoNotice == "y" %}
-        <li>Notice of Motion</li>
-        {% endif %}
-        {% if PORSpeedUp == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
-        <li>Affidavit</li>
-        {% endif %}
-    </ul>
-    {% if ExistingOrders == "y" and ExistingWrittenAgreements == "y" %}
-    <h3>Make Copies of Existing Court Orders or Written Agreements</h3>
-    <p>You will need to make 4 copies of any court orders or written agreements that involve you and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. You will need to add these copies to your Document Package. The courthouse will not make copies for you.</p>
-    {% endif %}
-    {% if RespondentNoGo == "y" %}
-    <h3>Prepare Addresses for {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from</h3>
-    <p>You should write down the addresses of the places that you want {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from. You may need to show these addresses to the judge if the judge asks for them.</p>
-    {% endif %}
-    {% if PORSpeedUp == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
-    <h3>Swearing or Affirming your Affidavit</h3>
-    <p>An affidavit is a document that contains facts about your story that you are telling the judge. You will need to swear under oath or affirm that these facts are true.</p>
-    <p>You can swear or affirm your affidavit at a courthouse registry for free. You can also swear or affirm your affidavit with a lawyer, a notary public or a family justice counsellor. Lawyers and notary publics usually charge a fee to swear or affirm affidavits.</p>
-    <p>You will need picture ID, such as a driver's license or a passport, when you swear or affirm your affidavit.</p>
-    {% endif %}
-
-    <h3>Finishing your Application Package</h3>
-    <p>You will need to sign your documents on the day you file them at a courthouse. You will also need to hand write the date and the courthouse location.</p>
-
-    <h3>Filing your Application Package</h3>
-    <p>Take all 4 copies of your Application Package to the registry at a Provincial Courthouse. It is free to file court documents for family proceedings in Provincial Court.</p>
-
-    <p>The registry staff will stamp your documents. They will return the copies you need.</p>
-    {% if PORNoNotice == "y" %}
-    <p>A judge will hear your application as soon as possible. You may need to wait in court for several hours.</p>
-    {% else %}
-    <p>You will need to "serve" (to give) a copy of your stamped application package to {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. This is to make sure that {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} knows what you are asking for.</p>
-    {% endif %}
-
-    <p>For your safety, you cannot give it to {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} yourself. You need to get someone else, who is at least 19 years old, to do it. Ask the registry if you need more instructions about service.</p>
-</div>
-<!--Instruction page ends-->
-</header>
 <div class="wrapper" id="template">
     <div class="container">
 
         <!-- FORM ONE -->
         <!-- form heading -->
         <div class="no-repeat-header">
+
+            <!--Jeannie's recommendation-->
+
+
             <table width="100%;">
                 <tbody>
                 <tr>
@@ -261,7 +223,7 @@
         </div><!-- /form heading -->
         <!-- correct positioning of repeated block -->
         <div class="container-head">
-            <div style="position: absolute; top: 0; left: 0; height: 11em;">
+            <div style="position: absolute; top: 0; left: 0; height: 11em; ">
                 <div class="repeat-header">
                     <table width="100%;">
                         <tbody>
@@ -414,7 +376,6 @@
                                     <label class="label-btm">Name</label>
                                 </td>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;</span>
                                     {% if RespondentDOBExact == "y" %}
                                     <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
                                     {% else %}
@@ -1032,42 +993,41 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street}}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
                                         <label class="label-btm">ADDRESS FOR SERVICE</label>
                                     </td>
                                     <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city}}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.city }}</span>
                                         <label class="label-btm">City</label>
                                     </td>
                                     <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state}}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.state }}</span>
                                         <label class="label-btm">Province</label>
                                     </td>
                                 </tr>
-                                {% if LawyerAddress == "n" %}
+                                {% if Lawyer == "n" %}
                                 <tr>
-                                    <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode}}</span>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
                                         <label class="label-btm">Postal Code</label>
                                     </td>
-
-                                    <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ApplicantContact.phone}}</span>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantContact.phone }}</span>
                                         <label class="label-btm">Phone</label>
                                     </td>
-                                    <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ApplicantContact.email}}</span>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantContact.email }}</span>
                                         <label class="label-btm">E-mail</label>
                                     </td>
-                                    <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ApplicantContact.fax}}</span>
+                                    <td>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantContact.fax }}</span>
                                         <label class="label-btm">Fax</label>
                                     </td>
                                 </tr>
                                 {% else %}
                                 <tr>
                                     <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode}}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
                                         <label class="label-btm">Postal Code</label>
                                     </td>
                                     <td colspan="1">
@@ -1101,11 +1061,11 @@
                                         {% if PORNoNotice == "y" %}
                                         <span class="brdr-btm">&nbsp;</span>
                                         {% else %}
-                                        {% if RespondentDOBExact == "y" %}
-                                        <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
-                                        {% else %}
-                                        <span class="brdr-btm">&nbsp;</span>
-                                        {% endif %}
+                                            {% if RespondentDOBExact == "y" %}
+                                            <span class="brdr-btm">&nbsp;{{ RespondentDOBDateCompStr }}</span>
+                                            {% else %}
+                                            <span class="brdr-btm">&nbsp;</span>
+                                            {% endif %}
                                         {% endif %}
                                         <label class="label-btm">DATE OF BIRTH (MMM/DD/YYYY)</label>
                                     </td>
@@ -1139,7 +1099,7 @@
                                 <tr>
                                     <td>
                                         {% if PORNoNotice == "y" %}
-                                        <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
+                                        <span class="brdr-btm">&nbsp;</span>
                                         {% else %}
                                         <span class="brdr-btm">&nbsp;{{ RespondentAddress.postcode }}</span>
                                         {% endif %}
@@ -1572,5 +1532,64 @@
         {% endif %}
     </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->
+<!--Instruction page start-->
+
+<div class="force-break"></div>
+<div style="page-break-before: always;" class="instruction-container force-break">
+    <h2>Instructions: Applying for a Family Law Act Protection Order</h2>
+
+    <h3>Print Your Application Package</h3>
+    {% if PORSpeedup == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "n" %}
+        <p>Print the PDF that this service has created for you. It will contain 4 copies of 1 form:</p>
+        {% else %} {% if PORSpeedup == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "y" %}
+            <p>Print the PDF that this service has created for you. It will contain 4 copies of 2 different forms:</p>
+            {% else %} {% if PORSpeedup == "y" and PORNoNotice == "y" %}
+                <p>Print the PDF that this service has created for you. It will contain 4 copies of 3 different forms:</p>
+                {% else %}
+                    <p>Print the PDF that this service has created for you. It will contain 4 copies of 1 form:</p>
+                {% endif %}
+            {% endif %}
+    {% endif %}
+    <ul>
+        <li>Application To Obtain An Order</li>
+        {% if PORSpeedup == "y" and PORNoNotice == "y" %}
+        <li>Notice of Motion</li>
+        {% endif %}
+        {% if PORSpeedup == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
+        <li>Affidavit</li>
+        {% endif %}
+    </ul>
+    {% if ExistingOrders == "y" and ExistingWrittenAgreements == "y" %}
+    <h3>Make Copies of Existing Court Orders or Written Agreements</h3>
+    <p>You will need to make 4 copies of any court orders or written agreements that involve you and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. You will need to add these copies to your Document Package. The courthouse will not make copies for you.</p>
+    {% endif %}
+    {% if RespondentNoGo == "y" %}
+    <h3>Prepare Addresses for {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from</h3>
+    <p>You should write down the addresses of the places that you want {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from. You may need to show these addresses to the judge if the judge asks for them.</p>
+    {% endif %}
+    {% if PORSpeedup == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
+    <h3>Swearing or Affirming your Affidavit</h3>
+    <p>An affidavit is a document that contains facts about your story that you are telling the judge. You will need to swear under oath or affirm that these facts are true.</p>
+    <p>You can swear or affirm your affidavit at a courthouse registry for free. You can also swear or affirm your affidavit with a lawyer, a notary public or a family justice counsellor. Lawyers and notary publics usually charge a fee to swear or affirm affidavits.</p>
+    <p>You will need picture ID, such as a driver's license or a passport, when you swear or affirm your affidavit.</p>
+    {% endif %}
+
+    <h3>Finishing your Application Package</h3>
+    <p>You will need to sign your documents on the day you file them at a courthouse. You will also need to hand write the date and the courthouse location.</p>
+
+    <h3>Filing your Application Package</h3>
+    <p>Take all 4 copies of your Application Package to the registry at a Provincial Courthouse. It is free to file court documents for family proceedings in Provincial Court.</p>
+
+    <p>The registry staff will stamp your documents. They will return the copies you need.</p>
+    {% if PORNoNotice == "y" %}
+    <p>A judge will hear your application as soon as possible. You may need to wait in court for several hours.</p>
+    {% else %}
+    <p>You will need to "serve" (to give) a copy of your stamped application package to {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. This is to make sure that {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} knows what you are asking for.</p>
+    <p>For your safety, you cannot give it to {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} yourself. You need to get someone else, who is at least 19 years old, to do it. Ask the registry if you need more instructions about service.</p>
+    {% endif %}
+
+
+</div>
+<!--Instruction page ends-->
 </body>
 </html>

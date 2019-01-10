@@ -100,7 +100,7 @@ export class SurveyPrimaryComponent implements OnInit {
 
             data.PORAffidavit = new String();
             data.PORAffidavitArray = [];
-            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
             data.childError = [];
             data.RespondentNoGoPlacesString = new String();
@@ -108,16 +108,57 @@ export class SurveyPrimaryComponent implements OnInit {
             console.log("Variable type of ApplicantDOB "+ typeof data.ApplicantDOB);
             console.log("Variable ApplicantDOB is "+ data.ApplicantDOB);
             let newDate = new Date(data.ApplicantDOB);
-            let dateString = '1968-11-16T00:00:00'
+            let dateString = '1968-11-16T00:00:00';
             let testDate = new Date(dateString);
             data.newtestDate = Date.parse(dateString);
             data.testDate=testDate;
 
             data.applicantFullName = data.ApplicantName.first +" "+ data.ApplicantName.middle +" "+ data.ApplicantName.last;
             data.applicantDate = newDate;
-            var dd = newDate.getDate(); +1;
+
+
+
+            var dd = newDate.getDate();
             var month = newDate.getMonth();
             var yyyy = newDate.getFullYear();
+            if(month == 0 || 2 || 4 || 6 || 8 || 11){
+                if(dd == 31 ){
+                    dd = 1;
+                    month ++;
+                }
+                else{
+                    dd ++;
+                }
+            }
+            else if (month == 3 || 5 || 7 || 8 || 10 || 12){
+                if(dd == 30 ){
+                    dd = 1;
+                    month ++;
+                }
+                else{
+                    dd ++;
+                }
+            }
+            else if (month == 1){
+                if ((yyyy % 100 === 0) ? (yyyy % 400 === 0) : (yyyy % 4 === 0)){
+                    if(dd == 29 ){
+                        dd = 1;
+                        month ++;
+                    }
+                    else{
+                        dd ++;
+                    }
+                }
+                else{
+                    if(dd == 28 ){
+                        dd = 1;
+                        month ++;
+                    }
+                    else{
+                        dd ++;
+                    }
+                }
+            }
             data.ApplicantDOBDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
 
             let respondentNewDate = new Date(data.RespondentDOB);
@@ -258,7 +299,7 @@ export class SurveyPrimaryComponent implements OnInit {
             //Child parenting time list
             if (data.listOfEqualPtimeArray !== undefined)
                 data.listOfEqualPtimeString = data.listOfEqualPtimeArray.slice(0, data.listOfEqualPtimeArray.length-1).join(", ")
-                    + " or " + data.listOfEqualPtimeArray[data.listOfEqualPtimeArray.length-1];
+                    + " and " + data.listOfEqualPtimeArray[data.listOfEqualPtimeArray.length-1];
 
             if (data.listOfApplicantMainGuardianArray !== undefined)
                 data.listOfApplicantMainGuardianString = data.listOfApplicantMainGuardianArray.slice(0, data.listOfApplicantMainGuardianArray.length-1).join(", ")
@@ -334,10 +375,10 @@ export class SurveyPrimaryComponent implements OnInit {
 
             if (data.RespondentNoGoPlaces !== undefined){
                 for (let RespondentNoGoPlace of data.RespondentNoGoPlaces){
-                    if (RespondentNoGoPlace == data.RespondentNoGoPlaces[0]){
+                    if (RespondentNoGoPlace == data.RespondentNoGoPlaces[0] && RespondentNoGoPlace != "other"){
                         data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + RespondentNoGoPlace;
                     }
-                    else if (RespondentNoGoPlace == data.RespondentNoGoPlaces[data.RespondentNoGoPlaces.length-1]){
+                    else if (RespondentNoGoPlace == data.RespondentNoGoPlaces[data.RespondentNoGoPlaces.length-1] && RespondentNoGoPlace != "other"){
                         data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + " or " + RespondentNoGoPlace;
                     }
                     else {
