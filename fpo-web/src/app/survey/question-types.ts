@@ -994,6 +994,12 @@ function initCustomDate(Survey) {
       return question.inputType === "date";
     },
     activatedByChanged: function(activatedBy) {
+      Survey.JsonObject.metaData.addProperties("text", [
+        {
+          "name": "dateYearsAhead:number",
+          "default": 0
+        }
+      ]);
     },
     htmlTemplate: "<div class=\"form-inline date-select\"></div>",
     monthOptions: [
@@ -1049,6 +1055,9 @@ function initCustomDate(Survey) {
       opt.value = '';
       yearSel.appendChild(opt);
       let curYear = (new Date()).getFullYear();
+      if(question.dateYearsAhead) {
+        curYear += question.dateYearsAhead;
+      }
       for(let yr = curYear; yr >= 1900; yr--) {
         var opt = document.createElement('option');
         opt.text = ''+yr;
