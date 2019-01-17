@@ -998,6 +998,10 @@ function initCustomDate(Survey) {
         {
           "name": "dateYearsAhead:number",
           "default": 0
+        },
+        {
+          "name": "dateYearsBehind:number",
+          "default": 100
         }
       ]);
     },
@@ -1055,10 +1059,9 @@ function initCustomDate(Survey) {
       opt.value = '';
       yearSel.appendChild(opt);
       let curYear = (new Date()).getFullYear();
-      if(question.dateYearsAhead) {
-        curYear += question.dateYearsAhead;
-      }
-      for(let yr = curYear; yr >= 1900; yr--) {
+      let firstYear = curYear - (question.dateYearsBehind || 0);
+      curYear += (question.dateYearsAhead || 0);
+      for(let yr = curYear; yr >= firstYear; yr--) {
         var opt = document.createElement('option');
         opt.text = ''+yr;
         opt.value = ''+yr;
