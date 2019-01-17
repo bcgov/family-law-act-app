@@ -333,7 +333,7 @@ function initYesNo(Survey) {
     makeButton: function(question, opt) {
       let chk = document.createElement('input');
       chk.type = 'radio';
-      chk.name = question.name;
+      chk.name = question.name + '_' + question.id;
       chk.value = opt.value;
       chk.checked = (question.value === opt.value);
       chk.onclick = function() {
