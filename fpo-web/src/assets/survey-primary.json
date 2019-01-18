@@ -850,7 +850,9 @@
        "visibleIf": "{RespondentPORTime} = 'y'",
        "title": "When do you want your Protection Order to expire?",
        "description": "You will need to explain to the judge in court why you think this date is important.",
-       "inputType": "date"
+       "inputType": "date",
+       "dateYearsAhead": 5,
+       "dateYearsBehind": 0
       }
      ]
     }
