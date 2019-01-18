@@ -109,7 +109,7 @@ h4.sv_page_title {
   border: 1px solid #c9d0e3;
   border-radius: 4px;
   margin: 0.5em 0 0 0;
-  padding: .5em .5em 1em;
+  padding: .5em;
   line-height: 1.4;
   .fa {
     color: $gov-navy-blue;
@@ -167,12 +167,13 @@ h4.sv_page_title {
     padding: 0;
   }
   .panel-body {
-    padding: 1.5em 0 0 0;
+    padding: 0.5em 0 0 0;
   }
   .panel-title {
     font-size: 18px;
   }
   .heading-icon {
+    float: left;
     margin-right: 0.5em;
   }
   .heading-expand {

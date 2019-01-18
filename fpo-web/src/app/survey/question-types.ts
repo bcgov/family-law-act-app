@@ -232,6 +232,7 @@ function initInfoText(Survey) {
           'default': "info",
           choices: [
             "info",
+            "inline",
             "error"
           ]
         }
@@ -243,23 +244,31 @@ function initInfoText(Survey) {
         el.removeChild(el.childNodes[0]);
 
       let outer = document.createElement('div');
-      let outerCls = 'panel panel-default survey-infotext survey-expander expanded';
+      let outerCls = 'panel panel-default ';
       if(question.messageStyle === 'error')
-        outerCls += ' error';
+        outerCls += 'survey-infotext error';
+      else if(question.messageStyle === 'inline')
+        outerCls += 'survey-inlinetext';
+      else
+        outerCls += 'survey-infotext';
       outer.className = outerCls;
       let header = document.createElement('div');
       header.className = 'panel-heading';
       let lbl = document.createElement('label');
       lbl.className = 'panel-title';
 
-      let icon = document.createElement('span');
+      let iconCls = null;
       if(question.messageStyle === 'error')
-        icon.className = 'heading-icon fa fa-ban';
-      else
-        icon.className = 'heading-icon fa fa-info-circle';
+        iconCls = 'heading-icon fa fa-ban';
+      else if(question.messageStyle === 'info')
+        iconCls = 'heading-icon fa fa-info-circle';
       let title = document.createElement('span');
       title.className = 'title-text';
-      lbl.appendChild(icon);
+      if(iconCls) {
+        let icon = document.createElement('span');
+        icon.className = iconCls;
+        lbl.appendChild(icon);
+      }
       lbl.appendChild(title);
       header.appendChild(lbl);
       outer.appendChild(header);
