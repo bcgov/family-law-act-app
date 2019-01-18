@@ -11,16 +11,17 @@ export class SurveySidebarComponent  {
   title: string;
   links: any[];
   private survey: SurveyComponent;
+  protected mode: string = 'edit';
 
-  constructor(private injector : Injector) {
+  constructor(private injector: Injector) {
     // survey will be passed by the injector when instantiated by InsertComponent
     this.survey = <SurveyComponent>this.injector.get('survey');
     this.survey.onPageUpdate.subscribe(survey => {
-      this.updateContent(survey);
+      this.updateContent(survey, this.survey.surveyCompleted, this.survey.surveyMode);
     });
   }
 
-  updateContent(model : SurveyModel) {
+  updateContent(model: SurveyModel, complete: boolean, mode: string) {
     if(model) {
       this.title = 'Application Steps'; // model.title;
       let links = [];
@@ -30,16 +31,18 @@ export class SurveySidebarComponent  {
           index: idx,
           textIndex: '' + (idx + 1),
           title: page.title || page.name,
-          current: idx === model.currentPageNo});
+          current: mode === 'edit' && idx === model.currentPageNo});
       });
       links.push({
-          disabled: true,
+          disabled: ! complete,
           index: links.length,
           textIndex: '' + (links.length + 1),
           title: "Print Application Forms",
-          current: false,
+          current: mode === 'print',
+          special: 'print',
           separate: true});
       this.links = links;
+      this.mode = mode;
     }
   }
 
@@ -49,7 +52,10 @@ export class SurveySidebarComponent  {
 
   activateLink(link: any) {
     if(link && ! link.disabled) {
-      this.changePage(link.index);
+      if(link.special)
+        this.survey.changeMode(link.special);
+      else
+        this.changePage(link.index);
     }
   }
 

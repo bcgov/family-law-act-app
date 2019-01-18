@@ -20,9 +20,11 @@ export class SurveyComponent  {
   @Input() onComplete: Function;
   @Input() showSidebar = true;
   @Input() surveyPath: string;
+  @Input() initialMode: string;
   public cacheLoadTime: any;
   public cacheKey: string;
   public surveyCompleted = false;
+  public surveyMode = 'edit';
   public surveyModel: Survey.SurveyModel;
   public onPageUpdate: BehaviorSubject<Survey.SurveyModel> = new BehaviorSubject<Survey.SurveyModel>(null);
   public error: string;
@@ -42,6 +44,9 @@ export class SurveyComponent  {
   ) {}
 
   ngOnInit() {
+    if(this.initialMode) {
+      this.surveyMode = this.initialMode;
+    }
     this.initSurvey();
     this.glossaryService.onLoaded(() => this.loadSurvey(true));
     if(this.showSidebar) {
@@ -135,9 +140,11 @@ export class SurveyComponent  {
 
     surveyModel.onComplete.add((sender, options) => {
       this.surveyCompleted = true;
+      this.surveyMode = 'print';
       if(! this.disableCache)
         this.saveCache();
-      if(this.onComplete) this.onComplete(sender.data)
+      if(this.onComplete) this.onComplete(sender.data);
+      this.onPageUpdate.next(sender);
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
       this.onPageUpdate.next(sender);
@@ -151,6 +158,9 @@ export class SurveyComponent  {
     });
     surveyModel.onAfterRenderQuestion.add((sender, options) => {
       this.glossaryService.registerTargets(options.htmlElement);
+    });
+    surveyModel.onValueChanged.add((sender, options) => {
+      this.evalProgress();
     });
 
     this.surveyModel = surveyModel;
@@ -177,6 +187,16 @@ export class SurveyComponent  {
 
   changePage(pageNo: number) {
     this.surveyModel.currentPageNo = pageNo;
+    if(this.surveyMode !== 'edit') this.changeMode('edit');
+  }
+
+  changeMode(mode: string) {
+    this.surveyMode = mode;
+    if(mode === 'print') {
+      this.complete();
+    } else {
+      if(this.onComplete) this.onComplete(null);
+    }
   }
 
   prevPage() {
@@ -215,12 +235,17 @@ export class SurveyComponent  {
     else if(response && response.result) {
       let cache = response.result;
       if(cache.data) {
+        let prevPg = this.surveyModel.currentPageNo;
+        this.surveyCompleted = cache.completed || false;
         this.prevPageIndex = cache.page || 0;
         this.surveyModel.currentPageNo = this.prevPageIndex;
         this.surveyModel.data = cache.data;
         this.cacheLoadTime = cache.time;
-        this.surveyCompleted = cache.completed || false;
         this.cacheKey = response.key;
+        if(this.surveyMode === 'print' && this.surveyCompleted)
+          this.complete();
+        else if(prevPg == this.surveyModel.currentPageNo)
+          this.onPageUpdate.next(this.surveyModel);
       }
     }
   }
@@ -237,10 +262,26 @@ export class SurveyComponent  {
       .catch((err) => this.doneSaveCache(null, err));
   }
 
-  doneSaveCache(response, err?) {console.log(response);
+  doneSaveCache(response, err?) {
     if(response && response.status === 'ok' && response.result) {
       this.cacheLoadTime = response.result.time;
       this.cacheKey = response.key;
+    }
+  }
+
+  evalProgress() {
+    if(this.surveyModel) {
+      let page = this.surveyModel.currentPage;
+      let done = true;
+      if(page) {
+        for(let q of page.questions) {
+          if(q.isVisible && q.isRequired && q.isEmpty()) {
+            done = false;
+            //console.log(q.name);
+          }
+        }
+      }
+      //console.log('progress: ', this.surveyModel.getProgress(), done);
     }
   }
 

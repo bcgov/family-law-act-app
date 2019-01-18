@@ -66,7 +66,7 @@
           <div class="col-sm-8">
             <button type="button" class="btn btn-default btn-sm resume-button" tabindex="1" (click)="resumeSurvey(entry.key)">Resume Application</button>
             <button type="button" class="btn btn-default btn-sm remove-button" tabindex="1" (click)="removeSurvey(entry.key)">Remove</button>
-            <button type="button" class="btn btn-default btn-sm print-button" tabindex="1" disabled="disabled" *ngIf="entry.completed" (click)="showPrintSurvey(entry.key)">Print Application</button>
+            <button type="button" class="btn btn-default btn-sm print-button" tabindex="1" *ngIf="entry.completed" (click)="showPrintSurvey(entry.key)">Print Application</button>
           </div>
         </div>
       </div>

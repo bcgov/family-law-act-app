@@ -83,13 +83,18 @@ $link-disabled-color: #777;
         color: $link-disabled-color;
       }
     }
-    &.separate::before {
-      display: block;
-      content: ' ';
-      margin: 0.25em 1.5em 0.5em;
-      height: 1px;
-      background: #25b;
-      width: 100%;
+    &.separate {
+      margin-top: 1em;
+      &::before {
+        display: block;
+        content: ' ';
+        margin: 0 1.5em;
+        position: relative;
+        top: -0.75em;
+        height: 1px;
+        background: #25b;
+        width: 100%;
+      }
     }
   }
 }

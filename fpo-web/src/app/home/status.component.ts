@@ -88,6 +88,11 @@ export class UserStatusComponent implements OnInit, OnDestroy {
       .then((result) => { this.router.navigate(['prv/survey']); });
   }
 
+  showPrintSurvey(key) {
+    return this.dataService.loadSurveyCache('primary', key, false)
+      .then((result) => { this.router.navigate(['prv/survey'], {fragment: 'print'}); });
+  }
+
   removeSurvey(key) {
     return this.dataService.clearSurveyCache('primary', key)
       .then((result) => { this.loadSurveyIndex(); });
