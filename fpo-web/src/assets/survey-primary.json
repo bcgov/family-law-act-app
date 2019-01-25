@@ -12,9 +12,9 @@
        "type": "personname",
        "name": "ApplicantName",
        "title": "What is your full name?",
-       "description": "You may enter a name you use in your everday life even if it does not match your ID exactly.",
-       "defaultSubstitution": "(Applicant Name)",
-       "isRequired": true
+       "description": "You may enter a name you use in your everyday life even if it does not match your ID exactly.",
+       "isRequired": true,
+       "defaultSubstitution": "(Applicant Name)"
       },
       {
        "type": "text",
@@ -88,7 +88,7 @@
    "title": "Your Information"
   },
   {
-   "name": "Your Ex-Partner's Information",
+   "name": "Your (ex-)Partner's Information",
    "elements": [
     {
      "type": "panel",
@@ -145,7 +145,7 @@
        "type": "yesno",
        "name": "ApplicantNeedsProtection",
        "title": "Do you, {ApplicantName}, need to protected from {RespondentName}, on this `Protection Order`?",
-       "description": "A Protection Order is a list of conditions set by a judge that your ex-partner must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative."
+       "description": "A Protection Order is a list of conditions set by a judge that your (ex-)partner must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative."
       },
       {
        "type": "infotext",
@@ -258,7 +258,7 @@
      "visibleIf": "{RespondentName} notempty"
     }
    ],
-   "title": "Your Ex-Partner's Information"
+   "title": "Your (ex-)Partner's Information"
   },
   {
    "name": "Your Children's Information",
@@ -363,7 +363,7 @@
          "name": "ErrorNeitherGuardians",
          "visible": false,
          "visibleIf": "{ApplicantNeedsProtection} = 'n' and {panel.ChildApplicantGuardian} = 'n' and {panel.ChildRespondentGuardian} = 'n'",
-         "title": "This service is currently limited to situations where ex-partners have shared children. These children cannot have parents or guardians other than you, {ApplicantName}, and {RespondentName}.\n<br>\n<br>\nIf any children have parents or guardians other than you and {RespondentName}, you can still apply for a Provincial Court `Family Law Protection Order`.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
+         "title": "This service is currently limited to situations where (ex-)partners have shared children. These children cannot have parents or guardians other than you, {ApplicantName}, and {RespondentName}.\n<br>\n<br>\nIf any children have parents or guardians other than you and {RespondentName}, you can still apply for a Provincial Court `Family Law Protection Order`.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Click here for Provincial Court Family Forms.</a>\n<br>\n<br>\nFor additional support, call VictimLink BC 1-800-563-0808 (no charge), 24 hours a day, 7 days a week.",
          "titleLocation": "hidden",
          "messageStyle": "error"
         }
@@ -851,7 +851,7 @@
        "title": "When do you want your Protection Order to expire?",
        "description": "You will need to explain to the judge in court why you think this date is important.",
        "inputType": "date",
-       "dateYearsAhead": 5,
+       "dateYearsAhead": 50,
        "dateYearsBehind": 0
       }
      ]
