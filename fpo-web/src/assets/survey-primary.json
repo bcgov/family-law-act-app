@@ -144,7 +144,7 @@
       {
        "type": "yesno",
        "name": "ApplicantNeedsProtection",
-       "title": "Do you, {ApplicantName}, need to protected from {RespondentName}, on this `Protection Order`?",
+       "title": "Do you, {ApplicantName}, need to be protected from {RespondentName}, on this `Protection Order`?",
        "description": "A Protection Order is a list of conditions set by a judge that your (ex-)partner must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative."
       },
       {
@@ -295,13 +295,12 @@
        "type": "personname",
        "name": "ChildName",
        "title": "What is the child's full name?",
-       "description": "You can still use this service without the child's full name. A Protection Order is most effective with this information.\n"
+       "description": "You can still use this service without the child's full name. A Protection Order is most effective with this information.\n",
+       "defaultSubstitution": "this child"
       },
       {
        "type": "yesno",
        "name": "ChildIsMinor",
-       "visible": false,
-       "visibleIf": "{panel.ChildName} notempty",
        "title": "Is {panel.ChildName} under 19 years of age?"
       },
       {
@@ -323,15 +322,14 @@
       {
        "type": "yesno",
        "name": "ChildNeedsProtection",
-       "visibleIf": "{panel.ChildDOBExact} notempty",
-       "title": "Does {panel.ChildName} need to protected from {RespondentName}, on this `Protection Order`?"
+       "title": "Does {panel.ChildName} need to be protected from {RespondentName}, on this `Protection Order`?"
       },
       {
        "type": "infotext",
        "name": "ExplanationChildIsAdultNoProtection",
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} = 'n'",
-       "title": "Even if {panel.ChildName} does not need to be protected from {RespondentName} in this Protection Order, the judge will still need information about {panel.ChildName} in order to make fair decision.",
+       "title": "Even if {panel.ChildName} does not need to be protected from {RespondentName} in this Protection Order, the judge will still need information about this child in order to make fair decision.",
        "titleLocation": "hidden"
       },
       {
@@ -339,7 +337,7 @@
        "name": "ExplanationChildIsAdultNoPOR",
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'n' and {panel.ChildNeedsProtection} = 'n'",
-       "title": "Because {panel.ChildName} is an adult and does not need to be protected from {RespondentName} in this Protection Order, {panel.ChildName} will not be included on your documents.",
+       "title": "Because {panel.ChildName} is an adult and does not need to be protected from {RespondentName} in this Protection Order, this child will not be included on your documents.",
        "titleLocation": "hidden"
       },
       {
@@ -941,8 +939,8 @@
      "name": "PORWhatHappened",
      "visible": false,
      "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-     "title": "Describe what  has done to make you and/or your children feel `unsafe`.\n",
-     "description": "Describe any recent incidents of `Family Violence` against your and/or your children. Include:\n<ul>\n<li>How  made you and/or your children feel unsafe (describe examples of ’s behaviour that made you afraid)</li>\n<li>A description of the incident (write as much detail as possible)</li>\n<li>Who was involved (include the police if they were involved at any time)</li>\n<li>Who witnessed it</li>\n<li>Any exposure your children have had to violence or abuse</li>\n<li>Any injuries or trauma from the incident</li>\n<li>Any doctor's notes, police reports or photographs (you must refer to them in your affidavit and make photocopies of them for the court)</li>\n</ul>",
+     "title": "Describe what {RespondentName} has done to make you and/or your children feel `unsafe`.\n",
+     "description": "Describe any recent incidents of `Family Violence` against you and/or your children. Include:\n<ul>\n<li>How {RespondentName} made you and/or your children feel unsafe (describe examples of {RespondentName}’s behaviour that made you afraid)</li>\n<li>A description of the incident (write as much detail as possible)</li>\n<li>Who was involved (include the police if they were involved at any time)</li>\n<li>Who witnessed it</li>\n<li>Any exposure your children have had to violence or abuse</li>\n<li>Any injuries or trauma from the incident</li>\n<li>Any doctor's notes, police reports or photographs (you must refer to them in your affidavit and make photocopies of them for the court)</li>\n</ul>",
      "rows": 8
     },
     {
