@@ -33,7 +33,7 @@
        "visibleIf": "{Unsafe} =  'y'",
        "title": "Does my ex-boyfriend or ex-girlfriend count as my partner?",
        "titleLocation": "hidden",
-       "body": "If they lived (or live) with you in a marriage-like relationship for any period of time then, yes, they count as your partner. Also, if the two of you have a child together then, yes, they count as your partner."
+       "body": "If they lived (or live) with you in a marriage-like relationship for any period of time then, yes, they count as your partner. Also, if the two of you have a child together then, yes, they count as your partner.\n<br>\n<br>\nIf they did not live with you in a marriage-like relationship or have children with you, they do not count as a partner for the purpose of this service."
       },
       {
        "type": "infotext",
@@ -112,6 +112,27 @@
        "name": "ExistingPOR",
        "title": "Do you already have a Provincial Court `Family Law Act Protection Order` and you need to change a condition or change the expiry date?",
        "isRequired": true
+      },
+      {
+       "type": "helptext",
+       "name": "ExistingPORFAQ1",
+       "title": "What if I have a Provincial Court `Family Law Act Protection Order` that is already expired?",
+       "titleLocation": "hidden",
+       "body": "You can say \"yes\" because your old form is expired."
+      },
+      {
+       "type": "helptext",
+       "name": "ExistingPORFAQ3",
+       "title": "What if I have a `Protection Order` from the Supreme Court of British Columbia?",
+       "titleLocation": "hidden",
+       "body": "Select \"No\""
+      },
+      {
+       "type": "helptext",
+       "name": "ExistingPORFAQ4",
+       "title": "What if I have a `Protection Order` from the somewhere else?",
+       "titleLocation": "hidden",
+       "body": "See if you can register it in BC"
       },
       {
        "type": "infotext",
