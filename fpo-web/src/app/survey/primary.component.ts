@@ -61,145 +61,91 @@ export class SurveyPrimaryComponent implements OnInit {
 
     showPrintable(data) {
         let formatName = function(nm) {
-            if(! nm) return '';
+            if (! nm) return '';
             return (((nm.first || '') + ' ' + (nm.middle || '')).trim() + ' ' + (nm.last || '')).trim();
+        }
+        let formatDate = function(date) {
+            if (! date) return '';
+            var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            let dateVal = new Date(date + " 12:00:00Z");
+            var dd = dateVal.getDate();
+            var month = dateVal.getMonth();
+            var yyyy = dateVal.getFullYear();
+            return monthArray[month]+"/"+dd+"/"+yyyy;
+        }
+        let joinResults = function(results, joiner) {
+            if (! joiner) joiner = " and ";
+            if (! results) return '';
+            if (results.length == 1) return results[0];
+            let start = results.length > 2 ? results.slice(0, results.length-1).join(", ") + "," : results[0];
+            return start + joiner + results[results.length-1];
         }
 
         //add additional data starts here
         data.listOfChildrenArray = [];
         data.listOfChildrenWithPOArray = [];
         data.listOfChildrenWithoutPOArray = [];
-        data.listOfChildrenString = new String();
-        data.listOfChildrenWithPO = new String();
-        data.listOfPeopleString = new String();
+        data.listOfChildrenString = '';
+        data.listOfChildrenWithPO = '';
+        data.listOfPeopleString = '';
         data.listOfPeopleArray = [];
         data.listOfPeopleWithPOArray = [];
-        data.listOfPeopleWithPOString = new String();
-        data.contactTypeString = new String();
-        data.ArrangeMethodString = new String();
-        data.listOfChildrenWithoutPOString = new String();
+        data.listOfPeopleWithPOString = '';
+        data.contactTypeString = '';
+        data.ArrangeMethodString = '';
+        data.listOfChildrenWithoutPOString = '';
 
         data.listOfBothGuardianArray = [];
-        data.listOfBothGuardianString = new String();
+        data.listOfBothGuardianString = '';
         data.listOfApplicantGuardianArray = [];
-        data.listOfApplicantGuardianString = new String();
+        data.listOfApplicantGuardianString = '';
         data.listOfRespondentGuardianArray = [];
-        data.listOfRespondentGuardianString = new String();
+        data.listOfRespondentGuardianString = '';
 
         data.listOfApplicantResponsibleArray = [];
-        data.listOfApplicantResponsibleString = new String();
+        data.listOfApplicantResponsibleString = '';
         data.listOfRespondentResponsibleArray = [];
-        data.listOfRespondentResponsibleString = new String();
+        data.listOfRespondentResponsibleString = '';
         data.listOfBothResponsibleArray = [];
-        data.listOfBothResponsibleString = new String();
+        data.listOfBothResponsibleString = '';
         data.listOfNoResponsibleArray = [];
-        data.listOfNoResponsibleString = new String();
+        data.listOfNoResponsibleString = '';
         data.listOfAdultChildrenArray = [];
-        data.listOfAdultChildrenString = new String();
+        data.listOfAdultChildrenString = '';
 
         data.listOfEqualPtimeArray = [];
         console.log("listOfEqualPtimeArray: empty "+ data.listOfEqualPtimeArray);
 
-        data.listOfEqualPtimeString = new String();
+        data.listOfEqualPtimeString = '';
         data.listOfApplicantMainGuardianArray = [];
-        data.listOfApplicantMainGuardianString = new String();
+        data.listOfApplicantMainGuardianString = '';
         data.listOfRespondentMainGuardianArray = [];
-        data.listOfRespondentMainGuardianString = new String();
+        data.listOfRespondentMainGuardianString = '';
 
 
         data.listOfChildrenTimeApplicantArray = [];
-        data.listOfChildrenTimeApplicantString = new String();
+        data.listOfChildrenTimeApplicantString = '';
         data.listOfChildrenTimeRespondentArray = [];
-        data.listOfChildrenTimeRespondentString = new String();
+        data.listOfChildrenTimeRespondentString = '';
         data.listOfChildrenTimeNoneArray = [];
-        data.listOfChildrenTimeNoneString = new String();
+        data.listOfChildrenTimeNoneString = '';
 
-        data.PORAffidavit = new String();
+        data.PORAffidavit = '';
         data.PORAffidavitArray = [];
-        var monthArray = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         data.childError = [];
-        data.RespondentNoGoPlacesString = new String();
-        console.log("Variable with "+ data.RespondentNoGoPlacesComment);
-        console.log("Variable type of ApplicantDOB "+ typeof data.ApplicantDOB);
-        console.log("Variable ApplicantDOB is "+ data.ApplicantDOB);
-        let newDate = new Date(data.ApplicantDOB);
-        let dateString = '1968-11-16T00:00:00';
-        let testDate = new Date(dateString);
-        data.newtestDate = Date.parse(dateString);
-        data.testDate=testDate;
+        data.RespondentNoGoPlacesString = '';
 
         data.applicantFullName = formatName(data.ApplicantName);
-        data.applicantDate = newDate;
-
-
-
-        var dd = newDate.getDate();
-        var month = newDate.getMonth();
-        var yyyy = newDate.getFullYear();
-        if(month == 0 || 2 || 4 || 6 || 8 || 11){
-            if(dd == 31 ){
-                dd = 1;
-                month ++;
-            }
-            else{
-                dd ++;
-            }
-        }
-        else if (month == 3 || 5 || 7 || 8 || 10 || 12){
-            if(dd == 30 ){
-                dd = 1;
-                month ++;
-            }
-            else{
-                dd ++;
-            }
-        }
-        else if (month == 1){
-            if ((yyyy % 100 === 0) ? (yyyy % 400 === 0) : (yyyy % 4 === 0)){
-                if(dd == 29 ){
-                    dd = 1;
-                    month ++;
-                }
-                else{
-                    dd ++;
-                }
-            }
-            else{
-                if(dd == 28 ){
-                    dd = 1;
-                    month ++;
-                }
-                else{
-                    dd ++;
-                }
-            }
-        }
-        data.ApplicantDOBDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
-
-        let respondentNewDate = new Date(data.RespondentDOB);
-        var dd = respondentNewDate.getDate() +1;
-        var month = respondentNewDate.getMonth();
-        var yyyy = respondentNewDate.getFullYear();
-        data.RespondentDOBDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
-
-        let porNewDate = new Date(data.RespondentPORNewTime);
-        var dd = porNewDate.getDate() +1;
-        var month = porNewDate.getMonth();
-        var yyyy = porNewDate.getFullYear();
-        data.PorNewDateCompStr = monthArray[month]+"/"+dd+"/"+yyyy;
+        data.ApplicantDOBDateCompStr = formatDate(data.ApplicantDOB);
+        data.RespondentDOBDateCompStr = formatDate(data.RespondentDOB);
+        data.PorNewDateCompStr = formatDate(data.RespondentPORNewTime);
 
         if(data.ListOfChildren !== undefined){
             for (let child of data.ListOfChildren){
 
-                let childDOBNewDate = new Date(child.ChildDOB);
-                var dd = childDOBNewDate.getDate() +1;
-                var month = childDOBNewDate.getMonth();
-                var yyyy = childDOBNewDate.getFullYear();
-                console.log("child.childBOD is" + child.ChildDOB);
-                child.ChildDOB = monthArray[month]+"/"+dd+"/"+yyyy;
-                console.log("after conversion of child.childBOD is" + child.ChildDOB);
-                // child.ChildDOB = JSON.stringify(month+"/"+dd+"/"+yyyy);
+                child.ChildDOB = formatDate(child.ChildDOB);
+                console.log("child.childDOB is" + child.ChildDOB);
 
                 var childFullName = formatName(child["ChildName"]);
 
@@ -279,74 +225,25 @@ export class SurveyPrimaryComponent implements OnInit {
             }
         }
 
-        if (data.listOfBothGuardianArray !== undefined)
-            data.listOfBothGuardianString = data.listOfBothGuardianArray.slice(0, data.listOfBothGuardianArray.length-1).join(", ")
-                + " and " + data.listOfBothGuardianArray[data.listOfBothGuardianArray.length-1];
+        data.listOfBothGuardianString = joinResults(data.listOfBothGuardianArray, " and ");
+        data.listOfApplicantGuardianString = joinResults(data.listOfApplicantGuardianArray, " and ");
+        data.listOfRespondentGuardianString = joinResults(data.listOfRespondentGuardianArray, " and ");
+        data.listOfBothResponsibleString = joinResults(data.listOfBothResponsibleArray, " and ");
+        data.listOfApplicantResponsibleString = joinResults(data.listOfApplicantResponsibleArray, " and ");
+        data.listOfRespondentResponsibleString = joinResults(data.listOfRespondentResponsibleArray, " and ");
+        data.listOfNoResponsibleString = joinResults(data.listOfNoResponsibleArray, " and ");
+        data.listOfAdultChildrenString = joinResults(data.listOfAdultChildrenArray, " and ");
 
-        if (data.listOfApplicantGuardianArray !== undefined)
-            data.listOfApplicantGuardianString = data.listOfApplicantGuardianArray.slice(0, data.listOfApplicantGuardianArray.length-1).join(", ")
-                + " and " + data.listOfApplicantGuardianArray[data.listOfApplicantGuardianArray.length-1];
-
-        if (data.listOfRespondentGuardianArray !== undefined)
-            data.listOfRespondentGuardianString = data.listOfRespondentGuardianArray.slice(0, data.listOfRespondentGuardianArray.length-1).join(", ")
-                + " and " + data.listOfRespondentGuardianArray[data.listOfRespondentGuardianArray.length-1];
-
-        if (data.listOfBothResponsibleArray !== undefined)
-            data.listOfBothResponsibleString = data.listOfBothResponsibleArray.slice(0, data.listOfBothResponsibleArray.length-1).join(", ")
-                + " and " + data.listOfBothResponsibleArray[data.listOfBothResponsibleArray.length-1];
-
-        if (data.listOfApplicantResponsibleArray !== undefined)
-            data.listOfApplicantResponsibleString = data.listOfApplicantResponsibleArray.slice(0, data.listOfApplicantResponsibleArray.length-1).join(", ")
-                + " and " + data.listOfApplicantResponsibleArray[data.listOfApplicantResponsibleArray.length-1];
-
-        if (data.listOfRespondentResponsibleArray !== undefined)
-            data.listOfRespondentResponsibleString = data.listOfRespondentResponsibleArray.slice(0, data.listOfRespondentResponsibleArray.length-1).join(", ")
-                + " and " + data.listOfRespondentResponsibleArray[data.listOfRespondentResponsibleArray.length-1];
-
-        if (data.listOfNoResponsibleArray !== undefined)
-            data.listOfNoResponsibleString = data.listOfNoResponsibleArray.slice(0, data.listOfNoResponsibleArray.length-1).join(", ")
-                + " and " + data.listOfNoResponsibleArray[data.listOfNoResponsibleArray.length-1];
-
-        if (data.listOfAdultChildrenArray !== undefined)
-            data.listOfAdultChildrenString = data.listOfAdultChildrenArray.slice(0, data.listOfAdultChildrenArray.length-1).join(", ")
-                + " and " + data.listOfAdultChildrenArray[data.listOfAdultChildrenArray.length-1];
         //Child parenting time list
-        if (data.listOfEqualPtimeArray !== undefined)
-            data.listOfEqualPtimeString = data.listOfEqualPtimeArray.slice(0, data.listOfEqualPtimeArray.length-1).join(", ")
-                + " and " + data.listOfEqualPtimeArray[data.listOfEqualPtimeArray.length-1];
-
-        if (data.listOfApplicantMainGuardianArray !== undefined)
-            data.listOfApplicantMainGuardianString = data.listOfApplicantMainGuardianArray.slice(0, data.listOfApplicantMainGuardianArray.length-1).join(", ")
-                + " or " + data.listOfApplicantMainGuardianArray[data.listOfApplicantMainGuardianArray.length-1];
-
-        if (data.listOfRespondentMainGuardianArray !== undefined)
-            data.listOfRespondentMainGuardianString = data.listOfRespondentMainGuardianArray.slice(0, data.listOfRespondentMainGuardianArray.length-1).join(", ")
-                + " or " + data.listOfRespondentMainGuardianArray[data.listOfRespondentMainGuardianArray.length-1];
-
-        if (data.listOfChildrenTimeApplicantArray !== undefined)
-            data.listOfChildrenTimeApplicantString = data.listOfChildrenTimeApplicantArray.slice(0, data.listOfChildrenTimeApplicantArray.length-1).join(", ")
-                + " or " + data.listOfChildrenTimeApplicantArray[data.listOfChildrenTimeApplicantArray.length-1];
-
-        if (data.listOfChildrenTimeRespondentArray !== undefined)
-            data.listOfChildrenTimeRespondentString = data.listOfChildrenTimeRespondentArray.slice(0, data.listOfChildrenTimeRespondentArray.length-1).join(", ")
-                + " or " + data.listOfChildrenTimeRespondentArray[data.listOfChildrenTimeRespondentArray.length-1];
-
-        if (data.listOfChildrenTimeNoneArray !== undefined)
-            data.listOfChildrenTimeNoneString = data.listOfChildrenTimeNoneArray.slice(0, data.listOfChildrenTimeNoneArray.length-1).join(", ")
-                + " or " + data.listOfChildrenTimeNoneArray[data.listOfChildrenTimeNoneArray.length-1];
-
-        if (data.listOfChildrenArray !== undefined)
-            data.listOfChildrenString = data.listOfChildrenArray.slice(0, data.listOfChildrenArray.length-1).join(", ")
-                + " or " + data.listOfChildrenArray[data.listOfChildrenArray.length-1];
-
-        if (data.listOfChildrenWithPOArray !== undefined)
-            data.listOfChildrenWithPO = data.listOfChildrenWithPOArray.slice(0, data.listOfChildrenWithPOArray.length-1).join(", ")
-                + " or " + data.listOfChildrenWithPOArray[data.listOfChildrenWithPOArray.length-1];
-
-
-        if(data.listOfChildrenWithoutPOArray !== undefined)
-            data.listOfChildrenWithoutPOString = data.listOfChildrenWithoutPOArray.slice(0, data.listOfChildrenWithoutPOArray.length-1).join(", ")
-                + " or " + data.listOfChildrenWithoutPOArray[data.listOfChildrenWithoutPOArray.length-1];
+        data.listOfEqualPtimeString = joinResults(data.listOfEqualPtimeArray, " and ");
+        data.listOfApplicantMainGuardianString = joinResults(data.listOfApplicantMainGuardianArray, " or ");
+        data.listOfRespondentMainGuardianString = joinResults(data.listOfRespondentMainGuardianArray, " or ");
+        data.listOfChildrenTimeApplicantString = joinResults(data.listOfChildrenTimeApplicantArray, " or ");
+        data.listOfChildrenTimeRespondentString = joinResults(data.listOfChildrenTimeRespondentArray, " or ");
+        data.listOfChildrenTimeNoneString = joinResults(data.listOfChildrenTimeNoneArray, " or ");
+        data.listOfChildrenString = joinResults(data.listOfChildrenArray, " or ");
+        data.listOfChildrenWithPO = joinResults(data.listOfChildrenWithPOArray, " or ");
+        data.listOfChildrenWithoutPOString = joinResults(data.listOfChildrenWithoutPOArray, " or ");
 
 
         if (data.ApplicantNeedsProtection == "y"){
@@ -379,27 +276,15 @@ export class SurveyPrimaryComponent implements OnInit {
         console.log("RespondentApplicantContactType are " + data.RespondentApplicantContactType);
         console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
 
-        if (data.RespondentApplicantContactType !== undefined)
-            data.contactTypeString = data.RespondentApplicantContactType.slice(0, data.RespondentApplicantContactType.length-1).join(", ")
-                + " or " + data.RespondentApplicantContactType[data.RespondentApplicantContactType.length-1];
+        data.contactTypeString = joinResults(data.RespondentApplicantContactType, " or ");
 
-        if (data.RespondentApplicantArrangeMethods !== undefined)
-            data.ArrangeMethodString = data.RespondentApplicantArrangeMethods.slice(0, data.RespondentApplicantArrangeMethods.length-1).join(", ")
-                + " and " + data.RespondentApplicantArrangeMethods[data.RespondentApplicantArrangeMethods.length-1];
+        data.ArrangeMethodString = joinResults(data.RespondentApplicantArrangeMethods, " and ");
 
-        if (data.RespondentNoGoPlaces !== undefined){
-            for (let RespondentNoGoPlace of data.RespondentNoGoPlaces){
-                if (RespondentNoGoPlace == data.RespondentNoGoPlaces[0] && RespondentNoGoPlace != "other"){
-                    data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + RespondentNoGoPlace;
-                }
-                else if (RespondentNoGoPlace == data.RespondentNoGoPlaces[data.RespondentNoGoPlaces.length-1] && RespondentNoGoPlace != "other"){
-                    data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + " or " + RespondentNoGoPlace;
-                }
-                else {
-                    data.RespondentNoGoPlacesString = data.RespondentNoGoPlacesString + ", " + RespondentNoGoPlace;
-                }
-            }
+        let places = (data.RespondentNoGoPlaces || []).filter(place => place !== "other");
+        if (data.RespondentNoGoPlacesComment) {
+            places.push(data.RespondentNoGoPlacesComment);
         }
+        data.RespondentNoGoPlacesString = joinResults(places, " or ");
 
         console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
         //add additional data ends here

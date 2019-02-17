@@ -836,7 +836,7 @@
                                         A police officer should supervise {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} while they get their personal belongings from {% if RespondentNeedsStuffAddressSame == "y" %}{{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %}{{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>{% endif %}
                                         {% endif %}
                                         {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}{% if RespondentNoGoPlacesComment != None %}, {{ RespondentNoGoPlacesComment }}{% endif %}.<br/>
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}.<br/>
                                         {% endif %}
                                         {% if RespondentFirearms == "y" %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not be allowed to own or carry any firearms.<br/>
