@@ -2,10 +2,10 @@
     "kind": "Template",
     "apiVersion": "v1",
     "metadata": {
-		"annotations": {
-		  "description": "Deployment template for a postgresql server with persistent storage.",
-		  "tags": "postgresql"
-		},
+        "annotations": {
+            "description": "Deployment template for a postgresql server with persistent storage.",
+            "tags": "postgresql"
+        },
         "name": "${NAME}-persistent-template"
     },
     "objects": [
@@ -167,6 +167,7 @@
                 }
             },
             "spec": {
+                "storageClassName": "${PERSISTENT_VOLUME_CLASS}",
                 "accessModes": [
                     "ReadWriteOnce"
                 ],
@@ -227,51 +228,58 @@
             }
         }
     ],
-	"parameters": [
-		{
-		  "name": "NAME",
-		  "displayName": "Name",
-		  "description": "The name assigned to all of the OpenShift resources associated to the PostgreSQL instance.",
-		  "required": true,
-		  "value": "postgresql"
-		},
-		{
-		  "name": "MEMORY_LIMIT",
-		  "displayName": "Memory Limit",
-		  "description": "Maximum amount of memory the container can use.",
-		  "required": true,
-		  "value": "512Mi"
-		},
-		{
-		  "name": "PERSISTENT_VOLUME_SIZE",
-		  "displayName": "Persistent Volume Size",
-		  "description": "The size of the persistent volume , e.g. 512Mi, 1Gi, 2Gi.",
-		  "required": true,
-		  "value": "1Gi"
-		},
-		{
-		  "name": "POSTGRESQL_DATABASE_NAME",
-		  "displayName": "PostgreSQL Database Name",
-		  "description": "The name of the PostgreSQL database.",
-		  "required": true,
-		  "generate": "expression",
-		  "from": "[a-zA-Z_][a-zA-Z0-9_]{10}"
-		},	
-		{
-		  "name": "POSTGRESQL_USER",
-		  "displayName": "PostgreSQL Connection Username",
-		  "description": "Username for PostgreSQL user that will be used for accessing the database.  Needs to be basee64 encoded/",
-		  "required": true,
-		  "generate": "expression",
-		  "from": "[a-zA-Z_][a-zA-Z0-9_]{10}"
-		},
-		{
-		  "name": "POSTGRESQL_PASSWORD",
-		  "displayName": "PostgreSQL Connection Password",
-		  "description": "Password for the PostgreSQL connection user.  Needs to be basee64 encoded/",
-		  "required": true,
-		  "generate": "expression",
-		  "from": "[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}"
-		}
-	]	
+    "parameters": [
+        {
+            "name": "NAME",
+            "displayName": "Name",
+            "description": "The name assigned to all of the OpenShift resources associated to the PostgreSQL instance.",
+            "required": true,
+            "value": "postgresql"
+        },
+        {
+            "name": "MEMORY_LIMIT",
+            "displayName": "Memory Limit",
+            "description": "Maximum amount of memory the container can use.",
+            "required": true,
+            "value": "512Mi"
+        },
+        {
+            "name": "PERSISTENT_VOLUME_SIZE",
+            "displayName": "Persistent Volume Size",
+            "description": "The size of the persistent volume , e.g. 512Mi, 1Gi, 2Gi.",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
+            "name": "PERSISTENT_VOLUME_CLASS",
+            "displayName": "Persistent Volume Class name",
+            "description": "The class of the volume; gluster-file, gluster-block, gluster-file-db.",
+            "required": false,
+            "value": "gluster-file-db"
+        },
+        {
+            "name": "POSTGRESQL_DATABASE_NAME",
+            "displayName": "PostgreSQL Database Name",
+            "description": "The name of the PostgreSQL database.",
+            "required": true,
+            "generate": "expression",
+            "from": "[a-zA-Z_][a-zA-Z0-9_]{10}"
+        },
+        {
+            "name": "POSTGRESQL_USER",
+            "displayName": "PostgreSQL Connection Username",
+            "description": "Username for PostgreSQL user that will be used for accessing the database.  Needs to be basee64 encoded/",
+            "required": true,
+            "generate": "expression",
+            "from": "[a-zA-Z_][a-zA-Z0-9_]{10}"
+        },
+        {
+            "name": "POSTGRESQL_PASSWORD",
+            "displayName": "PostgreSQL Connection Password",
+            "description": "Password for the PostgreSQL connection user.  Needs to be basee64 encoded/",
+            "required": true,
+            "generate": "expression",
+            "from": "[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}"
+        }
+    ]
 }
