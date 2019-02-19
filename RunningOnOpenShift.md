@@ -3,9 +3,11 @@ This project uses the scripts found in [openshift-project-tools](https://github.
 
 These instructions assume:
 * You have Git, Docker, and the OpenShift CLI installed on your system, and they are functioning correctly.  The recommended approach is to use either [Homebrew](https://brew.sh/) (MAC) or [Chocolatey](https://chocolatey.org/) (Windows) to install the required packages.
+  * **2019.02.17** - There seems to be a problem running a local cluster on OpenShift CLI versions greater than 3.9. If the version you try does not start, try reverting to OpenShift CLI Version 3.9.
 * You have followed the [OpenShift Scripts](https://github.com/BCDevOps/openshift-project-tools/blob/master/bin/README.md) environment setup instructions to install and configure the scripts for use on your system.
 * You have forked and cloned a local working copy of the project source code.
 * You are using a reasonable shell.  A "reasonable shell" is obvious on Linux and Mac, and is assumed to be the git-bash shell on Windows.
+  * You may have trouble with other Windows bash shells - putty, winpty, etc.  If you have trouble, make sure you are using git-bash.
 * You are working from the top level `./openshift` directory for the project.
 
 Good to have:
@@ -59,11 +61,19 @@ If you are running locally you will see some "No resources found." messages.  Th
 # Generate local parameters
 When you are working with a local cluster you should generate a set of local param files.  This will ensure, at the very minimum, the CPU and Memory resources (limits and requests) are configured properly to avoid builds and deployments from hanging due to lack of sufficient resources.
 
-To generate a set of local params, run;
+Before generating the local files you must create the file `settings.local.sh` to override the project settings. You can start with an empty file by running `touch settings.local.sh`. A likely change you will want to do if you are developing using this platform is to add this to the file:
+
+```bash
+export GIT_URI="https://github.com/bcgov/Family-Protection-Order.git"
+```
+
+and change `bcgov` to your own fork of the application.  As necessary, override other project settings in this file.
+
+Once the local settings are ready, generate a set of local params by running:
 ```
 genParams.sh -l
 ```
-Local param files are ignored by Git, so you cannot accidentally commit them to the repository.
+Local setting and param files are ignored by Git, so you cannot accidentally commit them to the repository.
 
 ## Update the local parameters
 
@@ -83,28 +93,13 @@ With:
 SOURCE_IMAGE_TAG=3.5
 ```
 
-### `angular-on-nginx-build.local.param`
-
-The `openshift/nginx-runtime:latest` image that the angular-on-nginx build uses is not available to your local openshift cluster.
-
-To solve this problem an nginx-runtime build configuration has been included in the project.  This build configuration will build an equivalent nginx-runtime image.
-
-You will need to update `angular-on-nginx-build.local.param` to use the local version of the image, as follows;
-
-Replace the line:
-```
-# RUNTIME_IMAGE_NAMESPACE=openshift
-```
-
-With:
-```
-RUNTIME_IMAGE_NAMESPACE=
-```
-
 # Generate the Build and Images in the "tools" project; Deploy Jenkins
+
+Run:
 ```
 genBuilds.sh
 ```
+
 This will generate and deploy the build configurations into the `tools` project.  Follow the instructions written to the command line.
 
 If the project contains any Jenkins pipelines a Jenkins instance will be deployed into the `tools` project automatically once the first pipeline is deployed by the scripts.  OpenShift will automatically wire the Jenkins pipelines to Jenkins projects within Jenkins.
@@ -112,17 +107,19 @@ If the project contains any Jenkins pipelines a Jenkins instance will be deploye
 Use `-h` to get advanced usage information.  Use the `-l` option to apply any local settings you have configured; when working with a local cluster you should always use the `-l` option.
 
 ## Updating Build and Image Configurations
-If you are adding build and image configurations you can re-run this script.  You will encounter errors for any of the resources that already exist, but you can safely ignore these errors and allow the script to continue.
+If you are adding build and image configurations to the application you can re-run this script.  You will encounter errors for any of the resources that already exist, but you can safely ignore these errors and allow the script to continue.
 
 If you are updating build and image configurations use the `-u` option.
 
 If you are adding and updating build and image configurations, run the script **without** the `-u` option first to create the new resources and then again **with** the `-u` option to update the existing configurations.
 
 # Generate the Deployment Configurations and Deploy the Components
+
+Run:
 ```
 genDepls.sh -e <EnvironmentName, one of [dev|test|prod]>
 ```
-This will generate and deploy the deployment configurations into the selected project; `dev`, `test`, or `prod`.  Follow the instructions written to the command line.
+Use "dev" for a local installation.  This will generate and deploy the deployment configurations into the selected project; `dev`, `test`, or `prod`.  Follow the instructions written to the command line.
 
 Use `-h` to get advanced usage information.  Use the `-l` option to apply any local settings you have configured; when working with a local cluster you should always use the `-l` option.
 
@@ -134,7 +131,7 @@ If you are updating deployment configurations use the `-u` option.
 
 If you are adding and updating deployment configurations, run the script **without** the `-u` option first to create the new resources and then again **with** the `-u` option to update the existing configurations.
 
-**_Note;_**
+**_Note:_**
 
 **Some settings on some resources are immutable.  To replace these resources you will need to delete and recreate the associated resource(s).**
 
