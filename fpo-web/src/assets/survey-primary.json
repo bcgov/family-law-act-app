@@ -29,14 +29,29 @@
        "type": "yesno",
        "name": "Lawyer",
        "title": "Has a lawyer agreed to receive court documents for you?",
+       "description": "You do not need a lawyer to use this service.  If you have a lawyer, you can still use this service.",
        "isRequired": true
+      },
+      {
+       "type": "helptext",
+       "name": "FAQLawyer1",
+       "title": "What if I plan to get a lawyer but I haven't done that yet?",
+       "description": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "helptext",
+       "name": "FAQLawyer2",
+       "title": "What if I used to have a lawyer but not anymore?",
+       "description": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.",
+       "titleLocation": "hidden"
       },
       {
        "type": "infotext",
        "name": "ExplanationServiceAddress",
        "visible": false,
        "visibleIf": "{Lawyer} = 'n'",
-       "title": "You need to give an address where you can receive court documents. You do not have to use your home address.\n<br>\n<br>\nYou can pick any address, such as your workplace, another family member or a friend. The family member making you or your family feel unsafe will see this address.",
+       "title": "You need to give an address where it is safe for you to receive court documents. The person making you (or your family) feel unsafe will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address. You can pick any address, such as your workplace, a family member's home or a friend's home.",
        "isRequired": true,
        "titleLocation": "hidden"
       },
@@ -49,8 +64,8 @@
          "name": "ApplicantAddress",
          "visible": false,
          "visibleIf": "{ExplanationServiceAddress} > 0",
-         "title": "What is your address for receiving court documents?",
-         "description": "Court documents can include documents from the person making you (or your family) feel unsafe.",
+         "title": "What is a safe address where you can receive court documents?",
+         "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
          "referLabel": "Applicant's Address"
         },
         {
@@ -59,6 +74,7 @@
          "visible": false,
          "visibleIf": "{ExplanationServiceAddress} > 0",
          "title": "Contact Information",
+         "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents.",
          "labelEmail": "Email (Optional)",
          "labelFax": "Fax Number (Optional)",
          "labelPhone": "Daytime Phone Number"
