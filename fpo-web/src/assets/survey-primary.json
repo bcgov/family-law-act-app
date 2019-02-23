@@ -36,15 +36,15 @@
        "type": "helptext",
        "name": "FAQLawyer1",
        "title": "What if I plan to get a lawyer but I haven't done that yet?",
-       "description": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address.",
-       "titleLocation": "hidden"
+       "titleLocation": "hidden",
+       "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
       },
       {
        "type": "helptext",
        "name": "FAQLawyer2",
        "title": "What if I used to have a lawyer but not anymore?",
-       "description": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.",
-       "titleLocation": "hidden"
+       "titleLocation": "hidden",
+       "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents."
       },
       {
        "type": "infotext",
