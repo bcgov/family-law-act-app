@@ -92,10 +92,10 @@
       },
       {
        "type": "infotext",
-       "name": "ExplanationOutsideOfBCPOR1",
+       "name": "ExplanationOutsideOfBCPORYes",
        "visible": false,
        "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'y'",
-       "title": "If you have already checked with the local courthouse where you or your (ex-)partner plan to move to, and they <b>will</b> enforce a Provincial Court 'Family Law Act Protection Order' from British Columbia, press 'Continue'.\n<br>\n<br>\nIf you have already checked with the local courthouse where you or your (ex-)partner plan to move to, and they <b>will not</b> enforce a Provincial Court 'Family Law Act Protection Order' from British Columbia, you may consider a `Peace Bond` or a Supreme Court `Family Law Act Protection Order`. This service cannot help you apply for either of these at this time.\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here to learn more about Peace Bonds.</a> (This link will open in a new tab)\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms\" target=\"_blank\">Click here for Supreme Court Family Forms.</a> (This link will open in a new tab)",
+       "title": "If you have already checked with the police at place where you or your (ex-)partner plan to move to, and they <b>will</b> enforce a Provincial Court `Family Law Act Protection Order` from British Columbia, press 'Continue', below.\n<br>\n<br>\nIf you have already checked with the police at the place where you or your (ex-)partner plan to move to, and they <b>will not</b> enforce a Provincial Court 'Family Law Act Protection Order' from British Columbia, you may consider a `Peace Bond` or a Supreme Court `Family Law Act Protection Order`. This service cannot help you apply for either of these at this time.\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here to learn more about Peace Bonds.</a> (This link will open in a new tab)\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/sup-family-forms\" target=\"_blank\">Click here for Supreme Court Family Forms.</a> (This link will open in a new tab)",
        "isRequired": true,
        "titleLocation": "hidden"
       }
@@ -110,42 +110,107 @@
       {
        "type": "yesno",
        "name": "ExistingPOR",
-       "title": "Do you already have a Provincial Court `Family Law Act Protection Order` and you need to change a condition or change the expiry date?",
+       "title": "Do you already have a `Family Law Act Protection Order` that protects you from the (ex-)partner who is making you feel unsafe?",
        "isRequired": true
       },
       {
        "type": "helptext",
-       "name": "ExistingPORFAQ1",
-       "title": "What if I have a Provincial Court `Family Law Act Protection Order` that is already expired?",
+       "name": "FAQExistingPOR1",
+       "title": "What if I have a `Peace Bond` that protects me from the (ex-)partner who is making me feel unsafe?",
        "titleLocation": "hidden",
-       "body": "You can say \"yes\" because your old form is expired."
+       "body": "You can use this service to apply for a new Provincial Court `Family Law Act Protection Order`.\n<br>\n<br>\nA `Peace Bond` is another kind of `Protection Order` that covers more situations. You may apply for both a Family law Act Protection Order and a Peace Bond at the same time.\n<br>\n<br>\nYou will asked to include a copy of your Peace Bond."
       },
       {
-       "type": "helptext",
-       "name": "ExistingPORFAQ3",
-       "title": "What if I have a `Protection Order` from the Supreme Court of British Columbia?",
-       "titleLocation": "hidden",
-       "body": "Select \"No\""
+       "type": "yesno",
+       "name": "ExistingPORBC",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y'",
+       "title": "Was this `Family Law Act Protection Order` made from a court in British Columbia?",
+       "isRequired": true
       },
       {
-       "type": "helptext",
-       "name": "ExistingPORFAQ4",
-       "title": "What if I have a `Protection Order` from the somewhere else?",
-       "titleLocation": "hidden",
-       "body": "See if you can register it in BC"
+       "type": "radiogroup",
+       "name": "ExistingPORBCCourt",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y'",
+       "title": "Was this Family Law Act Protection Order made in the Provincial Court of British Columbia or the Supreme Court of British Columbia?",
+       "isRequired": true,
+       "choices": [
+        {
+         "value": "provincial",
+         "text": "Provincial Court of British Columbia"
+        },
+        {
+         "value": "supreme",
+         "text": "Supreme Court of British Columbia"
+        }
+       ]
       },
       {
        "type": "infotext",
-       "name": "ExplanationExistingPOR1",
+       "name": "ExplanationExistingPORBCNo",
        "visible": false,
-       "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'y'",
-       "title": "This service cannot help you.\n<br>\n<br>\nIf you already have a Provincial Court Family Law Act Protection Order, there is a different form to complete. You can copy most of the content from the original forms you used to apply for your original Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa004.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form you need.</a> (This link will open in a new tab)",
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'n'",
+       "title": "Depending on where your original `Protection Order` was made, it may or may not be enforceable in British Columbia.\n<br>\n<br>\nYou can use this service to apply for a new Protection Order from the Provincial Court of British Columbia. You will asked to include a copy of your original Protection Order.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "ExistingPORBCProvincialExpired",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'provincial'",
+       "title": "Has this Provincial Court `Family Law Act Protection Order` expired?",
+       "isRequired": true
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationExistingPORBCProvincialExpiredYes",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'provincial' and {ExistingPORBCProvincialExpired} = 'y'",
+       "title": "You can use this service to apply for a new Provincial Court `Family Law Act Protection Order`.\n<br>\n<br>\nYou will asked to include a copy of your original Protection Order.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationExistingPORBCProvincialExpiredNo",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'provincial' and {ExistingPORBCProvincialExpired} = 'n'",
+       "title": "This service cannot help you.\n<br>\n<br>\nIf you need to change a condition or change the expiry date on your Provincial Court `Family Law Act Protection Order`, there is a different form to complete. You can copy most of the information from the original forms you used to apply for your original Protection Order.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa004.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form you need.</a> (This link will open in a new tab)",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      },
+      {
+       "type": "yesno",
+       "name": "ExistingPORBCSupremeExpired",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'supreme'",
+       "title": "Has this Supreme Court Family Law Act Protection Order expired?",
+       "isRequired": true
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationExistingPORBCSupremeExpiredYes",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'supreme' and {ExistingPORBCSupremeExpired} = 'y'",
+       "title": "(Under Review)\nThis service can help you apply for a Provincial Court `Family Law Act` Protection order. However, with a valid Supreme Court Family Law Act Protection Order already in place, it may complicate things. (Unsure how things would get complicated) \n<br>\n<br>\nIf you need to change a condition or change the expiry date on your Supreme Court `Family Law Act Protection Order`, there is a different form to complete. You can copy most of the information from the original forms you used to apply for your original Protection Order.\n<br>\n<br>\nClick here for Supreme Court forms.\n<br>\n<br>\nThere are fees for applying in Supreme Court. There are no fees for applying in Provincial Court.\n<br>\n<br>\nIf you want to apply for a Provincial Court Family Law Act Protection Order instead, press ‘Continue’ below.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "infotext",
+       "name": "ExplanationExistingPORBCSupremeExpiredNo",
+       "visible": false,
+       "visibleIf": "{ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'supreme' and {ExistingPORBCSupremeExpired} = 'n'",
+       "title": "(Under Review) \nThis service cannot help you apply for a new Supreme Court Family Law Act Protection Order. \n<br>\n<br>\nIf you want to apply for a new Supreme Court Family Law Act Protection Order, there is a different form to complete. You can copy most of the information from the original forms you used to apply for your original Protection Order.\n<br>\n<br>\nClick here for Supreme Court forms.\n<br>\n<br>\nThere are fees for applying in Supreme Court. There are no fees for applying in Provincial Court. \n<br>\n<br>\nIf you want to apply for a Provincial Court Family Law Act Protection Order instead, press ‘Continue’ below. ",
+       "isRequired": true,
        "titleLocation": "hidden",
        "messageStyle": "error"
       }
      ],
      "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and ({OutsideOfBCPOR} = 'n' or {ExplanationOutsideOfBCPOR1} > 0)"
+     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and ({OutsideOfBCPOR} = 'n' or {ExplanationOutsideOfBCPORYes} > 0)"
     },
     {
      "type": "panel",
@@ -154,8 +219,8 @@
       {
        "type": "checkbox",
        "name": "PORConfirmed",
-       "title": "You appear to meet the requirements to use this service to apply for a Provincial Court `Family Law Act Protection Order`.\n<br>\nConfirm that you want to apply for a Provincial Court Family Law Act Protection Order.",
-       "description": "You may also want to consider applying for a `Peace Bond`, which is another kind of `Protection Order`. A Peace Bond can do everything a Provincial Court Family Law Act Protection Order can do.\n<br>\n<br>\n<table>\n  <tr>\n    <th>Family Law Act Protection Order</th>\n    <th>Peace Bond</th> \n  </tr>\n  <tr>\n    <td>To apply for a Family Law Act Protection Order, you will need to tell your story directly to a judge. You can apply on your own or you can hire a lawyer to help. A judge may decide to make your Protection Order without your (ex-)partner needing to be in court.\n\t</td>\n    <td>To get a Peace Bond, you will need to tell your story to the police, who may then decide to tell your story to Crown Counsel, who may then decide if a judge is likely to make your Protection Order. Your (ex-)partner will have an opportunity to tell their story. You may be called as witness.</td>\n  </tr>\n</table>\n<br>\n<br>\nYou can also apply for both a Family law Act Protection Order and a Peace Bond at the same time.\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here for more information about the differences between a Peace Bond and a Provincial Court Family Law Act Protection Order.</a> (This link will open in a new tab)",
+       "title": "You appear to meet the requirements to use this service to apply for a Provincial Court `Family Law Act Protection Order`.\n<br>\nConfirm that this is what you want to do.",
+       "description": "You may also want to consider applying for a `Peace Bond`. A Peace Bond is another kind of `Protection Order` that covers more situations. You may apply for both a Family law Act Protection Order and a Peace Bond at the same time.\n<br>\n<br>\n<table>\n  <tr>\n    <th>Family Law Act Protection Order</th>\n    <th>Peace Bond</th> \n  </tr>\n  <tr>\n    <td>To apply for a Family Law Act Protection Order, you will need to tell your story directly to a judge. You can apply on your own or you can hire a lawyer to help. If a judge decides that your situation is urgent, they may hear your application the same day you file it, without your (ex-)partner needing to be in court.\n\t</td>\n    <td>To get a Peace Bond, you will need to tell your story to the police, who may then decide to tell your story to Crown Counsel, who may then decide if a judge is likely to make your Protection Order. Your (ex-)partner will have an opportunity to tell their story. You may be called as witness.</td>\n  </tr>\n</table>\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here for more information about the differences between a Peace Bond and a Provincial Court Family Law Act Protection Order.</a> (This link will open in a new tab)",
        "isRequired": true,
        "choices": [
         {
@@ -166,7 +231,7 @@
       }
      ],
      "visible": false,
-     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and {OutsideOfBCPOR} = 'n' and {ExistingPOR} = 'n'"
+     "visibleIf": "{Unsafe} =  'y' and {UnsafePartner} = 'y' and ({EitherHaveChildren} = 'n' or {ChildrenHaveOtherGuardians} = 'n') and ({OutsideOfBCPOR} = 'n' or {ExplanationOutsideOfBCPORNo} > 0) and ({ExistingPOR} = 'n' or ({ExistingPOR} = 'y' and {ExistingPORBC} = 'n' and {ExplanationExistingPORBCNo} > 0) or ({ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'provincial' and {ExistingPORBCProvincialExpired} = 'y' and {ExplanationExistingPORBCProvincialExpiredYes} > 0) or ({ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'supreme' and {ExistingPORBCSupremeExpired} = 'y' and {ExplanationExistingPORBCSupremeExpiredYes} > 0) or ({ExistingPOR} = 'y' and {ExistingPORBC} = 'y' and {ExistingPORBCCourt} = 'supreme' and {ExistingPORBCSupremeExpired} = 'n' and {ExplanationExistingPORBCSupremeExpiredNo} > 0))\n"
     }
    ],
    "title": "Before we begin...",
