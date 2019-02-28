@@ -46,7 +46,7 @@ export class SurveyPrimaryComponent implements OnInit {
     onComplete(data) {
         let path = this.route.snapshot.url[0].path;
         if(path === 'qualify') {
-            let ok = (data.PORConfirmed === 'y') ? 'qualified' : 'unqualified';
+            let ok = (data.PORConfirmed === 'confirmed') ? 'qualified' : 'unqualified';
             this.router.navigate(['result', ok]);
         }
         else if(this.cacheName) {
