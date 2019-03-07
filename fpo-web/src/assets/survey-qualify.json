@@ -4,11 +4,17 @@
    "name": "Qualifying Questions",
    "elements": [
     {
-     "type": "infotext",
-     "name": "explanationQualifying",
-     "title": "This service will help you apply for a Provincial Court `Family Law Act Protection Order`. \n<br>\n<br>\nThere is more than one kind of `order` that can protect you and your family. The following questions will help you decide if a `protection order` under the Family Law Act of British Columbia is right for you.\n",
-     "isRequired": true,
-     "titleLocation": "hidden"
+     "type": "panel",
+     "name": "qualifyingPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "explanationQualifying",
+       "title": "This service will help you apply for a Provincial Court `Family Law Act Protection Order`. \n<br>\n<br>\nThere is more than one kind of `order` that can protect you and your family. The following questions will help you decide if a `protection order` under the Family Law Act of British Columbia is right for you.\n",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      }
+     ]
     },
     {
      "type": "panel",
@@ -115,7 +121,7 @@
       {
        "type": "helptext",
        "name": "faqExistingPOR2",
-       "title": "What if there is a no-contact order that protects me from the (ex-)partner that is making me feel unsafe?",
+       "title": "What if there is a No-Contact order that protects me from the (ex-)partner who is making me feel unsafe?",
        "titleLocation": "hidden"
       },
       {
