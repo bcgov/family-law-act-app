@@ -116,13 +116,14 @@
        "name": "faqExistingPOR1",
        "title": "What if I have a `Peace Bond` that protects me from the (ex-)partner who is making me feel unsafe?",
        "titleLocation": "hidden",
-       "body": "You can use this service to apply for a new Provincial Court `Family Law Act Protection Order`.\n<br>\n<br>\nA `Peace Bond` is another kind of `Protection Order` that covers more situations. You may apply for both a Family law Act Protection Order and a Peace Bond at the same time.\n<br>\n<br>\nYou will asked to include a copy of your Peace Bond."
+       "body": "A `Peace Bond` is not a `Family Law Act Protection Order`.\n<br>\n<br>\nA `Peace Bond` is another kind of `Protection Order` that covers more situations. You may apply for both a Family law Act Protection Order and a Peace Bond at the same time.\n<br>\n<br>\nYou will asked to include a copy of your Peace Bond."
       },
       {
        "type": "helptext",
        "name": "faqExistingPOR2",
        "title": "What if there is a No-Contact order that protects me from the (ex-)partner who is making me feel unsafe?",
-       "titleLocation": "hidden"
+       "titleLocation": "hidden",
+       "body": "A No-Contact Order is not a `Family Law Act Protection Order`.\n<br>\n<br>\nA No-Contact Order is a part of your (ex-)partner's criminal matter that can protect you (and your family). When your (ex-)partner's criminal matter is finished, the No-Contact Order may not be in effect anymore."
       },
       {
        "type": "yesno",
