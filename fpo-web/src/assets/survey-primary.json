@@ -44,14 +44,14 @@
        "name": "FAQLawyer2",
        "title": "What if I used to have a lawyer but not anymore?",
        "titleLocation": "hidden",
-       "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents."
+       "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa053.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form.</a> (This link will open in a new tab.)"
       },
       {
        "type": "infotext",
        "name": "ExplanationServiceAddress",
        "visible": false,
        "visibleIf": "{Lawyer} = 'n'",
-       "title": "You need to give an address where it is safe for you to receive court documents. The person making you (or your family) feel unsafe will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address. You can pick any address, such as your workplace, a family member's home or a friend's home.",
+       "title": "You need to give an address where it is safe for you to receive court documents. The person making you (or your family) feel unsafe will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
        "isRequired": true,
        "titleLocation": "hidden"
       },
@@ -90,7 +90,7 @@
         {
          "type": "personname",
          "name": "LawyerName",
-         "title": "What is the lawyer's full name?"
+         "title": "What is your lawyer's full name?"
         },
         {
          "type": "address",
@@ -170,7 +170,7 @@
        "type": "yesno",
        "name": "ApplicantNeedsProtection",
        "title": "Do you, {ApplicantName}, need to be protected from {RespondentName}, on this `Protection Order`?",
-       "description": "A Protection Order is a list of conditions set by a judge that your (ex-)partner must follow. This usually means no visits to your home or workplace, no phone calls, emails, or letters, and no messages through a friend or relative."
+       "description": "A judge will review what you are asking for and decide on the conditions for your protection order."
       },
       {
        "type": "infotext",
@@ -191,13 +191,13 @@
       {
        "type": "yesno",
        "name": "ExistingFamilyCase",
-       "title": "Is there already a family law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
+       "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
        "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
       },
       {
        "type": "helptext",
        "name": "ExistingFamilyCaseFAQ",
-       "title": "If I have a family law file open in the Supreme Court of British Columbia, should I include that?",
+       "title": "If I have a Family Law file open in the Supreme Court of British Columbia, should I include that?",
        "titleLocation": "hidden",
        "body": "No, the file numbers are different between Provincial and Supreme Court. If you already have a Provincial Court file number, you will want to make sure that this document gets filed with the same file number."
       },
@@ -235,8 +235,8 @@
        "name": "ExistingStyleOfProceeding",
        "visible": false,
        "visibleIf": "{ExistingFamilyCase} = 'y'",
-       "title": "Enter the names exactly as they appear at the top of your existing family file forms.",
-       "description": "It is important you keep the same spellings and the same order of the names.\n<br>\n<br>\nIf you have existing family file forms with different spellings, copy the spellings from the very first file that was filed to the court.\n<br>\n<br>\nIf you spelled your names differently earlier in this service, you do not need to go back and change them.\n",
+       "title": "Enter the names exactly as they appear at the top of your existing Family Law forms.",
+       "description": "It is important you keep the same spellings and the same order of the names.\n<br>\n<br>\nIf you spelled your names differently earlier in this service, you do not need to go back and change them.\n",
        "items": [
         {
          "name": "ExistingApplicant",
@@ -369,6 +369,14 @@
        "type": "panel",
        "name": "PanelGuardianship",
        "elements": [
+        {
+         "type": "infotext",
+         "name": "question1",
+         "title": "Who are (this child)'s Guardians?<br><br>A guardian is someone who is legally allowed to make decisions for a child under the age of 19.<br><br>A biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for (this child) is a guardian. This parent is still a guardian even after they stop living with (this child).<br><br>A parent can be added or removed as a guardian by the court or by agreement between the parents.",
+         "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
+         "titleLocation": "hidden",
+         "messageStyle": "inline"
+        },
         {
          "type": "yesno",
          "name": "ChildApplicantGuardian",
