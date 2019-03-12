@@ -23,6 +23,7 @@
        "type": "text",
        "name": "ApplicantDOB",
        "title": "What is your date of birth?",
+       "isRequired": true,
        "inputType": "date"
       },
       {
@@ -62,26 +63,24 @@
         {
          "type": "address",
          "name": "ApplicantAddress",
-         "visible": false,
-         "visibleIf": "{ExplanationServiceAddress} > 0",
          "title": "What is a safe address where you can receive court documents?",
          "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
+         "isRequired": true,
          "referLabel": "Applicant's Address"
         },
         {
          "type": "contactinfo",
          "name": "ApplicantContact",
-         "visible": false,
-         "visibleIf": "{ExplanationServiceAddress} > 0",
          "title": "Contact Information",
          "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents.",
+         "isRequired": true,
          "labelEmail": "Email (Optional)",
          "labelFax": "Fax Number (Optional)",
          "labelPhone": "Daytime Phone Number"
         }
        ],
        "visible": false,
-       "visibleIf": "{Lawyer} = 'n'"
+       "visibleIf": "{Lawyer} = 'n' and {ExplanationServiceAddress} > 0"
       },
       {
        "type": "panel",
@@ -90,18 +89,21 @@
         {
          "type": "personname",
          "name": "LawyerName",
-         "title": "What is your lawyer's full name?"
+         "title": "What is your lawyer's full name?",
+         "isRequired": true
         },
         {
          "type": "address",
          "name": "LawyerAddress",
          "title": "What is your lawyer's address?",
+         "isRequired": true,
          "referLabel": "Applicant's Lawyer's Address"
         },
         {
          "type": "contactinfo",
          "name": "LawyerContact",
-         "title": "Lawyer's Contact Information"
+         "title": "Lawyer's Contact Information",
+         "isRequired": true
         }
        ],
        "visible": false,
@@ -372,7 +374,7 @@
         {
          "type": "infotext",
          "name": "question1",
-         "title": "Who are (this child)'s Guardians?<br><br>A guardian is someone who is legally allowed to make decisions for a child under the age of 19.<br><br>A biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for (this child) is a guardian. This parent is still a guardian even after they stop living with (this child).<br><br>A parent can be added or removed as a guardian by the court or by agreement between the parents.",
+         "title": "Who are (this child)'s Guardians?<br><br>A guardian is someone who is legally allowed to make decisions for a child under the age of 19.<br><br>A biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for (this child) is a guardian. This parent is still a guardian even after they stop living with (this child).<br><br>A parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
          "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
          "titleLocation": "hidden",
          "messageStyle": "inline"
@@ -401,8 +403,7 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Who are {panel.ChildName}'s Guardians?\n<br>\n<br>\nA guardian is someone who is legally allowed to make decisions for a child under the age of 19.\n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for {panel.ChildName} is a guardian. This parent is still a guardian even after they stop living with {panel.ChildName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.",
-       "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>"
+       "title": "Who are (this child)'s Guardians?"
       },
       {
        "type": "panel",
