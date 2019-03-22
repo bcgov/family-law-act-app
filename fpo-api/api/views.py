@@ -82,7 +82,15 @@ class SurveyPdfView(generics.GenericAPIView):
         template = get_template(tpl_name)
         html_content = template.render(responses)
 
-        pdf_content = render_pdf(html_content)
+        if name == 'primary':
+            instruct_template = get_template("instructions-primary.html")
+            instruct_html = instruct_template.render(responses)
+            docs = (instruct_html,) + (html_content,)*4
+            pdf_content = render_pdf(*docs)
+
+        else:
+            pdf_content = render_pdf(html_content)
+
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
