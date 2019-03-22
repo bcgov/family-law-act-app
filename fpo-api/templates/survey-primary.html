@@ -6,7 +6,7 @@
     <style type="text/css">
         @page {
             size: Letter;
-            margin: .3in 0.3in 0.2in 0.3in;
+            margin: .3in 0.3in 0.3in 0.3in;
             font-size: 9pt;
             font-family: Helvetica, Arial, sans-serif;
             @bottom-right {
@@ -190,6 +190,7 @@
             z-index: 100;
             display: block;
             background-color: white;
+            font-family: Helvetica, Arial, sans-serif;
             position: absolute;
             width: 100%;
             top: -30px;
@@ -668,13 +669,12 @@
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spend time with {{ listOfEqualPtimeString }} equally.<br/>
                                     {% endif %}
                                     {% if listOfApplicantMainGuardianArray %}
-                                        {% if ChildApplicantUnequalPTime == "y" and ChildRespondentUnequalPTime %}
-
+                                        {% if ChildEqualPTime == 'n' and ChildMainGuardians == 'applicantmoreptime' and ChildRespondentUnequalPTime %}
                                         {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends more time with {{ listOfApplicantMainGuardianString }}. {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ listOfApplicantMainGuardianString }} {{ ChildRespondentUnequalPTime }}.<br/>
                                         {{% endif %}
                                     {% endif %}
                                     {% if listOfRespondentMainGuardianArray %}
-                                        {% if ChildRespondentUnequalPTime == "y" and ChildApplicantUnequalPTime %}
+                                        {% if ChildEqualPTime == 'n' and ChildMainGuardians == 'respondentmoreptime' and ChildApplicantUnequalPTime %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends more time with {{ listOfRespondentMainGuardianString }}. {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends time with {{ listOfRespondentMainGuardianString }} {{ ChildApplicantUnequalPTime }}.<br/>
                                         {{% endif %}
                                     {% endif %}
@@ -825,15 +825,15 @@
 
                                         {% if RespondentLiveTogether == "y" and  RespondentLeaving  == "y" and RespondentNeedPolice == "y" %}
 
-                                        A police office should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact == 'y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }} {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
+                                        A police officer should remove {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}, {% if RespondentDOBExact == 'y' %}{{ RespondentDOBDateCompStr }}, {% endif %}from {% if HomeAddressSame == "y" %} {{ ApplicantAddress.street }}, {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %} {{ FamilyHomeAddress.street }}, {{ FamilyHomeAddress.city }}, {{ FamilyHomeAddress.state }}.<br/>{% endif %}
 
                                         {% endif %}
                                         {% if RespondentHasStuff == "y" and RespondentHasStuffPolice == "y" %}
-                                        A police officer should come with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to get their personal belongings from {{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
+                                        A police officer should come with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to get their personal belongings from {{ RespondentHasStuffAddress.street }}, {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
 
                                         {% endif %}
                                         {% if RespondentNeedsStuff == "y" and RespondentNeedsStuffPolice == "y" %}
-                                        A police officer should supervise {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} while they get their personal belongings from {% if RespondentNeedsStuffAddressSame == "y" %}{{ ApplicantAddress.street }} {{ ApplicantAddress.city }}, {{ ApplicantAddress.state }}.{% else %}{{ RespondentHasStuffAddress.street }} {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>{% endif %}
+                                        A police officer should supervise {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} while they get their personal belongings from {{ RespondentHasStuffAddress.street }}, {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
                                         {% endif %}
                                         {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}.<br/>
@@ -1552,14 +1552,14 @@
     {% endif %}
     <ul>
         <li>Application To Obtain An Order</li>
-        {% if PORSpeedup == "y" and PORNoNotice == "y" %}
+        {% if PORSpeedup == "y" or PORNoNotice == "y" %}
         <li>Notice of Motion</li>
         {% endif %}
-        {% if PORSpeedup == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
+        {% if PORSpeedup == "y" or PORNoNotice == "y" or PORSpeedNormalAffidavit == "y" %}
         <li>Affidavit</li>
         {% endif %}
     </ul>
-    {% if ExistingOrders == "y" and ExistingWrittenAgreements == "y" %}
+    {% if ExistingOrders == "y" or ExistingWrittenAgreements == "y" or ChildApplicantContactOrder == "y" or ChildRespondentContactOrder == "y" %}
     <h3>Make Copies of Existing Court Orders or Written Agreements</h3>
     <p>You will need to make 4 copies of any court orders or written agreements that involve you and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. You will need to add these copies to your Document Package. The courthouse will not make copies for you.</p>
     {% endif %}
@@ -1567,7 +1567,7 @@
     <h3>Prepare Addresses for {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from</h3>
     <p>You should write down the addresses of the places that you want {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} to stay away from. You may need to show these addresses to the judge if the judge asks for them.</p>
     {% endif %}
-    {% if PORSpeedup == "y" and PORNoNotice == "y" and PORSpeedNormalAffidavit == "y" %}
+    {% if PORSpeedup == "y" or PORNoNotice == "y" or PORSpeedNormalAffidavit == "y" %}
     <h3>Swearing or Affirming your Affidavit</h3>
     <p>An affidavit is a document that contains facts about your story that you are telling the judge. You will need to swear under oath or affirm that these facts are true.</p>
     <p>You can swear or affirm your affidavit at a courthouse registry for free. You can also swear or affirm your affidavit with a lawyer, a notary public or a family justice counsellor. Lawyers and notary publics usually charge a fee to swear or affirm affidavits.</p>
