@@ -170,7 +170,6 @@ h4.sv_page_title {
     padding: 1em 0 0 0;
   }
   .panel-title {
-    color: $text-color-link;
     font-size: 18px;
     font-weight: normal;
     outline: none;
@@ -183,8 +182,15 @@ h4.sv_page_title {
     font-size: 90%;
     margin-left: 1em;
   }
-  .panel-title:hover, .panel-title:focus {
-    color: $text-color-link-hover;
+  &.survey-expander {
+    .panel-title {
+      border-bottom: 1px solid $text-color-link;
+      color: $text-color-link;
+      &:hover, &:focus {
+        color: $text-color-link-hover;
+        border-bottom-color: $text-color-link-hover;
+      }
+    }
   }
 }
 
