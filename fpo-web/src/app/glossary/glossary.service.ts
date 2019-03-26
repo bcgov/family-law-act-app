@@ -74,7 +74,7 @@ export class GlossaryService {
         elt.setAttribute('data-glossary-reg', '1');
         let term = elt.getAttribute('data-glossary');
         let content = this.getTerm(term, true);
-        if(content) {
+        if(content && window['addTooltip']) {
           window['addTooltip'](elt, content, {extClass: 'glossary-popup'});
         }
       }
