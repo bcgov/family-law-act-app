@@ -837,13 +837,6 @@ function initNameBlock(Survey) {
         label.className = 'survey-sublabel';
         label.appendChild(document.createTextNode(field.label));
         cell.appendChild(label);
-        descId = 'desc' + field.name[0].toUpperCase() + field.name.substring(1) + 'Name';
-        if(question[descId]) {
-          sublbl = document.createElement('p');
-          sublbl.className = 'survey-desc small';
-          sublbl.appendChild(document.createTextNode(question[descId]));
-          cell.appendChild(sublbl);
-        }
         input = document.createElement('input');
         input.className = 'form-control';
         if(field.name === 'first')
@@ -857,6 +850,13 @@ function initNameBlock(Survey) {
         label.setAttribute('for', input.id);
         field.input = input;
         cell.appendChild(input);
+        descId = 'desc' + field.name[0].toUpperCase() + field.name.substring(1) + 'Name';
+        if(question[descId]) {
+          sublbl = document.createElement('p');
+          sublbl.className = 'survey-desc small';
+          sublbl.appendChild(document.createTextNode(question[descId]));
+          cell.appendChild(sublbl);
+        }
         row.appendChild(cell);
       }
 
