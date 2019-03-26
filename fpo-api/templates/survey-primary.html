@@ -657,22 +657,22 @@
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spend time with {{ listOfEqualPtimeString }} equally.<br/>
                                     {% endif %}
                                     {% if listOfApplicantMainGuardianArray %}
-                                        {% if ChildEqualPTime == 'n' and ChildMainGuardians == 'applicantmoreptime' and ChildRespondentUnequalPTime %}
-                                        {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends more time with {{ listOfApplicantMainGuardianString }}. {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ listOfApplicantMainGuardianString }} {{ ChildRespondentUnequalPTime }}.<br/>
-                                        {{% endif %}
+                                        {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends more time with {{ listOfApplicantMainGuardianString }}.
+                                        {% for entry in listOfRespondentAltGuardianTimes %}
+                                            {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ entry.names }} {{ entry.time }}.
+                                        {% endfor %}<br/>
                                     {% endif %}
                                     {% if listOfRespondentMainGuardianArray %}
-                                        {% if ChildEqualPTime == 'n' and ChildMainGuardians == 'respondentmoreptime' and ChildApplicantUnequalPTime %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends more time with {{ listOfRespondentMainGuardianString }}. {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends time with {{ listOfRespondentMainGuardianString }} {{ ChildApplicantUnequalPTime }}.<br/>
-                                        {{% endif %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends more time with {{ listOfRespondentMainGuardianString }}.
+                                        {% for entry in listOfApplicantAltGuardianTimes %}
+                                            {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} spends time with {{ entry.names }} {{ entry.time }}.
+                                        {% endfor %}<br/>
                                     {% endif %}
                                     {% if ChildApplicantPTime == "y" and ChildRespondentPTime == "n" %}
                                     {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} does not spend time with {{ listOfApplicantMainGuardianString }}.<br/>
-
                                     {% endif %}
                                     {% if ChildApplicantPTime == "n" and ChildRespondentPTime == "y" %}
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} does not spend time with {{ listOfRespondentMainGuardianString }}.<br/>
-
                                     {% endif %}
                                     {% if listOfChildrenTimeNoneArray %}
                                     Neither {{ ApplicanttName.first }} {{ ApplicanttName.middle }} {{ ApplicanttName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ listOfChildrenTimeNoneString }}.<br/>
@@ -821,7 +821,7 @@
 
                                         {% endif %}
                                         {% if RespondentNeedsStuff == "y" and RespondentNeedsStuffPolice == "y" %}
-                                        A police officer should supervise {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} while they get their personal belongings from {{ RespondentHasStuffAddress.street }}, {{ RespondentHasStuffAddress.city }}, {{ RespondentHasStuffAddress.state }}.<br/>
+                                        A police officer should supervise {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} while they get their personal belongings from {{ RespondentNeedsStuffAddress.street }}, {{ RespondentNeedsStuffAddress.city }}, {{ RespondentNeedsStuffAddress.state }}.<br/>
                                         {% endif %}
                                         {% if RespondentNoGo == "y" and RespondentNoGoPlaces != None %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should not go near {{ listOfPeopleWithPOString }}’s {{ RespondentNoGoPlacesString }}.<br/>

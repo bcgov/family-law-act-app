@@ -76,10 +76,33 @@ export class SurveyPrimaryComponent implements OnInit {
         }
         let joinResults = function(results, joiner) {
             if (! joiner) joiner = " and ";
-            if (! results) return '';
+            if (! results || ! results.length) return '';
             if (results.length == 1) return results[0];
             let start = results.length > 2 ? results.slice(0, results.length-1).join(", ") + "," : results[0];
             return start + joiner + results[results.length-1];
+        }
+        let addDictEntry = function(dict, key, value) {
+            if(! (key in dict)) dict[key] = [];
+            dict[key].push(value);
+        }
+        var timesTranslate = {
+            "3pw": "more than twice a week",
+            "2pw": "at least twice a week",
+            "1pw": "at least once a week",
+            "2pm": "at least every other week",
+            "1pm": "at least once a month",
+            "1py": "at least once a year"
+        };
+        let flattenTimesDict = function(timesDict) {
+            var result = [];
+            for(var key in timesDict) {
+                result.push({
+                    time: timesTranslate[key] || key,
+                    names: joinResults(timesDict[key], " and ")
+                });
+            }
+            result.sort(function(a, b) { return a.time.localeCompare(b.time); });
+            return result;
         }
 
         //add additional data starts here
@@ -115,19 +138,16 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfAdultChildrenString = '';
 
         data.listOfEqualPtimeArray = [];
-        console.log("listOfEqualPtimeArray: empty "+ data.listOfEqualPtimeArray);
-
         data.listOfEqualPtimeString = '';
         data.listOfApplicantMainGuardianArray = [];
         data.listOfApplicantMainGuardianString = '';
+        data.listOfApplicantAltGuardianTimes = [];
         data.listOfRespondentMainGuardianArray = [];
         data.listOfRespondentMainGuardianString = '';
+        data.listOfRespondentAltGuardianTimes = [];
+        var applicantAltGuardianTimes = {};
+        var respondentAltGuardianTimes = {};
 
-
-        data.listOfChildrenTimeApplicantArray = [];
-        data.listOfChildrenTimeApplicantString = '';
-        data.listOfChildrenTimeRespondentArray = [];
-        data.listOfChildrenTimeRespondentString = '';
         data.listOfChildrenTimeNoneArray = [];
         data.listOfChildrenTimeNoneString = '';
 
@@ -180,6 +200,7 @@ export class SurveyPrimaryComponent implements OnInit {
                     else{
                         data.childError.push("mChildNoGuardian");
                     }
+
                     if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "y"){
                         data.listOfBothResponsibleArray.push(childFullName);
                     }
@@ -192,36 +213,30 @@ export class SurveyPrimaryComponent implements OnInit {
                     else{
                         data.listOfNoResponsibleArray.push(childFullName);
                     }
-                    // console.log("listOfEqualPtimeArray before push "+ JSON.stringify(data.listOfEqualPtimeArray));
+
                     if (child["ChildEqualPTime"] == "y"){
                         data.listOfEqualPtimeArray.push(childFullName);
-                        // console.log("listOfEqualPtimeArray after push "+ JSON.stringify(data.listOfEqualPtimeArray));
                     }
-
                     else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "applicantmoreptime"){
                         data.listOfApplicantMainGuardianArray.push(childFullName);
+                        if(child["ChildApplicantUnequalPTime"]) {
+                            addDictEntry(respondentAltGuardianTimes, child["ChildApplicantUnequalPTime"], childFullName);
+                        }
                     }
                     else if (child["ChildEqualPTime"] == "n" && child["ChildMainGuardians"] == "respondentmoreptime") {
                         data.listOfRespondentMainGuardianArray.push(childFullName);
+                        if(child["ChildRespondentUnequalPTime"]) {
+                            addDictEntry(applicantAltGuardianTimes, child["ChildRespondentUnequalPTime"], childFullName);
+                        }
                     }
 
-                    if (child["ChildApplicantPTime"] == "y" && child["ChildRespondentPTime"] == "n"){
-                        data.listOfChildrenTimeApplicantArray.push(childFullName);
-                    }
-                    else if (child["ChildApplicantPTime"] == "n" && child["ChildRespondentPTime"] == "y") {
-                        data.listOfChildrenTimeRespondentArray.push(childFullName);
-                    }
-                    else if (child["ChildApplicantPTime"] == "n" && child["ChildRespondentPTime"] == "n") {
+                    if (child["ChildApplicantPTime"] == "n" && child["ChildRespondentPTime"] == "n") {
                         data.listOfChildrenTimeNoneArray.push(childFullName);
                     }
-
-                    if (child["ChildIsMinor"] == "n"){
-                        data.listOfAdultChildrenArray.push(childFullName);
-                    }
-
                 }
                 else if (child["ChildIsMinor"] == "n"){
-                    data.childError.push("mChildNoMainGuardian");
+                    // data.childError.push("mChildNoMainGuardian");
+                    data.listOfAdultChildrenArray.push(childFullName);
                 }
             }
         }
@@ -234,13 +249,13 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfRespondentResponsibleString = joinResults(data.listOfRespondentResponsibleArray, " and ");
         data.listOfNoResponsibleString = joinResults(data.listOfNoResponsibleArray, " and ");
         data.listOfAdultChildrenString = joinResults(data.listOfAdultChildrenArray, " and ");
+        data.listOfApplicantAltGuardianTimes = flattenTimesDict(applicantAltGuardianTimes);
+        data.listOfRespondentAltGuardianTimes = flattenTimesDict(respondentAltGuardianTimes);
 
         //Child parenting time list
         data.listOfEqualPtimeString = joinResults(data.listOfEqualPtimeArray, " and ");
         data.listOfApplicantMainGuardianString = joinResults(data.listOfApplicantMainGuardianArray, " or ");
         data.listOfRespondentMainGuardianString = joinResults(data.listOfRespondentMainGuardianArray, " or ");
-        data.listOfChildrenTimeApplicantString = joinResults(data.listOfChildrenTimeApplicantArray, " or ");
-        data.listOfChildrenTimeRespondentString = joinResults(data.listOfChildrenTimeRespondentArray, " or ");
         data.listOfChildrenTimeNoneString = joinResults(data.listOfChildrenTimeNoneArray, " or ");
         data.listOfChildrenString = joinResults(data.listOfChildrenArray, " or ");
         data.listOfChildrenWithPO = joinResults(data.listOfChildrenWithPOArray, " or ");
