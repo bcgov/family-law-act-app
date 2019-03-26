@@ -167,17 +167,24 @@ h4.sv_page_title {
     padding: 0;
   }
   .panel-body {
-    padding: 0.5em 0 0 0;
+    padding: 1em 0 0 0;
   }
   .panel-title {
+    color: $text-color-link;
     font-size: 18px;
+    font-weight: normal;
+    outline: none;
   }
   .heading-icon {
     float: left;
     margin-right: 0.5em;
   }
   .heading-expand {
-    margin-left: 2em;
+    font-size: 90%;
+    margin-left: 1em;
+  }
+  .panel-title:hover, .panel-title:focus {
+    color: $text-color-link-hover;
   }
 }
 
