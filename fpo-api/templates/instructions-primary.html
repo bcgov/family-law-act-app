@@ -204,16 +204,12 @@
     <h2>Instructions: Applying for a Family Law Act Protection Order</h2>
 
     <h3>Print Your Application Package</h3>
-    {% if PORSpeedup == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "n" %}
+    {% if PORSpeedup == "y" or PORNoNotice == "y" %}
+        <p>Print the PDF that this service has created for you. It will contain 4 copies of 3 different forms:</p>
+    {% elif PORSpeedNormalAffidavit == "y" %}
+        <p>Print the PDF that this service has created for you. It will contain 4 copies of 2 different forms:</p>
+    {% else %}
         <p>Print the PDF that this service has created for you. It will contain 4 copies of 1 form:</p>
-        {% else %} {% if PORSpeedup == "n" and PORNoNotice == "n" and PORSpeedNormalAffidavit == "y" %}
-            <p>Print the PDF that this service has created for you. It will contain 4 copies of 2 different forms:</p>
-            {% else %} {% if PORSpeedup == "y" and PORNoNotice == "y" %}
-                <p>Print the PDF that this service has created for you. It will contain 4 copies of 3 different forms:</p>
-                {% else %}
-                    <p>Print the PDF that this service has created for you. It will contain 4 copies of 1 form:</p>
-                {% endif %}
-            {% endif %}
     {% endif %}
     <ul>
         <li>Application To Obtain An Order</li>
