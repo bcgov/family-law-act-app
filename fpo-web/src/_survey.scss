@@ -133,7 +133,7 @@ h4.sv_page_title {
   .heading-icon {
     float: left;
     margin-left: -1.4em;
-    margin-right: 0.5em;
+    margin-right: 0.4em;
     margin-top: 3px;
   }
   .heading-expand {
@@ -170,13 +170,14 @@ h4.sv_page_title {
     padding: 1em 0 0 0;
   }
   .panel-title {
+    display: inline-flex;
     font-size: 18px;
     font-weight: normal;
     outline: none;
   }
   .heading-icon {
-    float: left;
-    margin-right: 0.5em;
+    margin-right: 0.4em;
+    margin-top: -0.1em;
   }
   .heading-expand {
     font-size: 90%;
@@ -274,4 +275,7 @@ h4.sv_page_title {
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 90%;
   padding-left: 0.25em;
+  .sv_q_title & {
+    font-size: 70%;
+  }
 }
