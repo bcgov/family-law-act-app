@@ -1137,6 +1137,52 @@ function initCustomDate(Survey) {
 }
 
 
+// Returns 'y' or 'n', or 'u' for undefined and 'e' for error
+function isChild(params) {
+  if(!params && ! params.length)
+    return 'u';
+  var DOB = params[0];
+  var MinorOrAdult = params[1];
+  var dobReturn;
+  var maReturn;
+  var minYears = 19;
+
+  if(DOB) {
+    var now = new Date();
+    var cmp = new Date(DOB);
+    if(isNaN(cmp.getTime())) {
+      dobReturn = 'e';
+    } else {
+      dobReturn = 'y';
+      var yearDiff = now.getFullYear() - cmp.getFullYear();
+      if(yearDiff > minYears)
+        dobReturn = 'n';
+      else if(yearDiff == minYears) {
+        if(cmp.getMonth() < now.getMonth())
+          dobReturn = 'n';
+        else if(cmp.getMonth() == now.getMonth() && cmp.getDate() < now.getDate())
+          dobReturn = 'n';
+      }
+    }
+	}
+
+	if(MinorOrAdult) {
+	  maReturn = (MinorOrAdult == "Minor") ? 'y' : 'n';
+	}
+
+	if(! dobReturn && ! maReturn)
+	  return 'n';
+  else if(dobReturn && ! maReturn)
+    return dobReturn;
+  else if(! dobReturn && maReturn)
+	  return maReturn;
+  else if(dobReturn == maReturn)
+    return dobReturn;
+	else
+		return 'e';
+}
+
+
 export function addQuestionTypes(Survey) {
   //fixCheckboxes(Survey);
   initYesNo(Survey);
@@ -1146,6 +1192,7 @@ export function addQuestionTypes(Survey) {
   initAddressBlock(Survey);
   initContactInfoBlock(Survey);
   initCustomDate(Survey);
+  Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
 
 export function addToolboxOptions(editor) {
