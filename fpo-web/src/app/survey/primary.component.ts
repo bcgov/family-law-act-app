@@ -110,7 +110,7 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfChildrenWithPOArray = [];
         data.listOfChildrenWithoutPOArray = [];
         data.listOfChildrenString = '';
-        data.listOfChildrenWithPO = '';
+        data.listOfChildrenWithPOString = '';
         data.listOfPeopleString = '';
         data.listOfPeopleArray = [];
         data.listOfPeopleWithPOArray = [];
@@ -172,21 +172,12 @@ export class SurveyPrimaryComponent implements OnInit {
 
                 data.listOfChildrenArray.push(childFullName);
                 if (child["ChildNeedsProtection"] == "y"){
-
                     data.listOfChildrenWithPOArray.push(childFullName);
-
-                    // data.listOfChildrenWithPO.concat
                 }
                 else {
                     data.listOfChildrenWithoutPOArray.push(childFullName);
                 }
-                // data.listOfChildren.push(child["ChildName"]);
-            }
-        }
 
-        if(data.ListOfChildren !== undefined){
-            for (let child of data.ListOfChildren){
-                var childFullName = formatName(child["ChildName"]);
                 if (child["ChildIsMinor"] == "y"){
                     if (child["ChildApplicantGuardian"] == "y" && child["ChildRespondentGuardian"] == "y"){
                         data.listOfBothGuardianArray.push(childFullName);
@@ -258,7 +249,7 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfRespondentMainGuardianString = joinResults(data.listOfRespondentMainGuardianArray, " or ");
         data.listOfChildrenTimeNoneString = joinResults(data.listOfChildrenTimeNoneArray, " or ");
         data.listOfChildrenString = joinResults(data.listOfChildrenArray, " or ");
-        data.listOfChildrenWithPO = joinResults(data.listOfChildrenWithPOArray, " or ");
+        data.listOfChildrenWithPOString = joinResults(data.listOfChildrenWithPOArray, " or ");
         data.listOfChildrenWithoutPOString = joinResults(data.listOfChildrenWithoutPOArray, " or ");
 
 
@@ -268,15 +259,15 @@ export class SurveyPrimaryComponent implements OnInit {
             // console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
             // console.log("applicantFullName is "+ data.applicantFullName);
         }
-        if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPO != undefined){
-            data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPO;
+        if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPOString != undefined){
+            data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPOString;
             console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
             console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
             console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
             console.log("applicantFullName is "+ data.applicantFullName);
         }
-        else if (data.ApplicantNeedsProtection == "n" && data.listOfChildrenWithPO != undefined){
-            data.listOfPeopleWithPOString = data.listOfChildrenWithPO.substr(0, 3);
+        else if (data.listOfChildrenWithPOString != undefined){
+            data.listOfPeopleWithPOString = data.listOfChildrenWithPOString;
             console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
             console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
             console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
@@ -287,7 +278,7 @@ export class SurveyPrimaryComponent implements OnInit {
         }
 
         console.log("appended child is " + data.listOfChildrenWithPOArray);
-        console.log("appended children in string is " + data.listOfChildrenWithPO);
+        console.log("appended children in string is " + data.listOfChildrenWithPOString);
         console.log("people who need po are " + data.listOfPeopleWithPO);
         console.log("RespondentApplicantContactType are " + data.RespondentApplicantContactType);
         console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);

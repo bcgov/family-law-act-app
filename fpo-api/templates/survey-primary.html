@@ -814,7 +814,7 @@
                                     <legend>4. Protection Orders <span class="sub">(Complete if you are asking for a protection order)</span></legend>
                                     <p>I am asking for an order in the following terms:</p>
                                     <span class="brdr-btm">
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }} {% if ApplicantNeedsProtection == "y" %}except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}{% endif %}.<br/>
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }}{% if ApplicantNeedsProtection == "y" %} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}{% endif %}.<br/>
 
                                         {% if ApplicantNeedsProtection == "y" and RespondentApplicantArrangeChildren == "y" %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} to make parenting arrangements for listOfChildrenWithoutPOString by {{ ArrangeMethodString }}.<br/>
