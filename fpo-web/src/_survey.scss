@@ -8,6 +8,7 @@
     margin-bottom: 10px;
   }
   label{ color: $text-color;}
+  hr { border-top-color: $gov-light-grey; }
   .sv_container {
     > .panel-heading, > .panel-body {
       padding: 0;
@@ -51,7 +52,13 @@ h4.sv_page_title {
     border-radius: 5px;
     padding-top: 1em;
     //when there is another panel inside
-    .sv_p_container{border: none; padding: .5em 0; .sv_qstn{margin-left: -15px;}}
+    .sv_p_container{
+      // border: none;
+      // padding: .5em 0;
+      .sv_qstn {
+        // margin-left: -15px;
+      }
+    }
   }
   .sv_q_title {
     color: #556077;
@@ -89,7 +96,10 @@ h4.sv_page_title {
   padding: 1em 0.5em 0.5em;
   margin: 0.5em 0;
   // when a container is inside another one;
-  .sv_p_container{border: none; padding: 1em 0 .5em;}
+  .sv_p_container {
+    border: none;
+    padding: 1em 0 .5em;
+  }
 }
 
 // checkbox styles
