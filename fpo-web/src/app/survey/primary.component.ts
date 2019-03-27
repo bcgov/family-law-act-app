@@ -306,8 +306,8 @@ export class SurveyPrimaryComponent implements OnInit {
         //add additional data ends here
 
         // Concate all strings to PORAffidavit
-        data.PORAffidavit = "<strong>Relationship History </strong> <br/>" + data.PORRelationshipHistory + "<br/><br/><strong>Family Violence Incidents </strong> <br/>"
-            + data.PORWhatHappened;
+        data.PORAffidavit = "<strong>Relationship History </strong> <br/>" + (data.PORRelationshipHistory || '')
+            + "<br/><br/><strong>Family Violence Incidents </strong> <br/>" + (data.PORWhatHappened || '');
         if(data.PORSpeedup == "y" && data.PORNoNotice == "n"){
             data.PORAffidavit += "<br/><br/><strong>Reasons for shortening the time to reply </strong> <br/>" + data.PORWhyASAP;
         }
