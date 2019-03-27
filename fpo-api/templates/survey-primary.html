@@ -872,7 +872,7 @@
                             <tr>
                                 <td colspan="2" class="signature-area">
                                     {% if Lawyer == "y" %}
-                                    <span class="brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
+                                    <span class="brdr-btm">&nbsp;{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     {% else %}
                                     <span class="brdr-btm">&nbsp;</span>
                                     {% endif %}
@@ -916,8 +916,8 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="signature-area">
-                                    {% if Lawyer == "y"%}
-                                    <span class="brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
+                                    {% if Lawyer == "y" %}
+                                    <span class="brdr-btm">&nbsp;{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     {% else %}
                                     <span class="brdr-btm">&nbsp;</span>
                                     {% endif %}
@@ -1300,7 +1300,7 @@
                                         <span class="check selected">&#10003;</span>
                                         <span class="label blank">Other order: <u>The application for a protection order be heard without notice to the other party.</u></span>
                                         {% else %}
-                                          <span class="check"></span>
+                                        <span class="check"></span>
                                         <span class="label blank">Other order<span class="long brdr-btm">&nbsp;</span></span>
                                         {% endif %}
                                     </td>
@@ -1356,7 +1356,7 @@
                     <tr>
                         <td colspan="2" class="signature-area">
                             {% if Lawyer == "y" %}
-                            <span class="brdr-btm">LawyerName</span>
+                            <span class="brdr-btm">&nbsp;{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                             {% else %}
                             <span class="brdr-btm">&nbsp;</span>
                             {% endif %}
@@ -1432,13 +1432,14 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <span class="brdr-btm">{{ ApplicantOccupation }}</span>
+                                            <span class="brdr-btm">{{ ApplicantOccupation }}&nbsp;</span>
                                             <label class="label-btm">Occupation</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4"><legend>Of</legend></td>
                                     </tr>
+                                    {% if Lawyer == "n" %}
                                     <tr>
                                         <td colspan="2">
                                             <span class="brdr-btm">{{ ApplicantAddress.street}}</span>
@@ -1459,6 +1460,28 @@
                                             <label class="label-btm">Postal Code</label>
                                         </td>
                                     </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ LawyerAddress.street}}</span>
+                                            <label class="label-btm">ADDRESS</label>
+                                        </td>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ LawyerAddress.city }}</span>
+                                            <label class="label-btm">City</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ LawyerAddress.state }}</span>
+                                            <label class="label-btm">Province</label>
+                                        </td>
+                                        <td colspan="2">
+                                            <span class="brdr-btm">{{ LawyerAddress.postcode }}</span>
+                                            <label class="label-btm">Postal Code</label>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
                                     <tr>
                                         <td colspan="4"><legend>Swear or affirm that:</legend></td>
                                     </tr>
