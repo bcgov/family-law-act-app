@@ -871,7 +871,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="signature-area">
-                                    {% if LawyerAddress == "y" %}
+                                    {% if Lawyer == "y" %}
                                     <span class="brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     {% else %}
                                     <span class="brdr-btm">&nbsp;</span>
@@ -894,9 +894,8 @@
                             <tr>
                                 <td colspan="4">
                                     <h2 style="text-align: center">LAWYER’S CERTIFICATE (FAMILY LAW ACT, s. 8 (2))</h2>
-                                    {% if LawyerAddress == "y" %}
+                                    {% if Lawyer == "y" %}
                                     <p class="blank">I, <span class="short brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>, lawyer for <span class="medium brdr-btm name-party">{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span>certify that, <br><br>in accordance with section 8 (2) of the Family Law Act, I have</p>
-
                                     {% else %}
                                     <p class="blank">I, <span class="short brdr-btm">&nbsp;</span>, lawyer for <span class="medium brdr-btm name-party">&nbsp;</span>certify that, <br><br>in accordance with section 8 (2) of the Family Law Act, I have</p>
                                     {% endif %}
@@ -917,7 +916,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="signature-area">
-                                    {% if LawyerAddress == "y"%}
+                                    {% if Lawyer == "y"%}
                                     <span class="brdr-btm">{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     {% else %}
                                     <span class="brdr-btm">&nbsp;</span>
@@ -997,7 +996,7 @@
                                 {% if Lawyer == "n" %}
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }} applicant {{ Lawyer }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
                                         <label class="label-btm">ADDRESS FOR SERVICE</label>
                                     </td>
                                     <td colspan="1">
@@ -1030,7 +1029,7 @@
                                 {% else %}
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.street }} {{ LawyerAddress }} lawyer here?</span>
+                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.street }}</span>
                                         <label class="label-btm">ADDRESS FOR SERVICE</label>
                                     </td>
                                     <td colspan="1">
@@ -1356,7 +1355,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" class="signature-area">
-                            {% if LawyerAddress == "y" %}
+                            {% if Lawyer == "y" %}
                             <span class="brdr-btm">LawyerName</span>
                             {% else %}
                             <span class="brdr-btm">&nbsp;</span>
