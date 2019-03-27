@@ -292,6 +292,7 @@
                                     <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
                                 </td>
                             </tr>
+                            {% if Lawyer == "n" %}
                             <tr>
                                 <td colspan="2">
                                     <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
@@ -324,30 +325,44 @@
                                     <label class="label-btm">Fax</label>
                                 </td>
                             </tr>
-                            {% if LawyerAddress == "y" %}
+                            {% else %}
                             <tr>
                                 <td colspan="4"><legend>Lawyer:</legend></td>
                             </tr>
                             <tr>
-
                                 <td colspan="4">
                                     <span class="brdr-btm">&nbsp;{{ LawyerName.first }} {{ LawyerName.middle }} {{ LawyerName.last }}</span>
                                     <label class="label-btm">Name</label>
                                 </td>
-
                             </tr>
                             <tr>
-
-
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{{ LawyerContact.email }}</span>
-                                    <label class="label-btm">Email</label>
+                                    <span class="brdr-btm">&nbsp;{{ LawyerAddress.street }}</span>
+                                    <label class="label-btm">ADDRESS FOR SERVICE</label>
                                 </td>
                                 <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ LawyerAddress.city }}</span>
+                                    <label class="label-btm">City</label>
+                                </td>
+                                <td colspan="1">
+                                    <span class="brdr-btm">&nbsp;{{ LawyerAddress.state }}</span>
+                                    <label class="label-btm">Province</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="brdr-btm">&nbsp;{{ LawyerAddress.postcode }}</span>
+                                    <label class="label-btm">Postal Code</label>
+                                </td>
+                                <td>
                                     <span class="brdr-btm">&nbsp;{{ LawyerContact.phone }}</span>
                                     <label class="label-btm">Phone</label>
                                 </td>
-                                <td colspan="1">
+                                <td>
+                                    <span class="brdr-btm">&nbsp;{{ LawyerContact.email }}</span>
+                                    <label class="label-btm">Email</label>
+                                </td>
+                                <td>
                                     <span class="brdr-btm">&nbsp;{{ LawyerContact.fax }}</span>
                                     <label class="label-btm">Fax</label>
                                 </td>
@@ -979,9 +994,10 @@
                                         <aside>(Set out the street address of the address for service. One or both of a fax number and an e-mail address may be given as additional addresses for service.)</aside>
                                     </td>
                                 </tr>
+                                {% if Lawyer == "n" %}
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.street }} applicant {{ Lawyer }}</span>
                                         <label class="label-btm">ADDRESS FOR SERVICE</label>
                                     </td>
                                     <td colspan="1">
@@ -993,7 +1009,6 @@
                                         <label class="label-btm">Province</label>
                                     </td>
                                 </tr>
-                                {% if Lawyer == "n" %}
                                 <tr>
                                     <td>
                                         <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
@@ -1014,8 +1029,22 @@
                                 </tr>
                                 {% else %}
                                 <tr>
+                                    <td colspan="2">
+                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.street }} {{ LawyerAddress }} lawyer here?</span>
+                                        <label class="label-btm">ADDRESS FOR SERVICE</label>
+                                    </td>
                                     <td colspan="1">
-                                        <span class="brdr-btm">&nbsp;{{ ApplicantAddress.postcode }}</span>
+                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.city }}</span>
+                                        <label class="label-btm">City</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.state }}</span>
+                                        <label class="label-btm">Province</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1">
+                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.postcode }}</span>
                                         <label class="label-btm">Postal Code</label>
                                     </td>
                                     <td colspan="1">
