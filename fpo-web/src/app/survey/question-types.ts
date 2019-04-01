@@ -329,6 +329,7 @@ function initYesNo(Survey) {
     name: "yesno",
     title: "Yes/No",
     iconName: "icon-radiogroup",
+    isDefaultRender: true,
     widgetIsLoaded: function() {
       return true;
     },
@@ -388,6 +389,10 @@ function initYesNo(Survey) {
           if(opt.value === question.value) opt.input.checked = true;
         }
       };
+      // This probably shouldn't be necessary, but the question is sometimes rendered with no value
+      if(question.value === undefined) {
+        setTimeout(question.valueChangedCallback, 50);
+      }
     },
     willUnmount: function(question, el) {}
   };
@@ -692,6 +697,10 @@ function initAddressBlock(Survey) {
         postCode.value = val.postcode || '';
       };
       question.valueChangedCallback();
+      // This probably shouldn't be necessary, but the question is sometimes rendered with no value
+      if(question.value === undefined) {
+        setTimeout(question.valueChangedCallback, 50);
+      }
     },
     willUnmount: function(question, el) {}
   };
@@ -895,6 +904,10 @@ function initNameBlock(Survey) {
         checkAccept();
       };
       question.valueChangedCallback();
+      // This probably shouldn't be necessary, but the question is sometimes rendered with no value
+      if(question.value === undefined) {
+        setTimeout(question.valueChangedCallback, 50);
+      }
     },
     willUnmount: function(question, el) {}
   };
@@ -983,6 +996,10 @@ function initContactInfoBlock(Survey) {
         }
       };
       question.valueChangedCallback();
+      // This probably shouldn't be necessary, but the question is sometimes rendered with no value
+      if(question.value === undefined) {
+        setTimeout(question.valueChangedCallback, 50);
+      }
     },
     willUnmount: function(question, el) {}
   };
@@ -1129,6 +1146,10 @@ function initCustomDate(Survey) {
       };
       loadValue();
       question.valueChangedCallback = loadValue;
+      // This probably shouldn't be necessary, but the question is sometimes rendered with no value
+      if(question.value === undefined) {
+        setTimeout(question.valueChangedCallback, 50);
+      }
     },
     willUnmount: function(question, el) {}
   };
