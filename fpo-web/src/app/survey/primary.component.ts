@@ -106,13 +106,13 @@ export class SurveyPrimaryComponent implements OnInit {
         }
 
         //add additional data starts here
+        data.anyExistingOrders = (data.ExistingOrders === "y" ? "y" : "n");
+
         data.listOfChildrenArray = [];
         data.listOfChildrenWithPOArray = [];
         data.listOfChildrenWithoutPOArray = [];
         data.listOfChildrenString = '';
         data.listOfChildrenWithPOString = '';
-        data.listOfPeopleString = '';
-        data.listOfPeopleArray = [];
         data.listOfPeopleWithPOArray = [];
         data.listOfPeopleWithPOString = '';
         data.contactTypeString = '';
@@ -142,9 +142,13 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfApplicantMainGuardianArray = [];
         data.listOfApplicantMainGuardianString = '';
         data.listOfApplicantAltGuardianTimes = [];
+        data.listOfApplicantContactOrderArray = [];
+        data.listOfApplicantContactOrderString = '';
         data.listOfRespondentMainGuardianArray = [];
         data.listOfRespondentMainGuardianString = '';
         data.listOfRespondentAltGuardianTimes = [];
+        data.listOfRespondentContactOrderArray = [];
+        data.listOfRespondentContactOrderString = '';
         var applicantAltGuardianTimes = {};
         var respondentAltGuardianTimes = {};
 
@@ -179,8 +183,11 @@ export class SurveyPrimaryComponent implements OnInit {
                 }
 
                 if (child["ChildIsMinor"] == "y"){
+                    var sharedGuardian = false;
+
                     if (child["ChildApplicantGuardian"] == "y" && child["ChildRespondentGuardian"] == "y"){
                         data.listOfBothGuardianArray.push(childFullName);
+                        sharedGuardian = true;
                     }
                     else if (child["ChildApplicantGuardian"] == "y" && child["ChildRespondentGuardian"] == "n"){
                         data.listOfApplicantGuardianArray.push(childFullName);
@@ -192,17 +199,19 @@ export class SurveyPrimaryComponent implements OnInit {
                         data.childError.push("mChildNoGuardian");
                     }
 
-                    if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "y"){
-                        data.listOfBothResponsibleArray.push(childFullName);
-                    }
-                    else if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "n"){
-                        data.listOfApplicantResponsibleArray.push(childFullName);
-                    }
-                    else if (child["ChildApplicantPDecisions"] == "n" && child["ChildRespondentPDecisions"] == "y") {
-                        data.listOfRespondentResponsibleArray.push(childFullName);
-                    }
-                    else{
-                        data.listOfNoResponsibleArray.push(childFullName);
+                    if(sharedGuardian) {
+                        if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "y"){
+                            data.listOfBothResponsibleArray.push(childFullName);
+                        }
+                        else if (child["ChildApplicantPDecisions"] == "y" && child["ChildRespondentPDecisions"] == "n"){
+                            data.listOfApplicantResponsibleArray.push(childFullName);
+                        }
+                        else if (child["ChildApplicantPDecisions"] == "n" && child["ChildRespondentPDecisions"] == "y") {
+                            data.listOfRespondentResponsibleArray.push(childFullName);
+                        }
+                        else{
+                            data.listOfNoResponsibleArray.push(childFullName);
+                        }
                     }
 
                     if (child["ChildEqualPTime"] == "y"){
@@ -224,6 +233,16 @@ export class SurveyPrimaryComponent implements OnInit {
                     if (child["ChildApplicantPTime"] == "n" && child["ChildRespondentPTime"] == "n") {
                         data.listOfChildrenTimeNoneArray.push(childFullName);
                     }
+
+                    if (child["ChildApplicantContactOrder"] == "y") {
+                        data.listOfApplicantContactOrderArray.push(childFullName);
+                        data.anyExistingOrders = "y";
+                    }
+                    if (child["ChildRespondentContactOrder"] == "y") {
+                        data.listOfRespondentContactOrderArray.push(childFullName);
+                        data.anyExistingOrders = "y";
+                    }
+
                 }
                 else if (child["ChildIsMinor"] == "n"){
                     // data.childError.push("mChildNoMainGuardian");
@@ -237,11 +256,14 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfRespondentGuardianString = joinResults(data.listOfRespondentGuardianArray, " and ");
         data.listOfBothResponsibleString = joinResults(data.listOfBothResponsibleArray, " and ");
         data.listOfApplicantResponsibleString = joinResults(data.listOfApplicantResponsibleArray, " and ");
+        data.listOfApplicantContactOrderString = joinResults(data.listOfApplicantContactOrderArray, " and ");
         data.listOfRespondentResponsibleString = joinResults(data.listOfRespondentResponsibleArray, " and ");
         data.listOfNoResponsibleString = joinResults(data.listOfNoResponsibleArray, " and ");
         data.listOfAdultChildrenString = joinResults(data.listOfAdultChildrenArray, " and ");
         data.listOfApplicantAltGuardianTimes = flattenTimesDict(applicantAltGuardianTimes);
         data.listOfRespondentAltGuardianTimes = flattenTimesDict(respondentAltGuardianTimes);
+        data.listOfRespondentContactOrderString = joinResults(data.listOfRespondentContactOrderArray, " and ");
+
 
         //Child parenting time list
         data.listOfEqualPtimeString = joinResults(data.listOfEqualPtimeArray, " and ");
@@ -254,28 +276,12 @@ export class SurveyPrimaryComponent implements OnInit {
 
 
         if (data.ApplicantNeedsProtection == "y"){
-            data.listOfPeopleWithPOString = data.applicantFullName;
-            // console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
-            // console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
-            // console.log("applicantFullName is "+ data.applicantFullName);
+            data.listOfPeopleWithPOArray.push(data.applicantFullName);
         }
-        if (data.ApplicantNeedsProtection == "y" && data.listOfChildrenWithPOString != undefined){
-            data.listOfPeopleWithPOString = data.listOfPeopleWithPOString +", " +data.listOfChildrenWithPOString;
-            console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
-            console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
-            console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
-            console.log("applicantFullName is "+ data.applicantFullName);
+        if (data.listOfChildrenWithPOArray){
+            data.listOfPeopleWithPOArray = data.listOfPeopleWithPOArray.concat(data.listOfChildrenWithPOArray);
         }
-        else if (data.listOfChildrenWithPOString != undefined){
-            data.listOfPeopleWithPOString = data.listOfChildrenWithPOString;
-            console.log("data.ApplicantNeedsProtection is " + data.ApplicantNeedsProtection);
-            console.log("ApplicantNeedsProtection is "+ data.ApplicantNeedsProtection);
-            console.log("listOfPeopleWithPOString is "+ data.listOfPeopleWithPOString);
-            console.log("applicantFullName is "+ data.applicantFullName);
-        }
-        if (data.listOfChildren != undefined){
-            data.listOfPeopleString = data.listOfPeopleString +", " +data.listOfChildrenString;
-        }
+        data.listOfPeopleWithPOString = joinResults(data.listOfPeopleWithPOArray, " or ");
 
         console.log("appended child is " + data.listOfChildrenWithPOArray);
         console.log("appended children in string is " + data.listOfChildrenWithPOString);
@@ -283,7 +289,26 @@ export class SurveyPrimaryComponent implements OnInit {
         console.log("RespondentApplicantContactType are " + data.RespondentApplicantContactType);
         console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
 
-        data.contactTypeString = joinResults(data.RespondentApplicantContactType, " or ");
+        var contactTypes = [];
+        if(data.RespondentApplicantContactType) {
+            var ctypeTrans = {
+                "lawyer": "their lawyer",
+                "fjc": "their family justice counsellor",
+                "socialworker": "their social worker",
+                "mutualfamily": "mutual family member(s)",
+                "mutualfriend": "mutual friend(s)",
+            };
+            for(var idx = 0; idx < data.RespondentApplicantContactType.length; idx ++) {
+                var ctype = data.RespondentApplicantContactType[idx];
+                if(ctype == 'other') {
+                    if(data.RespondentNoGoPlacesComment)
+                        contactTypes.push(data.RespondentApplicantContactTypeComment);
+                } else {
+                    contactTypes.push(ctypeTrans[ctype] || ctype);
+                }
+            }
+        }
+        data.contactTypeString = joinResults(contactTypes, " or ");
 
         data.ArrangeMethodString = joinResults(data.RespondentApplicantArrangeMethods, " and ");
 

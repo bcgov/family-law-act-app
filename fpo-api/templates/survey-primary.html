@@ -500,7 +500,7 @@
                                     </p>
                                 </td>
                             </tr>
-                            {% if ExistingOrders == "y" %}
+                            {% if anyExistingOrders == "y" %}
                             <tr>
                                 <td colspan="2">
                                     <span class="check"></span>
@@ -598,6 +598,8 @@
                                 <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
                             </tr>
                             {% for child in ListOfChildren %}
+                            {% if child.ChildIsMinor == "y" or child.ChildNeedsProtection == "y" %}
+
                             <tr>
                                 <td colspan="2">
                                     <span class="brdr-btm">{{ child.ChildName.first }} {{ child.ChildName.middle}} {{ child.ChildName.last }}&nbsp;</span>
@@ -611,6 +613,7 @@
                                     {% endif %}
                                 </td>
                             </tr>
+                            {% endif %}
                             {% endfor %}
                             <tr>
                                 <td colspan="4">
@@ -634,15 +637,15 @@
                                     {% endif %}
                                     {% if listOfApplicantGuardianArray %}
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} is the sole guardian of {{ listOfApplicantGuardianString }}.<br/>
-                                        {% if ChildRespondentContactOrder == "y" %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has agreed-upon contact with {{ listOfApplicantGuardianString }}.<br/>
-                                        {% endif %}
+                                    {% endif %}
+                                    {% if listOfApplicantContactOrderArray %}
+                                    {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} has agreed-upon contact with {{ listOfApplicantContactOrderString }}.<br/>
                                     {% endif %}
                                     {% if listOfRespondentGuardianArray %}
                                     {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} is the sole guardian of {{ listOfRespondentGuardianString }}.<br/>
-                                        {% if ChildApplicantContactOrder == "y" %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has agreed-upon contact with {{ listOfRespondentGuardianString }}.<br/>
-                                        {% endif %}
+                                    {% endif %}
+                                    {% if listOfRespondentContactOrderArray %}
+                                    {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has agreed-upon contact with {{ listOfRespondentContactOrderString }}.<br/>
                                     {% endif %}
                                     {% if listOfBothResponsibleArray %}
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} share parenting responsibilities for {{ listOfBothResponsibleString }}.<br/>
@@ -654,10 +657,12 @@
                                     {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has parenting responsibilities for {{ listOfRespondentResponsibleString }}.<br/>
                                     {% endif %}
                                     {% if listOfNoResponsibleArray %}
-                                    Neither {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} has parenting responsibilities for {{ listOfNoResponsibleString }}.<br/>
+                                    Neither {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} have parenting responsibilities for {{ listOfNoResponsibleString }}.<br/>
                                     {% endif %}
-                                    {% if listOfAdultChildrenArray %}
-                                    {{ listOfAdultChildrenString }} is(are) (an) adult(s).<br/>
+                                    {% if listOfAdultChildrenArray and listOfAdultChildrenArray|length == 1 %}
+                                    {{ listOfAdultChildrenString }} is an adult.<br/>
+                                    {% elif listOfAdultChildrenArray %}
+                                    {{ listOfAdultChildrenString }} are adults.<br/>
                                     {% endif %}
                                     {% if listOfEqualPtimeArray %}
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spend time with {{ listOfEqualPtimeString }} equally.<br/>
@@ -681,7 +686,7 @@
                                     {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} does not spend time with {{ listOfRespondentMainGuardianString }}.<br/>
                                     {% endif %}
                                     {% if listOfChildrenTimeNoneArray %}
-                                    Neither {{ ApplicanttName.first }} {{ ApplicanttName.middle }} {{ ApplicanttName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spends time with {{ listOfChildrenTimeNoneString }}.<br/>
+                                    Neither {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spend time with {{ listOfChildrenTimeNoneString }}.<br/>
                                     {% endif %}
 
                                 </span>
