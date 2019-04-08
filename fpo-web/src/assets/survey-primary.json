@@ -210,18 +210,91 @@
        "visibleIf": "{ExistingFamilyCase} = 'y'",
        "title": "Court Location",
        "choices": [
-        {
-         "value": "item1",
-         "text": "Vancouver Robson Square"
-        },
-        {
-         "value": "item2",
-         "text": "Victoria Law Courts"
-        },
-        {
-         "value": "item3",
-         "text": "etc"
-        }
+        "100 Mile House",
+        "Abbotsford",
+        "Alexis Creek",
+        "Anahim Lake",
+        "Ashcroft",
+        "Bella Bella",
+        "Bella Coola",
+        "Burns Lake",
+        "Campbell River",
+        "Castlegar",
+        "Chase",
+        "Chetwynd",
+        "Chilliwack",
+        "Clearwater",
+        "Courtenay",
+        "Cranbrook",
+        "Creston",
+        "Dawson Creek",
+        "Dease Lake",
+        "Duncan",
+        "Fernie",
+        "Fort Nelson",
+        "Fort St. James",
+        "Fort St. John",
+        "Fort Ware (Kwadacha)",
+        "Fraser Lake",
+        "Ganges",
+        "Golden",
+        "Gold River",
+        "Good Hope Lake",
+        "Grand Forks",
+        "Hazelton",
+        "Houston",
+        "Hudson's Hope",
+        "Invermere",
+        "Kamloops",
+        "Kelowna",
+        "Kitimat",
+        "Klemtu",
+        "Lillooet",
+        "Lower Post",
+        "Mackenzie",
+        "Masset",
+        "McBride",
+        "Merritt",
+        "Nakusp",
+        "Nanaimo",
+        "Nelson",
+        "New Aiyansh",
+        "New Westminster",
+        "North Vancouver",
+        "Pemberton",
+        "Penticton",
+        "Port Alberni",
+        "Port Coquitlam",
+        "Port Hardy",
+        "Powell River",
+        "Prince George",
+        "Prince Rupert",
+        "Princeton",
+        "Queen Charlotte",
+        "Quesnel",
+        "Revelstoke",
+        "Richmond",
+        "Rossland",
+        "Salmon Arm",
+        "Sechelt",
+        "Sidney",
+        "Smithers",
+        "Sparwood",
+        "Stewart",
+        "Surrey",
+        "Tahsis",
+        "Terrace",
+        "Tofino",
+        "Tsay Keh Dene (Ingenika)",
+        "Tumbler Ridge",
+        "Ucluelet",
+        "Valemount",
+        "Vancouver Robson Square",
+        "Vanderhoof",
+        "Vernon",
+        "Victoria",
+        "Western Communities",
+        "Williams Lake"
        ]
       },
       {
@@ -373,8 +446,8 @@
        "elements": [
         {
          "type": "infotext",
-         "name": "question1",
-         "title": "Who are (this child)'s Guardians?<br><br>A guardian is someone who is legally allowed to make decisions for a child under the age of 19.<br><br>A biological parent is not automatically a guardian. A parent who has lived with  or regularly cares for (this child) is a guardian. This parent is still a guardian even after they stop living with (this child).<br><br>A parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
+         "name": "ExplanationGuardianship",
+         "title": "A guardian is someone who is legally allowed to make decisions for a child under the age of 19.\n<br>\n<br>\nA biological parent is not automatically a guardian. A parent who has lived with {panel.ChildName} or regularly cares for {panel.childName} is a guardian. This parent is still a guardian even after they stop living with {panel.childName}.\n<br>\n<br>\nA parent can be added or removed as a guardian by the court or by agreement between the parents.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
          "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/am-i-a-guardian\" target=\"_blank\">Click here for more information about who is a guardian.</a>",
          "titleLocation": "hidden",
          "messageStyle": "inline"
@@ -403,12 +476,19 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildNeedsProtection} notempty",
-       "title": "Who are (this child)'s Guardians?"
+       "title": "Who are {panel.ChildName}'s Guardians?"
       },
       {
        "type": "panel",
        "name": "PanelParentingDecisions",
        "elements": [
+        {
+         "type": "infotext",
+         "name": "ExplanationParentingDecisions",
+         "title": "Parenting decisions are also know as Parenting Responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>\nIf there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened.",
+         "titleLocation": "hidden",
+         "messageStyle": "inline"
+        },
         {
          "type": "yesno",
          "name": "ChildApplicantPDecisions",
@@ -423,13 +503,19 @@
        ],
        "visible": false,
        "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
-       "title": "Who makes Parenting Decisions for {panel.ChildName}?\n<br>\n<br>\nParenting decisions are also know as parenting responsibilities. These responsibilities include:\n<ul>\n<li>making daily decisions about the child</li>\n<li>making decisions about your child's education and religious upbringing</li>\n<li>signing consent forms including healthcare treatments</li>\n<li>applying for passports</li>\n</ul>\n<br>\n<br>",
-       "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened."
+       "title": "Who makes parenting decisions for {panel.ChildName}?"
       },
       {
        "type": "panel",
        "name": "PanelParentingTime",
        "elements": [
+        {
+         "type": "infotext",
+         "name": "ExplanationParentingTime",
+         "title": "Spending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone.\n<br>\n<br>\nIf there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened.",
+         "titleLocation": "hidden",
+         "messageStyle": "inline"
+        },
         {
          "type": "yesno",
          "name": "ChildApplicantPTime",
@@ -555,7 +641,7 @@
          "visible": false,
          "visibleIf": "{ApplicantNeedsProtection} = 'y' and {panel.ChildNeedsProtection} = 'n' and {panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPTime} = 'y' and {panel.ChildRespondentPTime} = 'y' and ({panel.ChildEqualPTime} ='y' or {panel.ChildRespondentUnequalPTime} notempty or {panel.ChildApplicantUnequalPTime} notempty) and {panel.RespondentApplicantArrangeChildren} = 'y'",
          "title": "What is your preferred method for {RespondentName} to communicate with you?",
-         "description": "If you or {RespondentName} need to communicate about {panel.ChildName}, this will be allowed even with the Protection Order against {RespondentName} in place.",
+         "description": "If you or {RespondentName} need to communicate about {panel.ChildName}, this may be allowed even with the Protection Order against {RespondentName} in place.",
          "hasOther": true,
          "choices": [
           {
@@ -578,9 +664,8 @@
         }
        ],
        "visible": false,
-       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y' and {panel.ChildApplicantPDecisions} notempty and {panel.ChildRespondentPDecisions} notempty",
-       "title": "Who spends time with {panel.ChildName}?\n<br>\n<br>\nSpending time with {panel.ChildName} includes seeing them in person, video calls and talking to them on the phone.",
-       "description": "If there has been a recent emergency change in {panel.ChildName}'s situation, answer this question thinking about {panel.ChildName}'s life before the emergency change happened."
+       "visibleIf": "{panel.ChildIsMinor} = 'y' and {panel.ChildApplicantGuardian} = 'y' and {panel.ChildRespondentGuardian} = 'y'",
+       "title": "Who spends time with {panel.ChildName}?"
       },
       {
        "type": "panel",
@@ -624,6 +709,7 @@
        "title": "Contact between {panel.ChildName} and a non-guardian."
       }
      ],
+     "panelCount": 1,
      "panelAddText": "Add a child",
      "panelRemoveText": "Remove this child"
     }
@@ -848,8 +934,8 @@
        "name": "RespondentWeaponsYes",
        "visible": false,
        "visibleIf": "{RespondentWeapons} = 'y'",
-       "title": "Does {RespondentName} own any weapons that are not guns or explosives?",
-       "description": "Examples of weapons that someone may own include swords, hunting knifes, nunchucks, brass knuckles or throwing stars.\n<br>\nDo not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer."
+       "title": "Do you think {RespondentName} own any weapons that are not everyday objects, guns or explosives?",
+       "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knifes, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
       },
       {
        "type": "checkbox",
@@ -881,7 +967,7 @@
        "visible": false,
        "visibleIf": "{RespondentPORTime} = 'y'",
        "title": "When do you want your Protection Order to expire?",
-       "description": "You will need to explain to the judge in court why you think this date is important.",
+       "description": "You will need to explain to the judge in court why you think this date is important. The judge will decide when your Protection Order will expire.",
        "inputType": "date",
        "dateYearsAhead": 50,
        "dateYearsBehind": 0
