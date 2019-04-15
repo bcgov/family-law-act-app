@@ -85,6 +85,21 @@ export class SurveyPrimaryComponent implements OnInit {
             if(! (key in dict)) dict[key] = [];
             dict[key].push(value);
         }
+        let flattenDict = function(dict) {
+            var result = [];
+            for(var key in dict) {
+                var uniq = [];
+                for(let val of dict[key]) {
+                    if(! ~uniq.indexOf(val))
+                        uniq.push(val);
+                }
+                result.push({
+                    key: key,
+                    value: joinResults(uniq, " and ")
+                });
+            }
+            return result;
+        }
         var timesTranslate = {
             "3pw": "more than twice a week",
             "2pw": "at least twice a week",
@@ -116,7 +131,6 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfPeopleWithPOArray = [];
         data.listOfPeopleWithPOString = '';
         data.contactTypeString = '';
-        data.ArrangeMethodString = '';
         data.listOfChildrenWithoutPOString = '';
 
         data.listOfBothGuardianArray = [];
@@ -149,6 +163,12 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfRespondentAltGuardianTimes = [];
         data.listOfRespondentContactOrderArray = [];
         data.listOfRespondentContactOrderString = '';
+        data.listOfRespondentArrangeChildrenArray = [];
+        data.listOfRespondentArrangeChildrenString = '';
+        data.listOfRespondentArrangeMethodsString = '';
+
+        var respondentApplicantArrangeMethods = {};
+        var respondentApplicantArrangeMethodsArray = [];
         var applicantAltGuardianTimes = {};
         var respondentAltGuardianTimes = {};
 
@@ -180,6 +200,18 @@ export class SurveyPrimaryComponent implements OnInit {
                 }
                 else {
                     data.listOfChildrenWithoutPOArray.push(childFullName);
+                    if (child["RespondentApplicantArrangeChildren"] == "y") {
+                        data.listOfRespondentArrangeChildrenArray.push(childFullName);
+                        for(let entry of child["RespondentApplicantArrangeMethods"]) {
+                            addDictEntry(respondentApplicantArrangeMethods, childFullName, entry);
+                            if(! ~respondentApplicantArrangeMethodsArray.indexOf(entry)) {
+                                respondentApplicantArrangeMethodsArray.push(entry);
+                            }
+                        }
+                        if(child["RespondentApplicantArrangeMethodsComment"]) {
+                            addDictEntry(respondentApplicantArrangeMethods, childFullName, child["RespondentApplicantArrangeMethodsComment"]);
+                        }
+                    }
                 }
 
                 if (child["ChildIsMinor"] == "y"){
@@ -263,7 +295,9 @@ export class SurveyPrimaryComponent implements OnInit {
         data.listOfApplicantAltGuardianTimes = flattenTimesDict(applicantAltGuardianTimes);
         data.listOfRespondentAltGuardianTimes = flattenTimesDict(respondentAltGuardianTimes);
         data.listOfRespondentContactOrderString = joinResults(data.listOfRespondentContactOrderArray, " and ");
-
+        data.listOfRespondentArrangeChildrenString = joinResults(data.listOfRespondentArrangeChildrenArray, " and ");
+        data.listOfRespondentApplicantArrange = flattenDict(respondentApplicantArrangeMethods);
+        data.listOfRespondentArrangeMethodsString = joinResults(respondentApplicantArrangeMethodsArray, " and ");
 
         //Child parenting time list
         data.listOfEqualPtimeString = joinResults(data.listOfEqualPtimeArray, " and ");
@@ -287,7 +321,6 @@ export class SurveyPrimaryComponent implements OnInit {
         console.log("appended children in string is " + data.listOfChildrenWithPOString);
         console.log("people who need po are " + data.listOfPeopleWithPO);
         console.log("RespondentApplicantContactType are " + data.RespondentApplicantContactType);
-        console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
 
         var contactTypes = [];
         if(data.RespondentApplicantContactType) {
@@ -310,15 +343,12 @@ export class SurveyPrimaryComponent implements OnInit {
         }
         data.contactTypeString = joinResults(contactTypes, " or ");
 
-        data.ArrangeMethodString = joinResults(data.RespondentApplicantArrangeMethods, " and ");
-
         let places = (data.RespondentNoGoPlaces || []).filter(place => place !== "other");
         if (data.RespondentNoGoPlacesComment) {
             places.push(data.RespondentNoGoPlacesComment);
         }
         data.RespondentNoGoPlacesString = joinResults(places, " or ");
 
-        console.log("RespondentApplicantArrangeMethods are " + data.RespondentApplicantArrangeMethods);
         //add additional data ends here
 
         // Concate all strings to PORAffidavit

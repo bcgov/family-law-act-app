@@ -812,11 +812,13 @@
                                     <span class="brdr-btm">
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should stay away and not communicate with {{ listOfPeopleWithPOString }}{% if ApplicantNeedsProtection == "y" %} except for court purposes{% if contactTypeString %} through {{ contactTypeString }}{% endif %}{% endif %}.<br/>
 
-                                        {% if ApplicantNeedsProtection == "y" and RespondentApplicantArrangeChildren == "y" %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} to make parenting arrangements for listOfChildrenWithoutPOString by {{ ArrangeMethodString }}.<br/>
+                                        {% if ApplicantNeedsProtection == "y" and listOfRespondentApplicantArrange %}
+                                        {% for entry in listOfRespondentApplicantArrange %}
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} to make parenting arrangements for {{ entry.key }} by {{ entry.value }}.<br/>
+                                        {% endfor %}
                                         {% endif %}
 
-                                        {% if RespondentApplicantContactOther == "y" %}
+                                        {% if ApplicantNeedsProtection == "y" and RespondentApplicantContactOther == "y" %}
                                         {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} for the following reason: {{ RespondentApplicantContactOtherReason }}.<br/>
                                         {% endif %}
 
