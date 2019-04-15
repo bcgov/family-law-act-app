@@ -225,10 +225,8 @@
                         <tr class="brdr-btm">
                             <td>
                                 <label>Court Location:</label>
-                                {% if ExistingCourt == "item1" %}
-                                <span>Vancouver</span>
-                                {% elif ExistingCourt == "item2" %}
-                                <span>Victoria</span>
+                                {% if ExistingCourt %}
+                                <span>{{ ExistingCourt }}</span>
                                 {% else %}
                                 <span>&nbsp;</span>
                                 {% endif %}
