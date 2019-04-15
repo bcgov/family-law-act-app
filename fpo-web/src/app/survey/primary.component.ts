@@ -244,7 +244,7 @@ export class SurveyPrimaryComponent implements OnInit {
                     }
 
                 }
-                else if (child["ChildIsMinor"] == "n"){
+                else if (child["ChildIsMinor"] == "n" && child["ChildNeedsProtection"] == "y") {
                     // data.childError.push("mChildNoMainGuardian");
                     data.listOfAdultChildrenArray.push(childFullName);
                 }
