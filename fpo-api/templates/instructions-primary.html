@@ -220,7 +220,7 @@
         <li>Affidavit</li>
         {% endif %}
     </ul>
-    {% if ExistingOrders == "y" or ExistingWrittenAgreements == "y" or ChildApplicantContactOrder == "y" or ChildRespondentContactOrder == "y" %}
+    {% if anyExistingOrders == "y" or ExistingWrittenAgreements == "y" %}
     <h3>Make Copies of Existing Court Orders or Written Agreements</h3>
     <p>You will need to make 4 copies of any court orders or written agreements that involve you and {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }}. You will need to add these copies to your Document Package. The courthouse will not make copies for you.</p>
     {% endif %}
