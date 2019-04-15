@@ -595,6 +595,16 @@
                                 <td colspan="2">Name(s) of child(ren)</td>
                                 <td colspan="2">Birthdate(s) (MMM/DD/YYYY)</td>
                             </tr>
+                            {% if not ListOfChildren %}
+                            <tr>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;</span>
+                                </td>
+                                <td colspan="2">
+                                    <span class="brdr-btm">&nbsp;</span>
+                                </td>
+                            </tr>
+                            {% endif %}
                             {% for child in ListOfChildren %}
                             {% if child.ChildIsMinor == "y" or child.ChildNeedsProtection == "y" %}
 
@@ -615,12 +625,22 @@
                             {% endfor %}
                             <tr>
                                 <td colspan="4">
-                                    <span class="label" >My relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
+                                    <span class="label" >My relationship to the child(ren) is
+                                    {% if ListOfChildren %}
+                                    <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
+                                    {% else %}
+                                    <span class="brdr-btm">&nbsp;</span>
+                                    {% endif %}
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <span class="label" >The respondent’s relationship to the child(ren) is <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
+                                    <span class="label" >The respondent’s relationship to the child(ren) is
+                                    {% if ListOfChildren %}
+                                    <span class="brdr-btm" style="margin-top: .5em;">Parent</span></span>
+                                    {% else %}
+                                    <span class="brdr-btm">&nbsp;</span>
+                                    {% endif %}
                                 </td>
                             </tr>
 
@@ -686,6 +706,8 @@
                                     {% if listOfChildrenTimeNoneArray %}
                                     Neither {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} nor {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} spend time with {{ listOfChildrenTimeNoneString }}.<br/>
                                     {% endif %}
+
+                                    {% if not ListOfChildren %}&nbsp;{% endif %}
 
                                 </span>
                                 </td>
