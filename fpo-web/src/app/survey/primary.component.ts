@@ -119,6 +119,12 @@ export class SurveyPrimaryComponent implements OnInit {
             result.sort(function(a, b) { return a.time.localeCompare(b.time); });
             return result;
         }
+        var socialTranslate = {
+            "phone": "phone",
+            "text": "text message",
+            "email": "email",
+            "social": "social media"
+        };
 
         //add additional data starts here
         data.anyExistingOrders = (data.ExistingOrders === "y" ? "y" : "n");
@@ -203,13 +209,19 @@ export class SurveyPrimaryComponent implements OnInit {
                     if (child["RespondentApplicantArrangeChildren"] == "y") {
                         data.listOfRespondentArrangeChildrenArray.push(childFullName);
                         for(let entry of child["RespondentApplicantArrangeMethods"]) {
+                            if(entry === "other") {
+                                if(child["RespondentApplicantArrangeMethodsComment"]) {
+                                    entry = child["RespondentApplicantArrangeMethodsComment"];
+                                } else {
+                                    continue;
+                                }
+                            } else {
+                                entry = socialTranslate[entry] || entry;
+                            }
                             addDictEntry(respondentApplicantArrangeMethods, childFullName, entry);
                             if(! ~respondentApplicantArrangeMethodsArray.indexOf(entry)) {
                                 respondentApplicantArrangeMethodsArray.push(entry);
                             }
-                        }
-                        if(child["RespondentApplicantArrangeMethodsComment"]) {
-                            addDictEntry(respondentApplicantArrangeMethods, childFullName, child["RespondentApplicantArrangeMethodsComment"]);
                         }
                     }
                 }
