@@ -1183,22 +1183,12 @@
                                     <td colspan="4" style="padding: 0;">
                                         <span class="label blank" style="padding-top: .5em;">I <span class="long brdr-btm">&nbsp;{{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }}</span>
                                         <span class="addendum">will apply to this court at</span>
-                                        {% if ExistingCourt == "item1" %}
-                                        <span> class="brdr-btm medium"Vancouver</span>
-                                        {% elif ExistingCourt == "item2" %}
-                                        <span class="brdr-btm medium">Victoria</span>
+                                        {% if ExistingCourt %}
+                                        <span class="brdr-btm medium">{{ ExistingCourt }}</span>
                                         {% else %}
                                         <span>&nbsp;</span>
                                         {% endif %}
-                                          </span>
-                                        {% if ExistingCourt == "item1" %}
-                                        <span class="brdr-btm" style="margin-top: .5em;">Vancouver</span>
-                                        {% elif ExistingCourt == "item2" %}
-                                        <span class="brdr-btm" style="margin-top: .5em;">Victoria</span>
-                                        {% else %}
-                                        <span class="brdr-btm" style="margin-top: .5em;">&nbsp;</span>
-                                        {% endif %}
-
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
