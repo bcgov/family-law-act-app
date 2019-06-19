@@ -65,6 +65,12 @@ export class GlossaryService {
   }
 
   registerTargets(container?: HTMLElement) {
+    window.requestAnimationFrame(() => {
+      this.doRegisterTargets(container);
+    });
+  }
+
+  doRegisterTargets(container?: HTMLElement) {
     if(! container) container = document.body;
     let targets = container.querySelectorAll('[data-glossary]');
     for(let idx = 0; idx < targets.length; idx++) {
