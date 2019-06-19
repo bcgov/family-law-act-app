@@ -326,7 +326,7 @@
                             {% else %}
                             <tr>
                                 <td colspan="2">
-                                    <span class="brdr-btm">&nbsp;{{ LawyerAddress.street }}</span>
+                                    <span class="brdr-btm">&nbsp;c/o {{ LawyerName.first }} {{ LawyerName.last }}, {{ LawyerAddress.street }}</span>
                                     <label class="label-btm">ADDRESS FOR SERVICE</label>
                                 </td>
                                 <td colspan="1">
@@ -1047,7 +1047,7 @@
                                 {% else %}
                                 <tr>
                                     <td colspan="2">
-                                        <span class="brdr-btm">&nbsp;{{ LawyerAddress.street }}</span>
+                                        <span class="brdr-btm">&nbsp;c/o {{ LawyerName.first }} {{ LawyerName.last }}, {{ LawyerAddress.street }}</span>
                                         <label class="label-btm">ADDRESS FOR SERVICE</label>
                                     </td>
                                     <td colspan="1">
@@ -1481,7 +1481,7 @@
                                     {% else %}
                                     <tr>
                                         <td colspan="2">
-                                            <span class="brdr-btm">{{ LawyerAddress.street}}</span>
+                                            <span class="brdr-btm">c/o {{ LawyerName.first }} {{ LawyerName.last }}, {{ LawyerAddress.street}}</span>
                                             <label class="label-btm">ADDRESS</label>
                                         </td>
                                         <td colspan="2">
