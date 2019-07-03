@@ -711,6 +711,8 @@
      ],
      "panelCount": 1,
      "minPanelCount": 1,
+     "confirmDelete": true,
+     "confirmDeleteText": "Are you sure you want to delete the information about this child?",
      "panelAddText": "Add a child",
      "panelRemoveText": "Remove this child"
     }
@@ -1019,7 +1021,7 @@
      "name": "ExplanationPORSpeedNormalAffidavitYes",
      "visible": false,
      "visibleIf": "{PORSpeedup} = 'n' and {PORNoNotice} = 'n' and {PORSpeedNormalAffidavit} = 'y'",
-     "title": "In your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 3 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
+     "title": "In your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 3 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://familylaw.lss.bc.ca/bc-legal-system/legal-forms-documents/affidavits/how-do-you-write-affidavit\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
      "titleLocation": "hidden"
     },
     {
@@ -1027,7 +1029,7 @@
      "name": "ExplanationPORSpeedup",
      "visible": false,
      "visibleIf": "{PORSpeedup} = 'y' and {PORNoNotice} = 'n'",
-     "title": "The court will need a reason why you need your Protection Order sooner. The way you will tell your reason to the court is with an `affidavit`. This service will help you write an affidavit.\n<br>\n<br>\nAn affidavit is one of the ways you will tell your story to the court. A judge may also ask you to tell your story, under oath, in court.\n<br>\n<br>\nIn your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 4 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
+     "title": "The court will need a reason why you need your Protection Order sooner. The way you will tell your reason to the court is with an `affidavit`. This service will help you write an affidavit.\n<br>\n<br>\nAn affidavit is one of the ways you will tell your story to the court. A judge may also ask you to tell your story, under oath, in court.\n<br>\n<br>\nIn your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 4 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://familylaw.lss.bc.ca/bc-legal-system/legal-forms-documents/affidavits/how-do-you-write-affidavit\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
      "titleLocation": "hidden"
     },
     {
@@ -1035,7 +1037,7 @@
      "name": "ExplanationPORNoNotice",
      "visible": false,
      "visibleIf": "{PORSpeedup} notempty and {PORNoNotice} = 'y'",
-     "title": "The court will need a reason why they should hear your story without hearing {RespondentName}'s story. The way you will tell your reason to the court is with an `affidavit`. This service will help you write an affidavit.\n<br>\n<br>\nAn affidavit is one of the ways you will tell your story to the court. A judge may also ask you to tell your story, under oath, in court.\n<br>\n<br>\nIn your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 4 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://www.familylaw.lss.bc.ca/resources/fact_sheets/tipsForDraftingAffidavits.php\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
+     "title": "The court will need a reason why they should hear your story without hearing {RespondentName}'s story. The way you will tell your reason to the court is with an `affidavit`. This service will help you write an affidavit.\n<br>\n<br>\nAn affidavit is one of the ways you will tell your story to the court. A judge may also ask you to tell your story, under oath, in court.\n<br>\n<br>\nIn your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 4 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://familylaw.lss.bc.ca/bc-legal-system/legal-forms-documents/affidavits/how-do-you-write-affidavit\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
      "titleLocation": "hidden"
     },
     {
