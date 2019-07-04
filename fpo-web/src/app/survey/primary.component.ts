@@ -212,7 +212,8 @@ export class SurveyPrimaryComponent implements OnInit {
                             if(entry === "other") {
                                 if(child["RespondentApplicantArrangeMethodsComment"]) {
                                     entry = child["RespondentApplicantArrangeMethodsComment"].trim();
-                                    if( (m = entry.match(/^by\s+(.+)$/i)) ) {
+                                    let m = entry.match(/^by\s+(.+)$/i);
+                                    if(m) {
                                       // strip off extra by
                                       entry = m[1];
                                     }
