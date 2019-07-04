@@ -211,13 +211,18 @@ export class SurveyPrimaryComponent implements OnInit {
                         for(let entry of child["RespondentApplicantArrangeMethods"]) {
                             if(entry === "other") {
                                 if(child["RespondentApplicantArrangeMethodsComment"]) {
-                                    entry = child["RespondentApplicantArrangeMethodsComment"];
+                                    entry = child["RespondentApplicantArrangeMethodsComment"].trim();
+                                    if( (m = entry.match(/^by\s+(.+)$/i)) ) {
+                                      // strip off extra by
+                                      entry = m[1];
+                                    }
                                 } else {
                                     continue;
                                 }
                             } else {
                                 entry = socialTranslate[entry] || entry;
                             }
+                            entry = "by " + entry;
                             addDictEntry(respondentApplicantArrangeMethods, childFullName, entry);
                             if(! ~respondentApplicantArrangeMethodsArray.indexOf(entry)) {
                                 respondentApplicantArrangeMethodsArray.push(entry);
