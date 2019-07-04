@@ -834,12 +834,12 @@
 
                                         {% if ApplicantNeedsProtection == "y" and listOfRespondentApplicantArrange %}
                                         {% for entry in listOfRespondentApplicantArrange %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} to make parenting arrangements for {{ entry.key }} by {{ entry.value }}.<br/>
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} to make parenting arrangements for {{ entry.key }} by {{ entry.value }}.<br/>
                                         {% endfor %}
                                         {% endif %}
 
                                         {% if ApplicantNeedsProtection == "y" and RespondentApplicantContactOther == "y" %}
-                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.last }} {{ ApplicantName.middle }} for the following reason: {{ RespondentApplicantContactOtherReason }}.<br/>
+                                        {{ RespondentName.first }} {{ RespondentName.middle }} {{ RespondentName.last }} should be allowed to be around and communicate with {{ ApplicantName.first }} {{ ApplicantName.middle }} {{ ApplicantName.last }} for the following reason: {{ RespondentApplicantContactOtherReason }}.<br/>
                                         {% endif %}
 
 
