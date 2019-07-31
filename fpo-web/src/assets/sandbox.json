@@ -1,0 +1,1907 @@
+{
+ "title": "Representation Grant (this should not appear)",
+ "pages": [
+  {
+   "name": "deceased",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "deceasedIntroPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "deceasedIntroExplanation",
+       "title": "First, this service will ask about the person who died. All the questions revolve around them. This service will ask about you, the applicant(s), in a later step.\n<br>\n<br>\nUse the information from their death certificate to help you answer some of the questions.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "deceasedNamePanel",
+     "elements": [
+      {
+       "type": "personname",
+       "name": "deceasedName",
+       "title": "What is the name of the person who died?",
+       "description": "This is the spelling that you want on the Representation Grant for the person who died.",
+       "defaultSubstitution": "(the person who died)",
+       "labelFirstName": "First Name (Given Name)",
+       "labelLastName": "Last Name (Family Name or Surname)"
+      },
+      {
+       "type": "helptext",
+       "name": "deceasedNameFAQ1",
+       "title": "What if the {deceasedName} used more than one spelling or version of their name?",
+       "titleLocation": "hidden",
+       "body": "This service will ask you for other spellings of {deceasedName}'s name in a later step. This includes different versions, for example, leaving out their middle names."
+      },
+      {
+       "type": "helptext",
+       "name": "deceasedNameFAQ2",
+       "title": "What if {deceasedName}'s name is originally in a different language?",
+       "titleLocation": "hidden",
+       "body": "You will need to write the English translation of {deceasedName}'s name. Supreme Court of British Columbia forms need to be completed in the English language."
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{deceasedIntroExplanation} > 0"
+    },
+    {
+     "type": "panel",
+     "name": "nicknamePanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "deceasedNameReplace",
+       "title": "Would you like this service to replace {deceasedName}'s name with a nickname?",
+       "description": "This nickname is only to make your experience with this service more personalized. This nickname will not appear on the Representation Grant."
+      },
+      {
+       "type": "text",
+       "name": "deceasedNickname",
+       "visible": false,
+       "visibleIf": "{deceasedNameReplace} = \"y\"",
+       "title": "What is the nickname you would like to see instead of {deceasedName}?",
+       "description": "You can use anything you like, for example, \"your husband\" or \"Uncle Guy\" or \"Cousin Nereid\". You can always come back to change this at any time."
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{deceasedIntroExplanation} > 0"
+    },
+    {
+     "type": "panel",
+     "name": "deceasedDateOfDeathPanel",
+     "elements": [
+      {
+       "type": "text",
+       "name": "deceasedDateOfDeath",
+       "title": "What is the date of death on {deceasedName}'s death certificate?",
+       "inputType": "date"
+      },
+      {
+       "type": "infotext",
+       "name": "deceasedDateOfDeathTrello",
+       "title": "<a href=\"https://trello.com/c/15xXtFS7\" target=\"_blank\">Trello Card - Date: Set Earliest/Latest Dates</a>",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{deceasedIntroExplanation} > 0"
+    },
+    {
+     "type": "panel",
+     "name": "deceasedAddressPanel",
+     "elements": [
+      {
+       "type": "address",
+       "name": "deceasedAddress",
+       "title": "Where did {deceasedName} live?",
+       "description": "Use the address where Deceased Name spent the majority of their time."
+      },
+      {
+       "type": "helptext",
+       "name": "deceasedAddressFAQ1",
+       "title": "What if {deceasedName} was homeless?",
+       "titleLocation": "hidden",
+       "body": "If {deceasedName} was homeless, write \"no fixed address\" for the street number and street name."
+      },
+      {
+       "type": "infotext",
+       "name": "deceasedAddressTrello",
+       "title": "<a href=\"https://trello.com/c/xlG7q0TO\" target=\"_blank\">Trello - Deceased Address: Add Street Address Label and Get rid of Ghost Text</a>",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{deceasedIntroExplanation} > 0"
+    },
+    {
+     "type": "panel",
+     "name": "firstNationsPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "firstNations",
+       "title": "Was {deceasedName} a Nisga'a citizen or a member of a Treaty First Nation?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "firstNationsName",
+       "visible": false,
+       "visibleIf": "{firstNations} = \"y\"",
+       "title": "Which of the following applied to {deceasedName}?",
+       "choices": [
+        "Nisga'a",
+        "Huu-ay-aht",
+        "Ka:'yu:'k't'h'/Chek'tles7et'h'",
+        "Tla'amin",
+        "Toquaht",
+        "Tsawwassen",
+        "Uchucklesaht",
+        "Ucluelet"
+       ]
+      },
+      {
+       "type": "infotext",
+       "name": "firstNationsNameTrello",
+       "title": "<a href=\"https://trello.com/c/cD8xmZY9\" target=\"_blank\">Trello - Radio Logic: notempty not working</a>",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{deceasedIntroExplanation} > 0"
+    },
+    {
+     "type": "panel",
+     "name": "deceasedExitPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "deceasedExitExplanation",
+       "title": "Next, we will ask about any wills that {deceasedName} may have made.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{deceasedName} notempty and ({deceasedNameReplace} = \"n\" or ({deceasedNameReplace} = \"y\" and {deceasedNickname} notempty)) and {deceasedDateOfDeath} notempty and {deceasedAddress} notempty and ({firstNations} = \"n\" or ({firstNations} = \"y\" and {firstNationsName} notempty}))"
+    }
+   ],
+   "title": "{deceasedName}'s Information",
+   "description": "We have questions about the person who died. Make sure you have the information from their death certificate to help you answer some of the questions."
+  },
+  {
+   "name": "willPage",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "willIntroPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "willIntroExplanation",
+       "title": "It is important to make a diligent search to see if {deceasedName} made a will or any other testamentary documents.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "willCheckPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "willCheck",
+       "title": "Have you made a diligent search for a will or any other testamentary documents that {deceasedName} may have made?",
+       "description": "Testamentary documents are usually Wills, sometimes a Codicils, or rarely, any other written documents that  would have made to describe what they want to happen with the things they owned after they die."
+      },
+      {
+       "type": "helptext",
+       "name": "willCheckFAQ1",
+       "title": "I'm not sure the person who died left a will.",
+       "titleLocation": "hidden",
+       "body": "To apply to represent {deceasedName}, you are responsible for making sure if they left a will."
+      },
+      {
+       "type": "helptext",
+       "name": "willCheckFAQ2",
+       "title": "How do I/we check for a will?",
+       "titleLocation": "hidden",
+       "body": "You should start by checking in places where the deceased usually kept their documents. You may not find their will but you may find clues to where the will is kept. The will may be at a variety of places, including the deceased's home, their safety deposit box, or at the office of the lawyer who helped create the will.\n<br>\n<br>\nAs part of applying for a Representation Grant, you will be required to do a \"Search of Wills Notice\" and provide the results to the court. This is done through the Vital Statistics Agency of British Columbia. If a will was registered with the Vital Statistics Agency, they will have information about the location of the will, but not the actual will itself.\n<br>\n<br>\nThe \"Search of Wills Notice\" must include a search of all of the different names and spellings that the deceased used in their will and for their assets. If you need help identifying all of the different names and spellings of the deceased, this service will guide you through that process in a later stage."
+      },
+      {
+       "type": "infotext",
+       "name": "willCheckError",
+       "visible": false,
+       "visibleIf": "{willCheck} = \"n\"",
+       "title": "If you have not made a diligent search, please do so before continuing with this service. This makes all the difference in what questions this service will ask you.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willIntroExplanation} > 0"
+    },
+    {
+     "type": "panel",
+     "name": "willExistsPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "willExists",
+       "title": "Did {deceasedName} make a will (or any other testamentary document)?"
+      },
+      {
+       "type": "helptext",
+       "name": "willExistsFAQ1",
+       "visible": false,
+       "visibleIf": "{willCheck} = \"y\"",
+       "title": "What if I believe {deceasedName} made a will but I/we cannot find it?",
+       "titleLocation": "hidden",
+       "body": "If you did not find a will after checking all reasonable places, select \"No\". You will fill out the forms as if {deceasedName} did not leave a will. \n\nIf you find {deceasedName}'s will in the future ..."
+      },
+      {
+       "type": "radiogroup",
+       "name": "willStatus",
+       "visible": false,
+       "visibleIf": "{willExists} = \"y\"",
+       "title": "Do you have this will? (plural?)",
+       "description": "Pick the situation that best applies to your situation.",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "Yes, and I/we have the original will."
+        },
+        {
+         "value": "item2",
+         "text": "Yes, but I/we only have copies of the will."
+        },
+        {
+         "value": "item3",
+         "text": "No, I/we don't have neither an original nor a copy of the will."
+        },
+        {
+         "value": "item4",
+         "text": "No, a Will Search identified a will but the will wasn't anywhere I/we checked."
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "willOriginalExists",
+       "visible": false,
+       "visibleIf": "{willStatus} = \"item2\" or {willStatus} = \"item3\"",
+       "title": "Does someone else have the original and won't give it to you?"
+      },
+      {
+       "type": "infotext",
+       "name": "willCitationPlaceholder",
+       "visible": false,
+       "visibleIf": "{willOriginalExists} = \"y\"",
+       "title": "Placeholder for forms to make someone give you the will?\n<br>\nHave you asked them to go ahead and apply? \n<br>\nDid they say no?\n<br>\nPrint this form to get them to give you the will. You can still continue with this service if you have a copy.",
+       "isRequired": true,
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      },
+      {
+       "type": "infotext",
+       "name": "willOriginalExistsNoExplanation",
+       "visible": false,
+       "visibleIf": "{willOriginalExists} = \"n\"",
+       "title": "If you think the original will is gone forever, that's fine. We'll just use the copy.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willCheck} = \"y\""
+    },
+    {
+     "type": "panel",
+     "name": "willInfoPanel",
+     "elements": [
+      {
+       "type": "text",
+       "name": "willDate",
+       "title": "What is the date the will is made?",
+       "inputType": "date"
+      },
+      {
+       "type": "helptext",
+       "name": "willDateFAQ1",
+       "title": "Explain how you can have multiple wills? Pick the latest one unless there is a problem.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "willNameMatch",
+       "title": "Is {deceasedName}'s name spelled exactly as <b>{deceasedName}</b> on this will?<br>\n[We need this early even if the will is no good, so that we capture the alias for the will search]",
+       "description": "We care about any minor difference here. If for example, if the deceased's legal name is Abe Ben Carter, but the registered owner is Abe B. Carter, then this is not exactly the same. You will get the opportunity to write exactly how it is spelled in the next question."
+      },
+      {
+       "type": "text",
+       "name": "willAlias",
+       "visible": false,
+       "visibleIf": "{willNameMatch} = \"n\"",
+       "title": "How is {deceasedName}'s name spelled exactly on this will?"
+      },
+      {
+       "type": "yesno",
+       "name": "willMadeInBC",
+       "title": "Do you believe {deceasedName} made this will in BC?\n<br>\nInfo here about leaving codicil or other testamentary docs later. "
+      },
+      {
+       "type": "yesno",
+       "name": "willLastForBCProperty",
+       "title": "move to will search double check cross ref with will-search-latest-will believe this is the latest vs will search saying there is one later - how can applicant “believe”<br>Do you believe this Will dated {willDate} is {deceasedName}'s last will that deals with property in BC?"
+      },
+      {
+       "type": "helptext",
+       "name": "willLastFAQ1",
+       "title": "Will that deals with property outside of BC?",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "infotext",
+       "name": "willLastForBCPropertyNo",
+       "title": "Go back and use a newer will? Or enter data from this one and tell reasons why you won't use the newer one.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{will} = 'y' or \n{willStatus} = \"item1\" or\n{willStatus} = \"item2\"\nor {willCitationPlaceholder} > 0\n{willOriginalExists} = \"n\""
+    },
+    {
+     "type": "panel",
+     "name": "willNameMatchPanel",
+     "visible": false
+    },
+    {
+     "type": "panel",
+     "name": "willWrittenPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "willWritten",
+       "title": "Is this will written? (no audio or video)"
+      },
+      {
+       "type": "infotext",
+       "name": "willWrittenNoError",
+       "visible": false,
+       "visibleIf": "{willWritten} = \"n\"",
+       "title": "What happens if the will is not written? P4 special conditions questions?",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      },
+      {
+       "type": "yesno",
+       "name": "willEnglish",
+       "visible": false,
+       "visibleIf": "{willWritten} = \"y\"",
+       "title": "Is this will/document written in English?"
+      },
+      {
+       "type": "infotext",
+       "name": "willEnglishNoExplanation",
+       "visibleIf": "{willWritten} = \"n\"\n",
+       "title": "The reviewers will need the Will translated into English. You will also need an affidavit (sworn statement) that the translator is in fact good at this language and what they translated is accurate. This translator could be you if you are good at this language and English.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "willTranslated",
+       "visible": false,
+       "visibleIf": "{willEnglishNoExplanation} > 0",
+       "title": "Has this will been translated into English?"
+      },
+      {
+       "type": "infotext",
+       "name": "willTranslatedNoExplanation",
+       "visible": false,
+       "visibleIf": "{willTranslated} = \"n\"",
+       "title": "If you can the will in its original language, please continue this service. But if you cannot read this will, please get it translated by someone who knows English and the language of the will first before continuing on.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "dropdown",
+       "name": "willLanguage",
+       "visible": false,
+       "visibleIf": "{willTranslated} = \"y\" or {willTranslatedNoExplanation} > 0",
+       "title": "What language is this will written in?",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "French"
+        },
+        {
+         "value": "item2",
+         "text": "Chinese"
+        },
+        {
+         "value": "item3",
+         "text": "Punjabi"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "name": "willTranslatorName",
+       "visible": false,
+       "visibleIf": "{willTranslated} = \"y\" or {willTranslatedNoExplanation} > 0",
+       "title": "What is the name of the translator of the will?"
+      },
+      {
+       "type": "text",
+       "name": "willTranslatorOccupation",
+       "visibleIf": "{willTranslated} = \"y\" or {willTranslatedNoExplanation} > 0",
+       "title": "What is {willTranslatorName}'s job or profession?",
+       "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc."
+      },
+      {
+       "type": "address",
+       "name": "willTranslatorResidence",
+       "visibleIf": "{willTranslated} = \"y\" or {willTranslatedNoExplanation} > 0",
+       "title": "Where does {willTranslatorName} usually live? (City and Country only)"
+      },
+      {
+       "type": "yesno",
+       "name": "question8",
+       "title": "Did {deceasedName} fully understand the language in which the will was written? [How do we make it so we don't have to ask this multiple times?]"
+      },
+      {
+       "type": "yesno",
+       "name": "question9",
+       "visible": false,
+       "title": "If no, Was {deceasedName} illiterate? [How do we make it so we don't have to ask this multiple times?]"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willLastForBCProperty} = \"y\""
+    },
+    {
+     "type": "panel",
+     "name": "willSignedPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "willSigned",
+       "title": "Did {deceasedName} sign this will?",
+       "description": "Check the last page"
+      },
+      {
+       "type": "yesno",
+       "name": "willSignedByMark",
+       "visibleIf": "{willSigned} = \"n\"",
+       "title": "Did {deceasedName} sign this will by a mark instead of hand written signature/words?",
+       "description": "An example of a mark would be an X or something else that is easily reproducible.\nA stamp, etc checkmark."
+      },
+      {
+       "type": "yesno",
+       "name": "willSignedByMarkAcknowledged",
+       "visible": false,
+       "visibleIf": "{willSignedByMark} = \"y\"",
+       "title": "Is there an acknowledgement/explanation on the will that {deceasedName} signed their will with a mark instead of a signature??"
+      },
+      {
+       "type": "radiogroup",
+       "name": "willNotSigned",
+       "visible": false,
+       "title": "not signed at all? choices - admin without will now or (rare) make an application to go before a judge to explain, then come back to the app when done and keep going",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "do Admin without will as if will doesn't exist"
+        },
+        {
+         "value": "item2",
+         "text": "want to cure this will"
+        }
+       ]
+      },
+      {
+       "type": "infotext",
+       "name": "willNotSignedError",
+       "visible": false,
+       "visibleIf": "{willNotSigned} = \"item2\"",
+       "title": "Placeholder with more questions to come. tell them which forms to use wesa sec58 P42 or P43. investigate this further later:\n<br>\n<br>\nAn application under WESA s. 58 is made in accordance\nwith SCCR 25-14(2)(c). If there is an existing probate\nproceeding, the application is brought using a Notice of\nApplication in probate form P42. If there is no existing\nprobate proceeding, the order may be sought by requisition\nin probate form P43.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      },
+      {
+       "type": "yesno",
+       "name": "question6",
+       "title": "Was {deceasedName} blind (when they signed the will)?"
+      },
+      {
+       "type": "yesno",
+       "name": "question10",
+       "visible": false,
+       "title": "Is there an acknowledgement/explanation on the will that {deceasedName} was blind when they signed their will?"
+      },
+      {
+       "type": "yesno",
+       "name": "question12",
+       "visible": false,
+       "title": "Is there someone that will swear/affirm that {deceasedName} understood and approved of the content of their even if they were blind? Usually a witness."
+      },
+      {
+       "type": "text",
+       "name": "question15",
+       "visible": false,
+       "title": "name of witness who can attest to blindness and understanding will"
+      },
+      {
+       "type": "text",
+       "name": "question16",
+       "visible": false,
+       "title": "occupation"
+      },
+      {
+       "type": "address",
+       "name": "question17",
+       "visible": false,
+       "title": "city and country of witness"
+      },
+      {
+       "type": "yesno",
+       "name": "question14",
+       "visible": false,
+       "title": "no witness for blind deceased - was the will made in BC? [make this its own section somewhere else]"
+      },
+      {
+       "type": "yesno",
+       "name": "question18",
+       "visible": false,
+       "title": "Sec80a - Is the will valid according to the law of the place where the will is made,"
+      },
+      {
+       "type": "yesno",
+       "name": "question21",
+       "visible": false,
+       "title": "sec 80 b and c - domiciled is where they would normally live? ordinary residence would be off-shore oil rig 200 days a year. business and social connections. possibly on the form, could fill out with something like \"Sec80 b and/or Sec80 b\""
+      },
+      {
+       "type": "infotext",
+       "name": "question13",
+       "visible": false,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "question1",
+       "visible": false,
+       "title": "Was this will signed by someone else on behalf of {deceasedName}?",
+       "description": "Not talking about witnesses here."
+      },
+      {
+       "type": "yesno",
+       "name": "question2",
+       "visible": false,
+       "title": "Was this person who signed the will also a witness?",
+       "description": "The will can not be signed and witnessed by the same person."
+      },
+      {
+       "type": "infotext",
+       "name": "question19",
+       "visible": false,
+       "title": "sec 58, see above. either go with admin w/o will or apply using P42/P43",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "willMakerOver16",
+       "title": "Was {deceasedName} over the age 16 when they made this will?"
+      },
+      {
+       "type": "infotext",
+       "name": "willMakerOver16NoError",
+       "visible": false,
+       "title": "What happens?",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      },
+      {
+       "type": "yesno",
+       "name": "willWitnessesSigned",
+       "visible": false,
+       "title": "Witnessed (signed) by 2 others in the presence of the other witness and will-maker (everyone must sign in the same room)"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willTranslated} = \"y\""
+    },
+    {
+     "type": "panel",
+     "name": "willWitnessesPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "witnessquestion",
+       "title": "Where there 2 witnesses?"
+      },
+      {
+       "type": "yesno",
+       "name": "willWitnessesOver19",
+       "title": "Witnesses over 19 at the time?"
+      },
+      {
+       "type": "yesno",
+       "name": "willWitnessesCompetent",
+       "title": "Witnesses were mentally capable at the time?"
+      },
+      {
+       "type": "infotext",
+       "name": "willWitnessesProblemPlaceholder",
+       "visible": false,
+       "title": "Placeholder (does this apply to will-maker too or just witnesses?)\n<br>\n\"Priority of Attestation Clause addressing\n<br>\n1. affidavit of witness\n<br>\n2. affidavit of person who was there but not a witness\n<br>\n3. affidavit confirming signature of willmaker and witnesses... (2 affidavits)\n<br>\n4. affidavit of circumstances. \n<br>\n5.\"",
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willStatus} = \"item1\""
+    },
+    {
+     "type": "panel",
+     "name": "panel5",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "question26",
+       "title": "25-3 (6) f\n<br>\nthe will is not a military will executed in accordance with the requirements of section 38 of the Wills, Estates and Succession Act",
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      }
+     ],
+     "visible": false
+    },
+    {
+     "type": "panel",
+     "name": "panel8",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "question27",
+       "title": "25-3 (6) g\n<br>\nany issues respecting execution of the will\n<br>\nspecial circumstances",
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      },
+      {
+       "type": "yesno",
+       "name": "question7",
+       "title": "Was {deceasedName} blind (when they signed the will)?"
+      },
+      {
+       "type": "yesno",
+       "name": "question23",
+       "title": "Do you think is any other reason that someone may question whether {deceasedName} and/or the witnesses may not have understood the contents of the will when they signed it?\n\nfor example they were blind, illiterate, etc. or any other.\n\nPhrase this as an opportunity. to write an affidavit\n(check with Sheri if this could all be one big affidavit - with respect to subject X, blah blah)"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willStatus} = \"item1\""
+    },
+    {
+     "type": "panel",
+     "name": "panel6",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "question25",
+       "title": "25-3 (6) h\n<br>\nany interlineations, erasures or obliterations in, or other alterations to, the will",
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      },
+      {
+       "type": "yesno",
+       "name": "question11",
+       "title": "Does it look like any words were added after this will was made? (written in by pen or pencil)"
+      },
+      {
+       "type": "yesno",
+       "name": "question20",
+       "title": "Does it look like anything was crossed out, scribbled over or erased on this will?"
+      },
+      {
+       "type": "yesno",
+       "name": "question22",
+       "title": "Does it look like there are any other changes to the will after it was made?"
+      },
+      {
+       "type": "infotext",
+       "name": "question24",
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      },
+      {
+       "type": "yesno",
+       "name": "question5",
+       "title": "25-3 (6) i\n<br>\nAre there any issues about the appearance of the will?\n\ndo the same as problems executing (get them to submit an affidavit)",
+       "description": "For example, the will looks like it was crumped up and thrown in the garbage.\nfood stains.\nburnt."
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{willStatus} = \"item1\""
+    },
+    {
+     "type": "panel",
+     "name": "panel7",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "question28",
+       "title": "(j) any documents referred to in the will are attached to the will\n",
+       "titleLocation": "hidden",
+       "messageStyle": "inline"
+      },
+      {
+       "type": "yesno",
+       "name": "question29",
+       "title": "Does this will refer to any other documents?",
+       "description": "distribution list\nlist of location of assets (that might be updated from time to time)\nfee schedule doesn't count \n"
+      },
+      {
+       "type": "yesno",
+       "name": "question32",
+       "title": "Are all the documents referred to in the will attached at this moment? (stapled, bound as a book)\n(if documents are attached together, leave them attached - if documents are not attached, do not attach them now, leave them unattached)"
+      },
+      {
+       "type": "text",
+       "name": "question31",
+       "title": "Dynamic matrix - Name each document; What is the name of document 1?"
+      },
+      {
+       "type": "yesno",
+       "name": "question30",
+       "title": "Are you able to include a copy of this document with the application package? (give it an exhibit number) "
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "willExitPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "willNoExplanation",
+       "visible": false,
+       "visibleIf": "{willExists} = \"n\"",
+       "title": "Because {deceasedName} didn't leave a will, we can move on to asking about {deceasedName}'s spouse and children.",
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "infotext",
+       "name": "question3",
+       "visible": false,
+       "visibleIf": "{willStatus} = \"item1\"",
+       "title": "This will is good.  Even if it is a military, the will doesn't need to be treated as a military will and will save you time and paper so you will be swearing that it is not a military will. ??",
+       "titleLocation": "hidden"
+      }
+     ]
+    }
+   ],
+   "title": "{deceasedName}'s Will"
+  },
+  {
+   "name": "spousePage",
+   "elements": [
+    {
+     "type": "yesno",
+     "name": "spouse",
+     "title": "Did {deceasedName} have a `spouse` at the time of their death?",
+     "description": "Do not include a spouse that {deceasedName} has divorced."
+    },
+    {
+     "type": "paneldynamic",
+     "name": "spousePanel",
+     "visible": false,
+     "visibleIf": "{spouse} = 'y'",
+     "templateElements": [
+      {
+       "type": "text",
+       "name": "spouseName",
+       "title": "Please enter the full name of {deceasedName}'s `spouse`."
+      },
+      {
+       "type": "yesno",
+       "name": "spouseIsAlive",
+       "title": "Is {panel.spouseName} alive?"
+      },
+      {
+       "type": "helptext",
+       "name": "spouseIsAliveFAQ1",
+       "title": "What if {panel.spouseName} is on life support?",
+       "titleLocation": "hidden",
+       "body": "{panel.spouseName} is considered alive."
+      },
+      {
+       "type": "yesno",
+       "name": "spouseIsAdult",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\"",
+       "title": "Is {panel.spouseName} 19 years of age or older?"
+      },
+      {
+       "type": "infotext",
+       "name": "spouseIsAdultNoExplanation",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAdult} = \"n\"",
+       "title": "Because {panel.spouseName} is under the age of 19, the Public Guardian and Trustee (PGT) needs to be notified in addition to {panel.spouseName}'s parent or guardian.\n\nThe PGT requires additional information. This service will let you know what additional information is required at a later stage.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "spouseHasGuardian",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\" and {panel.spouseIsAdult} = \"n\" and {panel.spouseIsAdultNoExplanation} > 0",
+       "title": "Does {panel.spouseName} have a living parent or legal guardian?"
+      },
+      {
+       "type": "text",
+       "name": "spouseGuardianName",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\" and {panel.spouseIsAdult} = \"n\" and {panel.spouseHasGuardian} = \"y\"",
+       "title": "Full name of living parent/ guardian"
+      },
+      {
+       "type": "yesno",
+       "name": "spouseIsCompetent",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\" and ({panel.spouseIsAdult} = \"y\" or ({panel.spouseIsAdult} = \"n\" and {panel.spouseHasGuardian} = \"n\"))",
+       "title": "Is {panel.spouseName} `mentally competent`?"
+      },
+      {
+       "type": "infotext",
+       "name": "spouseIsCompetentNoExplanation",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\" and ({panel.spouseIsAdult} = \"y\" or ({panel.spouseIsAdult} = \"n\" and {panel.spouseHasGuardian} = \"n\")) and {panel.spouseIsCompetent} = \"n\"",
+       "title": "In this scenario, the Public Guardian and Trustee (PGT) needs to be notified in addition to {panel.spouseName}'s committee (if there is one).",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "spouseHasCommittee",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\" and ({panel.spouseIsAdult} = \"y\" or ({panel.spouseIsAdult} = \"n\" and {panel.spouseHasGuardian} = \"n\")) and {panel.spouseIsCompetent} = \"n\" and {panel.spouseIsCompetentNoExplanation} > 0",
+       "title": "Does {panel.spouseName} have a committee?",
+       "description": "If someone has been declared mentally incompetent by a court, a committee (or equivalent), will have been appointed to take care of the mentally incompetent person's finances. "
+      },
+      {
+       "type": "text",
+       "name": "spouseCommitteeName",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"y\" and ({panel.spouseIsAdult} = \"y\" or ({panel.spouseIsAdult} = \"n\" and {panel.spouseHasGuardian} = \"n\")) and {panel.spouseIsCompetent} = \"n\" and {panel.spouseIsCompetentNoExplanation} > 0 and {panel.spouseHasCommittee} = \"y\"",
+       "title": "Full name of {panel.spouseName}'s committee"
+      },
+      {
+       "type": "yesno",
+       "name": "spouseDied5DaysAfter",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"n\"",
+       "title": "Did  die after (Deceased Date of Death + 4 days)?"
+      },
+      {
+       "type": "helptext",
+       "name": "spouseDied5DaysAfterFAQ1",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"n\"",
+       "title": "Why does this date matter?",
+       "titleLocation": "hidden",
+       "body": "In determining who gets part of estate, it is important to know who died first. This may not sound strange, but under the law, if they died less than 5 days after Deceased Name, they are considered to have died before Deceased Name. For more information, refer to Five-day survival rule from the Wills, Estate and Succession Act (WESA).\nhttp://www.bclaws.ca/civix/document/id/complete/statreg/00_09013_01#section10"
+      },
+      {
+       "type": "yesno",
+       "name": "spouseHasPersonalRep",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"n\" and {panel.spouseDied5DaysAfter} = \"y\"",
+       "title": "Does {panel.spouseName} have a `personal representative`?"
+      },
+      {
+       "type": "text",
+       "name": "spousePersonalRepName",
+       "visible": false,
+       "visibleIf": "{panel.spouseIsAlive} = \"n\" and {panel.spouseDied5DaysAfter} = \"y\" and {panel.spouseHasPersonalRep} = \"y\"",
+       "title": "Full name of {panel.spouseName}'s personal representative"
+      }
+     ],
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "confirmDelete": true,
+     "panelAddText": "Add a spouse",
+     "panelRemoveText": "Delete this spouse"
+    },
+    {
+     "type": "panel",
+     "name": "spouseExitCheckPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "spouseIsYou",
+       "title": "Are you a spouse of {deceasedName}?"
+      },
+      {
+       "type": "yesno",
+       "name": "spouseIsYouIncluded",
+       "visible": false,
+       "visibleIf": "{spouseIsYou} = \"y\"",
+       "title": "Did you enter your own information as part of this step?"
+      },
+      {
+       "type": "infotext",
+       "name": "spouseIsYouNoError",
+       "visible": false,
+       "visibleIf": "{spouseIsYou} = 'y' and {spouseIsYouIncluded} = \"n\"",
+       "title": "Before moving on to the next step, please add your information as a spouse or descendant. It is important to identify your relationship to <Deceased Name> as this service will prepare the paperwork based on this information.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{spouse} = \"y\""
+    },
+    {
+     "type": "panel",
+     "name": "spouseExitPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "spouseExitExplanation",
+       "title": "Now lets move on to {deceasedName}'s children.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{spouse} = 'n' or ({spouse} = 'y' and {spouseIsYou} = 'n') or ({spouseIsYou} = 'y' and {spouseIsYouIncluded} = 'y')"
+    }
+   ],
+   "title": "{deceasedName}'s Spouse"
+  },
+  {
+   "name": "childPage",
+   "elements": [
+    {
+     "type": "yesno",
+     "name": "child",
+     "title": "Did {deceasedName} have any children at the time of their death?"
+    },
+    {
+     "type": "paneldynamic",
+     "name": "childPanel",
+     "visible": false,
+     "visibleIf": "{child} = \"y\"",
+     "templateElements": [
+      {
+       "type": "text",
+       "name": "childName",
+       "title": "Please enter the full name of {deceasedName}'s child."
+      },
+      {
+       "type": "yesno",
+       "name": "childIsAlive",
+       "title": "Is {panel.childName} alive?"
+      },
+      {
+       "type": "helptext",
+       "name": "childIsAliveFAQ1",
+       "title": "What if {panel.childName} is on life support?",
+       "titleLocation": "hidden",
+       "body": "{panel.spouseName} are considered alive."
+      },
+      {
+       "type": "yesno",
+       "name": "childIsAdult",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\"",
+       "title": "Is {panel.childName} 19 years of age or older?"
+      },
+      {
+       "type": "infotext",
+       "name": "childIsAdultNoExplanation",
+       "visible": false,
+       "visibleIf": "{panel.childIsAdult} = \"n\"",
+       "title": "Because {panel.childName} is under the age of 19, the Public Guardian and Trustee (PGT) needs to be notified in addition to {panel.childName}'s parent or guardian.\n\nThe PGT requires additional information. This service will let you know what additional information is required at a later stage.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "childHasGuardian",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\" and {panel.childIsAdult} = \"n\" and {panel.childIsAdultNoExplanation} > 0",
+       "title": "Does {panel.childName} have a living parent or legal guardian?"
+      },
+      {
+       "type": "text",
+       "name": "childGuardianName",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\" and {panel.childIsAdult} = \"n\" and {panel.childHasGuardian} = \"y\"",
+       "title": "Full name of living parent/ guardian"
+      },
+      {
+       "type": "yesno",
+       "name": "childIsCompetent",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\" and ({panel.childIsAdult} = \"y\" or ({panel.childIsAdult} = \"n\" and {panel.childHasGuardian} = \"n\"))",
+       "title": "Is {panel.childName} `mentally competent`?"
+      },
+      {
+       "type": "infotext",
+       "name": "childIsCompetentNoExplanation",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\" and ({panel.childIsAdult} = \"y\" or ({panel.childIsAdult} = \"n\" and {panel.childHasGuardian} = \"n\")) and {panel.childIsCompetent} = \"n\"",
+       "title": "In this scenario, the Public Guardian and Trustee (PGT) needs to be notified in addition to {panel.childName}'s committee (if there is one).",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "childHasCommittee",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\" and ({panel.childIsAdult} = \"y\" or ({panel.childIsAdult} = \"n\" and {panel.childHasGuardian} = \"n\")) and {panel.childIsCompetent} = \"n\" and {panel.childIsCompetentNoExplanation} > 0",
+       "title": "Does {panel.childName} have a committee?",
+       "description": "If someone has been declared mentally incompetent by a court, a committee (or equivalent), will have been appointed to take care of the mentally incompetent person's finances. "
+      },
+      {
+       "type": "text",
+       "name": "childCommitteeName",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"y\" and ({panel.childIsAdult} = \"y\" or ({panel.childIsAdult} = \"n\" and {panel.childHasGuardian} = \"n\")) and {panel.childIsCompetent} = \"n\" and {panel.childIsCompetentNoExplanation} > 0 and {panel.childHasCommittee} = \"y\"",
+       "title": "Full name of {panel.childName}'s committee"
+      },
+      {
+       "type": "yesno",
+       "name": "childDied5DaysAfter",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"n\"",
+       "title": "Did {panel.childName} die after <Deceased Date of Death + 4 days>?"
+      },
+      {
+       "type": "helptext",
+       "name": "childDied5DaysAfterFAQ1",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"n\"",
+       "title": "Why does this date matter?",
+       "titleLocation": "hidden",
+       "body": "In determining who gets part of estate, it is important to know who died first. This may not sound strange, but under the law, if they died less than 5 days after Deceased Name, they are considered to have died before Deceased Name. For more information, refer to Five-day survival rule from the Wills, Estate and Succession Act (WESA).\nhttp://www.bclaws.ca/civix/document/id/complete/statreg/00_09013_01#section10"
+      },
+      {
+       "type": "yesno",
+       "name": "childHasPersonalRep",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = \"n\" and {panel.childDied5DaysAfter} = \"y\"",
+       "title": "Does {panel.childName} have a `personal representative`?"
+      },
+      {
+       "type": "text",
+       "name": "childPersonalRepName",
+       "visible": false,
+       "visibleIf": "{panel.childIsAlive} = 'n' and {panel.childDied5DaysAfter} = 'y' and {panel.childHasPersonalRep} = 'y'",
+       "title": "Full name of {panel.childName}'s personal representative"
+      }
+     ],
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "panelAddText": "Add a child",
+     "panelRemoveText": "Delete this child"
+    },
+    {
+     "type": "panel",
+     "name": "childExitCheckPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "childIsYou",
+       "title": "Are you a child of {deceasedName}?"
+      },
+      {
+       "type": "yesno",
+       "name": "childIsYouIncluded",
+       "visible": false,
+       "visibleIf": "{childIsYou} = \"y\"",
+       "title": "Did you enter your own information as part of this step?"
+      },
+      {
+       "type": "infotext",
+       "name": "childIsYouIncludedNoError",
+       "visible": false,
+       "visibleIf": "{childIsYouIncluded} = \"n\"",
+       "title": "Before moving on to the next step, please add your information as a child. It is important to identify your relationship to {deceasedName} as this service will prepare the paperwork based on this information.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{child} = \"y\""
+    },
+    {
+     "type": "panel",
+     "name": "childExitPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "childExitGrandchildrenExplanation",
+       "title": "Because {childPanel[1].childName} has died, doesn't have a personal representative but has children who are alive, lets move on to information about {childPanel[1].childName}'s children.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{child} = 'n' or ({child} = 'y' and {childIsYou} = 'n') or ({childIsYou} = 'y' and {childIsYouIncluded} = 'y')"
+    }
+   ],
+   "title": "{deceasedName}'s Children"
+  },
+  {
+   "name": "grandchildPage",
+   "elements": [
+    {
+     "type": "paneldynamic",
+     "name": "grandchildPanel",
+     "templateElements": [
+      {
+       "type": "text",
+       "name": "grandchildName",
+       "title": "Please enter the full name of {childPanel[1].childName}'s child."
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildIsAlive",
+       "title": "Is {panel.grandchildName} alive?"
+      },
+      {
+       "type": "helptext",
+       "name": "grandchildIsAliveFAQ1",
+       "title": "What if {panel.grandchildName} is on life support?",
+       "titleLocation": "hidden",
+       "body": "{panel.spouseName} are considered alive."
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildIsAdult",
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\"",
+       "title": "Is {panel.grandchildName} 19 years of age or older?"
+      },
+      {
+       "type": "infotext",
+       "name": "grandchildIsAdultNoExplanation",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAdult} = \"n\"",
+       "title": "Because {panel.grandchildName} is under the age of 19, the Public Guardian and Trustee (PGT) needs to be notified in addition to {panel.grandchildName}'s parent or guardian.\n\nThe PGT requires additional information. This service will let you know what additional information is required at a later stage.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildHasGuardian",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\" and {panel.grandchildIsAdult} = \"n\" and {panel.grandchildIsAdultNoExplanation} > 0",
+       "title": "Does {panel.grandchildName} have a living parent or legal guardian?"
+      },
+      {
+       "type": "text",
+       "name": "grandchildGuardianName",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\" and {panel.grandchildIsAdult} = \"n\" and {panel.grandchildHasGuardian} = \"y\"",
+       "title": "Full name of living parent/guardian"
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildIsCompetent",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\" and ({panel.grandchildIsAdult} = \"y\" or ({panel.grandchildIsAdult} = \"n\" and {panel.grandchildHasGuardian} = \"n\"))",
+       "title": "Is {panel.grandchildName} `mentally competent`?"
+      },
+      {
+       "type": "infotext",
+       "name": "grandchildIsCompetentNoExplanation",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\" and ({panel.grandchildIsAdult} = \"y\" or ({panel.grandchildIsAdult} = \"n\" and {panel.grandchildHasGuardian} = \"n\")) and {panel.grandchildIsCompetent} = \"n\"",
+       "title": "In this scenario, the Public Guardian and Trustee (PGT) needs to be notified in addition to {panel.grandchildName}'s committee (if there is one).",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildHasCommittee",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\" and ({panel.grandchildIsAdult} = \"y\" or ({panel.grandchildIsAdult} = \"n\" and {panel.grandchildHasGuardian} = \"n\")) and {panel.grandchildIsCompetent} = \"n\" and {panel.grandchildIsCompetentNoExplanation} > 0",
+       "title": "Does {panel.grandchildName} have a committee?",
+       "description": "If someone has been declared mentally incompetent by a court, a committee (or equivalent), will have been appointed to take care of the mentally incompetent person's finances. "
+      },
+      {
+       "type": "text",
+       "name": "grandchildCommitteeName",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"y\" and ({panel.grandchildIsAdult} = \"y\" or ({panel.grandchildIsAdult} = \"n\" and {panel.grandchildHasGuardian} = \"n\")) and {panel.grandchildIsCompetent} = \"n\" and {panel.grandchildIsCompetentNoExplanation} > 0 and {panel.grandchildHasCommittee} = \"y\"",
+       "title": "Full name of {panel.grandchildName}'s committee"
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildDied5DaysAfter",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"n\"",
+       "title": "Did {panel.grandchildName} die after <Deceased Date of Death + 4 days>?"
+      },
+      {
+       "type": "helptext",
+       "name": "grandchildDied5DaysAfterFAQ1",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"n\"",
+       "title": "Why does this date matter?",
+       "titleLocation": "hidden",
+       "body": "In determining who gets part of estate, it is important to know who died first. This may not sound strange, but under the law, if they died less than 5 days after Deceased Name, they are considered to have died before Deceased Name. For more information, refer to Five-day survival rule from the Wills, Estate and Succession Act (WESA).\nhttp://www.bclaws.ca/civix/document/id/complete/statreg/00_09013_01#section10"
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildHasPersonalRep",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = \"n\" and {panel.grandchildDied5DaysAfter} = \"y\"",
+       "title": "Does {panel.grandchildName} have a `personal representative`?"
+      },
+      {
+       "type": "text",
+       "name": "grandchildPersonalRepName",
+       "visible": false,
+       "visibleIf": "{panel.grandchildIsAlive} = 'n' and {panel.grandchildDied5DaysAfter} = 'y' and {panel.grandchildHasPersonalRep} = 'y'",
+       "title": "Full name of {panel.grandchildName}'s personal representative"
+      }
+     ],
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "panelAddText": "Add a child",
+     "panelRemoveText": "Delete this child"
+    },
+    {
+     "type": "panel",
+     "name": "grandchildExitCheckPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "grandchildIsYou",
+       "title": "Are you a child of {childPanel[1].childName}?"
+      },
+      {
+       "type": "yesno",
+       "name": "grandchildIsYouIncluded",
+       "visible": false,
+       "visibleIf": "{grandchildIsYou} = \"y\"",
+       "title": "Did you enter your information as part of this step?"
+      },
+      {
+       "type": "infotext",
+       "name": "grandchildIsYouIncludedNoError",
+       "visible": false,
+       "visibleIf": "{grandchildIsYouIncluded} = \"n\"",
+       "title": "Before moving on to the next step, please add your information as a grandchild of {deceasedName}. It is important to identify your relationship to {deceasedName} as this service will prepare the paperwork based on this information.",
+       "titleLocation": "hidden",
+       "messageStyle": "error"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "grandchildExitPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "grandchildExitExpanation",
+       "title": "We have enough information about {deceasedName}'s family. Next we move on to information about you, the applicants.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "visible": false,
+     "visibleIf": "{grandchildIsYou} = 'n' or ({grandchildIsYou} = 'y' and {grandchildIsYouIncluded} = 'y')"
+    }
+   ],
+   "visible": false,
+   "visibleIf": "{childPanel[1].childIsAlive} = \"n\"",
+   "title": "{deceasedName}'s Grandchildren"
+  },
+  {
+   "name": "applicants",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "applicantPanel",
+     "elements": [
+      {
+       "type": "checkbox",
+       "name": "applicant",
+       "title": "Who is applying to represent {deceasedName} in dealing with their stuff?",
+       "hasOther": true,
+       "choices": [
+        {
+         "value": "item1",
+         "text": "Jillian Patricia Taylor"
+        },
+        {
+         "value": "item2",
+         "text": "Bradley Michael Taylor"
+        },
+        {
+         "value": "item3",
+         "text": "Austin Healy Taylor"
+        },
+        {
+         "value": "item4",
+         "text": "Marcus Jason Taylor"
+        }
+       ],
+       "otherText": "Add a different applicant"
+      },
+      {
+       "type": "helptext",
+       "name": "applicantFAQ1",
+       "title": "Can more than 1 person apply to represent {deceasedName}",
+       "titleLocation": "hidden",
+       "body": "Yes, you will share responsibilities for representing {deceasedName}."
+      },
+      {
+       "type": "infotext",
+       "name": "applicantExplanationSpouseOnly",
+       "visible": false,
+       "visibleIf": "{applicant} = [\"item1\"]",
+       "title": "Because Jillian Patricia Taylor is {deceasedName}'s spouse, we don't need to check if any other of {deceasedName}'s successors agree with your application.",
+       "titleLocation": "hidden"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "jillPanel",
+     "elements": [
+      {
+       "type": "text",
+       "name": "jillOccupation",
+       "title": "What is Jillian Patricia Taylor's job or profession?",
+       "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc."
+      },
+      {
+       "type": "address",
+       "name": "question4",
+       "title": "Where does Jillian Patricia Taylor usually live?"
+      },
+      {
+       "type": "contactinfo",
+       "name": "jillContact",
+       "labelEmail": "Email (optional)",
+       "labelFax": "Fax (optional)"
+      }
+     ]
+    },
+    {
+     "type": "panel",
+     "name": "applicantExitPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "applicantExitSpouseOnly",
+       "title": "Now will we ask about the assets that you, Jillian Patricia Taylor, are applying to manage.",
+       "titleLocation": "hidden"
+      }
+     ]
+    }
+   ],
+   "title": "The applicant(s)"
+  },
+  {
+   "name": "land or buildings",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "landEntryPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "landIntroExplanation",
+       "title": "It's time to enter information about any land or buildings that {deceasedName} owned in British Columbia.\n<br>\n<br>\nIf {deceasedName} owned any land or buildings, make sure you have the Land Title Certificate(s) to help fill in the information.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      }
+     ]
+    },
+    {
+     "type": "yesno",
+     "name": "land",
+     "visible": false,
+     "visibleIf": "{landIntroExplanation} > 0",
+     "title": "Did {deceasedName} own any land or buildings at the time of their death?"
+    },
+    {
+     "type": "paneldynamic",
+     "name": "landInfoPanel",
+     "visible": false,
+     "visibleIf": "{land} = \"y\"",
+     "templateElements": [
+      {
+       "type": "address",
+       "name": "landAdress",
+       "title": "What is the address of this land or building? (Province and Country shouldn't be here)"
+      },
+      {
+       "type": "yesno",
+       "name": "landSoleOwner",
+       "title": "Is {deceasedName} the only registered owner of {panel.landAddress}?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "landOwnershipType",
+       "visible": false,
+       "visibleIf": "{panel.landSoleOwner} = 'n'",
+       "title": "What type of ownership is {panel.landAddress} registered under?",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "Joint Tenancy"
+        },
+        {
+         "value": "item2",
+         "text": "Tenancy in Common"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "landJointAlive",
+       "visible": false,
+       "visibleIf": "{panel.landOwnershipType} = [\"item1\"]",
+       "title": "Are any of the other registered owners alive?"
+      },
+      {
+       "type": "infotext",
+       "name": "landJointAliveYesExplanation",
+       "visible": false,
+       "visibleIf": "{panel.landJointAlive} = \"y\"",
+       "title": "Because another joint tenant of {panel.landAddress} is alive, this land or building passes to them automatically and you do not need to manage it as part of {deceasedName}'s estate.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "panelAddText": "Add a land or building",
+     "panelRemoveText": "Remove a land or building"
+    }
+   ],
+   "title": "About land or buildings"
+  },
+  {
+   "name": "vehicles",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "vehicleIntroPanel",
+     "elements": [
+      {
+       "type": "infotext",
+       "name": "vehicleIntroExplanation",
+       "title": "It's time to enter information about any vehicles that {deceasedName} are registered in British Columbia.\n<br>\n<br>\nIf {deceasedName} owned any vehicles, make sure you have the registration documents to help fill in the information.",
+       "isRequired": true,
+       "titleLocation": "hidden"
+      }
+     ]
+    },
+    {
+     "type": "yesno",
+     "name": "vehicle",
+     "visible": false,
+     "visibleIf": "{vehicleIntroExplanation} > 0",
+     "title": "Did {deceasedName} have any vehicles at the time of their death?"
+    },
+    {
+     "type": "paneldynamic",
+     "name": "vehiclePanel",
+     "visible": false,
+     "visibleIf": "{vehicle} = \"y\"",
+     "templateElements": [
+      {
+       "type": "text",
+       "name": "vehicleYear",
+       "title": "Year"
+      },
+      {
+       "type": "text",
+       "name": "vehicleMake",
+       "startWithNewLine": false,
+       "title": "Make"
+      },
+      {
+       "type": "text",
+       "name": "vehicleModel",
+       "startWithNewLine": false,
+       "title": "Model"
+      },
+      {
+       "type": "text",
+       "name": "vehicleVIN",
+       "startWithNewLine": false,
+       "title": "VIN #"
+      },
+      {
+       "type": "text",
+       "name": "vehicleColour",
+       "title": "Colour (optional)"
+      },
+      {
+       "type": "text",
+       "name": "vehicleBody",
+       "startWithNewLine": false,
+       "title": "Body Style (optional)"
+      },
+      {
+       "type": "text",
+       "name": "vehicleTrim",
+       "startWithNewLine": false,
+       "title": "Trim (optional)"
+      },
+      {
+       "type": "yesno",
+       "name": "vehicleSoleOwner",
+       "title": "Is {deceasedName} the only registered owner of the {panel.vehicleYear} {panel.vehicleMake} {panel.vehicleModel}?"
+      },
+      {
+       "type": "yesno",
+       "name": "vehicleNameMatch",
+       "visible": false,
+       "visibleIf": "{vehicleSoleOwner} = \"y\"",
+       "title": "Is {deceasedName}'s name spelled exactly as <b>{deceasedName}</b> on the registration papers for the {panel.vehicleYear} {panel.vehicleMake} {panel.vehicleModel}?"
+      },
+      {
+       "type": "text",
+       "name": "vehicleAlias",
+       "visible": false,
+       "visibleIf": "{vehicleNameMatch} = \"y\"",
+       "title": "How is {deceasedName}'s name spelled exactly on the registration papers for the {panel.vehicleYear} {panel.vehicleMake} {panel.vehicleModel}?"
+      },
+      {
+       "type": "radiogroup",
+       "name": "vehicleValue",
+       "visible": false,
+       "visibleIf": "{panel.vehicleSoleOwner} = \"y\")",
+       "title": "Do you have the exact value of the {panel.vehicleYear} {panel.vehicleMake} {panel.vehicleModel} at the time of {deceasedName}'s death?",
+       "hasOther": true,
+       "choices": [
+        {
+         "value": "item1",
+         "text": "No, the financial institution will not give it to me."
+        },
+        {
+         "value": "item2",
+         "text": "No, I but I can get it at a later time."
+        }
+       ],
+       "otherText": "Yes, I know the exact value:"
+      },
+      {
+       "type": "helptext",
+       "name": "vehicleValueFAQ1",
+       "visible": false,
+       "visibleIf": "{panel.vehicleSoleOwner} = \"y\"",
+       "title": "How do I find the value of a vehicle?",
+       "titleLocation": "hidden",
+       "body": "The value of a vehicle is what someone would pay for it. Check your local buy and sell."
+      },
+      {
+       "type": "yesno",
+       "name": "vehicleLiabilities",
+       "visible": false,
+       "visibleIf": "{panel.vehicleSoleOwner} = \"y\"",
+       "title": "Were there any registered loans or liens on ?"
+      },
+      {
+       "type": "text",
+       "name": "vehicleLoan",
+       "visible": false,
+       "visibleIf": "{vehicleLiabilities} = \"y\"",
+       "title": "What is the value of the loan on the {panel.vehicleYear} {panel.vehicleMake} {panel.vehicleModel} at the time of {deceasedName}'s death?",
+       "inputType": "number"
+      },
+      {
+       "type": "text",
+       "name": "vehicleLien",
+       "visible": false,
+       "visibleIf": "{vehicleLiabilities} = \"y\"",
+       "title": "What is the value of the lien on the {panel.vehicleYear} {panel.vehicleMake} {panel.vehicleModel} at the time of {deceasedName}'s death?",
+       "inputType": "number"
+      },
+      {
+       "type": "radiogroup",
+       "name": "vehicleOwnershipType",
+       "visible": false,
+       "title": "What type of ownership is {panel.landAddress} registered under?",
+       "choices": [
+        {
+         "value": "item1",
+         "text": "Joint Tenancy"
+        },
+        {
+         "value": "item2",
+         "text": "Tenancy in Common"
+        }
+       ]
+      },
+      {
+       "type": "yesno",
+       "name": "vehicleJointAlive",
+       "visible": false,
+       "title": "Are any of the other registered owners alive?"
+      },
+      {
+       "type": "infotext",
+       "name": "vehicleJointAliveYesExplanation",
+       "visible": false,
+       "title": "Because another joint tenant of {panel.landAddress} is alive, this land or building passes to them automatically and you do not need to manage it as part of {deceasedName}'s estate.",
+       "titleLocation": "hidden"
+      }
+     ],
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "panelAddText": "Add a vehicle",
+     "panelRemoveText": "Remove a vehicle"
+    }
+   ],
+   "title": "about vehicles"
+  },
+  {
+   "name": "bankPage",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "bankPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "bank",
+       "title": "Did {deceasedName} have any bank accounts at the time of their death?"
+      }
+     ]
+    },
+    {
+     "type": "paneldynamic",
+     "name": "bankInfoPanel",
+     "visible": false,
+     "visibleIf": "{bank} = \"y\"",
+     "templateElements": [
+      {
+       "type": "text",
+       "name": "bankName",
+       "title": "Name of Financial Institution"
+      },
+      {
+       "type": "paneldynamic",
+       "name": "accountPanel",
+       "title": "Accounts at {panel.bankName}",
+       "templateElements": [
+        {
+         "type": "radiogroup",
+         "name": "accountType",
+         "title": "Type of Account",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "item1",
+           "text": "Savings"
+          },
+          {
+           "value": "item2",
+           "text": "Chequing"
+          },
+          {
+           "value": "item3",
+           "text": "GIC"
+          }
+         ]
+        },
+        {
+         "type": "text",
+         "name": "accountNumber",
+         "title": "Account Number"
+        },
+        {
+         "type": "yesno",
+         "name": "accountJoint",
+         "title": "Is this a joint account?"
+        },
+        {
+         "type": "yesno",
+         "name": "accountJointAlive",
+         "visible": false,
+         "visibleIf": "{panel.accountJoint} = \"y\"",
+         "title": "Is the joint account holder for this account alive?"
+        },
+        {
+         "type": "infotext",
+         "name": "accountJointAliveYesExplanation",
+         "visible": false,
+         "visibleIf": "{panel.accountJointAlive} = \"y\"",
+         "title": "Because the joint account holder of this account is still alive, this account will go to them automatically. You do not need to include this account as part of the estate. ",
+         "titleLocation": "hidden"
+        },
+        {
+         "type": "radiogroup",
+         "name": "accountValue",
+         "visible": false,
+         "visibleIf": "{panel.accountJoint} = \"n\" or ({panel.accountJoint} = \"y\" and {panel.accountJointAlive} = \"n\")",
+         "title": "Do you have the exact value of this account at the time of {deceasedName}'s death?",
+         "hasOther": true,
+         "choices": [
+          {
+           "value": "item1",
+           "text": "No, the financial institution will not give it to me."
+          },
+          {
+           "value": "item2",
+           "text": "No, I but I can get it at a later time."
+          }
+         ],
+         "otherText": "Yes, I know the exact value:"
+        }
+       ],
+       "panelCount": 2,
+       "minPanelCount": 1
+      }
+     ],
+     "panelCount": 1,
+     "minPanelCount": 1
+    }
+   ],
+   "title": "about bank accounts"
+  },
+  {
+   "name": "p1",
+   "elements": [
+    {
+     "type": "infotext",
+     "name": "PrintP1",
+     "title": "This is the first review and print page to print the P1 form (to notify successors).\n<br>\n<br>\n It will generated a PDF that the applicant would download.\n<br>\n<br>\nIt will give instructions on how to notify the successors.\n<br>\n<br>\nIf any changes are made in the prior questions, need to inform applicants they may need to re-notify.",
+     "titleLocation": "hidden",
+     "messageStyle": "inline"
+    }
+   ],
+   "title": "Review and Print P1"
+  },
+  {
+   "name": "notifying",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "notifyPanel",
+     "elements": [
+      {
+       "type": "matrixdropdown",
+       "name": "notifyingPlaceholder",
+       "columns": [
+        {
+         "name": "Column 1",
+         "title": "Service Method",
+         "cellType": "radiogroup"
+        },
+        {
+         "name": "Column 2",
+         "title": "Date",
+         "cellType": "text"
+        }
+       ],
+       "choices": [
+        {
+         "value": 1,
+         "text": "In Person"
+        },
+        {
+         "value": 2,
+         "text": "By Mail"
+        },
+        {
+         "value": 3,
+         "text": "Electronic"
+        }
+       ],
+       "rows": [
+        {
+         "value": "item1",
+         "text": "Bradley Michael Taylor"
+        },
+        {
+         "value": "item3",
+         "text": "Marcus Jason Taylor"
+        },
+        {
+         "value": "item2",
+         "text": "Lauren Taylor (for Austin Healy Taylor)"
+        },
+        {
+         "value": "item4",
+         "text": "PGT (for Austin Healy Taylor)"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "title": "Notify Checklist"
+  },
+  {
+   "name": "finalizeAssets",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "panel1",
+     "elements": [
+      {
+       "type": "matrixdropdown",
+       "name": "finalizeAssetPlaceholder",
+       "title": "What is the value for the following items on the date of {deceasedName}'s death?",
+       "columns": [
+        {
+         "name": "Column 1",
+         "title": "Value",
+         "cellType": "text"
+        }
+       ],
+       "choices": [
+        1,
+        2,
+        3,
+        4,
+        5
+       ],
+       "rows": [
+        {
+         "value": "Row 1",
+         "text": "1969 Ford Mustang"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "title": "Finalize Asset Values"
+  },
+  {
+   "name": "willSearchCheck",
+   "elements": [
+    {
+     "type": "panel",
+     "name": "willSearchPanel",
+     "elements": [
+      {
+       "type": "yesno",
+       "name": "willSearchAll",
+       "title": "Dd you do a will search with all of these spellings of {deceasedName}'s name?\n<br>\n<br>\n{deceasedName}\n<br>\n<br>\nTim A. Taylor"
+      },
+      {
+       "type": "infotext",
+       "name": "willSearchAllNoExplanation",
+       "visible": false,
+       "visibleIf": "{willSearchAll} = \"n\"",
+       "title": "You will need to do a will search for all of the spellings of {deceasedName}'s name. Click here to download the form. (Click here to generate a PDF?)",
+       "titleLocation": "hidden"
+      }
+     ]
+    }
+   ],
+   "title": "Will Search Check"
+  },
+  {
+   "name": "printFinal",
+   "elements": [
+    {
+     "type": "infotext",
+     "name": "PrintFinalForms",
+     "title": "This is the review and print page.\n<br>\n<br>\n It will generated PDFs that the applicant would download.\n<br>\n<br>\nIt will give instructions and the applicant the earliest date they can file based on when they finished all of their service.\n<br>\n<br>\nIf any changes are made in the prior questions, need to inform applicants they may need to reprint the forms.",
+     "titleLocation": "hidden",
+     "messageStyle": "inline"
+    }
+   ],
+   "title": "Review and Print Final Forms"
+  }
+ ],
+ "showQuestionNumbers": "off",
+ "requiredText": ""
+}
