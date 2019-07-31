@@ -101,6 +101,18 @@ const routes: Routes = [
       breadcrumb: 'Terms and Conditions',
     }
   },
+  {
+    path: 'sandbox',
+    component: SurveyPrimaryComponent,
+    resolve: {
+      // survey: SurveyResolver,
+    },
+    data: {
+      breadcrumb: 'Survey Sandbox',
+      survey_path: 'assets/survey-sandbox.json',
+      show_sidebar: true,
+    }
+  },
 ];
 
 @NgModule({

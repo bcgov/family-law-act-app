@@ -1,0 +1,51 @@
+{
+    "title": "Survey Sandbox",
+    "pages": [
+        {
+            "name": "Your Information",
+            "elements": [
+                {
+                    "type": "panel",
+                    "name": "ApplicantPanel",
+                    "elements": [
+                        {
+                            "type": "personname",
+                            "name": "ApplicantName",
+                            "title": "What is your full name?",
+                            "description": "Use the name as it is written on your primary ID cards. This name will be the most useful.",
+                            "isRequired": true,
+                            "defaultSubstitution": "(Applicant Name)",
+                            "descFirstName": "First Name is also known as Given Name",
+                            "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+                            "descLastName": "Last Name is also known as Family Name or Surname"
+                        },
+                        {
+                            "type": "text",
+                            "name": "ApplicantDOB",
+                            "title": "What is your date of birth?",
+                            "isRequired": true,
+                            "inputType": "date"
+                        },
+                        {
+                            "type": "yesno",
+                            "name": "Lawyer",
+                            "title": "Has a lawyer agreed to receive court documents for you?",
+                            "description": "You do not need a lawyer to use this service.  If you have a lawyer, you can still use this service.",
+                            "isRequired": true
+                        },
+                        {
+                            "type": "helptext",
+                            "name": "FAQLawyer1",
+                            "title": "What if I plan to get a lawyer but I haven't done that yet?",
+                            "titleLocation": "hidden",
+                            "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
+                        }
+                    ]
+                }
+            ],
+            "title": "Your Information"
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}
