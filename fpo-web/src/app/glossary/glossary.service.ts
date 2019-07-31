@@ -68,6 +68,10 @@ export class GlossaryService {
     window.requestAnimationFrame(() => {
       this.doRegisterTargets(container);
     });
+    // extra check for slower-rendering browser
+    window.setTimeout(() => {
+      this.doRegisterTargets(container);
+    }, 2000);
   }
 
   doRegisterTargets(container?: HTMLElement) {
