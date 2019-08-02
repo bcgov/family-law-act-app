@@ -1133,7 +1133,9 @@ function initCustomDate(Survey) {
 
       let loadValue = function() {
         if(question.value) {
-          let dt = new Date(question.value + ' 00:00:00');
+          let m = question.value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+          let dt = new Date(m[1], m[2]-1, m[3]);
+          console.log(dt);
           if(dt) {
             yearVal = ''+dt.getFullYear();
             monthVal = ''+(dt.getMonth() + 1);
