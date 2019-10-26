@@ -1,13 +1,19 @@
 #=========================================================
 # OpenShift template parameters for:
 # Component: fpo-api
-# JSON Template File: templates/schema-spy/schema-spy-deploy.json
+# Template File: templates/schema-spy/schema-spy-deploy.yaml
 #=========================================================
 # NAME=schema-spy
+# APP_NAME=fpo
+# ROLE=schema-spy
 # IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
 # MEMORY_LIMIT=512Mi
-APPLICATION_DOMAIN=schema-spy-jag-csb-jes-family-protection-order-dev.pathfinder.gov.bc.ca
+APPLICATION_DOMAIN=protection-order-schema-dev.pathfinder.gov.bc.ca
 # DATABASE_SERVICE_NAME=postgresql
 # DATABASE_NAME=FPO_Database
 TAG_NAME=dev
 # DATABASE_DEPLOYMENT_NAME=postgresql
+# CPU_REQUEST=0
+# CPU_LIMIT=0
+# MEMORY_REQUEST=0
+# MEMORY_LIMIT=0

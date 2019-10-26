@@ -1,9 +1,10 @@
 #=========================================================
 # OpenShift template parameters for:
 # Component: fpo-api
-# JSON Template File: templates/django/django-build.json
+# Template File: templates/django/django-build.yaml
 #=========================================================
 NAME=django
+ENV_NAME=tools
 GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=fpo-api
