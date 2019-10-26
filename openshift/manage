@@ -18,6 +18,20 @@ usage () {
     $0 -P -e test resetDatabase
     - This will reset the database in the applications's TEST environment.
 
+    listDatabases <podName/>
+      - List the databases hosted on a given postgresql pod instance.
+      Example;
+        $0 -e dev listdatabases wallet
+
+    getRecordCounts <podName/> [<databaseName/>]
+      - Gets a list of tables and the total number of record in each table.
+        Examples;
+          $0 -e dev getrecordcounts wallet agent_indy_cat_wallet
+            - Get the record counts for the 'agent_indy_cat_wallet' database off the 'wallet' pod.
+
+          $0 -e dev getrecordcounts event-db
+          - Get the record counts for the '${POSTGRESQL_DATABASE}' (the pod's default database) database off the 'event-db' pod.
+
   Options:
   ========
     -h prints the usage for the script
@@ -124,6 +138,19 @@ case "${_cmd}" in
     apiPodName=${1:-django}
     dbPodName=${2:-postgresql}
     resetDatabase "${apiPodName}" "${dbPodName}"
+    ;;
+  listdatabases)
+    dbPodName=${1}
+    listDatabases "${dbPodName}"
+    ;;
+  getrecordcounts)
+    if (( $# <= 1 )); then
+      dbPodName=${1}
+    else
+      dbPodName=${1}
+      databaseName=${2}
+    fi
+    getRecordCounts "${dbPodName}" "${databaseName}"
     ;;
   *)
     echoWarning "Unrecognized command; ${_cmd}"

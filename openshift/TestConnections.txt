@@ -1,0 +1,6 @@
+google.com:80
+angular-on-nginx:8080
+django:8080
+postgresql:5432
+weasyprint:5001
+schema-spy:8080
