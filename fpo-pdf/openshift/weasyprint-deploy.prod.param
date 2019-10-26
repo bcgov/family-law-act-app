@@ -1,13 +1,15 @@
 #=========================================================
 # OpenShift template parameters for:
 # Component: fpo-pdf
-# JSON Template File: templates/weasyprint-deploy.json
+# Template File: templates/weasyprint-deploy.yaml
 #=========================================================
 # NAME=weasyprint
+# APP_NAME=fpo
+# ROLE=pdf
 # SOURCE_IMAGE_NAME=weasyprint
 # IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
 TAG_NAME=prod
-# CPU_LIMIT=2
+# CPU_REQUEST=10m
+# CPU_LIMIT=1000m
+# MEMORY_REQUEST=10Mi
 # MEMORY_LIMIT=1Gi
-# CPU_REQUEST=250m
-# MEMORY_REQUEST=512Mi
