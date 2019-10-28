@@ -20,8 +20,12 @@ objects:
         Allow the frontend (web) to talk to the api pod.
       source:
         - - role=${ROLE}
+          - app: ${APP_NAME}
+          - env: ${TAG_NAME}
       destination:
         - - role=api
+          - app: ${APP_NAME}
+          - env: ${TAG_NAME}
 
   - kind: DeploymentConfig
     apiVersion: v1
