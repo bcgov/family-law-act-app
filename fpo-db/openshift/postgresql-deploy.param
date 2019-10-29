@@ -8,7 +8,6 @@ APP_NAME=fpo
 ROLE=db
 IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
 SOURCE_IMAGE_NAME=postgresql
-TAG_NAME=dev
 PERSISTENT_VOLUME_SIZE=1Gi
 PERSISTENT_VOLUME_CLASS=gluster-file-db
 POSTGRESQL_DATABASE_NAME=FPO_Database
