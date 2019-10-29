@@ -20,8 +20,12 @@ objects:
         Allow the frontend (web) to talk to the api pod.
       source:
         - - role=${ROLE}
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
       destination:
         - - role=api
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
 
   - kind: DeploymentConfig
     apiVersion: v1
@@ -53,6 +57,8 @@ objects:
             role: ${ROLE}
             env: ${TAG_NAME}
         spec:
+          nodeSelector:
+            aporeto-enforcerd: 'true'
           containers:
             - image: ${NAME}
               imagePullPolicy: Always

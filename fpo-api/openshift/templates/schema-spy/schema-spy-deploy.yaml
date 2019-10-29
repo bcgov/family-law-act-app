@@ -22,8 +22,12 @@ objects:
       source:
       source:
         - - role=${ROLE}
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
       destination:
         - - role=db
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
 
   - kind: Service
     apiVersion: v1
@@ -106,6 +110,8 @@ objects:
             role: ${ROLE}
             env: ${TAG_NAME}
         spec:
+          nodeSelector:
+            aporeto-enforcerd: 'true'
           containers:
           - name: ${NAME}
             image: " "

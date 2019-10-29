@@ -41,9 +41,16 @@ objects:
         Allow the application's API to talk to either the database or pdf microservice.
       source:
         - - role=${ROLE}
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
+
       destination:
         - - role=db
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
         - - role=pdf
+          - app=${APP_NAME}
+          - env=${TAG_NAME}
 
   - kind: Service
     apiVersion: v1
@@ -102,6 +109,8 @@ objects:
             role: ${ROLE}
             env: ${TAG_NAME}
         spec:
+          nodeSelector:
+            aporeto-enforcerd: 'true'
           containers:
             - name: ${NAME}
               image: " "
