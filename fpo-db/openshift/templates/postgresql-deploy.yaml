@@ -244,11 +244,6 @@ parameters:
     required: true
     generate: expression
     from: "[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}"
-  - name: TAG_NAME
-    displayName: Environment TAG name
-    description: The TAG name for this environment, e.g., dev, test, prod
-    value: dev
-    required: true
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request
