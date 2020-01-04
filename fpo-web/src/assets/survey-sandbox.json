@@ -51,7 +51,7 @@
      "type": "infotext",
      "name": "no copy",
      "visible": false,
-     "visibleIf": "({willHave} = \"n\" and {willOriginal} = \"n\" and {willCourtHasOriginal} = \"n\"\nand {willOriginalExists} = \"n\" and {willCopyExists} \"y\" and {willCourtHasCopy} = \"n\" and {willCopyVoluntaryTransfer} = \"n\")",
+     "visibleIf": "{willHave} = \"n\" and {willOriginal} = \"n\" and {willCourtHasOriginal} = \"n\" and {willOriginalExists} = \"n\" and {willCopyExists} = \"y\" and {willCourtHasCopy} = \"n\" and {willCopyVoluntaryTransfer} = \"n\"",
      "title": "No have copy",
      "titleLocation": "hidden"
     },
