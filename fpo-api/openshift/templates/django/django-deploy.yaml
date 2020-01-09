@@ -43,14 +43,17 @@ objects:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
+          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
 
       destination:
         - - role=db
           - app=${APP_NAME}
           - env=${TAG_NAME}
+          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
         - - role=pdf
           - app=${APP_NAME}
           - env=${TAG_NAME}
+          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
 
   - kind: Service
     apiVersion: v1
