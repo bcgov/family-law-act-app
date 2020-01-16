@@ -2,6 +2,43 @@
  "title": "Provincial Court Family Law Act Protection Order",
  "pages": [
   {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "text",
+     "name": "birthDay",
+     "inputType": "date"
+    },
+    {
+     "type": "infotext",
+     "name": "question3",
+     "visible": false,
+     "visibleIf": "{isAdult} = \"true\"",
+     "title": "over 20",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "infotext",
+     "name": "question4",
+     "visible": false,
+     "visibleIf": "{isAdult} = \"false\"",
+     "title": "under 20",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "expression",
+     "name": "isAdult",
+     "expression": "// The age() function accepts a birth date\n// and returns the number of full years\nfunction age(params) {\n  if (!params && params.length < 1) return -1;\n  var birthDay = new Date(params[0]);\n  var ageDifMs = Date.now() - birthDay.getTime();\n  var ageDate = new Date(ageDifMs); // miliseconds from epoch\n  return Math.abs(ageDate.getUTCFullYear() - 1970);\n}\n// Register the function for use in SurveyJS expressions\nSurvey.FunctionFactory.Instance.register(\"age\", age);"
+    },
+    {
+     "type": "expression",
+     "name": "question5",
+     "title": "Years Old: ",
+     "expression": "Math.abs(ageDate.getUTCFullYear() - 1970)"
+    }
+   ]
+  },
+  {
    "name": "Your Information",
    "elements": [
     {
@@ -13,6 +50,30 @@
      "type": "yesno",
      "name": "willOriginal",
      "title": "1. have original?"
+    },
+    {
+     "type": "infotext",
+     "name": "have copy",
+     "visible": false,
+     "visibleIf": "{willNoHaveCopy} = \"f\"",
+     "title": "Yes Have copy",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "infotext",
+     "name": "no copy",
+     "visible": false,
+     "visibleIf": "{willHave} = \"n\" and {willOriginal} = \"n\"",
+     "title": "No have copy",
+     "titleLocation": "hidden"
+    },
+    {
+     "type": "infotext",
+     "name": "question1",
+     "visible": false,
+     "visibleIf": "{willNoHaveCopy} = \"true\"",
+     "title": "No have copy Clone",
+     "titleLocation": "hidden"
     },
     {
      "type": "yesno",
@@ -40,27 +101,15 @@
      "title": "6. someone else give you a copy?"
     },
     {
-     "type": "infotext",
-     "name": "have copy",
-     "visible": false,
-     "visibleIf": "{willNoHaveCopy} = \"f\"",
-     "title": "Yes Have copy",
-     "titleLocation": "hidden"
-    },
-    {
-     "type": "infotext",
-     "name": "no copy",
-     "visible": false,
-     "visibleIf": "{willHave} = \"n\" and {willOriginal} = \"n\" and {willCourtHasOriginal} = \"n\" and {willOriginalExists} = \"n\" and {willCopyExists} = \"y\" and {willCourtHasCopy} = \"n\" and {willCopyVoluntaryTransfer} = \"n\"",
-     "title": "No have copy",
-     "titleLocation": "hidden"
-    },
-    {
      "type": "expression",
      "name": "willNoHaveCopy",
      "visible": false,
-     "expression": "if ({willHave} = \"n\" and {willOriginal} = \"n\" and {willCourtHasOriginal} = \"n\" and {willOriginalExists} = \"n\" and {willCopyExists} \"y\" and {willCourtHasCopy} = \"n\" and {willCopyVoluntaryTransfer} = \"n\")\nreturn true;\n\nelse\nreturn false;",
+     "expression": "function willNoHaveCopy {\n    if ({willHave} = \"n\" && {willOriginal} = \"n\") \n        return true;\n}\nwillNoHaveCopy();",
      "currency": "CAD"
+    },
+    {
+     "type": "boolean",
+     "name": "question2"
     }
    ],
    "title": "Your Information"
