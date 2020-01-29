@@ -7,7 +7,7 @@
 # APP_NAME=fpo
 # ROLE=pdf
 # SOURCE_IMAGE_NAME=weasyprint
-# IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
+# IMAGE_NAMESPACE=ggpixq-tools
 TAG_NAME=dev
 # CPU_REQUEST=10m
 # CPU_LIMIT=1000m

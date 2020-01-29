@@ -5,7 +5,7 @@
 #=========================================================
 NAME=angular-app
 OUTPUT_IMAGE_TAG=latest
-GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
+GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=fpo-web
 SOURCE_IMAGE_NAMESPACE=openshift

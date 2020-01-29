@@ -24,13 +24,13 @@ objects:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
+          - $namespace=ggpixq-${TAG_NAME}
           
       destination:
         - - role=db
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
+          - $namespace=ggpixq-${TAG_NAME}
 
   - kind: Service
     apiVersion: v1
@@ -180,7 +180,7 @@ parameters:
     required: true
     description: The namespace of the OpenShift project containing the imagestream for
       the application.
-    value: jag-csb-jes-family-protection-order-tools
+    value: ggpixq-tools
   - name: MEMORY_LIMIT
     displayName: Memory Limit
     required: true
@@ -190,7 +190,7 @@ parameters:
     displayName: Application Hostname
     description: The exposed hostname that will route to the Django service, if left
       blank a value will be defaulted.
-    value: 'protection-order-schema-dev.pathfinder.gov.bc.ca'
+    value: 'family-law-act-schema-dev.pathfinder.gov.bc.ca'
   - name: DATABASE_SERVICE_NAME
     displayName: Database Service Name
     required: true

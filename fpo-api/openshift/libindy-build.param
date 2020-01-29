@@ -4,7 +4,7 @@
 # JSON Template File: templates/libindy/libindy-build.json
 #=========================================================
 NAME=libindy
-GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
+GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=tob-api/openshift/templates/libindy
 OUTPUT_IMAGE_TAG=latest

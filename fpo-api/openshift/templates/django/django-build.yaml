@@ -21,7 +21,7 @@ objects:
         Allow the builds to access the internet.
         This only needs to be specified once per environment.
       source:
-        - - $namespace=jag-csb-jes-family-protection-order-${ENV_NAME}
+        - - $namespace=ggpixq-${ENV_NAME}
       destination:
         - - ext:network=any
 
