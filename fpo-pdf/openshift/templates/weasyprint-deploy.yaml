@@ -120,7 +120,7 @@ parameters:
     description:
       The namespace of the OpenShift project containing the imagestream for
       the application.
-    value: jag-csb-jes-family-protection-order-tools
+    value: ggpixq-tools
   - name: TAG_NAME
     displayName: Environment TAG name
     description: The TAG name for this environment, e.g., dev, test, prod

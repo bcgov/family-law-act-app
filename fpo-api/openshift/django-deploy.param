@@ -6,7 +6,7 @@
 NAME=django
 APP_NAME=fpo
 ROLE=api
-IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
+IMAGE_NAMESPACE=ggpixq-tools
 DATABASE_SERVICE_NAME=postgresql
 DATABASE_ENGINE=postgresql
 DATABASE_NAME=FPO_Database

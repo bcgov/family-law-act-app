@@ -64,7 +64,7 @@ When you are working with a local cluster you should generate a set of local par
 Before generating the local files you must create the file `settings.local.sh` to override the project settings. You can start with an empty file by running `touch settings.local.sh`. A likely change you will want to do if you are developing using this platform is to add this to the file:
 
 ```bash
-export GIT_URI="https://github.com/bcgov/Family-Protection-Order.git"
+export GIT_URI="https://github.com/bcgov/family-law-act-app.git"
 ```
 
 and change `bcgov` to your own fork of the application.  As necessary, override other project settings in this file.

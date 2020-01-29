@@ -5,7 +5,7 @@
 #=========================================================
 NAME=django
 ENV_NAME=tools
-GIT_REPO_URL=https://github.com/bcgov/Family-Protection-Order.git
+GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=fpo-api
 KIND_OF_IMAGE=ImageStreamTag
