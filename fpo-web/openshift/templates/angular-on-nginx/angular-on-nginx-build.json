@@ -110,7 +110,7 @@
       "displayName": "Runtime Image Namespace",
       "description": "The namespace containing the runtime image.",
       "required": false,
-      "value": "jag-csb-jes-family-protection-order-tools"
+      "value": "ggpixq-tools"
     },
     {
       "name": "RUNTIME_IMAGE_NAME",

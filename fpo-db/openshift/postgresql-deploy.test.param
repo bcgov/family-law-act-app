@@ -6,7 +6,7 @@
 # NAME=postgresql
 # APP_NAME=fpo
 # ROLE=db
-# IMAGE_NAMESPACE=jag-csb-jes-family-protection-order-tools
+# IMAGE_NAMESPACE=ggpixq-tools
 # SOURCE_IMAGE_NAME=postgresql
 # PERSISTENT_VOLUME_SIZE=1Gi
 # PERSISTENT_VOLUME_CLASS=gluster-file-db

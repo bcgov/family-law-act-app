@@ -24,7 +24,7 @@ objects:
         Allow pods to talk to the internal api so deployments work.
         This only needs to be specified once per environment.
       source:
-        - - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
+        - - $namespace=ggpixq-${TAG_NAME}
       destination:
         - - int:network=internal-cluster-api-endpoint
 
@@ -43,17 +43,17 @@ objects:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
+          - $namespace=ggpixq-${TAG_NAME}
 
       destination:
         - - role=db
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
+          - $namespace=ggpixq-${TAG_NAME}
         - - role=pdf
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=jag-csb-jes-family-protection-order-${TAG_NAME}
+          - $namespace=ggpixq-${TAG_NAME}
 
   - kind: Service
     apiVersion: v1
@@ -187,7 +187,7 @@ parameters:
     displayName: Image Namespace
     required: true
     description: The namespace of the OpenShift project containing the imagestream for the application.
-    value: jag-csb-jes-family-protection-order-tools
+    value: ggpixq-tools
   - name: DATABASE_SERVICE_NAME
     displayName: Database Service Name
     description: The name of the database server/service.
