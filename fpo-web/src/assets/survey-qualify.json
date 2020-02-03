@@ -14,19 +14,19 @@
           "isRequired": true,
           "choices": [
            {
-            "value": "item1",
+            "value": "needPO",
             "text": "I need a Protection Order"
            },
            {
-            "value": "item2",
+            "value": "changePO",
             "text": "I want to change an existing Protection Order"
            },
            {
-            "value": "item3",
+            "value": "terminatePO",
             "text": "I want to terminate an existing Protection Order"
            },
            {
-            "value": "item4",
+            "value": "none",
             "text": "None of the above"
            }
           ],
@@ -46,7 +46,7 @@
           "titleLocation": "hidden"
          }
         ],
-        "visibleIf": "{orderType} = \"item1\""
+        "visibleIf": "{orderType} = \"needPO\""
        },
        {
         "type": "panel",
@@ -75,7 +75,7 @@
          }
         ],
         "visible": false,
-        "visibleIf": "{explanationQualifying} > 0 or {orderType} = \"item2\"  and {orderType} <> \"item3\""
+        "visibleIf": "{explanationQualifying} > 0 and {orderType} <> \"changePO\"  and {orderType} <> \"terminatePO\""
        },
        {
         "type": "panel",
@@ -106,7 +106,7 @@
          }
         ],
         "visible": false,
-        "visibleIf": "{unsafe} =  'y' and {familyUnsafe} = \"y\" or {familyUnsafe} = \"n\" and {orderType} <> \"item3\""
+        "visibleIf": "{unsafe} =  'y' and {familyUnsafe} = \"y\" or {familyUnsafe} = \"n\" and {orderType} <> \"terminatePO\" and {orderType} <> \"changePO\""
        },
        {
         "type": "panel",
@@ -127,7 +127,7 @@
          }
         ],
         "visible": false,
-        "visibleIf": "{unsafe} =  'y' and {unsafePartner} = 'y' or {orderType} = \"item3\""
+        "visibleIf": "{unsafe} =  'y' and {unsafePartner} = 'y' and {orderType} <> \"terminatePO\" and {orderType} <> \"changePO\""
        }
       ],
       "title": "This service will help you apply, change or terminate a Provincial Court Family Law Act Protection Order"
