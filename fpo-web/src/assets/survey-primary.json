@@ -52,7 +52,7 @@
           "name": "ExplanationServiceAddress",
           "visible": false,
           "visibleIf": "{Lawyer} = 'n'",
-          "title": "You need to give an address where it is safe for you to receive court documents. The person making you (or your family) feel unsafe will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
+          "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
           "isRequired": true,
           "titleLocation": "hidden"
          },
