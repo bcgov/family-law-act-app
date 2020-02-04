@@ -37,3 +37,5 @@ Temporary Items
 .idea/*
 .idea/
 
+# Swap files
+*.swp
