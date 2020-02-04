@@ -26,7 +26,7 @@ Accept: application/pdf
 ```
 
 Sample html:
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +36,15 @@ Sample html:
     <h1>Hello World</h1>
 </body>
 </html>
+```
+
+I found it straight forward to use [curl](https://curl.haxx.se/).
+```bash
+curl -X POST \
+  -H 'Accept: application/pdf' \
+  -H 'Content-Type: text/html' \
+  -d '@templates/simple.html' \
+  http://localhost:8083/pdf?filename=simple.pdf --output simple.pdf
 ```
 
 ## References
