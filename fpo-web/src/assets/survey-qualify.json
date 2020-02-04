@@ -106,7 +106,7 @@
          }
         ],
         "visible": false,
-        "visibleIf": "{unsafe} =  'y' and {familyUnsafe} = \"y\" or {familyUnsafe} = \"n\" and {orderType} <> \"terminatePO\" and {orderType} <> \"changePO\""
+        "visibleIf": "{orderType} = \"needPO\" and {unsafe} =  'y'"
        },
        {
         "type": "panel",
