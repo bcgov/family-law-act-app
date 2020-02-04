@@ -179,7 +179,7 @@
           "name": "ExplanationApplicantNeedsNoProtection",
           "visible": false,
           "visibleIf": "{ApplicantNeedsProtection} = 'n'",
-          "title": "You can still use this service to protect your children even if you do not need to be protected from {RespondentName} on this Protection Order.",
+          "title": "You can still use this service to protect your children, or to apply for a protection order on behalf of another adult, even if you do not need to be protected from {RespondentName} on this Protection Order.",
           "titleLocation": "hidden"
          },
          {
@@ -211,32 +211,32 @@
          {
           "type": "yesno",
           "name": "childPO",
-          "visibleIf": "{anotherAdultPO} = \"n\" and {ApplicantNeedsProtection} = \"n\"",
+          "visibleIf": "{anotherAdultPO} = \"n\" or {ApplicantNeedsProtection} = \"y\"",
           "title": "Do you have a child that needs to be protected from {RespondentName}, on this Protection Order?"
          },
          {
           "type": "personname",
           "name": "childName",
-          "visibleIf": "{childPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"",
+          "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
           "title": "What is the name of the child?"
          },
          {
           "type": "text",
           "name": "childDOB",
-          "visibleIf": "{childPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"",
+          "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
           "title": "What is the child's date of birth?",
           "inputType": "date"
          },
          {
           "type": "text",
           "name": "childRelationship",
-          "visibleIf": "{childPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"",
+          "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
           "title": "What is the child's relationship with {RespondentName}?"
          },
          {
           "type": "helptext",
           "name": "notMyChildFAQ",
-          "visibleIf": "{childPO} = \"n\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and  {childPO} = \"n\"",
           "title": "Do you need Protection Order for the child of the person you are applying for?",
           "titleLocation": "hidden",
           "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\">Child Protection Services</a>"
@@ -244,13 +244,13 @@
          {
           "type": "yesno",
           "name": "anotherAdultSharingResi",
-          "visibleIf": "{childPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\"",
           "title": "Is there another adult sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?"
          },
          {
           "type": "helptext",
           "name": "sharingResidenceFAQ",
-          "visibleIf": "{anotherAdultSharingResi} = \"n\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\"",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"n\"",
           "title": "Does this include a roommate?",
           "titleLocation": "hidden",
           "body": "No, a family law protection order can be made \nonly to protect an at-risk family member from another family member. An adult person, who lives with an at-risk family member, and is a relative of the at-risk person \n(even if they are not related to the person they need protection from) is included in the Family Law Act definition of a `family member`. This usually would \ninclude grandparents, parents, siblings, or other relatives of the at-risk family member. If you have a roommate that needs protection, \nthey should apply for a `Peace Bond`."
@@ -258,21 +258,21 @@
          {
           "type": "personname",
           "name": "anotherAdultSharingResiName",
-          "visibleIf": "{anotherAdultSharingResi} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\"",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
           "title": "What is the name of adult sharing the residence with you?",
           "defaultSubstitution": "{anotherAdultSharingResiName}"
          },
          {
           "type": "text",
           "name": "anotheradultSharingResiDOB",
-          "visibleIf": "{anotherAdultSharingResi} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\"",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
           "title": "What is the date of birth of the adult sharing the residence with you? ",
           "inputType": "date"
          },
          {
           "type": "text",
           "name": "anotherAdultSharingResiRelation",
-          "visibleIf": "{anotherAdultSharingResi} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResiName} notempty",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\" and {anotherAdultSharingResiName} notempty",
           "title": "What is {anotherAdultSharingResiName} relationship to the protected person(s)?"
          }
         ],
@@ -642,7 +642,7 @@
          }
         ],
         "visible": false,
-        "visibleIf": "{RespondentName} notempty"
+        "visibleIf": "{RespondentName} notempty and {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\""
        }
       ],
       "title": "Protection from whom?"
