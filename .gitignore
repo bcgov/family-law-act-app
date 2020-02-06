@@ -39,3 +39,6 @@ Temporary Items
 
 # Swap files
 *.swp
+
+# Output files
+fpo-pdf/*.pdf

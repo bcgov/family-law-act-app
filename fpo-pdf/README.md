@@ -47,6 +47,23 @@ curl -X POST --output simple.pdf \
   http://localhost:8083/pdf?filename=simple.pdf
 ```
 
+You can add this to the [inotify-tools](https://github.com/inotify-tools/inotify-tools/wiki) application for refreshing.
+```bash
+inotifywait -r -m -e modify templates |
+  while read path _ file; do
+    name=`basename $file .html`
+    if [[ "$name" =~ ^\. ]]; then # No swap files
+      continue
+    fi
+    curl -X POST --output $path/../$name.pdf \
+      -H 'Accept: application/pdf' \
+      -H 'Content-Type: text/html' \
+      -d "@$path$file" \
+      http://localhost:8083/pdf?filename=$name.pdf
+  done
+```
+This has been placed in the `watch.sh` file.
+
 ## References
 
 * Project: [Weasyprint](http://weasyprint.org/)
