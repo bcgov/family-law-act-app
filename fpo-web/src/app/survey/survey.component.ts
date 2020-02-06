@@ -21,6 +21,7 @@ export class SurveyComponent  {
   @Input() showSidebar = true;
   @Input() surveyPath: string;
   @Input() initialMode: string;
+  @Input() surveyServiceType: string;
   public cacheLoadTime: any;
   public cacheKey: string;
   public surveyCompleted = false;
@@ -106,6 +107,12 @@ export class SurveyComponent  {
 
   renderSurvey() {
     let surveyModel = new Survey.Model(this._jsonData);
+
+    if(this.surveyServiceType && this.surveyServiceType !== undefined) {
+      //surveyModel.getValue('userPreferredService');
+      surveyModel.setValue('userPreferredService', this.surveyServiceType);
+    }
+
     surveyModel.commentPrefix = 'Comment';
     surveyModel.showQuestionNumbers = 'off';
     surveyModel.showNavigationButtons = false;
@@ -140,6 +147,9 @@ export class SurveyComponent  {
 
     surveyModel.onComplete.add((sender, options) => {
       this.surveyCompleted = true;
+      if(this.surveyServiceType && this.surveyServiceType !== undefined) {
+        surveyModel.setValue('userPreferredService', this.surveyServiceType);
+      }
       this.surveyMode = 'print';
       if(! this.disableCache)
         this.saveCache();

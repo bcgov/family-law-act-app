@@ -14,6 +14,7 @@ export class GeneralDataService {
   private userInfo: any = null;
   // restrict to browser cache - not database
   private browserOnly: boolean = true;
+  private selectedUserType : string;
 
   constructor(
     private http: Http,
@@ -186,6 +187,25 @@ export class GeneralDataService {
     return this.saveSurveyCache(name, null, key);
   }
 
+  clearSurveyForNewActionPath(name: string, key?: string, useLocal?: boolean) {
+    if(! name)
+      return Promise.reject('Cache name not defined');
+    let localKey = 'survey-' + name;
+    if(this.browserOnly) {
+      return new Promise(resolve => {
+        if(key)
+          sessionStorage.removeItem(localKey + '-key');
+        let index = this.getLocalSurveyCache(name, 'index', true);
+        index = index ? index.result.filter(x => x.key !== key) : [];
+        if(index.length > 0) {
+          let cachedKey =  index[0];
+          this.saveSurveyCache(name, null, cachedKey.key);
+        }
+        resolve(null);
+      });
+    }
+  }
+
   loadSurveyCache(name: string, key?: string, useLocal?: boolean) {
     if(! name)
       return Promise.reject('Cache name not defined');
@@ -287,6 +307,18 @@ export class GeneralDataService {
         }
         return Promise.reject(error.message || error);
       });
+  }
+
+  setUserPreferredServiceType(selectedUserType: string) {
+    this.selectedUserType = selectedUserType;
+    sessionStorage.setItem("orderService", selectedUserType);
+  } 
+
+  getUserPreferredServiceType() {
+    if(this.selectedUserType) {
+      return this.selectedUserType;
+    }
+    return sessionStorage.getItem("orderService");
   }
 
 }

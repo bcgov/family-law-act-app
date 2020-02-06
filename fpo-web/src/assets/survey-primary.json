@@ -5,6 +5,12 @@
       "name": "Your Information",
       "elements": [
        {
+        "type": "text",
+        "name": "userPreferredService",
+        "visible": false,
+        "title": "User Preferred Service"
+       },
+       {
         "type": "panel",
         "name": "ApplicantPanel",
         "elements": [
@@ -678,6 +684,7 @@
         "visibleIf": "{RespondentName} notempty and {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\""
        }
       ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
       "title": "Protection from whom?"
      },
      {
@@ -939,6 +946,7 @@
         ]
        }
       ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
       "title": "Your Safety Needs"
      },
      {
@@ -1043,7 +1051,107 @@
         "description": "There will also be a paper form to fill out at the court registry. You should not need any additional information to complete the paper form. The paper form will help the judge make a Protection Order that is personalized to your safety needs."
        }
       ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
       "title": "Your Story"
+     },
+     {
+      "name": "Other Party",
+      "elements": [
+       {
+        "type": "paneldynamic",
+        "name": "otherPartyDynamicPanel",
+        "title": "Please add the details of the other party in the fields below. If you need to add another party, click the 'Add Other Party' button. If you are done entering all the parties, you can move on to the next question",
+        "templateElements": [
+         {
+          "type": "personname",
+          "name": "OtherPartyName",
+          "title": "Insert name of the other Party"
+         },
+         {
+          "type": "yesno",
+          "name": "doYouKnowDOB",
+          "visibleIf": "{otherPartyDynamicPanel[0].OtherPartyName} notempty",
+          "title": "Do you know {otherPartyDynamicPanel[0].OtherPartyName.first} {otherPartyDynamicPanel[0].OtherPartyName.middle} {otherPartyDynamicPanel[0].OtherPartyName.last}'s exact date of birth?"
+         },
+         {
+          "type": "text",
+          "name": "otherPartyDOB",
+          "visibleIf": "{otherPartyDynamicPanel[0].doYouKnowDOB} = \"y\"",
+          "title": "Date of Birth",
+          "inputType": "date"
+         },
+         {
+          "type": "address",
+          "name": "otherPartyAddress",
+          "visibleIf": "{otherPartyDynamicPanel[0].OtherPartyName} notempty",
+          "title": "What is an address where {otherPartyDynamicPanel[0].OtherPartyName.first} {otherPartyDynamicPanel[0].OtherPartyName.middle} {otherPartyDynamicPanel[0].OtherPartyName.last} can receive court documents?"
+         }
+        ],
+        "panelAddText": "Add other party",
+        "panelRemoveText": "Remove Party"
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'changePO'",
+      "title": "Other Party"
+     },
+     {
+      "name": "About Protection Order",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "aboutPOPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfPO",
+          "title": "On what date was the Protection Order you want changed made?",
+          "inputType": "date"
+         },
+         {
+          "type": "yesno",
+          "name": "inCourtForPO",
+          "title": "Were you in court when the Protection Order was made?"
+         },
+         {
+          "type": "comment",
+          "name": "whyNotInCourt",
+          "visibleIf": "{inCourtForPO} = \"n\"",
+          "title": "Please explain why you were not in Court"
+         },
+         {
+          "type": "checkbox",
+          "name": "kindofPartyIbPO",
+          "title": "In the Protection Order I am:",
+          "choices": [
+           {
+            "value": "protectedParty",
+            "text": "Protected Party"
+           },
+           {
+            "value": "restrainedParty",
+            "text": "Restrained Party"
+           },
+           {
+            "value": "parentGuardian",
+            "text": "Parent/Guardian of protected party"
+           }
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "whatChangesNeeded",
+          "title": "What changes are you asking for?"
+         },
+         {
+          "type": "comment",
+          "name": "whyChangesNeeded",
+          "title": "Why do you want these changes?"
+         }
+        ]
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'changePO'",
+      "title": "About Protection Order"
      }
     ],
     "showQuestionNumbers": "off",
