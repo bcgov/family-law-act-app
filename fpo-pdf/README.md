@@ -40,11 +40,11 @@ Sample html:
 
 I found it straight forward to use [curl](https://curl.haxx.se/).
 ```bash
-curl -X POST \
+curl -X POST --output simple.pdf \
   -H 'Accept: application/pdf' \
   -H 'Content-Type: text/html' \
   -d '@templates/simple.html' \
-  http://localhost:8083/pdf?filename=simple.pdf --output simple.pdf
+  http://localhost:8083/pdf?filename=simple.pdf
 ```
 
 ## References
