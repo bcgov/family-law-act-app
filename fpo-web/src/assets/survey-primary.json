@@ -1088,8 +1088,8 @@
          {
           "type": "yesno",
           "name": "doYouKnowDOB",
-          "visibleIf": "{otherPartyDynamicPanel[0].OtherPartyName} notempty",
-          "title": "Do you know {otherPartyDynamicPanel[0].OtherPartyName.first} {otherPartyDynamicPanel[0].OtherPartyName.middle} {otherPartyDynamicPanel[0].OtherPartyName.last}'s exact date of birth?"
+          "visibleIf": "{panel.OtherPartyName} notempty",
+          "title": "Do you know  {panel.OtherPartyName} exact date of birth?"
          },
          {
           "type": "text",
@@ -1101,8 +1101,8 @@
          {
           "type": "address",
           "name": "otherPartyAddress",
-          "visibleIf": "{otherPartyDynamicPanel[0].OtherPartyName} notempty",
-          "title": "What is an address where {otherPartyDynamicPanel[0].OtherPartyName.first} {otherPartyDynamicPanel[0].OtherPartyName.middle} {otherPartyDynamicPanel[0].OtherPartyName.last} can receive court documents?"
+          "visibleIf": "{panel.OtherPartyName} notempty",
+          "title": "What is an address where {panel.OtherPartyName} can receive court documents?"
          }
         ],
         "panelAddText": "Add other party",
