@@ -22,6 +22,7 @@ export class SurveyPrimaryComponent implements OnInit {
     public data: any;
     public jsonObject: any;
     protected initialMode = '';
+    public surveyServiceType: string;
 
 
     constructor(
@@ -31,6 +32,7 @@ export class SurveyPrimaryComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.surveyServiceType = this.dataService.getUserPreferredServiceType();
         let routeData = this.route.snapshot.data;
         this.surveyPath = routeData.survey_path;
         this.surveyJson = routeData.survey;
@@ -48,7 +50,9 @@ export class SurveyPrimaryComponent implements OnInit {
         if(path === 'qualify') {
             console.log(data);
             let ok = (data.PORConfirmed && data.PORConfirmed[0] === 'confirmed' || data.orderType === 'changePO' || data.orderType === 'terminatePO') ? 'qualified' : 'unqualified';
-            this.router.navigate(['result', ok]);
+            let serviceType = data.orderType;
+            this.checkIfSurveyInfoExists(serviceType);
+            this.router.navigate(['result', ok, serviceType]);
         }
         else if(this.cacheName) {
             if(data) {
@@ -57,6 +61,13 @@ export class SurveyPrimaryComponent implements OnInit {
                 this.printUrl = null;
                 this.initialMode = '';
             }
+        }
+    }
+
+    checkIfSurveyInfoExists(serviceType: string) {
+        let existingServiceType = sessionStorage.getItem("orderService");
+        if(existingServiceType && existingServiceType !== undefined && existingServiceType !== serviceType) {
+            this.dataService.clearSurveyForNewActionPath("primary");
         }
     }
 

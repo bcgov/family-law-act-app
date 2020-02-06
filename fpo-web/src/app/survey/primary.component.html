@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-md-12" *ngIf="! printUrl">
-      <survey [surveyPath]="surveyPath" [surveyJson]="surveyJson" [cacheName]="cacheName" [onComplete]="complete" [showSidebar]="showSidebar" [initialMode]="initialMode"></survey>
+      <survey [surveyPath]="surveyPath" [surveyJson]="surveyJson" [cacheName]="cacheName" [onComplete]="complete" [showSidebar]="showSidebar" [initialMode]="initialMode" [surveyServiceType]="surveyServiceType"></survey>
     </div>
     <div class="col-md-12" *ngIf="printUrl">
       <h2>You have completed the survey</h2>

@@ -47,7 +47,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'result/:state',
+    path: 'result/:state/:serviceType',
     component: ResultComponent,
     data: {
       breadcrumb: 'Survey Results'
