@@ -118,7 +118,6 @@
         ]
        }
       ],
-      "visibleIf": "{userPreferredService} = 'needPO' or {userPreferredService} = 'changePO'",
       "title": "Your Information"
      },
      {
@@ -1108,11 +1107,12 @@
           "isRequired": true
          }
         ],
+        "panelCount": 1,
         "panelAddText": "Add other party",
         "panelRemoveText": "Remove Party"
        }
       ],
-      "visibleIf": "{userPreferredService} = 'changePO'",
+      "visibleIf": "{userPreferredService} = 'changePO' or {userPreferredService} = 'terminatePO'",
       "title": "Other Party"
      },
      {
