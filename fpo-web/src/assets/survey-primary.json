@@ -1094,7 +1094,7 @@
          {
           "type": "text",
           "name": "otherPartyDOB",
-          "visibleIf": "{otherPartyDynamicPanel[0].doYouKnowDOB} = \"y\"",
+          "visibleIf": "{panel.doYouKnowDOB} = \"y\"",
           "title": "Date of Birth",
           "inputType": "date"
          },
