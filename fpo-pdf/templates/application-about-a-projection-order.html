@@ -6,16 +6,17 @@
   <style type="text/css">
       @page {
           size: Letter;
-          margin: .7in 0.7in 0.7in 0.7in;
+          margin: .7in 0.7in 0.9in 0.7in;
           font-size: 9pt;
           font-family: Helvetica, Arial, sans-serif;
           @bottom-left {
-            content: "Printed from https://justice.gov.bc.ca/protection-order/";
-            font-size: 8pt;
+            content: "PFA 720  02/2020 \a         Form K";
+            white-space: pre;
+            font-size: 6pt;
           }
           @bottom-right {
               counter-increment: page;
-              content:"Page " counter(page) " of " counter(pages);
+              content:counter(page);
               font-size: 8pt;
           }
 
@@ -159,7 +160,7 @@
           position: fixed;
           top: 0;
           right: 0;
-          width: 24%;
+          width: 28%;
           height: 4.8em;
           border: 0.5px solid #000;
           display: inline-block;
@@ -179,7 +180,13 @@
               page-break-before: always;
           }
           .container-head{
-              position: relative;top: 0;right: 0;height: 12em; margin-bottom: 1em;width:  25%; float: right;
+              position: relative;
+              top: 0;
+              right: 0;
+              height: 12em;
+              margin-bottom: 1em;
+              width:  25%;
+              float: right;
           }
           .container-head label {
             margin-bottom: 0.4em;
