@@ -2,29 +2,270 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Application About a Protection Order</title>
+  <style type="text/css">
+      @page {
+          size: Letter;
+          margin: .7in 0.7in 0.7in 0.7in;
+          font-size: 9pt;
+          font-family: Helvetica, Arial, sans-serif;
+          @bottom-left {
+            content: "Printed from https://justice.gov.bc.ca/protection-order/";
+            font-size: 8pt;
+          }
+          @bottom-right {
+              counter-increment: page;
+              content:"Page " counter(page) " of " counter(pages);
+              font-size: 8pt;
+          }
+
+      }
+      @page label{font-size: 9pt;}
+      .nom-form, .affidavit-form{page-break-before: always;}
+      body{margin: 0; padding: 0; max-width: 100%;}
+      table{
+          border-collapse: collapse;
+          table-layout: fixed;
+          width: 100%;
+          margin-bottom: 3px;
+      }
+
+
+      td{padding: .1em .25em .125em; width: 25%;}
+      /* wrappers / containers */
+      .container{
+          background-color: #FFFFFF;
+          color: #000000;
+          font-size: .85em;
+          margin:0;
+          font-family: Helvetica, Arial, sans-serif;
+          line-height: 1.05;
+      }
+      .dataset-wrapper,
+      .data-item span{
+          display: block;
+      }
+      /* base visuals */
+      .bordered{border: 1px solid #000;}
+      .brdr-btm{border-bottom: 0.5px solid #000; margin-bottom: .5em;}
+
+      .section{
+          padding-top: .75em;
+      }
+      .spacer{height: 1em;}
+      span.check{border: 1px solid #000!important; width: 1em; height: 1em; float: left; margin-right: .5em; font-size: 1.2em;}
+
+      /* typography */
+      label,
+      legend,
+      span,
+      aside{display: block;}
+
+      label, .label-num:after, .label-date:after, .name-party:after,
+      .label-name-person:after, .label-court:after, .label-time:after,
+      .label-names:after, .label-identify:after, .label-method:after,
+      .label-specify:after, .label-name:after, .label-occupation:after{
+          font-size: .5em;
+          text-transform: uppercase;
+          margin: .5em 0 0;
+          padding: 0;
+      }
+
+      .label-num:after, .label-date:after, .name-party:after,
+      .label-name-person:after, .label-court:after, .label-time:after,
+      .label-names:after, .label-identify:after, .label-method:after,
+      .label-specify:after, .label-name:after, .label-occupation:after{
+          position: relative; top: 13px; left: 0;
+      }
+      .label-num:after{content: 'number';}
+      .label-date:after{content: '(MMM/DD/YYYY)';}
+      .label-name-person:after{content: 'NAME OF PERSON MAKING APPLICATION';}
+      .label-name:after{content: 'NAME';}
+      .label-court:after{content: 'COURT LOCATION';}
+      .label-time:after{content: 'TIME';}
+      .label-names:after{content: 'NAMES';}
+      .label-identify:after{content: 'IDENTIFY DOCUMENTS';}
+      .label-method:after{content: 'METHOD OF SERVICE';}
+      .label-specify:after{content: 'SPECIFY';}
+      .label-occupation:after{content: 'OCCUPATION';}
+      .name-party:after{content: 'Name of party';}
+
+      legend{
+          font-weight: bold; font-size: 1.1em;
+
+      }
+      legend .sub{
+          font-weight: normal;
+          font-style: italic;
+          display: inline-block;
+      }
+      .party-label{
+          font-weight: normal;
+          text-transform: uppercase;
+          font-size: 1.25em;
+          text-align: right;
+      }
+      aside {
+          font-style: italic;
+          font-size: .75em;
+      }
+      h1   {
+          font-size: 1.6em;
+          font-weight: bold;
+          margin: 0.27em 0;
+          text-transform: uppercase;
+          float: left;
+          width: 75%;
+      }
+      span.sub-heading{
+          display: block;
+          font-size: .65em;
+          text-transform: none;
+          font-weight: normal;
+          margin-top: .3em;
+      }
+      .addendum, .short, .medium, .long, .extra-long{display: inline-block; margin: 0 .5em;}
+      .short{width: 20%;}
+      .medium{width: 30%;}
+      .long{width: 40%;}
+      .extra-long{width: 80%;}
+      ul li {padding: .25em; line-height: 1.25;}
+      ul li ul{list-style-type: disc;}
+      .signature-area{
+          padding: 1em;
+      }
+      .box{border: 1px solid #000; display: block; height: 4em;}
+      .separation{border-top: 2px solid #000;}
+      ol.lower-alpha {list-style-type: lower-alpha;}
+
+      @media print{
+          body{
+              font-size: 9pt!important;
+          }
+          table.bordered{
+              margin-bottom: 6px;
+          }
+      }
+      /* NEW SET-UP FOR REPEATED HEADER */
+      .no-repeat-header{
+          position: relative;
+          top: 0;
+          left: 0;
+          width: 85%;
+          height: 6em;
+          display: inline-block;
+      }
+      .repeat-header{
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 24%;
+          height: 4.8em;
+          border: 0.5px solid #000;
+          display: inline-block;
+          z-index: 10;
+      }
+
+
+      @media print{
+          .allow-to-break{page-break-inside: auto!important;}
+          .force-break{page-break-before: always!important; margin-top: 1.25em;}
+          .dont-break-before{page-break-before: avoid!important;}
+          .new-page{
+              page-break-before: always;
+              position: relative; top: 8em;
+          }
+          .new-form{
+              page-break-before: always;
+          }
+          .container-head{
+              position: relative;top: 0;right: 0;height: 12em; margin-bottom: 1em;width:  25%; float: right;
+          }
+          .container-head label {
+            margin-bottom: 0.4em;
+          }
+          .container-head .content {
+            margin-bottom: 0.1em
+          }
+          .container-head:after{clear: both;}
+          .aff-text{font-size: 9pt!important;}
+          .aff-label{font-weight: bold; display: block;}
+          .next-page{page-break-before: always; margin-top: 7em;}
+      }
+      @page :first {
+      }
+    </style>
 </head>
 <body>
-  <h1>Application About a Protection Order</h1>
-  <div>Provincial Court (Family) Rules</div>
-  <div>Early Resolution and Case Management Registry</div>
-  <div class="container-header">
-    <table>
-      <tbody>
-        <tr>
-          <td>
-            <label>Registry Location:</label>
-            <span> {{x}} </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Court File Number:</label>
-            <span> {{x}} </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- <h1>Application About a Protection Order</h1> -->
+  <!-- <div>Provincial Court (Family) Rules</div> -->
+  <!-- <div>Early Resolution and Case Management Registry</div> -->
+  <!-- <div class="container-header"> -->
+    <!-- <table> -->
+      <!-- <tbody> -->
+        <!-- <tr> -->
+          <!-- <td> -->
+            <!-- <label>Registry Location:</label> -->
+            <!-- <span> {{x}} </span> -->
+          <!-- </td> -->
+        <!-- </tr> -->
+        <!-- <tr> -->
+          <!-- <td> -->
+            <!-- <label>Court File Number:</label> -->
+            <!-- <span> {{x}} </span> -->
+          <!-- </td> -->
+        <!-- </tr> -->
+      <!-- </tbody> -->
+    <!-- </table> -->
+  <!-- </div> -->
+<div class="wrapper">
+    <div class="container">
+
+        <!-- FORM ONE -->
+        <!-- form heading -->
+        <div class="no-repeat-header">
+
+            <!--Jeannie's recommendation-->
+
+
+            <table width="100%;">
+                <tbody>
+                <tr>
+                    <td>
+                        <h1>Application About A Protection Order
+                            <span class="sub-heading">Provincial Court (Family) Rules</span>
+                            <span class="sub-heading">Early Resolution and Case Management Registry</span>
+                        </h1>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div><!-- /form heading -->
+        <!-- correct positioning of repeated block -->
+        <div class="container-head">
+            <div style="position: absolute; top: 0; left: 0; height: 11em; ">
+                <div class="repeat-header">
+                    <table width="100%;">
+                        <tbody>
+                        <tr class="brdr-btm">
+                            <td>
+                                <label>Registry Location:</label>
+                                <div class="content">&nbsp;{{ X }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Court File Number:</label>
+                                <div class="content">&nbsp;{% X %}</div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end all forms container -->
+</div><!-- end all forms wrapper -->
 </body>
 </html>
