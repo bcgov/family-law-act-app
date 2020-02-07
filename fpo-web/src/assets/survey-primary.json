@@ -1083,7 +1083,8 @@
          {
           "type": "personname",
           "name": "OtherPartyName",
-          "title": "Insert name of the other Party"
+          "title": "Insert name of the other Party",
+          "isRequired": true
          },
          {
           "type": "yesno",
@@ -1102,14 +1103,16 @@
           "type": "address",
           "name": "otherPartyAddress",
           "visibleIf": "{panel.OtherPartyName} notempty",
-          "title": "What is an address where {panel.OtherPartyName} can receive court documents?"
+          "title": "What is an address where {panel.OtherPartyName} can receive court documents?",
+          "isRequired": true
          }
         ],
+        "panelCount": 1,
         "panelAddText": "Add other party",
         "panelRemoveText": "Remove Party"
        }
       ],
-      "visibleIf": "{userPreferredService} = 'changePO'",
+      "visibleIf": "{userPreferredService} = 'changePO' or {userPreferredService} = 'terminatePO'",
       "title": "Other Party"
      },
      {
@@ -1122,13 +1125,24 @@
          {
           "type": "text",
           "name": "dateOfPO",
+          "visibleIf": "{userPreferredService} = 'changePO'",
           "title": "On what date was the Protection Order you want changed made?",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "text",
+          "name": "terminateDateOfPO",
+          "visibleIf": "{userPreferredService} = 'terminatePO'",
+          "title": "On what date was the Protection Order you want terminated made?",
+          "isRequired": true,
           "inputType": "date"
          },
          {
           "type": "yesno",
           "name": "inCourtForPO",
-          "title": "Were you in court when the Protection Order was made?"
+          "title": "Were you in court when the Protection Order was made?",
+          "isRequired": true
          },
          {
           "type": "comment",
@@ -1140,6 +1154,7 @@
           "type": "checkbox",
           "name": "kindofPartyIbPO",
           "title": "In the Protection Order I am:",
+          "isRequired": true,
           "choices": [
            {
             "value": "protectedParty",
@@ -1158,17 +1173,28 @@
          {
           "type": "comment",
           "name": "whatChangesNeeded",
-          "title": "What changes are you asking for?"
+          "visibleIf": "{userPreferredService} = 'changePO'",
+          "title": "What changes are you asking for?",
+          "isRequired": true
          },
          {
           "type": "comment",
           "name": "whyChangesNeeded",
-          "title": "Why do you want these changes?"
+          "visibleIf": "{userPreferredService} = 'changePO'",
+          "title": "Why do you want these changes?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whyTerminatePO",
+          "visibleIf": "{userPreferredService} = 'terminatePO'",
+          "title": "Why do you want the order terminated?",
+          "isRequired": true
          }
         ]
        }
       ],
-      "visibleIf": "{userPreferredService} = 'changePO'",
+      "visibleIf": "{userPreferredService} = 'changePO' or {userPreferredService} = 'terminatePO'",
       "title": "About Protection Order"
      }
     ],
