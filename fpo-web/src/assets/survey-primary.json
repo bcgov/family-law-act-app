@@ -979,7 +979,7 @@
        {
         "type": "yesno",
         "name": "PORSpeedup",
-        "title": "Normally, {RespondentName} will get 30 days to file a reply. Do you need this Protection Order to be made sooner?"
+        "title": "Normally, {RespondentName} will need to be served with the paper work produced by this application at least 7 days before the date scheduled for court. Do you need this Protection Order to be made sooner?"
        },
        {
         "type": "yesno",
