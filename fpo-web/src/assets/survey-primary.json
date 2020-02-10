@@ -1037,15 +1037,6 @@
        },
        {
         "type": "comment",
-        "name": "PORRelationshipHistory",
-        "visible": false,
-        "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-        "title": "Describe your relationship history with {RespondentName} and your current living situation.",
-        "description": "If it applies to your situation, include:\n<ul>\n<li>Relationship to {RespondentName}</li>\n<li>how long you have lived together</li>\n<li>who lives with who now</li>\n<li>if you separated, when?</li>\n<li>any drug abuse</li>\n<li>any alcohol abuse</li>\n<li>any history of mental illness</li>\n<li>any criminal history</li>\n</ul>\n",
-        "rows": 8
-       },
-       {
-        "type": "comment",
         "name": "PORWhatHappened",
         "visible": false,
         "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
