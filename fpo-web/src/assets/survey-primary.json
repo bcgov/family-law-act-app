@@ -584,10 +584,23 @@
             "title": "Written Agreement Name"
            },
            {
+            "type": "text",
+            "name": "writtenAgreementDate",
+            "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
+            "startWithNewLine": false,
+            "title": "Date of written agreement",
+            "inputType": "date"
+           },
+           {
+            "type": "infotext",
+            "name": "writtenAgreementInCourtText",
+            "title": "If you have filed the written agreement with a court, please also indicate the court location and court file number.  These fields are optional.",
+            "titleLocation": "hidden"
+           },
+           {
             "type": "dropdown",
             "name": "writtenAgreementCourtLocation",
             "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
-            "startWithNewLine": false,
             "title": "Court Location",
             "hasOther": true,
             "choices": [
@@ -682,15 +695,8 @@
             "type": "text",
             "name": "writtenAgreementFileNo",
             "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
-            "title": "File Number"
-           },
-           {
-            "type": "text",
-            "name": "writtenAgreementDate",
-            "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
             "startWithNewLine": false,
-            "title": "Date of written agreement",
-            "inputType": "date"
+            "title": "File Number"
            }
           ],
           "panelCount": 1,
