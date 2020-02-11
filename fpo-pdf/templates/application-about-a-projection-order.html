@@ -47,7 +47,8 @@
           display: block;
       }
       /* base visuals */
-      .bordered{border: 1px solid #000;}
+      .bordered{border: 0.5px solid #000;}
+      .border-rows tr {border-bottom: 0.5px solid #000;}
       .brdr-btm{border-bottom: 0.5px solid #000; margin-bottom: .5em;}
 
       .section{
@@ -81,7 +82,13 @@
       .label-num:after{content: 'number';}
       .label-date:after{content: '(MMM/DD/YYYY)';}
       .label-name-person:after{content: 'NAME OF PERSON MAKING APPLICATION';}
-      .label-name:after{content: 'NAME';}
+
+      .label-name:after{
+        content: '(full name of person)';
+        position: relative;
+        left: -2rem;
+      }
+
       .label-court:after{content: 'COURT LOCATION';}
       .label-time:after{content: 'TIME';}
       .label-names:after{content: 'NAMES';}
@@ -202,6 +209,15 @@
           margin-top: 2rem;
           line-height: 1.5rem;
         }
+        .numbered-form span {
+          display: inline;
+        }
+        .numbered-form .number {
+          font-weight: bolder;
+        }
+        .numbered-form .label {
+          display: absolute;
+        }
       }
       @page :first {
       }
@@ -258,13 +274,37 @@
     </div>
 
   <div class="numbered-form">
-    <table>
-      <tr>
-        <td colspan="4">
-        </td>
-      </tr>
-    </table>
+    <span class="number">1.</span>
+    <span>My name is </span>
+    <span class="brdr-btm label-name"> {{X}} </span>
+    <span> . My contact information and address for delivery of court documents by the other party and the Court is: 
   </div>
+
+  <table class="bordered border-rows">
+    <tr >
+      <td>Full Name: {{X}} </td>
+      <td></td>
+      <td>Date of Birth: {{X}}</td>
+    </tr>
+    <tr>
+      <td colspan="3"><b>Contact information and address for delivery</b></td>
+    </tr>
+    <tr>
+      <td colspan="3">Lawyer (if applicable): {{X}} </td>
+    </tr>
+    <tr>
+      <td colspan="3">Address: {{X}} </td>
+    </tr>
+    <tr>
+      <td>City:</td>
+      <td style="padding-left:50px">Province: {{X}} </td>
+      <td>Postal Code: {{X}} </td>
+    </tr>
+    <tr>
+      <td>Email: {{X}} </td>
+      <td colspan="2" style="padding-left:150px">Telephone: {{X}} </td>
+    </tr>
+  </table>
 
   </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->
