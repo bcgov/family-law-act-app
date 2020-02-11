@@ -979,7 +979,7 @@
        {
         "type": "yesno",
         "name": "PORSpeedup",
-        "title": "Normally, {RespondentName} will get 30 days to file a reply. Do you need this Protection Order to be made sooner?"
+        "title": "Normally, {RespondentName} will need to be served with the paper work produced by this application at least 7 days before the date scheduled for court. Do you need this Protection Order to be made sooner?"
        },
        {
         "type": "yesno",
@@ -1036,22 +1036,31 @@
         "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
        },
        {
-        "type": "comment",
-        "name": "PORRelationshipHistory",
-        "visible": false,
-        "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-        "title": "Describe your relationship history with {RespondentName} and your current living situation.",
-        "description": "If it applies to your situation, include:\n<ul>\n<li>Relationship to {RespondentName}</li>\n<li>how long you have lived together</li>\n<li>who lives with who now</li>\n<li>if you separated, when?</li>\n<li>any drug abuse</li>\n<li>any alcohol abuse</li>\n<li>any history of mental illness</li>\n<li>any criminal history</li>\n</ul>\n",
-        "rows": 8
-       },
-       {
-        "type": "comment",
-        "name": "PORWhatHappened",
-        "visible": false,
-        "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-        "title": "Describe what {RespondentName} has done to make you and/or your children feel `unsafe`.\n",
-        "description": "Describe any recent incidents of `Family Violence` against you and/or your children. Include:\n<ul>\n<li>How {RespondentName} made you and/or your children feel unsafe (describe examples of {RespondentName}’s behaviour that made you afraid)</li>\n<li>A description of the incident (write as much detail as possible)</li>\n<li>Who was involved (include the police if they were involved at any time)</li>\n<li>Who witnessed it</li>\n<li>Any exposure your children have had to violence or abuse</li>\n<li>Any injuries or trauma from the incident</li>\n<li>Any doctor's notes, police reports or photographs (you must refer to them in your affidavit and make photocopies of them for the court)</li>\n</ul>",
-        "rows": 8
+        "type": "panel",
+        "name": "threatPanel",
+        "elements": [
+         {
+          "type": "comment",
+          "name": "whatViolence",
+          "title": "What `Family Violence` do you fear?"
+         },
+         {
+          "type": "comment",
+          "name": "whyViolence",
+          "title": "Why do you fear `Family Violence` is likely to happen?"
+         },
+         {
+          "type": "comment",
+          "name": "describeThreats",
+          "title": "Describe the behaviour or threats that concern you."
+         },
+         {
+          "type": "comment",
+          "name": "recentIncidents",
+          "title": "Describe any recent incidents."
+         }
+        ],
+        "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')"
        },
        {
         "type": "comment",
