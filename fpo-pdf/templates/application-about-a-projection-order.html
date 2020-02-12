@@ -212,8 +212,10 @@
         .numbered-form span {
           display: inline;
         }
-        .numbered-form .number {
+        .numbered-form .number:before {
           font-weight: bolder;
+          counter-increment: section;
+          content:counter(section) ".";
         }
         .numbered-form .label {
           display: absolute;
@@ -274,7 +276,7 @@
     </div>
 
   <div class="numbered-form">
-    <span class="number">1.</span>
+    <span class="number"></span>
     <span>My name is </span>
     <span class="brdr-btm label-name"> {{X}} </span>
     <span> . My contact information and address for delivery of court documents by the other party and the Court is: 
