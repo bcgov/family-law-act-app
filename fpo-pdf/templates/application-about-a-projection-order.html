@@ -23,12 +23,19 @@
       }
       @page label{font-size: 9pt;}
       .nom-form, .affidavit-form{page-break-before: always;}
-      body{margin: 0; padding: 0; max-width: 100%;}
+      body{
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+        counter-reset: question-counter;
+      }
+
       table{
           border-collapse: collapse;
           table-layout: fixed;
           width: 100%;
           margin-bottom: 3px;
+          line-height: 1.25;
       }
 
 
@@ -47,15 +54,34 @@
           display: block;
       }
       /* base visuals */
-      .bordered{border: 0.5px solid #000;}
-      .border-rows tr {border-bottom: 0.5px solid #000;}
-      .brdr-btm{border-bottom: 0.5px solid #000; margin-bottom: .5em;}
+
+      .bordered{
+        border: 0.5px solid #000;
+      }
+      .border-rows tr {
+        border-bottom: 0.5px solid #000;
+      }
+      .brdr-btm{
+        border-bottom: 0.5px solid #000;
+        margin-bottom: .5em;
+      }
 
       .section{
           padding-top: .75em;
       }
       .spacer{height: 1em;}
-      span.check{border: 1px solid #000!important; width: 1em; height: 1em; float: left; margin-right: .5em; font-size: 1.2em;}
+
+      span.check{
+        position: absolute;
+        border: 1px solid #000!important;
+        width: 1em;
+        margin: 0.3em;
+        height: 1em;
+        font-size: 1.2em;
+      }
+      span.text-after-check {
+        margin-left: 1.5rem;
+      }
 
       /* typography */
       label,
@@ -100,7 +126,6 @@
 
       legend{
           font-weight: bold; font-size: 1.1em;
-
       }
       legend .sub{
           font-weight: normal;
@@ -212,10 +237,10 @@
         .numbered-form span {
           display: inline;
         }
-        .numbered-form .number:before {
+        section.question:before {
           font-weight: bolder;
-          counter-increment: section;
-          content:counter(section) ".";
+          counter-increment: question-counter;
+          content:counter(question-counter) ".";
         }
         .numbered-form .label {
           display: absolute;
@@ -276,37 +301,49 @@
     </div>
 
   <div class="numbered-form">
-    <span class="number"></span>
-    <span>My name is </span>
-    <span class="brdr-btm label-name"> {{X}} </span>
-    <span> . My contact information and address for delivery of court documents by the other party and the Court is: 
-  </div>
 
-  <table class="bordered border-rows">
-    <tr >
-      <td>Full Name: {{X}} </td>
-      <td></td>
-      <td>Date of Birth: {{X}}</td>
-    </tr>
-    <tr>
-      <td colspan="3"><b>Contact information and address for delivery</b></td>
-    </tr>
-    <tr>
-      <td colspan="3">Lawyer (if applicable): {{X}} </td>
-    </tr>
-    <tr>
-      <td colspan="3">Address: {{X}} </td>
-    </tr>
-    <tr>
-      <td>City:</td>
-      <td style="padding-left:50px">Province: {{X}} </td>
-      <td>Postal Code: {{X}} </td>
-    </tr>
-    <tr>
-      <td>Email: {{X}} </td>
-      <td colspan="2" style="padding-left:150px">Telephone: {{X}} </td>
-    </tr>
-  </table>
+    <!-- Question 1 -->
+    <section class="question">
+      <span>My name is </span>
+      <span class="brdr-btm label-name"> {{X}} </span>
+      <span> . My contact information and address for delivery of court documents by the other party and the Court is: 
+
+      <table class="bordered border-rows">
+        <tr >
+          <td>Full Name: {{X}} </td>
+          <td></td>
+          <td>Date of Birth: {{X}}</td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Contact information and address for delivery</b></td>
+        </tr>
+        <tr>
+          <td colspan="3">Lawyer (if applicable): {{X}} </td>
+        </tr>
+        <tr>
+          <td colspan="3">Address: {{X}} </td>
+        </tr>
+        <tr>
+          <td>City: {{X}} </td>
+          <td style="padding-left:50px">Province: {{X}} </td>
+          <td>Postal Code: {{X}} </td>
+        </tr>
+        <tr>
+          <td>Email: {{X}} </td>
+          <td colspan="2" style="padding-left:150px">Telephone: {{X}} </td>
+        </tr>
+      </table>
+
+    </section>
+
+
+
+
+    <!-- Question 2 -->
+    <section class="question">
+      <span class="check"></span>
+      <span class="text-after-check"> I understand</span>
+    </section>
 
   </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->
