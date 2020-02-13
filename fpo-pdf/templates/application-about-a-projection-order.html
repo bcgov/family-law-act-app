@@ -255,8 +255,34 @@
         section.question div.sub-selections {
           margin: 0.2rem 1rem;
         }
+        section.question div.sub-selection {
+          margin: 0.2rem;
+        }
         section.question span.sub-selection-desc {
           margin-left: 1.6rem;
+        }
+        .reg-box {
+          border: 0.5px solid #000;
+          padding: 0.5rem;
+        }
+        .reg-box tr.first td.first{
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 10rem !important;
+        }
+        .reg-box tr.first td.third{
+          width: 10px;
+        }
+        .reg-box tr.first td.second{
+          padding-top: 0.5rem;
+          line-height: 1;
+        }
+        .reg-box tr.first td.second .underline{
+          line-height: 0 !important;
+        }
+        .reg-box tr.first td.second .desc{
+          line-height: 0 !important;
+          font-size: 7px;
         }
       }
       @page :first {
@@ -412,7 +438,7 @@
     </section>
 
 
-    <!-- Question 2 -->
+    <!-- Question 4 -->
     <section class="question">
       <span>I am applying for the following order.</span>
       <div class="sub-selections">
@@ -436,6 +462,21 @@
         </div>
       </div>
     </section>
+
+    <div class="reg-use">
+      <div><i>For registry use only</i></div>
+      <div class="reg-box">
+        <table>
+          <tr class="first">
+            <td class="first"><b><i>This application will be made to the court at </i></b></td>
+            <td class="second"><span class="underline">__________________________________________________________________________</span><span class="desc">(court registry, street address, city)</span></td>
+            <td class="third"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div><b>NOTICE TO THE OTHER PARTY: If you do not appear in court on the date and time above, the Court may make an order in your absence.</b></div>
 
 
 
