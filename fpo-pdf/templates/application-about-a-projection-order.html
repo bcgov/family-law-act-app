@@ -261,9 +261,12 @@
         section.question span.sub-selection-desc {
           margin-left: 1.6rem;
         }
+        .reg-use {
+          margin: 2rem 0 2rem 0;
+        }
         .reg-box {
           border: 0.5px solid #000;
-          padding: 0.5rem;
+          padding: 0.5rem 0.5rem 1.0rem 1.0rem ;
         }
         .reg-box tr.first td.first{
           padding: 0 !important;
@@ -283,6 +286,19 @@
         .reg-box tr.first td.second .desc{
           line-height: 0 !important;
           font-size: 7px;
+        }
+        .reg-box .date-time {
+          position: absolute;
+          line-height: 0 !important;
+          font-size: 7px;
+          margin-top: 0.2rem;
+        }
+        .reg-box .date {
+          margin-left: 70px;
+        }
+        .reg-box .time {
+          margin-left: 210px;
+        }
         }
       }
       @page :first {
@@ -344,7 +360,7 @@
     <!-- Question 1 -->
     <section class="question">
       <span>My name is </span>
-      <span class="brdr-btm label-name"> {{X}} </span>
+      <span class="brdr-btm label-name">&nbsp; Luann Van Houten  </span>
       <span> . My contact information and address for delivery of court documents by the other party and the Court is: 
 
       <table class="bordered border-rows">
@@ -406,7 +422,7 @@
     <!-- Question 3 -->
     <section class="question">
       <span>The other party's name is</span>
-      <span class="brdr-btm label-name"> {{X}} </span>
+      <span class="brdr-btm label-name"> &nbsp; Kirk Van Houten </span>
       <span> . Their contact information, as I know it, is: 
 
       <table class="bordered border-rows">
@@ -473,6 +489,13 @@
             <td class="third"></td>
           </tr>
         </table>
+        <div>
+          <div>on __________________________ at ________________________ am/pm</div>
+          <div class="date-time">
+            <div class="date">date</div>
+            <div class="time">time</div>
+          </div>
+        </div>
       </div>
     </div>
 
