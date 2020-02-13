@@ -75,7 +75,7 @@
         position: absolute;
         border: 1px solid #000!important;
         width: 1em;
-        margin: 0.3em;
+        margin: 0.1em;
         height: 1em;
         font-size: 1.2em;
       }
@@ -103,7 +103,7 @@
       .label-name-person:after, .label-court:after, .label-time:after,
       .label-names:after, .label-identify:after, .label-method:after,
       .label-specify:after, .label-name:after, .label-occupation:after{
-          position: relative; top: 13px; left: 0;
+          position: relative; top: 8px; left: 0;
       }
       .label-num:after{content: 'number';}
       .label-date:after{content: '(MMM/DD/YYYY)';}
@@ -176,7 +176,7 @@
               font-size: 9pt!important;
           }
           table.bordered{
-              margin-bottom: 6px;
+              margin: 6px;
           }
       }
       /* NEW SET-UP FOR REPEATED HEADER */
@@ -193,7 +193,7 @@
           top: 0;
           right: 0;
           width: 28%;
-          height: 4.8em;
+          height: 5.3em;
           border: 0.5px solid #000;
           display: inline-block;
           z-index: 10;
@@ -232,11 +232,15 @@
 
         .numbered-form {
           margin-top: 2rem;
-          line-height: 1.5rem;
+          line-height: 1rem;
         }
         .numbered-form span {
           display: inline;
         }
+        section.question {
+          margin-bottom: 0.5rem;
+        }
+
         section.question:before {
           font-weight: bolder;
           counter-increment: question-counter;
@@ -342,7 +346,7 @@
     <!-- Question 2 -->
     <section class="question">
       <span class="check"></span>
-      <span class="text-after-check"> I understand</span>
+      <span class="text-after-check">I understand I need to give notice to the person I want protection from, or who has made an application for protection from me. This person is the other party. To give notice, they must be served with the application and supporting materials at least 7 days before the date and time of the hearing unless the application is made without notice or with less then 7 days notice.</span>
     </section>
 
   </div><!-- end all forms container -->
