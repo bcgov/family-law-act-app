@@ -249,6 +249,15 @@
         .numbered-form .label {
           display: absolute;
         }
+        section.question div.sub-selections-desc {
+          font-style: italic;
+        }
+        section.question div.sub-selections {
+          margin: 0.2rem 1rem;
+        }
+        section.question span.sub-selection-desc {
+          margin-left: 1.6rem;
+        }
       }
       @page :first {
       }
@@ -347,6 +356,23 @@
     <section class="question">
       <span class="check"></span>
       <span class="text-after-check">I understand I need to give notice to the person I want protection from, or who has made an application for protection from me. This person is the other party. To give notice, they must be served with the application and supporting materials at least 7 days before the date and time of the hearing unless the application is made without notice or with less then 7 days notice.</span>
+      <div class="sub-selections">
+        <div class="sub-selections-desc">
+          Select only one of the options below
+        </div>
+        <div class="sub-selection">
+          <span class="check"></span>
+          <span class="sub-selection-desc">I am making this application with at least 7 days notice to the other party.</span>
+        </div>
+        <div class="sub-selection">
+          <span class="check"></span>
+          <span class="sub-selection-desc">I am making this application without notice to the other party and I have completed an Application for Case Management Order Without Notice or Appearance requesting this application be heard without notice to the other party.</span>
+        </div>
+        <div class="sub-selection">
+          <span class="check"></span>
+          <span class="sub-selection-desc">I am making this application with less than 7 days notice to the other party and I have completed an Application for Case Management Order Without Notice or Appearance requesting this application be heard with less than 7 days notice to the other party.</span>
+        </div>
+      </div>
     </section>
 
   </div><!-- end all forms container -->
