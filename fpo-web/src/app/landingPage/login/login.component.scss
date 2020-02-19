@@ -1,0 +1,57 @@
+@import "../../../variables";
+
+.home-content {
+  padding-bottom: 20px;
+  padding-top: 8rem;
+  max-width: 900px;
+}
+
+h1, h2 {
+  font-weight: 600;
+}
+
+.intro {
+  font-size: 24px;
+  line-height: 1.6;
+  margin: 3rem auto 4rem;
+  p {
+    margin-bottom: 2rem;
+  }
+}
+
+.survey-button {
+    border: 2px solid rgba($gov-pale-grey, 0.3);
+    margin-top: 2.5rem;
+    &:active {
+      border: 2px solid rgba($gov-white, 0.8);
+    }
+  }
+  
+  .login-button {
+    background-color: $gov-gold;
+    border: 2px solid rgba($gov-accent-grey, 0.8);
+    color: $gov-mid-blue;
+    margin-top: 2.5rem;
+    &:hover, &:focus {
+      background-color: darken($gov-gold, 8%);
+      color: #222;
+    }
+    &:active {
+      border: 2px solid rgba($gov-white, 0.8);
+    }
+  }
+  
+  .returning {
+    color: $gov-white;
+    margin-top: 2rem;
+    p {
+      margin-bottom: 0.4rem;
+    }
+    a {
+      color: $gov-white;
+      text-decoration: none;
+      &:hover, &:active, &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
