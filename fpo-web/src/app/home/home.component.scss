@@ -113,3 +113,13 @@ h1, h2 {
   padding: 1.5rem;
   > h2{ color: $alert-red;}
   }
+
+  .customLabel {
+    font-weight: normal !important;
+}
+
+.buttonClass {
+    margin-left: 700px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
