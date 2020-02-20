@@ -9,12 +9,27 @@ import { SurveyEditorComponent } from 'app/survey/editor.component';
 import { TermsViewComponent } from 'app/home/terms.component';
 import { UserStatusComponent } from 'app/home/status.component';
 import { UserStatusResolver }   from 'app/home/status-resolver.service';
+import { LandingPageComponent } from './landingPage/landingPage.component';
+import { OrderTypesComponent } from './landingPage/orderTypes/orderTypes.component';
+import { LoginComponent } from './landingPage/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
     //children: []
+    component: LandingPageComponent
+  },
+  {
+    path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'order/:typeOfService',
+    component: OrderTypesComponent
+  },
+  {
+    path: 'order/:typeOfService/login',
+    component: LoginComponent
   },
   {
     path: 'qualify',

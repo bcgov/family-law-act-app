@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SearchBoxDirective } from './search-box/search-box.directive';
@@ -26,6 +27,9 @@ import { SurveyPrimaryComponent } from './survey/primary.component';
 import { SurveyEditorComponent } from './survey/editor.component';
 import { SurveySidebarComponent } from './survey/sidebar.component';
 import { ResultComponent } from './result/result.component';
+import { LandingPageComponent } from './landingPage/landingPage.component';
+import { OrderTypesComponent } from './landingPage/orderTypes/orderTypes.component';
+import { LoginComponent } from './landingPage/login/login.component';
 
 
 @NgModule({
@@ -45,6 +49,9 @@ import { ResultComponent } from './result/result.component';
     TermsContentComponent,
     TermsViewComponent,
     UserStatusComponent,
+    LandingPageComponent,
+    OrderTypesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +60,7 @@ import { ResultComponent } from './result/result.component';
     AppRoutingModule,
     NgbModule,
     AdminModule,
+    ReactiveFormsModule
   ],
   providers: [GeneralDataService, GlossaryService, InsertService, UserStatusResolver],
   bootstrap: [AppComponent]

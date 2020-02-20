@@ -2,49 +2,48 @@
   <div class="row">
     <div class="col-md-12">
       <h1>
-        Family Law Act Protection Orders
+        Apply for Family Order
       </h1>
 
       <div class="intro">
-        <p>Use this service to apply for a Protection Order under the Family Law Act from the <b>Provincial Court</b>
-        of British Columbia. If you want a Protection Order from the Supreme Court of British Columbia instead of Provincial Court, this service cannot help you.</p>
-
-        <section class="need-to-know">
-          <h2>Call 9-1-1 if you are in immediate danger. </h2>
-          <p>Please use a safer computer (for example, at a Public Library).</p>
-           <p>If you are not in immediate danger but are still afraid for your safety, <a href="https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc" target="blank">VictimLinkBC</a> can help you develop a personal safety plan.
-            <br>
-          Call: 1-800-563-0808 | TTY: 604-875-0885 | Text: 604-863-6381</p>
-        </section>
-
-      <br>
-       <p><strong class="prefix">Cost:</strong>
-        This service is <strong>free</strong>. The Government of British Columbia does not charge fees for
-        Family Law cases in the Provincial Court of British Columbia.</p>
-
-       <p><strong class="prefix">Time:</strong>
-        The average time to complete this service is <strong>30-45 minutes</strong>. At this time, will need to complete your application in one session. This service will not save your information. If a judge decides that your situation is urgent, they may hear your application the same day you file it.</p>
-        
-        <p><strong class="prefix">Print:</strong>
-        You will need to print your application to file it at a Provincial Courthouse. At this time, you cannot use this service to file electronically.</p>
-        
+        <p>
+          This service will help you fill out forms needed to apply for FAMILY LAW ORDERS in Provincial Court.
+          You can use this service to apply to the court for family law orders about:
+        </p>
+        <ul>
+          <li>Protection from family violence</li>
+          <li>Family Law Matters including parenting arrangements, child support, contact with a child, guardianship of
+            a
+            child and spousal support under the Family Law Act</li>
+          <li>Case Management</li>
+          <li>Priority Parenting Matters</li>
+          <li>Relocation of a child</li>
+          <li>Enforcement of agreements and court orders under the Family Law Act</li>
+        </ul>
+        <p>Select the option that best applies to you:</p>
+        <form [formGroup]="typeOfServiceForm" (ngSubmit)="submitServiceTypeForm()">
+          <div class="form-group">
+            <label class="customLabel custom-control-label">
+              <input type="radio" formControlName="serviceRadio" value="returningUser">
+              I am a returning user and want to access my
+              saved work or continue with another application</label>
+          </div>
+          <div class="form-group">
+            <label class="customLabel custom-control-label">
+              <input type="radio" formControlName="serviceRadio" value="newService">
+              My case has already started (myself or
+              another person has filed documents with the court and we have a court file) but I am new to this
+              service</label>
+          </div>
+          <div class="form-group">
+            <label class="customLabel custom-control-label">
+              <input type="radio" formControlName="serviceRadio" value="new">
+              I want to start a case using this
+              service</label>
+          </div>
+          <button [disabled]="serviceRadio.invalid" type="submit" class="btn btn-primary buttonClass">Next</button>
+        </form>
       </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <a class="btn btn-primary btn-lg survey-button" routerLink="qualify" tabindex="1"><strong>New User</strong> - Let’s get started</a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <a class="btn btn-default btn-md login-button" routerLink="prv" tabindex="1">
-        <strong>Returning User?</strong><br>
-        Log in with BCeID
-      </a>
-    </div>
-  </div>
-
 </div>
