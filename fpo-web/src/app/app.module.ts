@@ -30,7 +30,10 @@ import { ResultComponent } from './result/result.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
 import { OrderTypesComponent } from './landingPage/orderTypes/orderTypes.component';
 import { LoginComponent } from './landingPage/login/login.component';
-
+import { CaseMgmtComponent } from './landingPage/caseMgmtLanding/caseMgmt.component';
+import { ParentingComponent } from './landingPage/parentingLanding/parenting.component';
+import { ReLocChildComponent } from './landingPage/reLocChildLanding/reLocChild.component';
+import { EnforcementComponent } from './landingPage/enforcementLanding/enforcement.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,11 @@ import { LoginComponent } from './landingPage/login/login.component';
     UserStatusComponent,
     LandingPageComponent,
     OrderTypesComponent,
-    LoginComponent
+    LoginComponent,
+    CaseMgmtComponent,
+    ParentingComponent,
+    ReLocChildComponent,
+    EnforcementComponent
   ],
   imports: [
     BrowserModule,
