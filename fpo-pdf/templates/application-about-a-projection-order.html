@@ -328,7 +328,13 @@
           border: 1px solid #000;
           margin: 0 2px -3px 0;
         }
-        #sched1-name {
+        #sched1-name1 {
+          min-width: 20rem;
+        }
+        #sched1-name2 {
+          min-width: 12rem;
+        }
+        #sched1-other-name1 {
           min-width: 12rem;
         }
         #sched1-occupation {
@@ -462,9 +468,15 @@
 
     <!-- Question 1 -->
     <section class="question">
-      <span>My name is </span>
-      <span class="brdr-btm label-name">&nbsp; Luann Van Houten  </span>
-      <span> . My contact information and address for delivery of court documents by the other party and the Court is: 
+      <div class="form-line">My name is </div>
+      <div class="form-line">
+        <div id="sched1-name1" class="form-line-child underline"></div>
+        <div class="form-line-child hint">full name of party</div>
+      </div>
+      <div class="form-line">. </div>
+      <div class="form-line" style="margin-top: 0.3rem">
+        My contact information and address for delivery of court documents by the other party and the Court is:
+      </div>
 
       <table class="bordered border-rows">
         <tr >
@@ -524,9 +536,14 @@
 
     <!-- Question 3 -->
     <section class="question">
-      <span>The other party's name is</span>
-      <span class="brdr-btm label-name"> &nbsp; Kirk Van Houten </span>
-      <span> . Their contact information, as I know it, is: 
+      <div class="form-line">The other party's name is </div>
+      <div class="form-line">
+        <div id="sched1-other-name1" class="form-line-child underline"></div>
+        <div class="form-line-child hint">full name of party</div>
+      </div>
+      <div class="form-line" style="margin-bottom: 0.3rem">.</div>
+      <div class="form-line">Their contact information, as I know it, is:</div>
+
 
       <table class="bordered border-rows">
         <tr >
@@ -620,7 +637,7 @@
 
   <div class="form-line">I, </div>
   <div class="form-line">
-    <div id="sched1-name" class="form-line-child underline"></div>
+    <div id="sched1-name2" class="form-line-child underline"></div>
     <div class="form-line-child hint">full name of party</div>
   </div>
   <div class="form-line">, </div>
@@ -756,6 +773,8 @@
     <div class="v-spacer-3"></div>
   </section>
 
+
+  <div class="new-page"> </div>
 
   </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->
