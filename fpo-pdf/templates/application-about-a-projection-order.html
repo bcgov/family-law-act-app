@@ -322,6 +322,12 @@
           font-size: 7px;
           margin-top: -3px;
         }
+        .form-line-child.check {
+          width: 12px;
+          height: 12px;
+          border: 1px solid #000;
+          margin: 0 2px -3px 0;
+        }
         #sched1-name {
           min-width: 12rem;
         }
@@ -332,6 +338,66 @@
           min-width: 14rem;
         }
         /********************************************************/
+
+
+        /********************************************************/
+        /******************* Added Feb 2020 *********************/
+        .important {
+          font-size: 12px;
+          margin: 15px 0 8px 5px;
+        }
+        section.restart {
+          counter-reset: question-counter;
+        }
+        table.border-all {
+          border: 0.5px solid #000;
+        }
+
+        /* If specifying table.border-all.. It bleeds into all tables */
+        .border-all td {
+          border-right: 0.5px solid #000;
+          border-bottom: 0.5px solid #000;
+        }
+
+        table.border-all th {
+          border-right: 0.5px solid #000;
+          border-bottom: 0.5px solid #000;
+        }
+        table.border-all th {
+          text-align: center;
+        }
+        table.border-all td {
+          min-height: 1rem;
+        }
+        table.sched1-child-table tr :first-child {
+          width: 45%;
+        }
+        table.sched1-child-table tr :nth-child(2) {
+          width: 20%;
+        }
+
+        div.option div {
+          display: inline-block;
+        }
+        div.option .check {
+          width: 12px;
+          height: 12px;
+          border: 1px solid #000;
+          margin: 0 2px -3px 0;
+        }
+
+        .italic {
+          font-style: italic;
+        }
+
+        div#sched1-other-to-protect {
+          min-width: 25rem;
+        }
+
+        .v-spacer-3 {
+          min-height: 3rem;
+        }
+
 
       }
       @page :first {
@@ -546,7 +612,9 @@
     <h4>Schedule 1 - Protection Order</h4>
     <h4>This is Schedule 1 to the Application about a Protection Order</h4>
   </div>
-  <div class="sub-header"><i>This schedule must be completed if you are applying for a protection order.</i></div>
+  <div class="sub-header">
+    <i>This schedule must be completed if you are applying for a protection order.</i>
+  </div>
 
   <div class="form-line">I, </div>
   <div class="form-line">
@@ -564,6 +632,127 @@
     <div class="form-line-child hint">address of party, city, province</div>
   </div>
 
+  <div class="important">SWEAR OR AFFIRM THAT:</div>
+  <section class="question restart">
+    <span>I am making this affidavit in support of an application for a protection order.</span>
+  </section>
+  <section class="question">
+    <span>
+      I am applying for a protection order for the following person(s) to be protected:
+    </span>
+    <div><i>Select and complete only those options that apply to your situation.</i></div>
+    <div class="option">
+      <div class="check"></div>
+      <div>Me</div>
+    </div>
+    <div class="option">
+      <div class="check"></div>
+      <div>the following child(ren) I am parent or guardian to:</div>
+    </div>
+
+    <table class="border-all sched1-child-table">
+      <tr>
+        <th>Child's Full Name</th>
+        <th>Child's Date of Birth</th>
+        <th>Child's Relationship to Other Party</th>
+      </tr>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div><i>Complete only if applicable. You may leave this section blank.</i></div>
+    <div class="option">
+      <div class="check"></div>
+      <div class="text-after-check italic">
+        The following adult(s) sharing the residence with the other protected person(s):
+      </div>
+    </div>
+
+    <table class="border-all sched1-child-table">
+      <tr>
+        <th>Child's Full Name</th>
+        <th>Child's Date of Birth</th>
+        <th>Child's Relationship to Other Party</th>
+      </tr>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div><i>Complete only if applicable. You may leave this section blank.</i></div>
+
+    <div class="form-line">
+      <div class="form-line-child check"></div>
+    </div>
+    <div class="form-line"> Other (Specify): </div>
+    <div class="form-line">
+      <div id="sched1-other-to-protect" class="form-line-child underline"></div>
+      <div class="form-line-child hint">(full name of other person to be protected)</div>
+    </div>
+
+    <div><i>Describe why you are applying for the other person</i></div>
+    <div class="v-spacer-3"></div>
+
+    <div><b>
+        The person(s) identified in the section above are referred to as the protected party/parties. The other party is the person they need protection from.
+    </b></div>
+   
+
+  </section>
+
+  <section class="question">
+    There are existing written agreements or court orders about the children concerning parenting arrangments, child support, contact with a child, or guardianship
+    <span class="check"></span>
+    <span class="text-after-check" style="margin-left:17px;">Yes</span>
+    <span class="check"></span>
+    <span class="text-after-check" style="margin-left:17px;">No</span>
+    <div><i>If yes, attach a copy of the order(s) and list them here:</i></div>
+    <div class="v-spacer-3"></div>
+  </section>
 
 
   </div><!-- end all forms container -->
