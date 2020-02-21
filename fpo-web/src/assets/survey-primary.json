@@ -979,7 +979,7 @@
        {
         "type": "infotext",
         "name": "ExplanationDoneMainForm",
-        "title": "Normally, applying for a `Protection Order` means that {RespondentName} will get notified and they will get time to file a reply.\n<br>\n<br>\nA judge can decide to change the amount of time {RespondentName} has to file a reply.\n<br>\n<br>\nA judge can also decide to review your application without {RespondentName} being notified until after the Protection Order is made.",
+        "title": "You normally need to give notice to {RespondentName} that you are applying for a Protection Order. You give notice to {RespondentName} by serving the application documents on them. \n<br>\n<br>\nThe period of time between the day that you serve the other party and the day that the application is heard is called the \"notice period\" or \"notice\".\n<br>\nA judge can decide to hear an application with less than 7 days notice if your situation requires an order sooner.\n<br>\n<br>\nUnder special circumstances, a judge can decide to hear an application without notice to {RespondentName}, such as if you or your children are in imminent danger of harm, or providing notice in advance would probably have serious consequences. ",
         "titleLocation": "hidden"
        },
        {
