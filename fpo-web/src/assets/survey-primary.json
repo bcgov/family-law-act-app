@@ -114,6 +114,13 @@
           ],
           "visible": false,
           "visibleIf": "{Lawyer} = 'y'"
+         },
+         {
+          "type": "text",
+          "name": "ApplicantOccupation",
+          "visibleIf": " {Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y'",
+          "title": "What is your job or profession?",
+          "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
          }
         ]
        }
@@ -224,7 +231,8 @@
           "type": "personname",
           "name": "childName",
           "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
-          "title": "What is the name of the child?"
+          "title": "What is the name of the child?",
+          "defaultSubstitution": "{childName}"
          },
          {
           "type": "text",
@@ -979,7 +987,7 @@
        {
         "type": "infotext",
         "name": "ExplanationDoneMainForm",
-        "title": "Normally, applying for a `Protection Order` means that {RespondentName} will get notified and they will get time to file a reply.\n<br>\n<br>\nA judge can decide to change the amount of time {RespondentName} has to file a reply.\n<br>\n<br>\nA judge can also decide to review your application without {RespondentName} being notified until after the Protection Order is made.",
+        "title": "You normally need to give notice to {RespondentName} that you are applying for a Protection Order. You give notice to {RespondentName} by serving the application documents on them. \n<br>\n<br>\nThe period of time between the day that you serve the other party and the day that the application is heard is called the \"notice period\" or \"notice\".\n<br>\nA judge can decide to hear an application with less than 7 days notice if your situation requires an order sooner.\n<br>\n<br>\nUnder special circumstances, a judge can decide to hear an application without notice to {RespondentName}, such as if you or your children are in imminent danger of harm, or providing notice in advance would probably have serious consequences. ",
         "titleLocation": "hidden"
        },
        {
@@ -1014,7 +1022,7 @@
         "name": "ExplanationPORSpeedNormalAffidavitYes",
         "visible": false,
         "visibleIf": "{PORSpeedup} = 'n' and {PORNoNotice} = 'n' and {PORSpeedNormalAffidavit} = 'y'",
-        "title": "In your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next 3 questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://familylaw.lss.bc.ca/bc-legal-system/legal-forms-documents/affidavits/how-do-you-write-affidavit\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
+        "title": "In your affidavit, tell your story in your own words. Include all the facts that you think the judge may need. Everything you say must to be true to the best of your knowledge.\n<br>\n<br>\nYou can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. For example, you can include information that your child has told you.\n<br>\n<br>\nThe next questions are for your affidavit.\n<br>\n<br>\n<a href=\"http://familylaw.lss.bc.ca/bc-legal-system/legal-forms-documents/affidavits/how-do-you-write-affidavit\" target=\"_blank\">Click here to get tips for writing your affidavit.</a>",
         "titleLocation": "hidden"
        },
        {
@@ -1034,36 +1042,45 @@
         "titleLocation": "hidden"
        },
        {
-        "type": "text",
-        "name": "ApplicantOccupation",
-        "visible": false,
-        "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')",
-        "title": "What is your job or profession?",
-        "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
-       },
-       {
         "type": "panel",
         "name": "threatPanel",
         "elements": [
          {
+          "type": "infotext",
+          "name": "ExplanationWhyPONeeded",
+          "title": "The next set of questions will help the court understand why you are asking for a protection order.  A judge can make decisions based only on the information presented by the parties as evidence.  Evidence must be relevant to the issue. ",
+          "titleLocation": "hidden"
+         },
+         {
           "type": "comment",
           "name": "whatViolence",
-          "title": "What `Family Violence` do you fear?"
+          "title": "What `Family Violence` do you fear?",
+          "description": "You do not need to use any special wording.  The key is to be clear about what you mean."
          },
          {
           "type": "comment",
           "name": "whyViolence",
-          "title": "Why do you fear `Family Violence` is likely to happen?"
+          "title": "Why do you fear `Family Violence` is likely to happen?",
+          "description": "You can state the reason(s) why you are afraid of the other party and think family violence may occur.  You do not need to use any special wording.  The key is to be clear about what you mean.  You will have an opportunity later to describe any past incidents, if there have been any. "
          },
          {
           "type": "comment",
           "name": "describeThreats",
-          "title": "Describe the behaviour or threats that concern you."
+          "title": "Describe the behaviour or threats that concern you.",
+          "description": "What are some examples of the other party's behaviour, or threats they have made, that have you worried for the safety of you and/or the protected party/parties."
          },
          {
           "type": "comment",
           "name": "recentIncidents",
-          "title": "Describe any recent incidents."
+          "title": "Describe any recent incidents of family violence against {ApplicantName}.",
+          "description": "Start with the most recent incident continuing backwards as far as you think it is important for the court to know.   Tell your story in your own words.  Everything you say must be true to the best of your knowledge.  You can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. You do not need to use any special wording but it is important that you are clear and provide as much detail as possible, including:\n<br>\n<ul>\n<li>the date the incident occurred</li>\n<li>a description of the incident of family violence</li>\n<li>who was involved (including any witnesses or the police)</li>\n<li>the child(ren)'s involvement in the incident, if applicable</li>\n<li>any injuries or trauma from the incident</li>\n<li>any other detail about the incident you feel it is important for the court to know</li>\n</ul>\n<br>\n<br>\nNote:  If there is a police report, medical report or doctor's note, or any photographs related to the incident, you must talk about them in this section and attach them as exhibits.  To include something as an exhibit, you must talk about it and state that it is attached as an exhibit.  Each exhibit gets a letter assigned to it, starting with 'A' and continuing through the alphabet.  For example, the police report attached as Exhibit A."
+         },
+         {
+          "type": "comment",
+          "name": "recentIncidentWithChild",
+          "visibleIf": "{childName} notempty",
+          "title": "Describe any recent incidents of family violence against {ApplicantName} and {childName}.",
+          "description": "Start with the most recent incident continuing backwards as far as you think it is important for the court to know.   Tell your story in your own words.  Everything you say must be true to the best of your knowledge.  You can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. You do not need to use any special wording but it is important that you are clear and provide as much detail as possible, including:\n<br>\n<ul>\n<li>the date the incident occurred</li>\n<li>a description of the incident of family violence</li>\n<li>who was involved (including any witnesses or the police)</li>\n<li>the child(ren)'s involvement in the incident, if applicable</li>\n<li>any injuries or trauma from the incident</li>\n<li>any other detail about the incident you feel it is important for the court to know</li>\n</ul>\n<br>\n<br>\nNote:  If there is a police report, medical report or doctor's note, or any photographs related to the incident, you must talk about them in this section and attach them as exhibits.  To include something as an exhibit, you must talk about it and state that it is attached as an exhibit.  Each exhibit gets a letter assigned to it, starting with 'A' and continuing through the alphabet.  For example, the police report attached as Exhibit A."
          }
         ],
         "visibleIf": "{PORSpeedNormalAffidavit} = 'y' or ({PORSpeedup} = 'y' and {PORNoNotice} notempty) or ({PORSpeedup} notempty and {PORNoNotice} = 'y')"
