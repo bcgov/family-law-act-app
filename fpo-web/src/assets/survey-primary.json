@@ -1098,7 +1098,7 @@
         "type": "comment",
         "name": "whyAllowNotice",
         "visibleIf": "{PORSpeedUp} = \"y\"",
-        "title": "Explain why you want a judge to allow you to give {RespondentName} days' notice of your application?",
+        "title": "Explain why you want a judge to allow you to give {RespondentName} {PORDaysToNotice} days' notice of your application?",
         "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why {RespondentName} should be given less than 7 days' notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if you have to wait 7 days to have the application heard?</li>\n</ul>"
        },
        {
