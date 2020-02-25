@@ -4,448 +4,356 @@
   <meta charset="UTF-8">
   <title>Application About a Protection Order</title>
   <style type="text/css">
-      @page {
-          size: Letter;
-          margin: .7in 0.7in 0.9in 0.7in;
-          font-size: 9pt;
-          font-family: Helvetica, Arial, sans-serif;
-          @bottom-left {
-            content: "PFA 720  02/2020 \a         Form K";
-            white-space: pre;
-            font-size: 6pt;
-          }
-          @bottom-right {
-              counter-increment: page;
-              content:counter(page);
-              font-size: 8pt;
-          }
+    @page {
+        size: Letter;
+        margin: .7in 0.7in 0.9in 0.7in;
+        font-size: 9pt;
+        font-family: Helvetica, Arial, sans-serif;
+        @bottom-left {
+          content: "PFA 720  02/2020 \a         Form K";
+          white-space: pre;
+          font-size: 6pt;
+        }
+        @bottom-right {
+            counter-increment: page;
+            content:counter(page);
+            font-size: 8pt;
+        }
 
-      }
-      @page label{font-size: 9pt;}
-      .nom-form, .affidavit-form{page-break-before: always;}
-      body{
-        margin: 0;
+    }
+    @page label{font-size: 9pt;}
+    body{
+      margin: 0;
+      padding: 0;
+      max-width: 100%;
+      counter-reset: question-counter;
+    }
+
+    table{
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        margin-bottom: 3px;
+        line-height: 1.25;
+    }
+
+
+    td{padding: .1em .25em .125em; width: 25%;}
+    /* wrappers / containers */
+    .container{
+        background-color: #FFFFFF;
+        color: #000000;
+        font-size: .85em;
+        margin:0;
+        font-family: Helvetica, Arial, sans-serif;
+        line-height: 1.05;
+    }
+    /* base visuals */
+
+    .bordered{
+      border: 0.5px solid #000;
+    }
+    .border-rows tr {
+      border-bottom: 0.5px solid #000;
+    }
+    .brdr-btm{
+      border-bottom: 0.5px solid #000;
+      margin-bottom: .5em;
+    }
+
+    .section{
+        padding-top: .75em;
+    }
+
+    span.check{
+      position: absolute;
+      border: 1px solid #000!important;
+      width: 1em;
+      margin: 0.1em;
+      height: 1em;
+      font-size: 1.2em;
+    }
+    span.text-after-check {
+      margin-left: 1.5rem;
+    }
+
+    /* typography */
+    label,
+    span{display: block;}
+
+    label{
+        font-size: .5em;
+        text-transform: uppercase;
+        margin: .5em 0 0;
         padding: 0;
-        max-width: 100%;
+    }
+    h1   {
+        font-size: 1.6em;
+        font-weight: bold;
+        margin: 0.27em 0;
+        text-transform: uppercase;
+        float: left;
+        width: 75%;
+    }
+    span.sub-heading{
+        display: block;
+        font-size: .65em;
+        text-transform: none;
+        font-weight: normal;
+        margin-top: .3em;
+    }
+    ul li {padding: .25em; line-height: 1.25;}
+    ul li ul{list-style-type: disc;}
+    .separation{border-top: 2px solid #000;}
+
+    @media print{
+        body{
+            font-size: 9pt!important;
+        }
+        table.bordered{
+            margin: 6px;
+        }
+    }
+    /* NEW SET-UP FOR REPEATED HEADER */
+    .no-repeat-header{
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 85%;
+        height: 6em;
+        display: inline-block;
+    }
+    .box-header{
+        position: relative;
+        top: 0;
+        right: 10rem;
+        width: 70%;
+        height: 5.3em;
+        border: 0.5px solid #000;
+        display: inline-block;
+        z-index: 10;
+    }
+
+
+    @media print{
+      .new-page{
+        page-break-before: always;
+        position: relative; top: 8em;
+      }
+      .container-head{
+        position: relative;
+        top: 0;
+        right: 0;
+        height: 12em;
+        margin-bottom: 1em;
+        float: right;
+      }
+      .container-head label {
+        margin-bottom: 0.4em;
+      }
+      .container-head .content {
+        margin-bottom: 0.1em
+      }
+      .container-head:after{clear: both;}
+
+      .numbered-form {
+        margin-top: 2rem;
+        line-height: 1rem;
+      }
+      .numbered-form span {
+        display: inline;
+      }
+      section.question {
+        margin-bottom: 0.5rem;
+      }
+
+      section.question:before {
+        font-weight: bolder;
+        counter-increment: question-counter;
+        content:counter(question-counter) ".";
+      }
+      .numbered-form .label {
+        display: absolute;
+      }
+      section.question div.sub-selections-desc {
+        font-style: italic;
+      }
+      section.question div.sub-selections {
+        margin: 0.2rem 1rem;
+      }
+      section.question div.sub-selection {
+        margin: 0.2rem;
+      }
+      section.question span.sub-selection-desc {
+        margin-left: 1.6rem;
+      }
+      .reg-use {
+        margin: 2rem 0 2rem 0;
+      }
+      .reg-box {
+        border: 0.5px solid #000;
+        padding: 0.5rem 0.5rem 1.0rem 1.0rem ;
+      }
+      .reg-box tr.first td.first{
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 10rem !important;
+      }
+      .reg-box tr.first td.third{
+        width: 10px;
+      }
+      .reg-box tr.first td.second{
+        padding-top: 0.5rem;
+        line-height: 1;
+      }
+      .reg-box tr.first td.second .underline{
+        line-height: 0 !important;
+      }
+      .reg-box tr.first td.second .desc{
+        line-height: 0 !important;
+        font-size: 7px;
+      }
+      .reg-box .date-time {
+        position: absolute;
+        line-height: 0 !important;
+        font-size: 7px;
+        margin-top: 0.2rem;
+      }
+      .reg-box .date {
+        margin-left: 70px;
+      }
+      .reg-box .time {
+        margin-left: 210px;
+      }
+
+      .schedule-header h4 {
+        text-align: center;
+        margin: 0;
+      }
+      .sub-header {
+        margin: 1rem 0 0.7rem 0;
+      }
+
+      /********************************************************/
+      /* Styling for lines with in-line blanks for text entry */
+      .form-line {
+        display: inline-block;
+      }
+      .form-line-child.underline {
+        border-bottom: 0.7px solid #000;
+        min-height: 6px;
+      }
+      .form-line.underline {
+        border-bottom: 0.7px solid #000;
+        min-height: 6px;
+      }
+      .form-line-child.hint {
+        position: absolute;
+        font-size: 7px;
+        margin-top: -3px;
+      }
+      .form-line.text-after-check {
+        margin-left: 0.3rem;
+      }
+      .form-line-child.check {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        margin: 0 2px -3px 0;
+      }
+      #sched1-name1 {
+        min-width: 20rem;
+      }
+      #sched1-name2 {
+        min-width: 12rem;
+      }
+      #sched1-other-name1 {
+        min-width: 12rem;
+      }
+      #sched1-occupation {
+        min-width: 10rem;
+      }
+      #sched1-address {
+        min-width: 14rem;
+      }
+      /********************************************************/
+
+
+      /********************************************************/
+      /******************* Added Feb 2020 *********************/
+      .important {
+        font-size: 12px;
+        margin: 15px 0 8px 5px;
+      }
+      section.restart {
         counter-reset: question-counter;
       }
 
-      table{
-          border-collapse: collapse;
-          table-layout: fixed;
-          width: 100%;
-          margin-bottom: 3px;
-          line-height: 1.25;
-      }
 
-
-      td{padding: .1em .25em .125em; width: 25%;}
-      /* wrappers / containers */
-      .container{
-          background-color: #FFFFFF;
-          color: #000000;
-          font-size: .85em;
-          margin:0;
-          font-family: Helvetica, Arial, sans-serif;
-          line-height: 1.05;
-      }
-      .dataset-wrapper,
-      .data-item span{
-          display: block;
-      }
-      /* base visuals */
-
-      .bordered{
+      table.border-all {
         border: 0.5px solid #000;
       }
-      .border-rows tr {
+
+      /* If specifying table.border-all.. It bleeds into all tables */
+      .border-all td {
+        border-right: 0.5px solid #000;
         border-bottom: 0.5px solid #000;
       }
-      .brdr-btm{
+
+      table.border-all th {
+        border-right: 0.5px solid #000;
         border-bottom: 0.5px solid #000;
-        margin-bottom: .5em;
+      }
+      table.border-all th {
+        text-align: center;
+      }
+      table.border-all td {
+        min-height: 1rem;
+      }
+      table.sched1-child-table tr :first-child {
+        width: 45%;
+      }
+      table.sched1-child-table tr :nth-child(2) {
+        width: 20%;
       }
 
-      .section{
-          padding-top: .75em;
+      div.option div {
+        display: inline-block;
       }
-      .spacer{height: 1em;}
-
-      span.check{
-        position: absolute;
-        border: 1px solid #000!important;
-        width: 1em;
-        margin: 0.1em;
-        height: 1em;
-        font-size: 1.2em;
-      }
-      span.text-after-check {
-        margin-left: 1.5rem;
+      div.option .check {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        margin: 0 2px -3px 0;
       }
 
-      /* typography */
-      label,
-      legend,
-      span,
-      aside{display: block;}
-
-      label, .label-num:after, .label-date:after, .name-party:after,
-      .label-name-person:after, .label-court:after, .label-time:after,
-      .label-names:after, .label-identify:after, .label-method:after,
-      .label-specify:after, .label-name:after, .label-occupation:after{
-          font-size: .5em;
-          text-transform: uppercase;
-          margin: .5em 0 0;
-          padding: 0;
+      .italic {
+        font-style: italic;
       }
 
-      .label-num:after, .label-date:after, .name-party:after,
-      .label-name-person:after, .label-court:after, .label-time:after,
-      .label-names:after, .label-identify:after, .label-method:after,
-      .label-specify:after, .label-name:after, .label-occupation:after{
-          position: relative; top: 8px; left: 0;
-      }
-      .label-num:after{content: 'number';}
-      .label-date:after{content: '(MMM/DD/YYYY)';}
-      .label-name-person:after{content: 'NAME OF PERSON MAKING APPLICATION';}
-
-      .label-name:after{
-        content: '(full name of person)';
-        position: relative;
-        left: -2rem;
+      div#sched1-other-to-protect {
+        min-width: 25rem;
       }
 
-      .label-court:after{content: 'COURT LOCATION';}
-      .label-time:after{content: 'TIME';}
-      .label-names:after{content: 'NAMES';}
-      .label-identify:after{content: 'IDENTIFY DOCUMENTS';}
-      .label-method:after{content: 'METHOD OF SERVICE';}
-      .label-specify:after{content: 'SPECIFY';}
-      .label-occupation:after{content: 'OCCUPATION';}
-      .name-party:after{content: 'Name of party';}
-
-      legend{
-          font-weight: bold; font-size: 1.1em;
+      .v-spacer-1 {
+        min-height: 1rem;
       }
-      legend .sub{
-          font-weight: normal;
-          font-style: italic;
-          display: inline-block;
+      .v-spacer-3 {
+        min-height: 3rem;
       }
-      .party-label{
-          font-weight: normal;
-          text-transform: uppercase;
-          font-size: 1.25em;
-          text-align: right;
+      .v-spacer-5 {
+        min-height: 5rem;
       }
-      aside {
-          font-style: italic;
-          font-size: .75em;
-      }
-      h1   {
-          font-size: 1.6em;
-          font-weight: bold;
-          margin: 0.27em 0;
-          text-transform: uppercase;
-          float: left;
-          width: 75%;
-      }
-      span.sub-heading{
-          display: block;
-          font-size: .65em;
-          text-transform: none;
-          font-weight: normal;
-          margin-top: .3em;
-      }
-      .addendum, .short, .medium, .long, .extra-long{display: inline-block; margin: 0 .5em;}
-      .short{width: 20%;}
-      .medium{width: 30%;}
-      .long{width: 40%;}
-      .extra-long{width: 80%;}
-      ul li {padding: .25em; line-height: 1.25;}
-      ul li ul{list-style-type: disc;}
-      .signature-area{
-          padding: 1em;
-      }
-      .box{border: 1px solid #000; display: block; height: 4em;}
-      .separation{border-top: 2px solid #000;}
-      ol.lower-alpha {list-style-type: lower-alpha;}
-
-      @media print{
-          body{
-              font-size: 9pt!important;
-          }
-          table.bordered{
-              margin: 6px;
-          }
-      }
-      /* NEW SET-UP FOR REPEATED HEADER */
-      .no-repeat-header{
-          position: relative;
-          top: 0;
-          left: 0;
-          width: 85%;
-          height: 6em;
-          display: inline-block;
-      }
-      .box-header{
-          position: relative;
-          top: 0;
-          right: 10rem;
-          width: 70%;
-          height: 5.3em;
-          border: 0.5px solid #000;
-          display: inline-block;
-          z-index: 10;
+      .v-spacer-9 {
+        min-height: 9rem;
       }
 
-
-      @media print{
-        .allow-to-break{page-break-inside: auto!important;}
-        .force-break{page-break-before: always!important; margin-top: 1.25em;}
-        .dont-break-before{page-break-before: avoid!important;}
-        .new-page{
-          page-break-before: always;
-          position: relative; top: 8em;
-        }
-        .new-form{
-          page-break-before: always;
-        }
-        .container-head{
-          position: relative;
-          top: 0;
-          right: 0;
-          height: 12em;
-          margin-bottom: 1em;
-          float: right;
-        }
-        .container-head label {
-          margin-bottom: 0.4em;
-        }
-        .container-head .content {
-          margin-bottom: 0.1em
-        }
-        .container-head:after{clear: both;}
-        .aff-text{font-size: 9pt!important;}
-        .aff-label{font-weight: bold; display: block;}
-        .next-page{page-break-before: always; margin-top: 7em;}
-
-        .numbered-form {
-          margin-top: 2rem;
-          line-height: 1rem;
-        }
-        .numbered-form span {
-          display: inline;
-        }
-        section.question {
-          margin-bottom: 0.5rem;
-        }
-
-        section.question:before {
-          font-weight: bolder;
-          counter-increment: question-counter;
-          content:counter(question-counter) ".";
-        }
-        .numbered-form .label {
-          display: absolute;
-        }
-        section.question div.sub-selections-desc {
-          font-style: italic;
-        }
-        section.question div.sub-selections {
-          margin: 0.2rem 1rem;
-        }
-        section.question div.sub-selection {
-          margin: 0.2rem;
-        }
-        section.question span.sub-selection-desc {
-          margin-left: 1.6rem;
-        }
-        .reg-use {
-          margin: 2rem 0 2rem 0;
-        }
-        .reg-box {
-          border: 0.5px solid #000;
-          padding: 0.5rem 0.5rem 1.0rem 1.0rem ;
-        }
-        .reg-box tr.first td.first{
-          padding: 0 !important;
-          margin: 0 !important;
-          width: 10rem !important;
-        }
-        .reg-box tr.first td.third{
-          width: 10px;
-        }
-        .reg-box tr.first td.second{
-          padding-top: 0.5rem;
-          line-height: 1;
-        }
-        .reg-box tr.first td.second .underline{
-          line-height: 0 !important;
-        }
-        .reg-box tr.first td.second .desc{
-          line-height: 0 !important;
-          font-size: 7px;
-        }
-        .reg-box .date-time {
-          position: absolute;
-          line-height: 0 !important;
-          font-size: 7px;
-          margin-top: 0.2rem;
-        }
-        .reg-box .date {
-          margin-left: 70px;
-        }
-        .reg-box .time {
-          margin-left: 210px;
-        }
-
-        .schedule-header h4 {
-          text-align: center;
-          margin: 0;
-        }
-        .sub-header {
-          margin: 1rem 0 0.7rem 0;
-        }
-
-        /********************************************************/
-        /* Styling for lines with in-line blanks for text entry */
-        .form-line {
-          display: inline-block;
-        }
-        .form-line-child.underline {
-          border-bottom: 0.7px solid #000;
-          min-height: 6px;
-        }
-        .form-line.underline {
-          border-bottom: 0.7px solid #000;
-          min-height: 6px;
-        }
-        .form-line-child.hint {
-          position: absolute;
-          font-size: 7px;
-          margin-top: -3px;
-        }
-        .form-line.text-after-check {
-          margin-left: 0.3rem;
-        }
-        .form-line-child.check {
-          width: 12px;
-          height: 12px;
-          border: 1px solid #000;
-          margin: 0 2px -3px 0;
-        }
-        #sched1-name1 {
-          min-width: 20rem;
-        }
-        #sched1-name2 {
-          min-width: 12rem;
-        }
-        #sched1-other-name1 {
-          min-width: 12rem;
-        }
-        #sched1-occupation {
-          min-width: 10rem;
-        }
-        #sched1-address {
-          min-width: 14rem;
-        }
-        /********************************************************/
-
-
-        /********************************************************/
-        /******************* Added Feb 2020 *********************/
-        .important {
-          font-size: 12px;
-          margin: 15px 0 8px 5px;
-        }
-        section.restart {
-          counter-reset: question-counter;
-        }
-
-
-        table.border-all {
-          border: 0.5px solid #000;
-        }
-
-        /* If specifying table.border-all.. It bleeds into all tables */
-        .border-all td {
-          border-right: 0.5px solid #000;
-          border-bottom: 0.5px solid #000;
-        }
-
-        table.border-all th {
-          border-right: 0.5px solid #000;
-          border-bottom: 0.5px solid #000;
-        }
-        table.border-all th {
-          text-align: center;
-        }
-        table.border-all td {
-          min-height: 1rem;
-        }
-        table.sched1-child-table tr :first-child {
-          width: 45%;
-        }
-        table.sched1-child-table tr :nth-child(2) {
-          width: 20%;
-        }
-
-        div.option div {
-          display: inline-block;
-        }
-        div.option .check {
-          width: 12px;
-          height: 12px;
-          border: 1px solid #000;
-          margin: 0 2px -3px 0;
-        }
-
-        .italic {
-          font-style: italic;
-        }
-
-        div#sched1-other-to-protect {
-          min-width: 25rem;
-        }
-
-        .v-spacer-1 {
-          min-height: 1rem;
-        }
-        .v-spacer-2 {
-          min-height: 2rem;
-        }
-        .v-spacer-3 {
-          min-height: 3rem;
-        }
-        .v-spacer-4 {
-          min-height: 4rem;
-        }
-        .v-spacer-5 {
-          min-height: 5rem;
-        }
-        .v-spacer-6 {
-          min-height: 6rem;
-        }
-        .v-spacer-7 {
-          min-height: 7rem;
-        }
-        .v-spacer-8 {
-          min-height: 8rem;
-        }
-        .v-spacer-9 {
-          min-height: 9rem;
-        }
-        .v-spacer-10 {
-          min-height: 10rem;
-        }
-
-        .indent {
-          margin-left: 1rem;
-        }
+      .indent {
+        margin-left: 1rem;
       }
-      @page :first {
-      }
+    }
+    @page :first {
+    }
     </style>
 </head>
 <body>
