@@ -10,7 +10,7 @@
         font-size: 9pt;
         font-family: Helvetica, Arial, sans-serif;
         @bottom-left {
-          content: "PFA 720  02/2020 \a         Form K";
+          content: "PFA 722  02/2020 \a         Form M";
           white-space: pre;
           font-size: 6pt;
         }
@@ -261,9 +261,6 @@
         border: 1px solid #000;
         margin: 0 2px -3px 0;
       }
-      #sched1-name1 {
-        min-width: 20rem;
-      }
       #sched1-name2 {
         min-width: 12rem;
       }
@@ -310,12 +307,6 @@
       table.border-all td {
         min-height: 1rem;
       }
-      table.sched1-child-table tr :first-child {
-        width: 45%;
-      }
-      table.sched1-child-table tr :nth-child(2) {
-        width: 20%;
-      }
 
       div.option div {
         display: inline-block;
@@ -331,21 +322,35 @@
         font-style: italic;
       }
 
-      div#sched1-other-to-protect {
-        min-width: 25rem;
-      }
-
       .v-spacer-1 {
         min-height: 1rem;
+      }
+      .v-spacer-2 {
+        min-height: 2rem;
       }
       .v-spacer-3 {
         min-height: 3rem;
       }
+      .v-spacer-4 {
+        min-height: 4rem;
+      }
       .v-spacer-5 {
         min-height: 5rem;
       }
+      .v-spacer-6 {
+        min-height: 6rem;
+      }
+      .v-spacer-7 {
+        min-height: 7rem;
+      }
+      .v-spacer-8 {
+        min-height: 8rem;
+      }
       .v-spacer-9 {
         min-height: 9rem;
+      }
+      .v-spacer-10 {
+        min-height: 10rem;
       }
 
       .indent {
@@ -412,14 +417,14 @@
 
     <!-- Question 1 -->
     <section class="question">
-      <div class="form-line">My name is </div>
+      <div class="form-line">My name is</div>
       <div class="form-line">
-        <div id="sched1-name1" class="form-line-child underline"></div>
-        <div class="form-line-child hint">full name of party</div>
+        <div class="form-line-child underline" style="min-width:15rem"></div>
+        <div class="form-line-child hint">(full name of party)</div>
       </div>
       <div class="form-line">. </div>
-      <div class="form-line" style="margin-top: 0.3rem">
-        My contact information and address for delivery of court documents by the other party and the Court is:
+      <div class="form-line">
+        My contact information and address for delivery is:
       </div>
 
       <table class="bordered border-rows">
@@ -583,71 +588,59 @@
 
   <!-- PAGE TWO -->
 
-  <div class="schedule-header">
-    <h4>Schedule 1 - Protection Order</h4>
-    <h4>This is Schedule 1 to the Application about a Protection Order</h4>
-  </div>
-  <div class="sub-header">
-    <i>This schedule must be completed if you are applying for a protection order.</i>
-  </div>
-
-  <div class="form-line">I, </div>
-  <div class="form-line">
-    <div id="sched1-name2" class="form-line-child underline"></div>
-    <div class="form-line-child hint">full name of party</div>
-  </div>
-  <div class="form-line">, </div>
-  <div class="form-line">
-    <div id="sched1-occupation" class="form-line-child underline"></div>
-    <div class="form-line-child hint">occupation</div>
-  </div>
-  <div class="form-line"> of  </div>
-  <div class="form-line">
-    <div id="sched1-address" class="form-line-child underline"></div>
-    <div class="form-line-child hint">address of party, city, province</div>
-  </div>
-
-  <div class="important">SWEAR OR AFFIRM THAT:</div>
-  <section class="question restart">
-    <span>I am making this affidavit in support of an application for a protection order.</span>
-  </section>
+  <h4>ABOUT THE EXTRAORDINARY PARENTING MATTER</h4>
+  
   <section class="question">
+    <span class="check"></span><span class="text-after-check">I am applying for an order about the following extraordinary parenting matter(s):</span>
+    <div style="margin-top:0.4rem"><i>Select all options that apply</i></div>
+    <div class="option">
+      <span class="check"></span>
+      <span class="text-after-check">giving, refusing or withdrawing consent, by a guardian, to medical, dental, health-related treatments for a child, that if delayed will result in risk to the health of the child</span>
+    </div>
+    <div class="option">
+      <span class="check"></span>
+      <span class="text-after-check">applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for the child, if delay will result in risk of harm to the child's physical, psychological or emotional safety, security or well-being</span>
+    </div>
+    <div class="option">
+      <span class="check"></span>
+      <span class="text-after-check">preventing the removal of a child from a specified geographical area under s. 64 of the Family Law Act</span>
+    </div>
+    <div class="option">
+      <span class="check"></span>
+      <span class="text-after-check">determining matters relating to interjurisdictional issues under s. 74(2)(c) of the Family Law Act</span>
+    </div>
+    <div class="option">
+      <span class="check"></span>
+      <span class="text-after-check">preventing the wrongful removal of a child under s. 77(2) of the Family Law Act</span>
+    </div>
+    <div class="option">
+      <span class="check"></span>
+      <span class="text-after-check">seeking an extaordinary remedy under s. 231(4) or (5) of the Family Law Act</span>
+    </div>
+  </section>
+
+
+  <section class="question" style="margin-top:1.5rem">
     <span>
-      I am applying for a protection order for the following person(s) to be protected:
+      The application is about the following child(ren):
     </span>
-    <div><i>Select and complete only those options that apply to your situation.</i></div>
-    <div class="option">
-      <div class="check"></div>
-      <div>Me</div>
-    </div>
-    <div class="option">
-      <div class="check"></div>
-      <div>the following child(ren) I am parent or guardian to:</div>
-    </div>
 
     <table class="border-all sched1-child-table" style="margin:0.7rem 0 0.7rem 0;">
       <tr>
-        <th>Child's Full Name</th>
-        <th>Child's Date of Birth</th>
-        <th>Child's Relationship to Other Party</th>
+        <th style="width:25%">Child's Full Name</th>
+        <th style="width:15%">Child's Date of Birth</th>
+        <th>My relationship to the Child</th>
+        <th>The other party's relationship to the Child</th>
       </tr>
       <tbody>
         <tr>
           <td></td>
           <td></td>
           <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
           <td></td>
         </tr>
         <tr>
           <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
           <td></td>
           <td></td>
           <td></td>
@@ -656,66 +649,28 @@
           <td></td>
           <td></td>
           <td></td>
+          <td></td>
         </tr>
         <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
         </tr>
       </tbody>
     </table>
-
-    <div><i>Complete only if applicable. You may leave this section blank.</i></div>
-    <div class="option" style="margin: 0 0 0.2rem 0;">
-      <div class="check"></div>
-      <div class="text-after-check italic">
-        The following adult(s) sharing the residence with the other protected person(s):
-      </div>
-    </div>
-
-    <table class="border-all sched1-child-table" style="margin:0 0 0.7rem 0;">
-      <tr>
-        <th>Child's Full Name</th>
-        <th>Child's Date of Birth</th>
-        <th>Child's Relationship to Other Party</th>
-      </tr>
-      <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div><i>Complete only if applicable. You may leave this section blank.</i></div>
-
-    <div class="form-line">
-      <div class="form-line-child check"></div>
-    </div>
-    <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> Other (Specify): </div>
-    <div class="form-line">
-      <div id="sched1-other-to-protect" class="form-line-child underline"></div>
-      <div class="form-line-child hint">(full name of other person to be protected)</div>
-    </div>
-
-    <div><i>Describe why you are applying for the other person</i></div>
-    <div class="v-spacer-3"></div>
-
-    <div><b>
-        The person(s) identified in the section above are referred to as the protected party/parties. The other party is the person they need protection from.
-    </b></div>
-   
 
   </section>
 
@@ -726,554 +681,13 @@
     <span class="check"></span>
     <span class="text-after-check" style="margin-left:17px;">No</span>
     <div><i>If yes, attach a copy of the order(s) and list them here:</i></div>
-    <div class="v-spacer-3"></div>
+    <div class="v-spacer-10"></div>
   </section>
 
 
-  <!-- PAGE THREE -->
-
-  <div class="new-page"> </div>
-
-  <h4>ABOUT THE PROTECTION ORDER</h4>
-
-  <section class="question"> <i>Complete only if applicable. You may leave this section blank:</i>
-    <div>I do not want the other party to be able to attend at, enter or be found at the following places:</div>
-    <div><i>Select all options that apply</i></div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Residence</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">School</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Place of Employment</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Child care facility</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Other (specify):</div>
-      <div class="form-line underline" style="min-width: 30rem;"></div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">None of the above. I don't need an order restricting where the other party can go.</div>
-    </div>
-
-  </section>
-
-  <div class="v-spacer-1"></div>
-
-  <section class="question" style="margin-bottom:0.5rem"> <i>Complete only if applicable. You may leave this section blank:</i>
-    <div>The protected party may need to communicate with the other party for the following reasons:</div>
-    <div><i>Select all options that apply</i></div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Consensual dispute resolution</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Parenting arrangements</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Ongoing court action</div>
-    </div>
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Other (specify):</div>
-      <div class="form-line underline" style="min-width: 30rem;"></div>
-    </div>
-
-  </section>
-
-
-  <section class="question"> I have concerns the other party would cause harm with or threaten to use guns,
-    <div>
-      <span>explosives or another kind of firearms
-      <span class="check"></span>
-      <span style="margin-left:18px;">Yes</span>
-      <span style="margin-left:5px;" class="check"></span>
-      <span style="margin-left:22px;">No</span>
-    </div>
-    <div><i>If yes, explain the reasons for your belief</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-  <section class="question"> I believe the other party owns or has access to guns, explosives or another kind of firearm
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, explain the reasons for your concerns</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-  <section class="question"> I have concerns the other party would cause harm with or threaten to use a weapon that is not a gun or explosive
-    <div style="margin-left:1rem">
-      <span class="check"></span>
-      <span style="margin-left:18px;">Yes</span>
-      <span style="margin-left:5px;" class="check"></span>
-      <span style="margin-left:22px;">No</span>
-    </div>
-    <div><i>If yes, explain the reasons for your concerns</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-
-  <section class="question"> I believe the other party owns a weapon that is not a gun or explosive 
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>Examples of weapons someone may own include swords, hunting knives, and nunchucks.</i></div>
-    <div><i>If yes, explain the reasons for your belief</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-  <section class="question" style="margin-bottom:0.5rem"> The protected party currently shares a home with the other party
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-  </section>
-
-
-
-  <section class="question"> <i>Complete only if applicable. You may leave this section blank:</i>
-    <div>I believe police assistance may be required for the following purposes:</div>
-    <div><i>Select all options that apply</i></div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">To remove the other party from the shared residence</div>
-    </div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">To supervise the removal of the protected party's personal belongings from the shared residence</div>
-    </div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">To supervise the removal of the other party's personal belongings from the shared residence</div>
-    </div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">To supervise the removal of the child(ren)'s personal belongings from a residence</div>
-    </div>
-
-    <div class="form-option">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line text-after-check">Other (specify):</div>
-      <div class="form-line underline" style="min-width: 30rem;"></div>
-    </div>
-
-  </section>
-
-
-  <!-- PAGE FOUR -->
-
-  <div class="new-page"> </div>
-
-  <h4>BACKGROUND</h4>
-
-  <section class="question"> The protection party and the other party are:
-    <div>
-      <i>
-        Describe how the protected party/parties and the other part are related for the purposes of application
-      </i>
-    </div>
-    <div class="v-spacer-3"></div>
-    <div>
-      <i>
-        If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).
-      </i>
-    </div>
-  </section>
-
-
-  <section class="question"> The parties are or have been spouses (married or lived in a marriage-like relationship for at least 2 years)
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, please complete all options below that apply to the parties</i></div>
-
-    <div class="form-line">Date on which the parties began to live together in a marriage-like relationship: </div>
-    <div class="form-line">
-      <div id="sched1-name1" class="form-line-child underline" style="min-width: 12rem"></div>
-      <div class="form-line-child hint">date</div>
-    </div>
-    <div style="margin-top: 0.3rem">
-      <span>Are the protected party and the other party currently separated</span>
-      <span class="check"></span>
-      <span style="margin-left:18px;">Yes</span>
-      <span style="margin-left:5px;" class="check"></span>
-      <span style="margin-left:22px;">No</span>
-      <span style="margin-left:5px;" class="check"></span>
-      <span style="margin-left:22px;">Unknown</span>
-    </div>
-
-    <div><i>Spouses may be separated while continuing to live in the same residence</i></div>
-
-    <div class="form-line">If yes, the parties separated on</div>
-    <div class="form-line">
-      <div id="sched1-name1" class="form-line-child underline" style="min-width: 12rem"></div>
-      <div class="form-line-child hint">date of separation</div>
-    </div>
-    <div style="margin-top: 0.2rem">
-      <span>If no, are the protected party and the other party planning to separate</span>
-      <span class="check"></span>
-      <span style="margin-left:18px;">Yes</span>
-      <span style="margin-left:5px;" class="check"></span>
-      <span style="margin-left:22px;">No</span>
-      <span style="margin-left:5px;" class="check"></span>
-      <span style="margin-left:22px;">Unknown</span>
-    </div>
-
-  </section>
-
-
-
-  <section class="question"> I have concerns about the mental health of the protected party and/or the other party
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, explain the reasons for your concerns</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-
-  <section class="question"> Are there circumstances that may increase the risk of family violence
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, describe the circumstances such as: substance abuse, employment or financial difficulties, relationship status, criminal his-tory, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, stran-gling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-
-
-  <section class="question"> There are existing court orders protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, attach a copy of the order(s) and list them here:</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-
-  <section class="question"> Has the other party ever failed to obey a court order 
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, describe the circumstances:</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-
-  <section class="question"> I have concerns the other party may not obey a court order
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, explain the reason for your concerns:</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-
-  <section class="question"> I have reported my safety concerns to the police
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, describe what action they have taken:</i></div>
-  </section>
-
-
-  <!-- PAGE FIVE -->
-
-  <div class="new-page"> </div>
-
-
-  <section class="question"> I have reported my safety concerns to a social worker (Ministry of Children and Family Development)
-    <span class="check"></span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
-    <span style="margin-left:22px;">No</span>
-    <div><i>If yes, describe what action they have taken:</i></div>
-    <div class="v-spacer-3"></div>
-  </section>
-
-  <h4 style="margin-bottom: 0.3rem">YOUR STORY</h4>
-  <div style="margin-bottom: 1rem">
-    A judge can make decisions based only on the information presented by the parties as evidence.  Evidence must be relevant to the issue. Please complete the following questions to help you explain to the court why you need an order for protection.  In some cases, if you have provided evidence in this affidavit, a Judge may not need you to provide additional information in court. In the following section you will be asked to describe what the other party has done to make you feel you need to get a protection order.
-  </div>
-
-  <section class="question"> What family violence do you fear?
-    <div class="v-spacer-9"></div>
-  </section>
-
-
-  <section class="question"> Why do you fear family violence is likely to happen?
-    <div class="v-spacer-9"></div>
-  </section>
-
-
-  <section class="question"> What behaviour or threats concern you?
-    <div class="v-spacer-5"></div>
-  </section>
-
-
-  <!-- PAGE SIX -->
-
-  <div class="new-page"> </div>
-
-
-  <section class="question"> Describe any recent incidents of Family Violence against the protected party and any child(ren).
-    <div style="margin:0.5rem 0 0 1rem;">Includes:</div>
-    <ul style="margin-top:0">
-      <li>How the other party made you and/or your children feel unsafe (describe examples of the other party's behaviour that made you afraid)</li>
-      <li>A descripion of the incident(s) (write as much detail as possible)</li>
-      <li>Who was involved (include the police if they were involved at any time)</li>
-      <li>Who witnessed it</li>
-      <li>Any exposure your children have had to violence or abuse</li>
-      <li>Any injuries or trauma from the incident</li>
-      <li>Any doctor's notes, police reports or photographs (you must refer the them here as exhibits and make photocopies of them for the court)</li>
-    </ul>
-  </section>
-
-  <div style="min-height: 31rem"></div>
-
-
-  <div style="margin-bottom: 1rem">Sworn or affirmed before me</div>
-
-  <div style="margin:0.5rem">
-    <div class="form-line" style="margin-bottom: 0.5rem">at </div>
-    <div class="form-line">
-      <div id="sched1-name1" class="form-line-child underline" style="min-width: 14rem"></div>
-      <div class="form-line-child hint">city</div>
-    </div>
-    <div class="form-line"> , British Columbia </div>
-  </div>
-
-  <div style="margin:0.5rem 0.5rem 1.0rem 0.5rem">
-    <div class="form-line">on </div>
-    <div class="form-line">
-      <div id="sched1-name1" class="form-line-child underline" style="min-width: 14rem"></div>
-      <div class="form-line-child hint">date</div>
-    </div>
-  </div>
-
-  <div>
-    <div class="form-line bordered" style="height:3rem; width:18rem;"></div>
-    <div class="form-line bordered" style="height:3rem; width:18rem; margin-left: 4rem;"></div>
-  </div>
-  <div>
-    <div class="form-line">A Commissioner for taking Affidavits in British Columbia</div>
-    <div class="form-line" style="margin-left: 4.6rem;">Signature</div>
-  </div>
-  <div>[print name or affix stamp of commissioner]</div>
-
-
-
-  <!-- PAGE SEVEN -->
-
-  <div class="new-page"> </div>
-  <div class="schedule-header" style="margin-bottom: 1rem">
-    <h4>Schedule 2 - Change an Existing Protection Order</h4>
-    <h4>This is Schedule 2 to the Application about a Protection Order</h4>
-  </div>
-
-  <div><i>This schedule must be completed if you are applying to change an existing protection order.</i></div>
-
-  <section class="question restart" style="margin-top: 0.5rem">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> I am attaching a copy of the existing protection order made on </div>
-      <div class="form-line">
-        <div class="form-line-child underline" style="min-width: 10rem"></div>
-        <div class="form-line-child hint">date</div>
-      </div>
-    <div class="v-spacer-1"></div>
-  </section>
-
-  <section class="question"> <i>Select only one of the options below</i>
-    <div class="indent">
-      <div>
-        <div class="form-line">
-          <div class="form-line-child check"></div>
-        </div>
-        <div class="form-line"> I was in court when the protection order was made</div>
-      </div>
-      <div>
-        <div class="form-line">
-          <div class="form-line-child check"></div>
-        </div>
-        <div class="form-line"> I was not in court when the protection order was made because:</div>
-      </div>
-      <div><i>Explain why you were not in court when the protection order was made:</i></div>
-    </div>
-    <div class="v-spacer-5"></div>
-  </section>
-
-
-
-  <section class="question"> I am the:
-    <div><i>Select only one of the options below</i></div>
-      <div class="indent">
-        <div>
-          <div class="form-line">
-            <div class="form-line-child check"></div>
-          </div>
-          <div class="form-line"> protected party</div>
-        </div>
-        <div>
-          <div class="form-line">
-            <div class="form-line-child check"></div>
-          </div>
-          <div class="form-line"> parent or guardian of the protected party</div>
-        </div>
-        <div>
-          <div class="form-line">
-            <div class="form-line-child check"></div>
-          </div>
-          <div class="form-line"> person who the protection order is against</div>
-        </div>
-      </div>
-    <div class="v-spacer-5"></div>
-  </section>
-
-  <section class="question"> I am asking for the existing protection order to be changed as follows:
-    <div class="v-spacer-5"></div>
-  </section>
-
-  <h4>YOUR STORY</h4>
-  <section class="question"> The facts on which this application is based are as follows:
-    <div><i>Describe why the order needs to be changed and what facts the court should consider to make their decision.</i></div>
-    <div class="v-spacer-5"></div>
-  </section>
-
-
-
-  <!-- PAGE EIGHT -->
-
-  <div class="new-page"> </div>
-  <div class="schedule-header" style="margin-bottom: 1rem">
-    <h4>Schedule 3 - Terminate an Existing Protection Order</h4>
-    <h4>This is Schedule 3 to the Application about a Protection Order</h4>
-  </div>
-
-  <div><i>This schedule must be completed if you are applying to terminate an existing protection order.</i></div>
-
-  <section class="question restart" style="margin-top: 0.5rem">
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> I am attaching a copy of the existing protection order made on </div>
-      <div class="form-line">
-        <div class="form-line-child underline" style="min-width: 10rem"></div>
-        <div class="form-line-child hint">date</div>
-      </div>
-      <div class="form-line"> that I am asking to</div>
-      <div class="form-line"> have terminated.</div>
-    <div class="v-spacer-1"></div>
-  </section>
-
-  <section class="question"> <i>Select only one of the options below</i>
-    <div class="indent">
-      <div>
-        <div class="form-line">
-          <div class="form-line-child check"></div>
-        </div>
-        <div class="form-line"> I was in court when the protection order was made</div>
-      </div>
-      <div>
-        <div class="form-line">
-          <div class="form-line-child check"></div>
-        </div>
-        <div class="form-line"> I was not in court when the protection order was made because:</div>
-      </div>
-      <div><i>Explain why you were not in court when the protection order was made:</i></div>
-    </div>
-    <div class="v-spacer-5"></div>
-  </section>
-
-
-
-  <section class="question"> I am the:
-    <div><i>Select only one of the options below</i></div>
-      <div class="indent">
-        <div>
-          <div class="form-line">
-            <div class="form-line-child check"></div>
-          </div>
-          <div class="form-line"> protected party</div>
-        </div>
-        <div>
-          <div class="form-line">
-            <div class="form-line-child check"></div>
-          </div>
-          <div class="form-line"> parent or guardian of the protected party</div>
-        </div>
-        <div>
-          <div class="form-line">
-            <div class="form-line-child check"></div>
-          </div>
-          <div class="form-line"> person who the protection order is against</div>
-        </div>
-      </div>
-    <div class="v-spacer-5"></div>
-  </section>
-
-
-  <section class="question"> The facts on which this application is based are as follows:
-    <div><i>Describe why the order should be terminated and what facts the court should consider to make their decision.</i></div>
-    <div class="v-spacer-5"></div>
+  <section class="question"> The details of the order I am applying for are as follows:
+    <div><i>Tell the Court and other party the details of the order you are asking for:</div>
+    <div class="v-spacer-10"></div>
   </section>
 
   </div><!-- end all forms container -->
