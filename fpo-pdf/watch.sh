@@ -1,8 +1,8 @@
-.
 inotifywait -r -m -e modify templates |
-  while read path _ file; do
+  while read path thing file; do
     name=`basename $file .html`
-    if [[ "$name" =~ ^\. ]]; then # No swap files
+    if [[ "$name" =~ ^\. ]]
+    then # No swap files
       continue
     fi
     curl -X POST --output $path/../$name.pdf \
