@@ -1,0 +1,728 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+     {
+      "name": "Family Law Matter - Choose Items",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "POSelectedWarning",
+        "title": "Please note: You can take in paper work for PO right away without finishing the next series of questions.",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "yesno",
+        "name": "doYouWantToApply",
+        "title": "Do you want to apply for a court order about any of the following?",
+        "description": "Parenting arrangements  how each guardian will parent their child(ren), including each guardians' parenting responsibilities for decision making about a child and the parenting time each guardian spends with a child.  Parenting responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting arrangements is what is in the best interest of the child.\n<br>\n<br>\nChild support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren).  A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.\n<br>\n<br>\nContact with a child time a child spends with someone who is not their guardian.  This person could include a parent who is not a guardian to a child, or other people, like grandparents. \n<br>\n<br>\nGuardianship who is responsible for a child.  Only guardians have parental responsibilities and parenting time with a child.  An agreement or order about parenting arrangements can say a child's guardians share parental responsibilities or parenting time, or it can say one guardian is responsible for more of the parenting decisions and has more of the parenting time with the child.\n<br>\n<br>\nSpousal support money that one spouse pays to another spouse for their financial support after separation.  A person is not entitled to spousal support in every case.",
+        "isRequired": true
+       },
+       {
+        "type": "checkbox",
+        "name": "flmChoices",
+        "visibleIf": "{doYouWantToApply} = \"y\"",
+        "title": "Choose all that apply",
+        "isRequired": true,
+        "choices": [
+         "Parenting Arrangements including parental responsibilities and parenting time",
+         "Child Support",
+         "Contact with a child",
+         "Guardianship of a child",
+         "Spousal Support"
+        ]
+       },
+       {
+        "type": "infotext",
+        "name": "noDontWantToApply",
+        "visibleIf": "{doYouWantToApply} = \"n\"",
+        "title": "help text about other options for resolving outside of court or other types of orders",
+        "titleLocation": "hidden"
+       }
+      ],
+      "title": "Family Law Matter"
+     },
+     {
+      "name": "Written Agreements",
+      "elements": [
+       {
+        "type": "yesno",
+        "name": "anyExistingOrdersAgreements",
+        "title": "Do you have any existing written agreement or court order about parenting arrangements including parental responsibilities and parenting time, child support, contact with a child, guardianship of a child, and/or spousal support?",
+        "isRequired": true
+       },
+       {
+        "type": "checkbox",
+        "name": "whichOrdersIncluded",
+        "visibleIf": "{anyExistingOrdersAgreements} = \"y\"",
+        "title": "Please indicate which family law matter(s) are included in the existing written agreement(s) or court order(s).",
+        "isRequired": true,
+        "choices": [
+         "Parenting arrangements including parental responsibilities and parenting time",
+         "Child support",
+         "Contact with a child",
+         "Guardianship of a child",
+         "Spousal support"
+        ]
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty",
+      "title": "Written Agreements"
+     },
+     {
+      "name": "Parenting Arrangements(Time)",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "background",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "whatIsParentingArrangement",
+          "title": "Parenting arrangements include how each guardian will parent their child(ren), including each guardians' parenting responsibilities for decision making about a child and the parenting time each guardian spends with a child.  Parenting responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting arrangements is what is in the best interest of the child.\n<br>\n<br>\nYou can only apply if you are the Guardian or as part of this application you are applying to become a guardian.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "isGuardian",
+          "title": "I am a Guardian of the child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "applyingForGuardian",
+          "visibleIf": "{isGuardian} = \"n\"",
+          "title": "I am applying to be a Guardian of the child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "infotext",
+          "name": "notEligible",
+          "visibleIf": "{isGuardian} = \"n\" and {applyingForGuardian} = \"n\"",
+          "title": "You are not eligible to continue with this survey. You need to select 'Contact with a Child'. Please go back a step and select the correct form",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "panel",
+          "name": "allowParentalFlowPanel",
+          "elements": [
+           {
+            "type": "yesno",
+            "name": "applyingForParentalResponsibilities",
+            "title": "Are you applying for an order that gives you all parental responsibilities for a child or children?",
+            "isRequired": true
+           },
+           {
+            "type": "dropdown",
+            "name": "selectChildForParentalRes",
+            "visibleIf": "{applyingForParentalResponsibilities} = \"y\"",
+            "title": "Please select the name of each child you are requesting all parental responsibilities for",
+            "isRequired": true,
+            "choices": [
+             "child1",
+             "child2",
+             "child3"
+            ]
+           },
+           {
+            "type": "comment",
+            "name": "describeHowToExerciseParentalRes",
+            "visibleIf": "{applyingForParentalResponsibilities} = \"n\"",
+            "title": "Describe how you want the parental responsibilities to be exercised by the guardians",
+            "isRequired": true
+           },
+           {
+            "type": "yesno",
+            "name": "needOrderForTimeAlloc",
+            "visibleIf": "{applyingForParentalResponsibilities} = \"n\"",
+            "title": "Do you need an order for the allocation of parenting time?",
+            "description": "During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child.",
+            "isRequired": true
+           }
+          ],
+          "visibleIf": "{isGuardian} = \"y\" or {applyingForGuardian} = \"y\""
+         }
+        ]
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Parenting Arrangements including parental responsibilities and parenting time\"",
+      "title": "Parenting Arrangements(Time)"
+     },
+     {
+      "name": "Parenting Arrangements (Responsibilities)",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "explainArrangementSection",
+        "title": "Section Introduction",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "panel",
+        "name": "yesAllocateTimePanel",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "explainParentingTime",
+          "title": "INTRO for questions: I am applying for Parenting Time to be allocated as follows: [Provide explanatory text on what it means]",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "comment",
+          "name": "describeHowTimeSpent",
+          "title": "Describe how and when you want the children to spend time with you",
+          "description": "[Provide help text, example and free form field]",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "isConditionPlaced",
+          "title": "Are you willing to have any conditions placed on the time you will spend with your children?",
+          "description": "[Provide examples an e.x. I won't drink when kids with me]",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whatConditions",
+          "visibleIf": "{isConditionPlaced} = \"y\"",
+          "title": "Describe conditions willing to have",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeHowChildSpendTime",
+          "title": "Describe how and when you wan the children to spend time with the other party.",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyOtherGuardianCondition",
+          "title": "Do you want any conditions placed on the time the other guardian(s) will spend with the children?",
+          "description": "[Provide examples e.x. I won't drink when kids with me]",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeRequestedConditions",
+          "visibleIf": "{anyOtherGuardianCondition} = \"y\"",
+          "title": "Describe conditions requested",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyOtherParentingTerms",
+          "title": "Are there any other order terms about parenting arrangements you want to ask the court for?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeOtherOrders",
+          "visibleIf": "{anyOtherParentingTerms} = \"y\"",
+          "title": "Describe other orders about parenting arrangement",
+          "description": "[give examples and guidance]",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{needOrderForTimeAlloc} = \"y\""
+       },
+       {
+        "type": "panel",
+        "name": "yesAllocateTimePanel1",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "explainBestInterest",
+          "title": "Explanation about best interests of the child, and that the Court can only make orders that are in the best interest of the child(ren).",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "comment",
+          "name": "describeBestInt",
+          "title": "Describe how the orders you are asking for about parenting arrangements, including parental responsibilities and parenting time, are in the best interest of the child(ren).",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{needOrderForTimeAlloc} = \"n\" or {anyOtherParentingTerms} = \"n\""
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Parenting Arrangements including parental responsibilities and parenting time\"",
+      "title": "Parenting Arrangements (Responsibilities)"
+     },
+     {
+      "name": "Existing Parenting Order",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "existingParentAgreement",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "explainExistingArrangementSection",
+          "title": "This series of questions will help you tell the court and the other party what you want the court to order about your existing parenting order or written agreement. Parenting time and parental responsibilities together are known as parenting arrangements. They must be in the best interests of the child. Only a guardian can have parenting time and parental responsibilities.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "existingIsGuardian",
+          "title": "I am a Guardian of the child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "existingIsApplyingForGuardian",
+          "visibleIf": "{existingIsGuardian} = \"n\"",
+          "title": "I am applying to be a Guardian of the child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "infotext",
+          "name": "existingNotEligible",
+          "visibleIf": "{existingIsGuardian} = \"n\" and {existingIsApplyingForGuardian} = \"n\"",
+          "title": "You are not eligible to continue with this survey. You need to select 'Contact with a Child'. Please go back a step and select the correct form",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "radiogroup",
+          "name": "whichExistingForm",
+          "visibleIf": "{existingIsGuardian} = \"y\" or {existingIsApplyingForGuardian} = \"y\"",
+          "title": "Which existing form do you have?",
+          "isRequired": true,
+          "choices": [
+           "Existing order about parenting arrangements",
+           "Existing arrangement about parenting arrangements",
+           "Neither"
+          ]
+         },
+         {
+          "type": "infotext",
+          "name": "orderNotEligible",
+          "visibleIf": "{whichExistingForm} = \"neither\"",
+          "title": "Not eligible",
+          "titleLocation": "hidden"
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "existingOrderPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfOrder",
+          "title": "Please specify the date order was made",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "describeChangeInCircumstances",
+          "title": "Describe the change in circumstances since the order was made",
+          "isRequired": true
+         },
+         {
+          "type": "radiogroup",
+          "name": "existingOrderChangedCancelled",
+          "title": "Do want the existing order changed or cancelled?",
+          "isRequired": true,
+          "choices": [
+           "Changed",
+           "Cancelled"
+          ]
+         }
+        ],
+        "visibleIf": "{whichExistingForm} = \"order\""
+       },
+       {
+        "type": "panel",
+        "name": "existingAgreementPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfAgreement",
+          "title": "Please specify the date agreement was made",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "howAgreementNotInInterest",
+          "title": "How is the current agreement not in the best interest of the child(ren)?",
+          "isRequired": true
+         },
+         {
+          "type": "radiogroup",
+          "name": "existingAgreementAsideReplaced",
+          "title": "Do want the existing agreement set aside or replaced?",
+          "isRequired": true,
+          "choices": [
+           "Set aside",
+           "Replaced"
+          ]
+         }
+        ],
+        "visibleIf": "{whichExistingForm} = \"agreement\""
+       },
+       {
+        "type": "panel",
+        "name": "changedReplacedPanel",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "whichChangesRequired",
+          "title": "Select all the changes that you want to apply",
+          "isRequired": true,
+          "choices": [
+           "Parenting responsibilities",
+           "Parenting time",
+           "Parenting arrangements"
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "describeParentingResChanges",
+          "visibleIf": "{whichChangesRequired} contains \"parenting responsibilities\"",
+          "title": "Describe the parenting responsibilities changes",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeParentingTimeChanges",
+          "visibleIf": "{whichChangesRequired} contains \"parenting time\"",
+          "title": "Describe the parenting time changes",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeParentingArrangChanges",
+          "visibleIf": "{whichChangesRequired} contains \"parenting arrangements\"",
+          "title": "Describe the parenting arrangements changes",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{existingOrderChangedCancelled} = \"changed\" or {existingAgreementAsideReplaced} = \"replaced\""
+       },
+       {
+        "type": "comment",
+        "name": "describeChangesBestInt",
+        "visibleIf": "{existingOrderChangedCancelled} = \"changed\" or {existingAgreementAsideReplaced} = \"replaced\"",
+        "title": "Describe why you believe the order you are asking for is in the children's best interest.",
+        "isRequired": true
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\" and {whichOrdersIncluded} contains \"Parenting arrangements including parental responsibilities and parenting time\"",
+      "title": "Existing Parenting Order"
+     },
+     {
+      "name": "Child Support",
+      "elements": [
+       {
+        "type": "radiogroup",
+        "name": "whoAmI",
+        "title": "I am",
+        "isRequired": true,
+        "hasOther": true,
+        "choices": [
+         "Parent or Guardian",
+         "Applying to become a guardian of the child(ren)"
+        ]
+       },
+       {
+        "type": "radiogroup",
+        "name": "whoIsOtherParty",
+        "visibleIf": "{whoAmI} notempty",
+        "title": "The 'Other Party' is",
+        "isRequired": true,
+        "hasOther": true,
+        "choices": [
+         "A parent or guardian of the child(ren)",
+         "A person standing in the place of a parent to the child(ren) [for example step parent]"
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "childSupportPanel",
+        "elements": [
+         {
+          "type": "comment",
+          "name": "howTimeSpent",
+          "title": "Describe how the child(ren) spend time with the parties",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "splitSharedTime",
+          "title": "Based on above, would you describe the arrangement as 'split or shared' parenting time?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "currentArrangements",
+          "title": "The current support arrangements are as follows:",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "annualIncome",
+          "title": "My annual income is $",
+          "isRequired": true,
+          "inputType": "number"
+         },
+         {
+          "type": "yesno",
+          "name": "knowOtherPartyIncome",
+          "title": "Do you know the income of the other party?",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "otherPartyAnnualIncome",
+          "visibleIf": "{knowOtherPartyIncome} = \"y\"",
+          "title": "Other Party's annual income",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "otherPartyFacts",
+          "title": "I know the following facts about the other party's employment, training, health, and ability to work"
+         },
+         {
+          "type": "checkbox",
+          "name": "supportToBePaidBy",
+          "title": "I am asking for support to be paid by",
+          "isRequired": true,
+          "choices": [
+           "party 1",
+           "party 2",
+           "party 3"
+          ]
+         },
+         {
+          "type": "checkbox",
+          "name": "whichChildrenNeedSupport",
+          "title": "For which child(ren) are you asking the support for? -TODO",
+          "isRequired": true,
+          "choices": [
+           "item1",
+           "item2",
+           "item3"
+          ]
+         },
+         {
+          "type": "infotext",
+          "name": "explainChildSupportCalc",
+          "title": "Provide info...child support calculator, etc.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "isAttachingCalc",
+          "title": "I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines.",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whyNotAttachingCalc",
+          "visibleIf": "{isAttachingCalc} = \"n\"",
+          "title": "Why are you not attaching calculations?",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "dateOfSupportPayment",
+          "title": "Child support payments in this amount should start on",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "whyChooseDate",
+          "title": "Why did you choose this date?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyUndueHardship",
+          "title": "Would paying or receiving the 'guideline' amount cause you undue hardship?",
+          "isRequired": true
+         },
+         {
+          "type": "checkbox",
+          "name": "whySupportAmountCauseHardship",
+          "visibleIf": "{anyUndueHardship} = \"y\"",
+          "title": "The guideline amount payable would cause me undue hardship because",
+          "description": "Note:  If this option applies to your situation, you will need to complete the undue hardship portion of the Financial Statement, Part 4 and Part 5, in addition to any other required parts",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living",
+           "I have high costs to be able to exercise parenting time with the child(ren)",
+           "I have a legal duty to support another person, such as a former spouse or a new spouse who is too ill or disabled to support themselves",
+           "I have a legal duty to support a dependent child from another relationship"
+          ]
+         },
+         {
+          "type": "yesno",
+          "name": "anySpecialExpenses",
+          "title": "Are you claiming any special or extraordinary expenses?",
+          "isRequired": true
+         },
+         {
+          "type": "infotext",
+          "name": "question1",
+          "title": "for above question:\nIf yes, display worksheet to complete (note: Same fact sheet A from divorce app), If no, next question.\n<br>\n<br>\nIf this is the only schedule or the last of the schedule the user selected. Go to 'Financial Statement' if required. NOTE: Financial Statements are required if: \n<br>\n        Party is the payor (If person selected their own name at Q10)\n<br>\n        split or shared parenting time (Q4)\n<br>\n        there is a child 19 years old or over for whom support is claimed (Q11)\n<br>\n        a party has been acting as a parent to a child of the other party (Q2)\n<br>\n        the paying parent earns more than $150,000 per year (Q6 or Q8)\n<br>\n        special or extraordinary expenses are being claimed for a child (Q17)\n<br>\n        I am claiming undue hardship (Q16)\n<br>\n<br>\nWe should know all these from previous questions.  If the party is unable to complete the financial statement, and it is required, they will need to file an application asking for permission to not file it, and indicate it on this schedule.",
+          "titleLocation": "hidden"
+         }
+        ],
+        "visibleIf": "{whoIsOtherParty} notempty"
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Child Support\"",
+      "title": "Child Support"
+     },
+     {
+      "name": "Existing Child Support",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "existingChildSupport",
+        "elements": [
+         {
+          "type": "radiogroup",
+          "name": "whichChildSupportForm",
+          "title": "Which form do you have?",
+          "isRequired": true,
+          "choices": [
+           "Existing order about child support",
+           "Existing agreement about child support",
+           "Neither"
+          ]
+         },
+         {
+          "type": "infotext",
+          "name": "childSupportNotEligible",
+          "visibleIf": "{whichChildSupportForm} = \"Neither\"",
+          "title": "If neither they are in the wrong spot direct back to PFCF ¿ 47 where they picked which family law matter(s) they have existing orders or agreements about.",
+          "titleLocation": "hidden"
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "existingChildOrder",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "existingChildSupportIncludes",
+          "title": "The existing order requires me to",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "Make payments for child support",
+           "Receive payments for support of a child"
+          ]
+         },
+         {
+          "type": "text",
+          "name": "Date of Order",
+          "inputType": "date"
+         },
+         {
+          "type": "checkbox",
+          "name": "howChildSupportNeedsChanged",
+          "title": "Since the order was made how have the needs or circumstances changed?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "My financial situation has changed",
+           "I believe the other party's financial situation has changed",
+           "The special and extraordinary expenses for the child(ren) have changed",
+           {
+            "value": "item1",
+            "text": "The child(ren)'s living arrangements(s) have changed"
+           },
+           {
+            "value": "item2",
+            "text": "Information has become available that was not available when the order was made"
+           }
+          ]
+         },
+         {
+          "type": "radiogroup",
+          "name": "childSupportChangeCancel",
+          "title": "Do you want the existing order changed or cancelled?",
+          "isRequired": true,
+          "choices": [
+           "Changed",
+           "Cancelled"
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "describeChildSupportChanged",
+          "visibleIf": "{childSupportChangeCancel} = \"Changed\"",
+          "title": "Describe the changes you want to the existing order",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyUnpaidChildSupport",
+          "title": "As of today, is there any unpaid child support?",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "whatUnpaidAmount",
+          "visibleIf": "{anyUnpaidChildSupport} = \"y\"",
+          "title": "What is the amount?",
+          "isRequired": true,
+          "inputType": "number"
+         },
+         {
+          "type": "yesno",
+          "name": "applyingToReduceChildSupport",
+          "title": "Are you applying to reduce the amount of unpaid child support?",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "whatAmountToReduce",
+          "visibleIf": "{applyingToReduceChildSupport} = \"y\"",
+          "title": "What amount do you want it reduced to?",
+          "isRequired": true,
+          "inputType": "number"
+         },
+         {
+          "type": "comment",
+          "name": "whyYouNeedAmountReduced",
+          "visibleIf": "{applyingToReduceChildSupport} = \"y\"",
+          "title": "Why do you want it reduced?",
+          "isRequired": true
+         },
+         {
+          "type": "checkbox",
+          "name": "howToPayArrears",
+          "title": "How do you want the arrears to be paid?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "At a rate of BLANK $ per month",
+           "In lump sum"
+          ]
+         },
+         {
+          "type": "yesno",
+          "name": "anyAttachedCalculations",
+          "title": "Are you attaching calculations?",
+          "description": "Note: will have drop down for 'How do I calculate\" link to child support calculator.",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{whichChildSupportForm} = \"Existing order about child support\""
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\" and {whichOrdersIncluded} contains \"Child support\"",
+      "title": "Existing Child Support"
+     }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }
