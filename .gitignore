@@ -37,3 +37,8 @@ Temporary Items
 .idea/*
 .idea/
 
+# Swap files
+*.swp
+
+# Output files
+fpo-pdf/*.pdf
