@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Application For Case Management Order</title>
+  <title>Application for Enforcement</title>
   <style type="text/css">
     @page {
         size: Letter;
@@ -10,7 +10,7 @@
         font-size: 9pt;
         font-family: Helvetica, Arial, sans-serif;
         @bottom-left {
-          content: "PFA 717  02/2020 \a         Form H";
+          content: "PFA 725  03/2020 \a         Form P";
           white-space: pre;
           font-size: 6pt;
         }
@@ -105,6 +105,8 @@
     ul li {padding: .25em; line-height: 1.25;}
     ul li ul{list-style-type: disc;}
     .separation{border-top: 2px solid #000;}
+
+    ol.lower-alpha{list-style-type: lower-alpha;}
 
     @media print{
         body{
@@ -367,7 +369,6 @@
 
     <!-- PAGE ONE -->
 
-    <!-- FORM ONE -->
     <!-- form heading -->
     <div class="no-repeat-header">
 
@@ -375,7 +376,7 @@
         <tbody>
         <tr>
           <td>
-            <h1>Application For Case Management Order
+            <h1>Application for Enforcement
               <span class="sub-heading">
                 Provincial Court (Family) Rules
               </span>
@@ -417,14 +418,14 @@
 
     <!-- Question 1 -->
     <section class="question">
-      <div class="form-line">My name is</div>
+      <div class="form-line"><b>My name is</b></div>
       <div class="form-line">
         <div class="form-line-child underline" style="min-width:15rem"></div>
         <div class="form-line-child hint">(full name of party)</div>
       </div>
       <div class="form-line">. </div>
       <div class="form-line">
-        My contact information and address for delivery of court documents is:
+        My contact information and address for delivery is:
       </div>
 
       <table class="bordered border-rows">
@@ -459,72 +460,83 @@
 
 
     <!-- Question 2 -->
-    <section class="question" style="margin-top:1rem">
+    <section class="question" style="margin: 1rem 0 1rem 0">
       <span class="check"></span>
-      <span class="text-after-check">I understand I need to give notice of the application to all other parties, including any third party who may be affected by the order. To give notice, each other party must be served with the application and supporting materials at least 7 days before the date and time of the court appearance.</span>
+      <span class="text-after-check">I understand I need to give notice to any and all parents, step-parents, or guardians of the child(ren) this application is about.  To give notice, they must be served with the application and supporting materials at least 7 days before the date and time of the hearing unless the application is made without notice or with less than 7 days notice.</span>
     </section>
+
 
 
     <!-- Question 3 -->
-    <section class="question"> I will be providing notice to the following person(s):
-      <div><i>Select and complete all options that apply</i></div>
-
+    <section class="question">
       <div class="form-line">
         <div class="form-line-child check"></div>
       </div>
-      <div class="form-line">the other party/parties:</div>
+      <div class="form-line">I will be providing notice to</div>
       <div class="form-line">
-        <div class="form-line-child underline" style="min-width:10rem"></div>
-        <div class="form-line-child hint">(full name of ther party/parties)</div>
+        <div id="sched1-other-name1" class="form-line-child underline"></div>
+        <div class="form-line-child hint">(full name of other party/parties)</div>
       </div>
-      <div style="margin-bottom:0.2rem"></div>
+      <div class="form-line" style="margin-bottom: 0.3rem">.</div>
+      <div class="form-line">Their contact information, as I know it, is:</div>
 
-      <div class="form-line">
-        <div class="form-line-child check"></div>
-      </div>
-      <div class="form-line">the following third party/parties (someone else who must do something if the order is made):</div>
-      <div class="form-line">
-        <div class="form-line-child underline" style="min-width:10rem"></div>
-        <div class="form-line-child hint">(full name of ther party/parties)</div>
-      </div>
+
+      <table class="bordered border-rows">
+        <tr >
+          <td>Full Name: </td>
+          <td></td>
+          <td>Date of Birth: </td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Contact information</b></td>
+        </tr>
+        <tr>
+          <td colspan="3">Lawyer (if applicable):  </td>
+        </tr>
+        <tr>
+          <td colspan="3">Address:  </td>
+        </tr>
+        <tr>
+          <td>City:  </td>
+          <td style="padding-left:50px">Province:  </td>
+          <td>Postal Code:  </td>
+        </tr>
+        <tr>
+          <td>Email:  </td>
+          <td colspan="2" style="padding-left:150px">Telephone:  </td>
+        </tr>
+      </table>
+
+      <div><i>Additional party (Complete only if applicable)</i></div>
+
+      <table class="bordered border-rows">
+        <tr >
+          <td>Full Name: </td>
+          <td></td>
+          <td>Date of Birth: </td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Contact information</b></td>
+        </tr>
+        <tr>
+          <td colspan="3">Lawyer (if applicable):  </td>
+        </tr>
+        <tr>
+          <td colspan="3">Address:  </td>
+        </tr>
+        <tr>
+          <td>City:  </td>
+          <td style="padding-left:50px">Province:  </td>
+          <td>Postal Code:  </td>
+        </tr>
+        <tr>
+          <td>Email:  </td>
+          <td colspan="2" style="padding-left:150px">Telephone:  </td>
+        </tr>
+      </table>
 
     </section>
 
-
-    <!-- Question 4 -->
-    <section class="question" style="margin-top:1rem">
-      <i>Complete only if applicable. You may leave this section blank.</i>
-      <div>
-        <span class="check"></span>
-        <span class="text-after-check">All parties have consented to case management order and:</span>
-      </div>
-      <div style="margin-left:1rem">
-        <div><i>Select only one of the following options</i></div>
-        <div>
-          <span class="check"></span>
-          <span class="text-after-check">
-            A <b>draft Consent Order</b> in Form 20 signed by all parties is submitted with this application for review without a hearing
-          </span>
-        </div>
-        <div>
-          <span class="check"></span>
-          <span class="text-after-check">
-            A hearing is requested
-          </span>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- Question 5 -->
-    <section class="question" style="margin-top:1rem">I have contacted the other party to discuss available dates and time for the court appearance and they have agreed to the date and time for the court appearance
-      <span class="check" style="margin-left:0.3rem"></span>
-      <span class="text-after-check">Yes</span>
-      <span class="check" style="margin-left:0.3rem"></span>
-      <span class="text-after-check">No</span>
-    </section>
-
-    <div class="v-spacer-7"></div>
 
     <div class="reg-use">
       <div><i>For registry use only</i></div>
@@ -552,7 +564,7 @@
       </div>
     </div>
 
-    <div><b>NOTICE TO THE OTHER PARTY: If you do not appear in court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+    <div><b>NOTICE TO THE OTHER PARTY: If you do not appear in court on the date and time above, the Court may make an order in your absence.</b></div>
 
 
   <div class="new-page"> </div>
@@ -560,154 +572,127 @@
 
   <!-- PAGE TWO -->
 
-  <!-- Question 6 -->
+  <h4>ABOUT THE ORDER</h4>
+  
   <section class="question">
-    I am applying for the following case management order(s):
+    <span class="check"></span>
+    <span class="text-after-check" style="margin-left:1.3rem">I am applying:</span>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        transferring the court file to another registry for one or more purposes
-      </span>
-    </div>
+    <div style="margin:0.4rem 0 0.5rem 0"><i>Select all options that apply</i></div>
+    <div class="indent">
+      <div class="option">
+        <span class="check"></span>
+        <span class="text-after-check" style="margin-left:1.3rem">to enforce</span>
+      </div>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        adding or removing a party to the proceeding
-      </span>
-    </div>
+      <div class="indent">
+        <div class="form-line">
+          <div class="form-line-child check"> </div>
+        </div>
+        <div class="form-line">
+          the order made on
+        </div>
+        <div class="form-line">
+          <div class="form-line-child underline" style="min-width:10rem"></div>
+          <div class="form-line-child hint">date</div>
+        </div>
+      </div>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        settling or correcting the terms of an order made under these rules
-      </span>
-    </div>
+      <div class="indent" style="margin-top:0.3rem">
+        <div class="form-line">
+          <div class="form-line-child check"> </div>
+        </div>
+        <div class="form-line">
+          the written agreement dated 
+        </div>
+        <div class="form-line">
+          <div class="form-line-child underline" style="min-width:10rem"></div>
+          <div class="form-line-child hint">date</div>
+        </div>
+      </div>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        Setting a specified period of time for the filing and exchanging of information, including a financial statement in Form D <i>[Financial Statement]</i> of Appendic C
-      </span>
-    </div>
+      <div>
+        <div class="form-line" style="margin-top:0.3rem">
+          <div class="form-line-child check"></div>
+        </div>
+        <div class="form-line">
+          to review, enforce, change or set aside the determination of a parenting coordinator dated
+        </div>
+        <div class="form-line">
+          <div class="form-line-child underline" style="min-width:10rem"></div>
+          <div class="form-line-child hint">date</div>
+        </div>
+      </div>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        correcting or amending a filed document, including the correction of a name or date of birth
-      </span>
-    </div>
+      <div>
+        <div class="form-line" style="margin-top:0.3rem">
+          <div class="form-line-child check"></div>
+        </div>
+        <div class="form-line">
+          to have reasonable and necessarily incurred expenses set under any of the following sections of the Family Law Act:
+        </div>
+      </div>
+        <ol class="lower-alpha">
+          <li>section 61 [denial of parenting time or contact];</li>
+          <li>section 212 [orders respecting disclosure]</li>
+          <li>section 213 [enforcing orders respecting disclosure];</li>
+          <li>section 228 [enforcing orders respecting conduct];</li>
+          <li>section 230 [enforcing orders generally];</li>
+        </ol>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        requiring that a parentage test be taken under section 33 <i>[parentage tests]</i> of the <i>Family Law Act</i>
-      </span>
-    </div>
+      <div>
+        <div class="form-line">
+          <div class="form-line-child check"></div>
+        </div>
+        <div class="form-line">
+          for an order in respect of extraordinary remedies under section 231 of the Family Law Act
+        </div>
+      </div>
 
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        requiring that information be disclosed by a third party
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        adjourning a hearing or trial
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        requiring that a person who prepared a report under section 211 <i>[orders respecting reports]</i> of the <i>Family Law Act</i> attend a trial
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        respecting the conduct and management of a trial
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        allowing a person to attend a hearing or conference using electronic communication
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        shortening or extending a time limit under these rules or a time limit set by an order or direction of a judge
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        allowing, waiving or modifying any service, delivery or notice requirement, including allowing an alternate method for the service of a document, including substitutional service
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i>Family Law Act</i>
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        permitting any other means of proof instead of that required by these rules
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        waiving or varying any early resolution requirements
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        recognizing an extraprovincial order other than a support order
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        permitting a party to be exempt from a requirement under these rules
-      </span>
-    </div>
-
-    <div class="option">
-      <span class="check"></span>
-      <span class="text-after-check">
-        changing, suspending or cancelling an order made in the absence of the party
-      </span>
+      <div>
+        <div class="form-line" style="margin-top:0.3rem">
+          <div class="form-line-child check"></div>
+        </div>
+        <div class="form-line">
+          to determine whether or not arrears are owing under the support order dated
+        </div>
+        <div class="form-line">
+          <div class="form-line-child underline" style="min-width:10rem"></div>
+          <div class="form-line-child hint">date</div>
+        </div>
+        <div class="form-line">made under the Family Law Act, and if so, the amount of those arrears
+      </div>
     </div>
   </section>
+
   <div class="v-spacer-1"></div>
 
-  <section class="question" style="margin-bottom:0rem"> The details of the order(s) I am applying for are as follows:</section>
-  <div><i>Tell the court and the other party the details of the order you are asking for:</i></div>
+  <section class="question">
+    <span class="check"></span>
+    <span class="text-after-check">
+      I am attaching a copy of the order, written agreement or determination this application is about.
+    </span>
+  </section>
+
+  <div class="v-spacer-1"></div>
+
+
+  <section class="question">
+    The details of the order I am asking for are as follows:
+    <div><i>Tell the Court and the other party the specifics of the order you are asking for.</i></div>
+  </section>
+
   <div class="v-spacer-10"></div>
 
-  <section class="question" style="margin-bottom:0rem"> The facts on which this application is based area as follows:</section>
-  <div><i>Give the facts you want the court to consider:</i></div>
-  <div class="v-spacer-7"></div>
-  
-  </div>
-</div>
+
+  <section class="question">
+    The facts on which this application is based are as follows:
+    <div><i>Give the facts you want the court to consider. Include why you are making this application and why you need the court to make the order.</i></div>
+  </section>
+
+  <div class="v-spacer-10"></div>
+
+  </div><!-- end all forms container -->
+</div><!-- end all forms wrapper -->
 </body>
 </html>
