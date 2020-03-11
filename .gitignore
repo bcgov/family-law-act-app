@@ -36,6 +36,7 @@ Temporary Items
 # IDE
 .idea/*
 .idea/
+.ionide
 
 # Swap files
 *.swp
