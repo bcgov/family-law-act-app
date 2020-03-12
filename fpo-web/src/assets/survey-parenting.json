@@ -603,7 +603,7 @@
          {
           "type": "infotext",
           "name": "orderNotEligible",
-          "visibleIf": "{whichExistingForm} = \"neither\"",
+          "visibleIf": "{whichExistingForm} = \"Neither\"",
           "title": "Not eligible",
           "titleLocation": "hidden"
          }
@@ -637,7 +637,7 @@
           ]
          }
         ],
-        "visibleIf": "{whichExistingForm} = \"order\""
+        "visibleIf": "{whichExistingForm} = \"Existing order about parenting arrangements\""
        },
        {
         "type": "panel",
@@ -667,7 +667,7 @@
           ]
          }
         ],
-        "visibleIf": "{whichExistingForm} = \"agreement\""
+        "visibleIf": "{whichExistingForm} = \"Existing arrangement about parenting arrangements\""
        },
        {
         "type": "panel",
@@ -687,31 +687,31 @@
          {
           "type": "comment",
           "name": "describeParentingResChanges",
-          "visibleIf": "{whichChangesRequired} contains \"parenting responsibilities\"",
+          "visibleIf": "{whichChangesRequired} contains \"Parenting responsibilities\"",
           "title": "Describe the parenting responsibilities changes",
           "isRequired": true
          },
          {
           "type": "comment",
           "name": "describeParentingTimeChanges",
-          "visibleIf": "{whichChangesRequired} contains \"parenting time\"",
+          "visibleIf": "{whichChangesRequired} contains \"Parenting time\"",
           "title": "Describe the parenting time changes",
           "isRequired": true
          },
          {
           "type": "comment",
           "name": "describeParentingArrangChanges",
-          "visibleIf": "{whichChangesRequired} contains \"parenting arrangements\"",
+          "visibleIf": "{whichChangesRequired} contains \"Parenting arrangements\"",
           "title": "Describe the parenting arrangements changes",
           "isRequired": true
          }
         ],
-        "visibleIf": "{existingOrderChangedCancelled} = \"changed\" or {existingAgreementAsideReplaced} = \"replaced\""
+        "visibleIf": "{existingOrderChangedCancelled} = \"Changed\" or {existingAgreementAsideReplaced} = \"Replaced\""
        },
        {
         "type": "comment",
         "name": "describeChangesBestInt",
-        "visibleIf": "{existingOrderChangedCancelled} = \"changed\" or {existingAgreementAsideReplaced} = \"replaced\"",
+        "visibleIf": "{existingOrderChangedCancelled} = \"Changed\" or {existingAgreementAsideReplaced} = \"Replaced\"",
         "title": "Describe why you believe the order you are asking for is in the children's best interest.",
         "isRequired": true
        }
@@ -796,11 +796,10 @@
           "type": "checkbox",
           "name": "supportToBePaidBy",
           "title": "I am asking for support to be paid by",
+          "valueName": "OtherPartyNameValue",
           "isRequired": true,
           "choices": [
-           "party 1",
-           "party 2",
-           "party 3"
+           "{panel.OtherPartyName}"
           ]
          },
          {
