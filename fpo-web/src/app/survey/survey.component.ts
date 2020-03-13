@@ -13,7 +13,7 @@ import { addQuestionTypes } from './question-types';
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.scss']
 })
-export class SurveyComponent  {
+export class SurveyComponent {
   private _jsonData: any;
   private _ready = false;
   @Input() cacheName: string;
@@ -42,17 +42,17 @@ export class SurveyComponent  {
     private insertService: InsertService,
     private glossaryService: GlossaryService,
     private _router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
-    if(this.initialMode) {
+    if (this.initialMode) {
       this.surveyMode = this.initialMode;
     }
     this.initSurvey();
     this.glossaryService.onLoaded(() => this.loadSurvey(true));
-    if(this.showSidebar) {
+    if (this.showSidebar) {
       this.insertService.updateInsert('sidebar-left',
-        {type: 'survey-sidebar', inputs: {survey: this}});
+        { type: 'survey-sidebar', inputs: { survey: this } });
     }
   }
 
@@ -91,13 +91,13 @@ export class SurveyComponent  {
   }
 
   loadSurvey(ready?) {
-    if(ready) this._ready = ready;
-    if(this._jsonData) {
+    if (ready) this._ready = ready;
+    if (this._jsonData) {
       this.loading = false;
-      if(this._ready && ! this.surveyModel) {
+      if (this._ready && !this.surveyModel) {
         this.renderSurvey();
       }
-    } else if(this.surveyPath) {
+    } else if (this.surveyPath) {
       this.dataService.loadJson(this.surveyPath).then((data) => {
         this.surveyJson = data;
       }); // .catch( (err) => ...)
@@ -108,7 +108,7 @@ export class SurveyComponent  {
   renderSurvey() {
     let surveyModel = new Survey.Model(this._jsonData);
 
-    if(this.surveyServiceType && this.surveyServiceType !== undefined) {
+    if (this.surveyServiceType && this.surveyServiceType !== undefined) {
       //surveyModel.getValue('userPreferredService');
       surveyModel.setValue('userPreferredService', this.surveyServiceType);
     }
@@ -118,7 +118,7 @@ export class SurveyComponent  {
     surveyModel.showNavigationButtons = false;
 
     // Create showdown markdown converter
-    if(this.useMarkdown) {
+    if (this.useMarkdown) {
       this.markdownConverter = new showdown.Converter({
         noHeaderId: true
       });
@@ -126,17 +126,17 @@ export class SurveyComponent  {
         let str = this.markdownConverter.makeHtml(options.text);
         // remove root paragraph <p></p>
         let m = str.match(/^<p>(.*)<\/p>$/);
-        if(m) {
+        if (m) {
           str = m[1];
         }
         // convert <code> into glossary tags
         str = str.replace(/<code>(.*?)<\/code>/g,
           (wholeMatch, m1) => {
-            if(this.glossaryService.hasTerm(m1)) {
+            if (this.glossaryService.hasTerm(m1)) {
               // note: m1 is already html format
               return '<a href="#" class="glossary-link" data-glossary="' + m1 + '">' + m1 + '</a>';
             }
-            if(this.showMissingTerms) {
+            if (this.showMissingTerms) {
               return '<code>' + m1 + '</code>';
             }
             return m1;
@@ -147,18 +147,18 @@ export class SurveyComponent  {
 
     surveyModel.onComplete.add((sender, options) => {
       this.surveyCompleted = true;
-      if(this.surveyServiceType && this.surveyServiceType !== undefined) {
+      if (this.surveyServiceType && this.surveyServiceType !== undefined) {
         surveyModel.setValue('userPreferredService', this.surveyServiceType);
       }
       this.surveyMode = 'print';
-      if(! this.disableCache)
+      if (!this.disableCache)
         this.saveCache();
-      if(this.onComplete) this.onComplete(sender.data);
+      if (this.onComplete) this.onComplete(sender.data);
       this.onPageUpdate.next(sender);
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
       this.onPageUpdate.next(sender);
-      if(! this.disableCache && this.prevPageIndex !== sender.currentPageNo) {
+      if (!this.disableCache && this.prevPageIndex !== sender.currentPageNo) {
         this.saveCache();
       }
       this.prevPageIndex = sender.currentPageNo;
@@ -169,8 +169,25 @@ export class SurveyComponent  {
     surveyModel.onAfterRenderQuestion.add((sender, options) => {
       this.glossaryService.registerTargets(options.htmlElement);
     });
+    surveyModel.onMatrixAfterCellRender.add((sender, options) => {
+      if (options.question.name === "additionalOtherPartyDetails" && options.cellQuestion.name === "otherPartyName") {
+        options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      }
+    });
     surveyModel.onValueChanged.add((sender, options) => {
       this.evalProgress();
+    });
+    surveyModel.onAfterRenderPanel.add((sender, options) => {
+      if (options.panel.name === "financialPanel") {
+        options.panel.getQuestionByName('existingUploadDocuments').allowMultiple = true;
+      }
+      if (options.panel.name === "childSupportPanel") {
+        options.panel.getQuestionByName("supportToBePaidBy").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+        options.panel.getQuestionByName("whichChildrenNeedSupport").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+      }
+      if (options.panel.name === "preFactSheetPanel") {
+        options.panel.getQuestionByName("whoIsPayorFactSheet").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      }
     });
 
     this.surveyModel = surveyModel;
@@ -180,11 +197,32 @@ export class SurveyComponent  {
     this.onPageUpdate.next(surveyModel);
 
     // fetch previous survey results
-    if(! this.disableCache) this.loadCache();
+    if (!this.disableCache) this.loadCache();
+  }
+
+  generateListOfDynamicValue(dynamicPanel: any, panelName: string) {
+    if (!dynamicPanel.isEmpty()) {
+      var otherPanel = dynamicPanel.value;
+      if (otherPanel && Array.isArray(otherPanel)) {
+        return this.mapValues(panelName, otherPanel);
+      }
+    }
+  }
+
+  mapValues(panelName: string, otherPanel: any) {
+    if (panelName === "other") {
+      return otherPanel.map(val => {
+        return [val.OtherPartyName.first, val.OtherPartyName.middle, val.OtherPartyName.last].join(" ");
+      });
+    } else if (panelName === "child") {
+      return otherPanel.map(val => {
+        return [val.childName.first, val.childName.middle, val.childName.last].join(" ");
+      });
+    }
   }
 
   get isLoaded(): boolean {
-    return !! this.surveyModel;
+    return !!this.surveyModel;
   }
 
   get isFirstPage(): boolean {
@@ -197,15 +235,15 @@ export class SurveyComponent  {
 
   changePage(pageNo: number) {
     this.surveyModel.currentPageNo = pageNo;
-    if(this.surveyMode !== 'edit') this.changeMode('edit');
+    if (this.surveyMode !== 'edit') this.changeMode('edit');
   }
 
   changeMode(mode: string) {
     this.surveyMode = mode;
-    if(mode === 'print') {
+    if (mode === 'print') {
       this.complete();
     } else {
-      if(this.onComplete) this.onComplete(null);
+      if (this.onComplete) this.onComplete(null);
     }
   }
 
@@ -222,7 +260,7 @@ export class SurveyComponent  {
   }
 
   resetCache() {
-    if(this.surveyModel) {
+    if (this.surveyModel) {
       this.prevPageIndex = 0;
       this.surveyCompleted = false;
       this.surveyModel.data = {};
@@ -239,12 +277,12 @@ export class SurveyComponent  {
   }
 
   doneLoadCache(response) {
-    if(response && response.accept_terms) {
+    if (response && response.accept_terms) {
       this._router.navigate(['/prv/status']);
     }
-    else if(response && response.result) {
+    else if (response && response.result) {
       let cache = response.result;
-      if(cache.data) {
+      if (cache.data) {
         let prevPg = this.surveyModel.currentPageNo;
         this.surveyCompleted = cache.completed || false;
         this.prevPageIndex = cache.page || 0;
@@ -252,9 +290,9 @@ export class SurveyComponent  {
         this.surveyModel.data = cache.data;
         this.cacheLoadTime = cache.time;
         this.cacheKey = response.key;
-        if(this.surveyMode === 'print' && this.surveyCompleted)
+        if (this.surveyMode === 'print' && this.surveyCompleted)
           this.complete();
-        else if(prevPg == this.surveyModel.currentPageNo)
+        else if (prevPg == this.surveyModel.currentPageNo)
           this.onPageUpdate.next(this.surveyModel);
       }
     }
@@ -273,19 +311,19 @@ export class SurveyComponent  {
   }
 
   doneSaveCache(response, err?) {
-    if(response && response.status === 'ok' && response.result) {
+    if (response && response.status === 'ok' && response.result) {
       this.cacheLoadTime = response.result.time;
       this.cacheKey = response.key;
     }
   }
 
   evalProgress() {
-    if(this.surveyModel) {
+    if (this.surveyModel) {
       let page = this.surveyModel.currentPage;
       let done = true;
-      if(page) {
-        for(let q of page.questions) {
-          if(q.isVisible && q.isRequired && q.isEmpty()) {
+      if (page) {
+        for (let q of page.questions) {
+          if (q.isVisible && q.isRequired && q.isEmpty()) {
             done = false;
             //console.log(q.name);
           }

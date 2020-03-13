@@ -706,7 +706,7 @@
           "isRequired": true
          }
         ],
-        "visibleIf": "{existingOrderChangedCancelled} = \"Changed\" or {existingAgreementAsideReplaced} = \"Replaced\""
+        "visibleIf": "{whichExistingForm} <> \"Neither\" and {existingOrderChangedCancelled} = \"Changed\" or {existingAgreementAsideReplaced} = \"Replaced\""
        },
        {
         "type": "comment",
@@ -768,11 +768,9 @@
           "isRequired": true
          },
          {
-          "type": "text",
-          "name": "annualIncome",
-          "title": "My annual income is $",
-          "isRequired": true,
-          "inputType": "number"
+          "type": "html",
+          "name": "myAnnualIncome",
+          "html": "<div class=\"sv_q_title\">My annual income is $ <input type=\"number\"/></div>"
          },
          {
           "type": "yesno",
@@ -781,11 +779,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "otherPartyAnnualIncome",
           "visibleIf": "{knowOtherPartyIncome} = \"y\"",
-          "title": "Other Party's annual income",
-          "isRequired": true
+          "html": "<div class=\"sv_q_title\">Other Party's annual income is $ <input type=\"number\"/></div>"
          },
          {
           "type": "comment",
@@ -798,25 +795,20 @@
           "title": "I am asking for support to be paid by",
           "valueName": "OtherPartyNameValue",
           "isRequired": true,
-          "choices": [
-           "{panel.OtherPartyName}"
-          ]
+          "choicesByUrl": {
+           "valueName": "OtherPartyNameValue"
+          }
          },
          {
           "type": "checkbox",
           "name": "whichChildrenNeedSupport",
-          "title": "For which child(ren) are you asking the support for? -TODO",
-          "isRequired": true,
-          "choices": [
-           "item1",
-           "item2",
-           "item3"
-          ]
+          "title": "For which child(ren) are you asking the support for?",
+          "isRequired": true
          },
          {
           "type": "infotext",
           "name": "explainChildSupportCalc",
-          "title": "Provide info...child support calculator, etc.",
+          "title": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren). A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.\n<br>\n<br>\nUsually the court orders an amount of child support based on the Federal Child Support Guidelines.  This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.\n<br>\n<br>\nThe court can order an amount other than the guideline table amount in certain situations, such as:\n<br>\n<ul>\n<li>When a child is 19 or older</li>\n<li>When the parent paying support has an income over $150,000</li>\n<li>When parents split or share parenting time</li>\n<li>When there is undue hardship</li>\n</ul>\n<br>\nTo calculate how much child support should be paid, you can visit the Department of Justice website on child support which includes detailed information including the Federal Child Support Guidelines <a href=\"https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html\">Step-by-Step</a> and a Child Support Table Look-up.\n<br>\nYou can also talk with a Child Support Officer at the Justice Access Centre or talk to a lawyer.\n\nFor more information about child support and referrals to other child support resources, visit the BC Government website at www.gov.bc.ca.",
           "titleLocation": "hidden"
          },
          {
@@ -871,12 +863,6 @@
           "name": "anySpecialExpenses",
           "title": "Are you claiming any special or extraordinary expenses?",
           "isRequired": true
-         },
-         {
-          "type": "infotext",
-          "name": "question1",
-          "title": "for above question:\nIf yes, display worksheet to complete (note: Same fact sheet A from divorce app), If no, next question.\n<br>\n<br>\nIf this is the only schedule or the last of the schedule the user selected. Go to 'Financial Statement' if required. NOTE: Financial Statements are required if: \n<br>\n        Party is the payor (If person selected their own name at Q10)\n<br>\n        split or shared parenting time (Q4)\n<br>\n        there is a child 19 years old or over for whom support is claimed (Q11)\n<br>\n        a party has been acting as a parent to a child of the other party (Q2)\n<br>\n        the paying parent earns more than $150,000 per year (Q6 or Q8)\n<br>\n        special or extraordinary expenses are being claimed for a child (Q17)\n<br>\n        I am claiming undue hardship (Q16)\n<br>\n<br>\nWe should know all these from previous questions.  If the party is unable to complete the financial statement, and it is required, they will need to file an application asking for permission to not file it, and indicate it on this schedule.",
-          "titleLocation": "hidden"
          }
         ],
         "visibleIf": "{whoIsOtherParty} notempty"
@@ -977,12 +963,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "whatUnpaidAmount",
           "visibleIf": "{anyUnpaidChildSupport} = \"y\"",
-          "title": "What is the amount?",
-          "isRequired": true,
-          "inputType": "number"
+          "html": "<div class=\"sv_q_title\">What is the amount? $ <input type=\"number\"/></div>"
          },
          {
           "type": "yesno",
@@ -991,12 +975,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "whatAmountToReduce",
-          "visibleIf": "{applyingToReduceChildSupport} = \"y\"",
-          "title": "What amount do you want it reduced to?",
-          "isRequired": true,
-          "inputType": "number"
+          "visibleIf": "{anyUnpaidChildSupport} = \"y\"",
+          "html": "<div class=\"sv_q_title\">What amount do you want it reduced to? $ <input type=\"number\"/></div>"
          },
          {
           "type": "comment",
@@ -1012,15 +994,24 @@
           "isRequired": true,
           "hasOther": true,
           "choices": [
-           "At a rate of BLANK $ per month",
+           {
+            "value": "At a rate of BLANK $ per month",
+            "text": "At a rate of $<input type=\"number\"/> per month"
+           },
            "In lump sum"
           ]
+         },
+         {
+          "type": "helptext",
+          "name": "childSupportFAQ",
+          "title": "How do I calculate child support?",
+          "titleLocation": "hidden",
+          "body": "To calculate how much child support should be paid, you can visit the Department of Justice website on child support which includes detailed information including the Federal Child Support Guidelines <a href=\"https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html\">Step-by-Step</a> and a Child Support Table Look-up."
          },
          {
           "type": "yesno",
           "name": "anyAttachedCalculations",
           "title": "Are you attaching calculations?",
-          "description": "Note: will have drop down for 'How do I calculate\" link to child support calculator.",
           "isRequired": true
          },
          {
@@ -1042,42 +1033,6 @@
           "name": "whyThisNewChildSupportDate",
           "title": "Why have you picked this date?",
           "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "completedFinancialStatement",
-          "title": "I have completed a Financial Statement",
-          "isRequired": true
-         },
-         {
-          "type": "checkbox",
-          "name": "financialStatementSelect",
-          "visibleIf": "{completedFinancialStatement} = \"y\"",
-          "title": "Select all options that apply",
-          "isRequired": true,
-          "hasOther": true,
-          "choices": [
-           "I am the payor",
-           {
-            "value": "there is split or shared parenting time",
-            "text": "&nbsp;&nbsp;there is split or shared parenting time",
-            "visibleIf": "{financialStatementSelect} = [\"I am the payor\"]"
-           },
-           {
-            "value": "there is a child 19 years old or over for whom support is claimed",
-            "text": "&nbsp;&nbsp;there is a child 19 years old or over for whom support is claimed",
-            "visibleIf": "{financialStatementSelect} = [\"I am the payor\"]"
-           },
-           {
-            "value": "a party has been acting as a parent to a child of the other party",
-            "text": "&nbsp;&nbsp;a party has been acting as a parent to a child of the other party",
-            "visibleIf": "{financialStatementSelect} = [\"I am the payor\"]"
-           },
-           "The paying parent earns more than $150,000 per year",
-           "Special or extraordinary expenses are being claimed for a child",
-           "I am claiming undue hardship",
-           "None of the above"
-          ]
          }
         ],
         "visibleIf": "{whichChildSupportForm} = \"Existing order about child support\""
@@ -1128,12 +1083,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "childAgreementUnpaidAmount",
           "visibleIf": "{anyChildAgreementUnpaid} = \"y\"",
-          "title": "What is the amount?",
-          "isRequired": true,
-          "inputType": "number"
+          "html": "<div class=\\\"sv_q_title\\\">What is the unpaid amount? $ <input type=\\\"number\\\"/></div>"
          },
          {
           "type": "yesno",
@@ -1142,12 +1095,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "childAgreementReducedAmount",
           "visibleIf": "{childAgreementReduceUnpaidSupport} = \"y\"",
-          "title": "What amount do you want it reduced to?",
-          "isRequired": true,
-          "inputType": "number"
+          "html": "<div class=\\\"sv_q_title\\\">What amount do you want it reduced to? $ <input type=\\\"number\\\"/></div>"
          },
          {
           "type": "comment",
@@ -1163,15 +1114,24 @@
           "isRequired": true,
           "hasOther": true,
           "choices": [
-           "At a rate of BLANK $ per month",
+           {
+            "value": "At a rate of BLANK $ per month",
+            "text": "At a rate of $<input type=\"number\"/> per month"
+           },
            "In lump sum"
           ]
+         },
+         {
+          "type": "helptext",
+          "name": "childCalcFAQ2",
+          "title": "How do I calculate child support?",
+          "titleLocation": "hidden",
+          "body": "To calculate how much child support should be paid, you can visit the Department of Justice website on child support which includes detailed information including the Federal Child Support Guidelines <a href=\"https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html\">Step-by-Step</a> and a Child Support Table Look-up."
          },
          {
           "type": "yesno",
           "name": "ischildAgreementAttachCalc",
           "title": "Are you attaching calculations?",
-          "description": "Note: will have drop down for 'How do I calculate\" link to child support calculator.",
           "isRequired": true
          },
          {
@@ -1193,20 +1153,26 @@
           "name": "whyThisNewChildArgeementDate",
           "title": "Why have you picked this date?",
           "isRequired": true
-         },
+         }
+        ],
+        "visibleIf": "{whichChildSupportForm} = \"Existing agreement about child support\""
+       },
+       {
+        "type": "panel",
+        "name": "financialPanel",
+        "elements": [
          {
           "type": "yesno",
-          "name": "isFinancialStatCompletAgreement",
+          "name": "isFinancialStatComplete",
           "title": "I have completed a Financial Statement",
           "isRequired": true
          },
          {
           "type": "checkbox",
           "name": "childAgreementFinancialSelect",
-          "visibleIf": "{isFinancialStatCompletAgreement} = \"y\"",
+          "visibleIf": "{isFinancialStatComplete} = \"y\"",
           "title": "Select all options that apply",
           "isRequired": true,
-          "hasOther": true,
           "choices": [
            "I am the payor",
            {
@@ -1229,13 +1195,242 @@
            "I am claiming undue hardship",
            "None of the above"
           ]
+         },
+         {
+          "type": "file",
+          "name": "existingUploadDocuments",
+          "visibleIf": "{isFinancialStatComplete} = \"y\"",
+          "title": "Please upload the required documents",
+          "isRequired": true,
+          "maxSize": 0
          }
         ],
-        "visibleIf": "{whichChildSupportForm} = \"Existing agreement about child support\""
+        "visibleIf": "{whichChildSupportForm} = \"Existing order about child support\" or {whichChildSupportForm} = \"Existing agreement about child support\""
        }
       ],
       "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\" and {whichOrdersIncluded} contains \"Child support\"",
       "title": "Existing Child Support"
+     },
+     {
+      "name": "Payor & Fact Sheets",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "preFactSheetPanel",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "whoIsPayorFactSheet",
+          "title": "Who is the payor?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "undueHardshipFactSheet",
+          "title": "Are you or your spouse claiming undue hardship?",
+          "description": "If you our your spouse feel that the child support amount will not leave enough money, you can claim that you will suffer undue hardship.",
+          "isRequired": true
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "factSheetPanel",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "factSheetFAQ",
+          "title": "Since you have previously indicated that you will be claiming undue hardship you will need to provide answers to the next set of questions. A claim for undue hardship can only be considered if the parent making the claim can show that their household’s standard of living is not higher than the standard of living in the household of the other parent. Often, income alone (which is all that is used to calculate the guideline amount) does not reflect other circumstances that may impact a households’ finances.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "debtsFactSheet",
+          "title": "Unusual or excessive debts",
+          "description": "What are the unusual or excessive debts that you owe? These are debts that were taken on to support the family before you separated (e.g. student loans). The debt can also be due to earning a living (e.g. vehicle, specialized equipment).",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Debt Name",
+            "cellType": "text"
+           },
+           {
+            "name": "What are the terms of this debt ?",
+            "cellType": "comment"
+           },
+           {
+            "name": "Monthly amount",
+            "cellType": "text",
+            "placeHolder": "$0.00",
+            "inputType": "number"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Debt"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "expenseFactSheet",
+          "title": "Unusually high expenses for parenting time, contact with, or access to a child.",
+          "description": "For example, airfare and accommodation to visit the child in another city.",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Expense",
+            "cellType": "text"
+           },
+           {
+            "name": "Amount",
+            "cellType": "text",
+            "placeHolder": "$0.00",
+            "inputType": "number"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Expense"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "supportingFactSheet",
+          "title": "Supporting another person",
+          "description": "Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Name of person",
+            "cellType": "text"
+           },
+           {
+            "name": "Relationship",
+            "cellType": "text"
+           },
+           {
+            "name": "Describe reason(s) for support",
+            "cellType": "comment"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "supportOtherChildFactSheet",
+          "title": "Supporting dependent child/children from another relationship.",
+          "description": "List the names of any other children for whom you have a legal duty to make support payments to. ",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Child's name",
+            "cellType": "text"
+           },
+           {
+            "name": "Relationship",
+            "cellType": "text"
+           },
+           {
+            "name": "Describe reason(s) for support",
+            "cellType": "comment"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "supportDisabledFactSheet",
+          "title": "Support for a disabled or ill person.",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Name of person",
+            "cellType": "text"
+           },
+           {
+            "name": "Relationship",
+            "cellType": "text"
+           },
+           {
+            "name": "Describe reason(s) for support",
+            "cellType": "comment"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         },
+         {
+          "type": "comment",
+          "name": "anyOtherHardshipFactSheet",
+          "title": "Other undue hardship circumstances"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "otherIncomeFactSheet",
+          "title": "Income of Other Persons in Household",
+          "description": "Enter the name (s) and income for any other persons in your household (e.g. co-parent, step parent) who have a duty to support a child.",
+          "columns": [
+           {
+            "name": "Name of person",
+            "cellType": "text"
+           },
+           {
+            "name": "Annual income",
+            "cellType": "text",
+            "placeHolder": "$0.00",
+            "inputType": "number"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         }
+        ],
+        "visibleIf": "{undueHardshipFactSheet} = \"y\"",
+        "title": "Fact Sheet E Undue Hardship"
+       }
+      ],
+      "visibleIf": "{whichOrdersIncluded} contains \"Child support\" and {isFinancialStatComplete} = \"n\" or {childAgreementFinancialSelect} = [\"None of the above\"] or {flmChoices} contains \"Child Support\" and {anyUndueHardship} = \"y\" or {anySpecialExpenses} = \"y\"",
+      "title": "Payor & Fact Sheets"
      },
      {
       "name": "Contact With Child",
