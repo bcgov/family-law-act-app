@@ -750,6 +750,11 @@
         "name": "childSupportPanel",
         "elements": [
          {
+          "type": "text",
+          "name": "childObjectInfo",
+          "visible": false
+         },
+         {
           "type": "comment",
           "name": "howTimeSpent",
           "title": "Describe how the child(ren) spend time with the parties",
@@ -793,17 +798,35 @@
           "type": "checkbox",
           "name": "supportToBePaidBy",
           "title": "I am asking for support to be paid by",
-          "valueName": "OtherPartyNameValue",
-          "isRequired": true,
-          "choicesByUrl": {
-           "valueName": "OtherPartyNameValue"
-          }
+          "isRequired": true
          },
          {
           "type": "checkbox",
           "name": "whichChildrenNeedSupport",
           "title": "For which child(ren) are you asking the support for?",
           "isRequired": true
+         },
+         {
+          "type": "paneldynamic",
+          "name": "OlderChildDynamicPanel",
+          "visible": false,
+          "title": "Since you are asking for support for a child who is over the age of 19, please select the option that best describes the reason.",
+          "valueName": "otherChildInfo",
+          "templateElements": [
+           {
+            "type": "radiogroup",
+            "name": "whyOlderChildNeedSupport",
+            "title": "Why are you asking for support for {panel.name}?",
+            "isRequired": true,
+            "choices": [
+             "Illness",
+             "Disability",
+             "Student"
+            ]
+           }
+          ],
+          "allowAddPanel": false,
+          "allowRemovePanel": false
          },
          {
           "type": "infotext",
