@@ -58,7 +58,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Provincial Family Test',
       cache_name: 'primary',
-      survey_path: 'assets/survey-primary.json',
+      survey_path: 'assets/survey-parenting.json',
     }
   },
   {
@@ -92,7 +92,7 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Survey Editor',
       cache_name: 'editor',
-      survey_path: 'assets/survey-primary.json'
+      survey_path: 'assets/survey-parenting.json'
     }
   },
   {

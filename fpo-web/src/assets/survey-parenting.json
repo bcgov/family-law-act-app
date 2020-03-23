@@ -2,6 +2,317 @@
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
      {
+      "name": "Your Information",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "ApplicantPanel",
+        "elements": [
+         {
+          "type": "personname",
+          "name": "ApplicantName",
+          "title": "What is your full name?",
+          "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
+          "isRequired": true,
+          "defaultSubstitution": "(Applicant Name)",
+          "descFirstName": "First Name is also known as Given Name",
+          "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+          "descLastName": "Last Name is also known as Family Name or Surname"
+         },
+         {
+          "type": "text",
+          "name": "ApplicantDOB",
+          "title": "What is your date of birth?",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "yesno",
+          "name": "Lawyer",
+          "title": "Has a lawyer agreed to receive court documents for you?",
+          "description": "You do not need a lawyer to use this service.  If you have a lawyer, you can still use this service.",
+          "isRequired": true
+         },
+         {
+          "type": "helptext",
+          "name": "FAQLawyer1",
+          "title": "What if I plan to get a lawyer but I haven't done that yet?",
+          "titleLocation": "hidden",
+          "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
+         },
+         {
+          "type": "helptext",
+          "name": "FAQLawyer2",
+          "title": "What if I used to have a lawyer but not anymore?",
+          "titleLocation": "hidden",
+          "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa053.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form.</a> (This link will open in a new tab.)"
+         },
+         {
+          "type": "infotext",
+          "name": "ExplanationServiceAddress",
+          "visible": false,
+          "visibleIf": "{Lawyer} = 'n'",
+          "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
+          "isRequired": true,
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "panel",
+          "name": "ApplicantContactPanel",
+          "elements": [
+           {
+            "type": "address",
+            "name": "ApplicantAddress",
+            "title": "What is a safe address where you can receive court documents?",
+            "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
+            "isRequired": true,
+            "referLabel": "Applicant's Address"
+           },
+           {
+            "type": "contactinfo",
+            "name": "ApplicantContact",
+            "title": "Contact Information",
+            "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents.",
+            "isRequired": true,
+            "labelEmail": "Email (Optional)",
+            "labelFax": "Fax Number (Optional)",
+            "labelPhone": "Daytime Phone Number"
+           }
+          ],
+          "visible": false,
+          "visibleIf": "{Lawyer} = 'n' and {ExplanationServiceAddress} > 0"
+         },
+         {
+          "type": "panel",
+          "name": "LawyerContactPanel",
+          "elements": [
+           {
+            "type": "personname",
+            "name": "LawyerName",
+            "title": "What is your lawyer's full name?",
+            "isRequired": true
+           },
+           {
+            "type": "address",
+            "name": "LawyerAddress",
+            "title": "What is your lawyer's address?",
+            "isRequired": true,
+            "referLabel": "Applicant's Lawyer's Address"
+           },
+           {
+            "type": "contactinfo",
+            "name": "LawyerContact",
+            "title": "Lawyer's Contact Information",
+            "isRequired": true
+           }
+          ],
+          "visible": false,
+          "visibleIf": "{Lawyer} = 'y'"
+         },
+         {
+          "type": "text",
+          "name": "ApplicantOccupation",
+          "visibleIf": " {Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y'",
+          "title": "What is your job or profession?",
+          "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
+         }
+        ]
+       }
+      ],
+      "title": "Your Information"
+     },
+     {
+      "name": "Other Party",
+      "elements": [
+       {
+        "type": "paneldynamic",
+        "name": "otherPartyDynamicPanel",
+        "title": "Please add the details of the other party in the fields below. If you need to add another party, click the 'Add Other Party' button. If you are done entering all the parties, you can move on to the next question",
+        "valueName": "OtherPartyNameValue",
+        "templateElements": [
+         {
+          "type": "personname",
+          "name": "OtherPartyName",
+          "title": "Insert name of the other Party",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "doYouKnowDOB",
+          "visibleIf": "{panel.OtherPartyName} notempty",
+          "title": "Do you know {panel.OtherPartyName} exact date of birth?"
+         },
+         {
+          "type": "text",
+          "name": "otherPartyDOB",
+          "visibleIf": "{panel.doYouKnowDOB} = \"y\"",
+          "title": "Date of Birth",
+          "inputType": "date"
+         },
+         {
+          "type": "address",
+          "name": "otherPartyAddress",
+          "visibleIf": "{panel.OtherPartyName} notempty",
+          "title": "What is an address where {panel.OtherPartyName} can receive court documents?",
+          "isRequired": true
+         }
+        ],
+        "panelCount": 1,
+        "panelAddText": "Add Other Party",
+        "panelRemoveText": "Remove Party"
+       }
+      ],
+      "title": "Other Party"
+     },
+     {
+      "name": "Child(ren) Information",
+      "elements": [
+       {
+        "type": "paneldynamic",
+        "name": "childInfoPanel",
+        "title": "Please add the details of the child(ren) in the fields below. If you need to add another child, click the 'Add child' button. If you are done entering all the details, you can move on to the next question",
+        "valueName": "childInfoValueName",
+        "isRequired": true,
+        "templateElements": [
+         {
+          "type": "personname",
+          "name": "childName",
+          "title": "What is the child's full name?",
+          "isRequired": true,
+          "defaultSubstitution": "{ChildName}"
+         },
+         {
+          "type": "text",
+          "name": "childDateOfBirth",
+          "title": "What is the Date of Birth of {panel.childName}?",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "relationToChild",
+          "title": "What is your relationship to {panel.childName}?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "childRelationToOtherParty",
+          "title": "What is the child's relationship to the other party?",
+          "isRequired": true
+         },
+         {
+          "type": "radiogroup",
+          "name": "childCurrentlyLivingWith",
+          "title": "Who is {panel.childName} currently living with?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "me",
+           "other party",
+           "both"
+          ]
+         }
+        ],
+        "panelCount": 1,
+        "panelAddText": "Add Child",
+        "panelRemoveText": "Remove child"
+       },
+       {
+        "type": "infotext",
+        "name": "childInfoAckknowledge",
+        "title": "I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.  ",
+        "titleLocation": "hidden",
+        "messageStyle": "inline"
+       },
+       {
+        "type": "yesno",
+        "name": "childAdditionalInfo",
+        "title": "Would you like to share any information with the Court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including if the child is an aboriginal child, the child's aboriginal identity?",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "additionInfoDetails",
+        "visibleIf": "{childAdditionalInfo} = \"y\"",
+        "title": "Please provide information",
+        "isRequired": true
+       }
+      ],
+      "title": "Child(ren) Information"
+     },
+     {
+      "name": "Other Details",
+      "elements": [
+       {
+        "type": "matrixdynamic",
+        "name": "additionalOtherPartyDetails",
+        "title": "Additional details",
+        "isRequired": true,
+        "columns": [
+         {
+          "name": "otherPartyName",
+          "title": "Other Party Name",
+          "isRequired": true
+         },
+         {
+          "name": "partyRelation",
+          "title": "How are you and {matrix.otherPartyName} related?",
+          "cellType": "comment",
+          "isRequired": true
+         },
+         {
+          "name": "partyLivingDetails",
+          "title": "The parties are or were spouses or live or have lived together in a marriage like relationship?",
+          "cellType": "radiogroup",
+          "isRequired": true
+         },
+         {
+          "name": "dateOfLivingTogether",
+          "title": "When did the parties begin to live together in a marriage like relationship?",
+          "cellType": "text",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "name": "isMarried",
+          "title": "Are the parties married?",
+          "cellType": "radiogroup",
+          "isRequired": true
+         },
+         {
+          "name": "dateOfMarriage",
+          "title": "Date Of Marriage",
+          "cellType": "text",
+          "isRequired": true,
+          "visibleIf": "{row.isMarried} = 'Yes'",
+          "inputType": "date"
+         },
+         {
+          "name": "isSeperated",
+          "title": "Are the parties now separated [define separated]?",
+          "cellType": "radiogroup",
+          "isRequired": true
+         },
+         {
+          "name": "dateOfSeparation",
+          "title": "Date Of Separation",
+          "cellType": "text",
+          "isRequired": true,
+          "inputType": "date"
+         }
+        ],
+        "columnLayout": "vertical",
+        "choices": [
+         "Yes",
+         "No"
+        ],
+        "rowCount": 1,
+        "addRowText": "Add other party"
+       }
+      ],
+      "title": "Other Details"
+     },
+     {
       "name": "Family Law Matter - Choose Items",
       "elements": [
        {
@@ -60,7 +371,6 @@
          "Parenting arrangements including parental responsibilities and parenting time",
          "Child support",
          "Contact with a child",
-         "Guardianship of a child",
          "Spousal support"
         ]
        }
@@ -72,34 +382,42 @@
       "name": "Parenting Arrangements(Time)",
       "elements": [
        {
-        "type": "panel",
-        "name": "background",
-        "elements": [
+        "type": "infotext",
+        "name": "whatIsParentingArrangement",
+        "title": "Parenting arrangements include how each guardian will parent their child(ren), including each guardians' parenting responsibilities for decision making about a child and the parenting time each guardian spends with a child.  Parenting responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting arrangements is what is in the best interest of the child.\n",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "paneldynamic",
+        "name": "backgroundDynamic",
+        "title": "You can only apply if you are the Guardian or as part of this application you are applying to become a guardian.",
+        "valueName": "childInfoValueName",
+        "templateElements": [
          {
-          "type": "infotext",
-          "name": "whatIsParentingArrangement",
-          "title": "Parenting arrangements include how each guardian will parent their child(ren), including each guardians' parenting responsibilities for decision making about a child and the parenting time each guardian spends with a child.  Parenting responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting arrangements is what is in the best interest of the child.\n<br>\n<br>\nYou can only apply if you are the Guardian or as part of this application you are applying to become a guardian.",
-          "titleLocation": "hidden"
-         },
-         {
-          "type": "yesno",
-          "name": "isGuardian",
-          "title": "I am a Guardian of the child(ren)",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "applyingForGuardian",
-          "visibleIf": "{isGuardian} = \"n\"",
-          "title": "I am applying to be a Guardian of the child(ren)",
-          "isRequired": true
-         },
-         {
-          "type": "infotext",
-          "name": "notEligible",
-          "visibleIf": "{isGuardian} = \"n\" and {applyingForGuardian} = \"n\"",
-          "title": "You are not eligible to continue with this survey. You need to select 'Contact with a Child'. Please go back a step and select the correct form",
-          "titleLocation": "hidden"
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+           {
+            "type": "yesno",
+            "name": "isGuardian",
+            "title": "I am a Guardian of the {panel.childName.first} {panel.childName.middle} {panel.childName.last}",
+            "isRequired": true
+           },
+           {
+            "type": "yesno",
+            "name": "applyingForGuardian",
+            "visibleIf": "{panel.isGuardian} = \"n\"",
+            "title": "I am applying to be a Guardian of the {panel.childName.first} {panel.childName.middle} {panel.childName.last}",
+            "isRequired": true
+           },
+           {
+            "type": "infotext",
+            "name": "notEligible",
+            "visibleIf": "{panel.isGuardian} = \"n\" and {panel.applyingForGuardian} = \"n\"",
+            "title": "You are not eligible to continue with this survey. You need to select 'Contact with a Child'. Please go back a step and select the correct form",
+            "titleLocation": "hidden"
+           }
+          ]
          },
          {
           "type": "panel",
@@ -108,40 +426,30 @@
            {
             "type": "yesno",
             "name": "applyingForParentalResponsibilities",
-            "title": "Are you applying for an order that gives you all parental responsibilities for a child or children?",
+            "title": "Are you applying for an order that gives you all parental responsibilities for {panel.childName.first} {panel.childName.middle} {panel.childName.last}?",
             "isRequired": true
-           },
-           {
-            "type": "dropdown",
-            "name": "selectChildForParentalRes",
-            "visibleIf": "{applyingForParentalResponsibilities} = \"y\"",
-            "title": "Please select the name of each child you are requesting all parental responsibilities for",
-            "isRequired": true,
-            "choices": [
-             "child1",
-             "child2",
-             "child3"
-            ]
            },
            {
             "type": "comment",
             "name": "describeHowToExerciseParentalRes",
-            "visibleIf": "{applyingForParentalResponsibilities} = \"n\"",
+            "visibleIf": "{panel.applyingForParentalResponsibilities} = \"n\"",
             "title": "Describe how you want the parental responsibilities to be exercised by the guardians",
-            "isRequired": true
-           },
-           {
-            "type": "yesno",
-            "name": "needOrderForTimeAlloc",
-            "visibleIf": "{applyingForParentalResponsibilities} = \"n\"",
-            "title": "Do you need an order for the allocation of parenting time?",
-            "description": "During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child.",
             "isRequired": true
            }
           ],
-          "visibleIf": "{isGuardian} = \"y\" or {applyingForGuardian} = \"y\""
+          "visibleIf": "{panel.isGuardian} = \"y\" or {panel.applyingForGuardian} = \"y\""
          }
-        ]
+        ],
+        "allowAddPanel": false,
+        "allowRemovePanel": false,
+        "panelCount": 1
+       },
+       {
+        "type": "yesno",
+        "name": "needOrderForTimeAlloc",
+        "title": "Do you need an order for the allocation of parenting time?",
+        "description": "During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child.",
+        "isRequired": true
        }
       ],
       "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Parenting Arrangements including parental responsibilities and parenting time\"",
@@ -295,7 +603,7 @@
          {
           "type": "infotext",
           "name": "orderNotEligible",
-          "visibleIf": "{whichExistingForm} = \"neither\"",
+          "visibleIf": "{whichExistingForm} = \"Neither\"",
           "title": "Not eligible",
           "titleLocation": "hidden"
          }
@@ -329,7 +637,7 @@
           ]
          }
         ],
-        "visibleIf": "{whichExistingForm} = \"order\""
+        "visibleIf": "{whichExistingForm} = \"Existing order about parenting arrangements\""
        },
        {
         "type": "panel",
@@ -359,7 +667,7 @@
           ]
          }
         ],
-        "visibleIf": "{whichExistingForm} = \"agreement\""
+        "visibleIf": "{whichExistingForm} = \"Existing arrangement about parenting arrangements\""
        },
        {
         "type": "panel",
@@ -379,31 +687,31 @@
          {
           "type": "comment",
           "name": "describeParentingResChanges",
-          "visibleIf": "{whichChangesRequired} contains \"parenting responsibilities\"",
+          "visibleIf": "{whichChangesRequired} contains \"Parenting responsibilities\"",
           "title": "Describe the parenting responsibilities changes",
           "isRequired": true
          },
          {
           "type": "comment",
           "name": "describeParentingTimeChanges",
-          "visibleIf": "{whichChangesRequired} contains \"parenting time\"",
+          "visibleIf": "{whichChangesRequired} contains \"Parenting time\"",
           "title": "Describe the parenting time changes",
           "isRequired": true
          },
          {
           "type": "comment",
           "name": "describeParentingArrangChanges",
-          "visibleIf": "{whichChangesRequired} contains \"parenting arrangements\"",
+          "visibleIf": "{whichChangesRequired} contains \"Parenting arrangements\"",
           "title": "Describe the parenting arrangements changes",
           "isRequired": true
          }
         ],
-        "visibleIf": "{existingOrderChangedCancelled} = \"changed\" or {existingAgreementAsideReplaced} = \"replaced\""
+        "visibleIf": "{whichExistingForm} <> \"Neither\" and {existingOrderChangedCancelled} = \"Changed\" or {existingAgreementAsideReplaced} = \"Replaced\""
        },
        {
         "type": "comment",
         "name": "describeChangesBestInt",
-        "visibleIf": "{existingOrderChangedCancelled} = \"changed\" or {existingAgreementAsideReplaced} = \"replaced\"",
+        "visibleIf": "{existingOrderChangedCancelled} = \"Changed\" or {existingAgreementAsideReplaced} = \"Replaced\"",
         "title": "Describe why you believe the order you are asking for is in the children's best interest.",
         "isRequired": true
        }
@@ -460,11 +768,9 @@
           "isRequired": true
          },
          {
-          "type": "text",
-          "name": "annualIncome",
-          "title": "My annual income is $",
-          "isRequired": true,
-          "inputType": "number"
+          "type": "html",
+          "name": "myAnnualIncome",
+          "html": "<div class=\"sv_q_title\">My annual income is $ <input type=\"number\"/></div>"
          },
          {
           "type": "yesno",
@@ -473,11 +779,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "otherPartyAnnualIncome",
           "visibleIf": "{knowOtherPartyIncome} = \"y\"",
-          "title": "Other Party's annual income",
-          "isRequired": true
+          "html": "<div class=\"sv_q_title\">Other Party's annual income is $ <input type=\"number\"/></div>"
          },
          {
           "type": "comment",
@@ -488,28 +793,22 @@
           "type": "checkbox",
           "name": "supportToBePaidBy",
           "title": "I am asking for support to be paid by",
+          "valueName": "OtherPartyNameValue",
           "isRequired": true,
-          "choices": [
-           "party 1",
-           "party 2",
-           "party 3"
-          ]
+          "choicesByUrl": {
+           "valueName": "OtherPartyNameValue"
+          }
          },
          {
           "type": "checkbox",
           "name": "whichChildrenNeedSupport",
-          "title": "For which child(ren) are you asking the support for? -TODO",
-          "isRequired": true,
-          "choices": [
-           "item1",
-           "item2",
-           "item3"
-          ]
+          "title": "For which child(ren) are you asking the support for?",
+          "isRequired": true
          },
          {
           "type": "infotext",
           "name": "explainChildSupportCalc",
-          "title": "Provide info...child support calculator, etc.",
+          "title": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren). A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.\n<br>\n<br>\nUsually the court orders an amount of child support based on the Federal Child Support Guidelines.  This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.\n<br>\n<br>\nThe court can order an amount other than the guideline table amount in certain situations, such as:\n<br>\n<ul>\n<li>When a child is 19 or older</li>\n<li>When the parent paying support has an income over $150,000</li>\n<li>When parents split or share parenting time</li>\n<li>When there is undue hardship</li>\n</ul>\n<br>\nTo calculate how much child support should be paid, you can visit the Department of Justice website on child support which includes detailed information including the Federal Child Support Guidelines <a href=\"https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html\">Step-by-Step</a> and a Child Support Table Look-up.\n<br>\nYou can also talk with a Child Support Officer at the Justice Access Centre or talk to a lawyer.\n\nFor more information about child support and referrals to other child support resources, visit the BC Government website at www.gov.bc.ca.",
           "titleLocation": "hidden"
          },
          {
@@ -564,12 +863,6 @@
           "name": "anySpecialExpenses",
           "title": "Are you claiming any special or extraordinary expenses?",
           "isRequired": true
-         },
-         {
-          "type": "infotext",
-          "name": "question1",
-          "title": "for above question:\nIf yes, display worksheet to complete (note: Same fact sheet A from divorce app), If no, next question.\n<br>\n<br>\nIf this is the only schedule or the last of the schedule the user selected. Go to 'Financial Statement' if required. NOTE: Financial Statements are required if: \n<br>\n        Party is the payor (If person selected their own name at Q10)\n<br>\n        split or shared parenting time (Q4)\n<br>\n        there is a child 19 years old or over for whom support is claimed (Q11)\n<br>\n        a party has been acting as a parent to a child of the other party (Q2)\n<br>\n        the paying parent earns more than $150,000 per year (Q6 or Q8)\n<br>\n        special or extraordinary expenses are being claimed for a child (Q17)\n<br>\n        I am claiming undue hardship (Q16)\n<br>\n<br>\nWe should know all these from previous questions.  If the party is unable to complete the financial statement, and it is required, they will need to file an application asking for permission to not file it, and indicate it on this schedule.",
-          "titleLocation": "hidden"
          }
         ],
         "visibleIf": "{whoIsOtherParty} notempty"
@@ -622,7 +915,8 @@
          },
          {
           "type": "text",
-          "name": "Date of Order",
+          "name": "DateofChildOrder",
+          "title": "Date of Order",
           "inputType": "date"
          },
          {
@@ -669,12 +963,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "whatUnpaidAmount",
           "visibleIf": "{anyUnpaidChildSupport} = \"y\"",
-          "title": "What is the amount?",
-          "isRequired": true,
-          "inputType": "number"
+          "html": "<div class=\"sv_q_title\">What is the amount? $ <input type=\"number\"/></div>"
          },
          {
           "type": "yesno",
@@ -683,12 +975,10 @@
           "isRequired": true
          },
          {
-          "type": "text",
+          "type": "html",
           "name": "whatAmountToReduce",
-          "visibleIf": "{applyingToReduceChildSupport} = \"y\"",
-          "title": "What amount do you want it reduced to?",
-          "isRequired": true,
-          "inputType": "number"
+          "visibleIf": "{anyUnpaidChildSupport} = \"y\"",
+          "html": "<div class=\"sv_q_title\">What amount do you want it reduced to? $ <input type=\"number\"/></div>"
          },
          {
           "type": "comment",
@@ -704,23 +994,764 @@
           "isRequired": true,
           "hasOther": true,
           "choices": [
-           "At a rate of BLANK $ per month",
+           {
+            "value": "At a rate of BLANK $ per month",
+            "text": "At a rate of $<input type=\"number\"/> per month"
+           },
            "In lump sum"
           ]
+         },
+         {
+          "type": "helptext",
+          "name": "childSupportFAQ",
+          "title": "How do I calculate child support?",
+          "titleLocation": "hidden",
+          "body": "To calculate how much child support should be paid, you can visit the Department of Justice website on child support which includes detailed information including the Federal Child Support Guidelines <a href=\"https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html\">Step-by-Step</a> and a Child Support Table Look-up."
          },
          {
           "type": "yesno",
           "name": "anyAttachedCalculations",
           "title": "Are you attaching calculations?",
-          "description": "Note: will have drop down for 'How do I calculate\" link to child support calculator.",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whyCalculationsNotAttached",
+          "visibleIf": "{anyAttachedCalculations} = \"n\"",
+          "title": "Why are you not attaching calculations?",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "dateOfOrderOfChildSupport",
+          "title": "When do you want the order about child Support to start on?",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "whyThisNewChildSupportDate",
+          "title": "Why have you picked this date?",
           "isRequired": true
          }
         ],
         "visibleIf": "{whichChildSupportForm} = \"Existing order about child support\""
+       },
+       {
+        "type": "panel",
+        "name": "existingChildAgreement",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfChildAgreement",
+          "title": "Date Of Agreement",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "checkbox",
+          "name": "existingChildAgreement1",
+          "title": "The existing agreement requires me to",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "Make payments for child support",
+           "Receive payments for support of a child"
+          ]
+         },
+         {
+          "type": "radiogroup",
+          "name": "childAgreementSetAsideReplaced",
+          "title": "Do you want the agreement set aside or replaced?",
+          "isRequired": true,
+          "choices": [
+           "Set Aside",
+           "Replaced"
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "whatChildAgreementReplaced",
+          "visibleIf": "{childAgreementSetAsideReplaced} = \"Replaced\"",
+          "title": "What do you want the Agreement to be replaced with?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyChildAgreementUnpaid",
+          "title": "As of today, is there any unpaid child support?",
+          "isRequired": true
+         },
+         {
+          "type": "html",
+          "name": "childAgreementUnpaidAmount",
+          "visibleIf": "{anyChildAgreementUnpaid} = \"y\"",
+          "html": "<div class=\\\"sv_q_title\\\">What is the unpaid amount? $ <input type=\\\"number\\\"/></div>"
+         },
+         {
+          "type": "yesno",
+          "name": "childAgreementReduceUnpaidSupport",
+          "title": "Are you applying to reduce the amount of unpaid child support?",
+          "isRequired": true
+         },
+         {
+          "type": "html",
+          "name": "childAgreementReducedAmount",
+          "visibleIf": "{childAgreementReduceUnpaidSupport} = \"y\"",
+          "html": "<div class=\\\"sv_q_title\\\">What amount do you want it reduced to? $ <input type=\\\"number\\\"/></div>"
+         },
+         {
+          "type": "comment",
+          "name": "whyChildAgreementReduceSupport",
+          "visibleIf": "{childAgreementReduceUnpaidSupport} = \"y\"",
+          "title": "Why do you want it reduced?",
+          "isRequired": true
+         },
+         {
+          "type": "checkbox",
+          "name": "childAgreementPayArrears",
+          "title": "How do you want the arrears to be paid?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "At a rate of BLANK $ per month",
+            "text": "At a rate of $<input type=\"number\"/> per month"
+           },
+           "In lump sum"
+          ]
+         },
+         {
+          "type": "helptext",
+          "name": "childCalcFAQ2",
+          "title": "How do I calculate child support?",
+          "titleLocation": "hidden",
+          "body": "To calculate how much child support should be paid, you can visit the Department of Justice website on child support which includes detailed information including the Federal Child Support Guidelines <a href=\"https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html\">Step-by-Step</a> and a Child Support Table Look-up."
+         },
+         {
+          "type": "yesno",
+          "name": "ischildAgreementAttachCalc",
+          "title": "Are you attaching calculations?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whyChildAgreementNoCalc",
+          "visibleIf": "{ischildAgreementAttachCalc} = \"n\"",
+          "title": "Why are you not attaching calculations?",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "dateOfNewChildAgreement",
+          "title": "When do you want the agreement about child Support to start on?",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "whyThisNewChildArgeementDate",
+          "title": "Why have you picked this date?",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{whichChildSupportForm} = \"Existing agreement about child support\""
+       },
+       {
+        "type": "panel",
+        "name": "financialPanel",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "isFinancialStatComplete",
+          "title": "I have completed a Financial Statement",
+          "isRequired": true
+         },
+         {
+          "type": "checkbox",
+          "name": "childAgreementFinancialSelect",
+          "visibleIf": "{isFinancialStatComplete} = \"y\"",
+          "title": "Select all options that apply",
+          "isRequired": true,
+          "choices": [
+           "I am the payor",
+           {
+            "value": "there is split or shared parenting time",
+            "text": "&nbsp;&nbsp;there is split or shared parenting time",
+            "visibleIf": "{childAgreementFinancialSelect} = [\"I am the payor\"]"
+           },
+           {
+            "value": "there is a child 19 years old or over for whom support is claimed",
+            "text": "&nbsp;&nbsp;there is a child 19 years old or over for whom support is claimed",
+            "visibleIf": "{childAgreementFinancialSelect} = [\"I am the payor\"]"
+           },
+           {
+            "value": "a party has been acting as a parent to a child of the other party",
+            "text": "&nbsp;&nbsp;a party has been acting as a parent to a child of the other party",
+            "visibleIf": "{childAgreementFinancialSelect} = [\"I am the payor\"]"
+           },
+           "The paying parent earns more than $150,000 per year",
+           "Special or extraordinary expenses are being claimed for a child",
+           "I am claiming undue hardship",
+           "None of the above"
+          ]
+         },
+         {
+          "type": "file",
+          "name": "existingUploadDocuments",
+          "visibleIf": "{isFinancialStatComplete} = \"y\"",
+          "title": "Please upload the required documents",
+          "isRequired": true,
+          "maxSize": 0
+         }
+        ],
+        "visibleIf": "{whichChildSupportForm} = \"Existing order about child support\" or {whichChildSupportForm} = \"Existing agreement about child support\""
        }
       ],
       "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\" and {whichOrdersIncluded} contains \"Child support\"",
       "title": "Existing Child Support"
+     },
+     {
+      "name": "Payor & Fact Sheets",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "preFactSheetPanel",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "whoIsPayorFactSheet",
+          "title": "Who is the payor?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "undueHardshipFactSheet",
+          "title": "Are you or your spouse claiming undue hardship?",
+          "description": "If you our your spouse feel that the child support amount will not leave enough money, you can claim that you will suffer undue hardship.",
+          "isRequired": true
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "factSheetPanel",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "factSheetFAQ",
+          "title": "Since you have previously indicated that you will be claiming undue hardship you will need to provide answers to the next set of questions. A claim for undue hardship can only be considered if the parent making the claim can show that their household’s standard of living is not higher than the standard of living in the household of the other parent. Often, income alone (which is all that is used to calculate the guideline amount) does not reflect other circumstances that may impact a households’ finances.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "debtsFactSheet",
+          "title": "Unusual or excessive debts",
+          "description": "What are the unusual or excessive debts that you owe? These are debts that were taken on to support the family before you separated (e.g. student loans). The debt can also be due to earning a living (e.g. vehicle, specialized equipment).",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Debt Name",
+            "cellType": "text"
+           },
+           {
+            "name": "What are the terms of this debt ?",
+            "cellType": "comment"
+           },
+           {
+            "name": "Monthly amount",
+            "cellType": "text",
+            "placeHolder": "$0.00",
+            "inputType": "number"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Debt"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "expenseFactSheet",
+          "title": "Unusually high expenses for parenting time, contact with, or access to a child.",
+          "description": "For example, airfare and accommodation to visit the child in another city.",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Expense",
+            "cellType": "text"
+           },
+           {
+            "name": "Amount",
+            "cellType": "text",
+            "placeHolder": "$0.00",
+            "inputType": "number"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Expense"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "supportingFactSheet",
+          "title": "Supporting another person",
+          "description": "Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Name of person",
+            "cellType": "text"
+           },
+           {
+            "name": "Relationship",
+            "cellType": "text"
+           },
+           {
+            "name": "Describe reason(s) for support",
+            "cellType": "comment"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "supportOtherChildFactSheet",
+          "title": "Supporting dependent child/children from another relationship.",
+          "description": "List the names of any other children for whom you have a legal duty to make support payments to. ",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Child's name",
+            "cellType": "text"
+           },
+           {
+            "name": "Relationship",
+            "cellType": "text"
+           },
+           {
+            "name": "Describe reason(s) for support",
+            "cellType": "comment"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "supportDisabledFactSheet",
+          "title": "Support for a disabled or ill person.",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Name of person",
+            "cellType": "text"
+           },
+           {
+            "name": "Relationship",
+            "cellType": "text"
+           },
+           {
+            "name": "Describe reason(s) for support",
+            "cellType": "comment"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         },
+         {
+          "type": "comment",
+          "name": "anyOtherHardshipFactSheet",
+          "title": "Other undue hardship circumstances"
+         },
+         {
+          "type": "matrixdynamic",
+          "name": "otherIncomeFactSheet",
+          "title": "Income of Other Persons in Household",
+          "description": "Enter the name (s) and income for any other persons in your household (e.g. co-parent, step parent) who have a duty to support a child.",
+          "columns": [
+           {
+            "name": "Name of person",
+            "cellType": "text"
+           },
+           {
+            "name": "Annual income",
+            "cellType": "text",
+            "placeHolder": "$0.00",
+            "inputType": "number"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 0,
+          "addRowText": "Add Person"
+         }
+        ],
+        "visibleIf": "{undueHardshipFactSheet} = \"y\"",
+        "title": "Fact Sheet E Undue Hardship"
+       }
+      ],
+      "visibleIf": "{whichOrdersIncluded} contains \"Child support\" and {isFinancialStatComplete} = \"n\" or {childAgreementFinancialSelect} = [\"None of the above\"] or {flmChoices} contains \"Child Support\" and {anyUndueHardship} = \"y\" or {anySpecialExpenses} = \"y\"",
+      "title": "Payor & Fact Sheets"
+     },
+     {
+      "name": "Contact With Child",
+      "elements": [
+       {
+        "type": "yesno",
+        "name": "isGuardianChildContact",
+        "title": "I am not a Guardian of the child(ren)",
+        "isRequired": true
+       },
+       {
+        "type": "infotext",
+        "name": "childContactNotEligible",
+        "visibleIf": "{isGuardianChildContact} = \"n\"",
+        "title": "You are not eligible to continue with this survey. Please go back a step and select the correct form",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "panel",
+        "name": "notGuardianPanel",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "listOfChildren",
+          "title": "Select child(ren) that you want to apply for",
+          "isRequired": true,
+          "choices": [
+           "child1",
+           "child2"
+          ]
+         },
+         {
+          "type": "checkbox",
+          "name": "typeOfContact",
+          "title": "I am applying for contact with the child(ren) as follows",
+          "description": "Select all that applies",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "In Person",
+           "Telephone communication",
+           "Video communication",
+           "Written communication"
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "whyInPersonChildContact",
+          "visibleIf": "{typeOfContact} contains \"In Person\"",
+          "title": "Describe In person form of contact",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyRestrictionOnChildContact",
+          "title": "I am willing to have the conditions placed on my contact with the child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whatRestrictionsOnChildContact",
+          "visibleIf": "{anyRestrictionOnChildContact} = \"y\"",
+          "title": "Describe the conditions you are willing to have on contact with child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "dateOfContactWithChild",
+          "title": "Date of last contact with child(ren)",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "contactChildInBestInterest",
+          "title": "I believe the order about contact I am applying for is in the child(ren)'s best interests because:",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{isGuardianChildContact} = \"y\""
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Contact with a child\"",
+      "title": "Contact With Child"
+     },
+     {
+      "name": "Existing Contact Order or Written Agreement",
+      "elements": [
+       {
+        "type": "radiogroup",
+        "name": "whoAmIChildContact",
+        "title": "I am",
+        "isRequired": true,
+        "choices": [
+         "a person allowed to have contact with the child(ren) according to a court order or written agreement",
+         "a guardian of the child(ren)"
+        ]
+       },
+       {
+        "type": "radiogroup",
+        "name": "whichExistingContactOrder",
+        "title": "Which do you have?",
+        "isRequired": true,
+        "choices": [
+         "Contact Order",
+         "Agreement about contact",
+         "neither"
+        ]
+       },
+       {
+        "type": "infotext",
+        "name": "contactChildNotAllowed",
+        "visibleIf": "{whichExistingContactOrder} = \"neither\"",
+        "title": "they are in the wrong spot direct back to PFCF ¿ 46 where they selected they had existing orders or agreements about contact with a child.",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "panel",
+        "name": "contactOrderPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfContactOrder",
+          "title": "Date of Contact Order",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "changeInNeedsSinceContactOrder",
+          "title": "Since the order was made how have the needs or circumstances changed?",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{whichExistingContactOrder} = \"Contact Order\""
+       },
+       {
+        "type": "panel",
+        "name": "agreementContactPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfExistingContactAgreement",
+          "title": "Date of Agreement",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "existingContactAgreementNotInInterest",
+          "title": "I believe the agreement is not in the best interest of the child(ren) because:",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{whichExistingContactOrder} = \"Agreement about contact\""
+       },
+       {
+        "type": "panel",
+        "name": "existingContactDetailsPanel",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "typeOfExistingContact",
+          "title": "I am applying for contact with the child(ren) as follows",
+          "description": "Select all that applies",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           "In Person",
+           "Telephone communication",
+           "Video communication",
+           "Written communication"
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "whyExistingInPersonChildContact",
+          "visibleIf": "{typeOfContact} contains \"In Person\"",
+          "title": "Describe In person form of contact",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyRestrictionOnExistingChildContact",
+          "title": "I am willing to have the conditions placed on my contact with the child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whatRestrictionsOnExistingChildContact",
+          "visibleIf": "{anyRestrictionOnChildContact} = \"y\"",
+          "title": "Describe the conditions you are willing to have on contact with child(ren)",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "dateOfExistingContactWithChild",
+          "title": "Date of last contact with child(ren)",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "ExistingContactChildInBestInterest",
+          "title": "I believe the order about contact I am applying for is in the child(ren)'s best interests because:",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{whichExistingContactOrder} = \"Contact Order\" or {whichExistingContactOrder} = \"Agreement about contact\""
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\"  and {whichOrdersIncluded} contains \"Contact with a child\"",
+      "title": "Existing Contact Order or Written Agreement"
+     },
+     {
+      "name": "Guardianship of a child",
+      "elements": [
+       {
+        "type": "checkbox",
+        "name": "whyAmIApplyingGuradianship",
+        "title": "I am applying",
+        "isRequired": true,
+        "choices": [
+         "to be appointed as a guardian of a child",
+         "to cancel a person's guardianship of a child"
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "appointGuardianPanel",
+        "elements": [
+         {
+          "type": "checkbox",
+          "name": "listOfChildrenForGuradianship",
+          "title": "I am applying to be appointed as a guardian of the following child(ren):",
+          "isRequired": true,
+          "choices": [
+           "child1",
+           "child2",
+           "child3"
+          ]
+         },
+         {
+          "type": "checkbox",
+          "name": "appointGaurdianOptions",
+          "title": "Select on of the following options:",
+          "isRequired": true,
+          "choices": [
+           "I am able to complete a Guardianship Affidavit in Form 5 and file it along with this claim.",
+           "I am not able to complete a Guardianship Affidavit in Form 5 at this time and I have completed an Application for Case Management Order Without Notice or Appearance in Form 11 requesting to waive the requirement that this claim be filed with a completed affidavit."
+          ]
+         }
+        ],
+        "visibleIf": "{whyAmIApplyingGuradianship} contains \"to be appointed as a guardian of a child\""
+       },
+       {
+        "type": "panel",
+        "name": "cancelGuardianPanel",
+        "elements": [
+         {
+          "type": "matrixdynamic",
+          "name": "cancelGuardianDetails",
+          "title": "I am applying for the following person(s) to no longer be the guardian(s) of the child or children:",
+          "isRequired": true,
+          "columns": [
+           {
+            "name": "Full name of guardian",
+            "isRequired": true,
+            "choices": [
+             "G1",
+             "G2"
+            ]
+           },
+           {
+            "name": "Name of child(ren)",
+            "isRequired": true,
+            "choices": [
+             "child1",
+             "child2"
+            ]
+           },
+           {
+            "name": "They have been a guardian of the child(ren) since:",
+            "cellType": "text",
+            "isRequired": true,
+            "inputType": "date"
+           }
+          ],
+          "choices": [
+           1,
+           2,
+           3,
+           4,
+           5
+          ],
+          "rowCount": 1,
+          "addRowLocation": "bottom",
+          "addRowText": "Add row",
+          "removeRowText": "Remove row"
+         },
+         {
+          "type": "checkbox",
+          "name": "whoAmICancelGaurdian",
+          "title": "I am",
+          "isRequired": true,
+          "choices": [
+           "a guardian of the child(ren)",
+           "applying to be appointed as a guardian of the child(ren)"
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "whyCancelGuradianInInterest",
+          "title": "I believe it is in the child(ren)'s best interests to cancel the guardianship of the person(s) listed in paragraph 1 because:",
+          "isRequired": true
+         }
+        ],
+        "visibleIf": "{whyAmIApplyingGuradianship} contains \"to cancel a person\\'s guardianship of a child\""
+       }
+      ],
+      "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {flmChoices} contains \"Guardianship of a child\"",
+      "title": "Guardianship of a child"
      }
     ],
     "showQuestionNumbers": "off",
