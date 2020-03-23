@@ -10,3 +10,6 @@ def health(request):
     Health check for OpenShift
     """
     return HttpResponse(User.objects.count())
+
+def testing(request):
+    return HttpResponse("Hello Testing")
