@@ -26,15 +26,9 @@ Migrations are triggered automatically when the Django/Python container is deplo
 
 ## Testing
 ```bash
-curl -X POST --output output.pdf \
-curl -X POST  \
+curl -X POST --output output.pdf\
   -H 'Accept: application/pdf' \
   -H 'Content-Type: application/json' \
-  -d './test.json' \
-  "http://localhost:8081/survey-cache?name=primary&format=pdf
-
-curl -X GET  \
-  -H 'Accept: application/pdf' \
-  -H 'Content-Type: application/json' \
-  "http://localhost:8081/survey-cache?name=primary&format=pdf
+  -d '~/test.json' \
+  "http://localhost:8081/form?name=family-law-matter-claim"
 ```
