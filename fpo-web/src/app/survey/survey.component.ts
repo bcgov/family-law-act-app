@@ -7,6 +7,7 @@ import { GeneralDataService } from '../general-data.service';
 import { GlossaryService } from '../glossary/glossary.service';
 import { InsertService } from '../insert/insert.service';
 import { addQuestionTypes } from './question-types';
+import * as widgets from 'surveyjs-widgets';
 
 @Component({
   selector: 'survey',
@@ -78,6 +79,7 @@ export class SurveyComponent {
     Survey.defaultBootstrapCss.radiogroup.item = "sv-radio";
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
+    //widgets.bootstrapdatepicker(Survey);
   }
 
   get surveyJson() {
@@ -202,6 +204,9 @@ export class SurveyComponent {
       }
       if (options.panel.name === "preFactSheetPanel") {
         options.panel.getQuestionByName("whoIsPayorFactSheet").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      }
+      if (options.panel.name === "allowParentalFlowPanel") {
+        options.panel.getQuestionByName("childrenForParentingArrng").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
       }
     });
 
