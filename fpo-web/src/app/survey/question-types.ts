@@ -1214,7 +1214,7 @@ export function addQuestionTypes(Survey) {
   initNameBlock(Survey);
   initAddressBlock(Survey);
   initContactInfoBlock(Survey);
-  initCustomDate(Survey);
+  //initCustomDate(Survey);
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
 

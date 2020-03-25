@@ -171,8 +171,16 @@ export class SurveyComponent {
       this.glossaryService.registerTargets(options.htmlElement);
     });
     surveyModel.onMatrixAfterCellRender.add((sender, options) => {
-      if (options.question.name === "additionalOtherPartyDetails" && options.cellQuestion.name === "otherPartyName") {
-        options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      // if (options.question.name === "additionalOtherPartyDetails" && options.cellQuestion.name === "otherPartyName") {
+      //   options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      // }
+      if(options.question.name === "cancelGuardianDetails") {
+        if(options.cellQuestion.name === "NameOfGuardian") {
+          options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+        }
+        if(options.cellQuestion.name === "NameOfChild") {
+          options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+        }
       }
     });
     surveyModel.onValueChanged.add((sender, options) => {
@@ -207,6 +215,12 @@ export class SurveyComponent {
       }
       if (options.panel.name === "allowParentalFlowPanel") {
         options.panel.getQuestionByName("childrenForParentingArrng").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+      }
+      if(options.panel.name === "notGuardianPanel") {
+        options.panel.getQuestionByName("listOfChildren").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+      }
+      if(options.panel.name === "appointGuardianPanel") {
+        options.panel.getQuestionByName("listOfChildrenForGuradianship").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
       }
     });
 

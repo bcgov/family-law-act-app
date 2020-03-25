@@ -305,78 +305,6 @@
     "title": "Child(ren) Information"
    },
    {
-    "name": "Other Details",
-    "elements": [
-     {
-      "type": "matrixdynamic",
-      "name": "additionalOtherPartyDetails",
-      "title": "Additional details",
-      "isRequired": true,
-      "columns": [
-       {
-        "name": "otherPartyName",
-        "title": "Other Party Name",
-        "isRequired": true
-       },
-       {
-        "name": "partyRelation",
-        "title": "How are you and {matrix.otherPartyName} related?",
-        "cellType": "comment",
-        "isRequired": true
-       },
-       {
-        "name": "partyLivingDetails",
-        "title": "The parties are or were spouses or live or have lived together in a marriage like relationship?",
-        "cellType": "radiogroup",
-        "isRequired": true
-       },
-       {
-        "name": "dateOfLivingTogether",
-        "title": "When did the parties begin to live together in a marriage like relationship?",
-        "cellType": "text",
-        "isRequired": true,
-        "inputType": "date"
-       },
-       {
-        "name": "isMarried",
-        "title": "Are the parties married?",
-        "cellType": "radiogroup",
-        "isRequired": true
-       },
-       {
-        "name": "dateOfMarriage",
-        "title": "Date Of Marriage",
-        "cellType": "text",
-        "isRequired": true,
-        "visibleIf": "{row.isMarried} = 'Yes'",
-        "inputType": "date"
-       },
-       {
-        "name": "isSeperated",
-        "title": "Are the parties now separated [define separated]?",
-        "cellType": "radiogroup",
-        "isRequired": true
-       },
-       {
-        "name": "dateOfSeparation",
-        "title": "Date Of Separation",
-        "cellType": "text",
-        "isRequired": true,
-        "inputType": "date"
-       }
-      ],
-      "columnLayout": "vertical",
-      "choices": [
-       "Yes",
-       "No"
-      ],
-      "rowCount": 1,
-      "addRowText": "Add other party"
-     }
-    ],
-    "title": "Other Details"
-   },
-   {
     "name": "Family Law Matter - Choose Items",
     "elements": [
      {
@@ -1618,17 +1546,16 @@
     "name": "Contact With Child",
     "elements": [
      {
-      "type": "yesno",
+      "type": "checkbox",
       "name": "isGuardianChildContact",
-      "title": "I am not a Guardian of the child(ren)",
-      "isRequired": true
-     },
-     {
-      "type": "infotext",
-      "name": "childContactNotEligible",
-      "visibleIf": "{isGuardianChildContact} = \"n\"",
-      "title": "You are not eligible to continue with this survey. Please go back a step and select the correct form",
-      "titleLocation": "hidden"
+      "title": "If you are a guardian, you should select Parenting Arrangements forms. Please go back a step and select the correct form. If you are not a guardian, please acknowledge that below and continue with the form",
+      "isRequired": true,
+      "choices": [
+       {
+        "value": "notGuardian",
+        "text": "I am not a guardian of the child"
+       }
+      ]
      },
      {
       "type": "panel",
@@ -1638,11 +1565,7 @@
         "type": "checkbox",
         "name": "listOfChildren",
         "title": "Select child(ren) that you want to apply for",
-        "isRequired": true,
-        "choices": [
-         "child1",
-         "child2"
-        ]
+        "isRequired": true
        },
        {
         "type": "checkbox",
@@ -1692,7 +1615,7 @@
         "isRequired": true
        }
       ],
-      "visibleIf": "{isGuardianChildContact} = \"y\""
+      "visibleIf": "{isGuardianChildContact} contains [\"notGuardian\"]"
      }
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Contact with a child\"",
@@ -1707,8 +1630,14 @@
       "title": "I am",
       "isRequired": true,
       "choices": [
-       "a person allowed to have contact with the child(ren) according to a court order or written agreement",
-       "a guardian of the child(ren)"
+       {
+        "value": "allowedContact",
+        "text": "A person allowed to have contact with the child(ren) according to a court order or written agreement"
+       },
+       {
+        "value": "gaurdian",
+        "text": "A guardian of the child(ren)"
+       }
       ]
      },
      {
@@ -1719,14 +1648,17 @@
       "choices": [
        "Contact Order",
        "Agreement about contact",
-       "neither"
+       {
+        "value": "neither",
+        "text": "Neither"
+       }
       ]
      },
      {
       "type": "infotext",
       "name": "contactChildNotAllowed",
       "visibleIf": "{whichExistingContactOrder} = \"neither\"",
-      "title": "they are in the wrong spot direct back to PFCF ¿ 46 where they selected they had existing orders or agreements about contact with a child.",
+      "title": "You are not eligible to continue with this survey. Please go back a step and select the correct form",
       "titleLocation": "hidden"
      },
      {
@@ -1757,7 +1689,8 @@
         "type": "text",
         "name": "dateOfExistingContactAgreement",
         "title": "Date of Agreement",
-        "isRequired": true
+        "isRequired": true,
+        "inputType": "date"
        },
        {
         "type": "comment",
@@ -1789,7 +1722,7 @@
        {
         "type": "comment",
         "name": "whyExistingInPersonChildContact",
-        "visibleIf": "{typeOfContact} contains \"In Person\"",
+        "visibleIf": "{typeOfExistingContact} contains \"In Person\"",
         "title": "Describe In person form of contact",
         "isRequired": true
        },
@@ -1835,8 +1768,14 @@
       "title": "I am applying",
       "isRequired": true,
       "choices": [
-       "to be appointed as a guardian of a child",
-       "to cancel a person's guardianship of a child"
+       {
+        "value": "appointGuardian",
+        "text": "To be appointed as a guardian of a child"
+       },
+       {
+        "value": "cancelGuardian",
+        "text": "To cancel a person's guardianship of a child"
+       }
       ]
      },
      {
@@ -1847,15 +1786,10 @@
         "type": "checkbox",
         "name": "listOfChildrenForGuradianship",
         "title": "I am applying to be appointed as a guardian of the following child(ren):",
-        "isRequired": true,
-        "choices": [
-         "child1",
-         "child2",
-         "child3"
-        ]
+        "isRequired": true
        },
        {
-        "type": "checkbox",
+        "type": "radiogroup",
         "name": "appointGaurdianOptions",
         "title": "Select on of the following options:",
         "isRequired": true,
@@ -1865,7 +1799,7 @@
         ]
        }
       ],
-      "visibleIf": "{whyAmIApplyingGuradianship} contains \"to be appointed as a guardian of a child\""
+      "visibleIf": "{whyAmIApplyingGuradianship} contains \"appointGuardian\""
      },
      {
       "type": "panel",
@@ -1878,7 +1812,8 @@
         "isRequired": true,
         "columns": [
          {
-          "name": "Full name of guardian",
+          "name": "NameOfGuardian",
+          "title": "Full name of guardian",
           "isRequired": true,
           "choices": [
            "G1",
@@ -1886,7 +1821,8 @@
           ]
          },
          {
-          "name": "Name of child(ren)",
+          "name": "NameOfChild",
+          "title": "Name of child(ren)",
           "isRequired": true,
           "choices": [
            "child1",
@@ -1894,18 +1830,12 @@
           ]
          },
          {
-          "name": "They have been a guardian of the child(ren) since:",
+          "name": "date",
+          "title": "They have been a guardian of the child(ren) since:",
           "cellType": "text",
           "isRequired": true,
           "inputType": "date"
          }
-        ],
-        "choices": [
-         1,
-         2,
-         3,
-         4,
-         5
         ],
         "rowCount": 1,
         "addRowLocation": "bottom",
@@ -1918,18 +1848,24 @@
         "title": "I am",
         "isRequired": true,
         "choices": [
-         "a guardian of the child(ren)",
-         "applying to be appointed as a guardian of the child(ren)"
+         {
+          "value": "guardian",
+          "text": "A guardian of the child(ren)"
+         },
+         {
+          "value": "applyingForGuardian",
+          "text": "Applying to be appointed as a guardian of the child(ren)"
+         }
         ]
        },
        {
         "type": "comment",
         "name": "whyCancelGuradianInInterest",
-        "title": "I believe it is in the child(ren)'s best interests to cancel the guardianship of the person(s) listed in paragraph 1 because:",
+        "title": "I believe it is in the child(ren)'s best interests to cancel the guardianship of the person(s) because:",
         "isRequired": true
        }
       ],
-      "visibleIf": "{whyAmIApplyingGuradianship} contains \"to cancel a person\\'s guardianship of a child\""
+      "visibleIf": "{whyAmIApplyingGuradianship} contains \"cancelGuardian\""
      }
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {flmChoices} contains \"Guardianship of a child\"",
