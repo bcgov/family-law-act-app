@@ -22,4 +22,4 @@ def testing(request):
     request.content_params -> Care about params????
     request.POST['data'] -> Here is the data
     """
-    return HttpResponse("Hello Testing")
+    return HttpResponse("testing")
