@@ -22,3 +22,13 @@ Migrations are triggered automatically when the Django/Python container is deplo
 ## ToDo:
 - The auto-generated views are constructed using generics and a number of mixins.
   - Determine if there is a better way to do this.  Since it's not as clean as something constructed from ModelSerializer or HyperlinkedModelSerializer.
+
+
+## Testing
+```bash
+curl -X POST --output output.pdf\
+  -H 'Accept: application/pdf' \
+  -H 'Content-Type: application/json' \
+  -d '~/test.json' \
+  "http://localhost:8081/form?name=family-law-matter-claim"
+```
