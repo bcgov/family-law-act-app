@@ -1870,6 +1870,192 @@
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {flmChoices} contains \"Guardianship of a child\"",
     "title": "Guardianship of a child"
+   },
+   {
+    "name": "Spousal Support",
+    "elements": [
+     {
+      "type": "panel",
+      "name": "spousalSupportPanel",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "spousalSupportFAQ",
+        "title": "<b>Entitlement to spousal support</b>\n<br>\n<br>\nA person is only entitled to spousal support in certain situations.  It is not a right in every case.  There are rules under the Family Law Act about what makes you a spouse and when you can ask for an order for spousal support.\n<br>\n<br>\nYou can apply for spousal support if:\n<ul>\n<li>you are a spouse because:</li>\n<ul>\n<li>You were married</li>\n<li>You lived together in a marriage-like relationship for at least two years, or</li>\n<li>You lived in a marriage-like relationship for less than two years, but you have a child together</li>\n</ul>\n<li>you can prove entitlement to the court for spousal support, and</li>\n<li>you are applying in time (Married spouses must start a court proceeding claiming spousal support within two years of the date of their divorce or an order annulling their marriage. Unmarried spouses must start a court proceeding within two years of the date of their separation).</li>\n<ul>",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "radiogroup",
+        "name": "otherPartySpousalSupport",
+        "title": "Select the other party",
+        "isRequired": true
+       },
+       {
+        "type": "radiogroup",
+        "name": "whoNeedsSpousalSupport",
+        "visibleIf": "{otherPartySpousalSupport} notempty",
+        "title": "Choose the correct statement.",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "iNeedSupport",
+          "text": "I believe I am entitled to spousal support"
+         },
+         {
+          "value": "otherPartyNeedSupport",
+          "text": "I believe {otherPartySpousalSupport} is entitled to spousal support"
+         }
+        ]
+       },
+       {
+        "type": "checkbox",
+        "name": "whyAmIEntitledToSupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"iNeedSupport\"",
+        "title": "Why do you believe you are entitled to spousal support?",
+        "isRequired": true,
+        "choices": [
+         "there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship",
+         "to share the financial consequences to caring for the children during the relationship, beyond the duty to provide support for the child",
+         "to relieve economic hardship of the spouses arising from the breakdown of the relationship",
+         "to help each spouse become financially independent within a reasonable period of time"
+        ]
+       },
+       {
+        "type": "checkbox",
+        "name": "whyOtherPartyEntitledForSupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"otherPartyNeedSupport\"",
+        "title": "Why do you believe {otherPartySpousalSupport} is entitled to spousal support?",
+        "isRequired": true,
+        "choices": [
+         "there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship",
+         "to share the financial consequences to caring for the children during the relationship, beyond the duty to provide support for the child",
+         "to relieve economic hardship of the spouses arising from the breakdown of the relationship",
+         "to help each spouse become financially independent within a reasonable period of time"
+        ]
+       },
+       {
+        "type": "comment",
+        "name": "howCurrentSupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"iNeedSupport\"",
+        "title": "Please explain how you are currently being supported financially.",
+        "description": "Include how much money you are receiving or paying for the support of the spouse, how often and when did these payments begin or stop.",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "howOtherPartySupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"otherPartyNeedSupport\"",
+        "title": "Please explain how {otherPartySpousalSupport} is currently being supported financially.",
+        "description": "Include how much money you are receiving or paying for the support of the spouse, how often and when did these payments begin or stop.",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "currentEmploymentDetails",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Please explain your current employment situation, training, health and ability to work.",
+        "isRequired": true
+       },
+       {
+        "type": "radiogroup",
+        "name": "otherPartySupportDetails",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Choose the correct statement.",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "doNotKnowOPIncome",
+          "text": "I do not know the income of the other party"
+         },
+         {
+          "value": "otherPartyIncome",
+          "text": "I believe the other party's annual income is $<input type=\"number\"/>"
+         }
+        ]
+       },
+       {
+        "type": "yesno",
+        "name": "anyIdeaAboutOPEmployment",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Do you know anything about the other party's current employment situation, training, health and ability to work?",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "otherPartySupportEmpDetails",
+        "visibleIf": "{anyIdeaAboutOPEmployment} = \"y\"",
+        "title": "Please explain in detail",
+        "description": "Only provide information you know to be true about the other person.",
+        "isRequired": true
+       },
+       {
+        "type": "checkbox",
+        "name": "howMuchSupportNeeded",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "What order for payments of spousal support are you asking the court to make?",
+        "isRequired": true,
+        "hasOther": true,
+        "choices": [
+         {
+          "value": "perMonth",
+          "text": "in the amount of $<input type=\"number\"/> per month to commence on <input type=\"date\"/> until <input type=\"date\"/>"
+         },
+         {
+          "value": "lumpSum",
+          "text": "in a lump sum of $<input type=\"number\"/>"
+         }
+        ]
+       },
+       {
+        "type": "helptext",
+        "name": "question2",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Need deatils on 'How do I calculate' link and tools",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "yesno",
+        "name": "isAttachingSpouseSuppCalc",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Are you attaching calculations showing how much spousal support you believe should be paid?",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "describeNoSupportCalc",
+        "visibleIf": "{isAttachingSpouseSuppCalc} = \"n\"",
+        "title": "Describe why are you not attaching calculations.",
+        "isRequired": true
+       },
+       {
+        "type": "infotext",
+        "name": "completeFinancialStatementFAQ",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "You are required to complete and file a Financial Statement in Form D along with this claim because you are making an application for spousal support.",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "radiogroup",
+        "name": "spousalSuppFinancialStatDetail",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Select the correct statement below.",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "ableToComplete",
+          "text": "I am able to complete a Financial Statement in Form D and file it along with this claim"
+         },
+         {
+          "value": "unableToComplete",
+          "text": "I am not able to complete a financial statement at this time and I will complete an Application for Case Management Order Without Notice or Appearance requesting this claim be filed without a completed financial statement"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Spousal Support\"",
+    "title": "Spousal Support"
    }
   ],
   "showQuestionNumbers": "off",
