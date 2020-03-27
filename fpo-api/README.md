@@ -13,6 +13,16 @@ Updated using Vim. The following auto command is helpful for auto deploying to t
 :autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fpo_fpo-api_1:/opt/app-root/src/fpo_api/'
 ```
 
+The default web server is _gunicorn_. It operates with multiple workers and is not configured to refresh on file changes. To run a separate server that can refresh properly do the following
+```bash
+docker ps # List containers and find the name for the API instance
+docker exec -it fpo_fpo-api_1 /bin/bash
+python3 manage.py runserver 0.0.0.0:8000
+```
+
+Make sure the port is open within the _docker-compose.yml_ file.
+
+
 ## Development Deployment Environment
 
 To deploy Family Protection Order on an instance of OpenShift, see [the instructions](../RunningLocal.md) in the file RunningLocal.md.

@@ -14,12 +14,14 @@ def health(request):
     """
     return HttpResponse(User.objects.count())
 
-# Testing
+"""
+  End point for all forms.
+"""
 @csrf_exempt
-def testing(request):
+def form(request):
     """
     request.method  -> Look for POST
-    request.content_params -> Care about params????
+    request.GET['name'] -> Care about params????
     request.POST['data'] -> Here is the data
     """
-    return HttpResponse("testing")
+    return HttpResponse(request.GET['name'])
