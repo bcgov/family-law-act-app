@@ -8,6 +8,11 @@ The API provides an interface into the database for Family Protection Order.
 
 The API is developed in Django/Python, using a Visual Studio 2017 project.
 
+Updated using Vim. The following auto command is helpful for auto deploying to the container:
+```ed
+:autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fpo_fpo-api_1:/opt/app-root/src/fpo_api/'
+```
+
 ## Development Deployment Environment
 
 To deploy Family Protection Order on an instance of OpenShift, see [the instructions](../RunningLocal.md) in the file RunningLocal.md.
