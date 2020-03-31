@@ -20,7 +20,6 @@ objects:
       description: |
         Allow the schema-spy service to talk to the db pod.
       source:
-      source:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
