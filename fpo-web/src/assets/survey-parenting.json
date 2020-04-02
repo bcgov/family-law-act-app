@@ -544,13 +544,13 @@
     "title": "Parenting Time"
    },
    {
-    "name": "Parenting Arrangements Contd.",
+    "name": "Parenting Arrangements Continued",
     "elements": [
      {
       "type": "yesno",
       "name": "anyOtherParentingTerms",
       "title": "Are there any other order terms about parenting arrangements you want to ask the court for?",
-      "description": "If there is anything you think you may have missed asking for when you described the parental responsibilities and parenting time you are asking for, you can add it here.  This may include important things like the child¿s residence, cooperating with travel arrangements, and what you agree to do to try to solve any disagreements on joint decisions about what is best for the child."
+      "description": "If there is anything you think you may have missed asking for when you described the parental responsibilities and parenting time you are asking for, you can add it here.  This may include important things like the child's residence, cooperating with travel arrangements, and what you agree to do to try to solve any disagreements on joint decisions about what is best for the child."
      },
      {
       "type": "comment",
@@ -560,21 +560,27 @@
       "description": "You do not need to use any special wording.  The key is to be clear about what you mean and what you are asking the court to order."
      },
      {
-      "type": "infotext",
-      "name": "BestIntInfo",
-      "title": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n<ul>",
-      "titleLocation": "hidden",
-      "messageStyle": "inline"
-     },
-     {
-      "type": "comment",
-      "name": "describeBestInt",
-      "title": "Describe how the orders you are asking for about parenting arrangements, including parental responsibilities and parenting time, are in the best interest of the child(ren).",
-      "description": "You do not need to use any special wording.  The key is to be clear about why you think the court should make the parenting order."
+      "type": "panel",
+      "name": "bestIntPanel",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "BestIntInfo",
+        "title": "<div class=\"sv_q_title\">Best interests of the child</div>\nWhen you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n<ul>",
+        "titleLocation": "hidden",
+        "messageStyle": "inline"
+       },
+       {
+        "type": "comment",
+        "name": "describeBestInt",
+        "title": "Describe how the orders you are asking for about parenting arrangements, including parental responsibilities and parenting time, are in the best interests of the child(ren).",
+        "description": "You do not need to use any special wording.  The key is to be clear about why you think the court should make the parenting order."
+       }
+      ]
      }
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Parenting Arrangements including parental responsibilities and parenting time\"",
-    "title": "Parenting Arrangements Contd."
+    "title": "Parenting Arrangements Continued"
    },
    {
     "name": "Existing Parenting Order",
@@ -642,9 +648,16 @@
         "inputType": "date"
        },
        {
+        "type": "infotext",
+        "name": "parentingOrderFAQ",
+        "title": "Family dynamics change and children grow up.  A parenting order that was made in the past may not make sense anymore. The court can only change an order if there has been a change in the needs or circumstances of the child since the original court order or written agreement was made, including a change in the circumstances of another person such as a parent. ",
+        "titleLocation": "hidden"
+       },
+       {
         "type": "comment",
         "name": "describeChangeInCircumstances",
         "title": "Describe the change in circumstances since the order was made",
+        "description": "Explain to the court what has changed that makes the existing order no longer appropriate. You don't have to use any special wording. The key is to be clear with your explanation.",
         "isRequired": true
        },
        {
@@ -672,9 +685,16 @@
         "inputType": "date"
        },
        {
+        "type": "infotext",
+        "name": "parentingArrangFAQ",
+        "title": "Family dynamics change and children grow up.  A parenting agreement that was made in the past may not make sense anymore. The court can only change an agreement if there has been a change in the needs or circumstances of the child since the original court order or written agreement was made, including a change in the circumstances of another person such as a parent. ",
+        "titleLocation": "hidden"
+       },
+       {
         "type": "comment",
         "name": "describeAgreementChangeCircumstance",
         "title": "Describe the change in circumstances since the agreement was made",
+        "description": "Explain to the court what has changed that makes the existing order no longer appropriate. You don't have to use any special wording. The key is to be clear with your explanation.",
         "isRequired": true
        },
        {
@@ -739,7 +759,7 @@
        {
         "type": "comment",
         "name": "describeChangesBestInt",
-        "title": "Describe why you believe the order you are asking for is in the children's best interest.",
+        "title": "Describe why you believe the order you are asking for is in the child(ren)'s best interests.",
         "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n</ul>\n<br>\nYou do not need to use any special wording. The key is to be clear about why you think the court should make the parenting order.",
         "isRequired": true
        }
@@ -795,7 +815,7 @@
        {
         "type": "comment",
         "name": "describeAgreementBestInt",
-        "title": "Describe why you believe the agreement you are asking for is in the children's best interest.",
+        "title": "Describe why you believe the agreement you are asking for is in the child(ren)'s best interests.",
         "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n</ul>\n<br>\nYou do not need to use any special wording. The key is to be clear about why you think the court should make the parenting order.",
         "isRequired": true
        }
@@ -1870,6 +1890,620 @@
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {flmChoices} contains \"Guardianship of a child\"",
     "title": "Guardianship of a child"
+   },
+   {
+    "name": "Spousal Support",
+    "elements": [
+     {
+      "type": "panel",
+      "name": "spousalSupportPanel",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "spousalSupportFAQ",
+        "title": "<b>Entitlement to spousal support</b>\n<br>\n<br>\nA person is only entitled to spousal support in certain situations.  It is not a right in every case.  There are rules under the Family Law Act about what makes you a spouse and when you can ask for an order for spousal support.\n<br>\n<br>\nYou can apply for spousal support if:\n<ul>\n<li>you are a spouse because:</li>\n<ul>\n<li>You were married</li>\n<li>You lived together in a marriage-like relationship for at least two years, or</li>\n<li>You lived in a marriage-like relationship for less than two years, but you have a child together</li>\n</ul>\n<li>you can prove entitlement to the court for spousal support, and</li>\n<li>you are applying in time (Married spouses must start a court proceeding claiming spousal support within two years of the date of their divorce or an order annulling their marriage. Unmarried spouses must start a court proceeding within two years of the date of their separation).</li>\n<ul>",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "radiogroup",
+        "name": "otherPartySpousalSupport",
+        "title": "Select the other party",
+        "isRequired": true
+       },
+       {
+        "type": "radiogroup",
+        "name": "whoNeedsSpousalSupport",
+        "visibleIf": "{otherPartySpousalSupport} notempty",
+        "title": "Choose the correct statement.",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "iNeedSupport",
+          "text": "I believe I am entitled to spousal support"
+         },
+         {
+          "value": "otherPartyNeedSupport",
+          "text": "I believe {otherPartySpousalSupport} is entitled to spousal support"
+         }
+        ]
+       },
+       {
+        "type": "checkbox",
+        "name": "whyAmIEntitledToSupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"iNeedSupport\"",
+        "title": "Why do you believe you are entitled to spousal support?",
+        "isRequired": true,
+        "choices": [
+         "there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship",
+         "to share the financial consequences to caring for the children during the relationship, beyond the duty to provide support for the child",
+         "to relieve economic hardship of the spouses arising from the breakdown of the relationship",
+         "to help each spouse become financially independent within a reasonable period of time"
+        ]
+       },
+       {
+        "type": "checkbox",
+        "name": "whyOtherPartyEntitledForSupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"otherPartyNeedSupport\"",
+        "title": "Why do you believe {otherPartySpousalSupport} is entitled to spousal support?",
+        "isRequired": true,
+        "choices": [
+         "there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship",
+         "to share the financial consequences to caring for the children during the relationship, beyond the duty to provide support for the child",
+         "to relieve economic hardship of the spouses arising from the breakdown of the relationship",
+         "to help each spouse become financially independent within a reasonable period of time"
+        ]
+       },
+       {
+        "type": "comment",
+        "name": "howCurrentSupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"iNeedSupport\"",
+        "title": "Please explain how you are currently being supported financially.",
+        "description": "Include how much money you are receiving or paying for the support of the spouse, how often and when did these payments begin or stop.",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "howOtherPartySupport",
+        "visibleIf": "{whoNeedsSpousalSupport} = \"otherPartyNeedSupport\"",
+        "title": "Please explain how {otherPartySpousalSupport} is currently being supported financially.",
+        "description": "Include how much money you are receiving or paying for the support of the spouse, how often and when did these payments begin or stop.",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "currentEmploymentDetails",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Please explain your current employment situation, training, health and ability to work.",
+        "isRequired": true
+       },
+       {
+        "type": "radiogroup",
+        "name": "otherPartySupportDetails",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Choose the correct statement.",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "doNotKnowOPIncome",
+          "text": "I do not know the income of the other party"
+         },
+         {
+          "value": "otherPartyIncome",
+          "text": "I believe the other party's annual income is $<input type=\"number\"/>"
+         }
+        ]
+       },
+       {
+        "type": "yesno",
+        "name": "anyIdeaAboutOPEmployment",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Do you know anything about the other party's current employment situation, training, health and ability to work?",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "otherPartySupportEmpDetails",
+        "visibleIf": "{anyIdeaAboutOPEmployment} = \"y\"",
+        "title": "Please explain in detail",
+        "description": "Only provide information you know to be true about the other person.",
+        "isRequired": true
+       },
+       {
+        "type": "checkbox",
+        "name": "howMuchSupportNeeded",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "What order for payments of spousal support are you asking the court to make?",
+        "isRequired": true,
+        "hasOther": true,
+        "choices": [
+         {
+          "value": "perMonth",
+          "text": "in the amount of $<input type=\"number\"/> per month to commence on <input type=\"date\"/> until <input type=\"date\"/>"
+         },
+         {
+          "value": "lumpSum",
+          "text": "in a lump sum of $<input type=\"number\"/>"
+         }
+        ]
+       },
+       {
+        "type": "helptext",
+        "name": "question2",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Need deatils on 'How do I calculate' link and tools",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "yesno",
+        "name": "isAttachingSpouseSuppCalc",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Are you attaching calculations showing how much spousal support you believe should be paid?",
+        "isRequired": true
+       },
+       {
+        "type": "comment",
+        "name": "describeNoSupportCalc",
+        "visibleIf": "{isAttachingSpouseSuppCalc} = \"n\"",
+        "title": "Describe why are you not attaching calculations.",
+        "isRequired": true
+       },
+       {
+        "type": "infotext",
+        "name": "completeFinancialStatementFAQ",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "You are required to complete and file a Financial Statement in Form D along with this claim because you are making an application for spousal support.",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "radiogroup",
+        "name": "spousalSuppFinancialStatDetail",
+        "visibleIf": "{whoNeedsSpousalSupport} notempty",
+        "title": "Select the correct statement below.",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "ableToComplete",
+          "text": "I am able to complete a Financial Statement in Form D and file it along with this claim"
+         },
+         {
+          "value": "unableToComplete",
+          "text": "I am not able to complete a financial statement at this time and I will complete an Application for Case Management Order Without Notice or Appearance requesting this claim be filed without a completed financial statement"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Spousal Support\"",
+    "title": "Spousal Support"
+   },
+   {
+    "name": "Existing Spousal Support",
+    "elements": [
+     {
+      "type": "panel",
+      "name": "existingSupportPanel",
+      "elements": [
+       {
+        "type": "radiogroup",
+        "name": "whichExistingSupportOrder",
+        "title": "Which do you have?",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "existingOrder",
+          "text": "Existing order about spousal support"
+         },
+         {
+          "value": "existingAgreement",
+          "text": "Existing agreement about spousal support"
+         },
+         {
+          "value": "neither",
+          "text": "Neither"
+         }
+        ]
+       },
+       {
+        "type": "infotext",
+        "name": "spousalSupportNotAllowed",
+        "visibleIf": "{whichExistingSupportOrder} = \"neither\"",
+        "title": "You are not eligible to continue with this survey. Please go back a step and select the correct form",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "panel",
+        "name": "existingSupportOrderPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "dateOfSupportOrder",
+          "title": "Date Of Order",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "infotext",
+          "name": "changeOrderOnlyFAQ",
+          "title": "Family dynamics, income and finances change.   An order about spousal support that was made in the past may not make sense anymore.  The court can only change an order if:\n<ul>\n<li>there has been a change in circumstances since the original court order was made,</li>\n<li>evidence was not available during the previous hearing that has become available, or</li>\n<li>there was a lack financial disclosure discovered after the last order was made</li>\n</ul>",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "checkbox",
+          "name": "supportChangeInCircum",
+          "title": "Since the spousal support order was made, how have circumstances changed?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "finSituationChange",
+            "text": "My financial situation has changed"
+           },
+           {
+            "value": "opFinSituationChange",
+            "text": "I believe the other party's financial situation has changed"
+           },
+           {
+            "value": "changeInAbility",
+            "text": "My employment, training, health and/or ability to work has changed"
+           },
+           {
+            "value": "opChangeInAbility",
+            "text": "I believe the other party's employment, training, health and/or ability to work has changed"
+           },
+           {
+            "value": "changeInExpenses",
+            "text": "My household expenses have changed"
+           }
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "describeOrderChangeInAbility",
+          "visibleIf": "{supportChangeInCircum} contains \"changeInAbility\"",
+          "title": "How have your employment, training, health and/or ability to work has changed?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describleOrderOpChangeInAbility",
+          "visibleIf": "{supportChangeInCircum} contains \"opChangeInAbility\"",
+          "title": "How have other party's employment, training, health and/or ability to work has changed?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeOrderChangeInExpense",
+          "visibleIf": "{supportChangeInCircum} contains \"changeInExpenses\"",
+          "title": "How have your household expenses changed?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyUnpaidSpouseSupport",
+          "title": "Is there unpaid spousal support (arrears)?",
+          "isRequired": true
+         },
+         {
+          "type": "panel",
+          "name": "unpaidSupportPanel",
+          "elements": [
+           {
+            "type": "text",
+            "name": "howMuchUnpaidSpouseSupport",
+            "title": "As of <input type=\"date\"/>, how much unpaid spousal support (arrears) is owing?",
+            "isRequired": true,
+            "inputType": "number",
+            "placeHolder": "$"
+           },
+           {
+            "type": "yesno",
+            "name": "isAskingForReducedSupport",
+            "title": "Are you asking to reduce the amount of unpaid spousal support (arrears) owing?",
+            "isRequired": true
+           },
+           {
+            "type": "text",
+            "name": "reducedSupportAmount",
+            "visibleIf": "{isAskingForReducedSupport} = \"y\"",
+            "title": "What amount are you asking for the unpaid spousal support to be reduced to?",
+            "isRequired": true,
+            "inputType": "number",
+            "placeHolder": "$"
+           },
+           {
+            "type": "comment",
+            "name": "whyAskingForAmtOrder",
+            "visibleIf": "{isAskingForReducedSupport} = \"y\"",
+            "title": "Why you are asking for that amount?",
+            "isRequired": true
+           },
+           {
+            "type": "radiogroup",
+            "name": "howToPaySpousalSupp",
+            "title": "How do you suggest the remaining unpaid spousal support (arrears) be paid:",
+            "isRequired": true,
+            "hasOther": true,
+            "choices": [
+             {
+              "value": "perMonth",
+              "text": "at a rate of $<input type=\"number\"/> per month"
+             },
+             {
+              "value": "lumpSum",
+              "text": "In a lump sum"
+             }
+            ]
+           }
+          ],
+          "visibleIf": "{anyUnpaidSpouseSupport} = \"y\""
+         },
+         {
+          "type": "radiogroup",
+          "name": "spousalSuppChangedOrCancelled",
+          "title": "Do you want the existing spousal support order to be changed or cancelled?",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "changed",
+            "text": "Changed"
+           },
+           {
+            "value": "cancelled",
+            "text": "Cancelled"
+           }
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "explainSupportOrderChanges",
+          "visibleIf": "{spousalSuppChangedOrCancelled} = \"changed\"",
+          "title": "Explain the changes you want to the order",
+          "isRequired": true
+         },
+         {
+          "type": "helptext",
+          "name": "existingSpousalSupportCalcFAQ",
+          "title": "Need details for 'How do I calculate' link to tools and resources.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "attachExistingSpouseSuppCalc",
+          "title": "Are you attaching calculations showing how much spousal support you believe should be paid?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "whyNotExistingSupportCalc",
+          "visibleIf": "{attachExistingSpouseSuppCalc} = \"n\"",
+          "title": "Describe why are you not attaching calculations.",
+          "isRequired": true
+         },
+         {
+          "type": "infotext",
+          "name": "existingSuppFinFAQ",
+          "title": "You are required to complete and file a Financial Statement in Form D along with this claim because you are making an application for spousal support.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "radiogroup",
+          "name": "spousalOrderFinancialSt",
+          "title": "Select the correct statement below.",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "canComplete",
+            "text": "I am able to complete a Financial Statement in Form D and file it along with this claim."
+           },
+           {
+            "value": "cannotComplete",
+            "text": "I am not able to complete a financial statement at this time and I will complete an Application for Case Management Order Without Notice or Appearance requesting this claim be filed without a completed financial statement"
+           }
+          ]
+         }
+        ],
+        "visibleIf": "{whichExistingSupportOrder} = \"existingOrder\""
+       },
+       {
+        "type": "panel",
+        "name": "existingSuppAgreementPanel",
+        "elements": [
+         {
+          "type": "text",
+          "name": "existingSuppAgreementDate",
+          "title": "Date of Agreement",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "infotext",
+          "name": "existingSuppAgreementFAQ",
+          "title": "Family dynamics, income and finances change.   An agreement about spousal support that was made in the past may not make sense anymore.  The court can only change an agreement if there has been a change in circumstances since the original written agreement was made.\n<br>\n<br>\nThe court may also set aside or replace an agreement for spousal support if the court is satisfied that:\n<ul>\n<li>certain circumstances existed when the parties entered into the agreement [see section 164(3) of the Family Law Act], or</li>\n<li>the agreement is significantly unfair [see section 164(5) of the Family Law Act]</li>\n</ul>",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "checkbox",
+          "name": "whyChangeInSuppAgreement",
+          "title": "Since the agreement about spousal support was made, how have circumstances changed?",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "financialChange",
+            "text": "My financial situation has changed"
+           },
+           {
+            "value": "opFinancialChange",
+            "text": "I believe the other party's financial situation has changed"
+           },
+           {
+            "value": "jobChange",
+            "text": "My employment, training, health and/or ability to work has changed"
+           },
+           {
+            "value": "opJobChange",
+            "text": "I believe the other party's employment, training, health and/or ability to work has changed"
+           },
+           {
+            "value": "expensesChanged",
+            "text": "My household expenses have changed"
+           }
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "describeJobChange",
+          "visibleIf": "{whyChangeInSuppAgreement} contains \"jobChange\"",
+          "title": "How have your employment, training, health and/or ability to work has changed?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeOpJobChange",
+          "visibleIf": "{whyChangeInSuppAgreement} contains \"opJobChange\"",
+          "title": "How have the other party's employment, training, health and/or ability to work has changed?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeExpensesChanged",
+          "visibleIf": "{whyChangeInSuppAgreement} contains \"expensesChanged\"",
+          "title": "How have your household expenses changed?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "anyUnpaidAgreementSupp",
+          "title": "Is there unpaid spousal support (arrears)?",
+          "isRequired": true
+         },
+         {
+          "type": "panel",
+          "name": "unpaidAgreementSuppPanel",
+          "elements": [
+           {
+            "type": "text",
+            "name": "agreementUnpaidSuppAmt",
+            "title": "As of <input type=\"date\"/>, how much unpaid spousal support (arrears) is owing?",
+            "isRequired": true,
+            "inputType": "number",
+            "placeHolder": "$"
+           },
+           {
+            "type": "yesno",
+            "name": "agreementReduceUnpaidSupp",
+            "title": "Are you asking to reduce the amount of unpaid spousal support (arrears) owing?",
+            "isRequired": true
+           },
+           {
+            "type": "text",
+            "name": "whatReduceSuppAmtAgreement",
+            "visibleIf": "{agreementReduceUnpaidSupp} = \"y\"",
+            "title": "What amount are you asking for the unpaid spousal support to be reduced to?",
+            "isRequired": true,
+            "inputType": "number",
+            "placeHolder": "$"
+           },
+           {
+            "type": "comment",
+            "name": "whyAskingForAmtAgreement",
+            "visibleIf": "{agreementReduceUnpaidSupp} = \"y\"",
+            "title": "Why you are asking for that amount?",
+            "isRequired": true
+           },
+           {
+            "type": "radiogroup",
+            "name": "agreementPayUnpaidSupp",
+            "title": "How do you suggest the remaining unpaid spousal support (arrears) be paid:",
+            "isRequired": true,
+            "hasOther": true,
+            "choices": [
+             {
+              "value": "perMonth",
+              "text": "at a rate of $<input type=\"number\"/> per month"
+             },
+             {
+              "value": "lumpSum",
+              "text": "In a lump sum"
+             }
+            ]
+           }
+          ],
+          "visibleIf": "{anyUnpaidAgreementSupp} = \"y\""
+         },
+         {
+          "type": "radiogroup",
+          "name": "spousalSuppAsideReplaced",
+          "title": "Do you want the existing agreement about spousal support to be set aside or replaced?",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "setAside",
+            "text": "Set Aside"
+           },
+           {
+            "value": "replaced",
+            "text": "Replaced"
+           }
+          ]
+         },
+         {
+          "type": "comment",
+          "name": "whyRepaceSpousalSupp",
+          "visibleIf": "{spousalSuppAsideReplaced} = \"replaced\"",
+          "title": "Explain the changes you want to the agreement or what you want the existing written agreement to be replaced with.",
+          "isRequired": true
+         },
+         {
+          "type": "helptext",
+          "name": "agreementSupportCalc",
+          "title": "Need details for 'How do I calculate' link to tools and resources.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "isAttacSuppCalcAgreement",
+          "title": "Are you attaching calculations showing how much spousal support you believe should be paid?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "agreementWhyNoCalc",
+          "visibleIf": "{isAttacSuppCalcAgreement} = \"n\"",
+          "title": "Describe why are you not attaching calculations.",
+          "isRequired": true
+         },
+         {
+          "type": "infotext",
+          "name": "agreentFinStatFAQ",
+          "title": "You are required to complete and file a Financial Statement in Form D along with this claim because you are making an application about spousal support.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "radiogroup",
+          "name": "agreementFinancialStat",
+          "title": "Select the correct statement below.",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "canComplete",
+            "text": "I am able to complete a Financial Statement in Form D and file it along with this claim."
+           },
+           {
+            "value": "cannotComplete",
+            "text": "I am not able to complete a financial statement at this time and I will complete an Application for Case Management Order Without Notice or Appearance requesting this claim be filed without a completed financial statement"
+           }
+          ]
+         }
+        ],
+        "visibleIf": "{whichExistingSupportOrder} = \"existingAgreement\""
+       }
+      ]
+     }
+    ],
+    "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\"  and {whichOrdersIncluded} contains \"Spousal support\"",
+    "title": "Existing Spousal Support"
    }
   ],
   "showQuestionNumbers": "off",
