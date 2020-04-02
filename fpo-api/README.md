@@ -13,6 +13,11 @@ Updated using Vim. The following auto command is helpful for auto deploying to t
 :autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fpo_fpo-api_1:/opt/app-root/src/fpo_api/'
 ```
 
+For working on the templates run this
+```ed
+:autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fpo_fpo-api_1:/opt/app-root/src/templates/'
+```
+
 The default web server is _gunicorn_. It operates with multiple workers and is not configured to refresh on file changes. To run a separate server that can refresh properly do the following
 ```bash
 docker ps # List containers and find the name for the API instance
@@ -41,9 +46,13 @@ Migrations are triggered automatically when the Django/Python container is deplo
 
 ## Testing
 ```bash
+curl -X POST \
+  -d '@/home/popkinj/contracts/quartech/justice/test-data.json' \
+  "http://localhost:8000/form?name=family-law-matter-claim"
+
 curl -X POST --output output.pdf\
   -H 'Accept: application/pdf' \
   -H 'Content-Type: application/json' \
-  -d '~/test.json' \
-  "http://localhost:8081/form?name=family-law-matter-claim"
+  -d '@/home/popkinj/contracts/quartech/justice/test-data.json' \
+  "http://localhost:8000/form?name=family-law-matter-claim"
 ```

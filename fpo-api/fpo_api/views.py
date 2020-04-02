@@ -1,7 +1,10 @@
 
 import json
+import os
 
 from django.http import HttpResponse
+from django.template.loader import get_template
+
 from django.shortcuts import render
 from api.models.User import User
 
@@ -24,4 +27,15 @@ def form(request):
     request.GET['name'] -> Care about params????
     request.POST['data'] -> Here is the data
     """
-    return HttpResponse(request.GET['name'])
+    data = json.loads(request.body)
+    name = request.GET['name']
+    template = '{}.html'.format(name)
+
+    template = get_template(template)
+    html_content = template.render(data)
+
+    #  return HttpResponse(request.GET['name'])
+    #  print(data['registryLocation'])
+    print(html_content)
+    
+    return HttpResponse(html_content)
