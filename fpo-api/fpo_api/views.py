@@ -40,12 +40,6 @@ def form(request):
 
     pdf_content = render_pdf(html_content)
 
-    #  return HttpResponse(request.GET['name'])
-    #  print(data['registryLocation'])
-    #  print(pdf_content)
-    
-    #  return HttpResponse(html_content)
-
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
