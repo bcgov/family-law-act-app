@@ -8,6 +8,10 @@ from django.template.loader import get_template
 from django.shortcuts import render
 from api.models.User import User
 
+
+from api.pdf import render as render_pdf
+
+
 # Just for testing
 from django.views.decorators.csrf import csrf_exempt
 
@@ -34,8 +38,17 @@ def form(request):
     template = get_template(template)
     html_content = template.render(data)
 
+    pdf_content = render_pdf(html_content)
+
     #  return HttpResponse(request.GET['name'])
     #  print(data['registryLocation'])
-    print(html_content)
+    #  print(pdf_content)
     
-    return HttpResponse(html_content)
+    #  return HttpResponse(html_content)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    response.write(pdf_content)
+
+    return response
