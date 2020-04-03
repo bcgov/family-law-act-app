@@ -7,6 +7,7 @@ import { GeneralDataService } from '../general-data.service';
 import { GlossaryService } from '../glossary/glossary.service';
 import { InsertService } from '../insert/insert.service';
 import { addQuestionTypes } from './question-types';
+import * as widgets from 'surveyjs-widgets';
 
 @Component({
   selector: 'survey',
@@ -78,6 +79,7 @@ export class SurveyComponent {
     Survey.defaultBootstrapCss.radiogroup.item = "sv-radio";
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
+    //widgets.bootstrapdatepicker(Survey);
   }
 
   get surveyJson() {
@@ -109,7 +111,6 @@ export class SurveyComponent {
     let surveyModel = new Survey.Model(this._jsonData);
 
     if (this.surveyServiceType && this.surveyServiceType !== undefined) {
-      //surveyModel.getValue('userPreferredService');
       surveyModel.setValue('userPreferredService', this.surveyServiceType);
     }
 
@@ -170,12 +171,32 @@ export class SurveyComponent {
       this.glossaryService.registerTargets(options.htmlElement);
     });
     surveyModel.onMatrixAfterCellRender.add((sender, options) => {
-      if (options.question.name === "additionalOtherPartyDetails" && options.cellQuestion.name === "otherPartyName") {
-        options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      if(options.question.name === "cancelGuardianDetails") {
+        if(options.cellQuestion.name === "NameOfGuardian") {
+          options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+        }
+        if(options.cellQuestion.name === "NameOfChild") {
+          options.cellQuestion.choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+        }
       }
     });
     surveyModel.onValueChanged.add((sender, options) => {
       this.evalProgress();
+      if (options.name === "whichChildrenNeedSupport") {
+        let value = options.value;
+        if (!value) value = [];
+        let otherChildPInfoPanel = [];
+        if(value.length === 0) {
+          sender.getQuestionByName("OlderChildDynamicPanel").visible = false;
+        }
+        for(let i=0; i< value.length; i++) { 
+          if(this.calculateCondition(value[i])) {
+            sender.getQuestionByName("OlderChildDynamicPanel").visible = true;
+            otherChildPInfoPanel.push({name: value[i]});
+          }
+        }
+        sender.setValue("otherChildInfo", otherChildPInfoPanel);
+      }
     });
     surveyModel.onAfterRenderPanel.add((sender, options) => {
       if (options.panel.name === "financialPanel") {
@@ -183,10 +204,23 @@ export class SurveyComponent {
       }
       if (options.panel.name === "childSupportPanel") {
         options.panel.getQuestionByName("supportToBePaidBy").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+        this.surveyModel.setValue("childObjectInfo", this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "childObject"));
         options.panel.getQuestionByName("whichChildrenNeedSupport").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
       }
       if (options.panel.name === "preFactSheetPanel") {
         options.panel.getQuestionByName("whoIsPayorFactSheet").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
+      }
+      if (options.panel.name === "allowParentalFlowPanel") {
+        options.panel.getQuestionByName("childrenForParentingArrng").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+      }
+      if(options.panel.name === "notGuardianPanel") {
+        options.panel.getQuestionByName("listOfChildren").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+      }
+      if(options.panel.name === "appointGuardianPanel") {
+        options.panel.getQuestionByName("listOfChildrenForGuradianship").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("childInfoPanel"), "child");
+      }
+      if(options.panel.name === "spousalSupportPanel") {
+        options.panel.getQuestionByName("otherPartySpousalSupport").choices = this.generateListOfDynamicValue(this.surveyModel.getQuestionByName("otherPartyDynamicPanel"), "other");
       }
     });
 
@@ -200,24 +234,42 @@ export class SurveyComponent {
     if (!this.disableCache) this.loadCache();
   }
 
-  generateListOfDynamicValue(dynamicPanel: any, panelName: string) {
-    if (!dynamicPanel.isEmpty()) {
-      var otherPanel = dynamicPanel.value;
-      if (otherPanel && Array.isArray(otherPanel)) {
-        return this.mapValues(panelName, otherPanel);
+  calculateCondition(checkedValue: any) {
+    let childObject = this.surveyModel.getQuestionByName("childObjectInfo");
+    if(!childObject.isEmpty()) {
+      let object = childObject.value;
+      if(object && Array.isArray(object)) {
+        for(let i=0; i<object.length; i++) {
+          let objectName =  [object[i].childName.first, object[i].childName.middle, object[i].childName.last].join(" ");
+          if(checkedValue === objectName) {
+            let age = Date.now() - new Date(object[i].childDateOfBirth).getTime();
+            return Math.abs(new Date(age).getUTCFullYear() - 1970) >=19 ? true : false;
+          }
+        }
       }
     }
   }
 
-  mapValues(panelName: string, otherPanel: any) {
-    if (panelName === "other") {
+  generateListOfDynamicValue(dynamicPanel: any, type: string) {
+    if (!dynamicPanel.isEmpty()) {
+      var otherPanel = dynamicPanel.value;
+      if (otherPanel && Array.isArray(otherPanel)) {
+        return this.mapValues(type, otherPanel);
+      }
+    }
+  }
+
+  mapValues(type: string, otherPanel: any) {
+    if (type === "other") {
       return otherPanel.map(val => {
         return [val.OtherPartyName.first, val.OtherPartyName.middle, val.OtherPartyName.last].join(" ");
       });
-    } else if (panelName === "child") {
+    } else if (type === "child") {
       return otherPanel.map(val => {
         return [val.childName.first, val.childName.middle, val.childName.last].join(" ");
       });
+    } else if(type === "childObject") {
+      return otherPanel;
     }
   }
 

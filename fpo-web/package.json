@@ -33,6 +33,7 @@
     "survey-angular": "1.0.75",
     "survey-knockout": "1.0.75",
     "surveyjs-editor": "1.0.75",
+    "surveyjs-widgets": "^1.5.16",
     "typescript": ">=2.1.0 <2.4.0",
     "zone.js": "^0.8.17"
   },
