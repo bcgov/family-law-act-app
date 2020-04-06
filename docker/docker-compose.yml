@@ -1,10 +1,10 @@
-version: '3'
+version: "3"
 services:
-  # 
+  #
   # fpo-web
-  # 
+  #
   fpo-web:
-    image: fpo-angular-on-nginx
+    image: fpo-vue-on-nginx
     environment:
       - API_URL=${API_URL}
       - IpFilterRules=${IpFilterRules}
@@ -17,7 +17,7 @@ services:
       - fpo-api
 
   fpo-web-dev:
-    image: fpo-angular-dev
+    image: fpo-vue-dev
     environment:
       - API_URL=${API_URL}
       - DEV_MODE=false
@@ -35,18 +35,18 @@ services:
     depends_on:
       - fpo-api
 
-  # 
+  #
   # fpo-api
   #-------------------------------------------------
   # The API performs the migrations on the database.
   # Therefore, it needs to come up after the database
   # has had time to fully initialize.
   #
-  # We are using a simple sleep command to do this 
-  # for the moment; refer to the `command` section 
-  # of the configuration for details.  It would be 
+  # We are using a simple sleep command to do this
+  # for the moment; refer to the `command` section
+  # of the configuration for details.  It would be
   # nice to implement a more deterministic solution.
-  # 
+  #
   fpo-api:
     image: fpo-django
     environment:
@@ -77,16 +77,16 @@ services:
         sleep 10;
         /usr/libexec/s2i/run;"
 
-  # 
+  #
   # schema-spy
   #-------------------------------------------------
   # Needs to wait for the schema to be created/migrated
   # by the API server; it's not enough to wait for the
   # database to be available.
   #
-  # We are using a simple sleep command to do this 
-  # for the moment; refer to the `command` section 
-  # of the configuration for details.  It would be 
+  # We are using a simple sleep command to do this
+  # for the moment; refer to the `command` section
+  # of the configuration for details.  It would be
   # nice to implement a more deterministic solution.
   #
   schema-spy:
@@ -107,9 +107,9 @@ services:
         echo sleeping ...;
         sleep 20;
         ./start.sh;"
-  # 
+  #
   # fpo-db
-  # 
+  #
   fpo-db:
     image: registry.access.redhat.com/rhscl/postgresql-95-rhel7@sha256:155cf81a3d3a8bbcab3a1f61b177cab75a4105306146d172ef8fb29488cf58b4
     environment:
@@ -121,11 +121,11 @@ services:
     ports:
       - 5432:5432
     # volumes:
-      # - fpo-data:/var/lib/pgsql/data 
+    # - fpo-data:/var/lib/pgsql/data
 
-  # 
+  #
   # fpo-pdf
-  # 
+  #
   fpo-pdf:
     image: aquavitae/weasyprint
     networks:
@@ -135,6 +135,5 @@ services:
 
 networks:
   fpo:
-
 # volumes:
-  # fpo-data:
+# fpo-data:

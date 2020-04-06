@@ -59,8 +59,8 @@ build-web() {
   # fpo-web
   #
   # The nginx-runtime image is used for the final runtime image.
-  # The angular-app image is used to build the artifacts for the angular distribution.
-  # The angular-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
+  # The vue-app image is used to build the artifacts for the vue distribution.
+  # The vue-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
   echo -e "Building the nginx-runtime image using Docker ..."
@@ -71,20 +71,20 @@ build-web() {
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the angular-app image using s2i ..."
+  echo -e "Building the vue-app image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     '../fpo-web' \
-    'centos/nodejs-6-centos7:6' \
-    'angular-app'
+    'centos/nodejs-10-centos7:10' \
+    'vue-app'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the angular-on-nginx image using Docker ..."
+  echo -e "Building the vue-on-nginx image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'fpo-angular-on-nginx' \
-    -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
+    -t 'fpo-vue-on-nginx' \
+    -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
   echo -e "===================================================================================================="
 }
 
@@ -98,12 +98,12 @@ build-web-dev() {
   ${S2I_EXE} build \
     -e "DEV_MODE=true" \
     '../fpo-web' \
-    'centos/nodejs-6-centos7:6' \
-    'fpo-angular-dev'
+    'centos/nodejs-10-centos7:10' \
+    'fpo-vue-dev'
 
   #docker build \
-  #  -t 'fpo-angular-on-nginx' \
-  #  -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
+  #  -t 'fpo-vue-on-nginx' \
+  #  -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
 }
 
 build-db() {

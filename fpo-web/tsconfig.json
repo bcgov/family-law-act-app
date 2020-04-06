@@ -1,20 +1,23 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    // this aligns with Vue's browser support
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    // this enables stricter inference for data properties on `this`
+    //"strict": true,
+    // if using webpack 2+ or rollup, to leverage tree shaking:
+    "module": "es2015",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
-      "es2016",
-      "dom"
+      "dom",
+      "es5",
+      "es2015"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

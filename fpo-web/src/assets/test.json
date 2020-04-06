@@ -1,0 +1,178 @@
+{
+  "showQuestionNumbers": "off",
+  "elements": [
+    {
+      "type": "matrixdynamic",
+      "name": "orderList",
+      "rowCount": 1,
+      "minRowCount": 1,
+      "titleLocation": "none",
+      "addRowText": "Add new item",
+      "columns": [
+        {
+          "name": "id",
+          "title": "Id",
+          "cellType": "expression",
+          "expression": "{rowIndex}"
+        },
+        {
+          "name": "phone_model",
+          "title": "Phone model",
+          "isRequired": true,
+          "totalType": "count",
+          "totalFormat": "Items count: {0}",
+          "choices": [
+            {
+              "value": "iPhone7-32",
+              "text": "iPhone 7, 32GB",
+              "price": 449
+            },
+            {
+              "value": "iPhone7-128",
+              "text": "iPhone 7, 128GB",
+              "price": 549
+            },
+            {
+              "value": "iPhone7Plus-32",
+              "text": "iPhone 7 Plus, 32GB",
+              "price": 569
+            },
+            {
+              "value": "iPhone7Plus-128",
+              "text": "iPhone 7 Plus, 128GB",
+              "price": 669
+            },
+            {
+              "value": "iPhone8-64",
+              "text": "iPhone 8, 64GB",
+              "price": 599
+            },
+            {
+              "value": "iPhone8-256",
+              "text": "iPhone 8, 256GB",
+              "price": 749
+            },
+            {
+              "value": "iPhone8Plus-64",
+              "text": "iPhone 8 Plus, 64GB",
+              "price": 699
+            },
+            {
+              "value": "iPhone8Plus-256",
+              "text": "iPhone 8 Plus, 256GB",
+              "price": 849
+            },
+            {
+              "value": "iPhoneXR-64",
+              "text": "iPhone XR, 64GB",
+              "price": 749
+            },
+            {
+              "value": "iPhoneXR-128",
+              "text": "iPhone XR, 128GB",
+              "price": 799
+            },
+            {
+              "value": "iPhoneXR-256",
+              "text": "iPhone XR, 256GB",
+              "price": 899
+            },
+            {
+              "value": "iPhoneXS-64",
+              "text": "iPhone XS, 64GB",
+              "price": 999
+            },
+            {
+              "value": "iPhoneXS-256",
+              "text": "iPhone XS, 256GB",
+              "price": 1149
+            },
+            {
+              "value": "iPhoneXS-512",
+              "text": "iPhone XS, 512GB",
+              "price": 1349
+            },
+            {
+              "value": "iPhoneXSMAX-64",
+              "text": "iPhone XS Max, 64GB",
+              "price": 1099
+            },
+            {
+              "value": "iPhoneXSMAX-256",
+              "text": "iPhone XS Max, 256GB",
+              "price": 1249
+            },
+            {
+              "value": "iPhoneXSMAX-512",
+              "text": "iPhone XS, 512GB",
+              "price": 1449
+            }
+          ]
+        },
+        {
+          "name": "price",
+          "title": "Price",
+          "cellType": "expression",
+          "expression": "getItemPrice('phone_model')",
+          "displayStyle": "currency"
+        },
+        {
+          "name": "quantity",
+          "title": "Quantity",
+          "isRequired": true,
+          "cellType": "text",
+          "inputType": "number",
+          "totalType": "sum",
+          "totalFormat": "Total phones: {0}",
+          "validators": [
+            {
+              "type": "numeric",
+              "minValue": 1,
+              "maxValue": 100
+            }
+          ]
+        },
+        {
+          "name": "total",
+          "title": "Total",
+          "cellType": "expression",
+          "expression": "{row.quantity} * {row.price}",
+          "displayStyle": "currency",
+          "totalType": "sum",
+          "totalDisplayStyle": "currency",
+          "totalFormat": "Total: {0}"
+        }
+      ]
+    },
+    {
+      "name": "vatProcents",
+      "type": "text",
+      "title": "VAT (in %)",
+      "defaultValue": 20,
+      "inputType": "number",
+      "validators": [
+        {
+          "type": "numeric",
+          "minValue": 0,
+          "maxValue": 40
+        }
+      ]
+    },
+    {
+      "name": "vatTotal",
+      "type": "expression",
+      "title": "VAT",
+      "expression": "{orderList-total.total} * {vatProcents} / 100",
+      "displayStyle": "currency",
+      "startWithNewLine": false
+    },
+    {
+      "name": "total",
+      "type": "expression",
+      "title": "Total",
+      "expression": "{orderList-total.total} + {vatTotal}",
+      "displayStyle": "currency",
+      "startWithNewLine": false
+    }
+  ]
+}

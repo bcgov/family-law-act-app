@@ -1,0 +1,67 @@
+{
+  "title": "Family Protection Order",
+  "pages": [
+    {
+      "name": "Your Information",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "ApplicantName",
+              "title": "What is your full name?",
+              "description": "Use the name as it is written on your primary ID cards. This name will be the most useful.",
+              "isRequired": true,
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "panel",
+              "name": "ApplicantContactPanel",
+              "elements": [
+                {
+                  "type": "text",
+                  "name": "ApplicantAddress",
+                  "title": "What is a safe address where you can receive court documents?",
+                  "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
+                  "isRequired": true
+                },
+                {
+                  "type": "text",
+                  "name": "ApplicantContact",
+                  "title": "Contact Information",
+                  "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents.",
+                  "isRequired": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "title": "Your Information"
+    },
+    {
+      "name": "Your (ex-)Partner's Information",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "RespondentPanel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "RespondentName",
+              "title": "What is the full name of the person that is making you (or your children) feel `unsafe`?"
+            }
+          ]
+        }
+      ],
+      "title": "Your (ex-)Partner's Information"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

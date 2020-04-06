@@ -1,0 +1,169 @@
+{
+  "title": "Family Law Matter",
+  "pages": [
+    {
+      "name": "Your Information",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "elements": [
+            {
+              "type": "personname",
+              "name": "ApplicantName",
+              "title": "What is your full name?",
+              "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
+              "isRequired": true,
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "text",
+              "name": "ApplicantDOB",
+              "title": "What is your date of birth?",
+              "isRequired": true,
+              "inputType": "date"
+            },
+            {
+              "type": "yesno",
+              "name": "Lawyer",
+              "title": "Has a lawyer agreed to receive court documents for you?",
+              "description": "You do not need a lawyer to use this service.  If you have a lawyer, you can still use this service.",
+              "isRequired": true
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLawyer1",
+              "title": "What if I plan to get a lawyer but I haven't done that yet?",
+              "titleLocation": "hidden",
+              "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLawyer2",
+              "title": "What if I used to have a lawyer but not anymore?",
+              "titleLocation": "hidden",
+              "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa053.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form.</a> (This link will open in a new tab.)"
+            },
+            {
+              "type": "infotext",
+              "name": "ExplanationServiceAddress",
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'n'",
+              "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
+              "isRequired": true,
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "panel",
+              "name": "ApplicantContactPanel",
+              "elements": [
+                {
+                  "type": "address",
+                  "name": "ApplicantAddress",
+                  "title": "What is a safe address where you can receive court documents?",
+                  "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
+                  "isRequired": true,
+                  "referLabel": "Applicant's Address"
+                },
+                {
+                  "type": "contactinfo",
+                  "name": "ApplicantContact",
+                  "title": "Contact Information",
+                  "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents.",
+                  "isRequired": true,
+                  "labelEmail": "Email (Optional)",
+                  "labelFax": "Fax Number (Optional)",
+                  "labelPhone": "Daytime Phone Number"
+                }
+              ],
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'n' and {ExplanationServiceAddress} > 0"
+            },
+            {
+              "type": "panel",
+              "name": "LawyerContactPanel",
+              "elements": [
+                {
+                  "type": "personname",
+                  "name": "LawyerName",
+                  "title": "What is your lawyer's full name?",
+                  "isRequired": true
+                },
+                {
+                  "type": "address",
+                  "name": "LawyerAddress",
+                  "title": "What is your lawyer's address?",
+                  "isRequired": true,
+                  "referLabel": "Applicant's Lawyer's Address"
+                },
+                {
+                  "type": "contactinfo",
+                  "name": "LawyerContact",
+                  "title": "Lawyer's Contact Information",
+                  "isRequired": true
+                }
+              ],
+              "visible": false,
+              "visibleIf": "{Lawyer} = 'y'"
+            },
+            {
+              "type": "text",
+              "name": "ApplicantOccupation",
+              "visibleIf": " {Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y'",
+              "title": "What is your job or profession?",
+              "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
+            }
+          ]
+        }
+      ],
+      "title": "Your Information"
+    },
+    {
+      "name": "Other Party",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "otherPartyDynamicPanel",
+          "title": "Please add the details of the other party in the fields below. If you need to add another party, click the 'Add Other Party' button. If you are done entering all the parties, you can move on to the next question",
+          "templateElements": [
+            {
+              "type": "personname",
+              "name": "OtherPartyName",
+              "title": "Insert name of the other Party",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "doYouKnowDOB",
+              "visibleIf": "{panel.OtherPartyName} notempty",
+              "title": "Do you know {panel.OtherPartyName} exact date of birth?"
+            },
+            {
+              "type": "text",
+              "name": "otherPartyDOB",
+              "visibleIf": "{panel.doYouKnowDOB} = \"y\"",
+              "title": "Date of Birth",
+              "inputType": "date"
+            },
+            {
+              "type": "address",
+              "name": "otherPartyAddress",
+              "visibleIf": "{panel.OtherPartyName} notempty",
+              "title": "What is an address where {panel.OtherPartyName} can receive court documents?",
+              "isRequired": true
+            }
+          ],
+          "panelCount": 1,
+          "panelAddText": "Add Other Party",
+          "panelRemoveText": "Remove Party"
+        }
+      ],
+      "title": "Other Party"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
