@@ -158,6 +158,7 @@ export class SurveyComponent {
       this.onPageUpdate.next(sender);
     });
     surveyModel.onCurrentPageChanged.add((sender, options) => {
+      console.log(surveyModel.data);
       this.onPageUpdate.next(sender);
       if (!this.disableCache && this.prevPageIndex !== sender.currentPageNo) {
         this.saveCache();
