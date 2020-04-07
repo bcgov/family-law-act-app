@@ -15,7 +15,7 @@
         v-bind:class="{
           current:
             surveyIndex === $store.getters.surveyIndex &&
-            !$store.getters.allCompleted
+            !$store.getters.allCompleted,
         }"
         v-on:click="onSelectSurvey($event)"
       >
@@ -52,7 +52,7 @@
               v-bind:id="getSurveyPageId(surveyIndex, pageIndex)"
               v-bind:index="pageIndex"
               v-bind:class="{
-                current: pageIndex === survey.pageIndex
+                current: pageIndex === survey.pageIndex,
               }"
               v-on:click="onSelectPage($event)"
             >
@@ -68,7 +68,7 @@
         class="survey"
         v-bind:class="{
           disabled: !$store.getters.allCompleted,
-          current: $store.getters.allCompleted
+          current: $store.getters.allCompleted,
         }"
       >
         <div class="survey-header">
@@ -88,15 +88,13 @@
 </template>
 
 <script>
-import * as SurveyVue from "survey-vue";
-
 export default {
   name: "NavigationSidebar",
   data() {
     return {};
   },
   methods: {
-    onSelectSurvey: function(event) {
+    onSelectSurvey: function (event) {
       var currIndex = this.$store.getters.surveyIndex;
       var curr = document.getElementById(this.getSurveyId(currIndex));
       var currChildGroup = document.getElementById(
@@ -126,7 +124,7 @@ export default {
       this.$store.dispatch("setSurveyIncomplete", nextIndex);
     },
     //TODO: This is where the step is selected
-    onSelectPage: function(event) {
+    onSelectPage: function (event) {
       var currSurveyIndex = this.$store.getters.surveyIndex;
       var currPageIndex = this.$store.getters.surveyArray[currSurveyIndex]
         .pageIndex;
@@ -149,20 +147,20 @@ export default {
 
       this.$store.dispatch("setSurveyPageIndex", {
         surveyIndex: currSurveyIndex,
-        pageIndex: nextPageIndex
+        pageIndex: nextPageIndex,
       });
     },
-    getSurveyId: function(surveyIndex) {
+    getSurveyId: function (surveyIndex) {
       return "survey-" + surveyIndex;
     },
-    getSurveyGroupId: function(surveyIndex) {
+    getSurveyGroupId: function (surveyIndex) {
       return this.getSurveyId(surveyIndex) + "-group";
     },
-    getSurveyPageId: function(surveyIndex, pageIndex) {
+    getSurveyPageId: function (surveyIndex, pageIndex) {
       return this.getSurveyId(surveyIndex) + "-page-" + pageIndex;
-    }
+    },
   },
-  props: {}
+  props: {},
 };
 </script>
 
