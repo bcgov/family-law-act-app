@@ -1,0 +1,24 @@
+{
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "question1",
+          "title": "Which forms apply to you",
+          "choices": [
+            { "value": "item1", "text": "Family protection order" },
+            { "value": "item2", "text": "Family law matter" },
+            { "value": "item3", "text": "Child relocation" },
+            { "value": "item4", "text": "Parenting arrangements" },
+            { "value": "item5", "text": "Case management" },
+            { "value": "item6", "text": "Enforcement" }
+          ]
+        }
+      ],
+      "title": "Select your forms"
+    }
+  ],
+  "title": "Start Your Application"
+}

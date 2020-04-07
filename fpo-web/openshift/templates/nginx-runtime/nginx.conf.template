@@ -72,16 +72,16 @@ http {
         add_header X-Frame-Options DENY;
 
         # Forward URL if not using path prefix
-        if ($request_uri !~ "^/protection-order/") {
-            return 301 $real_scheme://$http_host/protection-order$request_uri;
-        }
+        ## if ($request_uri !~ "^/protection-order/") {
+        ##     return 301 $real_scheme://$http_host/protection-order$request_uri;
+        ## }
 
         # Remove path prefix when handling files
-        rewrite ^/protection-order/(.*)$ /$1 last;
+        ## rewrite ^/protection-order/(.*)$ /$1 last;
 
         %API_CONFIG_SECTION%
 
-        # serve our angular app here
+        # serve our app here
         location / {
             root   /tmp/app/dist;
             index  index.html index.htm;

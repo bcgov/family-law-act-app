@@ -1,0 +1,115 @@
+{
+  "pages": [
+    {
+      "elements": [
+        {
+          "type": "panel",
+          "name": "patienName",
+          "elements": [
+            {
+              "type": "text",
+              "name": "patientLastName",
+              "title": "(Last)",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "patienFirstName",
+              "startWithNewLine": false,
+              "title": "(First)",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "patientMiddleName",
+              "startWithNewLine": false,
+              "title": "(M.I)"
+            }
+          ],
+          "questionTitleLocation": "bottom",
+          "title": "Patient Name"
+        },
+        {
+          "type": "panel",
+          "name": "panel2",
+          "elements": [
+            {
+              "type": "text",
+              "name": "socialsecurity",
+              "title": "Social Security #:",
+              "isRequired": true,
+              "inputFormat": "999-99-9999"
+            },
+            {
+              "type": "text",
+              "inputType": "date",
+              "isRequired": true,
+              "name": "birthDate",
+              "startWithNewLine": false,
+              "title": "Date of birth:"
+            },
+            {
+              "type": "radiogroup",
+              "choices": [
+                {
+                  "value": "male",
+                  "text": "Male"
+                },
+                {
+                  "value": "female",
+                  "text": "Female"
+                }
+              ],
+              "colCount": 0,
+              "isRequired": true,
+              "name": "sex",
+              "startWithNewLine": false,
+              "title": "Sex:"
+            }
+          ],
+          "questionTitleLocation": "left",
+          "title": "Social Security & Birth Date"
+        },
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "choices": [
+                {
+                  "value": "patient",
+                  "text": "Patient"
+                },
+                {
+                  "value": "spouse",
+                  "text": "Spouse"
+                }
+              ],
+              "colCount": 0,
+              "hasOther": true,
+              "isRequired": true,
+              "name": "completedBy",
+              "otherText": "Other (specify)",
+              "title": "Who completed this form:"
+            },
+            {
+              "type": "text",
+              "name": "completedByOtherName",
+              "visibleIf": "{completedBy} != \"patient\"",
+              "startWithNewLine": false,
+              "title": "Name (if other than patient):",
+              "isRequired": true
+            }
+          ],
+          "title": "Completed By"
+        }
+      ],
+      "name": "introduction",
+      "title": "Introduction"
+    }
+  ],
+  "showProgressBar": "top",
+  "showQuestionNumbers": "off",
+  "title": "Patient Past Medical, Social & Family History"
+}
