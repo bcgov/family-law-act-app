@@ -47,12 +47,12 @@ Migrations are triggered automatically when the Django/Python container is deplo
 ## Testing
 ```bash
 curl -X POST \
-  -d '@/home/popkinj/contracts/quartech/justice/test-data.json' \
+  -d '@/path/to/data.json' \
   "http://localhost:8000/form?name=family-law-matter-claim"
 
 curl -X POST --output output.pdf\
   -H 'Accept: application/pdf' \
   -H 'Content-Type: application/json' \
-  -d '@/home/popkinj/contracts/quartech/justice/test-data.json' \
+  -d '@path/to/data.json' \
   "http://localhost:8000/form?name=family-law-matter-claim"
 ```
