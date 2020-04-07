@@ -1,16 +1,21 @@
 <template>
   <div class="app-outer fill-body" id="app">
-    <FlappSurveys></FlappSurveys>
+    <NavigationTopbar />
+    <main class="app-content fill-body">  
+       <router-view></router-view>
+    </main>
+    <NavigationFooter id="footer" />
   </div>
 </template>
 
 <script>
-import FlappSurveys from "./components/FlappSurveys.vue";
-
+import NavigationTopbar from "./components/NavigationTopbar.vue";
+import NavigationFooter from "./components/NavigationFooter.vue";
 export default {
   name: "app",
   components: {
-    FlappSurveys
+    NavigationTopbar,
+    NavigationFooter
   },
 
   data() {

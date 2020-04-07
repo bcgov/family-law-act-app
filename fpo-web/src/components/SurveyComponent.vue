@@ -55,14 +55,14 @@ export default {
     // place the surveyIndex inside the survey object
     survey.custom_surveyIndex = this.surveyIndex;
 
-    survey.onCurrentPageChanged.add((survey, options) => {
+    survey.onCurrentPageChanged.add((survey) => {
       this.onCurrentPageChanged(
         survey.custom_surveyIndex,
         survey.currentPageNo
       );
     });
 
-    survey.onValueChanged.add((survey, options) => {
+    survey.onValueChanged.add((survey) => {
       if (survey.custom_surveyIndex == 0) {
         // in the getting started form
         this.onStartPageChanged(survey.data.forms);
@@ -72,14 +72,14 @@ export default {
       }
     });
 
-    survey.onComplete.add((survey, options) => {
+    survey.onComplete.add((survey) => {
       this.onSurveyComplete(survey.custom_surveyIndex, survey);
     });
 
     survey.completeText = "Next Form";
 
     return {
-      survey: survey
+      survey: survey,
     };
   },
   created() {
@@ -106,13 +106,13 @@ export default {
     Survey.StylesManager.applyTheme("bootstrap");
   },
   methods: {
-    isFirstPage: function() {
+    isFirstPage: function () {
       return this.survey.isFirstPage;
     },
-    isLastPage: function() {
+    isLastPage: function () {
       return this.survey.isLastPage;
     },
-    isLastSurveyAndPage: function() {
+    isLastSurveyAndPage: function () {
       if (!this.isLastPage()) {
         return false;
       } else {
@@ -131,25 +131,25 @@ export default {
         return this.surveyIndex == lastSurveyIndex;
       }
     },
-    prevPage: function() {
+    prevPage: function () {
       if (!this.isFirstPage()) {
         this.survey.prevPage();
       }
     },
-    nextPage: function() {
+    nextPage: function () {
       if (this.isLastPage()) {
         this.survey.completeLastPage();
       } else {
         this.survey.nextPage();
       }
     },
-    onCurrentPageChanged: function(surveyIndex, pageIndex) {
+    onCurrentPageChanged: function (surveyIndex, pageIndex) {
       this.$store.dispatch("setSurveyPageIndex", {
         surveyIndex,
-        pageIndex
+        pageIndex,
       });
     },
-    onStartPageChanged: function(forms) {
+    onStartPageChanged: function (forms) {
       if (forms == null) {
         forms = [];
       }
@@ -158,7 +158,7 @@ export default {
       for (i = 1; i < this.$store.getters.surveyArray.length; i++) {
         this.$store.dispatch("setSurveySelected", {
           surveyIndex: i,
-          surveySelected: forms.includes(i)
+          surveySelected: forms.includes(i),
         });
       }
     },
@@ -168,7 +168,7 @@ export default {
       } else {
         this.$store.dispatch("setSurveyData", {
           surveyIndex: surveyIndex,
-          surveyData: surveyData
+          surveyData: surveyData,
         });
       }
     },
@@ -199,17 +199,17 @@ export default {
         // this is the last survey
         // TODO: enable the print button
       }
-    }
+    },
   },
   props: {
     surveyIndex: Number,
-    pageIndex: Number
+    pageIndex: Number,
   },
   watch: {
-    pageIndex: function(newVal, oldVall) {
+    pageIndex: function (newVal) {
       this.survey.currentPageNo = newVal;
-    }
-  }
+    },
+  },
 };
 </script>
 

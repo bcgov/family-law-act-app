@@ -1,23 +1,19 @@
 <template>
   <div class="fill-body" id="flappsurveys">
-    <NavigationTopbar />
     <main class="app-content">
       <NavigationSidebar />
       <SurveySelector v-show="!$store.getters.allCompleted" />
       <Print v-show="$store.getters.allCompleted" />
       <!--SurveyCreatorComponent /-->
     </main>
-    <NavigationFooter id="footer" />
   </div>
 </template>
 
 <script>
-import NavigationTopbar from "./NavigationTopbar.vue";
 import NavigationSidebar from "./NavigationSidebar.vue";
 import SurveySelector from "./SurveySelector.vue";
 //import SurveyCreatorComponent from "./components/SurveyCreatorComponent.vue";
 import Print from "./Print.vue";
-import NavigationFooter from "./NavigationFooter.vue";
 
 import fpoJson from "../assets/survey-fpo.json";
 //import fpoJson from "../assets/survey-primary-orig.json";
@@ -27,8 +23,6 @@ import parentingJson from "../assets/survey-parenting.json";
 export default {
   name: "FlappSurveys",
   components: {
-    NavigationTopbar,
-    NavigationFooter,
     NavigationSidebar,
     SurveySelector,
     Print
