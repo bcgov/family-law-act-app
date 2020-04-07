@@ -7,12 +7,14 @@ export const store = new Vuex.Store({
   state: {
     surveyIndex: Number,
     surveyArray: Array,
-    allCompleted: false
+    allCompleted: false,
+    userType: ''
   },
   getters: {
     surveyIndex: state => state.surveyIndex,
     surveyArray: state => state.surveyArray,
-    allCompleted: state => state.allCompleted
+    allCompleted: state => state.allCompleted,
+    userType: state => state.userType
   },
   mutations: {
     setSurveyArray(state, surveyArray) {
@@ -47,6 +49,9 @@ export const store = new Vuex.Store({
     setSurveyIncomplete(state, surveyIndex) {
       state.surveyArray[surveyIndex].completed = false;
       state.allCompleted = false;
+    },
+    setUserType(state, userType) {
+      state.userType = userType;
     }
   },
   actions: {
@@ -70,6 +75,9 @@ export const store = new Vuex.Store({
     },
     setSurveyIncomplete(context, surveyIndex) {
       context.commit("setSurveyIncomplete", surveyIndex);
+    },
+    setUserType(context, userType) {
+      context.commit('setUserType', userType);
     }
   }
 });
