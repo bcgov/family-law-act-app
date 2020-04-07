@@ -401,13 +401,13 @@
             <tr class="brdr-btm">
               <td>
                 <label>Registry Location:</label>
-                <div class="content">&nbsp;</div>
+                <div class="content">&nbsp;{{registryLocation}}</div>
               </td>
             </tr>
             <tr>
               <td>
                 <label>Court File Number:</label>
-                <div class="content">&nbsp;</div>
+                <div class="content">&nbsp;{{courtFileNumber}}</div>
               </td>
             </tr>
             </tbody>
@@ -432,8 +432,11 @@
     <!-- Question 1 -->
     <section class="question">
       <div class="form-line">My name is</div>
-      <div class="form-line">
-        <div class="form-line-child underline" style="min-width:15rem"></div>
+      <div class="form-line" style="margin-bottom:0.4rem">
+        <div class="form-line-child underline" style="min-width:15rem">
+          &nbsp;
+          {{Applicant.first}} {{Applicant.middle}} {{Applicant.last}}
+        </div>
         <div class="form-line-child hint">(full name of party)</div>
       </div>
       <div class="form-line">. </div>
@@ -444,15 +447,23 @@
 
       <table class="bordered border-rows">
         <tr >
-          <td>Full Name:  </td>
+          <td>Full Name:  {{Applicant.first}} {{Applicant.middle}} {{Applicant.last}}</td>
           <td></td>
-          <td>Date of Birth: </td>
+          <td>Date of Birth: {{ApplicantDOB}}</td>
         </tr>
         <tr>
           <td colspan="3"><b>Contact information and address for delivery</b></td>
         </tr>
         <tr>
-          <td colspan="3">Lawyer (if applicable):  </td>
+          <td colspan="3">Lawyer (if applicable):
+            {% if Lawyer == 'y' %}
+              <span>{{LawyerName.first}}</span>
+              <span>{{LawyerName.middle}}</span>
+              <span>{{LawyerName.last}}</span>
+            {% else %}
+              <span>blah</span>
+            {% endif %}
+          </td>
         </tr>
         <tr>
           <td colspan="3">Address:  </td>
@@ -483,8 +494,10 @@
     <!-- Question 3 -->
     <section class="question">
       <div class="form-line">I will be providing notice to</div>
-      <div class="form-line">
-        <div class="form-line-child underline" style="min-width:15rem"></div>
+      <div class="form-line" style="margin-bottom:0.4rem">
+        <div class="form-line-child underline" style="min-width:15rem">
+          &nbsp;
+        </div>
         <div class="form-line-child hint">(full name of other party/parties)</div>
       </div>
       <div class="form-line">. </div>
