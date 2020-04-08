@@ -1,16 +1,28 @@
 <template>
- <b-container class="container home-content" id="login">
+  <b-container class="container home-content" id="login-page">
     <div class="row">
       <div class="col-md-12">
-        <h1>Previous Application</h1>
+        <h1>Register or Login</h1>
         <div class="intro">
-          <p>You will need a 'Basic BCeid' or a 'BC Services card' to access the Family Law Service. This will also enable you to securely access multiple other online government services.</p>
+          <p>
+            You will need a 'Basic BCeid' or a 'BC Services card' to access the
+            Family Law Service. This will also enable you to securely access
+            multiple other online government services.
+          </p>
           <div class="loginInfo-section">
             <hr class="section" />
             <div class="row">
               <div class="col-md-5">
-                <a class="btn btn-success btn-lg register-button">
-                  Respond to Documents served on me
+                <div class="section-heading">Login with basic BCeID</div>
+                <div>
+                  Once you login or register, you'll be taken back to this
+                  website
+                </div>
+                <a
+                  class="btn btn-success btn-lg register-button"
+                  @click="navigate()"
+                >
+                  Next
                 </a>
               </div>
               <div class="col-md-2">
@@ -22,8 +34,13 @@
                 </div>
               </div>
               <div class="col-md-5">
+                <div class="section-heading">Login with BC Service Card</div>
+                <div>
+                  Once you login or register, you'll be taken back to this
+                  website
+                </div>
                 <a class="btn btn-success btn-lg register-button">
-                  Begin NEW Application
+                  Next
                 </a>
               </div>
             </div>
@@ -36,15 +53,19 @@
 
 <script>
 export default {
-  name: "Status",
+  name: "Login",
   data() {
-    return {
-        inProgressApplications: [],
-    };
+    return {};
   },
   methods: {
-   
-  }
+    navigate() {
+      if (this.$store.getters.userType === "new") {
+        this.$router.push({ name: "serviceLocator" });
+      } else if (this.$store.getters.userType === "returning") {
+        this.$router.push({ name: "status" });
+      }
+    },
+  },
 };
 </script>
 
@@ -58,7 +79,7 @@ export default {
 }
 hr.section {
   border: 1px solid $gov-mid-blue;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3.5rem;
 }
 .section-heading {
   color: $gov-mid-blue;
@@ -89,7 +110,7 @@ hr.section {
   position: relative;
   padding-left: 8rem;
   width: 30px;
-  height: 200px;
+  height: 300px;
   margin: 10px;
 }
 

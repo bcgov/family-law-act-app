@@ -2,17 +2,19 @@
   <b-container class="container home-content" id="login">
     <div class="row">
       <div class="col-md-12">
-        <h1>Register or Login</h1>
+        <h1>Previous Application</h1>
         <div class="intro">
-          <p>You will need a 'Basic BCeid' or a 'BC Services card' to access the Family Law Service. This will also enable you to securely access multiple other online government services.</p>
+          <p>
+            You will need a 'Basic BCeid' or a 'BC Services card' to access the
+            Family Law Service. This will also enable you to securely access
+            multiple other online government services.
+          </p>
           <div class="loginInfo-section">
             <hr class="section" />
             <div class="row">
               <div class="col-md-5">
-                <div class="section-heading">Login with basic BCeID</div>
-                <div>Once you login or register, you'll be taken back to this website</div>
-                <a class="btn btn-success btn-lg register-button" @click="navigate()">
-                  Next
+                <a class="btn btn-success btn-lg register-button">
+                  Respond to Documents served on me
                 </a>
               </div>
               <div class="col-md-2">
@@ -24,10 +26,8 @@
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="section-heading">Login with BC Service Card</div>
-                <div>Once you login or register, you'll be taken back to this website</div>
                 <a class="btn btn-success btn-lg register-button">
-                  Next
+                  Begin NEW Application
                 </a>
               </div>
             </div>
@@ -40,19 +40,13 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "applicant-status",
   data() {
-    return {};
+    return {
+      inProgressApplications: [],
+    };
   },
-  methods: {
-    navigate() {
-      if(this.$store.getters.userType === 'new') {
-        this.$router.push({name: "serviceLocator"})
-      } else if(this.$store.getters.userType === 'returning') {
-        this.$router.push({name: "status"})
-      }
-    }
-  },
+  methods: {},
 };
 </script>
 
@@ -66,7 +60,7 @@ export default {
 }
 hr.section {
   border: 1px solid $gov-mid-blue;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem;
 }
 .section-heading {
   color: $gov-mid-blue;
@@ -97,7 +91,7 @@ hr.section {
   position: relative;
   padding-left: 8rem;
   width: 30px;
-  height: 300px;
+  height: 200px;
   margin: 10px;
 }
 

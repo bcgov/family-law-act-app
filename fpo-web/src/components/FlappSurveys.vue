@@ -1,9 +1,9 @@
 <template>
-  <div class="fill-body" id="flappsurveys">
+  <div class="fill-body" id="flapp-surveys">
     <main class="app-content">
-      <NavigationSidebar />
-      <SurveySelector v-show="!$store.getters.allCompleted" />
-      <Print v-show="$store.getters.allCompleted" />
+      <navigation-sidebar />
+      <survey-selector v-show="!$store.getters.allCompleted" />
+      <print-page v-show="$store.getters.allCompleted" />
       <!--SurveyCreatorComponent /-->
     </main>
   </div>
@@ -13,7 +13,7 @@
 import NavigationSidebar from "./NavigationSidebar.vue";
 import SurveySelector from "./SurveySelector.vue";
 //import SurveyCreatorComponent from "./components/SurveyCreatorComponent.vue";
-import Print from "./Print.vue";
+import PrintPage from "./PrintPage.vue";
 
 import fpoJson from "../assets/survey-fpo.json";
 //import fpoJson from "../assets/survey-primary-orig.json";
@@ -25,7 +25,7 @@ export default {
   components: {
     NavigationSidebar,
     SurveySelector,
-    Print
+    PrintPage,
   },
   computed: {},
   data() {
@@ -35,7 +35,7 @@ export default {
     var startChoiceArray = [
       { value: 1, text: "Step 2 : " + fpoJson.title },
       { value: 2, text: "Step 3 : " + flmJson.title },
-      { value: 3, text: "Step 4 : " + parentingJson.title }
+      { value: 3, text: "Step 4 : " + parentingJson.title },
     ];
 
     var formIndexArray = [];
@@ -53,18 +53,18 @@ export default {
                   type: "checkbox",
                   name: "forms",
                   title: "Which forms apply to you",
-                  choices: startChoiceArray
-                }
-              ]
-            }
+                  choices: startChoiceArray,
+                },
+              ],
+            },
           ],
-          title: "Select your forms"
-        }
+          title: "Select your forms",
+        },
       ],
-      title: "Start Your Application"
+      title: "Start Your Application",
     };
 
-    startChoiceArray.forEach(element => {
+    startChoiceArray.forEach((element) => {
       formIndexArray.push(element.value);
     });
 
@@ -77,7 +77,7 @@ export default {
         icon: "fa-headphones",
         pageIndex: 0,
         selected: true,
-        completed: false
+        completed: false,
       },
       {
         json: fpoJson,
@@ -85,7 +85,7 @@ export default {
         icon: "fa-users",
         pageIndex: 0,
         selected: true,
-        completed: false
+        completed: false,
       },
       {
         json: flmJson,
@@ -93,7 +93,7 @@ export default {
         icon: "fa-anchor",
         pageIndex: 0,
         selected: true,
-        completed: false
+        completed: false,
       },
       {
         json: parentingJson,
@@ -101,13 +101,13 @@ export default {
         icon: "fa-child",
         pageIndex: 0,
         selected: true,
-        completed: false
-      }
+        completed: false,
+      },
     ];
 
     this.$store.dispatch("setSurveyArray", surveyArray);
     this.$store.dispatch("setSurveyIndex", 0);
   },
-  methods: {}
+  methods: {},
 };
 </script>

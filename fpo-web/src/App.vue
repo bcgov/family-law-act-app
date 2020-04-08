@@ -1,10 +1,10 @@
 <template>
   <div class="app-outer fill-body" id="app">
-    <NavigationTopbar />
-    <main class="app-content fill-body">  
-       <router-view></router-view>
+    <navigation-topbar />
+    <main class="app-content fill-body">
+      <router-view></router-view>
     </main>
-    <NavigationFooter id="footer" />
+    <navigation-footer id="footer" />
   </div>
 </template>
 
@@ -15,11 +15,11 @@ export default {
   name: "app",
   components: {
     NavigationTopbar,
-    NavigationFooter
+    NavigationFooter,
   },
 
   data() {
     return {};
-  }
+  },
 };
 </script>

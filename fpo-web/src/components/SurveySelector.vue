@@ -1,7 +1,7 @@
 <template>
-  <div id="surveyselector" class="app-main">
+  <div id="survey-selector" class="app-main">
     <b-container>
-      <SurveyComponent
+      <survey-component
         v-for="(survey, index) in $store.getters.surveyArray"
         v-show="index === $store.getters.surveyIndex"
         v-bind:key="index"
@@ -22,10 +22,10 @@ export default {
   },
   created() {},
   components: {
-    SurveyComponent
+    SurveyComponent,
   },
   methods: {},
   props: {},
-  computed: {}
+  computed: {},
 };
 </script>

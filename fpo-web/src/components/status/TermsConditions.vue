@@ -4,14 +4,24 @@
       <div class="col-md-12">
         <h1>Register or Login</h1>
         <div class="intro">
-          <p>You will need a 'Basic BCeid' or a 'BC Services card' to access the Family Law Service. This will also enable you to securely access multiple other online government services.</p>
+          <p>
+            You will need a 'Basic BCeid' or a 'BC Services card' to access the
+            Family Law Service. This will also enable you to securely access
+            multiple other online government services.
+          </p>
           <div class="loginInfo-section">
             <hr class="section" />
             <div class="row">
               <div class="col-md-5">
                 <div class="section-heading">Login with basic BCeID</div>
-                <div>Once you login or register, you'll be taken back to this website</div>
-                <a class="btn btn-success btn-lg register-button" @click="navigate()">
+                <div>
+                  Once you login or register, you'll be taken back to this
+                  website
+                </div>
+                <a
+                  class="btn btn-success btn-lg register-button"
+                  @click="navigate()"
+                >
                   Next
                 </a>
               </div>
@@ -25,7 +35,10 @@
               </div>
               <div class="col-md-5">
                 <div class="section-heading">Login with BC Service Card</div>
-                <div>Once you login or register, you'll be taken back to this website</div>
+                <div>
+                  Once you login or register, you'll be taken back to this
+                  website
+                </div>
                 <a class="btn btn-success btn-lg register-button">
                   Next
                 </a>
@@ -40,18 +53,18 @@
 
 <script>
 export default {
-  name: "Terms",
-  props: ['userType'],
+  name: "TermsConditions",
+  props: ["userType"],
   data() {
     return {};
   },
   methods: {
     navigate() {
-      if(this.userType === 'new') {
-        this.$router.push({name: "serviceLocator"})
+      if (this.userType === "new") {
+        this.$router.push({ name: "serviceLocator" });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

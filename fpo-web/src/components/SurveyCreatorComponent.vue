@@ -1,5 +1,5 @@
 <template>
-  <div id="surveyCreatorComponent">
+  <div id="surveyCreator-component">
     <b-container>
       <hr />
       <h2>Survey Creator Component</h2>
@@ -19,7 +19,7 @@ import "survey-creator/survey-creator.css";
 SurveyCreator.StylesManager.applyTheme("bootstrap");
 
 export default {
-  name: "SurveyCreatorComponent",
+  name: "SurveycreatorComponent",
   data() {
     return {};
   },
@@ -29,10 +29,10 @@ export default {
       "surveyCreatorContainer",
       options
     );
-    this.container.saveSurveyFunc = function() {
+    this.container.saveSurveyFunc = function () {
       //console.log(JSON.stringify(this.text));
     };
-  }
+  },
 };
 </script>
 
