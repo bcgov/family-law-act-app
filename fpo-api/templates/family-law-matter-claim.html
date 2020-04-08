@@ -460,22 +460,44 @@
               <span>{{LawyerName.first}}</span>
               <span>{{LawyerName.middle}}</span>
               <span>{{LawyerName.last}}</span>
-            {% else %}
-              <span>blah</span>
             {% endif %}
           </td>
         </tr>
         <tr>
-          <td colspan="3">Address:  </td>
+          <td colspan="3">Address: 
+            {% if Lawyer == 'y' %}
+              {{LawyerAddress.street}}
+            {% endif %}
+          </td>
         </tr>
         <tr>
-          <td>City:  </td>
-          <td style="padding-left:50px">Province:  </td>
-          <td>Postal Code:  </td>
+          <td>City:
+            {% if Lawyer == 'y' %}
+              {{LawyerAddress.city}}
+            {% endif %}
+          </td>
+          <td style="padding-left:50px">Province:
+            {% if Lawyer == 'y' %}
+              {{LawyerAddress.state}}
+            {% endif %}
+          </td>
+          <td>Postal Code:
+            {% if Lawyer == 'y' %}
+              {{LawyerAddress.postcode}}
+            {% endif %}
+          </td>
         </tr>
         <tr>
-          <td>Email:  </td>
-          <td colspan="2" style="padding-left:150px">Telephone:  </td>
+          <td>Email:
+            {% if Lawyer == 'y' %}
+              {{LawyerContact.email}}
+            {% endif %}
+          </td>
+          <td colspan="2" style="padding-left:150px">Telephone:
+            {% if Lawyer == 'y' %}
+              {{LawyerContact.phone}}
+            {% endif %}
+          </td>
         </tr>
       </table>
 
@@ -485,7 +507,7 @@
 
 
     <!-- Question 2 -->
-    <section class="question" style="margin-top:1rem">
+    <section class="question" style="margin-top:0.3rem">
       <span class="check"></span>
       <span class="text-after-check">I understand any and all parents, step-parents, or current guardians of the child(ren) who are the subject of the family law matter, and/or my spouse, if I am asking for spousal support, need to be given notice of my claim by being served with a copy of this document.</span>
     </section>
@@ -497,6 +519,9 @@
       <div class="form-line" style="margin-bottom:0.4rem">
         <div class="form-line-child underline" style="min-width:15rem">
           &nbsp;
+          {{OtherPartyNameValue.0.OtherPartyName.first}}
+          {{OtherPartyNameValue.0.OtherPartyName.middle}}
+          {{OtherPartyNameValue.0.OtherPartyName.last}}
         </div>
         <div class="form-line-child hint">(full name of other party/parties)</div>
       </div>
@@ -507,57 +532,92 @@
 
       <table class="bordered border-rows">
         <tr >
-          <td>Full Name:  </td>
+          <td>Full Name: 
+            {{OtherPartyNameValue.0.OtherPartyName.first}}
+            {{OtherPartyNameValue.0.OtherPartyName.middle}}
+            {{OtherPartyNameValue.0.OtherPartyName.last}}
+          </td>
           <td></td>
-          <td>Date of Birth: </td>
+          <td>Date of Birth: {{ApplicantDOB}}</td>
         </tr>
         <tr>
           <td colspan="3"><b>Contact information and address for delivery</b></td>
         </tr>
         <tr>
-          <td colspan="3">Lawyer (if applicable):  </td>
+          <td colspan="3">Lawyer (if applicable): </td>
         </tr>
         <tr>
-          <td colspan="3">Address:  </td>
+          <td colspan="3">Address: 
+              {{OtherPartyNameValue.0.otherPartyAddress.street}}
+          </td>
         </tr>
         <tr>
-          <td>City:  </td>
-          <td style="padding-left:50px">Province:  </td>
-          <td>Postal Code:  </td>
+          <td>City:
+              {{OtherPartyNameValue.0.otherPartyAddress.city}}
+          </td>
+          <td style="padding-left:50px">Province:
+              {{OtherPartyNameValue.0.otherPartyAddress.state}}
+          </td>
+          <td>Postal Code:
+              {{OtherPartyNameValue.0.otherPartyAddress.postcode}}
+          </td>
         </tr>
         <tr>
-          <td>Email:  </td>
-          <td colspan="2" style="padding-left:150px">Telephone:  </td>
+          <td>Email:
+            <!-- Not in online form -->
+          </td>
+          <td colspan="2" style="padding-left:150px">Telephone:
+            <!-- Not in online form -->
+          </td>
         </tr>
       </table>
+
 
       <div><i>Additional party (Complete only if applicable, You may leave this section blank)</i></div>
 
+
       <table class="bordered border-rows">
         <tr >
-          <td>Full Name:  </td>
+          <td>Full Name: 
+            {{OtherPartyNameValue.1.OtherPartyName.first}}
+            {{OtherPartyNameValue.1.OtherPartyName.middle}}
+            {{OtherPartyNameValue.1.OtherPartyName.last}}
+          </td>
           <td></td>
-          <td>Date of Birth: </td>
+          <td>Date of Birth: {{ApplicantDOB}}</td>
         </tr>
         <tr>
           <td colspan="3"><b>Contact information and address for delivery</b></td>
         </tr>
         <tr>
-          <td colspan="3">Lawyer (if applicable):  </td>
+          <td colspan="3">Lawyer (if applicable): </td>
         </tr>
         <tr>
-          <td colspan="3">Address:  </td>
+          <td colspan="3">Address: 
+              {{OtherPartyNameValue.1.otherPartyAddress.street}}
+          </td>
         </tr>
         <tr>
-          <td>City:  </td>
-          <td style="padding-left:50px">Province:  </td>
-          <td>Postal Code:  </td>
+          <td>City:
+              {{OtherPartyNameValue.1.otherPartyAddress.city}}
+          </td>
+          <td style="padding-left:50px">Province:
+              {{OtherPartyNameValue.1.otherPartyAddress.state}}
+          </td>
+          <td>Postal Code:
+              {{OtherPartyNameValue.1.otherPartyAddress.postcode}}
+          </td>
         </tr>
         <tr>
-          <td>Email:  </td>
-          <td colspan="2" style="padding-left:150px">Telephone:  </td>
+          <td>Email:
+            <!-- Not in online form -->
+          </td>
+          <td colspan="2" style="padding-left:150px">Telephone:
+            <!-- Not in online form -->
+          </td>
         </tr>
       </table>
+
 
     </section>
 
@@ -567,11 +627,11 @@
       I have met the following early resolution requirements:
       <div>The requirements have been met if you attended at, participated in, or if you were granted an exemption from attending or participating. <i>Select all that apply.</i></div>
       <div>
-        <div>
+        <div class="check-line">
           <span class="check"></span>
           <span class="text-after-check">needs assessment</span>
         </div>
-        <div>
+        <div class="check-line">
           <span class="check"></span>
           <span class="text-after-check">parenting education program</span>
         </div>
