@@ -101,9 +101,9 @@ build-web-dev() {
     'centos/nodejs-10-centos7:10' \
     'fpo-vue-dev'
 
-  #docker build \
-  #  -t 'fpo-vue-on-nginx' \
-  #  -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
+  # docker build \
+  #   -t 'fpo-vue-on-nginx' \
+  #   -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
 }
 
 build-db() {

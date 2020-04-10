@@ -88,7 +88,7 @@ export default {
   methods: {
     navigate(userType) {
       this.$store.dispatch("setUserType", userType);
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: "login-page" });
     },
   },
 };

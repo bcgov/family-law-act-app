@@ -60,9 +60,9 @@ export default {
   methods: {
     navigate() {
       if (this.$store.getters.userType === "new") {
-        this.$router.push({ name: "serviceLocator" });
+        this.$router.push({ name: "service-locator" });
       } else if (this.$store.getters.userType === "returning") {
-        this.$router.push({ name: "status" });
+        this.$router.push({ name: "applicant-status" });
       }
     },
   },

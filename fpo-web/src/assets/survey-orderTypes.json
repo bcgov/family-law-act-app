@@ -1,0 +1,46 @@
+{
+  "title": "Provincial Court Family Law Act Protection Order",
+  "pages": [
+    {
+      "name": "Orders",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "OrdersTypes",
+          "title": "Please select what you are asking for. Later on you will be asked to provide details for each request.",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "protectionOrder",
+              "text": "Protection from family violence <br><br>When a family member makes you feel unsafe, this is called Family Violence. Family violence includes many things such as: physical abuse (or attempted abuse), emotional or mental abuse (stalking, threats, intimidation or harassment)<br>&nbsp;"
+            },
+            {
+              "value": "familyLawMatter",
+              "text": "Family Law Matters <br><br> Family Law Matters include: parenting arrangements, child support, contact with a child, guardianship and spousal support.<br>&nbsp;"
+            },
+            {
+              "value": "caseMgmt",
+              "text": "Case Management<br>&nbsp;"
+            },
+            {
+              "value": "priotityParenting",
+              "text": "Priority Parenting Matters<br>&nbsp;"
+            },
+            {
+              "value": "childReloc",
+              "text": "Relocation of a child<br>&nbsp;"
+            },
+            {
+              "value": "agreementEnfrc",
+              "text": "Enforcement of agreements and court orders<br>&nbsp;"
+            }
+          ]
+        }
+      ],
+      "title": "What are you asking for (`Orders`)?"
+    }
+  ],
+  "showCompletedPage": false,
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
