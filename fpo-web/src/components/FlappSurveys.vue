@@ -19,13 +19,14 @@ import fpoJson from "../assets/survey-fpo.json";
 //import fpoJson from "../assets/survey-primary-orig.json";
 import flmJson from "../assets/survey-flm.json";
 import parentingJson from "../assets/survey-parenting.json";
+import childJson from "../assets/child-details.json";
 
 export default {
   name: "FlappSurveys",
   components: {
     NavigationSidebar,
     SurveySelector,
-    PrintPage,
+    PrintPage
   },
   computed: {},
   data() {
@@ -35,7 +36,7 @@ export default {
     var startChoiceArray = [
       { value: 1, text: "Step 2 : " + fpoJson.title },
       { value: 2, text: "Step 3 : " + flmJson.title },
-      { value: 3, text: "Step 4 : " + parentingJson.title },
+      { value: 3, text: "Step 4 : " + childJson.title }
     ];
 
     var formIndexArray = [];
@@ -53,18 +54,18 @@ export default {
                   type: "checkbox",
                   name: "forms",
                   title: "Which forms apply to you",
-                  choices: startChoiceArray,
-                },
-              ],
-            },
+                  choices: startChoiceArray
+                }
+              ]
+            }
           ],
-          title: "Select your forms",
-        },
+          title: "Select your forms"
+        }
       ],
-      title: "Start Your Application",
+      title: "Start Your Application"
     };
 
-    startChoiceArray.forEach((element) => {
+    startChoiceArray.forEach(element => {
       formIndexArray.push(element.value);
     });
 
@@ -77,7 +78,7 @@ export default {
         icon: "fa-headphones",
         pageIndex: 0,
         selected: true,
-        completed: false,
+        completed: false
       },
       {
         json: fpoJson,
@@ -85,7 +86,7 @@ export default {
         icon: "fa-users",
         pageIndex: 0,
         selected: true,
-        completed: false,
+        completed: false
       },
       {
         json: flmJson,
@@ -93,21 +94,21 @@ export default {
         icon: "fa-anchor",
         pageIndex: 0,
         selected: true,
-        completed: false,
+        completed: false
       },
       {
-        json: parentingJson,
+        json: childJson,
         data: {},
         icon: "fa-child",
         pageIndex: 0,
         selected: true,
-        completed: false,
-      },
+        completed: false
+      }
     ];
 
     this.$store.dispatch("setSurveyArray", surveyArray);
     this.$store.dispatch("setSurveyIndex", 0);
   },
-  methods: {},
+  methods: {}
 };
 </script>
