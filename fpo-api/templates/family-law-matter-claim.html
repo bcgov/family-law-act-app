@@ -827,14 +827,24 @@
     </div>
 
     <div>
-      <span class="check"><span class="content">&#10004;</span></span>
+      <span class="check"><span class="content">
+        {% if childInfoValueName|length == 0 %}
+          &#10004;
+        {% endif %}
+      </span></span>
       <!-- <span class="check"><span class="content">X</span></span> -->
       <span class="text-after-check">
         My claim does not ask for any order(s) about a child or children.
       </span>
     </div>
     <div>
-      <span class="check"></span>
+      <span class="check">
+        <span class="content">
+          {% if childInfoValueName|length > 0 %}
+            &#10004;
+          {% endif %}
+        </span>
+      </span>
       <span class="text-after-check">
         My claim is asking for an order(s) about the following child or children:
       </span>
@@ -850,39 +860,99 @@
       </tr>
       <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            {{childInfoValueName.0.childName.first}}
+            {{childInfoValueName.0.childName.middle}}
+            {{childInfoValueName.0.childName.last}}
+          </td>
+          <td>
+            {{childInfoValueName.0.childDateOfBirth}}
+          </td>
+          <td>
+            {{childInfoValueName.0.relationToChild}}
+          </td>
+          <td>
+            {{childInfoValueName.0.childRelationToOtherParty}}
+          </td>
+          <td>
+            {{childInfoValueName.0.childCurrentlyLivingWith}}
+          </td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            {{childInfoValueName.1.childName.first}}
+            {{childInfoValueName.1.childName.middle}}
+            {{childInfoValueName.1.childName.last}}
+          </td>
+          <td>
+            {{childInfoValueName.1.childDateOfBirth}}
+          </td>
+          <td>
+            {{childInfoValueName.1.relationToChild}}
+          </td>
+          <td>
+            {{childInfoValueName.1.childRelationToOtherParty}}
+          </td>
+          <td>
+            {{childInfoValueName.1.childCurrentlyLivingWith}}
+          </td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            {{childInfoValueName.2.childName.first}}
+            {{childInfoValueName.2.childName.middle}}
+            {{childInfoValueName.2.childName.last}}
+          </td>
+          <td>
+            {{childInfoValueName.2.childDateOfBirth}}
+          </td>
+          <td>
+            {{childInfoValueName.2.relationToChild}}
+          </td>
+          <td>
+            {{childInfoValueName.2.childRelationToOtherParty}}
+          </td>
+          <td>
+            {{childInfoValueName.2.childCurrentlyLivingWith}}
+          </td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            {{childInfoValueName.3.childName.first}}
+            {{childInfoValueName.3.childName.middle}}
+            {{childInfoValueName.3.childName.last}}
+          </td>
+          <td>
+            {{childInfoValueName.3.childDateOfBirth}}
+          </td>
+          <td>
+            {{childInfoValueName.3.relationToChild}}
+          </td>
+          <td>
+            {{childInfoValueName.3.childRelationToOtherParty}}
+          </td>
+          <td>
+            {{childInfoValueName.3.childCurrentlyLivingWith}}
+          </td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>
+            {{childInfoValueName.4.childName.first}}
+            {{childInfoValueName.4.childName.middle}}
+            {{childInfoValueName.4.childName.last}}
+          </td>
+          <td>
+            {{childInfoValueName.4.childDateOfBirth}}
+          </td>
+          <td>
+            {{childInfoValueName.4.relationToChild}}
+          </td>
+          <td>
+            {{childInfoValueName.4.childRelationToOtherParty}}
+          </td>
+          <td>
+            {{childInfoValueName.4.childCurrentlyLivingWith}}
+          </td>
         </tr>
       </tbody>
     </table>
