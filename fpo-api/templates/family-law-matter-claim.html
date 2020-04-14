@@ -77,6 +77,15 @@
       height: 1em;
       font-size: 1.2em;
     }
+
+    span.check span.content {
+      display: inline-block;
+      position: absolute;
+      font-size: 1.1rem;
+      left: 0;
+      bottom: -1.2px;
+    }
+
     span.text-after-check {
       margin-left: 1.5rem;
     }
@@ -818,7 +827,8 @@
     </div>
 
     <div>
-      <span class="check"></span>
+      <span class="check"><span class="content">&#10004;</span></span>
+      <!-- <span class="check"><span class="content">X</span></span> -->
       <span class="text-after-check">
         My claim does not ask for any order(s) about a child or children.
       </span>
