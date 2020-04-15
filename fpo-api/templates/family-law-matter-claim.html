@@ -337,33 +337,43 @@
 
       .v-spacer-1 {
         min-height: 1rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-2 {
         min-height: 2rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-3 {
         min-height: 3rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-4 {
         min-height: 4rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-5 {
         min-height: 5rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-6 {
         min-height: 6rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-7 {
         min-height: 7rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-8 {
         min-height: 8rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-9 {
         min-height: 9rem;
+        padding: 0.2rem 1rem;
       }
       .v-spacer-10 {
         min-height: 10rem;
+        padding: 0.2rem 1rem;
       }
 
       .indent {
@@ -986,7 +996,8 @@
   <section class="question restart" style="margin-top:0.5rem">
     I am:
     <div>
-      <span class="check"></span>
+      <span class="check">
+      </span>
       <span class="text-after-check"> a guardian of the child(ren)</span>
     </div>
     <div class="indent">A child’s parents are most often the child’s guardians, but other people can be guardians too.</div>
@@ -1092,11 +1103,23 @@
 
   <section class="question restart" style="margin-top:0.7rem"> I am:
     <div>
-      <span class="check"></span>
+      <span class="check">
+          <span class="content">
+            {% if existingIsGuardian == "y" %}
+              &#10004;
+            {% endif %}
+        </span>
+      </span>
       <span class="text-after-check">a guardian of the child(ren)</span>
     </div>
     <div>
-      <span class="check"></span>
+      <span class="check">
+          <span class="content">
+            {% if doYouWantToApply == "y" %}
+              &#10004;
+            {% endif %}
+        </span>
+      </span>
       <span class="text-after-check">applying to become a guardian of the child(ren)</span>
     </div>
   </section>
@@ -1105,13 +1128,18 @@
     <div class="form-line check"></div>
     <div class="form-line">I am attaching a copy of the existing parenting order or written agreement made on</div>
     <div class="form-line">
-      <div class="form-line-child underline" style="min-width:12rem"></div>
+      <div class="form-line-child underline" style="min-width:12rem">
+        &nbsp;
+        {{dateOfOrder}}
+      </div>
       <div class="form-line-child hint">[date]</div>
     </div>
   </section>
 
   <section class="question">Since the order/written agreement was made, circumstances have changed as follows:
-    <div class="v-spacer-7"></div>
+    <div class="v-spacer-7">
+      {{describeChangeInCircumstances}}
+    </div>
   </section>
 
   <section class="question">I am asking for the existing:
@@ -1148,19 +1176,36 @@
   <section class="question">
     <i>Complete only if applicable. You may leave this section blank</i>
     <div>
-      <span class="check"></span>
+      <span class="check">
+          <span class="content">
+            {% if describeParentingTimeChanges|length > 0%}
+              &#10004;
+            {% endif %}
+          </span>
+      </span>
       <span class="text-after-check">I am asking for the parenting time schedule to be changed as follows:</span>
+    </div>
+    <div class="v-spacer-7">
+      {{describeParentingTimeChanges}}
     </div>
   </section>
 
-  <div class="v-spacer-7"></div>
 
 
   <section class="question">
     <i>Complete only if applicable. You may leave this section blank</i>
     <div>
-      <span class="check"></span>
+      <span class="check">
+          <span class="content">
+            {% if describeParentingArrangChanges|length > 0%}
+              &#10004;
+            {% endif %}
+          </span>
+      </span>
       <span class="text-after-check">I am asking for the conditions on my parenting time or the other guardian's parenting time to be changed as follows:</span>
+    </div>
+    <div class="v-spacer-7">
+      {{describeParentingArrangChanges}}
     </div>
   </section>
 
@@ -1170,14 +1215,27 @@
   <section class="question">
     <i>Complete only if applicable. You may leave this section blank</i>
     <div>
-      <span class="check"></span>
+      <span class="check">
+          <span class="content">
+            {% if describeParentingResChanges|length > 0%}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
+      </span>
       <span class="text-after-check">I am asking for the parenting responsibilities (who makes certain decisions about the child(ren) to be changed as follows:</span>
+    </div>
+    <div class="v-spacer-10">
+      {{describeParentingResChanges}}
     </div>
   </section>
 
-  <div class="v-spacer-10"></div>
 
-  <section class="question"> I believe the order I am asking for about the existing parenting order or written agreement is in the child(ren)'s best intersets because:</section>
+  <section class="question"> I believe the order I am asking for about the existing parenting order or written agreement is in the child(ren)'s best intersets because:
+    <div class="v-spacer-10">
+      {{describeChangesBestInt}}
+    </div>
+  </section>
 
   <!-- PAGE EIGHTH -->
   <div class="new-page"> </div>
