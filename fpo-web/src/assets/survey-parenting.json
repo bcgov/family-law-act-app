@@ -222,6 +222,7 @@
         "description": "<b><u>What if I don't have contact information for the other party?</u></b>\n<br>\n<br>\nIf you don't have contact information, you can leave any part of this section blank.  Provide as much information as you do have.  \n<br>\n<br>\nYou will still be required to arrange for service of court documents on the other party but you don't always need a physical address to do that.  You might know a place where the person goes regularly like a gym or a coffee shop.\n<br>\n<br>\nYou also have options to apply to the court for an order allowing you to serve the other party in another way or the court registry can work with you to make a search request for information about where the other party may be located."
        }
       ],
+      "panelCount": 1,
       "panelAddText": "Add Other Party",
       "panelRemoveText": "Remove Party"
      }
@@ -495,14 +496,14 @@
        {
         "type": "comment",
         "name": "describeHowTimeSpent",
-        "title": "Describe how and when you want the children to spend time with you",
+        "title": "Describe how and when you want the child(ren) to spend time with you",
         "description": "You can give as much detail as you would like to ask the court to include in the order.  You know your family.  If you think lots of detail is needed, make sure you make that clear here.\n<br>\n<br>\nConsider when a child should spend time with you, including special days like birthdays, holidays or cultural occasions, what drop offs and pick ups should look like, and any other important details you think should be included in the court order.",
         "isRequired": true
        },
        {
         "type": "yesno",
         "name": "isConditionPlaced",
-        "title": "Are you willing to have any conditions placed on the time you will spend with your children?",
+        "title": "Are you willing to have any conditions placed on the time you will spend with your child(ren)?",
         "description": "Consider if you should have any conditions on your parenting time. Conditions may include things like where the parenting time will take place or who else should or should not be around during parenting time. You may want to be specific about parenting time including bringing the child to activities, time with friends or important cultural experiences. Sometimes having conditions on the parenting time will make everyone feel more comfortable that the best interests of a child are being considered.",
         "isRequired": true
        },
@@ -517,14 +518,14 @@
        {
         "type": "comment",
         "name": "describeHowChildSpendTime",
-        "title": "Describe how and when you want the children to spend time with the other party.",
+        "title": "Describe how and when you want the child(ren) to spend time with the other party.",
         "description": "You can give as much detail as you would like to ask the court to include in the order.  You know your family.  If you think lots of detail is needed, make sure you make that clear here.\n<br>\n<br>\nConsider how you think your child should spend time with the other guardian, including special days like birthdays, holidays or cultural occasions, what drop offs and pick ups should look like, and any other important details you think should be included in the court order.",
         "isRequired": true
        },
        {
         "type": "yesno",
         "name": "anyOtherGuardianCondition",
-        "title": "Do you want any conditions placed on the time the other guardian(s) will spend with the children?",
+        "title": "Do you want any conditions placed on the time the other guardian(s) will spend with the child(ren)?",
         "description": "Consider you want the other party to have conditions on their parenting time.  Conditions may include things like where the parenting time will take place or who else should or should not be around during parenting time. You may want to be specific about parenting time including bringing the child to activities, time with friends or important cultural experiences.",
         "isRequired": true
        },
@@ -623,7 +624,7 @@
         "isRequired": true,
         "choices": [
          "Existing order about parenting arrangements",
-         "Existing arrangement about parenting arrangements",
+         "Existing agreement about parenting arrangements",
          "Neither"
         ]
        },
@@ -708,7 +709,7 @@
         ]
        }
       ],
-      "visibleIf": "{whichExistingForm} = \"Existing arrangement about parenting arrangements\""
+      "visibleIf": "{whichExistingForm} = \"Existing agreement about parenting arrangements\""
      },
      {
       "type": "panel",
@@ -754,13 +755,6 @@
         "visibleIf": "{anyChangeInOtherOrder} = \"y\"",
         "title": "Describe any other changes to the parenting order that you are asking for.",
         "description": "You can give as much detail as you would like to ask the court to include in the order, you do not need to use any special wording.  You know your family. ",
-        "isRequired": true
-       },
-       {
-        "type": "comment",
-        "name": "describeChangesBestInt",
-        "title": "Describe why you believe the order you are asking for is in the child(ren)'s best interests.",
-        "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n</ul>\n<br>\nYou do not need to use any special wording. The key is to be clear about why you think the court should make the parenting order.",
         "isRequired": true
        }
       ],
@@ -811,16 +805,17 @@
         "title": "Describe any other changes to the parenting agreement that you are asking for.",
         "description": "You can give as much detail as you would like to ask the court to include in the order, you do not need to use any special wording.  You know your family. ",
         "isRequired": true
-       },
-       {
-        "type": "comment",
-        "name": "describeAgreementBestInt",
-        "title": "Describe why you believe the agreement you are asking for is in the child(ren)'s best interests.",
-        "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n</ul>\n<br>\nYou do not need to use any special wording. The key is to be clear about why you think the court should make the parenting order.",
-        "isRequired": true
        }
       ],
-      "visibleIf": "{whichExistingForm} = \"Existing arrangement about parenting arrangements\" and {existingAgreementAsideReplaced} = \"Replaced\""
+      "visibleIf": "{whichExistingForm} = \"Existing agreement about parenting arrangements\" and {existingAgreementAsideReplaced} = \"Replaced\""
+     },
+     {
+      "type": "comment",
+      "name": "describeChangesBestInt",
+      "visibleIf": "{whichExistingForm} = \"Existing order about parenting arrangements\" or {whichExistingForm} = \"Existing agreement about parenting arrangements\"",
+      "title": "Describe why you believe the order you are asking for is in the child(ren)'s best interests.",
+      "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).\n<br>\n<br>\nTo determine what is in the child's best interests when making parenting arrangements, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n</ul>\n<br>\nYou do not need to use any special wording. The key is to be clear about why you think the court should make the parenting order.",
+      "isRequired": true
      }
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"y\" and {whichOrdersIncluded} contains \"Parenting arrangements including parental responsibilities and parenting time\"",
@@ -830,26 +825,59 @@
     "name": "Child Support",
     "elements": [
      {
-      "type": "radiogroup",
-      "name": "whoAmI",
-      "title": "I am",
-      "isRequired": true,
-      "hasOther": true,
-      "choices": [
-       "Parent or Guardian",
-       "Applying to become a guardian of the child(ren)"
-      ]
+      "type": "infotext",
+      "name": "childSupportFAQ1",
+      "title": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren).  A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.",
+      "titleLocation": "hidden"
      },
      {
-      "type": "radiogroup",
-      "name": "whoIsOtherParty",
-      "visibleIf": "{whoAmI} notempty",
-      "title": "The 'Other Party' is",
-      "isRequired": true,
-      "hasOther": true,
-      "choices": [
-       "A parent or guardian of the child(ren)",
-       "A person standing in the place of a parent to the child(ren) [for example step parent]"
+      "type": "panel",
+      "name": "newChildSupportPanel",
+      "elements": [
+       {
+        "type": "yesno",
+        "name": "whoAmI",
+        "title": "I am a parent or guardian of the child(ren)",
+        "isRequired": true
+       },
+       {
+        "type": "yesno",
+        "name": "applyingForGuardianChildSupp",
+        "visibleIf": "{whoAmI} = \"n\"",
+        "title": "I am applying to be a guardian of the child(ren)",
+        "isRequired": true
+       },
+       {
+        "type": "panel",
+        "name": "whoIsApplyingPanel",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "whoApplyForChildSuppFAQ",
+          "title": "An application for child support may be made by the child or a person acting on behalf of the child, or if the right to apply for an order is assigned to a minister under the Employment and Assistance Act or the Employment and Assistance for Persons with Disabilities Act, the minister to whom the right is assigned in the name of the government or the name of the person who made the assignment.",
+          "titleLocation": "hidden",
+          "messageStyle": "inline"
+         },
+         {
+          "type": "radiogroup",
+          "name": "whoIsApplying",
+          "title": "Please select from the options below:",
+          "isRequired": true,
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "isChild",
+            "text": "I am the child"
+           },
+           {
+            "value": "behalfOfChild",
+            "text": "I am a person acting on behalf of the child"
+           }
+          ]
+         }
+        ],
+        "visibleIf": "{applyingForGuardianChildSupp} = \"n\""
+       }
       ]
      },
      {
@@ -865,24 +893,29 @@
         "type": "comment",
         "name": "howTimeSpent",
         "title": "Describe how the child(ren) spend time with the parties",
+        "description": "The amount of time a child lives with each parent or guardian may determine who may be required to pay child support.  The time a child lives with each parent or guardian includes the time that they are responsible for the child, even if the child is not physically with them. \n<br>\n<br>\nIf the child lives with more than one parent or guardian try to describe the amount of time they live with each parent over a period of one year.  If you can estimate a percentage of time, it is helpful for the court.  For example, if they live two days a week with one parent and the rest with the other, they live approximately 30% of the time with the first parent and 70% with the other.\n<br>\n<br>\nIf you have more than one child and the living arrangements are different for each child, try to be clear about the amount of time a time each child lives with each parent.",
         "isRequired": true
        },
        {
         "type": "yesno",
         "name": "splitSharedTime",
-        "title": "Based on above, would you describe the arrangement as 'split or shared' parenting time?",
+        "title": "Based on above, would you describe the arrangement as `split parenting` or `shared parenting` time?",
+        "description": "Parenting time may be shared equally by the parents, split between the parents, with one or more children each living with a different parent, or the children may live only or primarily with one parent.",
         "isRequired": true
        },
        {
         "type": "comment",
         "name": "currentArrangements",
         "title": "The current support arrangements are as follows:",
+        "description": "You do not need to use any special wording.  Just explain to the court how the child(ren) is/are currently being looked after financially.  Include:  how much money are you receiving or paying for the support of the child(ren), how often and when did these payments begin or stop.",
         "isRequired": true
        },
        {
-        "type": "html",
-        "name": "myAnnualIncome",
-        "html": "<div class=\"sv_q_title\">My annual income is $ <input type=\"number\"/></div>"
+        "type": "yesno",
+        "name": "annualIncomeMoreLess",
+        "title": "Is your annual income $150,000 or less?",
+        "description": "When a parent has an income over $150,000, the Federal Child Support Guidelines may apply a little differently. This information will help to determine if you need to provide more financial information to the court.",
+        "isRequired": true
        },
        {
         "type": "yesno",
@@ -899,7 +932,8 @@
        {
         "type": "comment",
         "name": "otherPartyFacts",
-        "title": "I know the following facts about the other party's employment, training, health, and ability to work"
+        "title": "I know the following facts about the other party's employment, training, health, and ability to work:",
+        "description": "The court requires financial information to be able to decide on a fair and proper amount for child support.  The other party will be asked to give their own financial information to the court, but if they do not, the court may impute income (decide how much income a person makes or should be making).  The court will look at the information you have provided about the other party¿s income, if known, and anything you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training that they have, to make this decision. Only provide information you know. If you don¿t have any factual information, you can leave this section blank."
        },
        {
         "type": "checkbox",
@@ -958,6 +992,7 @@
         "type": "text",
         "name": "dateOfSupportPayment",
         "title": "Child support payments in this amount should start on",
+        "description": "Child support payments may start on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made, or the date of a new job.",
         "isRequired": true,
         "inputType": "date"
        },
@@ -970,7 +1005,8 @@
        {
         "type": "yesno",
         "name": "anyUndueHardship",
-        "title": "Would paying or receiving the 'guideline' amount cause you undue hardship?",
+        "title": "Would you like to apply to change the guideline amount payable because it would cause you undue `hardship`?",
+        "description": "If you believe that paying the guideline table amount for child support or receiving only the guideline table amount for child support would make you suffer financially to an excessive amount because of specific circumstances, you can ask the court to make the child support order for an amount that is different than the guideline table amount.",
         "isRequired": true
        },
        {
@@ -992,10 +1028,11 @@
         "type": "yesno",
         "name": "anySpecialExpenses",
         "title": "Are you claiming any special or extraordinary expenses?",
+        "description": "Special and extraordinary expenses are costs of raising a child that go above and beyond what is covered by the guideline table amount for child support.  The Federal Child Support Guidelines say that each parent or guardian must help pay for the special and extraordinary expenses for a child.  Usually, the amount is shared in proportion to the incomes of the parents or guardians.  Either parent or guardian can claim special and extraordinary expenses.",
         "isRequired": true
        }
       ],
-      "visibleIf": "{whoIsOtherParty} notempty"
+      "visibleIf": "{whoAmI} notempty"
      }
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Child Support\"",
@@ -1053,6 +1090,7 @@
         "type": "checkbox",
         "name": "howChildSupportNeedsChanged",
         "title": "Since the order was made how have the needs or circumstances changed?",
+        "description": "Family dynamics, income and finances change and children grow up.   A child support order or agreement that was made in the past may not make sense anymore.  The court can only change an order or agreement if there has been a change in circumstances since the original court order or written agreement was made, evidence was not available during the previous hearing that has become available or there was a lack financial disclosure discovered after the last order was made. \n<br>\n<br>\nSelect the all options that apply to help explain to the court what has changed that makes the existing order or agreement no longer appropriate.",
         "isRequired": true,
         "hasOther": true,
         "choices": [
@@ -1084,12 +1122,13 @@
         "name": "describeChildSupportChanged",
         "visibleIf": "{childSupportChangeCancel} = \"Changed\"",
         "title": "Describe the changes you want to the existing order",
+        "description": "Try to be clear about what part(s) of the existing order you want to keep and what may need to be changed.",
         "isRequired": true
        },
        {
         "type": "yesno",
         "name": "anyUnpaidChildSupport",
-        "title": "As of today, is there any unpaid child support?",
+        "title": "As of today, is there any unpaid child support(arrears)?",
         "isRequired": true
        },
        {
@@ -1101,7 +1140,7 @@
        {
         "type": "yesno",
         "name": "applyingToReduceChildSupport",
-        "title": "Are you applying to reduce the amount of unpaid child support?",
+        "title": "Are you applying to reduce the amount of unpaid child support(arrears)?",
         "isRequired": true
        },
        {
@@ -1154,7 +1193,8 @@
        {
         "type": "text",
         "name": "dateOfOrderOfChildSupport",
-        "title": "When do you want the order about child Support to start on?",
+        "title": "When should the order about child support start?",
+        "description": "Child support payments may start on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made, or the date of a new job.",
         "isRequired": true,
         "inputType": "date"
        },
@@ -1292,39 +1332,45 @@
       "name": "financialPanel",
       "elements": [
        {
-        "type": "yesno",
-        "name": "isFinancialStatComplete",
-        "title": "I have completed a Financial Statement",
-        "isRequired": true
-       },
-       {
         "type": "checkbox",
         "name": "childAgreementFinancialSelect",
-        "visibleIf": "{isFinancialStatComplete} = \"y\"",
-        "title": "Select all options that apply",
+        "title": "It is impossible for the court to decide a fair and proper amount for child support without complete, true and up-to-date financial information.  To determine if you must complete a Financial Statement to disclose your financials, select any option from the list that applies to your application:",
+        "description": "Select all options that apply",
         "isRequired": true,
         "choices": [
          "I am the payor",
          {
           "value": "there is split or shared parenting time",
-          "text": "&nbsp;&nbsp;there is split or shared parenting time",
-          "visibleIf": "{childAgreementFinancialSelect} = [\"I am the payor\"]"
+          "text": "There is split or shared parenting time"
          },
          {
           "value": "there is a child 19 years old or over for whom support is claimed",
-          "text": "&nbsp;&nbsp;there is a child 19 years old or over for whom support is claimed",
-          "visibleIf": "{childAgreementFinancialSelect} = [\"I am the payor\"]"
+          "text": "There is a child 19 years old or over for whom support is claimed"
          },
          {
           "value": "a party has been acting as a parent to a child of the other party",
-          "text": "&nbsp;&nbsp;a party has been acting as a parent to a child of the other party",
-          "visibleIf": "{childAgreementFinancialSelect} = [\"I am the payor\"]"
+          "text": "A party has been acting as a parent to a child of the other party"
          },
          "The paying parent earns more than $150,000 per year",
          "Special or extraordinary expenses are being claimed for a child",
          "I am claiming undue hardship",
          "None of the above"
         ]
+       },
+       {
+        "type": "yesno",
+        "name": "isFinancialStatComplete",
+        "visibleIf": "{childAgreementFinancialSelect} notcontains \"None of the above\"",
+        "title": "You are required to complete a Financial Statement, will you be able to complete the form to file with this application?",
+        "isRequired": true
+       },
+       {
+        "type": "infotext",
+        "name": "noFinStatWarning",
+        "visibleIf": "{isFinancialStatComplete} = \"n\"",
+        "title": "You will be required to complete an additional application to ask the court to be allowed to file this claim without a completed financial statement, this service will help you to complete the required form. If you are able to complete the form, please change your response to YES.",
+        "titleLocation": "hidden",
+        "messageStyle": "error"
        },
        {
         "type": "file",
@@ -1357,8 +1403,7 @@
        {
         "type": "yesno",
         "name": "undueHardshipFactSheet",
-        "title": "Are you or your spouse claiming undue hardship?",
-        "description": "If you our your spouse feel that the child support amount will not leave enough money, you can claim that you will suffer undue hardship.",
+        "title": "Are you or your spouse claiming special or extraordinary expenses?",
         "isRequired": true
        }
       ]
@@ -1368,14 +1413,66 @@
       "name": "factSheetPanel",
       "elements": [
        {
-        "type": "infotext",
-        "name": "factSheetFAQ",
-        "title": "Since you have previously indicated that you will be claiming undue hardship you will need to provide answers to the next set of questions. A claim for undue hardship can only be considered if the parent making the claim can show that their household’s standard of living is not higher than the standard of living in the household of the other parent. Often, income alone (which is all that is used to calculate the guideline amount) does not reflect other circumstances that may impact a households’ finances.",
-        "titleLocation": "hidden"
+        "type": "matrixdropdown",
+        "name": "expenseMatrix",
+        "title": "Since you have indicated that there are special or extraordinary expenses, we need you to answer the next set of questions.",
+        "isRequired": true,
+        "columns": [
+         {
+          "name": "Monthly",
+          "cellType": "text"
+         },
+         {
+          "name": "Annually",
+          "cellType": "expression",
+          "expression": "({row.monthly})*12",
+          "displayStyle": "currency",
+          "currency": "CAD"
+         }
+        ],
+        "choices": [
+         1,
+         2,
+         3,
+         4,
+         5
+        ],
+        "cellType": "text",
+        "rows": [
+         {
+          "value": "childCare",
+          "text": "Child care expenses for when the recipient works or goes to school"
+         },
+         {
+          "value": "healthCare",
+          "text": "Any healthcare premiums you pay to your employer or other provider to provide the coverage to your children rather than yourself"
+         },
+         {
+          "value": "healthExpenses",
+          "text": "Health related expenses that exceed insurance reimbursement by at least $100"
+         },
+         {
+          "value": "eduExpenses",
+          "text": "Extraordinary primary, secondary or other educational expenses "
+         },
+         {
+          "value": "schoolExpenses",
+          "text": "Post-secondary school expenses"
+         },
+         {
+          "value": "extraExpenses",
+          "text": "Extraordinary extracurricular activities  expenses"
+         },
+         {
+          "value": "total",
+          "text": "Total section 7 expenses"
+         }
+        ]
        },
        {
         "type": "matrixdynamic",
         "name": "debtsFactSheet",
+        "visible": false,
         "title": "Unusual or excessive debts",
         "description": "What are the unusual or excessive debts that you owe? These are debts that were taken on to support the family before you separated (e.g. student loans). The debt can also be due to earning a living (e.g. vehicle, specialized equipment).",
         "isRequired": true,
@@ -1408,6 +1505,7 @@
        {
         "type": "matrixdynamic",
         "name": "expenseFactSheet",
+        "visible": false,
         "title": "Unusually high expenses for parenting time, contact with, or access to a child.",
         "description": "For example, airfare and accommodation to visit the child in another city.",
         "isRequired": true,
@@ -1436,6 +1534,7 @@
        {
         "type": "matrixdynamic",
         "name": "supportingFactSheet",
+        "visible": false,
         "title": "Supporting another person",
         "description": "Legal duty to support any other person, such as a former spouse or a new spouse who is too ill or disabled to be able to support himself or herself.",
         "isRequired": true,
@@ -1466,6 +1565,7 @@
        {
         "type": "matrixdynamic",
         "name": "supportOtherChildFactSheet",
+        "visible": false,
         "title": "Supporting dependent child/children from another relationship.",
         "description": "List the names of any other children for whom you have a legal duty to make support payments to. ",
         "isRequired": true,
@@ -1496,6 +1596,7 @@
        {
         "type": "matrixdynamic",
         "name": "supportDisabledFactSheet",
+        "visible": false,
         "title": "Support for a disabled or ill person.",
         "isRequired": true,
         "columns": [
@@ -1525,11 +1626,13 @@
        {
         "type": "comment",
         "name": "anyOtherHardshipFactSheet",
+        "visible": false,
         "title": "Other undue hardship circumstances"
        },
        {
         "type": "matrixdynamic",
         "name": "otherIncomeFactSheet",
+        "visible": false,
         "title": "Income of Other Persons in Household",
         "description": "Enter the name (s) and income for any other persons in your household (e.g. co-parent, step parent) who have a duty to support a child.",
         "columns": [
@@ -1556,7 +1659,7 @@
        }
       ],
       "visibleIf": "{undueHardshipFactSheet} = \"y\"",
-      "title": "Fact Sheet E Undue Hardship"
+      "title": "Special or Extraordinary Expenses (Fact Sheet A)"
      }
     ],
     "visibleIf": "{whichOrdersIncluded} contains \"Child support\" and {isFinancialStatComplete} = \"n\" or {childAgreementFinancialSelect} = [\"None of the above\"] or {flmChoices} contains \"Child Support\" and {anyUndueHardship} = \"y\" or {anySpecialExpenses} = \"y\"",
@@ -1566,14 +1669,34 @@
     "name": "Contact With Child",
     "elements": [
      {
-      "type": "checkbox",
-      "name": "isGuardianChildContact",
-      "title": "If you are a guardian, you should select Parenting Arrangements forms. Please go back a step and select the correct form. If you are not a guardian, please acknowledge that below and continue with the form",
-      "isRequired": true,
-      "choices": [
+      "type": "panel",
+      "name": "contactWithChildPanel",
+      "elements": [
        {
-        "value": "notGuardian",
-        "text": "I am not a guardian of the child"
+        "type": "infotext",
+        "name": "contactWithChildFAQ",
+        "title": "Children often have important relationships with people other than their parents or guardians, including grandparents, relatives, and others close to the child. Usually these relationships are facilitated by the parents or guardians.\n\nIf an agreement about contact with a child is not possible, the person who believes they should have contact with the child can apply for a court order.  The court will make a decision about contact with the child based on the best interests of the child.",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "yesno",
+        "name": "isGuardianChildContact",
+        "title": "I am not a guardian of the child(ren)",
+        "isRequired": true
+       },
+       {
+        "type": "helptext",
+        "name": "guardianChildContactFAQ",
+        "title": "I am the child's/children's parent, does that mean I am their guardian?",
+        "titleLocation": "hidden",
+        "body": "A parent is a child's guardian if:\n<ul>\n<li>they lived with the other parent when the child was born,</li>\n<li>they care for the child regularly, but do not live with the child, or</li>\n<li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li>\n<li>there is no agreement or order that says they are not a guardian</li>\n</ul>\nA parent can become a guardian of a child through a court order or by an agreement with all of the other guardians of the child. A non-parent can become a guardian through a court order."
+       },
+       {
+        "type": "infotext",
+        "name": "childContactNotEligibleFAQ",
+        "visibleIf": "{isGuardianChildContact} = \"n\"",
+        "title": "You are not eligible to continue with this survey because you have indicated you are a guardian of the child(ren). You need to select 'Parenting Arrangements' to get parenting time with the child(ren). Please go back a step and select the correct option.",
+        "titleLocation": "hidden"
        }
       ]
      },
@@ -1584,14 +1707,14 @@
        {
         "type": "checkbox",
         "name": "listOfChildren",
-        "title": "Select child(ren) that you want to apply for",
+        "title": "Select each child that you want to apply to have contact with",
         "isRequired": true
        },
        {
         "type": "checkbox",
         "name": "typeOfContact",
         "title": "I am applying for contact with the child(ren) as follows",
-        "description": "Select all that applies",
+        "description": "The order will usually include details about how the contact will happen.  Tell the court and the other party what contact you are asking for.  Think about your relationship with the child(ren) and their parent(s)/guardian(s) to decide what the contact should look like.\n<br>\nSelect all that applies",
         "isRequired": true,
         "hasOther": true,
         "choices": [
@@ -1612,13 +1735,15 @@
         "type": "yesno",
         "name": "anyRestrictionOnChildContact",
         "title": "I am willing to have the conditions placed on my contact with the child(ren)",
+        "description": "Add the following information under the question:\n<br>\nSometimes, the court or the other party may only consider it in the best interests of the child(ren) for there to be conditions on your contact with the child(ren). Conditions may include:\n<ul>\n<li>Supervised visits</li>\n<li>Contact during specified times</li>\n<li>Contact only in a specific location</li>\n<li>Things a person has to do if they want contact with a child (for example, not use drugs or alcohol while with the child or not have guests over while the child is visiting)</li>\n</ul>",
         "isRequired": true
        },
        {
         "type": "comment",
         "name": "whatRestrictionsOnChildContact",
         "visibleIf": "{anyRestrictionOnChildContact} = \"y\"",
-        "title": "Describe the conditions you are willing to have on contact with child(ren)",
+        "title": "Describe the conditions you are willing to have on your contact with child(ren)",
+        "description": "If there are any conditions you are willing to have placed on your contact with the child(ren) be sure to include them in the space provided. ",
         "isRequired": true
        },
        {
@@ -1632,10 +1757,11 @@
         "type": "comment",
         "name": "contactChildInBestInterest",
         "title": "I believe the order about contact I am applying for is in the child(ren)'s best interests because:",
+        "description": "When you ask for a court order involving a child, you must consider what is in the best interest of the child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for the child(ren).\n<br>\nTo determine what is in the child¿s best interests when asking for contact with a child, you must consider factors including:\n<ul>\n<li>The child¿s emotional health and well-being</li>\n<li>The child¿s views, unless it would be inappropriate to consider them</li>\n<li>The child¿s relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n<li>You do not need to use any special wording.  The key is to be clear about why you think the court should make the contact order</li>\n</ul>",
         "isRequired": true
        }
       ],
-      "visibleIf": "{isGuardianChildContact} contains [\"notGuardian\"]"
+      "visibleIf": "{isGuardianChildContact} = \"y\""
      }
     ],
     "visibleIf": "{doYouWantToApply} = \"y\" and {flmChoices} notempty and {anyExistingOrdersAgreements} = \"n\" and {flmChoices} contains \"Contact with a child\"",
@@ -1783,18 +1909,30 @@
     "name": "Guardianship of a child",
     "elements": [
      {
-      "type": "checkbox",
-      "name": "whyAmIApplyingGuradianship",
-      "title": "I am applying",
-      "isRequired": true,
-      "choices": [
+      "type": "panel",
+      "name": "guardianshipPanel",
+      "elements": [
        {
-        "value": "appointGuardian",
-        "text": "To be appointed as a guardian of a child"
+        "type": "infotext",
+        "name": "guardianshipFAQ",
+        "title": "A guardian is responsible for a child.  Only guardians have parenting responsibilities and parenting time with a child. \n<br>\nA non-guardian parent can become a guardian of a child through a court order or by an agreement with all of the other guardians of the child.  A non-parent can become a guardian through a court order.\n<br>\nIn some cases, it may not be appropriate for a parent or guardian to remain a guardian.  A parent can be removed as guardian by agreement with all of the other guardians or court order.  If a parent is not a guardian, they can still have time with the child (contact) but will not have any parental responsibilities.",
+        "titleLocation": "hidden"
        },
        {
-        "value": "cancelGuardian",
-        "text": "To cancel a person's guardianship of a child"
+        "type": "checkbox",
+        "name": "whyAmIApplyingGuradianship",
+        "title": "I am applying",
+        "isRequired": true,
+        "choices": [
+         {
+          "value": "appointGuardian",
+          "text": "To be appointed as a guardian of a child"
+         },
+         {
+          "value": "cancelGuardian",
+          "text": "To cancel a person's guardianship of a child"
+         }
+        ]
        }
       ]
      },
@@ -1811,12 +1949,25 @@
        {
         "type": "radiogroup",
         "name": "appointGaurdianOptions",
-        "title": "Select on of the following options:",
+        "title": "Select one of the following options:",
         "isRequired": true,
         "choices": [
-         "I am able to complete a Guardianship Affidavit in Form 5 and file it along with this claim.",
-         "I am not able to complete a Guardianship Affidavit in Form 5 at this time and I have completed an Application for Case Management Order Without Notice or Appearance in Form 11 requesting to waive the requirement that this claim be filed with a completed affidavit."
+         {
+          "value": "I am able to complete a Guardianship Affidavit in Form 5 and file it along with this claim.",
+          "text": "I am able to complete a Guardianship Affidavit and file it along with this claim."
+         },
+         {
+          "value": "I am not able to complete a Guardianship Affidavit in Form 5 at this time and I have completed an Application for Case Management Order Without Notice or Appearance in Form 11 requesting to waive the requirement that this claim be filed with a completed affidavit.",
+          "text": "I am not able to complete a Guardianship Affidavit at this time and I have completed an Application for Case Management Order Without Notice or Appearance in Form 11 requesting to waive the requirement that this claim be filed with a completed affidavit."
+         }
         ]
+       },
+       {
+        "type": "helptext",
+        "name": "guardianAffiFAQ",
+        "title": "What is a Guardianship Affidavit?",
+        "titleLocation": "hidden",
+        "body": "There is an extra form that you have to complete when you are applying for guardianship.  It is called <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\">Affidavit Form 34</a>.  Before you can complete the affidavit, you must complete the following background checks referenced in the form:\n<ul>\n<li>A Ministry of Children and Family Development record check</li>\n<li>A protection order record check from the protection order registry, and</li>\n<li>A criminal record check</li>\n</ul>\nTo get a criminal records check, ask at the police station or RCMP detachment in your community.\n<br>\nTo get the Ministry of Children and Family Development and Protection Order Registry record checks, you must fill out:\n<ul>\n<li>a Section 51 - Consent for Child Protection Record Check, and</li>\n<li>a Request for Protection Order Registry Search</li>\n</ul>\nGive them to the court registry where you will be filing your application. The registry will let you know when the results from the record checks come in. The registry will then give you copies to attach to your affidavit.\n<br>\nIf you want to get an order quickly and you do not have time to get all the background checks first, you can apply to the court to be able to file the claim without the completed affidavit and request an interim order.\n<br>\nThis interim order will last 90 days. During this time, you must get the background checks and fill out and file the affidavit."
        }
       ],
       "visibleIf": "{whyAmIApplyingGuradianship} contains \"appointGuardian\""
@@ -1877,6 +2028,13 @@
           "text": "Applying to be appointed as a guardian of the child(ren)"
          }
         ]
+       },
+       {
+        "type": "infotext",
+        "name": "GuardianBestIntFAQ",
+        "title": "<div class=\"sv_q_title\">Best interests of the child</div>\nWhen you ask for a court order involving a child, you must consider what is in the best interests of the child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for the child(ren).\n<br>\n<br>\nTo determine what is in the child¿s best interests when asking for an order about guardianship, you must consider factors including:\n<ul>\n<li>The child's emotional health and well-being</li>\n<li>The child's views, unless it would be inappropriate to consider them</li>\n<li>The child's relationships with parents, guardians, and other important people</li>\n<li>The history of care, and</li>\n<li>The impact of any family violence</li>\n</ul>",
+        "titleLocation": "hidden",
+        "messageStyle": "inline"
        },
        {
         "type": "comment",
