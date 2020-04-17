@@ -484,25 +484,34 @@
         </tr>
         <tr>
           <td colspan="3">Address: 
-            {% if Lawyer == 'y' %}
-              {{LawyerAddress.street}}
+            <span>{{LawyerAddress.street}}</span>
+            {% if Lawyer == "y" %}
+            <span>{{LawyerAddress.street}}</span>
+            {% else %}
+            <span>{{ApplicantAddress.street}}</span>
             {% endif %}
           </td>
         </tr>
         <tr>
           <td>City:
-            {% if Lawyer == 'y' %}
-              {{LawyerAddress.city}}
+            {% if Lawyer == "y" %}
+            <span>{{LawyerAddress.city}}</span>
+            {% else %}
+            <span>{{ApplicantAddress.city}}</span>
             {% endif %}
           </td>
           <td style="padding-left:50px">Province:
             {% if Lawyer == 'y' %}
               {{LawyerAddress.state}}
+            {% else %}
+              {{ApplicantAddress.state}}
             {% endif %}
           </td>
           <td>Postal Code:
             {% if Lawyer == 'y' %}
               {{LawyerAddress.postcode}}
+            {% else %}
+              {{ApplicantAddress.postcode}}
             {% endif %}
           </td>
         </tr>
@@ -510,11 +519,15 @@
           <td>Email:
             {% if Lawyer == 'y' %}
               {{LawyerContact.email}}
+            {% else %}
+              {{ApplicantContact.email}}
             {% endif %}
           </td>
           <td colspan="2" style="padding-left:150px">Telephone:
             {% if Lawyer == 'y' %}
               {{LawyerContact.phone}}
+            {% else %}
+              {{ApplicantContact.phone}}
             {% endif %}
           </td>
         </tr>
@@ -674,13 +687,25 @@
     <div class="indent">
       <div style="margin-top:0.7rem"><b>Parenting</b></div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if flmChoices.0 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.1 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.2 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.3 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.4 == 'Parenting Arrangements including parental responsibilities and parenting time' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           parenting arrangements - new <i>[Complete and attach Schedule 1]</i>
         </span>
       </div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if whichOrdersIncluded.0 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.1 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.2 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.3 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.4 == 'Parenting Arrangements including parental responsibilities and parenting time' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           parenting order/written agreement - existing <i>[Complete and attach Schedule 2]</i>
         </span>
@@ -688,13 +713,25 @@
 
       <div style="margin-top:0.7rem"><b>Child Support</b></div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if flmChoices.0 == 'Child Support' or flmChoices.1 == 'Child Support' or flmChoices.2 == 'Child Support' or flmChoices.3 == 'Child Support' or flmChoices.4 == 'Child Support' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           child support - new <i>[Complete and attach Schedule 3]</i>
         </span>
       </div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if whichOrdersIncluded.0 == 'Child Support' or whichOrdersIncluded.1 == 'Child Support' or whichOrdersIncluded.2 == 'Child Support' or whichOrdersIncluded.3 == 'Child Support' or whichOrdersIncluded.4 == 'Child Support' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           child support order/written agreement - existing <i>[Complete and attach Schedule 4]</i>
         </span>
@@ -702,13 +739,25 @@
 
       <div style="margin-top:0.7rem"><b>Contact</b></div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if flmChoices.0 == 'Contact with a child' or flmChoices.1 == 'Contact with a child' or flmChoices.2 == 'Contact with a child' or flmChoices.3 == 'Contact with a child' or flmChoices.4 == 'Contact with a child' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           contact with a child - new <i>[Complete and attach Schedule 5]</i>
         </span>
       </div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if whichOrdersIncluded.0 == 'Contact with a child' or whichOrdersIncluded.1 == 'Contact with a child' or whichOrdersIncluded.2 == 'Contact with a child' or whichOrdersIncluded.3 == 'Contact with a child' or whichOrdersIncluded.4 == 'Contact with a child' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           contact order/written agreement - existing <i>[Complete and attach Schedule 6]</i>
         </span>
@@ -716,13 +765,25 @@
 
       <div style="margin-top:0.7rem"><b>Guardianship</b></div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if flmChoices.0 == 'Guardianship of a child' or flmChoices.1 == 'Guardianship of a child' or flmChoices.2 == 'Guardianship of a child' or flmChoices.3 == 'Guardianship of a child' or flmChoices.4 == 'Guardianship of a child' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           become a guardian <i>[Complete and attach Schedule 7]</i>
         </span>
       </div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if whichOrdersIncluded.0 == 'Guardianship of a child' or whichOrdersIncluded.1 == 'Guardianship of a child' or whichOrdersIncluded.2 == 'Guardianship of a child' or whichOrdersIncluded.3 == 'Guardianship of a child' or whichOrdersIncluded.4 == 'Guardianship of a child' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           cancel guardianship <i>[Complete and attach Schedule 8]</i>
         </span>
@@ -730,13 +791,25 @@
 
       <div style="margin-top:0.7rem"><b>Spousal Support</b></div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if flmChoices.0 == 'Spousal Support' or flmChoices.1 == 'Spousal Support' or flmChoices.2 == 'Spousal Support' or flmChoices.3 == 'Spousal Support' or flmChoices.4 == 'Spousal Support' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           spousal support - new <i>[Complete and attach Schedule 9]</i>
         </span>
       </div>
       <div>
-        <span class="check"></span>
+        <span class="check">
+          <span class="content">
+            {% if whichOrdersIncluded.0 == 'Spousal Support' or whichOrdersIncluded.1 == 'Spousal Support' or whichOrdersIncluded.2 == 'Spousal Support' or whichOrdersIncluded.3 == 'Spousal Support' or whichOrdersIncluded.4 == 'Spousal Support' %}
+              &#10004;
+            {% endif %}
+          </span>
+        </span>
         <span class="text-after-check">
           spousal support order/written agreement - existing <i>[Complete and attach Schedule 10]</i>
         </span>
