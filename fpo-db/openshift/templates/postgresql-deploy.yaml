@@ -48,8 +48,6 @@ objects:
             role: ${ROLE}
             env: ${TAG_NAME}
         spec:
-          nodeSelector:
-            aporeto-enforcerd: 'true'
           volumes:
             - name: "${NAME}-data"
               persistentVolumeClaim:
@@ -219,7 +217,7 @@ parameters:
     displayName: Persistent Volume Class name
     description: The class of the volume; gluster-file, gluster-block, gluster-file-db.
     required: false
-    value: gluster-file-db
+    value: netapp-file-standard
   - name: POSTGRESQL_DATABASE_NAME
     displayName: PostgreSQL Database Name
     description: The name of the PostgreSQL database.
