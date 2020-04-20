@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import NavigationTopbar from "./components/NavigationTopbar.vue";
 import NavigationFooter from "./components/NavigationFooter.vue";
 export default {

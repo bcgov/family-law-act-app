@@ -6,7 +6,7 @@ import ApplicantStatus from "@/components/status/ApplicantStatus.vue";
 import ChildrenTable from "@/components/ChildrenTable.vue";
 import { store } from "@/store";
 
-function userGuard(to, from, next) {
+function userGuard(to: any, from: any, next: any) {
   if (store.getters.userType) {
     next();
   } else {
