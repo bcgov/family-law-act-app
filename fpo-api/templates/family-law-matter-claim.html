@@ -835,7 +835,7 @@
     </div>
 
     <div><i>If you have checked this option, attach a copy of the agreement(s) and/or order(s) and list them here:</i></div>
-    <div class="v-spacer-6"></div>
+    <div class="v-spacer-5"></div>
   </section>
 
 
@@ -1052,6 +1052,7 @@
     </span>
   </section>
 
+  {% if flmChoices.0 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.1 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.2 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.3 == 'Parenting Arrangements including parental responsibilities and parenting time' or flmChoices.4 == 'Parenting Arrangements including parental responsibilities and parenting time' %}
   <!-- PAGE FOUR -->
   <div class="new-page"> </div>
 
@@ -1126,6 +1127,7 @@
       I am asking for the child(ren) to spend time with the other guardian(s) as follows:
     </div>
 
+  {% endif %}
 
 
     <!-- PAGE Five -->
@@ -1164,6 +1166,8 @@
 
   <section class="question">I believe the parenting arrangements I am asking for are in the child(rens)'s best interests because:</section>
 
+
+  {% if whichOrdersIncluded.0 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.1 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.2 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.3 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.4 == 'Parenting Arrangements including parental responsibilities and parenting time' %}
   <!-- PAGE SIX -->
   <div class="new-page"> </div>
 
@@ -1310,6 +1314,10 @@
     </div>
   </section>
 
+  {% endif %}
+
+
+  {% if flmChoices.0 == 'Child Support' or flmChoices.1 == 'Child Support' or flmChoices.2 == 'Child Support' or flmChoices.3 == 'Child Support' or flmChoices.4 == 'Child Support' %}
   <!-- PAGE EIGHTH -->
   <div class="new-page"> </div>
 
@@ -1697,7 +1705,10 @@
     <div><b>This family law case includes a claim for support. You must provide your financial information with your reply to this claim by completing and filing a Financial Statement in Form D.</b></div>
   </section>
 
+  {% endif %}
 
+
+  {% if whichOrdersIncluded.0 == 'Child Support' or whichOrdersIncluded.1 == 'Child Support' or whichOrdersIncluded.2 == 'Child Support' or whichOrdersIncluded.3 == 'Child Support' or whichOrdersIncluded.4 == 'Child Support' %}
   <!-- PAGE ELEVEN -->
   <div class="new-page"> </div>
 
@@ -1964,7 +1975,9 @@
   <div style="margin-top: 1.2rem"><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
   <div><b>If this family law case includes a claim to change an order or written agreement for support, you must provide financial information with your claim or reply to this claim by completing and filing a Financial Statement in Form D.</b></div>
 
+  {% endif %}
 
+  {% if flmChoices.0 == 'Contact with a child' or flmChoices.1 == 'Contact with a child' or flmChoices.2 == 'Contact with a child' or flmChoices.3 == 'Contact with a child' or flmChoices.4 == 'Contact with a child' %}
   <!-- PAGE THIRTEEN -->
   <div class="new-page"> </div>
 
@@ -2046,6 +2059,9 @@
     I believe the contact I am applying for is in the child(ren)'s best interests because:
   </section>
 
+  {% endif %}
+
+  {% if whichOrdersIncluded.0 == 'Contact with a child' or whichOrdersIncluded.1 == 'Contact with a child' or whichOrdersIncluded.2 == 'Contact with a child' or whichOrdersIncluded.3 == 'Contact with a child' or whichOrdersIncluded.4 == 'Contact with a child' %}
 
   <!-- PAGE FOURTEEN -->
   <div class="new-page"> </div>
@@ -2158,6 +2174,9 @@
     <div class="v-spacer-4"></div>
   </section>
 
+  {% endif %}
+
+  {% if flmChoices.0 == 'Guardianship of a child' or flmChoices.1 == 'Guardianship of a child' or flmChoices.2 == 'Guardianship of a child' or flmChoices.3 == 'Guardianship of a child' or flmChoices.4 == 'Guardianship of a child' %}
   <!-- PAGE SIXTEEN -->
   <div class="new-page"> </div>
 
@@ -2186,6 +2205,10 @@
       <span class="text-after-check">I am not able to complete an Affidavit in Form 34 at this time and I have completed an Application for Case Management Order Without Notice or Appearance requesting this claim be filed without a complete affidavit.</span>
     </div>
   </section>
+
+  {% endif %}
+
+  {% if whichOrdersIncluded.0 == 'Guardianship of a child' or whichOrdersIncluded.1 == 'Guardianship of a child' or whichOrdersIncluded.2 == 'Guardianship of a child' or whichOrdersIncluded.3 == 'Guardianship of a child' or whichOrdersIncluded.4 == 'Guardianship of a child' %}
 
   <!-- PAGE SEVENTEEN -->
   <div class="new-page"> </div>
@@ -2252,7 +2275,9 @@
 
   <section class="question"> I believe it is in the child(ren)’s best interests to cancel the guardianship of the person(s) listed in paragraph 1 because:</section>
 
+  {% endif %}
 
+  {% if flmChoices.0 == 'Spousal Support' or flmChoices.1 == 'Spousal Support' or flmChoices.2 == 'Spousal Support' or flmChoices.3 == 'Spousal Support' or flmChoices.4 == 'Spousal Support' %}
 
   <!-- PAGE EIGHTEEN -->
   <div class="new-page"> </div>
@@ -2405,6 +2430,9 @@
   <div style="margin-top:0.8rem"><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
   <div><b>This family law case includes a claim for support. You must provide your financial information with your claim or reply to this claim by completing and filing a Financial Statement in Form D.</b></div>
 
+  {% endif %}
+
+  {% if whichOrdersIncluded.0 == 'Spousal Support' or whichOrdersIncluded.1 == 'Spousal Support' or whichOrdersIncluded.2 == 'Spousal Support' or whichOrdersIncluded.3 == 'Spousal Support' or whichOrdersIncluded.4 == 'Spousal Support' %}
 
   <!-- PAGE NINETEENTH -->
   <div class="new-page"> </div>
@@ -2607,6 +2635,8 @@
 
   <div><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
   <div><b>This family law case includes a claim about support. You must provide your financial information with your claim or reply to this claim by completing and filing a Financial Statement in Form D.</b></div>
+
+  {% endif %}
 
   </div>
 </div>
