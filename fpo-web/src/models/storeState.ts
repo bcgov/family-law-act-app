@@ -1,5 +1,9 @@
 import { Step } from "./step";
 
+export interface RootState {
+  version: string;
+}
+
 export interface ApplicationState {
   // empty for now, persisted ID from database
   id?: string;
@@ -22,15 +26,13 @@ export interface ApplicationState {
 
   // updated by navigation or nested component
   // == step type
-  currentStep: string;
-
-  // updated by navigation or nested component
-  // == page key from current step
-  currentPage: string;
+  currentStep: number;
 
   // update as pages are updated
   allCompleted: boolean;
 
   // might be useful?
   lastPrinted?: Date;
+
+  userType: string;
 }

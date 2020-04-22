@@ -33,6 +33,8 @@ export default {
     return {};
   },
   beforeCreate() {
+    this.$store.dispatch("application/init");
+
     var startChoiceArray = [
       { value: 1, text: "Step 2 : " + fpoJson.title },
       { value: 2, text: "Step 3 : " + flmJson.title },
@@ -106,8 +108,9 @@ export default {
       }
     ];
 
-    this.$store.dispatch("setSurveyArray", surveyArray);
-    this.$store.dispatch("setSurveyIndex", 0);
+    //TODO - refactor
+    // this.$store.dispatch("setSurveyArray", surveyArray);
+    // this.$store.dispatch("setSurveyIndex", 0);
   },
   methods: {}
 };

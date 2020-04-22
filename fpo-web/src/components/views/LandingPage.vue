@@ -52,10 +52,7 @@
 
             <div class="row custom-align-survey-button">
               <div class="col-md-12">
-                <a
-                  class="btn btn-success btn-lg survey-button"
-                  @click="navigate('new')"
-                >
+                <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
                   <strong>New User</strong> - Let’s get started
                 </a>
               </div>
@@ -63,10 +60,7 @@
 
             <div class="row custom-align-login-button">
               <div class="col-md-12">
-                <a
-                  class="btn btn-default btn-md login-button"
-                  @click="navigate('returning')"
-                >
+                <a class="btn btn-default btn-md login-button" @click="navigate('returning')">
                   <strong>Returning User?</strong>
                   <br />Log in with BCeID
                 </a>
@@ -87,10 +81,11 @@ export default {
   },
   methods: {
     navigate(userType) {
-      this.$store.dispatch("setUserType", userType);
-      this.$router.push({ name: "login-page" });
-    },
-  },
+      this.$store.dispatch("application/setUserType", userType).then(() => {
+        this.$router.push({ name: "login-page" });
+      });
+    }
+  }
 };
 </script>
 

@@ -6,40 +6,38 @@
         <h3>Application Steps</h3>
       </div>
       <a
-        class="survey"
-        v-for="(survey, surveyIndex) in $store.getters.surveyArray"
-        v-show="survey.selected"
-        v-bind:key="surveyIndex"
-        v-bind:id="getSurveyId(surveyIndex)"
-        v-bind:index="surveyIndex"
+        class="step"
+        v-for="(step, stepIndex) in getNavigation()"
+        v-show="step.active"
+        v-bind:key="stepIndex"
+        v-bind:id="getStepId(stepIndex)"
+        v-bind:index="stepIndex"
         v-bind:class="{
           current:
-            surveyIndex === $store.getters.surveyIndex &&
-            !$store.getters.allCompleted,
+            isCurrentStep(stepIndex) &&
+            !isAllCompleted(),
         }"
-        v-on:click="onSelectSurvey($event)"
+        v-on:click="onSelectStep($event)"
       >
-        <div class="survey-header">
+        <div class="step-header">
           <div class="header-icon">
-            <i v-bind:class="['fa', survey.icon]"></i>
+            <i v-bind:class="['fa', step.icon]"></i>
           </div>
           <div class="header-text">
             <div class="text-step">
-              STEP {{ surveyIndex + 1 }}
-              <i v-show="survey.completed" class="fa fa-check" />
+              STEP {{ stepIndex + 1 }}
+              <i v-show="false" class="fa fa-check" />
             </div>
-            <div class="text-title">
-              {{ survey.json.title }}
-            </div>
+            <div class="text-title">{{ step.label }}</div>
           </div>
         </div>
         <div
-          class="survey-pages"
-          v-bind:id="getSurveyGroupId(surveyIndex)"
-          v-bind:index="surveyIndex"
+          class="step-pages"
+          v-bind:id="getStepGroupId(stepIndex)"
+          v-bind:index="stepIndex"
           v-bind:style="
-            surveyIndex === $store.getters.surveyIndex &&
-            !$store.getters.allCompleted
+            isCurrentStep(stepIndex) &&
+            !isAllCompleted()
               ? 'display: block;'
               : 'display: none;'
           "
@@ -47,39 +45,35 @@
           <ul>
             <li
               tabindex="1"
-              v-for="(page, pageIndex) in survey.json.pages"
+              v-for="(page, pageIndex) in step.pages"
               v-bind:key="pageIndex"
-              v-bind:id="getSurveyPageId(surveyIndex, pageIndex)"
+              v-bind:id="getStepPageId(stepIndex, pageIndex)"
               v-bind:index="pageIndex"
               v-bind:class="{
-                current: pageIndex === survey.pageIndex,
+                current: pageIndex === step.currentPage,
               }"
               v-on:click="onSelectPage($event)"
             >
-              <div class="survey-pages">
-                {{ page.title }}
-              </div>
+              <div class="step-pages">{{ page.label }}</div>
             </li>
           </ul>
         </div>
       </a>
-      <div class="survey separate"></div>
+      <div class="step separate"></div>
       <div
-        class="survey"
+        class="step"
         v-bind:class="{
-          disabled: !$store.getters.allCompleted,
-          current: $store.getters.allCompleted,
+          disabled: !isAllCompleted(),
+          current: isAllCompleted(),
         }"
       >
-        <div class="survey-header">
-          <div class="header-icon"><i class="fa fa-print"></i></div>
+        <div class="step-header">
+          <div class="header-icon">
+            <i class="fa fa-print"></i>
+          </div>
           <div class="header-text">
-            <div class="text-step">
-              STEP {{ $store.getters.surveyArray.length + 1 }}
-            </div>
-            <div class="text-title">
-              Print Application Forms
-            </div>
+            <div class="text-step">STEP {{ getNavigation().length + 1 }}</div>
+            <div class="text-title">Print Application Forms</div>
           </div>
         </div>
       </div>
@@ -88,22 +82,24 @@
 </template>
 
 <script>
+import Step from "../models/step";
+
 export default {
   name: "NavigationSidebar",
   data() {
     return {};
   },
   methods: {
-    onSelectSurvey: function (event) {
-      var currIndex = this.$store.getters.surveyIndex;
-      var curr = document.getElementById(this.getSurveyId(currIndex));
+    onSelectStep: function(event) {
+      var currIndex = this.$store.getters["application/getCurrentStep"];
+      var curr = document.getElementById(this.getStepId(currIndex));
       var currChildGroup = document.getElementById(
-        this.getSurveyGroupId(currIndex)
+        this.getStepGroupId(currIndex)
       );
       var next = event.currentTarget;
       var nextIndex = parseInt(next.getAttribute("index"));
       var nextChildGroup = document.getElementById(
-        this.getSurveyGroupId(nextIndex)
+        this.getStepGroupId(nextIndex)
       );
 
       if (curr == next) {
@@ -118,18 +114,17 @@ export default {
         currChildGroup.style.display = "none";
       }
 
-      this.$store.dispatch("setSurveyIndex", nextIndex);
+      this.$store.dispatch("application/setCurrentStep", nextIndex);
 
       // hack
-      this.$store.dispatch("setSurveyIncomplete", nextIndex);
+      this.$store.dispatch("setStepIncomplete", nextIndex);
     },
     //TODO: This is where the step is selected
-    onSelectPage: function (event) {
-      var currSurveyIndex = this.$store.getters.surveyIndex;
-      var currPageIndex = this.$store.getters.surveyArray[currSurveyIndex]
-        .pageIndex;
+    onSelectPage: function(event) {
+      var currStepIndex = this.$store.getters["application/getCurrentStep"];
+      var currPageIndex = this.getNavigation()[currStepIndex].currentPage;
       var currPage = document.getElementById(
-        this.getSurveyPageId(currSurveyIndex, currPageIndex)
+        this.getStepPageId(currStepIndex, currPageIndex)
       );
 
       var nextPage = event.currentTarget;
@@ -145,22 +140,34 @@ export default {
         }
       }
 
-      this.$store.dispatch("setSurveyPageIndex", {
-        surveyIndex: currSurveyIndex,
-        pageIndex: nextPageIndex,
+      this.$store.dispatch("application/setCurrentStepPage", {
+        currentStep: currStepIndex,
+        currentPage: nextPageIndex
       });
     },
-    getSurveyId: function (surveyIndex) {
-      return "survey-" + surveyIndex;
+    getNavigation: function() {
+      var steps = this.$store.getters["application/getNavigation"];
+
+      return steps;
     },
-    getSurveyGroupId: function (surveyIndex) {
-      return this.getSurveyId(surveyIndex) + "-group";
+    isCurrentStep: function(stepIndex) {
+      return this.$store.getters["application/getCurrentStep"] === stepIndex;
     },
-    getSurveyPageId: function (surveyIndex, pageIndex) {
-      return this.getSurveyId(surveyIndex) + "-page-" + pageIndex;
+    isAllCompleted: function() {
+      return this.$store.getters["application/isAllCompleted"];
     },
+    // ----- old methods below
+    getStepId: function(stepIndex) {
+      return "step-" + stepIndex;
+    },
+    getStepGroupId: function(stepIndex) {
+      return this.getStepId(stepIndex) + "-group";
+    },
+    getStepPageId: function(stepIndex, pageIndex) {
+      return this.getStepId(stepIndex) + "-page-" + pageIndex;
+    }
   },
-  props: {},
+  props: {}
 };
 </script>
 
@@ -261,10 +268,10 @@ $link-active-color: #349;
 $link-current-color: $gov-white;
 $link-hover-color: #57d;
 $link-disabled-color: #777;
-$survey-header-current-color: #fcba19;
-$survey-header-hover-color: #efefef;
+$step-header-current-color: #fcba19;
+$step-header-hover-color: #efefef;
 
-.survey-header {
+.step-header {
   flex-flow: row nowrap;
   background: #eee;
   display: flex;
@@ -304,7 +311,7 @@ $survey-header-hover-color: #efefef;
   }
 }
 
-.survey-pages {
+.step-pages {
   margin: 0;
   width: 100%;
   ul {
@@ -328,7 +335,7 @@ $survey-header-hover-color: #efefef;
   }
 }
 
-.survey {
+.step {
   cursor: pointer;
   display: block;
   list-style-type: none;
@@ -337,7 +344,7 @@ $survey-header-hover-color: #efefef;
   padding: 0;
   &.disabled {
     cursor: not-allowed;
-    .survey-header {
+    .step-header {
       .header-icon,
       .header-text {
         border-color: $link-disabled-color;
@@ -346,7 +353,7 @@ $survey-header-hover-color: #efefef;
     }
   }
   &.current {
-    .survey-header {
+    .step-header {
       background: $gov-gold;
       display: flex;
       list-style-type: none;

@@ -2,8 +2,8 @@ import Vue from "vue";
 import App from "@/App.vue";
 import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
-import routes from "@/routes.ts";
-import { store } from "@/store";
+import routes from "@/routes";
+import GlobalStore from "@/store";
 
 import "@/styles/index.scss";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -21,6 +21,6 @@ const router = new VueRouter({ routes: routes, mode: "history" });
 new Vue({
   router: router,
   render: (h) => h(App),
-  store,
+  store: GlobalStore.getInstance(),
   data: {},
 }).$mount("#app");

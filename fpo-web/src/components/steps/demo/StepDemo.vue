@@ -3,34 +3,23 @@
     <b-container class="fill-body">
       <br />
       <div v-if="!isAdding">
-        <h2>List of Children</h2>
+        <h2>Children Details</h2>
         <table class="table" border="1">
           <thead>
             <tr>
-              <th v-for="(value, index) in columnJson" :key="index">
-                {{ value }}
-              </th>
+              <th v-for="(value, index) in columnJson" :key="index">{{ value }}</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item, itemIndex) in items" :key="itemIndex">
-              <td
-                v-for="(value, key, columnIndex) in columnJson"
-                :key="columnIndex"
-              >
-                {{ item[key] }}
-              </td>
+              <td v-for="(value, key, columnIndex) in columnJson" :key="columnIndex">{{ item[key] }}</td>
             </tr>
           </tbody>
         </table>
 
         <div class="survey-nav">
           <div class="survey-nav-right">
-            <button
-              type="submit"
-              class="btn btn-primary btn-lg"
-              v-on:click="onInitiateAddChild"
-            >
+            <button type="submit" class="btn btn-primary btn-lg" v-on:click="onInitiateAddChild">
               <span class="fa fa-plus btn-icon-left"></span> Add a child
             </button>
           </div>
@@ -43,10 +32,7 @@
         <br />
         <div class="survey-nav">
           <div class="survey-nav-right">
-            <button
-              v-on:click="onCompleteAddChild()"
-              class="btn btn-success btn-lg"
-            >
+            <button v-on:click="onCompleteAddChild()" class="btn btn-success btn-lg">
               <span class="fa fa-check-circle btn-icon-left"></span> Add
             </button>
           </div>
@@ -58,11 +44,11 @@
 
 <script>
 import * as SurveyVue from "survey-vue";
-import { addQuestionTypes } from "./question-types.ts";
-import childJson from "../assets/child-details.json";
+import { addQuestionTypes } from "@/components/question-types.ts";
+import childJson from "@/assets/child-details.json";
 
 export default {
-  name: "ChildrenTable",
+  name: "StepDemo",
   data() {
     return {
       items: [],
@@ -148,5 +134,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../styles/survey";
+@import "../../../styles/survey";
 </style>

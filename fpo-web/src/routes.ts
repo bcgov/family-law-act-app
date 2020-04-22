@@ -3,11 +3,13 @@ import LoginPage from "@/components/views/LoginPage.vue";
 import ServiceLocator from "@/components/views/ServiceLocator.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicantStatus from "@/components/status/ApplicantStatus.vue";
-import ChildrenTable from "@/components/ChildrenTable.vue";
-import { store } from "@/store";
+import StepDemo from "@/components/steps/demo/StepDemo.vue";
+import GlobalStore from "@/store";
 
 function userGuard(to: any, from: any, next: any) {
-  if (store.getters.userType) {
+  var store = GlobalStore.getInstance();
+
+  if (store.getters["application/getUserType"]) {
     next();
   } else {
     next({ path: "/" });
@@ -29,7 +31,7 @@ const routes = [
   },
   { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
   { path: "/status", name: "applicant-status", component: ApplicantStatus },
-  { path: "/kids", name: "children-table", component: ChildrenTable },
+  { path: "/step-demo", name: "step-demo", component: StepDemo },
 ];
 
 export default routes;
