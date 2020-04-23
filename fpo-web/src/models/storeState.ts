@@ -35,4 +35,6 @@ export interface ApplicationState {
   lastPrinted?: Date;
 
   userType: string;
+
+  userName: string;
 }

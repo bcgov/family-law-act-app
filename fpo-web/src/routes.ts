@@ -3,7 +3,6 @@ import LoginPage from "@/components/views/LoginPage.vue";
 import ServiceLocator from "@/components/views/ServiceLocator.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicantStatus from "@/components/status/ApplicantStatus.vue";
-import StepDemo from "@/components/steps/demo/StepDemo.vue";
 import GlobalStore from "@/store";
 
 function userGuard(to: any, from: any, next: any) {
@@ -31,7 +30,6 @@ const routes = [
   },
   { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
   { path: "/status", name: "applicant-status", component: ApplicantStatus },
-  { path: "/step-demo", name: "step-demo", component: StepDemo },
 ];
 
 export default routes;

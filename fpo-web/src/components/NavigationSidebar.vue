@@ -52,6 +52,7 @@
               v-bind:class="{
                 current: pageIndex === step.currentPage,
               }"
+              v-show="page.active"
               v-on:click="onSelectPage($event)"
             >
               <div class="step-pages">{{ page.label }}</div>
@@ -115,9 +116,6 @@ export default {
       }
 
       this.$store.dispatch("application/setCurrentStep", nextIndex);
-
-      // hack
-      this.$store.dispatch("setStepIncomplete", nextIndex);
     },
     //TODO: This is where the step is selected
     onSelectPage: function(event) {
@@ -156,7 +154,6 @@ export default {
     isAllCompleted: function() {
       return this.$store.getters["application/isAllCompleted"];
     },
-    // ----- old methods below
     getStepId: function(stepIndex) {
       return "step-" + stepIndex;
     },

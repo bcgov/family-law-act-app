@@ -6,8 +6,9 @@ import { MutationTree } from "vuex";
 export const mutations: MutationTree<ApplicationState> = {
   init(state) {
     state.allCompleted = false;
-    state.currentStep = 1;
+    state.currentStep = 0;
     state.type = "default";
+    state.userName = "Your name";
 
     state.steps = new Array<Step>();
 
@@ -15,23 +16,25 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.active = true;
     s.id = "1";
-    s.label = "Protection Order";
+    s.label = "Demo - Get Started";
     s.icon = "fa-users";
     s.lastUpdate = null;
-    s.type = "fpo";
+    s.type = "stepDemoGetStarted";
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
     var p = new Page();
-    p.key = "1";
+    p.key = "0";
     p.label = "Getting Started";
+    p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
 
     p = new Page();
-    p.key = "2";
+    p.key = "1";
     p.label = "Your information";
+    p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
@@ -42,16 +45,25 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.active = true;
     s.id = "2";
-    s.label = "Family Law Matters";
+    s.label = "Demo - FLM";
     s.icon = "fa-child";
     s.lastUpdate = null;
-    s.type = "flm";
+    s.type = "stepDemoFlm";
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
     var p = new Page();
+    p.key = "0";
+    p.label = "Introduction";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+    p = new Page();
     p.key = "1";
-    p.label = "Parental Details";
+    p.label = "Parental Information";
+    p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
@@ -59,6 +71,7 @@ export const mutations: MutationTree<ApplicationState> = {
     p = new Page();
     p.key = "2";
     p.label = "Children Details";
+    p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
@@ -73,5 +86,11 @@ export const mutations: MutationTree<ApplicationState> = {
   },
   setCurrentStepPage(state, { currentStep, currentPage }) {
     state.steps[currentStep].currentPage = currentPage;
+  },
+  setUserName(state, userName) {
+    state.userName = userName;
+  },
+  setStepActive(state, { currentStep, active }) {
+    state.steps[currentStep].active = active;
   },
 };

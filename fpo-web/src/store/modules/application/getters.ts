@@ -22,4 +22,7 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   isAllCompleted(state: ApplicationState): boolean {
     return state.allCompleted;
   },
+  getUserName(state: ApplicationState): string {
+    return state.userName;
+  },
 };

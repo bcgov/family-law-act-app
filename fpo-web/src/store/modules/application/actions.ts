@@ -15,4 +15,10 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   setCurrentStepPage(context, { currentStep, currentPage }) {
     context.commit("setCurrentStepPage", { currentStep, currentPage });
   },
+  setUserName(context, userName) {
+    context.commit("setUserName", userName);
+  },
+  setStepActive(context, { currentStep, active }) {
+    context.commit("setStepActive", { currentStep, active });
+  },
 };

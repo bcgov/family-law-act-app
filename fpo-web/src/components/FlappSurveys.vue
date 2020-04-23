@@ -2,7 +2,11 @@
   <div class="fill-body" id="flapp-surveys">
     <main class="app-content">
       <navigation-sidebar />
-      <survey-selector v-show="!$store.getters.allCompleted" />
+      <!-- <survey-selector v-show="getCurrentStepIndex() != 1" /> -->
+      <!-- <step-base v-show="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></step-base> -->
+      <step-demo-start v-show="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></step-demo-start>
+      <step-demo-flm v-show="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></step-demo-flm>
+
       <print-page v-show="$store.getters.allCompleted" />
       <!--SurveyCreatorComponent /-->
     </main>
@@ -21,11 +25,18 @@ import flmJson from "../assets/survey-flm.json";
 import parentingJson from "../assets/survey-parenting.json";
 import childJson from "../assets/child-details.json";
 
+import StepDemoFlm from "./steps/demo-flm/StepDemoFlm.vue";
+import StepDemoStart from "./steps/demo-start/StepDemoStart.vue";
+import StepBase from "./steps/StepBase.vue";
+
 export default {
   name: "FlappSurveys",
   components: {
     NavigationSidebar,
     SurveySelector,
+    StepDemoFlm,
+    StepDemoStart,
+    StepBase,
     PrintPage
   },
   computed: {},
@@ -112,6 +123,16 @@ export default {
     // this.$store.dispatch("setSurveyArray", surveyArray);
     // this.$store.dispatch("setSurveyIndex", 0);
   },
-  methods: {}
+  methods: {
+    getCurrentStepIndex() {
+      return this.$store.getters["application/getCurrentStep"];
+    },
+
+    getStep(stepIndex) {
+      var step = this.$store.getters["application/getNavigation"][stepIndex];
+
+      return step;
+    }
+  }
 };
 </script>

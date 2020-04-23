@@ -1,57 +1,23 @@
 <template>
-  <div class="survey-container contentcontainer codecontainer">
-    <b-container class="fill-body">
-      <br />
-      <div v-if="!isAdding">
-        <h2>Children Details</h2>
-        <table class="table" border="1">
-          <thead>
-            <tr>
-              <th v-for="(value, index) in columnJson" :key="index">{{ value }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, itemIndex) in items" :key="itemIndex">
-              <td v-for="(value, key, columnIndex) in columnJson" :key="columnIndex">{{ item[key] }}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="survey-nav">
-          <div class="survey-nav-right">
-            <button type="submit" class="btn btn-primary btn-lg" v-on:click="onInitiateAddChild">
-              <span class="fa fa-plus btn-icon-left"></span> Add a child
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div v-if="isAdding">
-        <survey v-bind:survey="survey"></survey>
-
-        <br />
-        <div class="survey-nav">
-          <div class="survey-nav-right">
-            <button v-on:click="onCompleteAddChild()" class="btn btn-success btn-lg">
-              <span class="fa fa-check-circle btn-icon-left"></span> Add
-            </button>
-          </div>
-        </div>
-      </div>
-    </b-container>
-  </div>
+  <page-base
+    v-bind:page="page"
+  >This is the Family Law Matter step. In this step we will be collecting the parental information and children details needed to complete the application.</page-base>
 </template>
 
 <script>
 import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
 import childJson from "@/assets/child-details.json";
+import PageBase from "../PageBase.vue";
+import { Page } from "../../../models/page";
 
 export default {
-  name: "StepDemo",
+  name: "PageChildrenDetails",
+  components: {
+    PageBase
+  },
   data() {
     return {
-      items: [],
       columnJson: {
         id: "ID",
         first_name: "First Name",
@@ -108,8 +74,8 @@ export default {
     },
 
     onSurveyComplete(survey) {
-      this.items.push({
-        id: this.items.length + 1,
+      this.childrenDetailsList.push({
+        id: this.childrenDetailsList.length + 1,
         first_name: survey.data.childName.first,
         last_name: survey.data.childName.last,
         relationship: survey.data.relationToChild,
@@ -123,7 +89,10 @@ export default {
       survey.clear(true, true);
     }
   },
-  props: {},
+  props: {
+    page: Page,
+    childrenDetailsList: Array
+  },
   watch: {
     pageIndex: function(newVal) {
       this.survey.currentPageNo = newVal;

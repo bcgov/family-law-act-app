@@ -12,6 +12,7 @@ export const state: ApplicationState = {
   currentStep: 1,
   allCompleted: false,
   userType: "",
+  userName: "",
 };
 
 const namespaced = true;
