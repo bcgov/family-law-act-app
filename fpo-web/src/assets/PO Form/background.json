@@ -1,0 +1,159 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+     {
+      "name": "Background",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "backgroundPanel",
+        "elements": [
+         {
+          "type": "comment",
+          "name": "howPartiesRelated",
+          "title": "Describe how the protected party/parties and the other party are related for the purposes of application",
+          "isRequired": true
+         },
+         {
+          "type": "infotext",
+          "name": "ifChildPOFAQ",
+          "title": "If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).",
+          "titleLocation": "hidden",
+          "messageStyle": "inline"
+         },
+         {
+          "type": "yesno",
+          "name": "werePOPartiesMarried",
+          "title": "The parties are or have been spouses (married or lived in a marriage-like relationship for at least 2 years)",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "liveTogetherPODate",
+          "visibleIf": "{werePOPartiesMarried} = \"y\"",
+          "title": " Date on which the parties began to live together in a marriage-like relationship",
+          "inputType": "date"
+         },
+         {
+          "type": "text",
+          "name": "dateOfMarriagePO",
+          "visibleIf": "{werePOPartiesMarried} = \"y\"",
+          "title": "Date of marriage",
+          "inputType": "date"
+         },
+         {
+          "type": "yesno",
+          "name": "isSeperatedPO",
+          "title": "Are the protected party and the other party currently separated",
+          "description": "Spouses may be separated while continuing to live in the same residence",
+          "isRequired": true
+         },
+         {
+          "type": "text",
+          "name": "separationDate",
+          "visibleIf": "{isSeperatedPO} = \"y\"",
+          "title": "Parties separated on",
+          "isRequired": true,
+          "inputType": "date"
+         },
+         {
+          "type": "yesno",
+          "name": "planningToSeparatePO",
+          "visibleIf": "{isSeperatedPO} = \"n\"",
+          "title": "Are the protected party and the other party planning to separate?",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "mentalHealthConcernPO",
+          "title": "I have concerns about the mental health of the protected party and/or the other party ",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "explainReasonsPO",
+          "visibleIf": "{mentalHealthConcernPO} = \"y\"",
+          "title": "Explain the reasons for your concerns",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "riskOfViolencePO",
+          "title": "Are there circumstances that may increase the risk of family violence",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeCirumstancesPO",
+          "visibleIf": "{riskOfViolencePO} = \"y\"",
+          "title": "Describe the circumstances such as:  substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "existingPOOrders",
+          "title": "There are existing court orders protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "otherPartyDisobeyOrder",
+          "title": "Has the other party ever failed to obey a court order?",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeDisobeyOrder",
+          "visibleIf": "{otherPartyDisobeyOrder} = \"y\"",
+          "title": "Describe the circumstances",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "concernForNotObeying",
+          "title": "I have concerns the other party may not obey a court order",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "explainReasonsForConcern",
+          "visibleIf": "{concernForNotObeying} = \"y\"",
+          "title": "Explain the reason for your concerns",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "reportedConcernsToPolice",
+          "title": "I have reported my safety concerns to the police",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "describeActionsByPolice",
+          "visibleIf": "{reportedConcernsToPolice} = \"y\"",
+          "title": "Describe what action the police have taken",
+          "isRequired": true
+         },
+         {
+          "type": "yesno",
+          "name": "reportedConcernsToSW",
+          "title": "I have reported my safety concerns to a social worker (Ministry of Children and Family Development) ",
+          "isRequired": true
+         },
+         {
+          "type": "comment",
+          "name": "desrcibeSWAction",
+          "visibleIf": "{reportedConcernsToSW} = \"y\"",
+          "title": "Describe what action the social worker have taken",
+          "isRequired": true
+         }
+        ]
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "Background"
+     }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }

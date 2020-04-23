@@ -2,7 +2,7 @@ import LandingPage from "./components/views/LandingPage.vue";
 import LoginPage from "./components/views/LoginPage.vue";
 import ServiceLocator from "./components/views/ServiceLocator.vue";
 import FlappSurveys from "./components/FlappSurveys.vue";
-import ApplicantStatus from "./components/status/ApplicantStatus.vue";
+import ApplicationStatus from "./components/status/ApplicationStatus.vue";
 import { store } from "./store/store";
 
 function userGuard(to, from, next) {
@@ -17,17 +17,13 @@ const routes = [
   { path: "/", component: LandingPage },
   {
     path: "/login",
-    name: "login-page",
+    name: "login",
     beforeEnter: userGuard,
     component: LoginPage,
-  }, //, props: true
-  {
-    path: "/serviceLocator",
-    name: "service-locator",
-    component: ServiceLocator,
   },
-  { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
-  { path: "/status", name: "applicant-status", component: ApplicantStatus },
+  { path: "/serviceLocator", name: "serviceLocator", component: ServiceLocator },
+  { path: "/getStarted", name: "FlappSurveys", component: FlappSurveys },
+  { path: "/status", name: "status", component: ApplicationStatus },
 ];
 
 export default routes;
