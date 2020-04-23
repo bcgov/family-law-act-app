@@ -1,0 +1,599 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+     {
+      "name": "Protection from whom?",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "RespondentPanel",
+        "elements": [
+         {
+          "type": "personname",
+          "name": "RespondentName",
+          "title": "Who is the person that protection is needed from?",
+          "description": "If you know how their name is written on their ID cards, that will be the most useful.",
+          "defaultSubstitution": "(Respondent Name)"
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentDOBExact",
+          "visible": false,
+          "visibleIf": "{RespondentName} notempty",
+          "title": "Do you know {RespondentName}'s exact date of birth?",
+          "description": "You can still use this service without this information. A Protection Order is most effective with this information."
+         },
+         {
+          "type": "text",
+          "name": "RespondentDOB",
+          "visible": false,
+          "visibleIf": "{RespondentDOBExact} = 'y'",
+          "title": "What is {RespondentName}'s date of birth?",
+          "inputType": "date"
+         },
+         {
+          "type": "address",
+          "name": "RespondentAddress",
+          "visible": false,
+          "visibleIf": "{RespondentName} notempty",
+          "title": "What is an address where {RespondentName} can receive court documents?",
+          "description": "You can pick a daytime address such as {RespondentName}'s workplace or somewhere you know {RespondentName} will be staying.\n<br>\n<br>\nIf you don't have an address for {RespondentName}, fill out as much information as you know. The rest can be left blank."
+         },
+         {
+          "type": "contactinfo",
+          "name": "RespondentContact",
+          "visible": false,
+          "visibleIf": "{RespondentName} notempty",
+          "title": "Contact Information",
+          "labelEmail": "Email (Optional)",
+          "labelFax": "Fax Number (Optional)",
+          "labelPhone": "Daytime Phone Number"
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "PanelApplicantNeedsProtection",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "ApplicantNeedsProtection",
+          "title": "Do you, {ApplicantName}, need to be protected from {RespondentName}, on this `Protection Order`?",
+          "description": "A judge will review what you are asking for and decide on the conditions for your protection order."
+         },
+         {
+          "type": "infotext",
+          "name": "ExplanationApplicantNeedsNoProtection",
+          "visible": false,
+          "visibleIf": "{ApplicantNeedsProtection} = 'n'",
+          "title": "You can still use this service to protect your children, or to apply for a protection order on behalf of another adult, even if you do not need to be protected from {RespondentName} on this Protection Order.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "anotherAdultPO",
+          "visibleIf": "{ApplicantNeedsProtection} = \"n\"",
+          "title": "Are you applying for a Protection Order on behalf of another adult?"
+         },
+         {
+          "type": "personname",
+          "name": "anotherAdultName",
+          "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
+          "title": "What is the Adult's full name?",
+          "defaultSubstitution": "{anotherAdultName}"
+         },
+         {
+          "type": "text",
+          "name": "anotherAdultDOB",
+          "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
+          "title": "What is the Adult's date of birth?",
+          "inputType": "date"
+         },
+         {
+          "type": "comment",
+          "name": "anotherAdultReasonForPO",
+          "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultName} notempty",
+          "title": "Please explain why you are applying for {anotherAdultName}"
+         },
+         {
+          "type": "yesno",
+          "name": "childPO",
+          "visibleIf": "{anotherAdultPO} = \"n\" or {ApplicantNeedsProtection} = \"y\"",
+          "title": "Do you have a child that needs to be protected from {RespondentName}, on this Protection Order?"
+         },
+         {
+          "type": "personname",
+          "name": "childName",
+          "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
+          "title": "What is the name of the child?",
+          "defaultSubstitution": "{childName}"
+         },
+         {
+          "type": "text",
+          "name": "childDOB",
+          "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
+          "title": "What is the child's date of birth?",
+          "inputType": "date"
+         },
+         {
+          "type": "text",
+          "name": "childRelationship",
+          "visibleIf": " {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" ",
+          "title": "What is the child's relationship with {RespondentName}?"
+         },
+         {
+          "type": "helptext",
+          "name": "notMyChildFAQ",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and  {childPO} = \"n\"",
+          "title": "Do you need Protection Order for the child of the person you are applying for?",
+          "titleLocation": "hidden",
+          "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\">Child Protection Services</a>"
+         },
+         {
+          "type": "yesno",
+          "name": "anotherAdultSharingResi",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\"",
+          "title": "Is there another adult sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?"
+         },
+         {
+          "type": "helptext",
+          "name": "sharingResidenceFAQ",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"n\"",
+          "title": "Does this include a roommate?",
+          "titleLocation": "hidden",
+          "body": "No, a family law protection order can be made \nonly to protect an at-risk family member from another family member. An adult person, who lives with an at-risk family member, and is a relative of the at-risk person \n(even if they are not related to the person they need protection from) is included in the Family Law Act definition of a `family member`. This usually would \ninclude grandparents, parents, siblings, or other relatives of the at-risk family member. If you have a roommate that needs protection, \nthey should apply for a `Peace Bond`."
+         },
+         {
+          "type": "personname",
+          "name": "anotherAdultSharingResiName",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
+          "title": "What is the name of adult sharing the residence with you?",
+          "defaultSubstitution": "{anotherAdultSharingResiName}"
+         },
+         {
+          "type": "text",
+          "name": "anotheradultSharingResiDOB",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
+          "title": "What is the date of birth of the adult sharing the residence with you? ",
+          "inputType": "date"
+         },
+         {
+          "type": "text",
+          "name": "anotherAdultSharingResiRelation",
+          "visibleIf": "{ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\" and {anotherAdultSharingResiName} notempty",
+          "title": "What is {anotherAdultSharingResiName} relationship to the protected person(s)?"
+         }
+        ],
+        "visible": false,
+        "visibleIf": "{RespondentName} notempty"
+       },
+       {
+        "type": "panel",
+        "name": "ExistingFamilyCasePanel",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "ExistingFamilyCase",
+          "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
+          "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
+         },
+         {
+          "type": "helptext",
+          "name": "ExistingFamilyCaseFAQ",
+          "title": "If I have a Family Law file open in the Supreme Court of British Columbia, should I include that?",
+          "titleLocation": "hidden",
+          "body": "No, the file numbers are different between Provincial and Supreme Court. If you already have a Provincial Court file number, you will want to make sure that this document gets filed with the same file number."
+         },
+         {
+          "type": "dropdown",
+          "name": "ExistingCourt",
+          "visible": false,
+          "visibleIf": "{ExistingFamilyCase} = 'y'",
+          "title": "Court Location",
+          "choices": [
+           "100 Mile House",
+           "Abbotsford",
+           "Alexis Creek",
+           "Anahim Lake",
+           "Ashcroft",
+           "Bella Bella",
+           "Bella Coola",
+           "Burns Lake",
+           "Campbell River",
+           "Castlegar",
+           "Chase",
+           "Chetwynd",
+           "Chilliwack",
+           "Clearwater",
+           "Courtenay",
+           "Cranbrook",
+           "Creston",
+           "Dawson Creek",
+           "Dease Lake",
+           "Duncan",
+           "Fernie",
+           "Fort Nelson",
+           "Fort St. James",
+           "Fort St. John",
+           "Fort Ware (Kwadacha)",
+           "Fraser Lake",
+           "Ganges",
+           "Golden",
+           "Gold River",
+           "Good Hope Lake",
+           "Grand Forks",
+           "Hazelton",
+           "Houston",
+           "Hudson's Hope",
+           "Invermere",
+           "Kamloops",
+           "Kelowna",
+           "Kitimat",
+           "Klemtu",
+           "Lillooet",
+           "Lower Post",
+           "Mackenzie",
+           "Masset",
+           "McBride",
+           "Merritt",
+           "Nakusp",
+           "Nanaimo",
+           "Nelson",
+           "New Aiyansh",
+           "New Westminster",
+           "North Vancouver",
+           "Pemberton",
+           "Penticton",
+           "Port Alberni",
+           "Port Coquitlam",
+           "Port Hardy",
+           "Powell River",
+           "Prince George",
+           "Prince Rupert",
+           "Princeton",
+           "Queen Charlotte",
+           "Quesnel",
+           "Revelstoke",
+           "Richmond",
+           "Rossland",
+           "Salmon Arm",
+           "Sechelt",
+           "Sidney",
+           "Smithers",
+           "Sparwood",
+           "Stewart",
+           "Surrey",
+           "Tahsis",
+           "Terrace",
+           "Tofino",
+           "Tsay Keh Dene (Ingenika)",
+           "Tumbler Ridge",
+           "Ucluelet",
+           "Valemount",
+           "Vancouver Robson Square",
+           "Vanderhoof",
+           "Vernon",
+           "Victoria",
+           "Western Communities",
+           "Williams Lake"
+          ]
+         },
+         {
+          "type": "text",
+          "name": "ExistingFileNumber",
+          "visible": false,
+          "visibleIf": "{ExistingFamilyCase} = 'y'",
+          "startWithNewLine": false,
+          "title": "File Number"
+         },
+         {
+          "type": "yesno",
+          "name": "ExistingOrders",
+          "title": "Has any court ever made an `order` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
+          "description": "An order can be made in any court in any place, including the Supreme Court or Criminal Court."
+         },
+         {
+          "type": "infotext",
+          "name": "ExplanationExistingOrders",
+          "visible": false,
+          "visibleIf": "{ExistingOrders} = 'y'",
+          "title": "You will need to include a photocopy of your court order(s) when you file your documents at the courthouse. You will be reminded to make a photocopy at the end of the service.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "paneldynamic",
+          "name": "anyExistingOrder",
+          "visibleIf": "{ExistingOrders} = \"y\"",
+          "title": "Please add any existing orders in the fields below. If you need to add another order, click the 'Add Order' button. If you are done entering all existing orders, you can move on to the next question.",
+          "templateElements": [
+           {
+            "type": "dropdown",
+            "name": "chooseOrder",
+            "title": "Choose Order",
+            "hasOther": true,
+            "choices": [
+             {
+              "value": "order",
+              "text": "Order"
+             },
+             {
+              "value": "protectionOrder",
+              "text": "Protection Order"
+             },
+             {
+              "value": "consentOrder",
+              "text": "Consent Order"
+             }
+            ]
+           },
+           {
+            "type": "dropdown",
+            "name": "existingOrderLocation",
+            "visibleIf": "{ExistingOrders} = \"y\"",
+            "startWithNewLine": false,
+            "title": "Court Location",
+            "hasOther": true,
+            "choices": [
+             "100 Mile House",
+             "Abbotsford",
+             "Alexis Creek",
+             "Anahim Lake",
+             "Ashcroft",
+             "Bella Bella",
+             "Bella Coola",
+             "Burns Lake",
+             "Campbell River",
+             "Castlegar",
+             "Chase",
+             "Chetwynd",
+             "Chilliwack",
+             "Clearwater",
+             "Courtenay",
+             "Cranbrook",
+             "Creston",
+             "Dawson Creek",
+             "Dease Lake",
+             "Duncan",
+             "Fernie",
+             "Fort Nelson",
+             "Fort St. James",
+             "Fort St. John",
+             "Fort Ware (Kwadacha)",
+             "Fraser Lake",
+             "Ganges",
+             "Golden",
+             "Gold River",
+             "Good Hope Lake",
+             "Grand Forks",
+             "Hazelton",
+             "Houston",
+             "Hudson's Hope",
+             "Invermere",
+             "Kamloops",
+             "Kelowna",
+             "Kitimat",
+             "Klemtu",
+             "Lillooet",
+             "Lower Post",
+             "Mackenzie",
+             "Masset",
+             "McBride",
+             "Merritt",
+             "Nakusp",
+             "Nanaimo",
+             "Nelson",
+             "New Aiyansh",
+             "New Westminster",
+             "North Vancouver",
+             "Pemberton",
+             "Penticton",
+             "Port Alberni",
+             "Port Coquitlam",
+             "Port Hardy",
+             "Powell River",
+             "Prince George",
+             "Prince Rupert",
+             "Princeton",
+             "Queen Charlotte",
+             "Quesnel",
+             "Revelstoke",
+             "Richmond",
+             "Rossland",
+             "Salmon Arm",
+             "Sechelt",
+             "Sidney",
+             "Smithers",
+             "Sparwood",
+             "Stewart",
+             "Surrey",
+             "Tahsis",
+             "Terrace",
+             "Tofino",
+             "Tsay Keh Dene (Ingenika)",
+             "Tumbler Ridge",
+             "Ucluelet",
+             "Valemount",
+             "Vancouver Robson Square",
+             "Vanderhoof",
+             "Vernon",
+             "Victoria",
+             "Western Communities",
+             "Williams Lake"
+            ]
+           },
+           {
+            "type": "text",
+            "name": "existingOrderFileNo",
+            "visibleIf": "{ExistingOrders} = \"y\"",
+            "title": "File Number"
+           },
+           {
+            "type": "text",
+            "name": "existingOrderDate",
+            "visibleIf": "{ExistingOrders} = \"y\"",
+            "startWithNewLine": false,
+            "title": "Date of order",
+            "inputType": "date"
+           }
+          ],
+          "panelCount": 1,
+          "panelAddText": "Add Order",
+          "panelRemoveText": "Remove Order"
+         },
+         {
+          "type": "yesno",
+          "name": "ExistingWrittenAgreements",
+          "title": "Are there any other `written agreements` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
+          "description": "For example, a separation agreement or a mediation agreement."
+         },
+         {
+          "type": "infotext",
+          "name": "ExplanationExistingWrittenAgreements",
+          "visible": false,
+          "visibleIf": "{ExistingWrittenAgreements} = 'y'",
+          "title": "You will need to include a photocopy of your written agreement(s) when you file your documents at the courthouse. You will be reminded to make a photocopy at the end of the service.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "paneldynamic",
+          "name": "anyExistingAgreements",
+          "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
+          "title": "Please add any existing agreements in the fields below. If you need to add another agreement, click the 'Add Agreement' button. If you are done entering all existing agreements, you can move on to the next question.",
+          "templateElements": [
+           {
+            "type": "text",
+            "name": "agreementName",
+            "title": "Written Agreement Name"
+           },
+           {
+            "type": "text",
+            "name": "writtenAgreementDate",
+            "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
+            "startWithNewLine": false,
+            "title": "Date of written agreement",
+            "inputType": "date"
+           },
+           {
+            "type": "infotext",
+            "name": "writtenAgreementInCourtText",
+            "title": "If you have filed the written agreement with a court, please also indicate the court location and court file number.  These fields are optional.",
+            "titleLocation": "hidden"
+           },
+           {
+            "type": "dropdown",
+            "name": "writtenAgreementCourtLocation",
+            "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
+            "title": "Court Location",
+            "hasOther": true,
+            "choices": [
+             "100 Mile House",
+             "Abbotsford",
+             "Alexis Creek",
+             "Anahim Lake",
+             "Ashcroft",
+             "Bella Bella",
+             "Bella Coola",
+             "Burns Lake",
+             "Campbell River",
+             "Castlegar",
+             "Chase",
+             "Chetwynd",
+             "Chilliwack",
+             "Clearwater",
+             "Courtenay",
+             "Cranbrook",
+             "Creston",
+             "Dawson Creek",
+             "Dease Lake",
+             "Duncan",
+             "Fernie",
+             "Fort Nelson",
+             "Fort St. James",
+             "Fort St. John",
+             "Fort Ware (Kwadacha)",
+             "Fraser Lake",
+             "Ganges",
+             "Golden",
+             "Gold River",
+             "Good Hope Lake",
+             "Grand Forks",
+             "Hazelton",
+             "Houston",
+             "Hudson's Hope",
+             "Invermere",
+             "Kamloops",
+             "Kelowna",
+             "Kitimat",
+             "Klemtu",
+             "Lillooet",
+             "Lower Post",
+             "Mackenzie",
+             "Masset",
+             "McBride",
+             "Merritt",
+             "Nakusp",
+             "Nanaimo",
+             "Nelson",
+             "New Aiyansh",
+             "New Westminster",
+             "North Vancouver",
+             "Pemberton",
+             "Penticton",
+             "Port Alberni",
+             "Port Coquitlam",
+             "Port Hardy",
+             "Powell River",
+             "Prince George",
+             "Prince Rupert",
+             "Princeton",
+             "Queen Charlotte",
+             "Quesnel",
+             "Revelstoke",
+             "Richmond",
+             "Rossland",
+             "Salmon Arm",
+             "Sechelt",
+             "Sidney",
+             "Smithers",
+             "Sparwood",
+             "Stewart",
+             "Surrey",
+             "Tahsis",
+             "Terrace",
+             "Tofino",
+             "Tsay Keh Dene (Ingenika)",
+             "Tumbler Ridge",
+             "Ucluelet",
+             "Valemount",
+             "Vancouver Robson Square",
+             "Vanderhoof",
+             "Vernon",
+             "Victoria",
+             "Western Communities",
+             "Williams Lake"
+            ]
+           },
+           {
+            "type": "text",
+            "name": "writtenAgreementFileNo",
+            "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
+            "startWithNewLine": false,
+            "title": "File Number"
+           }
+          ],
+          "panelCount": 1,
+          "panelAddText": "Add Agreement",
+          "panelRemoveText": "Remove Agreement"
+         }
+        ],
+        "visible": false,
+        "visibleIf": "{RespondentName} notempty and {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\""
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "Protection from whom?"
+     }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }

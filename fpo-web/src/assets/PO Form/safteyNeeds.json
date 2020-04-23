@@ -1,0 +1,268 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+     {
+      "name": "Your Safety Needs",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "NoContactRespondentSummary",
+        "title": "If the judge decides to make your `Protection Order`, {RespondentName} will be ordered to stay away from you or your children or both. If {RespondentName} doesn't follow the Protection Order, they may face criminal charges.\n<br>\n<br>\nThe following questions will guide you to personalize your safety needs for your Protection Order.",
+        "titleLocation": "hidden"
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "Your Safety Needs"
+     },
+     {
+      "name": "Remove person or belongings",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelFamilyHome",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentLiveTogether",
+          "title": "Does the protected party(ies) ({ApplicantName}) currently share a home with {RespondentName}?",
+          "description": "Even if one of you has left home temporarily, you still share a home."
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentLeaving",
+          "visible": false,
+          "visibleIf": "{RespondentLiveTogether} = 'y'",
+          "title": "Do you, {ApplicantName}, or your children want to stay in this family home?"
+         },
+         {
+          "type": "radiogroup",
+          "name": "RespondentNeedPolice",
+          "visible": false,
+          "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y'",
+          "title": "Do you think you need the police to remove {RespondentName} from where you or your children live, or will {RespondentName} leave on their own?",
+          "choices": [
+           {
+            "value": "y",
+            "text": "I need police assistance to remove {RespondentName} from the home"
+           },
+           {
+            "value": "n",
+            "text": "{RespondentName} will probably leave on their own"
+           }
+          ]
+         },
+         {
+          "type": "address",
+          "name": "FamilyHomeAddress",
+          "visible": false,
+          "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
+          "title": "What is the address of your family home?"
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "PORPanelBelongings",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentHasStuff",
+          "title": "Does {RespondentName} have any of you or your children's personal belongings?",
+          "description": "Personal belongings means things that you or your children need for daily life. This includes clothing, personal hygiene products, personal electronics and personal documents that are difficult to replace. "
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentHasStuffPolice",
+          "visible": false,
+          "visibleIf": "{RespondentHasStuff} = 'y'",
+          "title": "Do you need a police officer to supervise while you get the personal belongings?\n",
+          "description": "A judge can order a police officer to come with you to get the personal belongings. "
+         },
+         {
+          "type": "address",
+          "name": "RespondentHasStuffAddress",
+          "visible": false,
+          "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
+          "title": "What is the address where your personal belongs are being held?"
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentNeedsStuff",
+          "title": "Do you or your children have any of {RespondentName}'s personal belongings?",
+          "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing, personal hygiene products, personal electronics and personal documents that are difficult to replace. "
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentNeedsStuffPolice",
+          "visible": false,
+          "visibleIf": "{RespondentNeedsStuff} = 'y'",
+          "title": "Do you, {ApplicantName}, need the police to supervise {RespondentName} while they get their personal belongings?",
+          "description": "A judge can order a police officer to be there when {RespondentName} comes to get their personal belongings. "
+         }
+        ]
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "Remove person or belongings"
+     },
+     {
+      "name": "No Go",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelNoGo",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentNoGo",
+          "title": "Are there any places where you want {RespondentName} to stay away from?"
+         },
+         {
+          "type": "checkbox",
+          "name": "RespondentNoGoPlaces",
+          "visible": false,
+          "visibleIf": "{RespondentNoGo} = 'y'",
+          "title": "Select the places where you want {RespondentName} to stay away from:",
+          "description": "If you select \"Other\" and need to write more than 1 place, write them all and separate each place with a comma.",
+          "hasOther": true,
+          "choices": [
+           "Home",
+           "Workplace",
+           "School",
+           "Place of Worship"
+          ]
+         },
+         {
+          "type": "infotext",
+          "name": "ExplanationNoGoAddresses",
+          "visible": false,
+          "visibleIf": "{RespondentNoGo} = 'y'",
+          "title": "For this service, you do not need to give the addresses of the places you want {RespondentName} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the addresses into the courtroom with you.",
+          "titleLocation": "hidden"
+         }
+        ]
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "No Go"
+     },
+     {
+      "name": "No Contact",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelNoContactExceptions",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentApplicantThirdPartyContact",
+          "title": "Even with a Protection Order in place, you, {ApplicantName}, and {RespondentName} will be allowed to be in the same courtroom together for court purposes. <br><br>Outside of the courtroom, are there any third parties that you want to communicate though, for ongoing court purposes with {RespondentName}?",
+          "description": "Examples of third parties may include a lawyer, a family justice counsellor or a mutual friend."
+         },
+         {
+          "type": "checkbox",
+          "name": "RespondentApplicantContactType",
+          "visible": false,
+          "visibleIf": "{RespondentApplicantThirdPartyContact} = 'y'",
+          "title": "Select any third parties that you, {ApplicantName}, and {RespondentName} may communicate through, for ongoing court purposes:",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "lawyer",
+            "text": "Lawyer"
+           },
+           {
+            "value": "fjc",
+            "text": "Family justice counsellor"
+           },
+           {
+            "value": "socialworker",
+            "text": "Social worker"
+           },
+           {
+            "value": "mutualfamily",
+            "text": "Family member"
+           },
+           {
+            "value": "mutualfriend",
+            "text": "Friend"
+           }
+          ]
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentApplicantContactOther",
+          "title": "Is there any other situation that {RespondentName} would need to communicate with you, {ApplicantName}?"
+         },
+         {
+          "type": "text",
+          "name": "RespondentApplicantContactOtherReason",
+          "visible": false,
+          "visibleIf": "{RespondentApplicantContactOther} = 'y'",
+          "title": "Describe the situation(s)?"
+         }
+        ],
+        "visible": false,
+        "visibleIf": "{ApplicantNeedsProtection} = 'y'"
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "No Contact"
+     },
+     {
+      "name": "Weapons and Firearms",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelWeapons",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentFirearms",
+          "title": "Do you think {RespondentName} would threaten or harm you or your children with guns, explosives or any other kind of firearm?",
+          "description": "<a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html\" target=\"_blank\">Click here for more information about how firearms and explosive substances are defined in the Criminal Code of Canada.</a>"
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentFirearmsYes",
+          "visible": false,
+          "visibleIf": "{RespondentFirearms} = 'y'",
+          "title": "Do you think {RespondentName} has guns, explosives or any other kind of firearm?"
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentWeapons",
+          "title": "Do you think {RespondentName} would threaten or harm you or your children with weapons that are not guns or explosives?",
+          "description": "Everyday objects like a kitchen knife, a baseball bat or a hammer, could be used as weapons."
+         },
+         {
+          "type": "yesno",
+          "name": "RespondentWeaponsYes",
+          "visible": false,
+          "visibleIf": "{RespondentWeapons} = 'y'",
+          "title": "Do you think {RespondentName} own any weapons that are not everyday objects, guns or explosives?",
+          "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knifes, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
+         },
+         {
+          "type": "checkbox",
+          "name": "RespondentNoWeapons",
+          "visible": false,
+          "visibleIf": "{RespondentWeapons} = 'n' and {RespondentFirearms} = 'n'",
+          "title": "By answering \"NO\" to the questions above, you believe there is no need for a judge to order {RespondentName} not to have any weapons or firearms. If there is a concern about {RespondentName} having or using weapons or firearms, go back to the questions above and answer \"YES.\"\n<br>\n<br>\nIf you have no concerns about weapons or firearms, please confirm by checking the statement below.",
+          "choices": [
+           {
+            "value": "confirmed",
+            "text": "I have no concern over weapons or firearms."
+           }
+          ]
+         }
+        ]
+       }
+      ],
+      "visibleIf": "{userPreferredService} = 'needPO'",
+      "title": "Weapons and Firearms"
+     }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }
