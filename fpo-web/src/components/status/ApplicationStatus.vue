@@ -2,13 +2,26 @@
   <b-container class="container home-content" id="login">
     <div class="row">
       <div class="col-md-12">
-        <h1>Previous Application</h1>
+        <h1>Previous Applications</h1>
+        <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Child's name</th>
+                  <th scope="col">Birthdate</th>
+                  <th scope="col">Your relationship to the child</th>
+                  <th scope="col">Child's relationship to the other party</th>
+                  <th scope="col">Child currently living with</th>
+                  <th scope="col">Additional Information</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+               
+                
+              </tbody>
+            </table>
+
         <div class="intro">
-          <p>
-            You will need a 'Basic BCeid' or a 'BC Services card' to access the
-            Family Law Service. This will also enable you to securely access
-            multiple other online government services.
-          </p>
           <div class="loginInfo-section">
             <hr class="section" />
             <div class="row">
@@ -40,7 +53,7 @@
 
 <script>
 export default {
-  name: "applicant-status",
+  name: "application-status",
   data() {
     return {
       inProgressApplications: [],

@@ -1,0 +1,57 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+     {
+      "name": "Urgency",
+      "elements": [
+       {
+        "type": "infotext",
+        "name": "urgencyPOInfo",
+        "title": "Normally, you need to give notice to {RespondentName} that you are applying for a `Protection Order`. You give notice to {RespondentName} by having the application documents served personally to {RespondentName}.\n<br>\n<br>\nThe period of time between the day that {RespondentName} is served and the day that the application is heard is called the \"notice period\" or \"notice\".\n<br>\nNormally, you must serve the other party with at least 7 days' notice of the court appearance.\n<br>\nA judge can decide to change the amount of notice you give {RespondentName} if {RespondentName} can be served but your situation requires a court order sooner than 7 days.\n<br>\n<br>\nA judge can also decide to review your application without {RespondentName} being given notice until after the Protection Order is made if notice on {RespondentName} is unreasonable because of special circumstances like you or your children are in imminent danger of harm, or providing notice in advance would probably have serious consequences.",
+        "titleLocation": "hidden"
+       },
+       {
+        "type": "yesno",
+        "name": "PORSpeedUp",
+        "title": "Normally, {RespondentName} will need to be given notice that you are applying for a Protection Order at least 7 days before the date scheduled for court. Do you need this Protection Order application to be heard sooner (you will be asking the court to be allowed to give less than 7 days' notice to {RespondentName} )?"
+       },
+       {
+        "type": "dropdown",
+        "name": "PORDaysToNotice",
+        "visibleIf": "{PORSpeedUp} = \"y\"",
+        "title": "How many days' notice do you want to give {RespondentName}?",
+        "choices": [
+         "1",
+         "2",
+         "3",
+         "4",
+         "5",
+         "6"
+        ]
+       },
+       {
+        "type": "comment",
+        "name": "whyAllowNotice",
+        "visibleIf": "{PORSpeedUp} = \"y\"",
+        "title": "Explain why you want a judge to allow you to give {RespondentName} {PORDaysToNotice} days' notice of your application?",
+        "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why {RespondentName} should be given less than 7 days' notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if you have to wait 7 days to have the application heard?</li>\n</ul>"
+       },
+       {
+        "type": "yesno",
+        "name": "PORNoNotice",
+        "title": "Normally, a judge will want to hear from you, {ApplicantName} and {RespondentName} before making a decision.\n<br>\n<br>\nDo you want a judge to make their decision before {RespondentName} gets to tell their story?"
+       },
+       {
+        "type": "comment",
+        "name": "PORWhyNoNotice",
+        "visibleIf": "{PORNoNotice} = 'y'",
+        "title": "Explain why you want a judge to make their decision before {RespondentName} gets to tell their story.",
+        "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why {RespondentName} should not be given notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if {RespondentName} is served or given notice of your application and a chance to attend court at the same time as you?</li>\n</ul>"
+       }
+      ],
+      "title": "Urgency"
+     }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }
