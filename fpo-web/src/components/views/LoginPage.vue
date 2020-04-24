@@ -18,12 +18,7 @@
                   Once you login or register, you'll be taken back to this
                   website
                 </div>
-                <a
-                  class="btn btn-success btn-lg register-button"
-                  @click="navigate()"
-                >
-                  Next
-                </a>
+                <a class="btn btn-success btn-lg register-button" @click="navigate()">Next</a>
               </div>
               <div class="col-md-2">
                 <div class="wrapper">
@@ -39,9 +34,7 @@
                   Once you login or register, you'll be taken back to this
                   website
                 </div>
-                <a class="btn btn-success btn-lg register-button">
-                  Next
-                </a>
+                <a class="btn btn-success btn-lg register-button">Next</a>
               </div>
             </div>
           </div>
@@ -59,13 +52,15 @@ export default {
   },
   methods: {
     navigate() {
-      if (this.$store.getters.userType === "new") {
-        this.$router.push({ name: "serviceLocator" });
-      } else if (this.$store.getters.userType === "returning") {
-        this.$router.push({ name: "status" });
+      var userType = this.$store.getters["application/getUserType"];
+
+      if (userType === "new") {
+        this.$router.push({ name: "service-locator" });
+      } else if (userType === "returning") {
+        this.$router.push({ name: "applicant-status" });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

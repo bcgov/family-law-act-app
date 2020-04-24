@@ -1,0 +1,33 @@
+{
+  "title": "Child info",
+  "pages": [
+    {
+      "name": "Child Information",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "childInfoPanel",
+
+          "valueName": "childInfoValueName",
+          "isRequired": true,
+          "elements": [
+            {
+              "type": "personname",
+              "name": "childName",
+              "title": "What is the child's full name?",
+              "isRequired": true,
+              "defaultSubstitution": ""
+            },
+            {
+              "type": "comment",
+              "name": "relationToChild",
+              "title": "What is your relationship to {childName}?",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Child Information"
+    }
+  ]
+}

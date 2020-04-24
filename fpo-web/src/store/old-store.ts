@@ -1,5 +1,6 @@
+import { ApplicationState, RootState } from "@/models/storeState";
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { Store, StoreOptions } from "vuex";
 
 Vue.use(Vuex);
 
@@ -8,13 +9,13 @@ export const store = new Vuex.Store({
     surveyIndex: Number,
     surveyArray: Array,
     allCompleted: false,
-    userType: ''
+    userType: "",
   },
   getters: {
-    surveyIndex: state => state.surveyIndex,
-    surveyArray: state => state.surveyArray,
-    allCompleted: state => state.allCompleted,
-    userType: state => state.userType
+    surveyIndex: (state) => state.surveyIndex,
+    surveyArray: (state) => state.surveyArray,
+    allCompleted: (state) => state.allCompleted,
+    userType: (state) => state.userType,
   },
   mutations: {
     setSurveyArray(state, surveyArray) {
@@ -52,7 +53,7 @@ export const store = new Vuex.Store({
     },
     setUserType(state, userType) {
       state.userType = userType;
-    }
+    },
   },
   actions: {
     setSurveyArray(context, surveyArray) {
@@ -77,7 +78,7 @@ export const store = new Vuex.Store({
       context.commit("setSurveyIncomplete", surveyIndex);
     },
     setUserType(context, userType) {
-      context.commit('setUserType', userType);
-    }
-  }
+      context.commit("setUserType", userType);
+    },
+  },
 });

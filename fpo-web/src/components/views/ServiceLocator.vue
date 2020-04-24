@@ -44,7 +44,7 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       if (this.form.selected) {
-        this.$router.push({ name: "FlappSurveys" });
+        this.$router.push({ name: "flapp-surveys" });
       } else {
         location.replace(
           "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
@@ -53,7 +53,7 @@ export default {
     },
   },
   computed: {
-    isDisabled: function () {
+    isDisabled: function() {
       return this.form.selected === "";
     },
   },

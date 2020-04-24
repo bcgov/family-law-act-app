@@ -11,13 +11,18 @@
     "allowJs": true,
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "dom",
-      "es5",
-      "es2015"
-    ]
+    "lib": ["dom", "es5", "es2015"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
 }
