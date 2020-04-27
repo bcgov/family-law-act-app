@@ -1,13 +1,25 @@
 <!-- parent.vue -->
 <!-- https://dzone.com/articles/extending-vuejs-components -->
 <template>
-  <div class="app-main" id="page-base">
-    <b-container>
-      <br />
-      <h3>{{ page.label }}</h3>
-      <br />
-      <slot>Provide page content here</slot>
-    </b-container>
+  <div>
+    <br />
+    <h3>{{ page.label }}</h3>
+    <br />
+    <slot>Provide page content here</slot>
+    <br />
+    <br />
+    <div class="survey-nav">
+      <div v-if="hasPrevStepPage()" class="survey-nav-left">
+        <button v-on:click="onPrev()" class="btn btn-primary btn-lg">
+          <span class="fa fa-chevron-left btn-icon-left"></span> Previous
+        </button>
+      </div>
+      <div v-if="hasNextStepPage()" class="survey-nav-right">
+        <button v-on:click="onNext()" class="btn btn-primary btn-lg">
+          <span class="fa fa-chevron-right btn-icon-right"></span> Next
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,9 +32,22 @@ export default {
     return {};
   },
   props: {
-    page: Page
+    page: Page,
   },
   created() {},
-  methods: {}
+  methods: {
+    onPrev: function(event) {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+    onNext: function(event) {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+    hasPrevStepPage: function() {
+      return this.$store.getters["application/getPrevStepPage"] != null;
+    },
+    hasNextStepPage: function() {
+      return this.$store.getters["application/getNextStepPage"] != null;
+    },
+  },
 };
 </script>

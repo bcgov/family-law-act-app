@@ -13,9 +13,7 @@
         v-bind:id="getStepId(stepIndex)"
         v-bind:index="stepIndex"
         v-bind:class="{
-          current:
-            isCurrentStep(stepIndex) &&
-            !isAllCompleted(),
+          current: isCurrentStep(stepIndex) && !isAllCompleted(),
         }"
         v-on:click="onSelectStep($event)"
       >
@@ -36,8 +34,7 @@
           v-bind:id="getStepGroupId(stepIndex)"
           v-bind:index="stepIndex"
           v-bind:style="
-            isCurrentStep(stepIndex) &&
-            !isAllCompleted()
+            isCurrentStep(stepIndex) && !isAllCompleted()
               ? 'display: block;'
               : 'display: none;'
           "
@@ -140,7 +137,7 @@ export default {
 
       this.$store.dispatch("application/setCurrentStepPage", {
         currentStep: currStepIndex,
-        currentPage: nextPageIndex
+        currentPage: nextPageIndex,
       });
     },
     getNavigation: function() {
@@ -162,9 +159,9 @@ export default {
     },
     getStepPageId: function(stepIndex, pageIndex) {
       return this.getStepId(stepIndex) + "-page-" + pageIndex;
-    }
+    },
   },
-  props: {}
+  props: {},
 };
 </script>
 
@@ -319,6 +316,7 @@ $step-header-hover-color: #efefef;
     margin-top: 1em;
     margin-right: 2em;
     li {
+      margin-top: 1em;
       margin-left: 1em;
 
       &.current {

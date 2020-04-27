@@ -3,7 +3,7 @@
     Please select the application(s) you would like to fill out.
     <br />
     <br />
-    <input type="checkbox" v-on:change="onChange($event)" v-model="$store.getters['application/getNavigation'][1].active"> Family Law Matter</input>
+    <input type="checkbox" v-on:change="onChange($event)" v-bind:checked="$store.getters['application/getNavigation'][1].active"> Family Law Matter</input>
   </page-base>
 </template>
 
@@ -61,8 +61,9 @@ export default {
   },
   methods: {
     onChange: function(event) {
-      console.log(event);
+      this.$store.dispatch("application/setStepActive", {currentStep: 1, active: event.target.checked});
     }
+    
   },
   props: {
     page: Page
