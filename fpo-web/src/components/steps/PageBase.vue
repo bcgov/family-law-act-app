@@ -1,27 +1,25 @@
 <!-- parent.vue -->
 <!-- https://dzone.com/articles/extending-vuejs-components -->
 <template>
-  <div class="app-main" id="page-base">
-    <b-container>
-      <br />
-      <h3>{{ page.label }}</h3>
-      <br />
-      <slot>Provide page content here</slot>
-      <br />
-      <br />
-      <div class="survey-nav">
-        <div v-if="hasPrevStepPage()" class="survey-nav-left">
-          <button v-on:click="onPrev()" class="btn btn-primary btn-lg">
-            <span class="fa fa-chevron-left btn-icon-left"></span> Previous
-          </button>
-        </div>
-        <div v-if="hasNextStepPage()" class="survey-nav-right">
-          <button v-on:click="onNext()" class="btn btn-primary btn-lg">
-            <span class="fa fa-chevron-right btn-icon-right"></span> Next
-          </button>
-        </div>
+  <div>
+    <br />
+    <h3>{{ page.label }}</h3>
+    <br />
+    <slot>Provide page content here</slot>
+    <br />
+    <br />
+    <div class="survey-nav">
+      <div v-if="hasPrevStepPage()" class="survey-nav-left">
+        <button v-on:click="onPrev()" class="btn btn-primary btn-lg">
+          <span class="fa fa-chevron-left btn-icon-left"></span> Previous
+        </button>
       </div>
-    </b-container>
+      <div v-if="hasNextStepPage()" class="survey-nav-right">
+        <button v-on:click="onNext()" class="btn btn-primary btn-lg">
+          <span class="fa fa-chevron-right btn-icon-right"></span> Next
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
