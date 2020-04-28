@@ -19,17 +19,17 @@ const routes = [
   { path: "/", component: LandingPage },
   {
     path: "/login",
-    name: "login",
+    name: "login-page",
     beforeEnter: userGuard,
     component: LoginPage,
   },
   {
     path: "/serviceLocator",
-    name: "serviceLocator",
+    name: "service-locator",
     component: ServiceLocator,
   },
-  { path: "/getStarted", name: "FlappSurveys", component: FlappSurveys },
-  { path: "/status", name: "status", component: ApplicationStatus },
+  { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
+  { path: "/status", name: "applicant-status", component: ApplicationStatus },
 ];
 
 export default routes;

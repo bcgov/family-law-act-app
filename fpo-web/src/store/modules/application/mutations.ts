@@ -8,7 +8,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.allCompleted = false;
     state.currentStep = 0;
     state.type = "default";
-    state.userName = "Your name";
+    state.userName = "";
 
     state.steps = new Array<Step>();
 
@@ -92,5 +92,23 @@ export const mutations: MutationTree<ApplicationState> = {
   },
   setStepActive(state, { currentStep, active }) {
     state.steps[currentStep].active = active;
+  },
+  gotoPrevStepPage(state, { prevStep, prevPage }) {
+    if (prevStep != state.currentStep) {
+      state.currentStep = prevStep;
+    }
+
+    if (prevPage != state.steps[prevStep].currentPage) {
+      state.steps[prevStep].currentPage = prevPage;
+    }
+  },
+  gotoNextStepPage(state, { nextStep, nextPage }) {
+    if (nextStep != state.currentStep) {
+      state.currentStep = nextStep;
+    }
+
+    if (nextPage != state.steps[nextStep].currentPage) {
+      state.steps[nextStep].currentPage = nextPage;
+    }
   },
 };
