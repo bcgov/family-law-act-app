@@ -12,7 +12,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     state.steps = new Array<Step>();
 
-    var s = new Step();
+    let s = new Step();
 
     s.active = true;
     s.id = "1";
@@ -23,7 +23,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
-    var p = new Page();
+    let p = new Page();
     p.key = "0";
     p.label = "Getting Started";
     p.active = true;
@@ -52,7 +52,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
-    var p = new Page();
+    p = new Page();
     p.key = "0";
     p.label = "Introduction";
     p.active = true;
