@@ -1071,6 +1071,11 @@
     I am:
     <div>
       <span class="check">
+        <span class="content">
+          {% if isGuardian == "y" %}
+            &#10004;
+          {% endif %}
+        </span>
       </span>
       <span class="text-after-check"> a guardian of the child(ren)</span>
     </div>
@@ -1079,7 +1084,13 @@
     <div class="indent">court order that says they are a guardian, or under a will if the other parent dies.</div>
 
     <div>
-      <span class="check"></span>
+      <span class="check">
+        <span class="content">
+          {% if applyingForGuardian == "y" %}
+            &#10004;
+          {% endif %}
+        </span>
+      </span>
       <span class="text-after-check"> applying to become a guardian of the child(ren)</span>
     </div>
     <div class="indent">A person who is not a parent can become a guardian by a court order or under a will.</div>
@@ -1095,19 +1106,39 @@
       Select all options that apply and complete the required information
     </i>
     <div>
-      <span class="check"></span>
+      <span class="check">
+        <span class="content">
+          {% if childrenForParentingArrng|length > 0  %}
+            &#10004;
+          {% endif %}
+        </span>
+      </span>
       <span class="text-after-check">I do not need an order for parenting time because I am only guardian to the following child(ren):</span>
     </div>
     <div><i>List the name(s) of each child you are the only guardian for</i></div>
 
-    <div class="v-spacer-1"></div>
+    <div class="v-spacer-1">
+      <ul style="margin:0">
+        {% for name in childrenForParentingArrng %}
+        <li>name</li>
+        {% endfor %}
+      </ul>
+    </div>
 
     <div>
-      <span class="check"></span>
+      <span class="check">
+        <span class="content">
+          {% if describeHowChildSpendTime|length > 0  %}
+            &#10004;
+          {% endif %}
+        </span>
+      </span>
       <span class="text-after-check">I am applying for the allocation of parenting time as follows:</span>
     </div>
 
-    <div class="v-spacer-6"></div>
+    <div class="v-spacer-6">
+      {{describeHowChildSpendTime}}
+    </div>
 
     <div>
       <span class="check"></span>
@@ -1121,7 +1152,9 @@
       I am willing to have the following conditions placed on my time with the child(ren):
     </div>
 
-    <div class="v-spacer-7"></div>
+    <div class="v-spacer-7">
+      {{describeHowTimeSpent}}
+    </div>
 
     <div>
       I am asking for the child(ren) to spend time with the other guardian(s) as follows:
@@ -1137,7 +1170,7 @@
     <div>
       I am asking to have the following conditions placed on the other guardian's time with the child(ren):
     </div>
-    <div class="v-spacer-5"></div>
+    <div class="v-spacer-5">{{describeRequestedConditions}}</div>
 
   </section>
 
@@ -1164,7 +1197,8 @@
     <div class="v-spacer-8"></div>
   </section>
 
-  <section class="question">I believe the parenting arrangements I am asking for are in the child(rens)'s best interests because:</section>
+  <section class="question"> I believe the parenting arrangements I am asking for are in the child(rens)'s best interests because:</section>
+  <div class="v-spacer-8">{{describeBestInt}}</div>
 
 
   {% if whichOrdersIncluded.0 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.1 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.2 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.3 == 'Parenting Arrangements including parental responsibilities and parenting time' or whichOrdersIncluded.4 == 'Parenting Arrangements including parental responsibilities and parenting time' %}
