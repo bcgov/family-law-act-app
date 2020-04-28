@@ -150,7 +150,6 @@
         ]
        }
       ],
-      "visibleIf": "{userPreferredService} = 'needPO'",
       "title": "Background"
      }
     ],
