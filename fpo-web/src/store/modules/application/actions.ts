@@ -1,6 +1,5 @@
-import { Step } from "@/models/step";
 import { ApplicationState, RootState } from "@/models/storeState";
-import { ActionContext, ActionTree } from "vuex";
+import { ActionTree } from "vuex";
 
 export const actions: ActionTree<ApplicationState, RootState> = {
   init(context) {
@@ -22,17 +21,17 @@ export const actions: ActionTree<ApplicationState, RootState> = {
     context.commit("setStepActive", { currentStep, active });
   },
   gotoPrevStepPage(context) {
-    var prevStepPage = context.getters["getPrevStepPage"];
+    const prevStepPage = context.getters["getPrevStepPage"];
 
     if (prevStepPage != null) {
       context.commit("gotoPrevStepPage", prevStepPage);
     }
   },
   gotoNextStepPage(context) {
-    var nextStepPage = context.getters["getNextStepPage"];
+    const nextStepPage = context.getters["getNextStepPage"];
 
     if (nextStepPage != null) {
       context.commit("gotoNextStepPage", nextStepPage);
     }
-  },
+  }
 };

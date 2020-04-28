@@ -11,7 +11,6 @@ export const getters: GetterTree<ApplicationState, RootState> = {
     return state.userType;
   },
   getNavigation(state: ApplicationState): Array<Step> {
-    console.log("in getNavigation: " + state.steps);
     return state.steps;
   },
 
@@ -28,13 +27,13 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getPrevStepPage(
     state: ApplicationState
   ): { prevStep: number; prevPage: number } {
-    var prevStepPage: { prevStep: number; prevPage: number };
+    let prevStepPage: { prevStep: number; prevPage: number };
 
-    var sIndex = state.currentStep;
-    var pIndex = state.steps[sIndex].currentPage - 1;
+    let sIndex = state.currentStep;
+    let pIndex = state.steps[sIndex].currentPage - 1;
 
     while (prevStepPage == null && sIndex >= 0) {
-      var s = state.steps[sIndex];
+      const s = state.steps[sIndex];
 
       if (s.active) {
         while (prevStepPage == null && pIndex >= 0) {
@@ -59,13 +58,13 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getNextStepPage(
     state: ApplicationState
   ): { nextStep: number; nextPage: number } {
-    var nextStepPage: { nextStep: number; nextPage: number };
+    let nextStepPage: { nextStep: number; nextPage: number };
 
-    var sIndex = state.currentStep;
-    var pIndex = state.steps[sIndex].currentPage + 1;
+    let sIndex = state.currentStep;
+    let pIndex = state.steps[sIndex].currentPage + 1;
 
     while (nextStepPage == null && sIndex < state.steps.length) {
-      var s = state.steps[sIndex];
+      const s = state.steps[sIndex];
 
       if (s.active) {
         while (nextStepPage == null && pIndex < s.pages.length) {
