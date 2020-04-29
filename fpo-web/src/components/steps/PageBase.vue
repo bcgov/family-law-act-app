@@ -27,7 +27,7 @@ export default {
   props: {
     page: Page,
   },
-  created() {},
+
   methods: {
     onPrev: function(event) {
       this.$store.dispatch("application/gotoPrevStepPage");

@@ -1,5 +1,5 @@
 module.exports = {
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.module.rules.delete("eslint");
     config.module
       .rule("ts")
@@ -7,8 +7,8 @@ module.exports = {
       .use("ts-loader")
       .loader("ts-loader")
       .options({
-        appendTsSuffixTo: [/\.vue$/],
+        appendTsSuffixTo: [/\.vue$/]
       });
   },
-  parallel: false, // https://stackoverflow.com/questions/59951379/vue-cli-upgrade-from-v3-to-v4-breaks-build-process-with-thread-loader-error-can
+  parallel: false // https://stackoverflow.com/questions/59951379/vue-cli-upgrade-from-v3-to-v4-breaks-build-process-with-thread-loader-error-can
 };

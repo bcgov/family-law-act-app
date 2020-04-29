@@ -6,7 +6,7 @@ import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
 
 function userGuard(to: any, from: any, next: any) {
-  var store = GlobalStore.getInstance();
+  const store = GlobalStore.getInstance();
 
   if (store.getters["application/getUserType"]) {
     next();

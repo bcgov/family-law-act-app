@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import Step from "../models/step";
+//import Step from "../models/step";
 
 export default {
   name: "NavigationSidebar",
@@ -89,14 +89,14 @@ export default {
   },
   methods: {
     onSelectStep: function(event) {
-      var currIndex = this.$store.getters["application/getCurrentStep"];
-      var curr = document.getElementById(this.getStepId(currIndex));
-      var currChildGroup = document.getElementById(
+      const currIndex = this.$store.getters["application/getCurrentStep"];
+      const curr = document.getElementById(this.getStepId(currIndex));
+      const currChildGroup = document.getElementById(
         this.getStepGroupId(currIndex)
       );
-      var next = event.currentTarget;
-      var nextIndex = parseInt(next.getAttribute("index"));
-      var nextChildGroup = document.getElementById(
+      const next = event.currentTarget;
+      const nextIndex = parseInt(next.getAttribute("index"));
+      const nextChildGroup = document.getElementById(
         this.getStepGroupId(nextIndex)
       );
 
@@ -116,14 +116,14 @@ export default {
     },
     //TODO: This is where the step is selected
     onSelectPage: function(event) {
-      var currStepIndex = this.$store.getters["application/getCurrentStep"];
-      var currPageIndex = this.getNavigation()[currStepIndex].currentPage;
-      var currPage = document.getElementById(
+      const currStepIndex = this.$store.getters["application/getCurrentStep"];
+      const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
+      const currPage = document.getElementById(
         this.getStepPageId(currStepIndex, currPageIndex)
       );
 
-      var nextPage = event.currentTarget;
-      var nextPageIndex = parseInt(nextPage.getAttribute("index"));
+      const nextPage = event.currentTarget;
+      const nextPageIndex = parseInt(nextPage.getAttribute("index"));
 
       if (currPage == nextPage) {
         // same choice; do nothing
@@ -141,7 +141,7 @@ export default {
       });
     },
     getNavigation: function() {
-      var steps = this.$store.getters["application/getNavigation"];
+      const steps = this.$store.getters["application/getNavigation"];
 
       return steps;
     },

@@ -1,7 +1,7 @@
 <template>
   <div
     class="fill-height-lg survey-primary fill-body"
-    id="surveyselector"
+    id="print-page"
     style="margin: 10px 10px;"
   >
     <center>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {};
   },
-  created() {},
+
   components: {},
   methods: {},
   props: {},

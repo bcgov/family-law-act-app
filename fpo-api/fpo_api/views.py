@@ -1,12 +1,9 @@
-
-import json
-
 from django.http import HttpResponse
-from django.shortcuts import render
 from api.models.User import User
 
 # Just for testing
 from django.views.decorators.csrf import csrf_exempt
+
 
 def health(request):
     """
