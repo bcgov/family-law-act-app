@@ -24,20 +24,21 @@ from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework_swagger import renderers
+
 # generated views
 from . import views
+
 # custom views
 
 from . import survey
 
+
 class SwaggerSchemaView(APIView):
     permission_classes = [AllowAny]
-    renderer_classes = [
-        renderers.OpenAPIRenderer,
-        renderers.SwaggerUIRenderer
-    ]
+    renderer_classes = [renderers.OpenAPIRenderer, renderers.SwaggerUIRenderer]
     _ignore_model_permissions = True
     exclude_from_schema = True
+
     def get(self, request):
         generator = SchemaGenerator()
         schema = generator.get_schema(request=request)
@@ -46,16 +47,22 @@ class SwaggerSchemaView(APIView):
 
 urlpatterns = [
     # Swagger documentation
-    #url(r'^$', SwaggerSchemaView.as_view()),
-
-    url(r'^accept-terms$', views.AcceptTermsView.as_view()),
-
-    url(r'^survey-cache/(?P<name>[a-zA-Z0-9_\-:]+)$', survey.SurveyCacheView.as_view()),
-    url(r'^survey-cache/(?P<name>[a-zA-Z0-9_\-:]+)/(?P<id>[a-zA-Z0-9_\-:]+)$', survey.SurveyCacheView.as_view()),
-
-    url(r'^survey-print/(?P<name>[a-zA-Z0-9_\-:]+)$', views.SurveyPdfView.as_view()),
-
-    url(r'^user-info$', views.UserStatusView.as_view()),
+    # url(r'^$', SwaggerSchemaView.as_view()),
+    url(r"^accept-terms$", views.AcceptTermsView.as_view()),
+    url(
+        r"^survey-result/(?P<collection>[a-zA-Z0-9_\-:]+)/(?P<type>[a-zA-Z0-9_\-:]+)$",
+        survey.SurveyResultView.as_view(),
+    ),
+    url(
+        r"^survey-result/(?P<collection>[a-zA-Z0-9_\-:]+)/(?P<type>[a-zA-Z0-9_\-:]+)/"
+        r"(?P<id>[a-zA-Z0-9_\-:]+)$",
+        survey.SurveyResultView.as_view(),
+    ),
+    url(
+        r"^survey-print/(?P<collection>[a-zA-Z0-9_\-:])/(?P<type>[a-zA-Z0-9_\-:]+)$",
+        views.SurveyPdfView.as_view(),
+    ),
+    url(r"^user-info$", views.UserStatusView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
