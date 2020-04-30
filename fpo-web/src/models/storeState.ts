@@ -37,4 +37,12 @@ export interface ApplicationState {
   userType: string;
 
   userName: string;
+
+  selectedForms?: null;
+
+  applicantName?: string;
+
+  yourInformationSurvey?: null;
+
+  otherPartySurvey?: null;
 }

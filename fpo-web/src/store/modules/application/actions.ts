@@ -33,5 +33,20 @@ export const actions: ActionTree<ApplicationState, RootState> = {
     if (nextStepPage != null) {
       context.commit("gotoNextStepPage", nextStepPage);
     }
+  },
+  setSelectedForms(context, selectedForms) {
+    context.commit("setSelectedForms", selectedForms);
+  },
+  setApplicantName(context, applicantName) {
+    context.commit("setApplicantName", applicantName);
+  },
+  setYourInformationSurvey(context, yourInformationSurvey) {
+    context.commit("setYourInformationSurvey", yourInformationSurvey);
+  },
+  setPageActive(context, { currentStep, currentPage, active }) {
+    context.commit("setPageActive", { currentStep, currentPage, active });
+  },
+  setOtherParties(context, otherParties) {
+    context.commit("setOtherParties", otherParties);
   }
 };
