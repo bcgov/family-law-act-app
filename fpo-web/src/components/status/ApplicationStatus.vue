@@ -3,23 +3,12 @@
     <div class="row">
       <div class="col-md-12">
         <h1>Previous Applications</h1>
-        <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Child's name</th>
-                  <th scope="col">Birthdate</th>
-                  <th scope="col">Your relationship to the child</th>
-                  <th scope="col">Child's relationship to the other party</th>
-                  <th scope="col">Child currently living with</th>
-                  <th scope="col">Additional Information</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-               
-                
-              </tbody>
-            </table>
+        <div v-for="application in inProgressApplications" :key="application">
+          {{application}}
+          <button type="button" class="btn btn-primary">Resume</button>
+          <button type="button" class="btn btn-primary">Remove</button>
+          <hr>
+        </div>
 
         <div class="intro">
           <div class="loginInfo-section">
@@ -56,7 +45,7 @@ export default {
   name: "application-status",
   data() {
     return {
-      inProgressApplications: [],
+      inProgressApplications: [1, 2],
     };
   },
   methods: {},
@@ -136,5 +125,9 @@ hr.section {
   padding: 3px;
   font: bold 18px arial, sans-serif;
   background: #fff;
+}
+
+ul {
+  list-style-type: none;
 }
 </style>
