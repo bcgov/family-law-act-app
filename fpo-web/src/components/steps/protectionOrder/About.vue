@@ -25,7 +25,7 @@ export default {
 
     let order = this.$store.getters['application/getSelectedPOOrder'];
     if(order) {
-      survey.setValue("userPreferredService", order.orderType);
+      survey.setVariable("userPreferredService", order.orderType);
     }
     
     return {
