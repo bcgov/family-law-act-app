@@ -1,0 +1,159 @@
+<template>
+  <page-base v-bind:page="page"> 
+    <survey v-bind:survey="survey"></survey>
+  </page-base>
+</template>
+
+<script>
+import * as SurveyVue from "survey-vue";
+import { addQuestionTypes } from "@/components/question-types.ts";
+import orderTypesJson from "@/assets/survey-orderTypes.json";
+import PageBase from "../PageBase.vue";
+import { Page } from "../../../models/page";
+import * as showdown from "showdown";
+
+export default {
+  name: "getting-started",
+  components: {
+    PageBase
+  },
+  data() {
+    var survey = new SurveyVue.Model(orderTypesJson);
+
+    survey.commentPrefix = "Comment";
+    survey.showQuestionNumbers = "off";
+    survey.showNavigationButtons = false;
+
+    var markdownConverter = new showdown.Converter({
+        noHeaderId: true
+      });
+    survey.onTextMarkdown.add((sender, options) => {
+      let str = markdownConverter.makeHtml(options.text);
+      let showMissingTerms = true;
+
+      let m = str.match(/^<p>(.*)<\/p>$/);
+      str = str.substring(3);
+      if (m) {
+        str = m[1];
+      }
+      // // convert <code> into glossary tags: TODO
+      str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
+        // if (this.hasTerm(m1)) {
+        //   //       // note: m1 is already html format
+        //   return (
+        //     '<a href="#" class="glossary-link" data-glossary="' +
+        //     m1 +
+        //     '">' +
+        //     m1 +
+        //     "</a>"
+        //   );
+        // }
+        if (showMissingTerms) {
+          return "<code>" + m1 + "</code>";
+        }
+        return m1;
+      });
+      options.html = str;
+    });
+
+    survey.onValueChanged.add((sender, options) => {
+      if(options.name === 'OrdersTypes') {
+        let selectedForms = options.value;
+        this.setSteps(selectedForms);
+    }
+    });
+
+    return {
+      survey: survey,
+      markdownConverter: markdownConverter,
+      useMarkdown: true
+    };
+  },
+  created() {
+    const Survey = SurveyVue;
+    addQuestionTypes(Survey);
+    Survey.defaultBootstrapCss.page.root = "sv_page";
+    Survey.defaultBootstrapCss.pageDescription = "sv_page_description";
+    Survey.defaultBootstrapCss.page.description = "sv_page_description";
+    Survey.defaultBootstrapCss.pageTitle = "sv_page_title";
+    Survey.defaultBootstrapCss.page.title = "sv_page_title";
+    Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
+    Survey.defaultBootstrapCss.question.title = "sv_q_title";
+    Survey.defaultBootstrapCss.question.description = "sv_q_description";
+    Survey.defaultBootstrapCss.panel.description = "sv_p_description";
+    Survey.defaultBootstrapCss.matrixdynamic.button = "btn btn-primary";
+    Survey.defaultBootstrapCss.paneldynamic.button = "btn btn-primary";
+    Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic";
+    Survey.defaultBootstrapCss.checkbox.item = "sv-checkbox";
+    Survey.defaultBootstrapCss.checkbox.controlLabel = "sv-checkbox-label";
+    Survey.defaultBootstrapCss.checkbox.materialDecorator = "";
+    Survey.defaultBootstrapCss.radiogroup.item = "sv-radio";
+    Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
+    Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
+    Survey.StylesManager.applyTheme("bootstrap");
+    this.hideSteps();
+    let storedData = this.$store.getters['application/getSelectedForms'];
+    if(storedData) {
+      this.survey.data = storedData;
+      this.setSteps(this.survey.data.OrdersTypes);
+    }
+  },
+  methods: {
+    getTerm(term, formatted) {
+      term = ("" + term).toLowerCase();
+      let content = this.terms[term];
+      if (formatted) content = this.formatHtml(content);
+      return content;
+    },
+
+    hasTerm(term) {
+      return this.getTerm(term) !== undefined;
+    },
+
+    formatHtml(content) {
+      if (content !== undefined) {
+        content = this.markdownConverter.makeHtml(content);
+        content = content.replace(/<a ([^>]+)/g, function(a) {
+          return a + ' target="_blank"';
+        });
+      }
+      return content;
+    },
+    setSteps(surveyData) {
+      if(surveyData) {
+      this.toggleSteps(1, surveyData.includes('protectionOrder'));
+      //this.toggleSteps(2, surveyData.includes('familyLawMatter'));
+      }
+    },
+    toggleSteps(stepId, activeIndicator) {
+      this.$store.dispatch("application/setStepActive", {currentStep: stepId, active: activeIndicator});
+      if(stepId == 2) {
+        this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: activeIndicator})
+      }
+    },
+    hideSteps() {
+      this.$store.dispatch("application/setStepActive", {currentStep: 1, active: false});
+    }
+  },
+  props: {
+    page: Page,
+    click: String
+  },
+  watch: {
+    pageIndex: function(newVal) {
+      this.survey.currentPageNo = newVal;
+    }
+  },
+  beforeDestroy() {
+    console.log(this.survey.data)
+    this.$store.dispatch("application/setSelectedForms", this.survey.data);
+    // if(this.survey.data.OrdersTypes.includes('familyLawMatter')) {
+    //   this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: true});
+    // }
+  }
+};
+</script>
+
+<style lang="scss">
+@import "../../../styles/survey";
+</style>

@@ -590,7 +590,6 @@
         "visibleIf": "{RespondentName} notempty and {ApplicantNeedsProtection} = \"y\" or {anotherAdultPO} = \"n\""
        }
       ],
-      "visibleIf": "{userPreferredService} = 'needPO'",
       "title": "Protection from whom?"
      }
     ],

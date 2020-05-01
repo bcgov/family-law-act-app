@@ -13,6 +13,10 @@ export const state: ApplicationState = {
   allCompleted: false,
   userType: "",
   userName: "",
+  selectedForms: null,
+  applicantName: "",
+  yourInformationSurvey: null,
+  otherPartySurvey: null
 };
 
 const namespaced = true;

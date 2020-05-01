@@ -1,15 +1,6 @@
-<!-- parent.vue -->
-<!-- https://dzone.com/articles/extending-vuejs-components -->
 <template>
   <div class="app-main" id="step-base">
     <b-container>
-      <br />
-      <h2>
-        {{"STEP " + step.id + " "}}
-        <br />
-        {{ step.label }}
-      </h2>
-      <div>{{ $store.getters['application/getUserName'] }}</div>
       <slot>
         <page-base v-bind:page="step.pages[step.currentPage]"></page-base>
       </slot>

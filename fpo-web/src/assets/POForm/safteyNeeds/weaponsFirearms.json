@@ -1,0 +1,59 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+        {
+            "name": "Weapons and Firearms",
+            "elements": [
+             {
+              "type": "panel",
+              "name": "PORPanelWeapons",
+              "elements": [
+               {
+                "type": "yesno",
+                "name": "RespondentFirearms",
+                "title": "Do you think {RespondentName} would threaten or harm you or your children with guns, explosives or any other kind of firearm?",
+                "description": "<a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html\" target=\"_blank\">Click here for more information about how firearms and explosive substances are defined in the Criminal Code of Canada.</a>"
+               },
+               {
+                "type": "yesno",
+                "name": "RespondentFirearmsYes",
+                "visible": false,
+                "visibleIf": "{RespondentFirearms} = 'y'",
+                "title": "Do you think {RespondentName} has guns, explosives or any other kind of firearm?"
+               },
+               {
+                "type": "yesno",
+                "name": "RespondentWeapons",
+                "title": "Do you think {RespondentName} would threaten or harm you or your children with weapons that are not guns or explosives?",
+                "description": "Everyday objects like a kitchen knife, a baseball bat or a hammer, could be used as weapons."
+               },
+               {
+                "type": "yesno",
+                "name": "RespondentWeaponsYes",
+                "visible": false,
+                "visibleIf": "{RespondentWeapons} = 'y'",
+                "title": "Do you think {RespondentName} own any weapons that are not everyday objects, guns or explosives?",
+                "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knifes, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
+               },
+               {
+                "type": "checkbox",
+                "name": "RespondentNoWeapons",
+                "visible": false,
+                "visibleIf": "{RespondentWeapons} = 'n' and {RespondentFirearms} = 'n'",
+                "title": "By answering \"NO\" to the questions above, you believe there is no need for a judge to order {RespondentName} not to have any weapons or firearms. If there is a concern about {RespondentName} having or using weapons or firearms, go back to the questions above and answer \"YES.\"\n<br>\n<br>\nIf you have no concerns about weapons or firearms, please confirm by checking the statement below.",
+                "choices": [
+                 {
+                  "value": "confirmed",
+                  "text": "I have no concern over weapons or firearms."
+                 }
+                ]
+               }
+              ]
+             }
+            ],
+            "title": "Weapons and Firearms"
+           }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

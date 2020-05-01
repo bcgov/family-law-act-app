@@ -1,0 +1,69 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+        {
+            "name": "No Contact",
+            "elements": [
+             {
+              "type": "panel",
+              "name": "PORPanelNoContactExceptions",
+              "elements": [
+               {
+                "type": "yesno",
+                "name": "RespondentApplicantThirdPartyContact",
+                "title": "Even with a Protection Order in place, you, {ApplicantName}, and {RespondentName} will be allowed to be in the same courtroom together for court purposes. <br><br>Outside of the courtroom, are there any third parties that you want to communicate though, for ongoing court purposes with {RespondentName}?",
+                "description": "Examples of third parties may include a lawyer, a family justice counsellor or a mutual friend."
+               },
+               {
+                "type": "checkbox",
+                "name": "RespondentApplicantContactType",
+                "visible": false,
+                "visibleIf": "{RespondentApplicantThirdPartyContact} = 'y'",
+                "title": "Select any third parties that you, {ApplicantName}, and {RespondentName} may communicate through, for ongoing court purposes:",
+                "hasOther": true,
+                "choices": [
+                 {
+                  "value": "lawyer",
+                  "text": "Lawyer"
+                 },
+                 {
+                  "value": "fjc",
+                  "text": "Family justice counsellor"
+                 },
+                 {
+                  "value": "socialworker",
+                  "text": "Social worker"
+                 },
+                 {
+                  "value": "mutualfamily",
+                  "text": "Family member"
+                 },
+                 {
+                  "value": "mutualfriend",
+                  "text": "Friend"
+                 }
+                ]
+               },
+               {
+                "type": "yesno",
+                "name": "RespondentApplicantContactOther",
+                "title": "Is there any other situation that {RespondentName} would need to communicate with you, {ApplicantName}?"
+               },
+               {
+                "type": "text",
+                "name": "RespondentApplicantContactOtherReason",
+                "visible": false,
+                "visibleIf": "{RespondentApplicantContactOther} = 'y'",
+                "title": "Describe the situation(s)?"
+               }
+              ],
+              "visible": false,
+              "visibleIf": "{ApplicantNeedsProtection} = 'y'"
+             }
+            ],
+            "title": "No Contact"
+           }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

@@ -9,6 +9,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.currentStep = 0;
     state.type = "default";
     state.userName = "";
+    state.selectedForms = null;
 
     state.steps = new Array<Step>();
 
@@ -16,10 +17,10 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.active = true;
     s.id = "1";
-    s.label = "Demo - Get Started";
+    s.label = "Get Started";
     s.icon = "fa-users";
     s.lastUpdate = null;
-    s.type = "stepDemoGetStarted";
+    s.type = "commonInformationStep";
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
@@ -39,44 +40,173 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
+    p = new Page();
+    p.key = "2";
+    p.label = "Other Party";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+    p = new Page();
+    p.key = "3";
+    p.label = "Children information";
+    p.active = false;
+    p.progress = 0;
+
+    s.pages.push(p);
+
     state.steps.push(s);
 
     s = new Step();
 
     s.active = true;
     s.id = "2";
-    s.label = "Demo - FLM";
+    s.label = "Protection Order";
     s.icon = "fa-child";
     s.lastUpdate = null;
-    s.type = "stepDemoFlm";
+    s.type = "stepPO";
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
-    p = new Page();
+     p = new Page();
     p.key = "0";
-    p.label = "Introduction";
+    p.label = "Questionnaire";
     p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
 
-    p = new Page();
+     p = new Page();
     p.key = "1";
-    p.label = "Parental Information";
+    p.label = "Protection From Whom?";
     p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
 
-    p = new Page();
+     p = new Page();
     p.key = "2";
-    p.label = "Children Details";
+    p.label = "Remove person or belongings";
     p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
 
+     p = new Page();
+    p.key = "3";
+    p.label = "No Go";
+    p.active = true;
+    p.progress = 0;
+    s.pages.push(p);
+
+     p = new Page();
+    p.key = "4";
+    p.label = "No Contact";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+     p = new Page();
+    p.key = "5";
+    p.label = "Weapons and Firearms";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+     p = new Page();
+    p.key = "6";
+    p.label = "Background";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+     p = new Page();
+    p.key = "7";
+    p.label = "Your Story";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+     p = new Page();
+    p.key = "8";
+    p.label = "Urgency";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
     state.steps.push(s);
+
+    //Commenting out the demo part
+    // s = new Step();
+    
+    // s.active = true;
+    // s.id = "3";
+    // s.label = "Demo - Get Started";
+    // s.icon = "fa-users";
+    // s.lastUpdate = null;
+    // s.type = "stepDemoGetStarted";
+    // s.pages = new Array<Page>();
+    // s.currentPage = 0;
+
+    //  p = new Page();
+    // p.key = "0";
+    // p.label = "Getting Started";
+    // p.active = true;
+    // p.progress = 0;
+
+    // s.pages.push(p);
+
+    // p = new Page();
+    // p.key = "1";
+    // p.label = "Your information";
+    // p.active = true;
+    // p.progress = 0;
+
+    // s.pages.push(p);
+
+    // state.steps.push(s);
+
+    // s = new Step();
+
+    // s.active = true;
+    // s.id = "4";
+    // s.label = "Demo - FLM";
+    // s.icon = "fa-child";
+    // s.lastUpdate = null;
+    // s.type = "stepDemoFlm";
+    // s.pages = new Array<Page>();
+    // s.currentPage = 0;
+
+    //  p = new Page();
+    // p.key = "0";
+    // p.label = "Introduction";
+    // p.active = true;
+    // p.progress = 0;
+
+    // s.pages.push(p);
+
+    // p = new Page();
+    // p.key = "1";
+    // p.label = "Parental Information";
+    // p.active = true;
+    // p.progress = 0;
+
+    // s.pages.push(p);
+
+    // p = new Page();
+    // p.key = "2";
+    // p.label = "Children Details";
+    // p.active = true;
+    // p.progress = 0;
+
+    // s.pages.push(p);
+
+    // state.steps.push(s);
   },
   setUserType(state, userType) {
     state.userType = userType;
@@ -111,4 +241,19 @@ export const mutations: MutationTree<ApplicationState> = {
       state.steps[nextStep].currentPage = nextPage;
     }
   },
+  setSelectedForms(state, selectedForms) {
+    state.selectedForms = selectedForms;
+  },
+  setApplicantName(state, applicantName) {
+    state.applicantName = applicantName;
+  },
+  setYourInformationSurvey(state, yourInformationSurvey) {
+    state.yourInformationSurvey = yourInformationSurvey;
+  },
+  setPageActive(state, { currentStep, currentPage, active }) {
+    state.steps[currentStep].pages[currentPage].active = active;
+  },
+  setOtherParties(state, otherParties) {
+    state.otherPartySurvey = otherParties;
+  }
 };

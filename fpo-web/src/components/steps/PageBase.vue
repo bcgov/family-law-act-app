@@ -1,13 +1,6 @@
-<!-- parent.vue -->
-<!-- https://dzone.com/articles/extending-vuejs-components -->
 <template>
   <div>
-    <br />
-    <h3>{{ page.label }}</h3>
-    <br />
     <slot>Provide page content here</slot>
-    <br />
-    <br />
     <div class="survey-nav">
       <div v-if="hasPrevStepPage()" class="survey-nav-left">
         <button v-on:click="onPrev()" class="btn btn-primary btn-lg">
