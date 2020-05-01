@@ -45,4 +45,10 @@ export interface ApplicationState {
   yourInformationSurvey?: null;
 
   otherPartySurvey?: null;
+
+  selectedPOOrder?: string;
+
+  urgencySurvey?: null;
+
+  aboutPOSurvey?: null;
 }

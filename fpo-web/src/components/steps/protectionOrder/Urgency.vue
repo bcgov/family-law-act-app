@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page"> 
+  <page-base v-bind:page="page">
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -7,22 +7,34 @@
 <script>
 import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
-import orderTypesJson from "@/assets/survey-orderTypes.json";
+import surveyJson from "@/assets/POForm/urgency.json";
 import PageBase from "../PageBase.vue";
 import { Page } from "../../../models/page";
 import * as showdown from "showdown";
 
 export default {
-  name: "getting-started",
+  name: "urgency",
   components: {
     PageBase
   },
   data() {
-    var survey = new SurveyVue.Model(orderTypesJson);
+    var survey = new SurveyVue.Model(surveyJson);
 
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
+
+    let otherParties = this.$store.getters['application/getOtherParties'];
+    if(otherParties) {
+      let respondentName = otherParties[0].name.first+ " "+otherParties[0].name.middle+" "+otherParties[0].name.last;
+      survey.setVariable("RespondentName", respondentName);
+    }
+
+    let applicantNameObject = this.$store.getters['application/getApplicantName'];
+    if(applicantNameObject) {
+      let applicantName = applicantNameObject.first+ " "+applicantNameObject.middle+" "+applicantNameObject.last;
+      survey.setVariable("ApplicantName", applicantName);
+    }
 
     var markdownConverter = new showdown.Converter({
         noHeaderId: true
@@ -55,18 +67,9 @@ export default {
       });
       options.html = str;
     });
-
-    survey.onValueChanged.add((sender, options) => {
-      if(options.name === 'OrdersTypes') {
-        let selectedForms = options.value;
-        this.setSteps(selectedForms);
-    }
-    });
-
+    
     return {
       survey: survey,
-      markdownConverter: markdownConverter,
-      useMarkdown: true
     };
   },
   created() {
@@ -91,15 +94,13 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    //this.hideSteps();
-    let storedData = this.$store.getters['application/getSelectedForms'];
+    let storedData = this.$store.getters['application/getUrgencySurvey'];
     if(storedData) {
       this.survey.data = storedData;
-     // this.setSteps(this.survey.data.OrdersTypes);
     }
   },
   methods: {
-    getTerm(term, formatted) {
+   getTerm(term, formatted) {
       term = ("" + term).toLowerCase();
       let content = this.terms[term];
       if (formatted) content = this.formatHtml(content);
@@ -119,24 +120,10 @@ export default {
       }
       return content;
     },
-    setSteps(surveyData) {
-      if(surveyData) {
-      this.toggleSteps(1, surveyData.includes('protectionOrder'));
-      //this.toggleSteps(2, surveyData.includes('familyLawMatter'));
-      }
-    },
-    toggleSteps(stepId, activeIndicator) {
-      this.$store.dispatch("application/setStepActive", {currentStep: stepId, active: activeIndicator});
-      if(stepId == 2) {
-        this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: activeIndicator})
-      }
-    },
-    hideSteps() {
-      this.$store.dispatch("application/setStepActive", {currentStep: 1, active: false});
-    }
   },
   props: {
-    page: Page
+    page: Page,
+    childrenDetailsList: Array
   },
   watch: {
     pageIndex: function(newVal) {
@@ -144,15 +131,12 @@ export default {
     }
   },
   beforeDestroy() {
-    console.log(this.survey.data)
-    this.$store.dispatch("application/setSelectedForms", this.survey.data);
-    // if(this.survey.data.OrdersTypes.includes('familyLawMatter')) {
-    //   this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: true});
-    // }
+    this.$store.dispatch("application/setUrgencySurvey", this.survey.data);
   }
 };
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 @import "../../../styles/survey";
 </style>
