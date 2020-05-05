@@ -1,43 +1,57 @@
 <template>
-  <b-container class="container home-content" id="login">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Previous Applications</h1>
-        <div v-for="application in inProgressApplications" :key="application">
-          {{application}}
-          <button type="button" class="btn btn-primary">Resume</button>
-          <button type="button" class="btn btn-primary">Remove</button>
-          <hr>
-        </div>
-
-        <div class="intro">
-          <div class="loginInfo-section">
-            <hr class="section" />
-            <div class="row">
-              <div class="col-md-5">
-                <a class="btn btn-success btn-lg register-button">
-                  Respond to Documents served on me
-                </a>
-              </div>
-              <div class="col-md-2">
-                <div class="wrapper">
-                  <div class="line"></div>
-                  <div class="wordwrapper">
-                    <div class="word">or</div>
-                  </div>
+  <div id="status">
+    <b-container class="container home-content">
+      <div class="row">
+        <div class="col-12">
+          <h1>Previous Applications</h1>
+          <div v-if="inProgressApplications.length >0">
+            <div v-for="application in inProgressApplications" :key="application">
+              <div class="row">
+                <div class="col-8">
+                  <p>{{application}}</p>
+                </div>
+                <div class="col-4">
+                  <button type="button" class="btn btn-primary application-button">Resume</button>
+                  <button type="button" class="btn btn-primary application-button">Remove</button>
                 </div>
               </div>
-              <div class="col-md-5">
-                <a class="btn btn-success btn-lg register-button">
-                  Begin NEW Application
-                </a>
-              </div>
+              <hr class="section" />
+            </div>
+          </div>
+          <div v-else>
+            <p>No applications to display</p>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <a
+                class="btn btn-success btn-lg register-button"
+                @click="navigate('new')"
+              >Respond to Documents served on me</a>
+            </div>
+          </div>
+          <!-- <br> -->
+          <div class="row">
+            <div class="col-md-5">
+              <a
+                class="btn btn-success btn-lg register-button"
+                @click="beginApplication()"
+              >Begin NEW Application</a>
+            </div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <div class="row">
+            <div class="col-md-5">
+              <a class="terms" @click="openTerms()">
+                <u>Terms and Conditions</u>
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </b-container>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -45,10 +59,24 @@ export default {
   name: "application-status",
   data() {
     return {
-      inProgressApplications: [1, 2],
+      inProgressApplications: [],
     };
   },
-  methods: {},
+  methods: {
+    openTerms() {
+      this.$router.push({name: "terms"})
+    },
+    beginApplication() {
+      this.$router.push({name: "FlappSurveys" })
+    }
+  },
+  created() {
+    // To be fetched from db
+    this.inProgressApplications.push(
+      "sample saved-1",
+      "sample saved-2"
+    );
+  }
 };
 </script>
 
@@ -61,7 +89,7 @@ export default {
   color: black;
 }
 hr.section {
-  border: 1px solid $gov-mid-blue;
+  border: 0.5px solid $gov-mid-blue;
   margin-bottom: 1.5rem;
 }
 .section-heading {
@@ -82,7 +110,7 @@ hr.section {
 }
 .register-button {
   color: $gov-white !important;
-  border: 2px solid rgba($gov-pale-grey, 0.3);
+  border: 2px solid rgba($gov-mid-blue, 0.3);
   margin-top: 2.5rem;
   width: 100%;
   &:active {
@@ -97,37 +125,11 @@ hr.section {
   margin: 10px;
 }
 
-.line {
-  position: absolute;
-  left: 49%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: $gov-mid-blue;
-  z-index: 1;
+.application-button {
+  margin-right: 2rem;
 }
 
-.wordwrapper {
-  text-align: center;
-  height: 12px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  margin-top: -12px;
-  z-index: 2;
-}
-
-.word {
-  color: black;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 3px;
-  font: bold 18px arial, sans-serif;
-  background: #fff;
-}
-
-ul {
-  list-style-type: none;
+.terms{
+  color: $gov-mid-blue;
 }
 </style>

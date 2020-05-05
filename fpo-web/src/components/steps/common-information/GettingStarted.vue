@@ -144,7 +144,6 @@ export default {
     }
   },
   beforeDestroy() {
-    console.log(this.survey.data)
     this.$store.dispatch("application/setSelectedForms", this.survey.data);
     // if(this.survey.data.OrdersTypes.includes('familyLawMatter')) {
     //   this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: true});

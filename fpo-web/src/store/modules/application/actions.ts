@@ -57,5 +57,32 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   },
   setAboutPOSurvey(context, aboutPOSurvey) {
     context.commit("setAboutPOSurvey", aboutPOSurvey);
-  }
+  },
+  setRespondentName(context, respondentName) {
+    context.commit("setRespondentName", respondentName);
+  },
+  setProtectionWhomSurvey(context, protectionWhomSurvey) {
+    context.commit("setProtectionWhomSurvey", protectionWhomSurvey);
+  },
+  setRemoveSurvey(context, removeSurvey) {
+    context.commit("setRemoveSurvey", removeSurvey);
+  },
+  setNoGoSurvey(context, noGoSurvey) {
+    context.commit("setNoGoSurvey", noGoSurvey);
+  },
+  setNoContactSurvey(context, noContactSurvey) {
+    context.commit("setNoContactSurvey", noContactSurvey);
+  },
+  setWeaponsSurvey(context, weaponsSurvey) {
+    context.commit("setWeaponsSurvey", weaponsSurvey);
+  },
+  setBackgroundSurvey(context, backgroundSurvey) {
+    context.commit("setBackgroundSurvey", backgroundSurvey);
+  },
+  setYourStory(context, yourStory) {
+    context.commit("setYourStory", yourStory);
+  },
+  setQuestionnaireSurvey(context, questionnaireSurvey) {
+    context.commit("setQuestionnaireSurvey", questionnaireSurvey);
+  },
 };

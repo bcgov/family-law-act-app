@@ -272,5 +272,32 @@ export const mutations: MutationTree<ApplicationState> = {
   },
   setAboutPOSurvey(state, aboutPOSurvey) {
     state.aboutPOSurvey = aboutPOSurvey;
-  }
+  },
+  setRespondentName(state, respondentName) {
+    state.respondentName = respondentName;
+  },
+  setProtectionWhomSurvey(state, protectionWhomSurvey) {
+    state.protectionWhomSurvey = protectionWhomSurvey;
+  },
+  setRemoveSurvey(state, removeSurvey) {
+    state.removeSurvey = removeSurvey;
+  },
+  setNoGoSurvey(state, noGoSurvey) {
+    state.noGoSurvey = noGoSurvey;
+  },
+  setNoContactSurvey(state, noContactSurvey) {
+    state.noContactSurvey = noContactSurvey;
+  },
+  setWeaponsSurvey(state, weaponsSurvey) {
+    state.weaponsSurvey = weaponsSurvey;
+  },
+  setBackgroundSurvey(state, backgroundSurvey) {
+    state.backgroundSurvey = backgroundSurvey;
+  },
+  setYourStory(state, yourStory) {
+    state.yourStory = yourStory;
+  },
+  setQuestionnaireSurvey(state, questionnaireSurvey) {
+    state.questionnaireSurvey = questionnaireSurvey;
+  },
 };

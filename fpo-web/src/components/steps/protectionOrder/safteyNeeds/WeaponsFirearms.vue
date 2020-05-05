@@ -7,13 +7,13 @@
 <script>
 import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
-import surveyJson from "@/assets/survey-qualify.json";
-import PageBase from "../PageBase.vue";
-import { Page } from "../../../models/page";
+import surveyJson from "@/assets/POForm/safteyNeeds/weaponsFirearms.json";
+import PageBase from "../../PageBase.vue";
+import { Page } from "@/models/page";
 import * as showdown from "showdown";
 
 export default {
-  name: "po-questionnaire",
+  name: "weapons-firearms",
   components: {
     PageBase
   },
@@ -23,6 +23,32 @@ export default {
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
+
+    let applicantNameObject = this.$store.getters[
+      "application/getApplicantName"
+    ];
+    if (applicantNameObject) {
+      let applicantName =
+        applicantNameObject.first +
+        " " +
+        applicantNameObject.middle +
+        " " +
+        applicantNameObject.last;
+      survey.setVariable("ApplicantName", applicantName);
+    }
+
+    let respondentNameObject = this.$store.getters[
+      "application/getRespondentName"
+    ];
+    if (respondentNameObject) {
+      let respondentName =
+        respondentNameObject.first +
+        " " +
+        respondentNameObject.middle +
+        " " +
+        respondentNameObject.last;
+      survey.setVariable("RespondentName", respondentName);
+    }
 
     var markdownConverter = new showdown.Converter({
       noHeaderId: true
@@ -55,36 +81,9 @@ export default {
       });
       options.html = str;
     });
-
-    survey.onValueChanged.add((sender, options) => {
-      let pagesArr = [];
-      if (options.name === "orderType") {
-        this.removePages();
-        let selectedOrder = options.value;
-        this.$store.dispatch("application/setSelectedPOOrder", sender.data);
-        pagesArr = [8, 9];
-        if (selectedOrder !== "needPO" && selectedOrder !== "none") {
-          this.togglePages(pagesArr, true);
-        } else {
-          this.togglePages(pagesArr, false);
-        }
-        if (selectedOrder === "needPO") {
-          this.populatePagesForNeedPO(sender);
-        }
-      }
-      if (options.name === "PORConfirmed") {
-        pagesArr = [1, 2, 3, 5, 6, 7, 9];
-        if (options.value.length !== 0) {
-          this.togglePages(pagesArr, true);
-        } else {
-          this.togglePages(pagesArr, false);
-        }
-      }
-    });
-
+    
     return {
-      survey: survey,
-      markdownConverter: markdownConverter
+      survey: survey
     };
   },
   created() {
@@ -109,8 +108,8 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters["application/getQuestionnaireSurvey"];
-    if (storedData) {
+    let storedData = this.$store.getters['application/getWeaponsSurvey'];
+    if(storedData) {
       this.survey.data = storedData;
     }
   },
@@ -134,31 +133,10 @@ export default {
         });
       }
       return content;
-    },
-    togglePages(pageArr, activeIndicator) {
-      for (let i = 0; i < pageArr.length; i++) {
-        this.$store.dispatch("application/setPageActive", {
-          currentStep: 1,
-          currentPage: pageArr[i],
-          active: activeIndicator
-        });
-      }
-    },
-    removePages() {
-      let allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-      this.togglePages(allPageIndex, false);
-    },
-    populatePagesForNeedPO(sender) {
-      if (sender.data.PORConfirmed) {
-        if (sender.data.PORConfirmed.length !== 0) {
-          let pagesArr = [1, 2, 3, 5, 6, 7, 9];
-          this.togglePages(pagesArr, true);
-        }
-      }
     }
   },
   props: {
-    page: Page
+    page: Page,
   },
   watch: {
     pageIndex: function(newVal) {
@@ -166,12 +144,15 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$store.dispatch("application/setQuestionnaireSurvey", this.survey.data);
+     this.$store.dispatch(
+      "application/setWeaponsSurvey",
+      this.survey.data
+    );
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/common";
 </style>

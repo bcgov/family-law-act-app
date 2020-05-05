@@ -57,8 +57,7 @@
                 "title": "Describe the situation(s)?"
                }
               ],
-              "visible": false,
-              "visibleIf": "{ApplicantNeedsProtection} = 'y'"
+              "visible": true
              }
             ],
             "title": "No Contact"
