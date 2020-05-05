@@ -19,7 +19,16 @@ export const state: ApplicationState = {
   otherPartySurvey: null,
   selectedPOOrder: "",
   urgencySurvey: null,
-  aboutPOSurvey: null
+  aboutPOSurvey: null,
+  respondentName: "",
+  protectionWhomSurvey: null,
+  removeSurvey: null,
+  noGoSurvey: null,
+  noContactSurvey: null,
+  weaponsSurvey: null,
+  backgroundSurvey: null,
+  yourStory: null,
+  questionnaireSurvey: null
 };
 
 const namespaced = true;
