@@ -48,5 +48,14 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   },
   setOtherParties(context, otherParties) {
     context.commit("setOtherParties", otherParties);
+  },
+  setSelectedPOOrder(context, selectedPOOrder) {
+    context.commit("setSelectedPOOrder", selectedPOOrder);
+  },
+  setUrgencySurvey(context, urgencySurvey) {
+    context.commit("setUrgencySurvey", urgencySurvey);
+  },
+  setAboutPOSurvey(context, aboutPOSurvey) {
+    context.commit("setAboutPOSurvey", aboutPOSurvey);
   }
 };

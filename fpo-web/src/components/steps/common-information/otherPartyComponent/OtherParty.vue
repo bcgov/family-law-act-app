@@ -124,10 +124,10 @@ export default {
   watch: {
     pageIndex: function(newVal) {
       this.survey.currentPageNo = newVal;
+    },
+    otherPartyData: function() {
+      this.$store.dispatch("application/setOtherParties", this.otherPartyData);
     }
-  },
-  beforeDestroy() {
-    this.$store.dispatch("application/setOtherParties", this.otherPartyData);
   }
 };
 </script>

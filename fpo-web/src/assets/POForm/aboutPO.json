@@ -80,7 +80,6 @@
         ]
        }
       ],
-      "visibleIf": "{userPreferredService} = 'changePO' or {userPreferredService} = 'terminatePO'",
       "title": "About Protection Order"
      }
     ],

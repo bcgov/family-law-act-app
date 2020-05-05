@@ -60,7 +60,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s = new Step();
 
-    s.active = true;
+    s.active = false;
     s.id = "2";
     s.label = "Protection Order";
     s.icon = "fa-child";
@@ -80,7 +80,7 @@ export const mutations: MutationTree<ApplicationState> = {
      p = new Page();
     p.key = "1";
     p.label = "Protection From Whom?";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
@@ -88,7 +88,7 @@ export const mutations: MutationTree<ApplicationState> = {
      p = new Page();
     p.key = "2";
     p.label = "Remove person or belongings";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
@@ -96,14 +96,14 @@ export const mutations: MutationTree<ApplicationState> = {
      p = new Page();
     p.key = "3";
     p.label = "No Go";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
     s.pages.push(p);
 
      p = new Page();
     p.key = "4";
     p.label = "No Contact";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
@@ -111,7 +111,7 @@ export const mutations: MutationTree<ApplicationState> = {
      p = new Page();
     p.key = "5";
     p.label = "Weapons and Firearms";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
@@ -119,7 +119,7 @@ export const mutations: MutationTree<ApplicationState> = {
      p = new Page();
     p.key = "6";
     p.label = "Background";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
@@ -127,15 +127,23 @@ export const mutations: MutationTree<ApplicationState> = {
      p = new Page();
     p.key = "7";
     p.label = "Your Story";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "8";
+    p.label = "About Protection Order";
+    p.active = false;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+    p = new Page();
+    p.key = "9";
     p.label = "Urgency";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
@@ -255,5 +263,14 @@ export const mutations: MutationTree<ApplicationState> = {
   },
   setOtherParties(state, otherParties) {
     state.otherPartySurvey = otherParties;
+  },
+  setSelectedPOOrder(state, selectedPOOrder) {
+    state.selectedPOOrder = selectedPOOrder;
+  },
+  setUrgencySurvey(state, urgencySurvey) {
+    state.urgencySurvey = urgencySurvey;
+  },
+  setAboutPOSurvey(state, aboutPOSurvey) {
+    state.aboutPOSurvey = aboutPOSurvey;
   }
 };

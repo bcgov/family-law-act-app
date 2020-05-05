@@ -16,7 +16,10 @@ export const state: ApplicationState = {
   selectedForms: null,
   applicantName: "",
   yourInformationSurvey: null,
-  otherPartySurvey: null
+  otherPartySurvey: null,
+  selectedPOOrder: "",
+  urgencySurvey: null,
+  aboutPOSurvey: null
 };
 
 const namespaced = true;

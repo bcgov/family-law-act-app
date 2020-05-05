@@ -98,5 +98,14 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   },
   getOtherParties(state: ApplicationState) {
     return state.otherPartySurvey;
+  },
+  getSelectedPOOrder(state: ApplicationState) {
+    return state.selectedPOOrder;
+  },
+  getUrgencySurvey(state: ApplicationState) {
+    return state.urgencySurvey;
+  },
+  getAboutPOSurvey(state: ApplicationState) {
+    return state.aboutPOSurvey;
   }
 };
