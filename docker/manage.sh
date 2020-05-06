@@ -74,6 +74,7 @@ build-web() {
   echo -e "Building the vue-app image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
+    --copy \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
     'vue-app'
@@ -96,6 +97,7 @@ build-web-dev() {
   
 #-v "${COMPOSE_PROJECT_NAME}_fpo-npm-cache:/opt/app-root/src/.npm" \
   ${S2I_EXE} build \
+    --copy \
     -e "DEV_MODE=true" \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
@@ -130,6 +132,7 @@ build-api() {
   #
   echo -e "\nBuilding django image ..."
   ${S2I_EXE} build \
+    --copy \
     '../fpo-api' \
     'centos/python-36-centos7' \
     'fpo-django'
