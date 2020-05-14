@@ -1,5 +1,5 @@
 <template>
-<page-base v-bind:page="page">
+<page-base>
   <div class="home-content">
     <div class="row">
       <div class="col-md-12">
@@ -61,7 +61,7 @@
 <script>
 import { Question } from "survey-vue";
 import OtherPartySurvey from "./OtherPartySurvey.vue";
-import { Page } from "@/models/page";
+import { Step } from "@/models/step";
 import PageBase from "../../PageBase.vue";
 
 export default {
@@ -79,9 +79,14 @@ export default {
     };
   },
   created() {
-    let storedData = this.$store.getters['application/getOtherParties'];
-    if(storedData) {
-      this.otherPartyData = storedData;
+    //TODO: remove
+    // let storedData = this.$store.getters['application/getOtherParties'];
+    // if(storedData) {
+    //   this.otherPartyData = storedData;
+    // }
+
+    if (this.step.result.otherPartySurvey) {
+      this.otherPartyData = this.step.result.otherPartySurvey;
     }
   },
   methods: {
@@ -119,14 +124,17 @@ export default {
     }
   },
   props: {
-    page: Page,
+    step: Step,
   },
   watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
-    },
     otherPartyData: function() {
-      this.$store.dispatch("application/setOtherParties", this.otherPartyData);
+      //TODO: remove
+      // this.$store.dispatch("application/setOtherParties", this.otherPartyData);
+
+      this.$store.dispatch("application/updateStepResultData", {
+        step: this.step,
+        data: {otherPartySurvey: this.otherPartyData}
+      });
     }
   }
 };

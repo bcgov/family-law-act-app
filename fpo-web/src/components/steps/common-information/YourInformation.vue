@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -9,7 +9,7 @@ import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
 import surveyJson from "@/assets/survey-information.json";
 import PageBase from "../PageBase.vue";
-import { Page } from "../../../models/page";
+import { Step } from "../../../models/step";
 
 export default {
   name: "your-information",
@@ -49,25 +49,31 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters['application/getYourInformationSurvey'];
-    if(storedData) {
-      this.survey.data = storedData;
+
+    //TODO: remove
+    // let storedData = this.$store.getters['application/getYourInformationSurvey'];
+    // if(storedData) {
+    //   this.survey.data = storedData;
+    // }
+
+    if (this.step.result.yourInformationSurvey) {
+      this.survey.data = this.step.result.yourInformationSurvey;
     }
   },
   methods: {
 
   },
   props: {
-    page: Page,
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
-    }
+    step: Step
   },
   beforeDestroy() {
-    this.$store.dispatch("application/setYourInformationSurvey", this.survey.data);
-    this.$store.dispatch("application/setApplicantName", this.survey.data.ApplicantName);
+    //TODO: remove
+    // this.$store.dispatch("application/setYourInformationSurvey", this.survey.data);
+
+    this.$store.dispatch("application/updateStepResultData", {
+      step: this.step,
+      data: {yourInformationSurvey: this.survey.data}
+    });
   }
 };
 </script>

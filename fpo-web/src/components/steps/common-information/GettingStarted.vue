@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page"> 
+  <page-base> 
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -9,7 +9,7 @@ import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
 import orderTypesJson from "@/assets/survey-orderTypes.json";
 import PageBase from "../PageBase.vue";
-import { Page } from "../../../models/page";
+import { Step } from "../../../models/step";
 import * as showdown from "showdown";
 
 export default {
@@ -92,10 +92,16 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
     //this.hideSteps();
-    let storedData = this.$store.getters['application/getSelectedForms'];
-    if(storedData) {
-      this.survey.data = storedData;
-     // this.setSteps(this.survey.data.OrdersTypes);
+
+    //TODO: remove
+    // let storedData = this.$store.getters['application/getSelectedForms'];
+    // if(storedData) {
+    //   this.survey.data = storedData;
+    //  // this.setSteps(this.survey.data.OrdersTypes);
+    // }
+
+    if (this.step.result.selectedForms) {
+      this.survey.data = this.step.result.selectedForms;
     }
   },
   methods: {
@@ -136,18 +142,20 @@ export default {
     }
   },
   props: {
-    page: Page
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
-    }
+    step: Step
   },
   beforeDestroy() {
-    this.$store.dispatch("application/setSelectedForms", this.survey.data);
+    //TODO: remove
+    // this.$store.dispatch("application/setSelectedForms", this.survey.data);
+    //
     // if(this.survey.data.OrdersTypes.includes('familyLawMatter')) {
     //   this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: true});
     // }
+
+    this.$store.dispatch("application/updateStepResultData", {
+      step: this.step,
+      data: {selectedForms: this.survey.data}
+    });
   }
 };
 </script>

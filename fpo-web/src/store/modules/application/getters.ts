@@ -86,18 +86,8 @@ export const getters: GetterTree<ApplicationState, RootState> = {
 
     return nextStepPage;
   },
-  
-  getSelectedForms(state: ApplicationState) {
-    return state.selectedForms;
-  },
   getApplicantName(state: ApplicationState) {
     return state.applicantName;
-  },
-  getYourInformationSurvey(state: ApplicationState) {
-    return state.yourInformationSurvey;
-  },
-  getOtherParties(state: ApplicationState) {
-    return state.otherPartySurvey;
   },
   getSelectedPOOrder(state: ApplicationState) {
     return state.selectedPOOrder;

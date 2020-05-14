@@ -25,7 +25,6 @@ export default {
     return {};
   },
   props: {
-    page: Page,
   },
 
   methods: {

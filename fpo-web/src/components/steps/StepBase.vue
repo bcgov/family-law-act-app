@@ -2,7 +2,7 @@
   <div class="app-main" id="step-base">
     <b-container>
       <slot>
-        <page-base v-bind:page="step.pages[step.currentPage]"></page-base>
+        <page-base></page-base>
       </slot>
     </b-container>
   </div>
@@ -19,9 +19,6 @@ export default {
   },
   data() {
     return {};
-  },
-  props: {
-    step: Step
   },
   created() {},
   methods: {}
