@@ -79,12 +79,6 @@ export default {
     };
   },
   created() {
-    //TODO: remove
-    // let storedData = this.$store.getters['application/getOtherParties'];
-    // if(storedData) {
-    //   this.otherPartyData = storedData;
-    // }
-
     if (this.step.result.otherPartySurvey) {
       this.otherPartyData = this.step.result.otherPartySurvey;
     }
@@ -128,9 +122,6 @@ export default {
   },
   watch: {
     otherPartyData: function() {
-      //TODO: remove
-      // this.$store.dispatch("application/setOtherParties", this.otherPartyData);
-
       this.$store.dispatch("application/updateStepResultData", {
         step: this.step,
         data: {otherPartySurvey: this.otherPartyData}

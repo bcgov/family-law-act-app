@@ -50,12 +50,6 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
 
-    //TODO: remove
-    // let storedData = this.$store.getters['application/getYourInformationSurvey'];
-    // if(storedData) {
-    //   this.survey.data = storedData;
-    // }
-
     if (this.step.result.yourInformationSurvey) {
       this.survey.data = this.step.result.yourInformationSurvey;
     }
@@ -67,9 +61,6 @@ export default {
     step: Step
   },
   beforeDestroy() {
-    //TODO: remove
-    // this.$store.dispatch("application/setYourInformationSurvey", this.survey.data);
-
     this.$store.dispatch("application/updateStepResultData", {
       step: this.step,
       data: {yourInformationSurvey: this.survey.data}
