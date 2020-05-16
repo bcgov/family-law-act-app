@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -9,7 +9,7 @@ import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
 import surveyJson from "@/assets/POForm/aboutPO.json";
 import PageBase from "../PageBase.vue";
-import { Page } from "../../../models/page";
+import { Step } from "../../../models/step";
 
 export default {
   name: "about",
@@ -55,10 +55,10 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters['application/getAboutPOSurvey'];
-    if(storedData) {
-      this.survey.data = storedData;
-    }
+    
+    if (this.step.result.aboutPOSurvey){
+      this.survey.data = this.step.result.aboutPOSurvey;
+    }  
   },
   mounted() {
   
@@ -66,7 +66,7 @@ export default {
   methods: {
   },
   props: {
-    page: Page
+    step: Step
   },
   watch: {
     pageIndex: function(newVal) {
@@ -74,8 +74,10 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$store.dispatch("application/setAboutPOSurvey", this.survey.data);
-  }
+     this.$store.dispatch("application/updateStepResultData",{
+      step: this.step,
+      data:{aboutPOSurvey: this.survey.data}
+    })}
 };
 </script>
 

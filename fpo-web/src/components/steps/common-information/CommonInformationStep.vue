@@ -1,7 +1,7 @@
 <template>
   <step-base v-bind:step="step">
     <getting-started v-bind:step="step" v-if="step.currentPage == 0"></getting-started>
-    <your-information v-bind:step="step" v-if="step.currentPage == 1"></your-information>
+    <your-information v-bind:step="step" v-bind:page=step.pages[1] v-if="step.currentPage == 1"></your-information>
     <other-party v-bind:step="step" v-if="step.currentPage == 2"></other-party>
     <children-info v-bind:step="step" v-if="step.currentPage == 3"></children-info>
   </step-base>

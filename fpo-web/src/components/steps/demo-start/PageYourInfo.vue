@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     This page wil contain your personal information.
     <br />
     <br />

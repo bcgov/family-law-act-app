@@ -1,5 +1,8 @@
 <template>
-  <page-base>
+
+  <page-base >
+  <!-- <page-base> -->
+    <!-- <h1>{{function(){debugger;message}() || message }}</h1> -->
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -16,6 +19,7 @@ export default {
   components: {
     PageBase
   },
+  
   data() {
     var survey = new SurveyVue.Model(surveyJson);
 
@@ -58,7 +62,7 @@ export default {
 
   },
   props: {
-    step: Step
+    step: Step,
   },
   beforeDestroy() {
     this.$store.dispatch("application/updateStepResultData", {

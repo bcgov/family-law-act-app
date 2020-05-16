@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     Please select the application(s) you would like to fill out.
     <br />
     <br />

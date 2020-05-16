@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -7,12 +7,13 @@
 <script>
 import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
-import surveyJson from "@/assets/POForm/safteyNeeds/noGo.json";
+import surveyJson from "@/assets/POForm/safetyNeeds/removePerson.json";
 import PageBase from "../../PageBase.vue";
-import { Page } from "@/models/page";
+import { Step } from "@/models/step";
+import * as showdown from "showdown";
 
 export default {
-  name: "no-go",
+  name: "remove-person",
   components: {
     PageBase
   },
@@ -22,6 +23,19 @@ export default {
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
+
+    let applicantNameObject = this.$store.getters[
+      "application/getApplicantName"
+    ];
+    if (applicantNameObject) {
+      let applicantName =
+        applicantNameObject.first +
+        " " +
+        applicantNameObject.middle +
+        " " +
+        applicantNameObject.last;
+      survey.setVariable("ApplicantName", applicantName);
+    }
 
     let respondentNameObject = this.$store.getters[
       "application/getRespondentName"
@@ -35,6 +49,38 @@ export default {
         respondentNameObject.last;
       survey.setVariable("RespondentName", respondentName);
     }
+
+    var markdownConverter = new showdown.Converter({
+      noHeaderId: true
+    });
+    survey.onTextMarkdown.add((sender, options) => {
+      let str = markdownConverter.makeHtml(options.text);
+      let showMissingTerms = true;
+
+      let m = str.match(/^<p>(.*)<\/p>$/);
+      str = str.substring(3);
+      if (m) {
+        str = m[1];
+      }
+      // // convert <code> into glossary tags: TODO
+      str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
+        // if (this.hasTerm(m1)) {
+        //   //       // note: m1 is already html format
+        //   return (
+        //     '<a href="#" class="glossary-link" data-glossary="' +
+        //     m1 +
+        //     '">' +
+        //     m1 +
+        //     "</a>"
+        //   );
+        // }
+        if (showMissingTerms) {
+          return "<code>" + m1 + "</code>";
+        }
+        return m1;
+      });
+      options.html = str;
+    });
     
     return {
       survey: survey
@@ -62,16 +108,35 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters['application/getNoGoSurvey'];
-    if(storedData) {
-      this.survey.data = storedData;
+
+    if (this.step.result.removeSurvey){
+      this.survey.data = this.step.result.removeSurvey;
     }
   },
   methods: {
-   
+getTerm(term, formatted) {
+      term = ("" + term).toLowerCase();
+      let content = this.terms[term];
+      if (formatted) content = this.formatHtml(content);
+      return content;
+    },
+
+    hasTerm(term) {
+      return this.getTerm(term) !== undefined;
+    },
+
+    formatHtml(content) {
+      if (content !== undefined) {
+        content = this.markdownConverter.makeHtml(content);
+        content = content.replace(/<a ([^>]+)/g, function(a) {
+          return a + ' target="_blank"';
+        });
+      }
+      return content;
+    }
   },
   props: {
-    page: Page
+    step: Step,
   },
   watch: {
     pageIndex: function(newVal) {
@@ -79,9 +144,10 @@ export default {
     }
   },
   beforeDestroy() {
-     this.$store.dispatch(
-      "application/setNoGoSurvey",
-      this.survey.data);
+  this.$store.dispatch("application/updateStepResultData",{
+      step: this.step,
+      data:{removeSurvey: this.survey.data}
+    })
   }
 };
 </script>

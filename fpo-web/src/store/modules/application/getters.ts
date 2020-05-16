@@ -89,40 +89,7 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getApplicantName(state: ApplicationState) {
     return state.applicantName;
   },
-  getSelectedPOOrder(state: ApplicationState) {
-    return state.selectedPOOrder;
-  },
-  getUrgencySurvey(state: ApplicationState) {
-    return state.urgencySurvey;
-  },
-  getAboutPOSurvey(state: ApplicationState) {
-    return state.aboutPOSurvey;
-  },
   getRespondentName(state: ApplicationState) {
     return state.respondentName;
   },
-  getProtectionWhomSurvey(state: ApplicationState) {
-    return state.protectionWhomSurvey;
-  },
-  getRemoveSurvey(state: ApplicationState) {
-    return state.removeSurvey;
-  },
-  getNoGoSurvey(state: ApplicationState) {
-    return state.noGoSurvey;
-  },
-  getNoContactSurvey(state: ApplicationState) {
-    return state.noContactSurvey;
-  },
-  getWeaponsSurvey(state: ApplicationState) {
-    return state.weaponsSurvey;
-  },
-  getBackgroundSurvey(state: ApplicationState) {
-    return state.backgroundSurvey;
-  },
-  getYourStory(state: ApplicationState) {
-    return state.yourStory;
-  },
-  getQuestionnaireSurvey(state: ApplicationState) {
-    return state.questionnaireSurvey;
-  }
 };

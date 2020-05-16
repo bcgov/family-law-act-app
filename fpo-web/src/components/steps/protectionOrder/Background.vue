@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -9,7 +9,7 @@ import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
 import surveyJson from "@/assets/POForm/background.json";
 import PageBase from "../PageBase.vue";
-import { Page } from "../../../models/page";
+import { Step } from "../../../models/step";
 
 export default {
   name: "background",
@@ -49,15 +49,15 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters['application/getBackgroundSurvey'];
-    if(storedData) {
-      this.survey.data = storedData;
-    }
+   
+    if (this.step.result.backgroundSurvey){
+      this.survey.data = this.step.result.backgroundSurvey;
+    }  
   },
   methods: {
   },
   props: {
-    page: Page,
+    step: Step,
     childrenDetailsList: Array
   },
   watch: {
@@ -66,12 +66,11 @@ export default {
     }
   },
   beforeDestroy() {
-     this.$store.dispatch(
-      "application/setBackgroundSurvey",
-      this.survey.data
-    );
-  }
-};
+     this.$store.dispatch("application/updateStepResultData",{
+      step: this.step,
+      data:{backgroundSurvey: this.survey.data}
+    })}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

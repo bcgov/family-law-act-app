@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     <div v-if="!isAdding">
       Please enter your children details below.
       <br />

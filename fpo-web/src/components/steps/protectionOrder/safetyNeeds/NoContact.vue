@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base>
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -7,9 +7,9 @@
 <script>
 import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
-import surveyJson from "@/assets/POForm/safteyNeeds/noContact.json";
+import surveyJson from "@/assets/POForm/safetyNeeds/noContact.json";
 import PageBase from "../../PageBase.vue";
-import { Page } from "@/models/page";
+import { Step } from "@/models/step";
 import * as showdown from "showdown";
 
 export default {
@@ -108,10 +108,10 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters['application/getNoContactSurvey'];
-    if(storedData) {
-      this.survey.data = storedData;
-    }
+   
+    if (this.step.result.noContactSurvey){
+      this.survey.data = this.step.result.noContactSurvey;
+    }   
   },
   methods: {
    getTerm(term, formatted) {
@@ -136,7 +136,7 @@ export default {
     }
   },
   props: {
-    page: Page
+    step: Step
   },
   watch: {
     pageIndex: function(newVal) {
@@ -144,10 +144,10 @@ export default {
     }
   },
   beforeDestroy() {
-     this.$store.dispatch(
-      "application/setNoContactSurvey",
-      this.survey.data
-    );
+     this.$store.dispatch("application/updateStepResultData",{
+      step: this.step,
+      data:{noContactSurvey: this.survey.data}
+    })
   }
 };
 </script>
