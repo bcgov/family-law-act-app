@@ -13,22 +13,7 @@ export const state: ApplicationState = {
   allCompleted: false,
   userType: "",
   userName: "",
-  selectedForms: null,
-  applicantName: "",
-  yourInformationSurvey: null,
-  otherPartySurvey: null,
-  selectedPOOrder: "",
-  urgencySurvey: null,
-  aboutPOSurvey: null,
-  respondentName: "",
-  protectionWhomSurvey: null,
-  removeSurvey: null,
-  noGoSurvey: null,
-  noContactSurvey: null,
-  weaponsSurvey: null,
-  backgroundSurvey: null,
-  yourStory: null,
-  questionnaireSurvey: null
+  applicantName: ""
 };
 
 const namespaced = true;

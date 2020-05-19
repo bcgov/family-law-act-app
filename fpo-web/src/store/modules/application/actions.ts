@@ -34,6 +34,9 @@ export const actions: ActionTree<ApplicationState, RootState> = {
       context.commit("gotoNextStepPage", nextStepPage);
     }
   },
+  setAllCompleted(context, allCompleted) {
+    context.commit("setAllCompleted", allCompleted);
+  },
   setApplicantName(context, applicantName) {
     context.commit("setApplicantName", applicantName);
   },

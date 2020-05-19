@@ -1,5 +1,5 @@
 <template>
-  <page-base>
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -114,7 +114,7 @@ export default {
     }
   },
   methods: {
-getTerm(term, formatted) {
+    getTerm(term, formatted) {
       term = ("" + term).toLowerCase();
       let content = this.terms[term];
       if (formatted) content = this.formatHtml(content);
@@ -133,6 +133,18 @@ getTerm(term, formatted) {
         });
       }
       return content;
+    },
+    
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
     }
   },
   props: {

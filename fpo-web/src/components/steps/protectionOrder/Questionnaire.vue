@@ -1,5 +1,5 @@
 <template>
-  <page-base>
+  <page-base v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -61,7 +61,10 @@ export default {
       if (options.name === "orderType") {
         this.removePages();
         let selectedOrder = options.value;
-        this.$store.dispatch("application/setSelectedPOOrder", sender.data);
+        this.$store.dispatch("application/updateStepResultData", {
+          step: this.step,
+          data: {selectedPOOrder: sender.data}
+        });
         pagesArr = [8, 9];
         if (selectedOrder !== "needPO" && selectedOrder !== "none") {
           this.togglePages(pagesArr, true);
@@ -156,6 +159,23 @@ export default {
           this.togglePages(pagesArr, true);
         }
       }
+    },
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
+    },
+    isDisableNext() {
+      // demo
+      return Object.keys(this.survey.data).length === 0;
+    },
+    getDisableNextText() {
+      // demo
+      return "You will need to answer the question above to continue";
     }
   },
   props: {

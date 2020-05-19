@@ -1,6 +1,6 @@
 <template>
 
-  <page-base >
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
   <!-- <page-base> -->
     <!-- <h1>{{function(){debugger;message}() || message }}</h1> -->
     <survey v-bind:survey="survey"></survey>
@@ -59,7 +59,15 @@ export default {
     }
   },
   methods: {
-
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
+    }
   },
   props: {
     step: Step,

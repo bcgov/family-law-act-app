@@ -38,35 +38,7 @@ export interface ApplicationState {
 
   userName: string;
 
-  selectedForms?: null;
-
   applicantName?: string;
 
-  yourInformationSurvey?: null;
-
-  otherPartySurvey?: null;
-
-  selectedPOOrder?: string;
-
-  urgencySurvey?: null;
-
-  aboutPOSurvey?: null;
-
   respondentName?: string;
-
-  protectionWhomSurvey?: null;
-
-  removeSurvey?: null;
-
-  noGoSurvey?: null;
-
-  noContactSurvey?: null;
-
-  weaponsSurvey?: null;
-
-  backgroundSurvey?: null;
-
-  yourStory?: null;
-
-  questionnaireSurvey?: null;
 }

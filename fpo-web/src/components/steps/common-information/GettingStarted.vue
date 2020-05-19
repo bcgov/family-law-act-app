@@ -1,5 +1,5 @@
 <template>
-  <page-base> 
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()"> 
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -132,6 +132,15 @@ export default {
     },
     hideSteps() {
       this.$store.dispatch("application/setStepActive", {currentStep: 1, active: false});
+    },
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
     }
   },
   props: {

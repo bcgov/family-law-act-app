@@ -1,5 +1,5 @@
 <template>
-  <page-base>
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -111,7 +111,8 @@ export default {
    
     if (this.step.result.weaponsSurvey){
       this.survey.data = this.step.result.weaponsSurvey;
-    }  },
+    }  
+  },
   methods: {
     getTerm(term, formatted) {
       term = ("" + term).toLowerCase();
@@ -132,6 +133,18 @@ export default {
         });
       }
       return content;
+    },
+    
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
     }
   },
   props: {

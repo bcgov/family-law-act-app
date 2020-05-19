@@ -17,13 +17,14 @@
         }"
         v-on:click="onSelectStep($event)"
       >
+        <div v-if="isPrintStep(step)" class="step separate"></div>
         <div class="step-header">
           <div class="header-icon">
             <i v-bind:class="['fa', step.icon]"></i>
           </div>
           <div class="header-text">
             <div class="text-step">
-              STEP {{ stepIndex + 1 }}
+              STEP {{ getStepDisplayNumber(stepIndex) }}
               <i v-show="false" class="fa fa-check" />
             </div>
             <div class="text-title">{{ step.label }}</div>
@@ -57,24 +58,6 @@
           </ul>
         </div>
       </a>
-      <div class="step separate"></div>
-      <div
-        class="step"
-        v-bind:class="{
-          disabled: !isAllCompleted(),
-          current: isAllCompleted(),
-        }"
-      >
-        <div class="step-header">
-          <div class="header-icon">
-            <i class="fa fa-print"></i>
-          </div>
-          <div class="header-text">
-            <div class="text-step">STEP {{ getNavigation().length + 1 }}</div>
-            <div class="text-title">Print Application Forms</div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -145,6 +128,19 @@ export default {
 
       return steps;
     },
+    getStepDisplayNumber: function(stepIndex) {
+      const steps = this.getNavigation();
+      let stepDisplayNumber = stepIndex + 1;  // convert 0-based index number to 1-based display number
+
+      for (let i = stepIndex - 1; i >= 0; i--) {
+        if (!steps[i].active) {
+          // adjust display number
+          stepDisplayNumber--;
+        }
+      }
+
+      return stepDisplayNumber;
+    },
     isCurrentStep: function(stepIndex) {
       return this.$store.getters["application/getCurrentStep"] === stepIndex;
     },
@@ -160,6 +156,9 @@ export default {
     getStepPageId: function(stepIndex, pageIndex) {
       return this.getStepId(stepIndex) + "-page-" + pageIndex;
     },
+    isPrintStep: function(step) {
+      return step.type=='print';
+    }
   },
   props: {},
 };

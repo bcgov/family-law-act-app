@@ -6,18 +6,15 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getStep(state: ApplicationState, stepIndex: number): Step {
     return state.steps[stepIndex];
   },
-
   getUserType(state: ApplicationState): string {
     return state.userType;
   },
   getNavigation(state: ApplicationState): Array<Step> {
     return state.steps;
   },
-
   getCurrentStep(state: ApplicationState): number {
     return state.currentStep;
   },
-
   isAllCompleted(state: ApplicationState): boolean {
     return state.allCompleted;
   },

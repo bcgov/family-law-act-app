@@ -1,5 +1,5 @@
 <template>
-<page-base>
+<page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
   <div class="home-content">
     <div class="row">
       <div class="col-md-12">
@@ -115,6 +115,23 @@ export default {
         return data.id === this.editId ? editedRow : data;
       });
       this.showTable = true;
+    },
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
+    },
+    isDisableNext() {
+      // demo
+      return this.otherPartyData.length <= 0;
+    },
+    getDisableNextText() {
+      // demo
+      return "You will need to add at least one other party to continue";
     }
   },
   props: {
