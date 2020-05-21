@@ -2,6 +2,7 @@ import { Step } from "@/models/step";
 import { Page } from "@/models/page";
 import { ApplicationState } from "@/models/storeState";
 import { MutationTree } from "vuex";
+import axios from "axios";
 
 export const mutations: MutationTree<ApplicationState> = {
   init(state) {
@@ -9,14 +10,13 @@ export const mutations: MutationTree<ApplicationState> = {
     state.currentStep = 0;
     state.type = "default";
     state.userName = "";
-    state.selectedForms = null;
 
     state.steps = new Array<Step>();
 
     let s = new Step();
 
     s.active = true;
-    s.id = "1";
+    s.id = "0";
     s.label = "Get Started";
     s.icon = "fa-users";
     s.lastUpdate = null;
@@ -51,7 +51,7 @@ export const mutations: MutationTree<ApplicationState> = {
     p = new Page();
     p.key = "3";
     p.label = "Children information";
-    p.active = false;
+    p.active = true;
     p.progress = 0;
 
     s.pages.push(p);
@@ -61,7 +61,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "2";
+    s.id = "1";
     s.label = "Protection Order";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -69,7 +69,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
-     p = new Page();
+    p = new Page();
     p.key = "0";
     p.label = "Questionnaire";
     p.active = true;
@@ -77,7 +77,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "1";
     p.label = "Protection From Whom?";
     p.active = false;
@@ -85,7 +85,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "2";
     p.label = "Remove person or belongings";
     p.active = false;
@@ -93,14 +93,14 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "3";
     p.label = "No Go";
     p.active = false;
     p.progress = 0;
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "4";
     p.label = "No Contact";
     p.active = false;
@@ -108,7 +108,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "5";
     p.label = "Weapons and Firearms";
     p.active = false;
@@ -116,7 +116,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "6";
     p.label = "Background";
     p.active = false;
@@ -124,7 +124,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-     p = new Page();
+    p = new Page();
     p.key = "7";
     p.label = "Your Story";
     p.active = false;
@@ -149,72 +149,26 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
     state.steps.push(s);
 
-    //Commenting out the demo part
-    // s = new Step();
-    
-    // s.active = true;
-    // s.id = "3";
-    // s.label = "Demo - Get Started";
-    // s.icon = "fa-users";
-    // s.lastUpdate = null;
-    // s.type = "stepDemoGetStarted";
-    // s.pages = new Array<Page>();
-    // s.currentPage = 0;
+    s = new Step();
 
-    //  p = new Page();
-    // p.key = "0";
-    // p.label = "Getting Started";
-    // p.active = true;
-    // p.progress = 0;
+    s.active = true;
+    s.id = "2";
+    s.label = "Print";
+    s.icon = "fa-print";
+    s.lastUpdate = null;
+    s.type = "print";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
 
-    // s.pages.push(p);
+    p = new Page();
+    p.key = "0";
+    p.label = "Print Application Forms";
+    p.active = true;
+    p.progress = 0;
 
-    // p = new Page();
-    // p.key = "1";
-    // p.label = "Your information";
-    // p.active = true;
-    // p.progress = 0;
+    s.pages.push(p);
+    state.steps.push(s);
 
-    // s.pages.push(p);
-
-    // state.steps.push(s);
-
-    // s = new Step();
-
-    // s.active = true;
-    // s.id = "4";
-    // s.label = "Demo - FLM";
-    // s.icon = "fa-child";
-    // s.lastUpdate = null;
-    // s.type = "stepDemoFlm";
-    // s.pages = new Array<Page>();
-    // s.currentPage = 0;
-
-    //  p = new Page();
-    // p.key = "0";
-    // p.label = "Introduction";
-    // p.active = true;
-    // p.progress = 0;
-
-    // s.pages.push(p);
-
-    // p = new Page();
-    // p.key = "1";
-    // p.label = "Parental Information";
-    // p.active = true;
-    // p.progress = 0;
-
-    // s.pages.push(p);
-
-    // p = new Page();
-    // p.key = "2";
-    // p.label = "Children Details";
-    // p.active = true;
-    // p.progress = 0;
-
-    // s.pages.push(p);
-
-    // state.steps.push(s);
   },
   setUserType(state, userType) {
     state.userType = userType;
@@ -249,55 +203,38 @@ export const mutations: MutationTree<ApplicationState> = {
       state.steps[nextStep].currentPage = nextPage;
     }
   },
-  setSelectedForms(state, selectedForms) {
-    state.selectedForms = selectedForms;
+  setAllCompleted(state, allCompleted) {
+    state.allCompleted = allCompleted;
   },
   setApplicantName(state, applicantName) {
     state.applicantName = applicantName;
   },
-  setYourInformationSurvey(state, yourInformationSurvey) {
-    state.yourInformationSurvey = yourInformationSurvey;
-  },
   setPageActive(state, { currentStep, currentPage, active }) {
     state.steps[currentStep].pages[currentPage].active = active;
   },
-  setOtherParties(state, otherParties) {
-    state.otherPartySurvey = otherParties;
-  },
-  setSelectedPOOrder(state, selectedPOOrder) {
-    state.selectedPOOrder = selectedPOOrder;
-  },
-  setUrgencySurvey(state, urgencySurvey) {
-    state.urgencySurvey = urgencySurvey;
-  },
-  setAboutPOSurvey(state, aboutPOSurvey) {
-    state.aboutPOSurvey = aboutPOSurvey;
-  },
+  
   setRespondentName(state, respondentName) {
     state.respondentName = respondentName;
   },
-  setProtectionWhomSurvey(state, protectionWhomSurvey) {
-    state.protectionWhomSurvey = protectionWhomSurvey;
-  },
-  setRemoveSurvey(state, removeSurvey) {
-    state.removeSurvey = removeSurvey;
-  },
-  setNoGoSurvey(state, noGoSurvey) {
-    state.noGoSurvey = noGoSurvey;
-  },
-  setNoContactSurvey(state, noContactSurvey) {
-    state.noContactSurvey = noContactSurvey;
-  },
-  setWeaponsSurvey(state, weaponsSurvey) {
-    state.weaponsSurvey = weaponsSurvey;
-  },
-  setBackgroundSurvey(state, backgroundSurvey) {
-    state.backgroundSurvey = backgroundSurvey;
-  },
-  setYourStory(state, yourStory) {
-    state.yourStory = yourStory;
-  },
-  setQuestionnaireSurvey(state, questionnaireSurvey) {
-    state.questionnaireSurvey = questionnaireSurvey;
+ 
+  updateStepResultData(state, { step, data }) {
+    step.result = {...step.result, ...data};
+
+    let info;
+
+    console.log("data key = " + Object.keys(data)[0]);
+
+    axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'http://localhost:8080';
+    axios
+      .get('http://localhost:8081/testing', {
+      })
+      .then(res => {
+        info = res.request.response;
+        console.log("info = " + info);
+      })
+      .catch(err => {
+        console.log("error = " + err.response);
+      });
   },
 };

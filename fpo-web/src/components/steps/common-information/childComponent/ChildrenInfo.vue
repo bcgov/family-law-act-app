@@ -1,5 +1,5 @@
 <template>
-<page-base v-bind:page="page">
+<page-base v-bind:hideNavButtons="!showTable" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
   <div class="home-content">
     <div class="row">
       <div class="col-md-12"> <!-- v-if="showTable" -->
@@ -54,7 +54,7 @@
 <script>
 import { Question } from "survey-vue";
 import ChildrenSurvey from "./ChildrenSurvey.vue";
-import { Page } from "@/models/page";
+import { Step } from "@/models/step";
 import PageBase from "../../PageBase.vue";
 
 export default {
@@ -103,15 +103,30 @@ export default {
         return data.id === this.editId ? editedRow : data;
       });
       this.showTable = true;
+    },
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
     }
   },
   props: {
-    page: Page,
+    step: Step,
   },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+  created() {
+    if (this.step.result.childData) {
+      this.childData = this.step.result.childData;
     }
+  },
+  beforeDestroy() {
+    this.$store.dispatch("application/updateStepResultData", {
+      step: this.step,
+      data: {childData: this.childData}
+    });
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:page="page">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -9,7 +9,7 @@ import * as SurveyVue from "survey-vue";
 import { addQuestionTypes } from "@/components/question-types.ts";
 import surveyJson from "@/assets/POForm/protectionFromWhom.json";
 import PageBase from "../PageBase.vue";
-import { Page } from "../../../models/page";
+import { Step } from "../../../models/step";
 import * as showdown from "showdown";
 
 export default {
@@ -113,9 +113,9 @@ export default {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-    let storedData = this.$store.getters["application/getProtectionWhomSurvey"];
-    if (storedData) {
-      this.survey.data = storedData;
+
+    if (this.step.result.protectionWhomSurvey){
+      this.survey.data = this.step.result.protectionWhomSurvey;
     }
   },
   methods: {
@@ -138,10 +138,22 @@ export default {
         });
       }
       return content;
+    },
+    
+    onPrev() {
+      this.$store.dispatch("application/gotoPrevStepPage");
+    },
+
+    onNext() {
+      this.$store.dispatch("application/gotoNextStepPage");
+    },
+
+    onComplete() {
+      this.$store.dispatch("application/setAllCompleted", true);
     }
   },
   props: {
-    page: Page
+    step: Step
   },
   watch: {
     pageIndex: function(newVal) {
@@ -149,10 +161,10 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$store.dispatch(
-      "application/setProtectionWhomSurvey",
-      this.survey.data
-    );
+    this.$store.dispatch("application/updateStepResultData",{
+      step: this.step,
+      data:{protectionWhomSurvey: this.survey.data}
+    }),
     this.$store.dispatch(
       "application/setRespondentName",
       this.survey.data.RespondentName

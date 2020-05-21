@@ -5,7 +5,7 @@ export class Step {
   public type: string;
   public label: string;
   public icon: string;
-  result?: object;
+  result: object = {};
   metadata?: object;
   pages?: Array<Page> = new Array<Page>();
   currentPage: number;
