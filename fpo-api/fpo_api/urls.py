@@ -6,6 +6,8 @@ from django.conf.urls import include, url
 from django.views.generic import RedirectView
 from . import views
 
+from django.views.decorators.csrf import csrf_exempt
+
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()

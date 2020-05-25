@@ -74,7 +74,8 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 ROOT_URLCONF = 'fpo_api.urls'
 
-CORS_URLS_REGEX = r'^/api/v1/.*$'
+#CORS_URLS_REGEX = r'^/api/v1/.*$'
+CORS_URLS_REGEX = r'^/.*$'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 from corsheaders.defaults import default_headers
