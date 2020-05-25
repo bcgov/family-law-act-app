@@ -1,140 +1,132 @@
+from datetime import datetime
+import json
 import logging
+import uuid
 
-from django.http import (
-    HttpResponseBadRequest,
-    HttpResponseForbidden,
-    HttpResponseNotFound,
-)
-
-# from django.utils.decorators import method_decorator
-# from django.views import View
-# from django.views.decorators.csrf import csrf_exempt
-from rest_framework import permissions, serializers
+from django.conf import settings
+from django.http import JsonResponse, HttpResponseBadRequest
+#from django.utils.decorators import method_decorator
+#from django.views import View
+#from django.views.decorators.csrf import csrf_exempt
+from rest_framework import permissions
 from rest_framework.views import APIView
-from rest_framework.response import Response
 
-from api.models import SurveyResult, User
+from api.models import User
+from fpo_api.cache import SurveyCache
 
 LOGGER = logging.getLogger(__name__)
 
 
-class SurveySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SurveyResult
-        fields = [
-            "id",
-            "create_timestamp",
-            "update_timestamp",
-            "collection",
-            "survey_type",
-            "result",
-            "user_id",
-        ]
-
-
-# @method_decorator(csrf_exempt, name='dispatch')
-class SurveyResultView(APIView):
-    """Manage survey results"""
-
+#@method_decorator(csrf_exempt, name='dispatch')
+class SurveyCacheView(APIView):
+    """Manage in-memory caching of survey results (not saved to database)"""
     permission_classes = (permissions.IsAuthenticated,)
 
+    def get_cache_manager(self, uid):
+        if uid and settings.SURVEY_CACHE_ENABLED:
+            return SurveyCache(
+                settings.SURVEY_CACHE_DIR,
+                settings.SURVEY_CACHE_TIMEOUT,
+                settings.SURVEY_CACHE_MAX_ENTRIES,
+                uid)
+
     def get_request_user_id(self, request):
-        # return isinstance(request.user, User) and request.user.authorization_id
-        return isinstance(request.user, User) and request.user.id
+        return isinstance(request.user, User) and request.user.authorization_id
 
     def get(self, request, *args, **kwargs):
-        collection = kwargs.get("collection")
-        if not collection:
-            return HttpResponseBadRequest("Missing survey collection")
-        survey_type = kwargs.get("type")
-        if not survey_type:
-            return HttpResponseBadRequest("Missing survey type")
-        collection = collection[:32]
-        survey_type = survey_type[:32]
-        uid = self.get_request_user_id(request)
-        if not uid:
-            return HttpResponseForbidden("Missing user ID")
-        key = kwargs.get("id")
-        key = key[:32] if key else None
-
+        survey_name = kwargs.get('name')
+        if not survey_name:
+            return HttpResponseBadRequest('Missing survey name')
+        survey_name = survey_name[:32]
+        key = kwargs.get('id')
+        newest = None
+        result = None
         if key:
-            try:
-                result = SurveyResult.objects.get(
-                    collection=collection, survey_type=survey_type, id=key, user_id=uid
-                )
-            except SurveyResult.DoesNotExist:
-                return HttpResponseNotFound()
-            # FIXME query param to make most recent?
-            return Response(SurveySerializer(result).data)
-
-        results = SurveyResult.objects.filter(
-            collection=collection, survey_type=survey_type, user_id=uid
-        ).all()
-        return Response({"result": SurveySerializer(results, many=True).data})
+            key = key[:32]
+        uid = self.get_request_user_id(request)
+        cache_mgr = self.get_cache_manager(uid)
+        if cache_mgr:
+            if key == 'clear':
+                cache_mgr.set_most_recent(survey_name, None)
+                key = None
+            else:
+                newest = cache_mgr.get_most_recent(survey_name)
+                fetch_key = key or newest
+                if fetch_key:
+                    result = cache_mgr.get_survey(survey_name, fetch_key)
+                    if result:
+                        key = fetch_key
+                        if key != 'index':
+                            cache_mgr.set_most_recent(survey_name, key)
+        if key == 'index':
+            if isinstance(result, list):
+                index = []
+                for idx_key in result:
+                    found = cache_mgr.get_survey(survey_name, idx_key)
+                    if found:
+                        del found['data']
+                        found['key'] = idx_key
+                        index.append(found)
+                result = index
+            else:
+                result = []
+        return JsonResponse({
+            'user_id': uid,
+            'name': survey_name,
+            'key': key,
+            'result': result,
+            'active': newest})
 
     def post(self, request, *args, **kwargs):
-        collection = kwargs.get("collection")
-        if not collection:
-            return HttpResponseBadRequest("Missing survey collection")
-        survey_type = kwargs.get("type")
-        if not survey_type:
-            return HttpResponseBadRequest("Missing survey type")
-        survey_type = survey_type[:32]
+        survey_name = kwargs.get('name')
+        if not survey_name:
+            return HttpResponseBadRequest('Missing survey name')
+        survey_name = survey_name[:32]
         uid = self.get_request_user_id(request)
-        if not uid:
-            return HttpResponseForbidden("Missing user ID")
-        body = request.data
-        if not body:
-            return HttpResponseBadRequest("Missing survey results")
-        key = kwargs.get("id")
-        key = key[:32] if key else None
+        cache_mgr = self.get_cache_manager(uid)
+        if cache_mgr:
+            key = kwargs.get('id')
+            body = request.body
 
-        if key:
+            if key:
+                key = key[:32]
+            else:
+                if not body:
+                    return HttpResponseBadRequest()
+                key = str(uuid.uuid4())[:32]
+
+            cache_key = uid + '-survey-' + survey_name + '-' + key if uid else None
+
+            if not body:
+                cache_mgr.set_survey(survey_name, key, None)
+                return JsonResponse({
+                    'user_id': uid,
+                    'name': survey_name,
+                    'key': None,
+                    'status': 'clear'})
+
             try:
-                result = SurveyResult.objects.get(
-                    collection=collection, survey_type=survey_type, id=key, user_id=uid
-                )
-            except SurveyResult.DoesNotExist:
-                return HttpResponseNotFound()
-        else:
-            result = SurveyResult(
-                collection=collection, survey_type=survey_type, user_id=uid
-            )
-        result.result = body
-        result.save()
+                survey = json.loads(body)
+            except json.decoder.JSONDecodeError:
+                survey = None
+            if not survey:
+                return HttpResponseBadRequest()
 
-        return Response(
-            {
-                "user_id": uid,
-                "collection": collection,
-                "type": survey_type,
-                "id": result.id,
-                "status": "ok",
-            }
-        )
+            cache_mgr.set_survey(survey_name, key, survey)
+            cache_mgr.set_most_recent(survey_name, key)
+            index = cache_mgr.get_survey(survey_name, 'index')
+            if not isinstance(index, list):
+                index = []
+            if key not in index:
+                index.append(key)
+            cache_mgr.set_survey(survey_name, 'index', index)
+            return JsonResponse({
+                'user_id': uid,
+                'name': survey_name,
+                'key': key,
+                'status': 'ok'})
 
-    def delete(self, request, *args, **kwargs):
-        collection = kwargs.get("collection")
-        if not collection:
-            return HttpResponseBadRequest("Missing survey collection")
-        survey_type = kwargs.get("type")
-        if not survey_type:
-            return HttpResponseBadRequest("Missing survey type")
-        collection = collection[:32]
-        survey_type = survey_type[:32]
-        uid = self.get_request_user_id(request)
-        if not uid:
-            return HttpResponseForbidden("Missing user ID")
-        key = kwargs.get("id")
-        if not key:
-            return HttpResponseForbidden("Missing survey ID")
-
-        try:
-            result = SurveyResult.objects.get(
-                collection=collection, survey_type=survey_type, id=key, user_id=uid
-            )
-        except SurveyResult.DoesNotExist:
-            return HttpResponseNotFound()
-        result.delete()
-
-        return Response({})
+        return JsonResponse({
+            'user_id': uid,
+            'name': survey_name,
+            'status': 'error'})
