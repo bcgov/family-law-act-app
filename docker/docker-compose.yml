@@ -23,7 +23,7 @@ services:
       - DEV_MODE=false
       - NODE_ENV=development
       - NPM_CONFIG_LOGLEVEL=notice
-      - NPM_RUN=start
+      - NPM_RUN=serve
 
     networks:
       - fpo
@@ -35,6 +35,7 @@ services:
       - "../fpo-web/package.json:/opt/app-root/src/package.json"
     depends_on:
       - fpo-api
+      - fpo-pdf
 
   #
   # fpo-api
