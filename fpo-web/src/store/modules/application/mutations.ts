@@ -2,7 +2,6 @@ import { Step } from "@/models/step";
 import { Page } from "@/models/page";
 import { ApplicationState } from "@/models/storeState";
 import { MutationTree } from "vuex";
-import axios from "axios";
 
 export const mutations: MutationTree<ApplicationState> = {
   init(state) {
@@ -220,21 +219,6 @@ export const mutations: MutationTree<ApplicationState> = {
   updateStepResultData(state, { step, data }) {
     step.result = {...step.result, ...data};
 
-    let info;
-
-    console.log("data key = " + Object.keys(data)[0]);
-
-    axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-    axios.defaults.headers.post['Access-Control-Allow-Origin'] = 'http://localhost:8080';
-    axios
-      .get('http://localhost:8081/testing', {
-      })
-      .then(res => {
-        info = res.request.response;
-        console.log("info = " + info);
-      })
-      .catch(err => {
-        console.log("error = " + err.response);
-      });
+    console.log("data key 0= " + Object.keys(data)[0]);
   },
 };

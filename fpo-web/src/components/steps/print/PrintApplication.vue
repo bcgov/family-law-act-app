@@ -4,14 +4,20 @@
       <div class="row">
         <div class="col-md-12">
           <h1>Print Your Application Forms</h1>
-          <p>Print the forms and file at your local court registry.</p>
+          <p>
+            Print the forms and file at your local court registry.
+          </p>
           <div class="printSection">
             <div class="printAlign">
               <center>
-                <button type="submit" class="btn btn-success btn-lg">
-                  <span class="fa fa-print btn-icon-left"></span> Print Your
-                      Application
-                </button>
+                <a
+                  href="printFPO"
+                  v-on:click.prevent="onDownload()"
+                  class="btn btn-success btn-lg"
+                >
+                  <span class="fa fa-print btn-icon-left"></span>
+                  Print Your Application
+                </a>
               </center>
             </div>
           </div>
@@ -24,6 +30,8 @@
 <script>
 import { Step } from "@/models/step";
 import PageBase from "../PageBase.vue";
+import axios from "axios";
+import { Page } from "survey-vue";
 
 export default {
   name: "print-application",
@@ -34,7 +42,37 @@ export default {
   components: {
     PageBase
   },
-  methods: {},
+  methods: {
+    getFPOResultData: function() {
+      return this.$store.getters["application/getNavigation"][1].result;
+    },
+    onDownload: function() {
+      axios
+        .post(
+          "http://localhost:8081/form?name=application-about-a-protection-order",
+          this.getFPOResultData(),
+          {
+            responseType: "blob",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/pdf"
+            }
+          }
+        )
+        .then(res => {
+          const blob = res.data;
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          document.body.appendChild(link);
+          link.download = "fpo.pdf";
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  },
   props: {
     step: Step
   },
@@ -53,7 +91,7 @@ export default {
 .printSection {
   border: 2px solid rgba($gov-pale-grey, 0.7);
   border-radius: 18px;
-  width: 100%
+  width: 100%;
 }
 .printAlign {
   padding: 20px;
