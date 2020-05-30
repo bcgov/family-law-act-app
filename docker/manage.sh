@@ -142,9 +142,8 @@ build-pdf() {
   #
   # fpo-pdf
   #
-  echo -e "\nGetting pdf image ..."
-  docker pull aquavitae/weasyprint
-  docker tag aquavitae/weasyprint pdf
+  # Nothing to build here ...
+  echo
 }
 
 buildImages() {
@@ -282,9 +281,6 @@ case "$COMMAND" in
         ;;
       fpo-solr)
         build-solr
-        ;;
-      fpo-pdf)
-        build-pdf
         ;;
       *)
        buildImages
