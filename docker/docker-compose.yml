@@ -129,7 +129,7 @@ services:
   # fpo-pdf
   #
   fpo-pdf:
-    image: aquavitae/weasyprint
+    image: bcgovimages/weasyprint
     networks:
       - fpo
     ports:

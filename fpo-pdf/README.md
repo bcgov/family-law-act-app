@@ -2,7 +2,7 @@
 
 This project uses a [Weasyprint](http://weasyprint.org/) microservice to generate PDF documents.
 
-The PDF Microservice is currently using the [aquavitae/weasyprint](https://hub.docker.com/r/aquavitae/weasyprint/) image.  This is a simple microservice that works in an OpenShift environment.
+The PDF Microservice is currently using the [bcgovimages/weasyprint](https://hub.docker.com/r/bcgovimages/weasyprint/) image.  This is a simple microservice that works in an OpenShift environment.
 
 The microservice is exposed internally to the project on http://weasyprint:5001 or at http://localhost:8083 if you are using the docker-compose development environment.
 
@@ -67,5 +67,5 @@ This has been placed in the `watch.sh` file.
 ## References
 
 * Project: [Weasyprint](http://weasyprint.org/)
-* Image: [aquavitae/weasyprint](https://hub.docker.com/r/aquavitae/weasyprint/)
-* Source: [aquavitae/docker-weasyprint](https://github.com/aquavitae/docker-weasyprint)
+* Image: [bcgovimages/weasyprint](https://hub.docker.com/r/bcgovimages/weasyprint/)
+* Source: [BCDevOps/docker-weasyprint](https://github.com/BCDevOps/docker-weasyprint)
