@@ -7,9 +7,9 @@
           You need to complete an Application for Enforcement in Form P if you need an order for enforcement of an order, agreement or determination of a parenting 
           coordinator made under the Family Law Act.
         </h4>
-        <p>Sometimes parents or guardians don¿t follow written agreements, court orders or a determination of a parenting coordinator. 
+        <p>Sometimes parents or guardians don't follow written agreements, court orders or a determination of a parenting coordinator. 
           If this happens, you can make an application to the court to enforce the agreement, order or determination, and that the court impose consequences on the 
-          person who isn¿t following the agreement, order or determination.</p>
+          person who isn't following the agreement, order or determination.</p>
         
         <p>In most cases, it is up to each person to let the court know that they believe the other party is not following the agreement, order or determination. 
           You may want to talk to a lawyer to help you understand, if the other person is not following the agreement, order or determination, what consequences you can 
