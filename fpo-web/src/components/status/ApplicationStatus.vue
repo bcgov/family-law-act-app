@@ -67,7 +67,10 @@ export default {
       this.$router.push({name: "terms"})
     },
     beginApplication() {
-      this.$router.push({name: "FlappSurveys" })
+      this.$router.push({name: "flapp-surveys" })
+    },
+    navigate() {
+      
     }
   },
   created() {
