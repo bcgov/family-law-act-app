@@ -11,7 +11,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.userName = "";
 
     state.steps = new Array<Step>();
-
+    // Common information START
     let s = new Step();
 
     s.active = true;
@@ -47,16 +47,18 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
 
-    p = new Page();
-    p.key = "3";
-    p.label = "Children information";
-    p.active = true;
-    p.progress = 0;
+    // p = new Page();
+    // p.key = "3";
+    // p.label = "Children information";
+    // p.active = true;
+    // p.progress = 0;
 
-    s.pages.push(p);
+    // s.pages.push(p);
 
     state.steps.push(s);
 
+    // Common Information STOP
+    // Protection Order START
     s = new Step();
 
     s.active = false;
@@ -148,10 +150,117 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
     state.steps.push(s);
 
+    //Protection Order STOP
+    //Family Law Matter START
+    s = new Step();
+
+    s.active = false;
+    s.id = "2";
+    s.label = "Family Law Matter";
+    s.icon = "fa-print";
+    s.lastUpdate = null;
+    s.type = "stepFlm";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
+
+    p = new Page();
+    p.key = "0";
+    p.label = "Family Law Form";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+    state.steps.push(s);
+    //Family Law Matter STOP
+    // Case Mgmt START
+    s = new Step();
+
+    s.active = false;
+    s.id = "3";
+    s.label = "Case Management";
+    s.icon = "fa-print";
+    s.lastUpdate = null;
+    s.type = "stepCm";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
+
+    p = new Page();
+    p.key = "0";
+    p.label = "Case Management Form";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+    state.steps.push(s);
+    //Case Mgmt STOP
+    //Priority parenting matter START
+    s = new Step();
+
+    s.active = false;
+    s.id = "4";
+    s.label = "Priority parenting matter";
+    s.icon = "fa-print";
+    s.lastUpdate = null;
+    s.type = "stepPpm";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
+
+    p = new Page();
+    p.key = "0";
+    p.label = "Priority Parenting Matter Form";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+    state.steps.push(s);
+    //Priority parenting matter STOP
+    //Relocation of a child START
+    s = new Step();
+
+    s.active = false;
+    s.id = "5";
+    s.label = "Relocation of a child";
+    s.icon = "fa-print";
+    s.lastUpdate = null;
+    s.type = "stepReloc";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
+
+    p = new Page();
+    p.key = "0";
+    p.label = "Relocation of a child Form";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+    state.steps.push(s);
+    //Relocation of a child STOP
+    //Enforcement START
+    s = new Step();
+
+    s.active = false;
+    s.id = "6";
+    s.label = "Enforcement of agreements and court orders";
+    s.icon = "fa-print";
+    s.lastUpdate = null;
+    s.type = "stepEnfrc";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
+
+    p = new Page();
+    p.key = "0";
+    p.label = "Agreement and Court Orders Forms";
+    p.active = true;
+    p.progress = 0;
+
+    s.pages.push(p);
+    state.steps.push(s);
+    //Enforcement STOP
+    //Print START
     s = new Step();
 
     s.active = true;
-    s.id = "2";
+    s.id = "7";
     s.label = "Print";
     s.icon = "fa-print";
     s.lastUpdate = null;
@@ -167,7 +276,8 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.pages.push(p);
     state.steps.push(s);
-
+    //Print STOP
+    
   },
   setUserType(state, userType) {
     state.userType = userType;
