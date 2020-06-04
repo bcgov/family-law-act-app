@@ -1,16 +1,88 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()"> 
-    <survey v-bind:survey="survey"></survey>
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <!-- <survey v-bind:survey="survey"></survey> -->
+    <div class="row">
+      <div class="col-md-12">
+        <h1>What are you asking for (Orders)?</h1>
+        <p>Please select each option you want to ask the court for an order about. You will be asked to give more details later.</p>
+        <div>
+          <b-form-group>
+            <b-form-checkbox-group
+              v-model="selected"
+              v-on:change="onChange($event)"
+              name="orders"
+              stacked
+            >
+              <div class="checkbox-border">
+                <b-form-checkbox value="protectionOrder">
+                  Protection from family violence
+                  <p>
+                    When a family member makes another family member feel unsafe, this is called ‘family violence’.
+                    A protection order is the order made by a court to help protect one family member from another family member.
+                  </p>
+                </b-form-checkbox>
+              </div>
+
+              <div class="checkbox-border">
+                <b-form-checkbox value="familyLawMatter">
+                  Family law matter
+                  <p>
+                    Family law matters include: parentung arrangements('parental responsibilities' and 'parenting time'), 'child support', 'contact with a child',
+                    'guardianship of a child' and 'spousal support'.
+                  </p>
+                </b-form-checkbox>
+              </div>
+
+              <div class="checkbox-border">
+                <b-form-checkbox value="caseMgmt">
+                  Case management
+                  <p>
+                    Case management includes administrative or procedural things that need to be done in a court case (usually by a specific time or in a specific way).
+                    Sometimes you need to get a case management order from the court to allow you to do something, or to make someone else do something so that you can continue the court case.
+                  </p>
+                </b-form-checkbox>
+              </div>
+
+              <div class="checkbox-border">
+                <b-form-checkbox value="priotityParenting">
+                  Priority parenting matter
+                  <p>
+                    'Priority parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
+                    priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter ordersyou may need
+                    under family law matters.
+                  </p>
+                </b-form-checkbox>
+              </div>
+
+              <div class="checkbox-border">
+                <b-form-checkbox value="childReloc">
+                  Relocation of a child
+                  <p>
+                    If you have a written agreement or order about parenting arrangements for a child abd the other guardian is reloacting with a child, you can apply to the court
+                    to prohibit the relocation. If you do not have a written agreement or order about parenting arrangements you may need an order about a family law matter or priority
+                    parenting matter depending on your circumstances to prevent changes to a child's residence.
+                  </p>
+                </b-form-checkbox>
+              </div>
+
+              <div class="checkbox-border">
+                <b-form-checkbox value="agreementEnfrc">
+                  Enforcement of agreements and court orders
+                  <p>If you have a written agreement or court order that the other party is not following, you can ask the court to enforce it.</p>
+                </b-form-checkbox>
+              </div>
+            </b-form-checkbox-group>
+          </b-form-group>
+        </div>
+      </div>
+    </div>
   </page-base>
 </template>
 
 <script>
 import * as SurveyVue from "survey-vue";
-import { addQuestionTypes } from "@/components/question-types.ts";
-import orderTypesJson from "@/assets/survey-orderTypes.json";
 import PageBase from "../PageBase.vue";
 import { Step } from "../../../models/step";
-import * as showdown from "showdown";
 
 export default {
   name: "getting-started",
@@ -18,120 +90,49 @@ export default {
     PageBase
   },
   data() {
-    var survey = new SurveyVue.Model(orderTypesJson);
-
-    survey.commentPrefix = "Comment";
-    survey.showQuestionNumbers = "off";
-    survey.showNavigationButtons = false;
-
-    var markdownConverter = new showdown.Converter({
-        noHeaderId: true
-      });
-    survey.onTextMarkdown.add((sender, options) => {
-      let str = markdownConverter.makeHtml(options.text);
-      let showMissingTerms = true;
-
-      let m = str.match(/^<p>(.*)<\/p>$/);
-      str = str.substring(3);
-      if (m) {
-        str = m[1];
-      }
-      // // convert <code> into glossary tags: TODO
-      str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
-        // if (this.hasTerm(m1)) {
-        //   //       // note: m1 is already html format
-        //   return (
-        //     '<a href="#" class="glossary-link" data-glossary="' +
-        //     m1 +
-        //     '">' +
-        //     m1 +
-        //     "</a>"
-        //   );
-        // }
-        if (showMissingTerms) {
-          return "<code>" + m1 + "</code>";
-        }
-        return m1;
-      });
-      options.html = str;
-    });
-
-    survey.onValueChanged.add((sender, options) => {
-      if(options.name === 'OrdersTypes') {
-        let selectedForms = options.value;
-        this.setSteps(selectedForms);
-    }
-    });
-
     return {
-      survey: survey,
-      markdownConverter: markdownConverter,
-      useMarkdown: true
+      selected: []
     };
   },
   created() {
-    const Survey = SurveyVue;
-    addQuestionTypes(Survey);
-    Survey.defaultBootstrapCss.page.root = "sv_page";
-    Survey.defaultBootstrapCss.pageDescription = "sv_page_description";
-    Survey.defaultBootstrapCss.page.description = "sv_page_description";
-    Survey.defaultBootstrapCss.pageTitle = "sv_page_title";
-    Survey.defaultBootstrapCss.page.title = "sv_page_title";
-    Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
-    Survey.defaultBootstrapCss.question.title = "sv_q_title";
-    Survey.defaultBootstrapCss.question.description = "sv_q_description";
-    Survey.defaultBootstrapCss.panel.description = "sv_p_description";
-    Survey.defaultBootstrapCss.matrixdynamic.button = "btn btn-primary";
-    Survey.defaultBootstrapCss.paneldynamic.button = "btn btn-primary";
-    Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic";
-    Survey.defaultBootstrapCss.checkbox.item = "sv-checkbox";
-    Survey.defaultBootstrapCss.checkbox.controlLabel = "sv-checkbox-label";
-    Survey.defaultBootstrapCss.checkbox.materialDecorator = "";
-    Survey.defaultBootstrapCss.radiogroup.item = "sv-radio";
-    Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
-    Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
-    Survey.StylesManager.applyTheme("bootstrap");
     //this.hideSteps();
-
     if (this.step.result.selectedForms) {
-      this.survey.data = this.step.result.selectedForms;
+      this.selected = this.step.result.selectedForms;
     }
   },
   methods: {
-    getTerm(term, formatted) {
-      term = ("" + term).toLowerCase();
-      let content = this.terms[term];
-      if (formatted) content = this.formatHtml(content);
-      return content;
+    onChange: function(event) {
+      console.log(event);
+      this.setSteps(event);
     },
-
-    hasTerm(term) {
-      return this.getTerm(term) !== undefined;
-    },
-
-    formatHtml(content) {
-      if (content !== undefined) {
-        content = this.markdownConverter.makeHtml(content);
-        content = content.replace(/<a ([^>]+)/g, function(a) {
-          return a + ' target="_blank"';
-        });
-      }
-      return content;
-    },
-    setSteps(surveyData) {
-      if(surveyData) {
-      this.toggleSteps(1, surveyData.includes('protectionOrder'));
-      //this.toggleSteps(2, surveyData.includes('familyLawMatter'));
+    setSteps(event) {
+      if (event !== undefined) {
+        this.toggleSteps(1, event.includes("protectionOrder"));
+        this.toggleSteps(2, event.includes("familyLawMatter"));
+        this.toggleSteps(3, event.includes("caseMgmt"));
+        this.toggleSteps(4, event.includes("priotityParenting"));
+        this.toggleSteps(5, event.includes("childReloc"));
+        this.toggleSteps(6, event.includes("agreementEnfrc"));
       }
     },
     toggleSteps(stepId, activeIndicator) {
-      this.$store.dispatch("application/setStepActive", {currentStep: stepId, active: activeIndicator});
-      if(stepId == 2) {
-        this.$store.dispatch("application/setPageActive", {currentStep: 0, currentPage: 3, active: activeIndicator})
-      }
+      this.$store.dispatch("application/setStepActive", {
+        currentStep: stepId,
+        active: activeIndicator
+      });
+      // if (stepId == 2) {
+      //   this.$store.dispatch("application/setPageActive", {
+      //     currentStep: 0,
+      //     currentPage: 3,
+      //     active: activeIndicator
+      //   });
+      //}
     },
     hideSteps() {
-      this.$store.dispatch("application/setStepActive", {currentStep: 1, active: false});
+      this.$store.dispatch("application/setStepActive", {
+        currentStep: 1,
+        active: false
+      });
     },
     onPrev() {
       this.$store.dispatch("application/gotoPrevStepPage");
@@ -149,7 +150,7 @@ export default {
   beforeDestroy() {
     this.$store.dispatch("application/updateStepResultData", {
       step: this.step,
-      data: {selectedForms: this.survey.data}
+      data: { selectedForms: this.selected }
     });
   }
 };
@@ -157,4 +158,15 @@ export default {
 
 <style lang="scss">
 @import "../../../styles/survey";
+.checkbox-border {
+  border: 1px solid rgba($gov-mid-blue, 0.3);
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+input {
+  padding-left: 20px;
+}
 </style>

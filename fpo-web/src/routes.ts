@@ -4,6 +4,7 @@ import ServiceLocator from "@/components/views/ServiceLocator.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
+import TermsConditions from "@/components/status/TermsConditions.vue"
 
 function userGuard(to: any, from: any, next: any) {
   const store = GlobalStore.getInstance();
@@ -30,6 +31,7 @@ const routes = [
   },
   { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
   { path: "/status", name: "applicant-status", component: ApplicationStatus },
+  { path: "/terms", name: "terms", component: TermsConditions}
 ];
 
 export default routes;
