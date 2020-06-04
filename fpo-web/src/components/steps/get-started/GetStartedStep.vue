@@ -1,25 +1,28 @@
 <template>
   <step-base v-bind:step="step">
-    <information v-bind:step="step" v-if="step.currentPage == 0" v-bind:page=step.pages[0]></information>
-    <other-party v-bind:step="step" v-if="step.currentPage == 1"></other-party>
+    <getting-started v-bind:step="step" v-if="step.currentPage == 0"></getting-started>
+    <po-questionnaire v-bind:step="step" v-if="step.currentPage == 1"></po-questionnaire>
   </step-base>
 </template>
 
 <script>
+import childJson from "@/assets/child-details.json";
 import StepBase from "../StepBase.vue";
-import Information from "./Information.vue";
-import OtherParty from "./otherPartyComponent/OtherParty.vue";
+import GettingStarted from "./GettingStarted.vue";
 import { Step } from "../../../models/step";
+import PoQuestionnaire from "./Questionnaire.vue";
 
 export default {
-  name: "common-information",
+  name: "get-started",
   components: {
     StepBase,
-     Information,
-    OtherParty,
+    GettingStarted,
+    PoQuestionnaire
   },
   data() {
     return {
+      forms: [],
+      selectedForms: []
     };
   },
   created() {

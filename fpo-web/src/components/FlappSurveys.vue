@@ -2,14 +2,15 @@
   <div class="fill-body" id="flapp-surveys">
     <main class="app-content">
       <navigation-sidebar />
-      <common-information v-show="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></common-information>
-      <protection-order v-show="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></protection-order>
-      <family-law v-show="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></family-law>
-      <case-management v-show="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></case-management>
-      <parenting-priority v-show="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></parenting-priority>
-      <child-relocation v-show="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></child-relocation>
-      <enforcement-agree v-show="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></enforcement-agree>
-      <print v-show="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></print>
+      <get-started v-show="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></get-started>
+      <common-information v-show="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></common-information>
+      <protection-order v-show="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></protection-order>
+      <family-law v-show="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></family-law>
+      <case-management v-show="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></case-management>
+      <parenting-priority v-show="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></parenting-priority>
+      <child-relocation v-show="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation>
+      <enforcement-agree v-show="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree>
+      <print v-show="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></print>
     </main>
   </div>
 </template>
@@ -24,6 +25,7 @@ import ParentingPriority from "./steps/priotityParenting/ParentingPriorityStep.v
 import CaseManagement from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocation from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgree from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
+import GetStarted from "./steps/get-started/GetStartedStep.vue";
 
 export default {
   name: "FlappSurveys",
@@ -36,7 +38,8 @@ export default {
     ParentingPriority,
     CaseManagement,
     ChildRelocation,
-    EnforcementAgree
+    EnforcementAgree,
+    GetStarted
   },
   computed: {},
   data() {

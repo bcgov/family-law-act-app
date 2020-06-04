@@ -6,13 +6,13 @@
 
 <script>
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey-glossary.ts"
-import surveyJson from "@/assets/POForm/safetyNeeds/noGo.json";
-import PageBase from "../../PageBase.vue";
-import { Step } from "@/models/step";
+import * as surveyEnv from "@/components/survey-glossary.ts";
+import surveyJson from "@/assets/survey-information.json";
+import PageBase from "../PageBase.vue";
+import { Step } from "../../../models/step";
 
 export default {
-  name: "no-go",
+  name: "information",
   components: {
     PageBase
   },
@@ -22,20 +22,7 @@ export default {
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
-
-    let respondentNameObject = this.$store.getters[
-      "application/getRespondentName"
-    ];
-    if (respondentNameObject) {
-      let respondentName =
-        respondentNameObject.first +
-        " " +
-        respondentNameObject.middle +
-        " " +
-        respondentNameObject.last;
-      survey.setVariable("RespondentName", respondentName);
-    }
-    
+    surveyEnv.setGlossaryMarkdown(survey);
     return {
       survey: survey
     };
@@ -43,10 +30,10 @@ export default {
   created() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
-    
-    if (this.step.result.noGoSurvey){
-      this.survey.data = this.step.result.noGoSurvey;
-    }   
+
+    if (this.step.result.yourInformationSurvey) {
+      this.survey.data = this.step.result.yourInformationSurvey;
+    }
   },
   methods: {
     onPrev() {
@@ -60,22 +47,23 @@ export default {
     }
   },
   props: {
-    step: Step
+    step: Step,
   },
-  watch: {
+    watch: {
     pageIndex: function(newVal) {
       this.survey.currentPageNo = newVal;
     }
   },
   beforeDestroy() {
-     this.$store.dispatch("application/updateStepResultData",{
+    this.$store.dispatch("application/updateStepResultData", {
       step: this.step,
-      data:{noGoSurvey: this.survey.data}
-    })  }
+      data: {yourInformationSurvey: this.survey.data}
+    });
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "src/styles/common";
+@import "../../../styles/survey";
 </style>
