@@ -11,7 +11,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.userName = "";
 
     state.steps = new Array<Step>();
-    // Common information START
+    // Getting started START
     let s = new Step();
 
     s.active = true;
@@ -19,7 +19,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.label = "Get Started";
     s.icon = "fa-users";
     s.lastUpdate = null;
-    s.type = "commonInformationStep";
+    s.type = "getInformationStep";
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
@@ -33,6 +33,29 @@ export const mutations: MutationTree<ApplicationState> = {
 
     p = new Page();
     p.key = "1";
+    p.label = "Questionnaire";
+    p.active = false;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+    state.steps.push(s);
+
+    // Getting started STOP
+    // Common information START
+    s = new Step();
+
+    s.active = true;
+    s.id = "1";
+    s.label = "Your Information";
+    s.icon = "fa-users";
+    s.lastUpdate = null;
+    s.type = "commonInformationStep";
+    s.pages = new Array<Page>();
+    s.currentPage = 0;
+
+    p = new Page();
+    p.key = "0";
     p.label = "Your information";
     p.active = true;
     p.progress = 0;
@@ -40,20 +63,12 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "2";
+    p.key = "1";
     p.label = "Other Party";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
-
-    // p = new Page();
-    // p.key = "3";
-    // p.label = "Children information";
-    // p.active = true;
-    // p.progress = 0;
-
-    // s.pages.push(p);
 
     state.steps.push(s);
 
@@ -62,7 +77,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "1";
+    s.id = "2";
     s.label = "Protection Order";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -72,14 +87,6 @@ export const mutations: MutationTree<ApplicationState> = {
 
     p = new Page();
     p.key = "0";
-    p.label = "Questionnaire";
-    p.active = true;
-    p.progress = 0;
-
-    s.pages.push(p);
-
-    p = new Page();
-    p.key = "1";
     p.label = "Protection From Whom?";
     p.active = false;
     p.progress = 0;
@@ -87,7 +94,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "2";
+    p.key = "1";
     p.label = "Remove person or belongings";
     p.active = false;
     p.progress = 0;
@@ -95,14 +102,14 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "3";
+    p.key = "2";
     p.label = "No Go";
     p.active = false;
     p.progress = 0;
     s.pages.push(p);
 
     p = new Page();
-    p.key = "4";
+    p.key = "3";
     p.label = "No Contact";
     p.active = false;
     p.progress = 0;
@@ -110,7 +117,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "5";
+    p.key = "4";
     p.label = "Weapons and Firearms";
     p.active = false;
     p.progress = 0;
@@ -118,7 +125,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "6";
+    p.key = "5";
     p.label = "Background";
     p.active = false;
     p.progress = 0;
@@ -126,7 +133,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "7";
+    p.key = "6";
     p.label = "Your Story";
     p.active = false;
     p.progress = 0;
@@ -134,7 +141,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "8";
+    p.key = "7";
     p.label = "About Protection Order";
     p.active = false;
     p.progress = 0;
@@ -142,7 +149,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
 
     p = new Page();
-    p.key = "9";
+    p.key = "8";
     p.label = "Urgency";
     p.active = false;
     p.progress = 0;
@@ -155,7 +162,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "2";
+    s.id = "3";
     s.label = "Family Law Matter";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -176,7 +183,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "3";
+    s.id = "4";
     s.label = "Case Management";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -197,7 +204,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "4";
+    s.id = "5";
     s.label = "Priority parenting matter";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -218,7 +225,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "5";
+    s.id = "6";
     s.label = "Relocation of a child";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -239,7 +246,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = false;
-    s.id = "6";
+    s.id = "7";
     s.label = "Enforcement of agreements and court orders";
     s.icon = "fa-child";
     s.lastUpdate = null;
@@ -260,7 +267,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s = new Step();
 
     s.active = true;
-    s.id = "7";
+    s.id = "8";
     s.label = "Print";
     s.icon = "fa-print";
     s.lastUpdate = null;

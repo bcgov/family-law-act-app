@@ -1,6 +1,5 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <!-- <survey v-bind:survey="survey"></survey> -->
     <div class="row">
       <div class="col-md-12">
         <h1>What are you asking for (Orders)?</h1>
@@ -80,7 +79,6 @@
 </template>
 
 <script>
-import * as SurveyVue from "survey-vue";
 import PageBase from "../PageBase.vue";
 import { Step } from "../../../models/step";
 
@@ -107,26 +105,27 @@ export default {
     },
     setSteps(event) {
       if (event !== undefined) {
-        this.toggleSteps(1, event.includes("protectionOrder"));
-        this.toggleSteps(2, event.includes("familyLawMatter"));
-        this.toggleSteps(3, event.includes("caseMgmt"));
-        this.toggleSteps(4, event.includes("priotityParenting"));
-        this.toggleSteps(5, event.includes("childReloc"));
-        this.toggleSteps(6, event.includes("agreementEnfrc"));
+        this.toggleSteps(2, event.includes("protectionOrder"));
+        this.toggleSteps(3, event.includes("familyLawMatter"));
+        this.toggleSteps(4, event.includes("caseMgmt"));
+        this.toggleSteps(5, event.includes("priotityParenting"));
+        this.toggleSteps(6, event.includes("childReloc"));
+        this.toggleSteps(7, event.includes("agreementEnfrc"));
       }
     },
     toggleSteps(stepId, activeIndicator) {
-      this.$store.dispatch("application/setStepActive", {
+      if (stepId == 2) {
+        this.$store.dispatch("application/setPageActive", {
+          currentStep: 0,
+          currentPage: 1,
+          active: activeIndicator
+        });
+      } else {
+        this.$store.dispatch("application/setStepActive", {
         currentStep: stepId,
         active: activeIndicator
       });
-      // if (stepId == 2) {
-      //   this.$store.dispatch("application/setPageActive", {
-      //     currentStep: 0,
-      //     currentPage: 3,
-      //     active: activeIndicator
-      //   });
-      //}
+      }
     },
     hideSteps() {
       this.$store.dispatch("application/setStepActive", {
