@@ -33,10 +33,11 @@ export default {
       selectedPOOrder: null
     };
   },
-  created() {
+  beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
-    
+  },
+  created() {
     if (this.step.result.aboutPOSurvey){
       this.survey.data = this.step.result.aboutPOSurvey;
     }  

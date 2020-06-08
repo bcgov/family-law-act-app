@@ -23,14 +23,16 @@ export default {
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
     surveyEnv.setGlossaryMarkdown(survey);
+
     return {
       survey: survey
     };
   },
-  created() {
+  beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
-
+  },
+  created() {
     if (this.step.result.yourInformationSurvey) {
       this.survey.data = this.step.result.yourInformationSurvey;
     }

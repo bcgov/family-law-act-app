@@ -61,9 +61,11 @@ export default {
       survey: survey
     };
   },
-  created() {
+  beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
+  },
+  created() {
     if (this.step.result.protectionWhomSurvey){
       this.survey.data = this.step.result.protectionWhomSurvey;
     }

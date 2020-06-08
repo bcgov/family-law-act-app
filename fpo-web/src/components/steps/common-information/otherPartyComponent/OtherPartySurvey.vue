@@ -75,7 +75,7 @@ export default {
       survey: survey
     };
   },
-  created() {
+  beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
   },

@@ -73,6 +73,10 @@ export default {
       
     }
   },
+  beforeCreate() {
+    const Survey = SurveyVue;
+    surveyEnv.setCss(Survey);
+  },
   created() {
     // To be fetched from db
     this.inProgressApplications.push(
