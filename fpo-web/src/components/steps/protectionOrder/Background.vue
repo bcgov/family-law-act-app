@@ -27,10 +27,11 @@ export default {
       survey: survey
     };
   },
-  created() {
+  beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
-   
+  },
+  created() {
     if (this.step.result.backgroundSurvey){
       this.survey.data = this.step.result.backgroundSurvey;
     }  
