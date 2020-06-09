@@ -100,7 +100,6 @@ export default {
   },
   methods: {
     onChange: function(event) {
-      console.log(event);
       this.setSteps(event);
     },
     setSteps(event) {
@@ -127,12 +126,12 @@ export default {
       });
       }
     },
-    hideSteps() {
-      this.$store.dispatch("application/setStepActive", {
-        currentStep: 1,
-        active: false
-      });
-    },
+    // hideSteps() {
+    //   this.$store.dispatch("application/setStepActive", {
+    //     currentStep: 1,
+    //     active: false
+    //   });
+    // },
     onPrev() {
       this.$store.dispatch("application/gotoPrevStepPage");
     },

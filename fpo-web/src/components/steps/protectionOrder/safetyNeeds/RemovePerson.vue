@@ -35,29 +35,29 @@ export default {
         applicantNameObject.last;
       survey.setVariable("ApplicantName", applicantName);
     }
-
-    let respondentNameObject = this.$store.getters[
-      "application/getRespondentName"
-    ];
-    if (respondentNameObject) {
-      let respondentName =
-        respondentNameObject.first +
-        " " +
-        respondentNameObject.middle +
-        " " +
-        respondentNameObject.last;
-      survey.setVariable("RespondentName", respondentName);
+    if (this.respondentName) {
+      survey.setVariable("RespondentName", this.respondentName);
     }
 
     surveyEnv.setGlossaryMarkdown(survey);
     
     return {
-      survey: survey
+      survey: survey,
+      respondentName: "",
     };
   },
   beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
+    let respondentNameObject = this.$store.getters["application/getRespondentName"];
+    if (respondentNameObject) {
+      this.respondentName =
+        respondentNameObject.first +
+        " " +
+        respondentNameObject.middle +
+        " " +
+        respondentNameObject.last;
+    }
   },
   created() {
     if (this.step.result.removeSurvey){
