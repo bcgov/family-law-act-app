@@ -24,6 +24,12 @@ export default {
     survey.showNavigationButtons = false;
     surveyEnv.setGlossaryMarkdown(survey);
 
+    survey.onValueChanged.add((sender, options) => {
+     if(options.name === "ApplicantName") {
+        this.$store.dispatch("application/setApplicantName", options.value);
+      }
+    })
+
     return {
       survey: survey
     };
