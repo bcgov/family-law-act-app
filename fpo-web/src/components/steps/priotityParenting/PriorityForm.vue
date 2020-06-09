@@ -1,10 +1,13 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <div class="row">
-      <div class="col-md-12">
-        <h1>Priority parenting matter</h1>
+      <div class="col-md-12 order-heading">
+        <h1>Extraordinary parenting matter</h1>
         <h4>
-          You need to complete an Application for Extraordinary Parenting Matter in Form M if you need an order about an extraordinary parenting matter,
+          You need to complete an Application for
+          <a
+            href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa722.pdf?forcedownload=true"
+          >Extraordinary Parenting Matter in Form M</a> if you need an order about an extraordinary parenting matter,
           including a new order or to change or cancel an existing order.
         </h4>
         <p>Extraordinary parenting matters are usually:</p>
@@ -14,15 +17,25 @@
         </ul>
         <p>Extraordinary parenting matters include the following:</p>
         <ul>
-          <li>a guardian giving, refusing or withdrawing consent to health treatments for a child, that if delayed will result in risk to the health of the child</li>
-          <li>a guardian applying for a passport, licence, permit, benefit, privilege or other thing for the child, if delay will result in risk of harm to the child's physical, psychological or emotional safety, security or well-being</li>
-          <li>preventing the removal of a child under section 64 [orders to prevent removal of child] of the Family Law Act</li>
+          <li>giving, refusing or withdrawing consent, by a guardian, to medical, dental or other health-related treatments for a child, if delay will result in risk to the child’s health;</li>
           <li>
-            determining matters relating to interjurisdictional issues under section 74 (2) (c) [determining whether to act under Part 5 Care of and Time with Children]
-            of the Family Law Act
+            applying, by a guardian, for
+            <ul>
+              <li>a passport, licence, permit, benefit, privilege or other thing for a child, if delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being, or</li>
+              <li>travel with a child or participation by a child in an activity if consent to the travel or activity is required and is alleged to have been wrongfully denied;</li>
+            </ul>
           </li>
-          <li>preventing the wrongful removal of a child under section 77 (2) [wrongful removal of child] of the Family Law Act</li>
-          <li>seeking an extraordinary remedy under section 231 (4) or (5) [extraordinary remedies] of the Family Law Act</li>
+          <li>
+            relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, if
+            <ul>
+              <li>no written agreement or order respecting parenting arrangements applies in respect of the child, and</li>
+              <li>he change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian;</li>
+            </ul>
+          </li>
+          <li>relating to the removal of a child under section 64 [orders to prevent removal of child] of the Family Law Act;</li>
+          <li>determining matters relating to interjurisdictional issues under section 74 (2) (c) [determining whether to act under Part 4 – Care of and Time with Children] of the Family Law Act;</li>
+          <li>relating to the alleged wrongful removal of a child under section 77 (2) [wrongful removal of child] of the Family Law Act;</li>
+          <li>relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980;</li>
         </ul>
         <p>
           This service does not currently support the completion of these forms. Please click on the link above to access a fillable PDF document which can then be printed
@@ -46,8 +59,7 @@ export default {
   data() {
     return {};
   },
-  created() {
-  },
+  created() {},
   methods: {
     onPrev() {
       this.$store.dispatch("application/gotoPrevStepPage");

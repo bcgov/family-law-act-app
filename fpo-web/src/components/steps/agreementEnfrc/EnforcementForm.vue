@@ -1,10 +1,10 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <div class="row">
-      <div class="col-md-12">
-        <h1>Enforcement og agreements and court orders</h1>
+      <div class="col-md-12 order-heading">
+        <h1>Enforcement of agreements and court orders</h1>
         <h4>
-          You need to complete an Application for Enforcement in Form P if you need an order for enforcement of an order, agreement or determination of a parenting 
+          You need to complete an <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa725.pdf?forcedownload=true">Application for Enforcement in Form P</a> if you need an order for enforcement of an order, agreement or determination of a parenting 
           coordinator made under the Family Law Act.
         </h4>
         <p>Sometimes parents or guardians don't follow written agreements, court orders or a determination of a parenting coordinator. 
