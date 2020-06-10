@@ -13,7 +13,8 @@ export const state: ApplicationState = {
   allCompleted: false,
   userType: "",
   userName: "",
-  applicantName: ""
+  applicantName: "",
+  respondentName: ""
 };
 
 const namespaced = true;

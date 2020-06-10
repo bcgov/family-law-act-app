@@ -55,6 +55,9 @@ export default {
           });
         }
       }
+      if(options.name === "RespondentName") {
+        this.$store.dispatch("application/setRespondentName", options.value);
+      }
     });
 
     return {
@@ -90,11 +93,7 @@ export default {
     this.$store.dispatch("application/updateStepResultData",{
       step: this.step,
       data:{protectionWhomSurvey: this.survey.data}
-    }),
-    this.$store.dispatch(
-      "application/setRespondentName",
-      this.survey.data.RespondentName
-    );
+    })
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 order-heading">
         <h1>What are you asking for (Orders)?</h1>
         <p>Please select each option you want to ask the court for an order about. You will be asked to give more details later.</p>
         <div>
@@ -26,7 +26,7 @@
                 <b-form-checkbox value="familyLawMatter">
                   Family law matter
                   <p>
-                    Family law matters include: parentung arrangements('parental responsibilities' and 'parenting time'), 'child support', 'contact with a child',
+                    Family law matters include: parenting arrangements('parental responsibilities' and 'parenting time'), 'child support', 'contact with a child',
                     'guardianship of a child' and 'spousal support'.
                   </p>
                 </b-form-checkbox>
@@ -44,10 +44,10 @@
 
               <div class="checkbox-border">
                 <b-form-checkbox value="priotityParenting">
-                  Priority parenting matter
+                  Extraordinary parenting matter
                   <p>
-                    'Priority parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
-                    priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter ordersyou may need
+                    'Extraordinary parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
+                    priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
                     under family law matters.
                   </p>
                 </b-form-checkbox>
@@ -57,7 +57,7 @@
                 <b-form-checkbox value="childReloc">
                   Relocation of a child
                   <p>
-                    If you have a written agreement or order about parenting arrangements for a child abd the other guardian is reloacting with a child, you can apply to the court
+                    If you have a written agreement or order about parenting arrangements for a child and the other guardian is relocating with a child, you can apply to the court
                     to prohibit the relocation. If you do not have a written agreement or order about parenting arrangements you may need an order about a family law matter or priority
                     parenting matter depending on your circumstances to prevent changes to a child's residence.
                   </p>
@@ -100,7 +100,6 @@ export default {
   },
   methods: {
     onChange: function(event) {
-      console.log(event);
       this.setSteps(event);
     },
     setSteps(event) {
@@ -127,12 +126,12 @@ export default {
       });
       }
     },
-    hideSteps() {
-      this.$store.dispatch("application/setStepActive", {
-        currentStep: 1,
-        active: false
-      });
-    },
+    // hideSteps() {
+    //   this.$store.dispatch("application/setStepActive", {
+    //     currentStep: 1,
+    //     active: false
+    //   });
+    // },
     onPrev() {
       this.$store.dispatch("application/gotoPrevStepPage");
     },

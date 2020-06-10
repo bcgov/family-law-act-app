@@ -1,11 +1,26 @@
 import * as showdown from "showdown";
 import { addQuestionTypes } from "@/components/question-types.ts";
+const util = require('../assets/js/util');
+const glossaryJson = require('../assets/glossary.json')
+
+const terms = {};
+var markdownConverter = new showdown.Converter({
+    noHeaderId: true
+});
+
+export function loadGlossary() {
+    const glossary = glossaryJson
+        for(let k in glossary) {
+          for(let term of k.split('/')) {
+            terms[term.trim().toLowerCase()] = glossary[k];
+          }
+        }
+    markdownConverter = new showdown.Converter({
+      noHeaderId: true
+    });
+}
 
 export function setGlossaryMarkdown(survey) {
-
-    var markdownConverter = new showdown.Converter({
-        noHeaderId: true
-    });
 
     survey.onTextMarkdown.add((sender, options) => {
         let str = markdownConverter.makeHtml(options.text);
@@ -18,16 +33,16 @@ export function setGlossaryMarkdown(survey) {
         }
         // // convert <code> into glossary tags: TODO
         str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
-            // if (this.hasTerm(m1)) {
-            //   //       // note: m1 is already html format
-            //   return (
-            //     '<a href="#" class="glossary-link" data-glossary="' +
-            //     m1 +
-            //     '">' +
-            //     m1 +
-            //     "</a>"
-            //   );
-            // }
+            if (hasTerm(m1)) {
+              //       // note: m1 is already html format
+              return (
+                '<a href="#" class="glossary-link" data-glossary="' +
+                m1 +
+                '">' +
+                m1 +
+                "</a>"
+              );
+            }
             if (showMissingTerms) {
                 return "<code>" + m1 + "</code>";
             }
@@ -35,22 +50,26 @@ export function setGlossaryMarkdown(survey) {
         });
         options.html = str;
     });
+
+    survey.onAfterRenderQuestion.add((sender, options) => {
+        registerTargets(options.htmlElement);
+      });
 }
 
-function getTerm(term, formatted) {
+function getTerm(term, formatted?) {
     term = ("" + term).toLowerCase();
-    let content = this.terms[term];
-    if (formatted) content = this.formatHtml(content);
+    let content = terms[term];
+    if (formatted) content = formatHtml(content);
     return content;
 }
 
 function hasTerm(term) {
-    return this.getTerm(term) !== undefined;
+    return getTerm(term) !== undefined;
 }
 
 function formatHtml(content) {
     if (content !== undefined) {
-        content = this.markdownConverter.makeHtml(content);
+        content = markdownConverter.makeHtml(content);
         content = content.replace(/<a ([^>]+)/g, function (a) {
             return a + ' target="_blank"';
         });
@@ -58,8 +77,11 @@ function formatHtml(content) {
     return content;
 }
 
-export function setCss(Survey) {
+//  function getAllTerms() {
+//     return Object.assign({}, this.terms);
+//   }
 
+export function setCss(Survey) {
     addQuestionTypes(Survey);
     Survey.defaultBootstrapCss.page.root = "sv_page";
     Survey.defaultBootstrapCss.pageDescription = "sv_page_description";
@@ -80,5 +102,31 @@ export function setCss(Survey) {
     Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
     Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
     Survey.StylesManager.applyTheme("bootstrap");
-
 }
+
+ function registerTargets(container?: HTMLElement) {
+    window.requestAnimationFrame(() => {
+      doRegisterTargets(container);
+    });
+    // extra check for slower-rendering browser
+    window.setTimeout(() => {
+      doRegisterTargets(container);
+    }, 2000);
+  }
+
+ function doRegisterTargets(container?: HTMLElement) {
+    if(! container) container = document.body;
+    let targets = container.querySelectorAll('[data-glossary]');
+    for(let idx = 0; idx < targets.length; idx++) {
+      let elt = targets[idx];
+      let reg = elt.getAttribute('data-glossary-reg');
+      if(! reg) {
+        elt.setAttribute('data-glossary-reg', '1');
+        let term = elt.getAttribute('data-glossary');
+        let content = getTerm(term, true);
+        if(content && window['addTooltip']) {
+          window['addTooltip'](elt, content, {extClass: 'glossary-popup'});
+        }
+      }
+    }
+  }

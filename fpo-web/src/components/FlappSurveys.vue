@@ -26,6 +26,7 @@ import CaseManagement from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocation from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgree from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
 import GetStarted from "./steps/get-started/GetStartedStep.vue";
+import * as surveyEnv from "@/components/survey-glossary.ts"
 
 export default {
   name: "FlappSurveys",
@@ -47,6 +48,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch("application/init");
+    surveyEnv.loadGlossary();
   },
   methods: {
     getCurrentStepIndex() {
