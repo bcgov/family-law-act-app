@@ -93,7 +93,6 @@ export default {
     };
   },
   created() {
-    //this.hideSteps();
     if (this.step.result.selectedForms) {
       this.selected = this.step.result.selectedForms;
     }
@@ -104,7 +103,7 @@ export default {
     },
     setSteps(event) {
       if (event !== undefined) {
-        this.toggleCommonInformationStep(event.includes("protectionOrder"));
+        this.toggleCommonSteps(event.includes("protectionOrder"));
         this.toggleSteps(2, event.includes("protectionOrder"));
         this.toggleSteps(3, event.includes("familyLawMatter"));
         this.toggleSteps(4, event.includes("caseMgmt"));
@@ -127,23 +126,20 @@ export default {
         });
       }
     },
-    toggleCommonInformationStep(activeIndicator) {
-      this.$store.dispatch("application/setStepActive", {
-        currentStep: 1,
+    toggleCommonSteps(activeIndicator) {
+      const steps = [1, 8];
+      for(let i=0; i<steps.length; i++) {
+        this.$store.dispatch("application/setStepActive", {
+        currentStep: steps[i],
         active: activeIndicator
       });
       this.$store.dispatch("application/setPageActive", {
-        currentStep: 1,
+        currentStep: steps[i],
         currentPage: 0,
         active: activeIndicator
       });
+      }
     },
-    // hideSteps() {
-    //   this.$store.dispatch("application/setStepActive", {
-    //     currentStep: 1,
-    //     active: false
-    //   });
-    // },
     onPrev() {
       this.$store.dispatch("application/gotoPrevStepPage");
     },

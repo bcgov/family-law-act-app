@@ -266,7 +266,7 @@ export const mutations: MutationTree<ApplicationState> = {
     //Print START
     s = new Step();
 
-    s.active = true;
+    s.active = false;
     s.id = "8";
     s.label = "Print";
     s.icon = "fa-print";
@@ -278,7 +278,7 @@ export const mutations: MutationTree<ApplicationState> = {
     p = new Page();
     p.key = "0";
     p.label = "Print Application Forms";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
