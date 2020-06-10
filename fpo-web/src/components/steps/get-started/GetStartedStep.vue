@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import childJson from "@/assets/child-details.json";
 import StepBase from "../StepBase.vue";
 import GettingStarted from "./GettingStarted.vue";
 import { Step } from "../../../models/step";

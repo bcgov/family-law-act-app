@@ -48,7 +48,9 @@ export default {
       this.$store.dispatch("application/gotoPrevStepPage");
     },
     onNext() {
-      this.$store.dispatch("application/gotoNextStepPage");
+      if(!this.survey.isCurrentPageHasErrors) {
+        this.$store.dispatch("application/gotoNextStepPage");
+      }
     },
     onComplete() {
       this.$store.dispatch("application/setAllCompleted", true);

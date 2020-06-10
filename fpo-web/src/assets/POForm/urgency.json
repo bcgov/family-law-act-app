@@ -13,13 +13,13 @@
        {
         "type": "yesno",
         "name": "PORSpeedUp",
-        "title": "Normally, {RespondentName} will need to be given notice that you are applying for a Protection Order at least 7 days before the date scheduled for court. Do you need this Protection Order application to be heard sooner (you will be asking the court to be allowed to give less than 7 days' notice to {RespondentName} )?"
+        "title": "Normally, the other party will need to be given notice that you are applying for a Protection Order at least 7 days before the date scheduled for court. Do you need this Protection Order application to be heard sooner (you will be asking the court to be allowed to give less than 7 days' notice to the other party )?"
        },
        {
         "type": "dropdown",
         "name": "PORDaysToNotice",
         "visibleIf": "{PORSpeedUp} = \"y\"",
-        "title": "How many days' notice do you want to give {RespondentName}?",
+        "title": "How many days' notice do you want to give the other party?",
         "choices": [
          "1",
          "2",
@@ -33,20 +33,20 @@
         "type": "comment",
         "name": "whyAllowNotice",
         "visibleIf": "{PORSpeedUp} = \"y\"",
-        "title": "Explain why you want a judge to allow you to give {RespondentName} {PORDaysToNotice} days' notice of your application?",
-        "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why {RespondentName} should be given less than 7 days' notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if you have to wait 7 days to have the application heard?</li>\n</ul>"
+        "title": "Explain why you want a judge to allow you to give the other party {PORDaysToNotice} days' notice of your application?",
+        "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why the other party should be given less than 7 days' notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if you have to wait 7 days to have the application heard?</li>\n</ul>"
        },
        {
         "type": "yesno",
         "name": "PORNoNotice",
-        "title": "Normally, a judge will want to hear from you, {ApplicantName} and {RespondentName} before making a decision.\n<br>\n<br>\nDo you want a judge to make their decision before {RespondentName} gets to tell their story?"
+        "title": "Normally, a judge will want to hear from you, {ApplicantName} and the other party before making a decision.\n<br>\n<br>\nDo you want a judge to make their decision before the other party gets to tell their story?"
        },
        {
         "type": "comment",
         "name": "PORWhyNoNotice",
         "visibleIf": "{PORNoNotice} = 'y'",
-        "title": "Explain why you want a judge to make their decision before {RespondentName} gets to tell their story.",
-        "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why {RespondentName} should not be given notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if {RespondentName} is served or given notice of your application and a chance to attend court at the same time as you?</li>\n</ul>"
+        "title": "Explain why you want a judge to make their decision before the other party gets to tell their story.",
+        "description": "Provide the facts you want the court to consider, including:\n<br>\n<ul>\n<li>why the other party should not be given notice?</li>\n<li>why the application or your situation is urgent or what special circumstances exist?</li>\n<li>what do you believe will happen if the other party is served or given notice of your application and a chance to attend court at the same time as you?</li>\n</ul>"
        }
       ],
       "title": "Urgency"
