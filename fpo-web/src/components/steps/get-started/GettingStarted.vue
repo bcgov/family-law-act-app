@@ -104,6 +104,7 @@ export default {
     },
     setSteps(event) {
       if (event !== undefined) {
+        this.toggleCommonInformationStep(event.includes("protectionOrder"));
         this.toggleSteps(2, event.includes("protectionOrder"));
         this.toggleSteps(3, event.includes("familyLawMatter"));
         this.toggleSteps(4, event.includes("caseMgmt"));
@@ -121,10 +122,21 @@ export default {
         });
       } else {
         this.$store.dispatch("application/setStepActive", {
-        currentStep: stepId,
+          currentStep: stepId,
+          active: activeIndicator
+        });
+      }
+    },
+    toggleCommonInformationStep(activeIndicator) {
+      this.$store.dispatch("application/setStepActive", {
+        currentStep: 1,
         active: activeIndicator
       });
-      }
+      this.$store.dispatch("application/setPageActive", {
+        currentStep: 1,
+        currentPage: 0,
+        active: activeIndicator
+      });
     },
     // hideSteps() {
     //   this.$store.dispatch("application/setStepActive", {

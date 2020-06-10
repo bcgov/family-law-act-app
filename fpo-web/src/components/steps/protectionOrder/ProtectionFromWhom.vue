@@ -22,19 +22,9 @@ export default {
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
-
-    let applicantNameObject = this.$store.getters[
-      "application/getApplicantName"
-    ];
     
-    if (applicantNameObject) {
-      let applicantName =
-        applicantNameObject.first +
-        " " +
-        applicantNameObject.middle +
-        " " +
-        applicantNameObject.last;
-      survey.setVariable("ApplicantName", applicantName);
+    if (this.applicantName) {
+      survey.setVariable("ApplicantName", this.applicantName);
     }
 
     surveyEnv.setGlossaryMarkdown(survey);
@@ -59,14 +49,25 @@ export default {
         this.$store.dispatch("application/setRespondentName", options.value);
       }
     });
-
+    
     return {
-      survey: survey
+      survey: survey,
+      applicantName: ""
     };
   },
   beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
+    let applicantNameObject = this.$store.getters["application/getApplicantName"];
+    
+    if (applicantNameObject) {
+      this.applicantName =
+        applicantNameObject.first +
+        " " +
+        applicantNameObject.middle +
+        " " +
+        applicantNameObject.last;
+    }
   },
   created() {
     if (this.step.result.protectionWhomSurvey){
@@ -79,7 +80,9 @@ export default {
     },
 
     onNext() {
-      this.$store.dispatch("application/gotoNextStepPage");
+      if(!this.survey.isCurrentPageHasErrors) {
+        this.$store.dispatch("application/gotoNextStepPage");
+      }
     },
 
     onComplete() {

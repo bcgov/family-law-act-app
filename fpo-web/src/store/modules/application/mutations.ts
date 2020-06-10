@@ -45,7 +45,7 @@ export const mutations: MutationTree<ApplicationState> = {
     // Common information START
     s = new Step();
 
-    s.active = true;
+    s.active = false;
     s.id = "1";
     s.label = "Your Information";
     s.icon = "fa-users";
@@ -57,7 +57,7 @@ export const mutations: MutationTree<ApplicationState> = {
     p = new Page();
     p.key = "0";
     p.label = "Your information";
-    p.active = true;
+    p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
