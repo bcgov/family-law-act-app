@@ -70,7 +70,9 @@ export default {
     },
 
     onNext() {
-      this.$store.dispatch("application/gotoNextStepPage");
+      if(!this.survey.isCurrentPageHasErrors) {
+        this.$store.dispatch("application/gotoNextStepPage");
+      }
     },
 
     onComplete() {

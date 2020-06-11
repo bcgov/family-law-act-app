@@ -1,5 +1,5 @@
 <template>
-  <page-base v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()"> <!-- v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()"-->
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -110,7 +110,9 @@ export default {
       this.$store.dispatch("application/gotoPrevStepPage");
     },
     onNext() {
-      this.$store.dispatch("application/gotoNextStepPage");
+      if(!this.survey.isCurrentPageHasErrors) {
+        this.$store.dispatch("application/gotoNextStepPage");
+      }
     },
     onComplete() {
       this.$store.dispatch("application/setAllCompleted", true);
