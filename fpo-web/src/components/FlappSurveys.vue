@@ -2,15 +2,15 @@
   <div class="fill-body" id="flapp-surveys">
     <main class="app-content">
       <navigation-sidebar />
-      <get-started v-show="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></get-started>
-      <common-information v-show="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></common-information>
-      <protection-order v-show="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></protection-order>
-      <family-law v-show="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></family-law>
-      <case-management v-show="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></case-management>
-      <parenting-priority v-show="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></parenting-priority>
-      <child-relocation v-show="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation>
-      <enforcement-agree v-show="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree>
-      <print v-show="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></print>
+      <get-started v-if="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></get-started>
+      <common-information v-if="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></common-information>
+      <protection-order v-if="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></protection-order>
+      <family-law v-if="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></family-law>
+      <case-management v-if="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></case-management>
+      <parenting-priority v-if="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></parenting-priority>
+      <child-relocation v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation>
+      <enforcement-agree v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree>
+      <print v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></print>
     </main>
   </div>
 </template>

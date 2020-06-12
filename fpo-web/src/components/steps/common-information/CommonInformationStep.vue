@@ -1,6 +1,6 @@
 <template>
   <step-base v-bind:step="step">
-    <information v-bind:step="step" v-if="step.currentPage == 0" v-bind:page=step.pages[0]></information>
+    <information v-bind:step="step" v-if="step.currentPage == 0" ></information>
     <other-party v-bind:step="step" v-if="step.currentPage == 1"></other-party>
   </step-base>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: "common-information",
   components: {
     StepBase,
-     Information,
+    Information,
     OtherParty,
   },
   data() {
