@@ -91,7 +91,7 @@ export default {
 @import "src/styles/common";
 
 .background {
-  background-image: url("../../assets/landing.jpg");
+  background-image: url("../../assets/landing-2.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
