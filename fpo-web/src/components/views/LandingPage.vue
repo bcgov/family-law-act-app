@@ -6,8 +6,8 @@
           <h1>Apply for a Provincial Court Family Law Act (FLA) Order</h1>
           <div class="intro">
             <p>
-              This service will help you fill out forms needed to apply for or
-              respond to applications for family court orders:
+              This service will help you fill out the forms needed to apply for or
+              reply to applications for family court orders:
             </p>
             <div class="row">
               <div class="col-md-6">
@@ -23,7 +23,7 @@
                 <ul>
                   <li>Spousal Support</li>
                   <li>Case Management</li>
-                  <li>Priority Parenting Matters</li>
+                  <li>Extraordinary Parenting Matters</li>
                   <li>Relocation of a child</li>
                   <li>Enforcement</li>
                 </ul>
@@ -31,10 +31,12 @@
             </div>
 
             <div class="info-section">
-              <div style="padding: 0rem 4rem 0rem 20rem;">How it Works?</div>
+              <div class="row justify-content-center">
+                <p>How it Works?</p>
+              </div>
               <div class="row how-works-section">
                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                  <p>1. Answers Questions</p>
+                  <p>1. Answer Questions</p>
                   <p>
                     Our free and secure online questionnaire will save your work
                     so you can proceed at your own pace.
@@ -50,21 +52,17 @@
               </div>
             </div>
 
-            <div class="row custom-align-survey-button">
-              <div class="col-md-12">
+            <div class="row justify-content-center">
                 <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
                   <strong>New User</strong> - Let’s get started
                 </a>
-              </div>
             </div>
 
-            <div class="row custom-align-login-button">
-              <div class="col-md-12">
+            <div class="row justify-content-center">
                 <a class="btn btn-default btn-md login-button" @click="navigate('returning')">
                   <strong>Returning User?</strong>
                   <br />Log in with BCeID
                 </a>
-              </div>
             </div>
           </div>
         </div>
@@ -93,8 +91,11 @@ export default {
 @import "src/styles/common";
 
 .background {
-  width: 100%;
   background-image: url("../../assets/landing.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .home-content {

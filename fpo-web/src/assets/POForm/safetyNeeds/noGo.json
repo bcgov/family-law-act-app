@@ -1,47 +1,59 @@
 {
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
-        {
-            "name": "No Go",
-            "elements": [
-                {
-                    "type": "panel",
-                    "name": "PORPanelNoGo",
-                    "elements": [
-                        {
-                            "type": "yesno",
-                            "name": "RespondentNoGo",
-                            "title": "Are there any places where you want {RespondentName} to stay away from?"
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "RespondentNoGoPlaces",
-                            "visible": false,
-                            "visibleIf": "{RespondentNoGo} = 'y'",
-                            "title": "Select the places where you want {RespondentName} to stay away from:",
-                            "description": "If you select \"Other\" and need to write more than 1 place, write them all and separate each place with a comma.",
-                            "hasOther": true,
-                            "choices": [
-                                "Home",
-                                "Workplace",
-                                "School",
-                                "Place of Worship"
-                            ]
-                        },
-                        {
-                            "type": "infotext",
-                            "name": "ExplanationNoGoAddresses",
-                            "visible": false,
-                            "visibleIf": "{RespondentNoGo} = 'y'",
-                            "title": "For this service, you do not need to give the addresses of the places you want {RespondentName} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the addresses into the courtroom with you.",
-                            "titleLocation": "hidden"
-                        }
-                    ]
-                }
-            ],
-            "title": "No Go"
-        }
+     {
+      "name": "No Go",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelNoGo",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentNoGo",
+          "title": "Are there any places where you want {RespondentName} to stay away from?"
+         },
+         {
+          "type": "checkbox",
+          "name": "RespondentNoGoPlaces",
+          "visible": false,
+          "visibleIf": "{RespondentNoGo} = 'y'",
+          "title": "Select the places where you want {RespondentName} to stay away from:",
+          "description": "If you select \"Other\" and need to write more than 1 place, write them all and separate each place with a comma.",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "Home",
+            "text": "Residence"
+           },
+           {
+            "value": "Workplace",
+            "text": "School"
+           },
+           {
+            "value": "School",
+            "text": "Place of Employment"
+           },
+           {
+            "value": "Place of Worship",
+            "text": "Child care facility"
+           }
+          ]
+         },
+         {
+          "type": "infotext",
+          "name": "ExplanationNoGoAddresses",
+          "visible": false,
+          "visibleIf": "{RespondentNoGo} = 'y'",
+          "title": "For this service, you do not need to give the addresses of the places you want {RespondentName} to stay away from. However, the judge may request them for the Protection Order so be prepared to bring the addresses into the courtroom with you.",
+          "titleLocation": "hidden"
+         }
+        ]
+       }
+      ],
+      "title": "No Go"
+     }
     ],
     "showQuestionNumbers": "off",
     "requiredText": ""
-}
+   }

@@ -1,97 +1,51 @@
 {
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
-        {
-            "name": "Remove person or belongings",
-            "elements": [
-             {
-              "type": "panel",
-              "name": "PORPanelFamilyHome",
-              "elements": [
-               {
-                "type": "yesno",
-                "name": "RespondentLiveTogether",
-                "title": "Does the protected party(ies) ({ApplicantName}) currently share a home with {RespondentName}?",
-                "description": "Even if one of you has left home temporarily, you still share a home."
-               },
-               {
-                "type": "yesno",
-                "name": "RespondentLeaving",
-                "visible": false,
-                "visibleIf": "{RespondentLiveTogether} = 'y'",
-                "title": "Do you, {ApplicantName}, or your children want to stay in this family home?"
-               },
-               {
-                "type": "radiogroup",
-                "name": "RespondentNeedPolice",
-                "visible": false,
-                "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y'",
-                "title": "Do you think you need the police to remove {RespondentName} from where you or your children live, or will {RespondentName} leave on their own?",
-                "choices": [
-                 {
-                  "value": "y",
-                  "text": "I need police assistance to remove {RespondentName} from the home"
-                 },
-                 {
-                  "value": "n",
-                  "text": "{RespondentName} will probably leave on their own"
-                 }
-                ]
-               },
-               {
-                "type": "address",
-                "name": "FamilyHomeAddress",
-                "visible": false,
-                "visibleIf": "{RespondentLiveTogether} = 'y' and {RespondentLeaving} = 'y' and {RespondentNeedPolice} = 'y'",
-                "title": "What is the address of your family home?"
-               }
-              ]
-             },
-             {
-              "type": "panel",
-              "name": "PORPanelBelongings",
-              "elements": [
-               {
-                "type": "yesno",
-                "name": "RespondentHasStuff",
-                "title": "Does {RespondentName} have any of you or your children's personal belongings?",
-                "description": "Personal belongings means things that you or your children need for daily life. This includes clothing, personal hygiene products, personal electronics and personal documents that are difficult to replace. "
-               },
-               {
-                "type": "yesno",
-                "name": "RespondentHasStuffPolice",
-                "visible": false,
-                "visibleIf": "{RespondentHasStuff} = 'y'",
-                "title": "Do you need a police officer to supervise while you get the personal belongings?\n",
-                "description": "A judge can order a police officer to come with you to get the personal belongings. "
-               },
-               {
-                "type": "address",
-                "name": "RespondentHasStuffAddress",
-                "visible": false,
-                "visibleIf": "{RespondentHasStuff} = 'y' and {RespondentHasStuffPolice} = 'y'",
-                "title": "What is the address where your personal belongs are being held?"
-               },
-               {
-                "type": "yesno",
-                "name": "RespondentNeedsStuff",
-                "title": "Do you or your children have any of {RespondentName}'s personal belongings?",
-                "description": "Personal belongings means things that {RespondentName} needs for daily life. This includes clothing, personal hygiene products, personal electronics and personal documents that are difficult to replace. "
-               },
-               {
-                "type": "yesno",
-                "name": "RespondentNeedsStuffPolice",
-                "visible": false,
-                "visibleIf": "{RespondentNeedsStuff} = 'y'",
-                "title": "Do you, {ApplicantName}, need the police to supervise {RespondentName} while they get their personal belongings?",
-                "description": "A judge can order a police officer to be there when {RespondentName} comes to get their personal belongings. "
-               }
-              ]
-             }
-            ],
-            "title": "Remove person or belongings"
+     {
+      "name": "Remove person or belongings",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelFamilyHome",
+        "elements": [
+         {
+          "type": "yesno",
+          "name": "RespondentLiveTogether",
+          "title": "Does the protected party(ies) ({ApplicantName}) currently share a home with {RespondentName}?",
+          "description": "Even if one of you has left home temporarily, you still share a home."
+         },
+         {
+          "type": "checkbox",
+          "name": "needPolice",
+          "visibleIf": "{RespondentLiveTogether} = 'y'",
+          "title": "I believe police assistance may be required for the following purposes:",
+          "description": "Select all options that apply",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "To remove the other party from the shared residence",
+            "text": "To remove the other party from the shared residence"
+           },
+           {
+            "value": "To supervise the removal of the protected party's personal belongings from the shared residence",
+            "text": "To supervise the removal of the protected party's personal belongings from the shared residence"
+           },
+           {
+            "value": "To supervise the removal of the other party's personal belongings from the shared residence",
+            "text": "To supervise the removal of the other party's personal belongings from the shared residence"
+           },
+           {
+            "value": "To supervise the removal of the child(ren)'s personal belongings from a residence",
+            "text": "To supervise the removal of the child(ren)'s personal belongings from a residence"
            }
+          ]
+         }
+        ]
+       }
+      ],
+      "title": "Remove person or belongings"
+     }
     ],
     "showQuestionNumbers": "off",
     "requiredText": ""
-}
+   }
