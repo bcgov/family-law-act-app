@@ -11,7 +11,7 @@
          {
           "type": "comment",
           "name": "howPartiesRelated",
-          "title": "Describe how the protected party/parties and the other party are related for the purposes of application",
+          "title": "Describe how the protected party/parties and the other party are related for the purposes of this application",
           "isRequired": true
          },
          {
@@ -42,11 +42,24 @@
           "inputType": "date"
          },
          {
-          "type": "yesno",
+          "type": "radiogroup",
           "name": "isSeperatedPO",
           "title": "Are the protected party and the other party currently separated",
           "description": "Spouses may be separated while continuing to live in the same residence",
-          "isRequired": true
+          "choices": [
+           {
+            "value": "Yes",
+            "text": "Yes"
+           },
+           {
+            "value": "No",
+            "text": "No"
+           },
+           {
+            "value": "Unknown",
+            "text": "Unknown"
+           }
+          ]
          },
          {
           "type": "text",
@@ -57,11 +70,24 @@
           "inputType": "date"
          },
          {
-          "type": "yesno",
+          "type": "radiogroup",
           "name": "planningToSeparatePO",
-          "visibleIf": "{isSeperatedPO} = \"n\"",
+          "visibleIf": "{isSeperatedPO} = 'No'",
           "title": "Are the protected party and the other party planning to separate?",
-          "isRequired": true
+          "choices": [
+           {
+            "value": "Yes",
+            "text": "Yes"
+           },
+           {
+            "value": "No",
+            "text": "No"
+           },
+           {
+            "value": "Unknown",
+            "text": "Unknown"
+           }
+          ]
          },
          {
           "type": "yesno",
@@ -96,10 +122,30 @@
           "isRequired": true
          },
          {
-          "type": "yesno",
+          "type": "comment",
+          "name": "listOfOrders",
+          "visibleIf": "{existingPOOrders} = 'y'",
+          "title": "List them here",
+          "description": "Please attach a copy of the order(s) to your application for filing."
+         },
+         {
+          "type": "radiogroup",
           "name": "otherPartyDisobeyOrder",
           "title": "Has the other party ever failed to obey a court order?",
-          "isRequired": true
+          "choices": [
+           {
+            "value": "Yes",
+            "text": "Yes"
+           },
+           {
+            "value": "No",
+            "text": "No"
+           },
+           {
+            "value": "Unknown",
+            "text": "Unknown"
+           }
+          ]
          },
          {
           "type": "comment",

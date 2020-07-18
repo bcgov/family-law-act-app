@@ -1,68 +1,53 @@
 {
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
-        {
-            "name": "No Contact",
-            "elements": [
-             {
-              "type": "panel",
-              "name": "PORPanelNoContactExceptions",
-              "elements": [
-               {
-                "type": "yesno",
-                "name": "RespondentApplicantThirdPartyContact",
-                "title": "Even with a Protection Order in place, you, {ApplicantName}, and {RespondentName} will be allowed to be in the same courtroom together for court purposes. <br><br>Outside of the courtroom, are there any third parties that you want to communicate though, for ongoing court purposes with {RespondentName}?",
-                "description": "Examples of third parties may include a lawyer, a family justice counsellor or a mutual friend."
-               },
-               {
-                "type": "checkbox",
-                "name": "RespondentApplicantContactType",
-                "visible": false,
-                "visibleIf": "{RespondentApplicantThirdPartyContact} = 'y'",
-                "title": "Select any third parties that you, {ApplicantName}, and {RespondentName} may communicate through, for ongoing court purposes:",
-                "hasOther": true,
-                "choices": [
-                 {
-                  "value": "lawyer",
-                  "text": "Lawyer"
-                 },
-                 {
-                  "value": "fjc",
-                  "text": "Family justice counsellor"
-                 },
-                 {
-                  "value": "socialworker",
-                  "text": "Social worker"
-                 },
-                 {
-                  "value": "mutualfamily",
-                  "text": "Family member"
-                 },
-                 {
-                  "value": "mutualfriend",
-                  "text": "Friend"
-                 }
-                ]
-               },
-               {
-                "type": "yesno",
-                "name": "RespondentApplicantContactOther",
-                "title": "Is there any other situation that {RespondentName} would need to communicate with you, {ApplicantName}?"
-               },
-               {
-                "type": "text",
-                "name": "RespondentApplicantContactOtherReason",
-                "visible": false,
-                "visibleIf": "{RespondentApplicantContactOther} = 'y'",
-                "title": "Describe the situation(s)?"
-               }
-              ],
-              "visible": true
-             }
-            ],
-            "title": "No Contact"
+     {
+      "name": "No Contact",
+      "elements": [
+       {
+        "type": "panel",
+        "name": "PORPanelNoContactExceptions",
+        "elements": [
+         {
+          "type": "infotext",
+          "name": "noContactInfo",
+          "useDisplayValuesInTitle": false,
+          "title": "Sometimes it is impossible to stop all communication with the other party if you have kids together or you are still trying to sort out the details of your separation.",
+          "titleLocation": "hidden"
+         },
+         {
+          "type": "yesno",
+          "name": "needCommunication",
+          "title": "The protected party may need to communicate with the other party"
+         },
+         {
+          "type": "checkbox",
+          "name": "reasonForCommunication",
+          "visibleIf": "{needCommunication} = 'y'",
+          "title": "The protected party may need to communicate with the other party for the following reasons:",
+          "description": "Select all options that apply",
+          "hasOther": true,
+          "choices": [
+           {
+            "value": "Consensual dispute resolution",
+            "text": "Consensual dispute resolution"
+           },
+           {
+            "value": "Parenting arrangements",
+            "text": "Parenting arrangements"
+           },
+           {
+            "value": "Ongoing court action",
+            "text": "Ongoing court action"
            }
+          ]
+         }
+        ]
+       }
+      ],
+      "title": "No Contact"
+     }
     ],
     "showQuestionNumbers": "off",
     "requiredText": ""
-}
+   }
