@@ -16,7 +16,12 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
-const router = new VueRouter({ routes: routes, mode: "history" });
+const router = new VueRouter({
+  routes: routes, mode: "history",
+  scrollBehavior(to, from, savedPosotion) { 
+    return { x: 0, y: 0 }
+   }
+});
 
 new Vue({
   router: router,

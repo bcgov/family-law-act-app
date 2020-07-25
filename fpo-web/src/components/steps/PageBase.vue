@@ -41,19 +41,19 @@ export default {
       if (this.$listeners && this.$listeners.onPrev) {
         this.$emit('onPrev');
       } else {
-        console.log("PageBase.onPrev default action.");
         this.$store.dispatch("application/gotoPrevStepPage");
       }
+      window.scrollTo(0, 0);
     },
     onNext: function(event) {
       if (!this.isDisableNext()) {
         if (this.$listeners && this.$listeners.onNext) {  
             this.$emit('onNext');
         } else {
-          console.log("PageBase.onNext default action.");
           this.$store.dispatch("application/gotoNextStepPage");
         }
       }
+      window.scrollTo(0, 0);
     },
     onComplete: function(event) {
       if (this.$listeners && this.$listeners.onComplete) {  
