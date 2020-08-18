@@ -64,7 +64,7 @@
          {
           "type": "text",
           "name": "separationDate",
-          "visibleIf": "{isSeperatedPO} = \"y\"",
+          "visibleIf": "{isSeperatedPO} = \"Yes\"",
           "title": "Parties separated on",
           "isRequired": true,
           "inputType": "date"
