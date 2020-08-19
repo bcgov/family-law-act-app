@@ -129,23 +129,9 @@
           "description": "Please attach a copy of the order(s) to your application for filing."
          },
          {
-          "type": "radiogroup",
+          "type": "yesno",
           "name": "otherPartyDisobeyOrder",
-          "title": "Has the other party ever failed to obey a court order?",
-          "choices": [
-           {
-            "value": "Yes",
-            "text": "Yes"
-           },
-           {
-            "value": "No",
-            "text": "No"
-           },
-           {
-            "value": "Unknown",
-            "text": "Unknown"
-           }
-          ]
+          "title": "Has the other party ever failed to obey a court order?"
          },
          {
           "type": "comment",
