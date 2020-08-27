@@ -111,7 +111,6 @@ def get_efiling_auth_token() -> {}:
             LOGGER.error("Error: Unexpected response", token_rs.text.encode('utf8'))
             return
         json_obj = token_rs.json()
-        LOGGER.debug("Response for emailing auth token is ", json_obj)
         return json_obj
     except requests.exceptions.RequestException as e:
         LOGGER.error("Error: {}".format(e))
