@@ -2,20 +2,22 @@ import logging
 import urllib
 import random
 import re
-import uuid
+import requests
 from string import ascii_lowercase, digits
 
-from django.contrib.auth import login
 from rest_framework.request import Request
 from django.conf import settings
 from django.urls.exceptions import NoReverseMatch
-from django.db.models import Q
 from rest_framework import authentication
 from rest_framework import exceptions
 from rest_framework.reverse import reverse
+from requests.auth import HTTPBasicAuth
 
 from api.models.User import User
 from oidc_rp.models import OIDCUser
+
+LOGGER = logging.getLogger(__name__)
+
 
 def get_login_uri(request: Request = None, next: str = None) -> str:
     uri = None
@@ -41,6 +43,7 @@ def get_logout_uri(request: Request = None) -> str:
             pass
     return uri
 
+
 def sync_keycloak_user(oidc_user: OIDCUser, claims: dict):
     """Copy attributes from JWT claims."""
     oidc_user.user.authorization_id = claims.get("sub")
@@ -48,6 +51,7 @@ def sync_keycloak_user(oidc_user: OIDCUser, claims: dict):
     oidc_user.user.last_name = claims.get("family_name")
     oidc_user.user.email = claims.get("email")
     oidc_user.user.save()
+
 
 def get_firstname_lastname(display_name, user_type):
     # Extract first name and last name from a display name
@@ -85,6 +89,35 @@ def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, d
     except User.DoesNotExist:
         return username
 
+
+def get_efiling_auth_token() -> {}:
+    client_id = settings.EFILING_CLIENT_ID
+    client_secret = settings.EFILING_CLIENT_SECRET
+    url = settings.EFILING_AUTH_URL
+    if not client_id:
+        LOGGER.error("eFiling service client id is not configured")
+        return
+    if not client_secret:
+        LOGGER.error("eFiling service client secret is not configured")
+        return
+    if not url:
+        LOGGER.error("eFiling authentication url is not configured")
+        return
+    payload = {"grant_type": "client_credentials"}
+    header = {"content-type": "application/x-www-form-urlencoded"}
+    try:
+        token_rs = requests.post(url, data=payload, auth=HTTPBasicAuth(client_id, client_secret), headers=header, verify=True)
+        if not token_rs.status_code == 200:
+            LOGGER.error("Error: Unexpected response", token_rs.text.encode('utf8'))
+            return
+        json_obj = token_rs.json()
+        LOGGER.debug("Response for emailing auth token is ", json_obj)
+        return json_obj
+    except requests.exceptions.RequestException as e:
+        LOGGER.error("Error: {}".format(e))
+        return
+
+
 class DemoAuth(authentication.BaseAuthentication):
     """
     rest_framework authentication backend
@@ -117,84 +150,3 @@ class DemoAuth(authentication.BaseAuthentication):
             result = None
 
         return result
-
-# class SiteMinderAuth(authentication.BaseAuthentication):
-#     """
-#     rest_framework authentication backend
-#     Authenticate a user based on SiteMinder headers
-#     """
-#     def __init__(self):
-#         self.__logger = logging.getLogger(__name__)
-
-#     def authenticate(self, request):
-#         header_username = request.META.get('HTTP_SM_USER', request.META.get(
-#             'HTTP_SM_UNIVERSALID'))
-#         guid = request.META.get('HTTP_SMGOV_USERGUID')
-#         header_user_guid = uuid.UUID(guid) if guid else None
-#         header_user_dir = request.META.get('HTTP_SM_AUTHDIRNAME')
-#         header_user_id = request.META.get('HTTP_SM_UNIVERSALID', '').lower()
-#         header_user_email = request.META.get('HTTP_SMGOV_USEREMAIL')
-#         header_user_displayname = request.META.get('HTTP_SMGOV_USERDISPLAYNAME', '')
-#         header_user_type = request.META.get('HTTP_SMGOV_USERTYPE', '')
-
-#         result = None
-
-#         if header_user_guid or header_user_id:
-#             self.__logger.info('Authenticating siteminder login \'\'', header_user_id)
-#             try:
-#                 user = User.objects.get(
-#                             Q(authorization_guid=header_user_guid) |
-#                             Q(authorization_id=header_user_id))
-#             except User.DoesNotExist:
-#                 username = '_'.join([header_user_type.lower(), header_username.lower()])
-#                 user = User.objects.create_user(
-#                     username,
-#                     email=header_user_email,
-#                     password=None,
-#                 )
-
-#             # First time logging in, map the GUID to the user and set
-#             # fname & lname
-#             if user.authorization_guid is None:
-#                 user.authorization_guid = header_user_guid
-#             elif user.authorization_guid != header_user_guid:
-#                 raise exceptions.AuthenticationFailed(
-#                     'Invalid user identifier. '
-#                     'Please contact your administrator.')
-
-#             first_name, last_name = get_firstname_lastname(
-#                 header_user_displayname, header_user_type)
-#             user.first_name = first_name if first_name else ""
-#             user.last_name = last_name if last_name else ""
-#             if not user.username:
-#                 user.username = "_".join([header_user_type.lower(), header_username.lower()])
-
-#             user.authorization_email = header_user_email
-#             user.authorization_id = header_user_id
-#             user.authorization_directory = header_user_dir
-#             user.display_name = header_user_displayname
-
-#             user.save()
-
-#             result = (user, None)
-
-#         elif settings.DEMO_LOGIN:
-#             if 'HTTP_X_DEMO_LOGIN' in request.META:
-#                 custom_email = request.META['HTTP_X_DEMO_LOGIN']
-#             else:
-#                 custom_email = request.COOKIES.get('x-demo-login')
-#             if custom_email and re.match(r'[\w\.\-\+]+@[\w\.\-]+\.\w+', custom_email):
-#                 self.__logger.info('Authenticating demo login \'%s\'', custom_email)
-#                 try:
-#                     user = User.objects.get(email=custom_email)
-#                 except User.DoesNotExist:
-#                     username = generate_random_username()
-#                     user = User.objects.create_user(
-#                         username=username,
-#                         email=custom_email,
-#                         password=None,
-#                         authorization_id=username,
-#                     )
-#                 result = (user, 'demo')
-
-#         return result
