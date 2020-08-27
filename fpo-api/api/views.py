@@ -113,5 +113,7 @@ class SurveyPdfView(generics.GenericAPIView):
 class SubmitFormView(generics.GenericAPIView):
     def get(self, request):
         token_res = get_efiling_auth_token()
-        LOGGER.debug("Token response is %s", token_res['access_token'])
-        return Response({'Token': True})
+        if token_res:
+            LOGGER.debug("Token response is %s", token_res['access_token'])
+            return Response({'Token': True})
+        return Response({'Token': False})

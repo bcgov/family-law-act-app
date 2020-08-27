@@ -108,7 +108,7 @@ def get_efiling_auth_token() -> {}:
     try:
         token_rs = requests.post(url, data=payload, auth=HTTPBasicAuth(client_id, client_secret), headers=header, verify=True)
         if not token_rs.status_code == 200:
-            LOGGER.error("Error: Unexpected response", token_rs.text.encode('utf8'))
+            LOGGER.error("Error: Unexpected response %s", token_rs.text.encode('utf8'))
             return
         json_obj = token_rs.json()
         return json_obj
