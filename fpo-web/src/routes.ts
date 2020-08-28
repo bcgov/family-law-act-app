@@ -16,6 +16,16 @@ function userGuard(to: any, from: any, next: any) {
   }
 }
 
+function authGuard(to: any, from: any, next: any) {  
+  const userInfo = this.$store.dispatch("application/setUserInfo")
+
+  if (userInfo.user_id) {
+    next();
+  } else {
+    next({ path: userInfo.login_url });
+  }
+}
+
 const routes = [
   { path: "/", component: LandingPage },
   {
@@ -29,7 +39,12 @@ const routes = [
     name: "service-locator",
     component: ServiceLocator,
   },
-  { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
+  { 
+    path: "/getStarted",
+    name: "flapp-surveys",
+    beforeEnter: authGuard,
+    component: FlappSurveys
+  },
   { path: "/status", name: "applicant-status", component: ApplicationStatus },
   { path: "/terms", name: "terms", component: TermsConditions}
 ];

@@ -1,5 +1,6 @@
 import { ApplicationState, RootState } from "@/models/storeState";
 import { ActionTree } from "vuex";
+import axios from "axios";
 
 export const actions: ActionTree<ApplicationState, RootState> = {
   init(context) {
@@ -50,4 +51,13 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   updateStepResultData(context, { step, data }) {
     context.commit("updateStepResultData", { step, data });
   },
+  getUserInfo(): any {
+    axios.get('api/v1/user-info/')
+  .then((response) => {
+    const userId = response.data.user_id;
+    const loginUrl = response.data.login_uri;
+    return {user_id: userId, login_url: loginUrl};
+  });    
+    
+  }
 };
