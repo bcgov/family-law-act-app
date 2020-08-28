@@ -17,7 +17,7 @@ Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes: routes, mode: "history",
+  routes: routes, mode: "history", base: "/family-law-act/",
   scrollBehavior(to, from, savedPosotion) { 
     return { x: 0, y: 0 }
    }

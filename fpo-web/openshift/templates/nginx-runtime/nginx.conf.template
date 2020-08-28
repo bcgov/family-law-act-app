@@ -21,16 +21,11 @@ http {
         %RealIpFrom% 0;
     }
 
-    # use schema suggested by proxy if any
-    map $http_x_forwarded_proto $real_scheme {
-        default $http_x_forwarded_proto;
-        ''      $scheme;
-    }
-
     # Use a w3c standard log format
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
+                      '"$http_user_agent" "$http_x_forwarded_for" '
+                      'rt=$request_time urt=$upstream_response_time $pipe';
 
     access_log  /var/log/nginx/access.log  main if=$loggable;
 
@@ -60,6 +55,31 @@ http {
     # HTTP Basic rules
     auth_basic_user_file /tmp/.htpasswd;
 
+    # ======================================================
+    # Set variables for API proxy
+    # ------------------------------------------------------
+    # Ensure the original scheme is forwarded correctly
+    map $http_x_forwarded_proto $proxy_scheme {
+        default $scheme;
+        https "https";
+    }
+    # Ensure the original port is forwarded correctly
+    map $http_x_forwarded_port $proxy_port {
+        default $http_x_forwarded_port;
+        '' $server_port;
+    }
+    # Ensure the original host is forwarded correctly:
+    # - When the application is hosted on OpenShift and sitting behind 
+    #   a second proxy layer such as a jag of justice proxy
+    #   X-Forwarded-Host gets overwritten with the Hostname defined by the route 
+    #   at the OpenShift layer.  X-Forwarded-Server contains the original Hostname
+    #   that needs to be passed along to the various application components.
+    map $http_x_forwarded_server $proxy_host {
+        default $http_x_forwarded_server;
+        '' $host;
+    }
+    # ======================================================
+
     server {
         listen       8080;
         server_name  localhost;
@@ -71,13 +91,7 @@ http {
         add_header X-XSS-Protection 1;
         add_header X-Frame-Options DENY;
 
-        # Forward URL if not using path prefix
-        ## if ($request_uri !~ "^/protection-order/") {
-        ##     return 301 $real_scheme://$http_host/protection-order$request_uri;
-        ## }
-
-        # Remove path prefix when handling files
-        ## rewrite ^/protection-order/(.*)$ /$1 last;
+        %REMOVE_BASE_HREF%
 
         %API_CONFIG_SECTION%
 
@@ -85,7 +99,7 @@ http {
         location / {
             root   /tmp/app/dist;
             index  index.html index.htm;
-            try_files $uri /index.html;
+            try_files $uri $uri/ /index.html =404;
             gzip            on;
             gzip_min_length 1000;
             gzip_types      *;

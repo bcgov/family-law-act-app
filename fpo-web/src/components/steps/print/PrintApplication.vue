@@ -1,6 +1,7 @@
 <template>
   <page-base>
     <div class="home-content">
+    <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
       <div class="row">
         <div class="col-md-12">
           <h1>Print Your Application Forms</h1>
@@ -21,6 +22,10 @@
               </center>
             </div>
           </div>
+        
+        
+        
+        
         </div>
       </div>
     </div>
@@ -36,7 +41,9 @@ import { Page } from "survey-vue";
 export default {
   name: "print-application",
   data() {
-    return {};
+    return {
+      error: ""
+    };
   },
 
   components: {
@@ -67,9 +74,11 @@ export default {
           link.download = "fpo.pdf";
           link.click();
           setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+          this.error = "";
         })
         .catch(err => {
           console.error(err);
+          this.error = "Sorry, we were unable to print your form at this time, please try again later.";
         });
     }
   },
