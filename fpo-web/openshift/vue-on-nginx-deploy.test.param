@@ -1,21 +1,22 @@
 #=========================================================
 # OpenShift template parameters for:
 # Component: fpo-web
-# Template File: templates/angular-on-nginx/angular-on-nginx-deploy.yaml
+# Template File: templates/vue-on-nginx/vue-on-nginx-deploy.yaml
 #=========================================================
-# NAME=angular-on-nginx
+# NAME=vue-on-nginx
 # APP_NAME=fpo
 # ROLE=web
 # IMAGE_NAMESPACE=ggpixq-tools
 # REAL_IP_FROM=172.51.0.0/16
 # API_URL=http://django:8080/api/v1
 # API_SERVICE_NAME=django
-# API_PATH=/api/v1/
+# API_PATH=/api
+# WEB_BASE_HREF=/family-law-act/
 # AdditionalRealIpFromRules=
 # IpFilterRules=
-SITEMINDER_APPLICATION_DOMAIN=family-law-act-dev.pathfinder.bcgov
+SITEMINDER_APPLICATION_DOMAIN=family-law-act-test.pathfinder.bcgov
 # SITEMINDER_WHITE_LIST=
-TAG_NAME=dev
+TAG_NAME=test
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=
 # HTTP_BASIC_PASSWORD=

@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import posixpath
 
 # import logging.config
 
@@ -51,26 +50,29 @@ INSTALLED_APPS = [
     "auditable",
     "api",
     "corsheaders",
+    "oidc_rp"
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "oidc_rp.middleware.OIDCRefreshIDTokenMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "fpo_api.XForwardedForPortMiddleware"
 ]
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_SAVE_EVERY_REQUEST = True
 
 ROOT_URLCONF = "fpo_api.urls"
 
-#CORS_URLS_REGEX = r"^/api/v1/.*$"
+# CORS_URLS_REGEX = r"^/api/v1/.*$"
 CORS_URLS_REGEX = r"^.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -88,6 +90,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "oidc_rp.context_processors.oidc",
             ]
         },
     }
@@ -118,12 +121,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "api.User"
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "api.auth.SiteMinderAuth",
-        "rest_framework.authentication.SessionAuthentication",
-    )
-}
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "oidc_rp.backends.OIDCAuthBackend",
+)
 
 
 # Internationalization
@@ -143,12 +144,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = os.getenv("WEB_BASE_HREF", "/family-law-act/")  + "/api/static/"
 
-STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ["static"]))
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 LOGGING = {
@@ -190,8 +192,60 @@ LOGGING = {
         "propagate": False,
     },
 }
+OIDC_ENABLED = False
 
+# Settings for django-oidc-rp
+OIDC_RP_PROVIDER_ENDPOINT = os.getenv(
+    "OIDC_RP_PROVIDER_ENDPOINT",
+    # FIXME no default here
+    "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w",
+)
+
+if OIDC_RP_PROVIDER_ENDPOINT:
+    OIDC_RP_PROVIDER_AUTHORIZATION_ENDPOINT = (
+        f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/auth"
+    )
+    OIDC_RP_PROVIDER_TOKEN_ENDPOINT = (
+        f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/token"
+    )
+    OIDC_RP_PROVIDER_JWKS_ENDPOINT = (
+        f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/certs"
+    )
+    OIDC_RP_PROVIDER_USERINFO_ENDPOINT = (
+        f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/userinfo"
+    )
+    OIDC_RP_CLIENT_ID = os.getenv("OIDC_RP_CLIENT_ID")
+    OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_RP_CLIENT_SECRET")
+    OIDC_RP_PROVIDER_SIGNATURE_ALG = "RS256"
+    OIDC_RP_SCOPES = "openid profile email"  # address phone
+    OIDC_RP_ID_TOKEN_INCLUDE_USERINFO = True
+    OIDC_RP_AUTHENTICATION_FAILURE_REDIRECT_URI = os.getenv("OIDC_RP_FAILURE_URI", "/family-law-act/")
+    OIDC_RP_USER_DETAILS_HANDLER = "api.auth.sync_keycloak_user"
+    OIDC_RP_AUTHENTICATION_REDIRECT_URI = (
+        os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", "/family-law-act/")
+    )
+    OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT")
+
+    DRF_AUTH_CLASS = (
+        "oidc_rp.contrib.rest_framework.authentication.BearerTokenAuthentication"
+    )
+    OIDC_ENABLED = True
+else:
+    DRF_AUTH_CLASS = "api.auth.DemoAuth"
+    del AUTHENTICATION_BACKENDS
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        DRF_AUTH_CLASS,
+        "rest_framework.authentication.SessionAuthentication",
+    )
+}
+FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
 # For development (when no SiteMinder available)
-OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
+# OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
 
-DEMO_LOGIN = True
+# DEMO_LOGIN = True
+EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
+EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
+EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")
