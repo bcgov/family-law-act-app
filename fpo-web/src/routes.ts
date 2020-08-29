@@ -5,6 +5,7 @@ import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
 import TermsConditions from "@/components/status/TermsConditions.vue"
+import axios from "axios";
 
 function userGuard(to: any, from: any, next: any) {
   const store = GlobalStore.getInstance();
@@ -16,15 +17,25 @@ function userGuard(to: any, from: any, next: any) {
   }
 }
 
-function authGuard(to: any, from: any, next: any) {  
-  const userInfo = this.$store.dispatch("application/setUserInfo")
+function authGuard(to: any, from: any, next: any) { 
 
-  if (userInfo.user_id) {
-    next();
-  } else {
-    next({ path: userInfo.login_url });
-  }
-}
+  axios.get('api/v1/user-info/')
+  .then((response) => {
+    const userId = response.data.user_id;
+    const loginUrl = response.data.login_uri;
+    if (userId) {
+      next();
+    } else {
+      next({ path: loginUrl });
+    }
+  }).catch((error) => {
+    //TODO: determine workflow
+    console.log(error)   
+    
+  });    
+    
+} 
+
 
 const routes = [
   { path: "/", component: LandingPage },
@@ -45,7 +56,11 @@ const routes = [
     beforeEnter: authGuard,
     component: FlappSurveys
   },
-  { path: "/status", name: "applicant-status", component: ApplicationStatus },
+  { path: "/status",
+    name: "applicant-status",
+    beforeEnter: authGuard,
+    component: ApplicationStatus 
+  },
   { path: "/terms", name: "terms", component: TermsConditions}
 ];
 
