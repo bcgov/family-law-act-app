@@ -32,19 +32,11 @@ function authGuard(to: any, from: any, next: any) {
     //TODO: determine workflow
     console.log(error)   
     
-  });    
-    
-} 
-
+  });
+}
 
 const routes = [
-  { path: "/", component: LandingPage },
-  {
-    path: "/login",
-    name: "login-page",
-    beforeEnter: userGuard,
-    component: LoginPage,
-  },
+  { path: "/", component: LandingPage },  
   {
     path: "/serviceLocator",
     name: "service-locator",
@@ -56,12 +48,17 @@ const routes = [
     beforeEnter: authGuard,
     component: FlappSurveys
   },
-  { path: "/status",
+  {
+    path: "/status",
     name: "applicant-status",
     beforeEnter: authGuard,
     component: ApplicationStatus 
   },
-  { path: "/terms", name: "terms", component: TermsConditions}
+  { 
+    path: "/terms", 
+    name: "terms", 
+    component: TermsConditions
+  }
 ];
 
 export default routes;
