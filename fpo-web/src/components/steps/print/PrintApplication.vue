@@ -56,7 +56,7 @@ export default {
     onDownload: function() {
       axios
         .post(
-          "http://localhost:8081/form?name=application-about-a-protection-order",
+          "form?name=application-about-a-protection-order",
           this.getFPOResultData(),
           {
             responseType: "blob",
