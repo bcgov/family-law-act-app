@@ -55,6 +55,9 @@
 </template>
 
 <script>
+import * as SurveyVue from "survey-vue";
+import * as surveyEnv from "@/components/survey-glossary.ts";
+
 export default {
   name: "application-status",
   data() {

@@ -43,10 +43,13 @@
                   </p>
                 </div>
                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                  <p>2. Print Your Forms</p>
+                  <p>2. Print Your Forms OR Submit Your Application electronically</p>
                   <p>
                     Once you're done with the questions, you'll print your
-                    papers and file at your local court registry. That's it!
+                    papers and file at your local court registry. 
+                    OR
+                    Submit them through our eFiling system.
+                    That's it!
                   </p>
                 </div>
               </div>
