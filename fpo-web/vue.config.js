@@ -4,7 +4,7 @@ module.exports = {
     devServer: {
       historyApiFallback: true,
       proxy: {
-        "/family-law-act/api": {
+        "/form": {
           target: "http://localhost:8081",
           pathRewrite: {
             "^/family-law-act/": "/"

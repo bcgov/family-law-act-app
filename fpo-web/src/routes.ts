@@ -26,7 +26,7 @@ function authGuard(to: any, from: any, next: any) {
     if (userId) {
       next();
     } else {
-      next({ path: loginUrl });
+      location.replace(loginUrl);
     }
   }).catch((error) => {
     //TODO: determine workflow
