@@ -13,11 +13,21 @@ if createOperation; then
   # Ask the user to supply the sensitive parameters ...
   readParameter "OIDC_RP_PROVIDER_ENDPOINT - Please provide the url for the OIDC RP Provider.  The default is a blank string." OIDC_RP_PROVIDER_ENDPOINT "false"
   readParameter "OIDC_RP_CLIENT_SECRET - Please provide the OIDC RP Client Secret.  The default is a blank string." OIDC_RP_CLIENT_SECRET "false"
+
+  # Get the eFiling settings
+  readParameter "EFILING_AUTH_URL - Please provide the url for the eFiling authentication.  The default is a blank string." EFILING_AUTH_URL "" "false"
+  readParameter "EFILING_CLIENT_ID - Please provide the service client id for submitting the application.  The default is a blank string." EFILING_CLIENT_ID "" "false"
+  readParameter "EFILING_CLIENT_SECRET - Please provide the service client secret to use with above id.  The default is a blank string." EFILING_CLIENT_SECRET "" "false"
+  
 else
   # Secrets are removed from the configurations during update operations ...
-  printStatusMsg "Update operation detected ...\nSkipping the prompts for OIDC_RP_PROVIDER_ENDPOINT, OIDC_RP_CLIENT_SECRET secrets ... \n"
+  printStatusMsg "Update operation detected ...\nSkipping the prompts for OIDC_RP_PROVIDER_ENDPOINT, OIDC_RP_CLIENT_SECRET, EFILING_AUTH_URL, EFILING_CLIENT_ID, EFILING_CLIENT_SECRET secrets ... \n"
   writeParameter "OIDC_RP_PROVIDER_ENDPOINT" "prompt_skipped" "false"
   writeParameter "OIDC_RP_CLIENT_SECRET" "prompt_skipped" "false"
+
+  writeParameter "EFILING_AUTH_URL" "prompt_skipped" "false"
+  writeParameter "EFILING_CLIENT_ID" "prompt_skipped" "false"
+  writeParameter "EFILING_CLIENT_SECRET" "prompt_skipped" "false"
 fi
 
 SPECIALDEPLOYPARMS="--param-file=${_overrideParamFile}"
