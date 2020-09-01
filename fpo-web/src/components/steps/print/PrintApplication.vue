@@ -56,13 +56,12 @@ export default {
     onDownload: function() {
       axios
         .post(
-          "form?name=application-about-a-protection-order",
+          "/api/v1/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),
           {
             responseType: "blob",
             headers: {
               "Content-Type": "application/json",
-              Accept: "application/pdf"
             }
           }
         )
