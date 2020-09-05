@@ -84,23 +84,14 @@ class SurveyPdfView(generics.GenericAPIView):
     permission_classes = ()  # permissions.IsAuthenticated,)
 
     def post(self, request, name=None):
-        tpl_name = 'survey-{}.html'.format(name)
-        #return HttpResponseBadRequest('Unknown survey name')
+        data = request.data
+        name = request.query_params.get("name")
+        template = '{}.html'.format(name)
 
-        responses = json.loads(request.POST['data'])
-        # responses = {'question1': 'test value'}
+        template = get_template(template)
+        html_content = template.render(data)
 
-        template = get_template(tpl_name)
-        html_content = template.render(responses)
-
-        if name == 'primary':
-            instruct_template = get_template("instructions-primary.html")
-            instruct_html = instruct_template.render(responses)
-            docs = (instruct_html,) + (html_content,)*4
-            pdf_content = render_pdf(*docs)
-
-        else:
-            pdf_content = render_pdf(html_content)
+        pdf_content = render_pdf(html_content)
 
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
