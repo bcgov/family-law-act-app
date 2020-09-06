@@ -1,5 +1,4 @@
 import LandingPage from "@/components/views/LandingPage.vue";
-import LoginPage from "@/components/views/LoginPage.vue";
 import ServiceLocator from "@/components/views/ServiceLocator.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
@@ -23,7 +22,10 @@ function authGuard(to: any, from: any, next: any) {
   .then((response) => {
     const userId = response.data.user_id;
     const loginUrl = response.data.login_uri;
+    
     if (userId) {
+      const userName = response.data.first_name + " " + response.data.last_name;
+      this.$store.dispatch("application/setUserName", userName);
       next();
     } else {
       location.replace(loginUrl);
@@ -48,7 +50,7 @@ const routes = [
     beforeEnter: authGuard,
     component: FlappSurveys
   },
-  {
+  { 
     path: "/status",
     name: "applicant-status",
     beforeEnter: authGuard,

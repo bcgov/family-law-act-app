@@ -73,6 +73,7 @@ export default {
           link.download = "fpo.pdf";
           link.click();
           setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+          //TODO: set the lastPrinted value
           this.error = "";
         })
         .catch(err => {
