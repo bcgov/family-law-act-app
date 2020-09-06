@@ -5,6 +5,7 @@ import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
 import TermsConditions from "@/components/status/TermsConditions.vue"
+import axios from "axios";
 
 function userGuard(to: any, from: any, next: any) {
   const store = GlobalStore.getInstance();
@@ -16,22 +17,48 @@ function userGuard(to: any, from: any, next: any) {
   }
 }
 
+function authGuard(to: any, from: any, next: any) { 
+
+  axios.get('api/v1/user-info/')
+  .then((response) => {
+    const userId = response.data.user_id;
+    const loginUrl = response.data.login_uri;
+    if (userId) {
+      next();
+    } else {
+      location.replace(loginUrl);
+    }
+  }).catch((error) => {
+    //TODO: determine workflow
+    console.log(error)   
+    
+  });
+}
+
 const routes = [
-  { path: "/", component: LandingPage },
-  {
-    path: "/login",
-    name: "login-page",
-    beforeEnter: userGuard,
-    component: LoginPage,
-  },
+  { path: "/", component: LandingPage },  
   {
     path: "/serviceLocator",
     name: "service-locator",
     component: ServiceLocator,
   },
-  { path: "/getStarted", name: "flapp-surveys", component: FlappSurveys },
-  { path: "/status", name: "applicant-status", component: ApplicationStatus },
-  { path: "/terms", name: "terms", component: TermsConditions}
+  { 
+    path: "/getStarted",
+    name: "flapp-surveys",
+    beforeEnter: authGuard,
+    component: FlappSurveys
+  },
+  {
+    path: "/status",
+    name: "applicant-status",
+    beforeEnter: authGuard,
+    component: ApplicationStatus 
+  },
+  { 
+    path: "/terms", 
+    name: "terms", 
+    component: TermsConditions
+  }
 ];
 
 export default routes;

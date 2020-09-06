@@ -49,5 +49,5 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   },
   updateStepResultData(context, { step, data }) {
     context.commit("updateStepResultData", { step, data });
-  },
+  }
 };
