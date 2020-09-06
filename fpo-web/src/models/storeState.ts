@@ -4,6 +4,11 @@ export interface RootState {
   version: string;
 }
 
+export interface CommonState {
+   // whether it's a new application or loaded from previous session/s
+  existingApplication: boolean;
+}
+
 export interface ApplicationState {
   // empty for now, persisted ID from database
   id?: string;

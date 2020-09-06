@@ -11,8 +11,8 @@
                   <p>{{application}}</p>
                 </div>
                 <div class="col-4">
-                  <button type="button" class="btn btn-primary application-button">Resume</button>
-                  <button type="button" class="btn btn-primary application-button">Remove</button>
+                  <button type="button" class="btn btn-primary application-button" @click="resumeApplication(application.id)">Resume</button>
+                  <button type="button" class="btn btn-primary application-button" @click="removeApplication(application)">Remove</button>
                 </div>
               </div>
               <hr class="section" />
@@ -51,15 +51,28 @@
         </div>
       </div>
     </b-container>
+
+    <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" hide-footer>
+            <template v-slot:modal-title>
+                    <h2 class="mb-0">Confirm Delete Application</h2>
+                    <p>Are you sure you want to delete your <b>{{currentApplication.type}}</b> application?</p>
+            </template>
+            <button type="button" class="btn btn-danger application-button" @click="confirmRemoveApplication()">Delete</button>         
+            <button type="button" class="btn btn-primary application-button" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</button>
+    </b-modal> 
   </div>
 </template>
 
 <script>
+import GlobalStore from "@/store";
+
 export default {
   name: "application-status",
   data() {
     return {
       inProgressApplications: [],
+      confirmDelete: false,
+      currentApplication: {}
     };
   },
   methods: {
@@ -71,7 +84,31 @@ export default {
     },
     navigate() {
       
+    },
+    resumeApplication(applicationId) {
+      // add application Id to store
+      this.$store.dispatch("application/setApplicationId", applicationId);
+      // navigate to application last step, load application data to view
+      // TODO: add GET call
+      const json = require("/home/marzieh/Desktop/test_state.json");
+      console.log(json)
+      this.$store.dispatch("application/setCurrentApplication", json);
+      this.$store.dispatch("common/setExistingApplication", true);      
+
+      this.$router.push({name: "flapp-surveys" })
+    },
+    removeApplication(application) {
+      
+      this.currentApplication = application;
+      // perform relevant checks (TBD) and if the application can be deleted: open modal to confirm deletion
+      this.confirmDelete=true;      
+    },
+    confirmRemoveApplication() {
+      
+      // perform DELETE request to delete currentApplication.id
+            
     }
+
   },
   beforeCreate() {
     const Survey = SurveyVue;
@@ -80,8 +117,8 @@ export default {
   created() {
     // To be fetched from db
     this.inProgressApplications.push(
-      "sample saved-1",
-      "sample saved-2"
+      {id: 0, type:"sample saved-1"},
+      {id: 0, type:"sample saved-2"}
     );
   }
 };

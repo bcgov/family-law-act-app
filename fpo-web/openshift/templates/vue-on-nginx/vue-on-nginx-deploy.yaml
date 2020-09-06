@@ -75,6 +75,8 @@ objects:
                   value: "${API_SERVICE_NAME}"
                 - name: API_PATH
                   value: "${API_PATH}"
+                - name: WEB_BASE_HREF
+                  value: "${WEB_BASE_HREF}"
                 - name: RealIpFrom
                   value: "${REAL_IP_FROM}"
                 - name: AdditionalRealIpFromRules
@@ -236,6 +238,11 @@ parameters:
     name: API_PATH
     required: true
     value: "/api/v1/"
+  - name: WEB_BASE_HREF
+    displayName: Web Base Href
+    description: The application host path (Web Base Href).
+    required: false
+    value: "/family-law-act"
   - description:
       Additional known and trusted reverse proxy ips conforming to nginx
       set_real_ip_from directive syntax. Multiple directives are allowed, separated

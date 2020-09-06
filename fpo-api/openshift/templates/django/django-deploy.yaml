@@ -74,6 +74,23 @@
             targetPort: 8080
         selector:
           name: ${NAME}
+
+    - kind: Secret
+      apiVersion: v1
+      metadata:
+        name: ${NAME}
+        labels:
+          name: ${NAME}
+          app: ${APP_NAME}
+          role: ${ROLE}
+          env: ${TAG_NAME}
+      stringData:
+        oidc-rp-provider-endpoint: ${OIDC_RP_PROVIDER_ENDPOINT}
+        oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
+        efiling-auth-url: ${EFILING_AUTH_URL}
+        efiling-client-id: ${EFILING_CLIENT_ID}
+        efiling-client-secret: ${EFILING_CLIENT_SECRET}
+      type: Opaque
   
     - kind: DeploymentConfig
       apiVersion: v1
@@ -157,6 +174,34 @@
                     value: "${DJANGO_DEBUG}"
                   - name: PDF_SERVICE_URL
                     value: ${PDF_SERVICE_URL}
+                  - name: OIDC_RP_PROVIDER_ENDPOINT
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: oidc-rp-provider-endpoint
+                  - name: OIDC_RP_CLIENT_SECRET
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: oidc-rp-client-secret
+                  - name: OIDC_RP_KC_IDP_HINT
+                    value: ${OIDC_RP_KC_IDP_HINT}
+                  - name: EFILING_AUTH_URL
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-auth-url
+                  - name: EFILING_CLIENT_ID
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-client-id
+                  - name: EFILING_CLIENT_SECRET
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-client-secret
+
                 resources:
                   requests:
                     cpu: "${CPU_REQUEST}"
@@ -231,6 +276,37 @@
       description: The name associated to the database deployment resources.  In particular, this is used to wrie up the credentials associated to the database.
       required: true
       value: postgresql
+    - name: OIDC_RP_PROVIDER_ENDPOINT
+      displayName: OIDC RP Provider Endpoint
+      description: OIDC RP Provider Endpoint.
+      required: false
+      value:
+    - name: OIDC_RP_CLIENT_SECRET
+      displayName: OIDC RP Client Secret
+      description: OIDC RP Client Secret
+      required: false
+      value:
+    - name: OIDC_RP_KC_IDP_HINT
+      displayName: OIDC RP KeyCloak IDP Hint
+      description: OIDC RP KeyCloak IDP Hint
+      required: false
+      value: idir
+
+    - name: EFILING_AUTH_URL
+      displayName: EFILING authentication url
+      description: EFILING authentication url
+      required: true
+      value:  
+    - name: EFILING_CLIENT_ID
+      displayName: EFILING Service Client Id
+      description: EFILING Service Client Id
+      required: true
+      value:
+    - name: EFILING_CLIENT_SECRET
+      displayName: EFILING Service Client Secret
+      description: EFILING Service Client Secret
+      required: true
+      value:
   
     - name: CPU_REQUEST
       displayName: Resources CPU Request

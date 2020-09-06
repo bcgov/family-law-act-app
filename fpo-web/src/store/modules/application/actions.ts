@@ -5,6 +5,9 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   init(context) {
     context.commit("init");
   },
+  setCurrentApplication(context, application) {
+    context.commit("setCurrentApplication", application);
+  },
   setUserType(context, userType) {
     context.commit("setUserType", userType);
   },
@@ -47,7 +50,16 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   setRespondentName(context, respondentName) {
     context.commit("setRespondentName", respondentName);
   },
+
+  setApplicationId(context, id) {
+    context.commit("setApplicationId", id);
+  },
+
+  setApplicationType(context, type) {
+    context.commit("setApplicationType", type);
+  },
+
   updateStepResultData(context, { step, data }) {
     context.commit("updateStepResultData", { step, data });
-  },
+  }
 };
