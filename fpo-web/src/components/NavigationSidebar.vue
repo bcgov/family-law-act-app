@@ -95,6 +95,7 @@ export default {
         currChildGroup.style.display = "none";
       }
 
+      //TODO: set the lastUpdate value
       this.$store.dispatch("application/setCurrentStep", nextIndex);
     },
     //TODO: This is where the step is selected

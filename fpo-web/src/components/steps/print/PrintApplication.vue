@@ -56,13 +56,12 @@ export default {
     onDownload: function() {
       axios
         .post(
-          "http://localhost:8081/form?name=application-about-a-protection-order",
+          "/api/v1/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),
           {
             responseType: "blob",
             headers: {
               "Content-Type": "application/json",
-              Accept: "application/pdf"
             }
           }
         )
@@ -74,6 +73,7 @@ export default {
           link.download = "fpo.pdf";
           link.click();
           setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+          //TODO: set the lastPrinted value
           this.error = "";
         })
         .catch(err => {

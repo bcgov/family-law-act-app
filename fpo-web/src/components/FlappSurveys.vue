@@ -47,7 +47,12 @@ export default {
     return {};
   },
   beforeCreate() {
-    this.$store.dispatch("application/init");
+    const existingApplication = this.$store.getters["common/getExistingApplication"];
+    //Check to see if store indicates an existing application, 
+    //if yes, dont run init nd load previous application
+    if (!existingApplication) {
+      this.$store.dispatch("application/init");
+    } 
     surveyEnv.loadGlossary();
   },
   methods: {

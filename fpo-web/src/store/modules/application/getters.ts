@@ -89,4 +89,11 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getRespondentName(state: ApplicationState) {
     return state.respondentName;
   },
+  getApplicationId(state: ApplicationState) {
+    return state.id;
+  },
+  getApplicationType(state: ApplicationState) {
+    return state.type;
+  },
+  
 };

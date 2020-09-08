@@ -318,24 +318,45 @@ export const mutations: MutationTree<ApplicationState> = {
     if (nextPage != state.steps[nextStep].currentPage) {
       state.steps[nextStep].currentPage = nextPage;
     }
-  },
+  },  
+  setPageActive(state, { currentStep, currentPage, active }) {
+    state.steps[currentStep].pages[currentPage].active = active;
+  }, 
+  updateStepResultData(state, { step, data }) {
+    step.result = {...step.result, ...data};
+
+    console.log("data key 0= " + Object.keys(data)[0]);
+  }, 
+
   setAllCompleted(state, allCompleted) {
     state.allCompleted = allCompleted;
   },
   setApplicantName(state, applicantName) {
     state.applicantName = applicantName;
   },
-  setPageActive(state, { currentStep, currentPage, active }) {
-    state.steps[currentStep].pages[currentPage].active = active;
-  },
-  
   setRespondentName(state, respondentName) {
     state.respondentName = respondentName;
   },
- 
-  updateStepResultData(state, { step, data }) {
-    step.result = {...step.result, ...data};
-
-    console.log("data key 0= " + Object.keys(data)[0]);
+  setApplicationId(state, id) {
+    console.log("reached store")
+    state.id = id;
   },
+  setApplicationType(state, type) {
+    console.log("reached type store")
+    state.type = type;
+  },
+  setCurrentApplication(state, application) {
+    state.id = application.id;    
+    state.type = application.type;    
+    state.steps = application.steps;
+    state.lastUpdate = application.lastUpdate;    
+    state.currentStep = application.currentStep;
+    state.allCompleted = application.allCompleted;
+    state.lastPrinted = application.lastPrinted;
+    state.userType = application.userType;
+    state.userName = application.userName;
+    state.applicantName = application.applicantName;
+    state.respondentName = application.respondentName;    
+  },
+  
 };
