@@ -13,7 +13,7 @@ class Step(models.Model):
 
     metadata = jsonfield.fields.JSONField(blank=True, null=True)
 
-    active = models.BooleanField(blank=True)
+    active = models.BooleanField(blank=True, default=False)
 
     lastUpdate = models.DateTimeField(auto_now=True, blank=True, null=True)
 

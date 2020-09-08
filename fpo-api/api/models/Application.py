@@ -9,10 +9,12 @@ class Application(models.Model):
     last_updated = models.DateTimeField(blank=True, null=True)
     current_step = models.CharField(max_length=100, default="", blank=True)
     current_page = models.CharField(max_length=100, default="", blank=True)
-    all_completed = models.BooleanField(blank=True)
+    all_completed = models.BooleanField(blank=True, default=False)
     last_printed = models.DateTimeField(blank=True, null=True)
+    user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
     application_name = models.CharField(max_length=100, default="", blank=True)
+    respondent_name = models.CharField(max_length=100, default="", blank=True)
 
     user = models.ForeignKey(
         "User",
