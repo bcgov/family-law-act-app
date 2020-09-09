@@ -26,6 +26,7 @@ function authGuard(to: any, from: any, next: any) {
     if (userId) {
       const userName = response.data.first_name + " " + response.data.last_name;
       this.$store.dispatch("application/setUserName", userName);
+      this.$store.dispatch("common/setUserId", userId);
       next();
     } else {
       location.replace(loginUrl);

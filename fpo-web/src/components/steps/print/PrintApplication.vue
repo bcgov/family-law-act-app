@@ -53,7 +53,15 @@ export default {
     getFPOResultData: function() {
       return this.$store.getters["application/getNavigation"][1].result;
     },
+    saveApplication: function () {
+      const application = this.$store.getters["application/getApplication"]
+      if (application.id.length > 0) {
+        const applicationId = application.id;
+        this.$store.dispatch("common/updateApplication", {applicationId, application});
+      }
+    },
     onDownload: function() {
+      this.saveApplication();
       axios
         .post(
           "/api/v1/survey-print/?name=application-about-a-protection-order",

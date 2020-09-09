@@ -97,6 +97,7 @@ export default {
 
       //TODO: set the lastUpdate value
       this.$store.dispatch("application/setCurrentStep", nextIndex);
+      this.saveChanges();
     },
     //TODO: This is where the step is selected
     onSelectPage: function(event) {
@@ -123,6 +124,8 @@ export default {
         currentStep: currStepIndex,
         currentPage: nextPageIndex,
       });
+      this.saveChanges();
+
     },
     getNavigation: function() {
       const steps = this.$store.getters["application/getNavigation"];
@@ -159,6 +162,14 @@ export default {
     },
     isPrintStep: function(step) {
       return step.type=='print';
+    },
+    saveChanges: function() {
+      console.log("saving changes - update - PUT - from sidebar")
+      const application = this.$store.getters["application/getApplication"]
+      if (application.id.length>0) {
+        const applicationId = application.id;
+        this.$store.dispatch("common/updateApplication", {applicationId, application});
+      }    
     }
   },
   props: {},
