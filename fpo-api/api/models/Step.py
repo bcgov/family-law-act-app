@@ -21,7 +21,7 @@ class Step(models.Model):
 
     active = models.BooleanField(blank=True, default=False)
 
-    lastUpdate = models.DateTimeField(auto_now=True, blank=True, null=True)
+    last_updated = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     application = models.ForeignKey(
         "Application",
