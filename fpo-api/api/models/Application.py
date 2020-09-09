@@ -7,8 +7,7 @@ class Application(models.Model):
     )
     app_type = models.CharField(max_length=100, default="", blank=True)
     last_updated = models.DateTimeField(blank=True, null=True)
-    current_step = models.CharField(max_length=100, default="", blank=True)
-    current_page = models.CharField(max_length=100, default="", blank=True)
+    current_step = models.IntegerField(null=True, blank=True)
     all_completed = models.BooleanField(blank=True, default=False)
     last_printed = models.DateTimeField(blank=True, null=True)
     user_type = models.CharField(max_length=100, default="", blank=True)
@@ -19,7 +18,9 @@ class Application(models.Model):
     user = models.ForeignKey(
         "User",
         related_name="app_user_Id",
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
     )
     prepared_pdf = models.ForeignKey(
         "PreparedPdf",

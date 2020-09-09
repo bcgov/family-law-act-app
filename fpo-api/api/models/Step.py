@@ -7,11 +7,17 @@ class Step(models.Model):
         auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
     )
 
-    survey_type = models.CharField(max_length=100, default="", blank=True)
+    step_type = models.CharField(max_length=100, default="", blank=True)
+
+    label = models.CharField(max_length=100, default="", blank=True)
+
+    icon = models.CharField(max_length=100, default="", blank=True)
 
     result = jsonfield.fields.JSONField(blank=True, null=True)
 
     metadata = jsonfield.fields.JSONField(blank=True, null=True)
+
+    current_page = models.IntegerField(blank=True, null=True)
 
     active = models.BooleanField(blank=True, default=False)
 
