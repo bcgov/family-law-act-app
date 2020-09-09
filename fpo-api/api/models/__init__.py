@@ -21,3 +21,7 @@
 
 from .User import User
 from .SurveyResult import SurveyResult
+from .PreparedPdf import PreparedPdf
+from .Application import Application
+from .Step import Step
+from .Page import Page
