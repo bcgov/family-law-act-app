@@ -54,7 +54,7 @@ export default {
       return this.$store.getters["application/getNavigation"][1].result;
     },
     onDownload: function() {
-      axios
+      this.$http
         .post(
           "/api/v1/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),

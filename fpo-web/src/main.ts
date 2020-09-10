@@ -4,6 +4,7 @@ import BootstrapVue from "bootstrap-vue";
 import VueRouter from "vue-router";
 import routes from "@/routes";
 import GlobalStore from "@/store";
+import http from "./plugins/http.js";
 
 import "@/styles/index.scss";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -15,6 +16,7 @@ import "font-awesome/css/font-awesome.min.css";
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
+Vue.use(http)
 
 const router = new VueRouter({
   routes: routes, mode: "history", base: "/family-law-act/",
