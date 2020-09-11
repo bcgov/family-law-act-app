@@ -7,6 +7,8 @@ class Step(models.Model):
         auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
     )
 
+    s_id = models.CharField(max_length=100, default="", blank=True)
+
     step_type = models.CharField(max_length=100, default="", blank=True)
 
     label = models.CharField(max_length=100, default="", blank=True)
@@ -19,13 +21,13 @@ class Step(models.Model):
 
     current_page = models.IntegerField(blank=True, null=True)
 
-    active = models.BooleanField(blank=True, default=False)
+    active = models.BooleanField(blank=True, null=True)
 
     last_updated = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     application = models.ForeignKey(
         "Application",
-        related_name="application_id",
+        related_name="steps",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
