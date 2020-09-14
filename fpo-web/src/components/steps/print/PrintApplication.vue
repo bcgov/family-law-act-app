@@ -64,7 +64,7 @@ export default {
       this.saveApplication();     
       this.$http
         .post(
-          "/api/v1/survey-print/?name=application-about-a-protection-order",
+          "/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),
           {
             responseType: "blob",
