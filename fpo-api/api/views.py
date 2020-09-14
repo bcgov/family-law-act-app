@@ -26,7 +26,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
 from api.auth import get_efiling_auth_token
-from api.serializers import ApplicationLookupSerializer, ApplicationSerializer
+from api.serializers import ApplicationLookupSerializer, ApplicationSerializer, StepLookupSerializer
 from rest_framework.parsers import JSONParser
 
 from rest_framework.views import APIView
@@ -119,7 +119,7 @@ class ApplicationListView(generics.ListAPIView):
     """
     def get_app_object(self, id):
         try:
-            return Application.objects.get(user_id=id)
+            return Application.objects.filter(user_id=id)
         except Application.DoesNotExist:
             return HttpResponse(status=404)
 

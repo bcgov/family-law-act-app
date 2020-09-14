@@ -19,7 +19,7 @@ class Page(models.Model):
     step = models.ForeignKey(
         "Step",
         related_name="pages",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         blank=True,
         null=True,
     )

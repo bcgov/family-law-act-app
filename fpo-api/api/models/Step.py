@@ -28,7 +28,7 @@ class Step(models.Model):
     application = models.ForeignKey(
         "Application",
         related_name="steps",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         blank=True,
         null=True,
     )
