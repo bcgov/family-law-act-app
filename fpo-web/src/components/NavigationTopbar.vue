@@ -35,8 +35,9 @@
         </div>
         <div id="app-exit" class="app-exit">
           <a
-            target="_blank"
-            href="https://www.google.ca"
+            @click="quickExit()"
+            target="_blank"            
+            id="quick-exit"
             rel="external"
             class="btn btn-primary"
             ><span class="fa fa-sign-out"></span> Quick Exit</a
@@ -70,7 +71,18 @@
 export default {
   data() {
     return {};
-  }
+  },
+  methods: {
+    quickExit: function() {
+      const application = this.$store.getters["application/getApplication"]
+      if (application.id.length>0) {
+        const applicationId = application.id;
+        this.$store.dispatch("common/updateApplication", {applicationId, application});
+      }      
+      this.$store.dispatch("application/init");
+      window.location.replace("https://www.google.ca");      
+    }
+  }  
 };
 </script>
 

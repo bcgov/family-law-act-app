@@ -20,6 +20,9 @@ export const actions: ActionTree<ApplicationState, RootState> = {
   setUserName(context, userName) {
     context.commit("setUserName", userName);
   },
+  setUserId(context, userId) {
+    context.commit("setUserId", userId);
+  },
   setStepActive(context, { currentStep, active }) {
     context.commit("setStepActive", { currentStep, active });
   },

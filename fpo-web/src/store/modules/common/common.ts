@@ -6,6 +6,7 @@ import { Module } from "vuex";
 
 export const state: CommonState = {    
     existingApplication: false,
+    userId: ''
 };
 
 const namespaced = true;

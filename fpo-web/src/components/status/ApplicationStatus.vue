@@ -5,7 +5,7 @@
         <div class="col-12">
           <h1>Previous Applications</h1>
           <div v-if="inProgressApplications.length >0">
-            <div v-for="application in inProgressApplications" :key="application">
+            <div v-for="application in inProgressApplications" :key="application.id">
               <div class="row">
                 <div class="col-8">
                   <p>{{application}}</p>
@@ -72,7 +72,8 @@ export default {
     return {
       inProgressApplications: [],
       confirmDelete: false,
-      currentApplication: {}
+      currentApplication: {},
+      userId: ''
     };
   },
   methods: {
@@ -80,6 +81,12 @@ export default {
       this.$router.push({name: "terms"})
     },
     beginApplication() {
+      const store = GlobalStore.getInstance();
+      this.userId = store.getters["application/getUserId"]
+      // TODO: complete setup of POST body as application once API is in place
+      const application = {"userId": this.userId}
+      this.$store.dispatch("application/init");
+      this.$store.dispatch("common/saveNewApplication", application);
       this.$router.push({name: "flapp-surveys" })
     },
     navigate() {
@@ -89,7 +96,7 @@ export default {
       // add application Id to store
       this.$store.dispatch("application/setApplicationId", applicationId);
       // navigate to application last step, load application data to view
-      // TODO: add GET call
+      // TODO: add GET call to store application information inside json
       const json = require("/home/marzieh/Desktop/test_state.json");
       console.log(json)
       this.$store.dispatch("application/setCurrentApplication", json);
@@ -118,7 +125,7 @@ export default {
     // To be fetched from db
     this.inProgressApplications.push(
       {id: 0, type:"sample saved-1"},
-      {id: 0, type:"sample saved-2"}
+      {id: 1, type:"sample saved-2"}
     );
   }
 };
