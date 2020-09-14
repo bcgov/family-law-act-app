@@ -56,10 +56,7 @@ urlpatterns = [
         r"(?P<id>[a-zA-Z0-9_\-:]+)$",
         survey.SurveyResultView.as_view(),
     ),
-    url(
-        r"^survey-print/(?P<collection>[a-zA-Z0-9_\-:])/(?P<type>[a-zA-Z0-9_\-:]+)$",
-        views.SurveyPdfView.as_view(),
-    ),
+    path("survey-print/", views.SurveyPdfView.as_view()),
     path("user-info/", views.UserStatusView.as_view()),
     path("submit-form/", views.SubmitFormView.as_view()),
 ]
