@@ -1,3 +1,4 @@
+import jsonfield.fields
 from django.db import models
 
 
@@ -8,11 +9,11 @@ class Application(models.Model):
     app_type = models.CharField(max_length=100, default="", blank=True)
     last_updated = models.DateTimeField(blank=True, null=True)
     current_step = models.IntegerField(null=True, blank=True)
-    all_completed = models.BooleanField(blank=True, default=False)
+    all_completed = models.BooleanField(blank=True, null=True)
     last_printed = models.DateTimeField(blank=True, null=True)
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
-    application_name = models.CharField(max_length=100, default="", blank=True)
+    applicant_name = jsonfield.fields.JSONField(blank=True, null=True)
     respondent_name = models.CharField(max_length=100, default="", blank=True)
 
     user = models.ForeignKey(

@@ -62,7 +62,7 @@ export default {
     },
     onDownload: function() {
       this.saveApplication();
-      axios
+      this.$http
         .post(
           "/api/v1/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),
