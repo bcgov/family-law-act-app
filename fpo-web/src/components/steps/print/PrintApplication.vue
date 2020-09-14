@@ -61,7 +61,7 @@ export default {
       }
     },
     onDownload: function() {
-      this.saveApplication();     
+      this.saveApplication();
       this.$http
         .post(
           "/api/v1/survey-print/?name=application-about-a-protection-order",

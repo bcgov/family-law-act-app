@@ -7,4 +7,4 @@ class PreparedPdf(models.Model):
     )
     created_date = models.DateTimeField(auto_now_add=True)
 
-    data = models.BinaryField(blank=True)
+    data = models.BinaryField(blank=True, null=True)
