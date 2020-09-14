@@ -54,15 +54,14 @@ export default {
       return this.$store.getters["application/getNavigation"][1].result;
     },
     onDownload: function() {
-      axios
+      this.$http
         .post(
-          "http://localhost:8081/form?name=application-about-a-protection-order",
+          "/api/v1/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),
           {
             responseType: "blob",
             headers: {
               "Content-Type": "application/json",
-              Accept: "application/pdf"
             }
           }
         )
