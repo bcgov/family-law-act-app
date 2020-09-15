@@ -59,6 +59,12 @@
             </div>
 
             <div class="row justify-content-center">
+                <a class="btn btn-success btn-lg survey-button" @click="navigate('old')">
+                  <strong>New User</strong> - Let’s get started
+                </a>
+            </div>
+
+            <div class="row justify-content-center">
                 <a class="btn btn-default btn-md login-button" @click="navigate('returning')">
                   <strong>Returning User?</strong>
                   <br />Log in with BCeID
@@ -72,6 +78,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "LandingPage",
   data() {
@@ -79,15 +86,37 @@ export default {
   },
   methods: {
     navigate(userType) {
-      this.$store.dispatch("application/setUserType", userType).then(() => {
+      // this.$store.dispatch("application/setUserType", userType).then(() => {
           
-        if (userType === "new") {
-          this.$router.push({ name: "service-locator" });
-        } else if (userType === "returning") {
-          this.$router.push({ name: "applicant-status" });
-        }
+      //   if (userType === "new") {
+      //     this.$router.push({ name: "service-locator" });
+      //   } else if (userType === "returning") {
+      //     this.$router.push({ name: "applicant-status" });
+      //   }
          
-      });
+      // });
+
+      if(userType=='new')
+      {
+        location.replace(
+          "api/v1/oidc/auth/request/"
+        );
+      }
+      axios
+        .get(
+          "api/v1/user-info/"
+        )
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.error(err);
+          this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        });
+    
+      // this.$store.dispatch("application/setUserType", userType).then(() => {
+      //   this.$router.push({ name: "login-page" });
+      // });
     }
   }
 };
