@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import GlobalStore from "@/store";
+
 export default {
   name: "ServiceLocator",
   data() {
@@ -44,6 +46,12 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       if (this.form.selected) {
+        const store = GlobalStore.getInstance();
+        this.userId = store.getters["application/getUserId"]
+        // TODO: complete setup of POST body as application once API is in place
+        const application = {"userId": this.userId}
+        this.$store.dispatch("application/init");
+        this.$store.dispatch("common/saveNewApplication", application);
         this.$router.push({ name: "flapp-surveys" });
       } else {
         location.replace(
