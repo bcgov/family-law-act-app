@@ -11,8 +11,8 @@
       <child-relocation v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation>
       <enforcement-agree v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree>
       <b-col>
-        <print v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></print>
-        <e-file v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></e-file>
+        <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit>
+        <!-- <e-file v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></e-file> -->
       </b-col>
     </main>
   </div>
@@ -22,8 +22,8 @@
 import NavigationSidebar from "./NavigationSidebar.vue";
 import CommonInformation from "./steps/common-information/CommonInformationStep.vue";
 import ProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
-import Print from "./steps/print/StepPrint.vue";
-import EFile from "./steps/eFile/StepEFile.vue";
+import Submit from "./steps/submit/StepSubmit.vue";
+// import EFile from "./steps/eFile/StepEFile.vue";
 import FamilyLaw from "./steps/familyLawMatter/FamilyLawStep.vue";
 import ParentingPriority from "./steps/priotityParenting/ParentingPriorityStep.vue";
 import CaseManagement from "./steps/caseMgmt/CaseManagementStep.vue";
@@ -38,14 +38,14 @@ export default {
     NavigationSidebar,
     ProtectionOrder,
     CommonInformation,
-    Print,
+    Submit,
     FamilyLaw,
     ParentingPriority,
     CaseManagement,
     ChildRelocation,
     EnforcementAgree,
     GetStarted,
-    EFile
+    // EFile
   },
   computed: {},
   data() {

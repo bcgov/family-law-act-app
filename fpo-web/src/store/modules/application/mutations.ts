@@ -263,27 +263,27 @@ export const mutations: MutationTree<ApplicationState> = {
     s.pages.push(p);
     state.steps.push(s);
     //Enforcement STOP
-    //Print START
+    //Submit START
     s = new Step();
 
     s.active = false;
     s.id = "8";
-    s.label = "Print";
-    s.icon = "fa-print";
+    s.label = "Submit";
+    s.icon = "fa-paper-plane";
     s.lastUpdate = null;
-    s.type = "print";
+    s.type = "submit";
     s.pages = new Array<Page>();
     s.currentPage = 0;
 
     p = new Page();
     p.key = "0";
-    p.label = "Print Application Forms";
+    p.label = "Submit Application Forms";
     p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
     state.steps.push(s);
-    //Print STOP
+    //Submit STOP
     
   },
   setUserType(state, userType) {
