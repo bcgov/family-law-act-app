@@ -69,6 +69,7 @@ services:
       - EFILING_AUTH_URL=${EFILING_AUTH_URL}
       - EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
       - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
+      - FRONT_END=${FRONT_END}
     volumes:
       - ../fpo-api/api:/opt/app-root/src/api
     networks:
