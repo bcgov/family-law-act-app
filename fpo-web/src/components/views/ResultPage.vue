@@ -1,31 +1,23 @@
 <template>
   <b-container class="container home-content" id="result-page">
-    <div class="intro">
-      Is Victoria Law Courts' the nearest location to you OR the location where
-      your existing matter has been filed?
-      <b-form class="custom-form" @submit="onSubmit">
-        <b-form-group>
-          <b-form-radio
-            v-model="form.selected"
-            name="locationRadio"
-            :value="true"
-            >Yes</b-form-radio
-          >
-          <b-form-radio
-            v-model="form.selected"
-            name="locationRadio"
-            :value="false"
-            >No</b-form-radio
-          >
+    <div class="results">
+      {{message}}
+      <b-row class="custom-row">
+        <b-col class="navigation-button-left">
+        <b-button
+          v-on:click="viewStatus()"
+          variant="primary"
+          >View Status</b-button
+        >
+        </b-col>
+        <b-col class="navigation-button-right">
           <b-button
-            type="submit"
-            :disabled="isDisabled"
-            variant="primary"
-            class="locator-button"
-            >Next</b-button
+            v-on:click="exitApplication()"
+            variant="secondary"
+            >Exit Application</b-button
           >
-        </b-form-group>
-      </b-form>
+        </b-col>
+      </b-row>
     </div>
   </b-container>
 </template>
@@ -33,32 +25,33 @@
 <script>
 export default {
   name: "ResultPage",
-  data() {
-      // add conditional message texts
+  data() {      
     return {
-        result: "",      
+        result: "",
+        message: ""      
     };
   },
   methods: {
-    // onSubmit(evt) {
-    //   evt.preventDefault();
-    //   if (this.form.selected) {
-    //     this.$router.push({ name: "flapp-surveys" });
-    //   } else {
-    //     location.replace(
-    //       "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
-    //     );
-    //   }
-    // },
+    viewStatus() {     
+      this.$router.push({ name: "applicant-status" });     
+    },
+    exitApplication() {     
+      this.$store.dispatch("application/init");
+      window.location.replace("https://www.google.ca");     
+    },
   },
   mounted() {
-      this.result = this.$route.params.result;  
+      this.result = this.$route.params.result;
+      // TODO: based on the information provided by eFiling Hub, add conditional message texts
+      if (this.result == "success"){
+          this.message = "Your Application has been submitted successfully."
+      } else if (this.result == "error") {
+          this.message = "An error occured while submitting your application, ...."
+      } else if (this.result == "cancel") {
+          this.message = "Submission of your application has been canceled."
+      }  
   },
-  computed: {      
-    // isDisabled: function() {
-    //   return this.form.selected === "";
-    // },
-  },
+  computed: {}
 };
 </script>
 
@@ -70,7 +63,7 @@ export default {
   max-width: 950px;
   color: black;
 }
-.intro {
+.results {
   font-size: 24px;
   line-height: 1.6;
   margin: 4rem auto 0.5rem;
@@ -78,12 +71,14 @@ export default {
     margin-bottom: 0.5rem;
   }
 }
-.custom-form {
-  margin-top: 1rem;
+.custom-row {
+  margin-top: 6rem;
 }
-.locator-button {
-  margin-top: 2.5rem;
-  float: right;
-  width: 8rem;
+.navigation-button-left,
+.navigation-button-right {
+  display: inline-block;
+}
+.navigation-button-left {
+  margin-right: 6em;
 }
 </style>

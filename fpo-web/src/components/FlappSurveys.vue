@@ -12,7 +12,6 @@
       <enforcement-agree v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree>
       <b-col>
         <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit>
-        <!-- <e-file v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></e-file> -->
       </b-col>
     </main>
   </div>

@@ -73,10 +73,18 @@ export default {
     getFPOResultData: function() {
       return this.$store.getters["application/getNavigation"][1].result;
     },
+    saveApplication: function () {
+      const application = this.$store.getters["application/getApplication"]
+      if (application.id.length > 0) {
+        const applicationId = application.id;
+        this.$store.dispatch("common/updateApplication", {applicationId, application});
+      }
+    },
     onDownload: function() {
+      this.saveApplication();     
       this.$http
         .post(
-          "/api/v1/survey-print/?name=application-about-a-protection-order",
+          "/survey-print/?name=application-about-a-protection-order",
           this.getFPOResultData(),
           {
             responseType: "blob",
@@ -93,6 +101,7 @@ export default {
           link.download = "fpo.pdf";
           link.click();
           setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+          //TODO: set the lastPrinted value
           this.error = "";
         })
         .catch(err => {

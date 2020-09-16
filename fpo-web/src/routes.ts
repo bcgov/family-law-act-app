@@ -58,13 +58,13 @@ const routes = [
   { 
     path: "/getStarted",
     name: "flapp-surveys",
-    // beforeEnter: authGuard,
+    beforeEnter: authGuard,
     component: FlappSurveys
   },
   { 
     path: "/status",
     name: "applicant-status",
-    // beforeEnter: authGuard,
+    beforeEnter: authGuard,
     component: ApplicationStatus 
   },
   { 
