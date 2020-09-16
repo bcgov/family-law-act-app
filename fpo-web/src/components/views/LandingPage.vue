@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "LandingPage",
   data() {
@@ -87,7 +88,7 @@ export default {
           this.$router.push({ name: "applicant-status" });
         }
          
-      });
+      });  
     }
   }
 };
