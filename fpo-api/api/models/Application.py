@@ -1,4 +1,4 @@
-import jsonfield.fields
+from django.contrib.postgres.fields.jsonb import JSONField as JSONBField
 from django.db import models
 
 
@@ -13,8 +13,9 @@ class Application(models.Model):
     last_printed = models.DateTimeField(blank=True, null=True)
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
-    applicant_name = jsonfield.fields.JSONField(blank=True, null=True)
+    applicant_name = JSONBField(blank=True, null=True)
     respondent_name = models.CharField(max_length=100, default="", blank=True)
+    steps = JSONBField(default=list, null=True, blank=True)
 
     user = models.ForeignKey(
         "User",

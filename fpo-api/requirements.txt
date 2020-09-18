@@ -1,8 +1,8 @@
 # Main
-django>=2.1.6,<2.2 
+django>=3.0.3  # 2.2 increases minimum sqlite version, which is not supported on the centos image
 djangorestframework==3.11.0,<4
 djangorestframework-bulk>=0.2.1,<1
-django-cors-headers>=2.4.0,<3
+django-cors-headers>=3.4.0,<4
 git+https://github.com/impak-finance/django-oidc-rp.git@e99534729c9a2fa9cd8e62cd50d9916409376038#egg=django-oidc-rp
 
 # Database managment
@@ -21,3 +21,4 @@ pytest-django>=3.1.2,<4
 
 # Util
 requests>=2.18.4,<3
+jsonfield>=3.1.0,<4

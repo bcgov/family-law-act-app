@@ -26,7 +26,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
 from api.auth import get_efiling_auth_token
-from api.serializers import ApplicationLookupSerializer, ApplicationSerializer, StepLookupSerializer
+from api.serializers import ApplicationLookupSerializer, ApplicationSerializer
 from rest_framework.parsers import JSONParser
 
 from rest_framework.views import APIView
@@ -39,7 +39,7 @@ from api.auth import (
     get_login_uri,
     get_logout_uri
 )
-from api.models import User, Application, Step, Page
+from api.models import User, Application
 from api.pdf import render as render_pdf
 
 LOGGER = logging.getLogger(__name__)
@@ -123,10 +123,10 @@ class ApplicationListView(generics.ListAPIView):
         except Application.DoesNotExist:
             return HttpResponse(status=404)
 
-    def get(self, request, id, format=None):
-        applications = self.get_app_object(id)
-        serializer = ApplicationLookupSerializer(applications, many=True)
-        return Response(serializer.data, safe=False)
+    def get(self, request, format=None):
+        applications = self.get_app_object(request.user.id)
+        serializer = ApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
 
 
 class ApplicationDetailView(APIView):
@@ -138,17 +138,15 @@ class ApplicationDetailView(APIView):
 
     def get(self, request, pk, format=None):
         application = self.get_app_object(pk)
-        serializer = ApplicationLookupSerializer(application)
+        serializer = ApplicationSerializer(application)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         application = self.get_app_object(pk)
-        data = JSONParser().parse(request)
-        data_ = {"app_type": data.get("type")}
-        serializer = ApplicationSerializer(application, data=data_)
+        serializer = ApplicationSerializer(application, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response({"Success": True})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
@@ -165,38 +163,11 @@ class NewApplicationView(APIView):
             app_type=request.data.get("type"),
             current_step=request.data.get("currentStep"),
             all_completed=request.data.get("allCompleted"),
+            steps=request.data["steps"],
             user_type=request.data.get("userType"),
             applicant_name=request.data.get("applicantName"),
             user_name=request.data.get("userName"),
             respondent_name=request.data.get("respondentName"),
-            user_id=request.data.get("userId"))
+            user_id=request.user.id)
         db_app.save()
-
-        steps = request.data["steps"]
-        if steps:
-            for step in steps:
-                db_step = Step(
-                    application_id=db_app.pk,
-                    last_updated=timezone.now(),
-                    s_id=step["id"],
-                    result=step["result"],
-                    active=step["active"],
-                    label=step["label"],
-                    icon=step["icon"],
-                    step_type=step["type"],
-                    current_page=step["currentPage"]
-                )
-                db_step.save()
-                pages = step["pages"]
-                if pages:
-                    for page in pages:
-                        db_page = Page(
-                            step_id=db_step.pk,
-                            key=page['key'],
-                            label=page['label'],
-                            active=page['active'],
-                            progress=page['progress']
-                        )
-                        db_page.save()
-
         return Response({"app_id": db_app.pk})
