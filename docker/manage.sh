@@ -193,11 +193,11 @@ configureEnvironment () {
   export DJANGO_SECRET_KEY=wpn1GZrouOryH2FshRrpVHcEhMfMLtmTWMC2K5Vhx8MAi74H5y
   export DJANGO_DEBUG=True
   export DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL-INFO}
-  export EFILING_AUTH_URL=${EFILING_AUTH_URL}
-  export EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
-  export EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
-  export FRONT_END=${FRONT_END-prod}
-  
+  export EFILING_AUTH_URL=${EFILING_AUTH_URL-https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w/protocol/openid-connect/token}
+  export EFILING_CLIENT_ID=${EFILING_CLIENT_ID-fla}
+  export EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET-f1d87b17-d857-4651-9128-f8e14e3029cd}
+  export EFILING_BASE_URL=${EFILING_BASE_URL-http://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api/submission/}
+
   # fpo-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
   export API_URL=${API_URL-http://fpo-api:8080/api}
