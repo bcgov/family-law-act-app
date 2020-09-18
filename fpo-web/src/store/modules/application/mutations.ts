@@ -298,6 +298,9 @@ export const mutations: MutationTree<ApplicationState> = {
   setUserName(state, userName) {
     state.userName = userName;
   },
+  setUserId(state, userId) {
+    state.userId = userId;
+  },
   setStepActive(state, { currentStep, active }) {
     state.steps[currentStep].active = active;
   },
@@ -338,7 +341,7 @@ export const mutations: MutationTree<ApplicationState> = {
     state.respondentName = respondentName;
   },
   setApplicationId(state, id) {
-    console.log("reached store")
+    console.log("reached store to set application Id")
     state.id = id;
   },
   setApplicationType(state, type) {

@@ -21,6 +21,9 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getUserName(state: ApplicationState): string {
     return state.userName;
   },
+  getUserId(state: ApplicationState): string {
+    return state.userId;
+  },
   getPrevStepPage(
     state: ApplicationState
   ): { prevStep: number; prevPage: number } {
@@ -91,6 +94,9 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   },
   getApplicationId(state: ApplicationState) {
     return state.id;
+  },
+  getApplication(state: ApplicationState) {
+    return state;
   },
   getApplicationType(state: ApplicationState) {
     return state.type;

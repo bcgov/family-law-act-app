@@ -5,27 +5,32 @@ import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
 import TermsConditions from "@/components/status/TermsConditions.vue"
 import axios from "axios";
+import http from "./plugins/http.js";
 
-function userGuard(to: any, from: any, next: any) {
-  const store = GlobalStore.getInstance();
 
-  if (store.getters["application/getUserType"]) {
-    next();
-  } else {
-    next({ path: "/" });
-  }
-}
+const store = GlobalStore.getInstance();
+
+// function userGuard(to: any, from: any, next: any) {
+//   const store = GlobalStore.getInstance();
+
+//   if (store.getters["application/getUserType"]) {
+//     next();
+//   } else {
+//     next({ path: "/" });
+//   }
+// }
 
 function authGuard(to: any, from: any, next: any) { 
 
-  axios.get('api/v1/user-info/')
+  axios.get('/user-info/')
   .then((response) => {
     const userId = response.data.user_id;
     const loginUrl = response.data.login_uri;
     
     if (userId) {
       const userName = response.data.first_name + " " + response.data.last_name;
-      this.$store.dispatch("application/setUserName", userName);
+      store.dispatch("application/setUserName", userName);
+      store.dispatch("common/setUserId", userId);
       next();
     } else {
       location.replace(loginUrl);

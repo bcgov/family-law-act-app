@@ -1,3 +1,5 @@
+import os
+
 from django.utils.deprecation import MiddlewareMixin
 
 
@@ -9,14 +11,20 @@ class XForwardedForPortMiddleware(MiddlewareMixin):
         This causes django.urls.reverse method to only return a host and no port.
     """
     def process_request(self, request):
+        
         if (
             "HTTP_X_FORWARDED_HOST" in request.META
             and "HTTP_X_FORWARDED_PORT" in request.META
             and request.META["HTTP_X_FORWARDED_PORT"] not in ("80", "443")
         ):
-            request.META["HTTP_X_FORWARDED_HOST"] = (
-                request.META["HTTP_X_FORWARDED_HOST"]
-                + ":"
-                + request.META["HTTP_X_FORWARDED_PORT"]
-            )
+            if (os.getenv("FRONT_END", "prod") == "dev"):
+                request.META["HTTP_X_FORWARDED_HOST"] = (
+                    request.META["HTTP_X_FORWARDED_HOST"]
+                )
+            else:                
+                request.META["HTTP_X_FORWARDED_HOST"] = (
+                    request.META["HTTP_X_FORWARDED_HOST"]
+                    + ":"
+                    + request.META["HTTP_X_FORWARDED_PORT"]
+                )
         return None

@@ -12,14 +12,14 @@ class Page(models.Model):
 
     progress = models.IntegerField(blank=True, null=True)
 
-    active = models.BooleanField(blank=True, default=False)
+    active = models.BooleanField(blank=True, null=True)
 
-    clickable = models.BooleanField(blank=True, default=False)
+    clickable = models.BooleanField(blank=True, null=True)
 
     step = models.ForeignKey(
         "Step",
-        related_name="step_id",
-        on_delete=models.SET_NULL,
+        related_name="pages",
+        on_delete=models.CASCADE,
         blank=True,
         null=True,
     )

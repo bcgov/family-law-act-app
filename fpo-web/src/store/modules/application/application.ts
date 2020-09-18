@@ -13,6 +13,7 @@ export const state: ApplicationState = {
   allCompleted: false,
   userType: "",
   userName: "",
+  userId: "",
   applicantName: "",
   respondentName: ""
 };
