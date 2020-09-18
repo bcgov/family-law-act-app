@@ -196,7 +196,6 @@ configureEnvironment () {
   export EFILING_AUTH_URL=${EFILING_AUTH_URL}
   export EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
   export EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
-  export EFILING_BASE_URL=${EFILING_BASE_URL}
   export FRONT_END=${FRONT_END-prod}
 
   # fpo-web
