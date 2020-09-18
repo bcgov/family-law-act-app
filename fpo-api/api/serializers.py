@@ -27,20 +27,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id"]
 
 
-class ApplicationLookupSerializer(serializers.ModelSerializer):
+class ApplicationListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Application
         fields = [
+            "id",
             "app_type",
-            "steps",
-            "last_updated",
-            "current_step",
-            "all_completed",
-            "user_type",
-            "user_name",
-            "applicant_name",
-            "respondent_name"
+            "last_updated"
         ]
 
 
