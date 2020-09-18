@@ -97,9 +97,9 @@ export default {
       this.$store.dispatch("application/setApplicationId", applicationId);
       // navigate to application last step, load application data to view
       // TODO: add GET call to store application information inside json
-      const json = require("/home/marzieh/Desktop/test_state.json");
-      console.log(json)
-      this.$store.dispatch("application/setCurrentApplication", json);
+      // const json = require("/home/marzieh/Desktop/test_state.json");
+      // console.log(json)
+      // this.$store.dispatch("application/setCurrentApplication", json);
       this.$store.dispatch("common/setExistingApplication", true);      
 
       this.$router.push({name: "flapp-surveys" })
