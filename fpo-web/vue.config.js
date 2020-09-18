@@ -1,36 +1,63 @@
 module.exports = {
-  publicPath: "/family-law-act/",
-  configureWebpack: {
-    devServer: {
-      historyApiFallback: true,
-      proxy: {
-        "/form": {
-          target: "http://localhost:8081",
-          pathRewrite: {
-            "^/family-law-act/": "/"
-          },
-          secure: false,
-          changeOrigin: true,
-          headers: {
-            "X-Forwarded-Host": "localhost:8080",
-            Connection: 'keep-alive'
-          }
+  // publicPath: "/family-law-act/",
+  // configureWebpack: {
+  //   devServer: {
+  //     historyApiFallback: true,
+  //     proxy: {       
+  //       '^/api': {
+  //         target: 'http://localhost:8081',
+  //         ws: true,
+  //         pathRewrite: {
+  //           "^/family-law-act/": "/"
+  //         },
+  //         secure: false,
+  //         changeOrigin: true,
+  //         headers: {
+  //           "X-Forwarded-Host": "localhost:8080",
+  //           Connection: 'keep-alive'
+  //         }
+  //       }
+  
+	
+  //publicPath: "/family-law-act/",
+  devServer: {
+    proxy: {  
+      "/api": {
+        target: "http://localhost:8081",          
+        secure: false,
+        changeOrigin: true,
+        headers: {
+          "X-Forwarded-Host": "localhost:8081",
+          Connection: 'keep-alive'
         },
-        "/api": {
-          target: "http://localhost:8081",
-          pathRewrite: {
-            "^/family-law-act/": "/"
-          },
-          secure: false,
-          changeOrigin: true,
-          headers: {
-            "X-Forwarded-Host": "localhost:8080",
-            Connection: 'keep-alive'
-          }
-        }
       }
     }
+  //configureWebpack: {
+    //devServer: {
+      //historyApiFallback: true,
+    //   proxy: {
+      //   "/form": {
+      //     target: "http://localhost:8081",
+      //     pathRewrite: {
+      //       "^/family-law-act/": "/"
+      //     },
+      //     secure: false,
+      //     changeOrigin: true,
+      //     headers: {
+      //       "X-Forwarded-Host": "localhost:8080",
+      //       Connection: 'keep-alive'
+      //     }
+      //   },
+        // "/api": {
+        //   target: "http://localhost:8081",          
+        //   secure: false,
+        //   changeOrigin: false,
+          
+    //    }
+    //   }
+  //  }
   },
+  // crossorigin: "anonymous",
   chainWebpack: config => {
     config.module.rules.delete("eslint");
     config.module
