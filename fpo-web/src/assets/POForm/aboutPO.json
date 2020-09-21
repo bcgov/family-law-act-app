@@ -40,6 +40,7 @@
           "type": "checkbox",
           "name": "kindofPartyIbPO",
           "title": "In the Protection Order I am:",
+          "description": "*Select all options that apply:",
           "isRequired": true,
           "choices": [
            {

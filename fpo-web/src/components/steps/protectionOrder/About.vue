@@ -24,6 +24,7 @@ export default {
     survey.showNavigationButtons = false;
 
     let order = this.step.result.selectedPOOrder;
+    console.log(order)
     if(order) {
       survey.setVariable("userPreferredService", order.orderType);
     }
