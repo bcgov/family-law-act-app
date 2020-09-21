@@ -71,7 +71,12 @@ export default {
   },
   methods: {
     getFPOResultData: function() {
-      return this.$store.getters["application/getNavigation"][1].result;
+      
+      var result = this.$store.getters["application/getNavigation"][0].result; 
+      for(var i=1;i<9; i++)
+        Object.assign(result, result, this.$store.getters["application/getNavigation"][i].result); 
+     
+      return result;
     },
     saveApplication: function () {
       const application = this.$store.getters["application/getApplication"]
