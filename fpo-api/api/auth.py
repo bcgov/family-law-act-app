@@ -46,6 +46,7 @@ def get_logout_uri(request: Request = None) -> str:
 
 def sync_keycloak_user(oidc_user: OIDCUser, claims: dict):
     """Copy attributes from JWT claims."""
+    oidc_user.user.universal_id = claims.get("universal-id")
     oidc_user.user.authorization_id = claims.get("sub")
     oidc_user.user.first_name = claims.get("given_name")
     oidc_user.user.last_name = claims.get("family_name")
