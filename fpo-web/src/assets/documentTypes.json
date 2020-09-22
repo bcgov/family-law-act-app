@@ -1,0 +1,2780 @@
+[
+ {
+   "value": "ABP",
+   "text": "Abandonment/Settlement (Partial)"
+ },
+ {
+   "value": "ABRV",
+   "text": "Abandonment/Settlement (Review/Vary)"
+ },
+ {
+   "value": "ABA",
+   "text": "Abandonment/Settlement of Appeal"
+ },
+ {
+   "value": "ABCA",
+   "text": "Abandonment/Settlement of Cross Appeal"
+ },
+ {
+   "value": "AFF",
+   "text": "Affidavit"
+ },
+ {
+   "value": "AFI",
+   "text": "Affidavit in Support of Indigent Application"
+ },
+ 
+ {
+   "value": "ABS",
+   "text": "Appeal Book - Supplementary"
+ },
+ {
+   "value": "AAB",
+   "text": "Appeal Book of Appellant"
+ },
+ {
+   "value": "ABJ",
+   "text": "Appeal Book of Joint"
+ },
+ {
+   "value": "ABR",
+   "text": "Appeal Book of Respondent"
+ },
+ {
+   "value": "ARO",
+   "text": "Appeal Record - Other"
+ },
+ {
+   "value": "ARSA",
+   "text": "Appeal Record - Stand Alone"
+ },
+ {
+   "value": "ARSU",
+   "text": "Appeal Record - Supplementary"
+ },
+
+ {
+   "value": "FAR",
+   "text": "Appellan'ts Reply Factum"
+ },
+ {
+   "value": "ATAA",
+   "text": "Appellant Appeal Authorities"
+ },
+ {
+   "value": "ATAC",
+   "text": "Appellant Chambers Authorities"
+ },
+ {
+   "value": "FA",
+   "text": "Appellant Factum"
+ },
+ {
+   "value": "FACA",
+   "text": "Appellant Factum on Cross Appeal (& Reply)"
+ },
+ {
+   "value": "MBAL",
+   "text": "Applicant Leave and/or Stay Motion Book"
+ },
+ {
+   "value": "MBAV",
+   "text": "Applicant Review/Vary Motion Book"
+ },
+ {
+   "value": "APTA",
+   "text": "Appointment Assessment"
+ },
+ {
+   "value": "APTB",
+   "text": "Appointment Settle Books"
+ },
+ {
+   "value": "APTO",
+   "text": "Appointment Settle Order"
+ },
+ {
+   "value": "APTS",
+   "text": "Appointment Settle Order and Assessment"
+ },
+ {
+   "value": "OTA",
+   "text": "Authorities - Other"
+ },
+
+
+
+ {
+   "value": "CBA",
+   "text": "Condensed Book - Appellant"
+ },
+ {
+   "value": "CBI",
+   "text": "Condensed Book - Intervenor"
+ },
+ {
+   "value": "CBJ",
+   "text": "Condensed Book - Joint"
+ },
+ {
+   "value": "CBO",
+   "text": "Condensed Book - Other"
+ },
+ {
+   "value": "CBR",
+   "text": "Condensed Book - Respondent"
+ },
+
+ {
+   "value": "CNAC",
+   "text": "Counsel (Address Change)"
+ },
+ {
+   "value": "CNAT",
+   "text": "Counsel (Change/Appointment)"
+ },
+ {
+   "value": "CNWD",
+   "text": "Counsel (Withdrawl)"
+ },
+ {
+   "value": "EFSA",
+   "text": "Electronic Filing Statement - Appeal"
+ },
+ {
+   "value": "FCA",
+   "text": "Factum - Amicus Curiae"
+ },
+ {
+   "value": "ATFS",
+   "text": "Further Submissions Authorities"
+ },
+ {
+   "value": "ATIA",
+   "text": "Intervenor Appeal Authorities"
+ },
+ {
+   "value": "ATIC",
+   "text": "Intervenor Chambers Authorities"
+ },
+ {
+   "value": "FAI",
+   "text": "Intervenor Factum"
+ },
+ {
+   "value": "FIR",
+   "text": "Invervenor's Reply Factum"
+ },
+ {
+   "value": "ATJ",
+   "text": "Joint Authorities"
+ },
+ {
+   "value": "LA",
+   "text": "Leave to Appeal"
+ },
+ {
+   "value": "LAA",
+   "text": "Leave to Appeal (Amended)"
+ },
+ {
+   "value": "LPC",
+   "text": "Letter - Court Proceeding via Teleconference"
+ },
+ {
+   "value": "LPV",
+   "text": "Letter - Court Proceeding via Videoconference"
+ },
+ {
+   "value": "LT",
+   "text": "Letter General"
+ },
+ {
+   "value": "LT5J",
+   "text": "Letter Request for 5 Judges"
+ },
+ {
+   "value": "MEMA",
+   "text": "Memorandum of Appellant"
+ },
+ {
+   "value": "MEMI",
+   "text": "Memorandum of Intervenor"
+ },
+ {
+   "value": "MEMO",
+   "text": "Memorandum of Other"
+ },
+ {
+   "value": "MEMR",
+   "text": "Memorandum of Respondent"
+ },
+ {
+   "value": "MBO",
+   "text": "Motion Book - Other"
+ },
+ {
+   "value": "MCH",
+   "text": "Motion Chambers"
+ },
+ {
+   "value": "MCT",
+   "text": "Motion Court"
+ },
+ {
+   "value": "NAAM",
+   "text": "Notice of Appeal (Amended)"
+ },
+ {
+   "value": "NASC",
+   "text": "Notice of Appeal (Supreme Court of Canada)"
+ },
+ {
+   "value": "NAA",
+   "text": "Notice of Appeal - Court of Appeal"
+ },
+ {
+   "value": "NCQ",
+   "text": "Notice of Constitutional Question"
+ },
+ {
+   "value": "NCA",
+   "text": "Notice of Cross Appeal"
+ },
+ {
+   "value": "NCAA",
+   "text": "Notice of Cross Appeal (Amended)"
+ },
+ {
+   "value": "NCAL",
+   "text": "Notice of Cross Appeal (Leave To)"
+ },
+
+ 
+ {
+   "value": "ORSE",
+   "text": "Order for Submitted for Entry"
+ },
+ 
+ {
+   "value": "FRR",
+   "text": "Responden'ts Reply Factum"
+ },
+ {
+   "value": "ATRA",
+   "text": "Respondent Appeal Authorities"
+ },
+ {
+   "value": "ATRC",
+   "text": "Respondent Chambers Authorities"
+ },
+ {
+   "value": "FR",
+   "text": "Respondent Factum"
+ },
+ {
+   "value": "FRAC",
+   "text": "Respondent Factum on Appeal & Cross Appeal"
+ },
+ {
+   "value": "MBRL",
+   "text": "Respondent Reply Leave and/or Stay Motion Book"
+ },
+ {
+   "value": "FSU",
+   "text": "Supplementary Factum"
+ },
+ {
+   "value": "TCAC",
+   "text": "Transcript - Chambers"
+ },
+ {
+   "value": "TCC",
+   "text": "Transcript - Civil (with required cd/disk)"
+ },
+ {
+   "value": "TCAD",
+   "text": "Transcript - Court"
+ },
+ {
+   "value": "TS",
+   "text": "Transcript - Supplementery"
+ },
+ {
+   "value": "TEA",
+   "text": "Transcript Extracts - Appellant"
+ },
+ {
+   "value": "TEJ",
+   "text": "Transcript Extracts - Joint"
+ },
+ {
+   "value": "TES",
+   "text": "Transcript Extracts - Supplementary"
+ }, 
+ {
+   "value": "AGR",
+   "text": "Agreement"
+ },
+ {
+   "value": "APL",
+   "text": "Application (Form 5)"
+ },
+
+ {
+   "value": "APF",
+   "text": "Application to Garnish Federal Monies"
+ },
+ {
+   "value": "APJ",
+   "text": "Application to a Judge"
+ },
+ {
+   "value": "GO",
+   "text": "Garnishing Order"
+ },
+ {
+   "value": "GOAA",
+   "text": "Garnishing Order Absolute"
+ },
+ {
+   "value": "HDS",
+   "text": "Hearing/Trial Details Attachment Sheet"
+ },
+ {
+   "value": "IRA",
+   "text": "Information for Remote Appearance"
+ },
+ {
+   "value": "NAT",
+   "text": "Notice - Appearance by Telephone Conference"
+ },
+ {
+   "value": "NHR",
+   "text": "Notice of Hearing (Form 8)"
+ }, 
+ {
+   "value": "NWOA",
+   "text": "Notice of Warrant of Arrest"
+ },
+ {
+   "value": "NPH",
+   "text": "Notice of a Payment Hearing"
+ }, 
+ {
+   "value": "ODT",
+   "text": "Order (Form 7)"
+ }, 
+ {
+   "value": "OAW",
+   "text": "Order Following an Appearance on a Warrant"
+ },
+ {
+   "value": "ORP",
+   "text": "Order for Attendance of a Prisoner in a Civil or Family Matter"
+ },
+ {
+   "value": "OSS",
+   "text": "Order for Seizure and Sale"
+ }, 
+ {
+   "value": "PO",
+   "text": "Payment Order"
+ },
+ {
+   "value": "POD",
+   "text": "Payment Order (By Default)"
+ }, 
+ {
+   "value": "RER",
+   "text": "Referral for Review (Form 1)"
+ },
+ {
+   "value": "RERA",
+   "text": "Referral for Review Affidavit (Form 2)"
+ },
+ {
+   "value": "RPO",
+   "text": "Request for Payment Out"
+ },
+ {
+   "value": "RSR",
+   "text": "Response to Referral (Form 3)"
+ },
+ {
+   "value": "RSRA",
+   "text": "Response to Referral Affidavit (Form 4)"
+ },
+ {
+   "value": "WOA",
+   "text": "Warrant of Arrest / Notice of Warrant of Arrest"
+ },
+ {
+   "value": "AMM",
+   "text": "Agreement Made In a Facilitated Planning Meeting or Mediation"
+ },
+ {
+   "value": "AEO",
+   "text": "Application Respecting Existing Orders or Agreements"
+ },
+ {
+   "value": "AXP",
+   "text": "Application about Extraordinary Parenting Matter (Victoria only)"
+ },
+ {
+   "value": "AAP",
+   "text": "Application about a Protection Order"
+ },
+ {
+   "value": "ACMO",
+   "text": "Application for Case Management Order with Notice (Victoria only)"
+ },
+ {
+   "value": "ACMW",
+   "text": "Application for Case Management Order without Notice"
+ },
+ {
+   "value": "AFET",
+   "text": "Application for Enforcement (Victoria Only)"
+ },
+ {
+   "value": "AFCO",
+   "text": "Application for Family Law Matter Consent Order (Victoria only)"
+ },
+ {
+   "value": "APRC",
+   "text": "Application for Order Prohibiting the Relocation of a Child (Victoria only)"
+ },
+ 
+ {
+   "value": "AFO",
+   "text": "Application for an Order - CFCSA"
+ },
+ {
+   "value": "APC",
+   "text": "Application to Change/Cancel Order"
+ },
+ {
+   "value": "AEC",
+   "text": "Application to Enforce a Custody Order"
+ },
+ {
+   "value": "APO",
+   "text": "Application to Obtain an Order"
+ },
+ {
+   "value": "ARD",
+   "text": "Application to Re-Set Court Date"
+ },
+ {
+   "value": "ARC",
+   "text": "Application to Recognize a Custody or Access Order made by an Extra-provincial Tribunal"
+ },
+ {
+   "value": "AEA",
+   "text": "Application to Recognize an ExtraProvincial Order for Guardianship, Parenting Arrangements orContact"
+ },
+ {
+   "value": "ARE",
+   "text": "Application to Renew, Change or Cancel an Order (Adult Guardianship)"
+ },
+
+ {
+   "value": "CCB",
+   "text": "Case Conference Brief (CFCSA)"
+ },
+ {
+   "value": "CCR",
+   "text": "Case Conference Record"
+ },
+ {
+   "value": "CRDF",
+   "text": "Certificate - Notice of Default Fee"
+ },
+  
+ {
+   "value": "COEA",
+   "text": "Certificate of Enforceability and Arrears (ISO)"
+ },
+
+ {
+   "value": "COI",
+   "text": "Certificate of Incapability (Form 2 AGA)"
+ },
+ {
+   "value": "CILA",
+   "text": "Certificate of Independent Legal Advice"
+ },
+
+ {
+   "value": "CSV",
+   "text": "Certificate of Service"
+ },
+ {
+   "value": "COT",
+   "text": "Consent (Form 19)"
+ },
+ {
+   "value": "CONA",
+   "text": "Consent Adjournment - FLA & FMEA"
+ },
+ {
+   "value": "COR",
+   "text": "Consent Order"
+ },
+ {
+   "value": "CRQ",
+   "text": "Consent Requisition (CFCSA & COVID-19)"
+ },
+ {
+   "value": "CPR",
+   "text": "Consent for Child Protection Record Check"
+ },
+ {
+   "value": "CCA",
+   "text": "Consent to Court Date"
+ },
+
+ {
+   "value": "CUR",
+   "text": "Currency Certificate"
+ },
+ {
+   "value": "CAR",
+   "text": "Custody and Access Report/Views of Child Report"
+ },
+
+
+ {
+   "value": "DET",
+   "text": "Determination"
+ },
+ {
+   "value": "ERC",
+   "text": "Early Resolution Completion Certificate (Victoria only)"
+ },
+ {
+   "value": "ESNR",
+   "text": "Expedited Change Support (COVID) Scheduling Information - No Reply"
+ },
+ {
+   "value": "ESWR",
+   "text": "Expedited Change Support (COVID) Scheduling Information - With Reply"
+ },
+ {
+   "value": "FCR",
+   "text": "Family Case Conference Record (FLA)"
+ },
+ {
+   "value": "FLC",
+   "text": "Family Law Matter Claim (Victoria only)"
+ },
+ {
+   "value": "FSUM",
+   "text": "File Summary (Victoria only)"
+ },
+ {
+   "value": "FSUA",
+   "text": "File Summary Addendum (Victoria only)"
+ },
+ {
+   "value": "FSA",
+   "text": "Financial Statement COVID 19 Addendum"
+ },
+ {
+   "value": "FAC",
+   "text": "Form A - Circumstances that caused removal"
+ },
+
+ {
+   "value": "FFS",
+   "text": "Form F - Section 29.1 Application for Supervision Order report"
+ },
+ {
+   "value": "HCL",
+   "text": "Hague Convention Letter - Article 16"
+ },  
+ {
+   "value": "NFC",
+   "text": "Notice of Family Claim"
+ },
+ {
+   "value": "NFMC",
+   "text": "Notice of Family Management Case Conference"
+ },
+ {
+   "value": "NOH",
+   "text": "Notice of Hearing or Conference"
+ },
+  
+ 
+ {
+   "value": "NIC",
+   "text": "Notice of Intention to Change Existing Child or Spousal Support - COVID"
+ },
+
+
+ {
+   "value": "NME",
+   "text": "Notice of Motion in Maintenance Enforcement Proceedings"
+ },
+ 
+ {
+   "value": "NRP",
+   "text": "Notice of Protection/Restraining Order"
+ },
+ {
+   "value": "NRG",
+   "text": "Notice of Registration"
+ },
+ {
+   "value": "NRO",
+   "text": "Notice of Restraining Order (PFA 806)"
+ },
+
+
+ {
+   "value": "NTR",
+   "text": "Notice to Appear (Adult Guardianship Act)"
+ },
+ {
+   "value": "NTD",
+   "text": "Notice to Debtor"
+ },
+ {
+   "value": "NTRF",
+   "text": "Notice to Resolve a Family Law Matter (Victoria only)"
+ },
+ 
+ {
+   "value": "OTP",
+   "text": "Order Terminating a Protection Order"
+ },
+ {
+   "value": "OFD",
+   "text": "Order for Discharge of a Person in Custody"
+ },
+ {
+   "value": "ORNA",
+   "text": "Order without notice/appearance"
+ }, 
+ {
+   "value": "PAS",
+   "text": "Parenting After Separation Certificate"
+ },
+ {
+   "value": "PASE",
+   "text": "Parenting After Separation Exemption"
+ },
+ {
+   "value": "POC",
+   "text": "Plan of Care"
+ },
+ {
+   "value": "REP",
+   "text": "Presentation Report"
+ },
+ {
+   "value": "PTS",
+   "text": "Proposed terms of Supervision"
+ },
+ {
+   "value": "RCF",
+   "text": "Record Check Results - s.51 Child Protection (MCFD)"
+ },
+ {
+   "value": "RCR",
+   "text": "Record Check Results - s.51 Protection Order Registry"
+ },
+ {
+   "value": "REF",
+   "text": "Referral Request"
+ },
+ {
+   "value": "RO",
+   "text": "Release  (FRA)"
+ },
+ 
+ {
+   "value": "RTC",
+   "text": "Reply to a Counterclaim"
+ },
+ 
+ {
+   "value": "RQT",
+   "text": "Request (Form 18)"
+ },
+ {
+   "value": "RCE",
+   "text": "Request for Court Enforcement"
+ },
+ {
+   "value": "RPS",
+   "text": "Request for Protection Order Registry Search"
+ },
+ {
+   "value": "RFS",
+   "text": "Request for Service of Documents"
+ },
+ {
+   "value": "RFT",
+   "text": "Request for Teleconference (PFA 893)"
+ },
+ {
+   "value": "RGW",
+   "text": "Request to Adjourn Generally or Withdraw Application"
+ },
+ 
+ {
+   "value": "RSA",
+   "text": "Respondent's Answer to Application - ISO Form N/L"
+ },
+ {
+   "value": "RSO",
+   "text": "Restraining Order"
+ },
+ {
+   "value": "ROR",
+   "text": "Restraining Order under Family Maintenance Enforcement Act"
+ },
+ {
+   "value": "RETM",
+   "text": "Returned Mailing to Registry - Administrative"
+ },
+ {
+   "value": "SNR",
+   "text": "Scheduling Instructions - No Reply"
+ },
+ {
+   "value": "SWR",
+   "text": "Scheduling Instructions - With Reply"
+ },
+ {
+   "value": "SR",
+   "text": "Search Request"
+ },
+ {
+   "value": "SRR",
+   "text": "Search Request Response from Locate Services"
+ },
+ {
+   "value": "SA",
+   "text": "Separation Agreement"
+ },
+
+ {
+   "value": "SOA",
+   "text": "Statement of Arrears"
+ },
+ {
+   "value": "SRO",
+   "text": "Statement of Recalculation"
+ },
+
+ {
+   "value": "STW",
+   "text": "Subpoena/Summons to Witness"
+ },
+ {
+   "value": "SUM",
+   "text": "Summons"
+ },
+
+
+
+ {
+   "value": "TRN",
+   "text": "Transcript"
+ },
+ {
+   "value": "TC",
+   "text": "Transfer Consent"
+ },
+ {
+   "value": "VOC",
+   "text": "Views of the Child Report - FLA s.211"
+ },
+ {
+   "value": "WAV",
+   "text": "Waiver (Notification period CFCSA)"
+ },
+ {
+   "value": "WCL",
+   "text": "Warrant Cancellation"
+ },
+ {
+   "value": "WFA",
+   "text": "Warrant for Arrest"
+ },
+ 
+ {
+   "value": "WOC",
+   "text": "Warrant of Committal"
+ },
+
+ {
+   "value": "WAA",
+   "text": "Warrant to Arrest"
+ },
+ {
+   "value": "HCLW",
+   "text": "Withdrawal of Hague Convention Letter - Article 16"
+ },
+ {
+   "value": "WNC",
+   "text": "Without Notice Application Checklist"
+ },
+ {
+   "value": "WCT",
+   "text": "Written Consent"
+ },
+ {
+   "value": "ACO",
+   "text": "Acceptance of Offer to Settle"
+ },
+ {
+   "value": "AFWF",
+   "text": "Affidavit in Support of Order to Waive Fees"
+ },
+ {
+   "value": "ACD",
+   "text": "Affidavit in Support to Cancel Dismissal or Default Order"
+ },
+
+ 
+ {
+   "value": "AFC",
+   "text": "Affidavit of Non-Compliance"
+ },
+ {
+   "value": "ADO",
+   "text": "Application for Default Order"
+ },
+ {
+   "value": "COJ",
+   "text": "Certificate of Judgment"
+ },
+ {
+   "value": "CTA",
+   "text": "Consent to Adjourn Settlement Conference or Mediation Appointment"
+ },
+ {
+   "value": "CTC",
+   "text": "Consent to Adjourn Trial Conference"
+ },
+ {
+   "value": "DO",
+   "text": "Default Order"
+ },
+ {
+   "value": "EOS",
+   "text": "Endorsed Order for Seizure and Sale"
+ },
+ {
+   "value": "EFSP",
+   "text": "Form 28 - Electronic Filing Statement - Provincial"
+ },  
+ {
+   "value": "IPR",
+   "text": "Internal Pre-Trial Conference Record"
+ },
+ {
+   "value": "MA",
+   "text": "Mediation Agreement"
+ },
+ {
+   "value": "MCO",
+   "text": "Mediation Compensation Order"
+ }, 
+ {
+   "value": "NCR",
+   "text": "Notice of Civil Resolution Tribunal Claim"
+ },
+ {
+   "value": "NMS",
+   "text": "Notice of Mediation Session"
+ },
+ {
+   "value": "NOPC",
+   "text": "Notice of Pre-Trial Conference"
+ },
+ {
+   "value": "NSC",
+   "text": "Notice of Settlement Conference"
+ },
+ {
+   "value": "NSI",
+   "text": "Notice of Simplified Trial"
+ },
+ {
+   "value": "NSU",
+   "text": "Notice of Summary Trial for Financial Debt"
+ },
+ {
+   "value": "NOT",
+   "text": "Notice of Trial / Pre-Trial Conference"
+ },
+ {
+   "value": "NCF",
+   "text": "Notice of Trial Conference"
+ },
+ {
+   "value": "NTM",
+   "text": "Notice to Mediate"
+ },
+ {
+   "value": "NMO",
+   "text": "Notice to Mediate for Claims between $10,000 and $35,000"
+ },
+ {
+   "value": "NMU",
+   "text": "Notice to Mediate for Claims under $10,000"
+ },
+ {
+   "value": "NCT",
+   "text": "Notice to the Claimant"
+ },
+
+ {
+   "value": "ORW",
+   "text": "Order to Waive Fees"
+ },
+
+ {
+   "value": "RPL",
+   "text": "Reply"
+ },
+
+ {
+   "value": "RAG",
+   "text": "Reply with Agreement to pay"
+ },
+ 
+ {
+   "value": "RJD",
+   "text": "Request for Judgment or Dismissal"
+ },
+ {
+   "value": "ROM",
+   "text": "Result of Mediation"
+ },
+
+ {
+   "value": "SCR",
+   "text": "Settlement Conference Record (SCL 018)"
+ },
+ {
+   "value": "SCL",
+   "text": "Sheriff Cover Letter - Administrative"
+ },
+ {
+   "value": "SMD",
+   "text": "Summary Trial Documents"
+ },
+ {
+   "value": "SPH",
+   "text": "Summons to Payment Hearing"
+ },
+
+  
+ {
+   "value": "TCR",
+   "text": "Trial Conference Record (SCL 052)"
+ },
+ {
+   "value": "TRS",
+   "text": "Trial Statement"
+ },
+ {
+   "value": "VDT",
+   "text": "Verification of Default"
+ },
+ {
+   "value": "VNA",
+   "text": "Verification of Non-Attendance"
+ },
+ {
+   "value": "AFB",
+   "text": "Affidavit in Support of Garnishing Order Before Judgment"
+ },
+ {
+   "value": "APD",
+   "text": "Application for Deposit (CRT)"
+ },
+ {
+   "value": "APE",
+   "text": "Application for Exemption (Civil Resolution Tribunal)"
+ },
+ {
+   "value": "APU",
+   "text": "Application for Urgent Hearing (ADM880)"
+ },
+ {
+   "value": "ATC",
+   "text": "Application to Court (Local Government Act)"
+ },
+
+ {
+   "value": "APR",
+   "text": "Application to a Registrar"
+ },
+ {
+   "value": "ARG",
+   "text": "Argument"
+ },
+ {
+   "value": "CET",
+   "text": "Certificate - Section 56.2 CRTA"
+ },
+  
+ {
+   "value": "COC",
+   "text": "Certificate of Compliance (CRT)"
+ },
+ 
+ {
+   "value": "CS",
+   "text": "Company Search"
+ },
+
+
+ 
+ 
+
+ {
+   "value": "DAR",
+   "text": "Decisions and Reasons (Residential Tenancy)"
+ },
+ {
+   "value": "FEDE",
+   "text": "Fee Declaration (Mediation)"
+ },  
+ {
+   "value": "INN",
+   "text": "Initiating Notice from CRT"
+ },
+ {
+   "value": "NOA",
+   "text": "Notice of Appeal"
+ },
+ {
+   "value": "NRR",
+   "text": "Notice that CRT refuses to resolve claim"
+ },
+ {
+   "value": "RCT",
+   "text": "Response made under Sec 7 CRTA"
+ },
+ {
+   "value": "TPN",
+   "text": "Third Party Notice"
+ },
+ {
+   "value": "WOI",
+   "text": "Warrant of Imprisonment"
+ },
+ {
+   "value": "WR",
+   "text": "Warrant of Remand"
+ }, 
+ {
+   "value": "AFY",
+   "text": "Affidavit of Consent of Child 12 years or older"
+ },
+ {
+   "value": "AFG",
+   "text": "Affidavit of Consent of Guardian"
+ },
+ {
+   "value": "ASJ",
+   "text": "Assignment of Judgment"
+ },
+ {
+   "value": "BPA",
+   "text": "Birth Parent Expenses Affidavit"
+ },
+ {
+   "value": "IDP",
+   "text": "Identification Particulars of Adopted Person"
+ },
+ {
+   "value": "LIP",
+   "text": "Litigation Plan"
+ },
+ {
+   "value": "NH",
+   "text": "Notice of Hearing"
+ },  
+ {
+   "value": "PPR",
+   "text": "Post Placement Report"
+ }, 
+ {
+   "value": "RLB",
+   "text": "Registration of a Live Birth"
+ }, 
+ {
+   "value": "TPR",
+   "text": "Reply to Third Party Notice"
+ },
+ {
+   "value": "RCV",
+   "text": "Report on Younger Child's Views"
+ },
+ {
+   "value": "SC",
+   "text": "Statement of Claim"
+ },
+ {
+   "value": "SDC",
+   "text": "Statement of Defence and Counterclaim"
+ },
+
+  
+ {
+   "value": "TB",
+   "text": "Trial Brief"
+ },
+ {
+   "value": "TRC",
+   "text": "Trial Certificate"
+ },
+ 
+ {
+   "value": "UT",
+   "text": "Undertaking"
+ },
+ {
+   "value": "RBK",
+   "text": "170 Reports for Bankruptcy"
+ },
+ {
+   "value": "ABO",
+   "text": "Absolute Order"
+ },
+ {
+   "value": "AOD",
+   "text": "Absolute Order of Discharge"
+ },
+ {
+   "value": "APB",
+   "text": "Application for a Bankruptcy Order"
+ },
+
+ {
+   "value": "AOT",
+   "text": "Application of Trustee for Discharge"
+ },
+
+ {
+   "value": "ASC",
+   "text": "Assessment Certificate"
+ },
+ {
+   "value": "ASB",
+   "text": "Assignment"
+ },
+
+ {
+   "value": "BPT",
+   "text": "Bankruptcy Assignment"
+ },
+
+ {
+   "value": "CTS",
+   "text": "Certificate of Assignment (Section 57)"
+ },  
+ {
+   "value": "CEA",
+   "text": "Certificate of Automatic Discharge"
+ },
+ {
+   "value": "CSE",
+   "text": "Certificate of Change in Status of Estate"
+ },
+ {
+   "value": "CRC",
+   "text": "Certificate of Compliance and Deemed Discharge of Trustee (or Administrator)"
+ },
+
+ {
+   "value": "CED",
+   "text": "Certificate of Discharge"
+ },
+ {
+   "value": "CFD",
+   "text": "Certificate of Distribution"
+ },
+
+
+ {
+   "value": "CFB",
+   "text": "Certificate of Filing of a Bankruptcy Order"
+ },
+ {
+   "value": "CIP",
+   "text": "Certificate of Filing of a Notice of Intention to make a Proposal"
+ },
+
+ {
+   "value": "CRFP",
+   "text": "Certificate of Full Performance of Proposal"
+ },
+
+
+
+ {
+   "value": "CRTX",
+   "text": "Certificate of Taxation"
+ },
+ {
+   "value": "CRTT",
+   "text": "Certificate of Trustee on Solicitor's Bill of Costs"
+ },
+ {
+   "value": "CDO",
+   "text": "Conditional Order of Discharge"
+ },
+
+
+
+ {
+   "value": "CAB",
+   "text": "Consumer Application for Bankruptcy"
+ },
+ 
+ {
+   "value": "CRB",
+   "text": "Corporate Application for Bankruptcy"
+ },
+
+
+ {
+   "value": "DDD",
+   "text": "Demand"
+ },
+ {
+   "value": "DR",
+   "text": "Directors Resolution"
+ },
+ {
+   "value": "EIS",
+   "text": "Estate Information Summary"
+ },
+ {
+   "value": "ES",
+   "text": "Executive Summary"
+ },
+ {
+   "value": "IDS",
+   "text": "Impact Data Entry Sheet - Initial filing"
+ },
+ {
+   "value": "IES",
+   "text": "Income and Expense Statement"
+ },
+ {
+   "value": "INS",
+   "text": "Insolvency Name Search"
+ },
+ {
+   "value": "INM",
+   "text": "Inspector's Minutes"
+ },
+ {
+   "value": "IRPT",
+   "text": "Inspector's Report"
+ },
+ {
+   "value": "INR",
+   "text": "Inspector's Resolution"
+ }, 
+ {
+   "value": "MTM",
+   "text": "Meeting Minutes"
+ }, 
+ {
+   "value": "MMD",
+   "text": "Minutes of Meeting of the Directors"
+ },  
+ {
+   "value": "MOF",
+   "text": "Minutes of first meeting with Creditors"
+ },
+ {
+   "value": "MSM",
+   "text": "Minutes of the Second Meeting of Inspectors"
+ },
+ {
+   "value": "MON",
+   "text": "Monitor's Report"
+ }, 
+ {
+   "value": "NOC",
+   "text": "Notice of Adjourned First Meeting of Creditors"
+ },
+
+ {
+   "value": "NAD",
+   "text": "Notice of Appeal from Disallowance of claim by trustee"
+ },
+ 
+ {
+   "value": "NBY",
+   "text": "Notice of Bankruptcy"
+ },
+ {
+   "value": "NBD",
+   "text": "Notice of Bankruptcy and of Impending Automatic Discharge"
+ },
+
+
+ {
+   "value": "NPT",
+   "text": "Notice of Creditors of Passing of Trustee Accounts"
+ },
+ {
+   "value": "NTT",
+   "text": "Notice of Deemed Taxation of Trustee's Accounts"
+ },
+ {
+   "value": "NDA",
+   "text": "Notice of Deemed Taxation of Trustee's Accounts & Deemed Discharge of Trustee"
+ },
+ {
+   "value": "NOD",
+   "text": "Notice of Default in the Performance of a Proposal"
+ }, 
+ {
+   "value": "NDO",
+   "text": "Notice of Dispute of payment out of court"
+ },
+
+ {
+   "value": "NFD",
+   "text": "Notice of Final Dividend and Application for Discharge of Trustee"
+ },
+
+ {
+   "value": "NIO",
+   "text": "Notice of Intended Opposition to Discharge of Bankrupt"
+ },
+  
+ 
+
+  
+ {
+   "value": "NM",
+   "text": "Notice of Motion"
+ },
+ {
+   "value": "NOP",
+   "text": "Notice of Opposition"
+ },
+ 
+ {
+   "value": "NPC",
+   "text": "Notice of Proposal to Creditors (Form 92)"
+ },
+  
+ {
+   "value": "NSP",
+   "text": "Notice of Stay of Proceedings"
+ },
+
+
+
+ {
+   "value": "NIFP",
+   "text": "Notice of intention to file a proposal"
+ },
+ {
+   "value": "NFM",
+   "text": "Notice of the First Meeting of Inspectors"
+ },
+
+ {
+   "value": "NBC",
+   "text": "Notice to Bankrupt of Meeting of Creditors"
+ },
+ {
+   "value": "NCB",
+   "text": "Notice to Creditors of Bankrupt's Application for Discharge"
+ },
+ {
+   "value": "NRT",
+   "text": "Notice to Creditors of Renumeration of Trustee in the Amended Proposal Administration"
+ },
+ 
+ {
+   "value": "RRP",
+   "text": "Official Receivers Report Section 161"
+ },
+ 
+ 
+ {
+   "value": "ORC",
+   "text": "Order of Commital"
+ },
+ {
+   "value": "OAB",
+   "text": "Ordinary Application for Bankruptcy"
+ },
+ {
+   "value": "PCF",
+   "text": "Projected Cash-Flow Statement"
+ },
+ {
+   "value": "PPL",
+   "text": "Proposal"
+ }, 
+ {
+   "value": "RBD",
+   "text": "Report of Trustee on Bankrupt's Application for Discharge"
+ },
+ {
+   "value": "RTP",
+   "text": "Report of Trustee on Proposal"
+ },
+ {
+   "value": "RTR",
+   "text": "Report of Trustee on Refusal by Creditors to Approve Proposal"
+ },
+ {
+   "value": "RFP",
+   "text": "Report on Cash-Flow Statement by the Person making the proposal"
+ },  
+ {
+   "value": "RMT",
+   "text": "Request for Mediation Made by Trustee (Form 60)"
+ },
+ {
+   "value": "RFM",
+   "text": "Request of a First Meeting of Creditors"
+ },
+ {
+   "value": "RRL",
+   "text": "Resolution Refusing Proposal"
+ },
+ {
+   "value": "SAF",
+   "text": "Statement of Affairs"
+ },
+ {
+   "value": "SAG",
+   "text": "Statement of Argument"
+ },
+ {
+   "value": "STD",
+   "text": "Subpoena to Debtor"
+ },
+ {
+   "value": "STI",
+   "text": "Summary of Trustee's Time Incurred"
+ },
+ {
+   "value": "SUC",
+   "text": "Superintendent's Comments"
+ },
+ {
+   "value": "SRB",
+   "text": "Superintendent's Report for Bankruptcy"
+ },
+ {
+   "value": "SPO",
+   "text": "Suspended Order"
+ },
+ {
+   "value": "TAX",
+   "text": "Taxation (Bankruptcy)"
+ },  
+ {
+   "value": "TRD",
+   "text": "Transcript from Examination for Discovery"
+ },
+ {
+   "value": "TA",
+   "text": "Trial Agenda"
+ }, 
+ {
+   "value": "TPC",
+   "text": "Trustee's Preliminary Report to Creditors"
+ },
+ {
+   "value": "TRF",
+   "text": "Trustee's Report on Cash Flow Statement"
+ },
+ {
+   "value": "RAD",
+   "text": "Trustee's Statement of Receipts and Disbursements"
+ }, 
+ {
+   "value": "WOO",
+   "text": "Withdrawal of Opposition"
+ },
+ {
+   "value": "CRA",
+   "text": "Certificate of Attempted Service"
+ },
+ {
+   "value": "CFP",
+   "text": "Certificate of Filing a Proposal"
+ },
+ {
+   "value": "DOA",
+   "text": "Desk Order Application"
+ }, 
+ {
+   "value": "NPA",
+   "text": "Notice (Section 112 EAA)"
+ }, 
+ {
+   "value": "NDIS",
+   "text": "Notice of Dispute"
+ },
+ {
+   "value": "NIAP",
+   "text": "Notice of Intention to Act in Person"
+ }, 
+ {
+   "value": "NTC",
+   "text": "Notice to Caveator"
+ }, 
+ {
+   "value": "ORND",
+   "text": "Order for Removal of Notice of Dispute"
+ }, 
+ {
+   "value": "POA",
+   "text": "Power of Attorney"
+ }, 
+ {
+   "value": "REO",
+   "text": "Requisition - Opens File"
+ },
+ {
+   "value": "WDN",
+   "text": "Withdrawal of Notice of Dispute"
+ }, 
+ {
+   "value": "WRP",
+   "text": "Writ of Possession"
+ },
+ {
+   "value": "COD",
+   "text": "Certificate of Divorce"
+ },
+ {
+   "value": "CSA",
+   "text": "Child Support Affidavit"
+ },
+ {
+   "value": "CLR",
+   "text": "Clearance Certificate"
+ },
+ {
+   "value": "CNF",
+   "text": "Confirmation"
+ }, 
+ {
+   "value": "FCC",
+   "text": "Counterclaim - Family"
+ },
+ {
+   "value": "DOR",
+   "text": "Desk Order"
+ },
+ {
+   "value": "FRCC",
+   "text": "FMEP Request for Certified Copies"
+ },
+ {
+   "value": "OFI",
+   "text": "Final Order"
+ },
+ {
+   "value": "JPE",
+   "text": "Joint Petition"
+ },
+ {
+   "value": "WRJ",
+   "text": "Joint Writ"
+ },
+ {
+   "value": "NCV",
+   "text": "Name Change Form - Vital Statistics"
+ }, 
+ {
+   "value": "NOF",
+   "text": "Notice of Filing (FMEP)"
+ },
+ {
+   "value": "NID",
+   "text": "Notice of Intent to Dispute Monies Paid into Court"
+ }, 
+ {
+   "value": "PET",
+   "text": "Petition"
+ },
+ {
+   "value": "PTC",
+   "text": "Pre Trial Conference"
+ },
+ {
+   "value": "RFJ",
+   "text": "Reasons For Judgment"
+ }, 
+ {
+   "value": "RCP",
+   "text": "Registrar's Certificate of Pleadings - Family Law"
+ },
+ {
+   "value": "RDP",
+   "text": "Registration of Divorce Proceeding"
+ },
+ 
+ {
+   "value": "RFO",
+   "text": "Requisition for Final Order (Form F35)"
+ },
+ {
+   "value": "RES",
+   "text": "Response"
+ },
+ {
+   "value": "RD",
+   "text": "Review document"
+ },
+ {
+   "value": "SCH",
+   "text": "Summons to a Committal Hearing"
+ },
+ {
+   "value": "SDH",
+   "text": "Summons to a Default Hearing"
+ },
+
+ {
+   "value": "WAE",
+   "text": "Warrant of Execution"
+ },
+ 
+ {
+   "value": "WSS",
+   "text": "Writ of Seizure and Sale"
+ }, 
+ {
+   "value": "AFK",
+   "text": "Affidavit of Kindred and Fortune"
+ },
+
+ 
+ {
+   "value": "AFW",
+   "text": "Affidavit to Lead Warrant"
+ },
+
+ {
+   "value": "BON",
+   "text": "Bond"
+ }, 
+
+ {
+   "value": "CAO",
+   "text": "Case Plan Order"
+ },
+ {
+   "value": "CRTO",
+   "text": "Certificate - Opens File"
+ },
+ {
+   "value": "CQN",
+   "text": "Constitutional Question Act Notice"
+ },
+ {
+   "value": "DEC",
+   "text": "Declaration"
+ },
+ {
+   "value": "EFSS",
+   "text": "Electronic Filing Statement - Supreme"
+ }, 
+ {
+   "value": "NAP",
+   "text": "Notice of Application"
+ },
+ {
+   "value": "NAAC",
+   "text": "Notice of Application for Appointment of Committee"
+ },
+ {
+   "value": "NAFC",
+   "text": "Notice of Application for Committal"
+ },
+ {
+   "value": "NACS",
+   "text": "Notice of Appointment or Change of Lawyer/Solicitor"
+ },
+ {
+   "value": "NCP",
+   "text": "Notice of Case Planning Conference"
+ },
+ {
+   "value": "NCS",
+   "text": "Notice of Change of Solicitor"
+ }, 
+ {
+   "value": "NDF",
+   "text": "Notice of Default"
+ },
+ {
+   "value": "NHS",
+   "text": "Notice of Hearing of Stated Case"
+ }, 
+ {
+   "value": "NOO",
+   "text": "Notice of Order"
+ }, 
+ {
+   "value": "NPS",
+   "text": "Notice of Proceedings"
+ },
+ {
+   "value": "NTS",
+   "text": "Notice to Suspend Proceedings"
+ },
+ {
+   "value": "ORI",
+   "text": "Order for Indigent Status"
+ }, 
+ {
+   "value": "ORFJ",
+   "text": "Order to Register Foreign Judgment"
+ }, 
+ {
+   "value": "RCRT",
+   "text": "Registrar's Certificate"
+ },
+ {
+   "value": "RRT",
+   "text": "Registrar's Report"
+ },  
+ {
+   "value": "RST",
+   "text": "Request for Service Abroad of Judicial or Extrajudicial Documents"
+ },
+ {
+   "value": "RCC",
+   "text": "Response to Civil Claim"
+ },
+ {
+   "value": "SAT",
+   "text": "Statement of Account - Form 136A"
+ },
+ {
+   "value": "SLE",
+   "text": "Statement of Claim of Lien"
+ },
+ {
+   "value": "SD",
+   "text": "Statement of Defence"
+ }, 
+ {
+   "value": "WAS",
+   "text": "Warrant to Arrest (Ship)"
+ },
+ {
+   "value": "WRT",
+   "text": "Writ of Summons"
+ },
+ {
+   "value": "WRC",
+   "text": "Writ of Summons/Statement of Claim"
+ },
+
+ {
+   "value": "AFDO",
+   "text": "Affidavit - Desk Order Divorce"
+ },
+ {
+   "value": "AFJ",
+   "text": "Affidavit Section 51"
+ },
+ {
+   "value": "AFM",
+   "text": "Affidavit of Attainment of Majority"
+ },  
+ {
+   "value": "AFTL",
+   "text": "Affidavit of Translator"
+ },
+ {
+   "value": "AAI",
+   "text": "Agreement as to Annual Income"
+ },
+ {
+   "value": "ADC",
+   "text": "Application for Divorce Under the Civil Marriage Act"
+ },
+
+ {
+   "value": "AED",
+   "text": "Appointment to Examine for Discovery"
+ },
+ {
+   "value": "BOC",
+   "text": "Bill of Costs"
+ },
+  
+ {
+   "value": "CNA",
+   "text": "Certificate of No Appeal"
+ },
+ {
+   "value": "CPOR",
+   "text": "Change of Protection Order"
+ },
+ {
+   "value": "DIS",
+   "text": "Disposition Report"
+ },
+ {
+   "value": "DDP",
+   "text": "Duplicate Divorce Proceeding (Notice from CDR)"
+ },
+ {
+   "value": "EWE",
+   "text": "Endorsed Writ of Execution"
+ },
+ {
+   "value": "FBW",
+   "text": "Form B - Withdrawal by Director"
+ },
+ {
+   "value": "FULL",
+   "text": "Full Report - FLA s.211"
+ },
+ {
+   "value": "GOA",
+   "text": "Garnishing Order After Judgment"
+ },
+ {
+   "value": "ITE",
+   "text": "Instructions to Examiner"
+ },
+
+ {
+   "value": "SCJ",
+   "text": "Joint Statement of Claim - Form 128A Family Law Proceeding"
+ },
+
+ {
+   "value": "WSJ",
+   "text": "Joint Writ of Summons - Form 127A Family Law Proceeding"
+ },
+ {
+   "value": "LOE",
+   "text": "List of Expenses"
+ },
+ {
+   "value": "MR",
+   "text": "Marriage Registration"
+ },
+ {
+   "value": "MOS",
+   "text": "Minutes of Settlement"
+ }, 
+ {
+   "value": "NSD",
+   "text": "Notice and Summary of Document"
+ }, 
+ {
+   "value": "NOAS",
+   "text": "Notice of Address for Service"
+ }, 
+ {
+   "value": "FNAP",
+   "text": "Notice of Application - Family"
+ },  
+ {
+   "value": "NA",
+   "text": "Notice of Attachment"
+ },  
+ {
+   "value": "FTN",
+   "text": "Notice of Enrollment into Fast Track Litigation"
+ },
+ {
+   "value": "NHA",
+   "text": "Notice of Hearing of Appeal"
+ }, 
+ {
+   "value": "NJF",
+   "text": "Notice of Joint Family Claim"
+ },
+ {
+   "value": "NJC",
+   "text": "Notice of Judicial Case Conference"
+ },
+ {
+   "value": "NOW",
+   "text": "Notice of Objection to Withdrawal of Solicitor"
+ },
+
+ {
+   "value": "NPI",
+   "text": "Notice of Payment Into Court"
+ },
+ {
+   "value": "NWD",
+   "text": "Notice of Withdrawal"
+ },
+ {
+   "value": "NWJ",
+   "text": "Notice of Withdrawal from Joint Family Law Case"
+ },
+ {
+   "value": "NWF",
+   "text": "Notice of Withdrawal in Family Law Case in which a Divorce is Claimed"
+ },
+ {
+   "value": "NTE",
+   "text": "Notice to Cross-Examine"
+ },
+ {
+   "value": "NFS",
+   "text": "Notice to File Financial Statement"
+ }, 
+ {
+   "value": "OWN",
+   "text": "Order Made Without Notice"
+ }, 
+ {
+   "value": "ORJ",
+   "text": "Order Made at Judicial Case Conference"
+ }, 
+
+ {
+   "value": "PAR",
+   "text": "Parenting Arrangement Report"
+ },
+ {
+   "value": "PCH",
+   "text": "Protection Order (Changed - Form 54.1)"
+ },
+ {
+   "value": "PVO",
+   "text": "Provisional Order"
+ },
+ {
+   "value": "JCC",
+   "text": "Request for Judicial Case Conference"
+ },
+ {
+   "value": "RFR",
+   "text": "Request for s.211 Report - FLA"
+ },
+  
+ {
+   "value": "REQ",
+   "text": "Requisition"
+ },
+ {
+   "value": "REW",
+   "text": "Requisition - Arbitration Award (Form F17.3)"
+ },
+ {
+   "value": "REA",
+   "text": "Requisition - Form F17.1 (Agreements)"
+ },
+ {
+   "value": "RED",
+   "text": "Requisition - Form F17.2 (Determinations)"
+ },
+
+ {
+   "value": "RCO",
+   "text": "Requisition for Consent Order or for Order without Notice (Form 31)"
+ },
+ {
+   "value": "REC",
+   "text": "Response to Counterclaim"
+ },
+ {
+   "value": "RFC",
+   "text": "Response to Family Claim"
+ },
+ {
+   "value": "STA",
+   "text": "Statement"
+ },
+ {
+   "value": "AFP",
+   "text": "Supplemental Affidavit"
+ },
+ {
+   "value": "SAP",
+   "text": "Support Application"
+ },
+ {
+   "value": "SVA",
+   "text": "Support Variation Application"
+ }, 
+ {
+   "value": "WAR",
+   "text": "Warrant - Contempt"
+ }, 
+ {
+   "value": "WRS",
+   "text": "Writ of Sequestration"
+ },
+ {
+   "value": "WCJ",
+   "text": "Writ/Claim Joint"
+ },
+ {
+   "value": "WAG",
+   "text": "Written Agreement"
+ },
+ {
+   "value": "ARS",
+   "text": "Application Response"
+ },
+ {
+   "value": "CMCO",
+   "text": "Case Management Conference Order - Rule 68"
+ },
+ {
+   "value": "CAV",
+   "text": "Caveat (probate)"
+ },
+
+ {
+   "value": "COA",
+   "text": "Certificate of Appointment"
+ },  
+ {
+   "value": "CCP",
+   "text": "Certificate of Commencement of Proceedings"
+ },
+
+ {
+   "value": "CPO",
+   "text": "Consent to Payment Out"
+ },
+
+ {
+   "value": "COP",
+   "text": "Consumer Proposal"
+ }, 
+ {
+   "value": "ESO",
+   "text": "Endorsement on Originating Process for Service outside British Columbia (Form 11)"
+ },
+ {
+   "value": "GOB",
+   "text": "Garnishing Order Before Judgment"
+ },
+ {
+   "value": "LOD",
+   "text": "List of Documents"
+ }, 
+ {
+   "value": "NAM",
+   "text": "Notice of Appeal - Master or Registrar"
+ },
+ {
+   "value": "NASD",
+   "text": "Notice of Appeal - Standard Directions"
+ },
+
+ {
+   "value": "NDT",
+   "text": "Notice of Discontinuance"
+ },
+ {
+   "value": "NDP",
+   "text": "Notice of Discontinuance in Part"
+ },
+ {
+   "value": "NDW",
+   "text": "Notice of Discontinuance in Whole"
+ },
+ 
+
+ {
+   "value": "NMC",
+   "text": "Notice of Motion for Committal"
+ },
+
+ {
+   "value": "NT",
+   "text": "Notice of Trial"
+ },
+
+ {
+   "value": "NWS",
+   "text": "Notice of Withdrawal of Lawyer/Solicitor"
+ }, 
+
+ {
+   "value": "PTT",
+   "text": "Petition to the Court"
+ }, 
+ {
+   "value": "SOT",
+   "text": "State of Title Certificate"
+ },
+ {
+   "value": "SOR",
+   "text": "Statement of Relief Sought"
+ },
+ {
+   "value": "SMA",
+   "text": "Summary Accounting"
+ }, 
+
+ {
+   "value": "ACS",
+   "text": "Acknowledgement of Service"
+ },
+ {
+   "value": "AAS",
+   "text": "Affidavit of Attempted Service"
+ },
+ {
+   "value": "AFD",
+   "text": "Affidavit of Delivery"
+ },
+
+
+ {
+   "value": "APS",
+   "text": "Affidavit of Personal Service"
+ },
+ {
+   "value": "AFS",
+   "text": "Affidavit of Service"
+ },
+
+
+ {
+   "value": "CP",
+   "text": "Case Management Plan"
+ },
+
+ {
+   "value": "CPP",
+   "text": "Case Plan Proposal"
+ },
+ {
+   "value": "CRF",
+   "text": "Certificate of Fitness"
+ },
+ {
+   "value": "CRD",
+   "text": "Certificate of Readiness"
+ },
+ {
+   "value": "CRS",
+   "text": "Certificate of Result of Sale"
+ },
+ {
+   "value": "FTW",
+   "text": "Consent to Withdraw from Fast Track Litigation"
+ }, 
+ {
+   "value": "CRP",
+   "text": "Correspondence"
+ }, 
+ {
+   "value": "EXR",
+   "text": "Examiner's Report"
+ },
+ {
+   "value": "JRS",
+   "text": "Jurisdictional Response"
+ },
+ {
+   "value": "DSP",
+   "text": "Letter of Dispute from Garnishee"
+ },
+ 
+ {
+   "value": "NTJ",
+   "text": "Notice Requiring Trial by Jury"
+ },
+ {
+   "value": "NAB",
+   "text": "Notice of Abandonment of Appeal"
+ }, 
+ {
+   "value": "NADR",
+   "text": "Notice of Appeal if Directions Required"
+ }, 
+ {
+   "value": "NCC",
+   "text": "Notice of Civil Claim"
+ },
+ {
+   "value": "NCL",
+   "text": "Notice of Claim"
+ },
+ {
+   "value": "NFT",
+   "text": "Notice of Fast Track Action"
+ }, 
+ {
+   "value": "NOS",
+   "text": "Notice of Satisfaction"
+ },
+ {
+   "value": "NSO",
+   "text": "Notice of Sealing Order"
+ },
+ {
+   "value": "NTA",
+   "text": "Notice to Admit"
+ },
+ {
+   "value": "NDC",
+   "text": "Notice to Defendant by Counterclaim"
+ },  
+ {
+   "value": "SUB",
+   "text": "Submissions"
+ }, 
+ {
+   "value": "WPP",
+   "text": "Withdrawal of Application"
+ },
+ {
+   "value": "AFSA",
+   "text": "Affidavit in Support of Application"
+ },
+ {
+   "value": "AFSG",
+   "text": "Affidavit in Support of Application for Estate Grant"
+ },
+ {
+   "value": "AFSR",
+   "text": "Affidavit in Support of Application for Resealing"
+ },
+ {
+   "value": "AFPA",
+   "text": "Affidavit in Support of Application to Pass Accounts"
+ },
+ {
+   "value": "AFA",
+   "text": "Affidavit of Administrator"
+ },
+ {
+   "value": "AFAN",
+   "text": "Affidavit of Applicant for Ancillary Grant of Administration without Will Annexed"
+ },
+ {
+   "value": "AFAA",
+   "text": "Affidavit of Applicant for Ancillary Grant of Probate or Administration with Will Annexed"
+ },
+ {
+   "value": "AFGN",
+   "text": "Affidavit of Applicant for Grant of Administration without will Annexed"
+ },
+ {
+   "value": "AFGS",
+   "text": "Affidavit of Applicant for Grant of Probate or Administration with will Annexed (Form P3)"
+ },
+ {
+   "value": "AFGL",
+   "text": "Affidavit of Applicant for Grant of Probate or Administration with will Annexed (Form P4)"
+ },
+ {
+   "value": "AFRN",
+   "text": "Affidavit of Applicant for Resealing of Grant of Administration without Will Annexed"
+ },
+ {
+   "value": "AFRS",
+   "text": "Affidavit of Applicant for Resealing of Grant of Probate or Administration with Will Annexed"
+ },
+ {
+   "value": "AFLD",
+   "text": "Affidavit of Assets and Liabilities for Domiciled Estate Grant"
+ },
+ {
+   "value": "AFLN",
+   "text": "Affidavit of Assets and Liabilities for Non-Domiciled Estate Grant"
+ },
+ {
+   "value": "AFAR",
+   "text": "Affidavit of Assets and Liabilities for Resealing"
+ }, 
+ {
+   "value": "AFDR",
+   "text": "Affidavit of Deemed Renunciation"
+ },
+ 
+ {
+   "value": "AFE",
+   "text": "Affidavit of Executor or Executrix"
+ },
+ {
+   "value": "AFIE",
+   "text": "Affidavit of Interlineation, Erasure, Obliteration or Other Alteration"
+ },
+ {
+   "value": "AFN",
+   "text": "Affidavit of Notice"
+ }, 
+ {
+   "value": "GRAT",
+   "text": "Ancillary Grant"
+ },
+ {
+   "value": "ANS",
+   "text": "Answer"
+ },
+ {
+   "value": "APP",
+   "text": "Appearance"
+ },
+
+ {
+   "value": "AUT",
+   "text": "Authorization to Obtain Estate Information"
+ },
+ {
+   "value": "AOR",
+   "text": "Authorization to Obtain Resealing Information"
+ },
+ {
+   "value": "BRF",
+   "text": "Brief"
+ }, 
+ {
+   "value": "CMR",
+   "text": "Case Management Requisition - Rule 68"
+ },
+ {
+   "value": "CER",
+   "text": "Certificate (New Form 14/F14)"
+ },
+ {
+   "value": "CRRS",
+   "text": "Certificate - Form P28"
+ },  
+ {
+   "value": "COS",
+   "text": "Certificate of Cost"
+ },
+ {
+   "value": "CES",
+   "text": "Cessate Probate"
+ },
+ {
+   "value": "CIT",
+   "text": "Citation"
+ },
+ {
+   "value": "CDL",
+   "text": "Codicil"
+ },
+ {
+   "value": "CFA",
+   "text": "Compensation/Fee Agreement"
+ },
+
+ {
+   "value": "CSR",
+   "text": "Consent and Renunciation"
+ },
+ {
+   "value": "CLG",
+   "text": "Consent of Litigation Guardian"
+ },
+ {
+   "value": "CTR",
+   "text": "Correction Record"
+ },
+ {
+   "value": "CC",
+   "text": "Counterclaim"
+ },
+ {
+   "value": "DCR",
+   "text": "Death Certificate"
+ },
+ {
+   "value": "DPO",
+   "text": "Default Payment Order"
+ },
+ {
+   "value": "DPG",
+   "text": "Direction of Public Guardian and Trustee"
+ },
+ {
+   "value": "FS",
+   "text": "Financial Statement/Statement of Finances"
+ },
+ {
+   "value": "FOR",
+   "text": "Foreign Grant"
+ },
+ {
+   "value": "GAA",
+   "text": "Grant of Admin Ad Collagenda"
+ },
+ {
+   "value": "GAP",
+   "text": "Grant of Admin Pendente Lite"
+ },
+ {
+   "value": "GWA",
+   "text": "Grant of Admin Will Annexed"
+ },
+ {
+   "value": "GWD",
+   "text": "Grant of Admin Will Annexed de Bonis non"
+ },
+ {
+   "value": "GAD",
+   "text": "Grant of Admin de Bonis non"
+ },
+ {
+   "value": "GOM",
+   "text": "Grant of Administration"
+ },
+ {
+   "value": "GDP",
+   "text": "Grant of Double Probate"
+ },
+ {
+   "value": "GRP",
+   "text": "Grant of Probate"
+ },
+ 
+
+ {
+   "value": "NOAH",
+   "text": "Notice of Application (Spousal Home or Deficiencies in Will)"
+ }, 
+ {
+   "value": "NCD",
+   "text": "Notice of Change of Address for Delivery"
+ },
+ {
+   "value": "NPO",
+   "text": "Notice of Payment Out"
+ },
+ {
+   "value": "NORM",
+   "text": "Notice of Renunciation"
+ },
+ {
+   "value": "NOR",
+   "text": "Notice of Resealing"
+ },
+
+
+
+ 
+ {
+   "value": "NNK",
+   "text": "Notice to Next of Kin"
+ },
+ {
+   "value": "NTP",
+   "text": "Notice to Produce"
+ },
+
+ {
+   "value": "PGTC",
+   "text": "Public Guardian and Trustee Comments"
+ },
+
+ {
+   "value": "RCPT",
+   "text": "Registry Correspondence to a Party - Administrative"
+ },
+ {
+   "value": "RRLT",
+   "text": "Registry Rejection Letter - Administrative"
+ },
+ {
+   "value": "REN",
+   "text": "Renunciation"
+ }, 
+ {
+   "value": "REFS",
+   "text": "Requisition for Subpoena"
+ },
+ {
+   "value": "GOR",
+   "text": "Reseal Grant"
+ },
+ {
+   "value": "SOAA",
+   "text": "Statement of Account Affidavit"
+ },
+ {
+   "value": "SBR",
+   "text": "Submission for Resealing"
+ },
+ {
+   "value": "SFG",
+   "text": "Submissions for Estate Grant"
+ },
+ {
+   "value": "SUO",
+   "text": "Subpoena"
+ },
+ {
+   "value": "SAFA",
+   "text": "Supplemental Affidavit of Assets and Liabilities for Domiciled Estate Grant"
+ },
+ {
+   "value": "SAFN",
+   "text": "Supplemental Affidavit of Assets and Liabilities for Non-Domiciled Estate Grant"
+ },
+ {
+   "value": "SAFR",
+   "text": "Supplemental Affidavit of Assets and Liabilities for Resealing"
+ },
+ {
+   "value": "TCHB",
+   "text": "Telephone Conference Hearing Brief - COVID"
+ }, 
+ {
+   "value": "WAP",
+   "text": "Warrant after Subpoena"
+ }, 
+ {
+   "value": "WIL",
+   "text": "Will"
+ },
+ {
+   "value": "WSN",
+   "text": "Wills Search Notice"
+ }, 
+ {
+   "value": "WIT",
+   "text": "Withdrawal of Caveat"
+ },
+ {
+   "value": "WRD",
+   "text": "Writ of Delivery"
+ },
+ {
+   "value": "ACK",
+   "text": "Acknowledgement of Payment"
+ }, 
+ {
+   "value": "AFT",
+   "text": "Affidavit in Support of Garnishing Order After Judgment"
+ },
+ {
+   "value": "AFBA",
+   "text": "Affidavit in Support of Garnishing Order Before Action"
+ }, 
+ {
+   "value": "AOS",
+   "text": "Affidavit of Ordinary Service"
+ },
+ {
+   "value": "ATD",
+   "text": "Application for a Trial Date"
+ },
+ {
+   "value": "APT",
+   "text": "Appointment"
+ },
+ {
+   "value": "CMP",
+   "text": "Case Management Program"
+ },
+ {
+   "value": "CAS",
+   "text": "Caveat (ship)"
+ },
+ {
+   "value": "CRT",
+   "text": "Certificate"
+ },
+ {
+   "value": "COF",
+   "text": "Certificate of Fees"
+ },
+ {
+   "value": "COM",
+   "text": "Certificate of Mediation"
+ },
+ {
+   "value": "CPL",
+   "text": "Certificate of Pending Litigation"
+ },
+ {
+   "value": "CSS",
+   "text": "Certificate of Service by Sheriff"
+ },
+ {
+   "value": "CTF",
+   "text": "Compensation Transfer Form"
+ },
+ {
+   "value": "CON",
+   "text": "Consent"
+ },
+ 
+ {
+   "value": "DJ",
+   "text": "Default Judgment"
+ },
+ {
+   "value": "DJC",
+   "text": "Default Judgment Bill of Costs"
+ },
+ {
+   "value": "EXP",
+   "text": "Expert Report"
+ },
+ {
+   "value": "CWS",
+   "text": "Form A - Compensation Action Writ of Summons & Statement of Claim"
+ },
+ {
+   "value": "CAD",
+   "text": "Form B - Compensation Action Appearance & Statement of Defence"
+ },
+ {
+   "value": "INT",
+   "text": "Interrogatories"
+ },
+ {
+   "value": "LST",
+   "text": "List of Witnesses"
+ }, 
+ {
+   "value": "MC",
+   "text": "Marriage Certificate"
+ },
+ {
+   "value": "MRA",
+   "text": "Media Request Access to Exhibit - No Protocol Implemented (Form 2)"
+ },
+ {
+   "value": "MEM",
+   "text": "Memorandum"
+ },  
+ {
+   "value": "NATJ",
+   "text": "Notice of Assignment of Trial Judge"
+ },
+ {
+   "value": "NCCP",
+   "text": "Notice of Civil Claim - Admiralty(In Rem and In Personam)"
+ },
+ {
+   "value": "NCCA",
+   "text": "Notice of Civil Claim - Admiralty(In Rem)"
+ }, 
+ {
+   "value": "NIW",
+   "text": "Notice of Intention to Call Adverse Party as a Witness"
+ },
+ {
+   "value": "NPR",
+   "text": "Notice of Intention to Proceed"
+ },
+ {
+   "value": "NIWS",
+   "text": "Notice of Intention to Withdraw as Lawyer/Solicitor"
+ },
+ {
+   "value": "NOI",
+   "text": "Notice of Interest"
+ },  
+ {
+   "value": "ORD",
+   "text": "Order"
+ },
+ {
+   "value": "ORO",
+   "text": "Order (opens file)/Enforcement Order"
+ },
+ {
+   "value": "ORA",
+   "text": "Order Made after Application"
+ },
+ {
+   "value": "ORT",
+   "text": "Order after Trial"
+ },
+ {
+   "value": "OA",
+   "text": "Order for Attendence of a Prisoner"
+ },
+ 
+ {
+   "value": "OTH",
+   "text": "Other Document"
+ },
+ {
+   "value": "OTL",
+   "text": "Outline"
+ },
+ {
+   "value": "POR",
+   "text": "Protection Order"
+ },
+ {
+   "value": "ROS",
+   "text": "Release"
+ },
+ {
+   "value": "RLS",
+   "text": "Release (Ship)"
+ }, 
+ {
+   "value": "RPC",
+   "text": "Reply with Counterclaim"
+ },
+ {
+   "value": "RAJ",
+   "text": "Request for Assignment of Trial Judge"
+ },
+ {
+   "value": "RPM",
+   "text": "Request to Implement Protocol for Media Access to Exihibit (Form 1)"
+ },
+ {
+   "value": "RESP",
+   "text": "Response to Petition"
+ },
+ {
+   "value": "RPN",
+   "text": "Response to Third Party Notice"
+ },
+ {
+   "value": "SCS",
+   "text": "Show Cause Summons"
+ },
+  {
+   "value": "STC",
+   "text": "Stated Case"
+ }, 
+ {
+   "value": "TBW",
+   "text": "Trial Brief Warning"
+ },  
+ {
+   "value": "TR",
+   "text": "Trial Record"
+ }, 
+ {
+   "value": "WAW",
+   "text": "Warrant for Witness"
+ }, 
+ {
+   "value": "WDS",
+   "text": "Withdrawal of Caveat (Ship)"
+ }
+]
