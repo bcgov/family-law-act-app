@@ -77,6 +77,19 @@
           "visibleIf": "{userPreferredService} = 'terminatePO'",
           "title": "Why do you want the order terminated?",
           "isRequired": true
+         },
+         {
+          "type": "checkbox",
+          "name": "changePOattachment",
+          "visibleIf": "{userPreferredService} = 'changePO'",
+          "title": "You need to attach a copy of the existing protection order when submitting this form.",
+          "isRequired": true,
+          "choices": [
+           {
+            "value": "confirmed",
+            "text": "I will attach a copy of the existing protection order made on {dateOfPO}."
+           }
+          ]
          }
         ]
        }
