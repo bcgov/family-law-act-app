@@ -21,6 +21,7 @@ from datetime import datetime
 from django.utils import timezone
 from rest_framework import status
 import logging
+from django.http import Http404
 
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template.loader import get_template
@@ -121,25 +122,44 @@ class ApplicationListView(generics.ListAPIView):
         try:
             return Application.objects.filter(user_id=id)
         except Application.DoesNotExist:
-            return HttpResponse(status=404)
+            raise Http404
 
     def get(self, request, format=None):
-        applications = self.get_app_object(request.user.id)
-        serializer = ApplicationListSerializer(applications, many=True)
-        return Response(serializer.data)
+        user_id = request.user.id
+        if user_id:
+            applications = self.get_app_object(request.user.id)
+            serializer = ApplicationListSerializer(applications, many=True)
+            return Response(serializer.data)
+        return HttpResponseBadRequest("User id not provided")
 
 
-class ApplicationDetailView(APIView):
+class ApplicationView(APIView):
     def get_app_object(self, pk):
         try:
             return Application.objects.get(pk=pk)
         except Application.DoesNotExist:
-            return HttpResponse(status=404)
+            raise Http404
 
     def get(self, request, pk, format=None):
         application = self.get_app_object(pk)
         serializer = ApplicationSerializer(application)
         return Response(serializer.data)
+
+    def post(self, request: Request):
+        db_app = Application(
+            last_updated=timezone.now(),
+            app_type=request.data.get("type"),
+            current_step=request.data.get("currentStep"),
+            all_completed=request.data.get("allCompleted"),
+            steps=request.data["steps"],
+            user_type=request.data.get("userType"),
+            applicant_name=request.data.get("applicantName"),
+            user_name=request.data.get("userName"),
+            respondent_name=request.data.get("respondentName"),
+            user_id=request.user.id)
+            
+        db_app.save()
+        return Response({"app_id": db_app.pk})
 
     def put(self, request, pk, format=None):
         application = self.get_app_object(pk)
@@ -154,20 +174,3 @@ class ApplicationDetailView(APIView):
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class NewApplicationView(APIView):
-    def post(self, request: Request):
-
-        db_app = Application(
-            last_updated=timezone.now(),
-            app_type=request.data.get("type"),
-            current_step=request.data.get("currentStep"),
-            all_completed=request.data.get("allCompleted"),
-            steps=request.data["steps"],
-            user_type=request.data.get("userType"),
-            applicant_name=request.data.get("applicantName"),
-            user_name=request.data.get("userName"),
-            respondent_name=request.data.get("respondentName"),
-            user_id=request.user.id)
-        db_app.save()
-        return Response({"app_id": db_app.pk})
