@@ -170,12 +170,21 @@ class ApplicationView(APIView):
         return Response({"app_id": db_app.pk})
 
     def put(self, request, pk, format=None):
-        application = self.get_app_object(pk)
-        serializer = ApplicationSerializer(application, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"Success": True})
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        application_queryset = Application.objects.filter(pk=pk)
+
+        body = request.data
+        if not body:
+            return HttpResponseBadRequest("Missing request body")
+
+        application_queryset.update(last_updated=timezone.now())
+        application_queryset.update(app_type=body.get("type"))
+        application_queryset.update(current_step=body.get("currentStep"))
+        application_queryset.update(steps=body["steps"])
+        application_queryset.update(user_type=body.get("userType"))
+        application_queryset.update(applicant_name=body.get("applicantName"))
+        application_queryset.update(user_name=body.get("userName"))
+        application_queryset.update(respondent_name=body.get("respondentName"))
+        return Response("success")
 
     def delete(self, request, pk, format=None):
         application = self.get_app_object(pk)
