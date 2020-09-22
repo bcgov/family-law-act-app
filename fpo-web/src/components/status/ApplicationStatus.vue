@@ -1,6 +1,7 @@
 <template>
   <div id="status">
     <b-container class="container home-content">
+      <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
       <div class="row">
         <div class="col-12">
           <h1>Previous Applications</h1>
@@ -65,6 +66,7 @@
 
 <script>
 import GlobalStore from "@/store";
+const store = GlobalStore.getInstance();
 
 export default {
   name: "application-status",
@@ -73,21 +75,41 @@ export default {
       inProgressApplications: [],
       confirmDelete: false,
       currentApplication: {},
-      userId: ''
+      applicationId: '',
+      error: ''
     };
+  },
+  mounted() {
+
   },
   methods: {
     openTerms() {
       this.$router.push({name: "terms"})
     },
-    beginApplication() {
-      const store = GlobalStore.getInstance();
-      this.userId = store.getters["application/getUserId"]
-      // TODO: complete setup of POST body as application once API is in place
-      const application = {"userId": this.userId}
+    beginApplication() {      
       this.$store.dispatch("application/init");
-      this.$store.dispatch("common/saveNewApplication", application);
-      this.$router.push({name: "flapp-surveys" })
+      const application = store.getters["application/getApplication"];
+      
+      this.$http.post(
+        "/app/",
+        application,
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      )
+      .then(res => {
+        this.applicationId = res.data.app_id;  
+        store.dispatch("application/setApplicationId", this.applicationId);
+        this.error = "";
+        this.$router.push({name: "flapp-surveys" }) 
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });
     },
     navigate() {
       

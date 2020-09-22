@@ -1,5 +1,6 @@
 <template>
   <b-container class="container home-content" id="service-locator">
+    <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
     <div class="intro">
       Is Victoria Law Courts' the nearest location to you OR the location where
       your existing matter has been filed?
@@ -33,26 +34,48 @@
 <script>
 import GlobalStore from "@/store";
 
+const store = GlobalStore.getInstance();
+
 export default {
   name: "ServiceLocator",
   data() {
     return {
       form: {
-        selected: "",
+        selected: "",        
       },
+      applicationId: '',
+      error: ''
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
       if (this.form.selected) {
-        const store = GlobalStore.getInstance();
-        this.userId = store.getters["application/getUserId"]
-        // TODO: complete setup of POST body as application once API is in place
-        const application = {"userId": this.userId}
+        
         this.$store.dispatch("application/init");
-        this.$store.dispatch("common/saveNewApplication", application);
-        this.$router.push({ name: "flapp-surveys" });
+        const application = store.getters["application/getApplication"];
+      
+        this.$http.post(
+          "/app/",
+          application,
+          {
+            responseType: "json",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+        )
+        .then(res => {
+          this.applicationId = res.data.app_id;  
+          store.dispatch("application/setApplicationId", this.applicationId);
+          this.error = "";
+          this.$router.push({name: "flapp-surveys" }) 
+        })
+        .catch(err => {
+          console.error(err);
+          this.error = err;
+        });
+        
       } else {
         location.replace(
           "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
