@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "LandingPage",
   data() {
@@ -80,8 +81,14 @@ export default {
   methods: {
     navigate(userType) {
       this.$store.dispatch("application/setUserType", userType).then(() => {
-        this.$router.push({ name: "login-page" });
-      });
+          
+        if (userType === "new") {
+          this.$router.push({ name: "service-locator" });
+        } else if (userType === "returning") {
+          this.$router.push({ name: "applicant-status" });
+        }
+         
+      });  
     }
   }
 };
