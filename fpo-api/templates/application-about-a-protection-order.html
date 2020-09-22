@@ -756,7 +756,9 @@
     </div>
     <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> Other (Specify): </div>
     <div class="form-line">
+    {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
       <div class="form-line-child fill">{{protectionWhomSurvey.anotherAdultName.first}} {{protectionWhomSurvey.anotherAdultName.middle}} {{protectionWhomSurvey.anotherAdultName.last}}, {{protectionWhomSurvey.anotherAdultDOB|custom_date:"M d Y"}}</div>
+    {% endif %}  
       <div id="sched1-other-to-protect" class="form-line-child underline"></div>
       <div class="form-line-child hint">(full name of other person to be protected)</div>
     </div>
@@ -1277,16 +1279,24 @@
   <section class="question"> Has the other party ever failed to obey a court order 
   {% if backgroundSurvey.otherPartyDisobeyOrder == 'Yes' %}
     <span class="check">&#10003</span>
-    <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
   {% else %}
     <span class="check"></span>
+  {% endif %}
     <span style="margin-left:18px;">Yes</span>
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'No' %}
     <span style="margin-left:5px;" class="check">&#10003</span>
+  {% else %}
+    <span style="margin-left:5px;" class="check"></span>
   {% endif %}
     <span style="margin-left:22px;">No</span>
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'Unknown' %}
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% else %}
+    <span style="margin-left:5px;" class="check"></span>
+  {% endif %}
+    <span style="margin-left:22px;">Unknown</span>
     <div><i>If yes, describe the circumstances:</i></div>
-  {% if backgroundSurvey.otherPartyDisobeyOrder == 'y' %}
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'Yes' %}
     <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.describeDisobeyOrder}} </div>
   {% else %}
     <div class="v-spacer-3"></div>
