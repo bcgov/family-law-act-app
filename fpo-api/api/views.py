@@ -150,18 +150,22 @@ class ApplicationView(APIView):
         if not uid:
             return HttpResponseForbidden("Missing user ID")
 
+        body = request.data
+        if not body:
+            return HttpResponseBadRequest("Missing request body")
+
         db_app = Application(
             last_updated=timezone.now(),
-            app_type=request.data.get("type"),
-            current_step=request.data.get("currentStep"),
-            all_completed=request.data.get("allCompleted"),
-            steps=request.data["steps"],
-            user_type=request.data.get("userType"),
-            applicant_name=request.data.get("applicantName"),
-            user_name=request.data.get("userName"),
-            respondent_name=request.data.get("respondentName"),
+            app_type=body.get("type"),
+            current_step=body.get("currentStep"),
+            all_completed=body.get("allCompleted"),
+            steps=body["steps"],
+            user_type=body.get("userType"),
+            applicant_name=body.get("applicantName"),
+            user_name=body.get("userName"),
+            respondent_name=body.get("respondentName"),
             user_id=uid)
-            
+
         db_app.save()
         return Response({"app_id": db_app.pk})
 
