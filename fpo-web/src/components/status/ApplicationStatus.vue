@@ -5,23 +5,38 @@
       <div class="row">
         <div class="col-12">
           <h1>Previous Applications</h1>
-          <div v-if="inProgressApplications.length >0">
-            <div v-for="application in inProgressApplications" :key="application.id">
-              <div class="row">
-                <div class="col-8">
-                  <p>{{application}}</p>
-                </div>
-                <div class="col-4">
-                  <button type="button" class="btn btn-primary application-button" @click="resumeApplication(application.id)">Resume</button>
-                  <button type="button" class="btn btn-primary application-button" @click="removeApplication(application)">Remove</button>
-                </div>
-              </div>
-              <hr class="section" />
-            </div>
-          </div>
-          <div v-else>
-            <p>No applications to display</p>
-          </div>
+          <hr class="bg-light" style="height: 2px;"/>
+
+          <b-card no-body v-if="!previousApplications.length">
+                <span class="text-muted ml-4 mb-5">No previous applications.</span>
+          </b-card>
+
+          <b-card v-else no-body border-variant="light" bg-variant="white">
+            <b-table  :items="previousApplications"
+                      :fields="previousApplicationFields"
+                      class="mx-4"
+                      borderless
+                      striped
+                      small 
+                      responsive="sm"
+                      >
+                  <template v-slot:cell(edit)="row">
+                    <b-button size="sm" variant="transparent" @click="removeApplication(row)">
+                      <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
+                    </b-button>
+                    <b-button size="sm" variant="transparent" @click="resumeApplication(row.id)">
+                      <b-icon-forward font-scale="1.75" variant="primary"></b-icon-forward>
+                      <b-icon icon="card-text" font-scale="1" variant="primary"></b-icon>                    
+                    </b-button>
+                  </template>
+                  <template v-slot:cell(app_type)="row">                  
+                      <span>{{row.item.app_type}}</span>
+                  </template>
+                  <template v-slot:cell(last_updated)="row">                  
+                      <span>{{ row.item.last_updated | beautify-date}}</span>
+                  </template>
+            </b-table>
+          </b-card>
           <div class="row">
             <div class="col-md-5">
               <a
@@ -30,7 +45,6 @@
               >Respond to Documents served on me</a>
             </div>
           </div>
-          <!-- <br> -->
           <div class="row">
             <div class="col-md-5">
               <a
@@ -72,7 +86,12 @@ export default {
   name: "application-status",
   data() {
     return {
-      inProgressApplications: [],
+      previousApplications: [],
+      previousApplicationFields: [
+          { key: 'app_type', label: 'Application Type'},
+          { key: 'last_updated', label: 'Last Updated'},
+          { key: 'edit', thClass: 'd-none'}
+      ],
       confirmDelete: false,
       currentApplication: {},
       applicationId: '',
@@ -80,11 +99,22 @@ export default {
     };
   },
   mounted() {
-
+    this.loadApplications();
   },
   methods: {
     openTerms() {
       this.$router.push({name: "terms"})
+    },
+    loadApplications () {
+      
+      this.$http.get('/app-list/')
+      .then((response) => {
+        this.previousApplications = response.data;        
+      }).catch((err) => {
+        //TODO: determine workflow
+        console.log(err)
+        this.error = err;        
+      });
     },
     beginApplication() {      
       this.$store.dispatch("application/init");
@@ -145,7 +175,7 @@ export default {
   },
   created() {
     // To be fetched from db
-    this.inProgressApplications.push(
+    this.previousApplications.push(
       {id: 0, type:"sample saved-1"},
       {id: 1, type:"sample saved-2"}
     );
