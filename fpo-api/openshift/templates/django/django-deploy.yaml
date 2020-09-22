@@ -295,17 +295,17 @@
     - name: EFILING_AUTH_URL
       displayName: EFILING authentication url
       description: EFILING authentication url
-      required: true
+      required: false
       value:  
     - name: EFILING_CLIENT_ID
       displayName: EFILING Service Client Id
       description: EFILING Service Client Id
-      required: true
+      required: false
       value:
     - name: EFILING_CLIENT_SECRET
       displayName: EFILING Service Client Secret
       description: EFILING Service Client Secret
-      required: true
+      required: false
       value:
   
     - name: CPU_REQUEST
