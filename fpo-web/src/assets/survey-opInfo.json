@@ -13,14 +13,16 @@
        {
         "type": "yesno",
         "name": "doYouKnowDOB",
-        "title": "Do you know {OtherPartyName} exact date of birth?"
+        "title": "Do you know {OtherPartyName} exact date of birth?",
+        "isRequired": true
        },
        {
         "type": "text",
         "name": "otherPartyDOB",
         "visibleIf": "{doYouKnowDOB} = \"y\"",
         "title": "Date of Birth",
-        "inputType": "date"
+        "inputType": "date",
+        "isRequired": true
        },
        {
         "type": "text",

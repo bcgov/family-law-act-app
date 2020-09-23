@@ -9,9 +9,16 @@ def get_other_party_info(selectedPOOrder, protectionWhom, otherParty):
 
     if selectedPOOrder['orderType'] == 'needPO' :
         dob = 'unknown'
+        address = ''
+        contactInfo = ''
         if protectionWhom['RespondentDOBExact'] == 'y':
             dob = protectionWhom['RespondentDOB']
-        info = [{'name':protectionWhom['RespondentName'], 'DOB': dob , 'address': protectionWhom['RespondentAddress'] ,'contact': protectionWhom['RespondentContact']}]
+        if hasattr(protectionWhom, 'RespondentAddress'):
+            address = protectionWhom['RespondentAddress']
+        if hasattr(protectionWhom,'RespondentContact'):
+            contactInfo = protectionWhom['RespondentContact']
+            
+        info = [{'name':protectionWhom['RespondentName'], 'DOB': dob , 'address': address ,'contact': contactInfo}]
     
     elif selectedPOOrder['orderType'] == 'changePO' or selectedPOOrder['orderType'] == 'terminatePO' :    
         for party in otherParty:

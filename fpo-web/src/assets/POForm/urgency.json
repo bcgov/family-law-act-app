@@ -13,13 +13,15 @@
        {
         "type": "yesno",
         "name": "PORSpeedUp",
-        "title": "Normally, the other party will need to be given notice that you are applying for a Protection Order at least 7 days before the date scheduled for court. Do you need this Protection Order application to be heard sooner (you will be asking the court to be allowed to give less than 7 days' notice to the other party )?"
+        "title": "Normally, the other party will need to be given notice that you are applying for a Protection Order at least 7 days before the date scheduled for court. Do you need this Protection Order application to be heard sooner (you will be asking the court to be allowed to give less than 7 days' notice to the other party )?",
+        "isRequired": true
        },
        {
         "type": "dropdown",
         "name": "PORDaysToNotice",
         "visibleIf": "{PORSpeedUp} = \"y\"",
         "title": "How many days' notice do you want to give the other party?",
+        "isRequired": true,
         "choices": [
          "1",
          "2",
@@ -39,7 +41,8 @@
        {
         "type": "yesno",
         "name": "PORNoNotice",
-        "title": "Normally, a judge will want to hear from you, {ApplicantName} and the other party before making a decision.\n<br>\n<br>\nDo you want a judge to make their decision before the other party gets to tell their story?"
+        "title": "Normally, a judge will want to hear from you, {ApplicantName} and the other party before making a decision.\n<br>\n<br>\nDo you want a judge to make their decision before the other party gets to tell their story?",
+        "isRequired": true
        },
        {
         "type": "comment",
