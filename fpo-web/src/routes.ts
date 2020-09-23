@@ -1,5 +1,6 @@
 import LandingPage from "@/components/views/LandingPage.vue";
 import ServiceLocator from "@/components/views/ServiceLocator.vue";
+import ResultPage from "@/components/views/ResultPage.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
@@ -48,6 +49,11 @@ const routes = [
     path: "/serviceLocator",
     name: "service-locator",
     component: ServiceLocator,
+  },
+  {
+    path: "/results/:result",
+    name: "result-page",
+    component: ResultPage,
   },
   { 
     path: "/getStarted",

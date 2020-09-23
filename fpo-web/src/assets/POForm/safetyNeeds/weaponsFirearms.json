@@ -11,7 +11,7 @@
          {
           "type": "yesno",
           "name": "RespondentFirearms",
-          "title": "Do you have concerns {ResondentName} would threaten or harm you or your children with guns, explosives or another kind of firearm?",
+          "title": "Do you have concerns {RespondentName} would threaten or harm you or your children with guns, explosives or another kind of firearm?",
           "description": "<a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html\" target=\"_blank\">Click here for more information about how firearms and explosive substances are defined in the Criminal Code of Canada.</a>"
          },
          {

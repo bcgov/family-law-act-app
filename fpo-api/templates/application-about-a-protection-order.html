@@ -251,6 +251,26 @@
         position: absolute;
         font-size: 7px;
         margin-top: -3px;
+      }.form-line-child.fill {
+        position: absolute;
+        font-size: 14px;
+        margin-top: -12px;
+        margin-left: 0.3rem;
+      }.form-line-child.fillsmall {
+        position: absolute;
+        font-size: 11px;
+        margin-top: -12px;
+        margin-left: 0.3rem;
+      }.form-line-child.fillsmalllow {
+        position: absolute;
+        font-size: 11px;
+        margin-top: -7px;
+        margin-left: 0.3rem;
+      }.form-line-child.filloptions {
+        position: absolute;
+        font-size: 11px;
+        margin-top: -2px;
+        margin-left: 0.3rem;
       }
       .form-line.text-after-check {
         margin-left: 0.3rem;
@@ -271,10 +291,10 @@
         min-width: 12rem;
       }
       #sched1-occupation {
-        min-width: 10rem;
+        min-width: 8rem;
       }
       #sched1-address {
-        min-width: 14rem;
+        min-width: 16rem;
       }
       /********************************************************/
 
@@ -356,6 +376,11 @@
     }
     </style>
 </head>
+
+
+{% load get_date %}
+
+
 <body>
 <div class="wrapper">
   <div class="container">
@@ -399,7 +424,9 @@
             <tr>
               <td>
                 <label>Court File Number:</label>
-                <div class="content">&nbsp;{{ X }}</div>
+                {% if protectionWhomSurvey.ExistingFamilyCase == 'y' %}
+                <div class="content">&nbsp;{{ protectionWhomSurvey.ExistingFileNumber }}</div>
+                {% endif %}
               </td>
             </tr>
             </tbody>
@@ -412,8 +439,13 @@
 
     <!-- Question 1 -->
     <section class="question">
+
+    {% load get_contact_info %}
+    {% get_contact_info yourInformationSurvey as info %}
+
       <div class="form-line">My name is </div>
       <div class="form-line">
+        <div class="form-line-child fill"> {{yourInformationSurvey.ApplicantName.first}} {{yourInformationSurvey.ApplicantName.middle}} {{yourInformationSurvey.ApplicantName.last}}</div>
         <div id="sched1-name1" class="form-line-child underline"></div>
         <div class="form-line-child hint">full name of party</div>
       </div>
@@ -421,30 +453,34 @@
       <div class="form-line" style="margin-top: 0.3rem">
         My contact information and address for delivery of court documents by the other party and the Court is:
       </div>
-
+      
       <table class="bordered border-rows">
-        <tr >
-          <td>Full Name: {{X}} </td>
+        <tr > 
+        {% if yourInformationSurvey.ApplicantName.middle %}         
+          <td>Full Name: {{yourInformationSurvey.ApplicantName.first}}, {{yourInformationSurvey.ApplicantName.middle}}, {{yourInformationSurvey.ApplicantName.last}} </td>
+        {% else %}
+          <td>Full Name: {{yourInformationSurvey.ApplicantName.first}}, {{yourInformationSurvey.ApplicantName.last}} </td>
+        {% endif %}
           <td></td>
-          <td>Date of Birth: {{X}}</td>
+          <td>Date of Birth: {{yourInformationSurvey.ApplicantDOB|custom_date:"M d Y"}}</td>
         </tr>
         <tr>
           <td colspan="3"><b>Contact information and address for delivery</b></td>
         </tr>
         <tr>
-          <td colspan="3">Lawyer (if applicable): {{X}} </td>
+          <td colspan="3">Lawyer (if applicable): {{info.lawyername.first}} {{info.lawyername.middle}} {{info.lawyername.last}}</td>
+        </tr>
+        <tr>          
+          <td colspan="3">Address: {{info.address.street}} </td>
         </tr>
         <tr>
-          <td colspan="3">Address: {{X}} </td>
+          <td>City: {{info.address.city}} </td>
+          <td style="padding-left:50px">Province: {{info.address.state}} </td>
+          <td>Postal Code: {{info.address.postcode}} </td>
         </tr>
         <tr>
-          <td>City: {{X}} </td>
-          <td style="padding-left:50px">Province: {{X}} </td>
-          <td>Postal Code: {{X}} </td>
-        </tr>
-        <tr>
-          <td>Email: {{X}} </td>
-          <td colspan="2" style="padding-left:150px">Telephone: {{X}} </td>
+          <td>Email: {{info.contact.email}} </td>
+          <td colspan="2" style="padding-left:150px">Telephone: {{info.contact.phone}} </td>
         </tr>
       </table>
 
@@ -455,22 +491,34 @@
 
     <!-- Question 2 -->
     <section class="question">
-      <span class="check"></span>
+      <span class="check">&#10003;</span>
       <span class="text-after-check">I understand I need to give notice to the person I want protection from, or who has made an application for protection from me. This person is the other party. To give notice, they must be served with the application and supporting materials at least 7 days before the date and time of the hearing unless the application is made without notice or with less then 7 days notice.</span>
       <div class="sub-selections">
         <div class="sub-selections-desc">
           Select only one of the options below
         </div>
         <div class="sub-selection">
+        {% if urgencySurvey.PORSpeedUp == "n" and urgencySurvey.PORNoNotice == "n" %}
+          <span class="check">&#10003</span>
+        {% else %}
           <span class="check"></span>
+        {% endif %}
           <span class="sub-selection-desc">I am making this application with at least 7 days notice to the other party.</span>
         </div>
         <div class="sub-selection">
+        {% if urgencySurvey.PORSpeedUp == "y" and urgencySurvey.PORNoNotice == "n" %}
+          <span class="check">&#10003</span>
+        {% else %}
           <span class="check"></span>
+        {% endif %}
           <span class="sub-selection-desc">I am making this application without notice to the other party and I have completed an Application for Case Management Order Without Notice or Appearance requesting this application be heard without notice to the other party.</span>
         </div>
         <div class="sub-selection">
+        {% if urgencySurvey.PORNoNotice == "y" %}
+          <span class="check">&#10003</span>
+        {% else %}
           <span class="check"></span>
+        {% endif %}
           <span class="sub-selection-desc">I am making this application with less than 7 days notice to the other party and I have completed an Application for Case Management Order Without Notice or Appearance requesting this application be heard with less than 7 days notice to the other party.</span>
         </div>
       </div>
@@ -480,8 +528,15 @@
 
     <!-- Question 3 -->
     <section class="question">
+
+    {% load get_other_party_info %}
+
+    
+    {% get_other_party_info selectedPOOrder protectionWhomSurvey otherPartySurvey as otherpartyinfo %}
+    {% for info in otherpartyinfo %}
       <div class="form-line">The other party's name is </div>
       <div class="form-line">
+        <div class="form-line-child fill"> {{info.name.first}} {{info.name.middle}} {{info.name.last}}</div>
         <div id="sched1-other-name1" class="form-line-child underline"></div>
         <div class="form-line-child hint">full name of party</div>
       </div>
@@ -491,9 +546,9 @@
 
       <table class="bordered border-rows">
         <tr >
-          <td>Full Name: {{X}} </td>
+          <td>Full Name: {{info.name.first}} {{info.name.middle}} {{info.name.last}} </td>
           <td></td>
-          <td>Date of Birth: {{X}}</td>
+          <td>Date of Birth: {{info.DOB|custom_date:"M d Y"}}</td>
         </tr>
         <tr>
           <td colspan="3"><b>Contact information</b></td>
@@ -502,18 +557,19 @@
           <td colspan="3">Lawyer (if applicable): {{X}} </td>
         </tr>
         <tr>
-          <td colspan="3">Address: {{X}} </td>
+          <td colspan="3">Address: {{info.address.street}} </td>
         </tr>
         <tr>
-          <td>City: {{X}} </td>
-          <td style="padding-left:50px">Province: {{X}} </td>
-          <td>Postal Code: {{X}} </td>
+          <td>City: {{info.address.city}} </td>
+          <td style="padding-left:50px">Province: {{info.address.state}} </td>
+          <td>Postal Code: {{info.address.postcode}} </td>
         </tr>
         <tr>
-          <td>Email: {{X}} </td>
-          <td colspan="2" style="padding-left:150px">Telephone: {{X}} </td>
+          <td>Email: {{info.contact.email}} </td>
+          <td colspan="2" style="padding-left:150px">Telephone: {{info.contact.phone}} </td>
         </tr>
       </table>
+      {% endfor %}
 
     </section>
 
@@ -526,17 +582,29 @@
           Select only one of the options below and complete the required schedule
         </div>
         <div class="sub-selection">
+        {% if selectedPOOrder.orderType == 'needPO' %}
+          <span class="check">&#10003</span>
+        {% else %}
           <span class="check"></span>
+        {% endif %}
           <span class="sub-selection-desc">Protection order </span>
           <i>[Complete and attach Schedule 1]</i>
         </div>
         <div class="sub-selection">
+        {% if selectedPOOrder.orderType == 'changePO' %}
+          <span class="check">&#10003</span>
+        {% else %}
           <span class="check"></span>
+        {% endif %}
           <span class="sub-selection-desc">Order to change an existing protection order </span>
           <i>[Complete and attach Schedule 2]</i>
         </div>
         <div class="sub-selection">
+        {% if selectedPOOrder.orderType == 'terminatePO' %}
+          <span class="check">&#10003</span>
+        {% else %}
           <span class="check"></span>
+        {% endif %}
           <span class="sub-selection-desc">Order to terminate and existing protection order </span>
           <i>[Complete and attach Schedule 3]</i>
         </div>
@@ -571,12 +639,11 @@
 
     <div><b>NOTICE TO THE OTHER PARTY: If you do not appear in court on the date and time above, the Court may make an order in your absence.</b></div>
 
+ <!-- PAGE TWO -->
+
+ {% if selectedPOOrder.orderType == 'needPO' %}
 
   <div class="new-page"> </div>
-
-
-  <!-- PAGE TWO -->
-
   <div class="schedule-header">
     <h4>Schedule 1 - Protection Order</h4>
     <h4>This is Schedule 1 to the Application about a Protection Order</h4>
@@ -587,19 +654,28 @@
 
   <div class="form-line">I, </div>
   <div class="form-line">
+    <div class="form-line-child fill"> {{yourInformationSurvey.ApplicantName.first}} {{yourInformationSurvey.ApplicantName.middle}} {{yourInformationSurvey.ApplicantName.last}}</div>
     <div id="sched1-name2" class="form-line-child underline"></div>
     <div class="form-line-child hint">full name of party</div>
   </div>
   <div class="form-line">, </div>
   <div class="form-line">
+    <div class="form-line-child fillsmall"> {{yourInformationSurvey.ApplicantOccupation}} </div>
     <div id="sched1-occupation" class="form-line-child underline"></div>
     <div class="form-line-child hint">occupation</div>
   </div>
   <div class="form-line"> of  </div>
   <div class="form-line">
+  {% get_contact_info yourInformationSurvey as info %}
+  {% if yourInformationSurvey.Lawyer == 'y' %}
+  <div class="form-line-child fillsmall">c/o {{info.lawyername.first}} {{info.lawyername.middle}} {{info.lawyername.last}}, {{info.address.street}}, {{info.address.city}},{{info.address.state}},{{info.address.postcode}}</div>
+  {% else %}
+    <div class="form-line-child fillsmall"> {{info.address.street}}, {{info.address.city}},{{info.address.state}},{{info.address.postcode}}</div>
+  {% endif %}  
     <div id="sched1-address" class="form-line-child underline"></div>
     <div class="form-line-child hint">address of party, city, province</div>
   </div>
+  <div class="form-line">, </div>
 
   <div class="important">SWEAR OR AFFIRM THAT:</div>
   <section class="question restart">
@@ -611,11 +687,19 @@
     </span>
     <div><i>Select and complete only those options that apply to your situation.</i></div>
     <div class="option">
+    {% if protectionWhomSurvey.ApplicantNeedsProtection == 'y' %}
+      <div class="check">&#10003</div>
+    {% else %}
       <div class="check"></div>
+    {% endif %}
       <div>Me</div>
     </div>
     <div class="option">
+    {% if protectionWhomSurvey.childPO == 'y' %}
+      <div class="check">&#10003</div>
+    {% else %}
       <div class="check"></div>
+    {% endif %}
       <div>the following child(ren) I am parent or guardian to:</div>
     </div>
 
@@ -627,41 +711,20 @@
       </tr>
       <tbody>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td> {{protectionWhomSurvey.childName.first}} {{protectionWhomSurvey.childName.middle}} {{protectionWhomSurvey.childName.last}}</td>
+          <td> {{protectionWhomSurvey.childDOB|custom_date:"M d Y"}}</td>
+          <td> {{protectionWhomSurvey.childRelationship}}</td>
         </tr>
       </tbody>
     </table>
 
     <div><i>Complete only if applicable. You may leave this section blank.</i></div>
     <div class="option" style="margin: 0 0 0.2rem 0;">
+    {% if protectionWhomSurvey.anotherAdultSharingResi == 'y' %}
+      <div class="check">&#10003</div>
+    {% else %}
       <div class="check"></div>
+    {% endif %}
       <div class="text-after-check italic">
         The following adult(s) sharing the residence with the other protected person(s):
       </div>
@@ -669,25 +732,15 @@
 
     <table class="border-all sched1-child-table" style="margin:0 0 0.7rem 0;">
       <tr>
-        <th>Child's Full Name</th>
-        <th>Child's Date of Birth</th>
-        <th>Child's Relationship to Other Party</th>
+        <th>Full Name</th>
+        <th>Date of Birth</th>
+        <th>Relationship to Other Protected Person</th>
       </tr>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
+        <tr> 
+          <td> {{protectionWhomSurvey.anotherAdultSharingResiName.first}} {{protectionWhomSurvey.anotherAdultSharingResiName.middle}} {{protectionWhomSurvey.anotherAdultSharingResiName.last}}</td>
+          <td> {{protectionWhomSurvey.anotheradultSharingResiDOB|custom_date:"M d Y"}}</td>
+          <td> {{protectionWhomSurvey.anotherAdultSharingResiRelation}}</td>
         </tr>
       </tbody>
     </table>
@@ -695,16 +748,27 @@
     <div><i>Complete only if applicable. You may leave this section blank.</i></div>
 
     <div class="form-line">
+    {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
+      <div class="form-line-child check">&#10003</div>
+    {% else %}
       <div class="form-line-child check"></div>
+    {% endif %}
     </div>
     <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> Other (Specify): </div>
     <div class="form-line">
+    {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
+      <div class="form-line-child fill">{{protectionWhomSurvey.anotherAdultName.first}} {{protectionWhomSurvey.anotherAdultName.middle}} {{protectionWhomSurvey.anotherAdultName.last}}, {{protectionWhomSurvey.anotherAdultDOB|custom_date:"M d Y"}}</div>
+    {% endif %}  
       <div id="sched1-other-to-protect" class="form-line-child underline"></div>
       <div class="form-line-child hint">(full name of other person to be protected)</div>
     </div>
 
     <div><i>Describe why you are applying for the other person</i></div>
+    {% if protectionWhomSurvey.anotherAdultReasonForPO %}
+    <div style="margin:5px 0px 12px 10px;"> {{protectionWhomSurvey.anotherAdultReasonForPO}} </div>
+    {% else %}
     <div class="v-spacer-3"></div>
+    {% endif %}
 
     <div><b>
         The person(s) identified in the section above are referred to as the protected party/parties. The other party is the person they need protection from.
@@ -715,11 +779,28 @@
 
   <section class="question">
     There are existing written agreements or court orders about the children concerning parenting arrangments, child support, contact with a child, or guardianship
-    <span class="check"></span>
+  
+    {% if protectionWhomSurvey.ExistingOrders == 'y' or protectionWhomSurvey.ExistingWrittenAgreements == 'y' %}
+    <span class="check">&#10003</span>
     <span class="text-after-check" style="margin-left:17px;">Yes</span>
     <span class="check"></span>
+    {% else %}
+    <span class="check"></span>
+    <span class="text-after-check" style="margin-left:17px;">Yes</span>
+    <span class="check">&#10003</span>
+    {% endif %}
     <span class="text-after-check" style="margin-left:17px;">No</span>
-    <div><i>If yes, attach a copy of the order(s) and list them here:</i></div>
+    <div style="margin: 0 0 0.5rem 0;"><i>If yes, attach a copy of the order(s) and list them here:</i></div>
+    {% if protectionWhomSurvey.ExistingOrders == 'y' %}
+    {% for existingOrder in protectionWhomSurvey.anyExistingOrder%}
+    <div> - {{existingOrder.chooseOrder}}, {{existingOrder.existingOrderLocation}}, {{existingOrder.existingOrderFileNo}}, {{existingOrder.existingOrderDate|custom_date:"M d Y"}}</div>
+    {% endfor %}
+    {% endif %}
+    {% if protectionWhomSurvey.ExistingWrittenAgreements == 'y' %}
+    {% for existingAgreement in protectionWhomSurvey.anyExistingAgreements%}
+    <div> - {{existingAgreement.agreementName}}, {{existingAgreement.writtenAgreementDate|custom_date:"M d Y"}}, {{existingAgreement.writtenAgreementCourtLocation}}  {{existingAgreement.writtenAgreementFileNo}}</div>
+    {% endfor %}
+    {% endif %}
     <div class="v-spacer-3"></div>
   </section>
 
@@ -736,43 +817,72 @@
 
     <div class="form-option">
       <div class="form-line">
+      {% if noGoSurvey.RespondentNoGo == 'y' and 'Home' in noGoSurvey.RespondentNoGoPlaces %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Residence</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noGoSurvey.RespondentNoGo == 'y' and 'School' in noGoSurvey.RespondentNoGoPlaces %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">School</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noGoSurvey.RespondentNoGo == 'y' and 'Workplace' in noGoSurvey.RespondentNoGoPlaces %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Place of Employment</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noGoSurvey.RespondentNoGo == 'y' and 'ChildCareFacility' in noGoSurvey.RespondentNoGoPlaces %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Child care facility</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noGoSurvey.RespondentNoGo == 'y' and 'other' in noGoSurvey.RespondentNoGoPlaces %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Other (specify):</div>
-      <div class="form-line underline" style="min-width: 30rem;"></div>
+      <div class="form-line">
+        <div class="form-line-child filloptions">{{noGoSurvey.RespondentNoGoPlacesComment}}</div>
+        <div class="form-line underline" style="min-width: 30rem;"></div>
+      </div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noGoSurvey.RespondentNoGo == 'n' %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">None of the above. I don't need an order restricting where the other party can go.</div>
     </div>
 
   </section>
+
+  
 
   <div class="v-spacer-1"></div>
 
@@ -782,28 +892,47 @@
 
     <div class="form-option">
       <div class="form-line">
+      {% if noContactSurvey.needCommunication == 'y' and 'Consensual dispute resolution' in noContactSurvey.reasonForCommunication %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Consensual dispute resolution</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noContactSurvey.needCommunication == 'y' and 'Parenting arrangements' in noContactSurvey.reasonForCommunication %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Parenting arrangements</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noContactSurvey.needCommunication == 'y' and 'Ongoing court action' in noContactSurvey.reasonForCommunication %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Ongoing court action</div>
     </div>
     <div class="form-option">
       <div class="form-line">
+      {% if noContactSurvey.needCommunication == 'y' and 'other' in noContactSurvey.reasonForCommunication %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Other (specify):</div>
-      <div class="form-line underline" style="min-width: 30rem;"></div>
+      <div class="form-line">
+        <div class="form-line-child filloptions">{{noContactSurvey.reasonForCommunicationComment}}</div>
+        <div class="form-line underline" style="min-width: 30rem;"></div>
+      </div>
     </div>
 
   </section>
@@ -812,50 +941,95 @@
   <section class="question"> I have concerns the other party would cause harm with or threaten to use guns,
     <div>
       <span>explosives or another kind of firearms
-      <span class="check"></span>
+    {% if weaponsSurvey.RespondentFirearms == 'y' %}
+      <span class="check">&#10003</span>
       <span style="margin-left:18px;">Yes</span>
       <span style="margin-left:5px;" class="check"></span>
+    {% else %}
+      <span class="check"></span>
+      <span style="margin-left:18px;">Yes</span>
+      <span style="margin-left:5px;" class="check">&#10003</span>
+    {% endif %}      
       <span style="margin-left:22px;">No</span>
     </div>
     <div><i>If yes, explain the reasons for your belief</i></div>
+    {% if weaponsSurvey.RespondentFirearms == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{weaponsSurvey.firearmsReason}} </div>
+    {% else %}
     <div class="v-spacer-3"></div>
+    {% endif %}
   </section>
 
   <section class="question"> I believe the other party owns or has access to guns, explosives or another kind of firearm
+  {% if weaponsSurvey.RespondentFirearms == 'y' and weaponsSurvey.RespondentFirearmsYes %}
+    <span class="check">&#10003</span>
+  {% else %}
     <span class="check"></span>
+  {% endif %}
     <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>
+    <span style="margin-left:5px;" class="check"></span>  
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, explain the reasons for your concerns</i></div>
+    {% if weaponsSurvey.RespondentFirearms == 'y' and weaponsSurvey.RespondentFirearmsYes %}
+    <div style="margin:5px 0px 12px 10px;"> {{weaponsSurvey.firearmsYesReason}} </div>
+    {% else %}
     <div class="v-spacer-3"></div>
+    {% endif %}
   </section>
 
   <section class="question"> I have concerns the other party would cause harm with or threaten to use a weapon that is not a gun or explosive
     <div style="margin-left:1rem">
       <span class="check"></span>
+    {% if weaponsSurvey.RespondentWeapons == 'y' %}
+      <span class="check">&#10003</span>
       <span style="margin-left:18px;">Yes</span>
       <span style="margin-left:5px;" class="check"></span>
+    {% else %}
+      <span class="check"></span>
+      <span style="margin-left:18px;">Yes</span>
+      <span style="margin-left:5px;" class="check">&#10003</span>
+    {% endif %}
       <span style="margin-left:22px;">No</span>
     </div>
     <div><i>If yes, explain the reasons for your concerns</i></div>
+    {% if weaponsSurvey.RespondentWeapons == 'y'  %}
+    <div style="margin:5px 0px 12px 10px;"> {{weaponsSurvey.weaponsReasons}} </div>
+    {% else %}
     <div class="v-spacer-3"></div>
+    {% endif %}
   </section>
 
 
   <section class="question"> I believe the other party owns a weapon that is not a gun or explosive 
-    <span class="check"></span>
+  {% if weaponsSurvey.RespondentWeapons == 'y' and weaponsSurvey.RespondentWeaponsYes == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>Examples of weapons someone may own include swords, hunting knives, and nunchucks.</i></div>
     <div><i>If yes, explain the reasons for your belief</i></div>
+    {% if weaponsSurvey.RespondentWeapons == 'y' and weaponsSurvey.RespondentWeaponsYes == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{weaponsSurvey.weaponsYesReason}} </div>
+    {% else %}
     <div class="v-spacer-3"></div>
+    {% endif %}
   </section>
 
   <section class="question" style="margin-bottom:0.5rem"> The protected party currently shares a home with the other party
-    <span class="check"></span>
+  {% if removeSurvey.RespondentLiveTogether == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
   </section>
 
@@ -867,38 +1041,61 @@
 
     <div class="form-option">
       <div class="form-line">
+      {% if removeSurvey.RespondentLiveTogether == 'y' and 'To remove the other party from the shared residence' in removeSurvey.needPolice %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">To remove the other party from the shared residence</div>
     </div>
 
     <div class="form-option">
       <div class="form-line">
+      {% if removeSurvey.RespondentLiveTogether == 'y' and "To supervise the removal of the protected party's personal belongings from the shared residence" in removeSurvey.needPolice %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">To supervise the removal of the protected party's personal belongings from the shared residence</div>
     </div>
 
     <div class="form-option">
       <div class="form-line">
+      {% if removeSurvey.RespondentLiveTogether == 'y' and "To supervise the removal of the other party's personal belongings from the shared residence" in removeSurvey.needPolice %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">To supervise the removal of the other party's personal belongings from the shared residence</div>
     </div>
 
     <div class="form-option">
       <div class="form-line">
+      {% if removeSurvey.RespondentLiveTogether == 'y' and "To supervise the removal of the child(ren)'s personal belongings from a residence" in removeSurvey.needPolice %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">To supervise the removal of the child(ren)'s personal belongings from a residence</div>
     </div>
 
     <div class="form-option">
       <div class="form-line">
+      {% if removeSurvey.RespondentLiveTogether == 'y' and 'other' in removeSurvey.needPolice %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line text-after-check">Other (specify):</div>
-      <div class="form-line underline" style="min-width: 30rem;"></div>
+      <div class="form-line">
+        <div class="form-line-child filloptions">{{removeSurvey.needPoliceComment}}</div>
+        <div class="form-line underline" style="min-width: 30rem;"></div>
+      </div>
     </div>
 
   </section>
@@ -916,7 +1113,11 @@
         Describe how the protected party/parties and the other part are related for the purposes of application
       </i>
     </div>
+    {% if backgroundSurvey.howPartiesRelated  %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.howPartiesRelated}} </div>
+    {% else %}
     <div class="v-spacer-3"></div>
+    {% endif %}
     <div>
       <i>
         If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).
@@ -926,24 +1127,55 @@
 
 
   <section class="question"> The parties are or have been spouses (married or lived in a marriage-like relationship for at least 2 years)
-    <span class="check"></span>
+  {% if backgroundSurvey.werePOPartiesMarried == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, please complete all options below that apply to the parties</i></div>
 
     <div class="form-line">Date on which the parties began to live together in a marriage-like relationship: </div>
     <div class="form-line">
-      <div id="sched1-name1" class="form-line-child underline" style="min-width: 12rem"></div>
+    {% if backgroundSurvey.werePOPartiesMarried == 'y' %}
+      <div class="form-line-child fillsmalllow">{{backgroundSurvey.liveTogetherPODate|custom_date:"M d Y"}}</div>
+    {% endif %}
+      <div id="sched1-name2" class="form-line-child underline" style="min-width: 12rem"></div>
       <div class="form-line-child hint">date</div>
     </div>
+
+    <div class="form-line">Date of marriage: </div>
+    <div class="form-line">
+    {% if backgroundSurvey.werePOPartiesMarried == 'y' %}
+      <div class="form-line-child fillsmalllow">{{backgroundSurvey.dateOfMarriagePO|custom_date:"M d Y"}}</div>
+    {% endif %}
+      <div id="sched1-name2" class="form-line-child underline" style="min-width: 12rem"></div>
+      <div class="form-line-child hint">date of marriage</div>
+    </div>
+
     <div style="margin-top: 0.3rem">
       <span>Are the protected party and the other party currently separated</span>
+      {% if backgroundSurvey.isSeperatedPO == 'Yes' %}
+      <span class="check">&#10003</span>
+      {% else %}
       <span class="check"></span>
+      {% endif %}
       <span style="margin-left:18px;">Yes</span>
+      {% if backgroundSurvey.isSeperatedPO == 'No' %}
+      <span style="margin-left:5px;" class="check">&#10003</span>
+      {% else %}
       <span style="margin-left:5px;" class="check"></span>
+      {% endif %}
       <span style="margin-left:22px;">No</span>
+      {% if backgroundSurvey.isSeperatedPO == 'Unknown' %}
+      <span style="margin-left:5px;" class="check">&#10003</span>
+      {% else %}
       <span style="margin-left:5px;" class="check"></span>
+      {% endif %}
       <span style="margin-left:22px;">Unknown</span>
     </div>
 
@@ -951,16 +1183,31 @@
 
     <div class="form-line">If yes, the parties separated on</div>
     <div class="form-line">
+    {% if backgroundSurvey.isSeperatedPO == 'Yes' %}
+      <div class="form-line-child fillsmalllow">{{backgroundSurvey.separationDate|custom_date:"M d Y"}}</div>
+    {% endif %}
       <div id="sched1-name1" class="form-line-child underline" style="min-width: 12rem"></div>
       <div class="form-line-child hint">date of separation</div>
     </div>
     <div style="margin-top: 0.2rem">
       <span>If no, are the protected party and the other party planning to separate</span>
+      {% if backgroundSurvey.isSeperatedPO == 'No' and backgroundSurvey.planningToSeparatePO == 'Yes' %}
+      <span class="check">&#10003</span>
+      {% else %}
       <span class="check"></span>
+      {% endif %}
       <span style="margin-left:18px;">Yes</span>
+      {% if backgroundSurvey.isSeperatedPO == 'No' and backgroundSurvey.planningToSeparatePO == 'No' %}
+      <span style="margin-left:5px;" class="check">&#10003</span>
+      {% else %}
       <span style="margin-left:5px;" class="check"></span>
+      {% endif %}
       <span style="margin-left:22px;">No</span>
+      {% if backgroundSurvey.isSeperatedPO == 'No' and backgroundSurvey.planningToSeparatePO == 'Unknown' %}
+      <span style="margin-left:5px;" class="check">&#10003</span>
+      {% else %}
       <span style="margin-left:5px;" class="check"></span>
+      {% endif %}
       <span style="margin-left:22px;">Unknown</span>
     </div>
 
@@ -968,63 +1215,130 @@
 
 
 
-  <section class="question"> I have concerns about the mental health of the protected party and/or the other party
-    <span class="check"></span>
+  <section class="question"> I have concerns about the mental health of the protected party and/or the other party  
+  {% if backgroundSurvey.mentalHealthConcernPO == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, explain the reasons for your concerns</i></div>
+  {% if backgroundSurvey.mentalHealthConcernPO == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.explainReasonsPO}} </div>
+  {% else %}
     <div class="v-spacer-3"></div>
+  {% endif %}
   </section>
 
 
   <section class="question"> Are there circumstances that may increase the risk of family violence
-    <span class="check"></span>
+  {% if backgroundSurvey.riskOfViolencePO == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, describe the circumstances such as: substance abuse, employment or financial difficulties, relationship status, criminal his-tory, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, stran-gling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances</i></div>
+  {% if backgroundSurvey.riskOfViolencePO == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.describeCirumstancesPO}} </div>
+  {% else %}
     <div class="v-spacer-3"></div>
+  {% endif %}
   </section>
 
 
 
   <section class="question"> There are existing court orders protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders
-    <span class="check"></span>
+  {% if backgroundSurvey.existingPOOrders == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, attach a copy of the order(s) and list them here:</i></div>
+  {% if backgroundSurvey.existingPOOrders == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.listOfOrders}} </div>
+  {% else %}
     <div class="v-spacer-3"></div>
+  {% endif %}
   </section>
 
 
   <section class="question"> Has the other party ever failed to obey a court order 
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'Yes' %}
+    <span class="check">&#10003</span>
+  {% else %}
     <span class="check"></span>
+  {% endif %}
     <span style="margin-left:18px;">Yes</span>
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'No' %}
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% else %}
     <span style="margin-left:5px;" class="check"></span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'Unknown' %}
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% else %}
+    <span style="margin-left:5px;" class="check"></span>
+  {% endif %}
+    <span style="margin-left:22px;">Unknown</span>
     <div><i>If yes, describe the circumstances:</i></div>
+  {% if backgroundSurvey.otherPartyDisobeyOrder == 'Yes' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.describeDisobeyOrder}} </div>
+  {% else %}
     <div class="v-spacer-3"></div>
+  {% endif %}
   </section>
 
 
   <section class="question"> I have concerns the other party may not obey a court order
-    <span class="check"></span>
+  {% if backgroundSurvey.concernForNotObeying == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, explain the reason for your concerns:</i></div>
+  {% if backgroundSurvey.concernForNotObeying == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.explainReasonsForConcern}} </div>
+  {% else %}
     <div class="v-spacer-3"></div>
+  {% endif %}
   </section>
 
 
   <section class="question"> I have reported my safety concerns to the police
-    <span class="check"></span>
+  {% if backgroundSurvey.reportedConcernsToPolice == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, describe what action they have taken:</i></div>
+  {% if backgroundSurvey.reportedConcernsToPolice == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.describeActionsByPolice}} </div>
+  {% endif %}
   </section>
 
 
@@ -1034,12 +1348,22 @@
 
 
   <section class="question"> I have reported my safety concerns to a social worker (Ministry of Children and Family Development)
-    <span class="check"></span>
+  {% if backgroundSurvey.reportedConcernsToSW == 'y' %}
+    <span class="check">&#10003</span>
     <span style="margin-left:18px;">Yes</span>
     <span style="margin-left:5px;" class="check"></span>
+  {% else %}
+    <span class="check"></span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check">&#10003</span>
+  {% endif %}
     <span style="margin-left:22px;">No</span>
     <div><i>If yes, describe what action they have taken:</i></div>
+  {% if backgroundSurvey.reportedConcernsToSW == 'y' %}
+    <div style="margin:5px 0px 12px 10px;"> {{backgroundSurvey.desrcibeSWAction}} </div>
+  {% else %}
     <div class="v-spacer-3"></div>
+  {% endif %}
   </section>
 
   <h4 style="margin-bottom: 0.3rem">YOUR STORY</h4>
@@ -1048,17 +1372,29 @@
   </div>
 
   <section class="question"> What family violence do you fear?
+  {% if yourStory.whatViolence %}
+    <div style="margin:5px 0px 12px 10px;"> {{yourStory.whatViolence}} </div>
+  {% else %}
     <div class="v-spacer-9"></div>
+  {% endif %}
   </section>
 
 
   <section class="question"> Why do you fear family violence is likely to happen?
+  {% if yourStory.whyViolence %}
+    <div style="margin:5px 0px 12px 10px;"> {{yourStory.whyViolence}} </div>
+  {% else %}
     <div class="v-spacer-9"></div>
+  {% endif %}
   </section>
 
 
   <section class="question"> What behaviour or threats concern you?
+  {% if yourStory.describeThreats %}
+    <div style="margin:5px 0px 12px 10px;"> {{yourStory.describeThreats}} </div>
+  {% else %}
     <div class="v-spacer-5"></div>
+  {% endif %}
   </section>
 
 
@@ -1079,8 +1415,11 @@
       <li>Any doctor's notes, police reports or photographs (you must refer the them here as exhibits and make photocopies of them for the court)</li>
     </ul>
   </section>
-
-  <div style="min-height: 31rem"></div>
+  {% if yourStory.recentIncidents %}
+    <div style="margin:5px 0px 120px 10px;"> {{yourStory.recentIncidents}} </div>
+  {% else %}
+    <div style="min-height: 31rem"></div>
+  {% endif %}
 
 
   <div style="margin-bottom: 1rem">Sworn or affirmed before me</div>
@@ -1112,9 +1451,11 @@
   </div>
   <div>[print name or affix stamp of commissioner]</div>
 
-
+  {% endif %}
 
   <!-- PAGE SEVEN -->
+
+  {% if selectedPOOrder.orderType == 'changePO' %}
 
   <div class="new-page"> </div>
   <div class="schedule-header" style="margin-bottom: 1rem">
@@ -1126,10 +1467,17 @@
 
   <section class="question restart" style="margin-top: 0.5rem">
       <div class="form-line">
+      {% if aboutPOSurvey.dateOfPO %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> I am attaching a copy of the existing protection order made on </div>
       <div class="form-line">
+      {% if aboutPOSurvey.dateOfPO %}
+        <div class="form-line-child fillsmalllow">{{aboutPOSurvey.dateOfPO|custom_date:"M d Y"}}</div>
+      {% endif %}
         <div class="form-line-child underline" style="min-width: 10rem"></div>
         <div class="form-line-child hint">date</div>
       </div>
@@ -1140,41 +1488,65 @@
     <div class="indent">
       <div>
         <div class="form-line">
+        {% if aboutPOSurvey.inCourtForPO == 'y' %}
+          <div class="form-line-child check">&#10003</div>
+        {% else %}
           <div class="form-line-child check"></div>
+        {% endif %}
         </div>
         <div class="form-line"> I was in court when the protection order was made</div>
       </div>
       <div>
         <div class="form-line">
+        {% if aboutPOSurvey.inCourtForPO == 'n' %}
+          <div class="form-line-child check">&#10003</div>
+        {% else %}
           <div class="form-line-child check"></div>
+        {% endif %}
         </div>
         <div class="form-line"> I was not in court when the protection order was made because:</div>
       </div>
       <div><i>Explain why you were not in court when the protection order was made:</i></div>
     </div>
+  {% if aboutPOSurvey.inCourtForPO == 'n' %}
+    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyNotInCourt}} </div>
+  {% else %}
     <div class="v-spacer-5"></div>
+  {% endif %}
   </section>
 
 
 
   <section class="question"> I am the:
-    <div><i>Select only one of the options below</i></div>
+    <div><i>Select all options that apply</i></div>
       <div class="indent">
         <div>
           <div class="form-line">
+          {% if 'protectedParty' in aboutPOSurvey.kindofPartyIbPO %}
+            <div class="form-line-child check">&#10003</div>
+          {% else %}
             <div class="form-line-child check"></div>
+          {% endif %}
           </div>
           <div class="form-line"> protected party</div>
         </div>
         <div>
           <div class="form-line">
+          {% if 'parentGuardian' in aboutPOSurvey.kindofPartyIbPO %}
+            <div class="form-line-child check">&#10003</div>
+          {% else %}
             <div class="form-line-child check"></div>
+          {% endif %}
           </div>
           <div class="form-line"> parent or guardian of the protected party</div>
         </div>
         <div>
           <div class="form-line">
+          {% if 'restrainedParty' in aboutPOSurvey.kindofPartyIbPO %}
+            <div class="form-line-child check">&#10003</div>
+          {% else %}
             <div class="form-line-child check"></div>
+          {% endif %}
           </div>
           <div class="form-line"> person who the protection order is against</div>
         </div>
@@ -1183,19 +1555,27 @@
   </section>
 
   <section class="question"> I am asking for the existing protection order to be changed as follows:
+  {% if aboutPOSurvey.whatChangesNeeded %}
+    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whatChangesNeeded}} </div>
+  {% else %}
     <div class="v-spacer-5"></div>
+  {% endif %}
   </section>
 
   <h4>YOUR STORY</h4>
   <section class="question"> The facts on which this application is based are as follows:
     <div><i>Describe why the order needs to be changed and what facts the court should consider to make their decision.</i></div>
+  {% if aboutPOSurvey.whyChangesNeeded %}
+    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyChangesNeeded}} </div>
+  {% else %}
     <div class="v-spacer-5"></div>
+  {% endif %}
   </section>
 
-
+  {% endif %}
 
   <!-- PAGE EIGHT -->
-
+  {% if selectedPOOrder.orderType == 'terminatePO' %}
   <div class="new-page"> </div>
   <div class="schedule-header" style="margin-bottom: 1rem">
     <h4>Schedule 3 - Terminate an Existing Protection Order</h4>
@@ -1206,10 +1586,17 @@
 
   <section class="question restart" style="margin-top: 0.5rem">
       <div class="form-line">
+      {% if aboutPOSurvey.terminateDateOfPO %}
+        <div class="form-line-child check">&#10003</div>
+      {% else %}
         <div class="form-line-child check"></div>
+      {% endif %}
       </div>
       <div class="form-line" style="margin: 0.5rem 0 0.5rem 0;"> I am attaching a copy of the existing protection order made on </div>
       <div class="form-line">
+      {% if aboutPOSurvey.terminateDateOfPO %}
+        <div class="form-line-child fillsmalllow">{{aboutPOSurvey.terminateDateOfPO|custom_date:"M d Y"}}</div>
+      {% endif %}
         <div class="form-line-child underline" style="min-width: 10rem"></div>
         <div class="form-line-child hint">date</div>
       </div>
@@ -1218,45 +1605,74 @@
     <div class="v-spacer-1"></div>
   </section>
 
+  
+        
+
   <section class="question"> <i>Select only one of the options below</i>
     <div class="indent">
       <div>
         <div class="form-line">
+        {% if aboutPOSurvey.inCourtForPO == 'y' %}
+          <div class="form-line-child check">&#10003</div>
+        {% else %}
           <div class="form-line-child check"></div>
+        {% endif %}
         </div>
         <div class="form-line"> I was in court when the protection order was made</div>
       </div>
       <div>
         <div class="form-line">
+        {% if aboutPOSurvey.inCourtForPO == 'n' %}
+          <div class="form-line-child check">&#10003</div>
+        {% else %}
           <div class="form-line-child check"></div>
+        {% endif %}
         </div>
         <div class="form-line"> I was not in court when the protection order was made because:</div>
       </div>
       <div><i>Explain why you were not in court when the protection order was made:</i></div>
     </div>
+  {% if aboutPOSurvey.inCourtForPO == 'n' %}
+    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyNotInCourt}} </div>
+  {% else %}
     <div class="v-spacer-5"></div>
+  {% endif %}
   </section>
 
 
 
+
+
   <section class="question"> I am the:
-    <div><i>Select only one of the options below</i></div>
+    <div><i>Select all options that apply</i></div>
       <div class="indent">
         <div>
           <div class="form-line">
+          {% if 'protectedParty' in aboutPOSurvey.kindofPartyIbPO %}
+            <div class="form-line-child check">&#10003</div>
+          {% else %}
             <div class="form-line-child check"></div>
+          {% endif %}
           </div>
           <div class="form-line"> protected party</div>
         </div>
         <div>
           <div class="form-line">
+          {% if 'parentGuardian' in aboutPOSurvey.kindofPartyIbPO %}
+            <div class="form-line-child check">&#10003</div>
+          {% else %}
             <div class="form-line-child check"></div>
+          {% endif %}
           </div>
           <div class="form-line"> parent or guardian of the protected party</div>
         </div>
         <div>
           <div class="form-line">
+          {% if 'restrainedParty' in aboutPOSurvey.kindofPartyIbPO %}
+            <div class="form-line-child check">&#10003</div>
+          {% else %}
             <div class="form-line-child check"></div>
+          {% endif %}
           </div>
           <div class="form-line"> person who the protection order is against</div>
         </div>
@@ -1267,9 +1683,14 @@
 
   <section class="question"> The facts on which this application is based are as follows:
     <div><i>Describe why the order should be terminated and what facts the court should consider to make their decision.</i></div>
+  {% if aboutPOSurvey.whyTerminatePO %}
+    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyTerminatePO}} </div>
+  {% else %}
     <div class="v-spacer-5"></div>
+  {% endif %}
   </section>
 
+  {% endif %}
   </div><!-- end all forms container -->
 </div><!-- end all forms wrapper -->
 </body>

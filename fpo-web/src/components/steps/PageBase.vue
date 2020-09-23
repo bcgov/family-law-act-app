@@ -13,11 +13,6 @@
           Next <span class="fa fa-chevron-right btn-icon-right"></span> 
         </button>
       </div>
-      <!-- <div v-if="canComplete()" class="survey-nav-right">
-        <button v-on:click="onComplete()" class="btn btn-success btn-lg">
-          <span class="fa fa-check-circle btn-icon-left"></span> Complete
-        </button>
-      </div> -->
     </div>
   </div>
 </template>
