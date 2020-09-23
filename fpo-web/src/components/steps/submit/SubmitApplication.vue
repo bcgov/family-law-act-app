@@ -25,25 +25,6 @@
               </div>
             </div>
           </div>
-          <div class="mt-8 mb-3">
-            <h2>Online</h2>
-            <p>
-              Submit the forms electronically.
-            </p>
-            <div class="submitSection">
-              <div class="submitAlign">
-                <center>
-                  <a                 
-                    v-on:click.prevent="onSubmit()"
-                    class="btn btn-success btn-lg"
-                  >
-                    <span class="fa fa-share-square btn-icon-left"></span>
-                    Submit Your Application
-                  </a>
-                </center>
-              </div>
-            </div> 
-          </div>
         </div>
       </div>
     </div>
