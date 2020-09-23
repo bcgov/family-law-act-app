@@ -23,7 +23,7 @@ from rest_framework import status
 import logging
 from django.http import Http404
 
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
 from api.auth import get_efiling_auth_token
@@ -115,6 +115,7 @@ class SubmitFormView(generics.GenericAPIView):
 
 
 class ApplicationListView(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
     """
     List all application for a user
     """
@@ -130,18 +131,21 @@ class ApplicationListView(generics.ListAPIView):
             applications = self.get_app_object(request.user.id)
             serializer = ApplicationListSerializer(applications, many=True)
             return Response(serializer.data)
-        return HttpResponseBadRequest("User id not provided")
+        return HttpResponseForbidden("User id not provided")
 
 
 class ApplicationView(APIView):
-    def get_app_object(self, pk):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_app_object(self, pk, uid):
         try:
-            return Application.objects.get(pk=pk)
+            return Application.objects.get(pk=pk, user_id=uid)
         except Application.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
-        application = self.get_app_object(pk)
+        uid = request.user.id
+        application = self.get_app_object(pk, uid)
         serializer = ApplicationSerializer(application)
         return Response(serializer.data)
 
@@ -170,24 +174,26 @@ class ApplicationView(APIView):
         return Response({"app_id": db_app.pk})
 
     def put(self, request, pk, format=None):
-        application_queryset = Application.objects.filter(pk=pk)
+        uid = request.user.id
+        application_queryset = Application.objects.filter(user_id=uid).filter(pk=pk)
+        if application_queryset:
+            body = request.data
+            if not body:
+                return HttpResponseBadRequest("Missing request body")
 
-        body = request.data
-        if not body:
-            return HttpResponseBadRequest("Missing request body")
-
-        application_queryset.update(last_updated=timezone.now())
-        application_queryset.update(app_type=body.get("type"))
-        application_queryset.update(current_step=body.get("currentStep"))
-        application_queryset.update(steps=body["steps"])
-        application_queryset.update(user_type=body.get("userType"))
-        application_queryset.update(applicant_name=body.get("applicantName"))
-        application_queryset.update(user_name=body.get("userName"))
-        application_queryset.update(respondent_name=body.get("respondentName"))
-        return Response("success")
+            application_queryset.update(last_updated=timezone.now())
+            application_queryset.update(app_type=body.get("type"))
+            application_queryset.update(current_step=body.get("currentStep"))
+            application_queryset.update(steps=body["steps"])
+            application_queryset.update(user_type=body.get("userType"))
+            application_queryset.update(applicant_name=body.get("applicantName"))
+            application_queryset.update(user_name=body.get("userName"))
+            application_queryset.update(respondent_name=body.get("respondentName"))
+            return Response("success")
+        return HttpResponseNotFound("No record found")
 
     def delete(self, request, pk, format=None):
-        application = self.get_app_object(pk)
+        uid = request.user.id
+        application = self.get_app_object(pk, uid)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
