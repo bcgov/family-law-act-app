@@ -21,12 +21,12 @@
                       responsive="sm"
                       >
                   <template v-slot:cell(edit)="row">
-                    <b-button size="sm" variant="transparent" @click="removeApplication(row)">
+                    <b-button size="sm" variant="transparent" @click="removeApplication(row.item)">
                       <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
                     </b-button>
-                    <b-button size="sm" variant="transparent" @click="resumeApplication(row.id)">
-                      <b-icon-forward font-scale="1.75" variant="primary"></b-icon-forward>
-                      <b-icon icon="card-text" font-scale="1" variant="primary"></b-icon>                    
+                    <b-button size="sm" variant="transparent" @click="resumeApplication(row.item.id)">
+                      <b-icon-forward font-scale="1" variant="primary"></b-icon-forward>
+                      <b-icon-file-earmark-text font-scale="1.5" variant="primary"></b-icon-file-earmark-text>                    
                     </b-button>
                   </template>
                   <template v-slot:cell(app_type)="row">                  
@@ -70,7 +70,7 @@
     <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" hide-footer>
             <template v-slot:modal-title>
                     <h2 class="mb-0">Confirm Delete Application</h2>
-                    <p>Are you sure you want to delete your <b>{{currentApplication.type}}</b> application?</p>
+                    <p>Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</p>
             </template>
             <button type="button" class="btn btn-danger application-button" @click="confirmRemoveApplication()">Delete</button>         
             <button type="button" class="btn btn-primary application-button" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</button>
@@ -94,6 +94,7 @@ export default {
       ],
       confirmDelete: false,
       currentApplication: {},
+      applicationToDelete: {},
       applicationId: '',
       error: ''
     };
@@ -115,8 +116,10 @@ export default {
         console.log(err)
         this.error = err;        
       });
+
     },
-    beginApplication() {      
+    beginApplication() {   
+
       this.$store.dispatch("application/init");
       const application = store.getters["application/getApplication"];
       
@@ -141,24 +144,43 @@ export default {
         this.error = err;
       });
     },
+
     navigate() {
       
     },
-    resumeApplication(applicationId) {
-      // add application Id to store
-      this.$store.dispatch("application/setApplicationId", applicationId);
-      // navigate to application last step, load application data to view
-      // TODO: add GET call to store application information inside json
-      // const json = require("/home/marzieh/Desktop/test_state.json");
-      // console.log(json)
-      // this.$store.dispatch("application/setCurrentApplication", json);
-      this.$store.dispatch("common/setExistingApplication", true);      
 
-      this.$router.push({name: "flapp-surveys" })
-    },
-    removeApplication(application) {
+    resumeApplication(applicationId) {      
       
-      this.currentApplication = application;
+      this.$http.get('/app/'+ applicationId)
+      .then((response) => {
+        const applicationData = response.data
+        this.currentApplication.id = applicationId;
+        this.currentApplication.allCompleted = applicationData.all_completed;
+        this.currentApplication.applicantName = applicationData.applicant_name;
+        this.currentApplication.currentStep = applicationData.current_step;
+        this.currentApplication.lastUpdate = applicationData.last_updated;
+        this.currentApplication.lastPrinted = applicationData.last_printed;
+        this.currentApplication.respondentName = applicationData.respondent_name;
+        
+        this.currentApplication.type = applicationData.app_type;
+        this.currentApplication.userId = applicationData.user;
+        this.currentApplication.userName = applicationData.user_name;
+        this.currentApplication.userType = applicationData.user_type;
+        this.currentApplication.steps = applicationData.steps;
+        this.$store.dispatch("application/setCurrentApplication", this.currentApplication);
+        this.$store.dispatch("common/setExistingApplication", true);      
+
+        this.$router.push({name: "flapp-surveys" })        
+      }).catch((err) => {
+        //TODO: determine workflow
+        console.log(err)
+        this.error = err;        
+      });
+    },
+
+    removeApplication(application) {
+      console.log(application)
+      this.applicationToDelete = application;
       // perform relevant checks (TBD) and if the application can be deleted: open modal to confirm deletion
       this.confirmDelete=true;      
     },

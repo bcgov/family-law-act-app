@@ -6,9 +6,11 @@ import { mutations } from "./mutations";
 import { Module } from "vuex";
 
 export const state: ApplicationState = {
+  id: "",
   type: "",
   steps: new Array<Step>(),
   lastUpdate: null,
+  lastPrinted: null,
   currentStep: 1,
   allCompleted: false,
   userType: "",
