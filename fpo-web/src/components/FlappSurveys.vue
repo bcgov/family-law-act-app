@@ -46,8 +46,7 @@ export default {
   data() {
     return {};
   },
-  beforeCreate() {
-    this.$store.dispatch("application/init");
+  beforeCreate() {    
     surveyEnv.loadGlossary();
   },
   methods: {

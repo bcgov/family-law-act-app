@@ -66,6 +66,10 @@ services:
       - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL}
       - FPO_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
       - FPO_DB_SERVICE_PORT=5432
+      - EFILING_AUTH_URL=${EFILING_AUTH_URL}
+      - EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
+      - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
+      - FRONT_END=${FRONT_END}
     volumes:
       - ../fpo-api/api:/opt/app-root/src/api
     networks:

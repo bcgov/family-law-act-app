@@ -87,6 +87,9 @@
       stringData:
         oidc-rp-provider-endpoint: ${OIDC_RP_PROVIDER_ENDPOINT}
         oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
+        efiling-auth-url: ${EFILING_AUTH_URL}
+        efiling-client-id: ${EFILING_CLIENT_ID}
+        efiling-client-secret: ${EFILING_CLIENT_SECRET}
       type: Opaque
   
     - kind: DeploymentConfig
@@ -183,6 +186,21 @@
                         key: oidc-rp-client-secret
                   - name: OIDC_RP_KC_IDP_HINT
                     value: ${OIDC_RP_KC_IDP_HINT}
+                  - name: EFILING_AUTH_URL
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-auth-url
+                  - name: EFILING_CLIENT_ID
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-client-id
+                  - name: EFILING_CLIENT_SECRET
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-client-secret
 
                 resources:
                   requests:
@@ -273,6 +291,22 @@
       description: OIDC RP KeyCloak IDP Hint
       required: false
       value: idir
+
+    - name: EFILING_AUTH_URL
+      displayName: EFILING authentication url
+      description: EFILING authentication url
+      required: false
+      value:  
+    - name: EFILING_CLIENT_ID
+      displayName: EFILING Service Client Id
+      description: EFILING Service Client Id
+      required: false
+      value:
+    - name: EFILING_CLIENT_SECRET
+      displayName: EFILING Service Client Secret
+      description: EFILING Service Client Secret
+      required: false
+      value:
   
     - name: CPU_REQUEST
       displayName: Resources CPU Request

@@ -19,21 +19,18 @@
 
 from datetime import datetime
 import json
-import os
+import logging
 
-from django.http import JsonResponse, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.template.loader import get_template
-from django.views.decorators.csrf import csrf_exempt
 from django.middleware.csrf import get_token
+from api.auth import get_efiling_auth_token
 
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import status
 from rest_framework import permissions
-from rest_framework import mixins
 from rest_framework import generics
-from . import serializers
 
 from api.auth import (
     get_login_uri,
@@ -41,6 +38,8 @@ from api.auth import (
 )
 from api.models import User
 from api.pdf import render as render_pdf
+
+LOGGER = logging.getLogger(__name__)
 
 
 class AcceptTermsView(APIView):
@@ -82,26 +81,17 @@ class UserStatusView(APIView):
 
 class SurveyPdfView(generics.GenericAPIView):
     # FIXME - restore authentication?
-    permission_classes = () # permissions.IsAuthenticated,)
+    permission_classes = ()  # permissions.IsAuthenticated,)
 
     def post(self, request, name=None):
-        tpl_name = 'survey-{}.html'.format(name)
-        #return HttpResponseBadRequest('Unknown survey name')
+        data = request.data
+        name = request.query_params.get("name")
+        template = '{}.html'.format(name)
 
-        responses = json.loads(request.POST['data'])
-        # responses = {'question1': 'test value'}
+        template = get_template(template)
+        html_content = template.render(data)
 
-        template = get_template(tpl_name)
-        html_content = template.render(responses)
-
-        if name == 'primary':
-            instruct_template = get_template("instructions-primary.html")
-            instruct_html = instruct_template.render(responses)
-            docs = (instruct_html,) + (html_content,)*4
-            pdf_content = render_pdf(*docs)
-
-        else:
-            pdf_content = render_pdf(html_content)
+        pdf_content = render_pdf(html_content)
 
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
@@ -109,3 +99,12 @@ class SurveyPdfView(generics.GenericAPIView):
         response.write(pdf_content)
 
         return response
+
+
+class SubmitFormView(generics.GenericAPIView):
+    def get(self, request):
+        token_res = get_efiling_auth_token()
+        if token_res:
+            LOGGER.debug("Token response is %s", token_res['access_token'])
+            return Response({'Token': True})
+        return Response({'Token': False})

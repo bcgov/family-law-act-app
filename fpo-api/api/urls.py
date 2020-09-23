@@ -14,14 +14,13 @@
 import os
 import logging
 import sys
-from django.urls import path , include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls import url
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
-from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework_swagger import renderers
 
 # generated views
@@ -57,16 +56,14 @@ urlpatterns = [
         r"(?P<id>[a-zA-Z0-9_\-:]+)$",
         survey.SurveyResultView.as_view(),
     ),
-    url(
-        r"^survey-print/(?P<collection>[a-zA-Z0-9_\-:])/(?P<type>[a-zA-Z0-9_\-:]+)$",
-        views.SurveyPdfView.as_view(),
-    ),
-    url(r"^user-info$", views.UserStatusView.as_view()),
+    path("survey-print/", views.SurveyPdfView.as_view()),
+    path("user-info/", views.UserStatusView.as_view()),
+    path("submit-form/", views.SubmitFormView.as_view()),
 ]
 
 if settings.OIDC_ENABLED:
     urlpatterns.append(path("oidc/", include("oidc_rp.urls")))
-#urlpatterns = format_suffix_patterns(urlpatterns)
+# urlpatterns = format_suffix_patterns(urlpatterns)
 
 """
 Usually in our Docker/Production environment the API server and the WEB server

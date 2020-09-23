@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import posixpath
 
 # import logging.config
 
@@ -73,7 +72,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 ROOT_URLCONF = "fpo_api.urls"
 
-#CORS_URLS_REGEX = r"^/api/v1/.*$"
+# CORS_URLS_REGEX = r"^/api/v1/.*$"
 CORS_URLS_REGEX = r"^.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -215,7 +214,7 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_PROVIDER_USERINFO_ENDPOINT = (
         f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/userinfo"
     )
-    OIDC_RP_CLIENT_ID = os.getenv("OIDC_RP_CLIENT_ID", "vdf-api")
+    OIDC_RP_CLIENT_ID = os.getenv("OIDC_RP_CLIENT_ID", "fla-api")
     OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_RP_CLIENT_SECRET")
     OIDC_RP_PROVIDER_SIGNATURE_ALG = "RS256"
     OIDC_RP_SCOPES = "openid profile email"  # address phone
@@ -241,9 +240,12 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     )
 }
-FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
+#FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/") #______________DEVELOP
 LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
 # For development (when no SiteMinder available)
-#OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
+# OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
 
-#DEMO_LOGIN = True
+# DEMO_LOGIN = True
+EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
+EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
+EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")

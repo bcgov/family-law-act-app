@@ -65,6 +65,14 @@ To start the project run:
 
 This will start the project interactively; with all of the logs being written to the command line.  Press `Ctrl-C` to shut down the services from the same shell window.
 
+If you want to run the back-end in docker, during development of front-end; start the project by running:
+
+```
+./manage.sh start FRONT_END=dev
+```
+This will allow you to run the front-end on your local development environment and use the backend deployed through docker.
+
+
 ## Stopping the Project
 
 To stop the project run:
