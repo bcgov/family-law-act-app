@@ -93,13 +93,15 @@
           "name": "anotherAdultDOB",
           "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
           "title": "What is the Adult's date of birth?",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "comment",
           "name": "anotherAdultReasonForPO",
           "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultName} notempty",
-          "title": "Please explain why you are applying for {anotherAdultName}"
+          "title": "Please explain why you are applying for {anotherAdultName}",
+          "isRequired": true
          },
          {
           "type": "yesno",
@@ -121,13 +123,15 @@
           "name": "childDOB",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
           "title": "What is the child's date of birth?",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "childRelationship",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-          "title": "What is the child's relationship with {RespondentName}?"
+          "title": "What is the child's relationship with {RespondentName}?",
+          "isRequired": true
          },
          {
           "type": "helptext",
@@ -141,7 +145,8 @@
           "type": "yesno",
           "name": "anotherAdultSharingResi",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\"",
-          "title": "Is there another adult sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?"
+          "title": "Is there another adult sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?",
+          "isRequired": true
          },
          {
           "type": "helptext",
@@ -164,13 +169,15 @@
           "name": "anotheradultSharingResiDOB",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
           "title": "What is the date of birth of the adult sharing the residence with you? ",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "anotherAdultSharingResiRelation",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\" and {anotherAdultSharingResiName} notempty",
-          "title": "What is {anotherAdultSharingResiName} relationship to the protected person(s)?"
+          "title": "What is {anotherAdultSharingResiName} relationship to the protected person(s)?",
+          "isRequired": true
          }
         ],
         "visible": false,
@@ -301,6 +308,7 @@
          {
           "type": "yesno",
           "name": "ExistingOrders",
+          "isRequired": true,
           "title": "Has any court ever made an `order` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
           "description": "An order can be made in any court in any place, including the Supreme Court or Criminal Court."
          },
@@ -460,7 +468,8 @@
           "type": "yesno",
           "name": "ExistingWrittenAgreements",
           "title": "Are there any other `written agreements` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
-          "description": "For example, a separation agreement or a mediation agreement."
+          "description": "For example, a separation agreement or a mediation agreement.",
+          "isRequired": true
          },
          {
           "type": "infotext",

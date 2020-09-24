@@ -32,18 +32,21 @@
           "name": "liveTogetherPODate",
           "visibleIf": "{werePOPartiesMarried} = \"y\"",
           "title": " Date on which the parties began to live together in a marriage-like relationship",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "dateOfMarriagePO",
           "visibleIf": "{werePOPartiesMarried} = \"y\"",
           "title": "Date of marriage",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "radiogroup",
           "name": "isSeperatedPO",
+          "isRequired": true,
           "title": "Are the protected party and the other party currently separated",
           "description": "Spouses may be separated while continuing to live in the same residence",
           "choices": [
@@ -72,6 +75,7 @@
          {
           "type": "radiogroup",
           "name": "planningToSeparatePO",
+          "isRequired": true,
           "visibleIf": "{isSeperatedPO} = 'No'",
           "title": "Are the protected party and the other party planning to separate?",
           "choices": [
@@ -126,11 +130,13 @@
           "name": "listOfOrders",
           "visibleIf": "{existingPOOrders} = 'y'",
           "title": "List them here",
+          "isRequired": true,
           "description": "Please attach a copy of the order(s) to your application for filing."
          },
          {
           "type": "radiogroup",
           "name": "otherPartyDisobeyOrder",
+          "isRequired": true,
           "title": "Has the other party ever failed to obey a court order?",
           "choices": [
            {
