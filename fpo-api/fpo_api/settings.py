@@ -214,7 +214,7 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_PROVIDER_USERINFO_ENDPOINT = (
         f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/userinfo"
     )
-    OIDC_RP_CLIENT_ID = os.getenv("OIDC_RP_CLIENT_ID", "fpo-api")
+    OIDC_RP_CLIENT_ID = os.getenv("OIDC_RP_CLIENT_ID", "fla-api")
     OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_RP_CLIENT_SECRET")
     OIDC_RP_PROVIDER_SIGNATURE_ALG = "RS256"
     OIDC_RP_SCOPES = "openid profile email"  # address phone
@@ -240,7 +240,7 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     )
 }
-FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
+#FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/") #______________DEVELOP
 LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
 # For development (when no SiteMinder available)
 # OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
@@ -249,3 +249,4 @@ LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
 EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
 EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
 EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")
+EFILING_BASE_URL = os.environ.get("EFILING_BASE_URL", "")

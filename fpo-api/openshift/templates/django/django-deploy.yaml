@@ -90,6 +90,7 @@
         efiling-auth-url: ${EFILING_AUTH_URL}
         efiling-client-id: ${EFILING_CLIENT_ID}
         efiling-client-secret: ${EFILING_CLIENT_SECRET}
+        efiling-base-url: ${EFILING_BASE_URL}
       type: Opaque
   
     - kind: DeploymentConfig
@@ -201,6 +202,11 @@
                       secretKeyRef:
                         name: ${NAME}
                         key: efiling-client-secret
+                  - name: EFILING_BASE_URL
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: efiling-base-url
 
                 resources:
                   requests:
@@ -295,16 +301,21 @@
     - name: EFILING_AUTH_URL
       displayName: EFILING authentication url
       description: EFILING authentication url
-      required: true
+      required: false
       value:  
     - name: EFILING_CLIENT_ID
       displayName: EFILING Service Client Id
       description: EFILING Service Client Id
-      required: true
+      required: false
       value:
     - name: EFILING_CLIENT_SECRET
       displayName: EFILING Service Client Secret
       description: EFILING Service Client Secret
+      required: false
+      value:
+    - name: EFILING_BASE_URL
+      displayName: EFILING base url
+      description: EFILING base url
       required: true
       value:
   
