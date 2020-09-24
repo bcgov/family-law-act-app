@@ -24,6 +24,7 @@ export default {
   name: "PageBase",
   data() {
     return {
+      error: ""
     };
   },
   props: {
@@ -72,13 +73,28 @@ export default {
     isDisableNext: function() {
       return this.disableNext;
     },
-    saveChanges: function() {
-      console.log("saving changes - update - PUT")
-      const application = this.$store.getters["application/getApplication"]
-      if (application.id.length>0) {
-        const applicationId = application.id;
-        this.$store.dispatch("common/updateApplication", {applicationId, application});
-      }    
+    saveChanges: function() {      
+      const application = this.$store.getters["application/getApplication"]      
+      const applicationId = application.id;
+
+      this.$http.put(
+        "/app/"+ applicationId + "/",
+        application,
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      )
+      .then(res => {
+        console.log(res.data); 
+        this.error = "";
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });        
     }
   },
 };

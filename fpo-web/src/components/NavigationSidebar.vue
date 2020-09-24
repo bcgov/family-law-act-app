@@ -164,13 +164,29 @@ export default {
       return step.type=='print';
     },
     saveChanges: function() {
-      console.log("saving changes - update - PUT - from sidebar")
-      const application = this.$store.getters["application/getApplication"]
-      if (application.id.length>0) {
-        const applicationId = application.id;
-        this.$store.dispatch("common/updateApplication", {applicationId, application});
-      }    
-    }
+      const application = this.$store.getters["application/getApplication"]      
+      const applicationId = application.id;
+
+      this.$http.put(
+        "/app/"+ applicationId + "/",
+        application,
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      )
+      .then(res => {
+        console.log(res.data); 
+        this.error = "";
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });        
+    }    
+    
   },
   props: {},
 };

@@ -50,14 +50,12 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      if (this.form.selected) {
-        
+      if (this.form.selected) {        
         this.$store.dispatch("application/init");
         const application = store.getters["application/getApplication"];
-      
+        console.log(JSON.stringify(application))
         this.$http.post(
-          "/app/",
-          application,
+          "/app/", application,
           {
             responseType: "json",
             headers: {

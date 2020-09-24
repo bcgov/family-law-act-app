@@ -7,7 +7,7 @@
           <h1>Previous Applications</h1>
           <hr class="bg-light" style="height: 2px;"/>
 
-          <b-card no-body v-if="!previousApplications.length">
+          <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
                 <span class="text-muted ml-4 mb-5">No previous applications.</span>
           </b-card>
 
@@ -21,7 +21,7 @@
                       responsive="sm"
                       >
                   <template v-slot:cell(edit)="row">
-                    <b-button size="sm" variant="transparent" @click="removeApplication(row.item)">
+                    <b-button size="sm" variant="transparent" @click="removeApplication(row.item, row.index)">
                       <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
                     </b-button>
                     <b-button size="sm" variant="transparent" @click="resumeApplication(row.item.id)">
@@ -97,6 +97,7 @@ export default {
       confirmDelete: false,
       currentApplication: {},
       applicationToDelete: {},
+      indexToDelete: -1, 
       applicationId: '',
       error: ''
     };
@@ -124,7 +125,7 @@ export default {
 
       this.$store.dispatch("application/init");
       const application = store.getters["application/getApplication"];
-      
+      console.log(application)
       this.$http.post(
         "/app/",
         application,
@@ -156,6 +157,7 @@ export default {
       this.$http.get('/app/'+ applicationId)
       .then((response) => {
         const applicationData = response.data
+
         this.currentApplication.id = applicationId;
         this.currentApplication.allCompleted = applicationData.all_completed;
         this.currentApplication.applicantName = applicationData.applicant_name;
@@ -180,29 +182,32 @@ export default {
       });
     },
 
-    removeApplication(application) {
+    removeApplication(application, index) {
       console.log(application)
       this.applicationToDelete = application;
-      // perform relevant checks (TBD) and if the application can be deleted: open modal to confirm deletion
-      this.confirmDelete=true;      
+      this.indexToDelete = index;
+      // TODO: confirm the checks to put in place in order to determine if the application can be deleted: open modal to confirm deletion
+      this.confirmDelete=true;
+      this.previousApplications      
     },
     confirmRemoveApplication() {
-      
-      // perform DELETE request to delete currentApplication.id
-            
+      this.$http.delete('/app/'+ this.applicationToDelete.id)
+      .then((response) => {
+        console.log(response.data)
+        
+      }).catch((err) => {
+        //TODO: determine workflow
+        console.log(err)
+        this.error = err;        
+      });
+      this.confirmDelete=false;
+      this.previousApplications.splice(this.indexToDelete, 1);      
     }
 
   },
   beforeCreate() {
     const Survey = SurveyVue;
     surveyEnv.setCss(Survey);
-  },
-  created() {
-    // To be fetched from db
-    this.previousApplications.push(
-      {id: 0, type:"sample saved-1"},
-      {id: 1, type:"sample saved-2"}
-    );
   }
 };
 </script>
