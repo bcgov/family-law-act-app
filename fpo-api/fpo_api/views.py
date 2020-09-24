@@ -1,19 +1,9 @@
-
-import json
-import os
-
 from django.http import HttpResponse
-from django.template.loader import get_template
-
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from api.auth import get_login_uri, get_logout_uri
+from django.conf import settings
 from api.models.User import User
 
-
-from api.pdf import render as render_pdf
-
-
-# Just for testing
-from django.views.decorators.csrf import csrf_exempt
 
 def health(request):
     """
@@ -21,28 +11,15 @@ def health(request):
     """
     return HttpResponse(User.objects.count())
 
-"""
-  End point for all forms.
-"""
-@csrf_exempt
-def form(request):
-    """
-    request.method  -> Look for POST
-    request.GET['name'] -> Care about params????
-    request.POST['data'] -> Here is the data
-    """
-    data = json.loads(request.body)
-    name = request.GET['name']
-    template = '{}.html'.format(name)
 
-    template = get_template(template)
-    html_content = template.render(data)
+def login(request):
 
-    pdf_content = render_pdf(html_content)
+    """ Check if we are already logged in. If we are don't redirect to SSO. """
+    logged_in = isinstance(request.user, User)
+    if logged_in:
+        return HttpResponseRedirect(settings.FORCE_SCRIPT_NAME)
+    return HttpResponseRedirect(get_login_uri(request, next=request.GET["next"]))
 
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
-    response.write(pdf_content)
-
-    return response
+def logout(request):
+    return HttpResponseRedirect(get_logout_uri(request))

@@ -7,6 +7,7 @@ services:
     image: fpo-vue-on-nginx
     environment:
       - API_URL=${API_URL}
+      - WEB_BASE_HREF=${WEB_BASE_HREF}
       - IpFilterRules=${IpFilterRules}
       - RealIpFrom=${RealIpFrom}
     networks:
@@ -20,6 +21,7 @@ services:
     image: fpo-vue-dev
     environment:
       - API_URL=${API_URL}
+      - WEB_BASE_HREF=${WEB_BASE_HREF}
       - DEV_MODE=false
       - NODE_ENV=development
       - NPM_CONFIG_LOGLEVEL=notice
@@ -64,6 +66,11 @@ services:
       - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL}
       - FPO_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
       - FPO_DB_SERVICE_PORT=5432
+      - EFILING_AUTH_URL=${EFILING_AUTH_URL}
+      - EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
+      - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
+      - EFILING_BASE_URL=${EFILING_BASE_URL}
+      - FRONT_END=${FRONT_END}
     volumes:
       - ../fpo-api/api:/opt/app-root/src/api
     networks:

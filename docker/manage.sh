@@ -193,10 +193,16 @@ configureEnvironment () {
   export DJANGO_SECRET_KEY=wpn1GZrouOryH2FshRrpVHcEhMfMLtmTWMC2K5Vhx8MAi74H5y
   export DJANGO_DEBUG=True
   export DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL-INFO}
-
+  export EFILING_AUTH_URL=${EFILING_AUTH_URL}
+  export EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
+  export EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
+  export EFILING_BASE_URL=${EFILING_BASE_URL}
+  export FRONT_END=${FRONT_END-prod}
+  
   # fpo-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
-  export API_URL=${API_URL-http://fpo-api:8080/api/v1/}
+  export API_URL=${API_URL-http://fpo-api:8080/api}
+  export WEB_BASE_HREF=${WEB_BASE_HREF:-/family-law-act/}
   export IpFilterRules='#allow all; deny all;'
   export RealIpFrom='127.0.0.0/16'
 }

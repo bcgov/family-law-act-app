@@ -27,15 +27,15 @@
             "text": "Residence"
            },
            {
-            "value": "Workplace",
+            "value": "School",
             "text": "School"
            },
            {
-            "value": "School",
+            "value": "Workplace",
             "text": "Place of Employment"
            },
            {
-            "value": "Place of Worship",
+            "value": "ChildCareFacility",
             "text": "Child care facility"
            }
           ]

@@ -1,19 +1,19 @@
 <template>
   <step-base v-bind:step="step">
-    <print-application v-bind:step="step" v-if="step.currentPage == 0"></print-application>
+    <submit-application v-bind:step="step" v-if="step.currentPage == 0"></submit-application>
   </step-base>
 </template>
 
 <script>
 import StepBase from "../StepBase.vue";
 import { Step } from "@/models/step";
-import PrintApplication from "./PrintApplication.vue";
+import SubmitApplication from "./SubmitApplication.vue";
 
 export default {
-  name: "print",
+  name: "submit",
   components: {
     StepBase,
-    PrintApplication
+    SubmitApplication
   },
   data() {
     return {

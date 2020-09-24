@@ -13,11 +13,6 @@
           Next <span class="fa fa-chevron-right btn-icon-right"></span> 
         </button>
       </div>
-      <!-- <div v-if="canComplete()" class="survey-nav-right">
-        <button v-on:click="onComplete()" class="btn btn-success btn-lg">
-          <span class="fa fa-check-circle btn-icon-left"></span> Complete
-        </button>
-      </div> -->
     </div>
   </div>
 </template>
@@ -38,6 +33,7 @@ export default {
   },
   methods: {
     onPrev: function(event) {
+      this.saveChanges();
       if (this.$listeners && this.$listeners.onPrev) {
         this.$emit('onPrev');
       } else {
@@ -47,6 +43,7 @@ export default {
     },
     onNext: function(event) {
       if (!this.isDisableNext()) {
+        this.saveChanges();
         if (this.$listeners && this.$listeners.onNext) {  
             this.$emit('onNext');
         } else {
@@ -74,6 +71,14 @@ export default {
     },
     isDisableNext: function() {
       return this.disableNext;
+    },
+    saveChanges: function() {
+      console.log("saving changes - update - PUT")
+      const application = this.$store.getters["application/getApplication"]
+      if (application.id.length>0) {
+        const applicationId = application.id;
+        this.$store.dispatch("common/updateApplication", {applicationId, application});
+      }    
     }
   },
 };

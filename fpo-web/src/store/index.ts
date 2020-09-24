@@ -1,5 +1,6 @@
 import { RootState } from "@/models/storeState";
 import { application } from "@/store/modules/application/application";
+import { common } from "@/store/modules/common/common";
 import Vue from "vue";
 import Vuex, { Store, StoreOptions } from "vuex";
 
@@ -15,6 +16,7 @@ class GlobalStore extends Store<RootState> {
       },
       modules: {
         application,
+        common
       },
     };
 
