@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import * as SurveyVue from "survey-vue";
+import * as surveyEnv from "@/components/survey-glossary.ts";
 import GlobalStore from "@/store";
 
 export default {
