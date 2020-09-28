@@ -15,6 +15,11 @@ class Application(models.Model):
     user_name = models.CharField(max_length=100, default="", blank=True)
     applicant_name = JSONBField(blank=True, null=True)
     respondent_name = models.CharField(max_length=100, default="", blank=True)
+
+    # encryption key identifier
+    key_id = models.CharField(max_length=32, blank=True, null=True)
+
+    # stored encrypted when key_id is set
     steps = JSONBField(default=list, null=True, blank=True)
 
     user = models.ForeignKey(

@@ -22,6 +22,8 @@ from django.utils import timezone
 from rest_framework import status
 import logging
 from django.http import Http404
+from django.conf import settings
+from api.models import PreparedPdf
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.template.loader import get_template
@@ -96,6 +98,11 @@ class SurveyPdfView(generics.GenericAPIView):
         html_content = template.render(data)
 
         pdf_content = render_pdf(html_content)
+        pdf_response = None
+        if pdf_content:
+            (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
+            pdf_response = PreparedPdf(data=pdf_content_enc, key_id=pdf_key_id)
+            pdf_response.save()
 
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'

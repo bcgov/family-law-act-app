@@ -197,6 +197,7 @@ configureEnvironment () {
   export EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
   export EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
   export FRONT_END=${FRONT_END-prod}
+  export DATA_SECURITY_KEY=${DATA_SECURITY_KEY}
 
   # fpo-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
