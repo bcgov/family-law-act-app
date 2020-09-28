@@ -19,6 +19,7 @@
 
 <script>
 import { Page } from "../../models/page";
+import {Component, Vue} from "vue-property-decorator"
 
 export default {
   name: "PageBase",
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     onPrev: function(event) {
-      this.saveChanges();
+      Vue.nextTick().then(()=>{this.saveChanges();});      
       if (this.$listeners && this.$listeners.onPrev) {
         this.$emit('onPrev');
       } else {
@@ -44,7 +45,7 @@ export default {
     },
     onNext: function(event) {
       if (!this.isDisableNext()) {
-        this.saveChanges();
+        Vue.nextTick().then(()=>{this.saveChanges();});
         if (this.$listeners && this.$listeners.onNext) {  
             this.$emit('onNext');
         } else {
@@ -73,28 +74,27 @@ export default {
     isDisableNext: function() {
       return this.disableNext;
     },
-    saveChanges: function() {      
-      const application = this.$store.getters["application/getApplication"]      
-      const applicationId = application.id;
-
-      this.$http.put(
-        "/app/"+ applicationId + "/",
-        application,
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
+    saveChanges: function() { 
+        const application = this.$store.getters["application/getApplication"]      
+        const applicationId = application.id;
+        this.$http.put(
+          "/app/"+ applicationId + "/",
+          application,
+          {
+            responseType: "json",
+            headers: {
+              "Content-Type": "application/json",
+            }
           }
-        }
-      )
-      .then(res => {
-        console.log(res.data); 
-        this.error = "";
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;
-      });        
+        )
+        .then(res => {
+          console.log(res.data); 
+          this.error = "";
+        })
+        .catch(err => {
+          console.error(err);
+          this.error = err;
+        });        
     }
   },
 };

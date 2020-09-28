@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import {Component, Vue} from "vue-property-decorator";
+
 export default {
   data() {
     return {};
@@ -89,15 +91,19 @@ export default {
       )
       .then(res => {
         console.log(res.data); 
-        this.error = "";
+        this.error = "";      
       })
       .catch(err => {
         console.error(err);
-        this.error = err;
-      });        
+        this.error = err;      
+      }); 
+       
+      Vue.nextTick().then(() => { 
+        this.$store.dispatch("application/init");
+        window.location.replace("https://www.google.ca");
+      });       
           
-      this.$store.dispatch("application/init");
-      window.location.replace("https://www.google.ca");      
+      
     }
   }  
 };

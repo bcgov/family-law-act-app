@@ -97,7 +97,7 @@ export default {
 
       //TODO: set the lastUpdate value
       this.$store.dispatch("application/setCurrentStep", nextIndex);
-      this.saveChanges();
+      Vue.nextTick().then(()=>{this.saveChanges();});
     },
     //TODO: This is where the step is selected
     onSelectPage: function(event) {
@@ -124,7 +124,7 @@ export default {
         currentStep: currStepIndex,
         currentPage: nextPageIndex,
       });
-      this.saveChanges();
+      Vue.nextTick().then(()=>{this.saveChanges();});
 
     },
     getNavigation: function() {
