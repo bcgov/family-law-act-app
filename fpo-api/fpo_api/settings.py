@@ -224,7 +224,7 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_AUTHENTICATION_REDIRECT_URI = (
         os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", "/family-law-act/")
     )
-    OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT", "bceid")
+    OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT")
 
     DRF_AUTH_CLASS = (
         "oidc_rp.contrib.rest_framework.authentication.BearerTokenAuthentication"
