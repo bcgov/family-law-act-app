@@ -24,6 +24,8 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
    }
 });
+// Redirect to /family-law-act/
+history.pushState({page: "home"}, "", "/family-law-act/")
 
 new Vue({
   router: router,
