@@ -18,78 +18,28 @@
 """
 from rest_framework import serializers
 
-from api.models import SurveyResult, User, Application, Step, Page
+from api.models import SurveyResult, User, Application
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["first_name", "last_name"]
+        fields = ["id"]
 
 
-class PageLookupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Page
-        fields = [
-            "key",
-            "label",
-            "active",
-            "progress"
-            ]
-
-
-class StepLookupSerializer(serializers.ModelSerializer):
-    pages = PageLookupSerializer(read_only=True, many=True)
-
-    class Meta:
-        model = Step
-        fields = [
-            "result",
-            "pages",
-            "active",
-            "s_id",
-            "label",
-            "icon",
-            "last_updated",
-            "step_type",
-            "current_page"
-            ]
-
-
-class ApplicationLookupSerializer(serializers.ModelSerializer):
-    steps = StepLookupSerializer(read_only=True, many=True)
+class ApplicationListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Application
         fields = [
+            "id",
             "app_type",
-            "steps",
-            "last_updated",
-            "current_step",
-            "all_completed",
-            "user_type",
-            "user_name",
-            "applicant_name",
-            "respondent_name"
+            "last_updated"
         ]
 
 
-class PageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Page
-        fields = "__all__"
-
-
-class StepSerializer(serializers.ModelSerializer):
-    pages = PageSerializer(many=True)
-
-    class Meta:
-        model = Step
-        fields = "__all__"
-
-
 class ApplicationSerializer(serializers.ModelSerializer):
-    steps = StepLookupSerializer(many=True, required=False)
+    app_user_Id = UserSerializer(many=True, required=False)
 
     class Meta:
         model = Application
