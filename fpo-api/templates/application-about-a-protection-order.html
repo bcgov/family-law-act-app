@@ -60,6 +60,10 @@
       border-bottom: 0.5px solid #000;
       margin-bottom: .5em;
     }
+    .brdr-rgt{
+      border-right: 0.5px solid #000;
+      width: 70px;
+    }
 
     .section{
         padding-top: .75em;
@@ -82,7 +86,7 @@
     span{display: block;}
 
     label{
-        font-size: .5em;
+        font-size: .6em;
         text-transform: uppercase;
         margin: .5em 0 0;
         padding: 0;
@@ -126,9 +130,9 @@
     .box-header{
         position: relative;
         top: 0;
-        right: 10rem;
-        width: 70%;
-        height: 5.3em;
+        right: 11rem;
+        width: 100%;
+        height: 3.2em;
         border: 0.5px solid #000;
         display: inline-block;
         z-index: 10;
@@ -165,8 +169,8 @@
       }
       section.question {
         margin-bottom: 0.5rem;
-      }
-
+        margin-top: 1rem;
+      } 
       section.question:before {
         font-weight: bolder;
         counter-increment: question-counter;
@@ -187,6 +191,67 @@
       section.question span.sub-selection-desc {
         margin-left: 1.6rem;
       }
+      section.question div.sub-selection-answer
+      {
+        display: inline-block;
+        text-indent: -2px;               
+        margin: 0.5rem 1rem 2rem 1.5rem;
+        width: 97%;
+        font-size: 1.2em;
+      }
+
+      section.questionindent {
+        text-indent: -15px;
+        text-align: justify;
+        text-justify: inter-word;
+        
+        margin: 1.0rem 0.5rem 0.5rem 1rem;
+      }
+      section.questionindent:before {
+        font-weight: bolder;
+        counter-increment: question-counter;
+        content:counter(question-counter) ".";
+      }
+      section.questionindent div.sub-selections-desc {
+        font-style: italic;
+        margin-left: 1.2rem;
+      }
+      section.questionindent div.sub-selections {
+        margin: 0.2rem 1rem;
+      }
+      section.questionindent div.sub-selection {
+        margin: 0.2rem;
+      }
+      section.questionindent span.sub-selection-desc {
+        margin-left: 2.7rem;
+      }
+      section.questionindent span.sub-selection-desc-indent {
+        display: inline-block;
+        text-indent: -2px;        
+        font-style: italic;
+        margin-left: 2.7rem;
+        width: 97%;
+      }
+      section.questionindent span.sub-selection-answer
+      {
+        display: inline-block;
+        text-indent: -2px;               
+        margin: 0.5rem 1rem 2rem 2.7rem;
+        width: 97%;
+        font-size: 1.2em;
+      }
+      section.questionindent span.check{
+      position: absolute;
+      border: 1px solid #000!important;
+      width: 1em;
+      margin: 0.1em;
+      height: 1em;
+      font-size: 1.2em;
+      text-indent: 1px;
+    }
+
+
+
       .reg-use {
         margin: 2rem 0 2rem 0;
       }
@@ -231,7 +296,13 @@
         margin: 0;
       }
       .sub-header {
-        margin: 1rem 0 0.7rem 0;
+        display: inline-block;
+        text-align: justify;
+        text-justify: inter-word;
+        
+        font-style: italic;        
+        width: 97%;
+        margin: 1rem 0 0.7rem 0; */
       }
 
       /********************************************************/
@@ -287,14 +358,20 @@
       #sched1-name2 {
         min-width: 12rem;
       }
+      #sched1-name3 {
+        min-width: 15rem;
+      }
+      #sched1-name4 {
+        min-width: 6rem;
+      }
       #sched1-other-name1 {
         min-width: 12rem;
       }
       #sched1-occupation {
-        min-width: 8rem;
+        min-width: 6rem;
       }
       #sched1-address {
-        min-width: 16rem;
+        min-width: 18.8rem;
       }
       /********************************************************/
 
@@ -309,6 +386,17 @@
         counter-reset: question-counter;
       }
 
+      .small-italic
+      {
+        font-size: 9px;
+        font-style: italic;
+        font-weight: normal;
+      }
+
+      .ml-1
+      {
+        margin-left: 1.2rem;
+      }
 
       table.border-all {
         border: 0.5px solid #000;
@@ -331,9 +419,12 @@
         min-height: 1rem;
       }
       table.sched1-child-table tr :first-child {
-        width: 45%;
+        width: 35%;
       }
       table.sched1-child-table tr :nth-child(2) {
+        width: 18%;
+      }
+      table.sched1-child-table tr :nth-child(3) {
         width: 20%;
       }
 
@@ -356,6 +447,9 @@
       }
 
       .v-spacer-1 {
+        min-height: 1rem;
+      }
+      .v-spacer-2 {
         min-height: 1rem;
       }
       .v-spacer-3 {
@@ -395,12 +489,12 @@
         <tbody>
         <tr>
           <td>
-            <h1>Application About A Protection Order
+            <h1>Application About A Protection Order              
               <span class="sub-heading">
-                Provincial Court (Family) Rules
+                <b>FORM K</b>
               </span>
               <span class="sub-heading">
-                Early Resolution and Case Management Registry
+                Provincial Court (Family) Rules
               </span>
             </h1>
           </td>
@@ -416,17 +510,23 @@
           <table width="100%;">
             <tbody>
             <tr class="brdr-btm">
-              <td>
+              <td class="brdr-rgt">
                 <label>Registry Location:</label>
-                <div class="content">&nbsp;{{ X }}</div>
+              </td>
+              <td style="width: 100px;">
+              {% if protectionWhomSurvey.ExistingFamilyCase == 'y' %}
+                <div class="content">&nbsp;{{ protectionWhomSurvey.ExistingCourt }}</div>
+              {% endif %}
               </td>
             </tr>
             <tr>
-              <td>
+              <td class="brdr-rgt">
                 <label>Court File Number:</label>
-                {% if protectionWhomSurvey.ExistingFamilyCase == 'y' %}
+              </td>
+              <td style="width: 100px;">
+              {% if protectionWhomSurvey.ExistingFamilyCase == 'y' %}
                 <div class="content">&nbsp;{{ protectionWhomSurvey.ExistingFileNumber }}</div>
-                {% endif %}
+              {% endif %}
               </td>
             </tr>
             </tbody>
@@ -446,27 +546,21 @@
       <div class="form-line">My name is </div>
       <div class="form-line">
         <div class="form-line-child fill"> {{yourInformationSurvey.ApplicantName.first}} {{yourInformationSurvey.ApplicantName.middle}} {{yourInformationSurvey.ApplicantName.last}}</div>
-        <div id="sched1-name1" class="form-line-child underline"></div>
+        <div id="sched1-name3" class="form-line-child underline"></div>
         <div class="form-line-child hint">full name of party</div>
       </div>
-      <div class="form-line">. </div>
-      <div class="form-line" style="margin-top: 0.3rem">
-        My contact information and address for delivery of court documents by the other party and the Court is:
+      <div class="form-line">. My date of birth is </div>
+      <div class="form-line">
+        <div class="form-line-child fill"> {{yourInformationSurvey.ApplicantDOB|custom_date:"M d Y"}} </div>
+        <div id="sched1-name4" class="form-line-child underline"></div>
+        <div class="form-line-child hint">date of birth</div>
+      </div>
+      <div class="form-line">. My contact information and</div>
+      <div class="form-line" style="margin: 0.3rem 0 0 0.95rem ">
+        address for service of court documents by the other party and the court are:
       </div>
       
       <table class="bordered border-rows">
-        <tr > 
-        {% if yourInformationSurvey.ApplicantName.middle %}         
-          <td>Full Name: {{yourInformationSurvey.ApplicantName.first}}, {{yourInformationSurvey.ApplicantName.middle}}, {{yourInformationSurvey.ApplicantName.last}} </td>
-        {% else %}
-          <td>Full Name: {{yourInformationSurvey.ApplicantName.first}}, {{yourInformationSurvey.ApplicantName.last}} </td>
-        {% endif %}
-          <td></td>
-          <td>Date of Birth: {{yourInformationSurvey.ApplicantDOB|custom_date:"M d Y"}}</td>
-        </tr>
-        <tr>
-          <td colspan="3"><b>Contact information and address for delivery</b></td>
-        </tr>
         <tr>
           <td colspan="3">Lawyer (if applicable): {{info.lawyername.first}} {{info.lawyername.middle}} {{info.lawyername.last}}</td>
         </tr>
@@ -480,7 +574,8 @@
         </tr>
         <tr>
           <td>Email: {{info.contact.email}} </td>
-          <td colspan="2" style="padding-left:150px">Telephone: {{info.contact.phone}} </td>
+          <td style="padding-left:50px"></td>
+          <td>Telephone: {{info.contact.phone}} </td>
         </tr>
       </table>
 
@@ -490,28 +585,20 @@
 
 
     <!-- Question 2 -->
-    <section class="question">
-      <span class="check">&#10003;</span>
-      <span class="text-after-check">I understand I need to give notice to the person I want protection from, or who has made an application for protection from me. This person is the other party. To give notice, they must be served with the application and supporting materials at least 7 days before the date and time of the hearing unless the application is made without notice or with less then 7 days notice.</span>
+    <section class="questionindent" >
+      The person I want protection from, or who had made an application for protection from me, is the other party. An application is usually made with notice to the other party. To give notice, they must be served with the application and supporting documents before the date set for the court appearance. An Application About a Protection Order can also be made without notice to the other party.     
+    
       <div class="sub-selections">
         <div class="sub-selections-desc">
           Select only one of the options below
         </div>
         <div class="sub-selection">
-        {% if urgencySurvey.PORSpeedUp == "n" and urgencySurvey.PORNoNotice == "n" %}
+        {% if urgencySurvey.PORNoNotice == "n" %}
           <span class="check">&#10003</span>
         {% else %}
           <span class="check"></span>
         {% endif %}
-          <span class="sub-selection-desc">I am making this application with at least 7 days notice to the other party.</span>
-        </div>
-        <div class="sub-selection">
-        {% if urgencySurvey.PORSpeedUp == "y" and urgencySurvey.PORNoNotice == "n" %}
-          <span class="check">&#10003</span>
-        {% else %}
-          <span class="check"></span>
-        {% endif %}
-          <span class="sub-selection-desc">I am making this application without notice to the other party and I have completed an Application for Case Management Order Without Notice or Appearance requesting this application be heard without notice to the other party.</span>
+          <span class="sub-selection-desc">I am applying with notice to the other party.</span>
         </div>
         <div class="sub-selection">
         {% if urgencySurvey.PORNoNotice == "y" %}
@@ -519,8 +606,18 @@
         {% else %}
           <span class="check"></span>
         {% endif %}
-          <span class="sub-selection-desc">I am making this application with less than 7 days notice to the other party and I have completed an Application for Case Management Order Without Notice or Appearance requesting this application be heard with less than 7 days notice to the other party.</span>
+          <span class="sub-selection-desc">I want to apply without notice to the other party because:</span>
         </div>
+        <div class="sub-selection">        
+          <span class="sub-selection-desc-indent">Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</span>
+        </div>
+        <div class="sub-selection">
+        {% if urgencySurvey.PORNoNotice == "y" and urgencySurvey.PORWhyNoNotice %}
+          <span class="sub-selection-answer"> {{urgencySurvey.PORWhyNoNotice}} </span>
+        {% else %}
+        </div>
+        <div class="v-spacer-2"></div>
+      {% endif %}
       </div>
     </section>
 
@@ -534,25 +631,26 @@
     
     {% get_other_party_info selectedPOOrder protectionWhomSurvey otherPartySurvey as otherpartyinfo %}
     {% for info in otherpartyinfo %}
+      {% if forloop.counter > 1 %}
+      <div class="form-line" style="margin-left: 0.95rem">The other party's name is </div>
+      {% else %}
       <div class="form-line">The other party's name is </div>
+      {% endif %}
       <div class="form-line">
         <div class="form-line-child fill"> {{info.name.first}} {{info.name.middle}} {{info.name.last}}</div>
-        <div id="sched1-other-name1" class="form-line-child underline"></div>
-        <div class="form-line-child hint">full name of party</div>
+        <div id="sched1-name3" class="form-line-child underline"></div>
+        <div class="form-line-child hint">full name of the other party</div>
       </div>
-      <div class="form-line" style="margin-bottom: 0.3rem">.</div>
-      <div class="form-line">Their contact information, as I know it, is:</div>
-
-
+      <div class="form-line">. Their date of birth is </div>
+      <div class="form-line">
+        <div class="form-line-child fill"> {{info.DOB|custom_date:"M d Y"}} </div>
+        <div id="sched1-name4" class="form-line-child underline"></div>
+        <div class="form-line-child hint">date of birth</div>
+      </div>
+      <div class="form-line">. Their contact</div>
+      <div class="form-line" style="margin: 0.3rem 0 0 0.95rem ">information, as I know it, is:</div>
+      
       <table class="bordered border-rows">
-        <tr >
-          <td>Full Name: {{info.name.first}} {{info.name.middle}} {{info.name.last}} </td>
-          <td></td>
-          <td>Date of Birth: {{info.DOB|custom_date:"M d Y"}}</td>
-        </tr>
-        <tr>
-          <td colspan="3"><b>Contact information</b></td>
-        </tr>
         <tr>
           <td colspan="3">Lawyer (if applicable): {{X}} </td>
         </tr>
@@ -566,16 +664,18 @@
         </tr>
         <tr>
           <td>Email: {{info.contact.email}} </td>
-          <td colspan="2" style="padding-left:150px">Telephone: {{info.contact.phone}} </td>
+          <td style="padding-left:50px"></td>
+          <td>Telephone: {{info.contact.phone}} </td>
         </tr>
       </table>
+      <div class="v-spacer-1"></div>
       {% endfor %}
 
     </section>
 
 
     <!-- Question 4 -->
-    <section class="question">
+    <section class="question" style="margin-top: -0.75rem; margin-bottom: -0.75rem;">
       <span>I am applying for the following order.</span>
       <div class="sub-selections">
         <div class="sub-selections-desc">
@@ -637,7 +737,7 @@
       </div>
     </div>
 
-    <div><b>NOTICE TO THE OTHER PARTY: If you do not appear in court on the date and time above, the Court may make an order in your absence.</b></div>
+    <div style="margin-top: -1rem;"> <b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
 
  <!-- PAGE TWO -->
 
@@ -645,17 +745,17 @@
 
   <div class="new-page"> </div>
   <div class="schedule-header">
-    <h4>Schedule 1 - Protection Order</h4>
+    <h4>SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</h4>
     <h4>This is Schedule 1 to the Application about a Protection Order</h4>
   </div>
   <div class="sub-header">
-    <i>This schedule must be completed if you are applying for a protection order.</i>
+    This schedule must be completed if you are applying for a protection order. A judge can make decisions based only on the information presented by the parties as evidence. Evidence must be relevant to the issue. Please complete the following affidavit to help you explain to the court why you need a protection order and what it should include. In some cases, if you have provided evidence in this affidavit, a judge may not need you to provide additional information in court.
   </div>
-
+  <div class="v-spacer-1"></div>
   <div class="form-line">I, </div>
   <div class="form-line">
     <div class="form-line-child fill"> {{yourInformationSurvey.ApplicantName.first}} {{yourInformationSurvey.ApplicantName.middle}} {{yourInformationSurvey.ApplicantName.last}}</div>
-    <div id="sched1-name2" class="form-line-child underline"></div>
+    <div id="sched1-name3" class="form-line-child underline"></div>
     <div class="form-line-child hint">full name of party</div>
   </div>
   <div class="form-line">, </div>
@@ -675,7 +775,7 @@
     <div id="sched1-address" class="form-line-child underline"></div>
     <div class="form-line-child hint">address of party, city, province</div>
   </div>
-  <div class="form-line">, </div>
+  <div class="form-line">,</div>
 
   <div class="important">SWEAR OR AFFIRM THAT:</div>
   <section class="question restart">
@@ -685,29 +785,35 @@
     <span>
       I am applying for a protection order for the following person(s) to be protected:
     </span>
-    <div><i>Select and complete only those options that apply to your situation.</i></div>
-    <div class="option">
-    {% if protectionWhomSurvey.ApplicantNeedsProtection == 'y' %}
-      <div class="check">&#10003</div>
-    {% else %}
-      <div class="check"></div>
-    {% endif %}
-      <div>Me</div>
-    </div>
-    <div class="option">
-    {% if protectionWhomSurvey.childPO == 'y' %}
-      <div class="check">&#10003</div>
-    {% else %}
-      <div class="check"></div>
-    {% endif %}
-      <div>the following child(ren) I am parent or guardian to:</div>
+    <div class="indent">
+      <div><i>Select and complete only those options that apply to your situation. You may select more than one.</i></div>
+      <div class="indent">
+        <div class="option">
+        {% if protectionWhomSurvey.ApplicantNeedsProtection == 'y' %}
+          <div class="check">&#10003</div>
+        {% else %}
+          <div class="check"></div>
+        {% endif %}
+          <div>me</div>
+        </div>
+        <div class="option">
+        {% if protectionWhomSurvey.childPO == 'y' %}
+          <div class="check">&#10003</div>
+        {% else %}
+          <div class="check"></div>
+        {% endif %}
+          <div>the following child(ren) I am parent or guardian to:</div>
+        </div>
+        <div><i>Complete only if applicable. You may leave this section blank.</i></div>
+      </div>
     </div>
 
     <table class="border-all sched1-child-table" style="margin:0.7rem 0 0.7rem 0;">
       <tr>
-        <th>Child's Full Name</th>
-        <th>Child's Date of Birth</th>
-        <th>Child's Relationship to Other Party</th>
+        <th>Child's full legal name</th>
+        <th>Child's date of birth <span class="small-italic">(mmm/dd/yyyy)</span></th>
+        <th>Other party's relationship to child</th>
+        <th>Child is currently living with</th>
       </tr>
       <tbody>
         <tr>
@@ -718,23 +824,25 @@
       </tbody>
     </table>
 
-    <div><i>Complete only if applicable. You may leave this section blank.</i></div>
-    <div class="option" style="margin: 0 0 0.2rem 0;">
-    {% if protectionWhomSurvey.anotherAdultSharingResi == 'y' %}
-      <div class="check">&#10003</div>
-    {% else %}
-      <div class="check"></div>
-    {% endif %}
-      <div class="text-after-check italic">
-        The following adult(s) sharing the residence with the other protected person(s):
+    <div class="indent">
+      <div class="option" style="margin: 0 0 0.2rem 0;">
+      {% if protectionWhomSurvey.anotherAdultSharingResi == 'y' %}
+        <div class="check">&#10003</div>
+      {% else %}
+        <div class="check"></div>
+      {% endif %}
+        <div class="text-after-check italic">
+          The following adult(s) sharing the residence with the other protected person(s):
+        </div>
+        <div class="italic" > Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</div>
       </div>
     </div>
 
     <table class="border-all sched1-child-table" style="margin:0 0 0.7rem 0;">
       <tr>
-        <th>Full Name</th>
-        <th>Date of Birth</th>
-        <th>Relationship to Other Protected Person</th>
+        <th>Full name</th>
+        <th>Date of birth <span class="small-italic">(mmm/dd/yyyy)</span></th>
+        <th>Relationship to other protected person(s)</th>
       </tr>
       <tbody>
         <tr> 
@@ -758,7 +866,7 @@
     <div class="form-line">
     {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
       <div class="form-line-child fill">{{protectionWhomSurvey.anotherAdultName.first}} {{protectionWhomSurvey.anotherAdultName.middle}} {{protectionWhomSurvey.anotherAdultName.last}}, {{protectionWhomSurvey.anotherAdultDOB|custom_date:"M d Y"}}</div>
-    {% endif %}  
+    {% endif %}
       <div id="sched1-other-to-protect" class="form-line-child underline"></div>
       <div class="form-line-child hint">(full name of other person to be protected)</div>
     </div>
@@ -1478,7 +1586,7 @@
       {% if aboutPOSurvey.dateOfPO %}
         <div class="form-line-child fillsmalllow">{{aboutPOSurvey.dateOfPO|custom_date:"M d Y"}}</div>
       {% endif %}
-        <div class="form-line-child underline" style="min-width: 10rem"></div>
+        <div id="sched1-name4" class="form-line-child underline"></div>
         <div class="form-line-child hint">date</div>
       </div>
     <div class="v-spacer-1"></div>
@@ -1506,20 +1614,20 @@
         </div>
         <div class="form-line"> I was not in court when the protection order was made because:</div>
       </div>
-      <div><i>Explain why you were not in court when the protection order was made:</i></div>
+      <div><i>Explain why you were not in court when the protection order was made</i></div>
     </div>
   {% if aboutPOSurvey.inCourtForPO == 'n' %}
-    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyNotInCourt}} </div>
+    <div class="sub-selection-answer"> {{aboutPOSurvey.whyNotInCourt}} </div>
   {% else %}
-    <div class="v-spacer-5"></div>
+    <div class="v-spacer-2"></div>
   {% endif %}
   </section>
 
 
 
-  <section class="question"> I am the:
-    <div><i>Select all options that apply</i></div>
+  <section class="question"> I am the:    
       <div class="indent">
+        <div><i>Select all options that apply</i></div>
         <div>
           <div class="form-line">
           {% if 'protectedParty' in aboutPOSurvey.kindofPartyIbPO %}
@@ -1551,25 +1659,27 @@
           <div class="form-line"> person who the protection order is against</div>
         </div>
       </div>
-    <div class="v-spacer-5"></div>
+    <div class="v-spacer-2"></div>
   </section>
 
-  <section class="question"> I am asking for the existing protection order to be changed as follows:
+  <section class="question"> I am applying for the existing protection order to be changed as follows:
   {% if aboutPOSurvey.whatChangesNeeded %}
-    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whatChangesNeeded}} </div>
+    <div class="sub-selection-answer"> {{aboutPOSurvey.whatChangesNeeded}} </div>
   {% else %}
-    <div class="v-spacer-5"></div>
+    <div class="v-spacer-4"></div>
   {% endif %}
   </section>
 
   <h4>YOUR STORY</h4>
   <section class="question"> The facts on which this application is based are as follows:
-    <div><i>Describe why the order needs to be changed and what facts the court should consider to make their decision.</i></div>
-  {% if aboutPOSurvey.whyChangesNeeded %}
-    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyChangesNeeded}} </div>
-  {% else %}
-    <div class="v-spacer-5"></div>
-  {% endif %}
+    <div class="indent">
+      <div><i>Explain why the order needs to be changed and the facts you want the court to consider</i></div>
+    </div>
+    {% if aboutPOSurvey.whyChangesNeeded %}
+      <div class="sub-selection-answer"> {{aboutPOSurvey.whyChangesNeeded}} </div>
+    {% else %}
+      <div class="v-spacer-5"></div>
+    {% endif %}
   </section>
 
   {% endif %}
@@ -1582,7 +1692,7 @@
     <h4>This is Schedule 3 to the Application about a Protection Order</h4>
   </div>
 
-  <div><i>This schedule must be completed if you are applying to terminate an existing protection order.</i></div>
+  <div><i>This schedule must be completed if you are applying to terminate an existing protection order</i></div>
 
   <section class="question restart" style="margin-top: 0.5rem">
       <div class="form-line">
@@ -1597,11 +1707,10 @@
       {% if aboutPOSurvey.terminateDateOfPO %}
         <div class="form-line-child fillsmalllow">{{aboutPOSurvey.terminateDateOfPO|custom_date:"M d Y"}}</div>
       {% endif %}
-        <div class="form-line-child underline" style="min-width: 10rem"></div>
+        <div id="sched1-name4" class="form-line-child underline"></div>
         <div class="form-line-child hint">date</div>
       </div>
-      <div class="form-line"> that I am asking to</div>
-      <div class="form-line"> have terminated.</div>
+      <div class="form-line"> that I am applying to have terminated.</div>
     <div class="v-spacer-1"></div>
   </section>
 
@@ -1630,12 +1739,12 @@
         </div>
         <div class="form-line"> I was not in court when the protection order was made because:</div>
       </div>
-      <div><i>Explain why you were not in court when the protection order was made:</i></div>
+      <div><i>Explain why you were not in court when the protection order was made</i></div>
     </div>
   {% if aboutPOSurvey.inCourtForPO == 'n' %}
-    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyNotInCourt}} </div>
+    <div class="sub-selection-answer"> {{aboutPOSurvey.whyNotInCourt}} </div>
   {% else %}
-    <div class="v-spacer-5"></div>
+    <div class="v-spacer-2"></div>
   {% endif %}
   </section>
 
@@ -1644,8 +1753,9 @@
 
 
   <section class="question"> I am the:
-    <div><i>Select all options that apply</i></div>
+    
       <div class="indent">
+        <div><i>Select all options that apply</i></div>
         <div>
           <div class="form-line">
           {% if 'protectedParty' in aboutPOSurvey.kindofPartyIbPO %}
@@ -1677,14 +1787,16 @@
           <div class="form-line"> person who the protection order is against</div>
         </div>
       </div>
-    <div class="v-spacer-5"></div>
+    <div class="v-spacer-3"></div>
   </section>
 
 
   <section class="question"> The facts on which this application is based are as follows:
-    <div><i>Describe why the order should be terminated and what facts the court should consider to make their decision.</i></div>
+    <div class="indent">
+      <div><i>Describe why the order should be terminated and the facts you want the court to consider</i></div>
+    </div> 
   {% if aboutPOSurvey.whyTerminatePO %}
-    <div style="margin:5px 0px 12px 10px;"> {{aboutPOSurvey.whyTerminatePO}} </div>
+    <div class="sub-selection-answer"> {{aboutPOSurvey.whyTerminatePO}} </div>
   {% else %}
     <div class="v-spacer-5"></div>
   {% endif %}

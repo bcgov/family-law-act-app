@@ -3,7 +3,6 @@ register = template.Library()
 
 @register.simple_tag
 def get_contact_info(data):
-    print(data)
 
     if 'Lawyer' in data and data['Lawyer'] == 'y':
         lawyerName=''
