@@ -150,7 +150,7 @@
          {
           "type": "comment",
           "name": "describeDisobeyOrder",
-          "visibleIf": "{otherPartyDisobeyOrder} = \"y\"",
+          "visibleIf": "{otherPartyDisobeyOrder} = \"Yes\"",
           "title": "Describe the circumstances",
           "isRequired": true
          },
