@@ -198,7 +198,7 @@ OIDC_ENABLED = False
 OIDC_RP_PROVIDER_ENDPOINT = os.getenv(
     "OIDC_RP_PROVIDER_ENDPOINT",
     # FIXME no default here
-    "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w",
+    "https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w",
 )
 
 if OIDC_RP_PROVIDER_ENDPOINT:
@@ -224,7 +224,7 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_AUTHENTICATION_REDIRECT_URI = (
         os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", "/family-law-act/")
     )
-    OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT")
+    OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT", "bceid")
 
     DRF_AUTH_CLASS = (
         "oidc_rp.contrib.rest_framework.authentication.BearerTokenAuthentication"
