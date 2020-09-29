@@ -101,7 +101,7 @@ export default {
 @import "src/styles/common";
 
 .background {
-  background-image: url("../../assets/landing-2.jpg");
+  // background-image: url("../../assets/landing-2.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -139,16 +139,22 @@ export default {
   color: black;
   border: 2px solid rgba($gov-pale-grey, 0.3);
   margin-top: 2.5rem;
+  &:hover,
+  &:focus {
+    color: rgb(247, 214, 126);
+  }
   &:active {
     border: 2px solid rgba($gov-white, 0.8);
   }
 }
 .login-button {
-  color: $gov-white !important;
+  //color: $gov-white !important;
+  color: black;
   margin-top: 1rem;
+  border: 2px solid rgb(231, 231, 231);
   &:hover,
   &:focus {
-    color: $gov-white;
+    color: blue;
   }
   &:active {
     border: 2px solid rgba($gov-white, 0.8);
