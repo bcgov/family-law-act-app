@@ -198,7 +198,7 @@ OIDC_ENABLED = False
 OIDC_RP_PROVIDER_ENDPOINT = os.getenv(
     "OIDC_RP_PROVIDER_ENDPOINT",
     # FIXME no default here
-    "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/tz0e228w",
+    "https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w",
 )
 
 if OIDC_RP_PROVIDER_ENDPOINT:
