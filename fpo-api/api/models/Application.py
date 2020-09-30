@@ -20,7 +20,7 @@ class Application(models.Model):
     key_id = models.CharField(max_length=32, blank=True, null=True)
 
     # stored encrypted when key_id is set
-    steps = JSONBField(default=list, null=True, blank=True)
+    steps = models.BinaryField(blank=True, null=True)
 
     user = models.ForeignKey(
         "User",

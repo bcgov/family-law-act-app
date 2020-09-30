@@ -21,15 +21,16 @@ from datetime import datetime
 from django.utils import timezone
 from rest_framework import status
 import logging
+import json
 from django.http import Http404
 from django.conf import settings
-from api.models import PreparedPdf
+from api.models.PreparedPdf import PreparedPdf
 
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
 from api.auth import get_efiling_auth_token
-from api.serializers import ApplicationListSerializer, ApplicationSerializer
+from api.serializers import ApplicationListSerializer
 
 from rest_framework.views import APIView
 from rest_framework.request import Request
@@ -41,7 +42,8 @@ from api.auth import (
     get_login_uri,
     get_logout_uri
 )
-from api.models import User, Application
+from api.models.User import User
+from api.models.Application import Application
 from api.pdf import render as render_pdf
 
 LOGGER = logging.getLogger(__name__)
@@ -87,23 +89,18 @@ class UserStatusView(APIView):
 
 class SurveyPdfView(generics.GenericAPIView):
     # FIXME - restore authentication?
-    permission_classes = ()  # permissions.IsAuthenticated,)
+    permission_classes = ()  # permissions.IsAuthenticated,
 
     def post(self, request, name=None):
+        # FIXME - refactor pdf generation.
         data = request.data
         name = request.query_params.get("name")
         template = '{}.html'.format(name)
 
         template = get_template(template)
         html_content = template.render(data)
-
+        
         pdf_content = render_pdf(html_content)
-        pdf_response = None
-        if pdf_content:
-            (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
-            pdf_response = PreparedPdf(data=pdf_content_enc, key_id=pdf_key_id)
-            pdf_response.save()
-
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
@@ -150,11 +147,31 @@ class ApplicationView(APIView):
         except Application.DoesNotExist:
             raise Http404
 
+    def encrypt_steps(self, steps):
+        try:
+            steps_bin = json.dumps(steps).encode("ascii")
+            (steps_key_id, steps_enc) = settings.ENCRYPTOR.encrypt(steps_bin)
+            return (steps_key_id, steps_enc)
+        except Exception ex:
+            LOGGER.error("ERROR! %s", ex)
+
     def get(self, request, pk, format=None):
         uid = request.user.id
         application = self.get_app_object(pk, uid)
-        serializer = ApplicationSerializer(application)
-        return Response(serializer.data)
+        steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
+        steps = json.loads(steps_dec)
+        data = {"id": application.id,
+                "type": application.app_type,
+                "steps": steps,
+                "lastUpdate": application.last_updated,
+                "currentStep": application.current_step,
+                "allCompleted": application.all_completed,
+                "userType": application.user_type,
+                "userName": application.user_name,
+                "userId": application.user_id,
+                "applicantName": application.applicant_name,
+                "respondentName": application.respondent_name}
+        return Response(data)
 
     def post(self, request: Request):
         uid = request.user.id
@@ -165,15 +182,18 @@ class ApplicationView(APIView):
         if not body:
             return HttpResponseBadRequest("Missing request body")
 
+        (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
+
         db_app = Application(
             last_updated=timezone.now(),
             app_type=body.get("type"),
             current_step=body.get("currentStep"),
             all_completed=body.get("allCompleted"),
-            steps=body["steps"],
+            steps=steps_enc,
             user_type=body.get("userType"),
             applicant_name=body.get("applicantName"),
             user_name=body.get("userName"),
+            key_id=steps_key_id,
             respondent_name=body.get("respondentName"),
             user_id=uid)
 
@@ -185,13 +205,16 @@ class ApplicationView(APIView):
         application_queryset = Application.objects.filter(user_id=uid).filter(pk=pk)
         if application_queryset:
             body = request.data
+            
             if not body:
                 return HttpResponseBadRequest("Missing request body")
 
+            (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
+    
             application_queryset.update(last_updated=timezone.now())
             application_queryset.update(app_type=body.get("type"))
             application_queryset.update(current_step=body.get("currentStep"))
-            application_queryset.update(steps=body["steps"])
+            application_queryset.update(steps=steps_enc)
             application_queryset.update(user_type=body.get("userType"))
             application_queryset.update(applicant_name=body.get("applicantName"))
             application_queryset.update(user_name=body.get("userName"))
