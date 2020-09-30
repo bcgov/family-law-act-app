@@ -88,19 +88,45 @@ class UserStatusView(APIView):
 
 
 class SurveyPdfView(generics.GenericAPIView):
-    # FIXME - restore authentication?
-    permission_classes = ()  # permissions.IsAuthenticated,
+    permission_classes = (permissions.IsAuthenticated,)
 
-    def post(self, request, name=None):
-        # FIXME - refactor pdf generation.
-        data = request.data
-        name = request.query_params.get("name")
+    def generate_pdf(self, name, data):
         template = '{}.html'.format(name)
-
         template = get_template(template)
         html_content = template.render(data)
-        
         pdf_content = render_pdf(html_content)
+        return pdf_content
+
+    def get_pdf(self, pk):
+        try:
+            pdf_id = Application.objects.values_list("prepared_pdf_id", flat=True).get(pk=pk)
+            pdf_result = PreparedPdf.objects.get(id=pdf_id)
+            return pdf_result
+        except (PreparedPdf.DoesNotExist, Application.DoesNotExist):
+            LOGGER.error("ERROR: Record not found")
+            return
+
+    def post(self, request, pk=None, name=None):
+        data = request.data
+        name = request.query_params.get("name")
+        try:
+            pdf_result = self.get_pdf(pk)
+            if pdf_result:
+                pdf_content = settings.ENCRYPTOR.decrypt(pdf_result.key_id, pdf_result.data)
+            else:
+                pdf_content = self.generate_pdf(name, data)
+                pdf_response = None
+                if pdf_content:
+                    (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
+                    pdf_response = PreparedPdf(data=pdf_content_enc, key_id=pdf_key_id)
+                    pdf_response.save()
+                    application = Application.objects.filter(user_id=request.user.id).filter(pk=pk)
+                    application.update(prepared_pdf_id=pdf_response.pk)
+                    application.update(last_printed=timezone.now())
+        except Exception as ex:
+            LOGGER.error("ERROR: Pdf generation failed %s", ex)
+            raise
+
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
