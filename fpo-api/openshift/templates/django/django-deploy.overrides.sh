@@ -11,6 +11,7 @@ fi
 
 if createOperation; then
   # Ask the user to supply the sensitive parameters ...
+  readParameter "DATA_SECURITY_KEY - Please provide the encryption key for the application environment.  If left blank, a 32 character long base64 encoded value will be randomly generated using openssl:" DATA_SECURITY_KEY $(generateKey 32) "false"
   readParameter "OIDC_RP_PROVIDER_ENDPOINT - Please provide the url for the OIDC RP Provider.  The default is a blank string." OIDC_RP_PROVIDER_ENDPOINT "false"
   readParameter "OIDC_RP_CLIENT_SECRET - Please provide the OIDC RP Client Secret.  The default is a blank string." OIDC_RP_CLIENT_SECRET "false"
 
@@ -21,7 +22,8 @@ if createOperation; then
   
 else
   # Secrets are removed from the configurations during update operations ...
-  printStatusMsg "Update operation detected ...\nSkipping the prompts for OIDC_RP_PROVIDER_ENDPOINT, OIDC_RP_CLIENT_SECRET, EFILING_AUTH_URL, EFILING_CLIENT_ID, EFILING_CLIENT_SECRET secrets ... \n"
+  printStatusMsg "Update operation detected ...\nSkipping the prompts for DATA_SECURITY_KEY, OIDC_RP_PROVIDER_ENDPOINT, OIDC_RP_CLIENT_SECRET, EFILING_AUTH_URL, EFILING_CLIENT_ID, EFILING_CLIENT_SECRET secrets ... \n"
+  writeParameter "DATA_SECURITY_KEY" "prompt_skipped" "false"
   writeParameter "OIDC_RP_PROVIDER_ENDPOINT" "prompt_skipped" "false"
   writeParameter "OIDC_RP_CLIENT_SECRET" "prompt_skipped" "false"
 
