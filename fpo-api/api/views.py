@@ -152,7 +152,7 @@ class ApplicationView(APIView):
             steps_bin = json.dumps(steps).encode("ascii")
             (steps_key_id, steps_enc) = settings.ENCRYPTOR.encrypt(steps_bin)
             return (steps_key_id, steps_enc)
-        except Exception ex:
+        except Exception as ex:
             LOGGER.error("ERROR! %s", ex)
 
     def get(self, request, pk, format=None):
