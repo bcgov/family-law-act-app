@@ -8,6 +8,7 @@ git+https://github.com/impak-finance/django-oidc-rp.git@e99534729c9a2fa9cd8e62cd
 
 # Database managment
 psycopg2-binary>=2.7.3.1,<3
+pynacl>=1.4
 
 # Web Server
 gunicorn>=19.7.1,<20
