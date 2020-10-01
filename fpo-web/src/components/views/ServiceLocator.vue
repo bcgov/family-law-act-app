@@ -1,70 +1,60 @@
 <template>
   <b-container class="container home-content" id="service-locator">
-    <div class="intro">
-      Is Victoria Law Courts' the nearest location to you OR the location where
-      your existing matter has been filed?
-      <b-form class="custom-form" @submit="onSubmit">
-        <b-form-group>
-          <b-form-radio
-            v-model="form.selected"
-            name="locationRadio"
-            :value="true"
-            >Yes</b-form-radio
-          >
-          <b-form-radio
-            v-model="form.selected"
-            name="locationRadio"
-            :value="false"
-            >No</b-form-radio
-          >
-          <b-button
-            type="submit"
-            :disabled="isDisabled"
-            variant="primary"
-            class="locator-button"
-            >Next</b-button
-          >
-        </b-form-group>
-      </b-form>
-    </div>
+    <survey v-bind:survey="survey"></survey>
+    <b-button
+      @click="onSubmit"
+      variant="primary"
+      class="locator-button"
+      >Next
+    </b-button>
   </b-container>
 </template>
 
 <script>
 import GlobalStore from "@/store";
+import * as SurveyVue from "survey-vue";
+import * as surveyEnv from "@/components/survey-glossary.ts";
+import surveyJson from "@/assets/service-locator.json";
 
 export default {
   name: "ServiceLocator",
   data() {
+    
+    var survey = new SurveyVue.Model(surveyJson);
+    survey.showNavigationButtons = false;
+    surveyEnv.setGlossaryMarkdown(survey);
+
     return {
-      form: {
-        selected: "",
-      },
+      survey: survey
     };
+  },
+  beforeCreate() {
+    const Survey = SurveyVue;
+    surveyEnv.setCss(Survey);    
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      if (this.form.selected) {
-        const store = GlobalStore.getInstance();
-        this.userId = store.getters["application/getUserId"]
-        // TODO: complete setup of POST body as application once API is in place
-        const application = {"userId": this.userId}
-        this.$store.dispatch("application/init");
-        this.$store.dispatch("common/saveNewApplication", application);
-        this.$router.push({ name: "flapp-surveys" });
-      } else {
-        location.replace(
-          "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
-        );
+
+      if(!this.survey.isCurrentPageHasErrors) 
+      {
+        if (this.survey.data.isVictoriaLawCourt == 'y') 
+        {
+          const store = GlobalStore.getInstance();
+          this.userId = store.getters["application/getUserId"]
+          // TODO: complete setup of POST body as application once API is in place
+          const application = {"userId": this.userId}
+          this.$store.dispatch("application/init");
+          this.$store.dispatch("common/saveNewApplication", application);
+          this.$router.push({ name: "flapp-surveys" });
+        } else {
+          location.replace(
+            "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
+          );
+        }
       }
     },
-  },
-  computed: {
-    isDisabled: function() {
-      return this.form.selected === "";
-    },
-  },
+  }
 };
 </script>
 
@@ -89,7 +79,8 @@ export default {
 }
 .locator-button {
   margin-top: 2.5rem;
-  float: right;
+  margin-left: 1rem;
+  float: left;
   width: 8rem;
 }
 </style>
