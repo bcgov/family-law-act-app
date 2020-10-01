@@ -764,7 +764,7 @@
     </div>
 
     <div><i>Describe why you are applying for the other person</i></div>
-    {% if protectionWhomSurvey.anotherAdultReasonForPO %}
+    {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
     <div style="margin:5px 0px 12px 10px;"> {{protectionWhomSurvey.anotherAdultReasonForPO}} </div>
     {% else %}
     <div class="v-spacer-3"></div>

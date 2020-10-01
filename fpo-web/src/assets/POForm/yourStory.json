@@ -18,29 +18,34 @@
           "type": "comment",
           "name": "whatViolence",
           "title": "What `Family Violence` do you fear?",
+          "isRequired": true,
           "description": "You do not need to use any special wording.  The key is to be clear about what you mean."
          },
          {
           "type": "comment",
           "name": "whyViolence",
+          "isRequired": true,
           "title": "Why do you fear `Family Violence` is likely to happen?",
           "description": "You can state the reason(s) why you are afraid of the other party and think family violence may occur.  You do not need to use any special wording.  The key is to be clear about what you mean.  You will have an opportunity later to describe any past incidents, if there have been any. "
          },
          {
           "type": "comment",
           "name": "describeThreats",
+          "isRequired": true,
           "title": "Describe the behaviour or threats that concern you.",
           "description": "What are some examples of the other party's behaviour, or threats they have made, that have you worried for the safety of you and/or the protected party/parties."
          },
          {
           "type": "comment",
           "name": "recentIncidents",
+          "isRequired": true,
           "title": "Describe any recent incidents of family violence against the party who needs protection and any children.",
           "description": "Start with the most recent incident continuing backwards as far as you think it is important for the court to know.   Tell your story in your own words.  Everything you say must be true to the best of your knowledge.  You can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. You do not need to use any special wording but it is important that you are clear and provide as much detail as possible, including:\n<br>\n<ul>\n<li>the date the incident occurred</li>\n<li>a description of the incident of family violence</li>\n<li>who was involved (including any witnesses or the police)</li>\n<li>the child(ren)'s involvement in the incident, if applicable</li>\n<li>any injuries or trauma from the incident</li>\n<li>any other detail about the incident you feel it is important for the court to know</li>\n</ul>\n<br>\n<br>\nNote:  If there is a police report, medical report or doctor's note, or any photographs related to the incident, you must talk about them in this section and attach them as exhibits.  To include something as an exhibit, you must talk about it and state that it is attached as an exhibit.  Each exhibit gets a letter assigned to it, starting with 'A' and continuing through the alphabet.  For example, the police report attached as Exhibit A."
          },
          {
           "type": "comment",
           "name": "recentIncidentWithChild",
+          "isRequired": true,
           "visibleIf": "{childName} notempty",
           "title": "Describe any recent incidents of family violence against {ApplicantName} and {childName}.",
           "description": "Start with the most recent incident continuing backwards as far as you think it is important for the court to know.   Tell your story in your own words.  Everything you say must be true to the best of your knowledge.  You can include information that you got from someone else, but you must include who told you, when they told you and that you believe what they said is true. You do not need to use any special wording but it is important that you are clear and provide as much detail as possible, including:\n<br>\n<ul>\n<li>the date the incident occurred</li>\n<li>a description of the incident of family violence</li>\n<li>who was involved (including any witnesses or the police)</li>\n<li>the child(ren)'s involvement in the incident, if applicable</li>\n<li>any injuries or trauma from the incident</li>\n<li>any other detail about the incident you feel it is important for the court to know</li>\n</ul>\n<br>\n<br>\nNote:  If there is a police report, medical report or doctor's note, or any photographs related to the incident, you must talk about them in this section and attach them as exhibits.  To include something as an exhibit, you must talk about it and state that it is attached as an exhibit.  Each exhibit gets a letter assigned to it, starting with 'A' and continuing through the alphabet.  For example, the police report attached as Exhibit A."

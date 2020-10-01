@@ -13,13 +13,15 @@
           "name": "RespondentName",
           "title": "Who is the person that protection is needed from?",
           "description": "If you know how their name is written on their ID cards, that will be the most useful.",
-          "defaultSubstitution": "(Respondent Name)"
+          "defaultSubstitution": "(Respondent Name)",
+          "isRequired": true
          },
          {
           "type": "yesno",
           "name": "RespondentDOBExact",
           "visible": false,
           "visibleIf": "{RespondentName} notempty",
+          "isRequired": true,
           "title": "Do you know {RespondentName}'s exact date of birth?",
           "description": "You can still use this service without this information. A Protection Order is most effective with this information."
          },
@@ -29,7 +31,8 @@
           "visible": false,
           "visibleIf": "{RespondentDOBExact} = 'y'",
           "title": "What is {RespondentName}'s date of birth?",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "address",
@@ -58,6 +61,7 @@
          {
           "type": "yesno",
           "name": "ApplicantNeedsProtection",
+          "isRequired": true,
           "title": "Do you, {ApplicantName}, need to be protected from {RespondentName}, on this `Protection Order`?",
           "description": "A judge will review what you are asking for and decide on the conditions for your protection order."
          },
@@ -73,31 +77,36 @@
           "type": "yesno",
           "name": "anotherAdultPO",
           "visibleIf": "{ApplicantNeedsProtection} = \"n\"",
-          "title": "Are you applying for a Protection Order on behalf of another adult?"
+          "title": "Are you applying for a Protection Order on behalf of another adult?",
+          "isRequired": true
          },
          {
           "type": "personname",
           "name": "anotherAdultName",
           "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
           "title": "What is the Adult's full name?",
-          "defaultSubstitution": "{anotherAdultName}"
+          "defaultSubstitution": "{anotherAdultName}",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "anotherAdultDOB",
           "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
           "title": "What is the Adult's date of birth?",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "comment",
           "name": "anotherAdultReasonForPO",
           "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultName} notempty",
-          "title": "Please explain why you are applying for {anotherAdultName}"
+          "title": "Please explain why you are applying for {anotherAdultName}",
+          "isRequired": true
          },
          {
           "type": "yesno",
           "name": "childPO",
+          "isRequired": true,
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\") or {ApplicantNeedsProtection} = \"y\"",
           "title": "Do you have a child that needs to be protected from {RespondentName}, on this Protection Order?"
          },
@@ -106,20 +115,23 @@
           "name": "childName",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
           "title": "What is the name of the child?",
-          "defaultSubstitution": "{childName}"
+          "defaultSubstitution": "{childName}",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "childDOB",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
           "title": "What is the child's date of birth?",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "childRelationship",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-          "title": "What is the child's relationship with {RespondentName}?"
+          "title": "What is the child's relationship with {RespondentName}?",
+          "isRequired": true
          },
          {
           "type": "helptext",
@@ -133,7 +145,8 @@
           "type": "yesno",
           "name": "anotherAdultSharingResi",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\"",
-          "title": "Is there another adult sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?"
+          "title": "Is there another adult sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?",
+          "isRequired": true
          },
          {
           "type": "helptext",
@@ -148,20 +161,23 @@
           "name": "anotherAdultSharingResiName",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
           "title": "What is the name of adult sharing the residence with you?",
-          "defaultSubstitution": "{anotherAdultSharingResiName}"
+          "defaultSubstitution": "{anotherAdultSharingResiName}",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "anotheradultSharingResiDOB",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\"",
           "title": "What is the date of birth of the adult sharing the residence with you? ",
-          "inputType": "date"
+          "inputType": "date",
+          "isRequired": true
          },
          {
           "type": "text",
           "name": "anotherAdultSharingResiRelation",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"y\" and {anotherAdultSharingResiName} notempty",
-          "title": "What is {anotherAdultSharingResiName} relationship to the protected person(s)?"
+          "title": "What is {anotherAdultSharingResiName} relationship to the protected person(s)?",
+          "isRequired": true
          }
         ],
         "visible": false,
@@ -174,6 +190,7 @@
          {
           "type": "yesno",
           "name": "ExistingFamilyCase",
+          "isRequired": true,
           "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
           "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
          },
@@ -189,6 +206,7 @@
           "name": "ExistingCourt",
           "visible": false,
           "visibleIf": "{ExistingFamilyCase} = 'y'",
+          "isRequired": true,
           "title": "Court Location",
           "choices": [
            "100 Mile House",
@@ -284,11 +302,13 @@
           "visible": false,
           "visibleIf": "{ExistingFamilyCase} = 'y'",
           "startWithNewLine": false,
-          "title": "File Number"
+          "title": "File Number",
+          "isRequired": true
          },
          {
           "type": "yesno",
           "name": "ExistingOrders",
+          "isRequired": true,
           "title": "Has any court ever made an `order` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
           "description": "An order can be made in any court in any place, including the Supreme Court or Criminal Court."
          },
@@ -310,6 +330,7 @@
             "type": "dropdown",
             "name": "chooseOrder",
             "title": "Choose Order",
+            "isRequired": true,
             "hasOther": true,
             "choices": [
              {
@@ -333,6 +354,7 @@
             "startWithNewLine": false,
             "title": "Court Location",
             "hasOther": true,
+            "isRequired": true,
             "choices": [
              "100 Mile House",
              "Abbotsford",
@@ -425,7 +447,8 @@
             "type": "text",
             "name": "existingOrderFileNo",
             "visibleIf": "{ExistingOrders} = \"y\"",
-            "title": "File Number"
+            "title": "File Number",
+            "isRequired": true
            },
            {
             "type": "text",
@@ -433,7 +456,8 @@
             "visibleIf": "{ExistingOrders} = \"y\"",
             "startWithNewLine": false,
             "title": "Date of order",
-            "inputType": "date"
+            "inputType": "date",
+            "isRequired": true
            }
           ],
           "panelCount": 1,
@@ -444,7 +468,8 @@
           "type": "yesno",
           "name": "ExistingWrittenAgreements",
           "title": "Are there any other `written agreements` between {ApplicantName} and {RespondentName} about your separation, your children or `support`?",
-          "description": "For example, a separation agreement or a mediation agreement."
+          "description": "For example, a separation agreement or a mediation agreement.",
+          "isRequired": true
          },
          {
           "type": "infotext",
@@ -463,7 +488,8 @@
            {
             "type": "text",
             "name": "agreementName",
-            "title": "Written Agreement Name"
+            "title": "Written Agreement Name",
+            "isRequired": true
            },
            {
             "type": "text",
@@ -471,7 +497,8 @@
             "visibleIf": "{ExistingWrittenAgreements} = \"y\"",
             "startWithNewLine": false,
             "title": "Date of written agreement",
-            "inputType": "date"
+            "inputType": "date",
+            "isRequired": true
            },
            {
             "type": "infotext",
