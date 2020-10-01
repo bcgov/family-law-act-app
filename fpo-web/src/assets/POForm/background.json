@@ -76,7 +76,7 @@
           "type": "radiogroup",
           "name": "planningToSeparatePO",
           "isRequired": true,
-          "visibleIf": "{isSeperatedPO} = 'No'",
+          "visibleIf": "false",
           "title": "Are the protected party and the other party planning to separate?",
           "choices": [
            {
@@ -93,6 +93,61 @@
            }
           ]
          },
+
+         {
+            "type": "radiogroup",
+            "name": "PartiesHasOtherChilderen",
+            "isRequired": true,
+            "visibleIf": "true",
+            "title": "Are the protected party and the other party planning to separate?",
+            "choices": [
+             {
+              "value": "n",
+              "text": "The protected party and the other party are a parent, step-parent or guardian only to the child(ren), if any, identified in paragraph 2 of this affidavit"
+             },
+             {
+              "value": "y",
+              "text": "The protected party and the other party are a parent, step-parent or guardian to the following child(ren) who is/are not identified in paragraph 2 of this affidavit"
+             }
+            ]
+          },           
+         {
+            "type": "personname",
+            "name": "childName",
+            "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
+            "title": "What is the name of the child?",
+            "defaultSubstitution": "{childName}",
+            "isRequired": true
+           },
+           {
+            "type": "text",
+            "name": "childDOB",
+            "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
+            "title": "What is the child's date of birth?",
+            "inputType": "date",
+            "isRequired": true
+           },
+           {
+            "type": "text",
+            "name": "childRelationshipWithProtected",
+            "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
+            "title": "What is the child's relationship with Protected party?",
+            "isRequired": true
+           },
+           {
+            "type": "text",
+            "name": "childRelationshipWithOther",
+            "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
+            "title": "What is the child's relationship with {RespondentName}?",
+            "isRequired": true
+           },
+           {
+              "type": "text",
+              "name": "childLivingWith",
+              "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
+              "title": "Who is the child currently living with?",
+              "isRequired": true
+           },
          {
           "type": "yesno",
           "name": "mentalHealthConcernPO",

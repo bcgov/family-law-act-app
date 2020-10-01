@@ -134,6 +134,13 @@
           "isRequired": true
          },
          {
+            "type": "text",
+            "name": "childLivingWith",
+            "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+            "title": "Who is the child currently living with?",
+            "isRequired": true
+         },
+         {
           "type": "helptext",
           "name": "notMyChildFAQ",
           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"n\") or {ApplicantNeedsProtection} = \"y\" and  {childPO} = \"n\"",
