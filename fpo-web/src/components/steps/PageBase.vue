@@ -39,7 +39,7 @@ export default {
       } else {
         this.$store.dispatch("application/gotoPrevStepPage");
       }
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
     },
     onNext: function(event) {
       if (!this.isDisableNext()) {
@@ -50,7 +50,7 @@ export default {
           this.$store.dispatch("application/gotoNextStepPage");
         }
       }
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
     },
     onComplete: function(event) {
       if (this.$listeners && this.$listeners.onComplete) {  
