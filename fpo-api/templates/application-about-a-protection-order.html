@@ -860,10 +860,10 @@
       </tr>
       <tbody>
         <tr>
-          <td> {{protectionWhomSurvey.childName.first}} {{protectionWhomSurvey.childName.middle}} {{protectionWhomSurvey.childName.last}}</td>
-          <td> {{protectionWhomSurvey.childDOB|custom_date:"M d Y"}}</td>
-          <td> {{protectionWhomSurvey.childRelationship}}</td>
-          <td> {{protectionWhomSurvey.childLivingWith}}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childName.first}} {{protectionWhomSurvey.childName.middle}} {{protectionWhomSurvey.childName.last}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childDOB|custom_date:"M d Y"}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childRelationship}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childLivingWith}} {% endif %}</td>
         </tr>
       </tbody>
     </table>
@@ -1180,7 +1180,7 @@
 
   <section class="question"> <i>Complete only if applicable. You may leave this section blank.</i>
     <div class="indent">
-      <div>I believe police assistance may be required for the following purposes:</div>
+      <div>I believe police assistance may be required for the following purpose(s):</div>
       <div><i>Select all options that apply</i></div>
 
       <div class="form-option">
@@ -1393,11 +1393,11 @@
       </tr>
       <tbody>
         <tr>
-          <td> {{backgroundSurvey.childName.first}} {{backgroundSurvey.childName.middle}} {{backgroundSurvey.childName.last}}</td>
-          <td> {{backgroundSurvey.childDOB|custom_date:"M d Y"}}</td>
-          <td> {{backgroundSurvey.childRelationshipWithProtected}}</td>
-          <td> {{backgroundSurvey.childRelationshipWithOther}}</td>
-          <td> {{backgroundSurvey.childLivingWith}}</td>
+          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childName.first}} {{backgroundSurvey.childName.middle}} {{backgroundSurvey.childName.last}} {% endif %}</td>
+          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childDOB|custom_date:"M d Y"}} {% endif %}</td>
+          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childRelationshipWithProtected}} {% endif %}</td>
+          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childRelationshipWithOther}} {% endif %}</td>
+          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childLivingWith}} {% endif %}</td>
         </tr>
       </tbody>
     </table>
@@ -1431,6 +1431,9 @@
 
 
   <div><span class="sub-heading-urstory">About my family</span></div>
+
+
+
 
   <section class="question"> 
     <i>You may choose to complete this section or leave this section blank</i>
@@ -1481,7 +1484,7 @@
   {% endif %}
     <span style="margin-left:22px;">No</span>
     <div class="indent">
-      <div><i>If yes, describe the circumstances such as: substance abuse, employment or financial difficulties, relationship status, criminal his-tory, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, stran-gling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances</i></div>
+      <div><i>If yes, describe the circumstances such as: substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances</i></div>
     {% if backgroundSurvey.riskOfViolencePO == 'y' %}
       <div class="sub-selection-answer"> {{backgroundSurvey.describeCirumstancesPO}} </div>
     {% else %}

@@ -99,8 +99,7 @@
             "name": "PartiesHasOtherChilderen",
             "isRequired": true,
             "visibleIf": "true",
-            "title": "Are the protected party and the other party planning to separate?",
-            "choices": [
+            "title": "Select whichever option is correct and complete the required information",          "choices": [
              {
               "value": "n",
               "text": "The protected party and the other party are a parent, step-parent or guardian only to the child(ren), if any, identified in paragraph 2 of this affidavit"
@@ -118,36 +117,42 @@
             "title": "What is the name of the child?",
             "defaultSubstitution": "{childName}",
             "isRequired": true
-           },
-           {
+         },
+         {
             "type": "text",
             "name": "childDOB",
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
             "title": "What is the child's date of birth?",
             "inputType": "date",
             "isRequired": true
-           },
-           {
+         },
+         {
             "type": "text",
             "name": "childRelationshipWithProtected",
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
             "title": "What is the child's relationship with Protected party?",
             "isRequired": true
-           },
-           {
+         },
+         {
             "type": "text",
             "name": "childRelationshipWithOther",
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
             "title": "What is the child's relationship with {RespondentName}?",
             "isRequired": true
-           },
-           {
-              "type": "text",
-              "name": "childLivingWith",
-              "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-              "title": "Who is the child currently living with?",
-              "isRequired": true
-           },
+         },
+         {
+            "type": "text",
+            "name": "childLivingWith",
+            "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
+            "title": "Who is the child currently living with?",
+            "isRequired": true
+         },
+         {
+            "type": "comment",
+            "name": "culturalExplain",
+            "title": "I would like to share the following information with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:",
+            "description": "You may choose to complete this section or leave this section blank"
+         },
          {
           "type": "yesno",
           "name": "mentalHealthConcernPO",
@@ -181,12 +186,18 @@
           "isRequired": true
          },
          {
-          "type": "comment",
-          "name": "listOfOrders",
-          "visibleIf": "{existingPOOrders} = 'y'",
-          "title": "List them here",
-          "isRequired": true,
-          "description": "Please attach a copy of the order(s) to your application for filing."
+            "type": "checkbox",
+            "name": "attachCopyOExistingPOOrders",
+            "visibleIf": "{existingPOOrders} = 'y'",
+            "title":" ",
+            "description": "You need to attach a copy of the order(s) to your application.",
+            "isRequired": true,
+            "choices": [
+             {
+              "value": "confirmed",
+              "text": "I will attach a copy of the order(s) to my application."
+             }
+            ]
          },
          {
           "type": "radiogroup",
