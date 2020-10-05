@@ -15,25 +15,31 @@
           "titleLocation": "hidden"
          },
          {
+            "type": "yesno",
+            "name": "isFamilyViolence",
+            "title": "Is there any `Family Violence` you fear is likely to happen that you have not already described in this affidavit?",
+            "isRequired": true
+         },
+         {
           "type": "comment",
           "name": "whatViolence",
-          "title": "What `Family Violence` do you fear?",
+          "visibleIf": "{isFamilyViolence} = \"y\"",
+          "title": "Explain what type of family violence and the reason for your fear",
           "isRequired": true,
           "description": "You do not need to use any special wording.  The key is to be clear about what you mean."
          },
          {
-          "type": "comment",
-          "name": "whyViolence",
-          "isRequired": true,
-          "title": "Why do you fear `Family Violence` is likely to happen?",
-          "description": "You can state the reason(s) why you are afraid of the other party and think family violence may occur.  You do not need to use any special wording.  The key is to be clear about what you mean.  You will have an opportunity later to describe any past incidents, if there have been any. "
+            "type": "yesno",
+            "name": "isNoneExplainedConcerns",
+            "title": "Do you have any concerns for the safety of the protected party/parties that you have not already described in this affidavit? ",
+            "isRequired": true
          },
          {
           "type": "comment",
-          "name": "describeThreats",
-          "isRequired": true,
-          "title": "Describe the behaviour or threats that concern you.",
-          "description": "What are some examples of the other party's behaviour, or threats they have made, that have you worried for the safety of you and/or the protected party/parties."
+          "name": "noneExplainedConcerns",
+          "visibleIf": "{isNoneExplainedConcerns} = \"y\"",
+          "title": "Explain the concerns and the reason for your concerns",
+          "isRequired": true
          },
          {
           "type": "comment",
