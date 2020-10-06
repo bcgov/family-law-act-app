@@ -21,5 +21,5 @@ urlpatterns = [
 ]
 
 if (os.getenv("FRONT_END", "prod") == "dev"):
-    urlpatterns.append(path("family-law-act/family-law-act/api/v1/", include("api.urls"))) 
+    urlpatterns.append(path("family-law-act/api/v1/", include("api.urls"))) 
     urlpatterns.append(path("family-law-act/", RedirectView.as_view(url="http://localhost:8084/family-law-act/")))

@@ -251,5 +251,4 @@ EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
 EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")
 EFILING_BASE_URL = os.environ.get("EFILING_BASE_URL", "")
 
-if (os.getenv("FRONT_END", "prod") != "dev"):
-    FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
+FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
