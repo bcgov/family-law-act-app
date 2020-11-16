@@ -48,6 +48,7 @@ const routes = [
   {
     path: "/serviceLocator",
     name: "service-locator",
+    beforeEnter: authGuard,
     component: ServiceLocator,
   },
   {
