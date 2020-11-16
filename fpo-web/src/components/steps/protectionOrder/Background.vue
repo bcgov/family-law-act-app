@@ -22,6 +22,18 @@ export default {
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
+
+    let otherParties = this.$store.getters["application/getRespondentName"];
+    console.log(otherParties)
+    if (otherParties) {
+      let respondentName =
+        otherParties.first +
+        " " +
+        otherParties.middle +
+        " " +
+        otherParties.last;
+      survey.setVariable("RespondentName", respondentName);
+    }
     
     return {
       survey: survey

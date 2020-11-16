@@ -5,6 +5,7 @@ import VueRouter from "vue-router";
 import routes from "@/routes";
 import GlobalStore from "@/store";
 import http from "./plugins/http.js";
+import "./filters";
 
 import "@/styles/index.scss";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -25,6 +26,8 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
    }
 });
+// Redirect to /family-law-act/
+history.pushState({page: "home"}, "", "/family-law-act/")
 
 new Vue({
   router: router,

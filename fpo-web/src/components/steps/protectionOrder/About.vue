@@ -23,7 +23,7 @@ export default {
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
 
-    let order = this.step.result.selectedPOOrder;
+    let order = this.$store.getters["application/getNavigation"][0].result.selectedPOOrder;
     if(order) {
       survey.setVariable("userPreferredService", order.orderType);
     }

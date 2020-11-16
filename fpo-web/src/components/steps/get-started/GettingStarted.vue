@@ -2,8 +2,14 @@
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <div class="row">
       <div class="col-md-12 order-heading">
-        <h1>What are you asking for (Orders)?</h1>
-        <p>Please select each option you want to ask the court for an order about. You will be asked to give more details later.</p>
+        <div v-if="returningUser">
+          <h1 >I need help with the following family law issues:</h1>          
+          <p>Select all that apply.</p>
+        </div>
+        <div v-else>          
+          <h1 >What are you asking for (Orders)?</h1>
+          <p>Please select each option you want to ask the court for an order about. You will be asked to give more details later.</p>
+        </div>
         <div>
           <b-form-group>
             <b-form-checkbox-group
@@ -12,10 +18,17 @@
               name="orders"
               stacked
             >
+              <!-- <div class="checkbox-border" >
+                <b-form-checkbox value="protectionOrder" >
+                  <div class="checkbox-choices">Protection from family violence</div>
+                  <p> -->
               <div class="checkbox-border">
-                <b-form-checkbox value="protectionOrder">
-                  Protection from family violence
-                  <p>
+                <b-form-checkbox value="protectionOrder"><div class="checkbox-choices">Protection from family violence</div>
+                  <p v-if="returningUser">
+                    Applying for a protection order, to change an existing protection order or to terminate
+                     an existing protection made under Part 9 of the Family Law Act.
+                  </p>
+                  <p v-else>
                     When a family member makes another family member feel unsafe, this is called ‘family violence’.
                     A protection order is the order made by a court to help protect one family member from another family member.
                   </p>
@@ -23,18 +36,26 @@
               </div>
 
               <div class="checkbox-border">
-                <b-form-checkbox value="familyLawMatter">
-                  Family law matter
-                  <p>
-                    Family law matters include: parenting arrangements('parental responsibilities' and 'parenting time'), 'child support', 'contact with a child',
-                    'guardianship of a child' and 'spousal support'.
-                  </p>
+                <b-form-checkbox value="familyLawMatter">  
+                  <span v-if="returningUser"><div class="checkbox-choices">Family Law Matters including parenting arrangements, child support, contact with a 
+                    child, guardianship of a child and spousal support under the <i>Family Law Act.</i></div>
+                    <p>
+                      Applying for, or replying to, an application for a new order, to change an order, or to cancel an order about
+                       a Family Law Matter.
+                    </p>
+                  </span>
+                  <span v-else><div class="checkbox-choices">Family law matter</div>
+                    <p>
+                      Family law matters include: parenting arrangements('parental responsibilities' and 'parenting time'), 'child support', 'contact with a child',
+                      'guardianship of a child' and 'spousal support'.
+                    </p>
+                  </span>
                 </b-form-checkbox>
               </div>
 
               <div class="checkbox-border">
                 <b-form-checkbox value="caseMgmt">
-                  Case management
+                  <div class="checkbox-choices">Case management</div>
                   <p>
                     Case management includes administrative or procedural things that need to be done in a court case (usually by a specific time or in a specific way).
                     Sometimes you need to get a case management order from the court to allow you to do something, or to make someone else do something so that you can continue the court case.
@@ -44,7 +65,7 @@
 
               <div class="checkbox-border">
                 <b-form-checkbox value="priotityParenting">
-                  Extraordinary parenting matter
+                  <div class="checkbox-choices">Extraordinary parenting matter</div>
                   <p>
                     'Extraordinary parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
                     priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
@@ -55,7 +76,7 @@
 
               <div class="checkbox-border">
                 <b-form-checkbox value="childReloc">
-                  Relocation of a child
+                  <div class="checkbox-choices">Relocation of a child</div>
                   <p>
                     If you have a written agreement or order about parenting arrangements for a child and the other guardian is relocating with a child, you can apply to the court
                     to prohibit the relocation. If you do not have a written agreement or order about parenting arrangements you may need an order about a family law matter or priority
@@ -66,7 +87,7 @@
 
               <div class="checkbox-border">
                 <b-form-checkbox value="agreementEnfrc">
-                  Enforcement of agreements and court orders
+                  <div class="checkbox-choices">Enforcement of agreements and court orders</div>
                   <p>If you have a written agreement or court order that the other party is not following, you can ask the court to enforce it.</p>
                 </b-form-checkbox>
               </div>
@@ -81,6 +102,7 @@
 <script>
 import PageBase from "../PageBase.vue";
 import { Step } from "../../../models/step";
+import GlobalStore from "@/store";
 
 export default {
   name: "getting-started",
@@ -89,10 +111,14 @@ export default {
   },
   data() {
     return {
-      selected: []
+      selected: [],
+      returningUser: false
     };
   },
   created() {
+    // get the user type and if existing user with existing cases, show different
+    const store = GlobalStore.getInstance();
+    this.returningUser = (store.getters["application/getUserType"] == 'returning');
     if (this.step.result.selectedForms) {
       this.selected = this.step.result.selectedForms;
     }
@@ -102,6 +128,7 @@ export default {
       this.setSteps(event);
     },
     setSteps(event) {
+      console.log("GETTING STARTED")
       if (event !== undefined) {
         this.toggleCommonSteps(event.includes("protectionOrder"));
         this.toggleSteps(2, event.includes("protectionOrder"));
@@ -170,6 +197,11 @@ export default {
   padding: 15px;
   margin-top: 10px;
   margin-bottom: 8px;
+}
+.checkbox-choices{
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 17px;
 }
 
 input {

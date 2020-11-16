@@ -11,12 +11,14 @@
          {
           "type": "yesno",
           "name": "RespondentNoGo",
-          "title": "Are there any places where you want {RespondentName} to stay away from?"
+          "title": "Are there any places where you want {RespondentName} to stay away from?",
+          "isRequired": true
          },
          {
           "type": "checkbox",
           "name": "RespondentNoGoPlaces",
           "visible": false,
+          "isRequired": true,
           "visibleIf": "{RespondentNoGo} = 'y'",
           "title": "Select the places where you want {RespondentName} to stay away from:",
           "description": "If you select \"Other\" and need to write more than 1 place, write them all and separate each place with a comma.",
@@ -27,15 +29,15 @@
             "text": "Residence"
            },
            {
-            "value": "Workplace",
+            "value": "School",
             "text": "School"
            },
            {
-            "value": "School",
+            "value": "Workplace",
             "text": "Place of Employment"
            },
            {
-            "value": "Place of Worship",
+            "value": "ChildCareFacility",
             "text": "Child care facility"
            }
           ]

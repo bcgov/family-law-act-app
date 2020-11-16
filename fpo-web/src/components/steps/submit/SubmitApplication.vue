@@ -154,18 +154,42 @@ export default {
     PageBase
   },
   methods: {
-    getFPOResultData: function() {
-      return this.$store.getters["application/getNavigation"][1].result;
-    },
-    saveApplication: function () {
-      const application = this.$store.getters["application/getApplication"]
-      if (application.id.length > 0) {
-        const applicationId = application.id;
-        this.$store.dispatch("common/updateApplication", {applicationId, application});
-      }
-    },
+    getFPOResultData: function() {      
+      var result = this.$store.getters["application/getNavigation"][0].result; 
+      for(var i=1;i<9; i++)
+        Object.assign(result, result, this.$store.getters["application/getNavigation"][i].result); 
+     
+      return result;
+    },    
     onDownload: function() {
-      this.saveApplication();     
+      console.log("downloading")
+      const application = this.$store.getters["application/getApplication"]
+      
+        const applicationId = application.id;
+
+        this.$http.put(
+        "/app/"+ applicationId + "/",
+        application,
+          {
+            responseType: "json",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data);  
+          this.loadPdf()
+          this.error = "";
+        })
+        .catch(err => {
+          console.error(err);
+          this.error = err;
+        });
+        
+      
+    },
+    loadPdf: function() {
       this.$http
         .post(
           "/survey-print/?name=application-about-a-protection-order",
@@ -192,6 +216,7 @@ export default {
           console.error(err);
           this.error = "Sorry, we were unable to print your form at this time, please try again later.";
         });
+
     },
     onSubmit: function() {
       //TODO: get the pdf through new API,

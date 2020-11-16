@@ -11,31 +11,36 @@
          {
           "type": "yesno",
           "name": "RespondentFirearms",
-          "title": "Do you have concerns {ResondentName} would threaten or harm you or your children with guns, explosives or another kind of firearm?",
+          "isRequired": true,
+          "title": "Do you have concerns {RespondentName} would threaten or harm you or your children with guns, explosives or another kind of firearm?",
           "description": "<a href=\"http://laws-lois.justice.gc.ca/eng/acts/C-46/page-1.html\" target=\"_blank\">Click here for more information about how firearms and explosive substances are defined in the Criminal Code of Canada.</a>"
          },
          {
           "type": "comment",
           "name": "firearmsReason",
           "visibleIf": "{RespondentFirearms} = 'y'",
-          "title": "Explain the reason for your concerns:"
+          "title": "Explain the reason for your concerns:",
+          "isRequired": true
          },
          {
           "type": "yesno",
           "name": "RespondentFirearmsYes",
           "visible": false,
           "visibleIf": "{RespondentFirearms} = 'y'",
+          "isRequired": true,
           "title": "Do you think {RespondentName} has guns, explosives or any other kind of firearm?"
          },
          {
           "type": "comment",
           "name": "firearmsYesReason",
           "visibleIf": "{RespondentFirearmsYes} = 'y'",
-          "title": "Explain the reason for your belief:"
+          "title": "Explain the reason for your belief:",
+          "isRequired": true
          },
          {
           "type": "yesno",
           "name": "RespondentWeapons",
+          "isRequired": true,
           "title": "Do you have concerns {RespondentName} would threaten or harm you or your children with weapons that are not guns or explosives?",
           "description": "Everyday objects like a kitchen knife, a baseball bat or a hammer, could be used as weapons."
          },
@@ -43,12 +48,14 @@
           "type": "comment",
           "name": "weaponsReasons",
           "visibleIf": "{RespondentWeapons} = 'y'",
-          "title": "Explain the reason for your concerns:"
+          "title": "Explain the reason for your concerns:",
+          "isRequired": true
          },
          {
           "type": "yesno",
           "name": "RespondentWeaponsYes",
           "visible": false,
+          "isRequired": true,
           "visibleIf": "{RespondentWeapons} = 'y'",
           "title": "Do you think {RespondentName} own any weapons that are not everyday objects, guns or explosives?",
           "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knifes, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
@@ -57,12 +64,14 @@
           "type": "comment",
           "name": "weaponsYesReason",
           "visibleIf": "{RespondentWeaponsYes} = 'y'",
-          "title": "Explain the reason for your belief:"
+          "title": "Explain the reason for your belief:",
+          "isRequired": true
          },
          {
           "type": "checkbox",
           "name": "RespondentNoWeapons",
           "visible": false,
+          "isRequired": true,
           "visibleIf": "{RespondentWeapons} = 'n' and {RespondentFirearms} = 'n'",
           "title": "By answering \"NO\" to the questions above, you believe there is no need for a judge to order {RespondentName} not to have any weapons or firearms. If there is a concern about {RespondentName} having or using weapons or firearms, go back to the questions above and answer \"YES.\"\n<br>\n<br>\nIf you have no concerns about weapons or firearms, please confirm by checking the statement below.",
           "choices": [
