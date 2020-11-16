@@ -12,7 +12,7 @@ export interface CommonState {
 
 export interface ApplicationState {
   // empty for now, persisted ID from database
-  id?: string;
+  id: string;
 
   // identifier for the application type
   // I think we only have one for now
@@ -38,7 +38,7 @@ export interface ApplicationState {
   allCompleted: boolean;
 
   // might be useful?
-  lastPrinted?: Date;
+  lastPrinted: Date;
 
   userType: string;
 
@@ -46,7 +46,7 @@ export interface ApplicationState {
 
   userId: string,
 
-  applicantName?: string;
+  applicantName: string;
 
-  respondentName?: string;
+  respondentName: string;
 }

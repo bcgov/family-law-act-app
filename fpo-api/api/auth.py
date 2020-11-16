@@ -26,7 +26,7 @@ def get_login_uri(request: Request = None, next: str = None) -> str:
         query_dictionary = {k: v for k, v in query_dictionary.items() if v is not None}
         try:
             uri = "{base_url}?{querystring}".format(
-                base_url=reverse("oidc_auth_request", request=request),
+                base_url=reverse("oidc_auth_request"),
                 querystring=urllib.parse.urlencode(query_dictionary),
             )
         except NoReverseMatch:
@@ -38,7 +38,7 @@ def get_logout_uri(request: Request = None) -> str:
     uri = None
     if request:
         try:
-            uri = reverse("oidc_end_session", request=request)
+            uri = reverse("oidc_end_session")
         except NoReverseMatch:
             pass
     return uri
@@ -46,6 +46,7 @@ def get_logout_uri(request: Request = None) -> str:
 
 def sync_keycloak_user(oidc_user: OIDCUser, claims: dict):
     """Copy attributes from JWT claims."""
+    oidc_user.user.universal_id = claims.get("universal-id")
     oidc_user.user.authorization_id = claims.get("sub")
     oidc_user.user.first_name = claims.get("given_name")
     oidc_user.user.last_name = claims.get("family_name")

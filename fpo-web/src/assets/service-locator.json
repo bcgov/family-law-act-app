@@ -1,0 +1,18 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+     {
+      "name": "ServiceLocator",
+      "elements": [
+       {
+        "type": "yesno",
+        "isRequired": true,
+        "name": "isVictoriaLawCourt",
+        "title": "Is Victoria Law Courts' the nearest location to you OR the location where your existing matter has been filed?"
+       }
+      ]
+     }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }
