@@ -21,10 +21,10 @@
                       responsive="sm"
                       >
                   <template v-slot:cell(edit)="row">
-                    <b-button size="sm" variant="transparent" @click="removeApplication(row.item, row.index)">
+                    <b-button size="sm" variant="transparent" disabled @click="removeApplication(row.item, row.index)">
                       <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
                     </b-button>
-                    <b-button size="sm" variant="transparent" @click="resumeApplication(row.item.id)">
+                    <b-button size="sm" variant="transparent" disabled @click="resumeApplication(row.item.id)">
                       <b-icon-forward font-scale="1" variant="primary"></b-icon-forward>
                       <b-icon-file-earmark-text font-scale="1.5" variant="primary"></b-icon-file-earmark-text>                    
                     </b-button>
