@@ -101,15 +101,20 @@ export default {
       this.op.separated = opData.isSeperatedOtherParty;
       this.op.dateSeparated = opData.dateOfSeparation;
 
-      this.op.address.street = opData.otherPartyAddress.street;
-      this.op.address.city = opData.otherPartyAddress.city;
-      this.op.address.state = opData.otherPartyAddress.state;
-      this.op.address.country = opData.otherPartyAddress.country;
-      this.op.address.postcode = opData.otherPartyAddress.postcode;
-
-      this.op.contactInfo.phone = opData.otherPartyContact.phone;
-      this.op.contactInfo.fax = opData.otherPartyContact.fax;
-      this.op.contactInfo.email = opData.otherPartyContact.email;
+      if(opData.otherPartyAddress)
+      {
+        this.op.address.street = opData.otherPartyAddress.street;
+        this.op.address.city = opData.otherPartyAddress.city;
+        this.op.address.state = opData.otherPartyAddress.state;
+        this.op.address.country = opData.otherPartyAddress.country;
+        this.op.address.postcode = opData.otherPartyAddress.postcode;
+      }
+      if(opData.otherPartyContact)
+      {
+        this.op.contactInfo.phone = opData.otherPartyContact.phone;
+        this.op.contactInfo.fax = opData.otherPartyContact.fax;
+        this.op.contactInfo.email = opData.otherPartyContact.email;
+      }
     },
     populateFormWithPreExistingValues(editRowProp, survey) {
       survey.data = {
