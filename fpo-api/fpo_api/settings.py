@@ -241,10 +241,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     )
 }
-FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
-LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
-# For development (when no SiteMinder available)
-# OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
 
 # DEMO_LOGIN = True
 EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
