@@ -60,8 +60,6 @@ objects:
             role: ${ROLE}
             env: ${TAG_NAME}
         spec:
-          nodeSelector:
-            aporeto-enforcerd: 'true'
           containers:
             - name: ${NAME}
               image: " "
