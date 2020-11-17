@@ -7,12 +7,5 @@ export const actions: ActionTree<CommonState, RootState> = {
     },
     setExistingApplication(context, existingApplication) {
         context.commit("setExistingApplication", existingApplication);
-    },
-    saveNewApplication(context, application) {
-        context.commit("saveNewApplication", application);
-    },
-    updateApplication(context, {applicationId, application}) {
-        context.commit("updateApplication", {applicationId, application});
     }
-
 };

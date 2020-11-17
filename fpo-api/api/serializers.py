@@ -16,3 +16,45 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+from rest_framework import serializers
+
+from api.models import SurveyResult, User, Application
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id"]
+
+
+class ApplicationListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Application
+        fields = [
+            "id",
+            "app_type",
+            "last_updated"
+        ]
+
+
+class ApplicationSerializer(serializers.ModelSerializer):
+    app_user_Id = UserSerializer(many=True, required=False)
+
+    class Meta:
+        model = Application
+        fields = "__all__"
+
+
+class SurveySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SurveyResult
+        fields = [
+            "id",
+            "create_timestamp",
+            "update_timestamp",
+            "collection",
+            "survey_type",
+            "result",
+            "user_id",
+        ]

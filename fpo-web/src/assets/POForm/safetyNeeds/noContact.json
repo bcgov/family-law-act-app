@@ -18,7 +18,8 @@
          {
           "type": "yesno",
           "name": "needCommunication",
-          "title": "The protected party may need to communicate with the other party"
+          "title": "The protected party may need to communicate with the other party",
+          "isRequired": true
          },
          {
           "type": "checkbox",
@@ -26,6 +27,7 @@
           "visibleIf": "{needCommunication} = 'y'",
           "title": "The protected party may need to communicate with the other party for the following reasons:",
           "description": "Select all options that apply",
+          "isRequired": true,
           "hasOther": true,
           "choices": [
            {

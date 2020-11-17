@@ -14,6 +14,7 @@ import os
 from corsheaders.defaults import default_headers
 
 from . import database
+from .encryption import Encryptor
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -240,13 +241,15 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     )
 }
-FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
-LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
-# For development (when no SiteMinder available)
-# OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
 
 # DEMO_LOGIN = True
 EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
 EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
 EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")
 EFILING_BASE_URL = os.environ.get("EFILING_BASE_URL", "")
+
+ENCRYPTOR = Encryptor("DATA_SECURITY_KEY")
+FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/family-law-act/")
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/family-law-act/")
+# For development (when no SiteMinder available)
+# OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")

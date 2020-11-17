@@ -16,6 +16,8 @@ import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey-glossary.ts";
 import surveyJson from "@/assets/service-locator.json";
 
+const store = GlobalStore.getInstance();
+
 export default {
   name: "ServiceLocator",
   data() {
@@ -34,19 +36,33 @@ export default {
   },
   methods: {
     onSubmit(evt) {
-      evt.preventDefault();
+      evt.preventDefault();      
 
       if(!this.survey.isCurrentPageHasErrors) 
       {
         if (this.survey.data.isVictoriaLawCourt == 'y') 
         {
-          const store = GlobalStore.getInstance();
-          this.userId = store.getters["application/getUserId"]
-          // TODO: complete setup of POST body as application once API is in place
-          const application = {"userId": this.userId}
           this.$store.dispatch("application/init");
-          this.$store.dispatch("common/saveNewApplication", application);
-          this.$router.push({ name: "flapp-surveys" });
+          const application = store.getters["application/getApplication"];
+          this.$http.post(
+            "/app/", application,
+            {
+              responseType: "json",
+              headers: {
+                "Content-Type": "application/json",
+              }
+            }
+          )
+          .then(res => {
+            this.applicationId = res.data.app_id;  
+            store.dispatch("application/setApplicationId", this.applicationId);
+            this.error = "";
+            this.$router.push({name: "flapp-surveys" }) 
+          })
+          .catch(err => {
+            console.error(err);
+            this.error = err;
+          });
         } else {
           location.replace(
             "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"

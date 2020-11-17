@@ -87,6 +87,7 @@
       stringData:
         oidc-rp-provider-endpoint: ${OIDC_RP_PROVIDER_ENDPOINT}
         oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
+        encryption-key: ${DATA_SECURITY_KEY}
         efiling-auth-url: ${EFILING_AUTH_URL}
         efiling-client-id: ${EFILING_CLIENT_ID}
         efiling-client-secret: ${EFILING_CLIENT_SECRET}
@@ -187,6 +188,13 @@
                         key: oidc-rp-client-secret
                   - name: OIDC_RP_KC_IDP_HINT
                     value: ${OIDC_RP_KC_IDP_HINT}
+
+                  - name: DATA_SECURITY_KEY
+                    valueFrom:
+                      secretKeyRef:
+                        name: ${NAME}
+                        key: encryption-key
+
                   - name: EFILING_AUTH_URL
                     valueFrom:
                       secretKeyRef:
@@ -282,6 +290,7 @@
       description: The name associated to the database deployment resources.  In particular, this is used to wrie up the credentials associated to the database.
       required: true
       value: postgresql
+
     - name: OIDC_RP_PROVIDER_ENDPOINT
       displayName: OIDC RP Provider Endpoint
       description: OIDC RP Provider Endpoint.
@@ -297,6 +306,12 @@
       description: OIDC RP KeyCloak IDP Hint
       required: false
       value: idir
+
+    - name: DATA_SECURITY_KEY
+      displayName: Data Security (Encryption) Key
+      description: The Encryption Key for the environment.
+      generate: expression
+      from: '[a-zA-Z0-9]{32}'
 
     - name: EFILING_AUTH_URL
       displayName: EFILING authentication url
