@@ -66,7 +66,14 @@
                   "title": "What is a safe address where you can receive court documents?",
                   "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
                   "isRequired": true,
-                  "referLabel": "Applicant's Address"
+                  "referLabel": "Applicant's Address",
+                  "validators": [
+                    {
+                      "type": "expression",
+                      "text": "Please Fill in all Required Fields.",
+                      "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
+                    }
+                  ]
                 },
                 {
                   "type": "contactinfo",
@@ -97,7 +104,14 @@
                   "name": "LawyerAddress",
                   "title": "What is your lawyer's address?",
                   "isRequired": true,
-                  "referLabel": "Applicant's Lawyer's Address"
+                  "referLabel": "Applicant's Lawyer's Address",
+                  "validators": [
+                    {
+                      "type": "expression",
+                      "text": "Please Fill in all Required Fields.",
+                      "expression": "{LawyerAddress.street} notempty and {LawyerAddress.postcode} notempty and {LawyerAddress.city} notempty"
+                    }
+                  ]
                 },
                 {
                   "type": "contactinfo",

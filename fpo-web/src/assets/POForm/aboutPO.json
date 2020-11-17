@@ -33,6 +33,7 @@
          {
           "type": "comment",
           "name": "whyNotInCourt",
+          "isRequired": true,
           "visibleIf": "{inCourtForPO} = \"n\"",
           "title": "Please explain why you were not in Court"
          },
