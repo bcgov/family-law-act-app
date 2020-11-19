@@ -7,4 +7,8 @@ class PreparedPdf(models.Model):
     )
     created_date = models.DateTimeField(auto_now_add=True)
 
-    data = models.BinaryField(blank=True)
+    # stored encrypted when key_id is set
+    data = models.BinaryField(blank=True, null=True)
+
+    # encryption key identifier
+    key_id = models.CharField(max_length=32, blank=True, null=True)

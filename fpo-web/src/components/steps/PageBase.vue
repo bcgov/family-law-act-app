@@ -19,11 +19,13 @@
 
 <script>
 import { Page } from "../../models/page";
+import {Component, Vue} from "vue-property-decorator"
 
 export default {
   name: "PageBase",
   data() {
     return {
+      error: ""
     };
   },
   props: {
@@ -33,24 +35,24 @@ export default {
   },
   methods: {
     onPrev: function(event) {
-      this.saveChanges();
+      Vue.nextTick().then(()=>{this.saveChanges();});      
       if (this.$listeners && this.$listeners.onPrev) {
         this.$emit('onPrev');
       } else {
         this.$store.dispatch("application/gotoPrevStepPage");
       }
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
     },
     onNext: function(event) {
       if (!this.isDisableNext()) {
-        this.saveChanges();
+        Vue.nextTick().then(()=>{this.saveChanges();});
         if (this.$listeners && this.$listeners.onNext) {  
             this.$emit('onNext');
         } else {
           this.$store.dispatch("application/gotoNextStepPage");
         }
       }
-      window.scrollTo(0, 0);
+      //window.scrollTo(0, 0);
     },
     onComplete: function(event) {
       if (this.$listeners && this.$listeners.onComplete) {  
@@ -72,13 +74,27 @@ export default {
     isDisableNext: function() {
       return this.disableNext;
     },
-    saveChanges: function() {
-      console.log("saving changes - update - PUT")
-      const application = this.$store.getters["application/getApplication"]
-      if (application.id.length>0) {
+    saveChanges: function() { 
+        const application = this.$store.getters["application/getApplication"]      
         const applicationId = application.id;
-        this.$store.dispatch("common/updateApplication", {applicationId, application});
-      }    
+        this.$http.put(
+          "/app/"+ applicationId + "/",
+          application,
+          {
+            responseType: "json",
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }
+        )
+        .then(res => {
+          console.log(res.data); 
+          this.error = "";
+        })
+        .catch(err => {
+          console.error(err);
+          this.error = err;
+        });        
     }
   },
 };
