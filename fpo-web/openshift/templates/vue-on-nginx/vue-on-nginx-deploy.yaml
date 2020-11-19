@@ -59,8 +59,6 @@ objects:
             role: ${ROLE}
             env: ${TAG_NAME}
         spec:
-          nodeSelector:
-            aporeto-enforcerd: "true"
           containers:
             - image: ${NAME}
               imagePullPolicy: Always

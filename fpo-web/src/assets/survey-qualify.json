@@ -62,6 +62,7 @@
             "type": "yesno",
             "name": "familyUnsafe",
             "visibleIf": "{unsafe} = \"y\"",
+            "isRequired": true,
             "title": "Is the individual that needs protecting a `family member` of the person making them feel unsafe?"
            },
            {

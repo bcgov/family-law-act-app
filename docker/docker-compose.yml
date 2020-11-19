@@ -71,6 +71,7 @@ services:
       - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
       - EFILING_BASE_URL=${EFILING_BASE_URL}
       - FRONT_END=${FRONT_END}
+      - DATA_SECURITY_KEY=${DATA_SECURITY_KEY}
     volumes:
       - ../fpo-api/api:/opt/app-root/src/api
     networks:
