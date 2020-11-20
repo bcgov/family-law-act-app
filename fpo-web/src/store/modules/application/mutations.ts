@@ -341,12 +341,16 @@ export const mutations: MutationTree<ApplicationState> = {
     state.respondentName = respondentName;
   },
   setApplicationId(state, id) {
-    console.log("reached store to set application Id")
     state.id = id;
   },
   setApplicationType(state, type) {
-    console.log("reached type store")
     state.type = type;
+  },
+  setLastUpdated(state, lastUpdated) {
+    state.lastUpdate = lastUpdated;
+  },
+  setLastPrinted(state, lastPrinted) {
+    state.lastPrinted = lastPrinted;
   },
   setCurrentApplication(state, application) {
     state.id = application.id;    

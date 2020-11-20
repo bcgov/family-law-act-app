@@ -63,7 +63,7 @@
 </template>
 
 <script>
-//import Step from "../models/step";
+import Vue from 'vue'
 
 export default {
   name: "NavigationSidebar",
@@ -94,8 +94,7 @@ export default {
         curr.classList.remove("current");
         currChildGroup.style.display = "none";
       }
-
-      //TODO: set the lastUpdate value
+      
       this.$store.dispatch("application/setCurrentStep", nextIndex);
       Vue.nextTick().then(()=>{this.saveChanges();});
     },
@@ -164,8 +163,10 @@ export default {
       return step.type=='print';
     },
     saveChanges: function() {
+      const lastUpdated = new Date();
+      this.$store.dispatch("application/setLastUpdated", lastUpdated);
       const application = this.$store.getters["application/getApplication"]      
-      const applicationId = application.id;
+      const applicationId = application.id;      
 
       this.$http.put(
         "/app/"+ applicationId + "/",

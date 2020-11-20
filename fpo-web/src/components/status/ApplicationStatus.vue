@@ -21,12 +21,18 @@
                       responsive="sm"
                       >
                   <template v-slot:cell(edit)="row">
-                    <b-button size="sm" variant="transparent" disabled @click="removeApplication(row.item, row.index)">
-                      <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
+                    <b-button size="sm" variant="transparent" 
+                              @click="removeApplication(row.item, row.index)"
+                              v-b-tooltip.hover
+					                    title="Remove Application">
+                              <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
                     </b-button>
-                    <b-button size="sm" variant="transparent" disabled @click="resumeApplication(row.item.id)">
-                      <b-icon-forward font-scale="1" variant="primary"></b-icon-forward>
-                      <b-icon-file-earmark-text font-scale="1.5" variant="primary"></b-icon-file-earmark-text>                    
+                    <b-button size="sm" variant="transparent" 
+                              @click="resumeApplication(row.item.id)"
+                              v-b-tooltip.hover
+					                    title="Resume Application">
+                              <b-icon-forward font-scale="1" variant="primary"></b-icon-forward>
+                              <b-icon-file-earmark-text font-scale="1.5" variant="primary"></b-icon-file-earmark-text>                    
                     </b-button>
                   </template>
                   <template v-slot:cell(app_type)="row">                  
@@ -38,7 +44,7 @@
             </b-table>
           </b-card>
           <div class="row">
-            <div class="col-md-5">
+            <div hidden class="col-md-5">
               <a
                 class="btn btn-success btn-lg register-button"
                 @click="navigate('new')"
@@ -67,14 +73,34 @@
       </div>
     </b-container>
 
-    <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" hide-footer>
-            <template v-slot:modal-title>
-                    <h2 class="mb-0">Confirm Delete Application</h2>
-                    <p>Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</p>
-            </template>
-            <button type="button" class="btn btn-danger application-button" @click="confirmRemoveApplication()">Delete</button>         
-            <button type="button" class="btn btn-primary application-button" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</button>
+    <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" header-class="bg-warning text-light">
+			<b-row v-if="deleteError" id="DeleteError" class="h4 mx-2">
+				<b-badge class="mx-1 mt-2"
+					style="width: 20rem;"
+					v-b-tooltip.hover
+					:title="deleteErrorMsgDesc"
+					variant="danger"> {{deleteErrorMsg}}
+					<b-icon class="ml-3"
+						icon = x-square-fill
+						@click="deleteError = false"
+				/></b-badge>                    
+      </b-row>            
+      <template v-slot:modal-title>
+          <h2 v-if="allowDeletion" class="mb-0 text-light">Confirm Delete Application</h2>
+          <h2 v-else class="mb-0 text-light">Deletion Not Permitted</h2>                   
+      </template>
+      <h4 v-if="allowDeletion" >Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</h4>
+      <h4 v-else >The deletion of the <b>"{{applicationToDelete.app_type}}"</b> application is not permitted.</h4>
+      <template v-slot:modal-footer>
+          <b-button v-if="allowDeletion" variant="danger" @click="confirmRemoveApplication()">Confirm</b-button>
+          <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
+      </template>            
+      <template v-slot:modal-header-close>                 
+          <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
+          >&times;</b-button>
+      </template>
     </b-modal> 
+
   </div>
 </template>
 
@@ -99,7 +125,11 @@ export default {
       applicationToDelete: {},
       indexToDelete: -1, 
       applicationId: '',
-      error: ''
+      error: '',
+      deleteErrorMsg: '',
+      deleteErrorMsgDesc: '',
+      deleteError: false,
+      allowDeletion: true
     };
   },
   mounted() {
@@ -124,7 +154,14 @@ export default {
     beginApplication() {   
 
       this.$store.dispatch("application/init");
+      const userId = store.getters["common/getUserId"];      
+      store.dispatch("application/setUserId", userId);
+
+      const userType = store.getters["application/getUserType"];      
+      store.dispatch("application/setUserType", userType);
+
       const application = store.getters["application/getApplication"];
+      
       console.log(application)
       this.$http.post(
         "/app/",
@@ -154,22 +191,22 @@ export default {
 
     resumeApplication(applicationId) {      
       
-      this.$http.get('/app/'+ applicationId)
+      this.$http.get('/app/'+ applicationId + '/')
       .then((response) => {
         const applicationData = response.data
 
         this.currentApplication.id = applicationId;
-        this.currentApplication.allCompleted = applicationData.all_completed;
-        this.currentApplication.applicantName = applicationData.applicant_name;
-        this.currentApplication.currentStep = applicationData.current_step;
-        this.currentApplication.lastUpdate = applicationData.last_updated;
-        this.currentApplication.lastPrinted = applicationData.last_printed;
-        this.currentApplication.respondentName = applicationData.respondent_name;
+        this.currentApplication.allCompleted = applicationData.allCompleted;
+        this.currentApplication.applicantName = applicationData.applicantName;
+        this.currentApplication.currentStep = applicationData.currentStep;
+        this.currentApplication.lastUpdate = applicationData.lastUpdated;
+        this.currentApplication.lastPrinted = applicationData.lastPrinted;
+        this.currentApplication.respondentName = applicationData.respondentName;
         
-        this.currentApplication.type = applicationData.app_type;
+        this.currentApplication.type = applicationData.type;
         this.currentApplication.userId = applicationData.user;
-        this.currentApplication.userName = applicationData.user_name;
-        this.currentApplication.userType = applicationData.user_type;
+        this.currentApplication.userName = applicationData.userName;
+        this.currentApplication.userType = applicationData.userType;
         this.currentApplication.steps = applicationData.steps;
         this.$store.dispatch("application/setCurrentApplication", this.currentApplication);
         this.$store.dispatch("common/setExistingApplication", true);      
@@ -180,25 +217,36 @@ export default {
         console.log(err)
         this.error = err;        
       });
-    },
+    },    
 
     removeApplication(application, index) {
+      this.deleteErrorMsg = '';
+      this.deleteErrorMsgDesc = '';
+      this.deleteError = false;
       console.log(application)
       this.applicationToDelete = application;
       this.indexToDelete = index;
-      // TODO: confirm the checks to put in place in order to determine if the application can be deleted: open modal to confirm deletion
-      this.confirmDelete=true;
-      this.previousApplications      
+      this.determineIsDeletionAllowed();         
     },
+
+    determineIsDeletionAllowed() {
+      // TODO: confirm the checks to put in place in order to determine if the application can be deleted: open modal to confirm deletion      
+      this.allowDeletion = true;
+      this.confirmDelete=true;  
+
+    },
+
     confirmRemoveApplication() {
-      this.$http.delete('/app/'+ this.applicationToDelete.id)
+      this.$http.delete('/app/'+ this.applicationToDelete.id + '/')
       .then((response) => {
         console.log(response.data)
         
       }).catch((err) => {
-        //TODO: determine workflow
-        console.log(err)
-        this.error = err;        
+        const errMsg = err.response.data.error;
+				console.log(err.response)
+        this.deleteErrorMsg = errMsg.slice(0,60) + (errMsg.length>60?' ...':'');
+        this.deleteErrorMsgDesc = errMsg;
+        this.deleteError = true;            
       });
       this.confirmDelete=false;
       this.previousApplications.splice(this.indexToDelete, 1);      

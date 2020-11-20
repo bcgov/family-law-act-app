@@ -74,27 +74,31 @@ export default {
     isDisableNext: function() {
       return this.disableNext;
     },
-    saveChanges: function() { 
-        const application = this.$store.getters["application/getApplication"]      
-        const applicationId = application.id;
-        this.$http.put(
-          "/app/"+ applicationId + "/",
-          application,
-          {
-            responseType: "json",
-            headers: {
-              "Content-Type": "application/json",
-            }
+    saveChanges: function() {
+      const lastUpdated = new Date();
+      this.$store.dispatch("application/setLastUpdated", lastUpdated); 
+      const application = this.$store.getters["application/getApplication"]   
+      const applicationId = application.id;
+      this.$http.put(
+        "/app/"+ applicationId + "/",
+        application,
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
           }
-        )
-        .then(res => {
+        }
+      )
+      .then(res => {
+        console.log(res.data); 
           console.log(res.data); 
-          this.error = "";
-        })
-        .catch(err => {
-          console.error(err);
-          this.error = err;
-        });        
+        console.log(res.data); 
+        this.error = "";
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });    
     }
   },
 };
