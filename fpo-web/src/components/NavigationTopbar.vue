@@ -69,6 +69,7 @@
 
 <script>
 import {Component, Vue} from "vue-property-decorator";
+import moment from 'moment-timezone';
 
 export default {
   data() {
@@ -79,7 +80,7 @@ export default {
       const emptyApplicationRoutes = ['/', '/status', '/serviceLocator']
 
       if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) { 
-        const lastUpdated = new Date();
+        const lastUpdated = moment().format();
         this.$store.dispatch("application/setLastUpdated", lastUpdated); 
         const application = this.$store.getters["application/getApplication"]      
         const applicationId = application.id;

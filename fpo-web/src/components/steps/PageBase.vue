@@ -20,6 +20,7 @@
 <script>
 import { Page } from "../../models/page";
 import {Component, Vue} from "vue-property-decorator"
+import moment from 'moment-timezone';
 
 export default {
   name: "PageBase",
@@ -75,9 +76,10 @@ export default {
       return this.disableNext;
     },
     saveChanges: function() {
-      const lastUpdated = new Date();
+      const lastUpdated = moment().format();
       this.$store.dispatch("application/setLastUpdated", lastUpdated); 
-      const application = this.$store.getters["application/getApplication"]   
+      const application = this.$store.getters["application/getApplication"]
+      // console.log(application.steps[0].result.questionnaireSurvey.orderType)   
       const applicationId = application.id;
       this.$http.put(
         "/app/"+ applicationId + "/",
@@ -90,9 +92,7 @@ export default {
         }
       )
       .then(res => {
-        console.log(res.data); 
-          console.log(res.data); 
-        console.log(res.data); 
+        console.log(res.data);
         this.error = "";
       })
       .catch(err => {

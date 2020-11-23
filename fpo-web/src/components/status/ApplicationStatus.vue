@@ -15,31 +15,31 @@
             <b-table  :items="previousApplications"
                       :fields="previousApplicationFields"
                       class="mx-4"
+                      sort-by="last_updated"
                       borderless
                       striped
                       small 
                       responsive="sm"
                       >
                   <template v-slot:cell(edit)="row">
-                    <b-button size="sm" variant="transparent" 
+                    <b-button size="sm" variant="transparent" class="my-0 py-0"
                               @click="removeApplication(row.item, row.index)"
                               v-b-tooltip.hover
 					                    title="Remove Application">
-                              <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
+                              <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                     </b-button>
-                    <b-button size="sm" variant="transparent" 
+                    <b-button size="sm" variant="transparent" class="my-0 py-0"
                               @click="resumeApplication(row.item.id)"
                               v-b-tooltip.hover
 					                    title="Resume Application">
-                              <b-icon-forward font-scale="1" variant="primary"></b-icon-forward>
-                              <b-icon-file-earmark-text font-scale="1.5" variant="primary"></b-icon-file-earmark-text>                    
+                              <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                     </b-button>
                   </template>
                   <template v-slot:cell(app_type)="row">                  
                       <span>{{row.item.app_type}}</span>
                   </template>
                   <template v-slot:cell(last_updated)="row">                  
-                      <span>{{ row.item.last_updated | beautify-date}}</span>
+                      <span>{{ row.item.last_updated | beautify-date-weekday}}</span>
                   </template>
             </b-table>
           </b-card>
@@ -106,6 +106,7 @@
 
 <script>
 import * as SurveyVue from "survey-vue";
+import moment from 'moment-timezone';
 import * as surveyEnv from "@/components/survey-glossary.ts";
 import GlobalStore from "@/store";
 const store = GlobalStore.getInstance();
@@ -116,9 +117,9 @@ export default {
     return {
       previousApplications: [],
       previousApplicationFields: [
-          { key: 'app_type', label: 'Application Type'},
-          { key: 'last_updated', label: 'Last Updated'},
-          { key: 'edit', thClass: 'd-none'}
+          { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
+          { key: 'last_updated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
+          { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
       ],
       confirmDelete: false,
       currentApplication: {},
@@ -140,10 +141,16 @@ export default {
       this.$router.push({name: "terms"})
     },
     loadApplications () {
-      
+      //TODO: when extending to use throughout the province, the timezone should be changed accordingly
       this.$http.get('/app-list/')
       .then((response) => {
-        this.previousApplications = response.data;        
+        for (const appJson of response.data) {
+          const app = {};
+          app.last_updated = moment(appJson.last_updated).tz("America/Vancouver").format();
+          app.id = appJson.id;
+          app.app_type = appJson.app_type;
+          this.previousApplications.push(app);
+        }       
       }).catch((err) => {
         //TODO: determine workflow
         console.log(err)
@@ -156,6 +163,9 @@ export default {
       this.$store.dispatch("application/init");
       const userId = store.getters["common/getUserId"];      
       store.dispatch("application/setUserId", userId);
+
+      const lastUpdated = moment().format();
+      this.$store.dispatch("application/setLastUpdated", lastUpdated);
 
       const userType = store.getters["application/getUserType"];      
       store.dispatch("application/setUserType", userType);
@@ -206,7 +216,7 @@ export default {
         this.currentApplication.type = applicationData.type;
         this.currentApplication.userId = applicationData.user;
         this.currentApplication.userName = applicationData.userName;
-        this.currentApplication.userType = applicationData.userType;
+        this.currentApplication.userType = applicationData.userType;        
         this.currentApplication.steps = applicationData.steps;
         this.$store.dispatch("application/setCurrentApplication", this.currentApplication);
         this.$store.dispatch("common/setExistingApplication", true);      

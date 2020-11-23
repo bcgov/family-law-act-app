@@ -35,6 +35,7 @@
 import { Step } from "@/models/step";
 import PageBase from "../PageBase.vue";
 import axios from "axios";
+import moment from 'moment-timezone';
 import { Page } from "survey-vue";
 
 export default {
@@ -60,7 +61,7 @@ export default {
     },    
     onDownload: function() {
       console.log("downloading")
-      const currentDate = new Date();
+      const currentDate = moment().format();
       this.$store.dispatch("application/setLastUpdated", currentDate); 
       this.$store.dispatch("application/setLastPrinted", currentDate); 
       const application = this.$store.getters["application/getApplication"];
@@ -118,7 +119,7 @@ export default {
 
     },
     onSubmit: function() {
-      //TODO: get the pdf through new API,
+      //TODO: get the pdf through new API, save application with latest information
 
 
       var bodyFormData = new FormData();
@@ -169,7 +170,7 @@ export default {
 
   },
   props: {
-    step: Step
+    step: Step | Object
   },
   computed: {}
 };

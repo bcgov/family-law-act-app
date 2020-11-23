@@ -63,7 +63,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
+import moment from 'moment-timezone';
 
 export default {
   name: "NavigationSidebar",
@@ -163,7 +164,7 @@ export default {
       return step.type=='print';
     },
     saveChanges: function() {
-      const lastUpdated = new Date();
+      const lastUpdated = moment().format();
       this.$store.dispatch("application/setLastUpdated", lastUpdated);
       const application = this.$store.getters["application/getApplication"]      
       const applicationId = application.id;      
@@ -179,7 +180,7 @@ export default {
         }
       )
       .then(res => {
-        console.log(res.data); 
+        //console.log(res.data); 
         this.error = "";
       })
       .catch(err => {

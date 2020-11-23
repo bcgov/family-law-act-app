@@ -24,7 +24,7 @@ export default {
     survey.showNavigationButtons = false;
 
     let otherParties = this.$store.getters["application/getRespondentName"];
-    console.log(otherParties)
+    // console.log(otherParties)
     if (otherParties) {
       let respondentName =
         otherParties.first +
@@ -64,7 +64,7 @@ export default {
     }
   },
   props: {
-    step: Step,
+    step: Step  | Object,
     childrenDetailsList: Array
   },
   watch: {

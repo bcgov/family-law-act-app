@@ -58,7 +58,6 @@ export default {
 
     getStep(stepIndex) {
       const step = this.$store.getters["application/getNavigation"][stepIndex];
-      console.log(step)
       return step;
     },
   },
