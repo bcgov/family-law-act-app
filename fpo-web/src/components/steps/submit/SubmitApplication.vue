@@ -124,6 +124,7 @@
 import { Step } from "@/models/step";
 import PageBase from "../PageBase.vue";
 import axios from "axios";
+import moment from 'moment-timezone';
 import { Page } from "survey-vue";
 
 export default {
@@ -163,29 +164,32 @@ export default {
     },    
     onDownload: function() {
       console.log("downloading")
-      const application = this.$store.getters["application/getApplication"]
+      const currentDate = moment().format();
+      this.$store.dispatch("application/setLastUpdated", currentDate); 
+      this.$store.dispatch("application/setLastPrinted", currentDate); 
+      const application = this.$store.getters["application/getApplication"];
       
-        const applicationId = application.id;
+      const applicationId = application.id;
 
-        this.$http.put(
-        "/app/"+ applicationId + "/",
-        application,
-          {
-            responseType: "json",
-            headers: {
-              "Content-Type": "application/json",
-            }
+      this.$http.put(
+      "/app/"+ applicationId + "/",
+      application,
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
           }
-        )
-        .then(res => {
-          console.log(res.data);  
-          this.loadPdf()
-          this.error = "";
-        })
-        .catch(err => {
-          console.error(err);
-          this.error = err;
-        });
+        }
+      )
+      .then(res => {
+        console.log(res.data);  
+        this.loadPdf()
+        this.error = "";
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });
         
       
     },
@@ -209,7 +213,6 @@ export default {
           link.download = "fpo.pdf";
           link.click();
           setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-          //TODO: set the lastPrinted value
           this.error = "";
         })
         .catch(err => {
@@ -219,7 +222,7 @@ export default {
 
     },
     onSubmit: function() {
-      //TODO: get the pdf through new API,
+      //TODO: get the pdf through new API, save application with latest information
 
 
       var bodyFormData = new FormData();
@@ -287,7 +290,7 @@ export default {
     }
   },
   props: {
-    step: Step
+    step: Step | Object
   },
   computed: {}
 };

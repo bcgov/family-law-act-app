@@ -46,7 +46,7 @@ export default {
   created() {},
   methods: {},
   props: {
-    step: Step
+    step: Step | Object
   },
   watch: {
     pageIndex: function(newVal) {
