@@ -69,34 +69,41 @@
 
 <script>
 import {Component, Vue} from "vue-property-decorator";
+import moment from 'moment-timezone';
 
 export default {
   data() {
     return {};
-  },
+  },  
   methods: {
     quickExit: function() {
-      const application = this.$store.getters["application/getApplication"]      
-      const applicationId = application.id;
+      const emptyApplicationRoutes = ['/', '/status', '/serviceLocator']
 
-      this.$http.put(
-        "/app/"+ applicationId + "/",
-        application,
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
+      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) { 
+        const lastUpdated = moment().format();
+        this.$store.dispatch("application/setLastUpdated", lastUpdated); 
+        const application = this.$store.getters["application/getApplication"]      
+        const applicationId = application.id;
+
+        this.$http.put(
+          "/app/"+ applicationId + "/",
+          application,
+          {
+            responseType: "json",
+            headers: {
+              "Content-Type": "application/json",
+            }
           }
-        }
-      )
-      .then(res => {
-        console.log(res.data); 
-        this.error = "";      
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;      
-      }); 
+        )
+        .then(res => {
+          console.log(res.data); 
+          this.error = "";      
+        })
+        .catch(err => {
+          console.error(err);
+          this.error = err;      
+        });
+      } 
        
       Vue.nextTick().then(() => { 
         this.$store.dispatch("application/init");

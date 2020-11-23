@@ -164,6 +164,7 @@ class ApplicationView(APIView):
                 "type": application.app_type,
                 "steps": steps,
                 "lastUpdate": application.last_updated,
+                "lastPrinted": application.last_printed,
                 "currentStep": application.current_step,
                 "allCompleted": application.all_completed,
                 "userType": application.user_type,
@@ -185,7 +186,8 @@ class ApplicationView(APIView):
         (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
 
         db_app = Application(
-            last_updated=timezone.now(),
+            last_updated=body.get("lastUpdate"),
+            last_printed=body.get("lastPrinted"),
             app_type=body.get("type"),
             current_step=body.get("currentStep"),
             all_completed=body.get("allCompleted"),
@@ -211,7 +213,8 @@ class ApplicationView(APIView):
 
             (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
     
-            application_queryset.update(last_updated=timezone.now())
+            application_queryset.update(last_updated=body.get("lastUpdate"))
+            application_queryset.update(last_printed=body.get("lastPrinted"))
             application_queryset.update(app_type=body.get("type"))
             application_queryset.update(current_step=body.get("currentStep"))
             application_queryset.update(steps=steps_enc)

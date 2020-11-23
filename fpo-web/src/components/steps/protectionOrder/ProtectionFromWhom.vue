@@ -45,7 +45,7 @@ export default {
           });
         }
       }
-      if(options.name === "RespondentName") {
+      if(options.name === "RespondentName") {        
         this.$store.dispatch("application/setRespondentName", options.value);
       }
     });
@@ -90,7 +90,7 @@ export default {
     }
   },
   props: {
-    step: Step
+    step: Step  | Object
   },
   beforeDestroy() {
     this.$store.dispatch("application/updateStepResultData",{
