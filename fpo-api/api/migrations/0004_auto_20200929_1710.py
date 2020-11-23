@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('user_type', models.CharField(blank=True, default='', max_length=100)),
                 ('user_name', models.CharField(blank=True, default='', max_length=100)),
                 ('applicant_name', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-                ('respondent_name', models.CharField(blank=True, default='', max_length=100)),
+                ('respondent_name', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
                 ('key_id', models.CharField(blank=True, max_length=32, null=True)),
                 ('steps', models.BinaryField(blank=True, null=True)),
                 ('prepared_pdf', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='pdf_data', to='api.preparedpdf')),

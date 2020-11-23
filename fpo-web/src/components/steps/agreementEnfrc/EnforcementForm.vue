@@ -50,7 +50,7 @@ export default {
     }
   },
   props: {
-    step: Step
+    step: Step | Object
   },
   beforeDestroy() {
     this.$store.dispatch("application/updateStepResultData", {

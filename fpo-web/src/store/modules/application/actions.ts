@@ -62,6 +62,14 @@ export const actions: ActionTree<ApplicationState, RootState> = {
     context.commit("setApplicationType", type);
   },
 
+  setLastUpdated(context, lastUpdated) {
+    context.commit("setLastUpdated", lastUpdated);
+  },
+
+  setLastPrinted(context, lastPrinted) {
+    context.commit("setLastPrinted", lastPrinted);
+  },
+
   updateStepResultData(context, { step, data }) {
     context.commit("updateStepResultData", { step, data });
   }

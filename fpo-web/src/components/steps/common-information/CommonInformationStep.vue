@@ -26,7 +26,7 @@ export default {
   },
   methods: {},
   props: {
-    step: Step
+    step: Step | Object
   }
 };
 </script>
