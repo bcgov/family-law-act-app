@@ -43,6 +43,8 @@ export default {
         if (this.survey.data.isVictoriaLawCourt == 'y') 
         {
           this.$store.dispatch("application/init");
+          const userType = store.getters["application/getUserType"];      
+          store.dispatch("application/setUserType", userType);
           const application = store.getters["application/getApplication"];
           this.$http.post(
             "/app/", application,
