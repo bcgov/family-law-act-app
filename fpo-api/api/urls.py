@@ -60,6 +60,7 @@ urlpatterns = [
     path('app-list/', views.ApplicationListView.as_view()),
     path("app/", views.ApplicationView.as_view()),
     path("survey-print/", views.SurveyPdfView.as_view()),
+    path("survey-print/<int:pk>/", views.SurveyPdfView.as_view()),
     path("user-info/", views.UserStatusView.as_view()),
     path("submit-form/", views.SubmitFormView.as_view()),
 ]

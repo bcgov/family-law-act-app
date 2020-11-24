@@ -194,9 +194,11 @@ export default {
       
     },
     loadPdf: function() {
+      const applicationId = this.$store.getters["application/getApplicationId"];
+      const requiresNewPdf = true;
       this.$http
         .post(
-          "/survey-print/?name=application-about-a-protection-order",
+          `/survey-print/${applicationId}/?name=application-about-a-protection-order&newPdf=${requiresNewPdf}`,
           this.getFPOResultData(),
           {
             responseType: "blob",

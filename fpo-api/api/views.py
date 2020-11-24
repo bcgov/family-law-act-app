@@ -88,19 +88,55 @@ class UserStatusView(APIView):
 
 
 class SurveyPdfView(generics.GenericAPIView):
-    # FIXME - restore authentication?
-    permission_classes = ()  # permissions.IsAuthenticated,
+    permission_classes = (permissions.IsAuthenticated,)
 
-    def post(self, request, name=None):
-        # FIXME - refactor pdf generation.
-        data = request.data
-        name = request.query_params.get("name")
+    def generate_pdf(self, name, data):
         template = '{}.html'.format(name)
-
         template = get_template(template)
         html_content = template.render(data)
 
         pdf_content = render_pdf(html_content)
+        return pdf_content
+
+    def get_pdf(self, pk):
+        try:
+            pdf_id = Application.objects.values_list("prepared_pdf_id", flat=True).get(pk=pk)
+            pdf_result = PreparedPdf.objects.get(id=pdf_id)
+            return pdf_result
+        except (PreparedPdf.DoesNotExist, Application.DoesNotExist):
+            LOGGER.debug("No record found")
+            return
+
+    def post(self, request, pk, name=None):
+        data = request.data
+        uid = request.user.id
+        application = get_app_queryset(pk, uid)
+        if not application:
+            return HttpResponseNotFound("No record found")
+
+        name = request.query_params.get("name")
+        new_pdf = request.query_params.get("newPdf") == 'true'
+        try:
+            pdf_result = self.get_pdf(pk)
+            if not pdf_result:
+                pdf_content = self.generate_pdf(name, data)
+                (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
+                pdf_response = PreparedPdf(data=pdf_content_enc, key_id=pdf_key_id)
+                pdf_response.save()
+                application.update(prepared_pdf_id=pdf_response.pk)
+            elif new_pdf:
+                pdf_queryset = PreparedPdf.objects.filter(id=pdf_result.id)
+                pdf_content = self.generate_pdf(name, data)
+                (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
+                pdf_queryset.update(data=pdf_content_enc)
+                pdf_queryset.update(created_date=timezone.now())
+            else:
+                pdf_content = settings.ENCRYPTOR.decrypt(pdf_result.key_id, pdf_result.data)
+            application.update(last_printed=timezone.now())
+        except Exception as ex:
+            LOGGER.error("ERROR: Pdf generation failed %s", ex)
+            raise
+
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
 
@@ -123,7 +159,7 @@ class ApplicationListView(generics.ListAPIView):
     """
     List all application for a user
     """
-    def get_app_object(self, id):
+    def get_app_list(self, id):
         try:
             return Application.objects.filter(user_id=id)
         except Application.DoesNotExist:
@@ -132,7 +168,7 @@ class ApplicationListView(generics.ListAPIView):
     def get(self, request, format=None):
         user_id = request.user.id
         if user_id:
-            applications = self.get_app_object(request.user.id)
+            applications = self.get_app_list(request.user.id)
             serializer = ApplicationListSerializer(applications, many=True)
             return Response(serializer.data)
         return HttpResponseForbidden("User id not provided")
@@ -204,29 +240,35 @@ class ApplicationView(APIView):
 
     def put(self, request, pk, format=None):
         uid = request.user.id
-        application_queryset = Application.objects.filter(user_id=uid).filter(pk=pk)
-        if application_queryset:
-            body = request.data
+        body = request.data
+        if not body:
+            return HttpResponseBadRequest("Missing request body")
 
-            if not body:
-                return HttpResponseBadRequest("Missing request body")
+        application_queryset = get_app_queryset(pk, uid)
+        if not application_queryset:
+            return HttpResponseNotFound("No record found")
 
-            (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
+        (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
 
-            application_queryset.update(last_updated=body.get("lastUpdate"))
-            application_queryset.update(last_printed=body.get("lastPrinted"))
-            application_queryset.update(app_type=body.get("type"))
-            application_queryset.update(current_step=body.get("currentStep"))
-            application_queryset.update(steps=steps_enc)
-            application_queryset.update(user_type=body.get("userType"))
-            application_queryset.update(applicant_name=body.get("applicantName"))
-            application_queryset.update(user_name=body.get("userName"))
-            application_queryset.update(respondent_name=body.get("respondentName"))
-            return Response("success")
-        return HttpResponseNotFound("No record found")
+        application_queryset.update(last_updated=timezone.now())
+        application_queryset.update(app_type=body.get("type"))
+        application_queryset.update(current_step=body.get("currentStep"))
+        application_queryset.update(steps=steps_enc)
+        application_queryset.update(user_type=body.get("userType"))
+        application_queryset.update(applicant_name=body.get("applicantName"))
+        application_queryset.update(user_name=body.get("userName"))
+        application_queryset.update(respondent_name=body.get("respondentName"))
+        return Response("success")
 
     def delete(self, request, pk, format=None):
         uid = request.user.id
         application = self.get_app_object(pk, uid)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def get_app_queryset(pk, uid):
+    try:
+        return Application.objects.filter(user_id=uid).filter(pk=pk)
+    except Application.DoesNotExist:
+        raise Http404
