@@ -9,7 +9,6 @@ from rest_framework.request import Request
 from django.conf import settings
 from django.urls.exceptions import NoReverseMatch
 from rest_framework import authentication
-from rest_framework import exceptions
 from rest_framework.reverse import reverse
 from requests.auth import HTTPBasicAuth
 
@@ -26,7 +25,7 @@ def get_login_uri(request: Request = None, next: str = None) -> str:
         query_dictionary = {k: v for k, v in query_dictionary.items() if v is not None}
         try:
             uri = "{base_url}?{querystring}".format(
-                base_url=reverse("oidc_auth_request"),
+                base_url=reverse("oidc_auth_request", request=request),
                 querystring=urllib.parse.urlencode(query_dictionary),
             )
         except NoReverseMatch:
@@ -38,7 +37,7 @@ def get_logout_uri(request: Request = None) -> str:
     uri = None
     if request:
         try:
-            uri = reverse("oidc_end_session")
+            uri = reverse("oidc_end_session", request=request)
         except NoReverseMatch:
             pass
     return uri

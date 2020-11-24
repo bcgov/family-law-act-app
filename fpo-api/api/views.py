@@ -99,7 +99,7 @@ class SurveyPdfView(generics.GenericAPIView):
 
         template = get_template(template)
         html_content = template.render(data)
-        
+
         pdf_content = render_pdf(html_content)
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="report.pdf"'
@@ -207,12 +207,12 @@ class ApplicationView(APIView):
         application_queryset = Application.objects.filter(user_id=uid).filter(pk=pk)
         if application_queryset:
             body = request.data
-            
+
             if not body:
                 return HttpResponseBadRequest("Missing request body")
 
             (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
-    
+
             application_queryset.update(last_updated=body.get("lastUpdate"))
             application_queryset.update(last_printed=body.get("lastPrinted"))
             application_queryset.update(app_type=body.get("type"))
