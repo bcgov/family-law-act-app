@@ -15,7 +15,8 @@ class Application(models.Model):
     user_name = models.CharField(max_length=100, default="", blank=True)
     applicant_name = JSONBField(blank=True, null=True)
     respondent_name = JSONBField(blank=True, null=True)
-
+    protected_party_name = JSONBField(blank=True, null=True)
+    protected_child_name = JSONBField(blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)
 

@@ -17,7 +17,9 @@ export const state: ApplicationState = {
   userName: "",
   userId: "",
   applicantName: "",
-  respondentName: ""
+  respondentName: "",
+  protectedPartyName: "",
+  protectedChildName: ""
 };
 
 const namespaced = true;
