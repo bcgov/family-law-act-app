@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+  <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -22,6 +22,8 @@ export default {
     survey.commentPrefix = "Comment";
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
+
+
     
     if (this.applicantName) {
       survey.setVariable("ApplicantName", this.applicantName);
@@ -30,8 +32,11 @@ export default {
     surveyEnv.setGlossaryMarkdown(survey);
 
     survey.onValueChanged.add((sender, options) => {
+      console.log(survey.data)
+      console.log(options.name)
       if (options.name === "ApplicantNeedsProtection") {
         if (options.value === "y") {
+          this.$store.dispatch("application/setProtectedPartyName", this.$store.getters["application/getApplicantName"]);
           this.$store.dispatch("application/setPageActive", {
             currentStep: 2,
             currentPage: 3,
@@ -45,14 +50,53 @@ export default {
           });
         }
       }
+
+      if (options.name === "anotherAdultPO") {
+        if (options.value === "y") {
+          this.$store.dispatch("application/setProtectedChildName", "");
+          this.$store.dispatch("application/setProtectedPartyName", survey.data.anotherAdultName);
+        }else{
+          if (survey.data.childPO === "y") {
+            this.$store.dispatch("application/setProtectedChildName", survey.data.childName);
+          }
+          this.$store.dispatch("application/setProtectedPartyName", this.$store.getters["application/getApplicantName"]);
+        }
+      }
+      if(options.name === "anotherAdultName") {
+        this.$store.dispatch("application/setProtectedPartyName", options.value);
+      }
+
       if(options.name === "RespondentName") {        
         this.$store.dispatch("application/setRespondentName", options.value);
+      }      
+
+      if (options.name === "childPO") {
+        if (options.value === "y") {
+          this.$store.dispatch("application/setProtectedChildName", survey.data.childName);
+        }else{
+          this.$store.dispatch("application/setProtectedChildName", "");
+        }
       }
+      if(options.name === "childName") {
+        this.$store.dispatch("application/setProtectedChildName", options.value);
+      }
+
+      //console.log(survey.data.ApplicantNeedsProtection)
+      //console.log(survey.data.anotherAdultPO)
+      console.log(survey.data.childPO)
+      console.log(survey.data.childName)
+      if(survey.data.ApplicantNeedsProtection === 'n' && survey.data.anotherAdultPO === 'n' && survey.data.childPO === 'n'){
+        this.disableNextButton = true;
+      }else{
+        this.disableNextButton = false;
+      }
+
     });
     
     return {
       survey: survey,
-      applicantName: ""
+      applicantName: "",
+      disableNextButton: false
     };
   },
   beforeCreate() {

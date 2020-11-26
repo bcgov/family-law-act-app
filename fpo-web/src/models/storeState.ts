@@ -49,4 +49,8 @@ export interface ApplicationState {
   applicantName: string;
 
   respondentName: string;
+
+  protectedPartyName: string;
+  
+  protectedChildName: string;
 }

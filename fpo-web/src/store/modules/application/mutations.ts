@@ -339,6 +339,12 @@ export const mutations: MutationTree<ApplicationState> = {
   setRespondentName(state, respondentName) {
     state.respondentName = respondentName;
   },
+  setProtectedPartyName(state, protectedPartyName) {
+    state.protectedPartyName = protectedPartyName;
+  },  
+  setProtectedChildName(state, protectedChildName) {
+    state.protectedChildName = protectedChildName;
+  },
   setApplicationId(state, id) {
     state.id = id;
   },
@@ -362,7 +368,9 @@ export const mutations: MutationTree<ApplicationState> = {
     state.userType = application.userType;
     state.userName = application.userName;
     state.applicantName = application.applicantName;
-    state.respondentName = application.respondentName;    
+    state.respondentName = application.respondentName; 
+    state.protectedPartyName = application.protectedPartyName;
+    state.protectedChildName = application.protectedChildName;  
   },
   
 };

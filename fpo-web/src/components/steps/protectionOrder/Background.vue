@@ -23,17 +23,14 @@ export default {
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
 
-    let otherParties = this.$store.getters["application/getRespondentName"];
-    // console.log(otherParties)
-    if (otherParties) {
-      let respondentName =
-        otherParties.first +
-        " " +
-        otherParties.middle +
-        " " +
-        otherParties.last;
-      survey.setVariable("RespondentName", respondentName);
-    }
+    survey.setVariable("RespondentName", this.getFullName(this.$store.getters["application/getRespondentName"]));
+    survey.setVariable("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
+    survey.setVariable("protectedChildName", this.getFullName(this.$store.getters["application/getProtectedChildName"]));
+    //survey.setValue("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
+    //survey.setJsonObject({'protected':'ok'})
+    //survey.data.setJsonObject({'protected':'ok'})
+//console.log(survey.data)
+    surveyEnv.setGlossaryMarkdown(survey);
     
     return {
       survey: survey
@@ -45,6 +42,7 @@ export default {
   },
   created() {
     if (this.step.result.backgroundSurvey){
+      //console.log(this.step.result)
       this.survey.data = this.step.result.backgroundSurvey;
     }  
   },
@@ -56,6 +54,18 @@ export default {
     onNext() {
       if(!this.survey.isCurrentPageHasErrors) {
         this.$store.dispatch("application/gotoNextStepPage");
+      }
+    },
+
+    getFullName(nameObject){
+      if (nameObject) {
+      return nameObject.first +
+        " " +
+        nameObject.middle +
+        " " +
+        nameObject.last;
+      } else{
+        return " "
       }
     },
 
