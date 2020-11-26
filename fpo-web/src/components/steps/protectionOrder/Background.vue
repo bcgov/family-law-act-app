@@ -31,6 +31,7 @@ export default {
     //survey.data.setJsonObject({'protected':'ok'})
 //console.log(survey.data)
     surveyEnv.setGlossaryMarkdown(survey);
+    
     return {
       survey: survey
     };
@@ -73,7 +74,7 @@ export default {
     }
   },
   props: {
-    step: Step,
+    step: Step  | Object,
     childrenDetailsList: Array
   },
   watch: {

@@ -22,7 +22,6 @@ import NavigationSidebar from "./NavigationSidebar.vue";
 import CommonInformation from "./steps/common-information/CommonInformationStep.vue";
 import ProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
 import Submit from "./steps/submit/StepSubmit.vue";
-// import EFile from "./steps/eFile/StepEFile.vue";
 import FamilyLaw from "./steps/familyLawMatter/FamilyLawStep.vue";
 import ParentingPriority from "./steps/priotityParenting/ParentingPriorityStep.vue";
 import CaseManagement from "./steps/caseMgmt/CaseManagementStep.vue";
@@ -43,8 +42,7 @@ export default {
     CaseManagement,
     ChildRelocation,
     EnforcementAgree,
-    GetStarted,
-    // EFile
+    GetStarted
   },
   computed: {},
   data() {
@@ -60,7 +58,6 @@ export default {
 
     getStep(stepIndex) {
       const step = this.$store.getters["application/getNavigation"][stepIndex];
-
       return step;
     },
   },

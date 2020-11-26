@@ -66,7 +66,7 @@ export default {
         this.$store.dispatch("application/setProtectedPartyName", options.value);
       }
 
-      if(options.name === "RespondentName") {
+      if(options.name === "RespondentName") {        
         this.$store.dispatch("application/setRespondentName", options.value);
       }      
 
@@ -134,7 +134,7 @@ export default {
     }
   },
   props: {
-    step: Step
+    step: Step  | Object
   },
   beforeDestroy() {
     this.$store.dispatch("application/updateStepResultData",{

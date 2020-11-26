@@ -9,7 +9,8 @@ export const mutations: MutationTree<ApplicationState> = {
     state.currentStep = 0;
     state.type = "default";
     state.userName = "";
-
+    state.lastPrinted = null;
+    state.lastUpdate = null;
     state.steps = new Array<Step>();
     // Getting started START
     let s = new Step();
@@ -18,7 +19,7 @@ export const mutations: MutationTree<ApplicationState> = {
     s.id = "0";
     s.label = "Get Started";
     s.icon = "fa-users";
-    s.lastUpdate = null;
+    s.lastUpdate = null;    
     s.type = "getInformationStep";
     s.pages = new Array<Page>();
     s.currentPage = 0;
@@ -327,8 +328,6 @@ export const mutations: MutationTree<ApplicationState> = {
   }, 
   updateStepResultData(state, { step, data }) {
     step.result = {...step.result, ...data};
-
-    console.log("data key 0= " + Object.keys(data)[0]);
   }, 
 
   setAllCompleted(state, allCompleted) {
@@ -347,12 +346,16 @@ export const mutations: MutationTree<ApplicationState> = {
     state.protectedChildName = protectedChildName;
   },
   setApplicationId(state, id) {
-    console.log("reached store to set application Id")
     state.id = id;
   },
   setApplicationType(state, type) {
-    console.log("reached type store")
     state.type = type;
+  },
+  setLastUpdated(state, lastUpdated) {
+    state.lastUpdate = lastUpdated;
+  },
+  setLastPrinted(state, lastPrinted) {
+    state.lastPrinted = lastPrinted;
   },
   setCurrentApplication(state, application) {
     state.id = application.id;    

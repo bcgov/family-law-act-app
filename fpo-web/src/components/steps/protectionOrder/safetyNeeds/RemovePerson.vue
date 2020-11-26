@@ -81,7 +81,7 @@ export default {
     }
   },
   props: {
-    step: Step,
+    step: Step | Object,
   },
   watch: {
     pageIndex: function(newVal) {
