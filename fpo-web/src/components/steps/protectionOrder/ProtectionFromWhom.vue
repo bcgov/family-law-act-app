@@ -53,8 +53,12 @@ export default {
 
       if (options.name === "anotherAdultPO") {
         if (options.value === "y") {
+          this.$store.dispatch("application/setProtectedChildName", "");
           this.$store.dispatch("application/setProtectedPartyName", survey.data.anotherAdultName);
         }else{
+          if (survey.data.childPO === "y") {
+            this.$store.dispatch("application/setProtectedChildName", survey.data.childName);
+          }
           this.$store.dispatch("application/setProtectedPartyName", this.$store.getters["application/getApplicantName"]);
         }
       }
@@ -77,9 +81,10 @@ export default {
         this.$store.dispatch("application/setProtectedChildName", options.value);
       }
 
-      console.log(survey.data.ApplicantNeedsProtection)
-      console.log(survey.data.anotherAdultPO)
+      //console.log(survey.data.ApplicantNeedsProtection)
+      //console.log(survey.data.anotherAdultPO)
       console.log(survey.data.childPO)
+      console.log(survey.data.childName)
       if(survey.data.ApplicantNeedsProtection === 'n' && survey.data.anotherAdultPO === 'n' && survey.data.childPO === 'n'){
         this.disableNextButton = true;
       }else{

@@ -12,7 +12,7 @@
           "type": "yesno",
           "name": "RespondentLiveTogether",
           "isRequired": true,
-          "title": "Does the protected party(ies) ({ApplicantName}) currently share a residence with {RespondentName}?",
+          "title": "Does the protected party(ies) ({protectedPartyName}) currently share a residence with {RespondentName}?",
           "description": "Even if one of you has left your residence (home or place you are living) temporarily, you still share a residence."
          },
          {
