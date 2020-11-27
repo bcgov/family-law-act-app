@@ -840,10 +840,14 @@
           <div>me</div>
         </div>
         <div class="option">
-        {% if protectionWhomSurvey.childPO == 'y' %}
-          <div class="check">&#10003</div>
-        {% else %}
+        {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
           <div class="check"></div>
+        {% else %}
+          {% if protectionWhomSurvey.childPO == 'y' %}
+          <div class="check">&#10003</div>
+          {% else %}
+          <div class="check"></div>
+          {% endif %}
         {% endif %}
           <div>the following child(ren) I am parent or guardian to:</div>
         </div>
@@ -855,22 +859,31 @@
       <tr>
         <th>Child's full legal name</th>
         <th>Child's date of birth <span class="small-italic">(mmm/dd/yyyy)</span></th>
-        <th>Other party's relationship to child</th>
+        <th>Other party's relationship to the child</th>
         <th>Child is currently living with</th>
       </tr>
       <tbody>
+      {% if protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      {% else %}  
         <tr>
           <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childName.first}} {{protectionWhomSurvey.childName.middle}} {{protectionWhomSurvey.childName.last}} {% endif %}</td>
           <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childDOB|custom_date:"M d Y"}} {% endif %}</td>
           <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childRelationship}} {% endif %}</td>
           <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childLivingWith}} {% endif %}</td>
         </tr>
+      {% endif %}
       </tbody>
     </table>
 
     <div class="indent">
       <div class="option" style="margin: 0 0 0.2rem 0;">
-      {% if protectionWhomSurvey.anotherAdultSharingResi == 'y' %}
+      {% if protectionWhomSurvey.anotherAdultSharingResi == 'y' and  protectionWhomSurvey.anotherAdultPO != 'y' %}
         <div class="check">&#10003</div>
       {% else %}
         <div class="check"></div>
@@ -889,11 +902,21 @@
         <th>Relationship to other protected person(s)</th>
       </tr>
       <tbody>
+    {% if protectionWhomSurvey.anotherAdultSharingResi == 'y' and protectionWhomSurvey.anotherAdultPO != 'y' %}
+      {% for anotherAdult in protectionWhomSurvey.allAnotherAdultsSharingResi %}
         <tr> 
-          <td> {{protectionWhomSurvey.anotherAdultSharingResiName.first}} {{protectionWhomSurvey.anotherAdultSharingResiName.middle}} {{protectionWhomSurvey.anotherAdultSharingResiName.last}}</td>
-          <td> {{protectionWhomSurvey.anotheradultSharingResiDOB|custom_date:"M d Y"}}</td>
-          <td> {{protectionWhomSurvey.anotherAdultSharingResiRelation}}</td>
+          <td> {{anotherAdult.anotherAdultSharingResiName.first}} {{anotherAdult.anotherAdultSharingResiName.middle}} {{anotherAdult.anotherAdultSharingResiName.last}}</td>
+          <td> {{anotherAdult.anotheradultSharingResiDOB|custom_date:"M d Y"}}</td>
+          <td> {{anotherAdult.anotherAdultSharingResiRelation}}</td>
         </tr>
+      {% endfor %}
+    {% else %}
+        <tr> 
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+    {% endif %}
       </tbody>
     </table>
 
@@ -1092,17 +1115,19 @@
   </section>
 
   <section class="question"> I believe the other party owns or has access to guns, explosives or another kind of firearm
-  {% if weaponsSurvey.RespondentFirearms == 'y' and weaponsSurvey.RespondentFirearmsYes %}
+  {% if weaponsSurvey.RespondentFirearms == 'y' and weaponsSurvey.RespondentFirearmsYes == 'y' %}
     <span class="check">&#10003</span>
+    <span style="margin-left:18px;">Yes</span>
+    <span style="margin-left:5px;" class="check"></span>
   {% else %}
     <span class="check"></span>
-  {% endif %}
     <span style="margin-left:18px;">Yes</span>
-    <span style="margin-left:5px;" class="check"></span>  
+    <span style="margin-left:5px;" class="check">&#10003</span> 
+  {% endif %}     
     <span style="margin-left:22px;">No</span>
     <div class="indent">
       <div><i>If yes, explain the reason(s) for your belief</i></div>
-      {% if weaponsSurvey.RespondentFirearms == 'y' and weaponsSurvey.RespondentFirearmsYes %}
+      {% if weaponsSurvey.RespondentFirearms == 'y' and weaponsSurvey.RespondentFirearmsYes == 'y' %}
       <div class="sub-selection-answer"> {{weaponsSurvey.firearmsYesReason}} </div>
       {% else %}
       <div class="v-spacer-3"></div>
@@ -1171,13 +1196,6 @@
   </section>
 
 
-
-
-
-  <div class="new-page"> </div>
-
-
-
   <section class="question"> <i>Complete only if applicable. You may leave this section blank.</i>
     <div class="indent">
       <div>I believe police assistance may be required for the following purpose(s):</div>
@@ -1244,6 +1262,17 @@
     </div>
   </section>
 
+
+
+
+
+
+  <div class="new-page"> </div>
+
+
+
+
+
   <div class="v-spacer-1"></div>
   <h4>YOUR STORY<div><span class="sub-heading-urstory">Relationship between parties</span></div></h4>
   
@@ -1278,7 +1307,7 @@
       </div>
       <div class="form-line">
       {% if backgroundSurvey.werePOPartiesMarried == 'y' %}
-        <div class="form-line-child fill"> {{backgroundSurvey.protectedPartyName.first}} {{backgroundSurvey.protectedPartyName.middle}} {{backgroundSurvey.protectedPartyName.last}}</div>
+        <div class="form-line-child fill"> {{protectedPartyName.first}} {{protectedPartyName.middle}} {{protectedPartyName.last}}</div>
       {% endif %}
         <div id="sched1-name3" class="form-line-child underline"></div>
         <div class="form-line-child hint">name of protected party</div>
@@ -1317,19 +1346,19 @@
 
         <div style="margin-top: 0.3rem">
           <span>Are the protected party and the other party currently separated</span>
-          {% if backgroundSurvey.isSeperatedPO == 'Yes' %}
+          {% if backgroundSurvey.isSeperatedPO == 'Yes' and backgroundSurvey.werePOPartiesMarried == 'y' %}
           <span class="check">&#10003</span>
           {% else %}
           <span class="check"></span>
           {% endif %}
           <span style="margin-left:18px;">Yes</span>
-          {% if backgroundSurvey.isSeperatedPO == 'No' %}
+          {% if backgroundSurvey.isSeperatedPO == 'No' and backgroundSurvey.werePOPartiesMarried == 'y' %}
           <span style="margin-left:5px;" class="check">&#10003</span>
           {% else %}
           <span style="margin-left:5px;" class="check"></span>
           {% endif %}
           <span style="margin-left:22px;">No</span>
-          {% if backgroundSurvey.isSeperatedPO == 'Unknown' %}
+          {% if backgroundSurvey.isSeperatedPO == 'Unknown' and backgroundSurvey.werePOPartiesMarried == 'y' %}
           <span style="margin-left:5px;" class="check">&#10003</span>
           {% else %}
           <span style="margin-left:5px;" class="check"></span>
@@ -1341,7 +1370,7 @@
 
         <div class="form-line">If yes, the parties separated on</div>
         <div class="form-line">
-        {% if backgroundSurvey.isSeperatedPO == 'Yes' %}
+        {% if backgroundSurvey.isSeperatedPO == 'Yes' and backgroundSurvey.werePOPartiesMarried == 'y' %}
           <div class="form-line-child fillsmalllow">{{backgroundSurvey.separationDate|custom_date:"M d Y"}}</div>
         {% endif %}
           <div id="sched1-name5" class="form-line-child underline" style="min-width: 12rem"></div>
@@ -1392,13 +1421,25 @@
         <th>Child is currently living with</th>
       </tr>
       <tbody>
+    {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %}
+      {% for child in backgroundSurvey.allOtherChilderen %}
         <tr>
-          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childName.first}} {{backgroundSurvey.childName.middle}} {{backgroundSurvey.childName.last}} {% endif %}</td>
-          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childDOB|custom_date:"M d Y"}} {% endif %}</td>
-          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childRelationshipWithProtected}} {% endif %}</td>
-          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childRelationshipWithOther}} {% endif %}</td>
-          <td> {% if backgroundSurvey.PartiesHasOtherChilderen == 'y' %} {{backgroundSurvey.childLivingWith}} {% endif %}</td>
+          <td> {{child.childName.first}} {{child.childName.middle}} {{child.childName.last}}</td>
+          <td> {{child.childDOB|custom_date:"M d Y"}}</td>
+          <td> {{child.childRelationshipWithProtected}}</td>
+          <td> {{child.childRelationshipWithOther}}</td>
+          <td> {{child.childLivingWith}}</td>
         </tr>
+      {% endfor %}
+    {% else %}
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+    {% endif %}
       </tbody>
     </table>
   </section>
@@ -1409,7 +1450,16 @@
       <div> There are existing written agreements or court orders about the children concerning parenting arrangements, child support,</div>
       <div class="form-line"> contact with a child, or guardianship</div>
       <div class="form-line">
-      {% if protectionWhomSurvey.ExistingOrders == 'y' or protectionWhomSurvey.ExistingWrittenAgreements == 'y' %}
+        
+      {% if backgroundSurvey.ExistingOrders == 'y' and backgroundSurvey.PartiesHasOtherChilderen == 'y' %}
+        <span class="check">&#10003</span>
+        <span class="text-after-check" style="margin-left:17px;">Yes</span>
+        <span class="check"></span>
+      {% elif protectionWhomSurvey.ApplicantNeedsProtection == 'n' and protectionWhomSurvey.anotherAdultPO == 'y' %}
+        <span class="check"></span>
+        <span class="text-after-check" style="margin-left:17px;">Yes</span>
+        <span class="check">&#10003</span>
+      {% elif backgroundSurvey.ExistingOrders == 'y' and protectionWhomSurvey.childPO == 'y'  %}
         <span class="check">&#10003</span>
         <span class="text-after-check" style="margin-left:17px;">Yes</span>
         <span class="check"></span>
