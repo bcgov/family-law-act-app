@@ -115,7 +115,7 @@ export default {
     }
   },
   props: {
-    step: Step,
+    step: Step | Object,
   },
   created() {
     if (this.step.result.childData) {
