@@ -164,6 +164,9 @@ objects:
         haproxy.router.openshift.io/ip_whitelist: "${SITEMINDER_WHITE_LIST}"
     spec:
       host: "${SITEMINDER_APPLICATION_DOMAIN}"
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
       port:
         targetPort: 8080-tcp
       to:
