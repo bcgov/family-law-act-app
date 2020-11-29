@@ -1,5 +1,5 @@
 module.exports = {
-  // publicPath: "/family-law-act/",
+  // publicPath: "/apply-for-family-order/",
   // configureWebpack: {
   //   devServer: {
   //     historyApiFallback: true,
@@ -8,7 +8,7 @@ module.exports = {
   //         target: 'http://localhost:8081',
   //         ws: true,
   //         pathRewrite: {
-  //           "^/family-law-act/": "/"
+  //           "^/apply-for-family-order/": "/"
   //         },
   //         secure: false,
   //         changeOrigin: true,
@@ -19,7 +19,7 @@ module.exports = {
   //       }
   
 	
-  //publicPath: "/family-law-act/",
+  //publicPath: "/apply-for-family-order/",
   devServer: {
     proxy: {  
       "/api": {
@@ -39,7 +39,7 @@ module.exports = {
       //   "/form": {
       //     target: "http://localhost:8081",
       //     pathRewrite: {
-      //       "^/family-law-act/": "/"
+      //       "^/apply-for-family-order/": "/"
       //     },
       //     secure: false,
       //     changeOrigin: true,
