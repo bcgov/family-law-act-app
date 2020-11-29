@@ -148,14 +148,14 @@
                   "type": "text",
                   "name": "childRelationshipWithProtected",
                   "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is the child's relationship with {protectedPartyName}?",
+                  "title": "What is {protectedPartyName}'s relationship to the child?",
                   "isRequired": true
                },
                {
                   "type": "text",
                   "name": "childRelationshipWithOther",
                   "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is the child's relationship with {RespondentName}?",
+                  "title": "What is {RespondentName}'s relationship to the child?",
                   "isRequired": true
                },
                {
@@ -176,7 +176,7 @@
             "name": "ExistingOrders",
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\") or ({protectedChildName} notempty)",
             "isRequired": true,
-            "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, child `support`, contact with a child or guardianship of a child?",
+            "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
             "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court."
          },
          {
@@ -191,7 +191,7 @@
          {
             "type": "yesno",
             "name": "likeToAddCulturalExplanation",
-            "title": "Do you have any information you would like to share with court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
+            "title": "Do you have any information you would like to share with court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
             "description": "There is no requirement to share but sometimes there is information you may choose to share with the court to help them in considering your application.",
             "isRequired": true
          },
