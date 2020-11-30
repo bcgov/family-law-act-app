@@ -36,12 +36,15 @@
         <div id="app-exit" class="app-exit">
           <a
             @click="quickExit()"
-            target="_blank"            
+            target="_blank"
             id="quick-exit"
             rel="external"
             class="btn btn-primary"
-            ><span class="fa fa-sign-out"></span> Quick Exit</a
-          >
+            style="color:white"
+            >
+            <span class="fa fa-sign-out"></span>
+            Quick Exit
+          </a>
         </div>
 
         <button
@@ -68,51 +71,45 @@
 </template>
 
 <script>
-import {Component, Vue} from "vue-property-decorator";
-import moment from 'moment-timezone';
+import { SessionManager } from "./utils/utils";
+import { Component, Vue } from "vue-property-decorator";
+import moment from "moment-timezone";
 
 export default {
   data() {
     return {};
-  },  
+  },
   methods: {
     quickExit: function() {
-      const emptyApplicationRoutes = ['/', '/status', '/serviceLocator']
+      const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
 
-      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) { 
+      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
         const lastUpdated = moment().format();
-        this.$store.dispatch("application/setLastUpdated", lastUpdated); 
-        const application = this.$store.getters["application/getApplication"]      
+        this.$store.dispatch("application/setLastUpdated", lastUpdated);
+        const application = this.$store.getters["application/getApplication"];
         const applicationId = application.id;
 
-        this.$http.put(
-          "/app/"+ applicationId + "/",
-          application,
-          {
+        this.$http
+          .put("/app/" + applicationId + "/", application, {
             responseType: "json",
             headers: {
               "Content-Type": "application/json",
             }
-          }
-        )
-        .then(res => {
-          console.log(res.data); 
-          this.error = "";      
-        })
-        .catch(err => {
-          console.error(err);
-          this.error = err;      
-        });
-      } 
-       
-      Vue.nextTick().then(() => { 
-        this.$store.dispatch("application/init");
-        window.location.replace("https://www.google.ca");
-      });       
-          
-      
+          })
+          .then(res => {
+            console.log(res.data);
+            this.error = "";
+          })
+          .catch(err => {
+            console.error(err);
+            this.error = err;
+          });
+      }
+      Vue.nextTick().then(() => {
+        SessionManager.logoutAndRedirect(this.$store, this.$http);
+      });
     }
-  }  
+  }
 };
 </script>
 

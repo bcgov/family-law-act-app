@@ -161,7 +161,7 @@ export default {
     beginApplication() {   
 
       this.$store.dispatch("application/init");
-      const userId = store.getters["common/getUserId"];      
+      const userId = store.getters["common/getUserId"];
       store.dispatch("application/setUserId", userId);
 
       const lastUpdated = moment().format();

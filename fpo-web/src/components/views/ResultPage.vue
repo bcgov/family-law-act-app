@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { SessionManager } from '../utils/utils';
 export default {
   name: "ResultPage",
   data() {      
@@ -32,13 +33,12 @@ export default {
     };
   },
   methods: {
-    viewStatus() {     
-      this.$router.push({ name: "applicant-status" });     
+    viewStatus() {
+      this.$router.push({ name: "applicant-status" });
     },
-    exitApplication() {     
-      this.$store.dispatch("application/init");
-      window.location.replace("https://www.google.ca");     
-    },
+    exitApplication() {
+      SessionManager.logoutAndRedirect(this.$store, this.$http);
+    }
   },
   mounted() {
       this.result = this.$route.params.result;
