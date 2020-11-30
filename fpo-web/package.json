@@ -27,6 +27,7 @@
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-class-component": "6.3.2",
+    "vue-cookies": "^1.7.4",
     "vue-fontawesome": "0.0.2",
     "vue-fontawesome-icon": "^1.3.0",
     "vue-property-decorator": "^9.0.0",
