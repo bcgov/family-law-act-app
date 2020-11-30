@@ -200,6 +200,7 @@ class ApplicationView(APIView):
                 "type": application.app_type,
                 "steps": steps,
                 "lastUpdate": application.last_updated,
+                "lastFiled": application.last_filed,
                 "lastPrinted": application.last_printed,
                 "currentStep": application.current_step,
                 "allCompleted": application.all_completed,

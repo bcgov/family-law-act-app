@@ -34,7 +34,8 @@ class ApplicationListSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "app_type",
-            "last_updated"
+            "last_updated",
+            "last_filed"
         ]
 
 
