@@ -2,20 +2,20 @@
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
     <div class="row">
       <div class="col-md-12 order-heading">
-        <h1>Extraordinary parenting matter</h1>
+        <h1>Priority parenting matter</h1>
         <h4>
           You need to complete an Application for
           <a
             href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa722.pdf?forcedownload=true"
-          >Extraordinary Parenting Matter in Form M</a> if you need an order about an extraordinary parenting matter,
+          >Priority Parenting Matter in Form M</a> if you need an order about a priority parenting matter,
           including a new order or to change or cancel an existing order.
         </h4>
-        <p>Extraordinary parenting matters are usually:</p>
+        <p>Priority parenting matters are usually:</p>
         <ul>
           <li>decisions about a child or children, where all guardians are not in agreement, and</li>
           <li>a court order is needed because something must be done quickly</li>
         </ul>
-        <p>Extraordinary parenting matters include the following:</p>
+        <p>Priority parenting matters include the following:</p>
         <ul>
           <li>giving, refusing or withdrawing consent, by a guardian, to medical, dental or other health-related treatments for a child, if delay will result in risk to the child’s health;</li>
           <li>

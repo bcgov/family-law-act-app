@@ -159,7 +159,9 @@ export default {
       var result = this.$store.getters["application/getNavigation"][0].result; 
       for(var i=1;i<9; i++)
         Object.assign(result, result, this.$store.getters["application/getNavigation"][i].result); 
-     
+      var protectedPartyName = {protectedPartyName: this.$store.getters["application/getProtectedPartyName"]}
+      Object.assign(result, result, protectedPartyName); 
+      console.log(result)
       return result;
     },    
     onDownload: function() {
