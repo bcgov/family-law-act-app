@@ -4,7 +4,7 @@
       <!-- Navbar content -->
 
       <div class="container-fluid">
-        <a class="navbar-brand" href="https://www2.gov.bc.ca">
+        <a class="navbar-brand" href="https://www2.gov.bc.ca" style="max-width:200px">
           <img
             class="img-fluid d-none d-md-block"
             src="../../public/images/bcid-logo-rev-en.svg"
@@ -28,14 +28,26 @@
 
         <div class="navbar-extra">
           <div id="app-profile">
-            <a routerLink="" class="btn btn-primary"
-              ><span class="fa fa-user"></span> Profile</a
-            >
+            <div style="padding-right: rem">
+              <b-dropdown
+                v-if="isLoggedIn"
+                id="profileDropdown"
+                text="Profile"
+                variant="primary btn-transparent"
+                menu-class="w-10"
+                style="margin-right: 1rem"
+              >
+                <template #button-content style="background-color: #003366">
+                  <span class="fa fa-user"></span> {{ userName() }}
+                </template>
+                <b-dropdown-item @click="logout(false)">Logout</b-dropdown-item>
+              </b-dropdown>
+            </div>
           </div>
         </div>
         <div id="app-exit" class="app-exit">
           <a
-            @click="quickExit()"
+            @click="logout(true)"
             target="_blank"
             id="quick-exit"
             rel="external"
@@ -58,20 +70,13 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <!-- <a class="nav-item nav-link" href="#">Home</a>
-            <a class="nav-item nav-link" href="#">Getting Started</a>
-            <a class="nav-item nav-link" href="#">Theme Demo</a> -->
-          </div>
-        </div>
       </div>
     </nav>
   </header>
 </template>
 
 <script>
-import { SessionManager } from "./utils/utils";
+import { SessionManager } from "@/components/utils/utils";
 import { Component, Vue } from "vue-property-decorator";
 import moment from "moment-timezone";
 
@@ -79,8 +84,16 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["common/getUserId"] !== "";
+    }
+  },
   methods: {
-    quickExit: function() {
+    userName: function() {
+      return this.$store.getters["application/getUserName"];
+    },
+    logout: function(isQuickExit) {
       const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
 
       if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
@@ -106,12 +119,22 @@ export default {
           });
       }
       Vue.nextTick().then(() => {
-        SessionManager.logoutAndRedirect(this.$store, this.$http);
+        if (isQuickExit)
+          SessionManager.logoutAndRedirect(this.$store, this.$http);
+        else 
+          SessionManager.logout(this.$store);
       });
     }
   }
 };
 </script>
+
+<style>
+.btn-transparent {
+  background-color: transparent !important;
+  border-color: #ccc !important;
+}
+</style>
 
 <style scoped lang="scss">
 @import "../styles/common";
@@ -141,6 +164,8 @@ export default {
     border-color: #ccc;
   }
 }
+
+
 
 #app-exit {
   padding: 8px 15px;

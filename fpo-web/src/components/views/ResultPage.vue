@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { SessionManager } from '../utils/utils';
+import { SessionManager } from "@/components/utils/utils";
 export default {
   name: "ResultPage",
   data() {      

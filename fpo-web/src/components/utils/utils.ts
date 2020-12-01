@@ -1,4 +1,4 @@
-import { AxiosInstance } from "axios";
+import Axios, { AxiosInstance } from "axios";
 import Vue from "vue";
 
 export const SessionManager = {
@@ -16,5 +16,21 @@ export const SessionManager = {
             Vue.$cookies.remove("quickexit");  
             window.location.href = "https://www.google.ca";
           }
+    },
+    getUserInfo: async function(store) {
+        try {
+            var response = await Axios.get('/user-info/');
+            const userId = response.data.user_id;
+            const loginUrl = response.data.login_uri;
+            if (userId) {
+                const userName = response.data.first_name + " " + response.data.last_name;
+                store.dispatch("application/setUserName", userName);
+                store.dispatch("common/setUserId", userId);
+            }
+            return { userId, loginUrl };
+        }
+        catch (error) {
+            console.log(error);  
+        }
     }
 }

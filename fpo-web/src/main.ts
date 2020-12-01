@@ -14,7 +14,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 // https://www.npmjs.com/package/vue-fontawesome-icon
 // import material-icon scss
 import "font-awesome/css/font-awesome.min.css";
-import { SessionManager } from "./components/utils/utils";
+import { SessionManager } from "@/components/utils/utils";
 
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
@@ -24,14 +24,14 @@ Vue.use(VueCookies);
 Vue.use(http)
 
 const router = new VueRouter({
-  routes: routes, mode: "history", base: "/family-law-act/",
+  routes: routes, mode: "history", base: process.env.BASE_URL,
   scrollBehavior(to, from, savedPosotion) { 
     return { x: 0, y: 0 }
    }
 });
 
 // Redirect to /family-law-act/
-history.pushState({page: "home"}, "", "/family-law-act/")
+history.pushState({page: "home"}, "", process.env.BASE_URL)
 
 SessionManager.redirectIfQuickExitCookie();
 
