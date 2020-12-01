@@ -65,9 +65,9 @@
 
               <div class="checkbox-border">
                 <b-form-checkbox value="priotityParenting">
-                  <div class="checkbox-choices">Extraordinary parenting matter</div>
+                  <div class="checkbox-choices">Priority parenting matter</div>
                   <p>
-                    'Extraordinary parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
+                    'Priority parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
                     priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
                     under family law matters.
                   </p>

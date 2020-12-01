@@ -161,7 +161,7 @@ export default {
     beginApplication() {   
 
       this.$store.dispatch("application/init");
-      const userId = store.getters["common/getUserId"];      
+      const userId = store.getters["common/getUserId"];
       store.dispatch("application/setUserId", userId);
 
       const lastUpdated = moment().format();
@@ -204,7 +204,7 @@ export default {
       this.$http.get('/app/'+ applicationId + '/')
       .then((response) => {
         const applicationData = response.data
-
+        
         this.currentApplication.id = applicationId;
         this.currentApplication.allCompleted = applicationData.allCompleted;
         this.currentApplication.applicantName = applicationData.applicantName;
@@ -212,6 +212,8 @@ export default {
         this.currentApplication.lastUpdate = applicationData.lastUpdated;
         this.currentApplication.lastPrinted = applicationData.lastPrinted;
         this.currentApplication.respondentName = applicationData.respondentName;
+        this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
+        this.currentApplication.protectedChildName = applicationData.protectedChildName;
         
         this.currentApplication.type = applicationData.type;
         this.currentApplication.userId = applicationData.user;

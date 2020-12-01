@@ -63,6 +63,7 @@ urlpatterns = [
     path("survey-print/<int:pk>/", views.SurveyPdfView.as_view()),
     path("user-info/", views.UserStatusView.as_view()),
     path("submit-form/", views.SubmitFormView.as_view()),
+    path("logout/", views.logout)
 ]
 
 if settings.OIDC_ENABLED:

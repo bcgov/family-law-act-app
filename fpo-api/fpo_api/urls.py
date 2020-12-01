@@ -16,10 +16,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path("", RedirectView.as_view(url="api/v1/user-info/")),
-    path("api/v1/", include("api.urls")),    
+    path("api/v1/", include("api.urls")),
     path("health/", views.health)
 ]
-
-if (os.getenv("FRONT_END", "prod") == "dev"):
-    urlpatterns.append(path("family-law-act/api/v1/", include("api.urls"))) 
-    urlpatterns.append(path("family-law-act/", RedirectView.as_view(url="http://localhost:8084/family-law-act/")))

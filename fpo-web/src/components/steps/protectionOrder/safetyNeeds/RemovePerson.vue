@@ -23,17 +23,18 @@ export default {
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
 
-    let applicantNameObject = this.$store.getters[
-      "application/getApplicantName"
+    let protectedPartyNameObject = this.$store.getters[
+      "application/getProtectedPartyName"
     ];
-    if (applicantNameObject) {
-      let applicantName =
-        applicantNameObject.first +
+    
+    if (protectedPartyNameObject) {
+      let protectedPartyName =
+        protectedPartyNameObject.first +
         " " +
-        applicantNameObject.middle +
+        protectedPartyNameObject.middle +
         " " +
-        applicantNameObject.last;
-      survey.setVariable("ApplicantName", applicantName);
+        protectedPartyNameObject.last;
+      survey.setVariable("protectedPartyName", protectedPartyName);
     }
     if (this.respondentName) {
       survey.setVariable("RespondentName", this.respondentName);

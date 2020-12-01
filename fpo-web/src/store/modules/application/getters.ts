@@ -92,6 +92,12 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getRespondentName(state: ApplicationState) {
     return state.respondentName;
   },
+  getProtectedPartyName(state: ApplicationState) {
+    return state.protectedPartyName;
+  },
+  getProtectedChildName(state: ApplicationState) {
+    return state.protectedChildName;
+  },
   getApplicationId(state: ApplicationState) {
     return state.id;
   },

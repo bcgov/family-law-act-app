@@ -26,7 +26,7 @@ from django.http import Http404
 from django.conf import settings
 from api.models.PreparedPdf import PreparedPdf
 
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
 from api.auth import get_efiling_auth_token
@@ -47,6 +47,10 @@ from api.models.Application import Application
 from api.pdf import render as render_pdf
 
 LOGGER = logging.getLogger(__name__)
+
+
+def logout(request):
+    return HttpResponseRedirect(get_logout_uri(request))
 
 
 class AcceptTermsView(APIView):
@@ -200,6 +204,7 @@ class ApplicationView(APIView):
                 "type": application.app_type,
                 "steps": steps,
                 "lastUpdate": application.last_updated,
+                "lastFiled": application.last_filed,
                 "lastPrinted": application.last_printed,
                 "currentStep": application.current_step,
                 "allCompleted": application.all_completed,
@@ -207,7 +212,9 @@ class ApplicationView(APIView):
                 "userName": application.user_name,
                 "userId": application.user_id,
                 "applicantName": application.applicant_name,
-                "respondentName": application.respondent_name}
+                "respondentName": application.respondent_name,
+                "protectedPartyName": application.protected_party_name,
+                "protectedChildName": application.protected_child_name}
         return Response(data)
 
     def post(self, request: Request):
@@ -233,6 +240,8 @@ class ApplicationView(APIView):
             user_name=body.get("userName"),
             key_id=steps_key_id,
             respondent_name=body.get("respondentName"),
+            protected_party_name=body.get("protectedPartyName"),
+            protected_child_name=body.get("protectedChildName"),
             user_id=uid)
 
         db_app.save()
@@ -272,3 +281,6 @@ def get_app_queryset(pk, uid):
         return Application.objects.filter(user_id=uid).filter(pk=pk)
     except Application.DoesNotExist:
         raise Http404
+
+
+

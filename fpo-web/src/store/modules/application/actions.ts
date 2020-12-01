@@ -54,6 +54,14 @@ export const actions: ActionTree<ApplicationState, RootState> = {
     context.commit("setRespondentName", respondentName);
   },
 
+  setProtectedPartyName(context, protectedPartyName) {
+    context.commit("setProtectedPartyName", protectedPartyName);
+  },
+  
+  setProtectedChildName(context, protectedChildName) {
+    context.commit("setProtectedChildName", protectedChildName);
+  },
+  
   setApplicationId(context, id) {
     context.commit("setApplicationId", id);
   },
