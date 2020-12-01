@@ -55,17 +55,29 @@
               </div>
             </div>
 
-            <div class="row justify-content-center">
-                <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
-                  <strong>New User</strong> - Let’s get started
-                </a>
-            </div>
+            <div v-if="!isLoggedIn">
+              <div class="row justify-content-center">
+                  <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
+                    <strong>New User</strong> - Let’s get started
+                  </a>
+              </div>
 
-            <div class="row justify-content-center">
-                <a class="btn btn-default btn-md login-button" @click="navigate('returning')">
-                  <strong>Returning User?</strong>
-                  <br />Log in with BCeID
+              <div class="row justify-content-center">
+                <a
+                  class="btn btn-default btn-md login-button"
+                  @click="navigate('returning')"
+                >
+                  <div>
+                    <strong>Returning User?</strong>
+                    <br />Log in with BCeID
+                  </div>
                 </a>
+              </div>
+            </div>
+            <div v-else class="row justify-content-center">
+              <a @click="navigate('returning')"  class="btn btn-default btn-md login-button">
+                     <strong>View Applications</strong>
+              </a>
             </div>
           </div>
         </div>
@@ -75,11 +87,20 @@
 </template>
 
 <script>
+import { SessionManager } from "@/components/utils/utils";
 import axios from "axios";
 export default {
   name: "LandingPage",
+  async mounted() {
+    await SessionManager.getUserInfo(this.$store);
+  },
   data() {
     return {};
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters["common/getUserId"] !== "";
+    }
   },
   methods: {
     navigate(userType) {
