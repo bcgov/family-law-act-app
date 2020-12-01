@@ -6,7 +6,7 @@ const httpInstance = configureInstance();
 function configureInstance(){
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
-    axios.defaults.baseURL = "/family-law-act/api/v1";
+    axios.defaults.baseURL = "/apply-for-family-order/api/v1";
     return axios
 }
 
