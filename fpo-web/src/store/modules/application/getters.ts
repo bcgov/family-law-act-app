@@ -98,6 +98,9 @@ export const getters: GetterTree<ApplicationState, RootState> = {
   getProtectedChildName(state: ApplicationState) {
     return state.protectedChildName;
   },
+  getApplicationLocation(state: ApplicationState) {
+    return state.applicationLocation;
+  },
   getApplicationId(state: ApplicationState) {
     return state.id;
   },

@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()"> <!-- v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()"-->
+  <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()"> <!-- v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()"-->
     <survey v-bind:survey="survey"></survey>
   </page-base>
 </template>
@@ -27,7 +27,7 @@ export default {
 
     survey.onValueChanged.add((sender, options) => {
       let pagesArr = [];
-      if (options.name === "orderType") {
+      if (options.name === "orderType") {        
         this.removePages();
         let selectedOrder = options.value;
         this.$store.dispatch("application/updateStepResultData", {
@@ -45,6 +45,7 @@ export default {
         if (selectedOrder === "needPO") {
           this.populatePagesForNeedPO(sender);
         }
+        this.determinePeaceBondAndBlock();
       }
       if (options.name === "PORConfirmed") {
         pagesArr = [0, 1, 2, 4, 5, 6, 8];
@@ -54,10 +55,19 @@ export default {
           this.togglePages(pagesArr, false);
         }
       }
+
+      if (options.name === "familyUnsafe") {
+        console.warn(options.value)
+        this.determinePeaceBondAndBlock();
+      }
+      console.log(survey.data)
+      //console.log(options.name)
+
     });
 
     return {
       survey: survey,
+      disableNextButton: false
     };
   },
   beforeCreate() {
@@ -67,6 +77,7 @@ export default {
   created() {
     if (this.step.result.questionnaireSurvey) {
       this.survey.data = this.step.result.questionnaireSurvey;
+      this.determinePeaceBondAndBlock();
     }
 
   },
@@ -124,6 +135,19 @@ export default {
     getDisableNextText() {
       // demo
       return "You will need to answer the question above to continue";
+    },
+    
+    determinePeaceBondAndBlock(){
+      var pagesArr = [0, 1, 2, 4, 5, 6, 8];
+      if(this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO'){
+        this.disableNextButton = true;
+        this.togglePages(pagesArr, false);
+      }else{
+        this.disableNextButton = false;
+        if (this.survey.data.PORConfirmed) {
+          this.togglePages(pagesArr, true);
+        }       
+      }
     }
   },
   props: {

@@ -204,6 +204,8 @@ export default {
       this.$http.get('/app/'+ applicationId + '/')
       .then((response) => {
         const applicationData = response.data
+
+        console.log(applicationData)
         
         this.currentApplication.id = applicationId;
         this.currentApplication.allCompleted = applicationData.allCompleted;
@@ -214,6 +216,7 @@ export default {
         this.currentApplication.respondentName = applicationData.respondentName;
         this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
         this.currentApplication.protectedChildName = applicationData.protectedChildName;
+        this.currentApplication.applicationLocation = applicationData.applicationLocation;
         
         this.currentApplication.type = applicationData.type;
         this.currentApplication.userId = applicationData.user;

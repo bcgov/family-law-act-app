@@ -559,6 +559,8 @@
               <td style="width: 100px;">
               {% if protectionWhomSurvey.ExistingFamilyCase == 'y' %}
                 <div class="content">&nbsp;{{ protectionWhomSurvey.ExistingCourt }}</div>
+              {% else %}
+                <div class="content">&nbsp;{{ applicationLocation }}</div>
               {% endif %}
               </td>
             </tr>
@@ -870,13 +872,15 @@
           <td></td>
           <td></td>
         </tr>
-      {% else %}  
+      {% else %}
+        {% for child in protectionWhomSurvey.allchildren %}  
         <tr>
-          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childName.first}} {{protectionWhomSurvey.childName.middle}} {{protectionWhomSurvey.childName.last}} {% endif %}</td>
-          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childDOB|custom_date:"M d Y"}} {% endif %}</td>
-          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childRelationship}} {% endif %}</td>
-          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{protectionWhomSurvey.childLivingWith}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{child.childName.first}} {{child.childName.middle}} {{child.childName.last}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{child.childDOB|custom_date:"M d Y"}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{child.childRelationship}} {% endif %}</td>
+          <td>{% if protectionWhomSurvey.childPO == 'y' %} {{child.childLivingWith}} {% endif %}</td>
         </tr>
+        {% endfor %}
       {% endif %}
       </tbody>
     </table>
