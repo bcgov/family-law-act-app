@@ -29,7 +29,7 @@ from api.models.PreparedPdf import PreparedPdf
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
-from api.auth import get_efiling_auth_token
+
 from api.serializers import ApplicationListSerializer
 
 from rest_framework.views import APIView
@@ -77,16 +77,7 @@ class UserStatusView(APIView):
             "logout_uri": get_logout_uri(request),
             "surveys": [],
         }
-        if logged_in and request.auth == "demo":
-            info["demo_user"] = True
         ret = Response(info)
-        uid = request.META.get("HTTP_X_DEMO_LOGIN")
-        if uid and logged_in:
-            # remember demo user
-            ret.set_cookie("x-demo-login", uid)
-        elif request.COOKIES.get("x-demo-login") and not logged_in:
-            # logout
-            ret.delete_cookie("x-demo-login")
         ret.set_cookie("csrftoken", get_token(request))
         return ret
 
@@ -147,15 +138,6 @@ class SurveyPdfView(generics.GenericAPIView):
         response.write(pdf_content)
 
         return response
-
-
-class SubmitFormView(generics.GenericAPIView):
-    def get(self, request):
-        token_res = get_efiling_auth_token()
-        if token_res:
-            LOGGER.debug("Token response is %s", token_res['access_token'])
-            return Response({'Token': True})
-        return Response({'Token': False})
 
 
 class ApplicationListView(generics.ListAPIView):
@@ -281,6 +263,3 @@ def get_app_queryset(pk, uid):
         return Application.objects.filter(user_id=uid).filter(pk=pk)
     except Application.DoesNotExist:
         raise Http404
-
-
-
