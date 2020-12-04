@@ -28,9 +28,8 @@
 
         <div class="navbar-extra">
           <div id="app-profile">
-            <div style="padding-right: rem">
+            <div v-if="userName" style="padding-right: rem">
               <b-dropdown
-                v-if="isLoggedIn"
                 id="profileDropdown"
                 text="Profile"
                 variant="primary btn-transparent"
@@ -38,7 +37,7 @@
                 style="margin-right: 1rem"
               >
                 <template #button-content style="background-color: #003366">
-                  <span class="fa fa-user"></span> {{ userName() }}
+                  <span class="fa fa-user"></span> {{ userName }}
                 </template>
                 <b-dropdown-item @click="logout(false)">Logout</b-dropdown-item>
               </b-dropdown>
@@ -85,14 +84,11 @@ export default {
     return {};
   },
   computed: {
-    isLoggedIn() {
-      return this.$store.getters["common/getUserId"] !== "";
+    userName() {
+      return this.$store.getters["application/getUserName"];
     }
   },
   methods: {
-    userName: function() {
-      return this.$store.getters["application/getUserName"];
-    },
     logout: function(isQuickExit) {
       const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
 
