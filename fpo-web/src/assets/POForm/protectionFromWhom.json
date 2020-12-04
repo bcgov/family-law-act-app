@@ -111,34 +111,48 @@
           "title": "Do you have a child that needs to be protected from {RespondentName}, on this Protection Order?"
          },
          {
-          "type": "personname",
-          "name": "childName",
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-          "title": "What is the name of the child?",
-          "defaultSubstitution": "{childName}",
-          "isRequired": true
-         },
-         {
-          "type": "text",
-          "name": "childDOB",
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-          "title": "What is the child's date of birth?",
-          "inputType": "date",
-          "isRequired": true
-         },
-         {
-          "type": "text",
-          "name": "childRelationship",
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-          "title": "What is {RespondentName}'s relationship to the child?",
-          "isRequired": true
-         },
-         {
-            "type": "text",
-            "name": "childLivingWith",
-            "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-            "title": "Who does the child currently live with?",
-            "isRequired": true
+            "type": "paneldynamic",
+            "name": "allchildren",
+            "visibleIf": "({childPO} = 'y' and {ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n') or ({ApplicantNeedsProtection} = 'y' and {childPO} = 'y')",
+            "title": " ",
+            "isRequired": true,
+            "templateElements": [ 
+               {
+               "type": "personname",
+               "name": "childName",
+               "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+               "title": "What is the name of the child?",
+               "defaultSubstitution": "{childName}",
+               "isRequired": true
+               },
+               {
+               "type": "text",
+               "name": "childDOB",
+               "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+               "title": "What is the child's date of birth?",
+               "inputType": "date",
+               "isRequired": true
+               },
+               {
+               "type": "text",
+               "name": "childRelationship",
+               "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+               "title": "What is {RespondentName}'s relationship to the child?",
+               "description":"Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+               "isRequired": true
+               },
+               {
+                  "type": "text",
+                  "name": "childLivingWith",
+                  "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+                  "title": "Who does the child currently live with?",
+                  "description": "You can use the name of the person or their relationship to the child.",
+                  "isRequired": true
+               }
+            ],
+            "panelCount": 1,
+            "panelAddText": "Add another child",
+            "panelRemoveText": "Remove above child"
          },
          {
           "type": "helptext",

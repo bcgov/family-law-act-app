@@ -173,7 +173,8 @@ class ApplicationView(APIView):
                 "applicantName": application.applicant_name,
                 "respondentName": application.respondent_name,
                 "protectedPartyName": application.protected_party_name,
-                "protectedChildName": application.protected_child_name}
+                "protectedChildName": application.protected_child_name,
+                "applicationLocation": application.application_location}
         return Response(data)
 
     def post(self, request: Request):
@@ -201,6 +202,7 @@ class ApplicationView(APIView):
             respondent_name=body.get("respondentName"),
             protected_party_name=body.get("protectedPartyName"),
             protected_child_name=body.get("protectedChildName"),
+            application_location=body.get("applicationLocation"),
             user_id=uid)
 
         db_app.save()
@@ -228,6 +230,7 @@ class ApplicationView(APIView):
             application_queryset.update(respondent_name=body.get("respondentName"))
             application_queryset.update(protected_party_name=body.get("protectedPartyName"))
             application_queryset.update(protected_child_name=body.get("protectedChildName"))
+            application_queryset.update(application_location=body.get("applicationLocation"))
             return Response("success")
         return HttpResponseNotFound("No record found")
 

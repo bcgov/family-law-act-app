@@ -8,7 +8,24 @@
         "type": "yesno",
         "isRequired": true,
         "name": "isVictoriaLawCourt",
-        "title": "Is Victoria Law Courts' the nearest location to you OR the location where your existing matter has been filed?"
+        "title": "Is the Victoria Law Courts or Surrey Provincial Court the court location:<br/><br/><ul><li>where your existing Provincial Court family case is filed</li><li>nearest to where your child lives (if you are applying for something about a child)</li><li>nearest to where you live (if you are not applying for something about a child)</li></ul>"
+       },
+       {
+        "type": "radiogroup",
+        "name": "ServiceLocation",
+        "visible": false,
+        "visibleIf": "{isVictoriaLawCourt} = 'y'",
+        "title": "Select the correct court location",
+        "choices": [
+         {
+          "value": "Surrey",
+          "text": "Surrey"
+         },
+         {
+          "value": "Victoria",
+          "text": "Victoria"
+         }
+        ]
        }
       ]
      }
