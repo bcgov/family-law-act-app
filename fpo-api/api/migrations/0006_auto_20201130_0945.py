@@ -16,16 +16,6 @@ class Migration(migrations.Migration):
             name='last_filed',
             field=models.DateTimeField(blank=True, null=True),
         ),
-        migrations.AddField(
-            model_name='application',
-            name='protected_child_name',
-            field=django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True),
-        ),
-        migrations.AddField(
-            model_name='application',
-            name='protected_party_name',
-            field=django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True),
-        ),
         migrations.AlterField(
             model_name='user',
             name='first_name',
