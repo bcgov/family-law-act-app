@@ -12,7 +12,7 @@
           "type": "infotext",
           "name": "noContactInfo",
           "useDisplayValuesInTitle": false,
-          "title": "Sometimes it is impossible to stop all communication with the other party if you have kids together or you are still trying to sort out the details of your separation.",
+          "title": "Sometimes it is impossible to stop all communication with the other party if you have kids together or you are still trying to sort out the details of your separation. If this applies to your situation, select all the options where you may need to communicate with the other party. If you don’t need to communicate with them at all, you can leave this section blank.",
           "titleLocation": "hidden"
          },
          {
