@@ -39,8 +39,8 @@
             target="_blank"            
             id="quick-exit"
             rel="external"
-            class="btn btn-primary"
-            ><span class="fa fa-sign-out"></span> Quick Exit</a
+            class="btn btn-primary text-warning"
+            ><span class="fa fa-sign-out"/> Quick Exit</a
           >
         </div>
 

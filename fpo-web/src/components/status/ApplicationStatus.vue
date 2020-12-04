@@ -15,7 +15,8 @@
             <b-table  :items="previousApplications"
                       :fields="previousApplicationFields"
                       class="mx-4"
-                      sort-by="last_updated"
+                      sort-by="lastUpdated"
+                      :sort-desc="true"
                       borderless
                       striped
                       small 
@@ -38,8 +39,8 @@
                   <template v-slot:cell(app_type)="row">                  
                       <span>{{row.item.app_type}}</span>
                   </template>
-                  <template v-slot:cell(last_updated)="row">                  
-                      <span>{{ row.item.last_updated | beautify-date-weekday}}</span>
+                  <template v-slot:cell(lastUpdated)="row">                  
+                      <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
                   </template>
             </b-table>
           </b-card>
@@ -118,7 +119,7 @@ export default {
       previousApplications: [],
       previousApplicationFields: [
           { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
-          { key: 'last_updated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
+          { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
           { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
       ],
       confirmDelete: false,
@@ -146,11 +147,13 @@ export default {
       .then((response) => {
         for (const appJson of response.data) {
           const app = {};
-          app.last_updated = moment(appJson.last_updated).tz("America/Vancouver").format();
+          app.lastUpdated =appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
+          app.lastUpdatedDate =appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';
           app.id = appJson.id;
           app.app_type = appJson.app_type;
           this.previousApplications.push(app);
-        }       
+        }
+        console.log(this.previousApplications)       
       }).catch((err) => {
         //TODO: determine workflow
         console.log(err)
@@ -204,6 +207,8 @@ export default {
       this.$http.get('/app/'+ applicationId + '/')
       .then((response) => {
         const applicationData = response.data
+
+        console.log(applicationData)
         
         this.currentApplication.id = applicationId;
         this.currentApplication.allCompleted = applicationData.allCompleted;
@@ -214,6 +219,7 @@ export default {
         this.currentApplication.respondentName = applicationData.respondentName;
         this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
         this.currentApplication.protectedChildName = applicationData.protectedChildName;
+        this.currentApplication.applicationLocation = applicationData.applicationLocation;
         
         this.currentApplication.type = applicationData.type;
         this.currentApplication.userId = applicationData.user;
@@ -253,6 +259,9 @@ export default {
       .then((response) => {
         console.log(response.data)
         
+        var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete.id)return true});
+        if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
+        
       }).catch((err) => {
         const errMsg = err.response.data.error;
 				console.log(err.response)
@@ -260,8 +269,7 @@ export default {
         this.deleteErrorMsgDesc = errMsg;
         this.deleteError = true;            
       });
-      this.confirmDelete=false;
-      this.previousApplications.splice(this.indexToDelete, 1);      
+      this.confirmDelete=false;  
     }
 
   },

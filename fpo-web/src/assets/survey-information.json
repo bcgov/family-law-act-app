@@ -79,9 +79,9 @@
                   "type": "contactinfo",
                   "name": "ApplicantContact",
                   "title": "Contact Information",
-                  "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents.",
+                  "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
                   "isRequired": true,
-                  "labelEmail": "Email (Optional)",
+                  "labelEmail": "Email",
                   "labelFax": "Fax Number (Optional)",
                   "labelPhone": "Daytime Phone Number"
                 }

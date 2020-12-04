@@ -46,8 +46,8 @@
                   </span>
                   <span v-else><div class="checkbox-choices">Family law matter</div>
                     <p>
-                      Family law matters include: parenting arrangements('parental responsibilities' and 'parenting time'), 'child support', 'contact with a child',
-                      'guardianship of a child' and 'spousal support'.
+                      Family law matters include: parenting arrangements(<tooltip title="parental responsibilities" :index="0"/> and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, <tooltip title="contact with a child" :index="0"/>, 
+                      <tooltip title="guardianship of a child" index="0"/> and <tooltip title="spousal support" index="0" />.
                     </p>
                   </span>
                 </b-form-checkbox>
@@ -67,7 +67,7 @@
                 <b-form-checkbox value="priotityParenting">
                   <div class="checkbox-choices">Priority parenting matter</div>
                   <p>
-                    'Priority parenting matters' are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
+                    <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
                     priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
                     under family law matters.
                   </p>
@@ -104,10 +104,13 @@ import PageBase from "../PageBase.vue";
 import { Step } from "../../../models/step";
 import GlobalStore from "@/store";
 
+import Tooltip from "./Tooltip.vue"
+
 export default {
   name: "getting-started",
   components: {
-    PageBase
+    PageBase,
+    Tooltip
   },
   data() {
     return {

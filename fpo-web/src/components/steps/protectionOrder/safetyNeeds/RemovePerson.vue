@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import {Vue} from "vue-property-decorator"
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey-glossary.ts"
 import surveyJson from "@/assets/POForm/safetyNeeds/removePerson.json";
@@ -23,22 +24,27 @@ export default {
     survey.showQuestionNumbers = "off";
     survey.showNavigationButtons = false;
 
-    let protectedPartyNameObject = this.$store.getters[
-      "application/getProtectedPartyName"
-    ];
+    Vue.nextTick(()=>{
+      let protectedPartyNameObject = this.$store.getters[
+        "application/getProtectedPartyName"
+      ];
+      
+      console.log(protectedPartyNameObject)
+
+      if (protectedPartyNameObject) {
+        let protectedPartyName =
+          protectedPartyNameObject.first +
+          " " +
+          protectedPartyNameObject.middle +
+          " " +
+          protectedPartyNameObject.last;
+        survey.setVariable("protectedPartyName", protectedPartyName);
+      }
+      });
+      if (this.respondentName) {
+        survey.setVariable("RespondentName", this.respondentName);
+      }
     
-    if (protectedPartyNameObject) {
-      let protectedPartyName =
-        protectedPartyNameObject.first +
-        " " +
-        protectedPartyNameObject.middle +
-        " " +
-        protectedPartyNameObject.last;
-      survey.setVariable("protectedPartyName", protectedPartyName);
-    }
-    if (this.respondentName) {
-      survey.setVariable("RespondentName", this.respondentName);
-    }
 
     surveyEnv.setGlossaryMarkdown(survey);
     

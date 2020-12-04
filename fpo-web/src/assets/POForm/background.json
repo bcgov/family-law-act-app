@@ -12,12 +12,13 @@
           "type": "comment",
           "name": "howPartiesRelated",
           "title": "Describe how the protected party/parties and the other party are related for the purposes of this application",
+          "description":"You do not need to use any special wording. Describe the relationship or connection in your own words, for example, we were living together in a relationship and are both parents of the child. If there is more than one protected party, be clear about the relationship or connection of the other party to each of them.",
           "isRequired": true
          },
          {
           "type": "infotext",
           "name": "ifChildPOFAQ",
-          "title": "If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).",
+          "title": "<strong>If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).",
           "titleLocation": "hidden",
           "messageStyle": "inline"
          },
@@ -40,12 +41,13 @@
           "visibleIf": "{werePOPartiesMarried} = \"y\"",
           "title": " Date on which the parties began to live together in a marriage-like relationship",
           "inputType": "date",
+          "description": "If you do not know the exact date, select the year and month and the 1<sup>st</sup> of the month.",
           "isRequired": true
          },
          {
           "type": "text",
           "name": "dateOfMarriagePO",
-          "visibleIf": "{werePOPartiesMarried} = \"y\"",
+          "visibleIf": "{werePOPartiesMarried} = 'y' ",
           "title": "Date of marriage",
           "description": "Complete only if the parties were/are married",
           "inputType": "date"
@@ -74,7 +76,7 @@
          {
           "type": "text",
           "name": "separationDate",
-          "visibleIf": "{isSeperatedPO} = \"Yes\"",
+          "visibleIf": "{isSeperatedPO} = 'Yes' ",
           "title": "Parties separated on",
           "isRequired": true,
           "inputType": "date"
@@ -118,8 +120,8 @@
          {
             "type": "html",
             "name": "info",
-            "visibleIf": "({protectedChildName} notempty) ",
-            "html": "<h4>The list of child(ren) to be protected from {respondentName}:</h4> <b><ul><li>{protectedChildName}</li></ul></b>"
+            "visibleIf": " and {protectedChildName} notempty",
+            "html": "<div><h4>The list of child(ren) to be protected from {respondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
          },
          {
             "type": "paneldynamic",
@@ -149,6 +151,7 @@
                   "name": "childRelationshipWithProtected",
                   "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
                   "title": "What is {protectedPartyName}'s relationship to the child?",
+                  "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
                   "isRequired": true
                },
                {
@@ -156,6 +159,7 @@
                   "name": "childRelationshipWithOther",
                   "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
                   "title": "What is {RespondentName}'s relationship to the child?",
+                  "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
                   "isRequired": true
                },
                {
@@ -163,6 +167,7 @@
                   "name": "childLivingWith",
                   "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
                   "title": "Who is the child currently living with?",
+                  "description": "You can use the name of the person or their relationship to the child.",
                   "isRequired": true
                }
             ],
@@ -176,7 +181,7 @@
             "name": "ExistingOrders",
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\") or ({protectedChildName} notempty)",
             "isRequired": true,
-            "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
+            "title": "<br/>Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
             "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court."
          },
          {
@@ -206,6 +211,7 @@
           "type": "yesno",
           "name": "mentalHealthConcernPO",
           "title": "I have concerns about the mental health of the protected party and/or the other party ",
+          "description": "Mental health conditions are disorders that affect your mood, thinking and behaviour. Mental health conditions include depression, anxiety disorders, bi-polar disorder and schizophrenia.",
           "isRequired": true
          },
          {
@@ -219,40 +225,35 @@
           "type": "yesno",
           "name": "riskOfViolencePO",
           "title": "Are there circumstances that may increase the risk of family violence",
+          "description": "There are certain circumstances that may make a person or relationship more at-risk for family violence.<br/><p style='text-align: justify;'>The circumstances may contribute to family violence but might not be the cause of the family violence. To better understand the circumstances that may contribute to family violence in this case, indicate if you believe there are circumstances that may increase the risk of family violence in the relationship such as: substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances.</p>",
           "isRequired": true
          },
          {
           "type": "comment",
           "name": "describeCirumstancesPO",
           "visibleIf": "{riskOfViolencePO} = \"y\"",
-          "title": "Describe the circumstances such as:  substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances",
+          "title": "Describe the circumstances. You do not need to use any special wording. The key is to be clear about you mean.",
           "isRequired": true
          },
          {
           "type": "yesno",
           "name": "existingPOOrders",
-          "title": "There are existing court orders protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders",
+          "title": "There are existing court `Orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders",
+          "description": "This includes:<ul><li>any family law protection order from Provincial Court, Supreme Court, or another jurisdiction</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
           "isRequired": true
          },
          {
-            "type": "checkbox",
-            "name": "attachCopyOExistingPOOrders",
+            "type": "infotext",
+            "name": "attachCopyOfExistingPOOrders",
             "visibleIf": "{existingPOOrders} = 'y'",
-            "title":" ",
-            "description": "You need to attach a copy of the order(s) to your application.",
-            "isRequired": true,
-            "choices": [
-             {
-              "value": "confirmed",
-              "text": "I will attach a copy of the order(s) to my application."
-             }
-            ]
+            "title":"You need to attach a copy of the order(s) to your application.",
+            "titleLocation": "hidden"            
          },
          {
           "type": "radiogroup",
           "name": "otherPartyDisobeyOrder",
           "isRequired": true,
-          "title": "Has the other party ever failed to obey a court order?",
+          "title": "Has the other party ever failed to obey a court `order`?",
           "choices": [
            {
             "value": "Yes",
@@ -278,7 +279,7 @@
          {
           "type": "yesno",
           "name": "concernForNotObeying",
-          "title": "I have concerns the other party may not obey a court order",
+          "title": "I have concerns the other party may not obey a court `order`",
           "isRequired": true
          },
          {
@@ -292,6 +293,7 @@
           "type": "yesno",
           "name": "reportedConcernsToPolice",
           "title": "I have reported my safety concerns to the police",
+          "description": "If you are a victim of family violence or a witness to family violence, you may have reported safety concerns or an incident to your local police or RCMP.",
           "isRequired": true
          },
          {
@@ -305,13 +307,14 @@
           "type": "yesno",
           "name": "reportedConcernsToSW",
           "title": "I have reported my safety concerns to a social worker (Ministry of Children and Family Development) ",
+          "description": "In situations where there is reason to believe a child (under 19 years of age) is being abused, neglected, sexually exploited, or otherwise in need of protection, and a parent or guardian is unable or unwilling to protect the child, the matter must be reported to a social worker at the <a href='https://www2.gov.bc.ca/gov/content/governments/organizational-structure/ministries-organizations/ministries/children-and-family-development'>Ministry of Children and Family Development</a>.<br/><br/>For more information or to receive help making a report about a child or youth who needs protection, please call the <a href='https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children/reporting-child-abuse'>Helpline for Children</a> at <b style='display:inline-block;' >1-800-663-9122</b> at any time of the day or night.",
           "isRequired": true
          },
          {
           "type": "comment",
           "name": "desrcibeSWAction",
           "visibleIf": "{reportedConcernsToSW} = \"y\"",
-          "title": "Describe what action the social worker have taken",
+          "title": "Describe what action the social worker has taken",
           "isRequired": true
          }
         ]

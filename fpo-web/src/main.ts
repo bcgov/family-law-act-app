@@ -21,13 +21,13 @@ Vue.use(VueRouter);
 Vue.use(http)
 
 const router = new VueRouter({
-  routes: routes, mode: "history", base: "/family-law-act/",
+  routes: routes, mode: "history", base: "/apply-for-family-order/",
   scrollBehavior(to, from, savedPosotion) { 
     return { x: 0, y: 0 }
    }
 });
-// Redirect to /family-law-act/
-history.pushState({page: "home"}, "", "/family-law-act/")
+// Redirect to /apply-for-family-order/
+history.pushState({page: "home"}, "", "/apply-for-family-order/")
 
 new Vue({
   router: router,
