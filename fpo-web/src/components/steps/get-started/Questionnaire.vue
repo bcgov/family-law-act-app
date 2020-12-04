@@ -56,7 +56,7 @@ export default {
         }
       }
 
-      if (options.name === "familyUnsafe") {
+      if (options.name === "familyUnsafe" || options.name === "unsafe") {
         console.warn(options.value)
         this.determinePeaceBondAndBlock();
       }
@@ -139,7 +139,7 @@ export default {
     
     determinePeaceBondAndBlock(){
       var pagesArr = [0, 1, 2, 4, 5, 6, 8];
-      if(this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO'){
+      if((this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO')||(this.survey.data.unsafe == 'n' && this.survey.data.orderType == 'needPO')){
         this.disableNextButton = true;
         this.togglePages(pagesArr, false);
       }else{
