@@ -1,8 +1,3 @@
-from django.contrib.postgres.fields import JSONField
-from django.db import models
-
-
-from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 
@@ -13,7 +8,7 @@ class SurveyResult(models.Model):
 
     collection = models.CharField(max_length=100, default="", blank=True)
     survey_type = models.CharField(max_length=100)
-    result = JSONField(blank=True)
+    result = models.JSONField(blank=True)
 
     user = models.ForeignKey(
         "User", related_name="survey_results", on_delete=models.CASCADE
