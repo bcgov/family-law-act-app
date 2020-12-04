@@ -59,6 +59,13 @@
             "isRequired": true
            },
            {
+            "type": "infotext",
+            "visibleIf": "{unsafe} = \"y\"",
+            "name": "EmergencyInstructions",
+            "title": "Call 9-1-1 if you, your children and/or someone you know are in immediate danger.<br/><br/>If you are not in immediate danger but are still afraid for your safety, <a href=\"https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190\" target=\"_blank\">VictimLinkBC</a>  can help you develop a personal safety plan. This service will help you apply for a protection order. Even with a protection order in place, it is a good idea to have a personal safety plan.<br/><br/>Call: 1-800-563-0808 | TTY: 604-875-0885 | Text: 604-863-6381<br/><br/><b>To exit this service quickly</b><br/><br/>To exit immediately, click the \"Quick Exit\" button at the top right corner of the screen. It will take you to a Google search page.\n",
+            "titleLocation": "hidden"
+           },
+           {
             "type": "yesno",
             "name": "familyUnsafe",
             "visibleIf": "{unsafe} = \"y\"",
@@ -73,6 +80,14 @@
             "title": "It seems you do not need this service. ",
             "titleLocation": "hidden",
             "messageStyle": "error"
+           },
+           {
+            "type": "infotext",
+            "name": "explanationPeaceBond",
+            "visible": false,
+            "visibleIf": "{familyUnsafe} = 'n' and {unsafe} = 'y' and {orderType} <> 'terminatePO' and {orderType} <> 'changePO' ",
+            "title": "A Family Law Act Protection Order provides protection for an at-risk family member from family violence by another family member. Based on your answer, a Peace Bond is probably the protection order you need. A Peace Bond can protect you from anyone. You can ask the police or RCMP for a Peace Bond, or you can apply for one yourself.<br/><br/>For more information about Peace Bonds, click here:<br/><a href='https://www2.gov.bc.ca/gov/content?id=B9529607F9574FB29E7439847C2808FC'>https://www2.gov.bc.ca/gov/content?id=B9529607F9574FB29E7439847C2808FC</a><br/><br/><b style='color:red;'>This service cannot help you apply for a Peace Bond.</b>",
+            "titleLocation": "hidden"
            }
           ],
           "visible": false,
@@ -97,8 +112,8 @@
            }
           ],
           "visible": false,
-          "visibleIf": "{unsafe} =  'y' and {orderType} <> \"terminatePO\" and {orderType} <> \"changePO\""
-         }
+          "visibleIf": "{familyUnsafe} = 'y' and {unsafe} = 'y' and {orderType} <> 'terminatePO' and {orderType} <> 'changePO' "
+         }         
         ],
         "title": "This service will help you apply, change or terminate a Provincial Court Family Law Act Protection Order"
        }

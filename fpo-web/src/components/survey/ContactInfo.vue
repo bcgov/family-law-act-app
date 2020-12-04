@@ -62,17 +62,18 @@ export default {
           desc: q.descPhone
         },
         {
-          name: "fax",
-          label: q.labelFax || "Fax",
-          id: q.inputId + "-fax",
-          desc: q.descFax
-        },
-        {
           name: "email",
           label: q.labelEmail || "Email",
           id: q.inputId + "-email",
           desc: q.descEmail
+        },
+        {
+          name: "fax",
+          label: q.labelFax || "Fax",
+          id: q.inputId + "-fax",
+          desc: q.descFax
         }
+        
       ];
       return fields;
     }

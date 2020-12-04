@@ -1,10 +1,10 @@
 module.exports = {
-  publicPath: "/family-law-act/",
+  publicPath: "/apply-for-family-order/",
   devServer: {
     proxy: {  
       "/api": {
         target: "http://localhost:8081",  
-        pathRewrite: { '^/family-law-act': '' },
+        pathRewrite: { '^/apply-for-family-order': '' },
         secure: false,
         changeOrigin: true,
         headers: {

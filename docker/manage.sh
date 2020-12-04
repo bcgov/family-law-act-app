@@ -203,7 +203,7 @@ configureEnvironment () {
   # fpo-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
   export API_URL=${API_URL-http://fpo-api:8080/api}
-  export WEB_BASE_HREF=${WEB_BASE_HREF:-/family-law-act/}
+  export WEB_BASE_HREF=${WEB_BASE_HREF:-/apply-for-family-order/}
   export IpFilterRules='#allow all; deny all;'
   export RealIpFrom='127.0.0.0/16'
 }

@@ -12,16 +12,14 @@
           "type": "yesno",
           "name": "RespondentLiveTogether",
           "isRequired": true,
-          "title": "Does the protected party(ies) ({protectedPartyName}) currently share a residence with {RespondentName}?",
+          "title": "Does the protected party(ies) currently share a residence with {RespondentName}?",
           "description": "Even if one of you has left your residence (home or place you are living) temporarily, you still share a residence."
          },
          {
           "type": "checkbox",
           "name": "needPolice",
-          "visibleIf": "{RespondentLiveTogether} = 'y'",
-          "isRequired": true,
           "title": "I believe police assistance may be required for the following purposes:",
-          "description": "Select all options that apply",
+          "description": "The court can order that the police help to remove the other party from a shared residence and/or that the police help supervise the removal or collection of belongings from a residence. If a protected party shares a residence with the other party, or has belongings at their residence, select the option that applies to the situation. If police assistance isn’t necessary, you can leave this section blank.<br/><br/>Select all options that apply",
           "hasOther": true,
           "choices": [
            {

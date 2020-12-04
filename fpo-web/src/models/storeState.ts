@@ -53,4 +53,6 @@ export interface ApplicationState {
   protectedPartyName: string;
   
   protectedChildName: string;
+
+  applicationLocation: string;
 }

@@ -29,7 +29,7 @@ from api.models.PreparedPdf import PreparedPdf
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
 from django.template.loader import get_template
 from django.middleware.csrf import get_token
-from api.auth import get_efiling_auth_token
+
 from api.serializers import ApplicationListSerializer
 
 from rest_framework.views import APIView
@@ -77,16 +77,7 @@ class UserStatusView(APIView):
             "logout_uri": get_logout_uri(request),
             "surveys": [],
         }
-        if logged_in and request.auth == "demo":
-            info["demo_user"] = True
         ret = Response(info)
-        uid = request.META.get("HTTP_X_DEMO_LOGIN")
-        if uid and logged_in:
-            # remember demo user
-            ret.set_cookie("x-demo-login", uid)
-        elif request.COOKIES.get("x-demo-login") and not logged_in:
-            # logout
-            ret.delete_cookie("x-demo-login")
         ret.set_cookie("csrftoken", get_token(request))
         return ret
 
@@ -149,15 +140,6 @@ class SurveyPdfView(generics.GenericAPIView):
         return response
 
 
-class SubmitFormView(generics.GenericAPIView):
-    def get(self, request):
-        token_res = get_efiling_auth_token()
-        if token_res:
-            LOGGER.debug("Token response is %s", token_res['access_token'])
-            return Response({'Token': True})
-        return Response({'Token': False})
-
-
 class ApplicationListView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     """
@@ -214,7 +196,8 @@ class ApplicationView(APIView):
                 "applicantName": application.applicant_name,
                 "respondentName": application.respondent_name,
                 "protectedPartyName": application.protected_party_name,
-                "protectedChildName": application.protected_child_name}
+                "protectedChildName": application.protected_child_name,
+                "applicationLocation": application.application_location}
         return Response(data)
 
     def post(self, request: Request):
@@ -242,6 +225,7 @@ class ApplicationView(APIView):
             respondent_name=body.get("respondentName"),
             protected_party_name=body.get("protectedPartyName"),
             protected_child_name=body.get("protectedChildName"),
+            application_location=body.get("applicationLocation"),
             user_id=uid)
 
         db_app.save()
@@ -267,6 +251,9 @@ class ApplicationView(APIView):
         application_queryset.update(applicant_name=body.get("applicantName"))
         application_queryset.update(user_name=body.get("userName"))
         application_queryset.update(respondent_name=body.get("respondentName"))
+        application_queryset.update(protected_party_name=body.get("protectedPartyName"))
+        application_queryset.update(protected_child_name=body.get("protectedChildName"))
+        application_queryset.update(application_location=body.get("applicationLocation"))
         return Response("success")
 
     def delete(self, request, pk, format=None):
@@ -281,6 +268,3 @@ def get_app_queryset(pk, uid):
         return Application.objects.filter(user_id=uid).filter(pk=pk)
     except Application.DoesNotExist:
         raise Http404
-
-
-

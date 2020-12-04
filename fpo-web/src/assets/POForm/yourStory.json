@@ -39,6 +39,7 @@
           "name": "noneExplainedConcerns",
           "visibleIf": "{isNoneExplainedConcerns} = \"y\"",
           "title": "Explain your concerns and the reason for your concerns",
+          "description": "You do not need to use any special wording. The key is to be clear about what you mean.",
           "isRequired": true
          },
          {
