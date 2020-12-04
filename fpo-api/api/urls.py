@@ -60,8 +60,8 @@ urlpatterns = [
     path("survey-print/", views.SurveyPdfView.as_view()),
     path("survey-print/<int:pk>/", views.SurveyPdfView.as_view()),
     path("user-info/", views.UserStatusView.as_view()),
-    path("document-upload/", EfilingDocumentView.as_view()),
-    path("submit-form/<int:pk>/", EfilingView.as_view()),
+    #path("document-upload/", EfilingDocumentView.as_view()),
+    #path("submit-form/<int:pk>/", EfilingView.as_view()),
     path("logout/", views.logout)
 ]
 

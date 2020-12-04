@@ -5,11 +5,12 @@ from api.efiling import (
 )
 
 from rest_framework.response import Response
+from rest_framework import permissions
 from django.http import Http404, HttpResponseBadRequest
 
 """IN PROGRESS"""
 class EfilingDocumentView(generics.GenericAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
         transaction_id = str(uuid.uuid4())
