@@ -71,10 +71,11 @@ build-web() {
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the vue-app image using s2i ..."
+  echo -e "Building the vue-app image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
+    -e WEB_BASE_HREF=${WEB_BASE_HREF} \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
     'vue-app'
@@ -252,6 +253,11 @@ toLower() {
   echo $(echo ${@} | tr '[:upper:]' '[:lower:]')
 }
 
+clean() {
+  docker rmi --force nginx-runtime vue-app fpo-vue-on-nginx fpo-vue-dev fpo-django
+  docker image prune --force
+}
+
 # =================================================================================================================
 
 pushd ${SCRIPT_HOME} >/dev/null
@@ -278,7 +284,12 @@ case "$COMMAND" in
     configureEnvironment
     deleteVolumes
     ;;
+  clean)
+    configureEnvironment
+    clean
+    ;;
   build)
+    configureEnvironment
     case "$@" in
       fpo-api)
         build-api
