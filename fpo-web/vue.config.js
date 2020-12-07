@@ -1,13 +1,14 @@
 module.exports = {
-  publicPath: "/apply-for-family-order/",
+  publicPath: webBaseHref,
   devServer: {
     proxy: {  
       "/api": {
-        target: "http://localhost:8081",  
+        target: "http://localhost:8081",
         pathRewrite: { '^/apply-for-family-order': '' },
         secure: false,
         changeOrigin: true,
         headers: {
+		      "X-Forwarded-Host": "localhost:8080",
           Connection: 'keep-alive'
         },
       }

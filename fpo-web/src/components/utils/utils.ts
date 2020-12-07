@@ -14,6 +14,7 @@ export const SessionManager = {
     redirectIfQuickExitCookie: function() {
         if (Vue.$cookies.isKey("quickexit")) {
             Vue.$cookies.remove("quickexit");  
+            history.pushState({page: "home"}, "", process.env.BASE_URL)
             window.location.href = "https://www.google.ca";
           }
     },
