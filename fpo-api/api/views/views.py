@@ -257,7 +257,10 @@ class ApplicationView(APIView):
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 def get_app_object(pk, uid):
+    if (uid is None):
+        raise Http404
     try:
         return Application.objects.get(pk=pk, user_id=uid)
     except Application.DoesNotExist:
