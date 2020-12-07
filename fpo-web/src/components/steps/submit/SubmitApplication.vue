@@ -172,7 +172,6 @@ export default {
     onDownload: function() {
       console.log("downloading")
       const currentDate = moment().format();
-      this.$store.dispatch("application/setLastUpdated", currentDate); 
       this.$store.dispatch("application/setLastPrinted", currentDate); 
       const application = this.$store.getters["application/getApplication"];
       
