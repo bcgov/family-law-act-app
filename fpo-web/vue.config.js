@@ -1,3 +1,4 @@
+const webBaseHref = process.env.WEB_BASE_HREF || '/';
 module.exports = {
   publicPath: webBaseHref,
   devServer: {
