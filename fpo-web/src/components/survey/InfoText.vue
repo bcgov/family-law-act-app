@@ -2,7 +2,7 @@
   <div
     class="panel panel-default"
     :class="{
-      error: question.messageStyle === 'error',
+      error: question.messageStyle === 'error' || question.messageStyle === 'redinfo',
       'survey-infotext': question.messageStyle !== 'inline',
       'survey-inlinetext': question.messageStyle === 'inline'
     }"
