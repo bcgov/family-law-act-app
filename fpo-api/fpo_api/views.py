@@ -19,7 +19,3 @@ def login(request):
     if logged_in:
         return HttpResponseRedirect(settings.FORCE_SCRIPT_NAME)
     return HttpResponseRedirect(get_login_uri(request, next=request.GET["next"]))
-
-
-def logout(request):
-    return HttpResponseRedirect(get_logout_uri(request))

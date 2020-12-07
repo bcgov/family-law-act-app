@@ -4,7 +4,7 @@
       <!-- Navbar content -->
 
       <div class="container-fluid">
-        <a class="navbar-brand" href="https://www2.gov.bc.ca">
+        <a class="navbar-brand" href="https://www2.gov.bc.ca" style="max-width:200px">
           <img
             class="img-fluid d-none d-md-block"
             src="../../public/images/bcid-logo-rev-en.svg"
@@ -28,15 +28,26 @@
 
         <div class="navbar-extra">
           <div id="app-profile">
-            <a routerLink="" class="btn btn-primary"
-              ><span class="fa fa-user"></span> Profile</a
-            >
+            <div v-if="userName" style="padding-right: rem">
+              <b-dropdown
+                id="profileDropdown"
+                text="Profile"
+                variant="primary btn-transparent"
+                menu-class="w-10"
+                style="margin-right: 1rem"
+              >
+                <template #button-content style="background-color: #003366">
+                  <span class="fa fa-user"></span> {{ userName }}
+                </template>
+                <b-dropdown-item @click="logout(false)">Logout</b-dropdown-item>
+              </b-dropdown>
+            </div>
           </div>
         </div>
         <div id="app-exit" class="app-exit">
           <a
-            @click="quickExit()"
-            target="_blank"            
+            @click="logout(true)"
+            target="_blank"
             id="quick-exit"
             rel="external"
             class="btn btn-primary text-warning"
@@ -55,66 +66,68 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <!-- <a class="nav-item nav-link" href="#">Home</a>
-            <a class="nav-item nav-link" href="#">Getting Started</a>
-            <a class="nav-item nav-link" href="#">Theme Demo</a> -->
-          </div>
-        </div>
       </div>
     </nav>
   </header>
 </template>
 
 <script>
-import {Component, Vue} from "vue-property-decorator";
-import moment from 'moment-timezone';
+import { SessionManager } from "@/components/utils/utils";
+import { Component, Vue } from "vue-property-decorator";
+import moment from "moment-timezone";
 
 export default {
   data() {
     return {};
-  },  
+  },
+  computed: {
+    userName() {
+      return this.$store.getters["application/getUserName"];
+    }
+  },
   methods: {
-    quickExit: function() {
-      const emptyApplicationRoutes = ['/', '/status', '/serviceLocator']
+    logout: function(isQuickExit) {
+      const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
 
-      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) { 
+      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
         const lastUpdated = moment().format();
-        this.$store.dispatch("application/setLastUpdated", lastUpdated); 
-        const application = this.$store.getters["application/getApplication"]      
+        this.$store.dispatch("application/setLastUpdated", lastUpdated);
+        const application = this.$store.getters["application/getApplication"];
         const applicationId = application.id;
 
-        this.$http.put(
-          "/app/"+ applicationId + "/",
-          application,
-          {
+        this.$http
+          .put("/app/" + applicationId + "/", application, {
             responseType: "json",
             headers: {
               "Content-Type": "application/json",
             }
-          }
-        )
-        .then(res => {
-          console.log(res.data); 
-          this.error = "";      
-        })
-        .catch(err => {
-          console.error(err);
-          this.error = err;      
-        });
-      } 
-       
-      Vue.nextTick().then(() => { 
-        this.$store.dispatch("application/init");
-        window.location.replace("https://www.google.ca");
-      });       
-          
-      
+          })
+          .then(res => {
+            console.log(res.data);
+            this.error = "";
+          })
+          .catch(err => {
+            console.error(err);
+            this.error = err;
+          });
+      }
+      Vue.nextTick().then(() => {
+        if (isQuickExit)
+          SessionManager.logoutAndRedirect(this.$store, this.$http);
+        else 
+          SessionManager.logout(this.$store);
+      });
     }
-  }  
+  }
 };
 </script>
+
+<style>
+.btn-transparent {
+  background-color: transparent !important;
+  border-color: #ccc !important;
+}
+</style>
 
 <style scoped lang="scss">
 @import "../styles/common";
@@ -144,6 +157,8 @@ export default {
     border-color: #ccc;
   }
 }
+
+
 
 #app-exit {
   padding: 8px 15px;

@@ -15,7 +15,6 @@ def render(*html):
         raise Exception('PDF_SERVICE_URL environment variable is not set.')
 
     if len(html) > 1:
-        data = json.dumps(html)
         response = requests.post('{}/multiple'.format(PDF_URL), data=json.dumps(html), stream=True)
     elif html:
         response = requests.post('{}/pdf'.format(PDF_URL), data=html[0].encode("utf-8"), stream=True)

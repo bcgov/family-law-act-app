@@ -1,4 +1,3 @@
-from django.contrib.postgres.fields.jsonb import JSONField as JSONBField
 from django.db import models
 
 
@@ -11,13 +10,14 @@ class Application(models.Model):
     current_step = models.IntegerField(null=True, blank=True)
     all_completed = models.BooleanField(blank=True, null=True)
     last_printed = models.DateTimeField(blank=True, null=True)
+    last_filed = models.DateTimeField(blank=True, null=True)
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
-    applicant_name = JSONBField(blank=True, null=True)
-    respondent_name = JSONBField(blank=True, null=True)
-    protected_party_name = JSONBField(blank=True, null=True)
-    protected_child_name = JSONBField(blank=True, null=True)
-    application_location = JSONBField(blank=True, null=True)
+    applicant_name = models.JSONField(blank=True, null=True)
+    respondent_name = models.JSONField(blank=True, null=True)
+    protected_party_name = models.JSONField(blank=True, null=True)
+    protected_child_name = models.JSONField(blank=True, null=True)
+    application_location = models.JSONField(blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)
 

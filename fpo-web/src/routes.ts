@@ -5,8 +5,7 @@ import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import GlobalStore from "@/store";
 import TermsConditions from "@/components/status/TermsConditions.vue"
-import axios from "axios";
-import http from "./plugins/http.js";
+import { SessionManager } from "@/components/utils/utils";
 
 
 const store = GlobalStore.getInstance();
@@ -21,26 +20,12 @@ const store = GlobalStore.getInstance();
 //   }
 // }
 
-function authGuard(to: any, from: any, next: any) { 
-
-  axios.get('/user-info/')
-  .then((response) => {
-    const userId = response.data.user_id;
-    const loginUrl = response.data.login_uri;
-    
-    if (userId) {
-      const userName = response.data.first_name + " " + response.data.last_name;
-      store.dispatch("application/setUserName", userName);
-      store.dispatch("common/setUserId", userId);
-      next();
-    } else {
-      location.replace(loginUrl);
-    }
-  }).catch((error) => {
-    //TODO: determine workflow
-    console.log(error)   
-    
-  });
+async function authGuard(to: any, from: any, next: any) { 
+  var result = await SessionManager.getUserInfo(store);
+  if (result.userId)
+    next();
+  else if (result.loginUrl)
+    location.replace(result.loginUrl);
 }
 
 const routes = [

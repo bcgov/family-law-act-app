@@ -6,7 +6,7 @@
         <div class="col-md-12">
           <h1>Submit Your Application Forms</h1>
           <p>You can submit your application through our online service or in person</p>
-          <div class="mt-3 mb-3">
+          <b-card border-variant="light" bg-variant="white" class="mt-3 mb-3">
             <h2>In Person</h2>
             <p>
               Print the forms and file at your local court registry.
@@ -24,7 +24,96 @@
                 </center>
               </div>
             </div>
-          </div>
+          </b-card>
+          <b-card border-variant="light" bg-variant="white" class="mt-8 mb-3">
+            <h2>Online</h2>
+            <p>
+              Submit the forms electronically. Please add supporting documents to the application. 
+            </p>
+            
+            <b-row>
+              <b-col>
+                <b-form-group label="Supporting Document:" label-for="supportingDocument">   
+                  <b-form-file
+                    id="supportingDocument"
+                    size="sm"
+                    v-model="supportingFile"
+                    :state = "selectedSupportingDocumentState?null:false">                    
+                    placeholder="Choose a file..."
+                    drop-placeholder="Drop file here...">
+                  </b-form-file>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="Document Type:" label-for="documentType"> 
+                  <b-form-select
+                    id="documentType"
+                    v-model="fileType"
+                    size="sm"
+                    :state = "selectedDocumentTypeState?null:false">
+                    <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
+                  </b-form-select>
+                </b-form-group> 
+              </b-col>
+              <b-col cols="2">
+                <b-form-group>
+                  <div class="mt-4">
+                    <a v-on:click.prevent="addDocument()" class="btn btn-primary btn-md">
+                      <span class="fa fa-plus-square"></span>                        
+                    </a>
+                  </div>
+                </b-form-group> 
+              </b-col>
+            </b-row>
+
+            <b-card border-variant="light" bg-variant="white">
+                <h3 class="font-weight-normal"> Supporting Documents</h3>
+                <hr class="bg-light" style="height: 2px;"/> 
+            </b-card>
+
+            <b-card no-body v-if="!supportingDocuments.length">
+                <span class="text-muted ml-4 mb-5">No supporting documents.</span>
+            </b-card>
+
+            <b-card v-else no-body border-variant="light" bg-variant="white">
+              <b-table  :items="supportingDocuments"
+                        :fields="supportingDocumentFields"
+                        class="mx-4"
+                        borderless
+                        striped
+                        small 
+                        responsive="sm"
+                        >
+                    <template v-slot:cell(edit)="row">
+                      <b-button size="sm" variant="transparent" @click="removeDocument(row.index)">
+                        <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
+                      </b-button>
+                    </template>
+                    <template v-slot:cell(fileName)="row">                  
+                        <span>{{row.item.fileName}}</span>
+                    </template>
+                    <template v-slot:cell(fileType)="row">                  
+                        <span>{{row.item.documentType}}</span>
+                    </template>
+              </b-table>
+            </b-card>
+
+            <b-card border-variant="light" bg-variant="white">
+              <div class="submitSection">
+                <div class="submitAlign">
+                  <center>
+                    <a                 
+                      v-on:click.prevent="onSubmit()"
+                      class="btn btn-success btn-lg"
+                    >
+                      <span class="fa fa-share-square btn-icon-left"></span>
+                      Submit Your Application
+                    </a>
+                  </center>
+                </div>
+              </div>
+            </b-card> 
+          </b-card>
         </div>
       </div>
     </div>
@@ -44,10 +133,24 @@ export default {
     return {
       error: "",
       submissionId: "",
-      generateUrlPayload: {}
+      generateUrlPayload: {},
+      supportingFile: null,
+      selectedDocumentTypeState: true,
+      selectedSupportingDocumentState: true,
+      fileType: "",
+      fileTypes: [],
+      supportingDocumentFields: [
+          { key: 'fileName', label: 'File Name'},
+          { key: 'fileType', label: 'File Type'},
+          { key: 'edit', thClass: 'd-none'}
+      ],
+      supportingDocuments: [],     
     };
   },
-
+  mounted() {
+    const documentTypesJson = require("@/assets/documentTypes.json");
+    this.fileTypes = documentTypesJson;
+  },
   components: {
     PageBase
   },
@@ -98,9 +201,11 @@ export default {
       
     },
     loadPdf: function() {
+      const applicationId = this.$store.getters["application/getApplicationId"];
+      const requiresNewPdf = true;
       this.$http
         .post(
-          "/survey-print/?name=application-about-a-protection-order",
+          `/survey-print/${applicationId}/?name=application-about-a-protection-order&newPdf=${requiresNewPdf}`,
           this.getFPOResultData(),
           {
             responseType: "blob",
@@ -173,8 +278,25 @@ export default {
     getGenerateUrlPayload: function() {
       //TODO: add the payload elements
       this.generateUrlPayload = {}
-    }
+    },
+    removeDocument: function(index) {
+      this.supportingDocuments.splice(index, 1);
+    },
+    addDocument: function() {
+      this.selectedSupportingDocumentState = this.supportingFile? true:false;
+      this.selectedDocumentTypeState = this.fileType.length>0? true: false;
 
+      if (this.supportingFile && this.fileType.length>0) {
+        const newFile = {
+          "fileName": this.supportingFile.name,
+          "file": this.supportingFile,
+          "documentType": this.fileType
+        }
+        this.supportingDocuments.push(newFile);
+        this.supportingFile = null;
+        this.fileType = "";
+      }
+    }
   },
   props: {
     step: Step | Object
@@ -198,5 +320,8 @@ export default {
 }
 .submitAlign {
   padding: 20px;
+}
+.card {
+        border: white;
 }
 </style>
