@@ -178,34 +178,13 @@ export default {
       
       const applicationId = application.id;
 
-      this.$http.put(
-      "/app/"+ applicationId + "/",
-      application,
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
-      )
-      .then(res => {
-        console.log(res.data);  
-        this.loadPdf()
-        this.error = "";
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;
-      });
-        
-      
+      this.loadPdf();
     },
     loadPdf: function() {
       const applicationId = this.$store.getters["application/getApplicationId"];
-      const requiresNewPdf = true;
       this.$http
         .post(
-          `/survey-print/${applicationId}/?name=application-about-a-protection-order&newPdf=${requiresNewPdf}`,
+          `/survey-print/${applicationId}/?name=application-about-a-protection-order`,
           this.getFPOResultData(),
           {
             responseType: "blob",
