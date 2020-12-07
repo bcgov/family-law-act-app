@@ -153,11 +153,11 @@ class ApplicationListView(generics.ListAPIView):
 
     def get(self, request, format=None):
         user_id = request.user.id
-        if user_id:
-            applications = self.get_app_list(request.user.id)
-            serializer = ApplicationListSerializer(applications, many=True)
-            return Response(serializer.data)
-        return HttpResponseForbidden("User id not provided")
+        if not user_id:
+            return HttpResponseForbidden("User id not provided")
+        applications = self.get_app_list(request.user.id)
+        serializer = ApplicationListSerializer(applications, many=True)
+        return Response(serializer.data)
 
 
 class ApplicationView(APIView):
@@ -231,23 +231,24 @@ class ApplicationView(APIView):
         if not body:
             return HttpResponseBadRequest("Missing request body")
 
-        application_queryset = get_app_queryset(pk, uid)
-        if not application_queryset:
+        app = get_app_object(pk, uid)
+        if not app:
             return HttpResponseNotFound("No record found")
 
         (steps_key_id, steps_enc) = self.encrypt_steps(body["steps"])
 
-        application_queryset.update(last_updated=timezone.now())
-        application_queryset.update(app_type=body.get("type"))
-        application_queryset.update(current_step=body.get("currentStep"))
-        application_queryset.update(steps=steps_enc)
-        application_queryset.update(user_type=body.get("userType"))
-        application_queryset.update(applicant_name=body.get("applicantName"))
-        application_queryset.update(user_name=body.get("userName"))
-        application_queryset.update(respondent_name=body.get("respondentName"))
-        application_queryset.update(protected_party_name=body.get("protectedPartyName"))
-        application_queryset.update(protected_child_name=body.get("protectedChildName"))
-        application_queryset.update(application_location=body.get("applicationLocation"))
+        app.last_updated = timezone.now()
+        app.app_type = body.get("type")
+        app.current_step = body.get("currentStep")
+        app.steps = steps_enc
+        app.user_type = body.get("userType")
+        app.applicant_name = body.get("applicantName")
+        app.user_name = body.get("userName")
+        app.respondent_name = body.get("respondentName")
+        app.protected_party_name = body.get("protectedPartyName")
+        app.protected_child_name = body.get("protectedChildName")
+        app.application_location = body.get("applicationLocation")
+        app.save()
         return Response("success")
 
     def delete(self, request, pk, format=None):
@@ -256,14 +257,11 @@ class ApplicationView(APIView):
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 def get_app_object(pk, uid):
+    if (uid is None):
+        raise Http404
     try:
         return Application.objects.get(pk=pk, user_id=uid)
-    except Application.DoesNotExist:
-        raise Http404
-
-def get_app_queryset(pk, uid):
-    try:
-        return Application.objects.filter(user_id=uid).filter(pk=pk)
     except Application.DoesNotExist:
         raise Http404
