@@ -38,19 +38,21 @@ usage() {
           Examples:
           $0 start
           $0 start fpo-web
-          $0 start fpo-web API_URL=http://docker.for.win.localhost:56325/api/v1
+          $0 start fpo-web API_URL=http://docker.for.win.localhost:56325/api
 
   stop - Stops the services.  This is a non-destructive process.  The containers
          are not deleted so they will be reused the next time you run start.
 
   rm - Removes any existing application containers.
+
+  loadFixtures - Load the data fixtures (sample data).  The application must be running.
 EOF
 exit 1
 }
 # -----------------------------------------------------------------------------------------------------------------
 # Default Settings:
 # -----------------------------------------------------------------------------------------------------------------
-DEFAULT_CONTAINERS="fpo-db fpo-api schema-spy fpo-web fpo-pdf"
+DEFAULT_CONTAINERS="fpo-pdf"
 # -----------------------------------------------------------------------------------------------------------------
 # Functions:
 # -----------------------------------------------------------------------------------------------------------------
@@ -59,8 +61,8 @@ build-web() {
   # fpo-web
   #
   # The nginx-runtime image is used for the final runtime image.
-  # The vue-app image is used to build the artifacts for the vue distribution.
-  # The vue-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
+  # The angular-app image is used to build the artifacts for the angular distribution.
+  # The angular-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
   echo -e "Building the nginx-runtime image using Docker ..."
@@ -71,22 +73,21 @@ build-web() {
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the vue-app image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
+  echo -e "Building the angular-app image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
-    -e WEB_BASE_HREF=${WEB_BASE_HREF} \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
-    'vue-app'
+    'angular-app'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the vue-on-nginx image using Docker ..."
+  echo -e "Building the angular-on-nginx image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'fpo-vue-on-nginx' \
-    -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
+    -t 'fpo-angular-on-nginx' \
+    -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
   echo -e "===================================================================================================="
 }
 
@@ -102,11 +103,11 @@ build-web-dev() {
     -e "DEV_MODE=true" \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
-    'fpo-vue-dev'
+    'fpo-angular-dev'
 
-  # docker build \
-  #   -t 'fpo-vue-on-nginx' \
-  #   -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
+  #docker build \
+  #  -t 'fpo-angular-on-nginx' \
+  #  -f '../fpo-web/openshift/templates/angular-on-nginx/Dockerfile' '../fpo-web/openshift/templates/angular-on-nginx/'
 }
 
 build-db() {
@@ -133,9 +134,10 @@ build-api() {
   #
   echo -e "\nBuilding django image ..."
   ${S2I_EXE} build \
+    -e "UPGRADE_PIP_TO_LATEST=true" \
     --copy \
     '../fpo-api' \
-    'centos/python-36-centos7' \
+    'registry.fedoraproject.org/f32/python3' \
     'fpo-django'
 }
 
@@ -148,10 +150,10 @@ build-pdf() {
 }
 
 buildImages() {
-  build-web
-  build-db
-  build-schema-spy
-  build-api
+  #build-web
+  #build-db
+  #build-schema-spy
+  #build-api
   build-pdf
 }
 
@@ -172,7 +174,7 @@ configureEnvironment () {
   done
   
   # fpo-db
-  export POSTGRESQL_DATABASE="FAMILY_PROTECTION_ORDER"
+  export POSTGRESQL_DATABASE="APP_DATABASE"
   export POSTGRESQL_USER="DB_USER"
   export POSTGRESQL_PASSWORD="DB_PASSWORD"
 
@@ -193,20 +195,31 @@ configureEnvironment () {
   export DATABASE_PASSWORD=${POSTGRESQL_PASSWORD}
   export DJANGO_SECRET_KEY=wpn1GZrouOryH2FshRrpVHcEhMfMLtmTWMC2K5Vhx8MAi74H5y
   export DJANGO_DEBUG=True
-  export DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL-INFO}
-  export EFILING_AUTH_URL=${EFILING_AUTH_URL}
-  export EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
-  export EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
-  export EFILING_BASE_URL=${EFILING_BASE_URL}
-  export FRONT_END=${FRONT_END-prod}
-  export DATA_SECURITY_KEY=${DATA_SECURITY_KEY-01234567890123456789012345678901}
+  export DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL:-DEBUG}
+  export RECAPTCHA_SITE_KEY=${RECAPTCHA_SITE_KEY}
+  export RECAPTCHA_SECRET_KEY=${RECAPTCHA_SECRET_KEY}
+  
+  export SMTP_SERVER_ADDRESS=${SMTP_SERVER_ADDRESS}
+  
+  export EMAIL_SERVICE_CLIENT_ID=${EMAIL_SERVICE_CLIENT_ID:-VTH_SERVICE_CLIENT}
+  export EMAIL_SERVICE_CLIENT_SECRET=${EMAIL_SERVICE_CLIENT_SECRET:-08f8c75e-6d13-4983-a859-2a50b666860e}
+  
+  export CHES_AUTH_URL=${CHES_AUTH_URL:-https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token}
+  export CHES_EMAIL_URL=${CHES_EMAIL_URL:-https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/api/v1/email}
+  
+  export SENDER_EMAIL=${SENDER_EMAIL:-no-reply-localdev@gov.bc.ca}
+  export SENDER_NAME=${SENDER_NAME:-Choose How to Attend Your Traffic Hearing Service}
+
+  export FEEDBACK_TARGET_EMAIL=${FEEDBACK_TARGET_EMAIL}
+  
+  export DATA_SECURITY_KEY=${DATA_SECURITY_KEY} 
 
   # fpo-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
   export API_URL=${API_URL-http://fpo-api:8080/api}
-  export WEB_BASE_HREF=${WEB_BASE_HREF:-/apply-for-family-order/}
   export IpFilterRules='#allow all; deny all;'
   export RealIpFrom='127.0.0.0/16'
+  export WEB_BASE_HREF=${WEB_BASE_HREF:-/choose-how-to-attend-your-traffic-hearing/}
 }
 
 getStartupParams() {
@@ -253,11 +266,10 @@ toLower() {
   echo $(echo ${@} | tr '[:upper:]' '[:lower:]')
 }
 
-clean() {
-  docker rmi --force nginx-runtime vue-app fpo-vue-on-nginx fpo-vue-dev fpo-django
-  docker image prune --force
-}
 
+loadFixtures() {
+  docker exec fpo_fpo-api_1 bash loadFixtures
+}
 # =================================================================================================================
 
 pushd ${SCRIPT_HOME} >/dev/null
@@ -284,12 +296,10 @@ case "$COMMAND" in
     configureEnvironment
     deleteVolumes
     ;;
-  clean)
-    configureEnvironment
-    clean
+  loadfixtures)
+    loadFixtures
     ;;
   build)
-    configureEnvironment
     case "$@" in
       fpo-api)
         build-api
