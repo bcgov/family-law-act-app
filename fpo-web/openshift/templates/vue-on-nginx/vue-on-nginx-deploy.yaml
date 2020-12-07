@@ -243,7 +243,7 @@ parameters:
     displayName: Web Base Href
     description: The application host path (Web Base Href).
     required: false
-    value: "/apply-for-family-order"
+    value: "/apply-for-family-order/"
   - description:
       Additional known and trusted reverse proxy ips conforming to nginx
       set_real_ip_from directive syntax. Multiple directives are allowed, separated
