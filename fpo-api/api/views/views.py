@@ -105,12 +105,11 @@ class SurveyPdfView(generics.GenericAPIView):
     def post(self, request, pk, name=None):
         data = request.data
         uid = request.user.id
-        application = get_app_queryset(pk, uid)
-        if not application:
+        app = get_app_object(pk, uid)
+        if not app:
             return HttpResponseNotFound("No record found")
 
         name = request.query_params.get("name")
-        new_pdf = request.query_params.get("newPdf") == 'true'
         try:
             pdf_result = self.get_pdf(pk)
             if not pdf_result:
@@ -118,8 +117,8 @@ class SurveyPdfView(generics.GenericAPIView):
                 (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
                 pdf_response = PreparedPdf(data=pdf_content_enc, key_id=pdf_key_id)
                 pdf_response.save()
-                application.update(prepared_pdf_id=pdf_response.pk)
-            elif new_pdf:
+                app.prepared_pdf_id = pdf_response.pk
+            elif app.last_printed is None or app.last_updated > app.last_printed:
                 pdf_queryset = PreparedPdf.objects.filter(id=pdf_result.id)
                 pdf_content = self.generate_pdf(name, data)
                 (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
@@ -127,7 +126,8 @@ class SurveyPdfView(generics.GenericAPIView):
                 pdf_queryset.update(created_date=timezone.now())
             else:
                 pdf_content = settings.ENCRYPTOR.decrypt(pdf_result.key_id, pdf_result.data)
-            application.update(last_printed=timezone.now())
+            app.last_printed = timezone.now()
+            app.save()
         except Exception as ex:
             LOGGER.error("ERROR: Pdf generation failed %s", ex)
             raise
@@ -163,12 +163,6 @@ class ApplicationListView(generics.ListAPIView):
 class ApplicationView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get_app_object(self, pk, uid):
-        try:
-            return Application.objects.get(pk=pk, user_id=uid)
-        except Application.DoesNotExist:
-            raise Http404
-
     def encrypt_steps(self, steps):
         try:
             steps_bin = json.dumps(steps).encode("ascii")
@@ -179,7 +173,7 @@ class ApplicationView(APIView):
 
     def get(self, request, pk, format=None):
         uid = request.user.id
-        application = self.get_app_object(pk, uid)
+        application = get_app_object(pk, uid)
         steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
         steps = json.loads(steps_dec)
         data = {"id": application.id,
@@ -258,10 +252,15 @@ class ApplicationView(APIView):
 
     def delete(self, request, pk, format=None):
         uid = request.user.id
-        application = self.get_app_object(pk, uid)
+        application = get_app_object(pk, uid)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+def get_app_object(pk, uid):
+    try:
+        return Application.objects.get(pk=pk, user_id=uid)
+    except Application.DoesNotExist:
+        raise Http404
 
 def get_app_queryset(pk, uid):
     try:
