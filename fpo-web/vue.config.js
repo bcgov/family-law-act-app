@@ -1,9 +1,10 @@
+const webBaseHref = process.env.WEB_BASE_HREF || '/';
 module.exports = {
   // publicPath: "/apply-for-family-order/",
   // configureWebpack: {
   //   devServer: {
   //     historyApiFallback: true,
-  //     proxy: {       
+  //     proxy: {
   //       '^/api': {
   //         target: 'http://localhost:8081',
   //         ws: true,
@@ -17,13 +18,12 @@ module.exports = {
   //           Connection: 'keep-alive'
   //         }
   //       }
-  
-	
-  //publicPath: "/apply-for-family-order/",
+
+  publicPath: webBaseHref,
   devServer: {
-    proxy: {  
+    proxy: {
       "/api": {
-        target: "http://localhost:8081",          
+        target: "http://localhost:8081",
         secure: false,
         changeOrigin: true,
         headers: {
@@ -49,10 +49,10 @@ module.exports = {
       //     }
       //   },
         // "/api": {
-        //   target: "http://localhost:8081",          
+        //   target: "http://localhost:8081",
         //   secure: false,
         //   changeOrigin: false,
-          
+
     //    }
     //   }
   //  }
@@ -69,5 +69,5 @@ module.exports = {
         appendTsSuffixTo: [/\.vue$/]
       });
   },
-  parallel: false // https://stackoverflow.com/questions/59951379/vue-cli-upgrade-from-v3-to-v4-breaks-build-process-with-thread-loader-error-can 
+  parallel: false // https://stackoverflow.com/questions/59951379/vue-cli-upgrade-from-v3-to-v4-breaks-build-process-with-thread-loader-error-can
 };
