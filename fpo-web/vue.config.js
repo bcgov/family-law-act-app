@@ -1,61 +1,19 @@
 const webBaseHref = process.env.WEB_BASE_HREF || '/';
 module.exports = {
-  // publicPath: "/apply-for-family-order/",
-  // configureWebpack: {
-  //   devServer: {
-  //     historyApiFallback: true,
-  //     proxy: {
-  //       '^/api': {
-  //         target: 'http://localhost:8081',
-  //         ws: true,
-  //         pathRewrite: {
-  //           "^/apply-for-family-order/": "/"
-  //         },
-  //         secure: false,
-  //         changeOrigin: true,
-  //         headers: {
-  //           "X-Forwarded-Host": "localhost:8080",
-  //           Connection: 'keep-alive'
-  //         }
-  //       }
-
   publicPath: webBaseHref,
   devServer: {
     proxy: {
       "/api": {
         target: "http://localhost:8081",
+        pathRewrite: { '^/apply-for-family-order': '' },
         secure: false,
         changeOrigin: true,
         headers: {
-          "X-Forwarded-Host": "localhost:8081",
+		      "X-Forwarded-Host": "localhost:8080",
           Connection: 'keep-alive'
         },
       }
     }
-  //configureWebpack: {
-    //devServer: {
-      //historyApiFallback: true,
-    //   proxy: {
-      //   "/form": {
-      //     target: "http://localhost:8081",
-      //     pathRewrite: {
-      //       "^/apply-for-family-order/": "/"
-      //     },
-      //     secure: false,
-      //     changeOrigin: true,
-      //     headers: {
-      //       "X-Forwarded-Host": "localhost:8080",
-      //       Connection: 'keep-alive'
-      //     }
-      //   },
-        // "/api": {
-        //   target: "http://localhost:8081",
-        //   secure: false,
-        //   changeOrigin: false,
-
-    //    }
-    //   }
-  //  }
   },
   // crossorigin: "anonymous",
   chainWebpack: config => {

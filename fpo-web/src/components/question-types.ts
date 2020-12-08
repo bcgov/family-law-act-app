@@ -182,7 +182,7 @@ function initInfoText(Survey: any) {
         {
           name: "messageStyle",
           default: "info",
-          choices: ["info", "inline", "error"]
+          choices: ["info", "inline", "error","redinfo"]
         }
       ]);
     }

@@ -9,6 +9,14 @@
         <div v-else>          
           <h1 >What are you asking for (Orders)?</h1>
           <p>Please select each option you want to ask the court for an order about. You will be asked to give more details later.</p>
+          <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
+            <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
+            <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
+            <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
+          </div>
+          <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
+            Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php'>Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525</p>, or contact the <a href='https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F'>Justice Access Centre</a><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap'>Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap'>www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
+          </div>
         </div>
         <div>
           <b-form-group>
@@ -29,7 +37,7 @@
                      an existing protection made under Part 9 of the Family Law Act.
                   </p>
                   <p v-else>
-                    When a family member makes another family member feel unsafe, this is called ‘family violence’.
+                    When a family member makes another family member feel unsafe, this is called <tooltip title="family violence" index="0" />.
                     A protection order is the order made by a court to help protect one family member from another family member.
                   </p>
                 </b-form-checkbox>
@@ -115,7 +123,8 @@ export default {
   data() {
     return {
       selected: [],
-      returningUser: false
+      returningUser: false,
+      showLegalAssistance: false
     };
   },
   created() {

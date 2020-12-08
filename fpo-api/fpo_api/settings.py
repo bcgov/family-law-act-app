@@ -9,8 +9,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-# import logging.config
-
 from corsheaders.defaults import default_headers
 
 from . import database
@@ -215,6 +213,9 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_PROVIDER_USERINFO_ENDPOINT = (
         f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/userinfo"
     )
+    OIDC_RP_PROVIDER_END_SESSION_ENDPOINT = (
+        f"{OIDC_RP_PROVIDER_ENDPOINT}/protocol/openid-connect/logout"
+    )
     OIDC_RP_CLIENT_ID = os.getenv("OIDC_RP_CLIENT_ID", "fla-api")
     OIDC_RP_CLIENT_SECRET = os.getenv("OIDC_RP_CLIENT_SECRET")
     OIDC_RP_PROVIDER_SIGNATURE_ALG = "RS256"
@@ -242,7 +243,6 @@ REST_FRAMEWORK = {
     )
 }
 
-# DEMO_LOGIN = True
 EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
 EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
 EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")
@@ -251,5 +251,3 @@ EFILING_BASE_URL = os.environ.get("EFILING_BASE_URL", "")
 ENCRYPTOR = Encryptor("DATA_SECURITY_KEY")
 FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/apply-for-family-order/")
 LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/apply-for-family-order/")
-# For development (when no SiteMinder available)
-# OVERRIDE_USER_ID = os.getenv("OVERRIDE_USER_ID")
