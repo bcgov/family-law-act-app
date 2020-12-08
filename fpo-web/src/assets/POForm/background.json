@@ -120,7 +120,7 @@
          {
             "type": "html",
             "name": "info",
-            "visibleIf": " and {protectedChildName} notempty",
+            "visibleIf": "{protectedChildName} notempty",
             "html": "<div><h4>The list of child(ren) to be protected from {respondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
          },
          {

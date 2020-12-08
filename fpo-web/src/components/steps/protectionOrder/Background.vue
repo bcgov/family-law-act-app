@@ -27,9 +27,11 @@ export default {
     survey.setVariable("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
     
     var children ="";
-    for(var child of this.$store.getters["application/getProtectedChildName"])
-      children+='<li>'+ this.getFullName(child.childName) +'</li>'
-
+    for(var child of this.$store.getters["application/getProtectedChildName"]){
+      if(child.childName)
+        children+='<li>'+ this.getFullName(child.childName) +'</li>'
+    }
+console.log(children)
     survey.setVariable("protectedChildName",children)
     //survey.setValue("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
     //survey.setJsonObject({'protected':'ok'})

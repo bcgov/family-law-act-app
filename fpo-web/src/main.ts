@@ -31,8 +31,7 @@ const router = new VueRouter({
 });
 
 // Redirect to /family-law-act/
-//Removing this: it causes page refresh to result in navigation to landingPage
-//history.pushState({page: "home"}, "", process.env.BASE_URL)
+history.pushState({page: "home"}, "", process.env.BASE_URL)
 
 SessionManager.redirectIfQuickExitCookie();
 
