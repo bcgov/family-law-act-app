@@ -130,9 +130,9 @@ export default {
       this.$http.get('/app-list/')
       .then((response) => {
         if(response.data.length>0) {
-          this.$router.push({ name: "applicant-status" });
+          this.navigate("returning");
         }else{
-          this.$router.push({ name: "service-locator" });
+          this.navigate("new");
         }        
       }).catch((err) => {
         console.log(err)        

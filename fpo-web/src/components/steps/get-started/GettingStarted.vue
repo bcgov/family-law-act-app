@@ -37,7 +37,7 @@
                      an existing protection made under Part 9 of the Family Law Act.
                   </p>
                   <p v-else>
-                    When a family member makes another family member feel unsafe, this is called ‘family violence’.
+                    When a family member makes another family member feel unsafe, this is called <tooltip title="family violence" index="0" />.
                     A protection order is the order made by a court to help protect one family member from another family member.
                   </p>
                 </b-form-checkbox>
