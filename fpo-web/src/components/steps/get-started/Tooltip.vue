@@ -70,6 +70,8 @@
         border-radius: 8px;
         font-size: 16px;
         padding: 1rem 1.25rem 0.25rem;
+        /* font-style: normal; */
+        /* font-family: BCSans, "Noto Sans", Verdana, Arial, sans serif; */
 
     } 
 

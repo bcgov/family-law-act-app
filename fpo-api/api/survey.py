@@ -1,31 +1,13 @@
-from datetime import datetime
-import json
 import logging
-import uuid
 
-from django.conf import settings
-from django.http import JsonResponse, HttpResponseBadRequest
-#from django.utils.decorators import method_decorator
-#from django.views import View
-#from django.views.decorators.csrf import csrf_exempt
-from rest_framework import permissions
+from rest_framework import permissions, serializers
+from rest_framework.response import Response
 from rest_framework.views import APIView
-
-import logging
-
 from django.http import (
     HttpResponseBadRequest,
     HttpResponseForbidden,
-    HttpResponseNotFound,
+    HttpResponseNotFound
 )
-
-# from django.utils.decorators import method_decorator
-# from django.views import View
-# from django.views.decorators.csrf import csrf_exempt
-from rest_framework import permissions, serializers
-from rest_framework.views import APIView
-from rest_framework.response import Response
-
 from api.models import SurveyResult, User
 
 LOGGER = logging.getLogger(__name__)
