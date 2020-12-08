@@ -9,14 +9,14 @@ from rest_framework.reverse import reverse
 LOGGER = logging.getLogger(__name__)
 
 
-def upload_documents(transaction_id, files) -> {}:
+def upload_documents(universal_id, transaction_id, files) -> {}:
     token_res = get_efiling_auth_token()
     try:
         url = f"{settings.EFILING_BASE_URL}/api/submission/documents"
         header = {
                     "Authorization": f"Bearer {token_res['access_token']}",
-                    "Content-Type": "multipart/form-data",
-                    "X-Transaction-Id": transaction_id
+                    "X-Transaction-Id": transaction_id,
+                    "X-User-Id": universal_id
                  }
 
         response = requests.post(
