@@ -1,5 +1,5 @@
 <template>
-  <div class="background fill-body" id="landing-page">
+  <div v-if="pageReady" class="background fill-body" id="landing-page">
     <b-container class="container home-content">
       <div class="row">
         <div class="col-md-12">
@@ -74,11 +74,11 @@
                 </a>
               </div>
             </div>
-            <div v-else class="row justify-content-center">
+            <!-- <div v-else class="row justify-content-center">
               <a @click="navigate('returning')"  class="btn btn-default btn-md login-button">
                      <strong>View Applications</strong>
               </a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -92,16 +92,27 @@ import axios from "axios";
 export default {
   name: "LandingPage",
   async mounted() {
+    this.pageReady = false;
     await SessionManager.getUserInfo(this.$store);
+    if(this.$store.getters["common/getUserId"] !== ""){
+      this.isLoggedIn = true
+      this.determineUserType()
+    }else{
+      this.isLoggedIn = false;
+      this.pageReady = true;
+    } 
   },
   data() {
-    return {};
+    return {
+      isLoggedIn: false,
+      pageReady: false
+    };
   },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters["common/getUserId"] !== "";
-    }
-  },
+  // computed: {
+  //   isLoggedIn() {
+  //     return this.$store.getters["common/getUserId"] !== "";
+  //   }
+  // },
   methods: {
     navigate(userType) {
       this.$store.dispatch("application/setUserType", userType).then(() => {
@@ -113,7 +124,21 @@ export default {
         }
          
       });  
-    }
+    },
+    determineUserType () {
+      
+      this.$http.get('/app-list/')
+      .then((response) => {
+        if(response.data.length>0) {
+          this.$router.push({ name: "applicant-status" });
+        }else{
+          this.$router.push({ name: "service-locator" });
+        }        
+      }).catch((err) => {
+        console.log(err)        
+      });
+
+    },
   }
 };
 </script>

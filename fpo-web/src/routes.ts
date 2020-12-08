@@ -29,7 +29,8 @@ async function authGuard(to: any, from: any, next: any) {
 }
 
 const routes = [
-  { path: "/", component: LandingPage },  
+  { path: "/", component: LandingPage }, 
+  { path: "/apply-for-family-order", component: LandingPage }, 
   {
     path: "/serviceLocator",
     name: "service-locator",
