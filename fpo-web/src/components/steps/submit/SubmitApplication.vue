@@ -5,9 +5,9 @@
       <div class="row">
         <div class="col-md-12">
           <h1>Submit Your Application Forms</h1>
-          <p>You can submit your application through our online service or in person</p>
+          <!-- <p>You can submit your application through our online service or in person</p> -->
           <b-card border-variant="light" bg-variant="white" class="mt-3 mb-3">
-            <h2>In Person</h2>
+            <!-- <h2>In Person</h2> -->
             <p>
               Print the forms and file at your local court registry.
             </p>
@@ -25,7 +25,7 @@
               </div>
             </div>
           </b-card>
-          <b-card border-variant="light" bg-variant="white" class="mt-8 mb-3">
+          <!-- <b-card border-variant="light" bg-variant="white" class="mt-8 mb-3">
             <h2>Online</h2>
             <p>
               Submit the forms electronically. Please add supporting documents to the application. 
@@ -113,7 +113,7 @@
                 </div>
               </div>
             </b-card> 
-          </b-card>
+          </b-card> -->
         </div>
       </div>
     </div>
