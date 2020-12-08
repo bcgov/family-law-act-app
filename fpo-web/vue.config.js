@@ -2,7 +2,7 @@ const webBaseHref = process.env.WEB_BASE_HREF || '/';
 module.exports = {
   publicPath: webBaseHref,
   devServer: {
-    proxy: {  
+    proxy: {
       "/api": {
         target: "http://localhost:8081",
         pathRewrite: { '^/apply-for-family-order': '' },
@@ -27,5 +27,5 @@ module.exports = {
         appendTsSuffixTo: [/\.vue$/]
       });
   },
-  parallel: false // https://stackoverflow.com/questions/59951379/vue-cli-upgrade-from-v3-to-v4-breaks-build-process-with-thread-loader-error-can 
+  parallel: false // https://stackoverflow.com/questions/59951379/vue-cli-upgrade-from-v3-to-v4-breaks-build-process-with-thread-loader-error-can
 };
