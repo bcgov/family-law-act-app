@@ -120,7 +120,7 @@
          {
             "type": "html",
             "name": "info",
-            "visibleIf": " and {protectedChildName} notempty",
+            "visibleIf": "{protectedChildName} notempty",
             "html": "<div><h4>The list of child(ren) to be protected from {respondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
          },
          {
@@ -189,7 +189,7 @@
             "name": "ExplanationExistingOrders",
             "visible": false,
             "visibleIf": "({ExistingOrders} = 'y' and {PartiesHasOtherChilderen} = \"y\") or ({ExistingOrders} = 'y' and {protectedChildName} notempty) ",
-            "title": "You will need to include a photocopy of your written agreement(s) or court order(s) when you file your documents at the courthouse. You will be reminded to make a photocopy at the end of the service.",
+            "title": "You will need to include a photo copy at the end of the service.",
             "titleLocation": "hidden"
          },
 
@@ -238,7 +238,7 @@
          {
           "type": "yesno",
           "name": "existingPOOrders",
-          "title": "There are existing court `Orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders",
+          "title": "Are there any existing court `orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders?",
           "description": "This includes:<ul><li>any family law protection order from Provincial Court, Supreme Court, or another jurisdiction</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
           "isRequired": true
          },
@@ -246,7 +246,7 @@
             "type": "infotext",
             "name": "attachCopyOfExistingPOOrders",
             "visibleIf": "{existingPOOrders} = 'y'",
-            "title":"You need to attach a copy of the order(s) to your application.",
+            "title":"You will need to include a photo copy at the end of the service.",
             "titleLocation": "hidden"            
          },
          {

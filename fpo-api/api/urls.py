@@ -23,10 +23,8 @@ from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
 from rest_framework_swagger import renderers
 
-# generated views
-from . import views
-
-# custom views
+from api.views import views
+from api.views import EfilingView, EfilingDocumentView
 
 from . import survey
 
@@ -60,8 +58,11 @@ urlpatterns = [
     path('app-list/', views.ApplicationListView.as_view()),
     path("app/", views.ApplicationView.as_view()),
     path("survey-print/", views.SurveyPdfView.as_view()),
+    path("survey-print/<int:pk>/", views.SurveyPdfView.as_view()),
     path("user-info/", views.UserStatusView.as_view()),
-    path("submit-form/", views.SubmitFormView.as_view()),
+    #path("document-upload/", EfilingDocumentView.as_view()),
+    #path("submit-form/<int:pk>/", EfilingView.as_view()),
+    path("logout/", views.logout)
 ]
 
 if settings.OIDC_ENABLED:
