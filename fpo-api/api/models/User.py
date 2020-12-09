@@ -13,3 +13,4 @@ class User(AbstractUser):
                                                null=True)
     authorization_email = models.EmailField(blank=True, null=True)
     display_name = models.CharField(max_length=500, blank=True, null=True)
+    location = models.CharField(max_length=500, blank=True, null=True)
