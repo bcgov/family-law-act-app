@@ -4,7 +4,7 @@
       <div class="col-md-12 order-heading">
         <h1>Family law matter</h1>
         <h4>In the Surrey and Victoria registries, if you need the Provincial Court’s help resolving a <tooltip title="family law matter" index="0"/>, you need to complete a 
-          <a href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms">Notice to Resolve a Family Law Matter Form A</a>
+          <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa710.pdf?forcedownload=true">Notice to Resolve a Family Law Matter Form A</a>
           and complete the early resolution process before you can make an application for a court order.
           <br/><br/>After you have met the early resolution requirements, you need to complete an <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa712.pdf?forcedownload=true">Application About a Family Law Matter Form C</a>
           if you need an order about any unresolved family law matter.</h4>

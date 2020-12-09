@@ -109,19 +109,20 @@
             "visibleIf": "(!{protectedChildName}) ",
             "title": "Are {protectedPartyName} and {respondentName} a parent, step-parent or guardian to a child: ",
             "isRequired": true
-         },         
-         {
-            "type": "yesno",
-            "name": "PartiesHasOtherChilderen",
-            "visibleIf": "({protectedChildName} notempty) ",
-            "title": "Are {protectedPartyName} and {respondentName} a parent, step-parent or guardian to a child that is not already identified in the list below: ",
-            "isRequired": true
-         }, 
+         },
          {
             "type": "html",
             "name": "info",
             "visibleIf": "{protectedChildName} notempty",
-            "html": "<div><h4>The list of child(ren) to be protected from {respondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
+            "html": "<div><h2 style='color: #556077'>Are {protectedPartyName} and {respondentName} a parent, step-parent or guardian to a child that is not already identified in the list below:</h2><h4 class='m-2'>The list of child(ren) to be protected from {respondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
+         },
+         {
+            "type": "yesno",
+            "name": "PartiesHasOtherChilderen",
+            "visibleIf": "({protectedChildName} notempty) ",
+            "title": "",
+            "isRequired": true,
+            "titleLocation":"hidden"
          },
          {
             "type": "paneldynamic",
@@ -189,7 +190,7 @@
             "name": "ExplanationExistingOrders",
             "visible": false,
             "visibleIf": "({ExistingOrders} = 'y' and {PartiesHasOtherChilderen} = \"y\") or ({ExistingOrders} = 'y' and {protectedChildName} notempty) ",
-            "title": "You will need to include a photo copy at the end of the service.",
+            "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
             "titleLocation": "hidden"
          },
 
@@ -246,7 +247,7 @@
             "type": "infotext",
             "name": "attachCopyOfExistingPOOrders",
             "visibleIf": "{existingPOOrders} = 'y'",
-            "title":"You will need to include a photo copy at the end of the service.",
+            "title":"You will need to include a copy of the order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
             "titleLocation": "hidden"            
          },
          {
