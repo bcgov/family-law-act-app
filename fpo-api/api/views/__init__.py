@@ -1,3 +1,4 @@
 from .EfilingView import EfilingView
 from .EfilingDocumentView import EfilingDocumentView
-from .views import UserStatusView, SurveyPdfView, ApplicationListView, ApplicationView
+from .UserView import UserView
+from .views import SurveyPdfView, ApplicationListView, ApplicationView

@@ -23,10 +23,12 @@ export const SessionManager = {
             var response = await Axios.get('/user-info/');
             const userId = response.data.user_id;
             const loginUrl = response.data.login_uri;
+            const userLocation = response.data.location
             if (userId) {
                 const userName = response.data.first_name + " " + response.data.last_name;
                 store.dispatch("application/setUserName", userName);
                 store.dispatch("common/setUserId", userId);
+                store.dispatch("common/setUserLocation",userLocation)
             }
             return { userId, loginUrl };
         }

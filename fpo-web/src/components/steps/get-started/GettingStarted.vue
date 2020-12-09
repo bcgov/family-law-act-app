@@ -9,6 +9,8 @@
         <div v-else>          
           <h1 >What are you asking for (Orders)?</h1>
           <p>Please select each option you want to ask the court for an order about. You will be asked to give more details later.</p>
+        </div>
+        <div>
           <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
             <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
             <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
