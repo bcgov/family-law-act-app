@@ -163,10 +163,15 @@ export default {
       var protectedPartyName = {protectedPartyName: this.$store.getters["application/getProtectedPartyName"]}
       Object.assign(result, result, protectedPartyName);
       
-      var applicationLocation = {applicationLocation: this.$store.getters["application/getApplicationLocation"]}
-      Object.assign(result, result, applicationLocation); 
-      
-      console.log(result)
+      var applicationLocation = this.$store.getters["application/getApplicationLocation"]
+      var userLocation = this.$store.getters["common/getUserLocation"]
+      //console.log(applicationLocation)
+      //console.log(userLocation)
+      if(applicationLocation)
+        Object.assign(result, result,{applicationLocation: applicationLocation}); 
+      else
+        Object.assign(result, result,{applicationLocation: userLocation});
+      //console.log(result)
       return result;
     },    
     onDownload: function() {

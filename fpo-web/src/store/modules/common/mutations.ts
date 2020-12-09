@@ -7,5 +7,8 @@ export const mutations: MutationTree<CommonState> = {
     },
     setUserId(state, userId) {
         state.userId = userId;
+    },
+    setUserLocation(state, userLocation) {
+        state.userLocation = userLocation;
     }  
 };

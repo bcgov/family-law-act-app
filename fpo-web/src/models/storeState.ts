@@ -8,6 +8,7 @@ export interface CommonState {
    // whether it's a new application or loaded from previous session/s
   existingApplication: boolean;
   userId: string;
+  userLocation: string;
 }
 
 export interface ApplicationState {
@@ -44,7 +45,7 @@ export interface ApplicationState {
 
   userName: string;
 
-  userId: string,
+  userId: string;
 
   applicantName: string;
 
