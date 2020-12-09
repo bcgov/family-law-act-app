@@ -26,9 +26,11 @@ from django.http import Http404
 from django.conf import settings
 from api.models.PreparedPdf import PreparedPdf
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound
+from django.http import (
+    HttpResponse, HttpResponseRedirect, HttpResponseBadRequest,
+    HttpResponseNotFound, HttpResponseForbidden
+)
 from django.template.loader import get_template
-from django.middleware.csrf import get_token
 
 from api.serializers import ApplicationListSerializer
 
@@ -39,10 +41,8 @@ from rest_framework import permissions
 from rest_framework import generics
 
 from api.auth import (
-    get_login_uri,
     get_logout_uri
 )
-from api.models.User import User
 from api.models.Application import Application
 from api.pdf import render as render_pdf
 
@@ -60,26 +60,6 @@ class AcceptTermsView(APIView):
         request.user.accepted_terms_at = datetime.now()
         request.user.save()
         return Response({'ok': True})
-
-
-class UserStatusView(APIView):
-    def get(self, request: Request):
-        logged_in = isinstance(request.user, User)
-        info = {
-            "accepted_terms_at": logged_in and request.user.accepted_terms_at or None,
-            "user_id": logged_in and request.user.authorization_id or None,
-            "email": logged_in and request.user.email or None,
-            "first_name": logged_in and request.user.first_name or None,
-            "last_name": logged_in and request.user.last_name or None,
-            "is_staff": logged_in and request.user.is_staff,
-            "universal_id": logged_in and request.user.universal_id,
-            "login_uri": get_login_uri(request),
-            "logout_uri": get_logout_uri(request),
-            "surveys": [],
-        }
-        ret = Response(info)
-        ret.set_cookie("csrftoken", get_token(request))
-        return ret
 
 
 class SurveyPdfView(generics.GenericAPIView):
@@ -125,7 +105,9 @@ class SurveyPdfView(generics.GenericAPIView):
                 pdf_queryset.update(data=pdf_content_enc)
                 pdf_queryset.update(created_date=timezone.now())
             else:
-                pdf_content = settings.ENCRYPTOR.decrypt(pdf_result.key_id, pdf_result.data)
+                pdf_content = settings.ENCRYPTOR.decrypt(
+                        pdf_result.key_id, pdf_result.data
+                    )
             app.last_printed = timezone.now()
             app.save()
         except Exception as ex:
