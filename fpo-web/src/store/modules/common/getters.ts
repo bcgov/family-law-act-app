@@ -7,5 +7,8 @@ export const getters: GetterTree<CommonState, RootState> = {
     },
     getUserId(state: CommonState): string {
         return state.userId;
-    }  
+    },
+    getUserLocation(state: CommonState): string {
+        return state.userLocation;
+    } 
 };

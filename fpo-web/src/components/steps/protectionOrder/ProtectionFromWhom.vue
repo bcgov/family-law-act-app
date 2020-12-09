@@ -111,8 +111,12 @@ export default {
     }else{
       this.$store.dispatch("application/setProtectedPartyName", this.$store.getters["application/getApplicantName"]);
     }
-      
-    this.$store.dispatch("application/setProtectedChildName",this.survey.data.allchildren);
+    console.log(this.survey.data)
+    if(this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) 
+      this.$store.dispatch("application/setProtectedChildName",this.survey.data.allchildren);
+    else 
+      this.$store.dispatch("application/setProtectedChildName",[]);
+
     this.$store.dispatch("application/updateStepResultData",{
       step: this.step,
       data:{protectionWhomSurvey: this.survey.data}
