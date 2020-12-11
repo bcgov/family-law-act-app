@@ -42,29 +42,7 @@ export default {
       {
         if (this.survey.data.isVictoriaLawCourt == 'y') 
         {
-          this.$store.dispatch("application/init");
-          const userType = store.getters["application/getUserType"];      
-          store.dispatch("application/setUserType", userType);
-          const application = store.getters["application/getApplication"];
-          this.$http.post(
-            "/app/", application,
-            {
-              responseType: "json",
-              headers: {
-                "Content-Type": "application/json",
-              }
-            }
-          )
-          .then(res => {
-            this.applicationId = res.data.app_id;  
-            store.dispatch("application/setApplicationId", this.applicationId);
-            this.error = "";
-            this.$router.push({name: "flapp-surveys" }) 
-          })
-          .catch(err => {
-            console.error(err);
-            this.error = err;
-          });
+          this.saveUserLocation()
         } else {
           location.replace(
             "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
@@ -72,6 +50,48 @@ export default {
         }
       }
     },
+    saveUserLocation(){
+      this.$http.put("/user-info/", {location:this.survey.data.ServiceLocation},
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      ).then(() => {        
+        this.error = "";
+        this.saveApplication()
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });
+    },
+    saveApplication(){
+      this.$store.dispatch("application/init");
+      const userType = store.getters["application/getUserType"];      
+      store.dispatch("application/setUserType", userType);
+      const application = store.getters["application/getApplication"];
+      this.$http.post(
+        "/app/", application,
+        {
+          responseType: "json",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      )
+      .then(res => {
+        this.applicationId = res.data.app_id;  
+        store.dispatch("application/setApplicationId", this.applicationId);
+        this.error = "";
+        this.$router.push({name: "flapp-surveys" }) 
+      })
+      .catch(err => {
+        console.error(err);
+        this.error = err;
+      });
+    }
   },
   beforeDestroy() {
     console.log(this.step)
