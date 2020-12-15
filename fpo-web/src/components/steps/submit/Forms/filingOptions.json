@@ -1,0 +1,39 @@
+{
+    "title": "Filing Options",
+    "pages": [
+    {
+        "name": "filingOptions", 
+        "title": "Filing Options",
+
+        "elements": [
+        {
+            "type": "panel",
+            "name": "FilingTypePanel",
+            "elements": [
+            {
+                "type": "infotext",
+                "name": "filingOptionsInfo",
+                "title": "You can file your application in different ways.<ol class='mt-3' ><li class='mb-2'>You can print your application and bring it (or mail it) to the court registry to file</li><li>You can email your application to the court registry</li></ol>To file your documents <b>in person</b>, you will need:<ul><li>a printer (or print service)</li><li>a copy of your existing orders or agreements (if applicable)</li><li>a copy of your exhibits (if applicable)</li><li>Photo ID (to have your affidavit sworn/affirmed)</li></ul>To file your documents <b>by email</b>, you will need:<ul><li>email address</li><li>scanned or electronic copy of your existing orders or agreements (if applicable)</li><li>scanned or electronic copy of your exhibits (if applicable)</li><li>scanner or photo with a camera (to scan the documents above)</li></ul>",
+                "titleLocation": "hidden" 
+            },
+            {
+                "type": "radiogroup",
+                "name": "selectedFilingType",
+                "isRequired": true,
+                "title": "I want to file my application",
+                "choices": [
+                    {
+                    "value": "inperson",
+                    "text": "In person"
+                    },
+                    {
+                    "value": "byemail",
+                    "text": "By email"
+                    }
+                ]
+            }]
+        }]
+    }],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+   }
