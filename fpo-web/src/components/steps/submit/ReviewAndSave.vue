@@ -32,7 +32,7 @@
             </div>
 
             <div class="ml-2"> 
-                Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application
+                
                 <ul class="mt-3">
                     <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
                     <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
