@@ -73,6 +73,7 @@ export default {
   },
   methods: {
     onSelectStep: function(event) {
+      return
       const currIndex = this.$store.getters["application/getCurrentStep"];
       const curr = document.getElementById(this.getStepId(currIndex));
       const currChildGroup = document.getElementById(
@@ -101,6 +102,7 @@ export default {
     },
     //TODO: This is where the step is selected
     onSelectPage: function(event) {
+      return
       const currStepIndex = this.$store.getters["application/getCurrentStep"];
       const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
       const currPage = document.getElementById(

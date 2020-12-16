@@ -107,6 +107,7 @@ export const mutations: MutationTree<ApplicationState> = {
     p.label = "No Go";
     p.active = false;
     p.progress = 0;
+
     s.pages.push(p);
 
     p = new Page();
@@ -269,7 +270,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     s.active = false;
     s.id = "8";
-    s.label = "Submit";
+    s.label = "Review and File";
     s.icon = "fa-paper-plane";
     s.lastUpdate = null;
     s.type = "submit";
@@ -278,12 +279,39 @@ export const mutations: MutationTree<ApplicationState> = {
 
     p = new Page();
     p.key = "0";
-    p.label = "Submit Application Forms";
+    p.label = "Filing Options";
     p.active = false;
     p.progress = 0;
 
     s.pages.push(p);
+
+    p = new Page();
+    p.key = "1";
+    p.label = "Review and Print";
+    p.active = false;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+    p = new Page();
+    p.key = "2";
+    p.label = "Review and Save";
+    p.active = false;
+    p.progress = 0;
+
+    s.pages.push(p);
+
+    p = new Page();
+    p.key = "3";
+    p.label = "Next Steps";
+    p.active = false;
+    p.progress = 0;
+
+    s.pages.push(p);
+
     state.steps.push(s);
+
+    console.log(state)
     //Submit STOP
     
   },
