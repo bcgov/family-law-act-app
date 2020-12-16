@@ -31,10 +31,10 @@
             </div>
 
             <p>
-                If you are filing your application in person and you are asking for a protection order in your application, you will need to swear or affirm [add hover definition] the affidavit. To swear or affirm the affidavit, you will need to show a piece of photo ID and you will be asked to sign the affidavit in front of a commissioner for taking affidavits. There is no fee to swear or affirm your affidavit at the court registry.
+                If you are filing your application in person and you are asking for a protection order in your application, you will need to <tooltip title='swear or affirm' index="0"/> the affidavit. To swear or affirm the affidavit, you will need to show a piece of photo ID and you will be asked to sign the affidavit in front of a commissioner for taking affidavits. There is no fee to swear or affirm your affidavit at the court registry.
             </p>
             <p>
-                If you are filing your application by email and you are asking for a protection order in your application, you will need to be prepared to <tooltip title='swear or affirm' index="0"/> the information in your application during your court appearance.
+                If you are filing your application by email and you are asking for a protection order in your application, you will need to be prepared to <tooltip title='swear or affirm' index="1"/> the information in your application during your court appearance.
             </p>
             <p>
                 Once your application is complete, the registry staff will stamp the document, assign a court file number (if there isn’t already one), schedule the court appearance, and return a copy of the application to you.
