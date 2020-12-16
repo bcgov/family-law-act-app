@@ -10,9 +10,9 @@
       <parenting-priority v-if="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></parenting-priority>
       <child-relocation v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation>
       <enforcement-agree v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree>
-      <b-col>
-        <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit>
-      </b-col>
+ 
+      <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit>
+ 
     </main>
   </div>
 </template>
