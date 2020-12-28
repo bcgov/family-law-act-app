@@ -94,7 +94,7 @@ parameters:
       The name assigned to all of the OpenShift resources associated to the
       server instance.
     required: true
-    value: weasyprint
+    value: pdf
 
   - name: APP_NAME
     displayName: App Name
@@ -111,7 +111,7 @@ parameters:
     displayName: Source Image Name
     description: The name of the image to use for this resource.
     required: true
-    value: weasyprint
+    value: pdf
   - name: IMAGE_NAMESPACE
     displayName: Image Namespace
     required: true

@@ -6,7 +6,7 @@
 # NAME=pdf
 # APP_NAME=fla
 # ROLE=pdf
-# SOURCE_IMAGE_NAME=weasyprint
+# SOURCE_IMAGE_NAME=pdf
 # IMAGE_NAMESPACE=09e0c5-tools
 TAG_NAME=test
 # CPU_REQUEST=10m
