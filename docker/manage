@@ -33,12 +33,12 @@ usage() {
           You can pass in a list of containers to start.  
           By default all containers will be started.
           
-          The API_URL used by fpo-web can also be redirected.
+          The API_URL used by fla-web can also be redirected.
 
           Examples:
           $0 start
-          $0 start fpo-web
-          $0 start fpo-web API_URL=http://docker.for.win.localhost:56325/api/v1
+          $0 start fla-web
+          $0 start fla-web API_URL=http://docker.for.win.localhost:56325/api/v1
 
   stop - Stops the services.  This is a non-destructive process.  The containers
          are not deleted so they will be reused the next time you run start.
@@ -50,17 +50,17 @@ exit 1
 # -----------------------------------------------------------------------------------------------------------------
 # Default Settings:
 # -----------------------------------------------------------------------------------------------------------------
-DEFAULT_CONTAINERS="fpo-db fpo-api schema-spy fpo-web fpo-pdf"
+DEFAULT_CONTAINERS="fla-db fla-api schema-spy fla-web fla-pdf"
 # -----------------------------------------------------------------------------------------------------------------
 # Functions:
 # -----------------------------------------------------------------------------------------------------------------
 build-web() {
   #
-  # fpo-web
+  # fla-web
   #
   # The nginx-runtime image is used for the final runtime image.
-  # The fpo-web-artifacts image is used to build the artifacts for the vue distribution.
-  # The fpo-web image is copy of the nginx-runtime image complete with a copy of the build artifacts.
+  # The fla-web-artifacts image is used to build the artifacts for the vue distribution.
+  # The fla-web image is copy of the nginx-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
   echo -e "Building the nginx-runtime image using Docker ..."
@@ -71,21 +71,21 @@ build-web() {
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the fpo-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
+  echo -e "Building the fla-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e WEB_BASE_HREF=${WEB_BASE_HREF} \
-    '../fpo-web' \
+    '../web' \
     'centos/nodejs-10-centos7:10' \
-    'fpo-web-artifacts'
+    'fla-web-artifacts'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the fpo-web image using Docker ..."
+  echo -e "Building the fla-web image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'fpo-web' \
+    -t 'fla-web' \
     -f './vue-on-nginx/Dockerfile' './vue-on-nginx/'
   echo -e "===================================================================================================="
 }
@@ -103,20 +103,20 @@ build-web-dev() {
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the fpo-web-dev image using s2i ..."
+  echo -e "Building the fla-web-dev image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e "DEV_MODE=true" \
-    '../fpo-web' \
+    '../web' \
     'centos/nodejs-10-centos7:10' \
-    'fpo-web-dev'
+    'fla-web-dev'
   echo -e "===================================================================================================="
 }
 
 build-db() {
   #
-  # fpo-db
+  # fla-db
   #
   # Nothing to build here ...
   echo
@@ -134,22 +134,22 @@ build-schema-spy() {
 
 build-api() {
   #
-  # fpo-api
+  # fla-api
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building fpo-api image using s2i ..."
+  echo -e "Building fla-api image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
-    '../fpo-api' \
+    '../api' \
     'centos/python-36-centos7' \
-    'fpo-api'
+    'fla-api'
   echo -e "===================================================================================================="
 }
 
 build-pdf() {
   #
-  # fpo-pdf
+  # fla-pdf
   #
   # Nothing to build here ...
   echo
@@ -179,23 +179,23 @@ configureEnvironment () {
     esac
   done
   
-  # fpo-db
+  # fla-db
   export POSTGRESQL_DATABASE="FAMILY_PROTECTION_ORDER"
   export POSTGRESQL_USER="DB_USER"
   export POSTGRESQL_PASSWORD="DB_PASSWORD"
   export POSTGRESQL_ADMIN_PASSWORD="DB_ADMIN_PASSWORD"
 
   # schema-spy
-  export DATABASE_SERVICE_NAME="fpo-db"
+  export DATABASE_SERVICE_NAME="fla-db"
   export POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
   export POSTGRESQL_USER=${POSTGRESQL_USER}
   export POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
 
-  # fpo-api
+  # fla-api
   export API_HTTP_PORT=${API_HTTP_PORT-8081}
-  export PDF_SERVICE_URL=${PDF_SERVICE_URL-http://fpo-pdf:5001}
+  export PDF_SERVICE_URL=${PDF_SERVICE_URL-http://fla-pdf:5001}
   export OVERRIDE_USER_ID=${OVERRIDE_USER_ID-}
-  export DATABASE_SERVICE_NAME="fpo-db"
+  export DATABASE_SERVICE_NAME="fla-db"
   export DATABASE_ENGINE="postgresql"
   export DATABASE_NAME=${POSTGRESQL_DATABASE}
   export DATABASE_USER=${POSTGRESQL_USER}
@@ -210,9 +210,9 @@ configureEnvironment () {
   export FRONT_END=${FRONT_END-prod}
   export DATA_SECURITY_KEY=${DATA_SECURITY_KEY-01234567890123456789012345678901}
 
-  # fpo-web
+  # fla-web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
-  export API_URL=${API_URL-http://fpo-api:8080/api}
+  export API_URL=${API_URL-http://fla-api:8080/api}
   export WEB_BASE_HREF=${WEB_BASE_HREF:-/apply-for-family-order/}
   export IpFilterRules='#allow all; deny all;'
   export RealIpFrom='127.0.0.0/16'
@@ -263,7 +263,7 @@ toLower() {
 }
 
 clean() {
-  docker rmi --force nginx-runtime fpo-web-artifacts fpo-web fpo-web-dev fpo-api
+  docker rmi --force nginx-runtime fla-web-artifacts fla-web fla-web-dev fla-api
   docker image prune --force
 }
 
@@ -283,7 +283,7 @@ case "$COMMAND" in
     _startupParams=$(getStartupParams $@)
     configureEnvironment $@
     [ -z "$SKIP_BUILD" ] && build-web-dev
-    docker-compose run --rm --service-ports fpo-web-dev
+    docker-compose run --rm --service-ports fla-web-dev
     ;;
   stop)
     configureEnvironment
@@ -300,10 +300,10 @@ case "$COMMAND" in
   build)
     configureEnvironment
     case "$@" in
-      fpo-api)
+      fla-api)
         build-api
         ;;
-      fpo-web)
+      fla-web)
         build-web
         ;;
       *)

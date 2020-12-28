@@ -1,10 +1,10 @@
 version: "3"
 services:
   #
-  # fpo-web
+  # fla-web
   #
-  fpo-web:
-    image: fpo-web
+  fla-web:
+    image: fla-web
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -15,10 +15,10 @@ services:
     ports:
       - "${WEB_HTTP_PORT}:8080"
     depends_on:
-      - fpo-api
+      - fla-api
 
-  fpo-web-dev:
-    image: fpo-web-dev
+  fla-web-dev:
+    image: fla-web-dev
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -33,14 +33,14 @@ services:
       - "${WEB_HTTP_PORT}:8080"
       - 5858:5858
     volumes:
-      - "../fpo-web/src:/opt/app-root/src/src"
-      - "../fpo-web/package.json:/opt/app-root/src/package.json"
+      - "../web/src:/opt/app-root/src/src"
+      - "../web/package.json:/opt/app-root/src/package.json"
     depends_on:
-      - fpo-api
-      - fpo-pdf
+      - fla-api
+      - fla-pdf
 
   #
-  # fpo-api
+  # fla-api
   #-------------------------------------------------
   # The API performs the migrations on the database.
   # Therefore, it needs to come up after the database
@@ -51,8 +51,8 @@ services:
   # of the configuration for details.  It would be
   # nice to implement a more deterministic solution.
   #
-  fpo-api:
-    image: fpo-api
+  fla-api:
+    image: fla-api
     environment:
       - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
       - DATABASE_ENGINE=${DATABASE_ENGINE}
@@ -73,14 +73,14 @@ services:
       - FRONT_END=${FRONT_END}
       - DATA_SECURITY_KEY=${DATA_SECURITY_KEY}
     volumes:
-      - ../fpo-api/api:/opt/app-root/src/api
+      - ../api/api:/opt/app-root/src/api
     networks:
       - fpo
     ports:
       - "${API_HTTP_PORT}:8080"
       - 8000:8000 # For testing purposes
     depends_on:
-      - fpo-db
+      - fla-db
     command: >
       /bin/bash -c "
         echo Waiting for the database service to start up ...;
@@ -111,16 +111,16 @@ services:
     ports:
       - 8082:8080
     depends_on:
-      - fpo-db
+      - fla-db
     command: >
       /bin/sh -c "
         echo sleeping ...;
         sleep 20;
         ./start.sh;"
   #
-  # fpo-db
+  # fla-db
   #
-  fpo-db:
+  fla-db:
     image: centos/postgresql-12-centos7
     environment:
       - POSTGRESQL_USER=${POSTGRESQL_USER}
@@ -132,12 +132,12 @@ services:
     ports:
       - 5432:5432
     # volumes:
-    # - fpo-data:/var/lib/pgsql/data
+    # - fla-data:/var/lib/pgsql/data
 
   #
-  # fpo-pdf
+  # fla-pdf
   #
-  fpo-pdf:
+  fla-pdf:
     image: bcgovimages/weasyprint
     networks:
       - fpo
@@ -147,4 +147,4 @@ services:
 networks:
   fpo:
 # volumes:
-# fpo-data:
+# fla-data:
