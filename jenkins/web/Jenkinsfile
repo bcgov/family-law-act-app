@@ -8,7 +8,7 @@ def TAG_NAMES = ['dev', 'test', 'prod']
 def BUILD_CONFIG = APP_NAME + '-build'
 
 //EDIT LINE BELOW (Change `IMAGESTREAM_NAME` so it matches the name of your *output*/deployable image stream.) 
-def IMAGESTREAM_NAME = 'angular-on-nginx'
+def IMAGESTREAM_NAME = 'web'
 
 // you'll need to change this to point to your application component's folder within your repository
 def CONTEXT_DIRECTORY = 'web'
@@ -19,7 +19,7 @@ def CONTEXT_DIRECTORY = 'web'
 def RUNTIME_BUILD_CONFIG = 'nginx-runtime'
 
 // EDIT LINE BELOW (Add a reference to the CHAINED_BUILD_CONFIG)
-def CHAINED_BUILD_CONFIG = 'angular-on-nginx-build'
+def CHAINED_BUILD_CONFIG = 'web-build'
 
 @NonCPS
 boolean triggerBuild(String contextDirectory) {
