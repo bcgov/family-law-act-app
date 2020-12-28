@@ -11,7 +11,7 @@ if [ -z $(type -P "$S2I_EXE") ]; then
 fi
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
-export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME-fpo}"
+export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME-fla}"
 
 # =================================================================================================================
 # Usage:
@@ -134,10 +134,13 @@ build-schema-spy() {
   #
   # schema-spy
   #
-  echo -e "\nBuilding schema-spy image ..."
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building schema-spy image ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
     https://github.com/bcgov/SchemaSpy.git \
     -t 'schema-spy'
+  echo -e "===================================================================================================="
 }
 
 build-api() {

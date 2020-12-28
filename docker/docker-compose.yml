@@ -11,7 +11,7 @@ services:
       - IpFilterRules=${IpFilterRules}
       - RealIpFrom=${RealIpFrom}
     networks:
-      - fpo
+      - fla
     ports:
       - "${WEB_HTTP_PORT}:8080"
     depends_on:
@@ -28,7 +28,7 @@ services:
       - NPM_RUN=serve
 
     networks:
-      - fpo
+      - fla
     ports:
       - "${WEB_HTTP_PORT}:8080"
       - 5858:5858
@@ -64,8 +64,8 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_DEBUG=${DJANGO_DEBUG}
       - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL}
-      - FPO_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
-      - FPO_DB_SERVICE_PORT=5432
+      - FLA_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
+      - FLA_DB_SERVICE_PORT=5432
       - EFILING_AUTH_URL=${EFILING_AUTH_URL}
       - EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
       - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
@@ -75,7 +75,7 @@ services:
     volumes:
       - ../api/api:/opt/app-root/src/api
     networks:
-      - fpo
+      - fla
     ports:
       - "${API_HTTP_PORT}:8080"
       - 8000:8000 # For testing purposes
@@ -107,7 +107,7 @@ services:
       - POSTGRESQL_USER=${POSTGRESQL_USER}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
     networks:
-      - fpo
+      - fla
     ports:
       - 8082:8080
     depends_on:
@@ -128,7 +128,7 @@ services:
       - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
       - POSTGRESQL_ADMIN_PASSWORD=${POSTGRESQL_ADMIN_PASSWORD}
     networks:
-      - fpo
+      - fla
     ports:
       - 5432:5432
     # volumes:
@@ -140,11 +140,11 @@ services:
   fla-pdf:
     image: bcgovimages/weasyprint
     networks:
-      - fpo
+      - fla
     ports:
       - 8083:5001
 
 networks:
-  fpo:
+  fla:
 # volumes:
 # fla-data:
