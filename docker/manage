@@ -58,15 +58,15 @@ build-web() {
   #
   # fla-web
   #
-  # The nginx-runtime image is used for the final runtime image.
+  # The fla-runtime image is used for the final runtime image.
   # The fla-web-artifacts image is used to build the artifacts for the vue distribution.
-  # The fla-web image is copy of the nginx-runtime image complete with a copy of the build artifacts.
+  # The fla-web image is copy of the fla-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the nginx-runtime image using Docker ..."
+  echo -e "Building the fla-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'nginx-runtime' \
+    -t 'fla-runtime' \
     -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
   
@@ -95,7 +95,7 @@ build-web-dev() {
   # web-dev
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the nginx-runtime image using Docker ..."
+  echo -e "Building the fla-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
     -t 'nginx-runtime' \
@@ -263,7 +263,7 @@ toLower() {
 }
 
 clean() {
-  docker rmi --force nginx-runtime fla-web-artifacts fla-web fla-web-dev fla-api
+  docker rmi --force fla-runtime fla-web-artifacts fla-web fla-web-dev fla-api
   docker image prune --force
 }
 
