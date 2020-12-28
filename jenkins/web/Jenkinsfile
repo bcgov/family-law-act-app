@@ -5,7 +5,7 @@ def APP_NAME = 'angular-app'
 def TAG_NAMES = ['dev', 'test', 'prod']
 
 // You shouldn't have to edit these if you're following the conventions
-def BUILD_CONFIG = APP_NAME + '-build'
+def BUILD_CONFIG = APP_NAME
 
 //EDIT LINE BELOW (Change `IMAGESTREAM_NAME` so it matches the name of your *output*/deployable image stream.) 
 def IMAGESTREAM_NAME = 'web'
@@ -19,7 +19,7 @@ def CONTEXT_DIRECTORY = 'web'
 def RUNTIME_BUILD_CONFIG = 'nginx-runtime'
 
 // EDIT LINE BELOW (Add a reference to the CHAINED_BUILD_CONFIG)
-def CHAINED_BUILD_CONFIG = 'web-build'
+def CHAINED_BUILD_CONFIG = 'web'
 
 @NonCPS
 boolean triggerBuild(String contextDirectory) {

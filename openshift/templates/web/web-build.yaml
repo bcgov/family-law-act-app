@@ -11,7 +11,7 @@ objects:
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: ${NAME}-build
+    name: ${NAME}
     labels:
       app: ${NAME}
   spec:
