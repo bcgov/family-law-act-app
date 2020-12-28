@@ -54,6 +54,14 @@ DEFAULT_CONTAINERS="fla-db fla-api schema-spy fla-web fla-pdf"
 # -----------------------------------------------------------------------------------------------------------------
 # Functions:
 # -----------------------------------------------------------------------------------------------------------------
+build-all() {
+  build-web
+  build-db
+  build-schema-spy
+  build-api
+  build-pdf
+}
+
 build-web() {
   #
   # fla-web
@@ -155,21 +163,6 @@ build-pdf() {
   echo
 }
 
-buildImages() {
-  build-web
-  build-db
-  build-schema-spy
-  build-api
-  build-pdf
-}
-
-build() {
-  # Build all containers in the docker-compose file
-  echo -e "\nBuilding containers ..."
-  echo docker-compose build $@
-  docker-compose build $@
-}
-
 configureEnvironment () {
   for arg in $@; do
     case "$arg" in
@@ -262,11 +255,20 @@ toLower() {
   echo $(echo ${@} | tr '[:upper:]' '[:lower:]')
 }
 
+functionExists() {
+  (
+    if [ ! -z ${1} ] && type ${1} &>/dev/null; then
+      return 0
+    else
+      return 1
+    fi
+  )
+}
+
 clean() {
   docker rmi --force fla-runtime fla-web-artifacts fla-web fla-web-dev fla-api
   docker image prune --force
 }
-
 # =================================================================================================================
 
 pushd ${SCRIPT_HOME} >/dev/null
@@ -286,29 +288,34 @@ case "$COMMAND" in
     docker-compose run --rm --service-ports fla-web-dev
     ;;
   stop)
-    configureEnvironment
+    configureEnvironment $@
     docker-compose stop
     ;;
-  rm)
-    configureEnvironment
+  rm|down)
+    configureEnvironment $@
     deleteVolumes
     ;;
   clean)
-    configureEnvironment
+    configureEnvironment $@
     clean
     ;;
   build)
-    configureEnvironment
-    case "$@" in
-      fla-api)
-        build-api
+    buildImage=$(toLower ${1})
+    shift || buildImage=all
+    buildImage=$(echo ${buildImage} | sed s~^fla-~~)
+    case "$buildImage" in
+      *=*)
+        buildImage=all
         ;;
-      fla-web)
-        build-web
-        ;;
-      *)
-       buildImages
     esac
+
+    if functionExists "build-${buildImage}"; then
+      configureEnvironment $@
+      eval "build-${buildImage}"
+    else
+      echo -e "Error:\nThe build function, build-${buildImage}, does not exist.  Please check your build parameters and try again.\nUse '-h' to get full help details."
+      exit 1
+    fi
     ;;
   *)
     usage
