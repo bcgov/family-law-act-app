@@ -106,7 +106,7 @@ build-web-dev() {
   echo -e "Building the fla-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'nginx-runtime' \
+    -t 'fla-runtime' \
     -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
 
