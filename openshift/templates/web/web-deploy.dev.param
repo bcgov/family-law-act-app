@@ -4,7 +4,7 @@
 # Template File: ../openshift/templates/web/web-deploy.yaml
 #=========================================================
 # NAME=web
-# APP_NAME=fpo
+# APP_NAME=fla
 # ROLE=web
 # IMAGE_NAMESPACE=09e0c5-tools
 # REAL_IP_FROM=172.51.0.0/16

@@ -4,13 +4,13 @@
 # Template File: ../openshift/templates/schema-spy/schema-spy-deploy.yaml
 #=========================================================
 # NAME=schema-spy
-# APP_NAME=fpo
+# APP_NAME=fla
 # ROLE=schema-spy
 # IMAGE_NAMESPACE=09e0c5-tools
 # MEMORY_LIMIT=512Mi
 APPLICATION_DOMAIN=fla-schema-prod.pathfinder.gov.bc.ca
 # DATABASE_SERVICE_NAME=postgresql
-# DATABASE_NAME=FPO_Database
+# DATABASE_NAME=FLA_Database
 TAG_NAME=prod
 # DATABASE_DEPLOYMENT_NAME=postgresql
 # CPU_REQUEST=0

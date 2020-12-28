@@ -166,7 +166,7 @@
       displayName: App Name
       description: App Name
       required: true
-      value: fpo
+      value: fla
     - name: ROLE
       displayName: Role
       description: Role
@@ -198,7 +198,7 @@
       required: true
       description: Name of the deployed database (see environment variables in deployed
         database).
-      value: FPO_Database
+      value: FLA_Database
     - name: TAG_NAME
       displayName: Environment TAG name
       description: The TAG name for this environment, e.g., dev, test, prod

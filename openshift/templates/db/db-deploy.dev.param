@@ -4,7 +4,7 @@
 # Template File: ../openshift/templates/db/db-deploy.yaml
 #=========================================================
 # NAME=db
-# APP_NAME=fpo
+# APP_NAME=fla
 # ROLE=db
 # IMAGE_NAMESPACE=09e0c5-tools
 # SOURCE_IMAGE_NAME=postgresql

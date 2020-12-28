@@ -70,7 +70,7 @@ parameters:
   displayName: Source Context Directory
   description: The source context directory.
   required: false
-  value: fpo-web
+  value: web
 - name: SOURCE_IMAGE_NAMESPACE
   displayName: Source Image Namespace
   description: The namespace containing the source image.

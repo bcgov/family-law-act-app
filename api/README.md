@@ -1,8 +1,8 @@
-# Family Protection Order API
+# Family Law Act API
 
 ## Overview
 
-The API provides an interface into the database for Family Protection Order.
+The API provides an interface into the database for Family Law Act.
 
 ## Development
 
@@ -10,18 +10,18 @@ The API is developed in Django/Python, using a Visual Studio 2017 project.
 
 Updated using Vim. The following auto command is helpful for auto deploying to the container:
 ```ed
-:autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fpo_fpo-api_1:/opt/app-root/src/fpo_api/'
+:autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fla_api_1:/opt/app-root/src/fpo_api/'
 ```
 
 For working on the templates run this
 ```ed
-:autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fpo_fpo-api_1:/opt/app-root/src/templates/'
+:autocmd BufWritePost * execute '!/usr/bin/docker cp <afile> fla_api_1:/opt/app-root/src/templates/'
 ```
 
 The default web server is _gunicorn_. It operates with multiple workers and is not configured to refresh on file changes. To run a separate server that can refresh properly do the following
 ```bash
 docker ps # List containers and find the name for the API instance
-docker exec -it fpo_fpo-api_1 /bin/bash
+docker exec -it fla_api_1 /bin/bash
 python3 manage.py runserver 0.0.0.0:8000
 ```
 
@@ -30,7 +30,7 @@ Make sure the port is open within the _docker-compose.yml_ file.
 
 ## Development Deployment Environment
 
-To deploy Family Protection Order on an instance of OpenShift, see [the instructions](../RunningLocal.md) in the file RunningLocal.md.
+To deploy Family Law Act on an instance of OpenShift, see [the instructions](../RunningLocal.md) in the file RunningLocal.md.
 
 - [Schema Spy](http://schema-spy-09e0c5.pathfinder.gov.bc.ca/)
 - [Open API (Swagger) API Explorer](http://django-09e0c5.pathfinder.gov.bc.ca/api/v1/)

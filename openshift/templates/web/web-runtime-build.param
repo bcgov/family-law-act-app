@@ -6,5 +6,5 @@
 NAME=web-runtime
 GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
 GIT_REF=master
-SOURCE_CONTEXT_DIR=fpo-web/openshift/templates/nginx-runtime/
+SOURCE_CONTEXT_DIR=docker/nginx-runtime/
 OUTPUT_IMAGE_TAG=latest

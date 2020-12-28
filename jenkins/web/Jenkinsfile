@@ -11,7 +11,7 @@ def BUILD_CONFIG = APP_NAME + '-build'
 def IMAGESTREAM_NAME = 'angular-on-nginx'
 
 // you'll need to change this to point to your application component's folder within your repository
-def CONTEXT_DIRECTORY = 'fpo-web'
+def CONTEXT_DIRECTORY = 'web'
 
 // EDIT LINE BELOW
 // Add a reference to the RUNTIME_BUILD_CONFIG, if you are using a runtime that needs to be built.

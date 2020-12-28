@@ -4,7 +4,7 @@
 # Template File: ../openshift/templates/pdf/pdf-deploy.yaml
 #=========================================================
 NAME=pdf
-APP_NAME=fpo
+APP_NAME=fla
 ROLE=pdf
 SOURCE_IMAGE_NAME=weasyprint
 IMAGE_NAMESPACE=09e0c5-tools

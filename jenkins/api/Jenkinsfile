@@ -9,7 +9,7 @@ def BUILD_CONFIG = APP_NAME
 def IMAGESTREAM_NAME = APP_NAME
 def SCHEMA_SPY_IMAGSTREAM_NAME = 'schema-spy'
 def PROJECT_NAMESPACE = '09e0c5-'
-def CONTEXT_DIRECTORY = 'fpo-api'
+def CONTEXT_DIRECTORY = 'api'
 
 @NonCPS
 boolean triggerBuild(String contextDirectory) {

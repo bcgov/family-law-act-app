@@ -1,5 +1,5 @@
 """
-Definition of urls for fpo_api.
+Definition of urls for the application.
 """
 import os
 

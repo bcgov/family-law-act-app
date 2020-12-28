@@ -52,7 +52,7 @@ parameters:
   displayName: Source Context Directory
   description: The source context directory.
   required: true
-  value: fpo-web/openshift/templates/nginx-runtime/
+  value: docker/nginx-runtime/
 - name: OUTPUT_IMAGE_TAG
   displayName: Output Image Tag
   description: The tag given to the built image.

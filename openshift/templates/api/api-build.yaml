@@ -90,7 +90,7 @@ parameters:
     displayName: Source Context Directory
     description: The source context directory.
     required: true
-    value: fpo-api
+    value: api
   - name: KIND_OF_IMAGE
     displayName: Kind of the Source Image
     required: true

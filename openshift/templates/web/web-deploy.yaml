@@ -195,13 +195,13 @@ parameters:
     displayName: Name
     name: NAME
     required: true
-    value: vue-scaffold
+    value: web
 
   - name: APP_NAME
     displayName: App Name
     description: App Name
     required: true
-    value: fpo
+    value: fla
   - name: ROLE
     displayName: Role
     description: Role

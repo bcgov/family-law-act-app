@@ -4,12 +4,12 @@
 # Template File: ../openshift/templates/api/api-deploy.yaml
 #=========================================================
 # NAME=api
-# APP_NAME=fpo
+# APP_NAME=fla
 # ROLE=api
 # IMAGE_NAMESPACE=09e0c5-tools
 # DATABASE_SERVICE_NAME=postgresql
 # DATABASE_ENGINE=postgresql
-# DATABASE_NAME=FPO_Database
+# DATABASE_NAME=FLA_Database
 # APP_CONFIG=
 # #DJANGO_SECRET_KEY=[\w]{50}
 # DJANGO_DEBUG=False
