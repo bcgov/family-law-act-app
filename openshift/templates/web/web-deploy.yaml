@@ -22,12 +22,12 @@ objects:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=ggpixq-${TAG_NAME}
+          - $namespace=09e0c5-${TAG_NAME}
       destination:
         - - role=api
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=ggpixq-${TAG_NAME}
+          - $namespace=09e0c5-${TAG_NAME}
 
   - kind: DeploymentConfig
     apiVersion: v1

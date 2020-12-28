@@ -4,10 +4,10 @@
 # Template File: ../openshift/templates/web/web-build.yaml
 #=========================================================
 NAME=web
-SOURCE_IMAGE_NAMESPACE=ggpixq-tools
+SOURCE_IMAGE_NAMESPACE=09e0c5-tools
 SOURCE_IMAGE_NAME=vue-app
 SOURCE_IMAGE_TAG=latest
-RUNTIME_IMAGE_NAMESPACE=ggpixq-tools
+RUNTIME_IMAGE_NAMESPACE=09e0c5-tools
 RUNTIME_IMAGE_NAME=nginx-runtime
 RUNTIME_IMAGE_TAG=latest
 OUTPUT_IMAGE_TAG=latest

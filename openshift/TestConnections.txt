@@ -1,6 +1,6 @@
 # Uses the 'testConnection' script from https://github.com/BCDevOps/openshift-developer-tools
 # Example:
-# echo -e "angular-on-nginx\n django\n postgresql\n weasyprint\n schema-spy" | xargs -I {} testConnection -n ggpixq-dev -f TestConnections.txt -p {}
+# echo -e "angular-on-nginx\n django\n postgresql\n weasyprint\n schema-spy" | xargs -I {} testConnection -n 09e0c5-dev -f TestConnections.txt -p {}
 
 google.com:80
 angular-on-nginx:8080

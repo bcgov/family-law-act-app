@@ -8,7 +8,7 @@ def TAG_NAMES = ['dev', 'test', 'prod']
 def BUILD_CONFIG = APP_NAME
 def IMAGESTREAM_NAME = APP_NAME
 def SCHEMA_SPY_IMAGSTREAM_NAME = 'schema-spy'
-def PROJECT_NAMESPACE = 'ggpixq-'
+def PROJECT_NAMESPACE = '09e0c5-'
 def CONTEXT_DIRECTORY = 'fpo-api'
 
 @NonCPS
@@ -66,7 +66,7 @@ node {
 
     // For this to work the Jenkins service mush have edit permissions within the deployment project.
     // Example OC cmd to accomplish this task (it's better if you have projet init scripts that do this);
-    // oc policy add-role-to-user edit system:serviceaccount:ggpixq-tools:jenkins -n devex-von-dev
+    // oc policy add-role-to-user edit system:serviceaccount:09e0c5-tools:jenkins -n devex-von-dev
     stage('Update ' + SCHEMA_SPY_IMAGSTREAM_NAME + ' instance in ' + TAG_NAMES[0]) {
       openshiftScale deploymentConfig: SCHEMA_SPY_IMAGSTREAM_NAME, replicaCount: 0, namespace: PROJECT_NAMESPACE + TAG_NAMES[0]
       openshiftScale deploymentConfig: SCHEMA_SPY_IMAGSTREAM_NAME, replicaCount: 1, namespace: PROJECT_NAMESPACE + TAG_NAMES[0]

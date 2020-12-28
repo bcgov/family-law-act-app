@@ -6,7 +6,7 @@
 # NAME=schema-spy
 # APP_NAME=fpo
 # ROLE=schema-spy
-# IMAGE_NAMESPACE=ggpixq-tools
+# IMAGE_NAMESPACE=09e0c5-tools
 # MEMORY_LIMIT=512Mi
 APPLICATION_DOMAIN=fla-schema-prod.pathfinder.gov.bc.ca
 # DATABASE_SERVICE_NAME=postgresql

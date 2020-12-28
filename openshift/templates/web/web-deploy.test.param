@@ -6,7 +6,7 @@
 # NAME=web
 # APP_NAME=fpo
 # ROLE=web
-# IMAGE_NAMESPACE=ggpixq-tools
+# IMAGE_NAMESPACE=09e0c5-tools
 # REAL_IP_FROM=172.51.0.0/16
 # API_URL=http://django:8080/api/v1
 # API_SERVICE_NAME=django

@@ -1,4 +1,4 @@
-export PROJECT_NAMESPACE="ggpixq"
+export PROJECT_NAMESPACE="09e0c5"
 export GIT_URI="https://github.com/bcgov/family-law-act-app.git"
 export GIT_REF="master"
 

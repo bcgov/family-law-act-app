@@ -6,7 +6,7 @@
 # NAME=db
 # APP_NAME=fpo
 # ROLE=db
-# IMAGE_NAMESPACE=ggpixq-tools
+# IMAGE_NAMESPACE=09e0c5-tools
 # SOURCE_IMAGE_NAME=postgresql
 TAG_NAME=prod
 # PERSISTENT_VOLUME_SIZE=1Gi

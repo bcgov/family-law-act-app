@@ -21,7 +21,7 @@ objects:
         Allow the builds to access the internet.
         This only needs to be specified once per environment.
       source:
-        - - $namespace=ggpixq-${ENV_NAME}
+        - - $namespace=09e0c5-${ENV_NAME}
       destination:
         - - ext:network=any
 

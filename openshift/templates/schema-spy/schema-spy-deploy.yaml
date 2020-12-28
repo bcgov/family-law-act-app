@@ -24,13 +24,13 @@
           - - role=${ROLE}
             - app=${APP_NAME}
             - env=${TAG_NAME}
-            - $namespace=ggpixq-${TAG_NAME}
+            - $namespace=09e0c5-${TAG_NAME}
             
         destination:
           - - role=db
             - app=${APP_NAME}
             - env=${TAG_NAME}
-            - $namespace=ggpixq-${TAG_NAME}
+            - $namespace=09e0c5-${TAG_NAME}
   
     - kind: Service
       apiVersion: v1
@@ -178,7 +178,7 @@
       required: true
       description: The namespace of the OpenShift project containing the imagestream for
         the application.
-      value: ggpixq-tools
+      value: 09e0c5-tools
     - name: MEMORY_LIMIT
       displayName: Memory Limit
       required: true

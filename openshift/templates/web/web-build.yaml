@@ -74,7 +74,7 @@ parameters:
   displayName: Runtime Image Namespace
   description: The namespace containing the runtime image.
   required: false
-  value: ggpixq-tools
+  value: 09e0c5-tools
 - name: RUNTIME_IMAGE_NAME
   displayName: Runtime Image Name
   description: The name of the runtime image.

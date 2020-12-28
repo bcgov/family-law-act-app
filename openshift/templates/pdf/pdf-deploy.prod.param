@@ -7,7 +7,7 @@
 # APP_NAME=fpo
 # ROLE=pdf
 # SOURCE_IMAGE_NAME=weasyprint
-# IMAGE_NAMESPACE=ggpixq-tools
+# IMAGE_NAMESPACE=09e0c5-tools
 TAG_NAME=prod
 # CPU_REQUEST=10m
 # CPU_LIMIT=1000m

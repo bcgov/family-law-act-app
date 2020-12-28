@@ -6,7 +6,7 @@
 # NAME=api
 # APP_NAME=fpo
 # ROLE=api
-# IMAGE_NAMESPACE=ggpixq-tools
+# IMAGE_NAMESPACE=09e0c5-tools
 # DATABASE_SERVICE_NAME=postgresql
 # DATABASE_ENGINE=postgresql
 # DATABASE_NAME=FPO_Database
