@@ -39,7 +39,7 @@ parameters:
   displayName: Source Image Name
   description: The name of the source image.
   required: true
-  value: registry.access.redhat.com/rhscl/postgresql-10-rhel7
+  value: centos/postgresql-12-centos7
 - name: SOURCE_IMAGE_TAG
   displayName: Source Image Tag
   description: The tag of the source image.
