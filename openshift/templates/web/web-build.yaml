@@ -2,101 +2,113 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: vue-on-nginx
+  name: ${NAME}-build-template
 objects:
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: ${NAME}
-- kind: BuildConfig
-  apiVersion: v1
-  metadata:
-    name: ${NAME}
-    labels:
-      app: ${NAME}
-  spec:
-    runPolicy: Parallel
-    completionDeadlineSeconds: 1800
-    triggers:
-    - type: ConfigChange
-    - type: ImageChange
-    source:
-      type: Dockerfile
-      dockerfile: |-
-        FROM ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
-        COPY * /tmp/app/dist/
-        CMD  /usr/libexec/s2i/run
-      images:
-      - from:
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+    spec:
+      triggers:
+        - type: ConfigChange
+      runPolicy: Serial
+      source:
+        dockerfile: |-
+          FROM ${SOURCE_IMAGE_REPOSITORY}${SOURCE_IMAGE} as source
+          FROM ${DESTINATION_IMAGE_REPOSITORY}${DESTINATION_IMAGE} as destination
+
+          # Copy the client application artifacts into the image ...
+          COPY --from=source /opt/app-root/src/dist/. /tmp/app/dist/
+
+          # Since the runtime image is itself an s2i image we need to
+          # short circuit the s2i lifecycle.
+          # The runtime image "loses" its s2i runtime voodoo when it
+          # is used in a dockerSrategy, which is why the explicit `CMD` is necessary
+          CMD  /usr/libexec/s2i/run
+
+      strategy:
+        type: Docker
+        dockerStrategy:
+      output:
+        to:
           kind: ImageStreamTag
-          namespace: ${SOURCE_IMAGE_NAMESPACE}
-          name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
-        paths:
-        - sourcePath: /opt/app-root/src/dist/.
-          destinationDir: tmp
-    strategy:
-      type: Docker
-      dockerStrategy:
-        from:
-          kind: ImageStreamTag
-          namespace: ${RUNTIME_IMAGE_NAMESPACE}
-          name: ${RUNTIME_IMAGE_NAME}:${RUNTIME_IMAGE_TAG}
-    output:
-      to:
-        kind: ImageStreamTag
-        name: ${NAME}:${OUTPUT_IMAGE_TAG}
-    resources:
-      limits:
-        cpu: ${CPU_LIMIT}
-        memory: ${MEMORY_LIMIT}
+          name: ${NAME}:${OUTPUT_IMAGE_TAG}
+      resources:
+        requests:
+          cpu: ${CPU_REQUEST}
+          memory: ${MEMORY_REQUEST}
+        limits:
+          cpu: ${CPU_LIMIT}
+          memory: ${MEMORY_LIMIT}
+
 parameters:
-- name: NAME
-  displayName: Name
-  description: The name assigned to all of the objects defined in this template.
-  required: true
-  value: vue-scaffold
-- name: SOURCE_IMAGE_NAMESPACE
-  displayName: Source Image Namespace
-  description: The namespace containing the source image.
-  required: false
-  value: ''
-- name: SOURCE_IMAGE_NAME
-  displayName: Source Image Name
-  description: The name of the source image.
-  required: true
-  value: vue-app
-- name: SOURCE_IMAGE_TAG
-  displayName: Source Image Tag
-  description: The tag of the source image.
-  required: true
-  value: latest
-- name: RUNTIME_IMAGE_NAMESPACE
-  displayName: Runtime Image Namespace
-  description: The namespace containing the runtime image.
-  required: false
-  value: 09e0c5-tools
-- name: RUNTIME_IMAGE_NAME
-  displayName: Runtime Image Name
-  description: The name of the runtime image.
-  required: true
-  value: nginx-runtime
-- name: RUNTIME_IMAGE_TAG
-  displayName: Runtime Image Tag
-  description: The tag of the Runtime image.
-  required: true
-  value: latest
-- name: OUTPUT_IMAGE_TAG
-  displayName: Output Image Tag
-  description: The tag given to the built image.
-  required: true
-  value: latest
-- name: CPU_LIMIT
-  displayName: Resources CPU Limit
-  description: The resources CPU limit (in cores) for this build.
-  required: true
-  value: '1'
-- name: MEMORY_LIMIT
-  displayName: Resources Memory Limit
-  description: The resources Memory limit (in Mi, Gi, etc) for this build.
-  required: true
-  value: 4Gi
+  - name: NAME
+    displayName: Name
+    description: The name assigned to all of the resources defined in this template.
+    required: true
+    value: web
+
+  - name: APP_NAME
+    displayName: App Name
+    description: Used to group components together in the OpenShift console.
+    required: true
+    value: fla
+
+  - name: SOURCE_IMAGE_REPOSITORY
+    displayName: Source Image Repository
+    description: The Image Repository containing the images used for the build.
+    required: true
+    value: image-registry.openshift-image-registry.svc:5000/09e0c5-tools/
+  - name: SOURCE_IMAGE
+    displayName: Source Image
+    description: The source image for the build.
+    required: true
+    value: web-artifacts
+
+  - name: DESTINATION_IMAGE_REPOSITORY
+    displayName: Destination Image Repository
+    description: The Image Repository containing the destination image used for the build.
+    required: true
+    value: image-registry.openshift-image-registry.svc:5000/09e0c5-tools/
+  - name: DESTINATION_IMAGE
+    displayName: Destination Image
+    description: The destination image for the build.
+    required: true
+    value: web-runtime
+
+  - name: OUTPUT_IMAGE_TAG
+    displayName: Output Image Tag
+    description: The tag given to the built image.
+    required: true
+    value: latest
+
+  - name: CPU_REQUEST
+    displayName: Resources CPU Request
+    description: The resources CPU request (in cores) for this build.
+    required: true
+    value: 10m
+  - name: CPU_LIMIT
+    displayName: Resources CPU Limit
+    description: The resources CPU limit (in cores) for this build.
+    required: true
+    value: 500m
+  - name: MEMORY_REQUEST
+    displayName: Resources Memory Request
+    description: The resources Memory request (in Mi, Gi, etc) for this build.
+    required: true
+    value: 10Mi
+  - name: MEMORY_LIMIT
+    displayName: Resources Memory Limit
+    description: The resources Memory limit (in Mi, Gi, etc) for this build.
+    required: true
+    value: 512Mi

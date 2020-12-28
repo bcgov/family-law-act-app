@@ -7,7 +7,7 @@
       description: Deployment template for a Schema Spy instance.
       tags: schema-spy
   objects:
-  
+
     - kind: NetworkSecurityPolicy
       apiVersion: security.devops.gov.bc.ca/v1alpha1
       metadata:
@@ -20,18 +20,17 @@
         description: |
           Allow the schema-spy service to talk to the db pod.
         source:
-        source:
           - - role=${ROLE}
             - app=${APP_NAME}
             - env=${TAG_NAME}
-            - $namespace=09e0c5-${TAG_NAME}
-            
+            - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
+
         destination:
           - - role=db
             - app=${APP_NAME}
             - env=${TAG_NAME}
-            - $namespace=09e0c5-${TAG_NAME}
-  
+            - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
+
     - kind: Service
       apiVersion: v1
       metadata:
@@ -51,7 +50,7 @@
           targetPort: 8080
         selector:
           name: ${NAME}
-  
+
     - kind: Route
       apiVersion: v1
       metadata:
@@ -69,7 +68,7 @@
         to:
           kind: Service
           name: ${NAME}
-  
+
     - kind: DeploymentConfig
       apiVersion: v1
       metadata:
@@ -115,7 +114,7 @@
           spec:
             containers:
             - name: ${NAME}
-              image:  
+              image:
               ports:
               - containerPort: 8080
                 protocol: TCP
@@ -153,7 +152,7 @@
                 limits:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
-  
+
   parameters:
     - name: NAME
       displayName: Schema Spy Name
@@ -161,7 +160,7 @@
         template.
       required: true
       value: schema-spy
-  
+
     - name: APP_NAME
       displayName: App Name
       description: App Name
@@ -172,7 +171,13 @@
       description: Role
       required: true
       value: schema-spy
-  
+
+    - name: NAMESPACE_NAME
+      displayName: Namespace Name
+      description: The base namespace name for the project.
+      required: true
+      value: 09e0c5
+
     - name: IMAGE_NAMESPACE
       displayName: Image Namespace
       required: true

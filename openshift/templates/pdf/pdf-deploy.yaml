@@ -62,7 +62,7 @@ objects:
         spec:
           containers:
             - name: ${NAME}
-              image:  
+              image:
               ports:
                 - containerPort: 5001
                   protocol: TCP

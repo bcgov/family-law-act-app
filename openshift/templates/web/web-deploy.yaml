@@ -22,12 +22,12 @@ objects:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=09e0c5-${TAG_NAME}
+          - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
       destination:
         - - role=api
           - app=${APP_NAME}
           - env=${TAG_NAME}
-          - $namespace=09e0c5-${TAG_NAME}
+          - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
 
   - kind: DeploymentConfig
     apiVersion: v1
@@ -208,6 +208,12 @@ parameters:
     required: true
     value: web
 
+  - name: NAMESPACE_NAME
+    displayName: Namespace Name
+    description: The base namespace name for the project.
+    required: true
+    value: 09e0c5
+
   - description: The namespace where to get the above image name
     displayName: Image Namespace
     name: IMAGE_NAMESPACE
@@ -253,7 +259,7 @@ parameters:
   - description: Nginx ngx_http_access_module ip filter rules
     displayName: Ip Filter Rules
     name: IpFilterRules
-    value: 
+    value:
   - description: The endpoint used for SiteMinder routed access to the application.
     displayName: SiteMinder Application Domain
     name: SITEMINDER_APPLICATION_DOMAIN
@@ -272,19 +278,19 @@ parameters:
       'restricted';
     displayName: HTTP Basic Nginx Config Line
     name: HTTP_BASIC
-    value: 
+    value:
   - description:
       For very simple HTTP Basic authentication, the username of the ONE
       user
     displayName: HTTP Basic Username
     name: HTTP_BASIC_USERNAME
-    value: 
+    value:
   - description:
       For very simple HTTP Basic authentication, the password of the ONE
       user
     displayName: HTTP Basic Password
     name: HTTP_BASIC_PASSWORD
-    value: 
+    value:
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request

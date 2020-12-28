@@ -20,7 +20,7 @@ objects:
         Allow the builds to access the internet.
         This only needs to be specified once per environment.
       source:
-        - - $namespace=09e0c5-${ENV_NAME}
+        - - $namespace=${NAMESPACE}-${ENV_NAME}
       destination:
         - - ext:network=any
 
@@ -68,11 +68,17 @@ parameters:
       should keep this as default unless your know what your doing.
     required: true
     value: api
+
+  - name: NAMESPACE
+    displayName: The target namespace for the resources.
+    required: true
+    value: 09e0c5
   - name: ENV_NAME
     displayName: Environment Name
     description: Environment name.  For the build environment this will typically be 'tools'
     required: true
     value: tools
+
   - name: GIT_REPO_URL
     displayName: Git Repo URL
     description:
