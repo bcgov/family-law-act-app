@@ -9,7 +9,7 @@
   objects:
   
     - kind: NetworkSecurityPolicy
-      apiVersion: secops.pathfinder.gov.bc.ca/v1alpha1
+      apiVersion: security.devops.gov.bc.ca/v1alpha1
       metadata:
         name: ${NAME}
         labels:

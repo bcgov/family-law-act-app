@@ -9,7 +9,7 @@ metadata:
   name: ${NAME}-build-template
 objects:
   - kind: NetworkSecurityPolicy
-    apiVersion: secops.pathfinder.gov.bc.ca/v1alpha1
+    apiVersion: security.devops.gov.bc.ca/v1alpha1
     metadata:
       name: pods-to-external-network
       labels:
@@ -104,7 +104,7 @@ parameters:
     displayName: Source Image Tag
     required: true
     description: The tag of the source image.
-    value: 3.6
+    value: "3.6"
   - name: SOURCE_IMAGE_NAMESPACE
     displayName: Namespace
     required: true
