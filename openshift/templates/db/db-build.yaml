@@ -2,19 +2,19 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}-imagestream-template"
+  name: ${NAME}-imagestream-template
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
   spec:
     tags:
-    - name: "${OUTPUT_IMAGE_TAG}"
+    - name: ${OUTPUT_IMAGE_TAG}
       annotations:
       from:
-        kind: "${SOURCE_IMAGE_KIND}"
-        name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+        kind: ${SOURCE_IMAGE_KIND}
+        name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
       importPolicy:
         scheduled: true
 parameters:

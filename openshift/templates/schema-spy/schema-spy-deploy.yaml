@@ -2,7 +2,7 @@
   kind: Template
   apiVersion: v1
   metadata:
-    name: "${NAME}-deployment-template"
+    name: ${NAME}-deployment-template
     annotations:
       description: Deployment template for a Schema Spy instance.
       tags: schema-spy
@@ -99,8 +99,8 @@
             - ${NAME}
             from:
               kind: ImageStreamTag
-              namespace: "${IMAGE_NAMESPACE}"
-              name: "${NAME}:${TAG_NAME}"
+              namespace: ${IMAGE_NAMESPACE}
+              name: ${NAME}:${TAG_NAME}
         replicas: 1
         selector:
           name: ${NAME}
@@ -115,44 +115,44 @@
           spec:
             containers:
             - name: ${NAME}
-              image: " "
+              image:  
               ports:
               - containerPort: 8080
                 protocol: TCP
               env:
               - name: DATABASE_SERVICE_NAME
-                value: "${DATABASE_SERVICE_NAME}"
+                value: ${DATABASE_SERVICE_NAME}
               - name: POSTGRESQL_DATABASE
-                value: "${DATABASE_NAME}"
+                value: ${DATABASE_NAME}
               - name: POSTGRESQL_USER
                 valueFrom:
                   secretKeyRef:
-                    name: "${DATABASE_DEPLOYMENT_NAME}"
+                    name: ${DATABASE_DEPLOYMENT_NAME}
                     key: database-user
               - name: POSTGRESQL_PASSWORD
                 valueFrom:
                   secretKeyRef:
-                    name: "${DATABASE_DEPLOYMENT_NAME}"
+                    name: ${DATABASE_DEPLOYMENT_NAME}
                     key: database-password
               readinessProbe:
                 initialDelaySeconds: 3
                 timeoutSeconds: 30
                 httpGet:
-                  path: "/"
+                  path: /
                   port: 8080
               livenessProbe:
                 initialDelaySeconds: 300
                 timeoutSeconds: 30
                 httpGet:
-                  path: "/"
+                  path: /
                   port: 8080
               resources:
                 requests:
-                  cpu: "${CPU_REQUEST}"
-                  memory: "${MEMORY_REQUEST}"
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
                 limits:
-                  cpu: "${CPU_LIMIT}"
-                  memory: "${MEMORY_LIMIT}"
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
   
   parameters:
     - name: NAME

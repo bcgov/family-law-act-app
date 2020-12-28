@@ -2,7 +2,7 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}-deployment-template"
+  name: ${NAME}-deployment-template
 objects:
   - kind: Service
     apiVersion: v1
@@ -45,8 +45,8 @@ objects:
               - ${NAME}
             from:
               kind: ImageStreamTag
-              namespace: "${IMAGE_NAMESPACE}"
-              name: "${SOURCE_IMAGE_NAME}:${TAG_NAME}"
+              namespace: ${IMAGE_NAMESPACE}
+              name: ${SOURCE_IMAGE_NAME}:${TAG_NAME}
         - type: ConfigChange
       replicas: 1
       selector:
@@ -62,7 +62,7 @@ objects:
         spec:
           containers:
             - name: ${NAME}
-              image: " "
+              image:  
               ports:
                 - containerPort: 5001
                   protocol: TCP
@@ -70,22 +70,22 @@ objects:
                 initialDelaySeconds: 3
                 timeoutSeconds: 30
                 httpGet:
-                  path: "/health"
+                  path: /health
                   port: 5001
               livenessProbe:
                 initialDelaySeconds: 120
                 timeoutSeconds: 30
                 periodSeconds: 60
                 httpGet:
-                  path: "/health"
+                  path: /health
                   port: 5001
               resources:
                 requests:
-                  cpu: "${CPU_REQUEST}"
-                  memory: "${MEMORY_REQUEST}"
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
                 limits:
-                  cpu: "${CPU_LIMIT}"
-                  memory: "${MEMORY_LIMIT}"
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
 
 parameters:
   - name: NAME

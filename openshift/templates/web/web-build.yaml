@@ -7,13 +7,13 @@ objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: "${NAME}-build"
+    name: ${NAME}-build
     labels:
-      app: "${NAME}"
+      app: ${NAME}
   spec:
     runPolicy: Parallel
     completionDeadlineSeconds: 1800
@@ -29,26 +29,26 @@ objects:
       images:
       - from:
           kind: ImageStreamTag
-          namespace: "${SOURCE_IMAGE_NAMESPACE}"
-          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+          namespace: ${SOURCE_IMAGE_NAMESPACE}
+          name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
         paths:
-        - sourcePath: "/opt/app-root/src/dist/."
+        - sourcePath: /opt/app-root/src/dist/.
           destinationDir: tmp
     strategy:
       type: Docker
       dockerStrategy:
         from:
           kind: ImageStreamTag
-          namespace: "${RUNTIME_IMAGE_NAMESPACE}"
-          name: "${RUNTIME_IMAGE_NAME}:${RUNTIME_IMAGE_TAG}"
+          namespace: ${RUNTIME_IMAGE_NAMESPACE}
+          name: ${RUNTIME_IMAGE_NAME}:${RUNTIME_IMAGE_TAG}
     output:
       to:
         kind: ImageStreamTag
-        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+        name: ${NAME}:${OUTPUT_IMAGE_TAG}
     resources:
       limits:
-        cpu: "${CPU_LIMIT}"
-        memory: "${MEMORY_LIMIT}"
+        cpu: ${CPU_LIMIT}
+        memory: ${MEMORY_LIMIT}
 parameters:
 - name: NAME
   displayName: Name

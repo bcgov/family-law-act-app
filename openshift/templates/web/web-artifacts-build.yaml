@@ -2,49 +2,49 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}-build-template"
+  name: ${NAME}-build-template
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: "${NAME}-build"
+    name: ${NAME}-build
     labels:
-      build: "${NAME}-build"
+      build: ${NAME}-build
   spec:
     triggers:
     - type: ConfigChange
     runPolicy: Serial
     source:
       type: Git
-      contextDir: "${SOURCE_CONTEXT_DIR}"
+      contextDir: ${SOURCE_CONTEXT_DIR}
       git:
-        uri: "${GIT_REPO_URL}"
-        ref: "${GIT_REF}"
+        uri: ${GIT_REPO_URL}
+        ref: ${GIT_REF}
     strategy:
       type: Source
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          namespace: "${SOURCE_IMAGE_NAMESPACE}"
-          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+          namespace: ${SOURCE_IMAGE_NAMESPACE}
+          name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
         env:
         - name: WEB_BASE_HREF
-          value: "${WEB_BASE_HREF}"
+          value: ${WEB_BASE_HREF}
     output:
       to:
         kind: ImageStreamTag
-        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+        name: ${NAME}:${OUTPUT_IMAGE_TAG}
     resources:
       requests:
-        cpu: "${CPU_REQUEST}"
-        memory: "${MEMORY_REQUEST}"
+        cpu: ${CPU_REQUEST}
+        memory: ${MEMORY_REQUEST}
       limits:
-        cpu: "${CPU_LIMIT}"
-        memory: "${MEMORY_LIMIT}"
+        cpu: ${CPU_LIMIT}
+        memory: ${MEMORY_LIMIT}
 parameters:
 - name: NAME
   displayName: Name
@@ -90,7 +90,7 @@ parameters:
   displayName: Web Base Href
   description: The application host path (Web Base Href).
   required: true
-  value: "/apply-for-family-order/"
+  value: /apply-for-family-order/
 - name: CPU_LIMIT
   displayName: Resources CPU Limit
   description: The resources CPU limit (in cores) for this build.

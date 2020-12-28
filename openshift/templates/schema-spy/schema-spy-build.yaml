@@ -5,32 +5,32 @@ metadata:
   annotations:
     description: Build template for a schema-spy server.
     tags: schema-spy
-  name: "${NAME}-build-template"
+  name: ${NAME}-build-template
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
     labels:
-      app: "${NAME}"
-      buildconfig: "${NAME}"
+      app: ${NAME}
+      buildconfig: ${NAME}
   spec:
     source:
       type: Git
       git:
-        uri: "${GIT_REPO_URL}"
-        ref: "${GIT_REF}"
-      contextDir: "${SOURCE_CONTEXT_DIR}"
+        uri: ${GIT_REPO_URL}
+        ref: ${GIT_REF}
+      contextDir: ${SOURCE_CONTEXT_DIR}
     strategy:
       type: Docker
     output:
       to:
         kind: ImageStreamTag
-        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+        name: ${NAME}:${OUTPUT_IMAGE_TAG}
     triggers:
     - type: ConfigChange
     - type: ImageChange

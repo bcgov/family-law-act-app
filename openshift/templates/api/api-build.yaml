@@ -6,9 +6,8 @@ metadata:
     description: Build template for a django server.
     tags: django
     iconClass: icon-python
-  name: "${NAME}-build-template"
+  name: ${NAME}-build-template
 objects:
-
   - kind: NetworkSecurityPolicy
     apiVersion: secops.pathfinder.gov.bc.ca/v1alpha1
     metadata:
@@ -28,35 +27,35 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: "${NAME}"
+      name: ${NAME}
 
   - kind: BuildConfig
     apiVersion: v1
     metadata:
-      name: "${NAME}"
+      name: ${NAME}
       labels:
-        app: "${NAME}"
+        app: ${NAME}
     spec:
       source:
         type: Git
         git:
-          uri: "${GIT_REPO_URL}"
-          ref: "${GIT_REF}"
-        contextDir: "${SOURCE_CONTEXT_DIR}"
+          uri: ${GIT_REPO_URL}
+          ref: ${GIT_REF}
+        contextDir: ${SOURCE_CONTEXT_DIR}
       strategy:
         type: Source
         sourceStrategy:
           from:
-            kind: "${KIND_OF_IMAGE}"
-            namespace: "${SOURCE_IMAGE_NAMESPACE}"
-            name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+            kind: ${KIND_OF_IMAGE}
+            namespace: ${SOURCE_IMAGE_NAMESPACE}
+            name: ${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}
           env:
             - name: PIP_INDEX_URL
-              value: "${PIP_INDEX_URL}"
+              value: ${PIP_INDEX_URL}
       output:
         to:
           kind: ImageStreamTag
-          name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+          name: ${NAME}:${OUTPUT_IMAGE_TAG}
       triggers:
         - type: ImageChange
         - type: ConfigChange
@@ -105,7 +104,7 @@ parameters:
     displayName: Source Image Tag
     required: true
     description: The tag of the source image.
-    value: "3.6"
+    value: 3.6
   - name: SOURCE_IMAGE_NAMESPACE
     displayName: Namespace
     required: true
@@ -114,7 +113,7 @@ parameters:
   - name: PIP_INDEX_URL
     displayName: Custom PyPi Index URL
     description: The custom PyPi index URL
-    value: ""
+    value:
   - name: OUTPUT_IMAGE_TAG
     displayName: Output Image Tag
     description: The tag given to the built image.

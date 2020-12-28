@@ -5,7 +5,7 @@ metadata:
   annotations:
     description: Deployment template for a postgresql server with persistent storage.
     tags: ${NAME}
-  name: "${NAME}-persistent-template"
+  name: ${NAME}-persistent-template
 objects:
   - kind: DeploymentConfig
     apiVersion: v1
@@ -32,8 +32,8 @@ objects:
               - ${NAME}
             from:
               kind: ImageStreamTag
-              namespace: "${IMAGE_NAMESPACE}"
-              name: "${SOURCE_IMAGE_NAME}:${TAG_NAME}"
+              namespace: ${IMAGE_NAMESPACE}
+              name: ${SOURCE_IMAGE_NAME}:${TAG_NAME}
         - type: ConfigChange
       replicas: 1
       test: false
@@ -49,12 +49,12 @@ objects:
             env: ${TAG_NAME}
         spec:
           volumes:
-            - name: "${NAME}-data"
+            - name: ${NAME}-data
               persistentVolumeClaim:
                 claimName: ${NAME}
           containers:
             - name: ${NAME}
-              image: " "
+              image:  
               ports:
                 - containerPort: 5432
                   protocol: TCP
@@ -72,20 +72,20 @@ objects:
                 - name: POSTGRESQL_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: "${NAME}"
+                      name: ${NAME}
                       key: admin-password
                 - name: POSTGRESQL_DATABASE
-                  value: "${POSTGRESQL_DATABASE_NAME}"
+                  value: ${POSTGRESQL_DATABASE_NAME}
               resources:
                 requests:
-                  cpu: "${CPU_REQUEST}"
-                  memory: "${MEMORY_REQUEST}"
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
                 limits:
-                  cpu: "${CPU_LIMIT}"
-                  memory: "${MEMORY_LIMIT}"
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
               volumeMounts:
-                - name: "${NAME}-data"
-                  mountPath: "/var/lib/pgsql/data"
+                - name: ${NAME}-data
+                  mountPath: /var/lib/pgsql/data
               livenessProbe:
                 tcpSocket:
                   port: 5432
@@ -97,9 +97,9 @@ objects:
               readinessProbe:
                 exec:
                   command:
-                    - "/bin/sh"
-                    - "-i"
-                    - "-c"
+                    - /bin/sh
+                    - -i
+                    - -c
                     - psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c
                       'SELECT 1'
                 initialDelaySeconds: 5
@@ -107,7 +107,7 @@ objects:
                 periodSeconds: 10
                 successThreshold: 1
                 failureThreshold: 3
-              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               imagePullPolicy: IfNotPresent
               securityContext:
@@ -129,12 +129,12 @@ objects:
         role: ${ROLE}
         env: ${TAG_NAME}
     spec:
-      storageClassName: "${PERSISTENT_VOLUME_CLASS}"
+      storageClassName: ${PERSISTENT_VOLUME_CLASS}
       accessModes:
         - ReadWriteOnce
       resources:
         requests:
-          storage: "${PERSISTENT_VOLUME_SIZE}"
+          storage: ${PERSISTENT_VOLUME_SIZE}
 
   - kind: Secret
     apiVersion: v1
@@ -146,9 +146,9 @@ objects:
         role: ${ROLE}
         env: ${TAG_NAME}
     stringData:
-      admin-password: "${POSTGRESQL_ADMIN_PASSWORD}"
-      database-password: "${POSTGRESQL_PASSWORD}"
-      database-user: "${POSTGRESQL_USER}"
+      admin-password: ${POSTGRESQL_ADMIN_PASSWORD}
+      database-password: ${POSTGRESQL_PASSWORD}
+      database-user: ${POSTGRESQL_USER}
     type: Opaque
 
   - kind: Service
@@ -161,7 +161,7 @@ objects:
         role: ${ROLE}
         env: ${TAG_NAME}
       annotations:
-        template.openshift.io/expose-uri: postgres://{.spec.clusterIP}:{.spec.ports[?(.name=="postgresql")].port}
+        template.openshift.io/expose-uri: postgres://{.spec.clusterIP}:{.spec.ports[?(.name==postgresql)].port}
     spec:
       ports:
         - name: postgresql
@@ -223,25 +223,25 @@ parameters:
     description: The name of the PostgreSQL database.
     required: true
     generate: expression
-    from: "[a-zA-Z_][a-zA-Z0-9_]{10}"
+    from: '[a-zA-Z_][a-zA-Z0-9_]{10}'
   - name: POSTGRESQL_USER
     displayName: PostgreSQL Connection Username
     description: Username for PostgreSQL user that will be used for accessing the database.  Needs to be basee64 encoded/
     required: true
     generate: expression
-    from: "[a-zA-Z_][a-zA-Z0-9_]{10}"
+    from: '[a-zA-Z_][a-zA-Z0-9_]{10}'
   - name: POSTGRESQL_PASSWORD
     displayName: PostgreSQL Connection Password
     description: Password for the PostgreSQL connection user.  Needs to be basee64 encoded/
     required: true
     generate: expression
-    from: "[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}"
+    from: '[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}'
   - name: POSTGRESQL_ADMIN_PASSWORD
     displayName: PostgreSQL Admin Password
     description: Password for the 'postgres' PostgreSQL administrative account.  Needs to be basee64 encoded.
     required: true
     generate: expression
-    from: "[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}"
+    from: '[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}'
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request

@@ -2,18 +2,18 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}"
+  name: ${NAME}
 objects:
 - kind: ImageStream
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: ${NAME}
     labels:
-      app: "${NAME}"
+      app: ${NAME}
   spec:
     triggers:
     - type: ConfigChange
@@ -21,15 +21,15 @@ objects:
     source:
       type: Git
       git:
-        ref: "${GIT_REF}"
-        uri: "${GIT_REPO_URL}"
-      contextDir: "${SOURCE_CONTEXT_DIR}"
+        ref: ${GIT_REF}
+        uri: ${GIT_REPO_URL}
+      contextDir: ${SOURCE_CONTEXT_DIR}
     strategy:
       type: Docker
     output:
       to:
         kind: ImageStreamTag
-        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+        name: ${NAME}:${OUTPUT_IMAGE_TAG}
 parameters:
 - name: NAME
   displayName: Name

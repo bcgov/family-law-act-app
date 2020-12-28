@@ -68,35 +68,35 @@ objects:
                   protocol: TCP
               env:
                 - name: API_URL
-                  value: "${API_URL}"
+                  value: ${API_URL}
                 - name: API_SERVICE_NAME
-                  value: "${API_SERVICE_NAME}"
+                  value: ${API_SERVICE_NAME}
                 - name: API_PATH
-                  value: "${API_PATH}"
+                  value: ${API_PATH}
                 - name: WEB_BASE_HREF
-                  value: "${WEB_BASE_HREF}"
+                  value: ${WEB_BASE_HREF}
                 - name: RealIpFrom
-                  value: "${REAL_IP_FROM}"
+                  value: ${REAL_IP_FROM}
                 - name: AdditionalRealIpFromRules
-                  value: "${AdditionalRealIpFromRules}"
+                  value: ${AdditionalRealIpFromRules}
                 - name: IpFilterRules
-                  value: "${IpFilterRules}"
+                  value: ${IpFilterRules}
                 - name: HTTP_BASIC
-                  value: "${HTTP_BASIC}"
+                  value: ${HTTP_BASIC}
                 - name: HTTP_BASIC_USERNAME
-                  value: "${HTTP_BASIC_USERNAME}"
+                  value: ${HTTP_BASIC_USERNAME}
                 - name: HTTP_BASIC_PASSWORD
-                  value: "${HTTP_BASIC_PASSWORD}"
+                  value: ${HTTP_BASIC_PASSWORD}
               resources:
                 requests:
-                  cpu: "${CPU_REQUEST}"
-                  memory: "${MEMORY_REQUEST}"
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
                 limits:
-                  cpu: "${CPU_LIMIT}"
-                  memory: "${MEMORY_LIMIT}"
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
               livenessProbe:
                 httpGet:
-                  path: "/nginx_status"
+                  path: /nginx_status
                   port: 8080
                   scheme: HTTP
                 initialDelaySeconds: 30
@@ -106,7 +106,7 @@ objects:
                 failureThreshold: 3
               readinessProbe:
                 httpGet:
-                  path: "/nginx_status"
+                  path: /nginx_status
                   port: 8080
                   scheme: HTTP
                 initialDelaySeconds: 10
@@ -128,8 +128,8 @@ objects:
               - ${NAME}
             from:
               kind: ImageStreamTag
-              namespace: "${IMAGE_NAMESPACE}"
-              name: "${NAME}:${TAG_NAME}"
+              namespace: ${IMAGE_NAMESPACE}
+              name: ${NAME}:${TAG_NAME}
 
   - kind: Service
     apiVersion: v1
@@ -161,9 +161,9 @@ objects:
         role: ${ROLE}
         env: ${TAG_NAME}
       annotations:
-        haproxy.router.openshift.io/ip_whitelist: "${SITEMINDER_WHITE_LIST}"
+        haproxy.router.openshift.io/ip_whitelist: ${SITEMINDER_WHITE_LIST}
     spec:
-      host: "${SITEMINDER_APPLICATION_DOMAIN}"
+      host: ${SITEMINDER_APPLICATION_DOMAIN}
       tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge
@@ -238,12 +238,12 @@ parameters:
     displayName: API Path
     name: API_PATH
     required: true
-    value: "/api/v1/"
+    value: /api/v1/
   - name: WEB_BASE_HREF
     displayName: Web Base Href
     description: The application host path (Web Base Href).
     required: false
-    value: "/apply-for-family-order/"
+    value: /apply-for-family-order/
   - description:
       Additional known and trusted reverse proxy ips conforming to nginx
       set_real_ip_from directive syntax. Multiple directives are allowed, separated
@@ -253,7 +253,7 @@ parameters:
   - description: Nginx ngx_http_access_module ip filter rules
     displayName: Ip Filter Rules
     name: IpFilterRules
-    value: ""
+    value: 
   - description: The endpoint used for SiteMinder routed access to the application.
     displayName: SiteMinder Application Domain
     name: SITEMINDER_APPLICATION_DOMAIN
@@ -272,19 +272,19 @@ parameters:
       'restricted';
     displayName: HTTP Basic Nginx Config Line
     name: HTTP_BASIC
-    value: ""
+    value: 
   - description:
       For very simple HTTP Basic authentication, the username of the ONE
       user
     displayName: HTTP Basic Username
     name: HTTP_BASIC_USERNAME
-    value: ""
+    value: 
   - description:
       For very simple HTTP Basic authentication, the password of the ONE
       user
     displayName: HTTP Basic Password
     name: HTTP_BASIC_PASSWORD
-    value: ""
+    value: 
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request
