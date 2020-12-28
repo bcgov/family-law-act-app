@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-api
-# Template File: templates/django/django-build.yaml
+# Component: .
+# Template File: ../openshift/templates/api/api-build.yaml
 #=========================================================
-NAME=django
+NAME=api
 ENV_NAME=tools
 GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
 GIT_REF=master

@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-web
-# Template File: templates/angular-build.json
+# Component: .
+# Template File: ../openshift/templates/web/web-artifacts-build.yaml
 #=========================================================
-NAME=angular-app
+NAME=web-artifacts
 OUTPUT_IMAGE_TAG=latest
 GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
 GIT_REF=master

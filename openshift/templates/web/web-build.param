@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-web
-# Template File: templates/vue-on-nginx/vue-on-nginx-build.json
+# Component: .
+# Template File: ../openshift/templates/web/web-build.yaml
 #=========================================================
-NAME=vue-on-nginx
+NAME=web
 SOURCE_IMAGE_NAMESPACE=ggpixq-tools
 SOURCE_IMAGE_NAME=vue-app
 SOURCE_IMAGE_TAG=latest

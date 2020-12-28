@@ -1,7 +1,7 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-api
-# Template File: templates/schema-spy/schema-spy-build.json
+# Component: .
+# Template File: ../openshift/templates/schema-spy/schema-spy-build.yaml
 #=========================================================
 NAME=schema-spy
 GIT_REPO_URL=https://github.com/bcgov/SchemaSpy.git

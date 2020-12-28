@@ -1,14 +1,14 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-api
-# Template File: templates/schema-spy/schema-spy-deploy.yaml
+# Component: .
+# Template File: ../openshift/templates/schema-spy/schema-spy-deploy.yaml
 #=========================================================
 # NAME=schema-spy
 # APP_NAME=fpo
 # ROLE=schema-spy
 # IMAGE_NAMESPACE=ggpixq-tools
 # MEMORY_LIMIT=512Mi
-APPLICATION_DOMAIN=family-law-act-schema-test.pathfinder.gov.bc.ca
+APPLICATION_DOMAIN=fla-schema-test.pathfinder.gov.bc.ca
 # DATABASE_SERVICE_NAME=postgresql
 # DATABASE_NAME=FPO_Database
 TAG_NAME=test

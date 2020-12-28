@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-web
-# Template File: templates/vue-on-nginx/vue-on-nginx-deploy.yaml
+# Component: .
+# Template File: ../openshift/templates/web/web-deploy.yaml
 #=========================================================
-NAME=vue-on-nginx
+NAME=web
 APP_NAME=fpo
 ROLE=web
 IMAGE_NAMESPACE=ggpixq-tools
@@ -15,7 +15,7 @@ WEB_BASE_HREF=/apply-for-family-order/
 AdditionalRealIpFromRules=
 IpFilterRules=
 SITEMINDER_APPLICATION_DOMAIN=family-law-act-dev.pathfinder.bcgov
-# SITEMINDER_WHITE_LIST=
+SITEMINDER_WHITE_LIST=
 TAG_NAME=dev
 HTTP_BASIC=
 HTTP_BASIC_USERNAME=

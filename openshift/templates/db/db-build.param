@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-db
-# Template File: templates/postgresql-build.json
+# Component: .
+# Template File: ../openshift/templates/db/db-build.yaml
 #=========================================================
-NAME=postgresql
+NAME=db
 OUTPUT_IMAGE_TAG=latest
 SOURCE_IMAGE_KIND=DockerImage
 SOURCE_IMAGE_NAME=registry.access.redhat.com/rhscl/postgresql-10-rhel7

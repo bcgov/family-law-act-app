@@ -1,12 +1,12 @@
 #=========================================================
 # OpenShift Jenkins pipeline template parameters for:
-# Jenkinsfile: ../DeployToTest-Jenkinsfile
+# Jenkinsfile: ../jenkins/deployment/test/Jenkinsfile
 # Template File: https://raw.githubusercontent.com/BCDevOps/openshift-tools/master/provisioning/pipeline/resources/pipeline-build.json
 #=========================================================
-NAME=deploytotest
+NAME=test
 # GITHUB_WEBHOOK_SECRET=[a-zA-Z0-9]{40}
 # GENERIC_WEBHOOK_SECRET=[a-zA-Z0-9]{40}
 SOURCE_REPOSITORY_URL=https://github.com/bcgov/family-law-act-app.git
 SOURCE_REPOSITORY_REF=master
-CONTEXT_DIR=.
-JENKINSFILE_PATH=DeployToTest-Jenkinsfile
+CONTEXT_DIR=./jenkins/deployment/test
+JENKINSFILE_PATH=Jenkinsfile

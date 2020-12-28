@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-pdf
-# Template File: templates/weasyprint-deploy.yaml
+# Component: .
+# Template File: ../openshift/templates/pdf/pdf-deploy.yaml
 #=========================================================
-NAME=weasyprint
+NAME=pdf
 APP_NAME=fpo
 ROLE=pdf
 SOURCE_IMAGE_NAME=weasyprint

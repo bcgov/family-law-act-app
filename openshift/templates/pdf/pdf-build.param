@@ -1,9 +1,9 @@
 #=========================================================
 # OpenShift template parameters for:
-# Component: fpo-pdf
-# Template File: templates/weasyprint-build.json
+# Component: .
+# Template File: ../openshift/templates/pdf/pdf-build.yaml
 #=========================================================
-NAME=weasyprint
+NAME=pdf
 OUTPUT_IMAGE_TAG=latest
 SOURCE_IMAGE_KIND=DockerImage
 SOURCE_IMAGE_NAME=bcgovimages/weasyprint
