@@ -63,7 +63,7 @@ getApiUrl (){
   #
   # API_SERVICE_NAME:
   #  - The name of the service endpoint for the API.
-  #  - For example; django
+  #  - For example; api
   #
   # API_PATH:
   #  - The root path for the API.
@@ -73,17 +73,17 @@ getApiUrl (){
   #
   # 1)
   #   API_URL=https://dev-demo-api.orgbook.gov.bc.ca/api/
-  #   API_SERVICE_NAME=django
-  #   DJANGO_SERVICE_HOST=172.50.105.217
-  #   DJANGO_SERVICE_PORT=8080
+  #   API_SERVICE_NAME=api
+  #   API_SERVICE_HOST=172.50.105.217
+  #   API_SERVICE_PORT=8080
   #   API_PATH=/api/
   #
   #   Results in API_URL=http://172.50.105.217:8080/api/
   #
   # 2)
   #   API_URL=https://dev-demo-api.orgbook.gov.bc.ca/api/
-  #   API_SERVICE_NAME=django
-  #   DJANGO_SERVICE_HOST=172.50.105.217
+  #   API_SERVICE_NAME=api
+  #   API_SERVICE_HOST=172.50.105.217
   #   API_PATH=/api/
   #
   #   Results in API_URL=http://172.50.105.217/api/

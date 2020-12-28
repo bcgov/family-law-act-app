@@ -227,7 +227,7 @@
       displayName: Name
       description: The name assigned to all of the OpenShift resources associated to the server instance.
       required: true
-      value: django
+      value: api
   
     - name: APP_NAME
       displayName: App Name

@@ -226,14 +226,14 @@ parameters:
     displayName: API URL
     name: API_URL
     required: true
-    value: http://django:8080/api/v1
+    value: http://api:8080/api/v1
   - description:
       The name of the service endpoint for the API.  Used to wire up to an
       API endpoint within the same project; overriding the URL defined by API_URL.
     displayName: API Service Name
     name: API_SERVICE_NAME
     required: false
-    value: django
+    value: api
   - description: The root path for the API.  Used in conjunction with API_SERVICE_NAME.
     displayName: API Path
     name: API_PATH

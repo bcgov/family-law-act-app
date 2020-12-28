@@ -135,7 +135,7 @@ shift
 case "${_cmd}" in
   resetdatabase)
     # Allow all of the other parameters to be overridden ...
-    apiPodName=${1:-django}
+    apiPodName=${1:-api}
     dbPodName=${2:-postgresql}
     resetDatabase "${apiPodName}" "${dbPodName}"
     ;;
