@@ -59,54 +59,59 @@ build-web() {
   # fpo-web
   #
   # The nginx-runtime image is used for the final runtime image.
-  # The vue-app image is used to build the artifacts for the vue distribution.
-  # The vue-on-nginx image is copy of the nginx-runtime image complete with a copy of the build artifacts.
+  # The fpo-web-artifacts image is used to build the artifacts for the vue distribution.
+  # The fpo-web image is copy of the nginx-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
   echo -e "Building the nginx-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
     -t 'nginx-runtime' \
-    -f '../fpo-web/openshift/templates/nginx-runtime/Dockerfile' '../fpo-web/openshift/templates/nginx-runtime/'
+    -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the vue-app image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
+  echo -e "Building the fpo-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e WEB_BASE_HREF=${WEB_BASE_HREF} \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
-    'vue-app'
+    'fpo-web-artifacts'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the vue-on-nginx image using Docker ..."
+  echo -e "Building the fpo-web image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t 'fpo-vue-on-nginx' \
-    -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
+    -t 'fpo-web' \
+    -f './vue-on-nginx/Dockerfile' './vue-on-nginx/'
   echo -e "===================================================================================================="
 }
 
 build-web-dev() {
-  echo -e "Building web-dev environment ..."
+  #
+  # web-dev
+  #
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building the nginx-runtime image using Docker ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
     -t 'nginx-runtime' \
-    -f '../fpo-web/openshift/templates/nginx-runtime/Dockerfile' '../fpo-web/openshift/templates/nginx-runtime/'
-  
-#-v "${COMPOSE_PROJECT_NAME}_fpo-npm-cache:/opt/app-root/src/.npm" \
+    -f './nginx-runtime/Dockerfile' './nginx-runtime/'
+  echo -e "===================================================================================================="
+
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building the fpo-web-dev image using s2i ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e "DEV_MODE=true" \
     '../fpo-web' \
     'centos/nodejs-10-centos7:10' \
-    'fpo-vue-dev'
-
-  # docker build \
-  #   -t 'fpo-vue-on-nginx' \
-  #   -f '../fpo-web/openshift/templates/vue-on-nginx/Dockerfile' '../fpo-web/openshift/templates/vue-on-nginx/'
+    'fpo-web-dev'
+  echo -e "===================================================================================================="
 }
 
 build-db() {
@@ -131,12 +136,15 @@ build-api() {
   #
   # fpo-api
   #
-  echo -e "\nBuilding django image ..."
+  echo -e "\n\n===================================================================================================="
+  echo -e "Building fpo-api image using s2i ..."
+  echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     '../fpo-api' \
     'centos/python-36-centos7' \
-    'fpo-django'
+    'fpo-api'
+  echo -e "===================================================================================================="
 }
 
 build-pdf() {
@@ -175,6 +183,7 @@ configureEnvironment () {
   export POSTGRESQL_DATABASE="FAMILY_PROTECTION_ORDER"
   export POSTGRESQL_USER="DB_USER"
   export POSTGRESQL_PASSWORD="DB_PASSWORD"
+  export POSTGRESQL_ADMIN_PASSWORD="DB_ADMIN_PASSWORD"
 
   # schema-spy
   export DATABASE_SERVICE_NAME="fpo-db"
@@ -254,7 +263,7 @@ toLower() {
 }
 
 clean() {
-  docker rmi --force nginx-runtime vue-app fpo-vue-on-nginx fpo-vue-dev fpo-django
+  docker rmi --force nginx-runtime fpo-web-artifacts fpo-web fpo-web-dev fpo-api
   docker image prune --force
 }
 
@@ -296,9 +305,6 @@ case "$COMMAND" in
         ;;
       fpo-web)
         build-web
-        ;;
-      fpo-solr)
-        build-solr
         ;;
       *)
        buildImages
