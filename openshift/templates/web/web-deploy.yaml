@@ -148,16 +148,16 @@ objects:
   - kind: Route
     apiVersion: v1
     metadata:
-      name: ${NAME}-siteminder-route
+      name: ${NAME}-route
       labels:
-        name: ${NAME}-siteminder-route
+        name: ${NAME}-route
         app: ${APP_NAME}
         role: ${ROLE}
         env: ${TAG_NAME}
       annotations:
-        haproxy.router.openshift.io/ip_whitelist: ${SITEMINDER_WHITE_LIST}
+        haproxy.router.openshift.io/ip_whitelist: ${ALLOW_LIST}
     spec:
-      host: ${SITEMINDER_APPLICATION_DOMAIN}
+      host: ${APPLICATION_DOMAIN}
       tls:
         insecureEdgeTerminationPolicy: Redirect
         termination: edge
@@ -254,13 +254,13 @@ parameters:
     displayName: Ip Filter Rules
     name: IpFilterRules
     value:
-  - description: The endpoint used for SiteMinder routed access to the application.
-    displayName: SiteMinder Application Domain
-    name: SITEMINDER_APPLICATION_DOMAIN
+  - description: The endpoint used for routing access to the application.
+    displayName: Application Domain
+    name: APPLICATION_DOMAIN
     value: family-law-act-dev.silver.devops.gov.bc.ca
-  - name: SITEMINDER_WHITE_LIST
-    displayName: SiteMinder Whitelist
-    description: The whitelist containing all of the trusted siteminder IPs.
+  - name: ALLOW_LIST
+    displayName: Allow List
+    description: The allow list containing all of the trusted source IPs.
     required: false
   - description: The TAG name for this environment, e.g., dev, test, prod
     displayName: Env TAG name

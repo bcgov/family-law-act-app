@@ -12,7 +12,7 @@ fi
 # parameters for use with oc process.
 # ======================================================
 
-readParameter "SITEMINDER_WHITE_LIST - Please enter the white list of trusted IP addresses that should be allowed to access the SiteMinder route (as a space delimited list of IP addresses):" "SITEMINDER_WHITE_LIST" "" "false"
+readParameter "ALLOW_LIST - Please enter the list of trusted IP addresses that should be allowed to access the application's route (as a space delimited list of IP addresses):" "ALLOW_LIST" "" "false"
 
 SPECIALDEPLOYPARMS="--param-file=${_overrideParamFile}"
-echo ${SPECIALDEPLOYPARMS}
+echo ${SPECIALDEPLOYPARMS}k
