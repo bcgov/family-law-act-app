@@ -27,6 +27,24 @@ objects:
       destination:
         - - int:network=internal-cluster-api-endpoint
 
+  - kind: ExternalNetwork
+    apiVersion: security.devops.gov.bc.ca/v1alpha1
+    metadata:
+      name: ${NAME}
+      network: ${NAME}
+      labels:
+        name: ${NAME}
+        network: ${NAME}
+        app: ${APP_NAME}
+        env: ${TAG_NAME}
+    spec:
+      description: |
+        Define the network parameters for accessing remote resources.
+      entries:
+        - ${OIDC_RP_HOST}
+      servicePorts:
+        - tcp/443
+
   - kind: NetworkSecurityPolicy
     apiVersion: security.devops.gov.bc.ca/v1alpha1
     metadata:
@@ -37,13 +55,12 @@ objects:
         env: ${TAG_NAME}
     spec:
       description: |
-        Allow the application's API to talk to either the database or pdf microservice.
+        Allow the application's API to talk to either the database or pdf microservice, plus a defined set of external resources.
       source:
         - - role=${ROLE}
           - app=${APP_NAME}
           - env=${TAG_NAME}
           - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
-
       destination:
         - - role=db
           - app=${APP_NAME}
@@ -53,6 +70,7 @@ objects:
           - app=${APP_NAME}
           - env=${TAG_NAME}
           - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
+        - - ext:name=${NAME}
 
   - kind: Service
     apiVersion: v1
@@ -86,6 +104,7 @@ objects:
     stringData:
       oidc-rp-provider-endpoint: ${OIDC_RP_PROVIDER_ENDPOINT}
       oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
+      oidc-rp-host: ${OIDC_RP_HOST}
       encryption-key: ${DATA_SECURITY_KEY}
       efiling-auth-url: ${EFILING_AUTH_URL}
       efiling-client-id: ${EFILING_CLIENT_ID}
@@ -295,6 +314,11 @@ parameters:
   - name: OIDC_RP_PROVIDER_ENDPOINT
     displayName: OIDC RP Provider Endpoint
     description: OIDC RP Provider Endpoint.
+    required: false
+    value:
+  - name: OIDC_RP_HOST
+    displayName: OIDC RP Hostname
+    description: OIDC RP Hostname.  The web-deploy.overrides.sh will parse this from the supplied OIDC_RP_PROVIDER_ENDPOINT, and fetch it from a secret for updates.
     required: false
     value:
   - name: OIDC_RP_CLIENT_SECRET

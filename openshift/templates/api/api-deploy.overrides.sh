@@ -1,5 +1,8 @@
 _includeFile=$(type -p overrides.inc)
+# Import ocFunctions.inc for getSecret
+_ocFunctions=$(type -p ocFunctions.inc)
 if [ ! -z ${_includeFile} ]; then
+  . ${_ocFunctions}
   . ${_includeFile}
 else
   _red='\033[0;31m'; _yellow='\033[1;33m'; _nc='\033[0m'; echo -e \\n"${_red}overrides.inc could not be found on the path.${_nc}\n${_yellow}Please ensure the openshift-developer-tools are installed on and registered on your path.${_nc}\n${_yellow}https://github.com/BCDevOps/openshift-developer-tools${_nc}"; exit 1;
@@ -13,6 +16,7 @@ if createOperation; then
   # Ask the user to supply the sensitive parameters ...
   readParameter "DATA_SECURITY_KEY - Please provide the encryption key for the application environment.  If left blank, a 32 character long base64 encoded value will be randomly generated using openssl:" DATA_SECURITY_KEY $(generateKey 32) "false"
   readParameter "OIDC_RP_PROVIDER_ENDPOINT - Please provide the url for the OIDC RP Provider.  The default is a blank string." OIDC_RP_PROVIDER_ENDPOINT "" "false"
+  parseHostnameParameter "OIDC_RP_PROVIDER_ENDPOINT" "OIDC_RP_HOST"
   readParameter "OIDC_RP_CLIENT_SECRET - Please provide the OIDC RP Client Secret.  The default is a blank string." OIDC_RP_CLIENT_SECRET "" "false"
 
   # Get the eFiling settings
@@ -32,6 +36,10 @@ else
   writeParameter "EFILING_CLIENT_ID" "prompt_skipped" "false"
   writeParameter "EFILING_CLIENT_SECRET" "prompt_skipped" "false"
   writeParameter "EFILING_BASE_URL" "prompt_skipped" "false"
+
+  # Get OIDC_RP_HOST from secret
+  printStatusMsg "Getting OIDC_RP_HOST for the ExternalNetwork definition from secret ...\n"
+  writeParameter "OIDC_RP_HOST" $(getSecret "${NAME}" "oidc-rp-host") "false"
 fi
 
 SPECIALDEPLOYPARMS="--param-file=${_overrideParamFile}"
