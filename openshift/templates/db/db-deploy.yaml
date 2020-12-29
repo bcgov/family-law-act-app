@@ -59,6 +59,11 @@ objects:
                 - containerPort: 5432
                   protocol: TCP
               env:
+                - name: POSTGRESQL_DATABASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}
+                      key: database-name
                 - name: POSTGRESQL_USER
                   valueFrom:
                     secretKeyRef:
@@ -74,8 +79,6 @@ objects:
                     secretKeyRef:
                       name: ${NAME}
                       key: admin-password
-                - name: POSTGRESQL_DATABASE
-                  value: ${POSTGRESQL_DATABASE_NAME}
               resources:
                 requests:
                   cpu: ${CPU_REQUEST}
@@ -146,9 +149,10 @@ objects:
         role: ${ROLE}
         env: ${TAG_NAME}
     stringData:
-      admin-password: ${POSTGRESQL_ADMIN_PASSWORD}
-      database-password: ${POSTGRESQL_PASSWORD}
+      database-name: ${POSTGRESQL_DATABASE_NAME}
       database-user: ${POSTGRESQL_USER}
+      database-password: ${POSTGRESQL_PASSWORD}
+      admin-password: ${POSTGRESQL_ADMIN_PASSWORD}
     type: Opaque
 
   - kind: Service
@@ -180,7 +184,7 @@ parameters:
       The name assigned to all of the OpenShift resources associated to the
       PostgreSQL instance.
     required: true
-    value: postgresql
+    value: db
 
   - name: APP_NAME
     displayName: App Name
@@ -202,22 +206,12 @@ parameters:
     displayName: Source Image Name
     description: The name of the image to use for this resource.
     required: true
-    value: postgresql
+    value: db
   - name: TAG_NAME
     displayName: Environment TAG name
     description: The TAG name for this environment, e.g., dev, test, prod
     required: true
     value: dev
-  - name: PERSISTENT_VOLUME_SIZE
-    displayName: Persistent Volume Size
-    description: The size of the persistent volume , e.g. 512Mi, 1Gi, 2Gi.
-    required: true
-    value: 1Gi
-  - name: PERSISTENT_VOLUME_CLASS
-    displayName: Persistent Volume Class name
-    description: The class of the volume; gluster-file, gluster-block, gluster-file-db.
-    required: false
-    value: gluster-file-db
   - name: POSTGRESQL_DATABASE_NAME
     displayName: PostgreSQL Database Name
     description: The name of the PostgreSQL database.
@@ -242,6 +236,17 @@ parameters:
     required: true
     generate: expression
     from: '[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}'
+
+  - name: PERSISTENT_VOLUME_SIZE
+    displayName: Persistent Volume Size
+    description: The size of the persistent volume , e.g. 512Mi, 1Gi, 2Gi.
+    required: true
+    value: 15Gi
+  - name: PERSISTENT_VOLUME_CLASS
+    displayName: Persistent Volume Class name
+    description: The class of the volume; netapp-file-standard, netapp-file-extended, netapp-block-standard, netapp-block-extended.
+    required: false
+    value: netapp-file-standard
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request
