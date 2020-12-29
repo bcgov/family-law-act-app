@@ -184,6 +184,19 @@ objects:
       minReplicas: 2
       maxReplicas: 6
 
+  - kind: Secret
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    stringData:
+      allow-list: ${ALLOW_LIST}
+    type: Opaque
+
 parameters:
   - description: The name assigned to all of the openshift objects defined in this template. It is also the name of runtime image you want.
     displayName: Name
