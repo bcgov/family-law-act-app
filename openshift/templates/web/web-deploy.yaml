@@ -270,7 +270,7 @@ parameters:
   - description: The endpoint used for routing access to the application.
     displayName: Application Domain
     name: APPLICATION_DOMAIN
-    value: family-law-act-dev.silver.devops.gov.bc.ca
+    value: fla-dev.apps.silver.devops.gov.bc.ca
   - name: ALLOW_LIST
     displayName: Allow List
     description: The allow list containing all of the trusted source IPs.

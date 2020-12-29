@@ -15,7 +15,7 @@
 # WEB_BASE_HREF=/apply-for-family-order/
 # AdditionalRealIpFromRules=
 # IpFilterRules=
-APPLICATION_DOMAIN=family-law-act-prod.silver.devops.gov.bc.ca
+APPLICATION_DOMAIN=fla-prod.apps.silver.devops.gov.bc.ca
 # ALLOW_LIST=
 TAG_NAME=prod
 # CPU_REQUEST=10m

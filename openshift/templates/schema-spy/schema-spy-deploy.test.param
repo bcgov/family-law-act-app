@@ -8,7 +8,7 @@
 # ROLE=schema-spy
 # IMAGE_NAMESPACE=09e0c5-tools
 # MEMORY_LIMIT=512Mi
-APPLICATION_DOMAIN=fla-schema-test.silver.devops.gov.bc.ca
+APPLICATION_DOMAIN=fla-schema-test.apps.silver.devops.gov.bc.ca
 # DATABASE_SERVICE_NAME=db
 TAG_NAME=test
 # DATABASE_DEPLOYMENT_NAME=db

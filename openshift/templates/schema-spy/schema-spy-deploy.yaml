@@ -198,7 +198,7 @@
       displayName: Application Hostname
       description: The exposed hostname that will route to the Django service, if left
         blank a value will be defaulted.
-      value: 'family-law-act-schema-dev.silver.devops.gov.bc.ca'
+      value: 'family-law-act-schema-dev.apps.silver.devops.gov.bc.ca'
     - name: DATABASE_SERVICE_NAME
       displayName: Database Service Name
       required: true
