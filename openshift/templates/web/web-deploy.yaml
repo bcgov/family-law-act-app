@@ -263,7 +263,7 @@ parameters:
   - description: The endpoint used for SiteMinder routed access to the application.
     displayName: SiteMinder Application Domain
     name: SITEMINDER_APPLICATION_DOMAIN
-    value: family-law-act-dev.pathfinder.bcgov
+    value: family-law-act-dev.silver.devops.gov.bc.ca
   - name: SITEMINDER_WHITE_LIST
     displayName: SiteMinder Whitelist
     description: The whitelist containing all of the trusted siteminder IPs.

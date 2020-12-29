@@ -15,7 +15,7 @@
 # WEB_BASE_HREF=/apply-for-family-order/
 # AdditionalRealIpFromRules=
 # IpFilterRules=
-SITEMINDER_APPLICATION_DOMAIN=family-law-act-dev.pathfinder.bcgov
+SITEMINDER_APPLICATION_DOMAIN=family-law-act-dev.silver.devops.gov.bc.ca
 # SITEMINDER_WHITE_LIST=
 TAG_NAME=dev
 # HTTP_BASIC=
