@@ -332,7 +332,7 @@ parameters:
   - name: EFILING_BASE_URL
     displayName: EFILING base url
     description: EFILING base url
-    required: true
+    required: false
     value:
 
   - name: CPU_REQUEST
