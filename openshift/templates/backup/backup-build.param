@@ -1,0 +1,14 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/backup/backup-build.yaml
+#=========================================================
+NAME=backup
+SUFFIX=
+APP_NAME=Backup
+APP_GROUP=fla
+GIT_REPO_URL=https://github.com/BCDevOps/backup-container.git
+GIT_REF=2.3.1
+SOURCE_CONTEXT_DIR=/docker
+DOCKER_FILE_PATH=Dockerfile
+OUTPUT_IMAGE_TAG=latest

@@ -1,0 +1,40 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/backup/backup-deploy.yaml
+#=========================================================
+# NAME=backup
+# SUFFIX=
+# APP_NAME=Backup
+# APP_GROUP=fla
+# ROLE=backup
+# NAMESPACE_NAME=09e0c5
+# SOURCE_IMAGE_NAME=backup
+# IMAGE_NAMESPACE=09e0c5-tools
+TAG_NAME=test
+# DB_SERVICE_NAME=db
+# DB_USER_KEY_NAME=database-user
+# DB_PASSWORD_KEY_NAME=database-password
+# BACKUP_STRATEGY=rolling
+# WEBHOOK_URL=
+# ENVIRONMENT_FRIENDLY_NAME=Family Law Act (dev)
+# ENVIRONMENT_NAME=09e0c5-dev
+# BACKUP_DIR=/backups/
+# DAILY_BACKUPS=
+# WEEKLY_BACKUPS=
+# MONTHLY_BACKUPS=
+# DATABASE_SERVER_TIMEOUT=300
+# CONFIG_FILE_NAME=backup.conf
+# CONFIG_MAP_NAME=backup-conf
+# CONFIG_MOUNT_PATH=/
+# BACKUP_VOLUME_NAME=backup
+# BACKUP_VOLUME_SIZE=20Gi
+# BACKUP_VOLUME_CLASS=netapp-file-backup
+# VERIFICATION_VOLUME_NAME=backup-verification
+# VERIFICATION_VOLUME_SIZE=15Gi
+# VERIFICATION_VOLUME_CLASS=netapp-file-standard
+# VERIFICATION_VOLUME_MOUNT_PATH=/var/lib/pgsql/data
+# CPU_REQUEST=0
+# CPU_LIMIT=0
+# MEMORY_REQUEST=0Mi
+# MEMORY_LIMIT=0Mi

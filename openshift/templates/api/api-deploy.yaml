@@ -318,7 +318,7 @@ parameters:
     value:
   - name: OIDC_RP_HOST
     displayName: OIDC RP Hostname
-    description: OIDC RP Hostname.  The web-deploy.overrides.sh will parse this from the supplied OIDC_RP_PROVIDER_ENDPOINT, and fetch it from a secret for updates.
+    description: OIDC RP Hostname.  The api-deploy.overrides.sh will parse this from the supplied OIDC_RP_PROVIDER_ENDPOINT, and fetch it from a secret for updates.
     required: false
     value:
   - name: OIDC_RP_CLIENT_SECRET
