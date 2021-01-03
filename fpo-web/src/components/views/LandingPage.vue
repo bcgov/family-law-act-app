@@ -6,8 +6,7 @@
           <h1>Apply for a Provincial Court Family Law Act (FLA) Order</h1>
           <div class="intro">
             <p>
-              This service will help you fill out the forms needed to apply for or
-              reply to applications for family court orders:
+              This service will help you fill out the forms needed to apply for family court orders:
             </p>
             <div class="row">
               <div class="col-md-6">
