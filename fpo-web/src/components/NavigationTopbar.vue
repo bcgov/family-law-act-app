@@ -113,7 +113,7 @@ export default {
       }
       Vue.nextTick().then(() => {
         if (isQuickExit){
-          window.open('http://www.google.ca/search?q=fantastic+cheesecake+recipes');
+          window.open('http://www.google.ca');
           SessionManager.logoutAndRedirect(this.$store, this.$http);
         }else 
           SessionManager.logout(this.$store);
