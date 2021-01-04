@@ -1,0 +1,30 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/api/api-deploy.yaml
+#=========================================================
+# NAME=api
+# APP_NAME=fla
+# ROLE=api
+# IMAGE_NAMESPACE=09e0c5-tools
+# DATABASE_SERVICE_NAME=db
+# DATABASE_ENGINE=postgresql
+# APP_CONFIG=
+# #DJANGO_SECRET_KEY=[\w]{50}
+# DJANGO_DEBUG=False
+# PDF_SERVICE_URL=http://pdf:5001
+TAG_NAME=dev
+# DATABASE_DEPLOYMENT_NAME=db
+# OIDC_RP_PROVIDER_ENDPOINT=
+# OIDC_RP_HOST=
+# OIDC_RP_CLIENT_SECRET=
+# OIDC_RP_KC_IDP_HINT=bceid
+# DATA_SECURITY_KEY=[a-zA-Z0-9]{32}
+# EFILING_AUTH_URL=
+# EFILING_CLIENT_ID=
+# EFILING_CLIENT_SECRET=
+# EFILING_BASE_URL=
+# CPU_REQUEST=10m
+# CPU_LIMIT=500m
+# MEMORY_REQUEST=10Mi
+# MEMORY_LIMIT=1Gi

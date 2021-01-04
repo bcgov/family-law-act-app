@@ -1,0 +1,15 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/pdf/pdf-deploy.yaml
+#=========================================================
+NAME=pdf
+APP_NAME=fla
+ROLE=pdf
+SOURCE_IMAGE_NAME=pdf
+IMAGE_NAMESPACE=09e0c5-tools
+TAG_NAME=dev
+CPU_REQUEST=10m
+CPU_LIMIT=1000m
+MEMORY_REQUEST=10Mi
+MEMORY_LIMIT=1Gi

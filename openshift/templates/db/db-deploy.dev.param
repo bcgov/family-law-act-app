@@ -1,0 +1,21 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/db/db-deploy.yaml
+#=========================================================
+# NAME=db
+# APP_NAME=fla
+# ROLE=db
+# IMAGE_NAMESPACE=09e0c5-tools
+# SOURCE_IMAGE_NAME=db
+TAG_NAME=dev
+# POSTGRESQL_DATABASE_NAME=FLA_Database
+# POSTGRESQL_USER=[a-zA-Z_][a-zA-Z0-9_]{10}
+# POSTGRESQL_PASSWORD=[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}
+# POSTGRESQL_ADMIN_PASSWORD=[a-zA-Z0-9_~!@#$%^&*()-=<>,.?;:|]{16}
+# PERSISTENT_VOLUME_SIZE=15Gi
+# PERSISTENT_VOLUME_CLASS=netapp-file-standard
+# CPU_REQUEST=10m
+# CPU_LIMIT=250m
+# MEMORY_REQUEST=10Mi
+# MEMORY_LIMIT=512Mi

@@ -1,0 +1,114 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: ${NAME}-build-template
+objects:
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+    spec:
+      triggers:
+        - type: ConfigChange
+      runPolicy: Serial
+      source:
+        dockerfile: |-
+          FROM ${SOURCE_IMAGE_REPOSITORY}${SOURCE_IMAGE} as source
+          FROM ${DESTINATION_IMAGE_REPOSITORY}${DESTINATION_IMAGE} as destination
+
+          # Copy the client application artifacts into the image ...
+          COPY --from=source /opt/app-root/src/dist/. /tmp/app/dist/
+
+          # Since the runtime image is itself an s2i image we need to
+          # short circuit the s2i lifecycle.
+          # The runtime image "loses" its s2i runtime voodoo when it
+          # is used in a dockerSrategy, which is why the explicit `CMD` is necessary
+          CMD  /usr/libexec/s2i/run
+
+      strategy:
+        type: Docker
+        dockerStrategy:
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${NAME}:${OUTPUT_IMAGE_TAG}
+      resources:
+        requests:
+          cpu: ${CPU_REQUEST}
+          memory: ${MEMORY_REQUEST}
+        limits:
+          cpu: ${CPU_LIMIT}
+          memory: ${MEMORY_LIMIT}
+
+parameters:
+  - name: NAME
+    displayName: Name
+    description: The name assigned to all of the resources defined in this template.
+    required: true
+    value: web
+
+  - name: APP_NAME
+    displayName: App Name
+    description: Used to group components together in the OpenShift console.
+    required: true
+    value: fla
+
+  - name: SOURCE_IMAGE_REPOSITORY
+    displayName: Source Image Repository
+    description: The Image Repository containing the images used for the build.
+    required: true
+    value: image-registry.openshift-image-registry.svc:5000/09e0c5-tools/
+  - name: SOURCE_IMAGE
+    displayName: Source Image
+    description: The source image for the build.
+    required: true
+    value: web-artifacts
+
+  - name: DESTINATION_IMAGE_REPOSITORY
+    displayName: Destination Image Repository
+    description: The Image Repository containing the destination image used for the build.
+    required: true
+    value: image-registry.openshift-image-registry.svc:5000/09e0c5-tools/
+  - name: DESTINATION_IMAGE
+    displayName: Destination Image
+    description: The destination image for the build.
+    required: true
+    value: web-runtime
+
+  - name: OUTPUT_IMAGE_TAG
+    displayName: Output Image Tag
+    description: The tag given to the built image.
+    required: true
+    value: latest
+
+  - name: CPU_REQUEST
+    displayName: Resources CPU Request
+    description: The resources CPU request (in cores) for this build.
+    required: true
+    value: 10m
+  - name: CPU_LIMIT
+    displayName: Resources CPU Limit
+    description: The resources CPU limit (in cores) for this build.
+    required: true
+    value: 500m
+  - name: MEMORY_REQUEST
+    displayName: Resources Memory Request
+    description: The resources Memory request (in Mi, Gi, etc) for this build.
+    required: true
+    value: 10Mi
+  - name: MEMORY_LIMIT
+    displayName: Resources Memory Limit
+    description: The resources Memory limit (in Mi, Gi, etc) for this build.
+    required: true
+    value: 512Mi

@@ -1,0 +1,10 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/db/db-build.yaml
+#=========================================================
+NAME=db
+OUTPUT_IMAGE_TAG=latest
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=docker.io/centos/postgresql-12-centos7
+SOURCE_IMAGE_TAG=latest

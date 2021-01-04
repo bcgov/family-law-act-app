@@ -1,0 +1,18 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/schema-spy/schema-spy-deploy.yaml
+#=========================================================
+# NAME=schema-spy
+# APP_NAME=fla
+# ROLE=schema-spy
+# IMAGE_NAMESPACE=09e0c5-tools
+# MEMORY_LIMIT=512Mi
+APPLICATION_DOMAIN=fla-schema-dev.apps.silver.devops.gov.bc.ca
+# DATABASE_SERVICE_NAME=db
+TAG_NAME=dev
+# DATABASE_DEPLOYMENT_NAME=db
+# CPU_REQUEST=0
+# CPU_LIMIT=0
+# MEMORY_REQUEST=0
+# MEMORY_LIMIT=0

@@ -1,0 +1,192 @@
+import com.openshift.jenkins.plugins.OpenShiftDSL;
+
+@NonCPS
+boolean triggerBuild(String contextDirectory) {
+  // Determine if code has changed within the source context directory.
+  def changeLogSets = currentBuild.changeSets
+  def filesChangeCnt = 0
+  for (int i = 0; i < changeLogSets.size(); i++) {
+    def entries = changeLogSets[i].items
+    for (int j = 0; j < entries.length; j++) {
+      def entry = entries[j]
+      //echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+      def files = new ArrayList(entry.affectedFiles)
+      for (int k = 0; k < files.size(); k++) {
+        def file = files[k]
+        def filePath = file.path
+        //echo ">> ${file.path}"
+        if (filePath.contains(contextDirectory)) {
+          filesChangeCnt = 1
+          k = files.size()
+          j = entries.length
+        }
+      }
+    }
+  }
+
+  // // Always trigger build - for test purposes only
+  // // Under normal conditions this line should be commented out
+  // filesChangeCnt = 1
+
+  if ( filesChangeCnt < 1 ) {
+    echo('The changes do not require a build.')
+    return false
+  }
+  else {
+    echo('The changes require a build.')
+    return true
+  }
+}
+
+String getImageTagHash(OpenShiftDSL openshift, String imageName, String tag = "") {
+
+  if(!tag?.trim()) {
+    tag = "latest"
+  }
+
+  def istag = openshift.raw("get istag ${imageName}:${tag} -o template --template='{{.image.dockerImageReference}}'")
+  return istag.out.tokenize('@')[1].trim()
+}
+
+void build(OpenShiftDSL openshift, String buildConfigName, int waitTimeout = 10, String contextDirectory = '', String envVars = '') {
+
+  def buildFromDir = ''
+
+  // Find all of the build configurations associated to the application ...
+  echo "Looking up build configurations for ${buildConfigName} ..."
+  def buildconfigs = openshift.selector("bc", "${buildConfigName}")
+  echo "Found ${buildconfigs.count()} buildconfigs: ${buildconfigs.names()}"
+
+  // Inject environment variables into the build as needed ...
+  if (envVars?.trim()) {
+    echo "Setting environment variables on bc/${buildConfigName} ..."
+    echo "envVars: ${envVars}"
+    buildconfigs.set("env bc/${buildConfigName} ${envVars}")
+  }
+
+  // Perform a binary build as needed ...
+  if (contextDirectory?.trim()) {
+    echo "Setting up for binary build using the source in the ${contextDirectory} directory ..."
+    buildFromDir = "--from-dir='${contextDirectory}'"
+    echo "buildFromDir: ${buildFromDir}"
+  }
+
+  // Cancel all running builds, starting over ...
+  echo "Canceling all previous build instances ..."
+  buildconfigs.cancelBuild()
+
+  // Kick off all the builds in parallel ...
+  def builds = buildconfigs.startBuild("${buildFromDir}")
+  echo "Started ${builds.count()} builds: ${builds.names()}"
+
+  timeout(waitTimeout) {
+    // Wait for all the builds to complete ...
+    // This section will exit after the last build completes.
+    echo "Waiting for builds to complete ..."
+    builds.withEach {
+      // untilEach and watch - do not support watching multiple named resources,
+      // so we have to feed it one at a time.
+      it.untilEach(1) {
+          echo "${it.object().status.phase} - ${it.name()}"
+          return (it.object().status.phase == "Complete")
+      }
+    }
+  }
+
+  echo "Builds complete ..."
+}
+
+void deploy(String appName, String appSuffix, String namespace, String envTag) {
+  openshift.withCluster() {
+    openshift.withProject() {
+
+      echo "Tagging ${appName} for deployment to ${envTag} ..."
+
+      // Don't tag with BUILD_ID so the pruner can do it's job; it won't delete tagged images.
+      // Tag the images for deployment based on the image's hash
+      def IMAGE_HASH = getImageTagHash(openshift, "${appName}")
+      echo "IMAGE_HASH: ${IMAGE_HASH}"
+      openshift.tag("${appName}@${IMAGE_HASH}", "${appName}:${envTag}")
+    }
+
+    echo "Watching rollout of ${appName}${appSuffix} in ${namespace}-${envTag} ..."
+    openshift.withProject("${namespace}-${envTag}") {
+        def dc = openshift.selector('dc', "${appName}${appSuffix}")
+        // Wait for the deployment to complete.
+        // This will wait until the desired replicas are all available
+        dc.rollout().status()
+    }
+
+    echo "Deployment Complete."
+  }
+}
+
+node {
+  def config = load "../workspace@script/jenkins/config.groovy"
+  def waitTimeout = config.WAIT_TIMEOUT
+  def pipeline_name = "${config.API_APP_NAME}-pipeline"
+  def contextDirectory = "${config.API_APP_NAME}"
+  def buildApps = config.API_BUILDS
+  def appName = config.API_APP_NAME
+  def namespace = config.NAME_SPACE
+  def destination = config.DEV_ENV
+  def appSuffix = config.SUFFIX
+  def schemaSpy = config.SCHEMA_SPY_APP_NAME
+
+  if( triggerBuild(contextDirectory) ) {
+    buildApps.each {
+      stage("Build ${it}") {
+        script {
+          openshift.withCluster() {
+            openshift.withProject() {
+              echo "Canceling all previous pipeline instances ..."
+              def latestBuildNumber = 0
+              def builds = openshift.selector("build", [ name : "${pipeline_name}" ])
+              def buildCount = builds.count()
+              builds.withEach {
+                int nextBuildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
+                if (nextBuildNumber > latestBuildNumber && buildCount > 1) {
+                  latestBuildNumber = nextBuildNumber
+                  buildCount -= 1
+                  echo "Canceling ${it.name()} ..."
+                  it.cancelBuild()
+                }
+              }
+
+              echo "Building the ${it} image ..."
+              build(openshift, "${it}", waitTimeout)
+            }
+          }
+        }
+      }
+    }
+
+    stage("Deploy ${destination}") {
+      script {
+        echo "Deploy ${appName}${appSuffix} to ${namespace}-${destination} ..."
+        deploy("${appName}",
+              "${appSuffix}",
+              "${namespace}",
+              "${destination}")
+      }
+    }
+
+    stage("Update ${schemaSpy} instance in ${destination}") {
+      script {
+        openshift.withCluster() {
+          openshift.withProject("${namespace}-${destination}") {
+            echo "Recycling ${schemaSpy}${appSuffix} in ${namespace}-${destination} to refresh schema..."
+            def dc = openshift.selector('dc', "${schemaSpy}${appSuffix}")
+              dc.scale("--replicas=0")
+              dc.scale("--replicas=1")
+            }
+          }
+        }
+    }
+  }
+  else {
+    stage('No Changes') {
+      currentBuild.result = 'SUCCESS'
+    }
+  }
+}

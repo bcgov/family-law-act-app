@@ -1,0 +1,16 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/web/web-build.yaml
+#=========================================================
+NAME=web
+APP_NAME=fla
+SOURCE_IMAGE_REPOSITORY=image-registry.openshift-image-registry.svc:5000/09e0c5-tools/
+SOURCE_IMAGE=web-artifacts
+DESTINATION_IMAGE_REPOSITORY=image-registry.openshift-image-registry.svc:5000/09e0c5-tools/
+DESTINATION_IMAGE=web-runtime
+OUTPUT_IMAGE_TAG=latest
+CPU_REQUEST=10m
+CPU_LIMIT=500m
+MEMORY_REQUEST=10Mi
+MEMORY_LIMIT=512Mi

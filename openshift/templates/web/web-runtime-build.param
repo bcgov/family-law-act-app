@@ -1,0 +1,10 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/web/web-runtime-build.yaml
+#=========================================================
+NAME=web-runtime
+GIT_REPO_URL=https://github.com/bcgov/family-law-act-app.git
+GIT_REF=master
+SOURCE_CONTEXT_DIR=docker/nginx-runtime/
+OUTPUT_IMAGE_TAG=latest
