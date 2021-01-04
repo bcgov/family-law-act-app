@@ -176,8 +176,8 @@ node {
           openshift.withCluster() {
             openshift.withProject("${namespace}-${destination}") {
                 def dc = openshift.selector('dc', "${schemaSpy}${appSuffix}")
-                dc.scale([ replicas : 0 ]).status()
-                dc.scale([ replicas : 1 ]).status()
+                dc.scale("--replicas=0").status()
+                dc.scale("--replicas=1").status()
             }
           }
         }
