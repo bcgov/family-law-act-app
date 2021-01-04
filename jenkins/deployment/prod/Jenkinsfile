@@ -2,14 +2,22 @@
 // In other words all of the images that are currently deployed in TEST will be tagged for deployment to PROD.
 
 // Define these in the order they should be deployed.
-def APP_NAMES = ['postgresql', 'api', 'schema-spy', 'web', 'pdf']
+// Do not deploy schema-spy into prod
+def APP_NAMES = ['db', 'api', 'web', 'pdf', 'backup']
 def SOURCE_TAG = 'test'
 def DESTINATION_TAG = 'prod'
 
 node {
   APP_NAMES.each { appName ->
-    stage('Deploying ' + appName + ' to ' + DESTINATION_TAG) {
-      openshiftTag destStream: appName, verbose: 'true', destTag: DESTINATION_TAG, srcStream: appName, srcTag: SOURCE_TAG
+    stage("Deploying ${appName} to ${DESTINATION_TAG}") {
+      script {
+        openshift.withCluster() {
+          openshift.withProject() {
+            echo "Tagging ${appName}:${SOURCE_TAG} for deployment to ${DESTINATION_TAG} ..."
+            openshift.tag("${appName}:${SOURCE_TAG}", "${appName}:${DESTINATION_TAG}")
+          }
+        }
+      }
     }
   }
 }
