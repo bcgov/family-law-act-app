@@ -27,6 +27,7 @@ python3 manage.py runserver 0.0.0.0:8000
 
 Make sure the port is open within the _docker-compose.yml_ file.
 
+
 ## Development Deployment Environment
 
 To deploy Family Law Act on an instance of OpenShift, see [the instructions](../RunningLocal.md) in the file RunningLocal.md.
