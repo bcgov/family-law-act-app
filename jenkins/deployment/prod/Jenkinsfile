@@ -1,7 +1,7 @@
 node {
   def config = load "../workspace@script/jenkins/config.groovy"
-  def source = config.DEV_ENV
-  def destination = config.TEST_ENV
+  def source = config.TEST_ENV
+  def destination = config.PROD_ENV
   def namespace = config.NAME_SPACE
   def appSuffix = config.SUFFIX
   def apps = config.PROD_APPS
