@@ -139,15 +139,21 @@ node {
         script {
           openshift.withCluster() {
             openshift.withProject() {
-              echo "Canceling all previous pipeline instances ..."
+              echo "Looking for the latest ${pipeline_name} build ..."
               def latestBuildNumber = 0
               def builds = openshift.selector("build", [ name : "${pipeline_name}" ])
-              def buildCount = builds.count()
               builds.withEach {
                 int nextBuildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
-                if (nextBuildNumber > latestBuildNumber && buildCount > 1) {
+                echo "${it.name()} ..."
+                if (nextBuildNumber > latestBuildNumber) {
                   latestBuildNumber = nextBuildNumber
-                  buildCount -= 1
+                }
+              }
+
+              echo "Latest build number is ${latestBuildNumber}, canceling all previous pipeline instances ..."
+              builds.withEach {
+                int buildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
+                if (buildNumber != latestBuildNumber) {
                   echo "Canceling ${it.name()} ..."
                   it.cancelBuild()
                 }
