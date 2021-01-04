@@ -170,6 +170,7 @@ node {
               "${destination}")
       }
     }
+  }
   else {
     stage('No Changes') {
       currentBuild.result = 'SUCCESS'
