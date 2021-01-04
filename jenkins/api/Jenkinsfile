@@ -134,50 +134,51 @@ node {
   def schemaSpy = config.SCHEMA_SPY_APP_NAME
 
   if( triggerBuild(contextDirectory) ) {
-    // buildApps.each {
-    //   stage("Build ${it}") {
-    //     script {
-    //       openshift.withCluster() {
-    //         openshift.withProject() {
-    //           echo "Canceling all previous pipeline instances ..."
-    //           def latestBuildNumber = 0
-    //           def builds = openshift.selector("build", [ name : "${pipeline_name}" ])
-    //           def buildCount = builds.count()
-    //           builds.withEach {
-    //             int nextBuildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
-    //             if (nextBuildNumber > latestBuildNumber && buildCount > 1) {
-    //               latestBuildNumber = nextBuildNumber
-    //               buildCount -= 1
-    //               echo "Canceling ${it.name()} ..."
-    //               it.cancelBuild()
-    //             }
-    //           }
-
-    //           echo "Building the ${it} image ..."
-    //           build(openshift, "${it}", waitTimeout)
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-
-    // stage("Deploy ${destination}") {
-    //   script {
-    //     echo "Deploy ${appName}${appSuffix} to ${namespace}-${destination} ..."
-    //     deploy("${appName}",
-    //           "${appSuffix}",
-    //           "${namespace}",
-    //           "${destination}")
-    //   }
-    // }
-
-    stage("Update ${schemaSpy} instance in ${destination}") {
+    buildApps.each {
+      stage("Build ${it}") {
         script {
           openshift.withCluster() {
-            openshift.withProject("${namespace}-${destination}") {
-                def dc = openshift.selector('dc', "${schemaSpy}${appSuffix}")
-                dc.scale("--replicas=0")
-                dc.scale("--replicas=1")
+            openshift.withProject() {
+              echo "Canceling all previous pipeline instances ..."
+              def latestBuildNumber = 0
+              def builds = openshift.selector("build", [ name : "${pipeline_name}" ])
+              def buildCount = builds.count()
+              builds.withEach {
+                int nextBuildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
+                if (nextBuildNumber > latestBuildNumber && buildCount > 1) {
+                  latestBuildNumber = nextBuildNumber
+                  buildCount -= 1
+                  echo "Canceling ${it.name()} ..."
+                  it.cancelBuild()
+                }
+              }
+
+              echo "Building the ${it} image ..."
+              build(openshift, "${it}", waitTimeout)
+            }
+          }
+        }
+      }
+    }
+
+    stage("Deploy ${destination}") {
+      script {
+        echo "Deploy ${appName}${appSuffix} to ${namespace}-${destination} ..."
+        deploy("${appName}",
+              "${appSuffix}",
+              "${namespace}",
+              "${destination}")
+      }
+    }
+
+    stage("Update ${schemaSpy} instance in ${destination}") {
+      script {
+        openshift.withCluster() {
+          openshift.withProject("${namespace}-${destination}") {
+            echo "Recycling ${schemaSpy}${appSuffix} in ${namespace}-${destination} to refresh schema..."
+            def dc = openshift.selector('dc', "${schemaSpy}${appSuffix}")
+              dc.scale("--replicas=0")
+              dc.scale("--replicas=1")
             }
           }
         }
