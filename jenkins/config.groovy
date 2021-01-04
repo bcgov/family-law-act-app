@@ -27,10 +27,10 @@ class config {
   public static final String[] BUILDS = ['web', 'api']
   
   public static final String[]  WEB_BUILDS = ["${this.BUILDS[0]}"]
-  public static final String[]  WEB_APP_NAME = "${this.BUILDS[0]}"
+  public static final String  WEB_APP_NAME = "${this.BUILDS[0]}"
   
   public static final String[]  API_BUILDS = ["${this.BUILDS[1]}"]
-  public static final String[]  API_APP_NAME = "${this.BUILDS[1]}"
+  public static final String  API_APP_NAME = "${this.BUILDS[1]}"
 }
 
 return new config();
