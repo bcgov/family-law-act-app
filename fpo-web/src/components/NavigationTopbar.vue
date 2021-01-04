@@ -112,9 +112,10 @@ export default {
           });
       }
       Vue.nextTick().then(() => {
-        if (isQuickExit)
+        if (isQuickExit){
+          window.open('http://www.google.ca');
           SessionManager.logoutAndRedirect(this.$store, this.$http);
-        else 
+        }else 
           SessionManager.logout(this.$store);
       });
     }
