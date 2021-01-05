@@ -26,7 +26,7 @@ class config {
   // Build configuration
   public static final String[] BUILDS = ['web', 'api']
   
-  public static final String[]  WEB_BUILDS = ["${this.BUILDS[0]}"]
+  public static final String[]  WEB_BUILDS = ['web-runtime', 'web-artifacts', 'web']
   public static final String  WEB_APP_NAME = "${this.BUILDS[0]}"
   
   public static final String[]  API_BUILDS = ["${this.BUILDS[1]}"]
