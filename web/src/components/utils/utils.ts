@@ -9,7 +9,6 @@ export const SessionManager = {
     },
     logout: function(store) {
         store.dispatch("application/init");
-        console.log('logout')
         window.location.replace(`${process.env.BASE_URL}api/v1/logout/`);
     },
     redirectIfQuickExitCookie: function() {
