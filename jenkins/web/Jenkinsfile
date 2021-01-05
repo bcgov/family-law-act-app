@@ -134,31 +134,39 @@ node {
   def schemaSpy = config.SCHEMA_SPY_APP_NAME
 
   if( triggerBuild(contextDirectory) ) {
+    stage("Cancel previous builds") {
+      script {
+        openshift.withCluster() {
+          openshift.withProject() {
+            echo "Looking for the latest ${pipeline_name} build ..."
+            def latestBuildNumber = 0
+            def builds = openshift.selector("build", [ name : "${pipeline_name}" ])
+            builds.withEach {
+              int nextBuildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
+              echo "${it.name()} ..."
+              if (nextBuildNumber > latestBuildNumber) {
+                latestBuildNumber = nextBuildNumber
+              }
+            }
+
+            echo "Latest build number is ${latestBuildNumber}, canceling all previous pipeline instances ..."
+            builds.withEach {
+              int buildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
+              if (buildNumber != latestBuildNumber) {
+                echo "Canceling ${it.name()} ..."
+                it.cancelBuild()
+              }
+            }
+          }
+        }
+      }
+    }
+
     buildApps.each {
       stage("Build ${it}") {
         script {
           openshift.withCluster() {
             openshift.withProject() {
-              echo "Looking for the latest ${pipeline_name} build ..."
-              def latestBuildNumber = 0
-              def builds = openshift.selector("build", [ name : "${pipeline_name}" ])
-              builds.withEach {
-                int nextBuildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
-                echo "${it.name()} ..."
-                if (nextBuildNumber > latestBuildNumber) {
-                  latestBuildNumber = nextBuildNumber
-                }
-              }
-
-              echo "Latest build number is ${latestBuildNumber}, canceling all previous pipeline instances ..."
-              builds.withEach {
-                int buildNumber = "${it.object().metadata.annotations.get("openshift.io/build.number")}" as Integer
-                if (buildNumber != latestBuildNumber) {
-                  echo "Canceling ${it.name()} ..."
-                  it.cancelBuild()
-                }
-              }
-
               echo "Building the ${it} image ..."
               build(openshift, "${it}", waitTimeout)
             }
