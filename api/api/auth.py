@@ -34,7 +34,10 @@ def get_logout_uri(request: Request = None) -> str:
     uri = None
     if request:
         try:
-            uri = reverse("oidc_end_session", request=request)
+            uri = settings.SITEMINDER_LOGOFF_URL \
+                + "?returl={end_session}&retnow=1".format(
+                    end_session=reverse("oidc_end_session", request=request)
+                    )
         except NoReverseMatch:
             pass
     return uri
