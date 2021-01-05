@@ -25,7 +25,9 @@ export const SessionManager = {
             const loginUrl = response.data.login_uri;
             const userLocation = response.data.location
             if (userId) {
-                const userName = response.data.display_name || response.data.first_name + " " + response.data.last_name;
+                let userName = response.data.display_name;
+                if (!userName)
+                    userName = response.data.first_name + " " + response.data.last_name;
                 store.dispatch("application/setUserName", userName);
                 store.dispatch("common/setUserId", userId);
                 store.dispatch("common/setUserLocation",userLocation)
