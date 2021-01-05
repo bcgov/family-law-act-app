@@ -1,0 +1,24 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: ../openshift/templates/web/web-deploy.yaml
+#=========================================================
+# NAME=web
+# APP_NAME=fla
+# ROLE=web
+# NAMESPACE_NAME=09e0c5
+# IMAGE_NAMESPACE=09e0c5-tools
+# REAL_IP_FROM=172.51.0.0/16
+# API_URL=http://api:8080/api
+# API_SERVICE_NAME=api
+# API_PATH=/api
+# WEB_BASE_HREF=/apply-for-family-order/
+# AdditionalRealIpFromRules=
+# IpFilterRules=
+APPLICATION_DOMAIN=fla-dev.apps.silver.devops.gov.bc.ca
+# ALLOW_LIST=
+TAG_NAME=dev
+# CPU_REQUEST=10m
+# CPU_LIMIT=250m
+# MEMORY_REQUEST=10Mi
+# MEMORY_LIMIT=256Mi

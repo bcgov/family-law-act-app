@@ -1,0 +1,31 @@
+node {
+  def config = load "../workspace@script/jenkins/config.groovy"
+  def source = config.DEV_ENV
+  def destination = config.TEST_ENV
+  def namespace = config.NAME_SPACE
+  def appSuffix = config.SUFFIX
+  def apps = config.APPS
+
+  apps.each { appName ->
+    stage("Deploying ${appName} to ${destination}") {
+      script {
+        openshift.withCluster() {
+          openshift.withProject() {
+            echo "Tagging ${appName}:${source} for deployment to ${destination} ..."
+            openshift.tag("${appName}:${source}", "${appName}:${destination}")
+          }
+
+          echo "Watching rollout of ${appName}${appSuffix} in ${namespace}-${destination} ..."
+          openshift.withProject("${namespace}-${destination}") {
+              def dc = openshift.selector('dc', "${appName}${appSuffix}")
+              // Wait for the deployment to complete.
+              // This will wait until the desired replicas are all available
+              dc.rollout().status()
+          }
+
+          echo "Deployment Complete."
+        }
+      }
+    }
+  }
+}

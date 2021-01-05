@@ -51,7 +51,7 @@ The `.gitattributes` file for the project has been updated, but if your local co
 /bin/sh: 1: /usr/libexec/s2i/assemble-runtime: not found
 error: Execution of post execute step failed
 Build failed
-ERROR: An error occurred: non-zero (13) exit code from angular-builder
+ERROR: An error occurred: non-zero (13) exit code from web-artifacts-build
 ```
 
 In this example search your working copy for all instances of `assemble-runtime`.
