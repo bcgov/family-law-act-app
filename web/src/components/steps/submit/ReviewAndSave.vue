@@ -112,7 +112,7 @@
         mounted(){
             let location = this.$store.getters["application/getApplicationLocation"]
             if(!location) location = this.$store.getters["common/getUserLocation"]
-            console.log(location)
+            //console.log(location)
 
             if(location == 'Victoria'){
                 this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
@@ -133,7 +133,7 @@
         }
 
          public onDownload() {
-            console.log("downloading")
+            //console.log("downloading")
             const currentDate = moment().format();
             this.$store.dispatch("application/setLastPrinted", currentDate); 
             const application = this.$store.getters["application/getApplication"];
@@ -153,7 +153,7 @@
                 "Content-Type": "application/json",
                 }
             }
-            console.log(body)
+            //console.log(body)
             this.$http.post(url,body, options)
             .then(res => {
                 const blob = res.data;

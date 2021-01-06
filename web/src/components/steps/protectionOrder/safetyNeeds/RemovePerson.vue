@@ -29,7 +29,7 @@ export default {
         "application/getProtectedPartyName"
       ];
       
-      console.log(protectedPartyNameObject)
+      //console.log(protectedPartyNameObject)
 
       if (protectedPartyNameObject) {
         let protectedPartyName =

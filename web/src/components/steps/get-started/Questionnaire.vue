@@ -57,10 +57,10 @@ export default {
       }
 
       if (options.name === "familyUnsafe" || options.name === "unsafe") {
-        console.warn(options.value)
+        //console.warn(options.value)
         this.determinePeaceBondAndBlock();
       }
-      console.log(survey.data)
+      //console.log(survey.data)
       //console.log(options.name)
 
     });
