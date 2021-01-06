@@ -31,7 +31,7 @@ export default {
       if(child.childName)
         children+='<li>'+ this.getFullName(child.childName) +'</li>'
     }
-console.log(children)
+//console.log(children)
     survey.setVariable("protectedChildName",children)
     //survey.setValue("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
     //survey.setJsonObject({'protected':'ok'})

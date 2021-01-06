@@ -32,8 +32,8 @@ export default {
     surveyEnv.setGlossaryMarkdown(survey);
 
     survey.onValueChanged.add((sender, options) => {
-      console.log(survey.data)
-      console.log(options.name)
+      //console.log(survey.data)
+      //console.log(options.name)
       if (options.name === "ApplicantNeedsProtection") {
         if (options.value === "y") {
           this.$store.dispatch("application/setPageActive", {
@@ -111,7 +111,7 @@ export default {
     }else{
       this.$store.dispatch("application/setProtectedPartyName", this.$store.getters["application/getApplicantName"]);
     }
-    console.log(this.survey.data)
+    //console.log(this.survey.data)
     if(this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) 
       this.$store.dispatch("application/setProtectedChildName",this.survey.data.allchildren);
     else 
