@@ -25,9 +25,10 @@ if createOperation; then
   readParameter "EFILING_CLIENT_SECRET - Please provide the service client secret to use with above id.  The default is a blank string." EFILING_CLIENT_SECRET "" "false"
   readParameter "EFILING_BASE_URL - Please provide base url for efiling.  The default is a blank string." EFILING_BASE_URL "" "false"
 
+  readParameter "SITEMINDER_LOGOFF_URL - Please provide the SiteMinder Logoff URL for the application environment.  The default is a blank string." SITEMINDER_LOGOFF_URL "" "false"
 else
   # Secrets are removed from the configurations during update operations ...
-  printStatusMsg "Update operation detected ...\nSkipping the prompts for DATA_SECURITY_KEY, OIDC_RP_PROVIDER_ENDPOINT, OIDC_RP_CLIENT_SECRET, EFILING_AUTH_URL, EFILING_CLIENT_ID, EFILING_CLIENT_SECRET secrets ... \n"
+  printStatusMsg "Update operation detected ...\nSkipping the prompts for DATA_SECURITY_KEY, OIDC_RP_PROVIDER_ENDPOINT, OIDC_RP_CLIENT_SECRET, EFILING_AUTH_URL, EFILING_CLIENT_ID, EFILING_CLIENT_SECRET, and SITEMINDER_LOGOFF_URL secrets ... \n"
   writeParameter "DATA_SECURITY_KEY" "prompt_skipped" "false"
   writeParameter "OIDC_RP_PROVIDER_ENDPOINT" "prompt_skipped" "false"
   writeParameter "OIDC_RP_CLIENT_SECRET" "prompt_skipped" "false"
@@ -36,6 +37,8 @@ else
   writeParameter "EFILING_CLIENT_ID" "prompt_skipped" "false"
   writeParameter "EFILING_CLIENT_SECRET" "prompt_skipped" "false"
   writeParameter "EFILING_BASE_URL" "prompt_skipped" "false"
+
+  writeParameter "SITEMINDER_LOGOFF_URL" "prompt_skipped" "false"
 
   # Get OIDC_RP_HOST from secret
   printStatusMsg "Getting OIDC_RP_HOST for the ExternalNetwork definition from secret ...\n"

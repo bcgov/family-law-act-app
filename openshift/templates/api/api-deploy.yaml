@@ -110,6 +110,7 @@ objects:
       efiling-client-id: ${EFILING_CLIENT_ID}
       efiling-client-secret: ${EFILING_CLIENT_SECRET}
       efiling-base-url: ${EFILING_BASE_URL}
+      siteminder-logoff-url: ${SITEMINDER_LOGOFF_URL}
     type: Opaque
 
   - kind: DeploymentConfig
@@ -234,7 +235,11 @@ objects:
                     secretKeyRef:
                       name: ${NAME}
                       key: efiling-base-url
-
+                - name: SITEMINDER_LOGOFF_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}
+                      key: siteminder-logoff-url
               resources:
                 requests:
                   cpu: ${CPU_REQUEST}
@@ -356,6 +361,12 @@ parameters:
   - name: EFILING_BASE_URL
     displayName: EFILING base url
     description: EFILING base url
+    required: false
+    value:
+
+  - name: SITEMINDER_LOGOFF_URL
+    displayName: Siteminder Logoff URL
+    description: Siteminder Logoff URL
     required: false
     value:
 

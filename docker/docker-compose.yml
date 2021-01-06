@@ -72,6 +72,7 @@ services:
       - EFILING_BASE_URL=${EFILING_BASE_URL}
       - FRONT_END=${FRONT_END}
       - DATA_SECURITY_KEY=${DATA_SECURITY_KEY}
+      - SITEMINDER_LOGOFF_URL=${SITEMINDER_LOGOFF_URL}
     volumes:
       - ../api/api:/opt/app-root/src/api
     networks:
