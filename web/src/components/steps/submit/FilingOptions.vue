@@ -36,7 +36,7 @@
             this.initializeSurvey();
             this.addSurveyListener();
             this.reloadPageInformation()
-            console.log(this.step)
+            //console.log(this.step)
         }
 
         public initializeSurvey(){
@@ -48,7 +48,7 @@
         }
 
         public reloadPageInformation() {
-            console.log(this.step.result)
+            //console.log(this.step.result)
             if (this.step.result["filingOptions"]){
                 this.survey.data = this.step.result["filingOptions"];
             }
@@ -56,7 +56,7 @@
 
         public addSurveyListener(){
             this.survey.onValueChanged.add((sender, options) => {
-                console.log(this.survey.data);
+                //console.log(this.survey.data);
                 // console.log(options)
                 if(this.survey.data.selectedFilingType == 'byemail'){
                     this.togglePages([0,2,3], true);

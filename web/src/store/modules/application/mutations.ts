@@ -311,7 +311,7 @@ export const mutations: MutationTree<ApplicationState> = {
 
     state.steps.push(s);
 
-    console.log(state)
+    //console.log(state)
     //Submit STOP
     
   },
@@ -341,6 +341,7 @@ export const mutations: MutationTree<ApplicationState> = {
     if (prevPage != state.steps[prevStep].currentPage) {
       state.steps[prevStep].currentPage = prevPage;
     }
+    window.scrollTo(0, 0);
   },
   gotoNextStepPage(state, { nextStep, nextPage }) {
     if (nextStep != state.currentStep) {
@@ -350,6 +351,7 @@ export const mutations: MutationTree<ApplicationState> = {
     if (nextPage != state.steps[nextStep].currentPage) {
       state.steps[nextStep].currentPage = nextPage;
     }
+    window.scrollTo(0, 0);
   },  
   setPageActive(state, { currentStep, currentPage, active }) {
     state.steps[currentStep].pages[currentPage].active = active;
