@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col-md-12">
         <h1>Other Party Information</h1>
-        <p>Please add the details of the other party in the fields below. If you need to add another party, click the 'Add Other Party' button. If you are done entering all the parties, click the 'Next' button.</p>
-        <p>
+        <p>Please add the details of the other party in the fields below. </p>
+        <!-- <p>
           <b><u>Who do I name as the other party?</u></b>
           <ul>
             <li>If your application is about a child, the other party must include each of their parents and guardians</li>
@@ -13,7 +13,7 @@
             <li>If another adult is the subject of your application, such as a step-parent, grandparent or other important person in a child's life, this person is the other party</li>
             <li>If there is already an existing case, you cannot add more parties, the other party is the person or persons that are already involved in that case</li>
             </ul>
-        </p>
+        </p> -->
         <div class="outerSection" v-if="showTable">
           <div class="innerSection">
             <table class="table table-hover">
