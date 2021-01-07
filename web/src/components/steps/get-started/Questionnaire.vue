@@ -26,9 +26,11 @@ export default {
     surveyEnv.setGlossaryMarkdown(survey);
 
     survey.onValueChanged.add((sender, options) => {
+      console.log(options)
       let pagesArr = [];
       if (options.name === "orderType") {        
         this.removePages();
+        console.log('__removed')
         let selectedOrder = options.value;
         this.$store.dispatch("application/updateStepResultData", {
           step: this.step,
@@ -48,6 +50,7 @@ export default {
         this.determinePeaceBondAndBlock();
       }
       if (options.name === "PORConfirmed") {
+        console.log(survey.data)
         pagesArr = [0, 1, 2, 4, 5, 6, 8];
         if (options.value.length !== 0) {
           this.togglePages(pagesArr, true);
@@ -60,7 +63,7 @@ export default {
         //console.warn(options.value)
         this.determinePeaceBondAndBlock();
       }
-      //console.log(survey.data)
+      console.log(survey.data)
       //console.log(options.name)
 
     });
@@ -144,7 +147,7 @@ export default {
         this.togglePages(pagesArr, false);
       }else{
         this.disableNextButton = false;
-        if (this.survey.data.PORConfirmed) {
+        if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
           this.togglePages(pagesArr, true);
         }       
       }

@@ -7,13 +7,14 @@
        {
         "type": "personname",
         "name": "OtherPartyName",
-        "title": "Insert name of the other Party",
+        "title": "What is the full name of the other party?",
+        "description":"Copy the name of the other party from the application or other document filed in your existing case.",
         "isRequired": true
        },
        {
         "type": "yesno",
         "name": "doYouKnowDOB",
-        "title": "Do you know {OtherPartyName} exact date of birth?",
+        "title": "Do you know {OtherPartyName}'s exact date of birth?",
         "isRequired": true
        },
        {
@@ -23,19 +24,7 @@
         "title": "Date of Birth",
         "inputType": "date",
         "isRequired": true
-       },
-       {
-        "type": "text",
-        "name": "relationWithOtherParty",
-        "title": "What is your relationship to {OtherPartyName}?",
-        "isRequired": true
-       },
-       {
-        "type": "yesno",
-        "name": "isMarriedWithOtherParty",
-        "title": "Are you (or have you been) spouses or live (lived) in a marriage-like relationship with {OtherPartyName}?",
-        "isRequired": true
-       },
+       },       
        {
         "type": "panel",
         "name": "otherDetailsPanel",
