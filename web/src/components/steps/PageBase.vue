@@ -59,7 +59,7 @@ export default {
       if (this.$listeners && this.$listeners.onComplete) {  
         this.$emit('onComplete');
       } else {
-        console.log("PageBase.onComplete default action.");
+        //console.log("PageBase.onComplete default action.");
         this.$store.dispatch("application/setAllCompleted", true);
       }
     },
@@ -92,7 +92,7 @@ export default {
         }
       )
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.error = "";
       })
       .catch(err => {

@@ -175,7 +175,7 @@ export default {
       return result;
     },    
     onDownload: function() {
-      console.log("downloading")
+      //console.log("downloading")
       const currentDate = moment().format();
       this.$store.dispatch("application/setLastPrinted", currentDate); 
       const application = this.$store.getters["application/getApplication"];
@@ -236,13 +236,13 @@ export default {
           }
         )
         .then(res => {
-          console.log(res)
+          //console.log(res)
           this.submissionId = res.submissionId;
           this.generateUrl();
 
         })
         .catch(err => {
-          console.error(err);
+          //console.error(err);
           this.error = "Sorry, we were unable to submit your form at this time, please try again later.";        
         });
     },

@@ -94,8 +94,8 @@ export default {
     }
   },
   beforeDestroy() {
-    console.log(this.step)
-    console.log(this.survey.data)
+    //console.log(this.step)
+    //console.log(this.survey.data)
     this.$store.dispatch("application/setApplicationLocation", this.survey.data.ServiceLocation);
   }
 };
