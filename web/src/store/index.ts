@@ -1,8 +1,24 @@
 import { RootState } from "@/models/storeState";
 import { application } from "@/store/modules/application/application";
 import { common } from "@/store/modules/common/common";
+import CommonInformation from '@/store/modules/commonInformation'
+import ApplicationInformation from '@/store/modules/applicationInformation'
 import Vue from "vue";
 import Vuex, { Store, StoreOptions } from "vuex";
+Vue.use(Vuex)
+
+// const store = new Vuex.Store({
+// 	modules: {
+// 		CommonInformation,
+// 		ApplicationInformation
+// 	}
+// })
+
+// export default store
+
+
+
+
 
 class GlobalStore extends Store<RootState> {
   private static instance: Store<RootState>;
