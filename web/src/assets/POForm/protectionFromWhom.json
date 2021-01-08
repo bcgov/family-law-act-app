@@ -189,7 +189,7 @@
                "type": "personname",
                "name": "anotherAdultSharingResiName",
                "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-               "title": "What is the name of adult sharing the residence with you?",
+               "title": "What is the name of the adult sharing the residence with you?",
                "defaultSubstitution": "{anotherAdultSharingResiName}",
                "isRequired": true
                },
@@ -205,7 +205,7 @@
                "type": "text",
                "name": "anotherAdultSharingResiRelation",
                "visibleIf": "({panel.anotherAdultSharingResiName} notempty) and (({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\"))",
-               "title": "What is {panel.anotherAdultSharingResiName} relationship to the protected person(s)?",
+               "title": "What is {panel.anotherAdultSharingResiName}'s relationship to the protected person(s)?",
                "isRequired": true
                }
             ],

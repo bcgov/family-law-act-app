@@ -225,7 +225,7 @@
          {
           "type": "yesno",
           "name": "riskOfViolencePO",
-          "title": "Are there circumstances that may increase the risk of family violence",
+          "title": "Are there circumstances that may increase the risk of family violence?",
           "description": "There are certain circumstances that may make a person or relationship more at-risk for family violence.<br/><p style='text-align: justify;'>The circumstances may contribute to family violence but might not be the cause of the family violence. To better understand the circumstances that may contribute to family violence in this case, indicate if you believe there are circumstances that may increase the risk of family violence in the relationship such as: substance abuse, employment or financial difficulties, relationship status, criminal history, pregnancy, threats to you/another person/child/animal, stalking, forced sex, controlling behaviour, release from prison, strangling/choking/biting, threats or attempts to commit suicide, cultural religious beliefs or any other circumstances.</p>",
           "isRequired": true
          },
