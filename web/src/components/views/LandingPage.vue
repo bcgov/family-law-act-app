@@ -54,6 +54,18 @@
               </div>
             </div>
 
+            <div class="info-section mt-3" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
+              <div class="row justify-content-center text-warning">
+                <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
+              </div>
+              <div style="font-size: 18px;" class="mx-3 mb-1">If you think someone is monitoring your devices 
+                and you are concerned about your safety, visit this website from a computer, tablet, or 
+                smartphone that isn't monitored. Exit from this website and delete it from your browser 
+                history. For more information about creating a safety plan for using the internet and email,
+                 <a class="text-info" @click="safetyInst = true;">click here</a>.
+              </div>
+            </div>
+
             <div v-if="!isLoggedIn">
               <div class="row justify-content-center">
                   <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
@@ -82,6 +94,58 @@
         </div>
       </div>
     </b-container>
+
+    <b-modal size="xl" v-model="safetyInst" header-class="bg-white">
+      <template v-slot:modal-title>
+          <h1 class="mb-0 text-primary">Safety Plan Instructions</h1> 
+      </template>
+      <div class="m-3">
+      <p>If you are in immediate danger, please call 911 immediately.</p>
+      <p>A "safety plan" is a term used to describe a plan of actions that can help protect you.</p>
+      <p>Creating a safety plan for using the internet and email is important. <b>A computer can be 
+        monitored and there are ways for other people to find out what sites you have visited on the internet and to access your email.</b>
+      </p>
+      <p>Here are some safety tips for using the internet or email:</p>
+      <ul>
+        <li><b>Use a safer computer/device.</b> If you think someone is monitoring your online activity, try using a 
+        computer, tablet or device they don't have access to, for example a computer, tablet or device of a trusted 
+        friend, at work, a library, school or an internet café.
+        </li>
+        <li><b>Change passwords and usernames and/or set up new accounts.</b> Consider creating brand new accounts, 
+        such as a new email address. Also consider using a non-identifying username and unique passwords that can't
+         easily be guessed.
+        </li>
+        <li><b>Clear internet browsing history.</b> Clearing your browsing history or using in-browser privacy settings,
+         for example "private browsing" or "incognito mode" when you are accessing the internet may help to increase your safety.
+        </li>
+
+      </ul>
+      <p>
+      <a href="https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190" target="_blank">VictimLinkBC</a>  can help
+      you with a personal safety plan, including safer ways to use technology.
+      </p>
+      <p>
+      <a href="https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190" target="_blank">VictimLinkBC</a> 
+      is a confidential, multilingual telephone service available 
+      24 hours a day, 7 days a week. Victim service workers can provide crisis support, information and referrals to supports 
+      including safety planning, victim services, transition
+       houses and counselling services. Even with a protection order in place, it is a good idea to have a personal safety plan.
+      </p>
+      <p>
+      Call: 1-800-563-0808 | TTY: 604-875-0885 | Text: 604-863-6381 | Email: <a href='mailto:VictimLinkBC@bc211.ca'>VictimLinkBC@bc211.ca</a>
+      </p>
+      </div>           
+      <template v-slot:modal-footer>
+          <b-button variant="primary" @click="safetyInst=false">Close</b-button>
+      </template>            
+      <template v-slot:modal-header-close>                 
+          <b-button variant="outline-dark" class="closeButton" @click="safetyInst=false">&times;</b-button>
+      </template>
+    </b-modal>
+    
+
+
+
   </div>
 </template>
 
@@ -92,6 +156,7 @@ export default {
   name: "LandingPage",
   async mounted() {
     this.pageReady = false;
+    this.safetyInst = false;
     await SessionManager.getUserInfo(this.$store);
     if(this.$store.getters["common/getUserId"] !== ""){
       this.isLoggedIn = true
@@ -104,7 +169,8 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      pageReady: false
+      pageReady: false,
+      safetyInst: false
     };
   },
   // computed: {
