@@ -1,103 +1,109 @@
 <template>
-  <b-container class="container home-content" id="service-locator">
-    <survey v-bind:survey="survey"></survey>
-    <b-button
-      @click="onSubmit"
-      variant="primary"
-      class="locator-button"
-      >Next
-    </b-button>
-  </b-container>
+    <b-container class="container home-content" id="service-locator">
+        <survey v-bind:survey="survey"></survey>
+        <b-button
+            @click="onSubmit"
+            variant="primary"
+            class="locator-button"
+            >Next
+        </b-button>
+    </b-container>
 </template>
 
-<script>
-import GlobalStore from "@/store";
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import store from "@/store";
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey-glossary.ts";
 import surveyJson from "@/assets/service-locator.json";
 
-const store = GlobalStore.getInstance();
+@Component
+export default class ServiceLocator extends Vue {
 
-export default {
-  name: "ServiceLocator",
-  data() {
-    
-    var survey = new SurveyVue.Model(surveyJson);
-    survey.showNavigationButtons = false;
-    surveyEnv.setGlossaryMarkdown(survey);
+    error = "";
+    applicationId = 0;
+    survey = new SurveyVue.Model(surveyJson);
 
-    return {
-      survey: survey
-    };
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);    
-  },
-  methods: {
-    onSubmit(evt) {
-      evt.preventDefault();      
-
-      if(!this.survey.isCurrentPageHasErrors) 
-      {
-        if (this.survey.data.isVictoriaLawCourt == 'y') 
-        {
-          this.saveUserLocation()
-        } else {
-          location.replace(
-            "https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/"
-          );
-        }
-      }
-    },
-    saveUserLocation(){
-      this.$http.put("/user-info/", {location:this.survey.data.ServiceLocation},
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
-      ).then(() => {        
-        this.error = "";
-        this.saveApplication()
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;
-      });
-    },
-    saveApplication(){
-      this.$store.dispatch("application/init");
-      const userType = store.getters["application/getUserType"];      
-      store.dispatch("application/setUserType", userType);
-      const application = store.getters["application/getApplication"];
-      this.$http.post(
-        "/app/", application,
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
-      )
-      .then(res => {
-        this.applicationId = res.data.app_id;  
-        store.dispatch("application/setApplicationId", this.applicationId);
-        this.error = "";
-        this.$router.push({name: "flapp-surveys" }) 
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;
-      });
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);    
     }
-  },
-  beforeDestroy() {
-    //console.log(this.step)
-    //console.log(this.survey.data)
-    this.$store.dispatch("application/setApplicationLocation", this.survey.data.ServiceLocation);
-  }
+
+    mounted(){
+        this.initializeSurvey();
+    }
+
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);
+        //this.survey.commentPrefix = "Comment";
+        //this.survey.showQuestionNumbers = "off";
+        this.survey.showNavigationButtons = false;
+        surveyEnv.setGlossaryMarkdown(this.survey);
+    }
+  
+    public onSubmit(evt) {
+        evt.preventDefault();      
+
+        if(!this.survey.isCurrentPageHasErrors) 
+        {
+            if (this.survey.data.isVictoriaLawCourt == 'y') 
+            {
+                this.saveUserLocation()
+            } else {
+                location.replace("https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/");
+            }
+        }
+    }
+
+    public saveUserLocation(){
+        const url = "/user-info/"
+        const header = {
+            responseType: "json",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+        this.$http.put(url, {location:this.survey.data.ServiceLocation}, header)            
+        .then(() => {        
+            this.error = "";
+            this.saveApplication()
+        }, err => {
+            console.error(err);
+            this.error = err;
+        });
+    }
+
+    public saveApplication(){
+
+        this.$store.commit("Application/init");
+        const userType = store.state.Application.userType;      
+        store.commit("Application/setUserType", userType);
+        const application = store.state.Application;
+        console.log(store.state.Application)
+        const url = "/app/"
+        const header = {
+            responseType: "json",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+        this.$http.post(url, application, header)
+        .then(res => {
+            this.applicationId = res.data.app_id;  
+            store.commit("Application/setApplicationId", this.applicationId);
+            this.error = "";
+            this.$router.push({name: "flapp-surveys" }) 
+        }, err => {
+            console.error(err);
+            this.error = err;
+        });
+    }
+
+    beforeDestroy() {
+        //console.log(this.step)
+        //console.log(this.survey.data)
+        this.$store.commit("Application/setApplicationLocation", this.survey.data.ServiceLocation);
+    }
 };
 </script>
 

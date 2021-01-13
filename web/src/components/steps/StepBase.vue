@@ -1,11 +1,11 @@
 <template>
-  <div class="app-main" id="step-base">
-    <b-container>
-      <slot>
-        <page-base></page-base>
-      </slot>
-    </b-container>
-  </div>
+    <div class="app-main" id="step-base">
+        <b-container>
+            <slot>
+                <page-base></page-base>
+            </slot>
+        </b-container>
+    </div>
 </template>
 
 <script>

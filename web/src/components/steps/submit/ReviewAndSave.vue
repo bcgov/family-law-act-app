@@ -91,6 +91,11 @@
     import GetHelpScanning from "./HelpPages/GetHelpScanning.vue"
     import moment from 'moment-timezone';
 
+    import { namespace } from "vuex-class";   
+    import "@/store/modules/application";
+    const applicationState = namespace("Application");
+
+
     @Component({
         components:{
             PageBase,
@@ -104,14 +109,21 @@
         @Prop({required: true})
         step!: Step;
 
+        @applicationState.Action
+        public UpdateGotoPrevStepPage!: () => void
+
+        @applicationState.Action
+        public UpdateGotoNextStepPage!: () => void
+
+
         error = ""
         showGetHelpForPDF = false;
         showGetHelpScanning = false;
         applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
 
         mounted(){
-            let location = this.$store.getters["application/getApplicationLocation"]
-            if(!location) location = this.$store.getters["common/getUserLocation"]
+            let location = this.$store.state.Application.applicationLocation
+            if(!location) location = this.$store.state.Common.userLocation
             //console.log(location)
 
             if(location == 'Victoria'){
@@ -125,18 +137,20 @@
         
         
         public onPrev() {
-            this.$store.dispatch("application/gotoPrevStepPage");
+            //this.$store.dispatch("application/gotoPrevStepPage");
+            this.UpdateGotoPrevStepPage()
         }
 
         public onNext() {            
-            this.$store.dispatch("application/gotoNextStepPage");
+            //this.$store.dispatch("application/gotoNextStepPage");
+            this.UpdateGotoNextStepPage()
         }
 
          public onDownload() {
             //console.log("downloading")
             const currentDate = moment().format();
-            this.$store.dispatch("application/setLastPrinted", currentDate); 
-            const application = this.$store.getters["application/getApplication"];
+            this.$store.commit("Application/setLastPrinted", currentDate); 
+            const application = this.$store.state.Application;
             
             const applicationId = application.id;
 
@@ -144,7 +158,7 @@
         }
 
         public loadPdf() {
-            const applicationId = this.$store.getters["application/getApplicationId"];
+            const applicationId = this.$store.state.Application.id;
             const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
             const body = this.getFPOResultData()
             const options = {
@@ -172,15 +186,15 @@
         }
 
         public getFPOResultData() {      
-            var result = this.$store.getters["application/getNavigation"][0].result; 
+            var result = this.$store.state.Application.steps[0].result; 
             for(var i=1;i<9; i++)
-                Object.assign(result, result, this.$store.getters["application/getNavigation"][i].result); 
+                Object.assign(result, result, this.$store.state.Application.steps[i].result); 
             
-            var protectedPartyName = {protectedPartyName: this.$store.getters["application/getProtectedPartyName"]}
+            var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
             Object.assign(result, result, protectedPartyName);
             
-            var applicationLocation = this.$store.getters["application/getApplicationLocation"]
-            var userLocation = this.$store.getters["common/getUserLocation"]
+            var applicationLocation = this.$store.state.Application.applicationLocation
+            var userLocation = this.$store.state.Common.userLocation
             //console.log(applicationLocation)
             //console.log(userLocation)
             if(applicationLocation)

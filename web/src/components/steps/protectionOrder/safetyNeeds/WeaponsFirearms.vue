@@ -1,98 +1,125 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <survey v-bind:survey="survey"></survey>
-  </page-base>
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <survey v-bind:survey="survey"></survey>
+    </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey-glossary.ts"
 import surveyJson from "@/assets/POForm/safetyNeeds/weaponsFirearms.json";
 import PageBase from "../../PageBase.vue";
 import { Step } from "@/models/step";
 
-export default {
-  name: "weapons-firearms",
-  components: {
-    PageBase
-  },
-  data() {
-    var survey = new SurveyVue.Model(surveyJson);
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
-    survey.commentPrefix = "Comment";
-    survey.showQuestionNumbers = "off";
-    survey.showNavigationButtons = false;
-
-    let applicantNameObject = this.$store.getters[
-      "application/getApplicantName"
-    ];
-    if (applicantNameObject) {
-      let applicantName =
-        applicantNameObject.first +
-        " " +
-        applicantNameObject.middle +
-        " " +
-        applicantNameObject.last;
-      survey.setVariable("ApplicantName", applicantName);
+@Component({
+    components:{
+        PageBase
     }
+})
 
-    let respondentNameObject = this.$store.getters[
-      "application/getRespondentName"
-    ];
-    if (respondentNameObject) {
-      let respondentName =
-        respondentNameObject.first +
-        " " +
-        respondentNameObject.middle +
-        " " +
-        respondentNameObject.last;
-      survey.setVariable("RespondentName", respondentName);
-    }
-
-    surveyEnv.setGlossaryMarkdown(survey);
+export default class WeaponsFirearms extends Vue {
     
-    return {
-      survey: survey
-    };
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);
-  },
-  created() {
-    if (this.step.result.weaponsSurvey){
-      this.survey.data = this.step.result.weaponsSurvey;
-    }  
-  },
-  methods: {
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
+    @Prop({required: true})
+    step!: Step;
 
-    onNext() {
-      if(!this.survey.isCurrentPageHasErrors) {
-        this.$store.dispatch("application/gotoNextStepPage");
-      }
-    },
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
 
-    onComplete() {
-      this.$store.dispatch("application/setAllCompleted", true);
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
+
+
+    survey = new SurveyVue.Model(surveyJson);
+
+    // watch: {
+    // pageIndex: function(newVal) {
+    //   this.survey.currentPageNo = newVal;
+    // }
+    @Watch('pageIndex')
+    pageIndexChange(newVal) 
+    {
+        this.survey.currentPageNo = newVal;        
     }
-  },
-  props: {
-    step: Step | Object,
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);
     }
-  },
-  beforeDestroy() {
-     this.$store.dispatch("application/updateStepResultData",{
-      step: this.step,
-      data:{weaponsSurvey: this.survey.data}
-    })
-  }
+
+    mounted(){
+        this.initializeSurvey();
+        this.reloadPageInformation();
+    }
+
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);
+        this.survey.commentPrefix = "Comment";
+        this.survey.showQuestionNumbers = "off";
+        this.survey.showNavigationButtons = false;
+        surveyEnv.setGlossaryMarkdown(this.survey);
+    }
+
+
+    public reloadPageInformation() {
+
+        if (this.step.result['weaponsSurvey']){
+            this.survey.data = this.step.result['weaponsSurvey'];
+        } 
+
+        const applicantNameObject = this.$store.state.Application.applicantName;
+        
+        if (applicantNameObject) {
+            const applicantName =
+                applicantNameObject.first +
+                " " +
+                applicantNameObject.middle +
+                " " +
+                applicantNameObject.last;
+            this.survey.setVariable("ApplicantName", applicantName);
+        }
+
+        const respondentNameObject = this.$store.state.Application.respondentName;
+        
+        if (respondentNameObject) {
+            const respondentName =
+                respondentNameObject.first +
+                " " +
+                respondentNameObject.middle +
+                " " +
+                respondentNameObject.last;
+            this.survey.setVariable("RespondentName", respondentName);
+        }
+
+    }
+  
+    
+    public onPrev() {
+        //this.$store.dispatch("application/gotoPrevStepPage");
+        this.UpdateGotoPrevStepPage()
+    }
+
+    public onNext() {
+        if(!this.survey.isCurrentPageHasErrors) {
+            //this.$store.dispatch("application/gotoNextStepPage");
+            this.UpdateGotoNextStepPage()
+        }
+    }
+
+    public onComplete() {
+        this.$store.commit("Application/setAllCompleted", true);
+    }
+
+    beforeDestroy() {
+        this.$store.commit("Application/updateStepResultData",{
+            step: this.step,
+            data:{weaponsSurvey: this.survey.data}
+        })
+    }
 };
 </script>
 

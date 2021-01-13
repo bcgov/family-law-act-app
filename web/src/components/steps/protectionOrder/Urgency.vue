@@ -1,96 +1,121 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <survey v-bind:survey="survey"></survey>
-  </page-base>
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <survey v-bind:survey="survey"></survey>
+    </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey-glossary.ts";
 import surveyJson from "@/assets/POForm/urgency.json";
 import PageBase from "../PageBase.vue";
 import { Step } from "../../../models/step";
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
-export default {
-  name: "urgency",
-  components: {
-    PageBase
-  },
-  data() {
-    var survey = new SurveyVue.Model(surveyJson);
+@Component({
+    components:{
+        PageBase
+    }
+})
 
-    survey.commentPrefix = "Comment";
-    survey.showQuestionNumbers = "off";
-    survey.showNavigationButtons = false;
+export default class Urgency extends Vue {
+    
+    @Prop({required: true})
+    step!: Step;
 
-    let otherParties = this.$store.getters["application/getOtherParties"];
-    if (otherParties) {
-      let respondentName =
-        otherParties[0].name.first +
-        " " +
-        otherParties[0].name.middle +
-        " " +
-        otherParties[0].name.last;
-      survey.setVariable("RespondentName", respondentName);
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
+
+
+    survey = new SurveyVue.Model(surveyJson);
+
+    // watch: {
+    // pageIndex: function(newVal) {
+    //   this.survey.currentPageNo = newVal;
+    // }
+    @Watch('pageIndex')
+    pageIndexChange(newVal) 
+    {
+        this.survey.currentPageNo = newVal;        
     }
 
-    let applicantNameObject = this.$store.getters[
-      "application/getApplicantName"
-    ];
-    if (applicantNameObject) {
-      let applicantName =
-        applicantNameObject.first +
-        " " +
-        applicantNameObject.middle +
-        " " +
-        applicantNameObject.last;
-      survey.setVariable("ApplicantName", applicantName);
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);
     }
 
-    surveyEnv.setGlossaryMarkdown(survey);
-
-    return {
-      survey: survey
-    };
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);
-  },
-  created() {
-    if (this.step.result.urgencySurvey) {
-      this.survey.data = this.step.result.urgencySurvey;
+    mounted(){
+        this.initializeSurvey();
+        this.reloadPageInformation();
     }
-  },
-  methods: {
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
 
-    onNext() {
-      if(!this.survey.isCurrentPageHasErrors) {
-        this.$store.dispatch("application/gotoNextStepPage");
-      }
-    },
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);
+        this.survey.commentPrefix = "Comment";
+        this.survey.showQuestionNumbers = "off";
+        this.survey.showNavigationButtons = false;
+        surveyEnv.setGlossaryMarkdown(this.survey);
+    }
 
-    onComplete() {
-      this.$store.dispatch("application/setAllCompleted", true);
+
+    public reloadPageInformation() {
+
+        if (this.step.result['urgencySurvey']) {
+            this.survey.data = this.step.result['urgencySurvey'];
+        }
+
+        const otherParties = this.$store.state.Application.otherParties;
+        if (otherParties) {
+            const respondentName =
+                otherParties[0].name.first +
+                " " +
+                otherParties[0].name.middle +
+                " " +
+                otherParties[0].name.last;
+            this.survey.setVariable("RespondentName", respondentName);
+        }
+
+        const applicantNameObject = this.$store.state.Application.applicantName
+        
+        if (applicantNameObject) {
+            const applicantName =
+                applicantNameObject.first +
+                " " +
+                applicantNameObject.middle +
+                " " +
+                applicantNameObject.last;
+            this.survey.setVariable("ApplicantName", applicantName);
+        }
     }
-  },
-  props: {
-    step: Step | Object
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+
+    public onPrev() {
+        //this.$store.dispatch("application/gotoPrevStepPage");
+        this.UpdateGotoPrevStepPage()
     }
-  },
-  beforeDestroy() {
-    this.$store.dispatch("application/updateStepResultData", {
-      step: this.step,
-      data: { urgencySurvey: this.survey.data }
-    });
-  }
+
+    public onNext() {
+        if(!this.survey.isCurrentPageHasErrors) {
+            //this.$store.dispatch("application/gotoNextStepPage");
+            this.UpdateGotoNextStepPage()
+        }
+    }
+
+    public onComplete() {
+        this.$store.commit("Application/setAllCompleted", true);
+    }
+  
+    beforeDestroy() {
+        this.$store.commit("Application/updateStepResultData", {
+            step: this.step,
+            data: { urgencySurvey: this.survey.data }
+        });
+    }
 };
 </script>
 

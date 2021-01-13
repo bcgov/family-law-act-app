@@ -26,13 +26,13 @@
                     <b-button size="sm" variant="transparent" class="my-0 py-0"
                               @click="removeApplication(row.item, row.index)"
                               v-b-tooltip.hover
-					                    title="Remove Application">
+                                        title="Remove Application">
                               <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                     </b-button>
                     <b-button size="sm" variant="transparent" class="my-0 py-0"
                               @click="resumeApplication(row.item.id)"
                               v-b-tooltip.hover
-					                    title="Resume Application">
+                                        title="Resume Application">
                               <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                     </b-button>
                   </template>
@@ -75,16 +75,16 @@
     </b-container>
 
     <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" header-class="bg-warning text-light">
-			<b-row v-if="deleteError" id="DeleteError" class="h4 mx-2">
-				<b-badge class="mx-1 mt-2"
-					style="width: 20rem;"
-					v-b-tooltip.hover
-					:title="deleteErrorMsgDesc"
-					variant="danger"> {{deleteErrorMsg}}
-					<b-icon class="ml-3"
-						icon = x-square-fill
-						@click="deleteError = false"
-				/></b-badge>                    
+            <b-row v-if="deleteError" id="DeleteError" class="h4 mx-2">
+                <b-badge class="mx-1 mt-2"
+                    style="width: 20rem;"
+                    v-b-tooltip.hover
+                    :title="deleteErrorMsgDesc"
+                    variant="danger"> {{deleteErrorMsg}}
+                    <b-icon class="ml-3"
+                        icon = x-square-fill
+                        @click="deleteError = false"
+                /></b-badge>                    
       </b-row>            
       <template v-slot:modal-title>
           <h2 v-if="allowDeletion" class="mb-0 text-light">Confirm Delete Application</h2>
@@ -105,178 +105,173 @@
   </div>
 </template>
 
-<script>
-import * as SurveyVue from "survey-vue";
-import moment from 'moment-timezone';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import * as SurveyVue from "survey-vue";  
 import * as surveyEnv from "@/components/survey-glossary.ts";
-import GlobalStore from "@/store";
-const store = GlobalStore.getInstance();
+import store from "@/store";
+import moment from 'moment-timezone';
+import {applicationInfoType} from "@/types/Application"
 
-export default {
-  name: "application-status",
-  data() {
-    return {
-      previousApplications: [],
-      previousApplicationFields: [
-          { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
-          { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
-          { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
-      ],
-      confirmDelete: false,
-      currentApplication: {},
-      applicationToDelete: {},
-      indexToDelete: -1, 
-      applicationId: '',
-      error: '',
-      deleteErrorMsg: '',
-      deleteErrorMsgDesc: '',
-      deleteError: false,
-      allowDeletion: true
-    };
-  },
-  mounted() {
-    this.loadApplications();
-  },
-  methods: {
-    openTerms() {
-      this.$router.push({name: "terms"})
-    },
-    loadApplications () {
-      //TODO: when extending to use throughout the province, the timezone should be changed accordingly
-      this.$http.get('/app-list/')
-      .then((response) => {
-        for (const appJson of response.data) {
-          const app = {};
-          app.lastUpdated =appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
-          app.lastUpdatedDate =appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';
-          app.id = appJson.id;
-          app.app_type = appJson.app_type;
-          this.previousApplications.push(app);
-        }
-        //console.log(this.previousApplications)       
-      }).catch((err) => {
-        //TODO: determine workflow
-        //console.log(err)
-        this.error = err;        
-      });
+@Component
+export default class ApplicationStatus extends Vue {
 
-    },
-    beginApplication() {   
+    previousApplications = []
+    previousApplicationFields = [
+        { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
+        { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
+        { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
+    ]
+    confirmDelete = false;
+    currentApplication = {} as applicationInfoType;
+    applicationToDelete = {}
+    indexToDelete = -1 
+    applicationId = ''
+    error = ''
+    deleteErrorMsg = ''
+    deleteErrorMsgDesc = ''
+    deleteError = false
+    allowDeletion = true   
 
-      this.$store.dispatch("application/init");
-      const userId = store.getters["common/getUserId"];
-      store.dispatch("application/setUserId", userId);
-
-      const lastUpdated = moment().format();
-      this.$store.dispatch("application/setLastUpdated", lastUpdated);
-
-      const userType = store.getters["application/getUserType"];      
-      store.dispatch("application/setUserType", userType);
-
-      const application = store.getters["application/getApplication"];
-      
-      //console.log(application)
-      this.$http.post(
-        "/app/",
-        application,
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
-      )
-      .then(res => {
-        this.applicationId = res.data.app_id;  
-        store.dispatch("application/setApplicationId", this.applicationId);
-        this.error = "";
-        this.$router.push({name: "flapp-surveys" }) 
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;
-      });
-    },
-
-    navigate() {
-      
-    },
-
-    resumeApplication(applicationId) {      
-      
-      this.$http.get('/app/'+ applicationId + '/')
-      .then((response) => {
-        const applicationData = response.data
-
-        //console.log(applicationData)
-        
-        this.currentApplication.id = applicationId;
-        this.currentApplication.allCompleted = applicationData.allCompleted;
-        this.currentApplication.applicantName = applicationData.applicantName;
-        this.currentApplication.currentStep = applicationData.currentStep;
-        this.currentApplication.lastUpdate = applicationData.lastUpdated;
-        this.currentApplication.lastPrinted = applicationData.lastPrinted;
-        this.currentApplication.respondentName = applicationData.respondentName;
-        this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
-        this.currentApplication.protectedChildName = applicationData.protectedChildName;
-        this.currentApplication.applicationLocation = applicationData.applicationLocation;
-        
-        this.currentApplication.type = applicationData.type;
-        this.currentApplication.userId = applicationData.user;
-        this.currentApplication.userName = applicationData.userName;
-        this.currentApplication.userType = applicationData.userType;        
-        this.currentApplication.steps = applicationData.steps;
-        this.$store.dispatch("application/setCurrentApplication", this.currentApplication);
-        this.$store.dispatch("common/setExistingApplication", true);      
-
-        this.$router.push({name: "flapp-surveys" })        
-      }).catch((err) => {
-        //TODO: determine workflow
-        //console.log(err)
-        this.error = err;        
-      });
-    },    
-
-    removeApplication(application, index) {
-      this.deleteErrorMsg = '';
-      this.deleteErrorMsgDesc = '';
-      this.deleteError = false;
-      //console.log(application)
-      this.applicationToDelete = application;
-      this.indexToDelete = index;
-      this.determineIsDeletionAllowed();         
-    },
-
-    determineIsDeletionAllowed() {
-      // TODO: confirm the checks to put in place in order to determine if the application can be deleted: open modal to confirm deletion      
-      this.allowDeletion = true;
-      this.confirmDelete=true;  
-
-    },
-
-    confirmRemoveApplication() {
-      this.$http.delete('/app/'+ this.applicationToDelete.id + '/')
-      .then((response) => {
-        //console.log(response.data)
-        
-        var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete.id)return true});
-        if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
-        
-      }).catch((err) => {
-        const errMsg = err.response.data.error;
-				//console.log(err.response)
-        this.deleteErrorMsg = errMsg.slice(0,60) + (errMsg.length>60?' ...':'');
-        this.deleteErrorMsgDesc = errMsg;
-        this.deleteError = true;            
-      });
-      this.confirmDelete=false;  
+    mounted() {
+        this.loadApplications();
     }
 
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);
-  }
+    public openTerms() {
+    this.$router.push({name: "terms"})
+    }
+
+    public loadApplications () {
+    //TODO: when extending to use throughout the province, the timezone should be changed accordingly
+        this.$http.get('/app-list/')
+        .then((response) => {
+            for (const appJson of response.data) {
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:''};
+                app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
+                app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';
+                app.id = appJson.id;
+                app.app_type = appJson.app_type;
+                this.previousApplications.push(app);
+            }
+            //console.log(this.previousApplications)       
+        },(err) => {            
+            //console.log(err)
+            this.error = err;        
+        });
+    }
+
+    public beginApplication() {   
+
+        this.$store.commit("Application/init");
+        const userId = store.state.Common.userId;
+        store.commit("Application/setUserId", userId);
+
+        const lastUpdated = moment().format();
+        this.$store.commit("Application/setLastUpdated", lastUpdated);
+
+        const userType = store.state.Application.userType;      
+        store.commit("Application/setUserType", userType);
+
+        const application = store.state.Application;
+        
+        //console.log(application)
+        const url = "/app/";
+        const header = {
+            responseType: "json",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+
+        this.$http.post(url, application,header)
+        .then(res => {
+            this.applicationId = res.data.app_id;  
+            store.commit("Application/setApplicationId", this.applicationId);
+            this.error = "";
+            this.$router.push({name: "flapp-surveys" }) 
+        }, err => {
+            console.error(err);
+            this.error = err;
+        });
+    }
+
+        // navigate() {
+        
+        // },
+    public resumeApplication(applicationId) {      
+    
+        this.$http.get('/app/'+ applicationId + '/')
+        .then((response) => {
+            const applicationData = response.data
+
+            //console.log(applicationData)
+            
+            this.currentApplication.id = applicationId;
+            this.currentApplication.allCompleted = applicationData.allCompleted;
+            this.currentApplication.applicantName = applicationData.applicantName;
+            this.currentApplication.currentStep = applicationData.currentStep;
+            this.currentApplication.lastUpdate = applicationData.lastUpdated;
+            this.currentApplication.lastPrinted = applicationData.lastPrinted;
+            this.currentApplication.respondentName = applicationData.respondentName;
+            this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
+            this.currentApplication.protectedChildName = applicationData.protectedChildName;
+            this.currentApplication.applicationLocation = applicationData.applicationLocation;
+            
+            this.currentApplication.type = applicationData.type;
+            this.currentApplication.userId = applicationData.user;
+            this.currentApplication.userName = applicationData.userName;
+            this.currentApplication.userType = applicationData.userType;        
+            this.currentApplication.steps = applicationData.steps;
+            this.$store.commit("Application/setCurrentApplication", this.currentApplication);
+            this.$store.commit("Common/setExistingApplication", true);      
+
+            this.$router.push({name: "flapp-surveys" })        
+        }, err => {
+            //console.log(err)
+            this.error = err;        
+        });
+    }   
+
+    public removeApplication(application, index) {
+        this.deleteErrorMsg = '';
+        this.deleteErrorMsgDesc = '';
+        this.deleteError = false;
+        //console.log(application)
+        this.applicationToDelete = application;
+        this.indexToDelete = index;
+        this.determineIsDeletionAllowed();         
+    }
+
+    public determineIsDeletionAllowed() {
+        // TODO: confirm the checks to put in place in order to determine if the application can be deleted: open modal to confirm deletion      
+        this.allowDeletion = true;
+        this.confirmDelete=true;  
+
+    }
+
+    public confirmRemoveApplication() {
+        this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
+        .then((response) => {
+            //console.log(response.data)
+            
+            var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
+            if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
+            
+        },err => {
+            const errMsg = err.response.data.error;
+                    //console.log(err.response)
+            this.deleteErrorMsg = errMsg.slice(0,60) + (errMsg.length>60?' ...':'');
+            this.deleteErrorMsgDesc = errMsg;
+            this.deleteError = true;            
+        });
+        this.confirmDelete=false;  
+    }
+
+
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);
+    }
 };
 </script>
 

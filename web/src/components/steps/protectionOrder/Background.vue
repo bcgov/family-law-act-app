@@ -1,99 +1,126 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <survey v-bind:survey="survey"></survey>
-  </page-base>
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <survey v-bind:survey="survey"></survey>
+    </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey-glossary.ts"
 import surveyJson from "@/assets/POForm/background.json";
 import PageBase from "../PageBase.vue";
 import { Step } from "../../../models/step";
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
-export default {
-  name: "background",
-  components: {
-    PageBase
-  },
-  data() {
-    var survey = new SurveyVue.Model(surveyJson);
+@Component({
+    components:{
+        PageBase
+    }
+})
 
-    survey.commentPrefix = "Comment";
-    survey.showQuestionNumbers = "off";
-    survey.showNavigationButtons = false;
-
-    survey.setVariable("RespondentName", this.getFullName(this.$store.getters["application/getRespondentName"]));
-    survey.setVariable("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
+export default class Background extends Vue {
     
-    var children ="";
-    for(var child of this.$store.getters["application/getProtectedChildName"]){
-      if(child.childName)
-        children+='<li>'+ this.getFullName(child.childName) +'</li>'
-    }
-//console.log(children)
-    survey.setVariable("protectedChildName",children)
-    //survey.setValue("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
-    //survey.setJsonObject({'protected':'ok'})
-    //survey.data.setJsonObject({'protected':'ok'})
-//console.log(survey.data)
-    surveyEnv.setGlossaryMarkdown(survey);
-    
-    return {
-      survey: survey
-    };
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);
-  },
-  created() {
-    if (this.step.result.backgroundSurvey){
-      //console.log(this.step.result)
-      this.survey.data = this.step.result.backgroundSurvey;
-    }  
-  },
-  methods: {
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
+    @Prop({required: true})
+    step!: Step;
 
-    onNext() {
-      if(!this.survey.isCurrentPageHasErrors) {
-        this.$store.dispatch("application/gotoNextStepPage");
-      }
-    },
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
 
-    getFullName(nameObject){
-      if (nameObject) {
-      return nameObject.first +
-        " " +
-        nameObject.middle +
-        " " +
-        nameObject.last;
-      } else{
-        return " "
-      }
-    },
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
 
-    onComplete() {
-      this.$store.dispatch("application/setAllCompleted", true);
+
+    survey = new SurveyVue.Model(surveyJson);
+
+    // watch: {
+    // pageIndex: function(newVal) {
+    //   this.survey.currentPageNo = newVal;
+    // }
+    @Watch('pageIndex')
+    pageIndexChange(newVal) 
+    {
+        this.survey.currentPageNo = newVal;        
     }
-  },
-  props: {
-    step: Step  | Object,
-    childrenDetailsList: Array
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);
     }
-  },
-  beforeDestroy() {
-     this.$store.dispatch("application/updateStepResultData",{
-      step: this.step,
-      data:{backgroundSurvey: this.survey.data}
-    })}
+
+    mounted(){
+        this.initializeSurvey();
+        this.reloadPageInformation();
+    }
+
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);
+        this.survey.commentPrefix = "Comment";
+        this.survey.showQuestionNumbers = "off";
+        this.survey.showNavigationButtons = false;
+        surveyEnv.setGlossaryMarkdown(this.survey);
+    }
+
+
+    public reloadPageInformation() {  
+
+        if (this.step.result['backgroundSurvey']){
+            //console.log(this.step.result)
+            this.survey.data = this.step.result['backgroundSurvey'];
+        }  
+
+        this.survey.setVariable("RespondentName", this.getFullName(this.$store.state.Application.respondentName));
+        this.survey.setVariable("protectedPartyName", this.getFullName(this.$store.state.Application.protectedPartyName));
+        
+        let children ="";
+        for(const child of this.$store.state.Application.protectedChildName){
+            if(child.childName)
+                children+='<li>'+ this.getFullName(child.childName) +'</li>'
+        }
+        //console.log(children)
+        this.survey.setVariable("protectedChildName",children)
+        //survey.setValue("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
+        //survey.setJsonObject({'protected':'ok'})
+        //survey.data.setJsonObject({'protected':'ok'})
+        //console.log(survey.data)    
+    }
+
+    public onPrev() {
+        //this.$store.dispatch("application/gotoPrevStepPage");
+        this.UpdateGotoPrevStepPage()
+    }
+
+    public onNext() {
+        if(!this.survey.isCurrentPageHasErrors) {
+            //this.$store.dispatch("application/gotoNextStepPage");
+            this.UpdateGotoNextStepPage()
+        }
+    }
+
+    public onComplete() {
+        this.$store.commit("Application/setAllCompleted", true);
+    }
+
+    public getFullName(nameObject){
+        if (nameObject) {
+            return nameObject.first +
+                " " +
+                nameObject.middle +
+                " " +
+                nameObject.last;
+        } else{
+            return " "
+        }
+    }
+  
+    beforeDestroy() {
+        this.$store.commit("Application/updateStepResultData",{
+            step: this.step,
+            data:{backgroundSurvey: this.survey.data}
+        })
+    }
 }
 </script>
 

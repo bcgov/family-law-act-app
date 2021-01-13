@@ -71,55 +71,56 @@
   </header>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue} from 'vue-property-decorator';
 import { SessionManager } from "@/components/utils/utils";
-import { Component, Vue } from "vue-property-decorator";
 import moment from "moment-timezone";
 
-export default {
-  data() {
-    return {};
-  },
-  computed: {
-    userName() {
-      return this.$store.getters["application/getUserName"];
+@Component
+export default class NavigationTopbar extends Vue {
+    
+    error = "";
+
+    get userName() {
+      return this.$store.state.Application.userName;
     }
-  },
-  methods: {
-    logout: function(isQuickExit) {
-      const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
+  
 
-      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
-        const lastUpdated = moment().format();
-        this.$store.dispatch("application/setLastUpdated", lastUpdated);
-        const application = this.$store.getters["application/getApplication"];
-        const applicationId = application.id;
+    public logout(isQuickExit) {
 
-        this.$http
-          .put("/app/" + applicationId + "/", application, {
-            responseType: "json",
-            headers: {
-              "Content-Type": "application/json",
+        const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
+
+        if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
+            const lastUpdated = moment().format();
+            this.$store.commit("Application/setLastUpdated", lastUpdated);
+            const application = this.$store.state.Application;
+            const applicationId = application.id;
+
+            const header = {
+                responseType: "json",
+                headers: {
+                "Content-Type": "application/json",
+                }
             }
-          })
-          .then(res => {
-            //console.log(res.data);
-            this.error = "";
-          })
-          .catch(err => {
-            console.error(err);
-            this.error = err;
-          });
-      }
-      Vue.nextTick().then(() => {
-        if (isQuickExit){
-          window.open('http://www.google.ca');
-          SessionManager.logoutAndRedirect(this.$store, this.$http);
-        }else 
-          SessionManager.logout(this.$store);
-      });
+
+            this.$http.put("/app/" + applicationId + "/", application, header)
+            .then(res => {
+                //console.log(res.data);
+                this.error = "";
+            }, err => {
+                console.error(err);
+                this.error = err;
+            });
+        }
+        Vue.nextTick().then(() => {
+            if (isQuickExit){
+                window.open('http://www.google.ca');
+                SessionManager.logoutAndRedirect(this.$store);
+            }else 
+                SessionManager.logout(this.$store);
+        });
     }
-  }
+
 };
 </script>
 

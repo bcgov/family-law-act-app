@@ -3,13 +3,12 @@ import ServiceLocator from "@/components/views/ServiceLocator.vue";
 import ResultPage from "@/components/views/ResultPage.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
-import GlobalStore from "@/store";
 import TermsConditions from "@/components/status/TermsConditions.vue"
 import { SessionManager } from "@/components/utils/utils";
 import VueResource from 'vue-resource'
+import store from "@/store"
 
-
-const store = GlobalStore.getInstance();
+//const store = GlobalStore.getInstance();
 
 // function userGuard(to: any, from: any, next: any) {
 //   const store = GlobalStore.getInstance();

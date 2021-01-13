@@ -1,10 +1,9 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import {applicationInfoType} from '../../types/Application';
 
 @Module({
   namespaced: true
 })
-class CommonInformation extends VuexModule {
+class Common extends VuexModule {
     public existingApplication = false;
     public userId = '';
     public userLocation = '';
@@ -41,4 +40,4 @@ class CommonInformation extends VuexModule {
 
 }
 
-export default CommonInformation
+export default Common
