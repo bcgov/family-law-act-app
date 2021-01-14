@@ -6,6 +6,7 @@
 NAME=schema-spy
 APP_NAME=fla
 ROLE=schema-spy
+NAMESPACE_NAME=09e0c5
 IMAGE_NAMESPACE=09e0c5-tools
 MEMORY_LIMIT=512Mi
 APPLICATION_DOMAIN=fla-schema-dev.apps.silver.devops.gov.bc.ca
