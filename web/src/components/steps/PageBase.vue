@@ -81,15 +81,15 @@ export default class PageBase extends Vue {
     }
 
     public hasPrevStepPage() {
-        console.log("has previous")
-        console.log(this.$store.getters["Application/getPrevStepPage"])
+        //console.log("has previous")
+        //console.log(this.$store.getters["Application/getPrevStepPage"])
         return this.$store.getters["Application/getPrevStepPage"] != null;
     }
 
     public hasNextStepPage() {
         
-        console.log("has next")
-        console.log(this.$store.getters["Application/getNextStepPage"])
+        //console.log("has next")
+        //console.log(this.$store.getters["Application/getNextStepPage"])
         return this.$store.getters["Application/getNextStepPage"] != null;
        
     }

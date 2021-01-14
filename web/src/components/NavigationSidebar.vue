@@ -72,6 +72,7 @@ export default class NavigationSidebar extends Vue {
     error = "";
 
     public  onSelectStep(event) {
+        console.log('selectSTEP')
         //return
         const currIndex = this.$store.state.Application.currentStep;
         const curr = document.getElementById(this.getStepId(currIndex));
@@ -100,6 +101,7 @@ export default class NavigationSidebar extends Vue {
     //TODO: This is where the step is selected
     public onSelectPage(event) {
         //return
+        console.log('selectPage')
         const currStepIndex = this.$store.state.Application.currentStep;
         const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
         const currPage = document.getElementById(this.getStepPageId(currStepIndex, currPageIndex));

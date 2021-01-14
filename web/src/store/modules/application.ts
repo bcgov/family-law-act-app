@@ -629,7 +629,7 @@ class Application extends VuexModule {
                 pIndex = 0;
             }
         }
-         console.log(nextStepPage)
+        //console.log(nextStepPage)
         return nextStepPage;
     }
 

@@ -113,6 +113,7 @@ export default class WeaponsFirearms extends Vue {
     }
 
     public onComplete() {
+        console.log('Weapons Completed')
         this.$store.commit("Application/setAllCompleted", true);
     }
 
