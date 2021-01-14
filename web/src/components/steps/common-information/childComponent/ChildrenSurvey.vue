@@ -15,7 +15,7 @@
 
 <script>
 import * as SurveyVue from "survey-vue";
-import childInfo from "@/assets/survey-childInfo.json";
+import childInfo from "./Forms/survey-childInfo.json";
 import { addQuestionTypes } from "@/components/question-types.ts";
 
 export default {

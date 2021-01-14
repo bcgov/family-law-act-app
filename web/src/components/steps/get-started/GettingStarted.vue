@@ -112,7 +112,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { Step } from "../../../models/step";
+import { Step } from "@/types/models/step";
 import store from "@/store";
 
 import { namespace } from "vuex-class";   

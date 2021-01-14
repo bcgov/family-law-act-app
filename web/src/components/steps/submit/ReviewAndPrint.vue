@@ -57,10 +57,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { Step } from "@/models/step";
+
+import { Step } from "@/types/models/step";
 import PageBase from "../PageBase.vue";
+
 import moment from 'moment-timezone';
 import GetHelpForPdf from "./HelpPages/GetHelpForPDF.vue"
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");

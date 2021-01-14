@@ -6,7 +6,7 @@
 
 <script>
 import StepBase from "../StepBase.vue";
-import { Step } from "../../../models/step";
+import { Step } from "@/types/models/step";
 import  FamilyForm  from "./FamilyForm.vue"
 
 export default {

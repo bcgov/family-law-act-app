@@ -9,7 +9,7 @@
 import StepBase from "../StepBase.vue";
 import Information from "./Information.vue";
 import OtherParty from "./otherPartyComponent/OtherParty.vue";
-import { Step } from "../../../models/step";
+import { Step } from "@/types/models/step";
 
 export default {
   name: "common-information",

@@ -10,7 +10,7 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     
-    import { Step } from "@/models/step";
+    import { Step } from "@/types/models/step";
     import StepBase from "../StepBase.vue";
     import NextSteps from "./NextSteps.vue";
     import FilingOptions from "./FilingOptions.vue"

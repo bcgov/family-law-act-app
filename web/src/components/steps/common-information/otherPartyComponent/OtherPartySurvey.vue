@@ -15,8 +15,8 @@
 
 <script>
 import * as SurveyVue from "survey-vue";
-import opInfo from "@/assets/survey-opInfo.json";
-import * as surveyEnv from "@/components/survey-glossary.ts"
+import opInfo from "./Forms/survey-opInfo.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 export default {
   name: "OtherParty-Survey",

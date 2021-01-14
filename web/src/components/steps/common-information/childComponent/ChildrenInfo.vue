@@ -54,7 +54,7 @@
 <script>
 import { Question } from "survey-vue";
 import ChildrenSurvey from "./ChildrenSurvey.vue";
-import { Step } from "@/models/step";
+import { Step } from "@/types/models/step";
 import PageBase from "../../PageBase.vue";
 
 export default {

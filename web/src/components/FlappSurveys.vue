@@ -29,7 +29,7 @@ import CaseManagement from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocation from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgree from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
 import GetStarted from "./steps/get-started/GetStartedStep.vue";
-import * as surveyEnv from "@/components/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 @Component({
     components: {
         NavigationSidebar,

@@ -61,7 +61,7 @@
 <script>
 import { Question } from "survey-vue";
 import OtherPartySurvey from "./OtherPartySurvey.vue";
-import { Step } from "@/models/step";
+import { Step } from "@/types/models/step";
 import PageBase from "../../PageBase.vue";
 
 export default {

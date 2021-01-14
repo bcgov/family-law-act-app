@@ -1,7 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import {applicationInfoType} from '../../types/Application';
-import { Step } from "@/models/step";
-import { Page } from "@/models/page";
+import { Step } from "@/types/models/step";
+import { Page } from "@/types/models/page";
 
 @Module({
   namespaced: true

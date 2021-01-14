@@ -6,11 +6,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey-glossary.ts";
-import surveyJson from "@/assets/POForm/urgency.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import surveyJson from "./Forms/urgency.json";
+
 import PageBase from "../PageBase.vue";
-import { Step } from "../../../models/step";
+import { Step } from "@/types/models/step";
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");

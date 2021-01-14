@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { Step } from "@/models/step";
+import { Step } from "@/types/models/step";
 import PageBase from "../PageBase.vue";
 import axios from "axios";
 import moment from 'moment-timezone';

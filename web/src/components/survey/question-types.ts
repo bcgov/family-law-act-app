@@ -1,12 +1,12 @@
 import Vue from "vue";
 
-import AddressInfo from "./survey/AddressInfo.vue";
-import ContactInfo from "./survey/ContactInfo.vue";
-import CustomDate from "./survey/CustomDate.vue";
-import HelpText from "./survey/HelpText.vue";
-import InfoText from "./survey/InfoText.vue";
-import PersonName from "./survey/PersonName.vue";
-import YesNo from "./survey/YesNo.vue";
+import AddressInfo from "./Components/AddressInfo.vue";
+import ContactInfo from "./Components/ContactInfo.vue";
+import CustomDate from "./Components/CustomDate.vue";
+import HelpText from "./Components/HelpText.vue";
+import InfoText from "./Components/InfoText.vue";
+import PersonName from "./Components/PersonName.vue";
+import YesNo from "./Components/YesNo.vue";
 
 function fixCheckboxes(Survey: any) {
   const widget = {

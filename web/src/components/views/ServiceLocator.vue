@@ -12,10 +12,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+
 import store from "@/store";
+
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey-glossary.ts";
-import surveyJson from "@/assets/service-locator.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import surveyJson from "./Forms/service-locator.json";
 
 @Component
 export default class ServiceLocator extends Vue {

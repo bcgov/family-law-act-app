@@ -108,7 +108,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";  
-import * as surveyEnv from "@/components/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import store from "@/store";
 import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"

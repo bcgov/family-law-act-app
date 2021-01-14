@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Page } from "../../models/page";
+//import { Page } from "@/types/models/page";
 import {Component, Vue, Prop } from "vue-property-decorator"
 import moment from 'moment-timezone';
 
