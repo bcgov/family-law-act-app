@@ -181,8 +181,8 @@ objects:
       scaleTargetRef:
         kind: DeploymentConfig
         name: ${NAME}
-      minReplicas: 2
-      maxReplicas: 6
+      minReplicas: ${{MIN_REPLICAS}}
+      maxReplicas: ${{MAX_REPLICAS}}
 
   - kind: Secret
     apiVersion: v1
@@ -251,7 +251,7 @@ parameters:
     displayName: API Path
     name: API_PATH
     required: true
-    value: /api/v1/
+    value: /api
   - name: WEB_BASE_HREF
     displayName: Web Base Href
     description: The application host path (Web Base Href).
@@ -279,6 +279,17 @@ parameters:
     displayName: Env TAG name
     name: TAG_NAME
     value: dev
+
+  - name: MIN_REPLICAS
+    displayName: Minimum Replicas
+    description: The minimum number of pods to have running.
+    required: true
+    value: "3"
+  - name: MAX_REPLICAS
+    displayName: Maximum Replicas
+    description: The maximum number of pods to have running.
+    required: true
+    value: "6"
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request
