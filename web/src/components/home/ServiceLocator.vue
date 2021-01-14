@@ -17,7 +17,7 @@ import store from "@/store";
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./Forms/service-locator.json";
+import surveyJson from "./forms/service-locator.json";
 
 @Component
 export default class ServiceLocator extends Vue {

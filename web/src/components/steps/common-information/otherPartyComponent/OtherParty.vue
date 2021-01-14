@@ -61,7 +61,7 @@
 <script>
 import { Question } from "survey-vue";
 import OtherPartySurvey from "./OtherPartySurvey.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 
 export default {
@@ -135,7 +135,7 @@ export default {
     }
   },
   props: {
-    step: Step | Object,
+    step: stepInfoType | Object,
   },
   watch: {
     otherPartyData: function() {

@@ -10,7 +10,7 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     
-    import { Step } from "@/types/models/step";
+    import { stepInfoType } from "@/types/Application";
     import StepBase from "../StepBase.vue";
     import NextSteps from "./NextSteps.vue";
     import FilingOptions from "./FilingOptions.vue"
@@ -31,7 +31,7 @@
     export default class submit extends Vue {
         
         @Prop({required: true})
-        step!: Step;
+        step!: stepInfoType;
         
     }
 </script>

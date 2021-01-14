@@ -9,10 +9,10 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./Forms/survey-information.json";
+import surveyJson from "./forms/survey-information.json";
 
 import PageBase from "../PageBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -27,7 +27,7 @@ const applicationState = namespace("Application");
 export default class Information extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

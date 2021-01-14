@@ -9,9 +9,9 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
-import surveyJson from "./Forms/filingOptions.json";
+import surveyJson from "./forms/filingOptions.json";
 
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "../PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -27,7 +27,7 @@ const applicationState = namespace("Application");
 export default class FilingOptions extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

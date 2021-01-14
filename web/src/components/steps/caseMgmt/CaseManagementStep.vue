@@ -6,7 +6,7 @@
 
 <script>
 import StepBase from "../StepBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import  CaseForm  from "./CaseForm.vue"
 
 export default {
@@ -22,7 +22,7 @@ export default {
   created() {},
   methods: {},
   props: {
-    step: Step | Object
+    step: stepInfoType | Object
   },
   watch: {
     pageIndex: function(newVal) {

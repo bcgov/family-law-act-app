@@ -15,7 +15,7 @@
 
 <script>
 import * as SurveyVue from "survey-vue";
-import opInfo from "./Forms/survey-opInfo.json";
+import opInfo from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 export default {

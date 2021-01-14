@@ -6,7 +6,7 @@
 
 <script>
 import StepBase from "../StepBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import  EnforcementForm  from "./EnforcementForm.vue"
 
 export default {
@@ -22,7 +22,7 @@ export default {
   created() {},
   methods: {},
   props: {
-    step: Step | Object
+    step: stepInfoType | Object
   },
   watch: {
     pageIndex: function(newVal) {

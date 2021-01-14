@@ -11,7 +11,7 @@
 <script lang="ts">
 import {Component, Vue } from "vue-property-decorator";
 import PageBase from "./PageBase.vue";
-//import { Step } from "@/types/models/step";
+
 @Component({
     components:{
         PageBase

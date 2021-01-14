@@ -86,11 +86,11 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     
-    import { Step } from "@/types/models/step";
+    import { stepInfoType } from "@/types/Application";
     import PageBase from "../PageBase.vue";
     
-    import GetHelpForPdf from "./HelpPages/GetHelpForPDF.vue"
-    import GetHelpScanning from "./HelpPages/GetHelpScanning.vue"
+    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
+    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
     import moment from 'moment-timezone';
 
     import { namespace } from "vuex-class";   
@@ -109,7 +109,7 @@
     export default class ReviewAndSave extends Vue {
         
         @Prop({required: true})
-        step!: Step;
+        step!: stepInfoType;
 
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
@@ -134,8 +134,7 @@
                 this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
             }            
 
-        }
-        
+        }       
         
         
         public onPrev() {

@@ -9,7 +9,7 @@
 import StepBase from "../StepBase.vue";
 import Information from "./Information.vue";
 import OtherParty from "./otherPartyComponent/OtherParty.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 
 export default {
   name: "common-information",
@@ -26,7 +26,7 @@ export default {
   },
   methods: {},
   props: {
-    step: Step | Object
+    step: stepInfoType | Object
   }
 };
 </script>

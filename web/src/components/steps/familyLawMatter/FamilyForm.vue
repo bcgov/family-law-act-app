@@ -34,7 +34,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import PageBase from "../PageBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 
 import Tooltip from "../get-started/Tooltip.vue"
 
@@ -52,7 +52,7 @@ const applicationState = namespace("Application");
 export default class FamilyForm extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

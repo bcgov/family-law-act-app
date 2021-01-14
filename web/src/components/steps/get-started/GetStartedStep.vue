@@ -10,7 +10,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   
 import StepBase from "../StepBase.vue";
 import GettingStarted from "./GettingStarted.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import PoQuestionnaire from "./Questionnaire.vue";
 
 
@@ -25,7 +25,7 @@ import PoQuestionnaire from "./Questionnaire.vue";
 export default class GetStarted extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     forms = []
     selectedForms = []

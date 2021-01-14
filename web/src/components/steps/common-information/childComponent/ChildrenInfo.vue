@@ -54,7 +54,7 @@
 <script>
 import { Question } from "survey-vue";
 import ChildrenSurvey from "./ChildrenSurvey.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 
 export default {
@@ -115,7 +115,7 @@ export default {
     }
   },
   props: {
-    step: Step | Object,
+    step: stepInfoType | Object,
   },
   created() {
     if (this.step.result.childData) {

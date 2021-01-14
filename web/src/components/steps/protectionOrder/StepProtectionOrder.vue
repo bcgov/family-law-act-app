@@ -16,7 +16,7 @@
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import StepBase from "../StepBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import ProtectionFromWhom from "./ProtectionFromWhom.vue";
 import Background from "./Background.vue";
 import YourStory from "./YourStory.vue";
@@ -45,7 +45,7 @@ import About from "./About.vue";
 export default class ProtectionOrder extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
 
     // watch: {

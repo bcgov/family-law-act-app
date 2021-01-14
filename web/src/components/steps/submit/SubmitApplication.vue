@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "../PageBase.vue";
 import axios from "axios";
 import moment from 'moment-timezone';
@@ -282,7 +282,7 @@ export default {
     }
   },
   props: {
-    step: Step | Object
+    step: stepInfoType | Object
   },
   computed: {}
 };

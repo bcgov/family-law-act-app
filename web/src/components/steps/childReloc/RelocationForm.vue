@@ -39,7 +39,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import PageBase from "../PageBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -54,7 +54,7 @@ const applicationState = namespace("Application");
 export default class RelocationForm extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

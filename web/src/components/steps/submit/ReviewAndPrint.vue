@@ -58,11 +58,11 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "../PageBase.vue";
 
 import moment from 'moment-timezone';
-import GetHelpForPdf from "./HelpPages/GetHelpForPDF.vue"
+import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -78,7 +78,7 @@ const applicationState = namespace("Application");
 export default class ReviewAndPrint extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

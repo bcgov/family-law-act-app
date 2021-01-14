@@ -112,7 +112,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { Step } from "@/types/models/step";
+import { stepInfoType } from "@/types/Application";
 import store from "@/store";
 
 import { namespace } from "vuex-class";   
@@ -131,7 +131,7 @@ import Tooltip from "./Tooltip.vue"
 export default class GettingStarted extends Vue {
     
     @Prop({required: true})
-    step!: Step;
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

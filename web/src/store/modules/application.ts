@@ -1,7 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import {applicationInfoType} from '../../types/Application';
-import { Step } from "@/types/models/step";
-import { Page } from "@/types/models/page";
+import { stepInfoType } from "@/types/Application";
+import { pageInfoType } from "@/types/Application";
 
 @Module({
   namespaced: true
@@ -10,7 +10,7 @@ class Application extends VuexModule {
 
     public id = ""
     public type = ""
-    public steps = new Array<Step>()
+    public steps = new Array<stepInfoType>()
     public lastUpdate = null
     public lastPrinted = null
     public currentStep = 1
@@ -32,9 +32,9 @@ class Application extends VuexModule {
         this.userName = "";
         this.lastPrinted = null;
         this.lastUpdate = null;
-        this.steps = new Array<Step>();
+        this.steps = new Array<stepInfoType>();
         // Getting started START
-        let s = new Step();
+        let s = {} as stepInfoType;
     
         s.active = true;
         s.id = "0";
@@ -42,10 +42,10 @@ class Application extends VuexModule {
         s.icon = "fa-users";
         s.lastUpdate = null;    
         s.type = "getInformationStep";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        let p = new Page();
+        let p = {} as pageInfoType;
         p.key = "0";
         p.label = "Getting Started";
         p.active = true;
@@ -53,7 +53,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "1";
         p.label = "Questionnaire";
         p.active = false;
@@ -65,7 +65,7 @@ class Application extends VuexModule {
     
         // Getting started STOP
         // Common information START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "1";
@@ -73,10 +73,10 @@ class Application extends VuexModule {
         s.icon = "fa-users";
         s.lastUpdate = null;
         s.type = "commonInformationStep";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Your information";
         p.active = false;
@@ -84,7 +84,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "1";
         p.label = "Other Party";
         p.active = false;
@@ -96,7 +96,7 @@ class Application extends VuexModule {
     
         // Common Information STOP
         // Protection Order START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "2";
@@ -104,10 +104,10 @@ class Application extends VuexModule {
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepPO";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Protection From Whom?";
         p.active = false;
@@ -115,7 +115,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "1";
         p.label = "Remove person or belongings";
         p.active = false;
@@ -123,7 +123,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "2";
         p.label = "No Go";
         p.active = false;
@@ -131,7 +131,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "3";
         p.label = "No Contact";
         p.active = false;
@@ -139,7 +139,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "4";
         p.label = "Weapons and Firearms";
         p.active = false;
@@ -147,7 +147,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "5";
         p.label = "Background";
         p.active = false;
@@ -155,7 +155,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "6";
         p.label = "Your Story";
         p.active = false;
@@ -163,7 +163,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "7";
         p.label = "About Protection Order";
         p.active = false;
@@ -171,7 +171,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "8";
         p.label = "Urgency";
         p.active = false;
@@ -182,7 +182,7 @@ class Application extends VuexModule {
     
         //Protection Order STOP
         //Family Law Matter START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "3";
@@ -190,10 +190,10 @@ class Application extends VuexModule {
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepFlm";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Family Law Form";
         p.active = true;
@@ -203,7 +203,7 @@ class Application extends VuexModule {
         this.steps.push(s);
         //Family Law Matter STOP
         // Case Mgmt START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "4";
@@ -211,10 +211,10 @@ class Application extends VuexModule {
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepCm";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Case Management Form";
         p.active = true;
@@ -224,7 +224,7 @@ class Application extends VuexModule {
         this.steps.push(s);
         //Case Mgmt STOP
         //Priority parenting matter START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "5";
@@ -232,10 +232,10 @@ class Application extends VuexModule {
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepPpm";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Priority Parenting Matter Form";
         p.active = true;
@@ -245,7 +245,7 @@ class Application extends VuexModule {
         this.steps.push(s);
         //Priority parenting matter STOP
         //Relocation of a child START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "6";
@@ -253,10 +253,10 @@ class Application extends VuexModule {
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepReloc";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Relocation of a child Form";
         p.active = true;
@@ -266,7 +266,7 @@ class Application extends VuexModule {
         this.steps.push(s);
         //Relocation of a child STOP
         //Enforcement START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "7";
@@ -274,10 +274,10 @@ class Application extends VuexModule {
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepEnfrc";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Agreement and Court Orders Forms";
         p.active = true;
@@ -287,7 +287,7 @@ class Application extends VuexModule {
         this.steps.push(s);
         //Enforcement STOP
         //Submit START
-        s = new Step();
+        s = {} as stepInfoType;
     
         s.active = false;
         s.id = "8";
@@ -295,10 +295,10 @@ class Application extends VuexModule {
         s.icon = "fa-paper-plane";
         s.lastUpdate = null;
         s.type = "submit";
-        s.pages = new Array<Page>();
+        s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "0";
         p.label = "Filing Options";
         p.active = false;
@@ -306,7 +306,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "1";
         p.label = "Review and Print";
         p.active = false;
@@ -314,7 +314,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "2";
         p.label = "Review and Save";
         p.active = false;
@@ -322,7 +322,7 @@ class Application extends VuexModule {
     
         s.pages.push(p);
     
-        p = new Page();
+        p = {} as pageInfoType;
         p.key = "3";
         p.label = "Next Steps";
         p.active = false;
