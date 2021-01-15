@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/weaponsFirearms.json";
 
 import PageBase from "../../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -34,6 +34,9 @@ export default class WeaponsFirearms extends Vue {
 
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
 
     survey = new SurveyVue.Model(surveyJson);
@@ -69,7 +72,7 @@ export default class WeaponsFirearms extends Vue {
 
     public reloadPageInformation() {
 
-        if (this.step.result['weaponsSurvey']){
+        if (this.step.result && this.step.result['weaponsSurvey']){
             this.survey.data = this.step.result['weaponsSurvey'];
         } 
 
@@ -118,10 +121,12 @@ export default class WeaponsFirearms extends Vue {
     }
 
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData",{
-            step: this.step,
-            data:{weaponsSurvey: this.survey.data}
-        })
+        this.UpdateStepResultData({step:this.step, data: {weaponsSurvey: this.survey.data}})
+
+        // this.$store.commit("Application/updateStepResultData",{
+        //     step: this.step,
+        //     data:{weaponsSurvey: this.survey.data}
+        // })
     }
 };
 </script>

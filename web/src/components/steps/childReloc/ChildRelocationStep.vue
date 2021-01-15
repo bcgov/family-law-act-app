@@ -4,31 +4,33 @@
   </step-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
-import  RelocationForm  from "./RelocationForm.vue"
+import * as SurveyVue from "survey-vue";
+import surveyJson from "../common-information/forms/survey-information.json";
+import  RelocationForm  from "./RelocationForm.vue";
 
-export default {
-  name: "child-relocation",
-  components: {
-    StepBase,
-    RelocationForm
-  },
-  data() {
-    return {
-    };
-  },
-  created() {},
-  methods: {},
-  props: {
-    step: stepInfoType | Object
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+@Component({
+    components:{
+      StepBase,
+      RelocationForm
     }
+})
+export default class ChildRelocationStep extends Vue {
+
+  @Prop({required: true})
+  step!: stepInfoType | Object
+
+  @Watch('pageIndex')
+  pageIndexChange(newVal) 
+  {
+      this.survey.currentPageNo = newVal;        
   }
+
+  survey = new SurveyVue.Model(surveyJson);
+  
 };
 </script>
 

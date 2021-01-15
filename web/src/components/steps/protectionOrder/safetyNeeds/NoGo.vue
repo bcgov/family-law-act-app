@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/noGo.json";
 
 import PageBase from "../../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -34,6 +34,9 @@ export default class NoGo extends Vue {
 
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
 
     survey = new SurveyVue.Model(surveyJson);
@@ -69,7 +72,7 @@ export default class NoGo extends Vue {
     
     public reloadPageInformation() {
 
-        if (this.step.result['noGoSurvey']){
+        if (this.step.result && this.step.result['noGoSurvey']){
             this.survey.data = this.step.result['noGoSurvey'];
         }  
 
@@ -103,10 +106,12 @@ export default class NoGo extends Vue {
     }
   
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData",{
-            step: this.step,
-            data:{noGoSurvey: this.survey.data}
-        })  
+        this.UpdateStepResultData({step:this.step, data: {noGoSurvey: this.survey.data}})
+        
+        // this.$store.commit("Application/updateStepResultData",{
+        //     step: this.step,
+        //     data:{noGoSurvey: this.survey.data}
+        // })  
     }
 };
 </script>

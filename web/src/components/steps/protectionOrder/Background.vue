@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/background.json";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -23,7 +23,6 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-
 export default class Background extends Vue {
     
     @Prop({required: true})
@@ -35,6 +34,8 @@ export default class Background extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
 
@@ -69,7 +70,7 @@ export default class Background extends Vue {
 
     public reloadPageInformation() {  
 
-        if (this.step.result['backgroundSurvey']){
+        if (this.step.result && this.step.result['backgroundSurvey']){
             //console.log(this.step.result)
             this.survey.data = this.step.result['backgroundSurvey'];
         }  
@@ -119,10 +120,13 @@ export default class Background extends Vue {
     }
   
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData",{
-            step: this.step,
-            data:{backgroundSurvey: this.survey.data}
-        })
+        this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: this.survey.data}})
+
+
+        // this.$store.commit("Application/updateStepResultData",{
+        //     step: this.step,
+        //     data:{backgroundSurvey: this.survey.data}
+        // })
     }
 }
 </script>

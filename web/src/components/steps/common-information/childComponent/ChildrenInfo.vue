@@ -51,28 +51,46 @@
 </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
 import { Question } from "survey-vue";
 import ChildrenSurvey from "./ChildrenSurvey.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import * as SurveyVue from "survey-vue";
+import surveyJson from "../forms/survey-information.json";
 import PageBase from "../../PageBase.vue";
 
-export default {
-  name: "children-info",
-  components: {
-    ChildrenSurvey,
-    PageBase
-  },
-  data() {
-    return {
-      showTable: true,
-      childData: [],
-      anyRowToBeEdited: null,
-      editId: null
-    };
-  },
-  methods: {
-    openForm(anyRowToBeEdited) {
+@Component({
+    components:{
+      ChildrenSurvey,
+      PageBase
+    }
+})
+export default class ChildrenInfo extends Vue {
+
+  @Prop({required: true})
+  step!: stepInfoType
+
+  @applicationState.Action
+  public UpdateGotoPrevStepPage!: () => void
+
+  @applicationState.Action
+  public UpdateGotoNextStepPage!: () => void
+
+  @applicationState.Action
+  public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+  showTable = true;
+  childData = [];
+  anyRowToBeEdited = null;
+  editId = null;
+  
+  public openForm(anyRowToBeEdited) {
       this.showTable = false;
       if(anyRowToBeEdited) {
         this.editId = anyRowToBeEdited.id;
@@ -80,11 +98,13 @@ export default {
       } else {
         this.anyRowToBeEdited = null;
       }
-    },
-    childComponentData(value) {
+  }
+
+  public childComponentData(value) {
       this.showTable = value;
-    },
-    populateSurveyData(childValue) {
+  }
+
+  public populateSurveyData(childValue) {
       const currentIndexValue =
         this.childData.length > 0 ? this.childData[this.childData.length - 1].id : 0;
       const id = currentIndexValue + 1;
@@ -92,41 +112,48 @@ export default {
       this.childData = [...this.childData, newChild];
 
       this.showTable = true; 
-    },
-    deleteRow(rowToBeDeleted) {
+  }
+
+  public deleteRow(rowToBeDeleted) {
       this.childData = this.childData.filter(data => {
        return data.id !== rowToBeDeleted;
       });
-    },
-    editRow(editedRow) {
+  }
+
+  public editRow(editedRow) {
       this.childData = this.childData.map(data => {
         return data.id === this.editId ? editedRow : data;
       });
       this.showTable = true;
-    },
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
-    onNext() {
-      this.$store.dispatch("application/gotoNextStepPage");
-    },
-    onComplete() {
+  }
+
+  public onPrev() {
+      // this.$store.dispatch("application/gotoPrevStepPage");
+      this.UpdateGotoPrevStepPage();
+  }
+
+  public onNext() {
+      //this.$store.dispatch("application/gotoNextStepPage");
+      this.UpdateGotoNextStepPage();
+  }
+  
+  public onComplete() {
       this.$store.dispatch("application/setAllCompleted", true);
-    }
-  },
-  props: {
-    step: stepInfoType | Object,
-  },
+  }
+  
   created() {
-    if (this.step.result.childData) {
-      this.childData = this.step.result.childData;
+    if (this.step.result && this.step.result["childData"]) {
+      this.childData = this.step.result["childData"];
     }
-  },
+  }
+
   beforeDestroy() {
-    this.$store.dispatch("application/updateStepResultData", {
-      step: this.step,
-      data: {childData: this.childData}
-    });
+    this.UpdateStepResultData({step:this.step, data: {childData: this.childData}})
+
+    // this.$store.dispatch("application/updateStepResultData", {
+    //   step: this.step,
+    //   data: {childData: this.childData}
+    // });
   }
 };
 </script>

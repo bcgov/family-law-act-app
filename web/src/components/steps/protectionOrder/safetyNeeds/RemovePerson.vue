@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/removePerson.json";
 
 import PageBase from "../../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -35,6 +35,8 @@ export default class RemovePerson extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     respondentName = ""
     survey = new SurveyVue.Model(surveyJson);
@@ -70,7 +72,7 @@ export default class RemovePerson extends Vue {
 
     public reloadPageInformation() {
 
-        if (this.step.result['removeSurvey']){
+        if (this.step.result && this.step.result['removeSurvey']){
             this.survey.data = this.step.result['removeSurvey'];
         }
         
@@ -122,10 +124,12 @@ export default class RemovePerson extends Vue {
     }  
   
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData",{
-            step: this.step,
-            data:{removeSurvey: this.survey.data}
-        })
+        this.UpdateStepResultData({step:this.step, data: {removeSurvey: this.survey.data}})
+        
+        // this.$store.commit("Application/updateStepResultData",{
+        //     step: this.step,
+        //     data:{removeSurvey: this.survey.data}
+        // })
     }
 };
 </script>

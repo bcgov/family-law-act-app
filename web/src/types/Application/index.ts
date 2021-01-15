@@ -36,3 +36,9 @@ export interface stepInfoType {
     active: boolean;
     clickable: boolean;
   }
+
+  export interface stepResultInfoType {
+    step: stepInfoType;
+    data: any;
+  }
+

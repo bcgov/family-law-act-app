@@ -1,7 +1,5 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import {applicationInfoType} from '../../types/Application';
-import { stepInfoType } from "@/types/Application";
-import { pageInfoType } from "@/types/Application";
+import { stepInfoType, pageInfoType } from "@/types/Application";
 
 @Module({
   namespaced: true
@@ -426,9 +424,10 @@ class Application extends VuexModule {
         }
         window.scrollTo(0, 0);
     }
+    
     @Action
     public UpdateGotoNextStepPage() {
-        console.log("goto mutation")
+        //console.log("goto mutation")
         const nextStepPage = this.context.getters["getNextStepPage"];
     
         if (nextStepPage != null) {
@@ -446,12 +445,12 @@ class Application extends VuexModule {
     }
 
     @Mutation
-    public updateStepResultData({ step, data }): void {
+    public setStepResultData({ step, data }): void {
         step.result = {...step.result, ...data};
     }
     @Action
-    public UpdateUpdateStepResultData({ step, data }) {
-        this.context.commit("updateStepResultData", { step, data });
+    public UpdateStepResultData({ step, data }) {
+        this.context.commit("setStepResultData", { step, data });
     } 
     
     @Mutation

@@ -30,7 +30,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -53,6 +53,9 @@ export default class EnforcementForm extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
     public onPrev() {
         //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
@@ -68,10 +71,12 @@ export default class EnforcementForm extends Vue {
     }
 
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData", {
-            step: this.step,
-            data: { enforcementSurvey: null }
-        });
+        this.UpdateStepResultData({step:this.step, data: {enforcementSurvey: null}})
+
+        // this.$store.commit("Application/updateStepResultData", {
+        //     step: this.step,
+        //     data: { enforcementSurvey: null }
+        // });
     }
 };
 </script>

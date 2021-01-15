@@ -4,31 +4,33 @@
   </step-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
+import * as SurveyVue from "survey-vue";
+import surveyJson from "../common-information/forms/survey-information.json";
 import  EnforcementForm  from "./EnforcementForm.vue"
 
-export default {
-  name: "enforcement-agree",
-  components: {
-    StepBase,
-    EnforcementForm
-  },
-  data() {
-    return {
-    };
-  },
-  created() {},
-  methods: {},
-  props: {
-    step: stepInfoType | Object
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+@Component({
+    components:{
+      StepBase,
+      EnforcementForm
     }
+})
+export default class EnforcementAgreeStep extends Vue {
+  
+  @Prop({required: true})
+  step!: stepInfoType | Object
+
+  @Watch('pageIndex')
+  pageIndexChange(newVal) 
+  {
+      this.survey.currentPageNo = newVal;        
   }
+
+  survey = new SurveyVue.Model(surveyJson);
+
 };
 </script>
 

@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/urgency.json";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -35,6 +35,8 @@ export default class Urgency extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
 
@@ -69,7 +71,7 @@ export default class Urgency extends Vue {
 
     public reloadPageInformation() {
 
-        if (this.step.result['urgencySurvey']) {
+        if (this.step.result && this.step.result['urgencySurvey']) {
             this.survey.data = this.step.result['urgencySurvey'];
         }
 
@@ -114,10 +116,12 @@ export default class Urgency extends Vue {
     }
   
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData", {
-            step: this.step,
-            data: { urgencySurvey: this.survey.data }
-        });
+        this.UpdateStepResultData({step:this.step, data: {urgencySurvey: this.survey.data}})
+
+        // this.$store.commit("Application/updateStepResultData", {
+        //     step: this.step,
+        //     data: { urgencySurvey: this.survey.data }
+        // });
     }
 };
 </script>

@@ -5,29 +5,28 @@
   </step-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import Information from "./Information.vue";
 import OtherParty from "./otherPartyComponent/OtherParty.vue";
 import { stepInfoType } from "@/types/Application";
+import * as SurveyVue from "survey-vue";
+import surveyJson from "../common-information/forms/survey-information.json";
 
-export default {
-  name: "common-information",
-  components: {
-    StepBase,
-    Information,
-    OtherParty,
-  },
-  data() {
-    return {
-    };
-  },
-  created() {
-  },
-  methods: {},
-  props: {
-    step: stepInfoType | Object
-  }
+
+@Component({
+    components:{
+      StepBase,
+      Information,
+      OtherParty
+    }
+})
+export default class CommonInformationStep extends Vue {
+  
+  @Prop({required: true})
+  step!: stepInfoType | Object
+
 };
 </script>
 

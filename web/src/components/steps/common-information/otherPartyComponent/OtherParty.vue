@@ -58,33 +58,68 @@
 </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 import { Question } from "survey-vue";
 import OtherPartySurvey from "./OtherPartySurvey.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import * as SurveyVue from "survey-vue";
+import surveyJson from "../forms/survey-information.json";
 import PageBase from "../../PageBase.vue";
 
-export default {
-  name: "other-party",
-  components: {
-    OtherPartySurvey,
-    PageBase
-  },
-  data() {
-    return {
-      showTable: true,
-      otherPartyData: [],
-      anyRowToBeEdited: null,
-      editId: null
-    };
-  },
-  created() {
-    if (this.step.result.otherPartySurvey) {
-      this.otherPartyData = this.step.result.otherPartySurvey;
+@Component({
+    components:{
+      OtherPartySurvey,
+      PageBase
     }
-  },
-  methods: {
-    openForm(anyRowToBeEdited) {
+})
+export default class OtherParty extends Vue {
+  
+  @Prop({required: true})
+  step!: stepInfoType
+
+  @applicationState.Action
+  public UpdateGotoPrevStepPage!: () => void
+
+  @applicationState.Action
+  public UpdateGotoNextStepPage!: () => void
+
+  @applicationState.Action
+  public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+  @Watch('otherPartyData')
+  otherPartyDataChange(newVal) 
+  {
+    this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})
+
+  }
+
+
+  // watch: {
+  //   otherPartyData: function() {
+  //     this.$store.dispatch("application/updateStepResultData", {
+  //       step: this.step,
+  //       data: {otherPartySurvey: this.otherPartyData}
+  //     });
+  //   }
+  // }
+
+
+  showTable = true;
+  otherPartyData = [];
+  anyRowToBeEdited = null;
+  editId = null;
+ 
+  created() {
+    if (this.step.result && this.step.result["otherPartySurvey"]) {
+      this.otherPartyData = this.step.result["otherPartySurvey"];
+    }
+  }
+  
+  public openForm(anyRowToBeEdited) {
       this.showTable = false;
       if(anyRowToBeEdited) {
         this.editId = anyRowToBeEdited.id;
@@ -92,11 +127,13 @@ export default {
       } else {
         this.anyRowToBeEdited = null;
       }
-    },
-    childComponentData(value) {
+  }
+
+  public childComponentData(value) {
       this.showTable = value;
-    },
-    populateSurveyData(opValue) {
+  }
+
+  public populateSurveyData(opValue) {
       const currentIndexValue =
         this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
       const id = currentIndexValue + 1;
@@ -104,47 +141,46 @@ export default {
       this.otherPartyData = [...this.otherPartyData, newParty];
 
       this.showTable = true; 
-    },
-    deleteRow(rowToBeDeleted) {
+  }
+
+  public deleteRow(rowToBeDeleted) {
       this.otherPartyData = this.otherPartyData.filter(data => {
        return data.id !== rowToBeDeleted;
       });
-    },
-    editRow(editedRow) {
+  }
+
+  public editRow(editedRow) {
       this.otherPartyData = this.otherPartyData.map(data => {
         return data.id === this.editId ? editedRow : data;
       });
       this.showTable = true;
-    },
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
-    onNext() {
-      this.$store.dispatch("application/gotoNextStepPage");
-    },
-    onComplete() {
+  }
+
+  public onPrev() {
+      //this.$store.dispatch("application/gotoPrevStepPage");
+      this.UpdateGotoPrevStepPage()
+  }
+
+  public onNext() {
+    console.log("on nxt")
+    this.UpdateGotoNextStepPage();
+      // this.$store.dispatch("application/gotoNextStepPage");
+  }
+
+  public onComplete() {
       this.$store.dispatch("application/setAllCompleted", true);
-    },
-    isDisableNext() {
+  }
+
+  public isDisableNext() {
       // demo
       return this.otherPartyData.length <= 0;
-    },
-    getDisableNextText() {
+  }
+
+  public getDisableNextText() {
       // demo
       return "You will need to add at least one other party to continue";
-    }
-  },
-  props: {
-    step: stepInfoType | Object,
-  },
-  watch: {
-    otherPartyData: function() {
-      this.$store.dispatch("application/updateStepResultData", {
-        step: this.step,
-        data: {otherPartySurvey: this.otherPartyData}
-      });
-    }
   }
+
 };
 </script>
 

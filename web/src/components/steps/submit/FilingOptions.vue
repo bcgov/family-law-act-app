@@ -11,7 +11,7 @@ import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/filingOptions.json";
 
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -34,6 +34,9 @@ export default class FilingOptions extends Vue {
 
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
 
@@ -59,7 +62,7 @@ export default class FilingOptions extends Vue {
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result["filingOptions"]){
+        if (this.step.result && this.step.result["filingOptions"]){
             this.survey.data = this.step.result["filingOptions"];
         }
     }
@@ -107,10 +110,12 @@ export default class FilingOptions extends Vue {
 
 
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData",{
-            step: this.step,
-            data:{filingOptions: this.survey.data}
-        })
+        this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
+        
+        // this.$store.commit("Application/updateStepResultData",{
+        //     step: this.step,
+        //     data:{filingOptions: this.survey.data}
+        // })
     }
 }
 </script>

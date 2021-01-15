@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/aboutPO.json";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -34,6 +34,9 @@ export default class About extends Vue {
 
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
@@ -69,11 +72,11 @@ export default class About extends Vue {
 
     public reloadPageInformation() { 
 
-        if (this.step.result['aboutPOSurvey']){
+        if (this.step.result && this.step.result['aboutPOSurvey']){
             this.survey.data = this.step.result['aboutPOSurvey'];
         }
 
-        let order = this.$store.getters["application/getNavigation"][0].result.selectedPOOrder;
+        let order = this.$store.state.Application.steps[0].result.selectedPOOrder;
         if(order) {
             this.survey.setVariable("userPreferredService", order.orderType);
         }
@@ -96,10 +99,12 @@ export default class About extends Vue {
     }
   
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData",{
-            step: this.step,
-            data:{aboutPOSurvey: this.survey.data}
-        })
+        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: this.survey.data}})
+
+        // this.$store.commit("Application/updateStepResultData",{
+        //     step: this.step,
+        //     data:{aboutPOSurvey: this.survey.data}
+        // })
     }
 };
 </script>

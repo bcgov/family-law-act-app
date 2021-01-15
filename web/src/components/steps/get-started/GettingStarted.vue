@@ -112,14 +112,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import store from "@/store";
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-
-import Tooltip from "./Tooltip.vue"
+import Tooltip from "./Tooltip.vue";
 
 @Component({
     components:{
@@ -127,7 +125,6 @@ import Tooltip from "./Tooltip.vue"
         Tooltip
     }
 })
-
 export default class GettingStarted extends Vue {
     
     @Prop({required: true})
@@ -138,15 +135,19 @@ export default class GettingStarted extends Vue {
 
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
   
     selected = []
     returningUser = false
     showLegalAssistance = false
 
     created() {
+        console.log(this.step)
         // get the user type and if existing user with existing cases, show different
         this.returningUser = (store.state.Application.userType == 'returning');
-        if (this.step.result['selectedForms']) {
+        if (this.step.result && this.step.result['selectedForms']) {
             this.selected = this.step.result['selectedForms'];
         }
     }
@@ -216,10 +217,13 @@ export default class GettingStarted extends Vue {
   
   
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData", {
-            step: this.step,
-            data: { selectedForms: this.selected }
-        });
+        this.UpdateStepResultData({step:this.step, data: {selectedForms: this.selected}})
+
+
+        // this.$store.commit("Application/updateStepResultData", {
+        //     step: this.step,
+        //     data: { selectedForms: this.selected }
+        // });
     }
 };
 </script>

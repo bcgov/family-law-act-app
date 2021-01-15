@@ -12,7 +12,7 @@ import surveyJson from "./forms/survey-qualify.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -35,6 +35,8 @@ export default class PoQuestionnaire extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false
@@ -57,7 +59,7 @@ export default class PoQuestionnaire extends Vue {
     }
 
     created() {
-        if (this.step.result['questionnaireSurvey']) {            
+        if (this.step.result && this.step.result['questionnaireSurvey']) {            
             this.determinePeaceBondAndBlock();
         }
     }
@@ -85,10 +87,13 @@ export default class PoQuestionnaire extends Vue {
                 this.removePages();
                 console.log('__removed')
                 let selectedOrder = options.value;
-                this.$store.commit("Application/updateStepResultData", {
-                step: this.step,
-                data: {selectedPOOrder: sender.data}
-                });
+
+                this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: sender.data}});
+
+                // this.$store.commit("Application/updateStepResultData", {
+                // step: this.step,
+                // data: {selectedPOOrder: sender.data}
+                // });
                 pagesArr = [7, 8];
                 if (selectedOrder !== "needPO" && selectedOrder !== "none") {
                 this.togglePages(pagesArr, true);
@@ -123,7 +128,7 @@ export default class PoQuestionnaire extends Vue {
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result["questionnaireSurvey"]){
+        if (this.step.result && this.step.result["questionnaireSurvey"]){
             this.survey.data = this.step.result["questionnaireSurvey"];
         }
     }
@@ -209,10 +214,13 @@ export default class PoQuestionnaire extends Vue {
     }
 
     beforeDestroy() {
-        this.$store.commit("Application/updateStepResultData", {
-            step: this.step,
-            data: {questionnaireSurvey: this.survey.data}
-        })
+
+        this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
+
+        // this.$store.commit("Application/updateStepResultData", {
+        //     step: this.step,
+        //     data: {questionnaireSurvey: this.survey.data}
+        // })
     }
 };
 </script>
