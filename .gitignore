@@ -44,4 +44,4 @@ Temporary Items
 *.swp
 
 # Output files
-fpo-pdf/*.pdf
+pdf/*.pdf

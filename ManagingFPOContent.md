@@ -1,13 +1,13 @@
-# Managing Family Protection Order Content
+# Managing Family Law Act Content
 
-The Family Protection Order (FPO) application is technically a relatively simple application with a number of ways to easily update content - the information provided to end users as they use the application. The theory on which we are basing the architecture of the application is that we can enable Content creators (business folks) to evolve the Content (question, glossary, help text, etc.), independent of the technical team. This means that the major focus of development can be on the Content without the need for a lot of technical resources to support the project.  We think this model can be applied to a number of conceptually similar applications in the Justice space.
+The Family Law Act (FLA) application is technically a relatively simple application with a number of ways to easily update content - the information provided to end users as they use the application. The theory on which we are basing the architecture of the application is that we can enable Content creators (business folks) to evolve the Content (question, glossary, help text, etc.), independent of the technical team. This means that the major focus of development can be on the Content without the need for a lot of technical resources to support the project.  We think this model can be applied to a number of conceptually similar applications in the Justice space.
 
 There are four parts of the app that have been separated out for Content Developers to manage:
 
 * A clickable (with popup) glossary of terms to help the user
 * The sidebar menus, and what sidebar menus appear where in the application
 * The Pre-Qualification Survey - a set of questions and help text to determine if the users situation is suitable for this application.
-* The Primary FPO Survey - a set of questions and help text to collect the necessary information 
+* The Primary FLA Survey - a set of questions and help text to collect the necessary information 
 
 This document details on how a Content Developer manages that content. The information is divided into two parts - the technical steps to access, update and test the changes to the content, and tips and tricks for editing the Surveys. The former is pretty straight-forward, the less is a bit more work. As such, most of the information here is about the use of the embedded survey editor for managing the two Surveys.
 
@@ -30,7 +30,7 @@ This document details on how a Content Developer manages that content. The infor
 * Create github account
 * Fork the BC Gov's [Family-Protection-Order](https://github.com/bcgov/Family-Protection-Order) repository into your github account.
 * Find the survey's
-   * Within your github repo navigate to: fpo-web -> src -> assets
+   * Within your github repo navigate to: web -> src -> assets
 
 #### Updating the Survey
 
@@ -40,7 +40,7 @@ This summary is a high level view of making changes to a github file. If this is
 * Click the "Edit" icon - a pencil to go into the github text editor
 * Highlight and copy (e.g. Ctrl-A, Ctrl-C, or right-click/Select All, right-click/Copy) the complete text of the survey into your system clipboard.
 
-At this point your are ready to edit the survey in the embedded FPO survey editor (see the next section).  When you are finished making the changes you want and are ready to save, continue with the instructions below.  As per the instructions in the next section you will have copied into your system clipboard the survey JSON.
+At this point your are ready to edit the survey in the embedded FLA survey editor (see the next section).  When you are finished making the changes you want and are ready to save, continue with the instructions below.  As per the instructions in the next section you will have copied into your system clipboard the survey JSON.
 
 * Navigate back (if you necessary) to the github page of the survey file you are editing and click the "Edit" (pencil) icon for the file.
 * Highlight the entire text of the survey (Ctrl-A) in the githib editor and paste (Ctrl-V) the revised text over top.
@@ -50,15 +50,15 @@ At this point your are ready to edit the survey in the embedded FPO survey edito
 At this point, the changes have been made to your local github repo. However, to get them to be deployed on Dev (and later, Test and Prod), you need to do a "Pull Request" to have those changes submitted into the BC Gov repo.
 
 * Return to the top of the repo (click the "Code" tab) and then click the "New Pull Request" button
-    * This creates a request to the maintainers of the BC Gov FPO repo to pull in your new version of the survey
+    * This creates a request to the maintainers of the BC Gov FLA repo to pull in your new version of the survey
 * When your pull request is accepted, your updates to the survey will be deployed to the Dev Instance of the app, and you can test it.
 * Once you are happy with your changes, the team managing the code can promote the changes to Test and ultimately to production.
 
 #### Invoking the Survey Editor
 
-The FPO application contains an embedded survey editor. The following are the steps to use it. We assume in the following that you have copied into your systems's clipboard the entire copy of the survey JSON you want to edit using the first few instruction steps of the previous section.
+The FLA application contains an embedded survey editor. The following are the steps to use it. We assume in the following that you have copied into your systems's clipboard the entire copy of the survey JSON you want to edit using the first few instruction steps of the previous section.
 
-* Open your browser to an instance of the FPO, main page, add "survey-editor" to the URL and hit enter.
+* Open your browser to an instance of the FLA, main page, add "survey-editor" to the URL and hit enter.
 * The screen should open to "Home / Survey Editor" just below the application header.
 * Click the "JSON Editor" tab at the top of the screen.
 * Highlight the full text of the JSON text element (click in the editing section and click Ctrl-A)

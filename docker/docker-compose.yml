@@ -1,24 +1,24 @@
 version: "3"
 services:
   #
-  # fpo-web
+  # fla-web
   #
-  fpo-web:
-    image: fpo-vue-on-nginx
+  fla-web:
+    image: fla-web
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
       - IpFilterRules=${IpFilterRules}
       - RealIpFrom=${RealIpFrom}
     networks:
-      - fpo
+      - fla
     ports:
       - "${WEB_HTTP_PORT}:8080"
     depends_on:
-      - fpo-api
+      - fla-api
 
-  fpo-web-dev:
-    image: fpo-vue-dev
+  fla-web-dev:
+    image: fla-web-dev
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -28,19 +28,19 @@ services:
       - NPM_RUN=serve
 
     networks:
-      - fpo
+      - fla
     ports:
       - "${WEB_HTTP_PORT}:8080"
       - 5858:5858
     volumes:
-      - "../fpo-web/src:/opt/app-root/src/src"
-      - "../fpo-web/package.json:/opt/app-root/src/package.json"
+      - "../web/src:/opt/app-root/src/src"
+      - "../web/package.json:/opt/app-root/src/package.json"
     depends_on:
-      - fpo-api
-      - fpo-pdf
+      - fla-api
+      - fla-pdf
 
   #
-  # fpo-api
+  # fla-api
   #-------------------------------------------------
   # The API performs the migrations on the database.
   # Therefore, it needs to come up after the database
@@ -51,8 +51,8 @@ services:
   # of the configuration for details.  It would be
   # nice to implement a more deterministic solution.
   #
-  fpo-api:
-    image: fpo-django
+  fla-api:
+    image: fla-api
     environment:
       - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
       - DATABASE_ENGINE=${DATABASE_ENGINE}
@@ -64,23 +64,24 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_DEBUG=${DJANGO_DEBUG}
       - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL}
-      - FPO_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
-      - FPO_DB_SERVICE_PORT=5432
+      - FLA_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
+      - FLA_DB_SERVICE_PORT=5432
       - EFILING_AUTH_URL=${EFILING_AUTH_URL}
       - EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
       - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}
       - EFILING_BASE_URL=${EFILING_BASE_URL}
       - FRONT_END=${FRONT_END}
       - DATA_SECURITY_KEY=${DATA_SECURITY_KEY}
+      - SITEMINDER_LOGOFF_URL=${SITEMINDER_LOGOFF_URL}
     volumes:
-      - ../fpo-api/api:/opt/app-root/src/api
+      - ../api/api:/opt/app-root/src/api
     networks:
-      - fpo
+      - fla
     ports:
       - "${API_HTTP_PORT}:8080"
       - 8000:8000 # For testing purposes
     depends_on:
-      - fpo-db
+      - fla-db
     command: >
       /bin/bash -c "
         echo Waiting for the database service to start up ...;
@@ -107,43 +108,44 @@ services:
       - POSTGRESQL_USER=${POSTGRESQL_USER}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
     networks:
-      - fpo
+      - fla
     ports:
       - 8082:8080
     depends_on:
-      - fpo-db
+      - fla-db
     command: >
       /bin/sh -c "
         echo sleeping ...;
         sleep 20;
         ./start.sh;"
   #
-  # fpo-db
+  # fla-db
   #
-  fpo-db:
-    image: registry.access.redhat.com/rhscl/postgresql-95-rhel7@sha256:155cf81a3d3a8bbcab3a1f61b177cab75a4105306146d172ef8fb29488cf58b4
+  fla-db:
+    image: centos/postgresql-12-centos7
     environment:
       - POSTGRESQL_USER=${POSTGRESQL_USER}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+      - POSTGRESQL_ADMIN_PASSWORD=${POSTGRESQL_ADMIN_PASSWORD}
     networks:
-      - fpo
+      - fla
     ports:
       - 5432:5432
     # volumes:
-    # - fpo-data:/var/lib/pgsql/data
+    # - fla-data:/var/lib/pgsql/data
 
   #
-  # fpo-pdf
+  # fla-pdf
   #
-  fpo-pdf:
+  fla-pdf:
     image: bcgovimages/weasyprint
     networks:
-      - fpo
+      - fla
     ports:
       - 8083:5001
 
 networks:
-  fpo:
+  fla:
 # volumes:
-# fpo-data:
+# fla-data:

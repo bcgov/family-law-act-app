@@ -1,0 +1,435 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: ${NAME}${SUFFIX}-deployment-template
+objects:
+  - kind: ExternalNetwork
+    apiVersion: security.devops.gov.bc.ca/v1alpha1
+    metadata:
+      name: ${NAME}
+      network: ${NAME}
+      labels:
+        name: ${NAME}${SUFFIX}
+        app: ${APP_NAME}${SUFFIX}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    spec:
+      description: |
+        Define the network parameters for accessing remote resources.
+      entries:
+        - ${WEBHOOK_URL_HOST}
+      servicePorts:
+        - tcp/443
+
+  - kind: NetworkSecurityPolicy
+    apiVersion: security.devops.gov.bc.ca/v1alpha1
+    metadata:
+      name: ${NAME}${SUFFIX}
+      labels:
+        name: ${NAME}${SUFFIX}
+        app: ${APP_NAME}${SUFFIX}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    spec:
+      description: |
+        Allow the application's API to talk to either the database or pdf microservice, plus a defined set of external resources.
+      source:
+        - - role=${ROLE}
+          - app=${APP_NAME}${SUFFIX}
+          - env=${TAG_NAME}
+          - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
+      destination:
+        - - role=db
+          - app=${APP_GROUP}
+          - env=${TAG_NAME}
+          - $namespace=${NAMESPACE_NAME}-${TAG_NAME}
+        - - ext:name=${NAME}
+
+  - kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: ${BACKUP_VOLUME_NAME}
+      labels:
+        name: ${NAME}${SUFFIX}
+        app: ${APP_NAME}${SUFFIX}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+        template: ${NAME}${SUFFIX}-template
+    spec:
+      storageClassName: ${BACKUP_VOLUME_CLASS}
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${BACKUP_VOLUME_SIZE}
+  - kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: ${VERIFICATION_VOLUME_NAME}
+      labels:
+        name: ${NAME}${SUFFIX}
+        app: ${APP_NAME}${SUFFIX}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+        template: ${NAME}${SUFFIX}-template
+    spec:
+      storageClassName: ${VERIFICATION_VOLUME_CLASS}
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${VERIFICATION_VOLUME_SIZE}
+  - kind: Secret
+    apiVersion: v1
+    metadata:
+      name: ${NAME}${SUFFIX}
+      labels:
+        name: ${NAME}${SUFFIX}
+        app: ${APP_NAME}${SUFFIX}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    stringData:
+      webhook-url: ${WEBHOOK_URL}
+      webhook-url-host: ${WEBHOOK_URL_HOST}
+    type: Opaque
+  - kind: DeploymentConfig
+    apiVersion: v1
+    metadata:
+      name: ${NAME}${SUFFIX}
+      labels:
+        name: ${NAME}${SUFFIX}
+        app: ${APP_NAME}${SUFFIX}
+        app-group: ${APP_GROUP}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+        template: ${NAME}${SUFFIX}-template
+      annotations:
+        description: Defines how to deploy the ${NAME}${SUFFIX} server
+    spec:
+      strategy:
+        type: Recreate
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${NAME}${SUFFIX}
+            from:
+              kind: ImageStreamTag
+              namespace: ${IMAGE_NAMESPACE}
+              name: ${SOURCE_IMAGE_NAME}:${TAG_NAME}
+      replicas: 1
+      selector:
+        name: ${NAME}${SUFFIX}
+      template:
+        metadata:
+          name: ${NAME}${SUFFIX}
+          labels:
+            name: ${NAME}${SUFFIX}
+            app: ${APP_NAME}${SUFFIX}
+            app-group: ${APP_GROUP}
+            role: ${ROLE}
+            env: ${TAG_NAME}
+            template: ${NAME}${SUFFIX}-template
+        spec:
+          volumes:
+            - name: ${BACKUP_VOLUME_NAME}
+              persistentVolumeClaim:
+                claimName: ${BACKUP_VOLUME_NAME}
+            - name: ${VERIFICATION_VOLUME_NAME}
+              persistentVolumeClaim:
+                claimName: ${VERIFICATION_VOLUME_NAME}
+            - name: ${NAME}${SUFFIX}-config-volume
+              configMap:
+                name: ${CONFIG_MAP_NAME}${SUFFIX}
+                items:
+                  - key: ${CONFIG_FILE_NAME}
+                    path: ${CONFIG_FILE_NAME}
+          containers:
+            - name: ${NAME}${SUFFIX}
+              image:
+              ports: []
+              env:
+                - name: BACKUP_STRATEGY
+                  value: ${BACKUP_STRATEGY}
+                - name: BACKUP_DIR
+                  value: ${BACKUP_DIR}
+                - name: DAILY_BACKUPS
+                  value: ${DAILY_BACKUPS}
+                - name: WEEKLY_BACKUPS
+                  value: ${WEEKLY_BACKUPS}
+                - name: MONTHLY_BACKUPS
+                  value: ${MONTHLY_BACKUPS}
+                - name: DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${DB_SERVICE_NAME}${SUFFIX}
+                      key: ${DB_USER_KEY_NAME}
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${DB_SERVICE_NAME}${SUFFIX}
+                      key: ${DB_PASSWORD_KEY_NAME}
+                - name: WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: webhook-url
+                - name: ENVIRONMENT_FRIENDLY_NAME
+                  value: ${ENVIRONMENT_FRIENDLY_NAME}
+                - name: ENVIRONMENT_NAME
+                  value: ${ENVIRONMENT_NAME}
+                - name: DATABASE_SERVER_TIMEOUT
+                  value: ${DATABASE_SERVER_TIMEOUT}
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+              volumeMounts:
+                - name: ${BACKUP_VOLUME_NAME}
+                  mountPath: ${BACKUP_DIR}
+                - name: ${VERIFICATION_VOLUME_NAME}
+                  mountPath: ${VERIFICATION_VOLUME_MOUNT_PATH}
+                - name: ${NAME}${SUFFIX}-config-volume
+                  mountPath: ${CONFIG_MOUNT_PATH}${CONFIG_FILE_NAME}
+                  subPath: ${CONFIG_FILE_NAME}
+parameters:
+  - name: NAME
+    displayName: Name
+    description: The name assigned to all of the resources defined in this template.
+    required: true
+    value: backup
+
+  - name: SUFFIX
+    displayName: Suffix
+    description: A name suffix used for all objects
+    required: false
+    value:
+  - name: APP_NAME
+    displayName: App Name
+    description: Used to group components together in the OpenShift console.
+    required: true
+    value: Backup
+  - name: APP_GROUP
+    displayName: App Group
+    description: The name assigned to all of the deployments in this project.
+    required: true
+    value: fla
+  - name: ROLE
+    displayName: Role
+    description: Role
+    required: true
+    value: backup
+
+  - name: NAMESPACE_NAME
+    displayName: Namespace Name
+    description: The base namespace name for the project.
+    required: true
+    value: 09e0c5
+
+  - name: SOURCE_IMAGE_NAME
+    displayName: Source Image Name
+    description: The name of the image to use for this resource.
+    required: true
+    value: backup
+  - name: IMAGE_NAMESPACE
+    displayName: Image Namespace
+    description:
+      The namespace of the OpenShift project containing the imagestream for
+      the application.
+    required: true
+    value: 09e0c5-tools
+  - name: TAG_NAME
+    displayName: Environment TAG name
+    description: The TAG name for this environment, e.g., dev, test, prod
+    required: true
+    value: dev
+  - name: DB_SERVICE_NAME
+    displayName: Database Service Name
+    description:
+      The name associated to the database service.  In particular, this is
+      used to wire up the credentials associated to the database.
+    required: true
+    value: db
+  - name: DB_USER_KEY_NAME
+    displayName: Database User Key Name
+    description:
+      The datbase user key name stoed in database deployment resources specified
+      by DATABASE_DEPLOYMENT_NAME.
+    required: true
+    value: database-user
+  - name: DB_PASSWORD_KEY_NAME
+    displayName: Database Password Key Name
+    description:
+      The database password key name stored in database deployment resources
+      specified by DATABASE_DEPLOYMENT_NAME.
+    required: true
+    value: database-password
+  - name: BACKUP_STRATEGY
+    displayName: Backup Strategy
+    description: The strategy to use for backups; for example daily, or rolling.
+    required: true
+    value: rolling
+  - name: WEBHOOK_URL
+    displayName: Webhook URL
+    description:
+      The URL of the webhook to use for notifications.  If not specified,
+      the webhook integration feature is disabled.
+    required: false
+    value:
+  - name: WEBHOOK_URL_HOST
+    displayName: Webhook URL Hostname
+    description: Webhook URL Hostname.  The backup-deploy.overrides.sh will parse this from the supplied WEBHOOK_URL, and fetch it from a secret for updates.
+    required: false
+    value:
+  - name: ENVIRONMENT_FRIENDLY_NAME
+    displayName: Friendly Environment Name
+    description:
+      The human readable name of the environment.  This variable is used
+      by the webhook integration to identify the environment in which the backup notifications
+      originate.
+    required: false
+    value: Family Law Act (dev)
+  - name: ENVIRONMENT_NAME
+    displayName: Environment Name (Environment Id)
+    description:
+      The name or Id of the environment.  This variable is used by the webhook
+      integration to identify the environment in which the backup notifications originate.
+    required: false
+    value: 09e0c5-dev
+  - name: BACKUP_DIR
+    displayName: The root backup directory
+    description:
+      The name of the root backup directory.  The backup volume will be mounted
+      to this directory.
+    required: true
+    value: /backups/
+  - name: DAILY_BACKUPS
+    displayName: Number of Daily Backups to Retain
+    description:
+      The number of daily backup files to be retained.  Used for the `rolling`
+      backup strategy.
+    required: false
+    value:
+  - name: WEEKLY_BACKUPS
+    displayName: Number of Weekly Backups to Retain
+    description:
+      The number of weekly backup files to be retained.  Used for the `rolling`
+      backup strategy.
+    required: false
+    value:
+  - name: MONTHLY_BACKUPS
+    displayName: Number of Monthly Backups to Retain
+    description:
+      The number of monthly backup files to be retained.  Used for the `rolling`
+      backup strategy.
+    required: false
+    value:
+  - name: DATABASE_SERVER_TIMEOUT
+    displayName: Database Server Timeout
+    description:
+      The timeout, in seconds, to wait for the local database server to startup
+      during a verification.
+    required: true
+    value: "300"
+  - name: CONFIG_FILE_NAME
+    displayName: Config File Name
+    description: The name of the configuration file.
+    required: true
+    value: backup.conf
+  - name: CONFIG_MAP_NAME
+    displayName: Config Map Name
+    description: The name of the configuration map.
+    required: true
+    value: backup-conf
+  - name: CONFIG_MOUNT_PATH
+    displayName: Config Mount Path
+    description: The path to use to mount the config file.
+    required: true
+    value: /
+  - name: BACKUP_VOLUME_NAME
+    displayName: Backup Volume Name
+    description:
+      The name of the persistent volume used to store the backups.  Please
+      note, when using the recommended nfs-backup storage class the name of the pvc
+      MUST be taken from the manually provisioned claim; nfs-backup storage MUST be
+      provisioned manually.
+    required: true
+    value: backup
+  - name: BACKUP_VOLUME_SIZE
+    displayName: Backup Volume Size
+    description:
+      The size of the persistent volume used to store the backups, e.g. 512Mi,
+      1Gi, 2Gi.  Ensure this is sized correctly.  Refer to the container documentation
+      for details.
+    required: true
+    value: 20Gi
+  - name: BACKUP_VOLUME_CLASS
+    displayName: Backup Volume Class
+    description: The class of the persistent volume used to store the backups; netapp-file-backup.
+    required: true
+    value: netapp-file-backup
+  - name: VERIFICATION_VOLUME_NAME
+    displayName: Verification Volume Name
+    description:
+      The name for the verification volume, used for restoring and verifying
+      backups.  When using the recommend nfs-backup storage class for backups, this
+      volume MUST be one of netapp-file-standard, netapp-file-extended, netapp-block-standard,
+      or netapp-block-extended; netapp-block-standard or netapp-block-extended are recommended
+      for LARGE databases (as they have far better performance).
+    required: false
+    value: backup-verification
+  - name: VERIFICATION_VOLUME_SIZE
+    displayName: Backup Volume Size
+    description:
+      The size of the persistent volume used for restoring and verifying
+      backups, e.g. 512Mi, 1Gi, 2Gi.  Ensure this is sized correctly.  It should be
+      large enough to contain your largest database.
+    required: true
+    value: 15Gi
+  - name: VERIFICATION_VOLUME_CLASS
+    displayName: Backup Volume Class
+    description:
+      The class of the persistent volume used for restoring and verifying
+      backups; should be one of netapp-file-standard, netapp-file-extended, netapp-block-standard,
+      or netapp-block-extended; netapp-block-standard or netapp-block-extended  are
+      recommended for LARGE databases (as they have far better performance).
+    required: true
+    value: netapp-file-standard
+  - name: VERIFICATION_VOLUME_MOUNT_PATH
+    displayName: Verification Volume Mount Path
+    description:
+      The path on which to mount the verification volume.  This is used by
+      the database server to contain the database configuration and data files.
+    required: true
+    value: /var/lib/pgsql/data
+  - name: CPU_REQUEST
+    displayName: Resources CPU Request
+    description: The resources CPU request (in cores) for this build.
+    required: true
+    value: "0"
+  - name: CPU_LIMIT
+    displayName: Resources CPU Limit
+    description: The resources CPU limit (in cores) for this build.
+    required: true
+    value: "0"
+  - name: MEMORY_REQUEST
+    displayName: Resources Memory Request
+    description: The resources Memory request (in Mi, Gi, etc) for this build.
+    required: true
+    value: 0Mi
+  - name: MEMORY_LIMIT
+    displayName: Resources Memory Limit
+    description: The resources Memory limit (in Mi, Gi, etc) for this build.
+    required: true
+    value: 0Mi
