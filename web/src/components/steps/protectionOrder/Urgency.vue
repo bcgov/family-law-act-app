@@ -111,6 +111,7 @@ export default class Urgency extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
+            this.UpdateGotoNextStepPage();
         }
     }
 
