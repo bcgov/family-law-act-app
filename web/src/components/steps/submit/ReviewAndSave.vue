@@ -124,6 +124,11 @@
         applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
 
         mounted(){
+
+            const progress = 50;        
+            const currentStep = this.$store.state.Application.currentStep;
+            this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+       
             let location = this.$store.state.Application.applicationLocation
             if(!location) location = this.$store.state.Common.userLocation
             //console.log(location)
@@ -147,16 +152,55 @@
             this.UpdateGotoNextStepPage()
         }
 
-         public onDownload() {
+        public onDownload() {
             //console.log("downloading")
-            const currentDate = moment().format();
-            this.$store.commit("Application/setLastPrinted", currentDate); 
-            const application = this.$store.state.Application;
-            
-            const applicationId = application.id;
+            if(this.checkErrorOnPages()){ 
+                const currentDate = moment().format();
+                this.$store.commit("Application/setLastPrinted", currentDate); 
+                const application = this.$store.state.Application;
+                
+                const applicationId = application.id;
 
-            this.loadPdf();
+                this.loadPdf();
+            }
         }
+
+    public checkErrorOnPages(){
+
+        for(const step of this.$store.state.Application.steps){
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
+                    { 
+                        console.log(step)
+                        console.log(page)
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
+                        const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
+                        const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
+                        nextChildGroup.style.display = "block";
+                        currPage.style.color="red";
+                        return false;
+                    }
+                }
+            }
+            
+        }
+        return true;
+        
+    }
+
+    public getStepId(stepIndex) {
+        return "step-" + stepIndex;
+    }
+
+    public getStepGroupId(stepIndex) {
+        return this.getStepId(stepIndex) + "-group";
+    }
+
+    public getStepPageId(stepIndex, pageIndex) {
+        return this.getStepId(stepIndex) + "-page-" + pageIndex;
+    }
 
         public loadPdf() {
             const applicationId = this.$store.state.Application.id;

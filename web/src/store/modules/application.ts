@@ -416,22 +416,26 @@ class Application extends VuexModule {
     @Mutation
     public gotoNextStepPage({ nextStep, nextPage }): void {
         if (nextStep != this.currentStep) {
-          this.currentStep = nextStep;
+            this.currentStep = nextStep;
         }
     
         if (nextPage != this.steps[nextStep].currentPage) {
-          this.steps[nextStep].currentPage = nextPage;
+            this.steps[nextStep].currentPage = nextPage;
         }
         window.scrollTo(0, 0);
-    }
-    
+    }    
     @Action
     public UpdateGotoNextStepPage() {
         //console.log("goto mutation")
+        // console.error("___________________")
+        // console.log(this.currentStep)
+        // console.log(this.steps[this.currentStep].currentPage)        
+        this.context.commit("setPageProgress", { currentStep:this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:100 })
+        
         const nextStepPage = this.context.getters["getNextStepPage"];
     
         if (nextStepPage != null) {
-          this.context.commit("gotoNextStepPage", nextStepPage);
+            this.context.commit("gotoNextStepPage", nextStepPage);
         }
     }
     
@@ -442,6 +446,15 @@ class Application extends VuexModule {
     @Action
     public UpdatePageActive({ currentStep, currentPage, active }) {
         this.context.commit("setPageActive", { currentStep, currentPage, active });
+    }
+
+    @Mutation
+    public setPageProgress({ currentStep, currentPage, progress }): void {
+        this.steps[currentStep].pages[currentPage].progress = progress;
+    }
+    @Action
+    public UpdatePageProgress({ currentStep, currentPage, progress }) {
+        this.context.commit("setPageProgress", { currentStep, currentPage, progress });
     }
 
     @Mutation
@@ -613,7 +626,7 @@ class Application extends VuexModule {
         
             if (s.active) {
                 while (nextStepPage == null && pIndex < s.pages.length) {
-                    if (s.pages[pIndex].active) {
+                    if (s.pages[pIndex] && s.pages[pIndex].active) {
                         nextStepPage = { nextStep: sIndex, nextPage: pIndex };
                     } else {
                         pIndex++;

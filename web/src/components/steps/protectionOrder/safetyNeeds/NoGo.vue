@@ -40,7 +40,8 @@ export default class NoGo extends Vue {
 
 
     survey = new SurveyVue.Model(surveyJson);
-
+    currentStep=0;
+    currentPage=0;
     // watch: {
     // pageIndex: function(newVal) {
     //   this.survey.currentPageNo = newVal;
@@ -74,7 +75,15 @@ export default class NoGo extends Vue {
 
         if (this.step.result && this.step.result['noGoSurvey']){
             this.survey.data = this.step.result['noGoSurvey'];
-        }  
+        }
+        
+        let progress = 50;
+        if(Object.keys(this.survey.data).length)
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
 
         const respondentNameObject = this.$store.state.Application.respondentName;
         if (respondentNameObject) {
@@ -106,6 +115,20 @@ export default class NoGo extends Vue {
     }
   
     beforeDestroy() {
+
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage){
+            if(this.survey.isCurrentPageHasErrors)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                //currPage.className="current";
+            }  
+        } 
+
         this.UpdateStepResultData({step:this.step, data: {noGoSurvey: this.survey.data}})
         
         // this.$store.commit("Application/updateStepResultData",{

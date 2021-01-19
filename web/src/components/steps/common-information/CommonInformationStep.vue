@@ -12,7 +12,7 @@ import Information from "./Information.vue";
 import OtherParty from "./otherPartyComponent/OtherParty.vue";
 import { stepInfoType } from "@/types/Application";
 import * as SurveyVue from "survey-vue";
-import surveyJson from "../common-information/forms/survey-information.json";
+import surveyJson from "./forms/survey-information.json";
 
 
 @Component({

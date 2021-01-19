@@ -1,80 +1,80 @@
 <template>
-  <div id="status">
-    <b-container class="container home-content">
-      <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
-      <div class="row">
-        <div class="col-12">
-          <h1>Previous Applications</h1>
-          <hr class="bg-light" style="height: 2px;"/>
+    <div id="status">
+        <b-container class="container home-content">
+            <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
+            <div class="row">
+                <div class="col-12">
+                    <h1>Previous Applications</h1>
+                    <hr class="bg-light" style="height: 2px;"/>
 
-          <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
-                <span class="text-muted ml-4 mb-5">No previous applications.</span>
-          </b-card>
+                    <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
+                            <span class="text-muted ml-4 mb-5">No previous applications.</span>
+                    </b-card>
 
-          <b-card v-else no-body border-variant="light" bg-variant="white">
-            <b-table  :items="previousApplications"
-                      :fields="previousApplicationFields"
-                      class="mx-4"
-                      sort-by="lastUpdated"
-                      :sort-desc="true"
-                      borderless
-                      striped
-                      small 
-                      responsive="sm"
-                      >
-                  <template v-slot:cell(edit)="row">
-                    <b-button size="sm" variant="transparent" class="my-0 py-0"
-                              @click="removeApplication(row.item, row.index)"
-                              v-b-tooltip.hover
-                                        title="Remove Application">
-                              <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
-                    </b-button>
-                    <b-button size="sm" variant="transparent" class="my-0 py-0"
-                              @click="resumeApplication(row.item.id)"
-                              v-b-tooltip.hover
-                                        title="Resume Application">
-                              <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
-                    </b-button>
-                  </template>
-                  <template v-slot:cell(app_type)="row">                  
-                      <span>{{row.item.app_type}}</span>
-                  </template>
-                  <template v-slot:cell(lastUpdated)="row">                  
-                      <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
-                  </template>
-            </b-table>
-          </b-card>
-          <div class="row">
-            <div hidden class="col-md-5">
-              <a
-                class="btn btn-success btn-lg register-button"
-                @click="navigate('new')"
-              >Respond to Documents served on me</a>
+                    <b-card v-else no-body border-variant="light" bg-variant="white">
+                        <b-table  :items="previousApplications"
+                            :fields="previousApplicationFields"
+                            class="mx-4"
+                            sort-by="lastUpdated"
+                            :sort-desc="true"
+                            borderless
+                            striped
+                            small 
+                            responsive="sm"
+                            >
+                            <template v-slot:cell(edit)="row">
+                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="removeApplication(row.item, row.index)"
+                                    v-b-tooltip.hover.noninteractive
+                                                title="Remove Application">
+                                    <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
+                                </b-button>
+                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="resumeApplication(row.item.id)"
+                                    v-b-tooltip.hover.noninteractive
+                                                title="Resume Application">
+                                    <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
+                                </b-button>
+                            </template>
+                            <template v-slot:cell(app_type)="row">                  
+                                <span>{{row.item.app_type}}</span>
+                            </template>
+                            <template v-slot:cell(lastUpdated)="row">                  
+                                <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
+                            </template>
+                        </b-table>
+                    </b-card>
+                    <div class="row">
+                        <div hidden class="col-md-5">
+                            <a
+                                class="btn btn-success btn-lg register-button"
+                                @click="navigate('new')"
+                            >Respond to Documents served on me</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a
+                                class="btn btn-success btn-lg register-button"
+                                @click="beginApplication()"
+                            >Begin NEW Application</a>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a class="terms" @click="openTerms()">
+                                <u>Terms and Conditions</u>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-5">
-              <a
-                class="btn btn-success btn-lg register-button"
-                @click="beginApplication()"
-              >Begin NEW Application</a>
-            </div>
-          </div>
-          <br />
-          <br />
-          <br />
-          <div class="row">
-            <div class="col-md-5">
-              <a class="terms" @click="openTerms()">
-                <u>Terms and Conditions</u>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </b-container>
+        </b-container>
 
-    <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" header-class="bg-warning text-light">
+        <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" header-class="bg-warning text-light">
             <b-row v-if="deleteError" id="DeleteError" class="h4 mx-2">
                 <b-badge class="mx-1 mt-2"
                     style="width: 20rem;"
@@ -83,26 +83,26 @@
                     variant="danger"> {{deleteErrorMsg}}
                     <b-icon class="ml-3"
                         icon = x-square-fill
-                        @click="deleteError = false"
-                /></b-badge>                    
-      </b-row>            
-      <template v-slot:modal-title>
-          <h2 v-if="allowDeletion" class="mb-0 text-light">Confirm Delete Application</h2>
-          <h2 v-else class="mb-0 text-light">Deletion Not Permitted</h2>                   
-      </template>
-      <h4 v-if="allowDeletion" >Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</h4>
-      <h4 v-else >The deletion of the <b>"{{applicationToDelete.app_type}}"</b> application is not permitted.</h4>
-      <template v-slot:modal-footer>
-          <b-button v-if="allowDeletion" variant="danger" @click="confirmRemoveApplication()">Confirm</b-button>
-          <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
-      </template>            
-      <template v-slot:modal-header-close>                 
-          <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
-          >&times;</b-button>
-      </template>
-    </b-modal> 
+                        @click="deleteError = false"/>
+                </b-badge>                    
+            </b-row>            
+            <template v-slot:modal-title>
+                <h2 v-if="allowDeletion" class="mb-0 text-light">Confirm Delete Application</h2>
+                <h2 v-else class="mb-0 text-light">Deletion Not Permitted</h2>                   
+            </template>
+            <h4 v-if="allowDeletion" >Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</h4>
+            <h4 v-else >The deletion of the <b>"{{applicationToDelete.app_type}}"</b> application is not permitted.</h4>
+            <template v-slot:modal-footer>
+                <b-button v-if="allowDeletion" variant="danger" @click="confirmRemoveApplication()">Confirm</b-button>
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
+                >&times;</b-button>
+            </template>
+        </b-modal> 
 
-  </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -278,53 +278,53 @@ export default class ApplicationStatus extends Vue {
 <style scoped lang="scss">
 @import "src/styles/common";
 .home-content {
-  padding-bottom: 20px;
-  padding-top: 2rem;
-  max-width: 950px;
-  color: black;
+    padding-bottom: 20px;
+    padding-top: 2rem;
+    max-width: 950px;
+    color: black;
 }
 hr.section {
-  border: 0.5px solid $gov-mid-blue;
-  margin-bottom: 1.5rem;
+    border: 0.5px solid $gov-mid-blue;
+    margin-bottom: 1.5rem;
 }
 .section-heading {
-  color: $gov-mid-blue;
-  font-weight: 500;
-  padding: 0rem 2rem 0rem 2rem;
+    color: $gov-mid-blue;
+    font-weight: 500;
+    padding: 0rem 2rem 0rem 2rem;
 }
 .intro {
-  font-size: 24px;
-  line-height: 1.6;
-  margin: 0.5rem auto 0.5rem;
-  p {
-    margin-bottom: 0.5rem;
-  }
+    font-size: 24px;
+    line-height: 1.6;
+    margin: 0.5rem auto 0.5rem;
+    p {
+        margin-bottom: 0.5rem;
+    }
 }
 .loginInfo-section {
-  margin-top: 2.5rem;
+    margin-top: 2.5rem;
 }
 .register-button {
-  color: $gov-white !important;
-  border: 2px solid rgba($gov-mid-blue, 0.3);
-  margin-top: 2.5rem;
-  width: 100%;
-  &:active {
-    border: 2px solid rgba($gov-white, 0.8);
-  }
+    color: $gov-white !important;
+    border: 2px solid rgba($gov-mid-blue, 0.3);
+    margin-top: 2.5rem;
+    width: 100%;
+    &:active {
+        border: 2px solid rgba($gov-white, 0.8);
+    }
 }
 .wrapper {
-  position: relative;
-  padding-left: 8rem;
-  width: 30px;
-  height: 200px;
-  margin: 10px;
+    position: relative;
+    padding-left: 8rem;
+    width: 30px;
+    height: 200px;
+    margin: 10px;
 }
 
 .application-button {
-  margin-right: 2rem;
+    margin-right: 2rem;
 }
 
 .terms{
-  color: $gov-mid-blue;
+    color: $gov-mid-blue;
 }
 </style>

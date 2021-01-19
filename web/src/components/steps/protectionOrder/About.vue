@@ -40,7 +40,8 @@ export default class About extends Vue {
 
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
-
+    currentStep=0;
+    currentPage=0;
     // watch: {
     // pageIndex: function(newVal) {
     //   this.survey.currentPageNo = newVal;
@@ -80,6 +81,14 @@ export default class About extends Vue {
         if(order) {
             this.survey.setVariable("userPreferredService", order.orderType);
         }
+
+        let progress = 50;
+        if(Object.keys(this.survey.data).length)
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
     }
     
     public onPrev() {
@@ -99,6 +108,19 @@ export default class About extends Vue {
     }
   
     beforeDestroy() {
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage){
+            if(this.survey.isCurrentPageHasErrors)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                //currPage.className="current";
+            }  
+        }   
+
         this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: this.survey.data}})
 
         // this.$store.commit("Application/updateStepResultData",{

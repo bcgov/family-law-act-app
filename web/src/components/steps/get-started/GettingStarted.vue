@@ -144,16 +144,22 @@ export default class GettingStarted extends Vue {
     showLegalAssistance = false
 
     created() {
-        console.log(this.step)
+        //console.log(this.step)
         // get the user type and if existing user with existing cases, show different
         this.returningUser = (store.state.Application.userType == 'returning');
         if (this.step.result && this.step.result['selectedForms']) {
             this.selected = this.step.result['selectedForms'];
         }
     }
+
+    mounted(){
+        const progress = this.selected.length==0? 50 : 100;
+        const currentStep = this.$store.state.Application.currentStep;
+        this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+    }
   
     public onChange(event) {
-        console.log(event)
+        //console.log(event)
         this.setSteps(event);
     }
 

@@ -39,7 +39,9 @@ export default class PoQuestionnaire extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    disableNextButton = false
+    disableNextButton = false;
+    currentStep=0;
+    currentPage=0;
 
     @Watch('pageIndex')
     pageIndexChange(newVal) 
@@ -85,7 +87,7 @@ export default class PoQuestionnaire extends Vue {
             let pagesArr = [];
             if (options.name === "orderType") {        
                 this.removePages();
-                console.log('__removed')
+                //console.log('__removed')
                 let selectedOrder = options.value;
 
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: sender.data}});
@@ -96,19 +98,22 @@ export default class PoQuestionnaire extends Vue {
                 // });
                 pagesArr = [7, 8];
                 if (selectedOrder !== "needPO" && selectedOrder !== "none") {
-                this.togglePages(pagesArr, true);
-                this.toggleOtherPartyPage(true);
+                    this.togglePages(pagesArr, true);
+                    this.toggleOtherPartyPage(true);
+                    this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:7 })
                 } else {
-                this.togglePages(pagesArr, false);
-                this.toggleOtherPartyPage(false);
+                    this.togglePages(pagesArr, false);
+                    this.toggleOtherPartyPage(false);
+                    this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:0 })
                 }
                 if (selectedOrder === "needPO") {
-                this.populatePagesForNeedPO(sender);
+                    this.populatePagesForNeedPO(sender);
                 }
                 this.determinePeaceBondAndBlock();
             }
             if (options.name === "PORConfirmed") {
-                console.log(this.survey.data)
+                //console.log(this.survey.data)
+                this.determinePeaceBondAndBlock();
                 pagesArr = [0, 1, 2, 4, 5, 6, 8];
                 if (options.value.length !== 0) {
                 this.togglePages(pagesArr, true);
@@ -121,7 +126,7 @@ export default class PoQuestionnaire extends Vue {
                 //console.warn(options.value)
                 this.determinePeaceBondAndBlock();
             }
-            console.log(this.survey.data)
+            //console.log(this.survey.data)
             //console.log(options.name) 
         })   
     }
@@ -131,7 +136,16 @@ export default class PoQuestionnaire extends Vue {
         if (this.step.result && this.step.result["questionnaireSurvey"]){
             this.survey.data = this.step.result["questionnaireSurvey"];
         }
-    }
+
+        let progress = 50;
+        if(Object.keys(this.survey.data).length)
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        this.determinePeaceBondAndBlock();
+   }
 
     public activateStep(stepActive) {
         this.$store.commit("Application/setStepActive", {
@@ -157,6 +171,13 @@ export default class PoQuestionnaire extends Vue {
             currentStep: 1,
             currentPage: 1,
             active: activeIndicator
+        });
+    }
+
+    public toggleStep(step, active) {
+        this.$store.commit("Application/setStepActive", {
+            currentStep: step,
+            active: active
         });
     }
 
@@ -205,16 +226,27 @@ export default class PoQuestionnaire extends Vue {
         if((this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO')||(this.survey.data.unsafe == 'n' && this.survey.data.orderType == 'needPO')){
             this.disableNextButton = true;
             this.togglePages(pagesArr, false);
+            this.toggleStep(1, false);
+            this.toggleStep(2, false);
+            this.toggleStep(8, false);
+            
         }else{
             this.disableNextButton = false;
-            if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
+            if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {            
+            this.toggleStep(1, true);
+            this.toggleStep(2, true);
+            this.toggleStep(8, true);
             this.togglePages(pagesArr, true);
             }       
         }
     }
 
     beforeDestroy() {
-
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
+      
         this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
 
         // this.$store.commit("Application/updateStepResultData", {

@@ -42,6 +42,8 @@ export default class ProtectionFromWhom extends Vue {
     disableNextButton = false
 
     survey = new SurveyVue.Model(surveyJson);
+    currentStep=0;
+    currentPage=0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -100,6 +102,16 @@ export default class ProtectionFromWhom extends Vue {
             this.survey.data = this.step.result['protectionWhomSurvey'];
         }
 
+        //console.log(this.survey.data)
+        
+        let progress = 50;
+        if(Object.keys(this.survey.data).length && this.survey.data.RespondentName)
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+
         const applicantNameObject = this.$store.state.Application.applicantName;
         
         if (applicantNameObject) {
@@ -114,6 +126,8 @@ export default class ProtectionFromWhom extends Vue {
         if (this.applicantName) {
             this.survey.setVariable("ApplicantName", this.applicantName);
         }
+
+        
     }
     
 
@@ -134,6 +148,20 @@ export default class ProtectionFromWhom extends Vue {
     }
   
     beforeDestroy() {
+
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage){
+            if(this.survey.isCurrentPageHasErrors)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                //currPage.className="current";
+            }  
+        } 
+
         if (this.survey.data.anotherAdultPO === "y") {
             this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
         }else{
