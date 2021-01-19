@@ -47,11 +47,6 @@ export default class ProtectionOrder extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-
-    // watch: {
-    // pageIndex: function(newVal) {
-    //   this.survey.currentPageNo = newVal;
-    // }
     // @Watch('pageIndex')
     // pageIndexChange(newVal) 
     // {

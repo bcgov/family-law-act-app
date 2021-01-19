@@ -51,7 +51,6 @@ export default class PageBase extends Vue {
         if (this.$listeners && this.$listeners.onPrev) {
             this.$emit('onPrev');
         } else {
-            //this.$store.commit("Application/gotoPrevStepPage");
             this.UpdateGotoPrevStepPage()
         }
         //window.scrollTo(0, 0);
@@ -63,7 +62,6 @@ export default class PageBase extends Vue {
             if (this.$listeners && this.$listeners.onNext) {  
                 this.$emit('onNext');
             } else {
-               // this.$store.commit("Application/gotoNextStepPage");
                 this.UpdateGotoNextStepPage()
             }
         }
@@ -82,14 +80,12 @@ export default class PageBase extends Vue {
 
     public hasPrevStepPage() {
         //console.log("has previous")
-        //console.log(this.$store.getters["Application/getPrevStepPage"])
         return this.$store.getters["Application/getPrevStepPage"] != null;
     }
 
     public hasNextStepPage() {
         
         //console.log("has next")
-        //console.log(this.$store.getters["Application/getNextStepPage"])
         return this.$store.getters["Application/getNextStepPage"] != null;
        
     }
@@ -106,7 +102,6 @@ export default class PageBase extends Vue {
         const lastUpdated = moment().format();
         this.$store.commit("Application/setLastUpdated", lastUpdated); 
         const application = this.$store.state.Application;
-        // console.log(application.steps[0].result.questionnaireSurvey.orderType)   
         const applicationId = application.id;
 
         const header = {

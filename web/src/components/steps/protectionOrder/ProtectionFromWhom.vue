@@ -132,13 +132,11 @@ export default class ProtectionFromWhom extends Vue {
     
 
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            //this.$store.dispatch("application/gotoNextStepPage");
             this.UpdateGotoNextStepPage()
         }
     }
@@ -174,11 +172,6 @@ export default class ProtectionFromWhom extends Vue {
             this.$store.commit("Application/setProtectedChildName",[]);
 
         this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: this.survey.data}});
-
-        // this.$store.commit("Application/updateStepResultData",{
-        //     step: this.step,
-        //     data:{protectionWhomSurvey: this.survey.data}
-        // })
     }
 };
 </script>

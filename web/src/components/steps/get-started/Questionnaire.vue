@@ -49,12 +49,6 @@ export default class PoQuestionnaire extends Vue {
         this.survey.currentPageNo = newVal;        
     }
 
-    // watch: {
-    //     pageIndex: function(newVal) {
-    //     this.survey.currentPageNo = newVal;
-    //     }
-    // }
-
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -92,10 +86,6 @@ export default class PoQuestionnaire extends Vue {
 
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: sender.data}});
 
-                // this.$store.commit("Application/updateStepResultData", {
-                // step: this.step,
-                // data: {selectedPOOrder: sender.data}
-                // });
                 pagesArr = [7, 8];
                 if (selectedOrder !== "needPO" && selectedOrder !== "none") {
                     this.togglePages(pagesArr, true);
@@ -197,12 +187,10 @@ export default class PoQuestionnaire extends Vue {
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()
-        //this.$store.commit("Application/gotoPrevStepPage");
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            //this.$store.commit("Application/gotoNextStepPage");
             this.UpdateGotoNextStepPage()
         }
     }
@@ -249,10 +237,6 @@ export default class PoQuestionnaire extends Vue {
       
         this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
 
-        // this.$store.commit("Application/updateStepResultData", {
-        //     step: this.step,
-        //     data: {questionnaireSurvey: this.survey.data}
-        // })
     }
 };
 </script>

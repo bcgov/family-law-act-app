@@ -40,10 +40,7 @@ export default class Background extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-    // watch: {
-    // pageIndex: function(newVal) {
-    //   this.survey.currentPageNo = newVal;
-    // }
+   
     @Watch('pageIndex')
     pageIndexChange(newVal) 
     {
@@ -94,22 +91,16 @@ export default class Background extends Vue {
             if(child.childName)
                 children+='<li>'+ this.getFullName(child.childName) +'</li>'
         }
-        //console.log(children)
-        this.survey.setVariable("protectedChildName",children)
-        //survey.setValue("protectedPartyName", this.getFullName(this.$store.getters["application/getProtectedPartyName"]));
-        //survey.setJsonObject({'protected':'ok'})
-        //survey.data.setJsonObject({'protected':'ok'})
-        //console.log(survey.data)    
+ 
+        this.survey.setVariable("protectedChildName",children)   
     }
 
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            //this.$store.dispatch("application/gotoNextStepPage");
             this.UpdateGotoNextStepPage()
         }
     }
@@ -146,12 +137,6 @@ export default class Background extends Vue {
         } 
  
         this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: this.survey.data}})
-
-
-        // this.$store.commit("Application/updateStepResultData",{
-        //     step: this.step,
-        //     data:{backgroundSurvey: this.survey.data}
-        // })
     }
 }
 </script>

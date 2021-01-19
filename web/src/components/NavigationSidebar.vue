@@ -72,8 +72,6 @@ export default class NavigationSidebar extends Vue {
     error = "";
 
     public  onSelectStep(event) {
-        //console.log('selectSTEP')
-        //return
         const currIndex = this.$store.state.Application.currentStep;
         const curr = document.getElementById(this.getStepId(currIndex));
         const currChildGroup = document.getElementById(this.getStepGroupId(currIndex));
@@ -106,22 +104,13 @@ export default class NavigationSidebar extends Vue {
 
     //TODO: This is where the step is selected
     public onSelectPage(event) {
-        //return
-        //console.log('selectPage')
         const currStepIndex = this.$store.state.Application.currentStep;
         const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
         const currPage = document.getElementById(this.getStepPageId(currStepIndex, currPageIndex));
         const nextPage = event.currentTarget;
         const nextPageIndex = parseInt(nextPage.getAttribute("index"));
 
-//Vue.nextTick(()=>{
-    // console.warn("___")
-    // console.log('S_'+currStepIndex)     
-    // console.log('Pn_'+nextPageIndex)
-    // console.log('prg%_'+this.$store.state.Application.steps[currStepIndex].pages[nextPageIndex].progress)
-    // console.log('Pc_'+currPageIndex)
         if(this.$store.state.Application.steps[currStepIndex].pages[nextPageIndex].progress == 0) return
-//})
 
 
         if (currPage == nextPage) {

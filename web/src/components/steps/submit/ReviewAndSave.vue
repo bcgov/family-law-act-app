@@ -143,12 +143,10 @@
         
         
         public onPrev() {
-            //this.$store.dispatch("application/gotoPrevStepPage");
             this.UpdateGotoPrevStepPage()
         }
 
-        public onNext() {            
-            //this.$store.dispatch("application/gotoNextStepPage");
+        public onNext() {
             this.UpdateGotoNextStepPage()
         }
 
@@ -172,8 +170,8 @@
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
                     { 
-                        console.log(step)
-                        console.log(page)
+                        //console.log(step)
+                        //console.log(page)
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
                         const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));

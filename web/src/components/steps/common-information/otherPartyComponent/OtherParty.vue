@@ -101,16 +101,6 @@ export default class OtherParty extends Vue {
 
     }
 
-
-    // watch: {
-    //   otherPartyData: function() {
-    //     this.$store.dispatch("application/updateStepResultData", {
-    //       step: this.step,
-    //       data: {otherPartySurvey: this.otherPartyData}
-    //     });
-    //   }
-    // }
-
     currentStep=0;
     currentPage=0;
     showTable = true;
@@ -169,13 +159,11 @@ export default class OtherParty extends Vue {
     }
 
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         this.UpdateGotoNextStepPage();
-        // this.$store.dispatch("application/gotoNextStepPage");
     }
 
     public onComplete() {

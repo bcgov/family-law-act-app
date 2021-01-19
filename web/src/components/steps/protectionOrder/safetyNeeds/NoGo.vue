@@ -42,10 +42,7 @@ export default class NoGo extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-    // watch: {
-    // pageIndex: function(newVal) {
-    //   this.survey.currentPageNo = newVal;
-    // }
+    
     @Watch('pageIndex')
     pageIndexChange(newVal) 
     {
@@ -99,13 +96,11 @@ export default class NoGo extends Vue {
     
    
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            //this.$store.dispatch("application/gotoNextStepPage");
             this.UpdateGotoNextStepPage()
         }
     }
@@ -131,10 +126,6 @@ export default class NoGo extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {noGoSurvey: this.survey.data}})
         
-        // this.$store.commit("Application/updateStepResultData",{
-        //     step: this.step,
-        //     data:{noGoSurvey: this.survey.data}
-        // })  
     }
 };
 </script>

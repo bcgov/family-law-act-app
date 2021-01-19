@@ -1,74 +1,74 @@
 <template>
-  <header class="app-header">
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <!-- Navbar content -->
+    <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+        <!-- Navbar content -->
 
-      <div class="container-fluid">
-        <a class="navbar-brand" href="https://www2.gov.bc.ca" style="max-width:200px">
-          <img
-            class="img-fluid d-none d-md-block"
-            src="../../public/images/bcid-logo-rev-en.svg"
-            width="177"
-            height="44"
-            alt="B.C. Government Logo"
-          />
+            <div class="container-fluid">
+                <a class="navbar-brand" href="https://www2.gov.bc.ca" style="max-width:200px">
+                    <img
+                        class="img-fluid d-none d-md-block"
+                        src="../../public/images/bcid-logo-rev-en.svg"
+                        width="177"
+                        height="44"
+                        alt="B.C. Government Logo"
+                    />
 
-          <img
-            class="img-fluid d-md-none"
-            src="../../public/images/bcid-symbol-rev.svg"
-            width="63"
-            height="44"
-            alt="B.C. Government Logo"
-          />
-        </a>
-        <div class="navbar-brand navbar-text">
-          Apply for a Family Law Act Protection Order
-          <span class="navbar-tag">BETA</span>
-        </div>
+                    <img
+                        class="img-fluid d-md-none"
+                        src="../../public/images/bcid-symbol-rev.svg"
+                        width="63"
+                        height="44"
+                        alt="B.C. Government Logo"
+                    />
+                </a>
+                <div class="navbar-brand navbar-text">
+                    Apply for a Family Law Act Protection Order
+                    <span class="navbar-tag">BETA</span>
+                </div>
 
-        <div class="navbar-extra">
-          <div id="app-profile">
-            <div v-if="userName" style="padding-right: rem">
-              <b-dropdown
-                id="profileDropdown"
-                text="Profile"
-                variant="primary btn-transparent"
-                menu-class="w-10"
-                style="margin-right: 1rem"
-              >
-                <template #button-content style="background-color: #003366">
-                  <span class="fa fa-user"></span> {{ userName }}
-                </template>
-                <b-dropdown-item @click="logout(false)">Logout</b-dropdown-item>
-              </b-dropdown>
+                <div class="navbar-extra">
+                    <div id="app-profile">
+                        <div v-if="userName" style="padding-right: rem">
+                            <b-dropdown
+                                id="profileDropdown"
+                                text="Profile"
+                                variant="primary btn-transparent"
+                                menu-class="w-10"
+                                style="margin-right: 1rem"
+                            >
+                                <template #button-content style="background-color: #003366">
+                                    <span class="fa fa-user"></span> {{ userName }}
+                                </template>
+                                <b-dropdown-item @click="logout(false)">Logout</b-dropdown-item>
+                            </b-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div id="app-exit" class="app-exit">
+                    <a
+                        @click="logout(true)"
+                        target="_blank"
+                        id="quick-exit"
+                        rel="external"
+                        class="btn btn-primary text-warning"
+                        ><span class="fa fa-sign-out"/> Quick Exit</a
+                    >
+                </div>
+
+                <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-          </div>
-        </div>
-        <div id="app-exit" class="app-exit">
-          <a
-            @click="logout(true)"
-            target="_blank"
-            id="quick-exit"
-            rel="external"
-            class="btn btn-primary text-warning"
-            ><span class="fa fa-sign-out"/> Quick Exit</a
-          >
-        </div>
-
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </nav>
-  </header>
+        </nav>
+    </header>
 </template>
 
 <script lang="ts">
@@ -126,8 +126,8 @@ export default class NavigationTopbar extends Vue {
 
 <style>
 .btn-transparent {
-  background-color: transparent !important;
-  border-color: #ccc !important;
+    background-color: transparent !important;
+    border-color: #ccc !important;
 }
 </style>
 
@@ -135,48 +135,48 @@ export default class NavigationTopbar extends Vue {
 @import "../styles/common";
 
 .app-exit + .navbar {
-  padding-right: 170px;
+    padding-right: 170px;
 }
 
 .navbar-brand:not(.logo) {
-  flex: 1 1 auto;
+    flex: 1 1 auto;
 }
 
 .navbar-extra {
-  display: inline-block;
-  flex: 1 1 auto;
-  text-align: right;
+    display: inline-block;
+    flex: 1 1 auto;
+    text-align: right;
 }
 .navbar .navbar-extra {
-  display: inline-block;
-  flex: 1 1 auto;
-  text-align: right;
+    display: inline-block;
+    flex: 1 1 auto;
+    text-align: right;
 }
 
 .app-exit,
 .navbar {
-  .btn-primary {
-    border-color: #ccc;
-  }
+    .btn-primary {
+        border-color: #ccc;
+    }
 }
 
 
 
 #app-exit {
-  padding: 8px 15px;
-  position: absolute;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 100;
-  .btn {
-    border-radius: 10rem;
-    font-size: 110%;
-    padding: 0.5em 1em;
-  }
+    padding: 8px 15px;
+    position: absolute;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    .btn {
+        border-radius: 10rem;
+        font-size: 110%;
+        padding: 0.5em 1em;
+    }
 }
 
 #app-profile {
-  color: $gov-white;
+    color: $gov-white;
 }
 </style>

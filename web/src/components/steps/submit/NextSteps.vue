@@ -78,12 +78,10 @@
         showLegalAssistance = false
 
         public onPrev() {
-            //this.$store.dispatch("application/gotoPrevStepPage");
             this.UpdateGotoPrevStepPage()
         }
 
         public onNext() {
-            //this.$store.dispatch("application/gotoNextStepPage");
             this.UpdateGotoNextStepPage()
         }
     }

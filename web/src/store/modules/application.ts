@@ -426,10 +426,6 @@ class Application extends VuexModule {
     }    
     @Action
     public UpdateGotoNextStepPage() {
-        //console.log("goto mutation")
-        // console.error("___________________")
-        // console.log(this.currentStep)
-        // console.log(this.steps[this.currentStep].currentPage)        
         this.context.commit("setPageProgress", { currentStep:this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:100 })
         
         const nextStepPage = this.context.getters["getNextStepPage"];
@@ -618,9 +614,6 @@ class Application extends VuexModule {
         let nextStepPage: { nextStep: number; nextPage: number };    
         let sIndex = this.currentStep;
         let pIndex = this.steps[sIndex].currentPage + 1;
-        // console.log(sIndex);
-        // console.log(pIndex);
-        // console.log(this.steps)
         while (nextStepPage == null && sIndex < this.steps.length) {
             const s = this.steps[sIndex];
         

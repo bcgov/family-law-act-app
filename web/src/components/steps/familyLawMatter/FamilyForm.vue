@@ -64,12 +64,10 @@ export default class FamilyForm extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
-    public onNext() {        
-        //this.$store.dispatch("application/gotoNextStepPage");
+    public onNext() { 
         this.UpdateGotoNextStepPage()        
     }
 
@@ -80,11 +78,6 @@ export default class FamilyForm extends Vue {
   
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {familyMatterSurvey: null}});
-
-        // this.$store.commit("Application/updateStepResultData", {
-        //     step: this.step,
-        //     data: { familyMatterSurvey: null }
-        // });
     }
 };
 </script>

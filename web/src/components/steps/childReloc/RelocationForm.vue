@@ -66,12 +66,10 @@ export default class RelocationForm extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
-    public onNext() {        
-        //this.$store.dispatch("application/gotoNextStepPage");
+    public onNext() {
         this.UpdateGotoNextStepPage()        
     }
 
@@ -80,12 +78,7 @@ export default class RelocationForm extends Vue {
     }
 
     beforeDestroy() {
-
         this.UpdateStepResultData({step:this.step, data: {childRelocationSurvey: null}})
-        // this.$store.commit("Application/updateStepResultData", {
-        //     step: this.step,
-        //     data: { childRelocationSurvey: null }
-        // });
     }
 };
 </script>

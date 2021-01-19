@@ -103,13 +103,11 @@ export default class FilingOptions extends Vue {
     }
     
     public onPrev() {
-        //this.$store.dispatch("application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            //this.$store.dispatch("application/gotoNextStepPage");
             this.UpdateGotoNextStepPage()
         }
     }
@@ -127,11 +125,6 @@ export default class FilingOptions extends Vue {
         if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
 
         this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
-        
-        // this.$store.commit("Application/updateStepResultData",{
-        //     step: this.step,
-        //     data:{filingOptions: this.survey.data}
-        // })
     }
 }
 </script>

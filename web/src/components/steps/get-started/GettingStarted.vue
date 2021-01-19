@@ -207,29 +207,21 @@ export default class GettingStarted extends Vue {
     }
 
     public onPrev() {
-        //this.$store.commit("Application/gotoPrevStepPage");
         this.UpdateGotoPrevStepPage();
     }
 
     public onNext() {
-        //this.$store.commit("Application/gotoNextStepPage");
         this.UpdateGotoNextStepPage();
     }
 
     public onComplete() {
-        console.log('complete')
+        //console.log('complete')
         this.$store.commit("Application/setAllCompleted", true);
     }
   
   
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {selectedForms: this.selected}})
-
-
-        // this.$store.commit("Application/updateStepResultData", {
-        //     step: this.step,
-        //     data: { selectedForms: this.selected }
-        // });
     }
 };
 </script>
