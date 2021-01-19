@@ -118,7 +118,7 @@ export default class YourStory extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         } 
  

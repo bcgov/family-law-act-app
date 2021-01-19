@@ -112,7 +112,7 @@ export default class About extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         }   
 

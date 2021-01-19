@@ -129,7 +129,7 @@ export default class NoContact extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         } 
 

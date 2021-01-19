@@ -120,7 +120,7 @@ export default class NoGo extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         } 
 

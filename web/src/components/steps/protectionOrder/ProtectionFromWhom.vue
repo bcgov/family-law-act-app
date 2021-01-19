@@ -156,7 +156,7 @@ export default class ProtectionFromWhom extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         } 
 

@@ -129,7 +129,7 @@ export default class Urgency extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         }   
         this.UpdateStepResultData({step:this.step, data: {urgencySurvey: this.survey.data}})

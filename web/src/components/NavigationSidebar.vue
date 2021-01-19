@@ -97,7 +97,7 @@ export default class NavigationSidebar extends Vue {
         const currPageIndex = this.getNavigation()[nextIndex].currentPage;
         const currPage = document.getElementById(this.getStepPageId(nextIndex, currPageIndex));
         //console.log("now step")
-        //currPage.className="current";
+        currPage.className="current";
         Vue.nextTick().then(()=>{this.saveChanges();});
     }
 

@@ -184,7 +184,16 @@ export default class OtherParty extends Vue {
         const progress = this.otherPartyData.length==0? 50 : 100;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage) currPage.style.color=this.otherPartyData.length==0?"red":"";
+        
+        if(currPage){
+            if(this.otherPartyData.length==0)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                currPage.className="";
+            }  
+        } 
 
         this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})        
     }

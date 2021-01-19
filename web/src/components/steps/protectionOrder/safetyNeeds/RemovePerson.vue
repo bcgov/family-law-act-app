@@ -137,7 +137,7 @@ export default class RemovePerson extends Vue {
             else
             {
                 currPage.style.color = "";
-                //currPage.className="current";
+                currPage.className="";
             }  
         } 
 
