@@ -4,8 +4,8 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import VueRouter from "vue-router";
 import VueCookies from "vue-cookies"
 import routes from "@/routes";
-import GlobalStore from "@/store";
-import http from "./plugins/http.js";
+import store from "@/store";
+import http from "./plugins/http";
 import "./filters";
 
 import "@/styles/index.scss";
@@ -24,10 +24,12 @@ Vue.use(VueCookies);
 Vue.use(http)
 
 const router = new VueRouter({
-  routes: routes, mode: "history", base: process.env.BASE_URL,
-  scrollBehavior(to, from, savedPosotion) { 
-    return { x: 0, y: 0 }
-   }
+    routes: routes, 
+    mode: "history", 
+    base: process.env.BASE_URL,
+    scrollBehavior(to, from, savedPosotion) { 
+        return { x: 0, y: 0 }
+    }
 });
 
 // Redirect to /family-law-act/
@@ -36,8 +38,8 @@ history.pushState({page: "home"}, "", process.env.BASE_URL)
 SessionManager.redirectIfQuickExitCookie();
 
 new Vue({
-  router: router,
-  render: (h) => h(App),
-  store: GlobalStore.getInstance(),
-  data: {},
+    router: router,
+    render: (h) => h(App),
+    store: store,
+    data: {},
 }).$mount("#app");

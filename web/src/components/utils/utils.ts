@@ -2,13 +2,13 @@ import Axios, { AxiosInstance } from "axios";
 import Vue from "vue";
 
 export const SessionManager = {
-    logoutAndRedirect: async function(store, http: AxiosInstance) {
-        store.dispatch("application/init");
+    logoutAndRedirect: async function(store) {
+        store.commit("Application/init");
         window.location.replace(`${process.env.BASE_URL}api/v1/logout/`);
         Vue.$cookies.set("quickexit","1");  
     },
     logout: function(store) {
-        store.dispatch("application/init");
+        store.commit("Application/init");
         window.location.replace(`${process.env.BASE_URL}api/v1/logout/`);
     },
     redirectIfQuickExitCookie: function() {
@@ -30,9 +30,9 @@ export const SessionManager = {
                     this.logout(store);
                 }
                 const userName = response.data.display_name || response.data.first_name + " " + response.data.last_name;
-                store.dispatch("application/setUserName", userName);
-                store.dispatch("common/setUserId", userId);
-                store.dispatch("common/setUserLocation",userLocation)
+                store.commit("Application/setUserName", userName);
+                store.commit("Common/setUserId", userId);
+                store.commit("Common/setUserLocation",userLocation)
             }
             return { userId, loginUrl };
         }
