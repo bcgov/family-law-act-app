@@ -1,7 +1,7 @@
 import * as showdown from "showdown";
-import { addQuestionTypes } from "@/components/question-types.ts";
-const util = require('../assets/js/util');
-const glossaryJson = require('../assets/glossary.json')
+import { addQuestionTypes } from "./question-types";
+const util = require('./js/util');
+const glossaryJson = require('./glossary.json')
 
 const terms = {};
 var markdownConverter = new showdown.Converter({

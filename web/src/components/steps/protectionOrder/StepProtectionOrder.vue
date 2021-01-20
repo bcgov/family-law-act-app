@@ -12,9 +12,11 @@
   </step-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+
 import StepBase from "../StepBase.vue";
-import { Step } from "../../../models/step";
+import { stepInfoType } from "@/types/Application";
 import ProtectionFromWhom from "./ProtectionFromWhom.vue";
 import Background from "./Background.vue";
 import YourStory from "./YourStory.vue";
@@ -25,34 +27,32 @@ import NoContact from "./safetyNeeds/NoContact.vue";
 import WeaponsFirearms from "./safetyNeeds/WeaponsFirearms.vue";
 import About from "./About.vue";
 
-export default {
-  name: "protection-order",
-  components: {
-    StepBase,
-    ProtectionFromWhom,
-    Background,
-    YourStory,
-    Urgency,
-    NoGo,
-    RemovePerson,
-    NoContact,
-    WeaponsFirearms,
-    About
-  },
-  data() {
-    return {
-    };
-  },
-  created() {},
-  methods: {},
-  props: {
-    step: Step | Object
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+@Component({
+    components:{
+        StepBase,
+        ProtectionFromWhom,
+        Background,
+        YourStory,
+        Urgency,
+        NoGo,
+        RemovePerson,
+        NoContact,
+        WeaponsFirearms,
+        About
     }
-  }
+})
+
+export default class ProtectionOrder extends Vue {
+    
+    @Prop({required: true})
+    step!: stepInfoType;
+
+    // @Watch('pageIndex')
+    // pageIndexChange(newVal) 
+    // {
+    //     this.survey.currentPageNo = newVal;        
+    // }
+
 };
 </script>
 

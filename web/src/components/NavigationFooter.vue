@@ -50,10 +50,12 @@
     </nav>
   </footer>
 </template>
-<script>
-export default {
-  data() {
-    return {};
-  }
-};
+
+<scriptlang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+
+@Component
+export default class NavigationFooter extends Vue {
+
+}
 </script>

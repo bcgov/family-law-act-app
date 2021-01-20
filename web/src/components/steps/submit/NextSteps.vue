@@ -54,8 +54,12 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import PageBase from "../PageBase.vue";
 
-    import Tooltip from "@/components/steps/get-started/Tooltip.vue"
-    
+    import Tooltip from "@/components/steps/get-started/Tooltip.vue";
+
+    import { namespace } from "vuex-class";   
+    import "@/store/modules/application";
+    const applicationState = namespace("Application");
+
     @Component({
         components:{
             PageBase,
@@ -65,16 +69,20 @@
 
     export default class NextSteps extends Vue {
         
+        @applicationState.Action
+        public UpdateGotoPrevStepPage!: () => void
+
+        @applicationState.Action
+        public UpdateGotoNextStepPage!: () => void
+
         showLegalAssistance = false
 
         public onPrev() {
-            this.$store.dispatch("application/gotoPrevStepPage");
+            this.UpdateGotoPrevStepPage()
         }
 
         public onNext() {
-            //if(!this.survey.isCurrentPageHasErrors) {
-                this.$store.dispatch("application/gotoNextStepPage");
-            //}
+            this.UpdateGotoNextStepPage()
         }
     }
 </script>

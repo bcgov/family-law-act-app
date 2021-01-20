@@ -1,106 +1,126 @@
 <template>
-  <div>
-    <slot>Provide page content here</slot>
-    <div v-if="!hideNavButtons" class="survey-nav">
-      <div v-if="hasPrevStepPage()" class="survey-nav-left">
-        <button v-on:click="onPrev()" class="btn btn-primary btn-lg">
-          <span class="fa fa-chevron-left btn-icon-left"></span> Previous
-        </button>
-      </div>
-      <div v-if="hasNextStepPage()" class="survey-nav-right">
-        <button v-on:click="onNext()" class="btn btn-primary btn-lg" v-bind:class="{disabled: isDisableNext()}" 
-          data-toggle="tooltip" data-placement="top" v-bind:title="disableNextText">
-          Next <span class="fa fa-chevron-right btn-icon-right"></span> 
-        </button>
-      </div>
+    <div>
+        <slot>Provide page content here</slot>
+        <div v-if="!hideNavButtons" class="survey-nav">
+            <div v-if="hasPrevStepPage()" class="survey-nav-left">
+                <button v-on:click="onPrev()" class="btn btn-primary btn-lg">
+                    <span class="fa fa-chevron-left btn-icon-left"></span> Previous
+                </button>
+            </div>
+            <div v-if="hasNextStepPage()" class="survey-nav-right">
+                <button v-on:click="onNext()" class="btn btn-primary btn-lg" v-bind:class="{disabled: isDisableNext()}" 
+                    data-toggle="tooltip" data-placement="top" v-bind:title="disableNextText">
+                    Next <span class="fa fa-chevron-right btn-icon-right"></span> 
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
-<script>
-import { Page } from "../../models/page";
-import {Component, Vue} from "vue-property-decorator"
+<script lang="ts">
+
+import {Component, Vue, Prop } from "vue-property-decorator"
 import moment from 'moment-timezone';
 
-export default {
-  name: "PageBase",
-  data() {
-    return {
-      error: ""
-    };
-  },
-  props: {
-    hideNavButtons: Boolean,
-    disableNext: Boolean,
-    disableNextText: String
-  },
-  methods: {
-    onPrev: function(event) {
-      Vue.nextTick().then(()=>{this.saveChanges();});      
-      if (this.$listeners && this.$listeners.onPrev) {
-        this.$emit('onPrev');
-      } else {
-        this.$store.dispatch("application/gotoPrevStepPage");
-      }
-      //window.scrollTo(0, 0);
-    },
-    onNext: function(event) {
-      if (!this.isDisableNext()) {
-        Vue.nextTick().then(()=>{this.saveChanges();});
-        if (this.$listeners && this.$listeners.onNext) {  
-            this.$emit('onNext');
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
+@Component
+export default class PageBase extends Vue {
+       
+    @Prop({required: false, default:false})
+    hideNavButtons!: boolean;
+    
+    @Prop({required: false})
+    disableNext!: boolean;
+
+    @Prop({required: false})
+    disableNextText!: String;
+
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
+    
+    error: ""
+ 
+    public onPrev(event) {
+        Vue.nextTick().then(()=>{this.saveChanges();});      
+        if (this.$listeners && this.$listeners.onPrev) {
+            this.$emit('onPrev');
         } else {
-          this.$store.dispatch("application/gotoNextStepPage");
+            this.UpdateGotoPrevStepPage()
         }
-      }
-      //window.scrollTo(0, 0);
-    },
-    onComplete: function(event) {
-      if (this.$listeners && this.$listeners.onComplete) {  
-        this.$emit('onComplete');
-      } else {
-        //console.log("PageBase.onComplete default action.");
-        this.$store.dispatch("application/setAllCompleted", true);
-      }
-    },
-    hasPrevStepPage: function() {
-      return this.$store.getters["application/getPrevStepPage"] != null;
-    },
-    hasNextStepPage: function() {
-      return this.$store.getters["application/getNextStepPage"] != null;
-    },
-    canComplete: function() {
-      return this.$store.getters["application/getNextStepPage"] == null;
-    },
-    isDisableNext: function() {
-      return this.disableNext;
-    },
-    saveChanges: function() {
-      const lastUpdated = moment().format();
-      this.$store.dispatch("application/setLastUpdated", lastUpdated); 
-      const application = this.$store.getters["application/getApplication"]
-      // console.log(application.steps[0].result.questionnaireSurvey.orderType)   
-      const applicationId = application.id;
-      this.$http.put(
-        "/app/"+ applicationId + "/",
-        application,
-        {
-          responseType: "json",
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }
-      )
-      .then(res => {
-        //console.log(res.data);
-        this.error = "";
-      })
-      .catch(err => {
-        console.error(err);
-        this.error = err;
-      });    
+        //window.scrollTo(0, 0);
     }
-  },
+
+    public onNext(event) {
+        if (!this.isDisableNext()) {
+            Vue.nextTick().then(()=>{this.saveChanges();});
+            if (this.$listeners && this.$listeners.onNext) {  
+                this.$emit('onNext');
+            } else {
+                this.UpdateGotoNextStepPage()
+            }
+        }
+        //window.scrollTo(0, 0);
+    }
+
+
+    public onComplete(event) {
+        if (this.$listeners && this.$listeners.onComplete) {  
+            this.$emit('onComplete');
+        } else {
+            //console.log("PageBase.onComplete default action.");
+            this.$store.commit("Application/setAllCompleted", true);
+        }
+    }
+
+    public hasPrevStepPage() {
+        //console.log("has previous")
+        return this.$store.getters["Application/getPrevStepPage"] != null;
+    }
+
+    public hasNextStepPage() {
+        
+        //console.log("has next")
+        return this.$store.getters["Application/getNextStepPage"] != null;
+       
+    }
+
+    public canComplete() {
+        return this.$store.getters["Application/getNextStepPage"] == null;
+    }
+
+    public isDisableNext() {
+        return this.disableNext;
+    }
+
+    public saveChanges() {
+        const lastUpdated = moment().format();
+        this.$store.commit("Application/setLastUpdated", lastUpdated); 
+        const application = this.$store.state.Application;
+        const applicationId = application.id;
+
+        const header = {
+            responseType: "json",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+
+        this.$http.put("/app/"+ applicationId + "/", application, header)
+        .then(res => {
+            //console.log(res.data);
+            this.error = "";
+        }, err => {
+            console.error(err);
+            this.error = err;
+        });    
+    }
+  
 };
 </script>
 

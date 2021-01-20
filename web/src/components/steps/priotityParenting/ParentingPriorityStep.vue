@@ -4,32 +4,36 @@
   </step-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
-import { Step } from "../../../models/step";
+import { stepInfoType } from "@/types/Application";
+import * as SurveyVue from "survey-vue";
+import surveyJson from "../common-information/forms/survey-information.json";
 import  PriorityForm  from "./PriorityForm.vue"
 
-export default {
-  name: "parenting-priority",
-  components: {
-    StepBase,
-    PriorityForm
-  },
-  data() {
-    return {
-    };
-  },
-  created() {},
-  methods: {},
-  props: {
-    step: Step | Object
-  },
-  watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+
+@Component({
+    components:{
+      StepBase,
+      PriorityForm
     }
+})
+export default class ParentingPriorityStep extends Vue {
+  
+  @Prop({required: true})
+  step!: stepInfoType | Object
+
+  @Watch('pageIndex')
+  pageIndexChange(newVal) 
+  {
+      this.survey.currentPageNo = newVal;        
   }
+
+  survey = new SurveyVue.Model(surveyJson);
+
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
