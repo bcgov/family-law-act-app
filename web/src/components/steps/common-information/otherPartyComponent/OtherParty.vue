@@ -110,7 +110,7 @@ export default class OtherParty extends Vue {
  
     created() {
         if (this.step.result && this.step.result["otherPartySurvey"]) {
-            this.otherPartyData = this.step.result["otherPartySurvey"];
+            this.otherPartyData = this.step.result["otherPartySurvey"].data;
         }
     }
 
@@ -195,7 +195,30 @@ export default class OtherParty extends Vue {
             }  
         } 
 
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})        
+        //this.UpdateStepResultData({step:this.step, data: {: this.otherPartyData}}) 
+        console.log(this.otherPartyData)  
+
+        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.getOtherPartyResults()}})       
+    }
+
+    public getOtherPartyResults(){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        for(const otherParty of this.otherPartyData)
+        {
+            questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
+        }
+        console.log(questionResults)
+        return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
+    }
+
+    public getOtherPartyInfo(otherParty){
+        const resultString = [];
+        resultString.push("Name: "+Vue.filter('getFullName')(otherParty.name));
+        resultString.push("Birthdate: "+Vue.filter('beautify-date')(otherParty.dob))
+        resultString.push("Address: "+Vue.filter('getFullAddress')(otherParty.address))
+        resultString.push("Contact: "+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
+
+        return resultString
     }
 
 };

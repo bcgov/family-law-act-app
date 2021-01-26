@@ -80,8 +80,11 @@ export default class Information extends Vue {
     public reloadPageInformation() {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'];            
+            this.survey.data = this.step.result['yourInformationSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        console.log(this.survey.currentPage.questions)
 
         let progress = 50;
         if(Object.keys(this.survey.data).length)
@@ -123,7 +126,8 @@ export default class Information extends Vue {
             }  
         }   
         
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: this.survey.data}});
+        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 }
 </script>

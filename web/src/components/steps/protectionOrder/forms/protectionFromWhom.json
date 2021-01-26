@@ -182,7 +182,7 @@
             "type": "paneldynamic",
             "name": "allAnotherAdultsSharingResi",
             "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-            "title": " ",
+            "title": "Information of other adult(s) that need(s) to be protected:",
             "isRequired": true,
             "templateElements": [             
                {

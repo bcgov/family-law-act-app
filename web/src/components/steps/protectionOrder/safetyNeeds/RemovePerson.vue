@@ -71,7 +71,8 @@ export default class RemovePerson extends Vue {
     public reloadPageInformation() {
 
         if (this.step.result && this.step.result['removeSurvey']){
-            this.survey.data = this.step.result['removeSurvey'];
+            this.survey.data = this.step.result['removeSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
         let progress = 50;
@@ -82,33 +83,9 @@ export default class RemovePerson extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
     
-        let protectedPartyNameObject = this.$store.state.Application.protectedPartyName;
-            
-        //console.log(protectedPartyNameObject)
-
-        if (protectedPartyNameObject) {
-            let protectedPartyName =
-                protectedPartyNameObject.first +
-                " " +
-                protectedPartyNameObject.middle +
-                " " +
-                protectedPartyNameObject.last;
-                this.survey.setVariable("protectedPartyName", protectedPartyName);
-        }
-
-        let respondentNameObject = this.$store.state.Application.respondentName;
-        if (respondentNameObject) {
-            this.respondentName =
-                respondentNameObject.first +
-                " " +
-                respondentNameObject.middle +
-                " " +
-                respondentNameObject.last;
-        }        
-
-        if (this.respondentName) {
-            this.survey.setVariable("RespondentName", this.respondentName);
-        }
+    
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
+        this.survey.setVariable("ProtectedPartyName", Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
     }
     
 
@@ -141,8 +118,8 @@ export default class RemovePerson extends Vue {
             }  
         } 
 
-        this.UpdateStepResultData({step:this.step, data: {removeSurvey: this.survey.data}})
-        
+        this.UpdateStepResultData({step:this.step, data: {removeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 };
 </script>

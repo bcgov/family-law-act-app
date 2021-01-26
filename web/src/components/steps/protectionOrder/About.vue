@@ -71,7 +71,8 @@ export default class About extends Vue {
     public reloadPageInformation() { 
 
         if (this.step.result && this.step.result['aboutPOSurvey']){
-            this.survey.data = this.step.result['aboutPOSurvey'];
+            this.survey.data = this.step.result['aboutPOSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
         let order = this.$store.state.Application.steps[0].result.selectedPOOrder;
@@ -116,8 +117,7 @@ export default class About extends Vue {
             }  
         }   
 
-        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: this.survey.data}})
-
+        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>

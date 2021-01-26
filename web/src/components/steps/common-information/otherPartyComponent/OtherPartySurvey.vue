@@ -81,6 +81,8 @@ export default class OtherPartySurvey extends Vue {
     
     public addSurveyListener(){
         this.survey.onComplete.add((sender, options) => {
+
+            console.log(this.survey)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
             if (id === null || id === undefined) {

@@ -69,11 +69,11 @@ export default class Background extends Vue {
     public reloadPageInformation() {  
 
         if (this.step.result && this.step.result['backgroundSurvey']){
-            //console.log(this.step.result)
-            this.survey.data = this.step.result['backgroundSurvey'];
+            this.survey.data = this.step.result['backgroundSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-        
-        //console.log(this.survey.data)
+        console.log(this.survey.currentPage.questions)
+        //console.log(this.survey.current)
         
         let progress = 50;
         if(Object.keys(this.survey.data).length && this.survey.data.howPartiesRelated)
@@ -83,13 +83,13 @@ export default class Background extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
 
-        this.survey.setVariable("RespondentName", this.getFullName(this.$store.state.Application.respondentName));
-        this.survey.setVariable("protectedPartyName", this.getFullName(this.$store.state.Application.protectedPartyName));
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
+        this.survey.setVariable("ProtectedPartyName", Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         
         let children ="";
         for(const child of this.$store.state.Application.protectedChildName){
             if(child.childName)
-                children+='<li>'+ this.getFullName(child.childName) +'</li>'
+                children+='<li>'+ Vue.filter('getFullName')(child.childName) +'</li>'
         }
  
         this.survey.setVariable("protectedChildName",children)   
@@ -109,17 +109,17 @@ export default class Background extends Vue {
         this.$store.commit("Application/setAllCompleted", true);
     }
 
-    public getFullName(nameObject){
-        if (nameObject) {
-            return nameObject.first +
-                " " +
-                nameObject.middle +
-                " " +
-                nameObject.last;
-        } else{
-            return " "
-        }
-    }
+    // public getFullName(nameObject){
+    //     if (nameObject) {
+    //         return nameObject.first +
+    //             " " +
+    //             nameObject.middle +
+    //             " " +
+    //             nameObject.last;
+    //     } else{
+    //         return " "
+    //     }
+    // }
   
     beforeDestroy() {
         
@@ -135,8 +135,9 @@ export default class Background extends Vue {
                 currPage.className="";
             }  
         } 
- 
-        this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: this.survey.data}})
+
+        this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 }
 </script>

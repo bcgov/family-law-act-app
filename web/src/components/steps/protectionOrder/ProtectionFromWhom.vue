@@ -99,10 +99,12 @@ export default class ProtectionFromWhom extends Vue {
 
     public reloadPageInformation() {
         if (this.step.result && this.step.result['protectionWhomSurvey']){
-            this.survey.data = this.step.result['protectionWhomSurvey'];
+            this.survey.data = this.step.result['protectionWhomSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
         //console.log(this.survey.data)
+        console.log(this.survey.currentPage.questions)
         
         let progress = 50;
         if(Object.keys(this.survey.data).length && this.survey.data.RespondentName)
@@ -112,21 +114,8 @@ export default class ProtectionFromWhom extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
 
-        const applicantNameObject = this.$store.state.Application.applicantName;
-        
-        if (applicantNameObject) {
-            this.applicantName =
-                applicantNameObject.first +
-                " " +
-                applicantNameObject.middle +
-                " " +
-                applicantNameObject.last;
-        }
 
-        if (this.applicantName) {
-            this.survey.setVariable("ApplicantName", this.applicantName);
-        }
-
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
         
     }
     
@@ -171,7 +160,8 @@ export default class ProtectionFromWhom extends Vue {
         else 
             this.$store.commit("Application/setProtectedChildName",[]);
 
-        this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: this.survey.data}});
+        this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 };
 </script>

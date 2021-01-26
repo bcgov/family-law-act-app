@@ -21,6 +21,7 @@ class Application extends VuexModule {
     public protectedPartyName = ""
     public protectedChildName = ""
     public applicationLocation = ""
+    public scrollToLocationName = ""
 
     @Mutation
     public init(): void {
@@ -298,14 +299,22 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
         p.label = "Filing Options";
         p.active = false;
         p.progress = 0;
     
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
-        p.key = "1";
+        p.key = "2";
         p.label = "Review and Print";
         p.active = false;
         p.progress = 0;
@@ -313,15 +322,23 @@ class Application extends VuexModule {
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "2";
+        p.key = "3";
         p.label = "Review and Save";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.label = "Review and Submit";
         p.active = false;
         p.progress = 0;
     
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "5";
         p.label = "Next Steps";
         p.active = false;
         p.progress = 0;
@@ -459,6 +476,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStepResultData({ step, data }) {
+        this.context.commit("setScrollToLocationName","");
         this.context.commit("setStepResultData", { step, data });
     } 
     
@@ -550,6 +568,15 @@ class Application extends VuexModule {
     @Action
     public UpdateLastPrinted(newLastPrinted) {
         this.context.commit("setLastPrinted", newLastPrinted);
+    }
+
+    @Mutation
+    public setScrollToLocationName(scrollToLocationName): void {
+        this.scrollToLocationName = scrollToLocationName;
+    }
+    @Action
+    public UpdateScrollToLocationName(newScrollToLocationName) {
+        this.context.commit("setScrollToLocationName", newScrollToLocationName);
     }
 
     @Mutation

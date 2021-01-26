@@ -70,7 +70,8 @@ export default class YourStory extends Vue {
     public reloadPageInformation() {
 
         if (this.step.result && this.step.result['yourStory']){
-            this.survey.data = this.step.result['yourStory'];
+            this.survey.data = this.step.result['yourStory'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
         let progress = 50;
@@ -80,17 +81,9 @@ export default class YourStory extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-              
-        const applicantNameObject = this.$store.state.Application.applicantName
-        if (applicantNameObject) {
-            const applicantName =
-                applicantNameObject.first +
-                " " +
-                applicantNameObject.middle +
-                " " +
-                applicantNameObject.last;
-            this.survey.setVariable("ApplicantName", applicantName);
-        }
+           
+           
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
     }
 
     public onPrev() {
@@ -121,8 +114,9 @@ export default class YourStory extends Vue {
                 currPage.className="";
             }  
         } 
- 
-        this.UpdateStepResultData({step:this.step, data: {yourStory: this.survey.data}})
+
+        this.UpdateStepResultData({step:this.step, data: {yourStory: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 };
 </script>

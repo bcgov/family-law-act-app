@@ -71,7 +71,8 @@ export default class NoGo extends Vue {
     public reloadPageInformation() {
 
         if (this.step.result && this.step.result['noGoSurvey']){
-            this.survey.data = this.step.result['noGoSurvey'];
+            this.survey.data = this.step.result['noGoSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
         let progress = 50;
@@ -82,16 +83,7 @@ export default class NoGo extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
 
-        const respondentNameObject = this.$store.state.Application.respondentName;
-        if (respondentNameObject) {
-            const respondentName =
-                respondentNameObject.first +
-                " " +
-                respondentNameObject.middle +
-                " " +
-                respondentNameObject.last;
-            this.survey.setVariable("RespondentName", respondentName);
-        }
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
     }
     
    
@@ -124,8 +116,8 @@ export default class NoGo extends Vue {
             }  
         } 
 
-        this.UpdateStepResultData({step:this.step, data: {noGoSurvey: this.survey.data}})
-        
+        this.UpdateStepResultData({step:this.step, data: {noGoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 };
 </script>

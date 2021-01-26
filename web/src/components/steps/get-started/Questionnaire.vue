@@ -79,11 +79,12 @@ export default class PoQuestionnaire extends Vue {
             //console.log(this.survey.data);
             // console.log(options)
             let pagesArr = [];
-            if (options.name === "orderType") {        
+            if (options.name === "orderType") {                
                 this.removePages();
                 //console.log('__removed')
-                let selectedOrder = options.value;
-
+                const selectedOrder = options.value;
+                this.$store.commit("Application/setApplicationType",this.getApplicationType(selectedOrder));
+                
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: sender.data}});
 
                 pagesArr = [7, 8];
@@ -208,6 +209,13 @@ export default class PoQuestionnaire extends Vue {
     public getDisableNextText() {
         // demo
         return "You will need to answer the question above to continue";
+    }
+
+    public getApplicationType(selectedOrder){
+        if (selectedOrder == "needPO") return "New Protection Order";
+        else if (selectedOrder == "changePO") return "Change Protection Order";
+        else if (selectedOrder == "terminatePO") return "Terminate Protection Order";
+        else return "Protection Order";
     }
     
     public determinePeaceBondAndBlock(){

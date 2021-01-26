@@ -71,7 +71,8 @@ export default class WeaponsFirearms extends Vue {
     public reloadPageInformation() {
 
         if (this.step.result && this.step.result['weaponsSurvey']){
-            this.survey.data = this.step.result['weaponsSurvey'];
+            this.survey.data = this.step.result['weaponsSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         } 
 
         let progress = 50;
@@ -82,30 +83,8 @@ export default class WeaponsFirearms extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
 
-        const applicantNameObject = this.$store.state.Application.applicantName;
-        
-        if (applicantNameObject) {
-            const applicantName =
-                applicantNameObject.first +
-                " " +
-                applicantNameObject.middle +
-                " " +
-                applicantNameObject.last;
-            this.survey.setVariable("ApplicantName", applicantName);
-        }
-
-        const respondentNameObject = this.$store.state.Application.respondentName;
-        
-        if (respondentNameObject) {
-            const respondentName =
-                respondentNameObject.first +
-                " " +
-                respondentNameObject.middle +
-                " " +
-                respondentNameObject.last;
-            this.survey.setVariable("RespondentName", respondentName);
-        }
-
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
     }
   
     
@@ -139,7 +118,7 @@ export default class WeaponsFirearms extends Vue {
             }  
         } 
 
-        this.UpdateStepResultData({step:this.step, data: {weaponsSurvey: this.survey.data}})
+        this.UpdateStepResultData({step:this.step, data: {weaponsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 };

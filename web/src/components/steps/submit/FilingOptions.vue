@@ -79,14 +79,17 @@ export default class FilingOptions extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
+            console.log(this.survey.data);
             // console.log(options)
             if(this.survey.data.selectedFilingType == 'byemail'){
-                this.togglePages([0,2,3], true);
-                this.togglePages([1], false);
-            }else{
-                this.togglePages([0,1,3], true);
-                this.togglePages([2], false);
+                this.togglePages([0,1,3,5], true);
+                this.togglePages([2,4], false);
+            }else if(this.survey.data.selectedFilingType == 'inperson'){
+                this.togglePages([0,1,2,5], true);
+                this.togglePages([3,4], false);
+            }else if(this.survey.data.selectedFilingType == 'byefiling'){
+                this.togglePages([0,1,4,5], true);
+                this.togglePages([2,3], false);
             }
         })
     }

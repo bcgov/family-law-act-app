@@ -70,31 +70,17 @@ export default class Urgency extends Vue {
     public reloadPageInformation() {
 
         if (this.step.result && this.step.result['urgencySurvey']) {
-            this.survey.data = this.step.result['urgencySurvey'];
+            this.survey.data = this.step.result['urgencySurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
         const otherParties = this.$store.state.Application.otherParties;
         if (otherParties) {
-            const respondentName =
-                otherParties[0].name.first +
-                " " +
-                otherParties[0].name.middle +
-                " " +
-                otherParties[0].name.last;
-            this.survey.setVariable("RespondentName", respondentName);
+            this.survey.setVariable("RespondentName", Vue.filter('getFullName')(otherParties[0].name));
         }
-
-        const applicantNameObject = this.$store.state.Application.applicantName
         
-        if (applicantNameObject) {
-            const applicantName =
-                applicantNameObject.first +
-                " " +
-                applicantNameObject.middle +
-                " " +
-                applicantNameObject.last;
-            this.survey.setVariable("ApplicantName", applicantName);
-        }
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
+
 
         let progress = 50;
         if(Object.keys(this.survey.data).length)
@@ -133,7 +119,8 @@ export default class Urgency extends Vue {
                 currPage.className="";
             }  
         }   
-        this.UpdateStepResultData({step:this.step, data: {urgencySurvey: this.survey.data}})
+
+        this.UpdateStepResultData({step:this.step, data: {urgencySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 };
