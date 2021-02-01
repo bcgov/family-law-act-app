@@ -228,10 +228,20 @@
 
         }
 
-        public getFPOResultData() {      
+        public getFPOResultData() { 
             var result = this.$store.state.Application.steps[0].result; 
-            for(var i=1;i<9; i++)
-                Object.assign(result, result, this.$store.state.Application.steps[i].result); 
+            for(var i=1;i<9; i++){
+                const stepResults = this.$store.state.Application.steps[i].result
+                for(const stepResult in stepResults){
+                    console.log(stepResults[stepResult])
+                    console.log(stepResults[stepResult].data)
+                    result[stepResult]=stepResults[stepResult].data; 
+                    //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
+                }
+            }     
+            // var result = this.$store.state.Application.steps[0].result; 
+            // for(var i=1;i<9; i++)
+            //     Object.assign(result, result, this.$store.state.Application.steps[i].result); 
             
             var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
             Object.assign(result, result, protectedPartyName);

@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="pageHasError" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <b-card
             v-for="section in questionResults"
             v-bind:key="section.name"
@@ -75,8 +75,9 @@ export default class ReviewYourAnswers extends Vue {
     ]
 
     questionResults = [];
-
-    
+    currentStep=0;
+    currentPage=0;
+    pageHasError = false;
 
     mounted(){       
         
@@ -102,8 +103,10 @@ export default class ReviewYourAnswers extends Vue {
 
     public beautifyResponse(value, inputType){
         //console.log(value)
-        if(!value)
-            return "REQUIRED"
+        if(!value){
+            this.pageHasError = true;
+            return "REQUIRED";
+        }
         else if(Array.isArray(value))
         {
             console.log(value)
@@ -131,9 +134,12 @@ export default class ReviewYourAnswers extends Vue {
         let resultString = "";
         for(const child of children ){            
                 resultString +="Name: " + Vue.filter('getFullName')(child['childName']) +"\n";
-                resultString +="Birth date: " + Vue.filter('beautify-date')(child['childDOB']) +"\n";
-                resultString +="Relation With Protected: " + child['childRelationshipWithProtected'] +"\n";
-                resultString +="Relation With Other: " + child['childRelationshipWithOther']  +"\n\n";                
+                resultString +="Birth Date: " + Vue.filter('beautify-date')(child['childDOB']) +"\n";
+                if(child['childRelationshipWithProtected']) resultString +="Relation With Protected: " + child['childRelationshipWithProtected'] +"\n";
+                if(child['childRelationshipWithOther']) resultString +="Relation With Other: " + child['childRelationshipWithOther']  +"\n"; 
+                if(child['childRelationship']) resultString +="Relation With Other: " + child['childRelationship']  +"\n"; 
+                if(child['childLivingWith']) resultString +="Child Living With: " + child['childLivingWith']  +"\n";           
+                resultString +="\n"
         }
         return resultString;
     }
@@ -142,7 +148,7 @@ export default class ReviewYourAnswers extends Vue {
         let resultString = "";
         for(const adult of adults ){            
                 resultString +="Name: " + Vue.filter('getFullName')(adult['anotherAdultSharingResiName']) +"\n";
-                resultString +="Birth date: " + Vue.filter('beautify-date')(adult['anotheradultSharingResiDOB']) +"\n";
+                resultString +="Birth Date: " + Vue.filter('beautify-date')(adult['anotheradultSharingResiDOB']) +"\n";
                 resultString +="Relation With Protected: " + adult['anotherAdultSharingResiRelation'] +"\n\n";               
         }
         return resultString;
@@ -159,34 +165,41 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     public reloadPageInformation() {
-
+        this.pageHasError = false;
         for(let i=0;i<9; i++){
-            const stepResult = this.$store.state.Application.steps[i].result
-            //console.log(this.$store.state.Application.steps[i])
+            const step = this.$store.state.Application.steps[i]
+            const stepResult = step.result
+            //console.log(step)
             //console.log(stepResult);
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
                 {
-                    //console.log(key)  
-                    const isPageActive = this.$store.state.Application.steps[i].pages[value['currentPage']]?this.$store.state.Application.steps[i].pages[value['currentPage']].active : false; 
-                    //console.log(isPageActive)                     
-                    if(value['questions'] && isPageActive){
-                        this.questionResults.push(value);
+                    // console.error("____________")
+				    // console.log(key)
+                    // console.log(value)
+                    if(value && (value['currentPage'] || value['currentPage']==0)){ 
+                        const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
+                        //console.log(isPageActive)
+                        //value['sortOrder']=  (value['currentStep']*100+value['currentPage']);                   
+                        if(value['questions'] && isPageActive){
+                            this.questionResults.push(value);
+                        }
                     }
                 }
         }
         console.log(this.questionResults )
 
-        this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return questionResult['currentStep']*100+questionResult['currentPage']; });
+        this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (questionResult['currentStep']*100+questionResult['currentPage']); });
         console.log(this.questionResults)
        
-        // let progress = 50;
+        let progress = 100;
         // if(Object.keys(this.survey.data).length)
         //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
 
-        // this.currentStep = this.$store.state.Application.currentStep;
-        // this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        this.togglePages([0,1], true);
     }
 
    
@@ -207,9 +220,8 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     public onNext() {
-       
-        this.UpdateGotoNextStepPage()
-       
+       //console.log(this.pageHasError)
+        this.UpdateGotoNextStepPage()       
     }
 
     public onComplete() {

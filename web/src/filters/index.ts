@@ -69,7 +69,7 @@ Vue.filter('getFullContactInfo',function(nameObject){
 })
 
 
-Vue.filter('getSurveyResults', function(survey, currentStep, currentPage){
+Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number){
 	//____________________________________________________________________
 	//console.log(survey)
 	// console.log(survey.currentPage.title)

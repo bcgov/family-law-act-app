@@ -124,9 +124,9 @@ export default class ReviewAndPrint extends Vue {
 
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            const application = this.$store.state.Application;
+            //const application = this.$store.state.Application;
             
-            const applicationId = application.id;
+            //const applicationId = application.id;
 
             this.loadPdf();
         }
@@ -200,8 +200,18 @@ export default class ReviewAndPrint extends Vue {
     public getFPOResultData() {  
         
         var result = this.$store.state.Application.steps[0].result; 
-        for(var i=1;i<9; i++)
-            Object.assign(result, result, this.$store.state.Application.steps[i].result); 
+        for(var i=1;i<9; i++){
+            const stepResults = this.$store.state.Application.steps[i].result
+            for(const stepResult in stepResults){
+                console.log(stepResults[stepResult])
+                console.log(stepResults[stepResult].data)
+                result[stepResult]=stepResults[stepResult].data; 
+                //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
+            }
+        }
+            //Object.assign(result, result, this.$store.state.Application.steps[i].result); 
+            
+        //Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurvey.data}); 
         
         var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
         Object.assign(result, result, protectedPartyName);
@@ -214,7 +224,7 @@ export default class ReviewAndPrint extends Vue {
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
-        //console.log(result)
+        console.log(result)
         return result;
     }
 

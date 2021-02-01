@@ -90,12 +90,14 @@ export default class PoQuestionnaire extends Vue {
                 pagesArr = [7, 8];
                 if (selectedOrder !== "needPO" && selectedOrder !== "none") {
                     this.togglePages(pagesArr, true);
-                    this.toggleOtherPartyPage(true);
+                    this.toggleOtherPartyPage(true); 
+                    this.$store.commit("Application/setCurrentStepPage", { currentStep:1, currentPage:0 })
                     this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:7 });
                     this.$store.commit("Application/setPageProgress", { currentStep: 2, currentPage:7, progress:0 })
                 } else {
                     this.togglePages(pagesArr, false);
                     this.toggleOtherPartyPage(false);
+                    this.$store.commit("Application/setCurrentStepPage", { currentStep:1, currentPage:0 })
                     this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:0 })
                 }
                 if (selectedOrder === "needPO") {
