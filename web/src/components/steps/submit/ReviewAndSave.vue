@@ -155,10 +155,6 @@
             if(this.checkErrorOnPages()){ 
                 const currentDate = moment().format();
                 this.$store.commit("Application/setLastPrinted", currentDate); 
-                const application = this.$store.state.Application;
-                
-                const applicationId = application.id;
-
                 this.loadPdf();
             }
         }
