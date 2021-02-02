@@ -4,43 +4,42 @@
       {{message}}
       <b-row class="custom-row">
         <b-col class="navigation-button-left">
-        <b-button
-          v-on:click="viewStatus()"
-          variant="primary"
-          >View Status</b-button
-        >
+          <b-button v-on:click="viewStatus()" variant="primary">View Status</b-button>
         </b-col>
         <b-col class="navigation-button-right">
-          <b-button
-            v-on:click="exitApplication()"
-            variant="secondary"
-            >Exit Application</b-button
-          >
+          <b-button v-on:click="exitApplication()" variant="secondary">Exit Application</b-button>
         </b-col>
       </b-row>
     </div>
   </b-container>
 </template>
 
-<script>
+<script lang="ts">
+
+import {Component, Vue, Prop } from "vue-property-decorator"
+import moment from 'moment-timezone';
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 import { SessionManager } from "@/components/utils/utils";
-export default {
-  name: "ResultPage",
-  data() {      
-    return {
-        result: "",
-        message: ""      
-    };
-  },
-  methods: {
-    viewStatus() {
+
+@Component
+export default class ResultPage extends Vue {
+  result= "";
+  message= ""; 
+  
+  public viewStatus() {
       this.$router.push({ name: "applicant-status" });
-    },
-    exitApplication() {
-      SessionManager.logoutAndRedirect(this.$store, this.$http);
-    }
-  },
-  mounted() {
+  }
+  
+  public exitApplication() {
+      window.open('http://www.google.ca');
+      SessionManager.logoutAndRedirect(this.$store);
+  }
+  
+  mounted(){
+
       this.result = this.$route.params.result;
       // TODO: based on the information provided by eFiling Hub, add conditional message texts
       if (this.result == "success"){
@@ -50,8 +49,8 @@ export default {
       } else if (this.result == "cancel") {
           this.message = "Submission of your application has been canceled."
       }  
-  },
-  computed: {}
+  }
+
 };
 </script>
 

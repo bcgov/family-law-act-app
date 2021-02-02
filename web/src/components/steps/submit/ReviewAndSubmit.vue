@@ -1,14 +1,13 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         
-        <h2 class="mt-4">Review and Save</h2>
+        <h2 class="mt-4">Review and Submit</h2>
         <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry:
-                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicationLocation.name}} </p>
-                <a :href="'mailto:'+applicationLocation.email" class="my-0 ml-2 " style="display:block"> {{applicationLocation.email}} </a>
-
+                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                
             </div>
             
             <h3 class="mt-5">To prepare the application for filing:</h3>
@@ -19,7 +18,7 @@
                     v-on:click.prevent="onDownload()"
                     variant="success">
                         <span class="fa fa-print btn-icon-left"/>
-                        Review and Save Your Application
+                        Review Your Application
                 </b-button>
             </div>
 
@@ -28,7 +27,7 @@
             </div>
 
             <div>    
-                Note: If you need to edit any of your answers, go back to the question in Step 3, edit the answer and return to this page.
+                Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
             </div>
 
             <div class="ml-2"> 
@@ -39,20 +38,77 @@
                     <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="border-bottom:1px solid; width:15.7rem;">
                         <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
                     </div>
-                    <li>Draft and send an email to the registry email address above 
-                        <br/><b>Subject line:</b> Application About a Protection Order for filing
-                        <br/><b>Body of email:</b>
-                        <br/>
-                        <ul>
-                            <li>Specify if you are applying without notice to the other party, or with notice.</li>
-                            <li>Provide your name and contact telephone number in case there are problems opening your attachments.</li>
-                            <li>Attach the saved application and any existing orders or agreements, existing protection orders and any exhibits referenced in your application to the email</li>             
-                        </ul>
+                    <li>Upload any existing orders or agreements, existing protection orders and any exhibits referenced in your application bellow:
                     </li>
                 </ul>
             </div>
 
-        </b-card>
+            <b-row>
+                <b-col>
+                    <b-form-group label="Supporting Document:" label-for="supportingDocument">   
+                        <b-form-file
+                            id="supportingDocument"
+                            size="sm"
+                            v-model="supportingFile"
+                            :state = "selectedSupportingDocumentState?null:false">                    
+                            placeholder="Choose a file or drop it here..."
+                            drop-placeholder="Drop file here...">
+                        </b-form-file>
+                    </b-form-group>
+                </b-col>
+                <b-col>
+                    <b-form-group label="Document Type:" label-for="documentType"> 
+                        <b-form-select
+                            id="documentType"
+                            v-model="fileType"
+                            size="sm"
+                            :state = "selectedDocumentTypeState?null:false">
+                            <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
+                        </b-form-select>
+                    </b-form-group> 
+                </b-col>
+                <b-col cols="2">
+                    <b-form-group>
+                        <div class="mt-4">
+                            <a v-on:click.prevent="addDocument()" class="btn btn-primary btn-md">
+                                <span class="fa fa-plus-square"></span>                        
+                            </a>
+                        </div>
+                    </b-form-group> 
+                </b-col>
+            </b-row>
+
+            <b-card border-variant="white" bg-variant="white">
+                <h3 class="font-weight-normal"> Supporting Documents</h3>
+                <hr class="bg-light" style="height: 2px;"/> 
+            </b-card>
+
+            <b-card border-variant="white" bg-variant="white" no-body v-if="!supportingDocuments.length">
+                <span class="text-muted ml-4 mb-5">No supporting documents.</span>
+            </b-card>
+
+            <b-card v-else no-body border-variant="white" bg-variant="white">
+                <b-table :items="supportingDocuments"
+                        :fields="supportingDocumentFields"
+                        class="mx-4"
+                        borderless
+                        striped
+                        small 
+                        responsive="sm">
+                    <template v-slot:cell(edit)="row">
+                        <b-button size="sm" variant="transparent" @click="removeDocument(row.index)">
+                            <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
+                        </b-button>
+                    </template>
+                    <template v-slot:cell(fileName)="row">                  
+                        <span>{{row.item.fileName}}</span>
+                    </template>
+                    <template v-slot:cell(fileType)="row">                  
+                        <span>{{row.item.documentType}}</span>
+                    </template>
+                </b-table>
+            </b-card>
+        </b-card>        
 
         <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-white">
             <template v-slot:modal-title>
@@ -85,13 +141,14 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
+    import moment from 'moment-timezone';
     
     import { stepInfoType } from "@/types/Application";
-    import PageBase from "../PageBase.vue";
-    
+    import { supportingDocumentInfoType } from "@/types/Common";
+
+    import PageBase from "../PageBase.vue";    
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
-    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
-    import moment from 'moment-timezone';
+    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"    
 
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
@@ -111,17 +168,38 @@
         @Prop({required: true})
         step!: stepInfoType;
 
+        @applicationState.State
+        public id!: string;
+
+        @applicationState.State
+        public steps!: stepInfoType[];
+
+        @applicationState.State
+        public applicationLocation!: string;
+
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
 
         @applicationState.Action
         public UpdateGotoNextStepPage!: () => void
 
-
-        error = ""
+        error = "";
         showGetHelpForPDF = false;
         showGetHelpScanning = false;
-        applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
+        applicantLocation = {name:'', address:'', cityStatePostcode:'', email:''}        
+        submissionId = "";
+        generatedUrlPayload = {};
+        supportingFile = null;
+        selectedDocumentTypeState = true;
+        selectedSupportingDocumentState = true;
+        fileType = "";
+        fileTypes = [];
+        supportingDocumentFields = [
+            { key: 'fileName', label: 'File Name'},
+            { key: 'fileType', label: 'File Type'},
+            { key: 'edit', thClass: 'd-none'}
+        ];
+        supportingDocuments: supportingDocumentInfoType[] = [];
 
         mounted(){
 
@@ -129,18 +207,19 @@
             const currentStep = this.$store.state.Application.currentStep;
             this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
        
-            let location = this.$store.state.Application.applicationLocation
-            if(!location) location = this.$store.state.Common.userLocation
-            //console.log(location)
+            let location = this.applicationLocation
+            if(!this.applicationLocation) location = this.$store.state.Common.userLocation
+       
 
             if(location == 'Victoria'){
-                this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-            }else if(location == 'Surrey'){
-                this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-            }            
-
-        }       
-        
+                this.applicantLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
+            } else if(location == 'Surrey'){
+                this.applicantLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
+            }
+            //TODO: use get api for document-types
+            const documentTypesJson = require("./forms/documentTypes.json");
+            this.fileTypes = documentTypesJson;
+        } 
         
         public onPrev() {
             this.UpdateGotoPrevStepPage()
@@ -155,50 +234,49 @@
             if(this.checkErrorOnPages()){ 
                 const currentDate = moment().format();
                 this.$store.commit("Application/setLastPrinted", currentDate); 
-                const application = this.$store.state.Application;
-                
+                const application = this.$store.state.Application;                
                 const applicationId = application.id;
 
                 this.loadPdf();
             }
         }
 
-    public checkErrorOnPages(){
+        public checkErrorOnPages(){
 
-        for(const step of this.$store.state.Application.steps){
-            if(step.active){
-                for(const page of step.pages){
-                    if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
-                    { 
-                        //console.log(step)
-                        //console.log(page)
-                        this.$store.commit("Application/setCurrentStep", step.id);
-                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
-                        const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
-                        nextChildGroup.style.display = "block";
-                        currPage.style.color="red";
-                        return false;
+            for(const step of this.steps){
+                if(step.active){
+                    for(const page of step.pages){
+                        if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
+                        { 
+                            //console.log(step)
+                            //console.log(page)
+                            this.$store.commit("Application/setCurrentStep", step.id);
+                            this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
+                            const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
+                            const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
+                            nextChildGroup.style.display = "block";
+                            currPage.style.color="red";
+                            return false;
+                        }
                     }
                 }
+                
             }
+            return true;
             
         }
-        return true;
-        
-    }
 
-    public getStepId(stepIndex) {
-        return "step-" + stepIndex;
-    }
+        public getStepId(stepIndex) {
+            return "step-" + stepIndex;
+        }
 
-    public getStepGroupId(stepIndex) {
-        return this.getStepId(stepIndex) + "-group";
-    }
+        public getStepGroupId(stepIndex) {
+            return this.getStepId(stepIndex) + "-group";
+        }
 
-    public getStepPageId(stepIndex, pageIndex) {
-        return this.getStepId(stepIndex) + "-page-" + pageIndex;
-    }
+        public getStepPageId(stepIndex, pageIndex) {
+            return this.getStepId(stepIndex) + "-page-" + pageIndex;
+        }
 
         public loadPdf() {
             const applicationId = this.$store.state.Application.id;
@@ -229,23 +307,90 @@
         }
 
         public getFPOResultData() {      
-            var result = this.$store.state.Application.steps[0].result; 
+            var result = this.steps[0].result; 
             for(var i=1;i<9; i++)
-                Object.assign(result, result, this.$store.state.Application.steps[i].result); 
+                Object.assign(result, result, this.steps[i].result); 
             
             var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
             Object.assign(result, result, protectedPartyName);
             
-            var applicationLocation = this.$store.state.Application.applicationLocation
+            //var applicationLocation = this.$store.state.Application.applicationLocation
             var userLocation = this.$store.state.Common.userLocation
             //console.log(applicationLocation)
             //console.log(userLocation)
-            if(applicationLocation)
-                Object.assign(result, result,{applicationLocation: applicationLocation}); 
+            if(this.applicationLocation)
+                Object.assign(result, result,{applicationLocation: this.applicationLocation}); 
             else
                 Object.assign(result, result,{applicationLocation: userLocation});
             //console.log(result)
             return result;
+        }
+
+        public onSubmit() {
+            //TODO: get the pdf through new API, save application with latest information
+
+            var bodyFormData = new FormData();
+            bodyFormData.append('files', "~/Downloads/fpo.pdf");
+
+            const url = "http://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api/submission/documents";
+            const header = {
+                responseType: "json",
+                headers: {
+                    Authorization: "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjVDg3bHVwcmhwYmdwNHQtZ3ZIM0U1RHBfNUJEYms1cGtVVHo3Z3ZVUTZZIn0.eyJleHAiOjE1OTg0ODE0NjMsImlhdCI6MTU5ODQ4MTE2MywianRpIjoiNjY5ZGJmYjktNjMyMC00ZGNlLWFiMzMtZGQ0MjExZTk4ZWNkIiwiaXNzIjoiaHR0cHM6Ly9zc28tZGV2LnBhdGhmaW5kZXIuZ292LmJjLmNhL2F1dGgvcmVhbG1zL3F4NjhvYTVjIiwiYXVkIjpbImVmaWxpbmctYXBpIiwiYWNjb3VudCJdLCJzdWIiOiJiZWZlNjM1OS1iNDFmLTQ5NjktYTcyZi01ZGJjYjkzZDlhODgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJmbGEiLCJzZXNzaW9uX3N0YXRlIjoiMGJlNzczYTItMzZhOS00MTBkLTgyNWUtMmFlYTg1ZTMwYjA2IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiZWZpbGluZy1hcGkiOnsicm9sZXMiOlsiZWZpbGluZy1jbGllbnQiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNzby1zZXJ2aWNlLXR5cGUtY29kZSI6IkRDRkwiLCJjbGllbnRIb3N0IjoiNTAuOTIuMTE5LjI3IiwiY2xpZW50SWQiOiJmbGEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNzby1hcHBsaWNhdGlvbi1jb2RlIjoiRkxBIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWZsYSIsImNsaWVudEFkZHJlc3MiOiI1MC45Mi4xMTkuMjciLCJlbWFpbCI6InNlcnZpY2UtYWNjb3VudC1mbGFAcGxhY2Vob2xkZXIub3JnIn0.RFQNciMI-_RZv8T5HglZiZil4mksWoNGBzVOabT02PY9zFEJGSuSgY4fc17HfPUaqiVr9ritaMC01h8BYHzIeZj-iCg5M0CUXi9QO8lfOYyYPRXXowjOVfKQtWem58z3NQ4RSpfZa5NAaIfQVGByina89hSICZJj-oL2vZxPiVEw3hvJgadBCsh8v9bwsK2LiTEHr8mL_WQPj-loM-xrYxIr6R4CPi1ACDf1JCIwIt8C3Zo9dmEPJZ-_iJS37FsVa9bmf9caRJVTDtDI6c-nhOJ2N-akQ5q64hgAXZJ8t-AD4Esiz0-K78F9XYeY3vTlKlS1wieKa1i_LolLg-AV_w",
+                    "Content-Type": "multipart/form-data",
+                    Accept: "application/json",
+                    "X-Transaction-Id": "ca09e538-d34e-11ea-87d0-0242ac130003",
+                    "X-User-Id": "54546456"
+                }
+            }
+
+            //TODO: add the new api to call submit documents
+            this.$http.post(url, bodyFormData, header)
+            .then(res => {
+                //console.log(res)
+                // this.submissionId = res.submissionId;
+                this.generateUrl();
+
+            }, err => {
+                console.error(err);
+                this.error = err;
+            });           
+        }
+        
+        public generateUrl() {        
+            this.generateUrlPayload();
+            //TODO: use new api to generate url
+            var eFilingUrl = "";
+            // use a new api to:
+            //1. add efiling hub access information to the application table
+            //2. add the date of submission to the application table
+            // redirect user to the generated url
+            location.replace(eFilingUrl);        
+        }
+
+        public generateUrlPayload() {
+            //TODO: add the payload elements
+            this.generatedUrlPayload = {}
+        }
+
+        public removeDocument(index) {
+            this.supportingDocuments.splice(index, 1);
+        }
+        
+        public addDocument() {
+            this.selectedSupportingDocumentState = this.supportingFile? true:false;
+            this.selectedDocumentTypeState = this.fileType.length>0? true: false;
+
+            if (this.supportingFile && this.fileType.length>0) {
+                const newFile = {
+                "fileName": this.supportingFile.name,
+                "file": this.supportingFile,
+                "documentType": this.fileType
+                }
+                this.supportingDocuments.push(newFile);
+                this.supportingFile = null;
+                this.fileType = "";
+            }
         }
 
     }
