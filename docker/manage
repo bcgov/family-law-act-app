@@ -12,8 +12,8 @@ fi
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
 export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME-fla}"
-APP="fla"
-export APP="fla"
+NAME="fla"
+export NAME="fla"
 
 # =================================================================================================================
 # Usage:
@@ -73,29 +73,29 @@ build-web() {
   # The fla-web image is copy of the fla-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${APP}-runtime image using Docker ..."
+  echo -e "Building the ${NAME}-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t ${APP}'-runtime' \
+    -t ${NAME}'-runtime' \
     -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${APP}-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
+  echo -e "Building the ${NAME}-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e WEB_BASE_HREF=${WEB_BASE_HREF} \
     '../web' \
     'centos/nodejs-10-centos7:10' \
-    ${APP}'-web-artifacts'
+    ${NAME}'-web-artifacts'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${APP}-web image using Docker ..."
+  echo -e "Building the ${NAME}-web image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t ${APP}'-web' \
+    -t ${NAME}'-web' \
     -f './vue-on-nginx/Dockerfile' './vue-on-nginx/'
   echo -e "===================================================================================================="
 }
@@ -105,22 +105,22 @@ build-web-dev() {
   # web-dev
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${APP}-runtime image using Docker ..."
+  echo -e "Building the ${NAME}-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t ${APP}'-runtime' \
+    -t ${NAME}'-runtime' \
     -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${APP}-web-dev image using s2i ..."
+  echo -e "Building the ${NAME}-web-dev image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e "DEV_MODE=true" \
     '../web' \
     'centos/nodejs-10-centos7:10' \
-    ${APP}'-web-dev'
+    ${NAME}'-web-dev'
   echo -e "===================================================================================================="
 }
 
@@ -150,13 +150,13 @@ build-api() {
   # api
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building ${APP}-api image using s2i ..."
+  echo -e "Building ${NAME}-api image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     '../api' \
     'centos/python-36-centos7' \
-    ${APP}'-api'
+    ${NAME}'-api'
   echo -e "===================================================================================================="
 }
 
@@ -271,7 +271,7 @@ functionExists() {
 }
 
 clean() {
-  docker rmi --force fla-runtime fla-web-artifacts fla-web fla-web-dev fla-api
+  docker rmi --force ${NAME}-runtime ${NAME}-web-artifacts ${NAME}-web ${NAME}-web-dev ${NAME}-api
   docker image prune --force
 }
 # =================================================================================================================
@@ -290,7 +290,7 @@ case "$COMMAND" in
     _startupParams=$(getStartupParams $@)
     configureEnvironment $@
     [ -z "$SKIP_BUILD" ] && build-web-dev
-    docker-compose run --rm --service-ports ${APP}-web-dev
+    docker-compose run --rm --service-ports ${NAME}-web-dev
     ;;
   stop)
     configureEnvironment $@
@@ -307,7 +307,7 @@ case "$COMMAND" in
   build)
     buildImage=$(toLower ${1})
     shift || buildImage=all
-    buildImage=$(echo ${buildImage} | sed s~^${APP}-~~)
+    buildImage=$(echo ${buildImage} | sed s~^${NAME}-~~)
     case "$buildImage" in
       *=*)
         buildImage=all

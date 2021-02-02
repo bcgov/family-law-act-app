@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   web:
-    image: "${APP}-web"
+    image: "${NAME}-web"
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -13,7 +13,7 @@ services:
       - api
 
   web-dev:
-    image: "${APP}-web-dev"
+    image: "${NAME}-web-dev"
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -44,7 +44,7 @@ services:
   # nice to implement a more deterministic solution.
   #
   api:
-    image: "${APP}-api"
+    image: "${NAME}-api"
     environment:
       - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
       - DATABASE_ENGINE=${DATABASE_ENGINE}
