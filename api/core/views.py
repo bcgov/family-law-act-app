@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from core.auth import get_login_uri, get_logout_uri
 from django.conf import settings
-from fla.models.User import User
+from api.models.User import User
 
 
 def health(request):

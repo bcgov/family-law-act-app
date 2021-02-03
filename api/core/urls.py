@@ -18,5 +18,5 @@ urlpatterns = [
     path("api/v1/logout/", views.logout)
 ]
 
-if (os.getenv('DJANGO_SETTINGS_MODULE') == "fla.settings"):
-    urlpatterns.append(path("api/v1/", include("fla.urls")))
+if (os.getenv('DJANGO_SETTINGS_MODULE') == "api.settings"):
+    urlpatterns.append(path("api/v1/", include("api.urls")))

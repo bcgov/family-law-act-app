@@ -3,7 +3,7 @@ from django.http import HttpResponseBadRequest
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 
-from fla.efiling import (
+from api.efiling import (
     upload_documents
 )
 

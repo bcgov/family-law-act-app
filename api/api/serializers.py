@@ -18,7 +18,7 @@
 """
 from rest_framework import serializers
 
-from fla.models import SurveyResult, User, Application
+from api.models import SurveyResult, User, Application
 
 
 class UserSerializer(serializers.ModelSerializer):

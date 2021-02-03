@@ -11,8 +11,8 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
-from fla.models.Application import Application
-from fla.utils import get_app_object
+from api.models.Application import Application
+from api.utils import get_app_object
 
 LOGGER = logging.getLogger(__name__)
 

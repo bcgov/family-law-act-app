@@ -23,7 +23,7 @@ from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
 from rest_framework_swagger import renderers
 
-from fla.views import (
+from api.views import (
     AcceptTermsView,
     ApplicationView,
     ApplicationListView,

@@ -6,8 +6,8 @@ from rest_framework import permissions
 from rest_framework import generics
 from rest_framework.response import Response
 
-from fla.models.Application import Application
-from fla.serializers import ApplicationListSerializer
+from api.models.Application import Application
+from api.serializers import ApplicationListSerializer
 
 
 class ApplicationListView(generics.ListAPIView):

@@ -3,8 +3,8 @@ from django.http import Http404, HttpResponseBadRequest
 from rest_framework import permissions, generics
 from rest_framework.response import Response
 
-from fla.models.Application import Application
-from fla.efiling import (
+from api.models.Application import Application
+from api.efiling import (
     submit_efiling,
     build_efiling_body
 )
