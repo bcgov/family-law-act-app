@@ -6,7 +6,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.models.User import User
+from api.models.user import User
 from core.auth import build_get_user_object
 
 

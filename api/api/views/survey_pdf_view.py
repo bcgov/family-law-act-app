@@ -11,8 +11,8 @@ from rest_framework import permissions
 from rest_framework import generics
 
 from core.pdf import render as render_pdf
-from api.models.Application import Application
-from api.models.PreparedPdf import PreparedPdf
+from api.models.application import Application
+from api.models.prepared_pdf import PreparedPdf
 from api.utils import get_app_object
 
 LOGGER = logging.getLogger(__name__)

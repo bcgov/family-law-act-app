@@ -1,7 +1,7 @@
 import random
 from string import ascii_lowercase, digits
 from api.models import User
-from api.models.Application import Application
+from api.models.application import Application
 from django.http import Http404
 
 

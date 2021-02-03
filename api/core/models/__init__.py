@@ -19,4 +19,4 @@
     limitations under the License.
 """
 
-from .UserBase import UserBase
+from .user_base import UserBase
