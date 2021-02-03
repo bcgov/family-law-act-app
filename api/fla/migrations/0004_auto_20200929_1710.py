@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0003_surveyresult'),
+        ('fla', '0003_surveyresult'),
     ]
 
     operations = [
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('protected_child_name', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
                 ('key_id', models.CharField(blank=True, max_length=32, null=True)),
                 ('steps', models.BinaryField(blank=True, null=True)),
-                ('prepared_pdf', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='pdf_data', to='api.preparedpdf')),
+                ('prepared_pdf', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='pdf_data', to='fla.preparedpdf')),
                 ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='app_user_Id', to=settings.AUTH_USER_MODEL)),
             ],
         ),
