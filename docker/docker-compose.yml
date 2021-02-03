@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   web:
-    image: "${NAME}-web"
+    image: "${COMPOSE_PROJECT_NAME}-web"
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -13,7 +13,7 @@ services:
       - api
 
   web-dev:
-    image: "${NAME}-web-dev"
+    image: "${COMPOSE_PROJECT_NAME}-web-dev"
     environment:
       - API_URL=${API_URL}
       - WEB_BASE_HREF=${WEB_BASE_HREF}
@@ -44,7 +44,7 @@ services:
   # nice to implement a more deterministic solution.
   #
   api:
-    image: "${NAME}-api"
+    image: "${COMPOSE_PROJECT_NAME}-api"
     environment:
       - DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME}
       - DATABASE_ENGINE=${DATABASE_ENGINE}
@@ -56,8 +56,8 @@ services:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_DEBUG=${DJANGO_DEBUG}
       - DJANGO_LOG_LEVEL=${DJANGO_LOG_LEVEL}
-      - FLA_DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
-      - FLA_DB_SERVICE_PORT=5432
+      - DB_SERVICE_HOST=${DATABASE_SERVICE_NAME}
+      - DB_SERVICE_PORT=5432
       - EFILING_AUTH_URL=${EFILING_AUTH_URL}
       - EFILING_CLIENT_ID=${EFILING_CLIENT_ID}
       - EFILING_CLIENT_SECRET=${EFILING_CLIENT_SECRET}

@@ -12,8 +12,6 @@ fi
 
 SCRIPT_HOME="$( cd "$( dirname "$0" )" && pwd )"
 export COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME-fla}"
-NAME="fla"
-export NAME="fla"
 
 # =================================================================================================================
 # Usage:
@@ -52,7 +50,7 @@ exit 1
 # -----------------------------------------------------------------------------------------------------------------
 # Default Settings:
 # -----------------------------------------------------------------------------------------------------------------
-DEFAULT_CONTAINERS="${APP}-db ${APP}-api schema-spy ${APP}-web ${APP}-pdf"
+DEFAULT_CONTAINERS="db api schema-spy web pdf"
 # -----------------------------------------------------------------------------------------------------------------
 # Functions:
 # -----------------------------------------------------------------------------------------------------------------
@@ -73,29 +71,29 @@ build-web() {
   # The fla-web image is copy of the fla-runtime image complete with a copy of the build artifacts.
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${NAME}-runtime image using Docker ..."
+  echo -e "Building the ${COMPOSE_PROJECT_NAME}-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t ${NAME}'-runtime' \
+    -t ${COMPOSE_PROJECT_NAME}'-runtime' \
     -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
   
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${NAME}-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
+  echo -e "Building the ${COMPOSE_PROJECT_NAME}-web-artifacts image using s2i (WEB_BASE_HREF: '${WEB_BASE_HREF}') ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e WEB_BASE_HREF=${WEB_BASE_HREF} \
     '../web' \
     'centos/nodejs-10-centos7:10' \
-    ${NAME}'-web-artifacts'
+    ${COMPOSE_PROJECT_NAME}'-web-artifacts'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${NAME}-web image using Docker ..."
+  echo -e "Building the ${COMPOSE_PROJECT_NAME}-web image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t ${NAME}'-web' \
+    -t ${COMPOSE_PROJECT_NAME}'-web' \
     -f './vue-on-nginx/Dockerfile' './vue-on-nginx/'
   echo -e "===================================================================================================="
 }
@@ -105,22 +103,22 @@ build-web-dev() {
   # web-dev
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${NAME}-runtime image using Docker ..."
+  echo -e "Building the ${COMPOSE_PROJECT_NAME}-runtime image using Docker ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   docker build \
-    -t ${NAME}'-runtime' \
+    -t ${COMPOSE_PROJECT_NAME}'-runtime' \
     -f './nginx-runtime/Dockerfile' './nginx-runtime/'
   echo -e "===================================================================================================="
 
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the ${NAME}-web-dev image using s2i ..."
+  echo -e "Building the ${COMPOSE_PROJECT_NAME}-web-dev image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     -e "DEV_MODE=true" \
     '../web' \
     'centos/nodejs-10-centos7:10' \
-    ${NAME}'-web-dev'
+    ${COMPOSE_PROJECT_NAME}'-web-dev'
   echo -e "===================================================================================================="
 }
 
@@ -150,13 +148,13 @@ build-api() {
   # api
   #
   echo -e "\n\n===================================================================================================="
-  echo -e "Building ${NAME}-api image using s2i ..."
+  echo -e "Building ${COMPOSE_PROJECT_NAME}-api image using s2i ..."
   echo -e "----------------------------------------------------------------------------------------------------"
   ${S2I_EXE} build \
     --copy \
     '../api' \
     'centos/python-36-centos7' \
-    ${NAME}'-api'
+    ${COMPOSE_PROJECT_NAME}'-api'
   echo -e "===================================================================================================="
 }
 
@@ -184,16 +182,16 @@ configureEnvironment () {
   export POSTGRESQL_ADMIN_PASSWORD="DB_ADMIN_PASSWORD"
 
   # schema-spy
-  export DATABASE_SERVICE_NAME="fla-db"
+  export DATABASE_SERVICE_NAME="db"
   export POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
   export POSTGRESQL_USER=${POSTGRESQL_USER}
   export POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
 
   # api
   export API_HTTP_PORT=${API_HTTP_PORT-8081}
-  export PDF_SERVICE_URL=${PDF_SERVICE_URL-http://fla-pdf:5001}
+  export PDF_SERVICE_URL=${PDF_SERVICE_URL-http://pdf:5001}
   export OVERRIDE_USER_ID=${OVERRIDE_USER_ID-}
-  export DATABASE_SERVICE_NAME="fla-db"
+  export DATABASE_SERVICE_NAME="db"
   export DATABASE_ENGINE="postgresql"
   export DATABASE_NAME=${POSTGRESQL_DATABASE}
   export DATABASE_USER=${POSTGRESQL_USER}
@@ -210,7 +208,7 @@ configureEnvironment () {
 
   # web
   export WEB_HTTP_PORT=${WEB_HTTP_PORT-8080}
-  export API_URL=${API_URL-http://fla-api:8080/api}
+  export API_URL=${API_URL-http://api:8080/api}
   export WEB_BASE_HREF=${WEB_BASE_HREF:-/apply-for-family-order/}
   export IpFilterRules='#allow all; deny all;'
   export RealIpFrom='127.0.0.0/16'
@@ -271,7 +269,7 @@ functionExists() {
 }
 
 clean() {
-  docker rmi --force ${NAME}-runtime ${NAME}-web-artifacts ${NAME}-web ${NAME}-web-dev ${NAME}-api
+  docker rmi --force ${COMPOSE_PROJECT_NAME}-runtime ${COMPOSE_PROJECT_NAME}-web-artifacts ${COMPOSE_PROJECT_NAME}-web ${COMPOSE_PROJECT_NAME}-web-dev ${COMPOSE_PROJECT_NAME}-api
   docker image prune --force
 }
 # =================================================================================================================
@@ -290,7 +288,7 @@ case "$COMMAND" in
     _startupParams=$(getStartupParams $@)
     configureEnvironment $@
     [ -z "$SKIP_BUILD" ] && build-web-dev
-    docker-compose run --rm --service-ports ${NAME}-web-dev
+    docker-compose run --rm --service-ports ${COMPOSE_PROJECT_NAME}-web-dev
     ;;
   stop)
     configureEnvironment $@
@@ -307,7 +305,7 @@ case "$COMMAND" in
   build)
     buildImage=$(toLower ${1})
     shift || buildImage=all
-    buildImage=$(echo ${buildImage} | sed s~^${NAME}-~~)
+    buildImage=$(echo ${buildImage} | sed s~^${COMPOSE_PROJECT_NAME}-~~)
     case "$buildImage" in
       *=*)
         buildImage=all
