@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('fla', '0005_application_application_location'),
+        ('api', '0005_application_application_location'),
     ]
 
     operations = [

@@ -15,7 +15,7 @@ from . import views
 urlpatterns = [
     path("", RedirectView.as_view(url="api/v1/user-info/"), name=""),
     path("health/", views.health),
-    path("api/v1/logout", views.logout)
+    path("api/v1/logout/", views.logout)
 ]
 
 if (os.getenv('DJANGO_SETTINGS_MODULE') == "fla.settings"):
