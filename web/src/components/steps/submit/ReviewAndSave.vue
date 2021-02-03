@@ -84,80 +84,81 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
+import { stepInfoType } from "@/types/Application";
+import PageBase from "../PageBase.vue";
+
+import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
+import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
+import moment from 'moment-timezone';
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
+
+@Component({
+    components:{
+        PageBase,
+        GetHelpForPdf,
+        GetHelpScanning
+    }
+})
+
+export default class ReviewAndSave extends Vue {
     
-    import { stepInfoType } from "@/types/Application";
-    import PageBase from "../PageBase.vue";
+    @Prop({required: true})
+    step!: stepInfoType;
+
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
+
+    currentStep=0;
+    currentPage=0;
+    error = ""
+    showGetHelpForPDF = false;
+    showGetHelpScanning = false;
+    applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
+
+    mounted(){
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+           
+        let location = this.$store.state.Application.applicationLocation
+        if(!location) location = this.$store.state.Common.userLocation
+        //console.log(location)
+
+        if(location == 'Victoria'){
+            this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
+        }else if(location == 'Surrey'){
+            this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
+        }            
+
+    }       
     
-    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
-    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
-    import moment from 'moment-timezone';
-
-    import { namespace } from "vuex-class";   
-    import "@/store/modules/application";
-    const applicationState = namespace("Application");
-
-
-    @Component({
-        components:{
-            PageBase,
-            GetHelpForPdf,
-            GetHelpScanning
-        }
-    })
     
-    export default class ReviewAndSave extends Vue {
-        
-        @Prop({required: true})
-        step!: stepInfoType;
+    public onPrev() {
+        this.UpdateGotoPrevStepPage()
+    }
 
-        @applicationState.Action
-        public UpdateGotoPrevStepPage!: () => void
+    public onNext() {
+        this.UpdateGotoNextStepPage()
+    }
 
-        @applicationState.Action
-        public UpdateGotoNextStepPage!: () => void
-
-
-        error = ""
-        showGetHelpForPDF = false;
-        showGetHelpScanning = false;
-        applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
-
-        mounted(){
-
-            const progress = 50;        
-            const currentStep = this.$store.state.Application.currentStep;
-            this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
-       
-            let location = this.$store.state.Application.applicationLocation
-            if(!location) location = this.$store.state.Common.userLocation
-            //console.log(location)
-
-            if(location == 'Victoria'){
-                this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-            }else if(location == 'Surrey'){
-                this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-            }            
-
-        }       
-        
-        
-        public onPrev() {
-            this.UpdateGotoPrevStepPage()
+    public onDownload() {
+        //console.log("downloading")
+        if(this.checkErrorOnPages()){ 
+            const currentDate = moment().format();
+            this.$store.commit("Application/setLastPrinted", currentDate); 
+            this.loadPdf();
         }
-
-        public onNext() {
-            this.UpdateGotoNextStepPage()
-        }
-
-        public onDownload() {
-            //console.log("downloading")
-            if(this.checkErrorOnPages()){ 
-                const currentDate = moment().format();
-                this.$store.commit("Application/setLastPrinted", currentDate); 
-                this.loadPdf();
-            }
-        }
+    }
 
     public checkErrorOnPages(){
 
@@ -196,63 +197,67 @@
         return this.getStepId(stepIndex) + "-page-" + pageIndex;
     }
 
-        public loadPdf() {
-            const applicationId = this.$store.state.Application.id;
-            const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-            const body = this.getFPOResultData()
-            const options = {
-                responseType: "blob",
-                headers: {
-                "Content-Type": "application/json",
-                }
+    public loadPdf() {
+        const applicationId = this.$store.state.Application.id;
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+        const body = this.getFPOResultData()
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
             }
-            //console.log(body)
-            this.$http.post(url,body, options)
-            .then(res => {
-                const blob = res.data;
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                document.body.appendChild(link);
-                link.download = "fpo.pdf";
-                link.click();
-                setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-                this.error = "";
-            },err => {
-                console.error(err);
-                this.error = "Sorry, we were unable to print your form at this time, please try again later.";
-            });
-
         }
-
-        public getFPOResultData() { 
-            var result = this.$store.state.Application.steps[0].result; 
-            for(var i=1;i<9; i++){
-                const stepResults = this.$store.state.Application.steps[i].result
-                for(const stepResult in stepResults){
-                    console.log(stepResults[stepResult])
-                    console.log(stepResults[stepResult].data)
-                    result[stepResult]=stepResults[stepResult].data; 
-                    //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
-                }
-            }     
-            // var result = this.$store.state.Application.steps[0].result; 
-            // for(var i=1;i<9; i++)
-            //     Object.assign(result, result, this.$store.state.Application.steps[i].result); 
-            
-            var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-            Object.assign(result, result, protectedPartyName);
-            
-            var applicationLocation = this.$store.state.Application.applicationLocation
-            var userLocation = this.$store.state.Common.userLocation
-            //console.log(applicationLocation)
-            //console.log(userLocation)
-            if(applicationLocation)
-                Object.assign(result, result,{applicationLocation: applicationLocation}); 
-            else
-                Object.assign(result, result,{applicationLocation: userLocation});
-            //console.log(result)
-            return result;
-        }
+        //console.log(body)
+        this.$http.post(url,body, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "fpo.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            this.error = "";
+        },err => {
+            console.error(err);
+            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        });
 
     }
+
+    public getFPOResultData() { 
+        var result = this.$store.state.Application.steps[0].result; 
+        for(var i=1;i<9; i++){
+            const stepResults = this.$store.state.Application.steps[i].result
+            for(const stepResult in stepResults){
+                console.log(stepResults[stepResult])
+                console.log(stepResults[stepResult].data)
+                result[stepResult]=stepResults[stepResult].data; 
+                //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
+            }
+        }     
+        // var result = this.$store.state.Application.steps[0].result; 
+        // for(var i=1;i<9; i++)
+        //     Object.assign(result, result, this.$store.state.Application.steps[i].result); 
+        
+        var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
+        Object.assign(result, result, protectedPartyName);
+        
+        var applicationLocation = this.$store.state.Application.applicationLocation
+        var userLocation = this.$store.state.Common.userLocation
+        //console.log(applicationLocation)
+        //console.log(userLocation)
+        if(applicationLocation)
+            Object.assign(result, result,{applicationLocation: applicationLocation}); 
+        else
+            Object.assign(result, result,{applicationLocation: userLocation});
+        //console.log(result)
+        return result;
+    }
+
+    beforeDestroy() {
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+    }
+
+}
 </script>

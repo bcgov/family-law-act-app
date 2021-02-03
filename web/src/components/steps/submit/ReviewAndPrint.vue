@@ -87,16 +87,18 @@ export default class ReviewAndPrint extends Vue {
     public UpdateGotoNextStepPage!: () => void
 
     error= "";
+    currentStep=0;
+    currentPage=0;
 
     showGetHelpForPDF = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
 
     mounted(){
 
-        const progress = 50;        
-        const currentStep = this.$store.state.Application.currentStep;
-        this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
-       
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+
         let location = this.$store.state.Application.applicationLocation
         if(!location) location = this.$store.state.Common.userLocation
         //console.log(location)
@@ -226,6 +228,10 @@ export default class ReviewAndPrint extends Vue {
             Object.assign(result, result,{applicationLocation: userLocation});
         console.log(result)
         return result;
+    }
+
+    beforeDestroy() {
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
     }
 
 }

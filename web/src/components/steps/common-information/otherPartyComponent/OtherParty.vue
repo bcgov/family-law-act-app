@@ -118,7 +118,7 @@ export default class OtherParty extends Vue {
         const progress = this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
     public openForm(anyRowToBeEdited) {
@@ -181,24 +181,11 @@ export default class OtherParty extends Vue {
     }
 
     beforeDestroy() {
+
         const progress = this.otherPartyData.length==0? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        
-        if(currPage){
-            if(this.otherPartyData.length==0)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        //this.UpdateStepResultData({step:this.step, data: {: this.otherPartyData}}) 
-        console.log(this.otherPartyData)  
-
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.getOtherPartyResults()}})       
+        this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: this.getOtherPartyResults()}})       
     }
 
     public getOtherPartyResults(){

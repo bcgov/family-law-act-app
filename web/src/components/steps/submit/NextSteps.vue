@@ -76,6 +76,13 @@
         public UpdateGotoNextStepPage!: () => void
 
         showLegalAssistance = false
+        currentStep=0;
+        currentPage=0;
+
+        mounted(){
+            this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+        }
 
         public onPrev() {
             this.UpdateGotoPrevStepPage()

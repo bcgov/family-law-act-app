@@ -174,10 +174,17 @@ export default class ReviewYourAnswers extends Vue {
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
                 {
-                    // console.error("____________")
-				    // console.log(key)
-                    // console.log(value)
-                    if(value && (value['currentPage'] || value['currentPage']==0)){ 
+                    //  console.error("____________")
+                    //  console.log(key)
+                    //  console.log(value)
+                    if(value && value['data'] && value['data'].length == 0){
+                        const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
+                        value['questions'][0]= {name: "require", value: "", title: value['pageName'], inputType: ""}                 
+                        if(isPageActive){
+                            this.questionResults.push(value);
+                        }
+                    }
+                    else if(value && (value['currentPage'] || value['currentPage']==0)){ 
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
                         //console.log(isPageActive)
                         //value['sortOrder']=  (value['currentStep']*100+value['currentPage']);                   
@@ -192,13 +199,14 @@ export default class ReviewYourAnswers extends Vue {
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (questionResult['currentStep']*100+questionResult['currentPage']); });
         console.log(this.questionResults)
        
-        let progress = 100;
+        //let progress = 100;
         // if(Object.keys(this.survey.data).length)
         //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
+        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         this.togglePages([0,1], true);
     }
 
@@ -238,7 +246,7 @@ export default class ReviewYourAnswers extends Vue {
 
     beforeDestroy() {
 
-        
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, true);
         // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
         // if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";

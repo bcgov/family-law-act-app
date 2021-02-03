@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import moment from 'moment-timezone';
+import store from '@/store';
 
 
 Vue.filter('beautify-date', function(date){
@@ -66,6 +67,29 @@ Vue.filter('getFullContactInfo',function(nameObject){
 	} else{
 		return " "
 	}
+})
+
+Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPage: number, defaultProgress: number, beforeDestroy: boolean){
+
+	let progress =  defaultProgress;
+	//if(survey && Object.keys(survey.data).length)
+	if(survey && store.state.Application.steps[currentStep].pages[currentPage].progress)
+		progress = survey.isCurrentPageHasErrors? 50 : 100;
+	console.log(store.state.Application.steps[currentStep].pages[currentPage].progress)
+	
+	store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:currentPage, progress:progress });
+	const currPage = document.getElementById("step-" + currentStep+"-page-" + currentPage);
+	if(currPage){
+		if(progress != 100){
+			currPage.style.color = beforeDestroy? "red":"";
+			currPage.className =  beforeDestroy? "":"current";
+		}
+		else
+		{
+			currPage.style.color = "";
+			currPage.className = beforeDestroy? "":"current";
+		}  
+	}   	
 })
 
 
