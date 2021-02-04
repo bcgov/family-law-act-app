@@ -66,8 +66,8 @@ export default class ProtectionFromWhom extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            // console.log(options)
+            console.log(this.survey.data);
+             console.log(options)
             if (options.name === "ApplicantNeedsProtection") {
                 if (options.value === "y") {
                     this.$store.commit("Application/setPageActive", {
@@ -86,7 +86,12 @@ export default class ProtectionFromWhom extends Vue {
 
             if(options.name === "RespondentName") {        
                 this.$store.commit("Application/setRespondentName", options.value);
-            }      
+            }
+
+            // if(options.name === "childPO" && options.value === "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
+            //     console.log('progress')       
+            //     console.log(this.$store.state.Application.steps[2].result['backgroundSurvey'].data['ExistingOrders'])
+            // }      
 
             if(this.survey.data.ApplicantNeedsProtection === 'n' && this.survey.data.anotherAdultPO === 'n' && this.survey.data.childPO === 'n'){
                 this.disableNextButton = true;

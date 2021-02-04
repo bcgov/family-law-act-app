@@ -75,8 +75,7 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 	//if(survey && Object.keys(survey.data).length)
 	if(survey && store.state.Application.steps[currentStep].pages[currentPage].progress)
 		progress = survey.isCurrentPageHasErrors? 50 : 100;
-	console.log(store.state.Application.steps[currentStep].pages[currentPage].progress)
-	
+	//console.log(store.state.Application.steps[currentStep].pages[currentPage].progress)
 	store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:currentPage, progress:progress });
 	const currPage = document.getElementById("step-" + currentStep+"-page-" + currentPage);
 	if(currPage){
@@ -89,19 +88,22 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 			currPage.style.color = "";
 			currPage.className = beforeDestroy? "":"current";
 		}  
-	}   	
+	}  
+	
+	if(currentStep < 8)
+		store.commit("Application/setPageProgress", { currentStep: 8, currentPage:0, progress:0 });
 })
 
 
 Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number){
 	//____________________________________________________________________
-	//console.log(survey)
+	//console.log(survey)if(question.titleLocation!="hidden" && question.title != " " && question.title != "" && question.isVisible)
 	// console.log(survey.currentPage.title)
 	// console.log(survey.currentPage.questions)
 	// console.log(survey.data)
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
 	for(const question of survey.currentPage.questions){
-		if(question.titleLocation!="hidden" && question.title != " " && question.title != "" && question.isVisible)
+		if(question.isVisible)
 			if(survey.data[question.name]){
 				// console.log("____________")
 				// console.log(question)

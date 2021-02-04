@@ -146,9 +146,17 @@ export default class ReviewAndPrint extends Vue {
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
                         const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
-                        if(nextChildGroup)nextChildGroup.style.display = "block";
-                        if(currPage){currPage.style.color="red";}
+                        //const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
+                        //console.log(nextChildGroup)
+                        if(nextChildGroup){
+                            if(step.id==8){
+                                nextChildGroup.style.display = "none";
+                                Vue.nextTick(()=>nextChildGroup.style.display = "block")
+                            }else{
+                                nextChildGroup.style.display = "block";
+                            }
+                        }
+                        //if(currPage){currPage.style.color="red";}
                         return false;
                     }
                 }

@@ -24,8 +24,8 @@
                         <template v-slot:cell(title)="data" > 
                             <b>{{beautifyQuestion(data.value)}}</b>
                         </template>
-                        <template v-slot:cell(value)="data" > 
-                            <div style="white-space: pre-line;" :class="data.value?'':'bg-danger text-white px-2'">{{beautifyResponse(data.value, data.item.inputType)}}</div>
+                        <template v-slot:cell(value)="data" >
+                            <div style="white-space: pre-line;" :class="beautifyResponse(data.value, data.item)!='REQUIRED'?'':'bg-danger text-white px-2'">{{beautifyResponse(data.value, data.item)}}</div>
                         </template>
                         <template v-slot:cell(edit)="data" > 
                             <b-button style="border:white;" size="sm" variant="transparent" v-b-tooltip.hover.noninteractive title="Edit"  @click="edit(section,data)"><b-icon icon="pencil-square" font-scale="1.25" variant="primary"/></b-button>
@@ -79,9 +79,13 @@ export default class ReviewYourAnswers extends Vue {
     currentPage=0;
     pageHasError = false;
 
+    errorQuestionNames = [];
+    requiredDocuments = [];
+
     mounted(){       
         
-        this.reloadPageInformation()
+        this.reloadPageInformation();
+        this.determineHiddenErrors();
         //console.log(this.step)
     }
 
@@ -101,18 +105,36 @@ export default class ReviewYourAnswers extends Vue {
         return adjQuestion
     }
 
-    public beautifyResponse(value, inputType){
+    public extractRequiredDocuments(){
+        console.log('required documents')
+    }
+
+    public beautifyResponse(value, dataItem){
         //console.log(value)
+        //console.log(dataItem)
+        const inputType = dataItem?dataItem['inputType']:""
+        const inputName = dataItem?dataItem['name']:""
+
         if(!value){
+            this.pageHasError = true;
+            return "REQUIRED";
+        }
+        else if(this.errorQuestionNames.includes(inputName))
+        {
             this.pageHasError = true;
             return "REQUIRED";
         }
         else if(Array.isArray(value))
         {
-            console.log(value)
+            //console.log(value)
             if(value[0].childName)return this.getChildInfo(value) 
             if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
-            return value.join(", \n ");
+            if(typeof value[0] === 'string' || value[0] instanceof String)
+                return value.join(", \n ");
+            else{
+                this.pageHasError = true;
+                return "REQUIRED";
+            } 
         }
         else if(value=='y')
             return 'Yes';
@@ -211,6 +233,43 @@ export default class ReviewYourAnswers extends Vue {
     }
 
    
+    public determineHiddenErrors(){        
+        this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","y",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child:", "PartiesHasOtherChilderen"));
+        this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","n",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list", "PartiesHasOtherChilderen"));        
+    }
+
+    public coOccurrence(pageName1,question1,value1,  pageName2,question2,title2:string, response){
+        for(const questionResult of this.questionResults)
+        {
+            if(questionResult.pageName == pageName1)
+            {
+                for(const question of questionResult.questions)
+                {
+                    if(question.name == question1 && question.value == value1)
+                    {
+                        for(const questionResult of this.questionResults)
+                        {
+                            if(questionResult.pageName == pageName2)
+                            {
+                                for(const question of questionResult.questions){
+                                    if(question.name == question2 && question.title.trim()==title2.trim())
+                                    {
+                                        console.log(question.title)
+                                        console.log(title2)
+                                        console.log(question.title.trim()==title2.trim())
+                                        return response
+                                    }
+                                }
+                            }
+                        }
+                        break
+                    }
+                }
+                break;
+            }
+        }
+        return ""
+    }
 
     public togglePages(pageArr, activeIndicator) {
         //this.activateStep(activeIndicator);
