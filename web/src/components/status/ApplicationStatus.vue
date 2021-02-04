@@ -23,7 +23,7 @@
                             responsive="sm"
                             >
                             <template v-slot:cell(edit)="row">
-                                <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                                <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="removeApplication(row.item, row.index)"
                                     v-b-tooltip.hover.noninteractive
                                     title="Remove Application">
