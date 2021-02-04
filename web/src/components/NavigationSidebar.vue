@@ -1,6 +1,6 @@
 <template>
     <!-- https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp -->
-    <div class="sidebar-left" id="sidebar-left">
+    <div class="sidebar-left" id="sidebar-left" style="user-select: none;">
         <div class="sidebar-container" id="sidebar">
             <div class="sidebar-title">
                 <h3>Application Steps</h3>
@@ -53,7 +53,11 @@
                             v-show="page.active"
                             v-on:click="onSelectPage($event)"
                         >
+                            <b-icon-check-circle-fill style="float:left; width:1.2rem;" v-if="getPageProgress(stepIndex, pageIndex)==100" class="mt-1 mr-2" variant="success" />
+                            <b-icon-circle style="float:left; width:1.2rem;" v-else-if="getPageProgress(stepIndex, pageIndex)==0" class="mt-1 mr-2" variant="dark" />
+                            <b-icon-circle-half style="float:left; width:1.2rem;" v-else class="mt-1 mr-2" variant="danger" />
                             <div class="step-pages">{{ page.label }}</div>
+                            
                         </li>
                     </ul>
                 </div>
@@ -63,13 +67,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import moment from 'moment-timezone';
 
 @Component
 export default class NavigationSidebar extends Vue {
     
     error = "";
+    sideBarCheckMarkUpdate = 0;
 
     public  onSelectStep(event) {
         const currIndex = this.$store.state.Application.currentStep;
@@ -203,6 +208,10 @@ export default class NavigationSidebar extends Vue {
             if(page.progress > 0) return true;
         }
         return false
+    }
+
+    public getPageProgress(stepIndex, pageIndex){
+        return this.$store.state.Application.steps[stepIndex].pages[pageIndex].progress
     }
 
 };
@@ -360,7 +369,7 @@ $step-header-hover-color: #efefef;
         margin-right: 2em;
         li {
             margin-top: 1em;
-            margin-left: 1em;
+            margin-left: .1em;
 
             &.current {
                 color: $gov-gold;

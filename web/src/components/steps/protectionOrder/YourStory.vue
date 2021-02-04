@@ -73,16 +73,11 @@ export default class YourStory extends Vue {
             this.survey.data = this.step.result['yourStory'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-           
-           
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+          
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
     }
 
@@ -102,18 +97,7 @@ export default class YourStory extends Vue {
     
     beforeDestroy() {
 
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
         this.UpdateStepResultData({step:this.step, data: {yourStory: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 

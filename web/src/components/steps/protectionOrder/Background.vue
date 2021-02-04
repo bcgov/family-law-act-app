@@ -73,16 +73,11 @@ export default class Background extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         console.log(this.survey.currentPage.questions)
-        //console.log(this.survey.current)
-        
-        let progress = 50;
-        if(Object.keys(this.survey.data).length && this.survey.data.howPartiesRelated)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+       
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
         this.survey.setVariable("ProtectedPartyName", Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         
@@ -108,33 +103,9 @@ export default class Background extends Vue {
     public onComplete() {
         this.$store.commit("Application/setAllCompleted", true);
     }
-
-    // public getFullName(nameObject){
-    //     if (nameObject) {
-    //         return nameObject.first +
-    //             " " +
-    //             nameObject.middle +
-    //             " " +
-    //             nameObject.last;
-    //     } else{
-    //         return " "
-    //     }
-    // }
   
     beforeDestroy() {
-        
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
         this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
