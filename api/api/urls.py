@@ -23,10 +23,15 @@ from rest_framework.schemas import SchemaGenerator
 from rest_framework.views import APIView
 from rest_framework_swagger import renderers
 
-from api.views import views
-from api.views import EfilingView, EfilingDocumentView, UserView
-
-from . import survey
+from api.views import (
+    AcceptTermsView,
+    ApplicationView,
+    ApplicationListView,
+    EfilingView,
+    EfilingDocumentView,
+    SurveyPdfView,
+    UserView,
+)
 
 
 class SwaggerSchemaView(APIView):
@@ -44,25 +49,15 @@ class SwaggerSchemaView(APIView):
 urlpatterns = [
     # Swagger documentation
     # url(r'^$', SwaggerSchemaView.as_view()),
-    url(r"^accept-terms$", views.AcceptTermsView.as_view()),
-    url(
-        r"^survey-result/(?P<collection>[a-zA-Z0-9_\-:]+)/(?P<type>[a-zA-Z0-9_\-:]+)$",
-        survey.SurveyResultView.as_view(),
-    ),
-    url(
-        r"^survey-result/(?P<collection>[a-zA-Z0-9_\-:]+)/(?P<type>[a-zA-Z0-9_\-:]+)/"
-        r"(?P<id>[a-zA-Z0-9_\-:]+)$",
-        survey.SurveyResultView.as_view(),
-    ),
-    path('app/<int:pk>/', views.ApplicationView.as_view()),
-    path('app-list/', views.ApplicationListView.as_view()),
-    path("app/", views.ApplicationView.as_view()),
-    path("survey-print/", views.SurveyPdfView.as_view()),
-    path("survey-print/<int:pk>/", views.SurveyPdfView.as_view()),
+    url(r"^accept-terms$", AcceptTermsView.as_view()),
+    path("app/<int:pk>/", ApplicationView.as_view()),
+    path("app-list/", ApplicationListView.as_view()),
+    path("app/", ApplicationView.as_view()),
+    path("survey-print/", SurveyPdfView.as_view()),
+    path("survey-print/<int:pk>/", SurveyPdfView.as_view()),
     path("user-info/", UserView.as_view()),
-    #path("document-upload/", EfilingDocumentView.as_view()),
-    #path("submit-form/<int:pk>/", EfilingView.as_view()),
-    path("logout/", views.logout)
+    # path("document-upload/", EfilingDocumentView.as_view()),
+    # path("submit-form/<int:pk>/", EfilingView.as_view()),
 ]
 
 if settings.OIDC_ENABLED:

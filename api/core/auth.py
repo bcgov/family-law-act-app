@@ -1,7 +1,5 @@
 import logging
 import urllib
-import random
-from string import ascii_lowercase, digits
 
 from rest_framework.request import Request
 from django.conf import settings
@@ -9,7 +7,6 @@ from django.urls.exceptions import NoReverseMatch
 
 from rest_framework.reverse import reverse
 
-from api.models.User import User
 from oidc_rp.models import OIDCUser
 
 LOGGER = logging.getLogger(__name__)
@@ -54,38 +51,17 @@ def sync_keycloak_user(oidc_user: OIDCUser, claims: dict):
     oidc_user.user.save()
 
 
-def get_firstname_lastname(display_name, user_type):
-    # Extract first name and last name from a display name
-    if user_type == 'Internal':
-        names = display_name.split(",")
-        if len(names) > 1:
-            last_name = names[0]
-            first_name = names[1].strip().split(" ")[0]
+def build_get_user_object(logged_in, request):
+    return {
+        "accepted_terms_at": logged_in and request.user.accepted_terms_at or None,
+        "user_id": logged_in and request.user.authorization_id or None,
+        "email": logged_in and request.user.email or None,
+        "first_name": logged_in and request.user.first_name or None,
+        "last_name": logged_in and request.user.last_name or None,
+        "display_name": logged_in and request.user.display_name or None,
+        "is_staff": logged_in and request.user.is_staff,
+        "universal_id": logged_in and request.user.universal_id,
+        "login_uri": get_login_uri(request),
+        "logout_uri": get_logout_uri(request)
+    }
 
-            return first_name, last_name
-
-    names = display_name.split(" ")
-    if len(names) > 1:
-        last_name = names[1]
-        first_name = names[0]
-
-        return first_name, last_name
-
-    if len(names) > 0:
-        return names[0], None
-
-    return None, None
-
-
-def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-', prefix=''):
-    username = ''.join([random.choice(chars) for i in range(length)])
-
-    if split:
-        username = delimiter.join([username[start:start+split] for start in range(0, len(username), split)])
-    username = prefix + username
-
-    try:
-        User.objects.get(username=username)
-        return generate_random_username(length=length, chars=chars, split=split, delimiter=delimiter)
-    except User.DoesNotExist:
-        return username
