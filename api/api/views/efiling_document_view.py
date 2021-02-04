@@ -1,12 +1,11 @@
-from rest_framework import generics
 import uuid
+from django.http import HttpResponseBadRequest
+from rest_framework import generics, permissions
+from rest_framework.response import Response
+
 from api.efiling import (
     upload_documents
 )
-
-from rest_framework.response import Response
-from rest_framework import permissions
-from django.http import HttpResponseBadRequest
 
 
 class EfilingDocumentView(generics.GenericAPIView):

@@ -1,8 +1,9 @@
+# Ideally this file shouldn't change.
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class User(AbstractUser):
+class UserBase(AbstractUser):
     accepted_terms_at = models.DateTimeField(blank=True, null=True)
 
     # Siteminder headers
@@ -13,4 +14,8 @@ class User(AbstractUser):
                                                null=True)
     authorization_email = models.EmailField(blank=True, null=True)
     display_name = models.CharField(max_length=500, blank=True, null=True)
-    location = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        abstract = True
+        verbose_name_plural = 'users'
+        verbose_name = 'user'

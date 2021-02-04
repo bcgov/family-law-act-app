@@ -8,7 +8,6 @@ Replace this with more appropriate tests for your application.
 import django
 from django.test import TestCase
 
-
 class SimpleTest(TestCase):
     """Tests for the application views."""
 
