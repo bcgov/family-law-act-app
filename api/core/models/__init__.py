@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     REST API Documentation for Family Law Act
 
@@ -17,8 +19,4 @@
     limitations under the License.
 """
 
-from django.contrib import admin
-
-from .models.user import User
-
-admin.site.register(User)
+from .user_base import UserBase
