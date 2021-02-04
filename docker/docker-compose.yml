@@ -65,6 +65,7 @@ services:
       - FRONT_END=${FRONT_END}
       - DATA_SECURITY_KEY=${DATA_SECURITY_KEY}
       - SITEMINDER_LOGOFF_URL=${SITEMINDER_LOGOFF_URL}
+      - OIDC_RP_CLIENT_SECRET=${OIDC_RP_CLIENT_SECRET}
     volumes:
       - ../api/api:/opt/app-root/src/api
     ports:
