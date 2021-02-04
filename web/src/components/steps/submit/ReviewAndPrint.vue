@@ -80,6 +80,9 @@ export default class ReviewAndPrint extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public requiredDocuments!: string[];
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 

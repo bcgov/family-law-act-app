@@ -22,6 +22,7 @@ class Application extends VuexModule {
     public protectedChildName = ""
     public applicationLocation = ""
     public scrollToLocationName = ""
+    public requiredDocuments = []
 
     @Mutation
     public init(): void {
@@ -399,6 +400,16 @@ class Application extends VuexModule {
     @Action
     public UpdateUserId(newUserId) {
         this.context.commit("setUserId", newUserId);
+    }
+
+    @Mutation
+    public setRequiredDocuments(requiredDocuments): void {
+        this.requiredDocuments = requiredDocuments;
+    }
+    
+    @Action
+    public UpdateRequiredDocuments(newRequiredDocuments) {
+        this.context.commit("setRequiredDocuments", newRequiredDocuments);
     }
     
     @Mutation

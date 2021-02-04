@@ -104,12 +104,14 @@
             GetHelpForPdf,
             GetHelpScanning
         }
-    })
-    
+    })    
     export default class ReviewAndSave extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
+
+        @applicationState.State
+        public requiredDocuments!: string[];
 
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void

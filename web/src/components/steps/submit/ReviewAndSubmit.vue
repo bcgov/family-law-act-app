@@ -154,6 +154,9 @@
     import "@/store/modules/application";
     const applicationState = namespace("Application");
 
+    import "@/store/modules/common";
+    const commonState = namespace("Common");
+
 
     @Component({
         components:{
@@ -168,6 +171,9 @@
         @Prop({required: true})
         step!: stepInfoType;
 
+        @commonState.State
+        public userLocation!: string;
+
         @applicationState.State
         public id!: string;
 
@@ -177,11 +183,29 @@
         @applicationState.State
         public applicationLocation!: string;
 
+        @applicationState.State
+        public protectedPartyName!: string;
+
+        @applicationState.State
+        public currentStep!: number;
+
+        @applicationState.State
+        public requiredDocuments!: string[];
+
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
 
         @applicationState.Action
         public UpdateGotoNextStepPage!: () => void
+
+        @applicationState.Action
+        public UpdateCurrentStep!: (newCurrentStep) => void
+
+        @applicationState.Action
+        public UpdateCurrentStepPage!: (newCurrentStepPage) => void
+
+        @applicationState.Action
+        public UpdatePageProgress!: (newPageProgress) => void
 
         error = "";
         showGetHelpForPDF = false;
@@ -203,12 +227,12 @@
 
         mounted(){
 
-            const progress = 50;        
-            const currentStep = this.$store.state.Application.currentStep;
-            this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+            const progress = 50;
+            //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:progress })
+            this.UpdatePageProgress({ currentStep: this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:progress });
        
             let location = this.applicationLocation
-            if(!this.applicationLocation) location = this.$store.state.Common.userLocation
+            if(!this.applicationLocation) location = this.userLocation;
        
 
             if(location == 'Victoria'){
@@ -230,28 +254,29 @@
         }
 
         public onDownload() {
-            //console.log("downloading")
-            if(this.checkErrorOnPages()){ 
+            console.log('downloading')
+            if(this.checkErrorOnPages()){
+                console.log('no errors') 
                 const currentDate = moment().format();
-                this.$store.commit("Application/setLastPrinted", currentDate); 
-                const application = this.$store.state.Application;                
-                const applicationId = application.id;
-
+                this.$store.commit("Application/setLastPrinted", currentDate);
                 this.loadPdf();
             }
         }
 
         public checkErrorOnPages(){
+            console.log(this.steps)
+            const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
 
             for(const step of this.steps){
                 if(step.active){
                     for(const page of step.pages){
-                        if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
-                        { 
-                            //console.log(step)
-                            //console.log(page)
-                            this.$store.commit("Application/setCurrentStep", step.id);
-                            this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
+                        //if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save" && page.label !="Review and Submit")
+                        if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){ 
+                            console.log(page)
+                            //this.$store.commit("Application/setCurrentStep", step.id);
+                            this.UpdateCurrentStep(step.id);
+                            // this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
+                            this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });
                             const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
                             const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
                             nextChildGroup.style.display = "block";
@@ -279,8 +304,8 @@
         }
 
         public loadPdf() {
-            const applicationId = this.$store.state.Application.id;
-            const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+            
+            const url = '/survey-print/'+this.id+'/?name=application-about-a-protection-order'
             const body = this.getFPOResultData()
             const options = {
                 responseType: "blob",
@@ -308,21 +333,20 @@
 
         public getFPOResultData() {      
             var result = this.steps[0].result; 
-            for(var i=1;i<9; i++)
-                Object.assign(result, result, this.steps[i].result); 
+            for(var i=1;i<9; i++){
+                const stepResults = this.steps[i].result
+                for(const stepResult in stepResults){                    
+                    result[stepResult]=stepResults[stepResult].data;  
+                }
+            } 
             
-            var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-            Object.assign(result, result, protectedPartyName);
-            
-            //var applicationLocation = this.$store.state.Application.applicationLocation
-            var userLocation = this.$store.state.Common.userLocation
-            //console.log(applicationLocation)
-            //console.log(userLocation)
+            var protectedPartyName = {protectedPartyName: this.protectedPartyName}
+            Object.assign(result, result, protectedPartyName);           
+           
             if(this.applicationLocation)
                 Object.assign(result, result,{applicationLocation: this.applicationLocation}); 
             else
-                Object.assign(result, result,{applicationLocation: userLocation});
-            //console.log(result)
+                Object.assign(result, result,{applicationLocation: this.userLocation});
             return result;
         }
 
