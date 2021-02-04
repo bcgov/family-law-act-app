@@ -129,7 +129,9 @@ export default class ReviewAndSave extends Vue {
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+        let progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
+        if(progress==0) progress=50;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
            
         let location = this.$store.state.Application.applicationLocation
         if(!location) location = this.$store.state.Common.userLocation
@@ -172,9 +174,14 @@ export default class ReviewAndSave extends Vue {
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
                         const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
-                        nextChildGroup.style.display = "block";
-                        currPage.style.color="red";
+                        if(nextChildGroup){
+                            if(Number(step.id)==8){
+                                nextChildGroup.style.display = "none";
+                                Vue.nextTick(()=>nextChildGroup.style.display = "block")
+                            }else{
+                                nextChildGroup.style.display = "block";
+                            }
+                        }
                         return false;
                     }
                 }
@@ -217,6 +224,7 @@ export default class ReviewAndSave extends Vue {
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);
             this.error = "";
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
         },err => {
             console.error(err);
             this.error = "Sorry, we were unable to print your form at this time, please try again later.";
@@ -254,9 +262,12 @@ export default class ReviewAndSave extends Vue {
         return result;
     }
 
-    beforeDestroy() {
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
-    }
+    // beforeDestroy() {
+    //     const progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
+    //     const progress = this.pdfFileOpened? 100:50;
+    //     console.log(progress)
+    //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+    // }
 
 }
 </script>

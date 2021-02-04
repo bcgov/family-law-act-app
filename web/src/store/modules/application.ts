@@ -23,7 +23,7 @@ class Application extends VuexModule {
     public protectedChildName = ""
     public applicationLocation = ""
     public scrollToLocationName = ""
-    public requiredDocuments = []
+    public requiredDocuments: string[] = []
     public packageNumber = ""
     public eFilingHubLink = ""
 

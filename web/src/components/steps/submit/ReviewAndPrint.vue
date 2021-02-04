@@ -100,7 +100,9 @@ export default class ReviewAndPrint extends Vue {
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+        let progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
+        if(progress==0) progress=50;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
 
         let location = this.$store.state.Application.applicationLocation
         if(!location) location = this.$store.state.Common.userLocation
@@ -145,7 +147,7 @@ export default class ReviewAndPrint extends Vue {
                         //const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
                         //console.log(nextChildGroup)
                         if(nextChildGroup){
-                            if(step.id==8){
+                            if(Number(step.id)==8){
                                 nextChildGroup.style.display = "none";
                                 Vue.nextTick(()=>nextChildGroup.style.display = "block")
                             }else{
@@ -194,6 +196,7 @@ export default class ReviewAndPrint extends Vue {
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);
             this.error = "";
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
         },err => {
             console.error(err);
             this.error = "Sorry, we were unable to print your form at this time, please try again later.";
@@ -232,9 +235,9 @@ export default class ReviewAndPrint extends Vue {
         return result;
     }
 
-    beforeDestroy() {
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
-    }
+    // beforeDestroy() {
+    //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+    // }
 
 }
 </script>

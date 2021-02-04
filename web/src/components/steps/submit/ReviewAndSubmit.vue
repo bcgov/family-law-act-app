@@ -316,9 +316,16 @@
                             this.UpdateCurrentStep(step.id);
                             this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });
                             const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                            const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
-                            nextChildGroup.style.display = "block";
-                            currPage.style.color="red";
+                           
+                            if(nextChildGroup){
+                                if(Number(step.id)==8){
+                                    nextChildGroup.style.display = "none";
+                                    Vue.nextTick(()=>nextChildGroup.style.display = "block")
+                                }else{
+                                    nextChildGroup.style.display = "block";
+                                }
+                            }
+                        
                             return false;
                         }
                     }

@@ -89,9 +89,12 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 			currPage.className = beforeDestroy? "":"current";
 		}  
 	}  
-	
-	if(currentStep < 8)
-		store.commit("Application/setPageProgress", { currentStep: 8, currentPage:0, progress:0 });
+	const reviewProgress = store.state.Application.steps[8].pages[0].progress
+	if(currentStep < 8 && reviewProgress){
+		console.log('review required')
+		console.log(currentStep)
+		store.commit("Application/setPageProgress", { currentStep: 8, currentPage:0, progress:50 });
+	}
 })
 
 

@@ -68,6 +68,9 @@ export default class ReviewYourAnswers extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateRequiredDocuments!: (newRequiredDocuments: string[]) => void
+
     fields =[
         {key:'title', label:'Question', thClass:'border-right', tdClass:'border-top border-right ', thStyle:''},
         {key:'value', label:'Response', thClass:'', tdClass:'border-top border-right', thStyle:''},
@@ -86,7 +89,35 @@ export default class ReviewYourAnswers extends Vue {
         
         this.reloadPageInformation();
         this.determineHiddenErrors();
+        
+        this.extractRequiredDocuments();
         //console.log(this.step)
+    }
+
+    public extractRequiredDocuments(){
+        this.requiredDocuments = [];
+        const questions = this.getFPOResultData();
+        console.log('required documents')
+
+        if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "changePO"){
+            this.requiredDocuments.push("Copy of the existing protection order")
+        }else if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "terminatePO"){
+            this.requiredDocuments.push("Copy of the existing protection order")
+        }else if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "needPO"){
+            if(questions.protectionWhomSurvey && questions.protectionWhomSurvey.ExistingFamilyCase =="y"){
+               if(questions.protectionWhomSurvey.ExistingFileNumber && questions.protectionWhomSurvey.ExistingCourt) this.requiredDocuments.push("Copy of the Family Law file number:" + questions.protectionWhomSurvey.ExistingFileNumber + " submitted to the court at " + questions.protectionWhomSurvey.ExistingCourt);
+               else this.requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
+            }
+            if(questions.backgroundSurvey && questions.backgroundSurvey.existingPOOrders=="y"){
+                this.requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+            }
+            if(questions.backgroundSurvey && questions.backgroundSurvey.ExistingOrders=="y"){
+                this.requiredDocuments.push("Copy of the existing written agreements or court order(s) about the child(ren) concerning parenting arrangements, child support, contact with a child or guardianship of a child");
+            }
+        }
+        this.UpdateRequiredDocuments(this.requiredDocuments)
+        console.log(this.requiredDocuments)
+        
     }
 
     public beautifyQuestion(question){
@@ -103,10 +134,6 @@ export default class ReviewYourAnswers extends Vue {
                 adjQuestion = adjQuestion.replace('<br/>','');
         }
         return adjQuestion
-    }
-
-    public extractRequiredDocuments(){
-        console.log('required documents')
     }
 
     public beautifyResponse(value, dataItem){
@@ -218,7 +245,7 @@ export default class ReviewYourAnswers extends Vue {
         }
         console.log(this.questionResults )
 
-        this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (questionResult['currentStep']*100+questionResult['currentPage']); });
+        this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
         console.log(this.questionResults)
        
         //let progress = 100;
@@ -232,10 +259,24 @@ export default class ReviewYourAnswers extends Vue {
         this.togglePages([0,1], true);
     }
 
-   
     public determineHiddenErrors(){        
         this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","y",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child:", "PartiesHasOtherChilderen"));
         this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","n",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list", "PartiesHasOtherChilderen"));        
+    }
+
+    public getFPOResultData() {  
+        
+        var result = this.$store.state.Application.steps[0].result; 
+        for(var i=1;i<9; i++){
+            const stepResults = this.$store.state.Application.steps[i].result
+            for(const stepResult in stepResults){
+                console.log(stepResults[stepResult])
+                console.log(stepResults[stepResult].data)
+                result[stepResult]=stepResults[stepResult].data;                
+            }
+        }            
+        console.log(result)
+        return result;
     }
 
     public coOccurrence(pageName1,question1,value1,  pageName2,question2,title2:string, response){
