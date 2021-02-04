@@ -11,6 +11,7 @@ class Application extends VuexModule {
     public steps = new Array<stepInfoType>()
     public lastUpdate = null
     public lastPrinted = null
+    public lastFiled = null
     public currentStep = 1
     public allCompleted = false
     public userType = ""
@@ -23,6 +24,8 @@ class Application extends VuexModule {
     public applicationLocation = ""
     public scrollToLocationName = ""
     public requiredDocuments = []
+    public packageNumber = ""
+    public eFilingHubLink = ""
 
     @Mutation
     public init(): void {
@@ -32,6 +35,9 @@ class Application extends VuexModule {
         this.userName = "";
         this.lastPrinted = null;
         this.lastUpdate = null;
+        this.lastFiled = null;
+        this.packageNumber = "";
+        this.eFilingHubLink = "";
         this.steps = new Array<stepInfoType>();
         // Getting started START
         let s = {} as stepInfoType;
@@ -411,6 +417,26 @@ class Application extends VuexModule {
     public UpdateRequiredDocuments(newRequiredDocuments) {
         this.context.commit("setRequiredDocuments", newRequiredDocuments);
     }
+
+    @Mutation
+    public setPackageNumber(packageNumber): void {
+        this.packageNumber = packageNumber;
+    }
+    
+    @Action
+    public UpdatePackageNumber(newPackageNumber) {
+        this.context.commit("setPackageNumber", newPackageNumber);
+    }
+
+    @Mutation
+    public setEFilingHubLink(eFilingHubLink): void {
+        this.eFilingHubLink = eFilingHubLink;
+    }
+    
+    @Action
+    public UpdateEFilingHubLink(newEFilingHubLink) {
+        this.context.commit("setEFilingHubLink", newEFilingHubLink);
+    }
     
     @Mutation
     public setStepActive({ currentStep, active }): void {
@@ -579,6 +605,15 @@ class Application extends VuexModule {
     @Action
     public UpdateLastPrinted(newLastPrinted) {
         this.context.commit("setLastPrinted", newLastPrinted);
+    }
+
+    @Mutation
+    public setLastFiled(lastFiled): void {
+        this.lastFiled = lastFiled;
+    }
+    @Action
+    public UpdateLastFiled(newLastFiled) {
+        this.context.commit("setLastFiled", newLastFiled);
     }
 
     @Mutation

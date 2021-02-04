@@ -163,13 +163,12 @@ export default class ReviewAndSave extends Vue {
 
     public checkErrorOnPages(){
 
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+
         for(const step of this.$store.state.Application.steps){
             if(step.active){
                 for(const page of step.pages){
-                    if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
-                    { 
-                        //console.log(step)
-                        //console.log(page)
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
                         const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
@@ -179,8 +178,7 @@ export default class ReviewAndSave extends Vue {
                         return false;
                     }
                 }
-            }
-            
+            }            
         }
         return true;
         
