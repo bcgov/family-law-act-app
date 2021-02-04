@@ -6,80 +6,111 @@
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry:
-                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                <p class="h4 mt-2 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
                 
             </div>
             
-            <h3 class="mt-5">To prepare the application for filing:</h3>
+            <h3 class="mt-4">To prepare the application for filing:</h3>
+
+            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+
+                <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
             
-            
-            <div style="margin:3rem 0; width:19rem;">
-                <b-button                   
-                    v-on:click.prevent="onDownload()"
-                    variant="success">
-                        <span class="fa fa-print btn-icon-left"/>
-                        Review Your Application
-                </b-button>
-            </div>
+                <div style="margin:1rem 0; width:19rem;">
+                    <b-button                   
+                        v-on:click.prevent="onDownload()"
+                        variant="success">
+                            <span class="fa fa-print btn-icon-left"/>
+                            Download Your Application
+                    </b-button>
+                </div>
 
-            <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="border-bottom:1px solid; width:20.25rem;">
-                <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
-            </div>
+                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="border-bottom:1px solid; width:20.25rem;">
+                    <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
+                </div>
 
-            <div>    
-                Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
-            </div>
+                <div>    
+                    Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
+                </div>
+            </b-card>
 
-            <div class="ml-2"> 
-                
+            <b-card v-if="requiredDocuments.length > 0" style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+
+                <span class="text-primary" style='font-size:1.4rem;'>Additional Documents to Include:</span> 
+
+                <div>The following additional documents are required as part of your filing:</div>
                 <ul class="mt-3">
-                    <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
-                    <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
-                    <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="border-bottom:1px solid; width:15.7rem;">
-                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
-                    </div>
-                    <li>Upload any existing orders or agreements, existing protection orders and any exhibits referenced in your application bellow:
-                    </li>
+                    <li class="mb-2" v-for="requiredDocument in requiredDocuments" :key="requiredDocument">{{requiredDocument}}</li>
                 </ul>
-            </div>
 
-            <b-row>
-                <b-col>
-                    <b-form-group label="Supporting Document:" label-for="supportingDocument">   
-                        <b-form-file
-                            id="supportingDocument"
-                            size="sm"
-                            v-model="supportingFile"
-                            :state = "selectedSupportingDocumentState?null:false">                    
-                            placeholder="Choose a file or drop it here..."
-                            drop-placeholder="Drop file here...">
-                        </b-form-file>
-                    </b-form-group>
-                </b-col>
-                <b-col>
-                    <b-form-group label="Document Type:" label-for="documentType"> 
-                        <b-form-select
-                            id="documentType"
-                            v-model="fileType"
-                            size="sm"
-                            :state = "selectedDocumentTypeState?null:false">
-                            <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
-                        </b-form-select>
-                    </b-form-group> 
-                </b-col>
-                <b-col cols="2">
-                    <b-form-group>
-                        <div class="mt-4">
-                            <a v-on:click.prevent="addDocument()" class="btn btn-primary btn-md">
-                                <span class="fa fa-plus-square"></span>                        
-                            </a>
+            </b-card>
+
+            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+
+                <span class="text-primary" style='font-size:1.4rem;'>Upload Documents:</span>
+
+                <div class="ml-2"> 
+                    
+                    <ul class="mt-3">
+                        <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
+                        <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
+                        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="border-bottom:1px solid; width:15.7rem;">
+                            <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
                         </div>
-                    </b-form-group> 
-                </b-col>
-            </b-row>
+                        <li>Upload the documents bellow:</li>
+                    </ul>
+                </div>
+
+                <b-row>
+                    <b-col>
+                        <b-form-group label="Supporting Document:" label-for="supportingDocument">   
+                            <b-form-file
+                                id="supportingDocument"
+                                size="sm"
+                                v-model="supportingFile"
+                                :state = "selectedSupportingDocumentState?null:false">                    
+                                placeholder="Choose a file or drop it here..."
+                                drop-placeholder="Drop file here...">
+                            </b-form-file>
+                        </b-form-group>
+                    </b-col>
+                    <b-col>
+                        <b-form-group label="Document Type:" label-for="documentType"> 
+                            <b-form-select
+                                id="documentType"
+                                v-model="fileType"
+                                size="sm"
+                                :state = "selectedDocumentTypeState?null:false">
+                                <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
+                            </b-form-select>
+                        </b-form-group> 
+                    </b-col>
+                    <b-col cols="2">
+                        <b-form-group>
+                            <div style="margin-top: 2rem;">
+                                <b-button v-on:click.prevent="addDocument()" size="sm" variant="success" style="height: 2rem; width: 3rem; border: 0px;">                                
+                                    <span style="font-size: 15px; font-weight: bold; transform: translate(-1px, -4px);">Add</span>
+                                </b-button>
+                            </div>
+                        </b-form-group> 
+                    </b-col>
+                </b-row>
+            </b-card>
+
+            <h3 class="mt-4">Filing with Court Services Online:</h3>
+
+            <div>
+                <p>When you click Submit Documents, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do
+                 a final review of the documents you are submitting for filing and (if completed successfully) receive a Package Number.
+                </p>
+                <p>Once your filings have been reviewed by the Court Registry, you will be provided a Court File Number via e-mail. 
+                    This may take up to one week.
+                </p>
+                <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
+            </div>
 
             <b-card border-variant="white" bg-variant="white">
-                <h3 class="font-weight-normal"> Supporting Documents</h3>
+                <h4 class="font-weight-normal">Supporting Documents</h4>
                 <hr class="bg-light" style="height: 2px;"/> 
             </b-card>
 
@@ -108,6 +139,16 @@
                     </template>
                 </b-table>
             </b-card>
+
+            <div class="float-right" style="width:19rem;">
+                <b-button                    
+                    v-on:click.prevent="onSubmit()"
+                    variant="success">
+                        <span class="fa fa-paper-plane btn-icon-left"/>
+                        Submit Application
+                </b-button>
+            </div>
+
         </b-card>        
 
         <b-modal size="xl" v-model="showGetHelpForPDF" header-class="bg-white">
@@ -154,6 +195,9 @@
     import "@/store/modules/application";
     const applicationState = namespace("Application");
 
+    import "@/store/modules/common";
+    const commonState = namespace("Common");
+
 
     @Component({
         components:{
@@ -168,6 +212,9 @@
         @Prop({required: true})
         step!: stepInfoType;
 
+        @commonState.State
+        public userLocation!: string;
+
         @applicationState.State
         public id!: string;
 
@@ -177,11 +224,32 @@
         @applicationState.State
         public applicationLocation!: string;
 
+        @applicationState.State
+        public protectedPartyName!: string;
+
+        @applicationState.State
+        public currentStep!: number;
+
+        @applicationState.State
+        public requiredDocuments!: string[];
+
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
 
         @applicationState.Action
         public UpdateGotoNextStepPage!: () => void
+
+        @applicationState.Action
+        public UpdateCurrentStep!: (newCurrentStep) => void
+
+        @applicationState.Action
+        public UpdateCurrentStepPage!: (newCurrentStepPage) => void
+
+        @applicationState.Action
+        public UpdatePageProgress!: (newPageProgress) => void        
+
+        @applicationState.Action
+        public UpdateLastPrinted!: (newLastPrinted) => void
 
         error = "";
         showGetHelpForPDF = false;
@@ -203,12 +271,11 @@
 
         mounted(){
 
-            const progress = 50;        
-            const currentStep = this.$store.state.Application.currentStep;
-            this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+            const progress = 50;
+            this.UpdatePageProgress({ currentStep: this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:progress });
        
             let location = this.applicationLocation
-            if(!this.applicationLocation) location = this.$store.state.Common.userLocation
+            if(!this.applicationLocation) location = this.userLocation;
        
 
             if(location == 'Victoria'){
@@ -230,28 +297,24 @@
         }
 
         public onDownload() {
-            //console.log("downloading")
-            if(this.checkErrorOnPages()){ 
+            console.log('downloading')
+            if(this.checkErrorOnPages()){
                 const currentDate = moment().format();
-                this.$store.commit("Application/setLastPrinted", currentDate); 
-                const application = this.$store.state.Application;                
-                const applicationId = application.id;
-
+                this.UpdateLastPrinted(currentDate);
                 this.loadPdf();
             }
         }
 
         public checkErrorOnPages(){
+            
+            const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
 
             for(const step of this.steps){
                 if(step.active){
                     for(const page of step.pages){
-                        if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
-                        { 
-                            //console.log(step)
-                            //console.log(page)
-                            this.$store.commit("Application/setCurrentStep", step.id);
-                            this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
+                        if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                            this.UpdateCurrentStep(step.id);
+                            this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });
                             const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
                             const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
                             nextChildGroup.style.display = "block";
@@ -263,7 +326,6 @@
                 
             }
             return true;
-            
         }
 
         public getStepId(stepIndex) {
@@ -279,8 +341,8 @@
         }
 
         public loadPdf() {
-            const applicationId = this.$store.state.Application.id;
-            const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+            
+            const url = '/survey-print/'+this.id+'/?name=application-about-a-protection-order'
             const body = this.getFPOResultData()
             const options = {
                 responseType: "blob",
@@ -308,27 +370,35 @@
 
         public getFPOResultData() {      
             var result = this.steps[0].result; 
-            for(var i=1;i<9; i++)
-                Object.assign(result, result, this.steps[i].result); 
+            for(var i=1;i<9; i++){
+                const stepResults = this.steps[i].result
+                for(const stepResult in stepResults){                    
+                    result[stepResult]=stepResults[stepResult].data;  
+                }
+            } 
             
-            var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-            Object.assign(result, result, protectedPartyName);
-            
-            //var applicationLocation = this.$store.state.Application.applicationLocation
-            var userLocation = this.$store.state.Common.userLocation
-            //console.log(applicationLocation)
-            //console.log(userLocation)
+            var protectedPartyName = {protectedPartyName: this.protectedPartyName}
+            Object.assign(result, result, protectedPartyName);           
+           
             if(this.applicationLocation)
                 Object.assign(result, result,{applicationLocation: this.applicationLocation}); 
             else
-                Object.assign(result, result,{applicationLocation: userLocation});
-            //console.log(result)
+                Object.assign(result, result,{applicationLocation: this.userLocation});
             return result;
         }
 
         public onSubmit() {
-            //TODO: get the pdf through new API, save application with latest information
 
+            if(this.checkErrorOnPages()){
+                this.eFile();
+            }            
+        }
+
+        
+
+        public eFile() {
+
+            //TODO: get the pdf through new API
             var bodyFormData = new FormData();
             bodyFormData.append('files', "~/Downloads/fpo.pdf");
 
@@ -343,12 +413,11 @@
                     "X-User-Id": "54546456"
                 }
             }
-
             //TODO: add the new api to call submit documents
             this.$http.post(url, bodyFormData, header)
             .then(res => {
                 //console.log(res)
-                // this.submissionId = res.submissionId;
+                this.submissionId = res.data.submissionId;
                 this.generateUrl();
 
             }, err => {
