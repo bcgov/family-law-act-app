@@ -33,16 +33,22 @@
                             <div class="row justify-content-center">
                                 <p>How it Works?</p>
                             </div>
-                            <div class="row how-works-section">
+                            <div class="row how-works-section mb-2">
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p>1. Answer Questions</p>
+                                    <p style="font-weight: bold;">1. Register or Login</p>
+                                    <p class="mb-3">
+                                        You will need a Basic BCeID to access the Online FLA Assistant.
+                                        This will also enable you to securely access multiple other online government services.
+                                    </p>
+                               
+                                    <p style="font-weight: bold;">2. Answer Questions</p>
                                     <p>
                                         Our free and secure online questionnaire will save your work
                                         so you can proceed at your own pace.
                                     </p>
                                 </div>
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p>2. Print Your Forms OR Submit Your Application electronically</p>
+                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Application electronically</p>
                                     <p>
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 
