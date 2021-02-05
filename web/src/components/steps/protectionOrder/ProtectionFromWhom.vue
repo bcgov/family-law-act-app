@@ -66,10 +66,10 @@ export default class ProtectionFromWhom extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
-             console.log(options)
-            if (options.name === "ApplicantNeedsProtection") {
-                if (options.value === "y") {
+            //console.log(this.survey.data);
+            // console.log(options)
+            if (options.name == "ApplicantNeedsProtection") {
+                if (options.value == "y") {
                     this.$store.commit("Application/setPageActive", {
                         currentStep: 2,
                         currentPage: 3,
@@ -84,16 +84,16 @@ export default class ProtectionFromWhom extends Vue {
                 }
             }
 
-            if(options.name === "RespondentName") {        
+            if(options.name == "RespondentName") {        
                 this.$store.commit("Application/setRespondentName", options.value);
             }
 
-            // if(options.name === "childPO" && options.value === "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
+            // if(options.name == "childPO" && options.value == "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
             //     console.log('progress')       
             //     console.log(this.$store.state.Application.steps[2].result['backgroundSurvey'].data['ExistingOrders'])
             // }      
 
-            if(this.survey.data.ApplicantNeedsProtection === 'n' && this.survey.data.anotherAdultPO === 'n' && this.survey.data.childPO === 'n'){
+            if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
                 this.disableNextButton = true;
             }else{
                 this.disableNextButton = false;
@@ -136,7 +136,7 @@ export default class ProtectionFromWhom extends Vue {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        if (this.survey.data.anotherAdultPO === "y") {
+        if (this.survey.data.anotherAdultPO == "y") {
             this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
         }else{
             this.$store.commit("Application/setProtectedPartyName", this.$store.state.Application.applicantName);

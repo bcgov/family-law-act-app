@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
+    import { Component, Vue} from 'vue-property-decorator';
     import PageBase from "../PageBase.vue";
 
     import Tooltip from "@/components/steps/get-started/Tooltip.vue";
@@ -82,6 +82,7 @@
         mounted(){
             this.currentStep = this.$store.state.Application.currentStep;
             this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+            //console.log(this.currentPage)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
         }
 

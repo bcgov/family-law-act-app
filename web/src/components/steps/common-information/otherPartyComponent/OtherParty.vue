@@ -153,7 +153,7 @@ export default class OtherParty extends Vue {
 
     public editRow(editedRow) {
         this.otherPartyData = this.otherPartyData.map(data => {
-            return data.id === this.editId ? editedRow : data;
+            return data.id == this.editId ? editedRow : data;
         });
         this.showTable = true;
     }

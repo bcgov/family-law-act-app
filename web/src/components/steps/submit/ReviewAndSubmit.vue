@@ -6,22 +6,21 @@
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry:
-                <p class="h4 mt-2 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
-                
+                <p class="h4 mt-2 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
             </div>
             
             <h3 class="mt-4">To prepare the application for filing:</h3>
 
-            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
             
-                <div style="margin:1rem 0; width:19rem;">
+                <div style="margin:1rem 0; width:23rem;">
                     <b-button                   
                         v-on:click.prevent="onDownload()"
                         variant="success">
                             <span class="fa fa-print btn-icon-left"/>
-                            Download Your Application
+                            Download and Review Your Application
                     </b-button>
                 </div>
 
@@ -34,7 +33,7 @@
                 </div>
             </b-card>
 
-            <b-card v-if="requiredDocuments.length > 0" style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <b-card v-if="requiredDocuments.length > 0" style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Additional Documents to Include:</span> 
 
@@ -45,12 +44,11 @@
 
             </b-card>
 
-            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Upload Documents:</span>
 
-                <div class="ml-2"> 
-                    
+                <div class="ml-2">                     
                     <ul class="mt-3">
                         <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
                         <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
@@ -60,94 +58,72 @@
                         <li>Upload the documents bellow:</li>
                     </ul>
                 </div>
+               
+                <b-card id="drop-area" @click="uploadClicked">
+                    <div style="padding:0; margin: 0 auto; width:33px;">
+                        <label class="btn btn-default btnfile">
+                            <span style="font-size:20px; transform:translate(0,-17px);" class="fa fa-plus"></span>
+                            <input id="inputfile" type="file" style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
+                        </label>
+                    </div>
+                    <p class="text-center m-0 text-info">Drag and Drop the PDF documents or JPG/PNG images here,</p>
+                    <p class="text-center m-0 text-info" style=""> or click here to Browse for files</p>
+                </b-card>
 
-                <b-row>
-                    <b-col>
-                        <b-form-group label="Supporting Document:" label-for="supportingDocument">   
-                            <b-form-file
-                                id="supportingDocument"
-                                size="sm"
-                                v-model="supportingFile"
-                                :state = "selectedSupportingDocumentState?null:false">                    
-                                placeholder="Choose a file or drop it here..."
-                                drop-placeholder="Drop file here...">
-                            </b-form-file>
-                        </b-form-group>
-                    </b-col>
-                    <b-col>
-                        <b-form-group label="Document Type:" label-for="documentType"> 
-                            <b-form-select
-                                id="documentType"
-                                v-model="fileType"
-                                size="sm"
-                                :state = "selectedDocumentTypeState?null:false">
-                                <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
-                            </b-form-select>
-                        </b-form-group> 
-                    </b-col>
-                    <b-col cols="2">
-                        <b-form-group>
-                            <div style="margin-top: 2rem;">
-                                <b-button v-on:click.prevent="addDocument()" size="sm" variant="success" style="height: 2rem; width: 3rem; border: 0px;">                                
-                                    <span style="font-size: 15px; font-weight: bold; transform: translate(-1px, -4px);">Add</span>
-                                </b-button>
-                            </div>
-                        </b-form-group> 
-                    </b-col>
-                </b-row>
+                <b-card border-variant="white" body-class="mb-0 pb-0">
+                    <h4 style="height: 2px; padding:0; margin:0 0 1.5rem 0;">Uploaded Documents:</h4>
+                    <hr class="bg-light" style="height: 2px; padding:0; margin:0;"/> 
+                </b-card>
+
+                <b-card border-variant="white" bg-variant="white" no-body v-if="!supportingDocuments.length">
+                    <span class="text-muted ml-4 mb-5">No uploaded documents.</span>
+                </b-card>
+                <b-card v-else no-body border-variant="white" bg-variant="white">
+                    <b-table :items="supportingDocuments"
+                            :fields="supportingDocumentFields"
+                            class="mx-4"
+                            borderless
+                            striped
+                            small 
+                            responsive="sm">
+                        <template v-slot:cell(edit)="row">
+                            <b-button size="sm" variant="transparent" @click="removeDocument(row.index)">
+                                <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
+                            </b-button>
+                        </template>
+                        <template v-slot:cell(fileName)="row">                  
+                            <span>{{row.item.fileName}}</span>
+                        </template>
+                        <template v-slot:cell(fileType)="row">                  
+                            <span>{{row.item.documentType}}</span>
+                        </template>
+                    </b-table>
+                </b-card>
+
             </b-card>
 
-            <h3 class="mt-4">Filing with Court Services Online:</h3>
+            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+                <span class="text-primary" style='font-size:1.4rem;'>Filing with Court Services Online:</span>
 
-            <div>
-                <p>When you click Submit Documents, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do
-                 a final review of the documents you are submitting for filing and (if completed successfully) receive a Package Number.
-                </p>
-                <p>Once your filings have been reviewed by the Court Registry, you will be provided a Court File Number via e-mail. 
-                    This may take up to one week.
-                </p>
-                <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
-            </div>
+                <div class="mt-3">
+                    <p>When you click Submit Documents, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do
+                        a final review of the documents you are submitting for filing and (if completed successfully) receive a Package Number.
+                    </p>
+                    <p>Once your filings have been reviewed by the Court Registry, you will be provided a Court File Number via e-mail. 
+                        This may take up to one week.
+                    </p>
+                    <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
+                </div>
 
-            <b-card border-variant="white" bg-variant="white">
-                <h4 class="font-weight-normal">Supporting Documents</h4>
-                <hr class="bg-light" style="height: 2px;"/> 
+                <div style="width:19rem; margin: 0 auto;">
+                    <b-button                    
+                        v-on:click.prevent="onSubmit()"
+                        variant="success">
+                            <span class="fa fa-paper-plane btn-icon-left"/>
+                            Submit Application
+                    </b-button>
+                </div>
             </b-card>
-
-            <b-card border-variant="white" bg-variant="white" no-body v-if="!supportingDocuments.length">
-                <span class="text-muted ml-4 mb-5">No supporting documents.</span>
-            </b-card>
-
-            <b-card v-else no-body border-variant="white" bg-variant="white">
-                <b-table :items="supportingDocuments"
-                        :fields="supportingDocumentFields"
-                        class="mx-4"
-                        borderless
-                        striped
-                        small 
-                        responsive="sm">
-                    <template v-slot:cell(edit)="row">
-                        <b-button size="sm" variant="transparent" @click="removeDocument(row.index)">
-                            <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
-                        </b-button>
-                    </template>
-                    <template v-slot:cell(fileName)="row">                  
-                        <span>{{row.item.fileName}}</span>
-                    </template>
-                    <template v-slot:cell(fileType)="row">                  
-                        <span>{{row.item.documentType}}</span>
-                    </template>
-                </b-table>
-            </b-card>
-
-            <div class="float-right" style="width:19rem;">
-                <b-button                    
-                    v-on:click.prevent="onSubmit()"
-                    variant="success">
-                        <span class="fa fa-paper-plane btn-icon-left"/>
-                        Submit Application
-                </b-button>
-            </div>
 
         </b-card>        
 
@@ -175,6 +151,28 @@
             <template v-slot:modal-header-close>                 
                 <b-button variant="outline-dark" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
             </template>
+        </b-modal>
+
+        <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
+            <b-card style="border-radius:10px" class="bg-light">
+                <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document</h1>
+                <div v-if="supportingFile" class="h3 my-5 text-center">File Name: <span class=" h2 text-danger"> {{supportingFile.name}} </span> </div>
+                <b-form-group style="width:30rem; margin: 4rem auto;"> 
+                    <b-form-select
+                        id="documentType"
+                        v-model="fileType"
+                        :state = "selectedDocumentTypeState?null:false">
+                        <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
+                    </b-form-select>
+                </b-form-group> 
+            </b-card>
+            <template v-slot:modal-footer>                
+                <b-button style="margin-left: 0;margin-right:auto;" variant="primary" @click="showTypeOfDocuments=false">Cancel</b-button>
+                <b-button style="margin-left: auto;margin-right:0;" variant="success" @click="addDocument()">Submit</b-button>
+            </template>            
+            <!-- <template v-slot:modal-header-close>                 
+                <b-button variant="outline-dark" class="closeButton" @click="showTypeOfDocuments=false">&times;</b-button>
+            </template> -->
         </b-modal>
 
     </page-base>
@@ -230,8 +228,8 @@
         @applicationState.State
         public currentStep!: number;
 
-        @applicationState.State
-        public requiredDocuments!: string[];
+        // @applicationState.State
+        // public requiredDocuments!: string[];
 
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
@@ -262,16 +260,21 @@
         selectedSupportingDocumentState = true;
         fileType = "";
         fileTypes = [];
+        requiredDocuments: string[] = [];
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name'},
             { key: 'fileType', label: 'File Type'},
             { key: 'edit', thClass: 'd-none'}
         ];
         supportingDocuments: supportingDocumentInfoType[] = [];
+        showTypeOfDocuments = false;
 
         mounted(){
 
             const progress = 50;
+
+            //console.log(this.currentStep)
+            //console.log(this.steps[this.currentStep])
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:progress });
        
             let location = this.applicationLocation
@@ -286,7 +289,46 @@
             //TODO: use get api for document-types
             const documentTypesJson = require("./forms/documentTypes.json");
             this.fileTypes = documentTypesJson;
+            this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
+
+            const dropArea = document.getElementById('drop-area');
+            dropArea.addEventListener('drop', this.handleFileDrop, false);
+            dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);
+            dropArea.addEventListener('dragleave', this.dragPreventDefaults, false);
+            dropArea.addEventListener('dragover', this.dragPreventDefaults, false);            
+        }
+
+        public dragPreventDefaults (e) {
+            e.preventDefault()
+            e.stopPropagation()
+        }
+
+        public handleFileDrop(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            let dt = e.dataTransfer
+            let files = dt.files
+            //console.log(files)
+            this.supportingFile = files[0];
+            this.showTypeOfDocuments= true;
         } 
+
+        public uploadClicked(){
+            //console.log('click')
+            const el = document.getElementById("inputfile");
+            if(el) el.click();
+        }
+
+        public handleSelectedFile(event){
+            
+            //console.log(event.target.files)
+            
+            if (event.target.files && event.target.files[0]) 
+            {
+                this.supportingFile = event.target.files[0];
+                this.showTypeOfDocuments= true;
+            }
+        }
         
         public onPrev() {
             this.UpdateGotoPrevStepPage()
@@ -315,16 +357,16 @@
                         if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
                             this.UpdateCurrentStep(step.id);
                             this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });
-                            const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
+                            // const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
                            
-                            if(nextChildGroup){
-                                if(Number(step.id)==8){
-                                    nextChildGroup.style.display = "none";
-                                    Vue.nextTick(()=>nextChildGroup.style.display = "block")
-                                }else{
-                                    nextChildGroup.style.display = "block";
-                                }
-                            }
+                            // if(nextChildGroup){
+                            //     if(Number(step.id)==8){
+                            //         nextChildGroup.style.display = "none";
+                            //         Vue.nextTick(()=>nextChildGroup.style.display = "block")
+                            //     }else{
+                            //         nextChildGroup.style.display = "block";
+                            //     }
+                            // }
                         
                             return false;
                         }
@@ -401,8 +443,6 @@
             }            
         }
 
-        
-
         public eFile() {
 
             //TODO: get the pdf through new API
@@ -458,16 +498,47 @@
             this.selectedDocumentTypeState = this.fileType.length>0? true: false;
 
             if (this.supportingFile && this.fileType.length>0) {
+                this.showTypeOfDocuments = false;
                 const newFile = {
-                "fileName": this.supportingFile.name,
-                "file": this.supportingFile,
-                "documentType": this.fileType
+                    "fileName": this.supportingFile.name,
+                    "file": this.supportingFile,
+                    "documentType": this.fileType
                 }
                 this.supportingDocuments.push(newFile);
                 this.supportingFile = null;
                 this.fileType = "";
             }
         }
-
     }
 </script>
+
+<style scoped> 
+
+    .btnfile {
+        margin:0 0 0.5rem 0;
+        padding: 0;
+        width: 25px;
+        height: 25px;       
+        border-radius: 17px; 
+        background: rgb(4, 153, 49);
+        font-size: 30px;
+        color: white;
+    }
+    .btnfile:hover {
+        background-color: #103c6b;
+        color: white;
+    }
+    
+    #drop-area {
+        border: 2px dashed #ccc;
+        border-radius: 20px;        
+        margin: 10px 1.5rem;
+        padding: 0;
+    }
+    #drop-area.highlight {
+    border-color: purple;
+    }
+   
+
+
+</style>

@@ -85,7 +85,7 @@ export default class OtherPartySurvey extends Vue {
             console.log(this.survey)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
-            if (id === null || id === undefined) {
+            if (id == null || id == undefined) {
                 this.$emit("surveyData", this.op);
             } else {
                 this.$emit("editedData", { ...this.op, id });

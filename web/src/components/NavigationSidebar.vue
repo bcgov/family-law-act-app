@@ -1,7 +1,7 @@
 <template>
     <!-- https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp -->
     <div class="sidebar-left" id="sidebar-left" style="user-select: none;">
-        <div class="sidebar-container" id="sidebar">
+        <div class="sidebar-container" id="sidebar" :key="updateSidebar">
             <div class="sidebar-title">
                 <h3>Application Steps</h3>
             </div>
@@ -12,9 +12,7 @@
                 v-bind:key="stepIndex"
                 v-bind:id="getStepId(stepIndex)"
                 v-bind:index="stepIndex"
-                v-bind:class="{
-                current: isCurrentStep(stepIndex) && !isAllCompleted(),
-                }"
+                v-bind:class="{current: isCurrentStep(stepIndex)}"
                 v-on:click="onSelectStep($event)"
             >
                 <div v-if="isPrintStep(step)" class="step separate"></div>
@@ -34,11 +32,7 @@
                     class="step-pages"
                     v-bind:id="getStepGroupId(stepIndex)"
                     v-bind:index="stepIndex"
-                    v-bind:style="
-                        isCurrentStep(stepIndex) && !isAllCompleted()
-                        ? 'display: block;'
-                        : 'display: none;'
-                    "
+                    v-bind:style="isCurrentStep(stepIndex)? 'display: block;': 'display: none;'"
                 >
                     <ul>
                         <li
@@ -47,9 +41,7 @@
                             v-bind:key="pageIndex"
                             v-bind:id="getStepPageId(stepIndex, pageIndex)"
                             v-bind:index="pageIndex"
-                            v-bind:class="{
-                                current: pageIndex === step.currentPage,
-                            }"
+                            v-bind:class="{current: pageIndex == step.currentPage}"
                             v-show="page.active"
                             v-on:click="onSelectPage($event)"
                         >
@@ -67,42 +59,57 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch} from 'vue-property-decorator';
 import moment from 'moment-timezone';
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
 @Component
 export default class NavigationSidebar extends Vue {
     
+    @applicationState.State
+    public currentStep!: Number;
+
     error = "";
-    sideBarCheckMarkUpdate = 0;
+    updateSidebar = 0;
+
+    // @Watch('currentStep')
+    // pageIndexChange(newVal) 
+    // {
+    //     console.log('step changed in sidebar')
+    //     console.log(newVal);  
+    //     this.updateSidebar++;      
+    // }
 
     public  onSelectStep(event) {
-        const currIndex = this.$store.state.Application.currentStep;
-        const curr = document.getElementById(this.getStepId(currIndex));
-        const currChildGroup = document.getElementById(this.getStepGroupId(currIndex));
+        // const currIndex = this.$store.state.Application.currentStep;
+        // const curr = document.getElementById(this.getStepId(currIndex));
+        // const currChildGroup = document.getElementById(this.getStepGroupId(currIndex));
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
-        const nextChildGroup = document.getElementById(this.getStepGroupId(nextIndex));
+        // const nextChildGroup = document.getElementById(this.getStepGroupId(nextIndex));
 
-        if(!this.isStepTouched(nextIndex)) return
+        // if(!this.isStepTouched(nextIndex)) return
 
-        if (curr == next) {
-            // same choice.
-            next.classList.add("current");
-            nextChildGroup.style.display = "block";
-        } else {
-            next.classList.add("current");
-            nextChildGroup.style.display = "block";
+        // if (curr == next) {
+        //     // same choice.
+        //     next.classList.add("current");
+        //     nextChildGroup.style.display = "block";
+        // } else {
+        //     next.classList.add("current");
+        //     nextChildGroup.style.display = "block";
 
-            curr.classList.remove("current");
-            currChildGroup.style.display = "none";
-        }
+        //     curr.classList.remove("current");
+        //     currChildGroup.style.display = "none";
+        // }
         
         this.$store.commit("Application/setCurrentStep", nextIndex);
-        const currPageIndex = this.getNavigation()[nextIndex].currentPage;
-        const currPage = document.getElementById(this.getStepPageId(nextIndex, currPageIndex));
-        //console.log("now step")
-        currPage.className="current";
+        // const currPageIndex = this.getNavigation()[nextIndex].currentPage;
+        // const currPage = document.getElementById(this.getStepPageId(nextIndex, currPageIndex));
+        // //console.log("now step")
+        // currPage.className="current";
         Vue.nextTick().then(()=>{this.saveChanges();});
     }
 
@@ -110,26 +117,26 @@ export default class NavigationSidebar extends Vue {
     //TODO: This is where the step is selected
     public onSelectPage(event) {
         const currStepIndex = this.$store.state.Application.currentStep;
-        const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
-        const currPage = document.getElementById(this.getStepPageId(currStepIndex, currPageIndex));
+        //const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
+        //const currPage = document.getElementById(this.getStepPageId(currStepIndex, currPageIndex));
         const nextPage = event.currentTarget;
         const nextPageIndex = parseInt(nextPage.getAttribute("index"));
 
         if(this.$store.state.Application.steps[currStepIndex].pages[nextPageIndex].progress == 0) return
 
 
-        if (currPage == nextPage) {
-            // same choice; do nothing
-        } else {
-            Vue.nextTick().then(()=>{
-                //console.log("now page")
-                nextPage.classList.add("current");
+        // if (currPage == nextPage) {
+        //     // same choice; do nothing
+        // } else {
+        //     Vue.nextTick().then(()=>{
+        //         //console.log("now page")
+        //         nextPage.classList.add("current");
 
-                if (currPage !== null) {
-                currPage.classList.remove("current");
-                }
-            })
-        }
+        //         if (currPage !== null) {
+        //         currPage.classList.remove("current");
+        //         }
+        //     })
+        // }
 
         this.$store.commit("Application/setCurrentStepPage", {currentStep: currStepIndex, currentPage: nextPageIndex });
         Vue.nextTick().then(()=>{this.saveChanges();});
@@ -155,7 +162,7 @@ export default class NavigationSidebar extends Vue {
     }
 
     public isCurrentStep(stepIndex) {
-        return this.$store.state.Application.currentStep === stepIndex;
+        return this.$store.state.Application.currentStep == stepIndex;
     }
 
     public isAllCompleted() {

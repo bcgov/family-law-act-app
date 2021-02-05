@@ -13,33 +13,55 @@
             
             <h3 class="mt-5">To prepare the application for filing:</h3>
             
+            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+
+                <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
             
-            <div style="margin:3rem 0; width:19rem;">
-                <b-button                   
-                    v-on:click.prevent="onDownload()"
-                    variant="success">
-                        <span class="fa fa-print btn-icon-left"/>
-                        Review and Save Your Application
-                </b-button>
-            </div>
+                <div style="margin:1rem 0; width:19rem;">
+                    <b-button                   
+                        v-on:click.prevent="onDownload()"
+                        variant="success">
+                            <span class="fa fa-print btn-icon-left"/>
+                            Review and Save Your Application
+                    </b-button>
+                </div>
 
-            <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="border-bottom:1px solid; width:20.25rem;">
-                <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
-            </div>
+                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="border-bottom:1px solid; width:20.25rem;">
+                    <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
+                </div>
 
-            <div>    
-                Note: If you need to edit any of your answers, go back to the question in Step 3, edit the answer and return to this page.
-            </div>
+                <div>    
+                    Note: If you need to edit any of your answers, go back to the "Review Your Answers" page, edit the answer and return to this page.
+                </div>
+            </b-card>
 
-            <div class="ml-2"> 
-                
-                <ul class="mt-3">
+            <b-card  style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+
+                <span class="text-primary" style='font-size:1.4rem;'>Additional Documents to Include:</span> 
+
+                <ul class="my-3">
                     <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
                     <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
                     <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="border-bottom:1px solid; width:15.7rem;">
-                        <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
+                        <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
                     </div>
-                    <li>Draft and send an email to the registry email address above 
+                </ul>
+
+
+                <div v-if="requiredDocuments.length > 0" class="mt-5 h4">The following additional documents are required as part of your filing:</div>
+                <ul class="mt-3">
+                    <li class="mb-2" v-for="requiredDocument in requiredDocuments" :key="requiredDocument">{{requiredDocument}}</li>
+                </ul>
+
+            </b-card>
+
+
+            
+            <b-card  style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+
+                <span class="text-primary" style='font-size:1.4rem;'>Submit Documents:</span>
+                <ul class="mt-3">                    
+                    <li>Draft and send an email to the registry email address above (<a :href="'mailto:'+applicationLocation.email" class="my-0 ml-2 " >{{applicationLocation.email}} </a> )
                         <br/><b>Subject line:</b> Application About a Protection Order for filing
                         <br/><b>Body of email:</b>
                         <br/>
@@ -50,7 +72,7 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </b-card>
 
         </b-card>
 
@@ -109,8 +131,8 @@ export default class ReviewAndSave extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.State
-    public requiredDocuments!: string[];
+    // @applicationState.State
+    // public requiredDocuments!: string[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -124,6 +146,7 @@ export default class ReviewAndSave extends Vue {
     showGetHelpForPDF = false;
     showGetHelpScanning = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
+    requiredDocuments: string[] = [];
 
     mounted(){
 
@@ -141,8 +164,10 @@ export default class ReviewAndSave extends Vue {
             this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
         }else if(location == 'Surrey'){
             this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-        }            
+        }  
 
+        this.requiredDocuments = [];
+        this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
     }       
     
     
@@ -174,14 +199,14 @@ export default class ReviewAndSave extends Vue {
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
                         const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        if(nextChildGroup){
-                            if(Number(step.id)==8){
-                                nextChildGroup.style.display = "none";
-                                Vue.nextTick(()=>nextChildGroup.style.display = "block")
-                            }else{
-                                nextChildGroup.style.display = "block";
-                            }
-                        }
+                        // if(nextChildGroup){
+                        //     if(Number(step.id)==8){
+                        //         nextChildGroup.style.display = "none";
+                        //         Vue.nextTick(()=>nextChildGroup.style.display = "block")
+                        //     }else{
+                        //         nextChildGroup.style.display = "block";
+                        //     }
+                        // }
                         return false;
                     }
                 }

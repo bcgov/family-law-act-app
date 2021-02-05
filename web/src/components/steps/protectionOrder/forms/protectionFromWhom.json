@@ -224,6 +224,7 @@
          {
           "type": "yesno",
           "name": "ExistingFamilyCase",
+          "visibleIf": "({RespondentName} notempty and {ApplicantNeedsProtection} = 'y') or ({anotherAdultPO} = 'n' and {childPO} = 'y')",
           "isRequired": true,
           "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
           "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."

@@ -480,8 +480,6 @@ class Application extends VuexModule {
     }    
     @Action
     public UpdateGotoNextStepPage() {
-        this.context.commit("setPageProgress", { currentStep:this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:100 })
-        
         const nextStepPage = this.context.getters["getNextStepPage"];
     
         if (nextStepPage != null) {

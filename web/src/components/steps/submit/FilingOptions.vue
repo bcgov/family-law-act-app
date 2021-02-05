@@ -78,6 +78,7 @@ export default class FilingOptions extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             console.log(this.survey.data);
             // console.log(options)
+            this.resetReviewSteps()
             if(this.survey.data.selectedFilingType == 'byemail'){
                 this.togglePages([0,1,3,5], true);
                 this.togglePages([2,4], false);
@@ -100,6 +101,11 @@ export default class FilingOptions extends Vue {
                 active: activeIndicator
             });
         }
+    }
+
+    public resetReviewSteps(){
+        for(let i=2; i<=5; i++)
+            this.$store.commit("Application/setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
     }
     
     public onPrev() {

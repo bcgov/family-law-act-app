@@ -77,18 +77,18 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 		progress = survey.isCurrentPageHasErrors? 50 : 100;
 	//console.log(store.state.Application.steps[currentStep].pages[currentPage].progress)
 	store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:currentPage, progress:progress });
-	const currPage = document.getElementById("step-" + currentStep+"-page-" + currentPage);
-	if(currPage){
-		if(progress != 100){
-			currPage.style.color = beforeDestroy? "red":"";
-			currPage.className =  beforeDestroy? "":"current";
-		}
-		else
-		{
-			currPage.style.color = "";
-			currPage.className = beforeDestroy? "":"current";
-		}  
-	}  
+	//const currPage = document.getElementById("step-" + currentStep+"-page-" + currentPage);
+	// if(currPage){
+	// 	if(progress != 100){
+	// 		currPage.style.color = beforeDestroy? "red":"";
+	// 		currPage.className =  beforeDestroy? "":"current";
+	// 	}
+	// 	else
+	// 	{
+	// 		currPage.style.color = "";
+	// 		currPage.className = beforeDestroy? "":"current";
+	// 	}  
+	// }  
 	const reviewProgress = store.state.Application.steps[8].pages[0].progress
 	if(currentStep < 8 && reviewProgress){
 		console.log('review required')
@@ -102,7 +102,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	//____________________________________________________________________
 	//console.log(survey)if(question.titleLocation!="hidden" && question.title != " " && question.title != "" && question.isVisible)
 	// console.log(survey.currentPage.title)
-	// console.log(survey.currentPage.questions)
+	 console.log(survey.currentPage.questions)
 	// console.log(survey.data)
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
 	for(const question of survey.currentPage.questions){
@@ -137,4 +137,31 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	// console.log(result)
 	// console.log(document.getElementsByName("inCourtForPO"))
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
+})
+
+
+Vue.filter('extractRequiredDocuments', function(questions){
+	//console.log(questions)
+	const requiredDocuments = [];
+	if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "changePO"){
+		requiredDocuments.push("Copy of the existing protection order")
+	}else if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "terminatePO"){
+		requiredDocuments.push("Copy of the existing protection order")
+	}else if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "needPO"){
+		if(questions.protectionWhomSurvey && questions.protectionWhomSurvey.ExistingFamilyCase =="y"){
+			if(questions.protectionWhomSurvey.ExistingFileNumber && questions.protectionWhomSurvey.ExistingCourt) requiredDocuments.push("Copy of the Family Law file number:" + questions.protectionWhomSurvey.ExistingFileNumber + " submitted to the court at " + questions.protectionWhomSurvey.ExistingCourt);
+			else requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
+		}
+		if(questions.backgroundSurvey && questions.backgroundSurvey.existingPOOrders=="y"){
+			requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+		}
+		if(questions.backgroundSurvey && questions.backgroundSurvey.ExistingOrders=="y"){
+			requiredDocuments.push("Copy of the existing written agreements or court order(s) about the child(ren) concerning parenting arrangements, child support, contact with a child or guardianship of a child");
+		}
+	}
+	//this.UpdateRequiredDocuments(requiredDocuments)
+	//console.log('required documents')
+	//console.log(requiredDocuments)
+
+	return requiredDocuments;
 })

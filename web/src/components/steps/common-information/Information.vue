@@ -71,7 +71,7 @@ export default class Information extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if(options.name === "ApplicantName") {
+            if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", options.value);
             }
         })

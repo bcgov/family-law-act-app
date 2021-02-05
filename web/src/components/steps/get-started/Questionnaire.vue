@@ -79,7 +79,7 @@ export default class PoQuestionnaire extends Vue {
             //console.log(this.survey.data);
             // console.log(options)
             let pagesArr = [];
-            if (options.name === "orderType") {                
+            if (options.name == "orderType") {                
                 this.removePages();
                 //console.log('__removed')
                 const selectedOrder = options.value;
@@ -100,12 +100,12 @@ export default class PoQuestionnaire extends Vue {
                     this.$store.commit("Application/setCurrentStepPage", { currentStep:1, currentPage:0 })
                     this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:0 })
                 }
-                if (selectedOrder === "needPO") {
+                if (selectedOrder == "needPO") {
                     this.populatePagesForNeedPO(sender);
                 }
                 this.determinePeaceBondAndBlock();
             }
-            if (options.name === "PORConfirmed") {
+            if (options.name == "PORConfirmed") {
                 //console.log(this.survey.data)
                 this.determinePeaceBondAndBlock();
                 pagesArr = [0, 1, 2, 4, 5, 6, 8];
@@ -116,7 +116,7 @@ export default class PoQuestionnaire extends Vue {
                 }
             }
 
-            if (options.name === "familyUnsafe" || options.name === "unsafe") {
+            if (options.name == "familyUnsafe" || options.name == "unsafe") {
                 //console.warn(options.value)
                 this.determinePeaceBondAndBlock();
             }
@@ -201,7 +201,7 @@ export default class PoQuestionnaire extends Vue {
 
     public isDisableNext() {
         // demo
-        return Object.keys(this.survey.data).length === 0;
+        return Object.keys(this.survey.data).length == 0;
     }
 
     public getDisableNextText() {
