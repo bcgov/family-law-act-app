@@ -37,8 +37,9 @@
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
                                     <p style="font-weight: bold;">1. Register or Login</p>
                                     <p class="mb-3">
-                                        You will need a Basic BCeID to access the Online FLA Assistant.
-                                        This will also enable you to securely access multiple other online government services.
+                                        To use the Online FLA Assistant you will need to set up a Basic BCeID account.
+                                        If you do not currently have Basic BCeID account you can register for one by 
+                                        clicking the New User button below.
                                     </p>
                                
                                     <p style="font-weight: bold;">2. Answer Questions</p>
