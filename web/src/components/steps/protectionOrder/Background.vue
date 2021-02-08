@@ -69,27 +69,22 @@ export default class Background extends Vue {
     public reloadPageInformation() {  
 
         if (this.step.result && this.step.result['backgroundSurvey']){
-            //console.log(this.step.result)
-            this.survey.data = this.step.result['backgroundSurvey'];
+            this.survey.data = this.step.result['backgroundSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-        
-        //console.log(this.survey.data)
-        
-        let progress = 50;
-        if(Object.keys(this.survey.data).length && this.survey.data.howPartiesRelated)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        //console.log(this.survey.currentPage.questions)
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-
-        this.survey.setVariable("RespondentName", this.getFullName(this.$store.state.Application.respondentName));
-        this.survey.setVariable("protectedPartyName", this.getFullName(this.$store.state.Application.protectedPartyName));
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+       
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
+        this.survey.setVariable("ProtectedPartyName", Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         
         let children ="";
         for(const child of this.$store.state.Application.protectedChildName){
             if(child.childName)
-                children+='<li>'+ this.getFullName(child.childName) +'</li>'
+                children+='<li>'+ Vue.filter('getFullName')(child.childName) +'</li>'
         }
  
         this.survey.setVariable("protectedChildName",children)   
@@ -108,35 +103,12 @@ export default class Background extends Vue {
     public onComplete() {
         this.$store.commit("Application/setAllCompleted", true);
     }
-
-    public getFullName(nameObject){
-        if (nameObject) {
-            return nameObject.first +
-                " " +
-                nameObject.middle +
-                " " +
-                nameObject.last;
-        } else{
-            return " "
-        }
-    }
   
     beforeDestroy() {
-        
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
- 
-        this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: this.survey.data}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
+
+        this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 }
 </script>

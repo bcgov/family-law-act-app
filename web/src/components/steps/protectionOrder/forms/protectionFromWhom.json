@@ -114,7 +114,7 @@
             "type": "paneldynamic",
             "name": "allchildren",
             "visibleIf": "({childPO} = 'y' and {ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n') or ({ApplicantNeedsProtection} = 'y' and {childPO} = 'y')",
-            "title": " ",
+            "title": "Child(ren) information:",
             "isRequired": true,
             "templateElements": [ 
                {
@@ -182,7 +182,7 @@
             "type": "paneldynamic",
             "name": "allAnotherAdultsSharingResi",
             "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-            "title": " ",
+            "title": "Information of other adult(s) that need(s) to be protected:",
             "isRequired": true,
             "templateElements": [             
                {
@@ -224,6 +224,7 @@
          {
           "type": "yesno",
           "name": "ExistingFamilyCase",
+          "visibleIf": "({RespondentName} notempty and {ApplicantNeedsProtection} = 'y') or ({anotherAdultPO} = 'n' and {childPO} = 'y')",
           "isRequired": true,
           "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
           "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."

@@ -110,7 +110,7 @@ export default class OtherParty extends Vue {
  
     created() {
         if (this.step.result && this.step.result["otherPartySurvey"]) {
-            this.otherPartyData = this.step.result["otherPartySurvey"];
+            this.otherPartyData = this.step.result["otherPartySurvey"].data;
         }
     }
 
@@ -118,7 +118,7 @@ export default class OtherParty extends Vue {
         const progress = this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
     public openForm(anyRowToBeEdited) {
@@ -153,7 +153,7 @@ export default class OtherParty extends Vue {
 
     public editRow(editedRow) {
         this.otherPartyData = this.otherPartyData.map(data => {
-            return data.id === this.editId ? editedRow : data;
+            return data.id == this.editId ? editedRow : data;
         });
         this.showTable = true;
     }
@@ -181,21 +181,31 @@ export default class OtherParty extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.otherPartyData.length==0? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        
-        if(currPage){
-            if(this.otherPartyData.length==0)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
 
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})        
+        const progress = this.otherPartyData.length==0? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+
+        this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: this.getOtherPartyResults()}})       
+    }
+
+    public getOtherPartyResults(){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        for(const otherParty of this.otherPartyData)
+        {
+            questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
+        }
+        console.log(questionResults)
+        return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
+    }
+
+    public getOtherPartyInfo(otherParty){
+        const resultString = [];
+        resultString.push("Name: "+Vue.filter('getFullName')(otherParty.name));
+        resultString.push("Birthdate: "+Vue.filter('beautify-date')(otherParty.dob))
+        resultString.push("Address: "+Vue.filter('getFullAddress')(otherParty.address))
+        resultString.push("Contact: "+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
+
+        return resultString
     }
 
 };

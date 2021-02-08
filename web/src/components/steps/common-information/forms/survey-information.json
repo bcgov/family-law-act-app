@@ -63,6 +63,7 @@
                 {
                   "type": "address",
                   "name": "ApplicantAddress",
+                  "visibleIf": "{Lawyer} = 'n'",
                   "title": "What is a safe address where you can receive court documents?",
                   "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
                   "isRequired": true,
@@ -78,6 +79,7 @@
                 {
                   "type": "contactinfo",
                   "name": "ApplicantContact",
+                  "visibleIf": "{Lawyer} = 'n'",
                   "title": "Contact Information",
                   "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
                   "isRequired": true,
@@ -96,12 +98,14 @@
                 {
                   "type": "personname",
                   "name": "LawyerName",
+                  "visibleIf": "{Lawyer} = 'y'",
                   "title": "What is your lawyer's full name?",
                   "isRequired": true
                 },
                 {
                   "type": "address",
                   "name": "LawyerAddress",
+                  "visibleIf": "{Lawyer} = 'y'",
                   "title": "What is your lawyer's address?",
                   "isRequired": true,
                   "referLabel": "Applicant's Lawyer's Address",
@@ -116,6 +120,7 @@
                 {
                   "type": "contactinfo",
                   "name": "LawyerContact",
+                  "visibleIf": "{Lawyer} = 'y'",
                   "title": "Lawyer's Contact Information",
                   "isRequired": true
                 }

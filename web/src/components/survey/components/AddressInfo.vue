@@ -6,8 +6,8 @@
         <select class="form-control ml-2" ref="copyFrom">
           <option value="">(Select Address)</option>
           <option
-            v-for="opt in selOptions"
-            :key="opt.value"
+            v-for="(opt,inx) in selOptions"
+            :key="inx"
             :value="opt.value"
             >{{ opt.label }}</option
           >
