@@ -7,6 +7,7 @@ services:
       - WEB_BASE_HREF=${WEB_BASE_HREF}
       - IpFilterRules=${IpFilterRules}
       - RealIpFrom=${RealIpFrom}
+      - WEB_FPO_URL=${WEB_FPO_URL}
     ports:
       - "${WEB_HTTP_PORT}:8080"
     depends_on:
@@ -21,6 +22,7 @@ services:
       - NODE_ENV=development
       - NPM_CONFIG_LOGLEVEL=notice
       - NPM_RUN=serve
+      - WEB_FPO_URL=${WEB_FPO_URL}
     ports:
       - "${WEB_HTTP_PORT}:8080"
       - 5858:5858

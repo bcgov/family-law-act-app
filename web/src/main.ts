@@ -32,6 +32,8 @@ const router = new VueRouter({
     }
 });
 
+console.log(process.env)
+
 // Redirect to /family-law-act/
 history.pushState({page: "home"}, "", process.env.BASE_URL)
 
