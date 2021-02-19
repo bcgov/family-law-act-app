@@ -68,10 +68,7 @@ export default class ServiceLocator extends Vue {
             {
                 this.saveUserLocation()
             } else {
-                // const webFpoHref = process.env.WEB_FPO_URL;
-                // console.log(webFpoHref)
-                //location.replace(webFpoHref);
-                location.replace("https://family-protection-order-dev.pathfinder.gov.bc.ca/protection-order/");
+                this.$router.push({name: "available-services" });
             }
         }
     }

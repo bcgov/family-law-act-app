@@ -1,6 +1,7 @@
 import LandingPage from "@/components/home/LandingPage.vue";
 import ServiceLocator from "@/components/home/ServiceLocator.vue";
 import ResultPage from "@/components/home/ResultPage.vue";
+import AvailableServices from "@/components/home/AvailableServices.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import TermsConditions from "@/components/status/TermsConditions.vue"
@@ -42,6 +43,12 @@ const routes = [
     name: "service-locator",
     beforeEnter: authGuard,
     component: ServiceLocator,
+  },
+  {
+    path: "/availableServices",
+    name: "available-services",
+    beforeEnter: authGuard,
+    component: AvailableServices
   },
   {
     path: "/results/:result",
