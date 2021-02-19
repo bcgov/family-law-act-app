@@ -32,6 +32,7 @@ const router = new VueRouter({
     }
 });
 
+
 // Redirect to /family-law-act/
 history.pushState({page: "home"}, "", process.env.BASE_URL)
 

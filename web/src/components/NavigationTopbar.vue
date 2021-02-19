@@ -44,6 +44,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="navbar-extra">
+                    <b-button
+                        class="text-primary bg-info" 
+                        @click="contactUs = true;">
+                        Contact Us
+                    </b-button>
+                </div>
                 <div id="app-exit" class="app-exit">
                     <a
                         @click="logout(true)"
@@ -68,6 +75,24 @@
                 </button>
             </div>
         </nav>
+
+        <b-modal size="xl" v-model="contactUs" header-class="bg-white">
+            <template v-slot:modal-title>
+                <h1 class="mb-0 text-primary">General and Technical Enquiries</h1> 
+            </template>
+            <div class="m-3">
+                <p>Can't find what you are looking for? Have a technical issue?</p>
+                <p>Contact us 8:00 am to 4:30 pm Pacific Time - Monday to Friday except Statutory Holidays</p>
+                <p>CSO Support - <a href='mailto:Courts.CSO@gov.bc.ca'>Courts.CSO@gov.bc.ca</a> </p>
+                
+            </div>           
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="contactUs=false">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-dark" class="closeButton" @click="contactUs=false">&times;</b-button>
+            </template>
+        </b-modal>
     </header>
 </template>
 
@@ -80,6 +105,11 @@ import moment from "moment-timezone";
 export default class NavigationTopbar extends Vue {
     
     error = "";
+    contactUs = false;
+
+    mounted() {
+        this.contactUs = false;
+    }
 
     get userName() {
       return this.$store.state.Application.userName;
