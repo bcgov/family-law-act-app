@@ -70,9 +70,10 @@ class SurveyPdfView(generics.GenericAPIView):
             LOGGER.error("ERROR: Pdf generation failed %s", ex)
             raise
 
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="report.pdf"'
-
-        response.write(pdf_content)
-
-        return response
+        if request.query_params.get("noDownload"):
+            return HttpResponse(status=204)
+        else:
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            response.write(pdf_content)
+            return response

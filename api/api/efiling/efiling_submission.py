@@ -41,7 +41,7 @@ class EFilingSubmission(EFilingHubCallerBase):
     def upload_documents(self, bceid_guid, transaction_id, files):
         try:
             response = self._get_api(
-                f"{self.api_base_url}/submission/documents",
+                url=f"{self.api_base_url}/submission/documents",
                 data={},
                 headers={},
                 bceid_guid=bceid_guid,
@@ -64,7 +64,8 @@ class EFilingSubmission(EFilingHubCallerBase):
     def generate_efiling_url(self, bceid_guid, transaction_id, submission_id, data):
         package_data = self.packaging.build_efiling_body(data)
         logger.debug(f"submission_id:{submission_id}")
-        logger.debug(f"data:{package_data}")
+        logger.debug("data:")
+        logger.debug(json.dumps(package_data, indent=4))
 
         response = self._get_api(
             f"{self.api_base_url}/submission/{submission_id}/generateUrl",

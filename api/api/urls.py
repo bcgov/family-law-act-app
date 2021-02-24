@@ -28,7 +28,6 @@ from api.views import (
     ApplicationView,
     ApplicationListView,
     EFilingDocumentTypesView,
-    EFilingDocumentUploadView,
     EFilingLocationView,
     EFilingSubmitView,
     SurveyPdfView,
@@ -59,9 +58,8 @@ urlpatterns = [
     path("survey-print/<int:pk>/", SurveyPdfView.as_view()),
     path("user-info/", UserView.as_view()),
     path("efiling/document-types/", EFilingDocumentTypesView.as_view()),
-    path("efiling/document-upload/<int:application_id>/", EFilingDocumentUploadView.as_view()),
     path("efiling/locations/", EFilingLocationView.as_view()),
-    path("efiling/submit/<int:application_id>/", EFilingSubmitView.as_view()),
+    path("efiling/<int:application_id>/submit/", EFilingSubmitView.as_view()),
 ]
 
 if settings.OIDC_ENABLED:
