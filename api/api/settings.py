@@ -244,10 +244,16 @@ REST_FRAMEWORK = {
     )
 }
 
-EFILING_AUTH_URL = os.environ.get("EFILING_AUTH_URL", "")
-EFILING_CLIENT_ID = os.environ.get("EFILING_CLIENT_ID", "")
-EFILING_CLIENT_SECRET = os.environ.get("EFILING_CLIENT_SECRET", "")
-EFILING_BASE_URL = os.environ.get("EFILING_BASE_URL", "")
+# Efiling
+EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
+EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
+EFILING_COURT_CLASS = os.environ.get("EFILING_COURT_CLASS", "F")  # https://bcgov.github.io/jag-file-submission/#/data?id=court-classification
+EFILING_COURT_DIVISION = os.environ.get("EFILING_COURT_DIVISION", "I")
+EFILING_HUB_API_BASE_URL = os.environ.get("EFILING_HUB_API_BASE_URL", "")
+EFILING_HUB_KEYCLOAK_BASE_URL = os.environ.get("EFILING_HUB_KEYCLOAK_BASE_URL", "")
+EFILING_HUB_KEYCLOAK_CLIENT_ID = os.environ.get("EFILING_HUB_KEYCLOAK_CLIENT_ID", "")
+EFILING_HUB_KEYCLOAK_REALM = os.environ.get("EFILING_HUB_KEYCLOAK_REALM", "")
+EFILING_HUB_KEYCLOAK_SECRET = os.environ.get("EFILING_HUB_KEYCLOAK_SECRET", "")
 
 ENCRYPTOR = Encryptor("DATA_SECURITY_KEY")
 FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/apply-for-family-order/")

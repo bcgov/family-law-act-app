@@ -13,7 +13,7 @@ from rest_framework import generics
 from core.pdf import render as render_pdf
 from api.models.application import Application
 from api.models.prepared_pdf import PreparedPdf
-from api.utils import get_app_object
+from api.utils import get_application_for_user
 
 LOGGER = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ class SurveyPdfView(generics.GenericAPIView):
     def post(self, request, pk, name=None):
         data = request.data
         uid = request.user.id
-        app = get_app_object(pk, uid)
+        app = get_application_for_user(pk, uid)
         if not app:
             return HttpResponseNotFound("No record found")
 
