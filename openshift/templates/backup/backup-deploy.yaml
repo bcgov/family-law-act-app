@@ -373,7 +373,7 @@ parameters:
       1Gi, 2Gi.  Ensure this is sized correctly.  Refer to the container documentation
       for details.
     required: true
-    value: 20Gi
+    value: 15Gi
   - name: BACKUP_VOLUME_CLASS
     displayName: Backup Volume Class
     description: The class of the persistent volume used to store the backups; netapp-file-backup.
@@ -396,7 +396,7 @@ parameters:
       backups, e.g. 512Mi, 1Gi, 2Gi.  Ensure this is sized correctly.  It should be
       large enough to contain your largest database.
     required: true
-    value: 15Gi
+    value: 10Gi
   - name: VERIFICATION_VOLUME_CLASS
     displayName: Backup Volume Class
     description:
