@@ -1,7 +1,4 @@
 import hashlib
-import io
-import json
-from django.conf import settings
 
 """ This is application specific to Family Law Act App.
     This maps from our Application, PreparedPdf, Document
@@ -18,14 +15,9 @@ class EFilingParsing:
             proto = "http"
         return f"{proto}://{host}{extra}"
 
-    def convert_data_for_efiling(self, request, application, files, document_types):
+    def convert_data_for_efiling(self, request, application, po_json, files, document_types):
         applicant = application.applicant_name
         respondent = application.respondent_name
-        steps_json = json.loads(
-            settings.ENCRYPTOR.decrypt(application.key_id, application.steps).decode(
-                "utf-8"
-            )
-        )
         converted_data = {}
         converted_data["locationName"] = request.user.location
         converted_data["parties"] = [
@@ -51,7 +43,7 @@ class EFilingParsing:
                 {
                     "name": file[1][0],
                     "type": document_types[index],
-                    "data": "",  #steps_json if index + 1 == len(files) else "",
+                    "data": po_json if index == 0 else "",  # First file is always generated.
                     "md5": hashlib.md5(file[1][1]).hexdigest(),
                 }
             )

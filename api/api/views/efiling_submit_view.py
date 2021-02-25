@@ -1,13 +1,10 @@
-import io
-import json
 import logging
+import json
 import uuid
 from datetime import datetime
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.conf import settings
 from django.http import HttpResponseBadRequest, HttpResponse
 from rest_framework import permissions, generics
-from rest_framework.response import Response
 from api.models import PreparedPdf
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
 from api.utils import get_application_for_user
@@ -31,25 +28,30 @@ class EFilingSubmitView(generics.GenericAPIView):
         extension = file.name.split(".")[-1]
         return extension.lower() not in self.allowed_extensions
 
-    def _convert_and_add_fpo_file(self, include_pdf_content, incoming_files):
-        outgoing_files = []
+    def _convert_and_add_fpo_file(self, po_pdf_content, incoming_files):
+        outgoing_files = [("files", ("fpo_generated.pdf", po_pdf_content, "application/pdf"))]
         for incoming_file in incoming_files:
             outgoing_files.append(
                 ("files", (incoming_file.name, incoming_file.read(), "application/pdf"))
             )
-        outgoing_files.append(
-            ("files", ("fpo.pdf", include_pdf_content, "application/pdf"))
-        )
         return outgoing_files
+
+    def _get_prepared_pdf(self, prepared_pdf_id):
+        prepared_pdf = PreparedPdf.objects.get(id=prepared_pdf_id)
+        po_pdf_content = settings.ENCRYPTOR.decrypt(
+            prepared_pdf.key_id, prepared_pdf.data
+        )
+        po_json = json.loads(
+            settings.ENCRYPTOR.decrypt(
+                prepared_pdf.key_id, prepared_pdf.json_data
+            ).decode("utf-8")
+        )
+        return (po_pdf_content, po_json)
 
     def post(self, request, application_id):
         document_types = request.POST.getlist("documentTypes")
-        document_types.append("POR")
+        document_types.insert(0, "POR")
         incoming_files = request.FILES.getlist("files")
-        if len(incoming_files)+1 != len(document_types):
-            return HttpResponseBadRequest(
-                "Number of documents, does not match document types."
-            )
         for file in incoming_files:
             if file.size == 0:
                 return HttpResponseBadRequest("One of the files was empty.")
@@ -60,15 +62,13 @@ class EFilingSubmitView(generics.GenericAPIView):
 
         application = get_application_for_user(application_id, request.user.id)
         if application.prepared_pdf_id is None:
-            return HttpResponseBadRequest('PDF not generated.')
+            return HttpResponseBadRequest("PDF is not generated.")
 
-        prepared_pdf = PreparedPdf.objects.get(id=application.prepared_pdf_id)
-        pdf_content = settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.data)
-
-        outgoing_files = self._convert_and_add_fpo_file(pdf_content, incoming_files)
+        (po_pdf_content, po_json) = self._get_prepared_pdf(application.prepared_pdf_id)
+        outgoing_files = self._convert_and_add_fpo_file(po_pdf_content, incoming_files)
 
         data = self.efiling_parsing.convert_data_for_efiling(
-            request, application, outgoing_files, document_types
+            request, application, po_json, outgoing_files, document_types
         )
 
         transaction_id = str(uuid.uuid4())

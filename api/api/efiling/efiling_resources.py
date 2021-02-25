@@ -35,7 +35,10 @@ class EFilingResources(EFilingHubCallerBase):
         return response
 
     def get_document_types(self):
-        url = f"{self.api_base_url}/documents/types?courtLevel={self.court_level}&courtClassification={self.court_class}"
+        query_string = (
+            f"?courtLevel={self.court_level}&courtClassification={self.court_class}"
+        )
+        url = f"{self.api_base_url}/documents/types{query_string}"
         response = self._get_api(url, headers={})
         if response.status_code == 200:
             return response.json()
