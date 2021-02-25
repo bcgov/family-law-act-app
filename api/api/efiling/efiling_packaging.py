@@ -32,8 +32,10 @@ class EFilingPackaging:
                 },
                 "documents": [
                     {
-                        "name": document["name"],
-                        "type": document["type"],
+                        "documentProperties": {
+                            "name": document["name"],
+                            "type": document["type"],
+                        },
                         "isAmendment": False,
                         "isSupremeCourtScheduling": False,
                         "data": document["data"],
