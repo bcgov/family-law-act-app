@@ -39,21 +39,48 @@
           >
         </li>
         <li class="nav-item">
-          <a
-            class="nav-link"
-            href="https://www2.gov.bc.ca/gov/content/home/contact-us"
-            target="_blank"
-            >Contact Us</a
-          >
+          <a class="nav-link" @click="contactUs = true">Contact Us</a>
         </li>
       </ul>
     </nav>
+
+    <b-modal size="xl" v-model="contactUs" header-class="bg-white">
+      <template v-slot:modal-title>
+        <h1 class="mb-0 text-primary">General and Technical Enquiries</h1>
+      </template>
+      <div class="m-3">
+        <p>Can't find what you are looking for? Have a technical issue?</p>
+        <p>
+          Contact us 8:00 am to 4:30 pm Pacific Time - Monday to Friday except
+          Statutory Holidays
+        </p>
+        <p>
+          CSO Support -
+          <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a>
+        </p>
+      </div>
+      <template v-slot:modal-footer>
+        <b-button variant="primary" @click="contactUs = false">Close</b-button>
+      </template>
+      <template v-slot:modal-header-close>
+        <b-button
+          variant="outline-dark"
+          class="closeButton"
+          @click="contactUs = false"
+          >&times;</b-button
+        >
+      </template>
+    </b-modal>
   </footer>
 </template>
-<script>
-export default {
-  data() {
-    return {};
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+@Component
+export default class NavigationFooter extends Vue {
+  contactUs = false;
+  mounted() {
+    this.contactUs = false;
   }
-};
+}
 </script>

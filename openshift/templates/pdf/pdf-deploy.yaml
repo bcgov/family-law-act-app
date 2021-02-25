@@ -87,6 +87,22 @@ objects:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
 
+  - kind: HorizontalPodAutoscaler
+    apiVersion: autoscaling/v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+        role: ${ROLE}
+        env: ${TAG_NAME}
+    spec:
+      scaleTargetRef:
+        kind: DeploymentConfig
+        name: ${NAME}
+      minReplicas: ${{MIN_REPLICAS}}
+      maxReplicas: ${{MAX_REPLICAS}}
+
 parameters:
   - name: NAME
     displayName: Name
@@ -124,6 +140,17 @@ parameters:
     description: The TAG name for this environment, e.g., dev, test, prod
     required: true
     value: dev
+
+  - name: MIN_REPLICAS
+    displayName: Minimum Replicas
+    description: The minimum number of pods to have running.
+    required: true
+    value: "3"
+  - name: MAX_REPLICAS
+    displayName: Maximum Replicas
+    description: The maximum number of pods to have running.
+    required: true
+    value: "6"
 
   - name: CPU_REQUEST
     displayName: Resources CPU Request

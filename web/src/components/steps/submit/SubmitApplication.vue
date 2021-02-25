@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { Step } from "@/models/step";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "../PageBase.vue";
 import axios from "axios";
 import moment from 'moment-timezone';
@@ -175,7 +175,7 @@ export default {
       return result;
     },    
     onDownload: function() {
-      console.log("downloading")
+      //console.log("downloading")
       const currentDate = moment().format();
       this.$store.dispatch("application/setLastPrinted", currentDate); 
       const application = this.$store.getters["application/getApplication"];
@@ -236,13 +236,13 @@ export default {
           }
         )
         .then(res => {
-          console.log(res)
+          //console.log(res)
           this.submissionId = res.submissionId;
           this.generateUrl();
 
         })
         .catch(err => {
-          console.error(err);
+          //console.error(err);
           this.error = "Sorry, we were unable to submit your form at this time, please try again later.";        
         });
     },
@@ -282,7 +282,7 @@ export default {
     }
   },
   props: {
-    step: Step | Object
+    step: stepInfoType | Object
   },
   computed: {}
 };

@@ -1,76 +1,131 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <survey v-bind:survey="survey"></survey>
-  </page-base>
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <survey v-bind:survey="survey"></survey>
+    </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey-glossary.ts";
-import surveyJson from "@/assets/survey-information.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import surveyJson from "./forms/survey-information.json";
+
 import PageBase from "../PageBase.vue";
-import { Step } from "../../../models/step";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
-export default {
-  name: "information",
-  components: {
-    PageBase
-  },
-  data() {
-    var survey = new SurveyVue.Model(surveyJson);
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
-    survey.commentPrefix = "Comment";
-    survey.showQuestionNumbers = "off";
-    survey.showNavigationButtons = false;
-    surveyEnv.setGlossaryMarkdown(survey);
-
-    survey.onValueChanged.add((sender, options) => {
-     if(options.name === "ApplicantName") {
-        this.$store.dispatch("application/setApplicantName", options.value);
-      }
-    })
-
-    return {
-      survey: survey
-    };
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);
-  },
-  created() {
-    if (this.step.result.yourInformationSurvey) {
-      this.survey.data = this.step.result.yourInformationSurvey;
+@Component({
+    components:{
+        PageBase
     }
-  },
-  methods: {
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
-    onNext() {
-      if(!this.survey.isCurrentPageHasErrors) {
-        this.$store.dispatch("application/gotoNextStepPage");
-      }
-    },
-    onComplete() {
-      this.$store.dispatch("application/setAllCompleted", true);
+})
+
+export default class Information extends Vue {
+    
+    @Prop({required: true})
+    step!: stepInfoType;
+
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+    survey = new SurveyVue.Model(surveyJson);
+    currentStep=0;
+    currentPage=0;
+   
+    @Watch('pageIndex')
+    pageIndexChange(newVal) 
+    {
+        this.survey.currentPageNo = newVal;        
     }
-  },
-  props: {
-    step: Step | Object,
-  },
-    watch: {
-    pageIndex: function(newVal) {
-      this.survey.currentPageNo = newVal;
+
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);
     }
-  },
-  beforeDestroy() {
-    this.$store.dispatch("application/updateStepResultData", {
-      step: this.step,
-      data: {yourInformationSurvey: this.survey.data}
-    });
-  }
-};
+
+    mounted(){
+        this.initializeSurvey();
+        this.addSurveyListener();
+        this.reloadPageInformation();
+    }
+
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);
+        this.survey.commentPrefix = "Comment";
+        this.survey.showQuestionNumbers = "off";
+        this.survey.showNavigationButtons = false;
+        surveyEnv.setGlossaryMarkdown(this.survey);
+    }
+    
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            //console.log(this.survey.data);
+            // console.log(options)
+            if(options.name === "ApplicantName") {
+                this.$store.commit("Application/setApplicantName", options.value);
+            }
+        })
+    }
+    
+    public reloadPageInformation() {
+        //console.log(this.step.result)
+        if (this.step.result && this.step.result['yourInformationSurvey']) {
+            this.survey.data = this.step.result['yourInformationSurvey'];            
+        }
+
+        let progress = 50;
+        if(Object.keys(this.survey.data).length)
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+       
+    }
+
+    public onPrev() {
+        this.UpdateGotoPrevStepPage()
+    }
+
+    public onNext() {
+        if(!this.survey.isCurrentPageHasErrors) {
+            this.UpdateGotoNextStepPage()
+        }
+    }
+
+    public onComplete() {
+        this.$store.commit("Application/setAllCompleted", true);
+    }
+  
+    
+    beforeDestroy() {
+
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage){
+            if(this.survey.isCurrentPageHasErrors)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                currPage.className="";
+            }  
+        }   
+        
+        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: this.survey.data}});
+    }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

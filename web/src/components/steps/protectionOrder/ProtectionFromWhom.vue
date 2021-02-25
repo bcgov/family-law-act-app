@@ -1,127 +1,178 @@
 <template>
-  <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <survey v-bind:survey="survey"></survey>
-  </page-base>
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <survey v-bind:survey="survey"></survey>
+    </page-base>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey-glossary.ts"
-import surveyJson from "@/assets/POForm/protectionFromWhom.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+
+import surveyJson from "./forms/protectionFromWhom.json";
 import PageBase from "../PageBase.vue";
-import { Step } from "../../../models/step";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
-export default {
-  name: "protection-fromWhom",
-  components: {
-    PageBase
-  },
-  data() {
-    var survey = new SurveyVue.Model(surveyJson);
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
-    survey.commentPrefix = "Comment";
-    survey.showQuestionNumbers = "off";
-    survey.showNavigationButtons = false;
+@Component({
+    components:{
+        PageBase
+    }
+})
 
-
+export default class ProtectionFromWhom extends Vue {
     
-    if (this.applicantName) {
-      survey.setVariable("ApplicantName", this.applicantName);
+    @Prop({required: true})
+    step!: stepInfoType;
+    
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
+
+    @applicationState.Action
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+    applicantName = ""
+    disableNextButton = false
+
+    survey = new SurveyVue.Model(surveyJson);
+    currentStep=0;
+    currentPage=0;
+
+    beforeCreate() {
+        const Survey = SurveyVue;
+        surveyEnv.setCss(Survey);        
     }
 
-    surveyEnv.setGlossaryMarkdown(survey);
+    mounted(){
+        this.initializeSurvey();
+        this.addSurveyListener();
+        this.reloadPageInformation();
+    }
+    
+    public initializeSurvey(){
+        this.survey = new SurveyVue.Model(surveyJson);
+        this.survey.commentPrefix = "Comment";
+        this.survey.showQuestionNumbers = "off";
+        this.survey.showNavigationButtons = false;
+        surveyEnv.setGlossaryMarkdown(this.survey);
+    } 
 
-    survey.onValueChanged.add((sender, options) => {
-      console.log(survey.data)
-      console.log(options.name)
-      if (options.name === "ApplicantNeedsProtection") {
-        if (options.value === "y") {
-          this.$store.dispatch("application/setPageActive", {
-            currentStep: 2,
-            currentPage: 3,
-            active: true
-          });
-        } else {
-          this.$store.dispatch("application/setPageActive", {
-            currentStep: 2,
-            currentPage: 3,
-            active: false
-          });
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            //console.log(this.survey.data);
+            // console.log(options)
+            if (options.name === "ApplicantNeedsProtection") {
+                if (options.value === "y") {
+                    this.$store.commit("Application/setPageActive", {
+                        currentStep: 2,
+                        currentPage: 3,
+                        active: true
+                    });
+                } else {
+                    this.$store.commit("Application/setPageActive", {
+                        currentStep: 2,
+                        currentPage: 3,
+                        active: false
+                    });
+                }
+            }
+
+            if(options.name === "RespondentName") {        
+                this.$store.commit("Application/setRespondentName", options.value);
+            }      
+
+            if(this.survey.data.ApplicantNeedsProtection === 'n' && this.survey.data.anotherAdultPO === 'n' && this.survey.data.childPO === 'n'){
+                this.disableNextButton = true;
+            }else{
+                this.disableNextButton = false;
+            }
+
+        })
+    }
+
+    public reloadPageInformation() {
+        if (this.step.result && this.step.result['protectionWhomSurvey']){
+            this.survey.data = this.step.result['protectionWhomSurvey'];
         }
-      }
 
-      if(options.name === "RespondentName") {        
-        this.$store.dispatch("application/setRespondentName", options.value);
-      }      
+        //console.log(this.survey.data)
+        
+        let progress = 50;
+        if(Object.keys(this.survey.data).length && this.survey.data.RespondentName)
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
 
-      if(survey.data.ApplicantNeedsProtection === 'n' && survey.data.anotherAdultPO === 'n' && survey.data.childPO === 'n'){
-        this.disableNextButton = true;
-      }else{
-        this.disableNextButton = false;
-      }
+        const applicantNameObject = this.$store.state.Application.applicantName;
+        
+        if (applicantNameObject) {
+            this.applicantName =
+                applicantNameObject.first +
+                " " +
+                applicantNameObject.middle +
+                " " +
+                applicantNameObject.last;
+        }
 
-    });
+        if (this.applicantName) {
+            this.survey.setVariable("ApplicantName", this.applicantName);
+        }
+
+        
+    }
     
-    return {
-      survey: survey,
-      applicantName: "",
-      disableNextButton: false
-    };
-  },
-  beforeCreate() {
-    const Survey = SurveyVue;
-    surveyEnv.setCss(Survey);
-    let applicantNameObject = this.$store.getters["application/getApplicantName"];
-    
-    if (applicantNameObject) {
-      this.applicantName =
-        applicantNameObject.first +
-        " " +
-        applicantNameObject.middle +
-        " " +
-        applicantNameObject.last;
-    }
-  },
-  created() {
-    if (this.step.result.protectionWhomSurvey){
-      this.survey.data = this.step.result.protectionWhomSurvey;
-    }
-  },
-  methods: {
-    onPrev() {
-      this.$store.dispatch("application/gotoPrevStepPage");
-    },
 
-    onNext() {
-      if(!this.survey.isCurrentPageHasErrors) {
-        this.$store.dispatch("application/gotoNextStepPage");
-      }
-    },
-
-    onComplete() {
-      this.$store.dispatch("application/setAllCompleted", true);
+    public onPrev() {
+        this.UpdateGotoPrevStepPage()
     }
-  },
-  props: {
-    step: Step  | Object
-  },
-  beforeDestroy() {
-    if (this.survey.data.anotherAdultPO === "y") {
-      this.$store.dispatch("application/setProtectedPartyName", this.survey.data.anotherAdultName);
-    }else{
-      this.$store.dispatch("application/setProtectedPartyName", this.$store.getters["application/getApplicantName"]);
-    }
-    console.log(this.survey.data)
-    if(this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) 
-      this.$store.dispatch("application/setProtectedChildName",this.survey.data.allchildren);
-    else 
-      this.$store.dispatch("application/setProtectedChildName",[]);
 
-    this.$store.dispatch("application/updateStepResultData",{
-      step: this.step,
-      data:{protectionWhomSurvey: this.survey.data}
-    })
-  }
+    public onNext() {
+        if(!this.survey.isCurrentPageHasErrors) {
+            this.UpdateGotoNextStepPage()
+        }
+    }
+
+    public onComplete() {
+        this.$store.commit("Application/setAllCompleted", true);
+    }
+  
+    beforeDestroy() {
+
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage){
+            if(this.survey.isCurrentPageHasErrors)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                currPage.className="";
+            }  
+        } 
+
+        if (this.survey.data.anotherAdultPO === "y") {
+            this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
+        }else{
+            this.$store.commit("Application/setProtectedPartyName", this.$store.state.Application.applicantName);
+        }
+        //console.log(this.survey.data)
+        if(this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) 
+            this.$store.commit("Application/setProtectedChildName",this.survey.data.allchildren);
+        else 
+            this.$store.commit("Application/setProtectedChildName",[]);
+
+        this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: this.survey.data}});
+    }
 };
 </script>
 

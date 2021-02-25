@@ -56,108 +56,167 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue, Prop } from 'vue-property-decorator';
-    import { Step } from "@/models/step";
-    import PageBase from "../PageBase.vue";
-    import moment from 'moment-timezone';
-    import GetHelpForPdf from "./HelpPages/GetHelpForPDF.vue"
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
-    @Component({
-        components:{
-            PageBase,
-            GetHelpForPdf
-        }
-    })
+import { stepInfoType } from "@/types/Application";
+import PageBase from "../PageBase.vue";
+
+import moment from 'moment-timezone';
+import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
+@Component({
+    components:{
+        PageBase,
+        GetHelpForPdf
+    }
+})
+
+export default class ReviewAndPrint extends Vue {
     
-    export default class ReviewAndPrint extends Vue {
-        
-        @Prop({required: true})
-        step!: Step;
+    @Prop({required: true})
+    step!: stepInfoType;
 
-        error= "";
+    @applicationState.Action
+    public UpdateGotoPrevStepPage!: () => void
 
-        showGetHelpForPDF = false;
-        applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
+    @applicationState.Action
+    public UpdateGotoNextStepPage!: () => void
 
-        mounted(){
-            let location = this.$store.getters["application/getApplicationLocation"]
-            if(!location) location = this.$store.getters["common/getUserLocation"]
-            console.log(location)
+    error= "";
 
-            if(location == 'Victoria'){
-                this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-            }else if(location == 'Surrey'){
-                this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-            }            
+    showGetHelpForPDF = false;
+    applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
 
-        }        
-        
-        public onPrev() {
-            this.$store.dispatch("application/gotoPrevStepPage");
-        }
+    mounted(){
 
-        public onNext() {            
-            this.$store.dispatch("application/gotoNextStepPage");
-        }
+        const progress = 50;        
+        const currentStep = this.$store.state.Application.currentStep;
+        this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+       
+        let location = this.$store.state.Application.applicationLocation
+        if(!location) location = this.$store.state.Common.userLocation
+        //console.log(location)
 
-        public onDownload() {
-            console.log("downloading")
+        if(location == 'Victoria'){
+            this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
+        }else if(location == 'Surrey'){
+            this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
+        }            
+
+    }
+
+    public onPrev() {
+        this.UpdateGotoPrevStepPage()
+    }
+
+    public onNext() {
+        this.UpdateGotoNextStepPage()     
+    }
+
+    public onDownload() {
+        //console.log("downloading")
+
+        if(this.checkErrorOnPages()){ 
+
             const currentDate = moment().format();
-            this.$store.dispatch("application/setLastPrinted", currentDate); 
-            const application = this.$store.getters["application/getApplication"];
+            this.$store.commit("Application/setLastPrinted", currentDate); 
+            const application = this.$store.state.Application;
             
             const applicationId = application.id;
 
             this.loadPdf();
         }
+    }
 
-        public loadPdf() {
-            const applicationId = this.$store.getters["application/getApplicationId"];
-            const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-            const body = this.getFPOResultData()
-            const options = {
-                responseType: "blob",
-                headers: {
-                "Content-Type": "application/json",
+    public checkErrorOnPages(){
+
+        for(const step of this.$store.state.Application.steps){
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && page.label !="Next Steps" && page.label !="Review and Print" && page.label !="Review and Save")
+                    { 
+                        //console.log(step)
+                        //console.log(page)
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
+                        const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
+                        const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
+                        if(nextChildGroup)nextChildGroup.style.display = "block";
+                        if(currPage){currPage.style.color="red";}
+                        return false;
+                    }
                 }
             }
-            console.log(body)
-            this.$http.post(url,body, options)
-            .then(res => {
-                const blob = res.data;
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                document.body.appendChild(link);
-                link.download = "fpo.pdf";
-                link.click();
-                setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-                this.error = "";
-            },err => {
-                console.error(err);
-                this.error = "Sorry, we were unable to print your form at this time, please try again later.";
-            });
-
-        }
-
-        public getFPOResultData() {      
-            var result = this.$store.getters["application/getNavigation"][0].result; 
-            for(var i=1;i<9; i++)
-                Object.assign(result, result, this.$store.getters["application/getNavigation"][i].result); 
             
-            var protectedPartyName = {protectedPartyName: this.$store.getters["application/getProtectedPartyName"]}
-            Object.assign(result, result, protectedPartyName);
-            
-            var applicationLocation = this.$store.getters["application/getApplicationLocation"]
-            var userLocation = this.$store.getters["common/getUserLocation"]
-            //console.log(applicationLocation)
-            //console.log(userLocation)
-            if(applicationLocation)
-                Object.assign(result, result,{applicationLocation: applicationLocation}); 
-            else
-                Object.assign(result, result,{applicationLocation: userLocation});
-            //console.log(result)
-            return result;
         }
+        return true;
+        
+    }
+
+    public getStepId(stepIndex) {
+        return "step-" + stepIndex;
+    }
+
+    public getStepGroupId(stepIndex) {
+        return this.getStepId(stepIndex) + "-group";
+    }
+
+    public getStepPageId(stepIndex, pageIndex) {
+        return this.getStepId(stepIndex) + "-page-" + pageIndex;
+    }
+
+    public loadPdf() {
+        const applicationId = this.$store.state.Application.id;
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+        const body = this.getFPOResultData()
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        //console.log(body)
+        this.$http.post(url,body, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "fpo.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            this.error = "";
+        },err => {
+            console.error(err);
+            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        });
 
     }
+
+    public getFPOResultData() {  
+        
+        var result = this.$store.state.Application.steps[0].result; 
+        for(var i=1;i<9; i++)
+            Object.assign(result, result, this.$store.state.Application.steps[i].result); 
+        
+        var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
+        Object.assign(result, result, protectedPartyName);
+        
+        var applicationLocation = this.$store.state.Application.applicationLocation;
+        var userLocation = this.$store.state.Common.userLocation;
+        //console.log(applicationLocation)
+        //console.log(userLocation)
+        if(applicationLocation)
+            Object.assign(result, result,{applicationLocation: applicationLocation}); 
+        else
+            Object.assign(result, result,{applicationLocation: userLocation});
+        //console.log(result)
+        return result;
+    }
+
+}
 </script>

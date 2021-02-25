@@ -19,7 +19,7 @@
     limitations under the License.
 """
 
-from .User import User
-from .SurveyResult import SurveyResult
-from .PreparedPdf import PreparedPdf
-from .Application import Application
+from .user import User
+from .survey_result import SurveyResult
+from .prepared_pdf import PreparedPdf
+from .application import Application

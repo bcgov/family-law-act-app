@@ -4,7 +4,11 @@
       <!-- Navbar content -->
 
       <div class="container-fluid">
-        <a class="navbar-brand" href="https://www2.gov.bc.ca" style="max-width:200px">
+        <a
+          class="navbar-brand"
+          href="https://www2.gov.bc.ca"
+          style="max-width: 200px"
+        >
           <img
             class="img-fluid d-none d-md-block"
             src="../../public/images/bcid-logo-rev-en.svg"
@@ -44,6 +48,11 @@
             </div>
           </div>
         </div>
+        <div class="navbar-extra">
+          <b-button class="text-primary bg-info" @click="contactUs = true">
+            Contact Us
+          </b-button>
+        </div>
         <div id="app-exit" class="app-exit">
           <a
             @click="logout(true)"
@@ -51,7 +60,7 @@
             id="quick-exit"
             rel="external"
             class="btn btn-primary text-warning"
-            ><span class="fa fa-sign-out"/> Quick Exit</a
+            ><span class="fa fa-sign-out" /> Quick Exit</a
           >
         </div>
 
@@ -68,59 +77,84 @@
         </button>
       </div>
     </nav>
+
+    <b-modal size="xl" v-model="contactUs" header-class="bg-white">
+      <template v-slot:modal-title>
+        <h1 class="mb-0 text-primary">General and Technical Enquiries</h1>
+      </template>
+      <div class="m-3">
+        <p>Can't find what you are looking for? Have a technical issue?</p>
+        <p>
+          Contact us 8:00 am to 4:30 pm Pacific Time - Monday to Friday except
+          Statutory Holidays
+        </p>
+        <p>
+          CSO Support -
+          <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a>
+        </p>
+      </div>
+      <template v-slot:modal-footer>
+        <b-button variant="primary" @click="contactUs = false">Close</b-button>
+      </template>
+      <template v-slot:modal-header-close>
+        <b-button
+          variant="outline-dark"
+          class="closeButton"
+          @click="contactUs = false"
+          >&times;</b-button
+        >
+      </template>
+    </b-modal>
   </header>
 </template>
 
-<script>
-import { SessionManager } from "@/components/utils/utils";
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { SessionManager } from "@/components/utils/utils";
 import moment from "moment-timezone";
-
-export default {
-  data() {
-    return {};
-  },
-  computed: {
-    userName() {
-      return this.$store.getters["application/getUserName"];
-    }
-  },
-  methods: {
-    logout: function(isQuickExit) {
-      const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
-
-      if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
-        const lastUpdated = moment().format();
-        this.$store.dispatch("application/setLastUpdated", lastUpdated);
-        const application = this.$store.getters["application/getApplication"];
-        const applicationId = application.id;
-
-        this.$http
-          .put("/app/" + applicationId + "/", application, {
-            responseType: "json",
-            headers: {
-              "Content-Type": "application/json",
-            }
-          })
-          .then(res => {
-            console.log(res.data);
-            this.error = "";
-          })
-          .catch(err => {
-            console.error(err);
-            this.error = err;
-          });
-      }
-      Vue.nextTick().then(() => {
-        if (isQuickExit){
-          window.open('http://www.google.ca');
-          SessionManager.logoutAndRedirect(this.$store, this.$http);
-        }else 
-          SessionManager.logout(this.$store);
-      });
-    }
+@Component
+export default class NavigationTopbar extends Vue {
+  error = "";
+  contactUs = false;
+  mounted() {
+    this.contactUs = false;
   }
-};
+  get userName() {
+    return this.$store.state.Application.userName;
+  }
+
+  public logout(isQuickExit) {
+    const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
+    if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
+      const lastUpdated = moment().format();
+      this.$store.commit("Application/setLastUpdated", lastUpdated);
+      const application = this.$store.state.Application;
+      const applicationId = application.id;
+      const header = {
+        responseType: "json",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      };
+      this.$http.put("/app/" + applicationId + "/", application, header).then(
+        (res) => {
+          //console.log(res.data);
+          this.error = "";
+        },
+        (err) => {
+          console.error(err);
+          this.error = err;
+        }
+      );
+    }
+    Vue.nextTick().then(() => {
+      if (isQuickExit) {
+        window.open("http://www.google.ca");
+        SessionManager.logoutAndRedirect(this.$store);
+      } else SessionManager.logout(this.$store);
+    });
+  }
+}
 </script>
 
 <style>
@@ -132,15 +166,12 @@ export default {
 
 <style scoped lang="scss">
 @import "../styles/common";
-
 .app-exit + .navbar {
   padding-right: 170px;
 }
-
 .navbar-brand:not(.logo) {
   flex: 1 1 auto;
 }
-
 .navbar-extra {
   display: inline-block;
   flex: 1 1 auto;
@@ -151,16 +182,12 @@ export default {
   flex: 1 1 auto;
   text-align: right;
 }
-
 .app-exit,
 .navbar {
   .btn-primary {
     border-color: #ccc;
   }
 }
-
-
-
 #app-exit {
   padding: 8px 15px;
   position: absolute;
@@ -174,7 +201,6 @@ export default {
     padding: 0.5em 1em;
   }
 }
-
 #app-profile {
   color: $gov-white;
 }
