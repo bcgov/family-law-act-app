@@ -29,7 +29,9 @@ class EFilingSubmitView(generics.GenericAPIView):
         return extension.lower() not in self.allowed_extensions
 
     def _convert_and_add_fpo_file(self, po_pdf_content, incoming_files):
-        outgoing_files = [("files", ("fpo_generated.pdf", po_pdf_content, "application/pdf"))]
+        outgoing_files = [
+            ("files", ("fpo_generated.pdf", po_pdf_content, "application/pdf"))
+        ]
         for incoming_file in incoming_files:
             outgoing_files.append(
                 ("files", (incoming_file.name, incoming_file.read(), "application/pdf"))
@@ -54,15 +56,19 @@ class EFilingSubmitView(generics.GenericAPIView):
         incoming_files = request.FILES.getlist("files")
         for file in incoming_files:
             if file.size == 0:
-                return HttpResponseBadRequest("One of the files was empty.")
+                return JsonResponse(
+                    {"message": "One of the files was empty."}, status=400
+                )
             if self._file_size_too_large(file.size):
-                return HttpResponseBadRequest("Filesize limit exceeded: 10 MB.")
+                return JsonResponse(
+                    {"message": "Filesize limit exceeded: 10 MB."}, status=400
+                )
             if self._invalid_file_extension(file):
-                return HttpResponseBadRequest("Wrong file format.")
+                return JsonResponse({"message": "Wrong file format."}, status=400)
 
         application = get_application_for_user(application_id, request.user.id)
         if application.prepared_pdf_id is None:
-            return HttpResponseBadRequest("PDF is not generated.")
+            return JsonResponse({"message": "PDF is not generated."}, status=400)
 
         (po_pdf_content, po_json) = self._get_prepared_pdf(application.prepared_pdf_id)
         outgoing_files = self._convert_and_add_fpo_file(po_pdf_content, incoming_files)
@@ -82,7 +88,7 @@ class EFilingSubmitView(generics.GenericAPIView):
                 if upload_result and "message" in upload_result
                 else "Document Upload Failed."
             )
-            return JsonResponse({'message': message}, status=500)
+            return JsonResponse({"message": message}, status=500)
 
         submission_id = upload_result["submissionId"]
         redirect_url, msg = self.efiling_submission.generate_efiling_url(
@@ -92,6 +98,6 @@ class EFilingSubmitView(generics.GenericAPIView):
         if redirect_url is not None:
             application.filed = datetime.now()
             application.save()
-            return JsonResponse({'redirectUrl': redirect_url, 'message': msg})
+            return JsonResponse({"redirectUrl": redirect_url, "message": msg})
 
-        return JsonResponse({'message': message}, status=500)
+        return JsonResponse({"message": message}, status=500)
