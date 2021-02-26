@@ -43,7 +43,7 @@ class EFilingParsing:
                 {
                     "name": file[1][0],
                     "type": document_types[index],
-                    "data": po_json if index == 0 else "",  # First file is always generated.
+                    "data": "",  #po_json if index == 0 else "",  # First file is always generated.
                     "md5": hashlib.md5(file[1][1]).hexdigest(),
                 }
             )
