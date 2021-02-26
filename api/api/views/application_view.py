@@ -12,7 +12,7 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 
 from api.models.application import Application
-from api.utils import get_app_object
+from api.utils import get_application_for_user
 
 LOGGER = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ class ApplicationView(APIView):
 
     def get(self, request, pk, format=None):
         uid = request.user.id
-        application = get_app_object(pk, uid)
+        application = get_application_for_user(pk, uid)
         steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
         steps = json.loads(steps_dec)
         data = {"id": application.id,
@@ -88,7 +88,7 @@ class ApplicationView(APIView):
         if not body:
             return HttpResponseBadRequest("Missing request body")
 
-        app = get_app_object(pk, uid)
+        app = get_application_for_user(pk, uid)
         if not app:
             return HttpResponseNotFound("No record found")
 
@@ -110,6 +110,6 @@ class ApplicationView(APIView):
 
     def delete(self, request, pk, format=None):
         uid = request.user.id
-        application = get_app_object(pk, uid)
+        application = get_application_for_user(pk, uid)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
