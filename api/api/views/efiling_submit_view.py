@@ -3,7 +3,7 @@ import json
 import uuid
 from datetime import datetime
 from django.conf import settings
-from django.http import HttpResponseBadRequest, HttpResponse
+from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from rest_framework import permissions, generics
 from api.models import PreparedPdf
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
@@ -82,7 +82,7 @@ class EFilingSubmitView(generics.GenericAPIView):
                 if upload_result and "message" in upload_result
                 else "Document Upload Failed."
             )
-            return HttpResponseBadRequest(message)
+            return JsonResponse({'message': message}, status=500)
 
         submission_id = upload_result["submissionId"]
         redirect_url, msg = self.efiling_submission.generate_efiling_url(
@@ -92,6 +92,6 @@ class EFilingSubmitView(generics.GenericAPIView):
         if redirect_url is not None:
             application.filed = datetime.now()
             application.save()
-            return HttpResponse({redirect_url, msg})
+            return JsonResponse({'redirectUrl': redirect_url, 'message': msg})
 
-        return HttpResponse(msg, status=500)
+        return JsonResponse({'message': message}, status=500)
