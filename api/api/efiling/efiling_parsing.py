@@ -54,9 +54,9 @@ class EFilingParsing:
                 {
                     "partyType": "IND",
                     "roleType": "CHD",
-                    "firstName": child["first"],
-                    "middleName": child["middle"],
-                    "lastName": child["last"],
+                    "firstName": child["childName"]["first"],
+                    "middleName": child["childName"]["middle"],
+                    "lastName": child["childName"]["last"],
                 }
             )
 
