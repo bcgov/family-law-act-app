@@ -42,8 +42,9 @@ class EFilingSubmitView(generics.GenericAPIView):
                 return JsonMessageResponse("Wrong file format.", status=400)
         return None
 
-    # This inserts our generated file, iterates over files and converts to PDF if necessary.
-    # Also converts MemoryUploadedFiles into a multi-form payload to be sent out as files.
+    """ This inserts our generated file, iterates over files and converts to PDF if necessary.
+        Also converts MemoryUploadedFiles into a multi-form payload to be sent out as files. """
+
     def _convert_incoming_files(self, incoming_files, po_pdf_content, document_types):
         outgoing_files = [
             ("files", ("fpo_generated.pdf", po_pdf_content, "application/pdf"))
