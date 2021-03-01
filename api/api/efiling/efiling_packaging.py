@@ -51,10 +51,10 @@ class EFilingPackaging:
                     }
                     for party in data["parties"]
                 ],
-                "navigationUrls": {
-                    "success": data["successUrl"],
-                    "error": data["errorUrl"],
-                    "cancel": data["cancelUrl"],
-                },
             },
+            "navigationUrls": {
+                "success": data["successUrl"],
+                "error": data["errorUrl"],
+                "cancel": data["cancelUrl"],
+            }
         }
