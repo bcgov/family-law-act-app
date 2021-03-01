@@ -18,6 +18,7 @@ class Application(models.Model):
     protected_party_name = models.JSONField(blank=True, null=True)
     protected_child_name = models.JSONField(blank=True, null=True)
     application_location = models.JSONField(blank=True, null=True)
+    last_submission_id = models.CharField(max_length=50, blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)
 
@@ -38,3 +39,5 @@ class Application(models.Model):
         blank=True,
         null=True,
     )
+
+    location = models.CharField(max_length=500, blank=True, null=True)
