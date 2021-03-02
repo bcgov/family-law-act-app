@@ -26,6 +26,7 @@ class Application extends VuexModule {
     public requiredDocuments: string[] = []
     public packageNumber = ""
     public eFilingHubLink = ""
+    public documentTypesJson = [];
 
     @Mutation
     public init(): void {
@@ -612,6 +613,15 @@ class Application extends VuexModule {
     @Action
     public UpdateLastFiled(newLastFiled) {
         this.context.commit("setLastFiled", newLastFiled);
+    }
+
+    @Mutation
+    public setDocumentTypesJson(documentTypesJson): void {
+        this.documentTypesJson = documentTypesJson;
+    }
+    @Action
+    public UpdateDocumentTypesJson(newDocumentTypesJson) {
+        this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
     }
 
     @Mutation
