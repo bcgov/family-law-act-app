@@ -105,6 +105,7 @@ class ApplicationView(APIView):
         app.protected_party_name = body.get("protectedPartyName")
         app.protected_child_name = body.get("protectedChildName")
         app.application_location = body.get("applicationLocation")
+        app.last_filed = body.get("lastFiled")
         app.save()
         return Response("success")
 

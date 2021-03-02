@@ -135,13 +135,13 @@ class EFilingSubmitView(generics.GenericAPIView):
 
         # EFiling package submission.
         submission_id = upload_result["submissionId"]
-        redirect_url, msg = self.efiling_submission.generate_efiling_url(
+        redirect_url, message = self.efiling_submission.generate_efiling_url(
             request.user.universal_id, transaction_id, submission_id, data
         )
 
         if redirect_url is not None:
             application.last_submission_id = submission_id
             application.save()
-            return JsonResponse({"redirectUrl": redirect_url, "message": msg})
+            return JsonResponse({"redirectUrl": redirect_url, "message": message})
 
         return JsonMessageResponse(message, status=500)
