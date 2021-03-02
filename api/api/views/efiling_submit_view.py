@@ -100,7 +100,7 @@ class EFilingSubmitView(generics.GenericAPIView):
         body = request.data
         application = get_application_for_user(application_id, request.user.id)
         efiling_submission = EFilingSubmissionModel.objects.filter(
-            submission_id=application.last_efiling_submission_id
+            id=application.last_efiling_submission_id
         ).first()
         if not efiling_submission:
             return HttpResponse(status=404)
