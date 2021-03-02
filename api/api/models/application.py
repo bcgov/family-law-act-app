@@ -18,7 +18,6 @@ class Application(models.Model):
     protected_party_name = models.JSONField(blank=True, null=True)
     protected_child_name = models.JSONField(blank=True, null=True)
     application_location = models.JSONField(blank=True, null=True)
-    last_submission_id = models.CharField(max_length=50, blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)
 
@@ -35,6 +34,13 @@ class Application(models.Model):
     prepared_pdf = models.ForeignKey(
         "PreparedPdf",
         related_name="pdf_data",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    last_efiling_submission = models.ForeignKey(
+        "EFilingSubmission",
+        related_name="submission_application_id",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

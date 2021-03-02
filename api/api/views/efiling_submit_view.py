@@ -100,18 +100,17 @@ class EFilingSubmitView(generics.GenericAPIView):
         body = request.data
         application = get_application_for_user(application_id, request.user.id)
         efiling_submission = EFilingSubmissionModel.objects.filter(
-            submission_id=application.last_submission_id
+            id=application.last_efiling_submission_id
         ).first()
-        if efiling_submission:
-            efiling_submission.package_number = body.get("packageNumber")
-            efiling_submission.package_url = body.get("packageUrl")
-            efiling_submission.last_updated = timezone.now()
-            efiling_submission.save()
-            application.last_filed = timezone.now()
-            application.save()
-            return HttpResponse(status=204)
-        else:
+        if not efiling_submission:
             return HttpResponse(status=404)
+        efiling_submission.package_number = body.get("packageNumber")
+        efiling_submission.package_url = body.get("packageUrl")
+        efiling_submission.last_updated = timezone.now()
+        efiling_submission.save()
+        application.last_filed = timezone.now()
+        application.save()
+        return HttpResponse(status=204)
 
     def post(self, request, application_id):
         document_types = request.POST.getlist("documentTypes")
@@ -163,12 +162,12 @@ class EFilingSubmitView(generics.GenericAPIView):
         )
 
         if redirect_url is not None:
-            application.last_submission_id = submission_id
-            application.save()
-
             efiling_submission.submission_id = submission_id
             efiling_submission.last_updated = timezone.now()
             efiling_submission.save()
+
+            application.last_efiling_submission_id = efiling_submission.id
+            application.save()
             return JsonResponse({"redirectUrl": redirect_url, "message": message})
 
         return JsonMessageResponse(message, status=500)

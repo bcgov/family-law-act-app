@@ -34,7 +34,7 @@ class ApplicationView(APIView):
         steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
         steps = json.loads(steps_dec)
         submission = EFilingSubmission.objects.filter(
-            submission_id=application.last_submission_id
+            id=application.last_efiling_submission_id
         ).first()
         data = {"id": application.id,
                 "type": application.app_type,
