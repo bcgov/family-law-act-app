@@ -20,8 +20,8 @@ class EFilingParsing:
     ):
         applicant = application.applicant_name
         respondent = application.respondent_name
-        children = application.protected_child_name
-        protected_party = application.protected_party_name
+        #children = application.protected_child_name
+        #protected_party = application.protected_party_name
         converted_data = {}
         converted_data["locationName"] = request.user.location
         # TODO not sure if we need to include lawyer info?
@@ -39,17 +39,19 @@ class EFilingParsing:
                 "firstName": applicant["first"],
                 "middleName": applicant["middle"],
                 "lastName": applicant["last"],
-            },
-            {
-                "partyType": "IND",
-                "roleType": "WIT",  # TODO not sure if this is correct.
-                "firstName": protected_party["first"],
-                "middleName": protected_party["middle"],
-                "lastName": protected_party["last"],
             }
         ]
 
-        for child in children:
+        """,
+        {
+            "partyType": "IND",
+            "roleType": "WIT",  # TODO not sure if this is correct.
+            "firstName": protected_party["first"],
+            "middleName": protected_party["middle"],
+            "lastName": protected_party["last"],
+        }"""
+
+        """for child in children:
             converted_data["parties"].append(
                 {
                     "partyType": "IND",
@@ -59,7 +61,7 @@ class EFilingParsing:
                     "lastName": child["childName"]["last"],
                 }
             )
-
+        """
         converted_data["documents"] = []
         for index, file in enumerate(files):
             converted_data["documents"].append(
