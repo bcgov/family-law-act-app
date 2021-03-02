@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
-from api.models.application import Application
+from api.models import Application, EFilingSubmission
 from api.utils import get_application_for_user
 
 LOGGER = logging.getLogger(__name__)
@@ -33,11 +33,13 @@ class ApplicationView(APIView):
         application = get_application_for_user(pk, uid)
         steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
         steps = json.loads(steps_dec)
+        submission = EFilingSubmission.objects.filter(
+            submission_id=application.last_submission_id
+        ).first()
         data = {"id": application.id,
                 "type": application.app_type,
                 "steps": steps,
                 "lastUpdate": application.last_updated,
-                "lastFiled": application.last_filed,
                 "lastPrinted": application.last_printed,
                 "currentStep": application.current_step,
                 "allCompleted": application.all_completed,
@@ -48,7 +50,10 @@ class ApplicationView(APIView):
                 "respondentName": application.respondent_name,
                 "protectedPartyName": application.protected_party_name,
                 "protectedChildName": application.protected_child_name,
-                "applicationLocation": application.application_location}
+                "applicationLocation": application.application_location,
+                "packageNumber": submission.package_number if submission is not None else "",
+                "packageUrl": submission.package_url if submission is not None else "",
+                "lastFiled": submission.last_updated if submission is not None else ""}
         return Response(data)
 
     def post(self, request: Request):
@@ -105,8 +110,8 @@ class ApplicationView(APIView):
         app.protected_party_name = body.get("protectedPartyName")
         app.protected_child_name = body.get("protectedChildName")
         app.application_location = body.get("applicationLocation")
-        app.last_filed = body.get("lastFiled")
         app.save()
+
         return Response("success")
 
     def delete(self, request, pk, format=None):

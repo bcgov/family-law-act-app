@@ -2,11 +2,12 @@ import logging
 import json
 import uuid
 import base64
+from django.utils import timezone
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework import permissions, generics
-from api.models import PreparedPdf
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
+from api.models import PreparedPdf, EFilingSubmission as EFilingSubmissionModel
 from api.utils import get_application_for_user
 from core.pdf import image_to_pdf
 from core.utils.json_message_response import JsonMessageResponse
@@ -95,6 +96,21 @@ class EFilingSubmitView(generics.GenericAPIView):
         po_json.update({"applicationId": application_id})
         return (po_pdf_content, po_json)
 
+    def put(self, request, application_id):
+        body = request.data
+        application = get_application_for_user(application_id, request.user.id)
+        efiling_submission = EFilingSubmissionModel.objects.filter(
+            submission_id=application.last_submission_id
+        ).first()
+        if efiling_submission:
+            efiling_submission.package_number = body.get("packageNumber")
+            efiling_submission.package_url = body.get("packageUrl")
+            efiling_submission.last_updated = timezone.now()
+            efiling_submission.save()
+            return HttpResponse(status=204)
+        else:
+            return HttpResponse(status=404)
+
     def post(self, request, application_id):
         document_types = request.POST.getlist("documentTypes")
         request_files = request.FILES.getlist("files")
@@ -121,6 +137,11 @@ class EFilingSubmitView(generics.GenericAPIView):
 
         # EFiling upload document.
         transaction_id = str(uuid.uuid4())
+        efiling_submission = EFilingSubmissionModel(
+            transaction_id=transaction_id,
+            application_id=application.id,
+        )
+        efiling_submission.save()
         upload_result = self.efiling_submission.upload_documents(
             request.user.universal_id, transaction_id, outgoing_files
         )
@@ -142,6 +163,10 @@ class EFilingSubmitView(generics.GenericAPIView):
         if redirect_url is not None:
             application.last_submission_id = submission_id
             application.save()
+
+            efiling_submission.submission_id = submission_id
+            efiling_submission.last_updated = timezone.now()
+            efiling_submission.save()
             return JsonResponse({"redirectUrl": redirect_url, "message": message})
 
         return JsonMessageResponse(message, status=500)

@@ -23,3 +23,4 @@ from .user import User
 from .survey_result import SurveyResult
 from .prepared_pdf import PreparedPdf
 from .application import Application
+from .efiling_submission import EFilingSubmission
