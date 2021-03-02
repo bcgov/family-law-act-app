@@ -649,6 +649,7 @@ class Application extends VuexModule {
         this.protectedPartyName = application.protectedPartyName;
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
+        this.lastFiled = application.lastFiled;
     }
     @Action
     public UpdateCurrentApplication(newApplication) {

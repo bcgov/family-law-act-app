@@ -143,10 +143,10 @@
                     <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
                 </div>
 
-                <div style="width:19rem; margin: 0 auto;">
+                <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application first'">
                     <b-button 
-                        disabled="!submitEnable"                   
-                        v-on:click.prevent="onSubmit()"
+                        :disabled="!submitEnable"                   
+                        v-on:click.prevent="onSubmit()"                        
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
                             Submit Application
@@ -280,6 +280,10 @@
 
         @applicationState.Action
         public UpdateLastPrinted!: (newLastPrinted) => void
+
+        @applicationState.Action
+        public UpdateLastFiled!: (newLastFiled) => void
+
 
         error = "";
         showGetHelpForPDF = false;
@@ -509,8 +513,14 @@
             this.$http.post(url, bodyFormData, header)
             .then(res => {
                 console.log(res)
-                //this.submissionId = res.data.submissionId;
-                //this.generateUrl();
+                if(res.data.message=="success")
+                {
+                    this.saveChanges();
+                    this.$router.push({ name: "applicant-status" });
+                    //this.submissionId = res.data.submissionId;
+                    //this.generateUrl();
+                }
+                
 
             }, err => {
                 console.error(err);
@@ -561,6 +571,30 @@
                 this.fileType = "";
                 
             }
+        }
+
+        public saveChanges() {
+            const lastUpdated = moment().format();
+            this.$store.commit("Application/setLastUpdated", lastUpdated);
+            this.UpdateLastFiled(lastUpdated); 
+            const application = this.$store.state.Application;
+            const applicationId = application.id;
+
+            const header = {
+                responseType: "json",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+
+            this.$http.put("/app/"+ applicationId + "/", application, header)
+            .then(res => {
+                //console.log(res.data);
+                this.error = "";
+            }, err => {
+                console.error(err);
+                this.error = err;
+            });    
         }
     }
 </script>

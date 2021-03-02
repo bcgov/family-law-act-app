@@ -30,7 +30,7 @@
                                     <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                                 </b-button>
 
-                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+                                <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="resumeApplication(row.item.id)"
                                     v-b-tooltip.hover.noninteractive
                                     title="Resume Application">

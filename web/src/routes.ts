@@ -40,7 +40,7 @@ const routes = [
     component: AvailableServices
   },
   {
-    path: "/results/:result",
+    path: "/result/:result",
     name: "result-page",
     component: ResultPage,
   },
