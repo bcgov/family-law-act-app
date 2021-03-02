@@ -39,5 +39,3 @@ class Application(models.Model):
         blank=True,
         null=True,
     )
-
-    location = models.CharField(max_length=500, blank=True, null=True)
