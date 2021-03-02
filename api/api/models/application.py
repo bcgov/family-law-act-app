@@ -10,6 +10,7 @@ class Application(models.Model):
     current_step = models.IntegerField(null=True, blank=True)
     all_completed = models.BooleanField(blank=True, null=True)
     last_printed = models.DateTimeField(blank=True, null=True)
+    last_filed = models.DateTimeField(blank=True, null=True)
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
     applicant_name = models.JSONField(blank=True, null=True)

@@ -53,7 +53,7 @@ class ApplicationView(APIView):
                 "applicationLocation": application.application_location,
                 "packageNumber": submission.package_number if submission is not None else "",
                 "packageUrl": submission.package_url if submission is not None else "",
-                "lastFiled": submission.last_updated if submission is not None else ""}
+                "lastFiled": application.last_filed}
         return Response(data)
 
     def post(self, request: Request):

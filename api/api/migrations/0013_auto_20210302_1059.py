@@ -11,10 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='application',
-            name='last_filed',
-        ),
         migrations.CreateModel(
             name='EFilingSubmission',
             fields=[

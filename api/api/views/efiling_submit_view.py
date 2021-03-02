@@ -107,6 +107,8 @@ class EFilingSubmitView(generics.GenericAPIView):
             efiling_submission.package_url = body.get("packageUrl")
             efiling_submission.last_updated = timezone.now()
             efiling_submission.save()
+            application.last_filed = timezone.now()
+            application.save()
             return HttpResponse(status=204)
         else:
             return HttpResponse(status=404)
