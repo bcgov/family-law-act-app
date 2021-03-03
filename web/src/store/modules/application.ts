@@ -1,5 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import { stepInfoType, pageInfoType } from "@/types/Application";
+import { supportingDocumentInfoType } from "@/types/Common";
 
 @Module({
   namespaced: true
@@ -27,6 +28,7 @@ class Application extends VuexModule {
     public packageNumber = ""
     public eFilingHubLink = ""
     public documentTypesJson = [];
+    public supportingDocuments: supportingDocumentInfoType[] = [];
 
     @Mutation
     public init(): void {
@@ -631,6 +633,15 @@ class Application extends VuexModule {
     @Action
     public UpdateScrollToLocationName(newScrollToLocationName) {
         this.context.commit("setScrollToLocationName", newScrollToLocationName);
+    }
+
+    @Mutation
+    public setSupportingDocuments(supportingDocuments): void {
+        this.supportingDocuments = supportingDocuments;
+    }
+    @Action
+    public UpdateSupportingDocuments(newSupportingDocuments) {
+        this.context.commit("setSupportingDocuments", newSupportingDocuments);
     }
 
     @Mutation

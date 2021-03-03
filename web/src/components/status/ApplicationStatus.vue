@@ -18,6 +18,7 @@
                             sort-by="lastUpdated"
                             :sort-desc="true"
                             borderless
+                            sort-icon-left
                             striped
                             small 
                             responsive="sm"
@@ -38,20 +39,27 @@
                                 </b-button>
 
                                 <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                    @click="navigateToEFilingHub(row.item.id)"
+                                    @click="viewApplicationPdf(row.item.id)"
+                                    v-b-tooltip.hover.noninteractive
+                                    title="View the Submitted Application">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                                </b-button>
+
+                                <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="navigateToEFilingHub(row.item.last_efiling_submission)"
                                     v-b-tooltip.hover.noninteractive
                                     title="Navigate To Submitted Application">
                                     <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                                 </b-button>
                             </template>
                             <template v-slot:cell(app_type)="row">                  
-                                <span>{{row.item.app_type}}</span>
+                                <span :class="row.item.lastFiled?'text-success':''">{{row.item.app_type}}</span>
                             </template>
                             <template v-slot:cell(lastUpdated)="row">                  
                                 <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
                             </template>
                             <template v-slot:cell(lastFiled)="row">                  
-                                <span>{{ row.item.lastFiledDate | beautify-date-weekday}}</span>
+                                <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
                             </template>
                         </b-table>
                     </b-card>
@@ -126,7 +134,7 @@ export default class ApplicationStatus extends Vue {
     previousApplicationFields = [
         { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
         { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
-        { key: 'lastFiled', label: 'Last Filed', sortable:true, tdClass: 'border-top'},
+        { key: 'lastFiled', label: 'Filed Date', sortable:true, tdClass: 'border-top'},
         { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
     ]
     confirmDelete = false;
@@ -152,14 +160,16 @@ export default class ApplicationStatus extends Vue {
     //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
-            for (const appJson of response.data) {
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:''};
+            for (const appJson of response.data) {                
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', last_efiling_submission:{package_number:'',package_url:''}};
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
                 app.app_type = appJson.app_type;
+                if(appJson.last_efiling_submission)
+                    app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                 this.previousApplications.push(app);
             }
             //console.log(this.previousApplications)       
@@ -204,10 +214,10 @@ export default class ApplicationStatus extends Vue {
         });
     }
 
-    public navigateToEFilingHub(packageNumber) {
-        //TODO: replace input value with the eFilingHub link
-        console.log("going to hub")
-        //location.replace(packageNumber)
+    public navigateToEFilingHub(packageInfo) {
+        //console.log(packageInfo)        
+        //console.log("going to hub")
+        location.replace(packageInfo.package_url)
     }
 
     public resumeApplication(applicationId) {      
@@ -271,6 +281,34 @@ export default class ApplicationStatus extends Vue {
         this.confirmDelete=false;  
     }
 
+    public viewApplicationPdf(applicationId) {
+            
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+        const body = {}
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        //console.log(body)
+        this.$http.post(url,body, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "fpo.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            this.error = "";
+        },err => {
+            console.error(err);
+            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        });
+
+    }
+
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -331,4 +369,9 @@ hr.section {
 .terms{
     color: $gov-mid-blue;
 }
+
+button{
+    border:0px;
+}
+
 </style>

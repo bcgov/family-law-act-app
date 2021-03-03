@@ -15,16 +15,18 @@
 
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
             
-                <div style="margin:1rem 0; width:23rem;">
-                    <b-button                   
+                <b-card style="margin:1rem 0;border-radius:10px; border:2px solid #AAAAFF;">
+                    <div style="float:left; margin: 0.5rem 1rem;color:#3434eb; font-size:20px; font-weight:bold;" > Application About a Protection Order (FORM K)</div>
+                    <b-button 
+                        style="float:right; margin: 0.25rem 1rem;"                  
                         v-on:click.prevent="onDownload()"
                         variant="success">
                             <span class="fa fa-print btn-icon-left"/>
-                            Download and Review Your Application
+                            Review and Print
                     </b-button>
-                </div>
+                </b-card>
 
-                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="border-bottom:1px solid; width:20.25rem;">
+                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
                 </div>
 
@@ -52,7 +54,7 @@
                     <ul class="mt-3">
                         <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
                         <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
-                        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="border-bottom:1px solid; width:15.7rem;">
+                        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
                             <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
                         </div>
                         <li>Upload the documents bellow:</li>
@@ -85,7 +87,7 @@
                         :items="supportingDocuments"
                         :fields="supportingDocumentFields"
                         class="mx-0"
-                        borderless
+                        borderless                        
                         striped
                         small 
                         fixed>
@@ -143,14 +145,16 @@
                     <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
                 </div>
 
-                <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application first'">
-                    <b-button 
+                <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
+                    <loading-spinner v-if="submissionInProgress" /> 
+                    <b-button v-else
                         :disabled="!submitEnable"                   
                         v-on:click.prevent="onSubmit()"                        
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
-                            Submit Application
+                            Proceed to Submit
                     </b-button>
+                    
                 </div>
             </b-card>
 
@@ -212,8 +216,6 @@
     import moment from 'moment-timezone';
     
     import { stepInfoType } from "@/types/Application";
-    import { supportingDocumentInfoType } from "@/types/Common";
-
     import PageBase from "../PageBase.vue";    
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
     import GetHelpScanning from "./helpPages/GetHelpScanning.vue"    
@@ -263,6 +265,12 @@
         // @applicationState.State
         // public requiredDocuments!: string[];
 
+        @applicationState.State
+        public supportingDocuments!: any;
+        @applicationState.Action
+        public UpdateSupportingDocuments!: (newSupportingDocuments) => void
+
+
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
 
@@ -289,8 +297,8 @@
         showGetHelpForPDF = false;
         showGetHelpScanning = false;
         applicantLocation = {name:'', address:'', cityStatePostcode:'', email:''}        
-        submissionId = "";
-        generatedUrlPayload = {};
+        submissionInProgress = false;
+        
         supportingFile = null;
         selectedDocumentTypeState = true;
         selectedSupportingDocumentState = true;
@@ -303,7 +311,7 @@
             { key: 'edit', thClass: 'd-none',tdClass:'align-middle'},
             { key: 'preview', thClass: 'd-none'}
         ];
-        supportingDocuments: supportingDocumentInfoType[] = [];
+       
         showTypeOfDocuments = false;
 
         submitEnable = false;
@@ -510,28 +518,24 @@
                 }
             }
             
+            this.submissionInProgress = true;
+            
             this.$http.post(url, bodyFormData, header)
             .then(res => {
                 console.log(res)
                 if(res.data.message=="success")
                 {
-                    this.saveChanges();
-                    this.$router.push({ name: "applicant-status" });
-                    //this.submissionId = res.data.submissionId;
-                    //this.generateUrl();
+                    this.saveSubmission(res.data.redirectUrl)
+                    //this.$router.push({ name: "applicant-status" });                    
                 }
-                
-
             }, err => {
                 console.error(err);
                 this.error = err;
+                this.submissionInProgress = false;
             });           
         }
         
-        public generateUrl() {        
-            this.generateUrlPayload();
-            //TODO: use new api to generate url
-            var eFilingUrl = "";
+        public generateUrl(eFilingUrl) {
             // use a new api to:
             //1. add efiling hub access information to the application table
             //2. add the date of submission to the application table
@@ -539,10 +543,7 @@
             location.replace(eFilingUrl);        
         }
 
-        public generateUrlPayload() {
-            //TODO: add the payload elements
-            this.generatedUrlPayload = {}
-        }
+      
 
         public removeDocument(index) {
             this.supportingDocuments.splice(index, 1);
@@ -556,8 +557,7 @@
 
                 this.showTypeOfDocuments = false;
 
-                const file = this.supportingFile                
-                const docData = URL.createObjectURL(file)
+                const supportingdocuments = this.supportingDocuments 
               
                 const newFile = {
                     "fileName": this.supportingFile.name,
@@ -566,19 +566,22 @@
                     "image": URL.createObjectURL(this.supportingFile),
                     "imageRotation": 0
                 }
-                this.supportingDocuments.push(newFile);
+                supportingdocuments.push(newFile);
+                this.UpdateSupportingDocuments(supportingdocuments);
                 this.supportingFile = null;
                 this.fileType = "";
                 
             }
         }
 
-        public saveChanges() {
-            const lastUpdated = moment().format();
-            this.$store.commit("Application/setLastUpdated", lastUpdated);
-            this.UpdateLastFiled(lastUpdated); 
-            const application = this.$store.state.Application;
-            const applicationId = application.id;
+        public saveSubmission(packageurl) {
+           
+            const data = {
+                packageNumber:"",
+                packageUrl:packageurl 
+            } 
+
+            const url = "/efiling/"+this.id+"/submit/";
 
             const header = {
                 responseType: "json",
@@ -587,13 +590,15 @@
                 }
             }
 
-            this.$http.put("/app/"+ applicationId + "/", application, header)
+            this.$http.put(url, data, header)
             .then(res => {
-                //console.log(res.data);
+                //console.log(res.data);                
                 this.error = "";
+                this.generateUrl(packageurl);
             }, err => {
                 console.error(err);
                 this.error = err;
+                this.submissionInProgress = false;
             });    
         }
     }
