@@ -76,13 +76,13 @@ class EFilingParsing:
             )
 
         converted_data["successUrl"] = self.build_navigation_url(
-            request, "result/success"
+            request, f"result/{application.id}/success"
         )
         converted_data["errorUrl"] = self.build_navigation_url(
-            request, "result/error"
+            request, f"result/{application.id}/error"
         )
         converted_data["cancelUrl"] = self.build_navigation_url(
-            request, "result/cancel"
+            request, f"result/{application.id}/cancel"
         )
 
         return converted_data
