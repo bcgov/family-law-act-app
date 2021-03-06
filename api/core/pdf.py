@@ -1,6 +1,7 @@
 import json
 import os
 import requests
+from django.template.loader import get_template
 
 PDF_URL = os.environ.get('PDF_SERVICE_URL')
 
@@ -23,3 +24,7 @@ def render(*html):
 
     response.raise_for_status()
     return response.content
+
+
+def image_to_pdf(data):
+    return render(get_template("images_to_pdf.html").render(data))

@@ -71,7 +71,7 @@ export default class Information extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if(options.name === "ApplicantName") {
+            if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", options.value);
             }
         })
@@ -80,17 +80,13 @@ export default class Information extends Vue {
     public reloadPageInformation() {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'];            
+            this.survey.data = this.step.result['yourInformationSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-       
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
     public onPrev() {
@@ -109,21 +105,10 @@ export default class Information extends Vue {
   
     
     beforeDestroy() {
-
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        }   
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: this.survey.data}});
+        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 }
 </script>

@@ -120,10 +120,11 @@ objects:
       oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
       oidc-rp-host: ${OIDC_RP_HOST}
       encryption-key: ${DATA_SECURITY_KEY}
-      efiling-auth-url: ${EFILING_AUTH_URL}
-      efiling-client-id: ${EFILING_CLIENT_ID}
-      efiling-client-secret: ${EFILING_CLIENT_SECRET}
-      efiling-base-url: ${EFILING_BASE_URL}
+      efiling-auth-url: ${EFILING_HUB_KEYCLOAK_BASE_URL}
+      efiling-auth-realm: ${EFILING_HUB_KEYCLOAK_REALM}
+      efiling-client-id: ${EFILING_HUB_KEYCLOAK_CLIENT_ID}
+      efiling-client-secret: ${EFILING_HUB_KEYCLOAK_SECRET}
+      efiling-base-url: ${EFILING_HUB_API_BASE_URL}
       siteminder-logoff-url: ${SITEMINDER_LOGOFF_URL}
     type: Opaque
 
@@ -229,26 +230,32 @@ objects:
                       name: ${NAME}
                       key: encryption-key
 
-                - name: EFILING_AUTH_URL
+                - name: EFILING_HUB_KEYCLOAK_BASE_URL
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}
                       key: efiling-auth-url
-                - name: EFILING_CLIENT_ID
+                - name: EFILING_HUB_KEYCLOAK_REALM
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}
+                      key: efiling-auth-realm
+                - name: EFILING_HUB_KEYCLOAK_CLIENT_ID
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}
                       key: efiling-client-id
-                - name: EFILING_CLIENT_SECRET
+                - name: EFILING_HUB_KEYCLOAK_SECRET
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}
                       key: efiling-client-secret
-                - name: EFILING_BASE_URL
+                - name: EFILING_HUB_API_BASE_URL
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}
                       key: efiling-base-url
+
                 - name: SITEMINDER_LOGOFF_URL
                   valueFrom:
                     secretKeyRef:
@@ -373,22 +380,27 @@ parameters:
     generate: expression
     from: "[a-zA-Z0-9]{32}"
 
-  - name: EFILING_AUTH_URL
+  - name: EFILING_HUB_KEYCLOAK_BASE_URL
     displayName: EFILING authentication url
     description: EFILING authentication url
     required: false
     value:
-  - name: EFILING_CLIENT_ID
+  - name: EFILING_HUB_KEYCLOAK_REALM
+    displayName: EFILING Authentication Realm
+    description: EFILING Authentication Realm
+    required: false
+    value:
+  - name: EFILING_HUB_KEYCLOAK_CLIENT_ID
     displayName: EFILING Service Client Id
     description: EFILING Service Client Id
     required: false
     value:
-  - name: EFILING_CLIENT_SECRET
+  - name: EFILING_HUB_KEYCLOAK_SECRET
     displayName: EFILING Service Client Secret
     description: EFILING Service Client Secret
     required: false
     value:
-  - name: EFILING_BASE_URL
+  - name: EFILING_HUB_API_BASE_URL
     displayName: EFILING base url
     description: EFILING base url
     required: false

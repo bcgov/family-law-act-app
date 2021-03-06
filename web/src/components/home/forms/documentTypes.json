@@ -1,0 +1,2780 @@
+[
+ {
+   "type": "ABP",
+   "description": "Abandonment/Settlement (Partial)"
+ },
+ {
+   "type": "ABRV",
+   "description": "Abandonment/Settlement (Review/Vary)"
+ },
+ {
+   "type": "ABA",
+   "description": "Abandonment/Settlement of Appeal"
+ },
+ {
+   "type": "ABCA",
+   "description": "Abandonment/Settlement of Cross Appeal"
+ },
+ {
+   "type": "AFF",
+   "description": "Affidavit"
+ },
+ {
+   "type": "AFI",
+   "description": "Affidavit in Support of Indigent Application"
+ },
+ 
+ {
+   "type": "ABS",
+   "description": "Appeal Book - Supplementary"
+ },
+ {
+   "type": "AAB",
+   "description": "Appeal Book of Appellant"
+ },
+ {
+   "type": "ABJ",
+   "description": "Appeal Book of Joint"
+ },
+ {
+   "type": "ABR",
+   "description": "Appeal Book of Respondent"
+ },
+ {
+   "type": "ARO",
+   "description": "Appeal Record - Other"
+ },
+ {
+   "type": "ARSA",
+   "description": "Appeal Record - Stand Alone"
+ },
+ {
+   "type": "ARSU",
+   "description": "Appeal Record - Supplementary"
+ },
+
+ {
+   "type": "FAR",
+   "description": "Appellan'ts Reply Factum"
+ },
+ {
+   "type": "ATAA",
+   "description": "Appellant Appeal Authorities"
+ },
+ {
+   "type": "ATAC",
+   "description": "Appellant Chambers Authorities"
+ },
+ {
+   "type": "FA",
+   "description": "Appellant Factum"
+ },
+ {
+   "type": "FACA",
+   "description": "Appellant Factum on Cross Appeal (& Reply)"
+ },
+ {
+   "type": "MBAL",
+   "description": "Applicant Leave and/or Stay Motion Book"
+ },
+ {
+   "type": "MBAV",
+   "description": "Applicant Review/Vary Motion Book"
+ },
+ {
+   "type": "APTA",
+   "description": "Appointment Assessment"
+ },
+ {
+   "type": "APTB",
+   "description": "Appointment Settle Books"
+ },
+ {
+   "type": "APTO",
+   "description": "Appointment Settle Order"
+ },
+ {
+   "type": "APTS",
+   "description": "Appointment Settle Order and Assessment"
+ },
+ {
+   "type": "OTA",
+   "description": "Authorities - Other"
+ },
+
+
+
+ {
+   "type": "CBA",
+   "description": "Condensed Book - Appellant"
+ },
+ {
+   "type": "CBI",
+   "description": "Condensed Book - Intervenor"
+ },
+ {
+   "type": "CBJ",
+   "description": "Condensed Book - Joint"
+ },
+ {
+   "type": "CBO",
+   "description": "Condensed Book - Other"
+ },
+ {
+   "type": "CBR",
+   "description": "Condensed Book - Respondent"
+ },
+
+ {
+   "type": "CNAC",
+   "description": "Counsel (Address Change)"
+ },
+ {
+   "type": "CNAT",
+   "description": "Counsel (Change/Appointment)"
+ },
+ {
+   "type": "CNWD",
+   "description": "Counsel (Withdrawl)"
+ },
+ {
+   "type": "EFSA",
+   "description": "Electronic Filing Statement - Appeal"
+ },
+ {
+   "type": "FCA",
+   "description": "Factum - Amicus Curiae"
+ },
+ {
+   "type": "ATFS",
+   "description": "Further Submissions Authorities"
+ },
+ {
+   "type": "ATIA",
+   "description": "Intervenor Appeal Authorities"
+ },
+ {
+   "type": "ATIC",
+   "description": "Intervenor Chambers Authorities"
+ },
+ {
+   "type": "FAI",
+   "description": "Intervenor Factum"
+ },
+ {
+   "type": "FIR",
+   "description": "Invervenor's Reply Factum"
+ },
+ {
+   "type": "ATJ",
+   "description": "Joint Authorities"
+ },
+ {
+   "type": "LA",
+   "description": "Leave to Appeal"
+ },
+ {
+   "type": "LAA",
+   "description": "Leave to Appeal (Amended)"
+ },
+ {
+   "type": "LPC",
+   "description": "Letter - Court Proceeding via Teleconference"
+ },
+ {
+   "type": "LPV",
+   "description": "Letter - Court Proceeding via Videoconference"
+ },
+ {
+   "type": "LT",
+   "description": "Letter General"
+ },
+ {
+   "type": "LT5J",
+   "description": "Letter Request for 5 Judges"
+ },
+ {
+   "type": "MEMA",
+   "description": "Memorandum of Appellant"
+ },
+ {
+   "type": "MEMI",
+   "description": "Memorandum of Intervenor"
+ },
+ {
+   "type": "MEMO",
+   "description": "Memorandum of Other"
+ },
+ {
+   "type": "MEMR",
+   "description": "Memorandum of Respondent"
+ },
+ {
+   "type": "MBO",
+   "description": "Motion Book - Other"
+ },
+ {
+   "type": "MCH",
+   "description": "Motion Chambers"
+ },
+ {
+   "type": "MCT",
+   "description": "Motion Court"
+ },
+ {
+   "type": "NAAM",
+   "description": "Notice of Appeal (Amended)"
+ },
+ {
+   "type": "NASC",
+   "description": "Notice of Appeal (Supreme Court of Canada)"
+ },
+ {
+   "type": "NAA",
+   "description": "Notice of Appeal - Court of Appeal"
+ },
+ {
+   "type": "NCQ",
+   "description": "Notice of Constitutional Question"
+ },
+ {
+   "type": "NCA",
+   "description": "Notice of Cross Appeal"
+ },
+ {
+   "type": "NCAA",
+   "description": "Notice of Cross Appeal (Amended)"
+ },
+ {
+   "type": "NCAL",
+   "description": "Notice of Cross Appeal (Leave To)"
+ },
+
+ 
+ {
+   "type": "ORSE",
+   "description": "Order for Submitted for Entry"
+ },
+ 
+ {
+   "type": "FRR",
+   "description": "Responden'ts Reply Factum"
+ },
+ {
+   "type": "ATRA",
+   "description": "Respondent Appeal Authorities"
+ },
+ {
+   "type": "ATRC",
+   "description": "Respondent Chambers Authorities"
+ },
+ {
+   "type": "FR",
+   "description": "Respondent Factum"
+ },
+ {
+   "type": "FRAC",
+   "description": "Respondent Factum on Appeal & Cross Appeal"
+ },
+ {
+   "type": "MBRL",
+   "description": "Respondent Reply Leave and/or Stay Motion Book"
+ },
+ {
+   "type": "FSU",
+   "description": "Supplementary Factum"
+ },
+ {
+   "type": "TCAC",
+   "description": "Transcript - Chambers"
+ },
+ {
+   "type": "TCC",
+   "description": "Transcript - Civil (with required cd/disk)"
+ },
+ {
+   "type": "TCAD",
+   "description": "Transcript - Court"
+ },
+ {
+   "type": "TS",
+   "description": "Transcript - Supplementery"
+ },
+ {
+   "type": "TEA",
+   "description": "Transcript Extracts - Appellant"
+ },
+ {
+   "type": "TEJ",
+   "description": "Transcript Extracts - Joint"
+ },
+ {
+   "type": "TES",
+   "description": "Transcript Extracts - Supplementary"
+ }, 
+ {
+   "type": "AGR",
+   "description": "Agreement"
+ },
+ {
+   "type": "APL",
+   "description": "Application (Form 5)"
+ },
+
+ {
+   "type": "APF",
+   "description": "Application to Garnish Federal Monies"
+ },
+ {
+   "type": "APJ",
+   "description": "Application to a Judge"
+ },
+ {
+   "type": "GO",
+   "description": "Garnishing Order"
+ },
+ {
+   "type": "GOAA",
+   "description": "Garnishing Order Absolute"
+ },
+ {
+   "type": "HDS",
+   "description": "Hearing/Trial Details Attachment Sheet"
+ },
+ {
+   "type": "IRA",
+   "description": "Information for Remote Appearance"
+ },
+ {
+   "type": "NAT",
+   "description": "Notice - Appearance by Telephone Conference"
+ },
+ {
+   "type": "NHR",
+   "description": "Notice of Hearing (Form 8)"
+ }, 
+ {
+   "type": "NWOA",
+   "description": "Notice of Warrant of Arrest"
+ },
+ {
+   "type": "NPH",
+   "description": "Notice of a Payment Hearing"
+ }, 
+ {
+   "type": "ODT",
+   "description": "Order (Form 7)"
+ }, 
+ {
+   "type": "OAW",
+   "description": "Order Following an Appearance on a Warrant"
+ },
+ {
+   "type": "ORP",
+   "description": "Order for Attendance of a Prisoner in a Civil or Family Matter"
+ },
+ {
+   "type": "OSS",
+   "description": "Order for Seizure and Sale"
+ }, 
+ {
+   "type": "PO",
+   "description": "Payment Order"
+ },
+ {
+   "type": "POD",
+   "description": "Payment Order (By Default)"
+ }, 
+ {
+   "type": "RER",
+   "description": "Referral for Review (Form 1)"
+ },
+ {
+   "type": "RERA",
+   "description": "Referral for Review Affidavit (Form 2)"
+ },
+ {
+   "type": "RPO",
+   "description": "Request for Payment Out"
+ },
+ {
+   "type": "RSR",
+   "description": "Response to Referral (Form 3)"
+ },
+ {
+   "type": "RSRA",
+   "description": "Response to Referral Affidavit (Form 4)"
+ },
+ {
+   "type": "WOA",
+   "description": "Warrant of Arrest / Notice of Warrant of Arrest"
+ },
+ {
+   "type": "AMM",
+   "description": "Agreement Made In a Facilitated Planning Meeting or Mediation"
+ },
+ {
+   "type": "AEO",
+   "description": "Application Respecting Existing Orders or Agreements"
+ },
+ {
+   "type": "AXP",
+   "description": "Application about Extraordinary Parenting Matter (Victoria only)"
+ },
+ {
+   "type": "AAP",
+   "description": "Application about a Protection Order"
+ },
+ {
+   "type": "ACMO",
+   "description": "Application for Case Management Order with Notice (Victoria only)"
+ },
+ {
+   "type": "ACMW",
+   "description": "Application for Case Management Order without Notice"
+ },
+ {
+   "type": "AFET",
+   "description": "Application for Enforcement (Victoria Only)"
+ },
+ {
+   "type": "AFCO",
+   "description": "Application for Family Law Matter Consent Order (Victoria only)"
+ },
+ {
+   "type": "APRC",
+   "description": "Application for Order Prohibiting the Relocation of a Child (Victoria only)"
+ },
+ 
+ {
+   "type": "AFO",
+   "description": "Application for an Order - CFCSA"
+ },
+ {
+   "type": "APC",
+   "description": "Application to Change/Cancel Order"
+ },
+ {
+   "type": "AEC",
+   "description": "Application to Enforce a Custody Order"
+ },
+ {
+   "type": "APO",
+   "description": "Application to Obtain an Order"
+ },
+ {
+   "type": "ARD",
+   "description": "Application to Re-Set Court Date"
+ },
+ {
+   "type": "ARC",
+   "description": "Application to Recognize a Custody or Access Order made by an Extra-provincial Tribunal"
+ },
+ {
+   "type": "AEA",
+   "description": "Application to Recognize an ExtraProvincial Order for Guardianship, Parenting Arrangements orContact"
+ },
+ {
+   "type": "ARE",
+   "description": "Application to Renew, Change or Cancel an Order (Adult Guardianship)"
+ },
+
+ {
+   "type": "CCB",
+   "description": "Case Conference Brief (CFCSA)"
+ },
+ {
+   "type": "CCR",
+   "description": "Case Conference Record"
+ },
+ {
+   "type": "CRDF",
+   "description": "Certificate - Notice of Default Fee"
+ },
+  
+ {
+   "type": "COEA",
+   "description": "Certificate of Enforceability and Arrears (ISO)"
+ },
+
+ {
+   "type": "COI",
+   "description": "Certificate of Incapability (Form 2 AGA)"
+ },
+ {
+   "type": "CILA",
+   "description": "Certificate of Independent Legal Advice"
+ },
+
+ {
+   "type": "CSV",
+   "description": "Certificate of Service"
+ },
+ {
+   "type": "COT",
+   "description": "Consent (Form 19)"
+ },
+ {
+   "type": "CONA",
+   "description": "Consent Adjournment - FLA & FMEA"
+ },
+ {
+   "type": "COR",
+   "description": "Consent Order"
+ },
+ {
+   "type": "CRQ",
+   "description": "Consent Requisition (CFCSA & COVID-19)"
+ },
+ {
+   "type": "CPR",
+   "description": "Consent for Child Protection Record Check"
+ },
+ {
+   "type": "CCA",
+   "description": "Consent to Court Date"
+ },
+
+ {
+   "type": "CUR",
+   "description": "Currency Certificate"
+ },
+ {
+   "type": "CAR",
+   "description": "Custody and Access Report/Views of Child Report"
+ },
+
+
+ {
+   "type": "DET",
+   "description": "Determination"
+ },
+ {
+   "type": "ERC",
+   "description": "Early Resolution Completion Certificate (Victoria only)"
+ },
+ {
+   "type": "ESNR",
+   "description": "Expedited Change Support (COVID) Scheduling Information - No Reply"
+ },
+ {
+   "type": "ESWR",
+   "description": "Expedited Change Support (COVID) Scheduling Information - With Reply"
+ },
+ {
+   "type": "FCR",
+   "description": "Family Case Conference Record (FLA)"
+ },
+ {
+   "type": "FLC",
+   "description": "Family Law Matter Claim (Victoria only)"
+ },
+ {
+   "type": "FSUM",
+   "description": "File Summary (Victoria only)"
+ },
+ {
+   "type": "FSUA",
+   "description": "File Summary Addendum (Victoria only)"
+ },
+ {
+   "type": "FSA",
+   "description": "Financial Statement COVID 19 Addendum"
+ },
+ {
+   "type": "FAC",
+   "description": "Form A - Circumstances that caused removal"
+ },
+
+ {
+   "type": "FFS",
+   "description": "Form F - Section 29.1 Application for Supervision Order report"
+ },
+ {
+   "type": "HCL",
+   "description": "Hague Convention Letter - Article 16"
+ },  
+ {
+   "type": "NFC",
+   "description": "Notice of Family Claim"
+ },
+ {
+   "type": "NFMC",
+   "description": "Notice of Family Management Case Conference"
+ },
+ {
+   "type": "NOH",
+   "description": "Notice of Hearing or Conference"
+ },
+  
+ 
+ {
+   "type": "NIC",
+   "description": "Notice of Intention to Change Existing Child or Spousal Support - COVID"
+ },
+
+
+ {
+   "type": "NME",
+   "description": "Notice of Motion in Maintenance Enforcement Proceedings"
+ },
+ 
+ {
+   "type": "NRP",
+   "description": "Notice of Protection/Restraining Order"
+ },
+ {
+   "type": "NRG",
+   "description": "Notice of Registration"
+ },
+ {
+   "type": "NRO",
+   "description": "Notice of Restraining Order (PFA 806)"
+ },
+
+
+ {
+   "type": "NTR",
+   "description": "Notice to Appear (Adult Guardianship Act)"
+ },
+ {
+   "type": "NTD",
+   "description": "Notice to Debtor"
+ },
+ {
+   "type": "NTRF",
+   "description": "Notice to Resolve a Family Law Matter (Victoria only)"
+ },
+ 
+ {
+   "type": "OTP",
+   "description": "Order Terminating a Protection Order"
+ },
+ {
+   "type": "OFD",
+   "description": "Order for Discharge of a Person in Custody"
+ },
+ {
+   "type": "ORNA",
+   "description": "Order without notice/appearance"
+ }, 
+ {
+   "type": "PAS",
+   "description": "Parenting After Separation Certificate"
+ },
+ {
+   "type": "PASE",
+   "description": "Parenting After Separation Exemption"
+ },
+ {
+   "type": "POC",
+   "description": "Plan of Care"
+ },
+ {
+   "type": "REP",
+   "description": "Presentation Report"
+ },
+ {
+   "type": "PTS",
+   "description": "Proposed terms of Supervision"
+ },
+ {
+   "type": "RCF",
+   "description": "Record Check Results - s.51 Child Protection (MCFD)"
+ },
+ {
+   "type": "RCR",
+   "description": "Record Check Results - s.51 Protection Order Registry"
+ },
+ {
+   "type": "REF",
+   "description": "Referral Request"
+ },
+ {
+   "type": "RO",
+   "description": "Release  (FRA)"
+ },
+ 
+ {
+   "type": "RTC",
+   "description": "Reply to a Counterclaim"
+ },
+ 
+ {
+   "type": "RQT",
+   "description": "Request (Form 18)"
+ },
+ {
+   "type": "RCE",
+   "description": "Request for Court Enforcement"
+ },
+ {
+   "type": "RPS",
+   "description": "Request for Protection Order Registry Search"
+ },
+ {
+   "type": "RFS",
+   "description": "Request for Service of Documents"
+ },
+ {
+   "type": "RFT",
+   "description": "Request for Teleconference (PFA 893)"
+ },
+ {
+   "type": "RGW",
+   "description": "Request to Adjourn Generally or Withdraw Application"
+ },
+ 
+ {
+   "type": "RSA",
+   "description": "Respondent's Answer to Application - ISO Form N/L"
+ },
+ {
+   "type": "RSO",
+   "description": "Restraining Order"
+ },
+ {
+   "type": "ROR",
+   "description": "Restraining Order under Family Maintenance Enforcement Act"
+ },
+ {
+   "type": "RETM",
+   "description": "Returned Mailing to Registry - Administrative"
+ },
+ {
+   "type": "SNR",
+   "description": "Scheduling Instructions - No Reply"
+ },
+ {
+   "type": "SWR",
+   "description": "Scheduling Instructions - With Reply"
+ },
+ {
+   "type": "SR",
+   "description": "Search Request"
+ },
+ {
+   "type": "SRR",
+   "description": "Search Request Response from Locate Services"
+ },
+ {
+   "type": "SA",
+   "description": "Separation Agreement"
+ },
+
+ {
+   "type": "SOA",
+   "description": "Statement of Arrears"
+ },
+ {
+   "type": "SRO",
+   "description": "Statement of Recalculation"
+ },
+
+ {
+   "type": "STW",
+   "description": "Subpoena/Summons to Witness"
+ },
+ {
+   "type": "SUM",
+   "description": "Summons"
+ },
+
+
+
+ {
+   "type": "TRN",
+   "description": "Transcript"
+ },
+ {
+   "type": "TC",
+   "description": "Transfer Consent"
+ },
+ {
+   "type": "VOC",
+   "description": "Views of the Child Report - FLA s.211"
+ },
+ {
+   "type": "WAV",
+   "description": "Waiver (Notification period CFCSA)"
+ },
+ {
+   "type": "WCL",
+   "description": "Warrant Cancellation"
+ },
+ {
+   "type": "WFA",
+   "description": "Warrant for Arrest"
+ },
+ 
+ {
+   "type": "WOC",
+   "description": "Warrant of Committal"
+ },
+
+ {
+   "type": "WAA",
+   "description": "Warrant to Arrest"
+ },
+ {
+   "type": "HCLW",
+   "description": "Withdrawal of Hague Convention Letter - Article 16"
+ },
+ {
+   "type": "WNC",
+   "description": "Without Notice Application Checklist"
+ },
+ {
+   "type": "WCT",
+   "description": "Written Consent"
+ },
+ {
+   "type": "ACO",
+   "description": "Acceptance of Offer to Settle"
+ },
+ {
+   "type": "AFWF",
+   "description": "Affidavit in Support of Order to Waive Fees"
+ },
+ {
+   "type": "ACD",
+   "description": "Affidavit in Support to Cancel Dismissal or Default Order"
+ },
+
+ 
+ {
+   "type": "AFC",
+   "description": "Affidavit of Non-Compliance"
+ },
+ {
+   "type": "ADO",
+   "description": "Application for Default Order"
+ },
+ {
+   "type": "COJ",
+   "description": "Certificate of Judgment"
+ },
+ {
+   "type": "CTA",
+   "description": "Consent to Adjourn Settlement Conference or Mediation Appointment"
+ },
+ {
+   "type": "CTC",
+   "description": "Consent to Adjourn Trial Conference"
+ },
+ {
+   "type": "DO",
+   "description": "Default Order"
+ },
+ {
+   "type": "EOS",
+   "description": "Endorsed Order for Seizure and Sale"
+ },
+ {
+   "type": "EFSP",
+   "description": "Form 28 - Electronic Filing Statement - Provincial"
+ },  
+ {
+   "type": "IPR",
+   "description": "Internal Pre-Trial Conference Record"
+ },
+ {
+   "type": "MA",
+   "description": "Mediation Agreement"
+ },
+ {
+   "type": "MCO",
+   "description": "Mediation Compensation Order"
+ }, 
+ {
+   "type": "NCR",
+   "description": "Notice of Civil Resolution Tribunal Claim"
+ },
+ {
+   "type": "NMS",
+   "description": "Notice of Mediation Session"
+ },
+ {
+   "type": "NOPC",
+   "description": "Notice of Pre-Trial Conference"
+ },
+ {
+   "type": "NSC",
+   "description": "Notice of Settlement Conference"
+ },
+ {
+   "type": "NSI",
+   "description": "Notice of Simplified Trial"
+ },
+ {
+   "type": "NSU",
+   "description": "Notice of Summary Trial for Financial Debt"
+ },
+ {
+   "type": "NOT",
+   "description": "Notice of Trial / Pre-Trial Conference"
+ },
+ {
+   "type": "NCF",
+   "description": "Notice of Trial Conference"
+ },
+ {
+   "type": "NTM",
+   "description": "Notice to Mediate"
+ },
+ {
+   "type": "NMO",
+   "description": "Notice to Mediate for Claims between $10,000 and $35,000"
+ },
+ {
+   "type": "NMU",
+   "description": "Notice to Mediate for Claims under $10,000"
+ },
+ {
+   "type": "NCT",
+   "description": "Notice to the Claimant"
+ },
+
+ {
+   "type": "ORW",
+   "description": "Order to Waive Fees"
+ },
+
+ {
+   "type": "RPL",
+   "description": "Reply"
+ },
+
+ {
+   "type": "RAG",
+   "description": "Reply with Agreement to pay"
+ },
+ 
+ {
+   "type": "RJD",
+   "description": "Request for Judgment or Dismissal"
+ },
+ {
+   "type": "ROM",
+   "description": "Result of Mediation"
+ },
+
+ {
+   "type": "SCR",
+   "description": "Settlement Conference Record (SCL 018)"
+ },
+ {
+   "type": "SCL",
+   "description": "Sheriff Cover Letter - Administrative"
+ },
+ {
+   "type": "SMD",
+   "description": "Summary Trial Documents"
+ },
+ {
+   "type": "SPH",
+   "description": "Summons to Payment Hearing"
+ },
+
+  
+ {
+   "type": "TCR",
+   "description": "Trial Conference Record (SCL 052)"
+ },
+ {
+   "type": "TRS",
+   "description": "Trial Statement"
+ },
+ {
+   "type": "VDT",
+   "description": "Verification of Default"
+ },
+ {
+   "type": "VNA",
+   "description": "Verification of Non-Attendance"
+ },
+ {
+   "type": "AFB",
+   "description": "Affidavit in Support of Garnishing Order Before Judgment"
+ },
+ {
+   "type": "APD",
+   "description": "Application for Deposit (CRT)"
+ },
+ {
+   "type": "APE",
+   "description": "Application for Exemption (Civil Resolution Tribunal)"
+ },
+ {
+   "type": "APU",
+   "description": "Application for Urgent Hearing (ADM880)"
+ },
+ {
+   "type": "ATC",
+   "description": "Application to Court (Local Government Act)"
+ },
+
+ {
+   "type": "APR",
+   "description": "Application to a Registrar"
+ },
+ {
+   "type": "ARG",
+   "description": "Argument"
+ },
+ {
+   "type": "CET",
+   "description": "Certificate - Section 56.2 CRTA"
+ },
+  
+ {
+   "type": "COC",
+   "description": "Certificate of Compliance (CRT)"
+ },
+ 
+ {
+   "type": "CS",
+   "description": "Company Search"
+ },
+
+
+ 
+ 
+
+ {
+   "type": "DAR",
+   "description": "Decisions and Reasons (Residential Tenancy)"
+ },
+ {
+   "type": "FEDE",
+   "description": "Fee Declaration (Mediation)"
+ },  
+ {
+   "type": "INN",
+   "description": "Initiating Notice from CRT"
+ },
+ {
+   "type": "NOA",
+   "description": "Notice of Appeal"
+ },
+ {
+   "type": "NRR",
+   "description": "Notice that CRT refuses to resolve claim"
+ },
+ {
+   "type": "RCT",
+   "description": "Response made under Sec 7 CRTA"
+ },
+ {
+   "type": "TPN",
+   "description": "Third Party Notice"
+ },
+ {
+   "type": "WOI",
+   "description": "Warrant of Imprisonment"
+ },
+ {
+   "type": "WR",
+   "description": "Warrant of Remand"
+ }, 
+ {
+   "type": "AFY",
+   "description": "Affidavit of Consent of Child 12 years or older"
+ },
+ {
+   "type": "AFG",
+   "description": "Affidavit of Consent of Guardian"
+ },
+ {
+   "type": "ASJ",
+   "description": "Assignment of Judgment"
+ },
+ {
+   "type": "BPA",
+   "description": "Birth Parent Expenses Affidavit"
+ },
+ {
+   "type": "IDP",
+   "description": "Identification Particulars of Adopted Person"
+ },
+ {
+   "type": "LIP",
+   "description": "Litigation Plan"
+ },
+ {
+   "type": "NH",
+   "description": "Notice of Hearing"
+ },  
+ {
+   "type": "PPR",
+   "description": "Post Placement Report"
+ }, 
+ {
+   "type": "RLB",
+   "description": "Registration of a Live Birth"
+ }, 
+ {
+   "type": "TPR",
+   "description": "Reply to Third Party Notice"
+ },
+ {
+   "type": "RCV",
+   "description": "Report on Younger Child's Views"
+ },
+ {
+   "type": "SC",
+   "description": "Statement of Claim"
+ },
+ {
+   "type": "SDC",
+   "description": "Statement of Defence and Counterclaim"
+ },
+
+  
+ {
+   "type": "TB",
+   "description": "Trial Brief"
+ },
+ {
+   "type": "TRC",
+   "description": "Trial Certificate"
+ },
+ 
+ {
+   "type": "UT",
+   "description": "Undertaking"
+ },
+ {
+   "type": "RBK",
+   "description": "170 Reports for Bankruptcy"
+ },
+ {
+   "type": "ABO",
+   "description": "Absolute Order"
+ },
+ {
+   "type": "AOD",
+   "description": "Absolute Order of Discharge"
+ },
+ {
+   "type": "APB",
+   "description": "Application for a Bankruptcy Order"
+ },
+
+ {
+   "type": "AOT",
+   "description": "Application of Trustee for Discharge"
+ },
+
+ {
+   "type": "ASC",
+   "description": "Assessment Certificate"
+ },
+ {
+   "type": "ASB",
+   "description": "Assignment"
+ },
+
+ {
+   "type": "BPT",
+   "description": "Bankruptcy Assignment"
+ },
+
+ {
+   "type": "CTS",
+   "description": "Certificate of Assignment (Section 57)"
+ },  
+ {
+   "type": "CEA",
+   "description": "Certificate of Automatic Discharge"
+ },
+ {
+   "type": "CSE",
+   "description": "Certificate of Change in Status of Estate"
+ },
+ {
+   "type": "CRC",
+   "description": "Certificate of Compliance and Deemed Discharge of Trustee (or Administrator)"
+ },
+
+ {
+   "type": "CED",
+   "description": "Certificate of Discharge"
+ },
+ {
+   "type": "CFD",
+   "description": "Certificate of Distribution"
+ },
+
+
+ {
+   "type": "CFB",
+   "description": "Certificate of Filing of a Bankruptcy Order"
+ },
+ {
+   "type": "CIP",
+   "description": "Certificate of Filing of a Notice of Intention to make a Proposal"
+ },
+
+ {
+   "type": "CRFP",
+   "description": "Certificate of Full Performance of Proposal"
+ },
+
+
+
+ {
+   "type": "CRTX",
+   "description": "Certificate of Taxation"
+ },
+ {
+   "type": "CRTT",
+   "description": "Certificate of Trustee on Solicitor's Bill of Costs"
+ },
+ {
+   "type": "CDO",
+   "description": "Conditional Order of Discharge"
+ },
+
+
+
+ {
+   "type": "CAB",
+   "description": "Consumer Application for Bankruptcy"
+ },
+ 
+ {
+   "type": "CRB",
+   "description": "Corporate Application for Bankruptcy"
+ },
+
+
+ {
+   "type": "DDD",
+   "description": "Demand"
+ },
+ {
+   "type": "DR",
+   "description": "Directors Resolution"
+ },
+ {
+   "type": "EIS",
+   "description": "Estate Information Summary"
+ },
+ {
+   "type": "ES",
+   "description": "Executive Summary"
+ },
+ {
+   "type": "IDS",
+   "description": "Impact Data Entry Sheet - Initial filing"
+ },
+ {
+   "type": "IES",
+   "description": "Income and Expense Statement"
+ },
+ {
+   "type": "INS",
+   "description": "Insolvency Name Search"
+ },
+ {
+   "type": "INM",
+   "description": "Inspector's Minutes"
+ },
+ {
+   "type": "IRPT",
+   "description": "Inspector's Report"
+ },
+ {
+   "type": "INR",
+   "description": "Inspector's Resolution"
+ }, 
+ {
+   "type": "MTM",
+   "description": "Meeting Minutes"
+ }, 
+ {
+   "type": "MMD",
+   "description": "Minutes of Meeting of the Directors"
+ },  
+ {
+   "type": "MOF",
+   "description": "Minutes of first meeting with Creditors"
+ },
+ {
+   "type": "MSM",
+   "description": "Minutes of the Second Meeting of Inspectors"
+ },
+ {
+   "type": "MON",
+   "description": "Monitor's Report"
+ }, 
+ {
+   "type": "NOC",
+   "description": "Notice of Adjourned First Meeting of Creditors"
+ },
+
+ {
+   "type": "NAD",
+   "description": "Notice of Appeal from Disallowance of claim by trustee"
+ },
+ 
+ {
+   "type": "NBY",
+   "description": "Notice of Bankruptcy"
+ },
+ {
+   "type": "NBD",
+   "description": "Notice of Bankruptcy and of Impending Automatic Discharge"
+ },
+
+
+ {
+   "type": "NPT",
+   "description": "Notice of Creditors of Passing of Trustee Accounts"
+ },
+ {
+   "type": "NTT",
+   "description": "Notice of Deemed Taxation of Trustee's Accounts"
+ },
+ {
+   "type": "NDA",
+   "description": "Notice of Deemed Taxation of Trustee's Accounts & Deemed Discharge of Trustee"
+ },
+ {
+   "type": "NOD",
+   "description": "Notice of Default in the Performance of a Proposal"
+ }, 
+ {
+   "type": "NDO",
+   "description": "Notice of Dispute of payment out of court"
+ },
+
+ {
+   "type": "NFD",
+   "description": "Notice of Final Dividend and Application for Discharge of Trustee"
+ },
+
+ {
+   "type": "NIO",
+   "description": "Notice of Intended Opposition to Discharge of Bankrupt"
+ },
+  
+ 
+
+  
+ {
+   "type": "NM",
+   "description": "Notice of Motion"
+ },
+ {
+   "type": "NOP",
+   "description": "Notice of Opposition"
+ },
+ 
+ {
+   "type": "NPC",
+   "description": "Notice of Proposal to Creditors (Form 92)"
+ },
+  
+ {
+   "type": "NSP",
+   "description": "Notice of Stay of Proceedings"
+ },
+
+
+
+ {
+   "type": "NIFP",
+   "description": "Notice of intention to file a proposal"
+ },
+ {
+   "type": "NFM",
+   "description": "Notice of the First Meeting of Inspectors"
+ },
+
+ {
+   "type": "NBC",
+   "description": "Notice to Bankrupt of Meeting of Creditors"
+ },
+ {
+   "type": "NCB",
+   "description": "Notice to Creditors of Bankrupt's Application for Discharge"
+ },
+ {
+   "type": "NRT",
+   "description": "Notice to Creditors of Renumeration of Trustee in the Amended Proposal Administration"
+ },
+ 
+ {
+   "type": "RRP",
+   "description": "Official Receivers Report Section 161"
+ },
+ 
+ 
+ {
+   "type": "ORC",
+   "description": "Order of Commital"
+ },
+ {
+   "type": "OAB",
+   "description": "Ordinary Application for Bankruptcy"
+ },
+ {
+   "type": "PCF",
+   "description": "Projected Cash-Flow Statement"
+ },
+ {
+   "type": "PPL",
+   "description": "Proposal"
+ }, 
+ {
+   "type": "RBD",
+   "description": "Report of Trustee on Bankrupt's Application for Discharge"
+ },
+ {
+   "type": "RTP",
+   "description": "Report of Trustee on Proposal"
+ },
+ {
+   "type": "RTR",
+   "description": "Report of Trustee on Refusal by Creditors to Approve Proposal"
+ },
+ {
+   "type": "RFP",
+   "description": "Report on Cash-Flow Statement by the Person making the proposal"
+ },  
+ {
+   "type": "RMT",
+   "description": "Request for Mediation Made by Trustee (Form 60)"
+ },
+ {
+   "type": "RFM",
+   "description": "Request of a First Meeting of Creditors"
+ },
+ {
+   "type": "RRL",
+   "description": "Resolution Refusing Proposal"
+ },
+ {
+   "type": "SAF",
+   "description": "Statement of Affairs"
+ },
+ {
+   "type": "SAG",
+   "description": "Statement of Argument"
+ },
+ {
+   "type": "STD",
+   "description": "Subpoena to Debtor"
+ },
+ {
+   "type": "STI",
+   "description": "Summary of Trustee's Time Incurred"
+ },
+ {
+   "type": "SUC",
+   "description": "Superintendent's Comments"
+ },
+ {
+   "type": "SRB",
+   "description": "Superintendent's Report for Bankruptcy"
+ },
+ {
+   "type": "SPO",
+   "description": "Suspended Order"
+ },
+ {
+   "type": "TAX",
+   "description": "Taxation (Bankruptcy)"
+ },  
+ {
+   "type": "TRD",
+   "description": "Transcript from Examination for Discovery"
+ },
+ {
+   "type": "TA",
+   "description": "Trial Agenda"
+ }, 
+ {
+   "type": "TPC",
+   "description": "Trustee's Preliminary Report to Creditors"
+ },
+ {
+   "type": "TRF",
+   "description": "Trustee's Report on Cash Flow Statement"
+ },
+ {
+   "type": "RAD",
+   "description": "Trustee's Statement of Receipts and Disbursements"
+ }, 
+ {
+   "type": "WOO",
+   "description": "Withdrawal of Opposition"
+ },
+ {
+   "type": "CRA",
+   "description": "Certificate of Attempted Service"
+ },
+ {
+   "type": "CFP",
+   "description": "Certificate of Filing a Proposal"
+ },
+ {
+   "type": "DOA",
+   "description": "Desk Order Application"
+ }, 
+ {
+   "type": "NPA",
+   "description": "Notice (Section 112 EAA)"
+ }, 
+ {
+   "type": "NDIS",
+   "description": "Notice of Dispute"
+ },
+ {
+   "type": "NIAP",
+   "description": "Notice of Intention to Act in Person"
+ }, 
+ {
+   "type": "NTC",
+   "description": "Notice to Caveator"
+ }, 
+ {
+   "type": "ORND",
+   "description": "Order for Removal of Notice of Dispute"
+ }, 
+ {
+   "type": "POA",
+   "description": "Power of Attorney"
+ }, 
+ {
+   "type": "REO",
+   "description": "Requisition - Opens File"
+ },
+ {
+   "type": "WDN",
+   "description": "Withdrawal of Notice of Dispute"
+ }, 
+ {
+   "type": "WRP",
+   "description": "Writ of Possession"
+ },
+ {
+   "type": "COD",
+   "description": "Certificate of Divorce"
+ },
+ {
+   "type": "CSA",
+   "description": "Child Support Affidavit"
+ },
+ {
+   "type": "CLR",
+   "description": "Clearance Certificate"
+ },
+ {
+   "type": "CNF",
+   "description": "Confirmation"
+ }, 
+ {
+   "type": "FCC",
+   "description": "Counterclaim - Family"
+ },
+ {
+   "type": "DOR",
+   "description": "Desk Order"
+ },
+ {
+   "type": "FRCC",
+   "description": "FMEP Request for Certified Copies"
+ },
+ {
+   "type": "OFI",
+   "description": "Final Order"
+ },
+ {
+   "type": "JPE",
+   "description": "Joint Petition"
+ },
+ {
+   "type": "WRJ",
+   "description": "Joint Writ"
+ },
+ {
+   "type": "NCV",
+   "description": "Name Change Form - Vital Statistics"
+ }, 
+ {
+   "type": "NOF",
+   "description": "Notice of Filing (FMEP)"
+ },
+ {
+   "type": "NID",
+   "description": "Notice of Intent to Dispute Monies Paid into Court"
+ }, 
+ {
+   "type": "PET",
+   "description": "Petition"
+ },
+ {
+   "type": "PTC",
+   "description": "Pre Trial Conference"
+ },
+ {
+   "type": "RFJ",
+   "description": "Reasons For Judgment"
+ }, 
+ {
+   "type": "RCP",
+   "description": "Registrar's Certificate of Pleadings - Family Law"
+ },
+ {
+   "type": "RDP",
+   "description": "Registration of Divorce Proceeding"
+ },
+ 
+ {
+   "type": "RFO",
+   "description": "Requisition for Final Order (Form F35)"
+ },
+ {
+   "type": "RES",
+   "description": "Response"
+ },
+ {
+   "type": "RD",
+   "description": "Review document"
+ },
+ {
+   "type": "SCH",
+   "description": "Summons to a Committal Hearing"
+ },
+ {
+   "type": "SDH",
+   "description": "Summons to a Default Hearing"
+ },
+
+ {
+   "type": "WAE",
+   "description": "Warrant of Execution"
+ },
+ 
+ {
+   "type": "WSS",
+   "description": "Writ of Seizure and Sale"
+ }, 
+ {
+   "type": "AFK",
+   "description": "Affidavit of Kindred and Fortune"
+ },
+
+ 
+ {
+   "type": "AFW",
+   "description": "Affidavit to Lead Warrant"
+ },
+
+ {
+   "type": "BON",
+   "description": "Bond"
+ }, 
+
+ {
+   "type": "CAO",
+   "description": "Case Plan Order"
+ },
+ {
+   "type": "CRTO",
+   "description": "Certificate - Opens File"
+ },
+ {
+   "type": "CQN",
+   "description": "Constitutional Question Act Notice"
+ },
+ {
+   "type": "DEC",
+   "description": "Declaration"
+ },
+ {
+   "type": "EFSS",
+   "description": "Electronic Filing Statement - Supreme"
+ }, 
+ {
+   "type": "NAP",
+   "description": "Notice of Application"
+ },
+ {
+   "type": "NAAC",
+   "description": "Notice of Application for Appointment of Committee"
+ },
+ {
+   "type": "NAFC",
+   "description": "Notice of Application for Committal"
+ },
+ {
+   "type": "NACS",
+   "description": "Notice of Appointment or Change of Lawyer/Solicitor"
+ },
+ {
+   "type": "NCP",
+   "description": "Notice of Case Planning Conference"
+ },
+ {
+   "type": "NCS",
+   "description": "Notice of Change of Solicitor"
+ }, 
+ {
+   "type": "NDF",
+   "description": "Notice of Default"
+ },
+ {
+   "type": "NHS",
+   "description": "Notice of Hearing of Stated Case"
+ }, 
+ {
+   "type": "NOO",
+   "description": "Notice of Order"
+ }, 
+ {
+   "type": "NPS",
+   "description": "Notice of Proceedings"
+ },
+ {
+   "type": "NTS",
+   "description": "Notice to Suspend Proceedings"
+ },
+ {
+   "type": "ORI",
+   "description": "Order for Indigent Status"
+ }, 
+ {
+   "type": "ORFJ",
+   "description": "Order to Register Foreign Judgment"
+ }, 
+ {
+   "type": "RCRT",
+   "description": "Registrar's Certificate"
+ },
+ {
+   "type": "RRT",
+   "description": "Registrar's Report"
+ },  
+ {
+   "type": "RST",
+   "description": "Request for Service Abroad of Judicial or Extrajudicial Documents"
+ },
+ {
+   "type": "RCC",
+   "description": "Response to Civil Claim"
+ },
+ {
+   "type": "SAT",
+   "description": "Statement of Account - Form 136A"
+ },
+ {
+   "type": "SLE",
+   "description": "Statement of Claim of Lien"
+ },
+ {
+   "type": "SD",
+   "description": "Statement of Defence"
+ }, 
+ {
+   "type": "WAS",
+   "description": "Warrant to Arrest (Ship)"
+ },
+ {
+   "type": "WRT",
+   "description": "Writ of Summons"
+ },
+ {
+   "type": "WRC",
+   "description": "Writ of Summons/Statement of Claim"
+ },
+
+ {
+   "type": "AFDO",
+   "description": "Affidavit - Desk Order Divorce"
+ },
+ {
+   "type": "AFJ",
+   "description": "Affidavit Section 51"
+ },
+ {
+   "type": "AFM",
+   "description": "Affidavit of Attainment of Majority"
+ },  
+ {
+   "type": "AFTL",
+   "description": "Affidavit of Translator"
+ },
+ {
+   "type": "AAI",
+   "description": "Agreement as to Annual Income"
+ },
+ {
+   "type": "ADC",
+   "description": "Application for Divorce Under the Civil Marriage Act"
+ },
+
+ {
+   "type": "AED",
+   "description": "Appointment to Examine for Discovery"
+ },
+ {
+   "type": "BOC",
+   "description": "Bill of Costs"
+ },
+  
+ {
+   "type": "CNA",
+   "description": "Certificate of No Appeal"
+ },
+ {
+   "type": "CPOR",
+   "description": "Change of Protection Order"
+ },
+ {
+   "type": "DIS",
+   "description": "Disposition Report"
+ },
+ {
+   "type": "DDP",
+   "description": "Duplicate Divorce Proceeding (Notice from CDR)"
+ },
+ {
+   "type": "EWE",
+   "description": "Endorsed Writ of Execution"
+ },
+ {
+   "type": "FBW",
+   "description": "Form B - Withdrawal by Director"
+ },
+ {
+   "type": "FULL",
+   "description": "Full Report - FLA s.211"
+ },
+ {
+   "type": "GOA",
+   "description": "Garnishing Order After Judgment"
+ },
+ {
+   "type": "ITE",
+   "description": "Instructions to Examiner"
+ },
+
+ {
+   "type": "SCJ",
+   "description": "Joint Statement of Claim - Form 128A Family Law Proceeding"
+ },
+
+ {
+   "type": "WSJ",
+   "description": "Joint Writ of Summons - Form 127A Family Law Proceeding"
+ },
+ {
+   "type": "LOE",
+   "description": "List of Expenses"
+ },
+ {
+   "type": "MR",
+   "description": "Marriage Registration"
+ },
+ {
+   "type": "MOS",
+   "description": "Minutes of Settlement"
+ }, 
+ {
+   "type": "NSD",
+   "description": "Notice and Summary of Document"
+ }, 
+ {
+   "type": "NOAS",
+   "description": "Notice of Address for Service"
+ }, 
+ {
+   "type": "FNAP",
+   "description": "Notice of Application - Family"
+ },  
+ {
+   "type": "NA",
+   "description": "Notice of Attachment"
+ },  
+ {
+   "type": "FTN",
+   "description": "Notice of Enrollment into Fast Track Litigation"
+ },
+ {
+   "type": "NHA",
+   "description": "Notice of Hearing of Appeal"
+ }, 
+ {
+   "type": "NJF",
+   "description": "Notice of Joint Family Claim"
+ },
+ {
+   "type": "NJC",
+   "description": "Notice of Judicial Case Conference"
+ },
+ {
+   "type": "NOW",
+   "description": "Notice of Objection to Withdrawal of Solicitor"
+ },
+
+ {
+   "type": "NPI",
+   "description": "Notice of Payment Into Court"
+ },
+ {
+   "type": "NWD",
+   "description": "Notice of Withdrawal"
+ },
+ {
+   "type": "NWJ",
+   "description": "Notice of Withdrawal from Joint Family Law Case"
+ },
+ {
+   "type": "NWF",
+   "description": "Notice of Withdrawal in Family Law Case in which a Divorce is Claimed"
+ },
+ {
+   "type": "NTE",
+   "description": "Notice to Cross-Examine"
+ },
+ {
+   "type": "NFS",
+   "description": "Notice to File Financial Statement"
+ }, 
+ {
+   "type": "OWN",
+   "description": "Order Made Without Notice"
+ }, 
+ {
+   "type": "ORJ",
+   "description": "Order Made at Judicial Case Conference"
+ }, 
+
+ {
+   "type": "PAR",
+   "description": "Parenting Arrangement Report"
+ },
+ {
+   "type": "PCH",
+   "description": "Protection Order (Changed - Form 54.1)"
+ },
+ {
+   "type": "PVO",
+   "description": "Provisional Order"
+ },
+ {
+   "type": "JCC",
+   "description": "Request for Judicial Case Conference"
+ },
+ {
+   "type": "RFR",
+   "description": "Request for s.211 Report - FLA"
+ },
+  
+ {
+   "type": "REQ",
+   "description": "Requisition"
+ },
+ {
+   "type": "REW",
+   "description": "Requisition - Arbitration Award (Form F17.3)"
+ },
+ {
+   "type": "REA",
+   "description": "Requisition - Form F17.1 (Agreements)"
+ },
+ {
+   "type": "RED",
+   "description": "Requisition - Form F17.2 (Determinations)"
+ },
+
+ {
+   "type": "RCO",
+   "description": "Requisition for Consent Order or for Order without Notice (Form 31)"
+ },
+ {
+   "type": "REC",
+   "description": "Response to Counterclaim"
+ },
+ {
+   "type": "RFC",
+   "description": "Response to Family Claim"
+ },
+ {
+   "type": "STA",
+   "description": "Statement"
+ },
+ {
+   "type": "AFP",
+   "description": "Supplemental Affidavit"
+ },
+ {
+   "type": "SAP",
+   "description": "Support Application"
+ },
+ {
+   "type": "SVA",
+   "description": "Support Variation Application"
+ }, 
+ {
+   "type": "WAR",
+   "description": "Warrant - Contempt"
+ }, 
+ {
+   "type": "WRS",
+   "description": "Writ of Sequestration"
+ },
+ {
+   "type": "WCJ",
+   "description": "Writ/Claim Joint"
+ },
+ {
+   "type": "WAG",
+   "description": "Written Agreement"
+ },
+ {
+   "type": "ARS",
+   "description": "Application Response"
+ },
+ {
+   "type": "CMCO",
+   "description": "Case Management Conference Order - Rule 68"
+ },
+ {
+   "type": "CAV",
+   "description": "Caveat (probate)"
+ },
+
+ {
+   "type": "COA",
+   "description": "Certificate of Appointment"
+ },  
+ {
+   "type": "CCP",
+   "description": "Certificate of Commencement of Proceedings"
+ },
+
+ {
+   "type": "CPO",
+   "description": "Consent to Payment Out"
+ },
+
+ {
+   "type": "COP",
+   "description": "Consumer Proposal"
+ }, 
+ {
+   "type": "ESO",
+   "description": "Endorsement on Originating Process for Service outside British Columbia (Form 11)"
+ },
+ {
+   "type": "GOB",
+   "description": "Garnishing Order Before Judgment"
+ },
+ {
+   "type": "LOD",
+   "description": "List of Documents"
+ }, 
+ {
+   "type": "NAM",
+   "description": "Notice of Appeal - Master or Registrar"
+ },
+ {
+   "type": "NASD",
+   "description": "Notice of Appeal - Standard Directions"
+ },
+
+ {
+   "type": "NDT",
+   "description": "Notice of Discontinuance"
+ },
+ {
+   "type": "NDP",
+   "description": "Notice of Discontinuance in Part"
+ },
+ {
+   "type": "NDW",
+   "description": "Notice of Discontinuance in Whole"
+ },
+ 
+
+ {
+   "type": "NMC",
+   "description": "Notice of Motion for Committal"
+ },
+
+ {
+   "type": "NT",
+   "description": "Notice of Trial"
+ },
+
+ {
+   "type": "NWS",
+   "description": "Notice of Withdrawal of Lawyer/Solicitor"
+ }, 
+
+ {
+   "type": "PTT",
+   "description": "Petition to the Court"
+ }, 
+ {
+   "type": "SOT",
+   "description": "State of Title Certificate"
+ },
+ {
+   "type": "SOR",
+   "description": "Statement of Relief Sought"
+ },
+ {
+   "type": "SMA",
+   "description": "Summary Accounting"
+ }, 
+
+ {
+   "type": "ACS",
+   "description": "Acknowledgement of Service"
+ },
+ {
+   "type": "AAS",
+   "description": "Affidavit of Attempted Service"
+ },
+ {
+   "type": "AFD",
+   "description": "Affidavit of Delivery"
+ },
+
+
+ {
+   "type": "APS",
+   "description": "Affidavit of Personal Service"
+ },
+ {
+   "type": "AFS",
+   "description": "Affidavit of Service"
+ },
+
+
+ {
+   "type": "CP",
+   "description": "Case Management Plan"
+ },
+
+ {
+   "type": "CPP",
+   "description": "Case Plan Proposal"
+ },
+ {
+   "type": "CRF",
+   "description": "Certificate of Fitness"
+ },
+ {
+   "type": "CRD",
+   "description": "Certificate of Readiness"
+ },
+ {
+   "type": "CRS",
+   "description": "Certificate of Result of Sale"
+ },
+ {
+   "type": "FTW",
+   "description": "Consent to Withdraw from Fast Track Litigation"
+ }, 
+ {
+   "type": "CRP",
+   "description": "Correspondence"
+ }, 
+ {
+   "type": "EXR",
+   "description": "Examiner's Report"
+ },
+ {
+   "type": "JRS",
+   "description": "Jurisdictional Response"
+ },
+ {
+   "type": "DSP",
+   "description": "Letter of Dispute from Garnishee"
+ },
+ 
+ {
+   "type": "NTJ",
+   "description": "Notice Requiring Trial by Jury"
+ },
+ {
+   "type": "NAB",
+   "description": "Notice of Abandonment of Appeal"
+ }, 
+ {
+   "type": "NADR",
+   "description": "Notice of Appeal if Directions Required"
+ }, 
+ {
+   "type": "NCC",
+   "description": "Notice of Civil Claim"
+ },
+ {
+   "type": "NCL",
+   "description": "Notice of Claim"
+ },
+ {
+   "type": "NFT",
+   "description": "Notice of Fast Track Action"
+ }, 
+ {
+   "type": "NOS",
+   "description": "Notice of Satisfaction"
+ },
+ {
+   "type": "NSO",
+   "description": "Notice of Sealing Order"
+ },
+ {
+   "type": "NTA",
+   "description": "Notice to Admit"
+ },
+ {
+   "type": "NDC",
+   "description": "Notice to Defendant by Counterclaim"
+ },  
+ {
+   "type": "SUB",
+   "description": "Submissions"
+ }, 
+ {
+   "type": "WPP",
+   "description": "Withdrawal of Application"
+ },
+ {
+   "type": "AFSA",
+   "description": "Affidavit in Support of Application"
+ },
+ {
+   "type": "AFSG",
+   "description": "Affidavit in Support of Application for Estate Grant"
+ },
+ {
+   "type": "AFSR",
+   "description": "Affidavit in Support of Application for Resealing"
+ },
+ {
+   "type": "AFPA",
+   "description": "Affidavit in Support of Application to Pass Accounts"
+ },
+ {
+   "type": "AFA",
+   "description": "Affidavit of Administrator"
+ },
+ {
+   "type": "AFAN",
+   "description": "Affidavit of Applicant for Ancillary Grant of Administration without Will Annexed"
+ },
+ {
+   "type": "AFAA",
+   "description": "Affidavit of Applicant for Ancillary Grant of Probate or Administration with Will Annexed"
+ },
+ {
+   "type": "AFGN",
+   "description": "Affidavit of Applicant for Grant of Administration without will Annexed"
+ },
+ {
+   "type": "AFGS",
+   "description": "Affidavit of Applicant for Grant of Probate or Administration with will Annexed (Form P3)"
+ },
+ {
+   "type": "AFGL",
+   "description": "Affidavit of Applicant for Grant of Probate or Administration with will Annexed (Form P4)"
+ },
+ {
+   "type": "AFRN",
+   "description": "Affidavit of Applicant for Resealing of Grant of Administration without Will Annexed"
+ },
+ {
+   "type": "AFRS",
+   "description": "Affidavit of Applicant for Resealing of Grant of Probate or Administration with Will Annexed"
+ },
+ {
+   "type": "AFLD",
+   "description": "Affidavit of Assets and Liabilities for Domiciled Estate Grant"
+ },
+ {
+   "type": "AFLN",
+   "description": "Affidavit of Assets and Liabilities for Non-Domiciled Estate Grant"
+ },
+ {
+   "type": "AFAR",
+   "description": "Affidavit of Assets and Liabilities for Resealing"
+ }, 
+ {
+   "type": "AFDR",
+   "description": "Affidavit of Deemed Renunciation"
+ },
+ 
+ {
+   "type": "AFE",
+   "description": "Affidavit of Executor or Executrix"
+ },
+ {
+   "type": "AFIE",
+   "description": "Affidavit of Interlineation, Erasure, Obliteration or Other Alteration"
+ },
+ {
+   "type": "AFN",
+   "description": "Affidavit of Notice"
+ }, 
+ {
+   "type": "GRAT",
+   "description": "Ancillary Grant"
+ },
+ {
+   "type": "ANS",
+   "description": "Answer"
+ },
+ {
+   "type": "APP",
+   "description": "Appearance"
+ },
+
+ {
+   "type": "AUT",
+   "description": "Authorization to Obtain Estate Information"
+ },
+ {
+   "type": "AOR",
+   "description": "Authorization to Obtain Resealing Information"
+ },
+ {
+   "type": "BRF",
+   "description": "Brief"
+ }, 
+ {
+   "type": "CMR",
+   "description": "Case Management Requisition - Rule 68"
+ },
+ {
+   "type": "CER",
+   "description": "Certificate (New Form 14/F14)"
+ },
+ {
+   "type": "CRRS",
+   "description": "Certificate - Form P28"
+ },  
+ {
+   "type": "COS",
+   "description": "Certificate of Cost"
+ },
+ {
+   "type": "CES",
+   "description": "Cessate Probate"
+ },
+ {
+   "type": "CIT",
+   "description": "Citation"
+ },
+ {
+   "type": "CDL",
+   "description": "Codicil"
+ },
+ {
+   "type": "CFA",
+   "description": "Compensation/Fee Agreement"
+ },
+
+ {
+   "type": "CSR",
+   "description": "Consent and Renunciation"
+ },
+ {
+   "type": "CLG",
+   "description": "Consent of Litigation Guardian"
+ },
+ {
+   "type": "CTR",
+   "description": "Correction Record"
+ },
+ {
+   "type": "CC",
+   "description": "Counterclaim"
+ },
+ {
+   "type": "DCR",
+   "description": "Death Certificate"
+ },
+ {
+   "type": "DPO",
+   "description": "Default Payment Order"
+ },
+ {
+   "type": "DPG",
+   "description": "Direction of Public Guardian and Trustee"
+ },
+ {
+   "type": "FS",
+   "description": "Financial Statement/Statement of Finances"
+ },
+ {
+   "type": "FOR",
+   "description": "Foreign Grant"
+ },
+ {
+   "type": "GAA",
+   "description": "Grant of Admin Ad Collagenda"
+ },
+ {
+   "type": "GAP",
+   "description": "Grant of Admin Pendente Lite"
+ },
+ {
+   "type": "GWA",
+   "description": "Grant of Admin Will Annexed"
+ },
+ {
+   "type": "GWD",
+   "description": "Grant of Admin Will Annexed de Bonis non"
+ },
+ {
+   "type": "GAD",
+   "description": "Grant of Admin de Bonis non"
+ },
+ {
+   "type": "GOM",
+   "description": "Grant of Administration"
+ },
+ {
+   "type": "GDP",
+   "description": "Grant of Double Probate"
+ },
+ {
+   "type": "GRP",
+   "description": "Grant of Probate"
+ },
+ 
+
+ {
+   "type": "NOAH",
+   "description": "Notice of Application (Spousal Home or Deficiencies in Will)"
+ }, 
+ {
+   "type": "NCD",
+   "description": "Notice of Change of Address for Delivery"
+ },
+ {
+   "type": "NPO",
+   "description": "Notice of Payment Out"
+ },
+ {
+   "type": "NORM",
+   "description": "Notice of Renunciation"
+ },
+ {
+   "type": "NOR",
+   "description": "Notice of Resealing"
+ },
+
+
+
+ 
+ {
+   "type": "NNK",
+   "description": "Notice to Next of Kin"
+ },
+ {
+   "type": "NTP",
+   "description": "Notice to Produce"
+ },
+
+ {
+   "type": "PGTC",
+   "description": "Public Guardian and Trustee Comments"
+ },
+
+ {
+   "type": "RCPT",
+   "description": "Registry Correspondence to a Party - Administrative"
+ },
+ {
+   "type": "RRLT",
+   "description": "Registry Rejection Letter - Administrative"
+ },
+ {
+   "type": "REN",
+   "description": "Renunciation"
+ }, 
+ {
+   "type": "REFS",
+   "description": "Requisition for Subpoena"
+ },
+ {
+   "type": "GOR",
+   "description": "Reseal Grant"
+ },
+ {
+   "type": "SOAA",
+   "description": "Statement of Account Affidavit"
+ },
+ {
+   "type": "SBR",
+   "description": "Submission for Resealing"
+ },
+ {
+   "type": "SFG",
+   "description": "Submissions for Estate Grant"
+ },
+ {
+   "type": "SUO",
+   "description": "Subpoena"
+ },
+ {
+   "type": "SAFA",
+   "description": "Supplemental Affidavit of Assets and Liabilities for Domiciled Estate Grant"
+ },
+ {
+   "type": "SAFN",
+   "description": "Supplemental Affidavit of Assets and Liabilities for Non-Domiciled Estate Grant"
+ },
+ {
+   "type": "SAFR",
+   "description": "Supplemental Affidavit of Assets and Liabilities for Resealing"
+ },
+ {
+   "type": "TCHB",
+   "description": "Telephone Conference Hearing Brief - COVID"
+ }, 
+ {
+   "type": "WAP",
+   "description": "Warrant after Subpoena"
+ }, 
+ {
+   "type": "WIL",
+   "description": "Will"
+ },
+ {
+   "type": "WSN",
+   "description": "Wills Search Notice"
+ }, 
+ {
+   "type": "WIT",
+   "description": "Withdrawal of Caveat"
+ },
+ {
+   "type": "WRD",
+   "description": "Writ of Delivery"
+ },
+ {
+   "type": "ACK",
+   "description": "Acknowledgement of Payment"
+ }, 
+ {
+   "type": "AFT",
+   "description": "Affidavit in Support of Garnishing Order After Judgment"
+ },
+ {
+   "type": "AFBA",
+   "description": "Affidavit in Support of Garnishing Order Before Action"
+ }, 
+ {
+   "type": "AOS",
+   "description": "Affidavit of Ordinary Service"
+ },
+ {
+   "type": "ATD",
+   "description": "Application for a Trial Date"
+ },
+ {
+   "type": "APT",
+   "description": "Appointment"
+ },
+ {
+   "type": "CMP",
+   "description": "Case Management Program"
+ },
+ {
+   "type": "CAS",
+   "description": "Caveat (ship)"
+ },
+ {
+   "type": "CRT",
+   "description": "Certificate"
+ },
+ {
+   "type": "COF",
+   "description": "Certificate of Fees"
+ },
+ {
+   "type": "COM",
+   "description": "Certificate of Mediation"
+ },
+ {
+   "type": "CPL",
+   "description": "Certificate of Pending Litigation"
+ },
+ {
+   "type": "CSS",
+   "description": "Certificate of Service by Sheriff"
+ },
+ {
+   "type": "CTF",
+   "description": "Compensation Transfer Form"
+ },
+ {
+   "type": "CON",
+   "description": "Consent"
+ },
+ 
+ {
+   "type": "DJ",
+   "description": "Default Judgment"
+ },
+ {
+   "type": "DJC",
+   "description": "Default Judgment Bill of Costs"
+ },
+ {
+   "type": "EXP",
+   "description": "Expert Report"
+ },
+ {
+   "type": "CWS",
+   "description": "Form A - Compensation Action Writ of Summons & Statement of Claim"
+ },
+ {
+   "type": "CAD",
+   "description": "Form B - Compensation Action Appearance & Statement of Defence"
+ },
+ {
+   "type": "INT",
+   "description": "Interrogatories"
+ },
+ {
+   "type": "LST",
+   "description": "List of Witnesses"
+ }, 
+ {
+   "type": "MC",
+   "description": "Marriage Certificate"
+ },
+ {
+   "type": "MRA",
+   "description": "Media Request Access to Exhibit - No Protocol Implemented (Form 2)"
+ },
+ {
+   "type": "MEM",
+   "description": "Memorandum"
+ },  
+ {
+   "type": "NATJ",
+   "description": "Notice of Assignment of Trial Judge"
+ },
+ {
+   "type": "NCCP",
+   "description": "Notice of Civil Claim - Admiralty(In Rem and In Personam)"
+ },
+ {
+   "type": "NCCA",
+   "description": "Notice of Civil Claim - Admiralty(In Rem)"
+ }, 
+ {
+   "type": "NIW",
+   "description": "Notice of Intention to Call Adverse Party as a Witness"
+ },
+ {
+   "type": "NPR",
+   "description": "Notice of Intention to Proceed"
+ },
+ {
+   "type": "NIWS",
+   "description": "Notice of Intention to Withdraw as Lawyer/Solicitor"
+ },
+ {
+   "type": "NOI",
+   "description": "Notice of Interest"
+ },  
+ {
+   "type": "ORD",
+   "description": "Order"
+ },
+ {
+   "type": "ORO",
+   "description": "Order (opens file)/Enforcement Order"
+ },
+ {
+   "type": "ORA",
+   "description": "Order Made after Application"
+ },
+ {
+   "type": "ORT",
+   "description": "Order after Trial"
+ },
+ {
+   "type": "OA",
+   "description": "Order for Attendence of a Prisoner"
+ },
+ 
+ {
+   "type": "OTH",
+   "description": "Other Document"
+ },
+ {
+   "type": "OTL",
+   "description": "Outline"
+ },
+ {
+   "type": "POR",
+   "description": "Protection Order"
+ },
+ {
+   "type": "ROS",
+   "description": "Release"
+ },
+ {
+   "type": "RLS",
+   "description": "Release (Ship)"
+ }, 
+ {
+   "type": "RPC",
+   "description": "Reply with Counterclaim"
+ },
+ {
+   "type": "RAJ",
+   "description": "Request for Assignment of Trial Judge"
+ },
+ {
+   "type": "RPM",
+   "description": "Request to Implement Protocol for Media Access to Exihibit (Form 1)"
+ },
+ {
+   "type": "RESP",
+   "description": "Response to Petition"
+ },
+ {
+   "type": "RPN",
+   "description": "Response to Third Party Notice"
+ },
+ {
+   "type": "SCS",
+   "description": "Show Cause Summons"
+ },
+  {
+   "type": "STC",
+   "description": "Stated Case"
+ }, 
+ {
+   "type": "TBW",
+   "description": "Trial Brief Warning"
+ },  
+ {
+   "type": "TR",
+   "description": "Trial Record"
+ }, 
+ {
+   "type": "WAW",
+   "description": "Warrant for Witness"
+ }, 
+ {
+   "type": "WDS",
+   "description": "Withdrawal of Caveat (Ship)"
+ }
+]

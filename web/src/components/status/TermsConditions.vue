@@ -41,14 +41,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 @Component
 export default class terms extends Vue {
 
-    @Prop({required: true})
-    userType!: string;  
-  
-    navigate() {
-        if (this.userType === "new") {
-            this.$router.push({ name: "serviceLocator" });
-        }
-    }
   
 };
 </script>

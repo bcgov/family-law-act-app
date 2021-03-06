@@ -67,26 +67,27 @@ export default class FilingOptions extends Vue {
         if (this.step.result && this.step.result["filingOptions"]){
             this.survey.data = this.step.result["filingOptions"];
         }
-
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-
+       
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        
     }
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
+            console.log(this.survey.data);
             // console.log(options)
+            this.resetReviewSteps()
             if(this.survey.data.selectedFilingType == 'byemail'){
-                this.togglePages([0,2,3], true);
-                this.togglePages([1], false);
-            }else{
-                this.togglePages([0,1,3], true);
-                this.togglePages([2], false);
+                this.togglePages([0,1,3,5], true);
+                this.togglePages([2,4], false);
+            }else if(this.survey.data.selectedFilingType == 'inperson'){
+                this.togglePages([0,1,2,5], true);
+                this.togglePages([3,4], false);
+            }else if(this.survey.data.selectedFilingType == 'byefiling'){
+                this.togglePages([0,1,4,5], true);
+                this.togglePages([2,3], false);
             }
         })
     }
@@ -100,6 +101,11 @@ export default class FilingOptions extends Vue {
                 active: activeIndicator
             });
         }
+    }
+
+    public resetReviewSteps(){
+        for(let i=2; i<=5; i++)
+            this.$store.commit("Application/setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
     }
     
     public onPrev() {
@@ -118,12 +124,8 @@ export default class FilingOptions extends Vue {
 
 
     beforeDestroy() {
-
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
-
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+        
         this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
     }
 }

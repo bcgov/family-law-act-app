@@ -23,3 +23,4 @@ pytest-django>=3.1.2,<4
 
 # Util
 requests>=2.18.4,<3
+pillow>=8.1.0

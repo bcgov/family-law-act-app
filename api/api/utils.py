@@ -42,7 +42,7 @@ def get_firstname_lastname(display_name, user_type):
     return None, None
 
 
-def get_app_object(pk, uid):
+def get_application_for_user(pk, uid):
     if (uid is None):
         raise Http404
     try:

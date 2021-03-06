@@ -71,7 +71,8 @@ export default class About extends Vue {
     public reloadPageInformation() { 
 
         if (this.step.result && this.step.result['aboutPOSurvey']){
-            this.survey.data = this.step.result['aboutPOSurvey'];
+            this.survey.data = this.step.result['aboutPOSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
         let order = this.$store.state.Application.steps[0].result.selectedPOOrder;
@@ -79,13 +80,10 @@ export default class About extends Vue {
             this.survey.setVariable("userPreferredService", order.orderType);
         }
 
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-
+       
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
     
     public onPrev() {
@@ -103,21 +101,10 @@ export default class About extends Vue {
     }
   
     beforeDestroy() {
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        }   
 
-        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: this.survey.data}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
+        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>

@@ -18,7 +18,7 @@
 """
 from rest_framework import serializers
 
-from api.models import SurveyResult, User, Application
+from api.models import SurveyResult, User, Application, EFilingSubmission
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,7 +27,17 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id"]
 
 
+class EFilingSubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EFilingSubmission
+        fields = [
+            "package_number",
+            "package_url"
+        ]
+
+
 class ApplicationListSerializer(serializers.ModelSerializer):
+    last_efiling_submission = EFilingSubmissionSerializer()
 
     class Meta:
         model = Application
@@ -35,7 +45,8 @@ class ApplicationListSerializer(serializers.ModelSerializer):
             "id",
             "app_type",
             "last_updated",
-            "last_filed"
+            "last_filed",
+            "last_efiling_submission"
         ]
 
 
@@ -48,6 +59,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class SurveySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = SurveyResult
         fields = [

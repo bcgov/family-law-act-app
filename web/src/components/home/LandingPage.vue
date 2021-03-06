@@ -151,8 +151,15 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { SessionManager } from "@/components/utils/utils";
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
 @Component
 export default class LandingPage extends Vue {
+
+    @applicationState.Action
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
     
     isLoggedIn= false
     pageReady = false
@@ -182,7 +189,7 @@ export default class LandingPage extends Vue {
     }
     
     public determineUserType () {
-      
+        this.loadDocumentTypes();
         this.$http.get('/app-list/')
         .then((response) => {
             if(response.data.length>0) {
@@ -192,6 +199,22 @@ export default class LandingPage extends Vue {
             }        
         
         },(err) => console.log(err));
+    }
+
+    public loadDocumentTypes() {
+        const documentTypesJson = require("./forms/documentTypes.json");
+        //console.log(documentTypesJson)
+        this.UpdateDocumentTypesJson(documentTypesJson);
+        this.$http.get('/efiling/document-types/')
+        .then((response) => { 
+            if(response.data && response.data.length>0){
+                //console.log(response.data) 
+                this.UpdateDocumentTypesJson(response.data);
+            }
+        },(err) => {            
+            console.log(err)
+            //this.error = err;        
+        });
     }
   
 };

@@ -142,6 +142,8 @@ export default class GettingStarted extends Vue {
     selected = []
     returningUser = false
     showLegalAssistance = false
+    currentStep=0;
+    currentPage=0;
 
     created() {
         //console.log(this.step)
@@ -154,8 +156,9 @@ export default class GettingStarted extends Vue {
 
     mounted(){
         const progress = this.selected.length==0? 50 : 100;
-        const currentStep = this.$store.state.Application.currentStep;
-        this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
   
     public onChange(event) {
@@ -221,6 +224,8 @@ export default class GettingStarted extends Vue {
   
   
     beforeDestroy() {
+        const progress = this.selected.length==0? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         this.UpdateStepResultData({step:this.step, data: {selectedForms: this.selected}})
     }
 };

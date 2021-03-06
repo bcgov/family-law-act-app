@@ -68,8 +68,8 @@ export default class ProtectionFromWhom extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if (options.name === "ApplicantNeedsProtection") {
-                if (options.value === "y") {
+            if (options.name == "ApplicantNeedsProtection") {
+                if (options.value == "y") {
                     this.$store.commit("Application/setPageActive", {
                         currentStep: 2,
                         currentPage: 3,
@@ -84,11 +84,16 @@ export default class ProtectionFromWhom extends Vue {
                 }
             }
 
-            if(options.name === "RespondentName") {        
+            if(options.name == "RespondentName") {        
                 this.$store.commit("Application/setRespondentName", options.value);
-            }      
+            }
 
-            if(this.survey.data.ApplicantNeedsProtection === 'n' && this.survey.data.anotherAdultPO === 'n' && this.survey.data.childPO === 'n'){
+            // if(options.name == "childPO" && options.value == "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
+            //     console.log('progress')       
+            //     console.log(this.$store.state.Application.steps[2].result['backgroundSurvey'].data['ExistingOrders'])
+            // }      
+
+            if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
                 this.disableNextButton = true;
             }else{
                 this.disableNextButton = false;
@@ -99,34 +104,16 @@ export default class ProtectionFromWhom extends Vue {
 
     public reloadPageInformation() {
         if (this.step.result && this.step.result['protectionWhomSurvey']){
-            this.survey.data = this.step.result['protectionWhomSurvey'];
+            this.survey.data = this.step.result['protectionWhomSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-
-        //console.log(this.survey.data)
-        
-        let progress = 50;
-        if(Object.keys(this.survey.data).length && this.survey.data.RespondentName)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+       
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
 
-        const applicantNameObject = this.$store.state.Application.applicantName;
-        
-        if (applicantNameObject) {
-            this.applicantName =
-                applicantNameObject.first +
-                " " +
-                applicantNameObject.middle +
-                " " +
-                applicantNameObject.last;
-        }
-
-        if (this.applicantName) {
-            this.survey.setVariable("ApplicantName", this.applicantName);
-        }
-
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
         
     }
     
@@ -147,20 +134,9 @@ export default class ProtectionFromWhom extends Vue {
   
     beforeDestroy() {
 
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        if (this.survey.data.anotherAdultPO === "y") {
+        if (this.survey.data.anotherAdultPO == "y") {
             this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
         }else{
             this.$store.commit("Application/setProtectedPartyName", this.$store.state.Application.applicantName);
@@ -171,7 +147,8 @@ export default class ProtectionFromWhom extends Vue {
         else 
             this.$store.commit("Application/setProtectedChildName",[]);
 
-        this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: this.survey.data}});
+        this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 };
 </script>
