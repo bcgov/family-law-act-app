@@ -38,3 +38,10 @@ class Application(models.Model):
         blank=True,
         null=True,
     )
+    last_efiling_submission = models.ForeignKey(
+        "EFilingSubmission",
+        related_name="submission_application_id",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )

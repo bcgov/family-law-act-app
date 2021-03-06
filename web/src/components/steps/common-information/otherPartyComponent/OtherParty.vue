@@ -182,6 +182,9 @@ export default class OtherParty extends Vue {
 
     beforeDestroy() {
 
+        //console.log(this.getOtherPartyResults())
+        this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
+
         const progress = this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 

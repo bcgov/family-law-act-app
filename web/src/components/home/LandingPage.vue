@@ -33,16 +33,23 @@
                             <div class="row justify-content-center">
                                 <p>How it Works?</p>
                             </div>
-                            <div class="row how-works-section">
+                            <div class="row how-works-section mb-2">
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p>1. Answer Questions</p>
+                                    <p style="font-weight: bold;">1. Register or Login</p>
+                                    <p class="mb-3">
+                                        To use the Online FLA Assistant you will need to set up a Basic BCeID account.
+                                        If you do not currently have Basic BCeID account you can register for one by 
+                                        clicking the New User button below.
+                                    </p>
+                               
+                                    <p style="font-weight: bold;">2. Answer Questions</p>
                                     <p>
                                         Our free and secure online questionnaire will save your work
                                         so you can proceed at your own pace.
                                     </p>
                                 </div>
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p>2. Print Your Forms OR Submit Your Application electronically</p>
+                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Application electronically</p>
                                     <p>
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 
@@ -144,8 +151,15 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { SessionManager } from "@/components/utils/utils";
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
 @Component
 export default class LandingPage extends Vue {
+
+    @applicationState.Action
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
     
     isLoggedIn= false
     pageReady = false
@@ -175,7 +189,7 @@ export default class LandingPage extends Vue {
     }
     
     public determineUserType () {
-      
+        this.loadDocumentTypes();
         this.$http.get('/app-list/')
         .then((response) => {
             if(response.data.length>0) {
@@ -185,6 +199,22 @@ export default class LandingPage extends Vue {
             }        
         
         },(err) => console.log(err));
+    }
+
+    public loadDocumentTypes() {
+        const documentTypesJson = require("./forms/documentTypes.json");
+        //console.log(documentTypesJson)
+        this.UpdateDocumentTypesJson(documentTypesJson);
+        this.$http.get('/efiling/document-types/')
+        .then((response) => { 
+            if(response.data && response.data.length>0){
+                //console.log(response.data) 
+                this.UpdateDocumentTypesJson(response.data);
+            }
+        },(err) => {            
+            console.log(err)
+            //this.error = err;        
+        });
     }
   
 };

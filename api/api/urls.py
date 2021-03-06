@@ -27,8 +27,9 @@ from api.views import (
     AcceptTermsView,
     ApplicationView,
     ApplicationListView,
-    EfilingView,
-    EfilingDocumentView,
+    EFilingDocumentTypesView,
+    EFilingLocationView,
+    EFilingSubmitView,
     SurveyPdfView,
     UserView,
 )
@@ -56,13 +57,13 @@ urlpatterns = [
     path("survey-print/", SurveyPdfView.as_view()),
     path("survey-print/<int:pk>/", SurveyPdfView.as_view()),
     path("user-info/", UserView.as_view()),
-    # path("document-upload/", EfilingDocumentView.as_view()),
-    # path("submit-form/<int:pk>/", EfilingView.as_view()),
+    path("efiling/document-types/", EFilingDocumentTypesView.as_view()),
+    path("efiling/locations/", EFilingLocationView.as_view()),
+    path("efiling/<int:application_id>/submit/", EFilingSubmitView.as_view()),
 ]
 
 if settings.OIDC_ENABLED:
     urlpatterns.append(path("oidc/", include("oidc_rp.urls")))
-# urlpatterns = format_suffix_patterns(urlpatterns)
 
 """
 Usually in our Docker/Production environment the API server and the WEB server

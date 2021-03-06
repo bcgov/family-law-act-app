@@ -1,4 +1,4 @@
-<template>
+<template>   
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         
         <h2 class="mt-4">Review and Submit</h2>
@@ -15,16 +15,18 @@
 
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
             
-                <div style="margin:1rem 0; width:23rem;">
-                    <b-button                   
+                <b-card style="margin:1rem 0;border-radius:10px; border:2px solid #AAAAFF;">
+                    <div style="float:left; margin: 0.5rem 1rem;color:#3434eb; font-size:20px; font-weight:bold;" > Application About a Protection Order (FORM K)</div>
+                    <b-button 
+                        style="float:right; margin: 0.25rem 1rem;"                  
                         v-on:click.prevent="onDownload()"
                         variant="success">
                             <span class="fa fa-print btn-icon-left"/>
-                            Download and Review Your Application
+                            Review and Print
                     </b-button>
-                </div>
+                </b-card>
 
-                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="border-bottom:1px solid; width:20.25rem;">
+                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
                 </div>
 
@@ -52,20 +54,22 @@
                     <ul class="mt-3">
                         <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
                         <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
-                        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="border-bottom:1px solid; width:15.7rem;">
+                        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
                             <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
                         </div>
                         <li>Upload the documents bellow:</li>
                     </ul>
                 </div>
-               
-                <b-card id="drop-area" @click="uploadClicked">
+                
+                <!-- <b-img v-for="(supportingDocument,index) in supportingDocuments" :key="index" :src="supportingDocument.image" width="100" height="100"  /> -->
+                
+                <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
                         <label class="btn btn-default btnfile">
-                            <span style="font-size:20px; transform:translate(0,-17px);" class="fa fa-plus"></span>
-                            <input id="inputfile" type="file" style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
+                            <span style="font-size:20px; transform:translate(0,-17px);" class="fa fa-plus"></span>                            
                         </label>
                     </div>
+                    <input id="inputfile" type="file" style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
                     <p class="text-center m-0 text-info">Drag and Drop the PDF documents or JPG/PNG images here,</p>
                     <p class="text-center m-0 text-info" style=""> or click here to Browse for files</p>
                 </b-card>
@@ -79,15 +83,24 @@
                     <span class="text-muted ml-4 mb-5">No uploaded documents.</span>
                 </b-card>
                 <b-card v-else no-body border-variant="white" bg-variant="white">
-                    <b-table :items="supportingDocuments"
-                            :fields="supportingDocumentFields"
-                            class="mx-4"
-                            borderless
-                            striped
-                            small 
-                            responsive="sm">
+                    <b-table 
+                        :items="supportingDocuments"
+                        :fields="supportingDocumentFields"
+                        class="mx-0"
+                        borderless                        
+                        striped
+                        small 
+                        fixed>
+
+                        <template v-slot:table-colgroup>
+                            <col style="width:20rem">
+                            <col style="width:10rem">
+                            <col style="width:5rem">
+                            <col style="width:6rem">
+                        </template>
+
                         <template v-slot:cell(edit)="row">
-                            <b-button size="sm" variant="transparent" @click="removeDocument(row.index)">
+                            <b-button size="sm" v-b-tooltip.hover.noninteractive = "'delete file'" style="border:0px;" variant="transparent" @click="removeDocument(row.index)">
                                 <b-icon-trash-fill font-scale="1.75" variant="danger"></b-icon-trash-fill>                    
                             </b-button>
                         </template>
@@ -96,6 +109,23 @@
                         </template>
                         <template v-slot:cell(fileType)="row">                  
                             <span>{{row.item.documentType}}</span>
+                        </template>
+                        
+                        <template v-slot:cell(preview)="data">                            
+                            <embed v-if="data.item.file.type=='application/pdf'" style="float:right" :src="data.item.image" width="100" height="120" type="application/pdf">
+                            <div style="float:right; margin-right:1rem;" v-else>
+                                <b-row>
+                                    <b-img  :style="{transform:'rotate('+data.item.imageRotation+'deg)'}" :src="data.item.image" width="100" height="100"  />
+                                </b-row>
+                                <b-row>
+                                    <b-button size="sm" v-b-tooltip.hover.noninteractive.bottom = "'rotate image'"  style="width:3rem;height:1.2rem;padding:0; margin-right:0.25rem;" variant="info" @click="data.item.imageRotation=(data.item.imageRotation+270)%360">                                        
+                                        <span class="fa fa-undo"></span>
+                                    </b-button>
+                                    <b-button size="sm" v-b-tooltip.hover.noninteractive.bottom = "'rotate image'" style="width:3rem;height:1.2rem;padding:0;" variant="info" @click="data.item.imageRotation=(data.item.imageRotation+90)%360">
+                                        <span class="fa fa-undo" style="transform:rotateY(180deg)"></span>
+                                    </b-button>                                    
+                                </b-row>
+                            </div>
                         </template>
                     </b-table>
                 </b-card>
@@ -115,13 +145,16 @@
                     <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
                 </div>
 
-                <div style="width:19rem; margin: 0 auto;">
-                    <b-button                    
-                        v-on:click.prevent="onSubmit()"
+                <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
+                    <loading-spinner v-if="submissionInProgress" /> 
+                    <b-button v-else
+                        :disabled="!submitEnable"                   
+                        v-on:click.prevent="onSubmit()"                        
                         variant="success">
                             <span class="fa fa-paper-plane btn-icon-left"/>
-                            Submit Application
+                            Proceed to Submit
                     </b-button>
+                    
                 </div>
             </b-card>
 
@@ -162,7 +195,7 @@
                         id="documentType"
                         v-model="fileType"
                         :state = "selectedDocumentTypeState?null:false">
-                        <b-form-select-option v-for="docType in fileTypes" :value="docType.value" :key="docType.value">{{docType.text}}</b-form-select-option>  
+                        <b-form-select-option v-for="docType in fileTypes" :value="docType.type" :key="docType.type">{{docType.description}}</b-form-select-option>  
                     </b-form-select>
                 </b-form-group> 
             </b-card>
@@ -183,8 +216,6 @@
     import moment from 'moment-timezone';
     
     import { stepInfoType } from "@/types/Application";
-    import { supportingDocumentInfoType } from "@/types/Common";
-
     import PageBase from "../PageBase.vue";    
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
     import GetHelpScanning from "./helpPages/GetHelpScanning.vue"    
@@ -228,8 +259,17 @@
         @applicationState.State
         public currentStep!: number;
 
+        @applicationState.State
+        public documentTypesJson!: any;
+
         // @applicationState.State
         // public requiredDocuments!: string[];
+
+        @applicationState.State
+        public supportingDocuments!: any;
+        @applicationState.Action
+        public UpdateSupportingDocuments!: (newSupportingDocuments) => void
+
 
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
@@ -249,12 +289,16 @@
         @applicationState.Action
         public UpdateLastPrinted!: (newLastPrinted) => void
 
+        @applicationState.Action
+        public UpdateLastFiled!: (newLastFiled) => void
+
+
         error = "";
         showGetHelpForPDF = false;
         showGetHelpScanning = false;
         applicantLocation = {name:'', address:'', cityStatePostcode:'', email:''}        
-        submissionId = "";
-        generatedUrlPayload = {};
+        submissionInProgress = false;
+        
         supportingFile = null;
         selectedDocumentTypeState = true;
         selectedSupportingDocumentState = true;
@@ -262,15 +306,19 @@
         fileTypes = [];
         requiredDocuments: string[] = [];
         supportingDocumentFields = [
-            { key: 'fileName', label: 'File Name'},
-            { key: 'fileType', label: 'File Type'},
-            { key: 'edit', thClass: 'd-none'}
+            { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
+            { key: 'fileType', label: 'File Type',tdClass:'align-middle'},
+            { key: 'edit', thClass: 'd-none',tdClass:'align-middle'},
+            { key: 'preview', thClass: 'd-none'}
         ];
-        supportingDocuments: supportingDocumentInfoType[] = [];
+       
         showTypeOfDocuments = false;
+
+        submitEnable = false;
 
         mounted(){
 
+            this.submitEnable =  false;
             const progress = 50;
 
             //console.log(this.currentStep)
@@ -287,8 +335,8 @@
                 this.applicantLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
             }
             //TODO: use get api for document-types
-            const documentTypesJson = require("./forms/documentTypes.json");
-            this.fileTypes = documentTypesJson;
+           
+            this.fileTypes = this.documentTypesJson;
             this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
 
             const dropArea = document.getElementById('drop-area');
@@ -306,22 +354,27 @@
         public handleFileDrop(e) {
             e.preventDefault()
             e.stopPropagation()
-            let dt = e.dataTransfer
-            let files = dt.files
-            //console.log(files)
-            this.supportingFile = files[0];
-            this.showTypeOfDocuments= true;
+            const dt = e.dataTransfer
+            const files = dt.files
+            console.log(files)
+            if (files && files[0]) 
+            {
+                this.supportingFile = files[0];
+                this.showTypeOfDocuments= true;
+            }
         } 
 
         public uploadClicked(){
-            //console.log('click')
+            console.log('click')
             const el = document.getElementById("inputfile");
             if(el) el.click();
         }
 
         public handleSelectedFile(event){
-            
-            //console.log(event.target.files)
+            console.log(event)
+            event.preventDefault();
+            event.stopPropagation();
+            console.log(event.target.files[0])
             
             if (event.target.files && event.target.files[0]) 
             {
@@ -410,6 +463,7 @@
                 link.click();
                 setTimeout(() => URL.revokeObjectURL(link.href), 1000);
                 this.error = "";
+                this.submitEnable =  true;
             },err => {
                 console.error(err);
                 this.error = "Sorry, we were unable to print your form at this time, please try again later.";
@@ -444,39 +498,44 @@
         }
 
         public eFile() {
+            
+            const bodyFormData = new FormData();
+            for(const supportingDoc of this.supportingDocuments){
+                bodyFormData.append('files',supportingDoc['file']);            
+                bodyFormData.append('documentTypes', supportingDoc['documentType']);
+                bodyFormData.append('rotation', supportingDoc['imageRotation']);
+                console.log(supportingDoc['imageRotation'])
+            }
 
-            //TODO: get the pdf through new API
-            var bodyFormData = new FormData();
-            bodyFormData.append('files', "~/Downloads/fpo.pdf");
+            console.log(bodyFormData)
 
-            const url = "http://fla-nginx-proxy-qzaydf-dev.pathfinder.gov.bc.ca/api/submission/documents";
+            const url = "/efiling/"+this.id+"/submit/" 
             const header = {
                 responseType: "json",
                 headers: {
-                    Authorization: "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjVDg3bHVwcmhwYmdwNHQtZ3ZIM0U1RHBfNUJEYms1cGtVVHo3Z3ZVUTZZIn0.eyJleHAiOjE1OTg0ODE0NjMsImlhdCI6MTU5ODQ4MTE2MywianRpIjoiNjY5ZGJmYjktNjMyMC00ZGNlLWFiMzMtZGQ0MjExZTk4ZWNkIiwiaXNzIjoiaHR0cHM6Ly9zc28tZGV2LnBhdGhmaW5kZXIuZ292LmJjLmNhL2F1dGgvcmVhbG1zL3F4NjhvYTVjIiwiYXVkIjpbImVmaWxpbmctYXBpIiwiYWNjb3VudCJdLCJzdWIiOiJiZWZlNjM1OS1iNDFmLTQ5NjktYTcyZi01ZGJjYjkzZDlhODgiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJmbGEiLCJzZXNzaW9uX3N0YXRlIjoiMGJlNzczYTItMzZhOS00MTBkLTgyNWUtMmFlYTg1ZTMwYjA2IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiZWZpbGluZy1hcGkiOnsicm9sZXMiOlsiZWZpbGluZy1jbGllbnQiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImNzby1zZXJ2aWNlLXR5cGUtY29kZSI6IkRDRkwiLCJjbGllbnRIb3N0IjoiNTAuOTIuMTE5LjI3IiwiY2xpZW50SWQiOiJmbGEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNzby1hcHBsaWNhdGlvbi1jb2RlIjoiRkxBIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWZsYSIsImNsaWVudEFkZHJlc3MiOiI1MC45Mi4xMTkuMjciLCJlbWFpbCI6InNlcnZpY2UtYWNjb3VudC1mbGFAcGxhY2Vob2xkZXIub3JnIn0.RFQNciMI-_RZv8T5HglZiZil4mksWoNGBzVOabT02PY9zFEJGSuSgY4fc17HfPUaqiVr9ritaMC01h8BYHzIeZj-iCg5M0CUXi9QO8lfOYyYPRXXowjOVfKQtWem58z3NQ4RSpfZa5NAaIfQVGByina89hSICZJj-oL2vZxPiVEw3hvJgadBCsh8v9bwsK2LiTEHr8mL_WQPj-loM-xrYxIr6R4CPi1ACDf1JCIwIt8C3Zo9dmEPJZ-_iJS37FsVa9bmf9caRJVTDtDI6c-nhOJ2N-akQ5q64hgAXZJ8t-AD4Esiz0-K78F9XYeY3vTlKlS1wieKa1i_LolLg-AV_w",
                     "Content-Type": "multipart/form-data",
-                    Accept: "application/json",
-                    "X-Transaction-Id": "ca09e538-d34e-11ea-87d0-0242ac130003",
-                    "X-User-Id": "54546456"
+                    Accept: "application/json"                  
                 }
             }
-            //TODO: add the new api to call submit documents
+            
+            this.submissionInProgress = true;
+            
             this.$http.post(url, bodyFormData, header)
             .then(res => {
-                //console.log(res)
-                this.submissionId = res.data.submissionId;
-                this.generateUrl();
-
+                console.log(res)
+                if(res.data.message=="success")
+                {
+                    this.saveSubmission(res.data.redirectUrl)
+                    //this.$router.push({ name: "applicant-status" });                    
+                }
             }, err => {
                 console.error(err);
                 this.error = err;
+                this.submissionInProgress = false;
             });           
         }
         
-        public generateUrl() {        
-            this.generateUrlPayload();
-            //TODO: use new api to generate url
-            var eFilingUrl = "";
+        public generateUrl(eFilingUrl) {
             // use a new api to:
             //1. add efiling hub access information to the application table
             //2. add the date of submission to the application table
@@ -484,10 +543,7 @@
             location.replace(eFilingUrl);        
         }
 
-        public generateUrlPayload() {
-            //TODO: add the payload elements
-            this.generatedUrlPayload = {}
-        }
+      
 
         public removeDocument(index) {
             this.supportingDocuments.splice(index, 1);
@@ -498,16 +554,52 @@
             this.selectedDocumentTypeState = this.fileType.length>0? true: false;
 
             if (this.supportingFile && this.fileType.length>0) {
+
                 this.showTypeOfDocuments = false;
+
+                const supportingdocuments = this.supportingDocuments 
+              
                 const newFile = {
                     "fileName": this.supportingFile.name,
                     "file": this.supportingFile,
-                    "documentType": this.fileType
+                    "documentType": this.fileType,
+                    "image": URL.createObjectURL(this.supportingFile),
+                    "imageRotation": 0
                 }
-                this.supportingDocuments.push(newFile);
+                supportingdocuments.push(newFile);
+                this.UpdateSupportingDocuments(supportingdocuments);
                 this.supportingFile = null;
                 this.fileType = "";
+                
             }
+        }
+
+        public saveSubmission(packageurl) {
+           
+            const data = {
+                packageNumber:"",
+                packageUrl:packageurl 
+            } 
+
+            const url = "/efiling/"+this.id+"/submit/";
+
+            const header = {
+                responseType: "json",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }
+
+            this.$http.put(url, data, header)
+            .then(res => {
+                //console.log(res.data);                
+                this.error = "";
+                this.generateUrl(packageurl);
+            }, err => {
+                console.error(err);
+                this.error = err;
+                this.submissionInProgress = false;
+            });    
         }
     }
 </script>

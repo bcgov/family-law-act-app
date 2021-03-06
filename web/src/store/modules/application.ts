@@ -1,5 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import { stepInfoType, pageInfoType } from "@/types/Application";
+import { supportingDocumentInfoType } from "@/types/Common";
 
 @Module({
   namespaced: true
@@ -26,6 +27,8 @@ class Application extends VuexModule {
     public requiredDocuments: string[] = []
     public packageNumber = ""
     public eFilingHubLink = ""
+    public documentTypesJson = [];
+    public supportingDocuments: supportingDocumentInfoType[] = [];
 
     @Mutation
     public init(): void {
@@ -615,12 +618,30 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public setDocumentTypesJson(documentTypesJson): void {
+        this.documentTypesJson = documentTypesJson;
+    }
+    @Action
+    public UpdateDocumentTypesJson(newDocumentTypesJson) {
+        this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
+    }
+
+    @Mutation
     public setScrollToLocationName(scrollToLocationName): void {
         this.scrollToLocationName = scrollToLocationName;
     }
     @Action
     public UpdateScrollToLocationName(newScrollToLocationName) {
         this.context.commit("setScrollToLocationName", newScrollToLocationName);
+    }
+
+    @Mutation
+    public setSupportingDocuments(supportingDocuments): void {
+        this.supportingDocuments = supportingDocuments;
+    }
+    @Action
+    public UpdateSupportingDocuments(newSupportingDocuments) {
+        this.context.commit("setSupportingDocuments", newSupportingDocuments);
     }
 
     @Mutation
@@ -639,6 +660,7 @@ class Application extends VuexModule {
         this.protectedPartyName = application.protectedPartyName;
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
+        this.lastFiled = application.lastFiled;
     }
     @Action
     public UpdateCurrentApplication(newApplication) {
