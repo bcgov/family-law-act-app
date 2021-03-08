@@ -38,6 +38,8 @@ class EFilingSubmitView(generics.GenericAPIView):
     def _get_validation_errors(self, request_files, documents):
         if not is_valid_json(documents):
             return JsonMessageResponse("Invalid json data for documents.", status=400)
+        if len(request_files) > 30:
+            return JsonMessageResponse("Too many files.", status=400)
         for file in request_files:
             if file.size == 0:
                 return JsonMessageResponse("One of the files was empty.", status=400)
@@ -47,8 +49,6 @@ class EFilingSubmitView(generics.GenericAPIView):
                 )
             if self._invalid_file_extension(file):
                 return JsonMessageResponse("Wrong file format.", status=400)
-            if file.size > 30:
-                return JsonMessageResponse("Too many files.", status=400)
         return None
 
     """ This inserts our generated file, iterates over files and converts to PDF if necessary. """

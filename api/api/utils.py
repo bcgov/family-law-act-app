@@ -96,5 +96,3 @@ def is_valid_json(data):
         return True
     except ValueError:
         return False
-
-
