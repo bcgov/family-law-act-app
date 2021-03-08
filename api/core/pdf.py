@@ -40,13 +40,13 @@ def image_to_pdf(data):
 def rotate_image(file, rotation):
     image = Image.open(file)
     if rotation == 90:
-        image.transpose(Image.ROTATE_270)
+        image_rotated = image.transpose(Image.ROTATE_270)
     elif rotation == 270:
-        image.transpose(Image.ROTATE_90)
+        image_rotated = image.transpose(Image.ROTATE_90)
     else:
-        image.transpose(Image.ROTATE_180)
+        image_rotated = image.transpose(Image.ROTATE_180)
     image_bytearray = io.BytesIO()
-    image.save(image_bytearray, format=image.format)
+    image_rotated.save(image_bytearray, format=image.format)
     return image_bytearray.getvalue()
 
 

@@ -36,6 +36,7 @@ class EFilingSubmitView(generics.GenericAPIView):
         return extension.lower() not in self.allowed_extensions
 
     def _get_validation_errors(self, request_files, documents):
+        # TODO: check group of images isn't over 10MB
         if not is_valid_json(documents):
             return JsonMessageResponse("Invalid json data for documents.", status=400)
         if len(request_files) > 30:
@@ -74,7 +75,7 @@ class EFilingSubmitView(generics.GenericAPIView):
             else:
                 rotations = incoming_document["rotations"]
                 data = rotate_images_and_convert_pdf(files, rotations)
-                file_name = "merged_images.pdf"
+                file_name = f"{files[0].name.split('.')[0]}.pdf"
             outgoing_documents.append(
                 {
                     "type": incoming_document["type"],
