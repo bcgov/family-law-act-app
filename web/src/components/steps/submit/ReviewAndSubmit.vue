@@ -314,11 +314,11 @@
        
         showTypeOfDocuments = false;
 
-        submitEnable = false;
+        submitEnable = true;
 
         mounted(){
 
-            this.submitEnable =  false;
+            this.submitEnable =  true;
             const progress = 50;
 
             //console.log(this.currentStep)
@@ -396,7 +396,7 @@
             if(this.checkErrorOnPages()){
                 const currentDate = moment().format();
                 this.UpdateLastPrinted(currentDate);
-                this.loadPdf();
+                this.loadPdf(false);
             }
         }
 
@@ -442,9 +442,9 @@
             return this.getStepId(stepIndex) + "-page-" + pageIndex;
         }
 
-        public loadPdf() {
+        public loadPdf(noDownload) {
             
-            const url = '/survey-print/'+this.id+'/?name=application-about-a-protection-order'
+            const url = '/survey-print/'+this.id+'/?name=application-about-a-protection-order'+(noDownload?'&noDownload=true':'');
             const body = this.getFPOResultData()
             const options = {
                 responseType: "blob",
@@ -455,18 +455,24 @@
             //console.log(body)
             this.$http.post(url,body, options)
             .then(res => {
-                const blob = res.data;
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                document.body.appendChild(link);
-                link.download = "fpo.pdf";
-                link.click();
-                setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-                this.error = "";
-                this.submitEnable =  true;
+                console.log('done')
+                if(noDownload)
+                    this.eFile();
+                else
+                {
+                    const blob = res.data;
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    document.body.appendChild(link);
+                    link.download = "fpo.pdf";
+                    link.click();
+                    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+                    this.error = "";                    
+                }
+                //this.submitEnable =  true;
             },err => {
                 console.error(err);
-                this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+                this.error = "Print failed, please try again.";                
             });
 
         }
@@ -491,9 +497,8 @@
         }
 
         public onSubmit() {
-
             if(this.checkErrorOnPages()){
-                this.eFile();
+                this.loadPdf(true);
             }            
         }
 
@@ -525,8 +530,7 @@
                 console.log(res)
                 if(res.data.message=="success")
                 {
-                    this.saveSubmission(res.data.redirectUrl)
-                    //this.$router.push({ name: "applicant-status" });                    
+                    this.generateUrl(res.data.redirectUrl)                   
                 }
             }, err => {
                 console.error(err);
@@ -535,14 +539,10 @@
             });           
         }
         
-        public generateUrl(eFilingUrl) {
-            // use a new api to:
-            //1. add efiling hub access information to the application table
-            //2. add the date of submission to the application table
+        public generateUrl(eFilingUrl) {            
             // redirect user to the generated url
             location.replace(eFilingUrl);        
         }
-
       
 
         public removeDocument(index) {
@@ -574,33 +574,6 @@
             }
         }
 
-        public saveSubmission(packageurl) {
-           
-            const data = {
-                packageNumber:"",
-                packageUrl:packageurl 
-            } 
-
-            const url = "/efiling/"+this.id+"/submit/";
-
-            const header = {
-                responseType: "json",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }
-
-            this.$http.put(url, data, header)
-            .then(res => {
-                //console.log(res.data);                
-                this.error = "";
-                this.generateUrl(packageurl);
-            }, err => {
-                console.error(err);
-                this.error = err;
-                this.submissionInProgress = false;
-            });    
-        }
     }
 </script>
 
