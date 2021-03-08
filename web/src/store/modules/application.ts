@@ -1,5 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import { stepInfoType, pageInfoType } from "@/types/Application";
+import { supportingDocumentInfoType } from "@/types/Common";
 
 @Module({
   namespaced: true
@@ -11,6 +12,7 @@ class Application extends VuexModule {
     public steps = new Array<stepInfoType>()
     public lastUpdate = null
     public lastPrinted = null
+    public lastFiled = null
     public currentStep = 1
     public allCompleted = false
     public userType = ""
@@ -21,6 +23,12 @@ class Application extends VuexModule {
     public protectedPartyName = ""
     public protectedChildName = ""
     public applicationLocation = ""
+    public scrollToLocationName = ""
+    public requiredDocuments: string[] = []
+    public packageNumber = ""
+    public eFilingHubLink = ""
+    public documentTypesJson = [];
+    public supportingDocuments: supportingDocumentInfoType[] = [];
 
     @Mutation
     public init(): void {
@@ -30,6 +38,9 @@ class Application extends VuexModule {
         this.userName = "";
         this.lastPrinted = null;
         this.lastUpdate = null;
+        this.lastFiled = null;
+        this.packageNumber = "";
+        this.eFilingHubLink = "";
         this.steps = new Array<stepInfoType>();
         // Getting started START
         let s = {} as stepInfoType;
@@ -298,14 +309,22 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
         p.label = "Filing Options";
         p.active = false;
         p.progress = 0;
     
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
-        p.key = "1";
+        p.key = "2";
         p.label = "Review and Print";
         p.active = false;
         p.progress = 0;
@@ -313,15 +332,23 @@ class Application extends VuexModule {
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "2";
+        p.key = "3";
         p.label = "Review and Save";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.label = "Review and Submit";
         p.active = false;
         p.progress = 0;
     
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "5";
         p.label = "Next Steps";
         p.active = false;
         p.progress = 0;
@@ -383,6 +410,36 @@ class Application extends VuexModule {
     public UpdateUserId(newUserId) {
         this.context.commit("setUserId", newUserId);
     }
+
+    @Mutation
+    public setRequiredDocuments(requiredDocuments): void {
+        this.requiredDocuments = requiredDocuments;
+    }
+    
+    @Action
+    public UpdateRequiredDocuments(newRequiredDocuments) {
+        this.context.commit("setRequiredDocuments", newRequiredDocuments);
+    }
+
+    @Mutation
+    public setPackageNumber(packageNumber): void {
+        this.packageNumber = packageNumber;
+    }
+    
+    @Action
+    public UpdatePackageNumber(newPackageNumber) {
+        this.context.commit("setPackageNumber", newPackageNumber);
+    }
+
+    @Mutation
+    public setEFilingHubLink(eFilingHubLink): void {
+        this.eFilingHubLink = eFilingHubLink;
+    }
+    
+    @Action
+    public UpdateEFilingHubLink(newEFilingHubLink) {
+        this.context.commit("setEFilingHubLink", newEFilingHubLink);
+    }
     
     @Mutation
     public setStepActive({ currentStep, active }): void {
@@ -426,8 +483,6 @@ class Application extends VuexModule {
     }    
     @Action
     public UpdateGotoNextStepPage() {
-        this.context.commit("setPageProgress", { currentStep:this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:100 })
-        
         const nextStepPage = this.context.getters["getNextStepPage"];
     
         if (nextStepPage != null) {
@@ -459,6 +514,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStepResultData({ step, data }) {
+        this.context.commit("setScrollToLocationName","");
         this.context.commit("setStepResultData", { step, data });
     } 
     
@@ -553,6 +609,42 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public setLastFiled(lastFiled): void {
+        this.lastFiled = lastFiled;
+    }
+    @Action
+    public UpdateLastFiled(newLastFiled) {
+        this.context.commit("setLastFiled", newLastFiled);
+    }
+
+    @Mutation
+    public setDocumentTypesJson(documentTypesJson): void {
+        this.documentTypesJson = documentTypesJson;
+    }
+    @Action
+    public UpdateDocumentTypesJson(newDocumentTypesJson) {
+        this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
+    }
+
+    @Mutation
+    public setScrollToLocationName(scrollToLocationName): void {
+        this.scrollToLocationName = scrollToLocationName;
+    }
+    @Action
+    public UpdateScrollToLocationName(newScrollToLocationName) {
+        this.context.commit("setScrollToLocationName", newScrollToLocationName);
+    }
+
+    @Mutation
+    public setSupportingDocuments(supportingDocuments): void {
+        this.supportingDocuments = supportingDocuments;
+    }
+    @Action
+    public UpdateSupportingDocuments(newSupportingDocuments) {
+        this.context.commit("setSupportingDocuments", newSupportingDocuments);
+    }
+
+    @Mutation
     public setCurrentApplication(application): void {
         this.id = application.id;    
         this.type = application.type;    
@@ -568,6 +660,7 @@ class Application extends VuexModule {
         this.protectedPartyName = application.protectedPartyName;
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
+        this.lastFiled = application.lastFiled;
     }
     @Action
     public UpdateCurrentApplication(newApplication) {

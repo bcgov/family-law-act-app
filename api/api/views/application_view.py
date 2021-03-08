@@ -11,8 +11,8 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.views import APIView
 
-from api.models.application import Application
-from api.utils import get_app_object
+from api.models import Application, EFilingSubmission
+from api.utils import get_application_for_user
 
 LOGGER = logging.getLogger(__name__)
 
@@ -30,14 +30,16 @@ class ApplicationView(APIView):
 
     def get(self, request, pk, format=None):
         uid = request.user.id
-        application = get_app_object(pk, uid)
+        application = get_application_for_user(pk, uid)
         steps_dec = settings.ENCRYPTOR.decrypt(application.key_id, application.steps)
         steps = json.loads(steps_dec)
+        submission = EFilingSubmission.objects.filter(
+            id=application.last_efiling_submission_id
+        ).first()
         data = {"id": application.id,
                 "type": application.app_type,
                 "steps": steps,
                 "lastUpdate": application.last_updated,
-                "lastFiled": application.last_filed,
                 "lastPrinted": application.last_printed,
                 "currentStep": application.current_step,
                 "allCompleted": application.all_completed,
@@ -48,7 +50,10 @@ class ApplicationView(APIView):
                 "respondentName": application.respondent_name,
                 "protectedPartyName": application.protected_party_name,
                 "protectedChildName": application.protected_child_name,
-                "applicationLocation": application.application_location}
+                "applicationLocation": application.application_location,
+                "packageNumber": submission.package_number if submission is not None else "",
+                "packageUrl": submission.package_url if submission is not None else "",
+                "lastFiled": application.last_filed}
         return Response(data)
 
     def post(self, request: Request):
@@ -88,7 +93,7 @@ class ApplicationView(APIView):
         if not body:
             return HttpResponseBadRequest("Missing request body")
 
-        app = get_app_object(pk, uid)
+        app = get_application_for_user(pk, uid)
         if not app:
             return HttpResponseNotFound("No record found")
 
@@ -106,10 +111,11 @@ class ApplicationView(APIView):
         app.protected_child_name = body.get("protectedChildName")
         app.application_location = body.get("applicationLocation")
         app.save()
+
         return Response("success")
 
     def delete(self, request, pk, format=None):
         uid = request.user.id
-        application = get_app_object(pk, uid)
+        application = get_application_for_user(pk, uid)
         application.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -1,9 +1,9 @@
 <template>
-    <div id="status">
+    <b-card id="status">
         <b-container class="container home-content">
             <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
-            <div class="row">
-                <div class="col-12">
+            <b-row>
+                <b-col>
                     <h1>Previous Applications</h1>
                     <hr class="bg-light" style="height: 2px;"/>
 
@@ -18,60 +18,76 @@
                             sort-by="lastUpdated"
                             :sort-desc="true"
                             borderless
+                            sort-icon-left
                             striped
                             small 
                             responsive="sm"
                             >
                             <template v-slot:cell(edit)="row">
-                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+                                <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="removeApplication(row.item, row.index)"
                                     v-b-tooltip.hover.noninteractive
-                                                title="Remove Application">
+                                    title="Remove Application">
                                     <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                                 </b-button>
-                                <b-button size="sm" variant="transparent" class="my-0 py-0"
+
+                                <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="resumeApplication(row.item.id)"
                                     v-b-tooltip.hover.noninteractive
-                                                title="Resume Application">
+                                    title="Resume Application">
                                     <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
+                                </b-button>
+
+                                <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="viewApplicationPdf(row.item.id)"
+                                    v-b-tooltip.hover.noninteractive
+                                    title="View the Submitted Application">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                                </b-button>
+
+                                <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="navigateToEFilingHub(row.item.last_efiling_submission)"
+                                    v-b-tooltip.hover.noninteractive
+                                    title="Navigate To Submitted Application">
+                                    <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                                 </b-button>
                             </template>
                             <template v-slot:cell(app_type)="row">                  
-                                <span>{{row.item.app_type}}</span>
+                                <span :class="row.item.lastFiled?'text-success':''">{{row.item.app_type}}</span>
                             </template>
                             <template v-slot:cell(lastUpdated)="row">                  
                                 <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
                             </template>
+                            <template v-slot:cell(lastFiled)="row">                  
+                                <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
+                            </template>
                         </b-table>
                     </b-card>
-                    <div class="row">
-                        <div hidden class="col-md-5">
-                            <a
-                                class="btn btn-success btn-lg register-button"
-                                @click="navigate('new')"
-                            >Respond to Documents served on me</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <a
-                                class="btn btn-success btn-lg register-button"
-                                @click="beginApplication()"
-                            >Begin NEW Application</a>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <div class="row">
-                        <div class="col-md-5">
-                            <a class="terms" @click="openTerms()">
-                                <u>Terms and Conditions</u>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+                    <b-card border-variant="white">                        
+                        <b-row>
+                            <b-col cols="5">
+                                <b-button 
+                                    variant="success" 
+                                    class="btn-lg register-button" 
+                                    @click="beginApplication()"
+                                >Begin NEW Application</b-button>
+                            </b-col>
+                        </b-row>
+                    </b-card>
+
+                    <b-card border-variant="white">                        
+                        <b-row>
+                            <b-col cols="5">                   
+                                <a class="terms" @click="openTerms()">
+                                    <u>Terms and Conditions</u>
+                                </a>
+                            </b-col>
+                        </b-row>
+                    </b-card>
+                 
+                </b-col>
+            </b-row>
         </b-container>
 
         <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" header-class="bg-warning text-light">
@@ -87,13 +103,11 @@
                 </b-badge>                    
             </b-row>            
             <template v-slot:modal-title>
-                <h2 v-if="allowDeletion" class="mb-0 text-light">Confirm Delete Application</h2>
-                <h2 v-else class="mb-0 text-light">Deletion Not Permitted</h2>                   
+                <h2 class="mb-0 text-light">Confirm Delete Application</h2>                                  
             </template>
-            <h4 v-if="allowDeletion" >Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</h4>
-            <h4 v-else >The deletion of the <b>"{{applicationToDelete.app_type}}"</b> application is not permitted.</h4>
+            <h4 >Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</h4>            
             <template v-slot:modal-footer>
-                <b-button v-if="allowDeletion" variant="danger" @click="confirmRemoveApplication()">Confirm</b-button>
+                <b-button variant="danger" @click="confirmRemoveApplication()">Confirm</b-button>
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
             </template>            
             <template v-slot:modal-header-close>                 
@@ -102,7 +116,7 @@
             </template>
         </b-modal> 
 
-    </div>
+    </b-card>
 </template>
 
 <script lang="ts">
@@ -120,6 +134,7 @@ export default class ApplicationStatus extends Vue {
     previousApplicationFields = [
         { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
         { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
+        { key: 'lastFiled', label: 'Filed Date', sortable:true, tdClass: 'border-top'},
         { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
     ]
     confirmDelete = false;
@@ -130,8 +145,7 @@ export default class ApplicationStatus extends Vue {
     error = ''
     deleteErrorMsg = ''
     deleteErrorMsgDesc = ''
-    deleteError = false
-    allowDeletion = true   
+    deleteError = false  
 
     mounted() {
         this.loadApplications();
@@ -143,14 +157,19 @@ export default class ApplicationStatus extends Vue {
 
     public loadApplications () {
     //TODO: when extending to use throughout the province, the timezone should be changed accordingly
+    //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
-            for (const appJson of response.data) {
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:''};
+            for (const appJson of response.data) {                
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', last_efiling_submission:{package_number:'',package_url:''}};
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
-                app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';
+                app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
+                app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
+                app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
                 app.app_type = appJson.app_type;
+                if(appJson.last_efiling_submission)
+                    app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                 this.previousApplications.push(app);
             }
             //console.log(this.previousApplications)       
@@ -195,9 +214,12 @@ export default class ApplicationStatus extends Vue {
         });
     }
 
-        // navigate() {
-        
-        // },
+    public navigateToEFilingHub(packageInfo) {
+        //console.log(packageInfo)        
+        //console.log("going to hub")
+        location.replace(packageInfo.package_url)
+    }
+
     public resumeApplication(applicationId) {      
     
         this.$http.get('/app/'+ applicationId + '/')
@@ -236,18 +258,10 @@ export default class ApplicationStatus extends Vue {
         this.deleteErrorMsg = '';
         this.deleteErrorMsgDesc = '';
         this.deleteError = false;
-        //console.log(application)
         this.applicationToDelete = application;
         this.indexToDelete = index;
-        this.determineIsDeletionAllowed();         
-    }
-
-    public determineIsDeletionAllowed() {
-        // TODO: confirm the checks to put in place in order to determine if the application can be deleted: open modal to confirm deletion      
-        this.allowDeletion = true;
-        this.confirmDelete=true;  
-
-    }
+        this.confirmDelete=true;         
+    }    
 
     public confirmRemoveApplication() {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
@@ -265,6 +279,34 @@ export default class ApplicationStatus extends Vue {
             this.deleteError = true;            
         });
         this.confirmDelete=false;  
+    }
+
+    public viewApplicationPdf(applicationId) {
+            
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
+        const body = {}
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        //console.log(body)
+        this.$http.post(url,body, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "fpo.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            this.error = "";
+        },err => {
+            console.error(err);
+            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
+        });
+
     }
 
 
@@ -327,4 +369,9 @@ hr.section {
 .terms{
     color: $gov-mid-blue;
 }
+
+button{
+    border:0px;
+}
+
 </style>

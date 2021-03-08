@@ -79,30 +79,33 @@ export default class PoQuestionnaire extends Vue {
             //console.log(this.survey.data);
             // console.log(options)
             let pagesArr = [];
-            if (options.name === "orderType") {        
+            if (options.name == "orderType") {                
                 this.removePages();
                 //console.log('__removed')
-                let selectedOrder = options.value;
-
+                const selectedOrder = options.value;
+                this.$store.commit("Application/setApplicationType",this.getApplicationType(selectedOrder));
+                
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: sender.data}});
 
                 pagesArr = [7, 8];
                 if (selectedOrder !== "needPO" && selectedOrder !== "none") {
                     this.togglePages(pagesArr, true);
-                    this.toggleOtherPartyPage(true);
+                    this.toggleOtherPartyPage(true); 
+                    this.$store.commit("Application/setCurrentStepPage", { currentStep:1, currentPage:0 })
                     this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:7 });
                     this.$store.commit("Application/setPageProgress", { currentStep: 2, currentPage:7, progress:0 })
                 } else {
                     this.togglePages(pagesArr, false);
                     this.toggleOtherPartyPage(false);
+                    this.$store.commit("Application/setCurrentStepPage", { currentStep:1, currentPage:0 })
                     this.$store.commit("Application/setCurrentStepPage", { currentStep:2, currentPage:0 })
                 }
-                if (selectedOrder === "needPO") {
+                if (selectedOrder == "needPO") {
                     this.populatePagesForNeedPO(sender);
                 }
                 this.determinePeaceBondAndBlock();
             }
-            if (options.name === "PORConfirmed") {
+            if (options.name == "PORConfirmed") {
                 //console.log(this.survey.data)
                 this.determinePeaceBondAndBlock();
                 pagesArr = [0, 1, 2, 4, 5, 6, 8];
@@ -113,7 +116,7 @@ export default class PoQuestionnaire extends Vue {
                 }
             }
 
-            if (options.name === "familyUnsafe" || options.name === "unsafe") {
+            if (options.name == "familyUnsafe" || options.name == "unsafe") {
                 //console.warn(options.value)
                 this.determinePeaceBondAndBlock();
             }
@@ -127,14 +130,10 @@ export default class PoQuestionnaire extends Vue {
         if (this.step.result && this.step.result["questionnaireSurvey"]){
             this.survey.data = this.step.result["questionnaireSurvey"];
         }
-
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.determinePeaceBondAndBlock();
    }
 
@@ -202,12 +201,19 @@ export default class PoQuestionnaire extends Vue {
 
     public isDisableNext() {
         // demo
-        return Object.keys(this.survey.data).length === 0;
+        return Object.keys(this.survey.data).length == 0;
     }
 
     public getDisableNextText() {
         // demo
         return "You will need to answer the question above to continue";
+    }
+
+    public getApplicationType(selectedOrder){
+        if (selectedOrder == "needPO") return "New Protection Order";
+        else if (selectedOrder == "changePO") return "Change Protection Order";
+        else if (selectedOrder == "terminatePO") return "Terminate Protection Order";
+        else return "Protection Order";
     }
     
     public determinePeaceBondAndBlock(){
@@ -231,11 +237,9 @@ export default class PoQuestionnaire extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
-      
+
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+       
         this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
 
     }

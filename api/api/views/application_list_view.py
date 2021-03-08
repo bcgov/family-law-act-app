@@ -12,10 +12,8 @@ from api.serializers import ApplicationListSerializer
 
 class ApplicationListView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    """
-    List all application for a user
-    """
-    def get_app_list(self, id):
+
+    def get_application_list_for_user(self, id):
         try:
             return Application.objects.filter(user_id=id)
         except Application.DoesNotExist:
@@ -25,6 +23,6 @@ class ApplicationListView(generics.ListAPIView):
         user_id = request.user.id
         if not user_id:
             return HttpResponseForbidden("User id not provided")
-        applications = self.get_app_list(request.user.id)
+        applications = self.get_application_list_for_user(request.user.id)
         serializer = ApplicationListSerializer(applications, many=True)
         return Response(serializer.data)

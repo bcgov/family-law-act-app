@@ -107,20 +107,20 @@
             "type": "yesno",
             "name": "PartiesHasOtherChilderen",
             "visibleIf": "(!{protectedChildName}) ",
-            "title": "Are {protectedPartyName} and {respondentName} a parent, step-parent or guardian to a child: ",
+            "title": "Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child: ",
             "isRequired": true
          },
          {
             "type": "html",
             "name": "info",
             "visibleIf": "{protectedChildName} notempty",
-            "html": "<div><h2 style='color: #556077'>Are {protectedPartyName} and {respondentName} a parent, step-parent or guardian to a child that is not already identified in the list below:</h2><h4 class='m-2'>The list of child(ren) to be protected from {respondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
+            "html": "<div><h2 style='color: #556077'>Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list below:</h2><h4 class='m-2'>The list of child(ren) to be protected from {RespondentName}:</h4><ul style='margin-bottom:0;'>{protectedChildName}</ul></div>"
          },
          {
             "type": "yesno",
             "name": "PartiesHasOtherChilderen",
             "visibleIf": "({protectedChildName} notempty) ",
-            "title": "",
+            "title": "Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list",
             "isRequired": true,
             "titleLocation":"hidden"
          },
@@ -128,7 +128,7 @@
             "type": "paneldynamic",
             "name": "allOtherChilderen",
             "visibleIf": "{PartiesHasOtherChilderen} = \"y\"",
-            "title": " ",
+            "title": "Other child(ren) information:",
             "isRequired": true,
             "templateElements": [          
                {
@@ -151,7 +151,7 @@
                   "type": "text",
                   "name": "childRelationshipWithProtected",
                   "visibleIf": "({PartiesHasOtherChilderen} = \"y\" ",
-                  "title": "What is {protectedPartyName}'s relationship to the child?",
+                  "title": "What is {ProtectedPartyName}'s relationship to the child?",
                   "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
                   "isRequired": true
                },
@@ -182,7 +182,7 @@
             "name": "ExistingOrders",
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\") or ({protectedChildName} notempty)",
             "isRequired": true,
-            "title": "<br/>Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
+            "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
             "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court."
          },
          {
