@@ -4,8 +4,8 @@
             <b-card  style="min-height: 100px;"/>                   
             <template v-slot:overlay>               
                 <div> 
-                    <spinner/> 
-                    <p id="loading-label">Waiting for eFiling Hub ...</p>
+                    <spinner style="width:5rem; margin:0 auto;"/> 
+                    <p class="text-center" id="loading-label">Waiting for eFiling Hub ...</p>
                 </div>                
             </template> 
         </b-overlay> 
