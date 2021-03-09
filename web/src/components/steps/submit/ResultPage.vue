@@ -1,16 +1,13 @@
 <template>
-    <b-card v-if="mountedData" style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
-        <h2 class="mt-4">{{headerText}}</h2>
-        <div> {{message}}
-        </div>
+    <b-card v-if="mountedData" style="width:50rem; margin:0 auto; border:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+        <h2 :class="'mt-4 text-center '+headerColor">{{headerText}}</h2>
+        <div class="text-center">{{message}}</div>
+        <div v-if="packageNumber" class="text-center"> Your package number is 
+            <b class="text-success"> {{packageNumber}} </b> . </div>
 
-        <b-row class="custom-row">
-            <b-col class="navigation-button-left">
-                <b-button v-on:click="viewStatus()" variant="primary">View Status</b-button>
-            </b-col>
-            <b-col class="navigation-button-right">
-                <b-button v-on:click="exitApplication()" variant="secondary">Exit Application</b-button>
-            </b-col>
+        <b-row class="mt-5">
+            <b-button style="margin-left:1rem;" v-on:click="viewStatus()" variant="primary">View Status</b-button>
+            <b-button style="margin-left:auto;margin-right:1rem;" v-on:click="exitApplication()" variant="secondary">Exit Application</b-button>
         </b-row>
 
     </b-card>  
@@ -19,7 +16,6 @@
 <script lang="ts">
 
 import {Component, Vue} from "vue-property-decorator"
-import moment from 'moment-timezone';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -28,24 +24,13 @@ import { SessionManager } from "@/components/utils/utils";
 @Component
 export default class ResultPage extends Vue {
 
-    result= "";
+    packageNumber = "";
     message= "";
     headerText = "";
+    headerColor= "";
     error = ""; 
     mountedData = false;
-
-    @applicationState.State
-    public id!: string;
-
-    @applicationState.Action
-    public UpdatePackageNumber!: (newPackageNumber) => void
-
-    @applicationState.Action
-    public UpdateEFilingHubLink!: (newEFilingHubLink) => void
-
-    @applicationState.Action
-    public UpdateLastFiled!: (newLastFiled) => void
-  
+        
     public viewStatus() {
         this.$router.push({ name: "applicant-status" });
     }
@@ -59,33 +44,47 @@ export default class ResultPage extends Vue {
         this.mountedData = false;
         this.error = "";
 
-        this.result = this.$route.params.result;
-        // TODO: based on the information provided by eFiling Hub, add conditional message texts
-        if (this.result == "success"){
+    console.log(this.$route)
+
+        const result = this.$route.params.result;
+        const ApplicationId = this.$route.params.id;        
+        
+        if (result == "success"){
             this.message = "Your Application has been submitted successfully."
             this.headerText = "Success";
-            //TODO: update application with package-number and eFilinkHubLink
-            const lastFiled = moment().format();
-            this.UpdateLastFiled(lastFiled);
-            const packageNumber = "";
-            this.UpdatePackageNumber(packageNumber);
-            const eFilingHubLink = "";
-            this.UpdateEFilingHubLink(eFilingHubLink);
-            this.saveApplication();
+            this.headerColor="text-success";
+            
+            const packageRef = this.$route.query.packageRef
+            //console.log(packageRef)
+            const packageUrl = atob(String(packageRef))
+            //console.log(packageUrl)
+            this.packageNumber = packageUrl.substring(packageUrl.lastIndexOf('/')+1)
+            //console.log(packageNumber)
+            this.saveApplication(ApplicationId, this.packageNumber, packageUrl);
 
-        } else if (this.result == "error") {
-            this.message = "An error occured while submitting your application, ...."
-            this.headerText = "Failed"
-        } else if (this.result == "cancel") {
+        } else if (result == "error") {
+            const packageMessage = String(this.$route.query.message)
+            //console.log(packageRef)
+            this.message = packageMessage? packageMessage: "An error occured while submitting your application, ...."
+            this.headerText = "Failed";
+            this.headerColor="text-danger";
+        } else if (result == "cancel") {
             this.message = "Submission of your application has been canceled."
+            this.headerText = "Canceled";
+            this.headerColor="text-secondary";
         }
         
         this.mountedData = true;
     }
 
-    public saveApplication() {
-         
-        const application = this.$store.state.Application;      
+    public saveApplication(id, packagenumber, packageurl) {
+        
+        const data = {
+            packageNumber: packagenumber,
+            packageUrl: packageurl 
+        } 
+
+        const url = "/efiling/"+id+"/submit/";
 
         const header = {
             responseType: "json",
@@ -94,31 +93,14 @@ export default class ResultPage extends Vue {
             }
         }
 
-        this.$http.put("/app/"+ this.id + "/", application, header)
-        .then(res => {
-            this.mountedData = true;
+        this.$http.put(url, data, header)
+        .then(res => {                            
             this.error = "";
         }, err => {
             console.error(err);
             this.error = err;
-        }); 
+        });    
     }
 
 };
 </script>
-
-<style scoped lang="scss">
-    @import "src/styles/common";
-
-    .custom-row {
-    margin-top: 6rem;
-    }
-    .navigation-button-left,
-    .navigation-button-right {
-    display: inline-block;
-    }
-    .navigation-button-left {
-    margin-right: 6em;
-    }
-
-</style>

@@ -36,8 +36,10 @@ const router = new VueRouter({
     }
 });
 
+//console.log(!location.pathname.includes('/result/'))
 // Redirect to /family-law-act/
-history.pushState({page: "home"}, "", process.env.BASE_URL)
+if(!location.pathname.includes('/result/'))
+    history.pushState({page: "home"}, "", process.env.BASE_URL)
 
 SessionManager.redirectIfQuickExitCookie();
 
