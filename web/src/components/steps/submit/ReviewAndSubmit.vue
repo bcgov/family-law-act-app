@@ -505,14 +505,22 @@
         public eFile() {
             
             const bodyFormData = new FormData();
-            for(const supportingDoc of this.supportingDocuments){
-                bodyFormData.append('files',supportingDoc['file']);            
-                bodyFormData.append('documentTypes', supportingDoc['documentType']);
-                bodyFormData.append('rotation', supportingDoc['imageRotation']);
-                console.log(supportingDoc['imageRotation'])
+            const docType = []
+            for(const index in this.supportingDocuments){
+                const supportingDoc = this.supportingDocuments[index]
+                bodyFormData.append('files',supportingDoc['file']); 
+                          
+                docType.push({type: supportingDoc['documentType'], files: [Number(index)], rotations:[supportingDoc['imageRotation']]})
+               // bodyFormData.append('documents', );
+               // console.log(supportingDoc['imageRotation'])
             }
+            console.log(docType);
+            const docTypeJson = JSON.stringify(docType);
+            const docTypeBlob = new Blob([docTypeJson], {type: 'application/json'});
+            bodyFormData.append('documents', docTypeJson);
+            
 
-            console.log(bodyFormData)
+            console.log(bodyFormData.get('documents'))
 
             const url = "/efiling/"+this.id+"/submit/" 
             const header = {
