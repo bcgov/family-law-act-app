@@ -91,6 +91,8 @@ def convert_document_to_multi_part(documents):
 
 
 def is_valid_json(data):
+    if data is None:
+        return False
     try:
         json.loads(data)
         return True
