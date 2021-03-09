@@ -43,8 +43,6 @@ def rotate_image(file, rotation):
         image_rotated = image.transpose(Image.ROTATE_270)
     elif rotation == 270:
         image_rotated = image.transpose(Image.ROTATE_90)
-    else:
-        image_rotated = image.transpose(Image.ROTATE_180)
     image_bytearray = io.BytesIO()
     image_rotated.save(image_bytearray, format=image.format)
     return image_bytearray.getvalue()
