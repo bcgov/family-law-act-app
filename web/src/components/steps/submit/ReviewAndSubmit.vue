@@ -72,7 +72,7 @@
                             <span style="font-size:20px; transform:translate(0,-17px);" class="fa fa-plus"></span>                            
                         </label>
                     </div>
-                    <input id="inputfile" type="file" style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
+                    <input id="inputfile" type="file" multiple style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
                     <p class="text-center m-0 text-info">Drag and Drop the PDF documents or JPG/PNG images here,</p>
                     <p class="text-center m-0 text-info" style=""> or click here to Browse for files</p>
                 </b-card>
@@ -85,7 +85,7 @@
                 <b-card border-variant="white" bg-variant="white" no-body v-if="!supportingDocuments.length">
                     <span class="text-muted ml-4 mb-5">No uploaded documents.</span>
                 </b-card>
-                <b-card v-else no-body border-variant="white" bg-variant="white">
+                <b-card v-else no-body border-variant="white" bg-variant="white" id="supportingdocs">
                     <b-table 
                         :items="supportingDocuments"
                         :fields="supportingDocumentFields"
@@ -191,9 +191,9 @@
 
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
-                <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document</h1>
-                <div v-if="supportingFile" class="h3 my-5 text-center">File Name: <span class=" h2 text-danger"> {{supportingFile.name}} </span> </div>
-                <b-form-group style="width:30rem; margin: 4rem auto;"> 
+                <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document(s)</h1>
+                <div v-if="supportingFile" class="h3 my-4 text-center"><div class="mb-3"> File Name(s): </div> <span v-for="(file,inx) in supportingFile" :key="inx" style="display:block;" class="my-2  p-0 h3 text-danger"> {{file.name}} </span> </div>
+                <b-form-group style="width:30rem; margin: 2rem auto;"> 
                     <b-form-select
                         id="documentType"
                         v-model="fileType"
@@ -364,7 +364,7 @@
             console.log(files)
             if (files && files[0]) 
             {
-                this.supportingFile = files[0];
+                this.supportingFile = files;
                 this.showTypeOfDocuments= true;
             }
         } 
@@ -383,7 +383,7 @@
             
             if (event.target.files && event.target.files[0]) 
             {
-                this.supportingFile = event.target.files[0];
+                this.supportingFile = event.target.files;
                 this.showTypeOfDocuments= true;
             }
         }
@@ -511,17 +511,40 @@
             
             const bodyFormData = new FormData();
             const docType = []
-            for(const index in this.supportingDocuments){
-                const supportingDoc = this.supportingDocuments[index]
-                bodyFormData.append('files',supportingDoc['file']); 
-                          
-                docType.push({type: supportingDoc['documentType'], files: [Number(index)], rotations:[supportingDoc['imageRotation']]})
-               // bodyFormData.append('documents', );
-               // console.log(supportingDoc['imageRotation'])
+
+            console.log(this.supportingDocuments[this.supportingDocuments.length-1])
+            const lastTypeIndex = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
+            
+            //console.log(lastTypeIndex)
+            let fileIndex = 0;
+            for(let typeIndex=1; typeIndex<=lastTypeIndex; typeIndex++){
+                console.log(typeIndex)
+                const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.typeIndex==typeIndex)})
+                console.log(tempSupportingDocs)
+                if(tempSupportingDocs.length>0){
+                    const filesIndices = [];
+                    const filesRotation = [];
+                    for(const supportingDoc of tempSupportingDocs){
+                        bodyFormData.append('files',supportingDoc['file']);
+                        filesIndices.push(fileIndex)
+                        filesRotation.push(supportingDoc['imageRotation'])
+                        fileIndex++;
+                    }
+                    docType.push({type: tempSupportingDocs[0]['documentType'], files: filesIndices, rotations:filesRotation})
+                }
             }
+
+            // for(const index in this.supportingDocuments){
+            //     const supportingDoc = this.supportingDocuments[index]
+            //     bodyFormData.append('files',supportingDoc['file']); 
+                          
+            //     docType.push({type: supportingDoc['documentType'], files: [Number(index)], rotations:[supportingDoc['imageRotation']]})
+            //    // bodyFormData.append('documents', );
+            //    // console.log(supportingDoc['imageRotation'])
+            // }
             console.log(docType);
             const docTypeJson = JSON.stringify(docType);
-            const docTypeBlob = new Blob([docTypeJson], {type: 'application/json'});
+            //const docTypeBlob = new Blob([docTypeJson], {type: 'application/json'});
             bodyFormData.append('documents', docTypeJson);
             
 
@@ -571,19 +594,29 @@
                 this.showTypeOfDocuments = false;
 
                 const supportingdocuments = this.supportingDocuments 
-              
-                const newFile = {
-                    "fileName": this.supportingFile.name,
-                    "file": this.supportingFile,
-                    "documentType": this.fileType,
-                    "image": URL.createObjectURL(this.supportingFile),
-                    "imageRotation": 0
+                let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
+                typeIndex++
+                console.log(typeIndex)
+                for(const supportingfile of this.supportingFile){
+               
+                    const newFile = {
+                        "fileName": supportingfile.name,
+                        "file": supportingfile,
+                        "documentType": this.fileType,
+                        "image": URL.createObjectURL(supportingfile),
+                        "imageRotation": 0,
+                        "typeIndex":typeIndex
+                    }
+                    supportingdocuments.push(newFile);
                 }
-                supportingdocuments.push(newFile);
+
                 this.UpdateSupportingDocuments(supportingdocuments);
                 this.supportingFile = null;
                 this.fileType = "";
                 
+                const el = document.getElementById('drop-area');
+                console.log(el)
+                if(el) el.scrollIntoView();
             }
         }
 
