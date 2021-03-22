@@ -4,18 +4,21 @@
         <h2 class="mt-4">Review and Submit</h2>
         <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
-            <div class="ml-2">
+            <div class="ml-0">
                 You have indicated that you will file at the following court registry:
-                <p class="h4 mt-2 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
+                <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
             </div>
             
             <h3 class="mt-4">To prepare the application for filing:</h3>
 
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
-                <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
+                <span class="text-primary mb-2" style="display:block; font-size:1.4rem;">Review your application:</span> 
+                <span>If you are filing your application by electronically and you are asking for a protection order in your application, you will need to be prepared to 
+                    <tooltip :index="0" title='swear or affirm'/> the information in your application during your court appearance. 
+                </span>           
             
-                <b-card style="margin:1rem 0;border-radius:10px; border:2px solid #AAAAFF;">
+                <b-card style="margin:2rem 0;border-radius:10px; border:2px solid #AAAAFF;">
                     <div style="float:left; margin: 0.5rem 1rem;color:#3434eb; font-size:20px; font-weight:bold;" > Application About a Protection Order (FORM K)</div>
                     <b-button 
                         style="float:right; margin: 0.25rem 1rem;"                  
@@ -214,6 +217,7 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import moment from 'moment-timezone';
+    import Tooltip from "@/components/survey/Tooltip.vue"
     
     import { stepInfoType } from "@/types/Application";
     import PageBase from "../PageBase.vue";    
@@ -232,7 +236,8 @@
         components:{
             PageBase,
             GetHelpForPdf,
-            GetHelpScanning
+            GetHelpScanning,
+            Tooltip
         }
     })
     

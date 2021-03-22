@@ -117,7 +117,7 @@ import store from "@/store";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-import Tooltip from "./Tooltip.vue";
+import Tooltip from "@/components/survey/Tooltip.vue";
 
 @Component({
     components:{

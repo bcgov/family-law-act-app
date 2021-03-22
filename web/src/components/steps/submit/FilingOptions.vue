@@ -86,8 +86,8 @@ export default class FilingOptions extends Vue {
                 this.togglePages([0,1,2,5], true);
                 this.togglePages([3,4], false);
             }else if(this.survey.data.selectedFilingType == 'byefiling'){
-                this.togglePages([0,1,4,5], true);
-                this.togglePages([2,3], false);
+                this.togglePages([0,1,4], true);
+                this.togglePages([2,3,5], false);
             }
         })
     }
