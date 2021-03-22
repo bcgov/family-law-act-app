@@ -513,13 +513,13 @@
             const docType = []
 
             console.log(this.supportingDocuments[this.supportingDocuments.length-1])
-            const lastTypeIndex = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
+            const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
             
-            //console.log(lastTypeIndex)
+            console.log(lastFileTypes)
             let fileIndex = 0;
-            for(let typeIndex=1; typeIndex<=lastTypeIndex; typeIndex++){
-                console.log(typeIndex)
-                const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.typeIndex==typeIndex)})
+            for(const filetype of lastFileTypes){
+                console.log(filetype)
+                const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.documentType==filetype)})
                 console.log(tempSupportingDocs)
                 if(tempSupportingDocs.length>0){
                     const filesIndices = [];
@@ -594,9 +594,11 @@
                 this.showTypeOfDocuments = false;
 
                 const supportingdocuments = this.supportingDocuments 
-                let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
-                typeIndex++
+                let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
+                if(!typeIndex.includes(this.fileType))
+                    typeIndex.push(this.fileType)
                 console.log(typeIndex)
+                
                 for(const supportingfile of this.supportingFile){
                
                     const newFile = {
