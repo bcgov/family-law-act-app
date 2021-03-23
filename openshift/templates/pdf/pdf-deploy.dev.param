@@ -6,6 +6,7 @@
 # NAME=pdf
 # APP_NAME=fla
 # ROLE=pdf
+# NAMESPACE_NAME=09e0c5
 # SOURCE_IMAGE_NAME=pdf
 # IMAGE_NAMESPACE=09e0c5-tools
 TAG_NAME=dev

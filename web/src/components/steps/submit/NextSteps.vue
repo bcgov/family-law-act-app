@@ -54,7 +54,7 @@
     import { Component, Vue} from 'vue-property-decorator';
     import PageBase from "../PageBase.vue";
 
-    import Tooltip from "@/components/steps/get-started/Tooltip.vue";
+    import Tooltip from "@/components/survey/Tooltip.vue";
 
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";

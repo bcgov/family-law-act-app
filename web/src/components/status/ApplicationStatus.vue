@@ -123,18 +123,28 @@
 import { Component, Vue } from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";  
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+
 import store from "@/store";
+
 import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
 @Component
 export default class ApplicationStatus extends Vue {
+
+    @applicationState.Action
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
 
     previousApplications = []
     previousApplicationFields = [
         { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
         { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
         { key: 'lastFiled', label: 'Filed Date', sortable:true, tdClass: 'border-top'},
+        { key: 'packageNum', label: 'CSO Package#', sortable:false, tdClass: 'border-top'},
         { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
     ]
     confirmDelete = false;
@@ -148,6 +158,7 @@ export default class ApplicationStatus extends Vue {
     deleteError = false  
 
     mounted() {
+        this.loadDocumentTypes();
         this.loadApplications();
     }
 
@@ -161,15 +172,17 @@ export default class ApplicationStatus extends Vue {
         this.$http.get('/app-list/')
         .then((response) => {
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', last_efiling_submission:{package_number:'',package_url:''}};
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', last_efiling_submission:{package_number:'',package_url:''}};
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
                 app.app_type = appJson.app_type;
-                if(appJson.last_efiling_submission)
+                if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
+                    if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
+                }
                 this.previousApplications.push(app);
             }
             //console.log(this.previousApplications)       
@@ -309,6 +322,21 @@ export default class ApplicationStatus extends Vue {
 
     }
 
+    public loadDocumentTypes() {
+        const documentTypesJson = require("../home/forms/documentTypes.json");
+        //console.log(documentTypesJson)
+        this.UpdateDocumentTypesJson(documentTypesJson);
+        this.$http.get('/efiling/document-types/')
+        .then((response) => { 
+            if(response.data && response.data.length>0){
+                //console.log(response.data) 
+                this.UpdateDocumentTypesJson(response.data);
+            }
+        },(err) => {            
+            console.log(err)
+            //this.error = err;        
+        });
+    }
 
     beforeCreate() {
         const Survey = SurveyVue;
