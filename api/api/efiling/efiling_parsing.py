@@ -21,6 +21,7 @@ class EFilingParsing:
         converted_data = {
             "locationName": request.user.location,
             "documents": documents,
+            "organizationParties": [],
             "parties": [
                 {
                     "partyType": "IND",

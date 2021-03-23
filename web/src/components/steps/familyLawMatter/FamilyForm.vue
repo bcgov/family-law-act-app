@@ -36,7 +36,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
-import Tooltip from "../get-started/Tooltip.vue"
+import Tooltip from "@/components/survey/Tooltip.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
