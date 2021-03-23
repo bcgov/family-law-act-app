@@ -5,6 +5,7 @@ import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 })
 class Common extends VuexModule {
     public existingApplication = false;
+    public documentTypesJson = [];
     public userId = '';
     public userLocation = '';
 
@@ -12,7 +13,6 @@ class Common extends VuexModule {
     public setExistingApplication(existingApplication: boolean): void {   
         this.existingApplication = existingApplication
     }
-
     @Action
     public UpdateExistingApplication(newExistingApplication: boolean): void {
         this.context.commit('setExistingApplication', newExistingApplication)
@@ -22,7 +22,6 @@ class Common extends VuexModule {
     public setUserId(userId: string): void {   
         this.userId = userId
     }
-
     @Action
     public UpdateUserId(newUserId: string): void {
         this.context.commit('setUserId', newUserId)
@@ -32,11 +31,19 @@ class Common extends VuexModule {
     public setUserLocation(userLocation: string): void {   
         this.userLocation = userLocation
     }
-
     @Action
     public UpdateUserLocation(newUserLocation: string): void {
         this.context.commit('setUserLocation', newUserLocation)
-    } 
+    }
+    
+    @Mutation
+    public setDocumentTypesJson(documentTypesJson): void {
+        this.documentTypesJson = documentTypesJson;
+    }
+    @Action
+    public UpdateDocumentTypesJson(newDocumentTypesJson) {
+        this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
+    }
 
 }
 

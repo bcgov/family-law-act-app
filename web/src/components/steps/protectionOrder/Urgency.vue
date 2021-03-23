@@ -95,10 +95,6 @@ export default class Urgency extends Vue {
             this.UpdateGotoNextStepPage();
         }
     }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
   
     beforeDestroy() {
 

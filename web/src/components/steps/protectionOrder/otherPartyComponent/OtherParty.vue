@@ -62,11 +62,11 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
-import { Question } from "survey-vue";
+//import { Question } from "survey-vue";
 import OtherPartySurvey from "./OtherPartySurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import * as SurveyVue from "survey-vue";
-import surveyJson from "../forms/survey-information.json";
+//import * as SurveyVue from "survey-vue";
+//import surveyJson from "../forms/survey-information.json";
 import PageBase from "../../PageBase.vue";
 
 
@@ -164,10 +164,6 @@ export default class OtherParty extends Vue {
 
     public onNext() {
         this.UpdateGotoNextStepPage();
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }
 
     public isDisableNext() {

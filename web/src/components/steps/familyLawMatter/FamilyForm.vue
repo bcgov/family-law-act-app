@@ -70,11 +70,6 @@ export default class FamilyForm extends Vue {
     public onNext() { 
         this.UpdateGotoNextStepPage()        
     }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-
   
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {familyMatterSurvey: null}});

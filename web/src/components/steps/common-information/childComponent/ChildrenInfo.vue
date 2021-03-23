@@ -135,11 +135,7 @@ export default class ChildrenInfo extends Vue {
         //this.$store.dispatch("application/gotoNextStepPage");
         this.UpdateGotoNextStepPage();
     }
-    
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-    
+
     created() {
         if (this.step.result && this.step.result["childData"]) {
             this.childData = this.step.result["childData"];

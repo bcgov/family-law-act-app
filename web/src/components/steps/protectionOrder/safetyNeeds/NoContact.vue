@@ -91,10 +91,6 @@ export default class NoContact extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }  
   
     beforeDestroy() {

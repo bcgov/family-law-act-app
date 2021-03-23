@@ -11,7 +11,7 @@
             <child-relocation-step v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation-step>
             <enforcement-agree-step v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree-step>
         
-            <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit>
+            <!-- <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit> -->
     
         </main>
     </div>
@@ -20,22 +20,25 @@
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
 import NavigationSidebar from "./NavigationSidebar.vue";
+
+import GetStarted from "./steps/get-started/GetStartedStep.vue";
 import CommonInformationStep from "./steps/common-information/CommonInformationStep.vue";
 import ProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
-import Submit from "./steps/submit/StepSubmit.vue";
 import FamilyLawStep from "./steps/familyLawMatter/FamilyLawStep.vue";
 import ParentingPriorityStep from "./steps/priotityParenting/ParentingPriorityStep.vue";
 import CaseManagementStep from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocationStep from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgreeStep from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
-import GetStarted from "./steps/get-started/GetStartedStep.vue";
+//import Submit from "./steps/submit/StepSubmit.vue";
+
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+
 @Component({
     components: {
         NavigationSidebar,
         ProtectionOrder,
         CommonInformationStep,
-        Submit,
+       // Submit,
         FamilyLawStep,
         ParentingPriorityStep,
         CaseManagementStep,

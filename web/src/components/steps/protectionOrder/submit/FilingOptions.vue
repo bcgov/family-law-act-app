@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import surveyJson from "./forms/filingOptions.json";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import PageBase from "../PageBase.vue";
+import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -80,20 +80,19 @@ export default class FilingOptions extends Vue {
             // console.log(options)
             this.resetReviewSteps()
             if(this.survey.data.selectedFilingType == 'byemail'){
-                this.togglePages([0,1,3,5], true);
-                this.togglePages([2,4], false);
+                this.togglePages([14,16], true);
+                this.togglePages([13,15], false);
             }else if(this.survey.data.selectedFilingType == 'inperson'){
-                this.togglePages([0,1,2,5], true);
-                this.togglePages([3,4], false);
+                this.togglePages([13,16], true);
+                this.togglePages([14,15], false);
             }else if(this.survey.data.selectedFilingType == 'byefiling'){
-                this.togglePages([0,1,4], true);
-                this.togglePages([2,3,5], false);
+                this.togglePages([15], true);
+                this.togglePages([13,14,16], false);
             }
         })
     }
 
     public togglePages(pageArr, activeIndicator) {
-        //this.activateStep(activeIndicator);
         for (let i = 0; i < pageArr.length; i++) {
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.step.id,
@@ -104,8 +103,8 @@ export default class FilingOptions extends Vue {
     }
 
     public resetReviewSteps(){
-        for(let i=2; i<=5; i++)
-            this.$store.commit("Application/setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
+        for(let i=13; i<=16; i++)
+            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:i, progress:0 });
     }
     
     public onPrev() {
@@ -117,11 +116,6 @@ export default class FilingOptions extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);

@@ -220,7 +220,7 @@
     import Tooltip from "@/components/survey/Tooltip.vue"
     
     import { stepInfoType } from "@/types/Application";
-    import PageBase from "../PageBase.vue";    
+    import PageBase from "@/components/steps/PageBase.vue";   
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
     import GetHelpScanning from "./helpPages/GetHelpScanning.vue"    
 
@@ -264,7 +264,7 @@
         @applicationState.State
         public currentStep!: number;
 
-        @applicationState.State
+        @commonState.State
         public documentTypesJson!: any;
 
         // @applicationState.State

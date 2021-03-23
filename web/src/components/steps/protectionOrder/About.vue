@@ -75,7 +75,9 @@ export default class About extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        let order = this.$store.state.Application.steps[0].result.selectedPOOrder;
+        console.log(this.$store.state.Application.steps)
+
+        const order = this.$store.state.Application.steps[2].result.questionnaireSurvey;
         if(order) {
             this.survey.setVariable("userPreferredService", order.orderType);
         }
@@ -94,10 +96,6 @@ export default class About extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }
   
     beforeDestroy() {

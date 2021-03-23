@@ -91,10 +91,6 @@ export default class YourStory extends Vue {
         }
     }
 
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-    
     beforeDestroy() {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);

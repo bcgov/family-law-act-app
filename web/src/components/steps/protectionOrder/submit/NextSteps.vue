@@ -52,7 +52,7 @@
 
 <script lang="ts">
     import { Component, Vue} from 'vue-property-decorator';
-    import PageBase from "../PageBase.vue";
+    import PageBase from "@/components/steps/PageBase.vue";
 
     import Tooltip from "@/components/survey/Tooltip.vue";
 

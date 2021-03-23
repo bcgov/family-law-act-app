@@ -13,7 +13,7 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     
     import { stepInfoType } from "@/types/Application";
-    import StepBase from "../StepBase.vue";
+    import StepBase from "@/components/steps/StepBase.vue";
     import NextSteps from "./NextSteps.vue";
     import FilingOptions from "./FilingOptions.vue"
 

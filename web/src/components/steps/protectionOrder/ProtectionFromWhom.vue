@@ -72,13 +72,13 @@ export default class ProtectionFromWhom extends Vue {
                 if (options.value == "y") {
                     this.$store.commit("Application/setPageActive", {
                         currentStep: 2,
-                        currentPage: 3,
+                        currentPage: 4,
                         active: true
                     });
                 } else {
                     this.$store.commit("Application/setPageActive", {
                         currentStep: 2,
-                        currentPage: 3,
+                        currentPage: 4,
                         active: false
                     });
                 }
@@ -126,10 +126,6 @@ export default class ProtectionFromWhom extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }
   
     beforeDestroy() {

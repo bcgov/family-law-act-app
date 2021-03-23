@@ -113,10 +113,11 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import store from "@/store";
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
 import Tooltip from "@/components/survey/Tooltip.vue";
 
 @Component({
@@ -148,7 +149,7 @@ export default class GettingStarted extends Vue {
     created() {
         //console.log(this.step)
         // get the user type and if existing user with existing cases, show different
-        this.returningUser = (store.state.Application.userType == 'returning');
+        this.returningUser = (this.$store.state.Application.userType == 'returning');
         if (this.step.result && this.step.result['selectedForms']) {
             this.selected = this.step.result['selectedForms'];
         }
@@ -161,41 +162,34 @@ export default class GettingStarted extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
   
-    public onChange(event) {
-        //console.log(event)
-        this.setSteps(event);
+    public onChange(selectedForms) {
+        console.log(selectedForms)
+        console.log(selectedForms.length)
+        this.setSteps(selectedForms);
     }
 
-    public setSteps(event) {
+    public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
-        if (event !== undefined) {
-            this.toggleCommonSteps(event.includes("protectionOrder"));
-            this.toggleSteps(2, event.includes("protectionOrder"));
-            this.toggleSteps(3, event.includes("familyLawMatter"));
-            this.toggleSteps(4, event.includes("caseMgmt"));
-            this.toggleSteps(5, event.includes("priotityParenting"));
-            this.toggleSteps(6, event.includes("childReloc"));
-            this.toggleSteps(7, event.includes("agreementEnfrc"));
+        if (selectedForms !== undefined) {
+            this.toggleCommonSteps(selectedForms.length>0);
+            this.toggleSteps(2, selectedForms.includes("protectionOrder"));
+            this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
+            this.toggleSteps(4, selectedForms.includes("caseMgmt"));
+            this.toggleSteps(5, selectedForms.includes("priotityParenting"));
+            this.toggleSteps(6, selectedForms.includes("childReloc"));
+            this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
         }
     }
 
-    public toggleSteps(stepId, activeIndicator) {
-        if (stepId == 2) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: 0,
-                currentPage: 1,
-                active: activeIndicator
-            });
-        } else {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: stepId,
-                active: activeIndicator
-            });
-        }
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
     }
 
     public toggleCommonSteps(activeIndicator) {
-        const steps = [1, 8];
+        const steps = [1];
         for(let i=0; i<steps.length; i++) {
             this.$store.commit("Application/setStepActive", {
                 currentStep: steps[i],
@@ -216,12 +210,6 @@ export default class GettingStarted extends Vue {
     public onNext() {
         this.UpdateGotoNextStepPage();
     }
-
-    public onComplete() {
-        //console.log('complete')
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-  
   
     beforeDestroy() {
         const progress = this.selected.length==0? 50 : 100;

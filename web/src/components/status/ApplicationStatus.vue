@@ -130,13 +130,13 @@ import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"
 
 import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
+import "@/store/modules/common";
+const commonState = namespace("Common");
 
 @Component
 export default class ApplicationStatus extends Vue {
 
-    @applicationState.Action
+    @commonState.Action
     public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
 
     previousApplications = []
@@ -242,7 +242,6 @@ export default class ApplicationStatus extends Vue {
             //console.log(applicationData)
             
             this.currentApplication.id = applicationId;
-            this.currentApplication.allCompleted = applicationData.allCompleted;
             this.currentApplication.applicantName = applicationData.applicantName;
             this.currentApplication.currentStep = applicationData.currentStep;
             this.currentApplication.lastUpdate = applicationData.lastUpdated;
