@@ -1,7 +1,8 @@
 <template>
   <step-base v-bind:step="step">
-    <flm-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></flm-questionnaire>    
-    <family-form v-bind:step="step" v-if="step.currentPage == 1"></family-form>
+    <flm-safety-check v-bind:step="step" v-if="step.currentPage == 0"></flm-safety-check>  
+    <flm-sub-path-selection v-bind:step="step" v-if="step.currentPage == 1"></flm-sub-path-selection>   
+    <family-form v-bind:step="step" v-if="step.currentPage == 2"></family-form>
   </step-base>
 </template>
 
@@ -11,14 +12,16 @@ import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "../common-information/forms/survey-information.json";
-import FlmQuestionnaire from "./FlmQuestionnaire.vue";
+import FlmSafetyCheck from "./FlmSafetyCheck.vue";
+import FlmSubPathSelection from "./FlmSubPathSelection.vue";
 import  FamilyForm  from "./FamilyForm.vue"
 
 
 @Component({
     components:{
       StepBase,
-      FlmQuestionnaire,
+      FlmSafetyCheck,
+      FlmSubPathSelection,
       FamilyForm
     }
 })

@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';    
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/flm-questionnaire.json";
+import surveyJson from "./forms/flm-safety-check.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import PageBase from "../PageBase.vue";
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class FlmQuestionnaire extends Vue {
+export default class FlmSafetyCheck extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;

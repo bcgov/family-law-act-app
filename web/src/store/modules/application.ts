@@ -233,15 +233,22 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "0";
+        p.label = "Safety Check";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
         p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "1";
+        p.key = "2";
         p.label = "Family Law Form";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
