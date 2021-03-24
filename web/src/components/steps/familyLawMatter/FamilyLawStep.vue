@@ -1,6 +1,7 @@
 <template>
   <step-base v-bind:step="step">
-    <family-form v-bind:step="step" v-if="step.currentPage == 0"></family-form>
+    <flm-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></flm-questionnaire>    
+    <family-form v-bind:step="step" v-if="step.currentPage == 1"></family-form>
   </step-base>
 </template>
 
@@ -10,11 +11,14 @@ import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "../common-information/forms/survey-information.json";
+import FlmQuestionnaire from "./FlmQuestionnaire.vue";
 import  FamilyForm  from "./FamilyForm.vue"
+
 
 @Component({
     components:{
       StepBase,
+      FlmQuestionnaire,
       FamilyForm
     }
 })

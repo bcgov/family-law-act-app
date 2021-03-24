@@ -1,0 +1,41 @@
+{
+   "pages": [
+      {
+         "name": "Safety Questions",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "unsafePanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "unsafe",
+                     "title": "Are you worried about your safety or the safety of your children?",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "visibleIf": "{unsafe} = \"y\"",
+                     "name": "EmergencyInstructions",
+                     "title": "Call 9-1-1 if you or your children are in immediate danger.<br/><br/>If you are not in immediate danger but are still afraid for your safety, <a href=\"https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190\" target=\"_blank\">VictimLinkBC</a>  can help you develop a safety plan.<br/><br/><a href=\"https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190\" target=\"_blank\">VictimLinkBC</a> is a confidential, multilingual telephone service available 24 hours a day, 7 days a week. Victim service workers can provide crisis support, information and referrals to supports including safety planning, victim services, transition houses and counselling services. Even with a protection order in place, it is a good idea to have a personal safety plan.<br/><br/>Call: 1-800-563-0808 | TTY: 604-875-0885 | Text: 604-863-6381 | Email: <a href='mailto:VictimLinkBC@bc211.ca'>VictimLinkBC@bc211.ca</a><br/><br/><b>To exit this service quickly</b><br/><br/>To exit immediately, click the <div style='border-radius:2rem;padding:.6rem 1rem;display:inline-block;background-color:#003366;color:#ffc107;'>Quick Exit</div> button at the top right corner of the screen and delete it from your browser history. When you exit, it will take you to a Google search page.<br><br>If a family member is making you or your children feel unsafe, you can apply to the court for a Protection Order (if you don't already have one in place).  To apply, return to the [previous] screen and select <b>Protection from family violence</b>. This service can assist you in preparing the forms to make this application.<br><br>If someone who is not a family member is making you or your children feel unsafe, you can apply to the court for an order to protect you. This order is called a Peace Bond. This service cannot be used to get a Peace Bond. If you think you need a Peace Bond, contact the police or RCMP for assistance.",
+                     "titleLocation": "hidden",
+                     "messageStyle": "redinfo"
+                  },
+                  {
+                     "type": "infotext",
+                     "visibleIf": "{unsafe} = \"n\"",
+                     "name": "EmergencyInstructions",
+                     "title": "You may feel safe now.  People can be most at risk of family violence when they first separate or at the start of a legal process.<br/><br/>For these reasons, you may want to consider developing a personal safety plan. <a href=\"https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190\" target=\"_blank\">VictimLinkBC</a>  can help you develop a safety plan.<br/><br/>Call: 1-800-563-0808 | TTY: 604-875-0885 | Text: 604-863-6381 | Email: <a href='mailto:VictimLinkBC@bc211.ca'>VictimLinkBC@bc211.ca</a><br/>",
+                     "titleLocation": "hidden",
+                     "messageStyle": "redinfo"
+                  }                   
+                 
+               ]
+            }
+         ],
+         "title": "This service will help you with Family Law Matter Claims"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

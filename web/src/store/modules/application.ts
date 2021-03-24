@@ -230,9 +230,16 @@ class Application extends VuexModule {
         s.type = "stepFlm";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
-    
+
         p = {} as pageInfoType;
         p.key = "0";
+        p.label = "Questionnaire";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "1";
         p.label = "Family Law Form";
         p.active = true;
         p.progress = 0;    
