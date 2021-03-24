@@ -26,7 +26,7 @@
                             <b>{{beautifyQuestion(data.value)}}</b>
                         </template>
                         <template v-slot:cell(value)="data" >
-                            <div style="white-space: pre-line;" :class="beautifyResponse(data.value, data.item)!='REQUIRED'?'':'bg-danger text-white px-2'">{{beautifyResponse(data.value, data.item)}}</div>
+                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''">{{beautifyResponse(data.value, data.item)}}</div>
                         </template>
                         <template v-slot:cell(edit)="data" > 
                             <b-button style="border:white;" size="sm" variant="transparent" v-b-tooltip.hover.noninteractive title="Edit"  @click="edit(section,data)"><b-icon icon="pencil-square" font-scale="1.25" variant="primary"/></b-button>
@@ -93,20 +93,14 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     public beautifyQuestion(question){
+        
         let adjQuestion = question
-        while(adjQuestion.includes('{ApplicantName}')||
-            adjQuestion.includes('{RespondentName}')||
-            adjQuestion.includes('{ProtectedPartyName}')||
-            adjQuestion.includes('{anotherAdultName}')||
-            adjQuestion.includes('<br/>')||
-            adjQuestion.includes('<br>')){
-                adjQuestion = adjQuestion.replace('{ApplicantName}', Vue.filter('getFullName')(this.$store.state.Application.applicantName));
-                adjQuestion = adjQuestion.replace('{RespondentName}', Vue.filter('getFullName')(this.$store.state.Application.respondentName));
-                adjQuestion = adjQuestion.replace('{ProtectedPartyName}', Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
-                adjQuestion = adjQuestion.replace('{anotherAdultName}', Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
-                adjQuestion = adjQuestion.replace('<br>','');
-                adjQuestion = adjQuestion.replace('<br/>','');
-        }
+        adjQuestion = adjQuestion.replace(/{ApplicantName}/g, Vue.filter('getFullName')(this.$store.state.Application.applicantName));
+        adjQuestion = adjQuestion.replace(/{RespondentName}/g, Vue.filter('getFullName')(this.$store.state.Application.respondentName));
+        adjQuestion = adjQuestion.replace(/{ProtectedPartyName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
+        adjQuestion = adjQuestion.replace(/{anotherAdultName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
+        adjQuestion = adjQuestion.replace(/<br>/g,'');
+        adjQuestion = adjQuestion.replace(/<br\/>/g,''); 
         return adjQuestion
     }
 
@@ -137,17 +131,29 @@ export default class ReviewYourAnswers extends Vue {
                 return "REQUIRED";
             } 
         }
-        else if(value=='y')
+        else if(value == 'y')
             return 'Yes';
-        else if(value=='n')
+        else if(value == 'n')
             return 'No';
-        else if(value.first)
+        else if(value.first){
+            if(!value.last){
+                this.pageHasError = true;
+                return "Last Name REQUIRED";
+            }
             return Vue.filter('getFullName')(value)
+        }
+        else if(value.last){
+            if(!value.first){
+                this.pageHasError = true;
+                return "First Name REQUIRED";
+            }
+            return Vue.filter('getFullName')(value)
+        }
         else if(value.street)
             return Vue.filter('getFullAddress')(value)
         else if(value.phone)
             return Vue.filter('getFullContactInfo')(value)
-        else if(inputType=="date")
+        else if(inputType == "date")
             return Vue.filter('beautify-date')(value)
         else 
             return value;    

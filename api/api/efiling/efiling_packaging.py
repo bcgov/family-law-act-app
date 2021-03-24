@@ -51,6 +51,13 @@ class EFilingPackaging:
                     }
                     for party in data["parties"]
                 ],
+                "organizationParties": [
+                    {
+                        "roleType": organizationParty["roleType"],
+                        "name": organizationParty["name"]
+                    }
+                    for organizationParty in data["organizationParties"]
+                ]
             },
             "navigationUrls": {
                 "success": data["successUrl"],

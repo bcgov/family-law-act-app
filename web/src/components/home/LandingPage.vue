@@ -182,6 +182,7 @@ export default class LandingPage extends Vue {
 
         this.$store.commit("Application/setUserType", userType);          
         if (userType === "new") {
+              this.loadDocumentTypes();
               this.$router.push({ name: "service-locator" });
         } else if (userType === "returning") {
               this.$router.push({ name: "applicant-status" });
@@ -189,7 +190,6 @@ export default class LandingPage extends Vue {
     }
     
     public determineUserType () {
-        this.loadDocumentTypes();
         this.$http.get('/app-list/')
         .then((response) => {
             if(response.data.length>0) {

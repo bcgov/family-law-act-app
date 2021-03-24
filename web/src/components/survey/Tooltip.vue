@@ -17,7 +17,7 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
 
-    const glossaryJson = require('../../survey/glossary.json')
+    const glossaryJson = require('./glossary.json')
    
 
     @Component
@@ -35,6 +35,7 @@
         {
             this.description = glossaryJson[this.title.toLowerCase()]
             //console.log(glossaryJson)
+            //console.log(this.description)
         }
 
    

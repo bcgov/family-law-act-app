@@ -106,7 +106,40 @@
         </div>
       </div>
     </div>
-  </page-base>
+
+        <b-modal size="xl" v-model="preparationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            <template v-slot:modal-title>
+                <h1 class="mb-0 text-primary">What you need to get started:</h1>
+            </template>
+            <div class="m-3">
+                <p>Try to collect as much information as possible before you start to complete the form.</p>
+                <p>The type of information and documents you need will depend on what you are asking the court for.</p>
+                <p>You might need:</p>
+                <ul>
+                    <li>
+                        birth dates, names, and other related information about the other party and your children
+                    </li>
+                    <li>
+                        any agreements or court orders you already have about a family law matter
+                    </li>
+                    <li>
+                        information about the date you got married, started living together, separated and got divorced, if applicable                       
+                    </li>
+                    <li>
+                        if you are asking for child or spousal support, information about your income and, if you have it, the other party’s income                       
+                    </li>
+                    <li>
+                        if you are asking for orders about children, information about your children’s living arrangements, schedules and expenses                       
+                    </li>
+                </ul>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="closePreparationInfo">Continue</b-button>
+            </template>            
+        </b-modal>
+
+
+    </page-base>
 </template>
 
 <script lang="ts">
@@ -117,7 +150,7 @@ import store from "@/store";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-import Tooltip from "./Tooltip.vue";
+import Tooltip from "@/components/survey/Tooltip.vue";
 
 @Component({
     components:{
@@ -142,6 +175,7 @@ export default class GettingStarted extends Vue {
     selected = []
     returningUser = false
     showLegalAssistance = false
+    preparationInfo = false
     currentStep=0;
     currentPage=0;
 
@@ -155,6 +189,7 @@ export default class GettingStarted extends Vue {
     }
 
     mounted(){
+        this.preparationInfo = false;
         const progress = this.selected.length==0? 50 : 100;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -214,14 +249,18 @@ export default class GettingStarted extends Vue {
     }
 
     public onNext() {
+        this.preparationInfo = true;        
+    }
+
+    public closePreparationInfo(){
+        this.preparationInfo = false;
         this.UpdateGotoNextStepPage();
     }
 
     public onComplete() {
         //console.log('complete')
         this.$store.commit("Application/setAllCompleted", true);
-    }
-  
+    }  
   
     beforeDestroy() {
         const progress = this.selected.length==0? 50 : 100;
