@@ -72,6 +72,8 @@ export default class FilingOptions extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
+        this.determineSelectedFilingType()
+        
     }
 
     public addSurveyListener(){
@@ -79,16 +81,7 @@ export default class FilingOptions extends Vue {
             console.log(this.survey.data);
             // console.log(options)
             this.resetReviewSteps()
-            if(this.survey.data.selectedFilingType == 'byemail'){
-                this.togglePages([14,16], true);
-                this.togglePages([13,15], false);
-            }else if(this.survey.data.selectedFilingType == 'inperson'){
-                this.togglePages([13,16], true);
-                this.togglePages([14,15], false);
-            }else if(this.survey.data.selectedFilingType == 'byefiling'){
-                this.togglePages([15], true);
-                this.togglePages([13,14,16], false);
-            }
+            this.determineSelectedFilingType()
         })
     }
 
@@ -99,6 +92,21 @@ export default class FilingOptions extends Vue {
                 currentPage: pageArr[i],
                 active: activeIndicator
             });
+        }
+    }
+
+    public determineSelectedFilingType(){
+        if(this.survey.data.selectedFilingType == 'byemail'){
+            this.togglePages([14,16], true);
+            this.togglePages([13,15], false);
+        }else if(this.survey.data.selectedFilingType == 'inperson'){
+            this.togglePages([13,16], true);
+            this.togglePages([14,15], false);
+        }else if(this.survey.data.selectedFilingType == 'byefiling'){
+            this.togglePages([15], true);
+            this.togglePages([13,14,16], false);
+        }else{
+            this.togglePages([13,14,15,16], false);
         }
     }
 

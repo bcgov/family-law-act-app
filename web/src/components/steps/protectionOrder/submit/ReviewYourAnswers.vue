@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="pageHasError" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <h2 class="mt-4">Review Your Answers</h2>
         <b-card
             v-for="section in questionResults"
@@ -88,8 +88,9 @@ export default class ReviewYourAnswers extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        console.log(newVal)
+        //console.log(newVal)
         this.togglePages([12], !this.pageHasError);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, 12,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
