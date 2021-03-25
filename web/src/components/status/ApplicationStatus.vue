@@ -346,6 +346,7 @@ export default class ApplicationStatus extends Vue {
 
 <style scoped lang="scss">
 @import "src/styles/common";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 .home-content {
     padding-bottom: 20px;
     padding-top: 2rem;
