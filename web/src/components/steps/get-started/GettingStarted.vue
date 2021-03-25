@@ -235,6 +235,11 @@ export default class GettingStarted extends Vue {
                 currentPage: 0,
                 active: activeIndicator
             });
+            this.$store.commit("Application/setPageActive", {
+                currentStep: steps[i],
+                currentPage: 1,
+                active: activeIndicator
+            });
         }
     }
 
