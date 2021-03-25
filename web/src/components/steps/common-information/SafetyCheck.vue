@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';    
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/flm-safety-check.json";
+import surveyJson from "./forms/safety-check.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import PageBase from "../PageBase.vue";
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class FlmSafetyCheck extends Vue {
+export default class SafetyCheck extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;
@@ -41,22 +41,13 @@ export default class FlmSafetyCheck extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
     currentStep=0;
-    currentPage=0;
-
-    // needPoPages = [1, 2, 4, 5, 6, 7, 10, 11];
-    // changeTerminatePages = [ 8, 9, 10, 11];
-    // commonPages = [10,11,12,13,14,15,16]
+    currentPage=0;   
 
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
 
-    // created() {
-    //     if (this.step.result && this.step.result['questionnaireSurvey']) {            
-    //         this.determinePeaceBondAndBlock();
-    //     }
-    // }
 
     mounted(){
         this.initializeSurvey();
@@ -74,47 +65,20 @@ export default class FlmSafetyCheck extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
-            //console.log(options)
-            // const selectedOrder = this.survey.data.orderType;
-
-            
+            console.log(this.survey.data);            
         })   
     }
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["questionnaireSurvey"]){
-            this.survey.data = this.step.result["questionnaireSurvey"];
+        if (this.step.result && this.step.result["safetySurvey"]){
+            this.survey.data = this.step.result["safetySurvey"];
         }
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        // this.determinePeaceBondAndBlock();
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: 2,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
-    public toggleStep(step, active) {
-        this.$store.commit("Application/setStepActive", {
-            currentStep: step,
-            active: active
-        });
-    }
-
-    public resetProgress(pages){
-        for(const page of pages)
-            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: page, progress:0 });	
-    }    
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()
@@ -128,7 +92,7 @@ export default class FlmSafetyCheck extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
+        this.UpdateStepResultData({step:this.step, data: {safetySurvey: this.survey.data}});
     }
 };
 </script>
