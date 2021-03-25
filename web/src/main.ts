@@ -14,8 +14,8 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 
 // https://www.npmjs.com/package/vue-fontawesome-icon
 // import material-icon scss
-//import "font-awesome/css/font-awesome.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import "font-awesome/css/font-awesome.min.css";
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 //import "@fortawesome/fontawesome-free/css/all.css";
 import { SessionManager } from "@/components/utils/utils";
 
