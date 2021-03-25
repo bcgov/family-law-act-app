@@ -38,6 +38,8 @@ export default class WeaponsFirearms extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
@@ -56,6 +58,7 @@ export default class WeaponsFirearms extends Vue {
 
     mounted(){
         this.initializeSurvey();
+        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -67,6 +70,11 @@ export default class WeaponsFirearms extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
 
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            this.UpdateSurveyChangedPO(true);
+        })
+    }
 
     public reloadPageInformation() {
 

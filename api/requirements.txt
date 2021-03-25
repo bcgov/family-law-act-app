@@ -1,7 +1,7 @@
 # Main
 django>=3.1.7
 django-filter>=2.3,<2.4
-djangorestframework==3.11.0,<4
+djangorestframework>=3.12.2,<4
 djangorestframework-bulk>=0.2.1,<1
 django-cors-headers>=3.4.0,<4
 git+https://github.com/impak-finance/django-oidc-rp.git@e99534729c9a2fa9cd8e62cd50d9916409376038#egg=django-oidc-rp

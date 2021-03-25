@@ -27,6 +27,8 @@ class Application extends VuexModule {
     public requiredDocuments: string[] = []
     public packageNumber = ""
     public eFilingHubLink = ""
+
+    public surveyChangedPO = false;
     
     public supportingDocuments: supportingDocumentInfoType[] = [];
 
@@ -615,6 +617,23 @@ class Application extends VuexModule {
     @Action
     public UpdateSupportingDocuments(newSupportingDocuments) {
         this.context.commit("setSupportingDocuments", newSupportingDocuments);
+    }
+
+    @Mutation
+    public setSurveyChangedPO(surveyChangedPO: boolean): void {
+        this.surveyChangedPO = surveyChangedPO;
+    }
+    @Action
+    public UpdateSurveyChangedPO(newSurveyChangedPO: boolean) {
+        this.context.commit("setSurveyChangedPO", newSurveyChangedPO);
+        if(newSurveyChangedPO && this.steps[2].pages[11].progress ==100 ){//if changes, make review page incompelete
+            this.context.commit("setPageProgress", { currentStep: 2, currentPage:11, progress:50 });
+            for (const page of [12,13,14,15,16]) {
+                this.context.commit("setPageActive", { currentStep: 2, currentPage: page, active: false });
+                if(this.steps[2].pages[page].progress ==100)
+                    this.context.commit("setPageProgress", { currentStep: 2, currentPage:page, progress:50 });
+            }
+        }
     }
 
     @Mutation

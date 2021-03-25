@@ -38,6 +38,9 @@ export default class NoContact extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
+
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -55,6 +58,7 @@ export default class NoContact extends Vue {
 
     mounted(){
         this.initializeSurvey();
+        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -64,6 +68,12 @@ export default class NoContact extends Vue {
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
+    }
+
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            this.UpdateSurveyChangedPO(true);
+        })
     }
 
 

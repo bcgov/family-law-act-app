@@ -112,7 +112,7 @@
                 <h1 class="mb-0 text-primary">What you need to get started:</h1>
             </template>
             <div class="m-3">
-                <p>Try to collect as much information as possible before you start to complete the form.</p>
+                <p>Try to collect as much information as possible before you start to complete the pathway.</p>
                 <p>The type of information and documents you need will depend on what you are asking the court for.</p>
                 <p>You might need:</p>
                 <ul>
@@ -247,8 +247,12 @@ export default class GettingStarted extends Vue {
         this.UpdateGotoPrevStepPage();
     }
 
-    public onNext() {
-        this.preparationInfo = true;        
+    public onNext() {       
+        if (this.selected.includes("familyLawMatter")){
+            this.preparationInfo = true;
+        } else {
+            this.UpdateGotoNextStepPage();
+        }               
     }
 
     public closePreparationInfo(){

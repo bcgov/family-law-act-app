@@ -165,25 +165,13 @@ export default class ReviewAndPrint extends Vue {
     public checkErrorOnPages(){
 
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-
-        for(const step of this.$store.state.Application.steps){
+        for(const stepIndex of [1,2]){
+            const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
                         this.$store.commit("Application/setCurrentStep", step.id);
-                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
-                        const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        //const currPage = document.getElementById(this.getStepPageId(step.id, page.key));
-                        //console.log(nextChildGroup)
-                        // if(nextChildGroup){
-                        //     if(Number(step.id)==8){
-                        //         nextChildGroup.style.display = "none";
-                        //         Vue.nextTick(()=>nextChildGroup.style.display = "block")
-                        //     }else{
-                        //         nextChildGroup.style.display = "block";
-                        //     }
-                        // }
-                        //if(currPage){currPage.style.color="red";}
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
                         return false;
                     }
                 }
@@ -236,7 +224,7 @@ export default class ReviewAndPrint extends Vue {
     public getFPOResultData() {  
         
         var result = this.$store.state.Application.steps[0].result; 
-        for(var i=1;i<9; i++){
+        for(var i=1;i<3; i++){
             const stepResults = this.$store.state.Application.steps[i].result
             for(const stepResult in stepResults){
                 console.log(stepResults[stepResult])
@@ -245,8 +233,8 @@ export default class ReviewAndPrint extends Vue {
                 //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
             }
         }
-            //Object.assign(result, result, this.$store.state.Application.steps[i].result); 
-            
+        
+        //Object.assign(result, result, {selectedPOOrder:this.$store.state.Application.steps[2].result.selectedPOOrder});             
         //Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurvey.data}); 
         
         var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}

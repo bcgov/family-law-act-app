@@ -20,11 +20,18 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
 @Component
 export default class OtherPartySurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;
+
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     op= {
         name: {
@@ -81,6 +88,8 @@ export default class OtherPartySurvey extends Vue {
     
     public addSurveyListener(){
         this.survey.onComplete.add((sender, options) => {
+
+            this.UpdateSurveyChangedPO(true);
 
             console.log(this.survey)
             this.populateOpModel(sender.data);
