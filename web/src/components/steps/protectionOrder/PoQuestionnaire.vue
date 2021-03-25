@@ -48,12 +48,12 @@ export default class PoQuestionnaire extends Vue {
     currentStep=0;
     currentPage=0;
 
-    needPoPages = [1, 2, 3, 5, 6, 7, 10, 11];
-    changeTerminatePages = [ 8, 9, 10, 11];
-    commonPages = [10,12,13,14,15,16]
+    needPoPages = [1, 2, 3, 5, 6, 7, 10,11];
+    changeTerminatePages = [ 8, 9, 10,11];
+    commonPages = [10,11,12,13,14,15,16]
     noContantPage = [4];
     aboutPage = 9;
-    urgencyPage = 10;
+    urgencyPage = [10];
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -95,14 +95,17 @@ export default class PoQuestionnaire extends Vue {
                 this.resetProgress(this.commonPages); 
                 
                 this.$store.commit("Application/setApplicationType",this.getApplicationType(selectedOrder));
-                this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+                //this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+                this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: 2, currentPage:0}}})
+
 
                 if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
                     this.togglePages(this.changeTerminatePages, true);
                     //this.resetProgress(this.commonPages)
                     console.log(this.step.result)//['aboutPOSurvey'])
                     this.setConditionalProgress('aboutPOSurvey', this.aboutPage, 8)
-                    this.setConditionalProgress('urgencySurvey', this.urgencyPage, this.aboutPage);
+                    this.resetProgress(this.urgencyPage)
+                    //this.setConditionalProgress('urgencySurvey', this.urgencyPage, this.aboutPage);
                 } 
 
                 if (selectedOrder == "needPO") {
@@ -110,7 +113,8 @@ export default class PoQuestionnaire extends Vue {
                         if(this.isSurveyAnsweredCorectly()){          
                             this.togglePages(this.needPoPages, true);
                             this.determineNoContactPage(true);
-                            this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
+                            //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
+                            this.resetProgress(this.urgencyPage)
                         }else{
                             this.togglePages([1], true);
                         }
@@ -123,7 +127,8 @@ export default class PoQuestionnaire extends Vue {
                 if (options.value.length !== 0) {
                     this.togglePages(this.needPoPages, true);
                     this.determineNoContactPage(true);
-                    this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
+                    //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
+                    this.resetProgress(this.urgencyPage)
                 } else {
                     this.togglePages(this.needPoPages, false);
                     this.determineNoContactPage(false);
