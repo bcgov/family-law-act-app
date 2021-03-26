@@ -81,10 +81,10 @@ export default class Information extends Vue {
     }
     
     public reloadPageInformation() {
-        console.log(this.steps[0].result)
+        // console.log(this.steps[0].result)
         if (this.steps[0] && this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.survey.setVariable("poOnly",this.steps[0].result['selectedForms'].length == 1 
-            && this.steps[0].result['selectedForms'][0] == "protectionOrder");
+            this.survey.setVariable("includesPo",this.steps[0].result['selectedForms'].length>0 
+            && this.steps[0].result['selectedForms'].includes("protectionOrder"));
         }
 
         if (this.step.result && this.step.result['yourInformationSurvey']) {

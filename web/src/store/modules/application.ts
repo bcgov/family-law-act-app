@@ -1,5 +1,5 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import { stepInfoType, pageInfoType } from "@/types/Application";
+import { stepInfoType, pageInfoType, nameInfoType } from "@/types/Application";
 import { supportingDocumentInfoType } from "@/types/Common";
 
 @Module({
@@ -8,7 +8,7 @@ import { supportingDocumentInfoType } from "@/types/Common";
 class Application extends VuexModule {
 
     public id = ""
-    public type = ""
+    public types: string[] = [];
     public steps = new Array<stepInfoType>()
     public lastUpdate = null
     public lastPrinted = null
@@ -18,9 +18,9 @@ class Application extends VuexModule {
     public userType = ""
     public userName = ""
     public userId = ""
-    public applicantName = ""
-    public respondentName = ""
-    public protectedPartyName = ""
+    public applicantName = {} as nameInfoType;
+    public respondentName = {} as nameInfoType;
+    public protectedPartyName = {} as nameInfoType;
     public protectedChildName = ""
     public applicationLocation = ""
     public scrollToLocationName = ""
@@ -36,7 +36,7 @@ class Application extends VuexModule {
     public init(): void {
         this.allCompleted = false;
         this.currentStep = 0;
-        this.type = "default";
+        this.types = [];
         this.userName = "";
         this.lastPrinted = null;
         this.lastUpdate = null;
@@ -620,7 +620,7 @@ class Application extends VuexModule {
 
     @Mutation
     public setApplicationType(type): void {
-        this.type = type;
+        this.types = type;
     }
     @Action
     public UpdateApplicationType(newType) {
@@ -696,7 +696,7 @@ class Application extends VuexModule {
     @Mutation
     public setCurrentApplication(application): void {
         this.id = application.id;    
-        this.type = application.type;    
+        this.types = application.types;    
         this.steps = application.steps;
         this.lastUpdate = application.lastUpdate;    
         this.currentStep = application.currentStep;

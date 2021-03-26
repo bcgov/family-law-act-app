@@ -89,7 +89,7 @@ export default class PageBase extends Vue {
         this.$store.commit("Application/setLastUpdated", lastUpdated); 
         const application = this.$store.state.Application;
         const applicationId = application.id;
-
+        application.type = this.$store.state.Application.types.toString();
         const header = {
             responseType: "json",
             headers: {

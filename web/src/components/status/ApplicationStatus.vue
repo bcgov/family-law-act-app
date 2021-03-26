@@ -205,7 +205,7 @@ export default class ApplicationStatus extends Vue {
         store.commit("Application/setUserType", userType);
 
         const application = store.state.Application;
-        
+        application.type = store.state.Application.types.toString();
         //console.log(application)
         const url = "/app/";
         const header = {
@@ -249,13 +249,13 @@ export default class ApplicationStatus extends Vue {
             this.currentApplication.respondentName = applicationData.respondentName;
             this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
             this.currentApplication.protectedChildName = applicationData.protectedChildName;
-            this.currentApplication.applicationLocation = applicationData.applicationLocation;
-            
-            this.currentApplication.type = applicationData.type;
+            this.currentApplication.applicationLocation = applicationData.applicationLocation;            
+            this.currentApplication.types = (applicationData.type.length>0)?applicationData.type.split(','):[];
             this.currentApplication.userId = applicationData.user;
             this.currentApplication.userName = applicationData.userName;
             this.currentApplication.userType = applicationData.userType;        
             this.currentApplication.steps = applicationData.steps;
+            console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);      
 

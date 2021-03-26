@@ -97,7 +97,8 @@ export default class ServiceLocator extends Vue {
         const userType = store.state.Application.userType;      
         store.commit("Application/setUserType", userType);
         const application = store.state.Application;
-        //console.log(store.state.Application)
+        application.type = store.state.Application.types.toString();
+        // console.log(store.state.Application)
         const url = "/app/"
         const header = {
             responseType: "json",

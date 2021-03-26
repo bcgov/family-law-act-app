@@ -1,6 +1,6 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <div class="row">
+    <div v-if="dataReady" class="row">
       <div class="col-md-12 order-heading">
         <div v-if="returningUser">
             <h1 >I need help with the following family law issues:</h1>          
@@ -164,6 +164,15 @@ export default class GettingStarted extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public steps!: any
+
+    @applicationState.State
+    public types!: string[]
+
+    @applicationState.Action
+    public UpdateApplicationType!: (newApplicationType: string[]) => void
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -178,36 +187,80 @@ export default class GettingStarted extends Vue {
     showLegalAssistance = false
     preparationInfo = false
     poOnly = false;
+    poIncluded = false;
     currentStep=0;
     currentPage=0;
+    dataReady = false;
 
     created() {
-        //console.log(this.step)
+        console.log(this.step)
         // get the user type and if existing user with existing cases, show different
         this.returningUser = (this.$store.state.Application.userType == 'returning');
-        if (this.step.result && this.step.result['selectedForms']) {
-            this.selected = this.step.result['selectedForms'];
+        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
+            this.selected = this.steps[0].result['selectedForms'];
         }
+        console.log(this.selected)
     }
 
     mounted(){
+        this.dataReady = false;
         this.preparationInfo = false;
         const progress = this.selected.length==0? 50 : 100;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
+            this.selected = this.steps[0].result['selectedForms'];
+        }
+        console.log(this.selected)
+        this.dataReady = true;
     }
   
     public onChange(selectedForms) {
         console.log(selectedForms)
-        console.log(selectedForms.length)
+        const orgApplicationTypes = this.types;
+        const applicationTypes = [];
+        const poIndex = selectedForms.indexOf("protectionOrder");
+        if (poIndex !=-1){
+            if (orgApplicationTypes.includes("New Protection Order")) {
+                applicationTypes.push("New Protection Order")
+                selectedForms.splice(poIndex, 1);
+            } else if (orgApplicationTypes.includes("Change Protection Order")){
+                applicationTypes.push("Change Protection Order")
+                selectedForms.splice(poIndex, 1);
+            } else if (orgApplicationTypes.includes("Terminate Protection Order")){
+                applicationTypes.push("Terminate Protection Order")
+                selectedForms.splice(poIndex, 1);
+            }
+        } 
+            
+        for (const form of selectedForms){            
+            applicationTypes.push(this.getApplicationType(form));
+        }
+        console.log(applicationTypes)
+        console.log(Array.from(new Set(applicationTypes)));
+        this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
+        
+       
+                
         this.setSteps(selectedForms);
+    }
+
+    public getApplicationType(selectedOrder){
+        if (selectedOrder == "protectionOrder") return "Protection Order";
+        else if (selectedOrder == "familyLawMatter") return "Family Law Matter";
+        else if (selectedOrder == "caseMgmt") return "Case Management";
+        else if (selectedOrder == "priotityParenting") return "Priotity Parenting Matter";
+        else if (selectedOrder == "childReloc") return "Relocation of a Child";
+        else if (selectedOrder == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
+        else return "";
     }
 
     public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
         if (selectedForms !== undefined) {
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
+            this.poIncluded = selectedForms.includes("protectionOrder");
             this.toggleCommonSteps(selectedForms.length>0);
             this.toggleSteps(2, selectedForms.includes("protectionOrder"));
             this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
@@ -235,7 +288,7 @@ export default class GettingStarted extends Vue {
             this.$store.commit("Application/setPageActive", {
                 currentStep: steps[i],
                 currentPage: 0,
-                active: activeIndicator
+                active: (activeIndicator && !this.poIncluded)
             });
             this.$store.commit("Application/setPageActive", {
                 currentStep: steps[i],

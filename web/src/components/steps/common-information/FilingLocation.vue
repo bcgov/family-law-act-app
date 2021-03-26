@@ -12,7 +12,7 @@ import surveyJson from "./forms/filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -27,10 +27,13 @@ const applicationState = namespace("Application");
 export default class FilingLocation extends Vue {
         
     @Prop({required: true})
-    step!: stepInfoType;
+    step!: stepInfoType;   
 
     @applicationState.State
-    public currentStep!: Number;
+    public applicantName!: nameInfoType;
+
+    @applicationState.State
+    public respondentName!: nameInfoType;
 
     @applicationState.State
     public steps!: any
@@ -46,7 +49,7 @@ export default class FilingLocation extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    // currentStep=0;
+    currentStep=0;
     currentPage=0;   
 
     beforeCreate() {
@@ -81,10 +84,11 @@ export default class FilingLocation extends Vue {
             this.survey.data = this.step.result["filingLocationSurvey"];
         }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
-        
-        // currentStep = this.$store.state.Application.currentStep;
-        // this.currentPage = this.steps[this.currentStep].currentPage;
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
+        console.log(this.respondentName)
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 

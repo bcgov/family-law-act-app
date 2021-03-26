@@ -143,7 +143,7 @@ export default class NavigationSidebar extends Vue {
         this.$store.commit("Application/setLastUpdated", lastUpdated);
         const application = this.$store.state.Application;      
         const applicationId = application.id;      
-        
+        application.type = application.types.toString();
         const header = {
             responseType: "json",
             headers: {

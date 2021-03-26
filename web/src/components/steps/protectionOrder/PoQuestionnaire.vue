@@ -32,6 +32,12 @@ export default class PoQuestionnaire extends Vue {
     @applicationState.State
     public steps!: any
 
+    @applicationState.State
+    public types!: string[]
+
+    @applicationState.Action
+    public UpdateApplicationType!: (newApplicationType: string[]) => void
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -93,9 +99,26 @@ export default class PoQuestionnaire extends Vue {
 
                 this.removePages();
                 this.resetProgress(this.commonPages); 
+                const applicationTypes = this.types;
+                if (!applicationTypes.includes(this.getApplicationType(selectedOrder))){
+
+                    if (applicationTypes.indexOf("Protection Order") != -1){
+                        applicationTypes.splice(applicationTypes.indexOf("Protection Order"), 1);
+                    }
+                    if (applicationTypes.indexOf("New Protection Order") != -1){
+                        applicationTypes.splice(applicationTypes.indexOf("New Protection Order"), 1);
+                    }
+                    if (applicationTypes.indexOf("Change Protection Order") != -1){
+                        applicationTypes.splice(applicationTypes.indexOf("Change Protection Order"), 1);
+                    }
+                    if (applicationTypes.indexOf("Terminate Protection Order") != -1){
+                        applicationTypes.splice(applicationTypes.indexOf("Terminate Protection Order"), 1);
+                    }
+
+                    applicationTypes.push(this.getApplicationType(selectedOrder))
+                    this.UpdateApplicationType(Array.from(new Set(applicationTypes)))
+                }
                 
-                this.$store.commit("Application/setApplicationType",this.getApplicationType(selectedOrder));
-                //this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: 2, currentPage:0}}})
 
 
