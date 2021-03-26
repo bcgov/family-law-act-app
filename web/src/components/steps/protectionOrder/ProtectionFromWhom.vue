@@ -69,7 +69,7 @@ export default class ProtectionFromWhom extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             console.log(this.survey.data);
-            // console.log(options)
+            //  console.log(options)
 
             this.UpdateSurveyChangedPO(true);
 
@@ -104,7 +104,7 @@ export default class ProtectionFromWhom extends Vue {
     }
 
     public determineNoContactPage(){       
-        if (this.survey.ApplicantNeedsProtection == "y") {// Enable No Contact
+        if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
             this.$store.commit("Application/setPageActive", {currentStep: 2, currentPage: 4, active: true});
         } else {// Disable No Contact
             this.$store.commit("Application/setPageActive", {currentStep: 2, currentPage: 4, active: false});

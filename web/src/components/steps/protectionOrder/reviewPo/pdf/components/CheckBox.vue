@@ -9,7 +9,7 @@
             fontSize: '1.0em'}">
             <div :style="{transform:'translate('+shiftmark+'px,-6px)'}" v-html="getCheck()"/>
         </span> 
-        <div :style="{display:'inline-block', textIndent: getShift() }" v-html="text">{{text}}</div>
+        <div :style="{display:'inline-block', margin:'0 0 0 1.75rem', textIndent: 0 }" v-html="text">{{text}}</div>
     </div>
 
 </template>
@@ -26,7 +26,7 @@ export default class CheckBox extends Vue {
     @Prop({required: true})
     check!: string;
 
-    @Prop({default: 0})
+    @Prop({default: 17})
     shiftmark!: number;
 
     @Prop({default: 0})
@@ -37,9 +37,9 @@ export default class CheckBox extends Vue {
         return ""
     }
     public getShift(){
-        const temp = 30+Number(this.shift)
+        const temp = -10+Number(this.shift)
         if(this.shift !=0) return  temp+ 'px'
-        return '30px'
+        return '-10px'
     }
 }
 </script>
