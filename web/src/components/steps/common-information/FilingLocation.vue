@@ -29,6 +29,12 @@ export default class FilingLocation extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public currentStep!: Number;
+
+    @applicationState.State
+    public steps!: any
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -40,7 +46,7 @@ export default class FilingLocation extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
+    // currentStep=0;
     currentPage=0;   
 
     beforeCreate() {
@@ -74,9 +80,11 @@ export default class FilingLocation extends Vue {
         if (this.step.result && this.step.result["filingLocationSurvey"]){
             this.survey.data = this.step.result["filingLocationSurvey"];
         }
+
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        // currentStep = this.$store.state.Application.currentStep;
+        // this.currentPage = this.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 

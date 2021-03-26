@@ -97,21 +97,21 @@ export default class FilingOptions extends Vue {
 
     public determineSelectedFilingType(){
         if(this.survey.data.selectedFilingType == 'byemail'){
-            this.togglePages([14,16], true);
-            this.togglePages([13,15], false);
+            this.togglePages([2,4], true);
+            this.togglePages([1,3], false);
         }else if(this.survey.data.selectedFilingType == 'inperson'){
-            this.togglePages([13,16], true);
-            this.togglePages([14,15], false);
+            this.togglePages([1,4], true);
+            this.togglePages([2,3], false);
         }else if(this.survey.data.selectedFilingType == 'byefiling'){
-            this.togglePages([15], true);
-            this.togglePages([13,14,16], false);
+            this.togglePages([3], true);
+            this.togglePages([1,2,4], false);
         }else{
-            this.togglePages([13,14,15,16], false);
+            this.togglePages([1,2,3,4], false);
         }
     }
 
     public resetReviewSteps(){
-        for(let i=13; i<=16; i++)
+        for(let i=1; i<=4; i++)
             this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:i, progress:0 });
     }
     

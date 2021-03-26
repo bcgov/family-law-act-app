@@ -225,9 +225,8 @@ export default class GettingStarted extends Vue {
         });
     }
 
-    public toggleCommonSteps(activeIndicator) {
-        const steps = [1];
-        console.log(this.poOnly)
+    public toggleCommonSteps(activeIndicator) {       
+        const steps = [1,8];
         for(let i=0; i<steps.length; i++) {
             this.$store.commit("Application/setStepActive", {
                 currentStep: steps[i],
