@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/survey-information.json";
+import surveyJson from "./forms/child-support.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,13 +24,10 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class Information extends Vue {
+export default class ChildSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public steps!: any
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -81,12 +78,7 @@ export default class Information extends Vue {
     }
     
     public reloadPageInformation() {
-        console.log(this.steps[0].result)
-        if (this.steps[0] && this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.survey.setVariable("poOnly",this.steps[0].result['selectedForms'].length == 1 
-            && this.steps[0].result['selectedForms'][0] == "protectionOrder");
-        }
-
+        //console.log(this.step.result)
         if (this.step.result && this.step.result['yourInformationSurvey']) {
             this.survey.data = this.step.result['yourInformationSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            

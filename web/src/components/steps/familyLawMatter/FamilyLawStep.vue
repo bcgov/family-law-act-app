@@ -1,6 +1,7 @@
 <template>
   <step-base v-bind:step="step">
-    <flm-sub-path-selection v-bind:step="step" v-if="step.currentPage == 0"></flm-sub-path-selection>   
+    <flm-sub-path-selection v-bind:step="step" v-if="step.currentPage == 0"></flm-sub-path-selection>
+    <!-- <child-support v-bind:step="step" v-if="step.currentPage == 1"></child-support>   -->
     <family-form v-bind:step="step" v-if="step.currentPage == 1"></family-form>
   </step-base>
 </template>
@@ -13,6 +14,7 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "../common-information/forms/survey-information.json";
 
 import FlmSubPathSelection from "./FlmSubPathSelection.vue";
+import ChildSupport from "./ChildSupport.vue";
 import  FamilyForm  from "./FamilyForm.vue"
 
 
@@ -20,6 +22,7 @@ import  FamilyForm  from "./FamilyForm.vue"
     components:{
       StepBase,      
       FlmSubPathSelection,
+      ChildSupport,     
       FamilyForm
     }
 })

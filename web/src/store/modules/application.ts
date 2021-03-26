@@ -92,6 +92,20 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.label = "Filing Location";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
     
         this.steps.push(s);
     
@@ -246,6 +260,13 @@ class Application extends VuexModule {
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
+
+        // p = {} as pageInfoType;
+        // p.key = "1";
+        // p.label = "Child Support";
+        // p.active = false;
+        // p.progress = 0;    
+        // s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "1";

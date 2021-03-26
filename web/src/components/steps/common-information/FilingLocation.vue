@@ -1,15 +1,15 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';    
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/survey-information.json";
+import surveyJson from "./forms/filing-location.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,13 +24,10 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class Information extends Vue {
-    
+export default class FilingLocation extends Vue {
+        
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public steps!: any
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -42,19 +39,15 @@ export default class Information extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    disableNextButton = false;
     currentStep=0;
-    currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+    currentPage=0;   
 
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
+
 
     mounted(){
         this.initializeSurvey();
@@ -68,33 +61,23 @@ export default class Information extends Vue {
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
+    }    
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            // console.log(options)
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", options.value);
-            }
-        })
+            console.log(this.survey.data);            
+        })   
     }
-    
+
     public reloadPageInformation() {
-        console.log(this.steps[0].result)
-        if (this.steps[0] && this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.survey.setVariable("poOnly",this.steps[0].result['selectedForms'].length == 1 
-            && this.steps[0].result['selectedForms'][0] == "protectionOrder");
+        //console.log(this.step.result)
+        if (this.step.result && this.step.result["filingLocationSurvey"]){
+            this.survey.data = this.step.result["filingLocationSurvey"];
         }
-
-        if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 
     public onPrev() {
@@ -105,15 +88,13 @@ export default class Information extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
-    
-    beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
-}
+
+    beforeDestroy() {
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
+        this.UpdateStepResultData({step:this.step, data: {filingLocationSurvey: this.survey.data}});
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

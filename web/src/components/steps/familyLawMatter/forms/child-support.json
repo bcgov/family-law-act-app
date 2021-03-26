@@ -1,0 +1,93 @@
+{
+  "title": "Child Support",
+  "pages": [
+    {
+      "name": "Child Support",
+      "description": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren).  A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.",
+      "elements": [        
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "isRequired": true,
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "parentGuardianApplicant",
+              "title": "I am a parent or guardian of the child(ren)"
+            },
+            {
+              "type": "yesno",
+              "name": "applyingGuardianApplicant",
+              "title": "I am a parent or guardian of the child(ren)",
+              "visible": false,
+              "visibleIf": "{parentGuardianApplicant} = 'n'"
+            },
+            {
+              "type": "infotext",
+              "name": "ifChildPOFAQ",
+              "title": "<strong>If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'",
+              "messageStyle": "inline"
+             },
+            {
+              "type": "radiogroup",
+              "name": "applicantType",
+              "title": "I am",
+              "hasOther": true,
+              "visible": false,
+              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'",
+              "choices": [
+                {
+                  "value": "parentGuardian",
+                  "text": "Parent or Guardian"
+                },
+                {
+                  "value": "applyingGuardian",
+                  "text": "Applying to become a guardian of the child(ren)"
+                }
+              ],
+              "choicesOrder": "asc"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "RespondantPanel",
+          "isRequired": true,
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "respondantType",
+              "title": "The 'Other Party' is",
+              "hasOther": true,
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "parentGuardian",
+                  "text": "A parent or guardian of the child(ren)"
+                },
+                {
+                  "value": "parentSubstitute",
+                  "text": "A person standing in the place of a parent to the child(ren) [for example step parent] "
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "comment",
+              "name": "howChildSpendTimeWithParties",
+              "title": "Describe how the child(ren) spend time with the parties",
+              "description": "The amount of time a child lives with each parent or guardian may determine who may be required to pay child support.  The time a child lives with each parent or guardian includes the time that they are responsible for the child, even if the child is not physically with them.<br><br>If the child lives with more than one parent or guardian try to describe the amount of time they live with each parent over a period of one year.  If you can estimate a percentage of time, it is helpful for the court.  For example, if they live two days a week with one parent and the rest with the other, they live approximately 30% of the time with the first parent and 70% with the other.<br><br>If you have more than one child and the living arrangements are different for each child, try to be clear about the amount of time a time each child lives with each parent.",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Child Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
