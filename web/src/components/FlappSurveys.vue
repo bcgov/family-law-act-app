@@ -11,7 +11,7 @@
             <child-relocation-step v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation-step>
             <enforcement-agree-step v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree-step>
         
-            <!-- <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit> -->
+            <submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></submit>
     
         </main>
     </div>
@@ -29,7 +29,7 @@ import ParentingPriorityStep from "./steps/priotityParenting/ParentingPrioritySt
 import CaseManagementStep from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocationStep from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgreeStep from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
-//import Submit from "./steps/submit/StepSubmit.vue";
+import Submit from "./steps/submit/StepSubmit.vue";
 
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
@@ -38,7 +38,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
         NavigationSidebar,
         ProtectionOrder,
         CommonInformationStep,
-       // Submit,
+        Submit,
         FamilyLawStep,
         ParentingPriorityStep,
         CaseManagementStep,

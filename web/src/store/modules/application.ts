@@ -193,35 +193,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "12";
-        p.label = "Filing Options";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "13";
-        p.label = "Review and Print";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "14";
-        p.label = "Review and Save";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-        
-        p = {} as pageInfoType;
-        p.key = "15";
-        p.label = "Review and Submit";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "16";
-        p.label = "Next Steps";
+        p.label = "Preview Forms";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -341,7 +313,61 @@ class Application extends VuexModule {
         this.steps.push(s);
 
         //Enforcement STOP
-       
+        //Submit START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "8";
+        s.label = "Review and File";
+        s.icon = "fa-paper-plane";
+        s.lastUpdate = null;
+        s.type = "submit";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.label = "Filing Options";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.label = "Review and Print";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Review and Save";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.label = "Review and Submit";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.label = "Next Steps";
+        p.active = false;
+        p.progress = 0;
+    
+        s.pages.push(p);
+    
+        this.steps.push(s);
+    
+        //Submit STOP
         //console.log(this.steps)
         
     }
@@ -493,6 +519,12 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public resetStep(currentStep: number): void {
+        this.steps[currentStep].result = {};
+    }
+    
+
+    @Mutation
     public setStepResultData({ step, data }): void {
         step.result = {...step.result, ...data};
     }
@@ -628,12 +660,16 @@ class Application extends VuexModule {
         this.context.commit("setSurveyChangedPO", newSurveyChangedPO);
         if(newSurveyChangedPO && this.steps[2].pages[11].progress ==100 ){//if changes, make review page incompelete
             this.context.commit("setPageProgress", { currentStep: 2, currentPage:11, progress:50 });
-            for (const page of [12,13,14,15,16]) {
-                this.context.commit("setPageActive", { currentStep: 2, currentPage: page, active: false });
-                if(this.steps[2].pages[page].progress ==100)
-                    this.context.commit("setPageProgress", { currentStep: 2, currentPage:page, progress:50 });
-            }
+            this.context.commit("setPageActive", { currentStep: 2, currentPage: 12, active: false });
+        
+            if(this.steps[2].pages[12].progress ==100)this.context.commit("setPageProgress", { currentStep: 2, currentPage:12, progress:50 });
+        }   
+        this.context.commit("resetStep", 8);
+        for (let i=1; i<5; i++) {
+            this.context.commit("setPageActive", { currentStep: 8, currentPage: i, active: false });
+            this.context.commit("setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
         }
+        
     }
 
     @Mutation

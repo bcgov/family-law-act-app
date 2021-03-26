@@ -12,11 +12,8 @@
     <about v-bind:step="step" v-if="step.currentPage == 9"></about>
     <urgency v-bind:step="step" v-if="step.currentPage == 10"></urgency>
     <review-your-answers v-bind:step="step" v-if="step.currentPage == 11"/>
-    <filing-options v-bind:step="step" v-if="step.currentPage == 12"/>
-    <review-and-print v-bind:step="step" v-if="step.currentPage == 13"/>
-    <review-and-save v-bind:step="step" v-if="step.currentPage == 14"/>
-    <review-and-submit v-bind:step="step" v-if="step.currentPage == 15"/>
-    <next-steps v-bind:step="step" v-if="step.currentPage == 16"/>
+    <preview-forms v-bind:step="step" v-if="step.currentPage == 12"/>
+    
   </step-base>
 </template>
 
@@ -38,12 +35,8 @@ import WeaponsFirearms from "./safetyNeeds/WeaponsFirearms.vue";
 import About from "./About.vue";
 import OtherParty from "./otherPartyComponent/OtherParty.vue";
 
-import ReviewYourAnswers from "./submit/ReviewYourAnswers.vue"
-import FilingOptions from "./submit/FilingOptions.vue"
-import ReviewAndPrint from "./submit/ReviewAndPrint.vue"
-import ReviewAndSave from "./submit/ReviewAndSave.vue"
-import ReviewAndSubmit from "./submit/ReviewAndSubmit.vue"
-import NextSteps from "./submit/NextSteps.vue";
+import ReviewYourAnswers from "./reviewPo/ReviewYourAnswers.vue"
+import PreviewForms from "./reviewPo/PreviewForms.vue"
 
 @Component({
     components:{
@@ -60,11 +53,7 @@ import NextSteps from "./submit/NextSteps.vue";
         About,
         OtherParty,
         ReviewYourAnswers,
-        FilingOptions,
-        ReviewAndPrint,
-        ReviewAndSave,
-        ReviewAndSubmit,
-        NextSteps
+        PreviewForms,
     }
 })
 
