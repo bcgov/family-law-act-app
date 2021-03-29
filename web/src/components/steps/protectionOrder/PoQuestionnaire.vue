@@ -53,13 +53,14 @@ export default class PoQuestionnaire extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-
-    needPoPages = [1, 2, 3, 5, 6, 7, 10,11];
-    changeTerminatePages = [ 8, 9, 10,11];
-    commonPages = [10,11,12]
-    noContantPage = [4];
-    aboutPage = 9;
-    urgencyPage = [10];
+    
+    allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12,13];
+    needPoPages = [1, 2, 3, 4, 6, 7, 8, 11, 12];
+    changeTerminatePages = [ 1, 9, 10, 11, 12];
+    commonPages = [11, 12, 13]
+    noContantPage = [5];
+    aboutPage = 10;
+    urgencyPage = [11];
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -119,7 +120,7 @@ export default class PoQuestionnaire extends Vue {
                     this.UpdateApplicationType(Array.from(new Set(applicationTypes)))
                 }
                 
-                this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: 2, currentPage:0}}})
+                this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: this.currentStep, currentPage:0}}})
 
 
                 if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
@@ -163,13 +164,15 @@ export default class PoQuestionnaire extends Vue {
     }
 
     public reloadPageInformation() {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         //console.log(this.step.result)
         if (this.step.result && this.step.result["questionnaireSurvey"]){
             this.survey.data = this.step.result["questionnaireSurvey"];
-        }
+        }       
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.determinePeaceBondAndBlock();
     }
@@ -177,7 +180,7 @@ export default class PoQuestionnaire extends Vue {
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
             this.$store.commit("Application/setPageActive", {
-                currentStep: 2,
+                currentStep: this.currentStep,
                 currentPage: pageArr[i],
                 active: activeIndicator
             });
@@ -205,8 +208,8 @@ export default class PoQuestionnaire extends Vue {
     }
 
     public removePages() {
-        let allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12];
-        this.togglePages(allPageIndex, false);
+        
+        this.togglePages(this.allPageIndex, false);
     }
 
     public onPrev() {

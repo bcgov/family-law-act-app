@@ -3,8 +3,10 @@
         <main class="app-content">
             <navigation-sidebar />
             <get-started v-if="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></get-started>
-            <common-information-step v-if="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></common-information-step>
-            <protection-order v-if="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></protection-order>
+            
+            <protection-order v-if="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></protection-order>
+            <common-information-step v-if="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></common-information-step>
+            
             <family-law-step v-if="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></family-law-step>
             <case-management-step v-if="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></case-management-step>
             <parenting-priority-step v-if="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></parenting-priority-step>

@@ -83,14 +83,16 @@ export default class ReviewYourAnswers extends Vue {
     currentPage=0;
     pageHasError = false;
 
+    previewFormsPage = 13;
+
     errorQuestionNames = [];
 
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        //console.log(newVal)
-        this.togglePages([12], !this.pageHasError);
-        Vue.filter('setSurveyProgress')(null, this.currentStep, 12,  50, false);
+        console.log(newVal)
+        this.togglePages([this.previewFormsPage], !this.pageHasError);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
@@ -203,7 +205,7 @@ export default class ReviewYourAnswers extends Vue {
 
     public reloadPageInformation() {
         this.pageHasError = false;
-        for(const stepIndex of [0,1,2]){
+        for(const stepIndex of [1]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
             //console.log(step)
@@ -245,7 +247,7 @@ export default class ReviewYourAnswers extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         //this.togglePages([0,1], true);
-        this.togglePages([12], !this.pageHasError); 
+        this.togglePages([this.previewFormsPage], !this.pageHasError); 
     }
 
     public determineHiddenErrors(){        

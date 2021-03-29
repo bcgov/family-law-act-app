@@ -88,14 +88,15 @@ export default class ProtectionFromWhom extends Vue {
     }
 
     public reloadPageInformation() {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.step.result && this.step.result['protectionWhomSurvey']){
             this.survey.data = this.step.result['protectionWhomSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
             this.checkAnswersforContinue()
         }
-        
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
 
@@ -105,19 +106,19 @@ export default class ProtectionFromWhom extends Vue {
 
     public determineNoContactPage(){       
         if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: 2, currentPage: 4, active: true});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 4, active: true});
         } else {// Disable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: 2, currentPage: 4, active: false});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 4, active: false});
         }            
     }
 
     public checkAnswersforContinue(){
         if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages([2,3,4,5,6,7,10,11,12,13,14,15,16], false);
+            this.togglePages([2,3,4,5,6,7,10,11,12,13], false);
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
         }else{
-            this.togglePages([2,3,5,6,7,10,11], true);
+            this.togglePages([2,3,4,6,7,8,11,12], true);
             this.determineNoContactPage()
             return true
         }
@@ -126,7 +127,7 @@ export default class ProtectionFromWhom extends Vue {
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
             this.$store.commit("Application/setPageActive", {
-                currentStep: 2,
+                currentStep: this.currentStep,
                 currentPage: pageArr[i],
                 active: activeIndicator
             });

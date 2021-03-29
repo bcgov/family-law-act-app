@@ -259,15 +259,24 @@ export default class GettingStarted extends Vue {
     public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
         if (selectedForms !== undefined) {
+            
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             this.poIncluded = selectedForms.includes("protectionOrder");
-            this.toggleCommonSteps(selectedForms.length>0);
-            this.toggleSteps(2, selectedForms.includes("protectionOrder"));
+
+            //this.toggleCommonSteps(selectedForms.length>0);
+            this.toggleSteps(1, selectedForms.includes("protectionOrder"));
             this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
             this.toggleSteps(4, selectedForms.includes("caseMgmt"));
             this.toggleSteps(5, selectedForms.includes("priotityParenting"));
             this.toggleSteps(6, selectedForms.includes("childReloc"));
             this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
+
+            this.toggleSteps(8, selectedForms.length>0);//Review And Submit
+            
+            this.toggleSteps(2, selectedForms.length>0 && !this.poOnly);//Common Your Information
+            this.togglePages(2, [0], !this.poIncluded);//Safety Check
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
+            this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
     }
 
@@ -278,32 +287,13 @@ export default class GettingStarted extends Vue {
         });
     }
 
-    public toggleCommonSteps(activeIndicator) {       
-        const steps = [1,8];
-        for(let i=0; i<steps.length; i++) {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: steps[i],
-                active: activeIndicator
-            });
+    public togglePages(step, pages, activeIndicator) {
+        for(let i=0; i<pages.length; i++) {
+            
             this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 0,
-                active: (activeIndicator && !this.poIncluded)
-            });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 1,
-                active: activeIndicator
-            });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 2,
-                active: (activeIndicator && !this.poOnly)
-            });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 3,
-                active: (activeIndicator && !this.poOnly)
+                currentStep: step,
+                currentPage: pages[i],
+                active: (activeIndicator)
             });
         }
     }

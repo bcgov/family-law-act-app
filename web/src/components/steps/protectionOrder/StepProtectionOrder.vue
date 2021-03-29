@@ -1,20 +1,20 @@
 <template>
-  <step-base v-bind:step="step">
-    <po-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></po-questionnaire>
-    <protection-fromWhom v-bind:step="step" v-if="step.currentPage == 1"></protection-fromWhom>
-    <remove-person v-bind:step="step" v-if="step.currentPage == 2"></remove-person>
-    <no-go v-bind:step="step" v-if="step.currentPage == 3"></no-go>
-    <no-contact v-bind:step="step" v-if="step.currentPage == 4"></no-contact>
-    <weapons-firearms v-bind:step="step" v-if="step.currentPage == 5"></weapons-firearms>
-    <background v-bind:step="step" v-if="step.currentPage == 6"></background>
-    <your-story v-bind:step="step" v-if="step.currentPage == 7"></your-story>
-    <other-party v-bind:step="step" v-if="step.currentPage == 8"></other-party>
-    <about v-bind:step="step" v-if="step.currentPage == 9"></about>
-    <urgency v-bind:step="step" v-if="step.currentPage == 10"></urgency>
-    <review-your-answers v-bind:step="step" v-if="step.currentPage == 11"/>
-    <preview-forms v-bind:step="step" v-if="step.currentPage == 12"/>
-    
-  </step-base>
+    <step-base v-bind:step="step">
+        <po-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></po-questionnaire>
+        <your-information-po v-bind:step="step" v-if="step.currentPage == 1" />
+        <protection-fromWhom v-bind:step="step" v-if="step.currentPage == 2"></protection-fromWhom>
+        <remove-person v-bind:step="step" v-if="step.currentPage == 3"></remove-person>
+        <no-go v-bind:step="step" v-if="step.currentPage == 4"></no-go>
+        <no-contact v-bind:step="step" v-if="step.currentPage == 5"></no-contact>
+        <weapons-firearms v-bind:step="step" v-if="step.currentPage == 6"></weapons-firearms>
+        <background v-bind:step="step" v-if="step.currentPage == 7"></background>
+        <your-story v-bind:step="step" v-if="step.currentPage == 8"></your-story>
+        <other-party v-bind:step="step" v-if="step.currentPage == 9"></other-party>
+        <about v-bind:step="step" v-if="step.currentPage == 10"></about>
+        <urgency v-bind:step="step" v-if="step.currentPage == 11"></urgency>
+        <review-your-answers v-bind:step="step" v-if="step.currentPage == 12"/>
+        <preview-forms v-bind:step="step" v-if="step.currentPage == 13"/>      
+    </step-base>
 </template>
 
 <script lang="ts">
@@ -24,16 +24,19 @@ import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 
 import PoQuestionnaire from "./PoQuestionnaire.vue";
+import YourInformationPo from "./YourInformationPO.vue";
+import OtherParty from "./otherPartyComponent/OtherParty.vue";
+
 import ProtectionFromWhom from "./ProtectionFromWhom.vue";
-import Background from "./Background.vue";
-import YourStory from "./YourStory.vue";
-import Urgency from "./Urgency.vue";
-import NoGo from "./safetyNeeds/NoGo.vue";
 import RemovePerson from "./safetyNeeds/RemovePerson.vue";
+import NoGo from "./safetyNeeds/NoGo.vue";
 import NoContact from "./safetyNeeds/NoContact.vue";
 import WeaponsFirearms from "./safetyNeeds/WeaponsFirearms.vue";
+import Background from "./Background.vue";
+import YourStory from "./YourStory.vue";
+
 import About from "./About.vue";
-import OtherParty from "./otherPartyComponent/OtherParty.vue";
+import Urgency from "./Urgency.vue";
 
 import ReviewYourAnswers from "./reviewPo/ReviewYourAnswers.vue"
 import PreviewForms from "./reviewPo/PreviewForms.vue"
@@ -41,17 +44,21 @@ import PreviewForms from "./reviewPo/PreviewForms.vue"
 @Component({
     components:{
         StepBase,
-        PoQuestionnaire,
+        PoQuestionnaire,        
+        YourInformationPo,
+        OtherParty,
+
         ProtectionFromWhom,
-        Background,
-        YourStory,
-        Urgency,
-        NoGo,
         RemovePerson,
+        NoGo,
         NoContact,
         WeaponsFirearms,
+        Background,
+        YourStory,
+
         About,
-        OtherParty,
+        Urgency,
+
         ReviewYourAnswers,
         PreviewForms,
     }
@@ -67,5 +74,5 @@ export default class ProtectionOrder extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+    @import "../../../styles/survey";
 </style>

@@ -67,11 +67,123 @@ class Application extends VuexModule {
 
         this.steps.push(s);
     
-        // Getting started STOP
-        // Common information START
+        // Getting started STOP       
+        // Protection Order START
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "1";
+        s.label = "Protection Order";
+        s.icon = "fa-child";
+        s.lastUpdate = null;
+        s.type = "stepPO";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.label = "Questionnaire";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.label = "Your information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Protection From Whom?";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.label = "Remove person or belongings";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.label = "No Go";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.label = "No Contact";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.label = "Weapons and Firearms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.label = "Your Story";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.label = "Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.label = "About Protection Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.label = "Urgency";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+    
+        //Protection Order STOP
+        // Common information START
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "2";
         s.label = "Your Information";
         s.icon = "fa-users";
         s.lastUpdate = null;
@@ -85,7 +197,7 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "1";
         p.label = "Your information";
@@ -106,115 +218,11 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-    
+
         this.steps.push(s);
-    
+
         // Common Information STOP
-        // Protection Order START
-        s = {} as stepInfoType;    
-        s.active = false;
-        s.id = "2";
-        s.label = "Protection Order";
-        s.icon = "fa-child";
-        s.lastUpdate = null;
-        s.type = "stepPO";
-        s.pages = new Array<pageInfoType>();
-        s.currentPage = 0;
 
-        p = {} as pageInfoType;
-        p.key = "0";
-        p.label = "Questionnaire";
-        p.active = true;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.label = "Protection From Whom?";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "2";
-        p.label = "Remove person or belongings";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "3";
-        p.label = "No Go";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "4";
-        p.label = "No Contact";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "5";
-        p.label = "Weapons and Firearms";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "6";
-        p.label = "Background";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "7";
-        p.label = "Your Story";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "8";
-        p.label = "Other Party";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "9";
-        p.label = "About Protection Order";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "10";
-        p.label = "Urgency";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "11";
-        p.label = "Review Your Answers";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "12";
-        p.label = "Preview Forms";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);
-
-        this.steps.push(s);
-    
-        //Protection Order STOP
         //Family Law Matter START
         s = {} as stepInfoType;    
         s.active = false;
@@ -349,7 +357,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "0";
         p.label = "Filing Options";
-        p.active = false;
+        p.active = true;
         p.progress = 0;
     
         s.pages.push(p);
@@ -678,13 +686,18 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateSurveyChangedPO(newSurveyChangedPO: boolean) {
+        const stepPO = 1
+        const reviewPagePO = 12
+        const previewPagePO = 13
         this.context.commit("setSurveyChangedPO", newSurveyChangedPO);
-        if(newSurveyChangedPO && this.steps[2].pages[11].progress ==100 ){//if changes, make review page incompelete
-            this.context.commit("setPageProgress", { currentStep: 2, currentPage:11, progress:50 });
-            this.context.commit("setPageActive", { currentStep: 2, currentPage: 12, active: false });
+        if(newSurveyChangedPO && this.steps[stepPO].pages[reviewPagePO].progress ==100 ){//if changes, make review page incompelete
+            this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:reviewPagePO, progress:50 });
+            this.context.commit("setPageActive", { currentStep: stepPO, currentPage: previewPagePO, active: false });
         
-            if(this.steps[2].pages[12].progress ==100)this.context.commit("setPageProgress", { currentStep: 2, currentPage:12, progress:50 });
-        }   
+            if(this.steps[stepPO].pages[previewPagePO].progress ==100)this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:previewPagePO, progress:50 });
+        }  
+        
+        
         this.context.commit("resetStep", 8);
         for (let i=1; i<5; i++) {
             this.context.commit("setPageActive", { currentStep: 8, currentPage: i, active: false });
