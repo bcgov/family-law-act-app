@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/child-support.json";
 
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -28,6 +28,9 @@ export default class ChildSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public applicantName!: nameInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -79,10 +82,12 @@ export default class ChildSupport extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'].data;
+        if (this.step.result && this.step.result['childSupportSurvey']) {
+            this.survey.data = this.step.result['childSupportSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -102,7 +107,7 @@ export default class ChildSupport extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {childSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 }

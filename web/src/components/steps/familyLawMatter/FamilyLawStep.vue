@@ -1,8 +1,8 @@
 <template>
   <step-base v-bind:step="step">
     <flm-sub-path-selection v-bind:step="step" v-if="step.currentPage == 0"></flm-sub-path-selection>
-    <!-- <child-support v-bind:step="step" v-if="step.currentPage == 1"></child-support>   -->
-    <family-form v-bind:step="step" v-if="step.currentPage == 1"></family-form>
+    <child-support v-bind:step="step" v-if="step.currentPage == 1"></child-support>  
+    <family-form v-bind:step="step" v-if="step.currentPage == 2"></family-form>
   </step-base>
 </template>
 
