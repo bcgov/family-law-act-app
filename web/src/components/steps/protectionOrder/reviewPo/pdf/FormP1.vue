@@ -12,7 +12,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.protectionWhomSurvey.ExistingCourt?result.protectionWhomSurvey.ExistingCourt:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.protectionWhomSurvey.ExistingFileNumber}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:(result.protectionWhomSurvey && result.protectionWhomSurvey.ExistingCourt)?result.protectionWhomSurvey.ExistingCourt:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.protectionWhomSurvey?result.protectionWhomSurvey.ExistingFileNumber:''}]"
                     small
                     bordered
                     thead-class="d-none">
@@ -28,26 +28,26 @@
 
 <!-- <1> -->
         <section>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="result.yourInformationSurvey.ApplicantName | getFullName"/>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="result.yourInformationSurvey.ApplicantDOB | beautify-date"/>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="result.yourInformationSurveyPO.ApplicantName | getFullName"/>
+                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="result.yourInformationSurveyPO.ApplicantDOB | beautify-date"/>
                 <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents by the other party and the court are:</div>
                 <table class="fullsize">
                     <tr style="border:1px solid #414142" >
-                        <td v-if="result.yourInformationSurvey.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{result.yourInformationSurvey.Lawyer | getFullName}}</div></td>
+                        <td v-if="result.yourInformationSurveyPO.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{result.yourInformationSurveyPO.Lawyer | getFullName}}</div></td>
                         <td v-else  colspan="3">Lawyer (if applicable): </td>
                     </tr>
                     <tr style="border:1px solid #414142">          
-                        <td colspan="3">Address: <div class="answer"> {{result.yourInformationSurvey.ApplicantAddress.street}} </div> </td>
+                        <td colspan="3">Address: <div class="answer"> {{result.yourInformationSurveyPO.ApplicantAddress.street}} </div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td  >City: <div class="answer">{{result.yourInformationSurvey.ApplicantAddress.city}}</div> </td>
-                    <td style="padding-left:50px">Province: <div class="answer">{{result.yourInformationSurvey.ApplicantAddress.state}}</div> </td>
-                        <td>Postal Code: <div class="answer">{{result.yourInformationSurvey.ApplicantAddress.postcode}}</div> </td>
+                        <td  >City: <div class="answer">{{result.yourInformationSurveyPO.ApplicantAddress.city}}</div> </td>
+                    <td style="padding-left:50px">Province: <div class="answer">{{result.yourInformationSurveyPO.ApplicantAddress.state}}</div> </td>
+                        <td>Postal Code: <div class="answer">{{result.yourInformationSurveyPO.ApplicantAddress.postcode}}</div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{result.yourInformationSurvey.ApplicantContact.email}}</div> </td>
+                        <td>Email: <div class="answer">{{result.yourInformationSurveyPO.ApplicantContact.email}}</div> </td>
                         <td style="padding-left:50px"></td>
-                        <td>Telephone: <div class="answer">{{result.yourInformationSurvey.ApplicantContact.phone}}</div> </td>
+                        <td>Telephone: <div class="answer">{{result.yourInformationSurveyPO.ApplicantContact.phone}}</div> </td>
                     </tr>
                 </table>
         </section>
@@ -68,28 +68,29 @@
 
 <!-- <3> -->
         <section> 
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party's name is" hint="full name of the other party" :italicHint="false" :text="result.protectionWhomSurvey.RespondentName | getFullName"/>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="result.protectionWhomSurvey.RespondentDOB | beautify-date"/>
+            <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party's name is" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
+                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
                 <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
                 <table class="fullsize">
-                    <tr style="border:1px solid #414142" >
-                        <td v-if="result.yourInformationSurvey.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{result.protectionWhomSurvey.RespondentLawyer | getFullName}}</div></td>
-                        <td v-else  colspan="3">Lawyer (if applicable): </td>
+                    <tr style="border:1px solid #414142" >                        
+                        <td colspan="3">Lawyer (if applicable): </td>
                     </tr>
                     <tr style="border:1px solid #414142">          
-                        <td colspan="3">Address: <div class="answer"> {{result.protectionWhomSurvey.RespondentAddress.street}} </div> </td>
+                        <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td  >City: <div class="answer">{{result.protectionWhomSurvey.RespondentAddress.city}}</div> </td>
-                    <td style="padding-left:50px">Province: <div class="answer">{{result.protectionWhomSurvey.RespondentAddress.state}}</div> </td>
-                        <td>Postal Code: <div class="answer">{{result.protectionWhomSurvey.RespondentAddress.postcode}}</div> </td>
+                        <td  >City: <div class="answer">{{otherParty.address?otherParty.address.city:''}}</div> </td>
+                    <td style="padding-left:50px">Province: <div class="answer">{{otherParty.address?otherParty.address.state:''}}</div> </td>
+                        <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{result.protectionWhomSurvey.RespondentContact.email}}</div> </td>
+                        <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
                         <td style="padding-left:50px"></td>
-                        <td>Telephone: <div class="answer">{{result.protectionWhomSurvey.RespondentContact.phone}}</div> </td>
+                        <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
                     </tr>
                 </table>
+            </div>
         </section>
 
 <!-- <4> -->
@@ -133,9 +134,9 @@
         </div>
 
         <div>
-            <underline-form style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="result.yourInformationSurvey.ApplicantName | getFullName"/>
-            <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hint="occupation" :text="result.yourInformationSurvey.ApplicantOccupation"/>
-            <underline-form style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="result.yourInformationSurvey.ApplicantAddress | getFullAddress"/>
+            <underline-form style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="result.yourInformationSurveyPO.ApplicantName | getFullName"/>
+            <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hint="occupation" :text="result.yourInformationSurveyPO.ApplicantOccupation"/>
+            <underline-form style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="result.yourInformationSurveyPO.ApplicantAddress | getFullAddress"/>
             <div style="text-indent:1px;display:inline;"> ,</div>
         </div>
 
@@ -283,6 +284,8 @@ export default class FormP1 extends Vue {
     result;
     dataReady = false;
 
+    otherPartyInfo=[];
+
     applicantList = []
     deceased={fullName:"Rest In Peace", first:"Rest", middle:"In",last:"Peace", address:"0-123 st, Victoria, BC, Canada V0i 8i8"}
     serviceContact={address:"0-123 st, Victoria, BC, Canada V0i 8i8", phone:"+1 123 456 7890", fax:"+1 123 456 7890", email:"ABC@yahoo.ca"}
@@ -334,6 +337,60 @@ export default class FormP1 extends Vue {
             }
         }
 
+        this.otherPartyInfo=this.getOtherPartyInfo()
+
+    }
+
+    public getOtherPartyInfo(){
+        
+        let info = [] 
+        let dob = 'unknown'
+        let name = ''
+        let address = ''
+        let contactInfo = ''
+
+        if(this.result.selectedPOOrder && this.result.selectedPOOrder.orderType == 'needPO' && this.result.protectionWhomSurvey){            
+
+            if(this.result.protectionWhomSurvey['RespondentDOBExact'] == 'y' &&   this.result.protectionWhomSurvey['RespondentDOB'])
+                dob = this.result.protectionWhomSurvey['RespondentDOB']
+            
+            if(this.result.protectionWhomSurvey['RespondentName'])
+                name = this.result.protectionWhomSurvey['RespondentName']
+            
+            if(this.result.protectionWhomSurvey['RespondentAddress'])
+                address = this.result.protectionWhomSurvey['RespondentAddress']
+            
+            if(this.result.protectionWhomSurvey['RespondentContact'])
+                contactInfo = this.result.protectionWhomSurvey['RespondentContact']
+                
+            info = [{'name':name, 'DOB': dob , 'address': address ,'contact': contactInfo}]
+        }
+        else if(this.result.selectedPOOrder && (this.result.selectedPOOrder.orderType == 'changePO' || this.result.selectedPOOrder.orderType == 'terminatePO')){    
+            for(const party of this.result.otherPartySurvey){
+                dob = 'unknown'
+                name = ''
+                address = ''
+                contactInfo = ''
+
+                if (party['knowDob'] == 'y' &&  party['dob'])
+                    dob = party['dob']
+
+                if (party['name'])
+                    name = party['name']
+                
+                if (party['address'])
+                    address = party['address']
+                
+                if (party['contactInfo'])
+                    contactInfo = party['contactInfo']
+                
+                info.push({'name':name, 'DOB': dob , 'address': address ,'contact': contactInfo})
+            }
+        }
+        else
+            info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': ''}]
+
+        return info
     }
 
     // public onPrint() {
@@ -394,7 +451,7 @@ export default class FormP1 extends Vue {
 
         return result;
 
-    //Vue.filter('getFullName')(yourInformationSurvey.ApplicantName)
+    //Vue.filter('getFullName')(yourInformationSurveyPO.ApplicantName)
     }
 
 }

@@ -259,15 +259,20 @@ export default class GettingStarted extends Vue {
     public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
         if (selectedForms !== undefined) {
+            
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             this.poIncluded = selectedForms.includes("protectionOrder");
-            this.toggleCommonSteps(selectedForms.length>0);
-            this.toggleSteps(2, selectedForms.includes("protectionOrder"));
+
+            //this.toggleCommonSteps(selectedForms.length>0);
+            this.toggleSteps(1, selectedForms.includes("protectionOrder"));
             this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
             this.toggleSteps(4, selectedForms.includes("caseMgmt"));
             this.toggleSteps(5, selectedForms.includes("priotityParenting"));
             this.toggleSteps(6, selectedForms.includes("childReloc"));
             this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
+
+            this.toggleSteps(8, selectedForms.length>0);//Review And Submit
+
         }
     }
 
@@ -278,33 +283,32 @@ export default class GettingStarted extends Vue {
         });
     }
 
-    public toggleCommonSteps(activeIndicator) {       
-        const steps = [1,8];
+    public toggleCommonSteps(steps, activeIndicator) {
         for(let i=0; i<steps.length; i++) {
             this.$store.commit("Application/setStepActive", {
                 currentStep: steps[i],
                 active: activeIndicator
             });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 0,
-                active: (activeIndicator && !this.poIncluded)
-            });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 1,
-                active: activeIndicator
-            });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 2,
-                active: (activeIndicator && !this.poOnly)
-            });
-            this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 3,
-                active: (activeIndicator && !this.poOnly)
-            });
+            // this.$store.commit("Application/setPageActive", {
+            //     currentStep: steps[i],
+            //     currentPage: 0,
+            //     active: (activeIndicator && !this.poIncluded)
+            // });
+            // this.$store.commit("Application/setPageActive", {
+            //     currentStep: steps[i],
+            //     currentPage: 1,
+            //     active: activeIndicator
+            // });
+            // this.$store.commit("Application/setPageActive", {
+            //     currentStep: steps[i],
+            //     currentPage: 2,
+            //     active: (activeIndicator && !this.poOnly)
+            // });
+            // this.$store.commit("Application/setPageActive", {
+            //     currentStep: steps[i],
+            //     currentPage: 3,
+            //     active: (activeIndicator && !this.poOnly)
+            // });
         }
     }
 

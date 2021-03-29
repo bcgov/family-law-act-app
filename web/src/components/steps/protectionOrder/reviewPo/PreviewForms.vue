@@ -53,7 +53,7 @@ export default class PreviewForms extends Vue {
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
             this.$store.commit("Application/setPageActive", {
-                currentStep: 2,
+                currentStep: this.currentStep,
                 currentPage: pageArr[i],
                 active: activeIndicator
             });

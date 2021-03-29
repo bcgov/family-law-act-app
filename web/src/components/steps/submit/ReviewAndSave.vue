@@ -260,10 +260,10 @@ export default class ReviewAndSave extends Vue {
                 //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
             }
         }     
-        // var result = this.$store.state.Application.steps[0].result; 
-        // for(var i=1;i<9; i++)
-        //     Object.assign(result, result, this.$store.state.Application.steps[i].result); 
         
+        //Object.assign(result, result, {selectedPOOrder:this.$store.state.Application.steps[2].result.selectedPOOrder});
+        Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurveyPO.data}); 
+               
         var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
         Object.assign(result, result, protectedPartyName);
         
