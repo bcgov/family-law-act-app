@@ -82,18 +82,14 @@ export default class Information extends Vue {
     
     public reloadPageInformation() {
         // console.log(this.steps[0].result)
-        if (this.steps[0] && this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.survey.setVariable("includesPo",this.steps[0].result['selectedForms'].length>0 
-            && this.steps[0].result['selectedForms'].includes("protectionOrder"));
-        }
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         if (this.step.result && this.step.result['yourInformationSurvey']) {
             this.survey.data = this.step.result['yourInformationSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

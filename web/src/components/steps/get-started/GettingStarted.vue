@@ -272,7 +272,11 @@ export default class GettingStarted extends Vue {
             this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
 
             this.toggleSteps(8, selectedForms.length>0);//Review And Submit
-
+            
+            this.toggleSteps(2, selectedForms.length>0 && !this.poOnly);//Common Your Information
+            this.togglePages(2, [0], !this.poIncluded);//Safety Check
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
+            this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
     }
 
@@ -283,32 +287,14 @@ export default class GettingStarted extends Vue {
         });
     }
 
-    public toggleCommonSteps(steps, activeIndicator) {
-        for(let i=0; i<steps.length; i++) {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: steps[i],
-                active: activeIndicator
+    public togglePages(step, pages, activeIndicator) {
+        for(let i=0; i<pages.length; i++) {
+            
+            this.$store.commit("Application/setPageActive", {
+                currentStep: step,
+                currentPage: pages[i],
+                active: (activeIndicator)
             });
-            // this.$store.commit("Application/setPageActive", {
-            //     currentStep: steps[i],
-            //     currentPage: 0,
-            //     active: (activeIndicator && !this.poIncluded)
-            // });
-            // this.$store.commit("Application/setPageActive", {
-            //     currentStep: steps[i],
-            //     currentPage: 1,
-            //     active: activeIndicator
-            // });
-            // this.$store.commit("Application/setPageActive", {
-            //     currentStep: steps[i],
-            //     currentPage: 2,
-            //     active: (activeIndicator && !this.poOnly)
-            // });
-            // this.$store.commit("Application/setPageActive", {
-            //     currentStep: steps[i],
-            //     currentPage: 3,
-            //     active: (activeIndicator && !this.poOnly)
-            // });
         }
     }
 
