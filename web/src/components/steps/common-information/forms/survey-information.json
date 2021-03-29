@@ -29,8 +29,7 @@
             {
               "type": "infotext",
               "name": "ExplanationLawyer",              
-              "title": "The court needs to know where to send documents to you and how to reach you.",
-              "isRequired": true,
+              "title": "The court needs to know where to send documents to you and how to reach you.",              
               "titleLocation": "hidden"
             },            
             {
@@ -38,9 +37,7 @@
               "name": "Lawyer",
               "title": "Has a lawyer agreed to receive court documents for you?",
               "description": "You do not need a lawyer to go to court. Some lawyers are hired for a limited purpose. For example, you may hire a lawyer only to give you legal advice, help you to complete court documents or come to a court appearance with you. You will still be responsible for all other aspects of your case. If you hire a lawyer for a limited purpose, make sure you and the lawyer are clear about whether their name and address goes on the court documents. Usually it won’t.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf":"({ExplanationLawyer}>0)"
+              "isRequired": true
             },
             {
               "type": "helptext",
@@ -53,7 +50,7 @@
               "type": "helptext",
               "name": "FAQLawyer2",
               "title": "What if I used to have a lawyer but not anymore?",
-              "titleLocation": "hidden",
+              "titleLocation": "hidden",             
               "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa053.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form.</a> (This link will open in a new tab.)"
             },           
             {
@@ -73,7 +70,7 @@
                   "type": "address",
                   "name": "ApplicantAddress",
                   "visible": false,
-                  "visibleIf": "{Lawyer} = 'n'",
+                  "visibleIf": "({Lawyer} = 'n')",
                   "title": "What is the address where you want to receive court documents?",
                   "description": "The other party will see this address on court documents.",
                   "isRequired": true,
