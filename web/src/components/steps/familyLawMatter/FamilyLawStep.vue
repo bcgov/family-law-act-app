@@ -1,8 +1,14 @@
 <template>
   <step-base v-bind:step="step">
     <flm-sub-path-selection v-bind:step="step" v-if="step.currentPage == 0"></flm-sub-path-selection>
-    <child-support v-bind:step="step" v-if="step.currentPage == 1"></child-support>  
-    <family-form v-bind:step="step" v-if="step.currentPage == 2"></family-form>
+    <flm-background v-bind:step="step" v-if="step.currentPage == 1"></flm-background>
+    <children-info v-bind:step="step" v-if="step.currentPage == 2"></children-info>    
+    <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"></parenting-arrangements> 
+    <child-support v-bind:step="step" v-if="step.currentPage == 4"></child-support> 
+    <contact-with-child v-bind:step="step" v-if="step.currentPage == 5"></contact-with-child>  
+    <guardian-of-child v-bind:step="step" v-if="step.currentPage == 6"></guardian-of-child>  
+    <spousal-support v-bind:step="step" v-if="step.currentPage == 7"></spousal-support>   
+    <family-form v-bind:step="step" v-if="step.currentPage == 8"></family-form>
   </step-base>
 </template>
 
@@ -14,15 +20,27 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "../common-information/forms/survey-information.json";
 
 import FlmSubPathSelection from "./FlmSubPathSelection.vue";
+import FlmBackground from "./FlmBackground.vue";
+import ChildrenInfo from "./childComponent/ChildrenInfo.vue";
+import ParentingArrangements from "./ParentingArrangements.vue";
 import ChildSupport from "./ChildSupport.vue";
-import  FamilyForm  from "./FamilyForm.vue"
+import ContactWithChild from "./ContactWithChild.vue";
+import GuardianOfChild from "./GuardianOfChild.vue";
+import SpousalSupport from "./SpousalSupport.vue";
+import FamilyForm  from "./FamilyForm.vue"
 
 
 @Component({
     components:{
       StepBase,      
       FlmSubPathSelection,
-      ChildSupport,     
+      FlmBackground,
+      ChildrenInfo,
+      ParentingArrangements,
+      ChildSupport, 
+      ContactWithChild,
+      GuardianOfChild,
+      SpousalSupport,    
       FamilyForm
     }
 })

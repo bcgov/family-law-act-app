@@ -141,12 +141,22 @@ export default class FlmSubPathSelection extends Vue {
     public setSteps(selectedForm) {
         console.log(selectedForm)
         if (selectedForm) {
-            this.togglePages([1], true);          
-            // this.togglePages([1], selectedForm == "parentingArrangements");
-            // this.togglePages([1], selectedForm == "childSupport");
-            // this.togglePages([1], selectedForm == "contactWithChild");
-            // this.togglePages([1], selectedForm == "guardianOfChild");
-            // this.togglePages([1], selectedForm == "spousalSupport");
+            
+            this.togglePages([1, 2, 3, 4, 5, 6, 7], false);
+            if (selectedForm == "parentingArrangements"){
+                this.togglePages([1,2, 3], true);
+            } else if (selectedForm == "childSupport") {
+                this.togglePages([1,2, 4], true);
+            } else if (selectedForm == "contactWithChild") {
+                this.togglePages([1,2, 5], true);
+            } else if (selectedForm == "guardianOfChild") {
+                this.togglePages([1,2, 6], true);
+            } else if (selectedForm == "spousalSupport") {
+                this.togglePages([1,7], true);
+            } else {
+                this.togglePages([1,8], true);
+            }          
+
         }
     }
 

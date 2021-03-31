@@ -70,7 +70,7 @@ const applicationState = namespace("Application");
       PageBase
     }
 })
-export default class ChildrenInfo extends Vue {
+export default class ChildrenInfoCommon extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType
