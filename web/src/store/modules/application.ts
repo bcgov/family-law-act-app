@@ -298,9 +298,9 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "2";
+        p.key = "9";
         p.label = "Preview Forms";
-        p.active = false;
+        p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
