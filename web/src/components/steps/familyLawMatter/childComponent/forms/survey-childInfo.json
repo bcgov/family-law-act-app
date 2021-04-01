@@ -1,0 +1,50 @@
+{
+    "title": "Child(ren) Information",
+    "pages": [
+        {
+            "name": "Child(ren) Information",
+            "elements": [
+                {
+                    "type": "personname",
+                    "name": "childName",
+                    "title": "What is the child's full name?",
+                    "isRequired": true,
+                    "defaultSubstitution": "{ChildName}"
+                },
+                {
+                    "type": "text",
+                    "name": "childDateOfBirth",
+                    "title": "What is the Date of Birth of {ChildName}?",
+                    "isRequired": true,
+                    "inputType": "date"
+                },
+                {
+                    "type": "comment",
+                    "name": "relationToChild",
+                    "title": "What is your relationship to {ChildName}?",
+                    "isRequired": true
+                },
+                {
+                    "type": "comment",
+                    "name": "childRelationToOtherParty",
+                    "title": "What is the child's relationship to the other party?",
+                    "isRequired": true
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "childCurrentlyLivingWith",
+                    "title": "Who is {ChildName} currently living with?",
+                    "isRequired": true,
+                    "hasOther": true,
+                    "choices": [
+                        "me",
+                        "other party",
+                        "both"
+                    ]
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

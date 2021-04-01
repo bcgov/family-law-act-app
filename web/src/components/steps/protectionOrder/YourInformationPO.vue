@@ -32,6 +32,9 @@ export default class YourInformationPo extends Vue {
     @applicationState.State
     public steps!: any
 
+    @applicationState.State
+    public types!: string[]
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -104,6 +107,14 @@ export default class YourInformationPo extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {yourInformationSurveyPO: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+       
+        if (this.types.length > 1) {
+            if (this.steps[2].result && this.steps[2].result.yourInformationSurvey) {
+                console.log("common information already exists");
+            } else {
+                this.UpdateStepResultData({step:this.steps[2], data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 1)}});
+            }
+        }
 
     }
 }

@@ -28,6 +28,12 @@ export default class Background extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public steps!: any
+
+    @applicationState.State
+    public types!: string[]
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -108,6 +114,13 @@ export default class Background extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
+        if (this.types.length > 1 && this.types.includes("Family Law Matter")) {
+            if (this.steps[3].result && this.steps[3].result.flmBackgroundSurvey) {
+                console.log("flm background information already exists");
+            } else {
+                this.UpdateStepResultData({step:this.steps[3], data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, 3, 1)}});
+            }
+        }
     }
 }
 </script>

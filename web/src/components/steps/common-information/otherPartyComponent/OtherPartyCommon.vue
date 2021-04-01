@@ -73,7 +73,7 @@
                         my spouse, if I am applying for spousal support
                     </li>
                     <li>
-                        my spouse, if I am applying for spousal support                       
+                        each other adult who the application about a family law matter is about                       
                     </li>                    
                 </ul>
                 <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
@@ -218,6 +218,8 @@ export default class OtherPartyCommon extends Vue {
     }
 
     beforeDestroy() {
+
+        this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
         const progress = this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
