@@ -3,6 +3,7 @@
     <flm-sub-path-selection v-bind:step="step" v-if="step.currentPage == 0"></flm-sub-path-selection>
     <!-- <child-support v-bind:step="step" v-if="step.currentPage == 1"></child-support>   -->
     <family-form v-bind:step="step" v-if="step.currentPage == 1"></family-form>
+    <preview-forms v-bind:step="step" v-if="step.currentPage == 2"/>
   </step-base>
 </template>
 
@@ -17,13 +18,16 @@ import FlmSubPathSelection from "./FlmSubPathSelection.vue";
 import ChildSupport from "./ChildSupport.vue";
 import  FamilyForm  from "./FamilyForm.vue"
 
+import PreviewForms from "./reviewFLM/PreviewForms.vue"
+
 
 @Component({
     components:{
       StepBase,      
       FlmSubPathSelection,
       ChildSupport,     
-      FamilyForm
+      FamilyForm,
+      PreviewForms
     }
 })
 export default class FamilyLawStep extends Vue {

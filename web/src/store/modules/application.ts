@@ -255,6 +255,13 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 50;    
+        s.pages.push(p);
+
         this.steps.push(s);
 
         //Family Law Matter STOP
