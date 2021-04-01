@@ -63,9 +63,14 @@
                 the child when you are asking the court for decisions about them.
             </p>
             
-            <b-form-checkbox v-model="childBestInterestUnderstanding" style="color:#556077; font-size:1.5em;">
-                I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.  
+            <b-form-checkbox 
+                size="lg" 
+                v-model="childBestInterestUnderstanding" 
+                style="display:inline-block;color:#556077; font-size:1.40em; font-weight:bold; transform:translate(0px,3px);">
             </b-form-checkbox>
+            <div style="display:inline;color:#556077; font-size:1.5em; font-weight:bold;">
+                I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.
+            </div>
             
         </b-card>
     </page-base>
