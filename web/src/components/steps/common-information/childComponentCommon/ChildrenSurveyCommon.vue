@@ -16,12 +16,12 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/survey-childInfo.json";
+import surveyJson from "./forms/survey-childInfo-common.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import { addQuestionTypes } from "@/components/survey/question-types.ts";
 
 @Component
-export default class ChildrenSurvey extends Vue {
+export default class ChildrenSurveyCommon extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;

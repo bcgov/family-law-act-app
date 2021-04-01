@@ -241,15 +241,57 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-        // p = {} as pageInfoType;
-        // p.key = "1";
-        // p.label = "Child Support";
-        // p.active = false;
-        // p.progress = 0;    
-        // s.pages.push(p);
-    
         p = {} as pageInfoType;
         p.key = "1";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.label = "Parenting arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.label = "Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.label = "Contact with a child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.label = "Guardian of a child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.label = "Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+    
+        p = {} as pageInfoType;
+        p.key = "8";
         p.label = "Family Law Form";
         p.active = false;
         p.progress = 0;    

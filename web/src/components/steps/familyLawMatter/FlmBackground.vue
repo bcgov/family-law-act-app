@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/child-support.json";
+import surveyJson from "./forms/flm-background.json";
 
 import PageBase from "../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -23,14 +23,10 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-
-export default class ChildSupport extends Vue {
+export default class FlmBackground extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -44,12 +40,6 @@ export default class ChildSupport extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -69,24 +59,20 @@ export default class ChildSupport extends Vue {
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
-    
+
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
             console.log(options)
-            
         })
     }
-    
-    public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+    public reloadPageInformation() {  
 
+        if (this.step.result && this.step.result['flmBackgroundSurvey']){
+            this.survey.data = this.step.result['flmBackgroundSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+        }        
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
@@ -100,13 +86,12 @@ export default class ChildSupport extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
-    
+    }
+  
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {childSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
+        this.UpdateStepResultData({step:this.step, data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

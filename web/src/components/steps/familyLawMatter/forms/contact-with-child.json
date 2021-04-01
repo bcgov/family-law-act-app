@@ -1,9 +1,9 @@
 {
-  "title": "Child Support",
+  "title": "Contact With Child",
   "pages": [
     {
-      "name": "Child Support",
-      "description": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren).  A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.",
+      "name": "Contact With Child",
+      "description": "Children often have important relationships with people other than their parents or guardians, including grandparents, relatives, and others close to the child. Usually these relationships are facilitated by the parents or guardians.<br><br>If an agreement about contact with a child is not possible, the person who believes they should have contact with the child can apply for a court order.  The court will make a decision about contact with the child based on the best interests of the child.",
       "elements": [
         {
           "type": "panel",
@@ -168,7 +168,7 @@
           ]
         }
       ],
-      "title": "Child Support"
+      "title": "Contact With Child"
     }
   ],
   "showQuestionNumbers": "off",

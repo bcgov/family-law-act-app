@@ -1,9 +1,9 @@
 {
-  "title": "Child Support",
+  "title": "Spousal Support",
   "pages": [
     {
-      "name": "Child Support",
-      "description": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren).  A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.",
+      "name": "Spousal Support",
+      "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/what-is\" target=\"_blank\">Spousal support</a> is money that one spouse pays to another spouse for their financial support after separation.  It is different from child support.<br>A person is only entitled to spousal support in certain situations.  It is not a right in every case.  There are rules under the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_00\" target=\"_blank\"> Family Law Act </a>about what makes you a spouse and when you can ask for an order for spousal support.<br>You can apply for spousal support if:<br><ul><li>you are a spouse because:</li><li>You were married</li><li>You lived together in a marriage-like relationship for at least two years, or</li><li>You lived in a marriage-like relationship for less than two years, but you have a child together</li><li>you can prove entitlement to the court for spousal support, and</li><li>you are applying in time (Married spouses must start a court proceeding claiming spousal support within two years of the date of their divorce or an order annulling their marriage. Unmarried spouses must start a court proceeding within two years of the date of their separation).</li></ul>",
       "elements": [
         {
           "type": "panel",
@@ -168,7 +168,7 @@
           ]
         }
       ],
-      "title": "Child Support"
+      "title": "Spousal Support"
     }
   ],
   "showQuestionNumbers": "off",

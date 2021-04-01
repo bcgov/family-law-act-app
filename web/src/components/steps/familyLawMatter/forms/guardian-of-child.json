@@ -1,0 +1,154 @@
+{
+  "title": "Guardian Of Child",
+  "pages": [
+    {
+      "name": "Guardian Of Child",
+      "description": "A <a href=\"http://www.bclaws.ca/civix/document/id/oic/oic_cur/0137_2019\" target=\"_blank\">guardian</a> is responsible for a child.  Only guardians have parenting responsibilities and parenting time with a child.<br><br>A non-guardian parent can become a guardian of a child through a court order or by an agreement with all of the other guardians of the child.  A non-parent can become a guardian through a court order.<br><br>In some cases, it may not be appropriate for a parent or guardian to remain a guardian.  A parent can be removed as guardian by agreement with all of the other guardians or court order.  If a parent is not a guardian, they can still have time with the child 'contact' but will not have any parental responsibilities.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ApplicantPanel",
+          "isRequired": true,
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "applicantionType",
+              "title": "I am applying:",
+              "choices": [
+                {
+                  "value": "becomeGuardian",
+                  "text": "to be appointed as a guardian of a child"
+                },
+                {
+                  "value": "cancelGuardian",
+                  "text": "to cancel a person's guardianship of a child"
+                }
+              ],
+              "choicesOrder": "asc"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "becomeGuardianPanel",
+          "visible": false,
+          "visibleIf": "{applicantionType} = 'becomeGuardian'",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "childrenList",
+              "title": "I am applying to be appointed as a guardian of the following child(ren):",
+              "isRequired": true,
+              "choices": [
+                "Child1",
+                "Child2"
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "applicantionRequirement",
+              "title": "Select one of the following options:",
+              "choices": [
+                {
+                  "value": "ableToFile",
+                  "text": "I am able to complete a Guardianship Affidavit and file it along with this claim."
+                },
+                {
+                  "value": "unableToFile",
+                  "text": "I am not able to complete a Guardianship Affidavit at this time and I have completed an Application for Case Management Order Without Notice or Appearance in Form 11 requesting to waive the requirement that this claim be filed with a completed affidavit."
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQGuardianShipAffidavit1",
+              "title": "What is a Guardianship Affidavit?",
+              "titleLocation": "hidden",
+              "body": "There is an extra form that you have to complete when you are applying for guardianship.  It is called <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\"> Affidavit Form 34</a>.  Before you can complete the affidavit, you must complete the following background checks referenced in the form:<br><br><ul><li>A Ministry of Children and Family Development record check</li><li>A protection order record check from the protection order registry, and</li><li>A criminal record check</li></ul><br>To get a criminal records check, ask at the police station or RCMP detachment in your community.<br><br>To get the Ministry of Children and Family Development and Protection Order Registry record checks, you must fill out:<br><br><ul><li>a <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Section 51 - Consent for Child Protection Record Check</a>, and</li><li>a <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Request for Protection Order Registry Search</a>.</li></ul><br>Give them to the court registry where you will be filing your application. The registry will let you know when the results from the record checks come in. The registry will then give you copies to attach to your affidavit.<br><br>If you want to get an order quickly and you do not have time to get all the background checks first, you can apply to the court to be able to file the claim without the completed affidavit and request an interim order.<br><br>This interim order will last 90 days. During this time, you must get the background checks and fill out and file the affidavit."
+             }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "CancelGuardianPanel",
+          "visible": false,
+          "visibleIf": "{applicantionType} = 'cancelGuardian'",
+          "elements": [
+            {
+              "type": "matrixdynamic",
+              "name": "cancelGuardianDetails",
+              "title": "I am applying for the following person(s) to no longer be the guardian(s) of the child or children:",
+              "isRequired": true,
+              "columns": [
+                {
+                  "name": "NameOfGuardian",
+                  "title": "Full name of guardian",
+                  "isRequired": true,
+                  "choices": [
+                    "G1",
+                    "G2"
+                  ]
+                },
+                {
+                  "name": "NameOfChild",
+                  "title": "Name of child(ren)",
+                  "isRequired": true,
+                  "choices": [
+                    "child1",
+                    "child2"
+                  ]
+                },
+                {
+                  "name": "date",
+                  "title": "They have been a guardian of the child(ren) since:",
+                  "cellType": "text",
+                  "isRequired": true,
+                  "inputType": "date"
+                }
+              ],
+              "rowCount": 1,
+              "addRowLocation": "bottom",
+              "addRowText": "Add row",
+              "removeRowText": "Remove row"
+            },
+            {
+              "type": "checkbox",
+              "name": "whoAmICancelGaurdian",
+              "title": "I am",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "guardian",
+                  "text": "A guardian of the child(ren)"
+                },
+                {
+                  "value": "applyingForGuardian",
+                  "text": "Applying to be appointed as a guardian of the child(ren)"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "childBestInterestIntro",
+              "title":"<b>Best interests of the child</b><br>When you ask for a court order involving a child, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
+
+              
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "comment",
+              "name": "ancelGuradianChildBestInterest",
+              "title": "I believe it is in the child(ren)'s best interests to cancel the guardianship of the person(s) because:",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Guardian Of Child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

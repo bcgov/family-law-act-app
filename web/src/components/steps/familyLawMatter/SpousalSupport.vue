@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/child-support.json";
+import surveyJson from "./forms/spousal-support.json";
 
 import PageBase from "../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ChildSupport extends Vue {
+export default class SpousalSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -80,8 +80,8 @@ export default class ChildSupport extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
+        if (this.step.result && this.step.result['contactWithChildSurvey']) {
+            this.survey.data = this.step.result['contactWithChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -105,7 +105,7 @@ export default class ChildSupport extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {childSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {contactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 }
