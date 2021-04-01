@@ -64,10 +64,6 @@ export default class EnforcementForm extends Vue {
         this.UpdateGotoNextStepPage()        
     }
 
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {enforcementSurvey: null}})
     }

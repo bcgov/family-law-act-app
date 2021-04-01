@@ -152,13 +152,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import { SessionManager } from "@/components/utils/utils";
 
 import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
+import "@/store/modules/common";
+const commonState = namespace("Common");
 
 @Component
 export default class LandingPage extends Vue {
 
-    @applicationState.Action
+    @commonState.Action
     public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
     
     isLoggedIn= false

@@ -112,10 +112,6 @@ export default class CaseForm extends Vue {
     public onNext() {
         this.UpdateGotoNextStepPage()        
     }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
   
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {caseFormSurvey: null}})

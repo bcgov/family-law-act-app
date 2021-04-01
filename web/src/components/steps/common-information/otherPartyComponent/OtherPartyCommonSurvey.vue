@@ -20,11 +20,25 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+import { nameInfoType } from '@/types/Application';
+const applicationState = namespace("Application");
+
 @Component
-export default class OtherPartySurvey extends Vue {
+export default class OtherPartyCommonSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;
+
+    @applicationState.State
+    public applicantName!: nameInfoType;
+
+    @applicationState.State
+    public types!: string[];
+
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     op= {
         name: {
@@ -82,6 +96,8 @@ export default class OtherPartySurvey extends Vue {
     public addSurveyListener(){
         this.survey.onComplete.add((sender, options) => {
 
+            this.UpdateSurveyChangedPO(true);
+
             console.log(this.survey)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
@@ -95,9 +111,18 @@ export default class OtherPartySurvey extends Vue {
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
+        console.log(this.types)
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
+        }
+
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+
+        if (this.types.length == 1 && this.types[0] == "Case Management") {
+            console.log('true')
+            this.survey.setVariable("csOnly", true);
+        } else {
+            this.survey.setVariable("csOnly", false);
         }
 
         let progress = 50;

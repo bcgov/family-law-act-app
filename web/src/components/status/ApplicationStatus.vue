@@ -130,13 +130,13 @@ import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"
 
 import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
+import "@/store/modules/common";
+const commonState = namespace("Common");
 
 @Component
 export default class ApplicationStatus extends Vue {
 
-    @applicationState.Action
+    @commonState.Action
     public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
 
     previousApplications = []
@@ -205,7 +205,7 @@ export default class ApplicationStatus extends Vue {
         store.commit("Application/setUserType", userType);
 
         const application = store.state.Application;
-        
+        application.type = store.state.Application.types.toString();
         //console.log(application)
         const url = "/app/";
         const header = {
@@ -242,7 +242,6 @@ export default class ApplicationStatus extends Vue {
             //console.log(applicationData)
             
             this.currentApplication.id = applicationId;
-            this.currentApplication.allCompleted = applicationData.allCompleted;
             this.currentApplication.applicantName = applicationData.applicantName;
             this.currentApplication.currentStep = applicationData.currentStep;
             this.currentApplication.lastUpdate = applicationData.lastUpdated;
@@ -250,13 +249,13 @@ export default class ApplicationStatus extends Vue {
             this.currentApplication.respondentName = applicationData.respondentName;
             this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
             this.currentApplication.protectedChildName = applicationData.protectedChildName;
-            this.currentApplication.applicationLocation = applicationData.applicationLocation;
-            
-            this.currentApplication.type = applicationData.type;
+            this.currentApplication.applicationLocation = applicationData.applicationLocation;            
+            this.currentApplication.types = (applicationData.type.length>0)?applicationData.type.split(','):[];
             this.currentApplication.userId = applicationData.user;
             this.currentApplication.userName = applicationData.userName;
             this.currentApplication.userType = applicationData.userType;        
             this.currentApplication.steps = applicationData.steps;
+            console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);      
 

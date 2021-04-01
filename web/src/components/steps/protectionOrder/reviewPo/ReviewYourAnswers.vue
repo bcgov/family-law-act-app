@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="pageHasError" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <h2 class="mt-4">Review Your Answers</h2>
         <b-card
             v-for="section in questionResults"
@@ -38,12 +38,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 import * as _ from 'underscore';
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import PageBase from "../PageBase.vue";
+import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -83,10 +83,20 @@ export default class ReviewYourAnswers extends Vue {
     currentPage=0;
     pageHasError = false;
 
+    previewFormsPage = 13;
+
     errorQuestionNames = [];
 
-    mounted(){       
-        
+    @Watch('pageHasError')
+    nextPageChange(newVal) 
+    {
+        console.log(newVal)
+        this.togglePages([this.previewFormsPage], !this.pageHasError);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
+    }
+
+    mounted(){
         this.reloadPageInformation();
         this.determineHiddenErrors();
         //console.log(this.step)
@@ -195,8 +205,8 @@ export default class ReviewYourAnswers extends Vue {
 
     public reloadPageInformation() {
         this.pageHasError = false;
-        for(let i=0;i<9; i++){
-            const step = this.$store.state.Application.steps[i]
+        for(const stepIndex of [1]){
+            const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
             //console.log(step)
             //console.log(stepResult);
@@ -236,7 +246,8 @@ export default class ReviewYourAnswers extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        this.togglePages([0,1], true);
+        //this.togglePages([0,1], true);
+        this.togglePages([this.previewFormsPage], !this.pageHasError); 
     }
 
     public determineHiddenErrors(){        
@@ -293,7 +304,6 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     public togglePages(pageArr, activeIndicator) {
-        //this.activateStep(activeIndicator);
         for (let i = 0; i < pageArr.length; i++) {
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.step.id,
@@ -310,10 +320,6 @@ export default class ReviewYourAnswers extends Vue {
     public onNext() {
        //console.log(this.pageHasError)
         this.UpdateGotoNextStepPage()       
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }
 
     public getStepId(stepIndex) {

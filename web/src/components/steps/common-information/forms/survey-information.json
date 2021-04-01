@@ -7,13 +7,13 @@
         {
           "type": "panel",
           "name": "ApplicantPanel",
-          "elements": [
+          "elements": [            
             {
               "type": "personname",
               "name": "ApplicantName",
               "title": "What is your full name?",
-              "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
-              "isRequired": true,
+              "description": "This is the name of the person making the application. If you are helping someone use this app, use their name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
+              "isRequired": true,              
               "defaultSubstitution": "(Applicant Name)",
               "descFirstName": "First Name is also known as Given Name",
               "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
@@ -27,10 +27,16 @@
               "inputType": "date"
             },
             {
+              "type": "infotext",
+              "name": "ExplanationLawyer",              
+              "title": "The court needs to know where to send documents to you and how to reach you.",              
+              "titleLocation": "hidden"
+            },            
+            {
               "type": "yesno",
               "name": "Lawyer",
               "title": "Has a lawyer agreed to receive court documents for you?",
-              "description": "You do not need a lawyer to use this service.  If you have a lawyer, you can still use this service.",
+              "description": "You do not need a lawyer to go to court. Some lawyers are hired for a limited purpose. For example, you may hire a lawyer only to give you legal advice, help you to complete court documents or come to a court appearance with you. You will still be responsible for all other aspects of your case. If you hire a lawyer for a limited purpose, make sure you and the lawyer are clear about whether their name and address goes on the court documents. Usually it won’t.",
               "isRequired": true
             },
             {
@@ -44,28 +50,29 @@
               "type": "helptext",
               "name": "FAQLawyer2",
               "title": "What if I used to have a lawyer but not anymore?",
-              "titleLocation": "hidden",
+              "titleLocation": "hidden",             
               "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa053.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form.</a> (This link will open in a new tab.)"
-            },
+            },           
             {
               "type": "infotext",
               "name": "ExplanationServiceAddress",
               "visible": false,
               "visibleIf": "{Lawyer} = 'n'",
-              "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
+              "title": "You need to give an address where you can receive court documents by mail. It does not need to be your home address or the address where you are living. The other party will see this address on your court documents. If you do not have a stable mailing address, or you are worried about your safety, you can give the address of a friend or family member, or somewhere that mail can be collected for you.\n<br>\n<br>\nIf you do not have a stable mailing address, or you are worried about your safety, you can give the address of a friend or family member, or somewhere that mail can be collected for you.",
               "isRequired": true,
               "titleLocation": "hidden"
             },
             {
               "type": "panel",
               "name": "ApplicantContactPanel",
-              "elements": [
+              "elements": [                
                 {
                   "type": "address",
                   "name": "ApplicantAddress",
-                  "visibleIf": "{Lawyer} = 'n'",
-                  "title": "What is a safe address where you can receive court documents?",
-                  "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'n')",
+                  "title": "What is the address where you want to receive court documents?",
+                  "description": "The other party will see this address on court documents.",
                   "isRequired": true,
                   "referLabel": "Applicant's Address",
                   "validators": [
@@ -75,13 +82,14 @@
                       "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
                     }
                   ]
-                },
+                },                
                 {
                   "type": "contactinfo",
                   "name": "ApplicantContact",
+                  "visible": false,
                   "visibleIf": "{Lawyer} = 'n'",
                   "title": "Contact Information",
-                  "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
+                  "description": "The other party will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
                   "isRequired": true,
                   "labelEmail": "Email",
                   "labelFax": "Fax Number (Optional)",
@@ -127,13 +135,6 @@
               ],
               "visible": false,
               "visibleIf": "{Lawyer} = 'y'"
-            },
-            {
-              "type": "text",
-              "name": "ApplicantOccupation",
-              "visibleIf": " {Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y'",
-              "title": "What is your job or profession?",
-              "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
             }
           ]
         }

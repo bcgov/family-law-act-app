@@ -1,5 +1,5 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import { stepInfoType, pageInfoType } from "@/types/Application";
+import { stepInfoType, pageInfoType, nameInfoType } from "@/types/Application";
 import { supportingDocumentInfoType } from "@/types/Common";
 
 @Module({
@@ -8,7 +8,7 @@ import { supportingDocumentInfoType } from "@/types/Common";
 class Application extends VuexModule {
 
     public id = ""
-    public type = ""
+    public types: string[] = [];
     public steps = new Array<stepInfoType>()
     public lastUpdate = null
     public lastPrinted = null
@@ -18,23 +18,25 @@ class Application extends VuexModule {
     public userType = ""
     public userName = ""
     public userId = ""
-    public applicantName = ""
-    public respondentName = ""
-    public protectedPartyName = ""
+    public applicantName = {} as nameInfoType;
+    public respondentName = {} as nameInfoType;
+    public protectedPartyName = {} as nameInfoType;
     public protectedChildName = ""
     public applicationLocation = ""
     public scrollToLocationName = ""
     public requiredDocuments: string[] = []
     public packageNumber = ""
     public eFilingHubLink = ""
-    public documentTypesJson = [];
+
+    public surveyChangedPO = false;
+    
     public supportingDocuments: supportingDocumentInfoType[] = [];
 
     @Mutation
     public init(): void {
         this.allCompleted = false;
         this.currentStep = 0;
-        this.type = "default";
+        this.types = [];
         this.userName = "";
         this.lastPrinted = null;
         this.lastUpdate = null;
@@ -42,6 +44,8 @@ class Application extends VuexModule {
         this.packageNumber = "";
         this.eFilingHubLink = "";
         this.steps = new Array<stepInfoType>();
+
+
         // Getting started START
         let s = {} as stepInfoType;
     
@@ -58,141 +62,169 @@ class Application extends VuexModule {
         p.key = "0";
         p.label = "Getting Started";
         p.active = true;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.label = "Questionnaire";
-        p.active = false;
-        p.progress = 0;
-    
-        s.pages.push(p);
-    
+
         this.steps.push(s);
     
-        // Getting started STOP
-        // Common information START
-        s = {} as stepInfoType;
-    
+        // Getting started STOP       
+        // Protection Order START
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "1";
-        s.label = "Your Information";
-        s.icon = "fa-users";
-        s.lastUpdate = null;
-        s.type = "commonInformationStep";
-        s.pages = new Array<pageInfoType>();
-        s.currentPage = 0;
-    
-        p = {} as pageInfoType;
-        p.key = "0";
-        p.label = "Your information";
-        p.active = false;
-        p.progress = 0;
-    
-        s.pages.push(p);
-    
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.label = "Other Party";
-        p.active = false;
-        p.progress = 0;
-    
-        s.pages.push(p);
-    
-        this.steps.push(s);
-    
-        // Common Information STOP
-        // Protection Order START
-        s = {} as stepInfoType;
-    
-        s.active = false;
-        s.id = "2";
         s.label = "Protection Order";
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepPO";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
-    
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.label = "Protection From Whom?";
-        p.active = false;
-        p.progress = 0;
-    
+        p.label = "Questionnaire";
+        p.active = true;
+        p.progress = 0;    
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "1";
-        p.label = "Remove person or belongings";
+        p.label = "Your information";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "2";
-        p.label = "No Go";
+        p.label = "Protection From Whom?";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "3";
-        p.label = "No Contact";
+        p.label = "Remove person or belongings";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "4";
-        p.label = "Weapons and Firearms";
+        p.label = "No Go";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "5";
-        p.label = "Background";
+        p.label = "No Contact";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "6";
-        p.label = "Your Story";
+        p.label = "Weapons and Firearms";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "7";
-        p.label = "About Protection Order";
+        p.label = "Background";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "8";
+        p.label = "Your Story";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "9";
+        p.label = "Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.label = "About Protection Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "11";
         p.label = "Urgency";
         p.active = false;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
         this.steps.push(s);
     
         //Protection Order STOP
+        // Common information START
+        s = {} as stepInfoType;    
+        s.active = false;
+        s.id = "2";
+        s.label = "Your Information";
+        s.icon = "fa-users";
+        s.lastUpdate = null;
+        s.type = "commonInformationStep";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.label = "Safety Check";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.label = "Your information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Other Party";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.label = "Filing Location";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Common Information STOP
+
         //Family Law Matter START
-        s = {} as stepInfoType;
-    
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "3";
         s.label = "Family Law Matter";
@@ -200,20 +232,76 @@ class Application extends VuexModule {
         s.lastUpdate = null;
         s.type = "stepFlm";
         s.pages = new Array<pageInfoType>();
-        s.currentPage = 0;
-    
+        s.currentPage = 0;        
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.label = "Family Law Form";
+        p.label = "Questionnaire";
         p.active = true;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.label = "Parenting arrangements";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.label = "Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.label = "Contact with a child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.label = "Guardian of a child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.label = "Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+    
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.label = "Family Law Form";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
         this.steps.push(s);
+
         //Family Law Matter STOP
         // Case Mgmt START
-        s = {} as stepInfoType;
-    
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "4";
         s.label = "Case Management";
@@ -233,8 +321,7 @@ class Application extends VuexModule {
         this.steps.push(s);
         //Case Mgmt STOP
         //Priority parenting matter START
-        s = {} as stepInfoType;
-    
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "5";
         s.label = "Priority parenting matter";
@@ -248,14 +335,14 @@ class Application extends VuexModule {
         p.key = "0";
         p.label = "Priority Parenting Matter Form";
         p.active = true;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
+
         this.steps.push(s);
+
         //Priority parenting matter STOP
         //Relocation of a child START
-        s = {} as stepInfoType;
-    
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "6";
         s.label = "Relocation of a child";
@@ -269,14 +356,14 @@ class Application extends VuexModule {
         p.key = "0";
         p.label = "Relocation of a child Form";
         p.active = true;
-        p.progress = 0;
-    
+        p.progress = 0;    
         s.pages.push(p);
+
         this.steps.push(s);
+
         //Relocation of a child STOP
         //Enforcement START
-        s = {} as stepInfoType;
-    
+        s = {} as stepInfoType;    
         s.active = false;
         s.id = "7";
         s.label = "Enforcement of agreements and court orders";
@@ -293,11 +380,13 @@ class Application extends VuexModule {
         p.progress = 0;
     
         s.pages.push(p);
+
         this.steps.push(s);
+
         //Enforcement STOP
         //Submit START
         s = {} as stepInfoType;
-    
+
         s.active = false;
         s.id = "8";
         s.label = "Review and File";
@@ -309,22 +398,14 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.label = "Review Your Answers";
-        p.active = false;
+        p.label = "Filing Options";
+        p.active = true;
         p.progress = 0;
     
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "1";
-        p.label = "Filing Options";
-        p.active = false;
-        p.progress = 0;
-    
-        s.pages.push(p);
-
-        p = {} as pageInfoType;
-        p.key = "2";
         p.label = "Review and Print";
         p.active = false;
         p.progress = 0;
@@ -332,7 +413,7 @@ class Application extends VuexModule {
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "3";
+        p.key = "2";
         p.label = "Review and Save";
         p.active = false;
         p.progress = 0;
@@ -340,7 +421,7 @@ class Application extends VuexModule {
         s.pages.push(p);
         
         p = {} as pageInfoType;
-        p.key = "4";
+        p.key = "3";
         p.label = "Review and Submit";
         p.active = false;
         p.progress = 0;
@@ -348,7 +429,7 @@ class Application extends VuexModule {
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "4";
         p.label = "Next Steps";
         p.active = false;
         p.progress = 0;
@@ -357,8 +438,8 @@ class Application extends VuexModule {
     
         this.steps.push(s);
     
-        //console.log(this.steps)
         //Submit STOP
+        //console.log(this.steps)
         
     }
     @Action
@@ -509,6 +590,12 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public resetStep(currentStep: number): void {
+        this.steps[currentStep].result = {};
+    }
+    
+
+    @Mutation
     public setStepResultData({ step, data }): void {
         step.result = {...step.result, ...data};
     }
@@ -583,7 +670,7 @@ class Application extends VuexModule {
 
     @Mutation
     public setApplicationType(type): void {
-        this.type = type;
+        this.types = type;
     }
     @Action
     public UpdateApplicationType(newType) {
@@ -618,15 +705,6 @@ class Application extends VuexModule {
     }
 
     @Mutation
-    public setDocumentTypesJson(documentTypesJson): void {
-        this.documentTypesJson = documentTypesJson;
-    }
-    @Action
-    public UpdateDocumentTypesJson(newDocumentTypesJson) {
-        this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
-    }
-
-    @Mutation
     public setScrollToLocationName(scrollToLocationName): void {
         this.scrollToLocationName = scrollToLocationName;
     }
@@ -645,9 +723,35 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public setSurveyChangedPO(surveyChangedPO: boolean): void {
+        this.surveyChangedPO = surveyChangedPO;
+    }
+    @Action
+    public UpdateSurveyChangedPO(newSurveyChangedPO: boolean) {
+        const stepPO = 1
+        const reviewPagePO = 12
+        const previewPagePO = 13
+        this.context.commit("setSurveyChangedPO", newSurveyChangedPO);
+        if(newSurveyChangedPO && this.steps[stepPO].pages[reviewPagePO].progress ==100 ){//if changes, make review page incompelete
+            this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:reviewPagePO, progress:50 });
+            this.context.commit("setPageActive", { currentStep: stepPO, currentPage: previewPagePO, active: false });
+        
+            if(this.steps[stepPO].pages[previewPagePO].progress ==100)this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:previewPagePO, progress:50 });
+        }  
+        
+        
+        this.context.commit("resetStep", 8);
+        for (let i=1; i<5; i++) {
+            this.context.commit("setPageActive", { currentStep: 8, currentPage: i, active: false });
+            this.context.commit("setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
+        }
+        
+    }
+
+    @Mutation
     public setCurrentApplication(application): void {
         this.id = application.id;    
-        this.type = application.type;    
+        this.types = application.types;    
         this.steps = application.steps;
         this.lastUpdate = application.lastUpdate;    
         this.currentStep = application.currentStep;

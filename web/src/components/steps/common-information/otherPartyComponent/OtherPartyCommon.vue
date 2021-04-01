@@ -4,16 +4,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Other Party Information</h1>
-                    <p>Please add the details of the other party in the fields below. </p>
-                    <!-- <p>
-                    <b><u>Who do I name as the other party?</u></b>
+                    <p>In a family case, there are specific people who must be served with notice of your application.
+                         They are the other party or parties.  It is important that each other party know that you are
+                          making this application to the court and are given a chance to talk to the court. To give notice, 
+                          they will need to be served with a copy of the application. 
+                    </p>
                     <ul>
-                        <li>If your application is about a child, the other party must include each of their parents and guardians</li>
-                        <li>If your application is about spousal support, the other party is your spouse</li>
-                        <li>If another adult is the subject of your application, such as a step-parent, grandparent or other important person in a child's life, this person is the other party</li>
-                        <li>If there is already an existing case, you cannot add more parties, the other party is the person or persons that are already involved in that case</li>
-                        </ul>
-                    </p> -->
+                        <li>Add each parent and/or current guardian as a party if your case involves a child</li>
+                        <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
+                        <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
+                    </ul>
+                    <p>Please add the details of the other party in the fields below. </p>
+                    <p>If you are done entering all the parties, click the ‘Next’ button.</p>
+                   
                     <div class="outerSection" v-if="showTable">
                         <div class="innerSection">
                             <table class="table table-hover">
@@ -51,24 +54,47 @@
                 </div>
 
                 <div class="col-md-12" v-if="!showTable">
-                    <OtherParty-Survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
+                    <other-party-common-survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
 
             </div>
         </div>
+
+        <b-modal size="xl" v-model="flmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">
+               
+                <p>I understand the following people must be given notice of my application about a family law matter:</p>
+                <ul>
+                    <li>
+                        all parents and current guardians of each child who is the subject of the family law matter
+                    </li>
+                    <li>
+                        my spouse, if I am applying for spousal support
+                    </li>
+                    <li>
+                        each other adult who the application about a family law matter is about                       
+                    </li>                    
+                </ul>
+                <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
+                <p>They are the other party/parties I added in this case.</p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="flmInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closeFlmInfo">I agree</b-button>
+            </template>            
+        </b-modal>
+
     </page-base>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
-import { Question } from "survey-vue";
-import OtherPartySurvey from "./OtherPartySurvey.vue";
+import OtherPartyCommonSurvey from "./OtherPartyCommonSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import * as SurveyVue from "survey-vue";
-import surveyJson from "../forms/survey-information.json";
 import PageBase from "../../PageBase.vue";
-
+import Tooltip from "@/components/survey/Tooltip.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -76,14 +102,18 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-      OtherPartySurvey,
-      PageBase
+      OtherPartyCommonSurvey,
+      PageBase,
+      Tooltip
     }
 })
-export default class OtherParty extends Vue {
+export default class OtherPartyCommon extends Vue {
   
     @Prop({required: true})
     step!: stepInfoType
+
+    @applicationState.State
+    public types!: string[]
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -97,24 +127,26 @@ export default class OtherParty extends Vue {
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})
+        this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.otherPartyData}})
 
     }
 
     currentStep=0;
     currentPage=0;
     showTable = true;
+    flmInfo = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
  
     created() {
-        if (this.step.result && this.step.result["otherPartySurvey"]) {
-            this.otherPartyData = this.step.result["otherPartySurvey"].data;
+        if (this.step.result && this.step.result["otherPartyCommonSurvey"]) {
+            this.otherPartyData = this.step.result["otherPartyCommonSurvey"].data;
         }
     }
 
-    mounted(){        
+    mounted(){    
+        this.flmInfo = false;    
         const progress = this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -163,11 +195,16 @@ export default class OtherParty extends Vue {
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage();
+        if (this.types.includes("Family Law Matter")){
+            this.flmInfo = true;
+        } else {
+            this.UpdateGotoNextStepPage();
+        }        
     }
 
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
+    public closeFlmInfo(){
+        this.flmInfo = false;
+        this.UpdateGotoNextStepPage();
     }
 
     public isDisableNext() {
@@ -182,20 +219,18 @@ export default class OtherParty extends Vue {
 
     beforeDestroy() {
 
-        //console.log(this.getOtherPartyResults())
         this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
-
         const progress = this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: this.getOtherPartyResults()}})       
+        this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
     }
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
         for(const otherParty of this.otherPartyData)
         {
-            questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
+            questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
         }
         console.log(questionResults)
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}

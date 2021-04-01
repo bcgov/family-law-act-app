@@ -220,7 +220,7 @@
     import Tooltip from "@/components/survey/Tooltip.vue"
     
     import { stepInfoType } from "@/types/Application";
-    import PageBase from "../PageBase.vue";    
+    import PageBase from "@/components/steps/PageBase.vue";   
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
     import GetHelpScanning from "./helpPages/GetHelpScanning.vue"    
 
@@ -264,7 +264,7 @@
         @applicationState.State
         public currentStep!: number;
 
-        @applicationState.State
+        @commonState.State
         public documentTypesJson!: any;
 
         // @applicationState.State
@@ -409,23 +409,13 @@
             
             const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
 
-            for(const step of this.steps){
+            for(const stepIndex of [1,2]){
+            const step = this.$store.state.Application.steps[stepIndex]
                 if(step.active){
                     for(const page of step.pages){
                         if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
                             this.UpdateCurrentStep(step.id);
-                            this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });
-                            // const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                           
-                            // if(nextChildGroup){
-                            //     if(Number(step.id)==8){
-                            //         nextChildGroup.style.display = "none";
-                            //         Vue.nextTick(()=>nextChildGroup.style.display = "block")
-                            //     }else{
-                            //         nextChildGroup.style.display = "block";
-                            //     }
-                            // }
-                        
+                            this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });                       
                             return false;
                         }
                     }
@@ -484,12 +474,16 @@
 
         public getFPOResultData() {      
             var result = this.steps[0].result; 
-            for(var i=1;i<9; i++){
+            for(var i=1;i<3; i++){
                 const stepResults = this.steps[i].result
                 for(const stepResult in stepResults){                    
                     result[stepResult]=stepResults[stepResult].data;  
                 }
             } 
+
+            //Object.assign(result, result, {selectedPOOrder:this.$store.state.Application.steps[1].result.selectedPOOrder});             
+            Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurveyPO.data}); 
+        
             
             var protectedPartyName = {protectedPartyName: this.protectedPartyName}
             Object.assign(result, result, protectedPartyName);           
@@ -615,10 +609,11 @@
                 this.UpdateSupportingDocuments(supportingdocuments);
                 this.supportingFile = null;
                 this.fileType = "";
-                
-                const el = document.getElementById('drop-area');
-                console.log(el)
-                if(el) el.scrollIntoView();
+                Vue.nextTick(()=>{
+                    const el = document.getElementById('drop-area');
+                    console.log(el)
+                    if(el) el.scrollIntoView();
+                })
             }
         }
 

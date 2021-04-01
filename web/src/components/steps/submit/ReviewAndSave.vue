@@ -109,7 +109,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { stepInfoType } from "@/types/Application";
-import PageBase from "../PageBase.vue";
+import PageBase from "@/components/steps/PageBase.vue";
 
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
@@ -192,21 +192,13 @@ export default class ReviewAndSave extends Vue {
 
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
 
-        for(const step of this.$store.state.Application.steps){
+        for(const stepIndex of [1,2]){
+            const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
-                        const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        // if(nextChildGroup){
-                        //     if(Number(step.id)==8){
-                        //         nextChildGroup.style.display = "none";
-                        //         Vue.nextTick(()=>nextChildGroup.style.display = "block")
-                        //     }else{
-                        //         nextChildGroup.style.display = "block";
-                        //     }
-                        // }
                         return false;
                     }
                 }
@@ -259,19 +251,19 @@ export default class ReviewAndSave extends Vue {
 
     public getFPOResultData() { 
         var result = this.$store.state.Application.steps[0].result; 
-        for(var i=1;i<9; i++){
+        for(var i=1;i<3; i++){
             const stepResults = this.$store.state.Application.steps[i].result
             for(const stepResult in stepResults){
-                console.log(stepResults[stepResult])
-                console.log(stepResults[stepResult].data)
+                //console.log(stepResults[stepResult])
+                //console.log(stepResults[stepResult].data)
                 result[stepResult]=stepResults[stepResult].data; 
                 //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
             }
         }     
-        // var result = this.$store.state.Application.steps[0].result; 
-        // for(var i=1;i<9; i++)
-        //     Object.assign(result, result, this.$store.state.Application.steps[i].result); 
         
+        //Object.assign(result, result, {selectedPOOrder:this.$store.state.Application.steps[2].result.selectedPOOrder});
+        Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurveyPO.data}); 
+               
         var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
         Object.assign(result, result, protectedPartyName);
         

@@ -38,6 +38,9 @@ export default class About extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
+
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
@@ -56,6 +59,7 @@ export default class About extends Vue {
 
     mounted(){
         this.initializeSurvey();
+        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -67,22 +71,29 @@ export default class About extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
 
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            this.UpdateSurveyChangedPO(true);
+        })
+    }
 
     public reloadPageInformation() { 
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         if (this.step.result && this.step.result['aboutPOSurvey']){
             this.survey.data = this.step.result['aboutPOSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        let order = this.$store.state.Application.steps[0].result.selectedPOOrder;
+        console.log(this.$store.state.Application.steps)
+
+        const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
         if(order) {
             this.survey.setVariable("userPreferredService", order.orderType);
-        }
-
-       
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        }       
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
     
@@ -94,10 +105,6 @@ export default class About extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }
   
     beforeDestroy() {

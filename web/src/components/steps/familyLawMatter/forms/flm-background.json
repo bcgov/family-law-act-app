@@ -1,0 +1,128 @@
+{
+   "title": "Provincial Court Family Law Act Protection Order",
+   "pages": [
+      {
+         "name": "Background",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "backgroundPanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "existingPOOrders",
+                     "title": "Are there any existing written agreements or court `order`s about parenting arrangements, `child support`, contact with a child, guardianship of a child and/or spousal support?",
+                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingOrders",
+                     "visibleIf": "{existingPOOrders} = 'y'",
+                     "title": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "checkbox",
+                     "name": "existingOrdersList",
+                     "visibleIf": "{existingPOOrders} = 'y'",
+                     "title": "Please select which family law matter issue your existing written agreement or court order is about:",
+                     "description": "Select all that apply.",
+                     "isRequired": true,
+                     "choices": [
+                        "Parenting Arrangements including `parental responsibilities` and `parenting time`",
+                        "Child Support",
+                        "Contact with a child",
+                        "Guardianship of a child",
+                        "Spousal Support"
+                     ]
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "existingPOOrder",
+                     "title": "Are there any existing court `orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders?",
+                     "description": "This includes:<ul><li>any family law protection order from Provincial Court, Supreme Court, or another jurisdiction</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingPOOrders",
+                     "visibleIf": "{existingPOOrder} = 'y'",
+                     "title": "You will need to include a copy of the order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "comment",
+                     "name": "howPartiesRelated",
+                     "title": "Describe how you and each other party are related for the purposes of this application",
+                     "description": "You do not need to use any special wording. Describe the relationship or connection in your own words, for example, we were living together in a relationship and are both parents of the child. If there is more than one other party, be clear about the relationship or connection to each of them.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "werePOPartiesMarried",
+                     "title": "Is the other party your spouse (or has been a spouse) OR do you and the other party live (or has lived) together in a marriage-like relationship?",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "spouseFAQ",
+                     "title": "What is a spouse?",
+                     "titleLocation": "hidden",
+                     "body": "Spouses can include both married and unmarried individuals. A spouse is a person: <ul><li>who is married to another person, or</li><li>has lived with another person in a marriage-like relationship (commonly called a common law relationship), and</li><ol style='list-style-type: lower-roman' ><li>has lived with the other person for at least 2 years without a break, or</li><li>has a child with the other person</li><ol/></ul>"
+                  },
+                  {
+                     "type": "text",
+                     "name": "liveTogetherPODate",
+                     "visibleIf": "{werePOPartiesMarried} = \"y\"",
+                     "title": " Date on which the parties began to live together in a marriage-like relationship",
+                     "inputType": "date",
+                     "description": "If you do not know the exact date, select the year and month and the 1<sup>st</sup> of the month.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "text",
+                     "name": "dateOfMarriagePO",
+                     "visibleIf": "{werePOPartiesMarried} = 'y' ",
+                     "title": "Date of marriage",
+                     "description": "Complete only if the parties were/are married",
+                     "inputType": "date"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "isSeperated",
+                     "isRequired": true,
+                     "title": "Are the protected party and the other party currently separated",
+                     "description": "Spouses may be separated while continuing to live in the same residence"
+                  },
+                  {
+                     "type": "text",
+                     "name": "separationDate",
+                     "visibleIf": "{isSeperated} = 'y'",
+                     "title": "Parties separated on",
+                     "isRequired": true,
+                     "inputType": "date"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "likeToAddCulturalExplanation",
+                     "title": "Do you have any information you would like to share with court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
+                     "description": "There is no requirement to share but sometimes there is information you may choose to share with the court to help them in considering your application.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "visibleIf": "{likeToAddCulturalExplanation} = \"y\"",
+                     "name": "culturalExplain",
+                     "title": "I would like to share the following information about my family:",
+                     "isRequired": true
+                  }
+               ]
+            }
+         ],
+         "title": "Background"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

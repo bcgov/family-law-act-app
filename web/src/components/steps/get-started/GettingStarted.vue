@@ -1,6 +1,6 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <div class="row">
+    <div v-if="dataReady" class="row">
       <div class="col-md-12 order-heading">
         <div v-if="returningUser">
             <h1 >I need help with the following family law issues:</h1>          
@@ -146,10 +146,11 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import store from "@/store";
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
 import Tooltip from "@/components/survey/Tooltip.vue";
 
 @Component({
@@ -162,6 +163,15 @@ export default class GettingStarted extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public steps!: any
+
+    @applicationState.State
+    public types!: string[]
+
+    @applicationState.Action
+    public UpdateApplicationType!: (newApplicationType: string[]) => void
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -176,70 +186,114 @@ export default class GettingStarted extends Vue {
     returningUser = false
     showLegalAssistance = false
     preparationInfo = false
+    poOnly = false;
+    poIncluded = false;
     currentStep=0;
     currentPage=0;
+    dataReady = false;
 
     created() {
-        //console.log(this.step)
+        console.log(this.step)
         // get the user type and if existing user with existing cases, show different
-        this.returningUser = (store.state.Application.userType == 'returning');
-        if (this.step.result && this.step.result['selectedForms']) {
-            this.selected = this.step.result['selectedForms'];
+        this.returningUser = (this.$store.state.Application.userType == 'returning');
+        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
+            this.selected = this.steps[0].result['selectedForms'];
         }
+        console.log(this.selected)
     }
 
     mounted(){
+        this.dataReady = false;
         this.preparationInfo = false;
         const progress = this.selected.length==0? 50 : 100;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
+            this.selected = this.steps[0].result['selectedForms'];
+        }
+        console.log(this.selected)
+        this.dataReady = true;
     }
   
-    public onChange(event) {
-        //console.log(event)
-        this.setSteps(event);
+    public onChange(selectedForms) {
+        console.log(selectedForms)
+        const orgApplicationTypes = this.types;
+        const applicationTypes = [];
+        const poIndex = selectedForms.indexOf("protectionOrder");
+        if (poIndex !=-1){
+            if (orgApplicationTypes.includes("New Protection Order")) {
+                applicationTypes.push("New Protection Order")
+                selectedForms.splice(poIndex, 1);
+            } else if (orgApplicationTypes.includes("Change Protection Order")){
+                applicationTypes.push("Change Protection Order")
+                selectedForms.splice(poIndex, 1);
+            } else if (orgApplicationTypes.includes("Terminate Protection Order")){
+                applicationTypes.push("Terminate Protection Order")
+                selectedForms.splice(poIndex, 1);
+            }
+        } 
+            
+        for (const form of selectedForms){            
+            applicationTypes.push(this.getApplicationType(form));
+        }
+        console.log(applicationTypes)
+        console.log(Array.from(new Set(applicationTypes)));
+        this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
+        
+       
+                
+        this.setSteps(selectedForms);
     }
 
-    public setSteps(event) {
+    public getApplicationType(selectedOrder){
+        if (selectedOrder == "protectionOrder") return "Protection Order";
+        else if (selectedOrder == "familyLawMatter") return "Family Law Matter";
+        else if (selectedOrder == "caseMgmt") return "Case Management";
+        else if (selectedOrder == "priotityParenting") return "Priotity Parenting Matter";
+        else if (selectedOrder == "childReloc") return "Relocation of a Child";
+        else if (selectedOrder == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
+        else return "";
+    }
+
+    public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
-        if (event !== undefined) {
-            this.toggleCommonSteps(event.includes("protectionOrder"));
-            this.toggleSteps(2, event.includes("protectionOrder"));
-            this.toggleSteps(3, event.includes("familyLawMatter"));
-            this.toggleSteps(4, event.includes("caseMgmt"));
-            this.toggleSteps(5, event.includes("priotityParenting"));
-            this.toggleSteps(6, event.includes("childReloc"));
-            this.toggleSteps(7, event.includes("agreementEnfrc"));
+        if (selectedForms !== undefined) {
+            
+            this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
+            this.poIncluded = selectedForms.includes("protectionOrder");
+
+            //this.toggleCommonSteps(selectedForms.length>0);
+            this.toggleSteps(1, selectedForms.includes("protectionOrder"));
+            this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
+            this.toggleSteps(4, selectedForms.includes("caseMgmt"));
+            this.toggleSteps(5, selectedForms.includes("priotityParenting"));
+            this.toggleSteps(6, selectedForms.includes("childReloc"));
+            this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
+
+            this.toggleSteps(8, selectedForms.length>0);//Review And Submit
+            
+            this.toggleSteps(2, selectedForms.length>0 && !this.poOnly);//Common Your Information
+            this.togglePages(2, [0], !this.poIncluded);//Safety Check
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
+            this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
     }
 
-    public toggleSteps(stepId, activeIndicator) {
-        if (stepId == 2) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: 0,
-                currentPage: 1,
-                active: activeIndicator
-            });
-        } else {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: stepId,
-                active: activeIndicator
-            });
-        }
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
     }
 
-    public toggleCommonSteps(activeIndicator) {
-        const steps = [1, 8];
-        for(let i=0; i<steps.length; i++) {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: steps[i],
-                active: activeIndicator
-            });
+    public togglePages(step, pages, activeIndicator) {
+        for(let i=0; i<pages.length; i++) {
+            
             this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 0,
-                active: activeIndicator
+                currentStep: step,
+                currentPage: pages[i],
+                active: (activeIndicator)
             });
         }
     }
@@ -260,11 +314,6 @@ export default class GettingStarted extends Vue {
         this.preparationInfo = false;
         this.UpdateGotoNextStepPage();
     }
-
-    public onComplete() {
-        //console.log('complete')
-        this.$store.commit("Application/setAllCompleted", true);
-    }  
   
     beforeDestroy() {
         const progress = this.selected.length==0? 50 : 100;

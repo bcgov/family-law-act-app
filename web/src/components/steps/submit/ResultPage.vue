@@ -76,10 +76,6 @@
 
 import {Component, Vue} from "vue-property-decorator"
 
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import { SessionManager } from "@/components/utils/utils";
 import Tooltip from "@/components/survey/Tooltip.vue";
 
@@ -89,9 +85,6 @@ import Tooltip from "@/components/survey/Tooltip.vue";
     }
 })
 export default class ResultPage extends Vue {
-
-    @applicationState.Action
-    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
 
     packageNumber = "";
     packageUrl="";
@@ -103,7 +96,6 @@ export default class ResultPage extends Vue {
     showLegalAssistance = false
         
     public viewStatus() {
-        this.loadDocumentTypes();
         this.$router.push({ name: "applicant-status" });
     }
     
@@ -172,22 +164,6 @@ export default class ResultPage extends Vue {
             console.error(err);
             this.error = err;
         });    
-    }
-
-    public loadDocumentTypes() {
-        const documentTypesJson = require("../../home/forms/documentTypes.json");
-        console.log(documentTypesJson)
-        this.UpdateDocumentTypesJson(documentTypesJson);
-        this.$http.get('/efiling/document-types/')
-        .then((response) => { 
-            if(response.data && response.data.length>0){
-                //console.log(response.data) 
-                this.UpdateDocumentTypesJson(response.data);
-            }
-        },(err) => {            
-            console.log(err)
-            //this.error = err;        
-        });
     }
 
 };

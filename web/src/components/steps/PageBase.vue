@@ -68,16 +68,6 @@ export default class PageBase extends Vue {
         //window.scrollTo(0, 0);
     }
 
-
-    public onComplete(event) {
-        if (this.$listeners && this.$listeners.onComplete) {  
-            this.$emit('onComplete');
-        } else {
-            //console.log("PageBase.onComplete default action.");
-            this.$store.commit("Application/setAllCompleted", true);
-        }
-    }
-
     public hasPrevStepPage() {
         //console.log("has previous")
         return this.$store.getters["Application/getPrevStepPage"] != null;
@@ -90,10 +80,6 @@ export default class PageBase extends Vue {
        
     }
 
-    public canComplete() {
-        return this.$store.getters["Application/getNextStepPage"] == null;
-    }
-
     public isDisableNext() {
         return this.disableNext;
     }
@@ -103,7 +89,7 @@ export default class PageBase extends Vue {
         this.$store.commit("Application/setLastUpdated", lastUpdated); 
         const application = this.$store.state.Application;
         const applicationId = application.id;
-
+        application.type = this.$store.state.Application.types.toString();
         const header = {
             responseType: "json",
             headers: {
