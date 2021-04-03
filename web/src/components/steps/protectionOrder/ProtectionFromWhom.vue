@@ -106,9 +106,9 @@ export default class ProtectionFromWhom extends Vue {
 
     public determineNoContactPage(){       
         if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 4, active: true});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 5, active: true});
         } else {// Disable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 4, active: false});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 5, active: false});
         }            
     }
 
