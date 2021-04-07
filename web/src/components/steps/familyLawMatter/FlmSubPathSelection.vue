@@ -144,15 +144,15 @@ export default class FlmSubPathSelection extends Vue {
                         
             this.togglePages([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], false);
             if (selectedForm == "parentingArrangements"){
-                this.togglePages([1,2, 3, 4, 5, 6], true);
+                this.togglePages([1,2, 3, 4, 5, 6, 7], true);
             } else if (selectedForm == "childSupport") {
-                this.togglePages([1,2, 7], true);
-            } else if (selectedForm == "contactWithChild") {
                 this.togglePages([1,2, 8], true);
-            } else if (selectedForm == "guardianOfChild") {
+            } else if (selectedForm == "contactWithChild") {
                 this.togglePages([1,2, 9], true);
+            } else if (selectedForm == "guardianOfChild") {
+                this.togglePages([1,2, 10], true);
             } else if (selectedForm == "spousalSupport") {
-                this.togglePages([1,10], true);
+                this.togglePages([1,11], true);
             } else {
                 this.togglePages([1,12], true);
             }          
