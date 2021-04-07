@@ -9,9 +9,9 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/guardian-of-child.json";
+import surveyJson from "../forms/parentingArrangements/parenting-arrangements.json";
 
-import PageBase from "../PageBase.vue";
+import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
@@ -24,13 +24,10 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class GuardianOfChild extends Vue {
+export default class ParentingTime extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public steps!: any
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -45,9 +42,9 @@ export default class GuardianOfChild extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    surveyJsonCopy; 
     currentStep=0;
     currentPage=0;
+    existing = false;
    
     @Watch('pageIndex')
     pageIndexChange(newVal) 
@@ -67,40 +64,11 @@ export default class GuardianOfChild extends Vue {
     }
 
     public initializeSurvey(){
-        this.adjustSurveyForChildren();
-        this.adjustSurveyForOtherParties();
-        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
+        this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
-
-    public adjustSurveyForChildren(){
-
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
-        this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"]=[];
-        this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[1]["choices"] = [];
-
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
-            for (const child of childData){
-                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
-                this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[1]["choices"].push(Vue.filter('getFullName')(child.name));
-            }
-        }
-    }
-
-    public adjustSurveyForOtherParties(){
-             
-        this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[0]["choices"]=[];
-
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
-            for (const otherParty of otherPartyData){
-                this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
-            }
-        }
     }
     
     public addSurveyListener(){
@@ -112,13 +80,24 @@ export default class GuardianOfChild extends Vue {
     }
     
     public reloadPageInformation() {
-        // console.log(this.step.result)
-        if (this.step.result && this.step.result['contactWithChildSurvey']) {
-            this.survey.data = this.step.result['contactWithChildSurvey'].data;
+        //console.log(this.step.result)
+        if (this.step.result && this.step.result['parentingArrangementsSurvey']) {
+            this.survey.data = this.step.result['parentingArrangementsSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+
+        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
+            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+            if (backgroundSurveyData.existingOrdersList 
+                && backgroundSurveyData.existingOrdersList.length > 0 
+                && backgroundSurveyData.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                    this.survey.setVariable("existing", true);                    
+                } else {
+                    this.survey.setVariable("existing", false);
+                }
+        }
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -137,12 +116,9 @@ export default class GuardianOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {contactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {parentingArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
+

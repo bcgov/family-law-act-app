@@ -42,6 +42,8 @@ export default class ChildrenSurvey extends Vue {
     }
 
     survey = new SurveyVue.Model(surveyJson);
+    currentStep=0;
+    currentPage=0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -105,8 +107,9 @@ export default class ChildrenSurvey extends Vue {
         if(Object.keys(this.survey.data).length)
             progress = this.survey.isCurrentPageHasErrors? 50 : 100;
             
-        const currentStep = this.$store.state.Application.currentStep;
-        this.$store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:this.$store.state.Application.steps[currentStep].currentPage, progress:progress })
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
   
     public goBack() {
@@ -142,6 +145,21 @@ export default class ChildrenSurvey extends Vue {
         survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
         survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
         survey.setVariable("id", editRowProp.id);
+    }
+
+    beforeDestroy() {
+        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        if(currPage){
+            if(this.survey.isCurrentPageHasErrors)
+                currPage.style.color = "red";
+            else
+            {
+                currPage.style.color = "";
+                currPage.className="current";
+            }  
+        }  
     }
 };
 </script>

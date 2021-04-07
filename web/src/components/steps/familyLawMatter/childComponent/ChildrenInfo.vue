@@ -106,6 +106,8 @@ export default class ChildrenInfo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    currentStep=0;
+    currentPage=0;
     showTable = true;
     childBestInterestUnderstanding = false;
     childData = [];
@@ -150,12 +152,10 @@ export default class ChildrenInfo extends Vue {
     }
 
     public onPrev() {
-        // this.$store.dispatch("application/gotoPrevStepPage");
-        this.UpdateGotoPrevStepPage();
+       this.UpdateGotoPrevStepPage();
     }
 
     public onNext() {
-        //this.$store.dispatch("application/gotoNextStepPage");
         this.UpdateGotoNextStepPage();
     }
 
@@ -168,12 +168,23 @@ export default class ChildrenInfo extends Vue {
         }
     }
 
+    mounted(){
+        const progress = this.childData.length==0? 50 : 100;            
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+    }
+
     public isDisableNext() {
         // demo
         return (this.childData.length <= 0 || !this.childBestInterestUnderstanding);
     }
 
     beforeDestroy() {
+        const progress = this.childData.length==0? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+
+
         this.UpdateStepResultData({step:this.step, data: {childData: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
     }
 };

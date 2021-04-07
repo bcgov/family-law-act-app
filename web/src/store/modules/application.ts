@@ -264,41 +264,69 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "4";
-        p.label = "Child Support";
+        p.label = "Parental responsibilities";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "5";
-        p.label = "Contact with a child";
+        p.label = "Parenting time";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "6";
-        p.label = "Guardian of a child";
+        p.label = "Parental Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "7";
-        p.label = "Spousal Support";
+        p.label = "Best interests of the child";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
-    
+        s.pages.push(p);
+
         p = {} as pageInfoType;
         p.key = "8";
-        p.label = "Family Law Form";
+        p.label = "Child Support";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "9";
+        p.label = "Contact with a child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.label = "Guardian of a child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.label = "Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+    
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.label = "Family Law Form";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "13";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    

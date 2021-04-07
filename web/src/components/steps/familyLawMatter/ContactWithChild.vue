@@ -73,8 +73,15 @@ export default class ContactWithChild extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
-            console.log(options)
-            
+            // console.log(options)
+            if (options.name == "contactTypeChoices"){
+                if (options.value.includes("In person")){
+                    console.log('has person');
+                    this.survey.setVariable("InPerson", true);
+                } else {
+                    this.survey.setVariable("InPerson", false);
+                }
+            }            
         })
     }
     
@@ -82,7 +89,12 @@ export default class ContactWithChild extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['contactWithChildSurvey']) {
             this.survey.data = this.step.result['contactWithChildSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+            if (this.survey.data.contactTypeChoices.includes("In person")){                    
+                    this.survey.setVariable("InPerson", true);
+                } else {
+                    this.survey.setVariable("InPerson", false);
+            }            
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
