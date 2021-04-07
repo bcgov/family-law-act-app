@@ -115,7 +115,7 @@ export default class OtherParty extends Vue {
     }
 
     mounted(){        
-        const progress = this.otherPartyData.length==0? 50 : 100;            
+        const progress = this.otherPartyData && this.otherPartyData.length>0? 100 : 50;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
@@ -137,7 +137,7 @@ export default class OtherParty extends Vue {
 
     public populateSurveyData(opValue) {
         const currentIndexValue =
-            this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
+            this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
         this.otherPartyData = [...this.otherPartyData, newParty];
@@ -168,7 +168,8 @@ export default class OtherParty extends Vue {
 
     public isDisableNext() {
         // demo
-        return this.otherPartyData.length <= 0;
+        if(this.otherPartyData && this.otherPartyData.length > 0) return false;
+        else return true;
     }
 
     public getDisableNextText() {
@@ -178,22 +179,24 @@ export default class OtherParty extends Vue {
 
     beforeDestroy() {
 
-        //console.log(this.getOtherPartyResults())
-        this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
+        //console.log(this.otherPartyData)
+        if(this.otherPartyData && this.otherPartyData.length>0) this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
 
-        const progress = this.otherPartyData.length==0? 50 : 100;
+        const progress = this.otherPartyData && this.otherPartyData.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: this.getOtherPartyResults()}})       
     }
 
     public getOtherPartyResults(){
+        //console.log(this.otherPartyData)
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-        for(const otherParty of this.otherPartyData)
-        {
-            questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
-        }
-        console.log(questionResults)
+        if(this.otherPartyData)
+            for(const otherParty of this.otherPartyData)
+            {
+                questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
+            }
+        //console.log(questionResults)
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 

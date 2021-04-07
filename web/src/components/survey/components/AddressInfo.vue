@@ -3,7 +3,7 @@
     <div class="row survey-address-line" v-if="selOptions.length">
       <div class="col-sm-6 form-inline">
         <label class="survey-sublabel">Copy from:</label>
-        <select class="form-control ml-2" ref="copyFrom">
+        <select v-model="copiedAddress" class="form-control ml-2" ref="copyFrom" @change="copySelected">
           <option value="">(Select Address)</option>
           <option
             v-for="(opt,inx) in selOptions"
@@ -168,6 +168,7 @@ export default {
       selOptions: [],
       pendingValue: this.loadValue(this.question.value),
       value: this.question.value,
+      copiedAddress: ""
     };
   },
   methods: {
@@ -232,6 +233,11 @@ export default {
       };
       return pending;
     },
+    copySelected(){      
+      //console.log(this.copiedAddress)
+      this.pendingValue = this.copiedAddress;
+      this.updateValue()
+    }
   },
   mounted() {
     const q = this.question;

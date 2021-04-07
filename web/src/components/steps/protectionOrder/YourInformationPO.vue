@@ -44,6 +44,9 @@ export default class YourInformationPo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
+
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -72,6 +75,8 @@ export default class YourInformationPo extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
+            this.UpdateSurveyChangedPO(true);
+            
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", options.value);
             }

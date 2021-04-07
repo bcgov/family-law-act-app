@@ -36,17 +36,17 @@ export default {
   watch: {
     pendingValue: {
       handler(val) {
-        const curVal = this.question.value || {};
-        let updVal = {};
+        const currentVal = this.question.value || {};
+        let updatedVal = {};
         let empty = true;
         let changed = false;
         for (const field of this.fields) {
-          const v = (updVal[field.name] = (val[field.name] || "").trim());
+          const v = (updatedVal[field.name] = (val[field.name] || "").trim());
           if (v.length) empty = false;
-          if ((curVal[field.name] || "") !== v) changed = true;
+          if ((currentVal[field.name] || "") !== v) changed = true;
         }
-        if (!updVal["phone"]) empty = true; // require phone number
-        if (changed) this.question.value = empty ? null : updVal;
+        if (this.question.isRequired && !updatedVal["phone"]) empty = true; // require phone number
+        if (changed) this.question.value = empty ? null : updatedVal;
       },
       deep: true
     }

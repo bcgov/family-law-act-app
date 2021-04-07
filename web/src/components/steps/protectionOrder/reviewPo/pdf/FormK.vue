@@ -105,23 +105,23 @@
         </section>
 
 <!-- <For registery> -->
+        <div style="margin-top:1rem;"><i>For registry use only</i></div>
         <div style="width:99%; border:1px solid; text-weight:bold; padding:0.5rem;">
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
+            <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
             <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
             <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
             <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
         </div>
-
+        <div style="margin-top:1rem;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
 
 
 
 <!----------------------------------------------------------------  <NEED PO>   -------------------------------------------------------->
-
-
-        <div class="new-page" />
 <!-- <Page 2> --> 
 <!-- <Header> -->
     <div v-if="result.selectedPOOrder.orderType == 'needPO'">
+        <div class="new-page" />
+
         <div style="text-align:center;"><b> SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</b></div>
         <div style="text-align:center;"><b> This is Schedule 1 to the Application about a Protection Order</b></div>
 
@@ -558,13 +558,13 @@
 
     </div>
 
-    <!----------------------------------------------------------------  <CHANGE PO>   -------------------------------------------------------->
-
-
-        <div class="new-page" />
+<!----------------------------------------------------------------  <CHANGE PO>   -------------------------------------------------------->  
 <!-- <Page 2> --> 
 <!-- <Header> -->
     <div v-if="result.selectedPOOrder.orderType == 'changePO'">
+        <div class="new-page" />
+
+
         <div style="text-align:center;"><b> Schedule 2 - Change an Existing Protection Order</b></div>
         <div style="text-align:center;"><b> This is Schedule 2 to the Application about a Protection Order</b></div>
 
@@ -579,6 +579,110 @@
             <underline-form style="text-indent:0px;display:inline-block;" textwidth="8rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="result.aboutPOSurvey.dateOfPO | beautify-date"/>
         </section>
 
+        <div style="margin-top:1rem;"></div>
+<!-- <2> -->
+        <section>  
+            <i style="margin-left:.25rem;">Select only one of the options below</i>
+            <div style="margin:0rem 0 0 1rem;" >                
+                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
+                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
+            </div>
+            <div style="margin-left:1rem;">
+                <i>Explain why you were not in court when the protection order was made</i>
+            </div>
+            <div v-if="result.aboutPOSurvey.inCourtForPO == 'n'" class="answer"> {{result.aboutPOSurvey.whyNotInCourt}}</div>
+            <div v-else style="margin-bottom:2rem;"></div>
+        </section>
+
+        <div style="margin-top:1rem;"></div>
+<!-- <3> -->
+        <section>  
+            I am the:
+            <div style="margin:0.25rem 0 0 1rem;" >
+                <i>Select all options that apply</i>                
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+            </div>
+        </section>
+
+        <div style="margin-top:1rem;"></div>
+<!-- <4> -->
+        <section>  
+            I am applying for the existing protection order to be changed as follows:
+            <div style="display:block; margin:0.25rem 0 0 1rem;" v-if="result.aboutPOSurvey.whatChangesNeeded" class="answer"> {{result.aboutPOSurvey.whatChangesNeeded}}</div>
+            <div v-else style="margin-bottom:2rem;"></div>
+        </section>
+
+        <div style="margin-top:2rem;"><b>YOUR STORY</b></div>
+<!-- <5> -->
+        <section>  
+            The facts on which this application is based are as follows:
+            <i style="display:block; margin:0.25rem 0 0 1rem;">Explain why the order needs to be changed and the facts you want the court to consider</i>
+            <div style="display:block; margin:0.25rem 0 0 1rem;" v-if="result.aboutPOSurvey.whyChangesNeeded" class="answer"> {{result.aboutPOSurvey.whyChangesNeeded}}</div>
+            <div v-else style="margin-bottom:2rem;"></div>
+        </section>
+    </div>
+
+
+
+<!----------------------------------------------------------------  <TERMINATE PO>   -------------------------------------------------------->
+<!-- <Page 2> --> 
+<!-- <Header> -->
+    <div v-if="result.selectedPOOrder.orderType == 'terminatePO'">
+        <div class="new-page" />
+
+
+        <div style="text-align:center;"><b> Schedule 3 – Terminate an Existing Protection Order</b></div>
+        <div style="text-align:center;"><b> This is Schedule 3 to the Application about a Protection Order</b></div>
+
+        <div style="margin:1rem 0; text-align:justify">
+            <i>This schedule must be completed if you are applying to terminate an existing protection order.</i>
+        </div>
+
+        <div style="margin-top:2rem;"></div>
+<!-- <1> -->
+        <section class="resetquestion">
+            <check-box style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
+            <underline-form style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="result.aboutPOSurvey.terminateDateOfPO | beautify-date"/>
+            <div style="display:inline; margin-left:0.5rem;">that I am applying to have terminated.</div>
+        </section>
+
+        <div style="margin-top:1rem;"></div>
+<!-- <2> -->
+        <section>  
+            <i style="margin-left:.25rem;">Select only one of the options below</i>
+            <div style="margin:0rem 0 0 1rem;" >                
+                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
+                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
+            </div>
+            <div style="margin-left:1rem;">
+                <i>Explain why you were not in court when the protection order was made</i>
+            </div>
+            <div v-if="result.aboutPOSurvey.inCourtForPO == 'n'" class="answer"> {{result.aboutPOSurvey.whyNotInCourt}}</div>
+            <div v-else style="margin-bottom:2rem;"></div>
+        </section>
+
+        <div style="margin-top:1rem;"></div>
+<!-- <3> -->
+        <section>  
+            I am the:
+            <div style="margin:0.25rem 0 0 1rem;" >
+                <i>Select all options that apply</i>                
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+            </div>
+        </section>
+
+        <div style="margin-top:1rem;"></div>
+<!-- <4> -->
+        <section>  
+            The facts on which this application is based are as follows:
+            <i style="display:block; margin:0.25rem 0 0 1rem;">Describe why the order should be terminated and the facts you want the court to consider</i>
+            <div style="display:block; margin:0.25rem 0 0 1rem;" v-if="result.aboutPOSurvey.whyTerminatePO" class="answer"> {{result.aboutPOSurvey.whyTerminatePO}}</div>
+            <div v-else style="margin-bottom:2rem;"></div>
+        </section>
     </div>
 
     </b-card>
@@ -660,8 +764,10 @@ export default class FormK extends Vue {
         this.getServiceInfo()
         this.getProtectingPeople()
         this.getOtherPartyInfo()
-        this.getBackgroundSurvey()
-        this.getOtherChildrenInfo()
+        if(this.result.selectedPOOrder && this.result.selectedPOOrder.orderType == "needPO"){
+            this.getBackgroundSurvey()
+            this.getOtherChildrenInfo()
+        }
     }
 
     public getServiceInfo(){

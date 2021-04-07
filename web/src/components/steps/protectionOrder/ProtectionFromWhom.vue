@@ -114,11 +114,11 @@ export default class ProtectionFromWhom extends Vue {
 
     public checkAnswersforContinue(){
         if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages([2,3,4,5,6,7,10,11,12,13], false);
+            this.togglePages([3,4,5,6,7,8,10,11,12,13], false);
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
         }else{
-            this.togglePages([2,3,4,6,7,8,11,12], true);
+            this.togglePages([3,4,6,7,8,11,12], true);
             this.determineNoContactPage()
             return true
         }
