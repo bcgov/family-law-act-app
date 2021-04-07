@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "../forms/parentingArrangements/parenting-arrangements.json";
+import surveyJson from "../forms/parentingArrangements/parental-arrangements.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -81,8 +81,8 @@ export default class ParentalArrangements extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['parentingArrangementsSurvey']) {
-            this.survey.data = this.step.result['parentingArrangementsSurvey'].data;
+        if (this.step.result && this.step.result['parentalArrangementsSurvey']) {
+            this.survey.data = this.step.result['parentalArrangementsSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -116,7 +116,7 @@ export default class ParentalArrangements extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {parentingArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {parentalArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

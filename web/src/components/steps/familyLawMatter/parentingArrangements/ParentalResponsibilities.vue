@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "../forms/parentingArrangements/parenting-arrangements.json";
+import surveyJson from "../forms/parentingArrangements/parental-responsibilities.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -42,6 +42,8 @@ export default class ParentalResponsibilities extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy;
+    childData = [];
     currentStep=0;
     currentPage=0;
     existing = false;
@@ -64,7 +66,8 @@ export default class ParentalResponsibilities extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForChildren();
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -75,14 +78,45 @@ export default class ParentalResponsibilities extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             console.log(options)
+            if (options.name == "childrenRequestedResponsibilities"){
+                if (options.question.choices.length == options.value.length){
+                    this.survey.setVariable("allChildrenSelected", true);
+                } else {
+                    this.survey.setVariable("allChildrenSelected", false);
+                }
+            }
             
         })
+    }
+
+    public adjustSurveyForChildren(){
+
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
+        this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"]=[];
+        this.childData = [];
+        
+
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'];            
+            for (const child of childData){                
+                this.childData.push(child);                
+                this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
+            }
+        }
     }
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['parentingArrangementsSurvey']) {
-            this.survey.data = this.step.result['parentingArrangementsSurvey'].data;
+        if (this.step.result && this.step.result['parentalResponsibilitiesSurvey']) {
+            this.survey.data = this.step.result['parentalResponsibilitiesSurvey'].data;
+
+            if (this.survey.data.childrenRequestedResponsibilities
+                && this.survey.data.childrenRequestedResponsibilities.length == this.childData.length){
+                    this.survey.setVariable("allChildrenSelected", true);                    
+            } else {
+                this.survey.setVariable("allChildrenSelected", false);
+            }
+
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -97,7 +131,7 @@ export default class ParentalResponsibilities extends Vue {
                 } else {
                     this.survey.setVariable("existing", false);
                 }
-        }
+        }        
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -116,7 +150,7 @@ export default class ParentalResponsibilities extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {parentingArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {parentalResponsibilitiesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

@@ -73,8 +73,15 @@ export default class ParentingArrangements extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
+            console.log(this.survey.data);
             console.log(options)
+            if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
+                if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
+                    this.togglePages([4, 5, 6], false);
+                } else {
+                    this.togglePages([4, 5, 6], true);
+                }
+            }           
             
         })
     }
@@ -113,6 +120,16 @@ export default class ParentingArrangements extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }  
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
+    }
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
