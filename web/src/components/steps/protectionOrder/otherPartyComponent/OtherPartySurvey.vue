@@ -91,7 +91,7 @@ export default class OtherPartySurvey extends Vue {
 
             this.UpdateSurveyChangedPO(true);
 
-            console.log(this.survey)
+            //console.log(this.survey.data)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
             if (id == null || id == undefined) {
@@ -188,17 +188,7 @@ export default class OtherPartySurvey extends Vue {
     beforeDestroy() {
 
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="current";
-            }  
-        }       
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })    
     
     }
   
