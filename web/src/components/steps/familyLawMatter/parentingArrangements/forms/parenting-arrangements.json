@@ -1,0 +1,314 @@
+{
+  "title": "Parenting Arrangements",
+  "pages": [
+    {
+      "name": "Parenting Arrangements",
+      "description": "Parenting arrangements are how each guardian will parent their child, including each guardian’s parental responsibilities for decision making about a child and the parenting time each guardian spends with a child. Parental responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting arrangements is what is in the best interests of the child.<br><br>You can apply for parenting arrangements only if you are a guardian of a child or are applying to be a guardian of a child. Only a guardian can have parental responsibilities and parenting time.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ParentingArrangementsPanel",
+          "visible": false,
+          "visibleIf": "!({existing})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "guardianApplicant",
+              "title": "Are you a guardian of the {childWording}?",
+              "isRequired": true
+            },
+            {
+              "type": "helptext",
+              "name": "FAQGuardian",
+              "title": "I am the child’s parent, does that mean I’m their guardian?",
+              "titleLocation": "hidden",
+              "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
+            },
+            {
+              "type": "yesno",
+              "name": "applyingGuardianApplicant",
+              "title": "Are you applying to be appointed as a guardian of the {childWording}?",
+              "isRequired": true
+            },
+            {
+              "type": "helptext",
+              "name": "FAQApplyingGuardian",
+              "title": "What if my application is about more than one child and I am the guardian of one and applying to be the guardian of the other?",
+              "titleLocation": "hidden",
+              "body": "If this situation applies to you, select YES for both of the above questions. Once your application is"
+            },
+            {
+              "type": "infotext",
+              "name": "WrongPathwayExplanation",
+              "visible": false,
+              "visibleIf": "{applyingGuardianApplicant} = 'n' and {guardianApplicant} = 'n'",
+              "title": "You have identified you are not the child’s guardian and you are not applying to become the child’s guardian. You cannot ask for parenting arrangements for a child. If you want to spend time with the child, but are not their guardian, you can ask for <b>contact with a child</b>. Go back to the ‘I need help with the following family law matter’ step and select contact with a child instead of parenting arrangements.",
+              "titleLocation": "hidden"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingApplicantParentingTimePanel",
+          "visible": false,
+          "visibleIf": "{existing}",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "parentGuardianApplicant",
+              "title": "I am a parent or guardian of the child(ren)"
+            },
+            {
+              "type": "yesno",
+              "name": "applyingGuardianApplicant",
+              "title": "I am a parent or guardian of the child(ren)",
+              "visible": false,
+              "visibleIf": "{parentGuardianApplicant} = 'n'"
+            },
+            {
+              "type": "infotext",
+              "name": "ifChildFAQ",
+              "title": "You need to complete a 'Contact with a Child' application.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingInfoPanel",
+          "visible": false,
+          "visibleIf": "{existing} and ({parentGuardianApplicant} = 'y' or {applyingGuardianApplicant} = 'y')",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "title": "Which do you have:",
+              "choices": [
+                {
+                  "value": "ExistingAgreement",
+                  "text": "Existing agreement about parenting arrangements"
+                },
+                {
+                  "value": "ExistingOrder",
+                  "text": "Existing order about parenting arrangements"
+                },
+                {
+                  "value": "neither",
+                  "text": "None of the above"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "infotext",
+              "name": "ifNeitherexistingFAQ",
+              "title": "You need to reselect the correct existing order/agreement in the 'Background' page.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{existingType} = 'neither'"
+            },
+            {
+              "type": "text",
+              "name": "orderDate",
+              "title": "What is the date the order was made?",
+              "isRequired": true,
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'"
+            },
+            {
+              "type": "text",
+              "name": "agreementDate",
+              "title": "What is the date the agreement was made?",
+              "isRequired": true,
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'"
+            },
+            {
+              "type": "infotext",
+              "name": "ChangeExplanationFAQ",
+              "title": "Family dynamics change and children grow up.  A parenting order that was made in the past may not make sense anymore. The court can only change an order if there has been a change in the needs or circumstances of the child since the original court order or written agreement was made, including a change in the circumstances of another person such as a parent.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{existingType} notempty"
+            },
+            {
+              "type": "comment",
+              "name": "changesSinceOrder",
+              "title": "Describe the change in circumstances since the order was made",
+              "description": "Explain to the court what has changed that makes the existing order no longer appropriate. You don't have to use any special wording. The key is to be clear with your explanation.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'"
+            },
+            {
+              "type": "comment",
+              "name": "changesSinceAgreement",
+              "title": "Describe the change in circumstances since the agreement was made",
+              "description": "Explain to the court what has changed that makes the existing agreement no longer appropriate. You don't have to use any special wording. The key is to be clear with your explanation.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'"
+            },
+            {
+              "type": "comment",
+              "name": "notChildBestInterest",
+              "title": "how is the current agreement not in the best interest of the child(ren)?",
+              "description": "TBD",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'"
+            },
+            {
+              "type": "radiogroup",
+              "name": "orderDifferenceType",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'",
+              "title": "Do want the existing order changed or cancelled?",
+              "choices": [
+                {
+                  "value": "changeOrder",
+                  "text": "Change Existing order"
+                },
+                {
+                  "value": "cancelOrder",
+                  "text": "Cancel Existing order"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "radiogroup",
+              "name": "agreementDifferenceType",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'",
+              "title": "Do want the existing agreement set-aside or replaced?",
+              "choices": [
+                {
+                  "value": "setAsideAgreement",
+                  "text": "set Aside Existing Agreement"
+                },
+                {
+                  "value": "replacedAgreement",
+                  "text": "replaced Existing Agreement"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "yesno",
+              "name": "changeParentalResponsibilities",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder' and {orderDifferenceType} = 'changeOrder') or ({existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement')",
+              "description": "Parental responsibilities are the decisions guardians make about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child's legal and financial interests.  Guardians share parental responsibilities unless they have a court order or agreement that says otherwise.  The Family Law Act provides a list of parental responsibilities.",
+              "title": "Are you asking to change the parental responsibilities of the guardians?",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "existingOrderChangeParentalResponsibilitiesDescription",
+              "title": "Describe the changes to parental responsibilities you are asking for",
+              "description": "If there is more than one guardian for a child, a court order can help to make it clear who can make which parenting decisions and when.   Parenting decisions may be made together, by only one guardian, or divided between more than one guardian.  You must carefully consider which way is best for the child.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder' and {orderDifferenceType} = 'changeOrder' and {changeParentalResponsibilities} = 'y'"
+            },
+            {
+              "type": "comment",
+              "name": "existingAgreementChangeParentalResponsibilitiesDescription",
+              "title": "Describe the changes to parental responsibilities you are asking for",
+              "description": "If there is more than one guardian for a child, a court agreement can help to make it clear who can make which parenting decisions and when.   Parenting decisions may be made together, by only one guardian, or divided between more than one guardian.  You must carefully consider which way is best for the child.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement' and {changeParentalResponsibilities} = 'y'"
+            },
+            {
+              "type": "yesno",
+              "name": "changeParentalTime",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder' and {orderDifferenceType} = 'changeOrder') or ({existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement')",
+              "description": "Parenting time is the time each guardian spends with the child.  Guardians can arrange parenting time in any way that is in the best interests of the child.  Parenting time can be shared equally, or one guardian can have the child more of the time.",
+              "title": "Are you asking to change the parenting time schedule?",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "existingOrderChangeParentalTimeDescription",
+              "title": "Describe the changes to parenting time that you are asking for",
+              "description": "You can give as much detail as you would like to ask the court to include in the order, you do not need to use any special wording.  You know your family.  If you think lots of detail is needed, make sure you make that clear here.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder' and {orderDifferenceType} = 'changeOrder' and {changeParentalTime} = 'y'"
+            },
+            {
+              "type": "comment",
+              "name": "existingAgreementChangeParentalTimeDescription",
+              "title": "Describe the changes to parenting time that you are asking for",
+              "description": "You can give as much detail as you would like to ask the court to include in the agreement, you do not need to use any special wording.  You know your family.  If you think lots of detail is needed, make sure you make that clear here.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement' and {changeParentalTime} = 'y'"
+            },
+            {
+              "type": "yesno",
+              "name": "changeOtherOrder",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder' and {orderDifferenceType} = 'changeOrder')",
+              "description": "There may be other orders about parenting arrangements that don't seem to fit under parental responsibilities or parenting time. This may include important things like the child's residence, cooperating with travel arrangements, and what you agree to do to try to solve any disagreements on joint decisions about what is best for the child.",
+              "title": "Are you asking to change some other order about parenting arrangements?",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "changeOtherAgreement",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement')",
+              "description": "There may be other agreements about parenting arrangements that don't seem to fit under parental responsibilities or parenting time. This may include important things like the child's residence, cooperating with travel arrangements, and what you agree to do to try to solve any disagreements on joint decisions about what is best for the child.",
+              "title": "Are you asking to change some other agreement about parenting arrangements?",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "existingOrderChangeOtherDescription",
+              "title": "Describe the changes to parenting order that you are asking for",
+              "description": "You can give as much detail as you would like to ask the court to include in the order, you do not need to use any special wording.  You know your family.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder' and {orderDifferenceType} = 'changeOrder' and {changeOtherOrder} = 'y'"
+            },
+            {
+              "type": "comment",
+              "name": "existingAgreementChangeOtherDescription",
+              "title": "Describe the changes to parenting agreement that you are asking for",
+              "description": "You can give as much detail as you would like to ask the court to include in the agreement, you do not need to use any special wording.  You know your family.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement' and {changeOtherAgreement} = 'y'"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingChildBestInterestPanel",
+          "visible": false,
+          "visibleIf": "({existing} and (({parentGuardianApplicant} = 'y') or ({applyingGuardianApplicant} = 'y')))",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "existingOrderChildBestInterestDescription",
+              "title": "Describe why you believe the order you are asking for is in the child(ren)'s best interests.",
+              "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul><br>You do not need to use any special wording.  The key is to be clear about why you think the court should make the parenting order.",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Parenting Arrangements"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

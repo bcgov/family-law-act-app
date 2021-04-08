@@ -205,7 +205,7 @@ export default class ReviewYourAnswers extends Vue {
 
     public reloadPageInformation() {
         this.pageHasError = false;
-        for(const stepIndex of [1]){ //search answers through these step numbers
+        for(const stepIndex of [1]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
             //console.log(step)

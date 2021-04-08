@@ -14,17 +14,10 @@
             <h3 class="mt-5">To prepare the application for filing:</h3>
             
             <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
+                
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
-            
-                <div style="margin:1rem 0; width:19rem;">
-                    <b-button                   
-                        v-on:click.prevent="onDownload()"
-                        variant="success">
-                            <span class="fa fa-print btn-icon-left"/>
-                            Review and Save Your Application
-                    </b-button>
-                </div>
+                <form-list type="Print" @onDownload="onDownload" @formsList="setFormList" :currentPage="currentPage"/>
+               
 
                 <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -114,6 +107,7 @@ import PageBase from "@/components/steps/PageBase.vue";
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
 import moment from 'moment-timezone';
+import FormList from "./components/FormList.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -123,7 +117,8 @@ const applicationState = namespace("Application");
     components:{
         PageBase,
         GetHelpForPdf,
-        GetHelpScanning
+        GetHelpScanning,
+        FormList
     }
 })    
 export default class ReviewAndSave extends Vue {
@@ -147,6 +142,7 @@ export default class ReviewAndSave extends Vue {
     showGetHelpScanning = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
     requiredDocuments: string[] = [];
+    formsList = []
 
     mounted(){
 
@@ -179,7 +175,11 @@ export default class ReviewAndSave extends Vue {
         this.UpdateGotoNextStepPage()
     }
 
-    public onDownload() {
+    public setFormList(formsList){
+        this.formsList = formsList
+    }
+
+    public onDownload(formName) {
         //console.log("downloading")
         if(this.checkErrorOnPages()){ 
             const currentDate = moment().format();

@@ -105,20 +105,30 @@ export default class ProtectionFromWhom extends Vue {
     }
 
     public determineNoContactPage(){       
+        const noContantPage = 5;
+
         if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 4, active: true});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: true});
+            
+            if(!this.$store.state.Application.steps[this.currentStep].result.noContactSurvey){
+                //console.log("NoContact")
+                //console.log(this.step)
+                const noContactSurvey = {data:{}, questions:[{inputType:'',name:'no', title:'Some Information missing', value:''}], pageName:'No Contact', currentStep: this.currentStep, currentPage:noContantPage}
+                this.UpdateStepResultData({step:this.step, data: {noContactSurvey: noContactSurvey}})
+            }
+
         } else {// Disable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 4, active: false});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: false});
         }            
     }
 
     public checkAnswersforContinue(){
         if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages([2,3,4,5,6,7,10,11,12,13], false);
+            this.togglePages([3,4,5,6,7,8,10,11,12,13], false);
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
         }else{
-            this.togglePages([2,3,4,6,7,8,11,12], true);
+            this.togglePages([3,4,6,7,8,11,12], true);
             this.determineNoContactPage()
             return true
         }

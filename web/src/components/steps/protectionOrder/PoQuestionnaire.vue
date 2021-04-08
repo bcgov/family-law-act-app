@@ -140,7 +140,7 @@ export default class PoQuestionnaire extends Vue {
                             //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
                             this.resetProgress(this.urgencyPage)
                         }else{
-                            this.togglePages([1], true);
+                            this.togglePages([1,2], true);
                         }
                     }
                 }                
@@ -233,9 +233,12 @@ export default class PoQuestionnaire extends Vue {
         if(this.survey &&((this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO')||(this.survey.data.unsafe == 'n' && this.survey.data.orderType == 'needPO'))){ 
             this.togglePages(this.needPoPages, false);            
         }else{                
-            if (this.isSurveyAnsweredCorectly() && this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
-                this.togglePages(this.needPoPages, true);
-            }       
+            if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
+                if (this.isSurveyAnsweredCorectly())
+                    this.togglePages(this.needPoPages, true);
+                else 
+                    this.togglePages([1,2], true);
+            }      
         }
     }
 

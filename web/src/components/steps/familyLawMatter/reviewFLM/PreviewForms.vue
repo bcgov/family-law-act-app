@@ -1,12 +1,12 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <form-k/>
+        <form3/>
     </page-base>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import FormK from  "./pdf/FormK.vue"
+import Form3 from  "./pdf/Form3.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -15,7 +15,7 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-        FormK,
+        Form3,
         PageBase
     }
 })

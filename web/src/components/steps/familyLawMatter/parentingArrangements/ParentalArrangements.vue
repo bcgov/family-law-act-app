@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop} from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/yourInformationPo.json";
+import surveyJson from "./forms/parental-arrangements.json";
 
-import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import PageBase from "../../PageBase.vue";
+import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -24,16 +24,10 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class YourInformationPo extends Vue {
+export default class ParentalArrangements extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public steps!: any
-
-    @applicationState.State
-    public types!: string[]
+    step!: stepInfoType;   
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -44,13 +38,16 @@ export default class YourInformationPo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
-
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
+    existing = false;
    
+    @Watch('pageIndex')
+    pageIndexChange(newVal) 
+    {
+        this.survey.currentPageNo = newVal;        
+    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -74,27 +71,31 @@ export default class YourInformationPo extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
-            // console.log(options)
-            this.UpdateSurveyChangedPO(true);
+            console.log(options)
             
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", options.value);
-            }
         })
     }
     
     public reloadPageInformation() {
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        // console.log(this.steps[0].result)
-
-        if (this.step.result && this.step.result['yourInformationSurveyPO']) {
-            this.survey.data = this.step.result['yourInformationSurveyPO'].data;
+        //console.log(this.step.result)
+        if (this.step.result && this.step.result['parentalArrangementsSurvey']) {
+            this.survey.data = this.step.result['parentalArrangementsSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-       
+        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
+            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+            if (backgroundSurveyData.existingOrdersList 
+                && backgroundSurveyData.existingOrdersList.length > 0 
+                && backgroundSurveyData.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                    this.survey.setVariable("existing", true);                    
+                } else {
+                    this.survey.setVariable("existing", false);
+                }
+        }
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
@@ -109,23 +110,10 @@ export default class YourInformationPo extends Vue {
     }  
     
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurveyPO: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-       
-        if (this.types.length > 1) {
-            if (this.steps[2].result && this.steps[2].result.yourInformationSurvey) {
-                console.log("common information already exists");
-            } else {
-                this.UpdateStepResultData({step:this.steps[2], data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 1)}});
-            }
-        }
-
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {parentalArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
+
