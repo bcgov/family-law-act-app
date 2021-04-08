@@ -27,6 +27,7 @@ class Application extends VuexModule {
     public requiredDocuments: string[] = []
     public packageNumber = ""
     public eFilingHubLink = ""
+    public generatedForms: string[] = [];
 
     public surveyChangedPO = false;
     
@@ -755,6 +756,15 @@ class Application extends VuexModule {
     @Action
     public UpdateSupportingDocuments(newSupportingDocuments) {
         this.context.commit("setSupportingDocuments", newSupportingDocuments);
+    }
+
+    @Mutation
+    public setGeneratedForms(generatedForms): void {
+        this.generatedForms = generatedForms;
+    }
+    @Action
+    public UpdateGeneratedForms(newGeneratedForms) {
+        this.context.commit("setGeneratedForms", newGeneratedForms);
     }
 
     @Mutation

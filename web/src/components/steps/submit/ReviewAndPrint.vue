@@ -15,16 +15,8 @@
 
             <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
-                <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
-            
-                <div style="margin:1rem 0; width:23rem;">
-                    <b-button                   
-                        v-on:click.prevent="onDownload()"
-                        variant="success">
-                            <span class="fa fa-print btn-icon-left"/>
-                            Review and Print Your Application
-                    </b-button>
-                </div>
+                <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>  
+                <form-list type="Print" @onDownload="onDownload" @formsList="setFormList" :currentPage="currentPage"/>
 
                 <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -89,6 +81,8 @@ import PageBase from "@/components/steps/PageBase.vue";
 import moment from 'moment-timezone';
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 
+import FormList from "./components/FormList.vue"
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -96,7 +90,8 @@ const applicationState = namespace("Application");
 @Component({
     components:{
         PageBase,
-        GetHelpForPdf
+        GetHelpForPdf,
+        FormList
     }
 })
 
@@ -117,6 +112,8 @@ export default class ReviewAndPrint extends Vue {
     error= "";
     currentStep=0;
     currentPage=0;
+
+    formsList = [];
 
     showGetHelpForPDF = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
@@ -153,13 +150,18 @@ export default class ReviewAndPrint extends Vue {
         this.UpdateGotoNextStepPage()     
     }
 
-    public onDownload() {
+    public onDownload(formName) {
+        console.log(formName)
 
         if(this.checkErrorOnPages()){
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate);
             this.loadPdf();
         }
+    }
+
+    public setFormList(formsList){
+        this.formsList = formsList
     }
 
     public checkErrorOnPages(){

@@ -105,10 +105,20 @@ export default class ProtectionFromWhom extends Vue {
     }
 
     public determineNoContactPage(){       
+        const noContantPage = 5;
+
         if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 5, active: true});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: true});
+            
+            if(!this.$store.state.Application.steps[this.currentStep].result.noContactSurvey){
+                //console.log("NoContact")
+                //console.log(this.step)
+                const noContactSurvey = {data:{}, questions:[{inputType:'',name:'no', title:'Some Information missing', value:''}], pageName:'No Contact', currentStep: this.currentStep, currentPage:noContantPage}
+                this.UpdateStepResultData({step:this.step, data: {noContactSurvey: noContactSurvey}})
+            }
+
         } else {// Disable No Contact
-            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: 5, active: false});
+            this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: false});
         }            
     }
 
