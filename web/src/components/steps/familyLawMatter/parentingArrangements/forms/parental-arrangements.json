@@ -270,21 +270,6 @@
               "visibleIf": "{existingType} = 'ExistingAgreement' and {agreementDifferenceType} = 'replacedAgreement' and {changeOtherAgreement} = 'y'"
             }
           ]
-        },
-        {
-          "type": "panel",
-          "name": "ExistingChildBestInterestPanel",
-          "visible": false,
-          "visibleIf": "({existing} and (({parentGuardianApplicant} = 'y') or ({applyingGuardianApplicant} = 'y')))",
-          "elements": [
-            {
-              "type": "comment",
-              "name": "existingOrderChildBestInterestDescription",
-              "title": "Describe why you believe the order you are asking for is in the child(ren)'s best interests.",
-              "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul><br>You do not need to use any special wording.  The key is to be clear about why you think the court should make the parenting order.",
-              "isRequired": true
-            }
-          ]
         }
       ],
       "title": "Parental Arrangements"

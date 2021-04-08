@@ -55,7 +55,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ReviewYourAnswers extends Vue {
+export default class ReviewYourAnswersFlm extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -83,7 +83,7 @@ export default class ReviewYourAnswers extends Vue {
     currentPage=0;
     pageHasError = false;
 
-    previewFormsPage = 13;
+    previewFormsPage = 14;
 
     errorQuestionNames = [];
 
@@ -111,6 +111,7 @@ export default class ReviewYourAnswers extends Vue {
         adjQuestion = adjQuestion.replace(/{anotherAdultName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         adjQuestion = adjQuestion.replace(/<br>/g,'');
         adjQuestion = adjQuestion.replace(/<br\/>/g,''); 
+        adjQuestion = adjQuestion.replace(/{childWording}/g,'child(ren)');
         return adjQuestion
     }
 
@@ -205,10 +206,10 @@ export default class ReviewYourAnswers extends Vue {
 
     public reloadPageInformation() {
         this.pageHasError = false;
-        for(const stepIndex of [1]){
+        for(const stepIndex of [2,3]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
-            //console.log(step)
+            console.log(step)
             //console.log(stepResult);
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))

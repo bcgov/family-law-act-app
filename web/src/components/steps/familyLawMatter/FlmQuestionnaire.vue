@@ -99,7 +99,7 @@ import Tooltip from "@/components/survey/Tooltip.vue";
         Tooltip
     }
 })
-export default class FlmSubPathSelection extends Vue {
+export default class FlmQuestionnaire extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
