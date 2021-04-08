@@ -97,7 +97,7 @@ export default class ParentalResponsibilities extends Vue {
             for (const child of childData){                
                 this.childData.push(child);                
                 this.surveyJsonCopy.pages[0].elements[3].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
-            }            
+            }                       
         }
     }
     
@@ -106,9 +106,7 @@ export default class ParentalResponsibilities extends Vue {
         if (this.step.result && this.step.result['parentalResponsibilitiesSurvey']) {
             this.survey.data = this.step.result['parentalResponsibilitiesSurvey'].data;
 
-            if (this.childData.length == 1){
-                this.survey.setValue("childrenRequestedResponsibilities", Vue.filter('getFullName')(this.childData[0].name));
-            }
+            
 
             if (this.survey.data.childrenRequestedResponsibilities
                 && this.survey.data.childrenRequestedResponsibilities.length == this.childData.length){
@@ -129,7 +127,11 @@ export default class ParentalResponsibilities extends Vue {
                 } else {
                     this.survey.setVariable("existing", false);
                 }
-        }        
+        }
+        
+        if (this.childData.length == 1){
+            this.survey.setValue("childrenRequestedResponsibilities", Vue.filter('getFullName')(this.childData[0].name));
+        }
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
