@@ -1,20 +1,26 @@
 {
-  "title": "Parenting time",
+  "title": "Parental responsibilities",
   "pages": [
     {
-      "name": "Parenting time",
-      "description": "Parenting time is the time each guardian spends with the child.  Guardians can arrange parenting time in any way that is in the best interests of the child.  Parenting time can be shared equally, or one guardian can have the child more of the time.",
+      "name": "Parental responsibilities",
       "elements": [
         {
+          "type": "infotext",
+          "name": "parentalResponsibilitiesDescription",
+          "title": "Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians share parental responsibilities unless they have a court order or agreement that says otherwise.<br><br><a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/what-does-it-mean-to-be-a-guardian\" target=\"blank\">Parental responsibilities</a> may be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parenting responsibilities and when.<br><br>The Family Law Act provides a list of `parental responsibilities` .",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
+        {
           "type": "panel",
-          "name": "NewApplicantParentingTimePanel",
+          "name": "NewApplicantParentingResponsibilitiesPanel",
           "visible": false,
           "visibleIf": "!({existing})",
           "elements": [
             {
               "type": "yesno",
-              "name": "parentingTimeOrder",
-              "title": "Are you applying for an order about parenting time?",
+              "name": "parentalResponsibilitiesOrder",
+              "title": "Are you applying for an order about parental responsibilities?",
               "isRequired": true
             }
           ]
@@ -49,63 +55,37 @@
         },
         {
           "type": "panel",
-          "name": "ApplicantParentingTimeApplicationPanel",
+          "name": "ParentingResponsibilityApplicationPanel",
           "visible": false,
-          "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+          "visibleIf": "(!({existing})) and ({parentalResponsibilitiesOrder} = 'y')",
           "elements": [
             {
-              "type": "comment",
-              "name": "applicantDesiredParentingTime",
-              "title": "I am asking for the child/children to spend time with me as follows:",
-              "description": "You can give as much detail as you would like to ask the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. You should think about a calendar: where will your child be on different days, including holidays and vacations.",
-              "isRequired": true
-            },
-            {
               "type": "yesno",
-              "name": "conditionedApplicantParentingTime",
-              "description": "Consider if there should be any conditions related to the parenting time. Conditions may include things like a child’s participation in extra-curricular activities, religious or cultural events, visits by extended family or friends during parenting time, or where the parenting time will take place.",
-              "title": "Do you think the court order should include any conditions related to your parenting time?",
+              "name": "allResponsibilitiesOrder",
+              "description": "If you get a court order that gives you all parental responsibilities for a child, it means that you get to make all decisions about a child and have full responsibility for a child. The child may have another guardian but the other guardian will not have parental responsibility for the child.",
+              "title": "Are you applying for an order that gives you all parental responsibilities for a child?",
               "isRequired": true
             },
             {
-              "type": "comment",
-              "name": "ApplicantParentingTimeConditions",
-              "title": "Please describe the conditions you are willing to have on your parenting time:",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "type": "checkbox",
+              "name": "childrenRequestedResponsibilities",
+              "title": "Select each child you are requesting all parental responsibilities for:",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{conditionedApplicantParentingTime} = 'y'"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "RespondentParentingTimeApplicationPanel",
-          "visible": false,
-          "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
-          "elements": [
-            {
-              "type": "comment",
-              "name": "respondentDesiredParentingTime",
-              "title": "I am asking for the child/children to spend time with the other party as follows:",
-              "description": "You can give as much detail as you would like to ask the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. You should think about a calendar: where will your child be on different days, including holidays and vacations.",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "conditionedRespondentParentingTime",
-              "description": "Consider if there should be any conditions related to the parenting time. Conditions may include things like a child’s participation in extra-curricular activities, religious or cultural events, visits by extended family or friends during parenting time, or where the parenting time will take place.",
-              "title": "Do you think the court order should include any conditions related to the other party’s parenting time?",
-              "isRequired": true
+              "visibleIf": "{allResponsibilitiesOrder} = 'y'",
+              "choices": [
+                "child1",
+                "child2"
+              ]
             },
             {
               "type": "comment",
-              "name": "RespondentParentingTimeConditions",
-              "title": "Please describe the conditions you are willing to have on your parenting time:",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+              "name": "ExplainResponsibilities",
+              "title": "You are not requesting all parental responsibilities. Explain the order you want about how parental responsibilities are to be exercised by the guardians.",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how parental responsibilities apply to each child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{conditionedRespondentParentingTime} = 'y'"
+              "visibleIf": "({allResponsibilitiesOrder} = 'y' and (!({allChildrenSelected}))) or ({allResponsibilitiesOrder} = 'n')"
             }
           ]
         },
@@ -340,7 +320,7 @@
           ]
         }
       ],
-      "title": "Parenting time"
+      "title": "Parental Responsibilities"
     }
   ],
   "showQuestionNumbers": "off",

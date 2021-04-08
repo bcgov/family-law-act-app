@@ -14,7 +14,7 @@
             {
               "type": "yesno",
               "name": "guardianApplicant",
-              "title": "Are you a guardian of the child/children?",
+              "title": "Are you a guardian of the {childWording}?",
               "isRequired": true
             },
             {
@@ -27,7 +27,7 @@
             {
               "type": "yesno",
               "name": "applyingGuardianApplicant",
-              "title": "Are you applying to be appointed as a guardian of the child/children?",
+              "title": "Are you applying to be appointed as a guardian of the {childWording}?",
               "isRequired": true
             },
             {

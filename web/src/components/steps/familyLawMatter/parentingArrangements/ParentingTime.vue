@@ -9,10 +9,10 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "../forms/parentingArrangements/parenting-time.json";
+import surveyJson from "./forms/parenting-time.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -27,10 +27,7 @@ const applicationState = namespace("Application");
 export default class ParentingTime extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    step!: stepInfoType;    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -74,8 +71,7 @@ export default class ParentingTime extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
-            console.log(options)
-            
+            console.log(options)            
         })
     }
     
@@ -86,8 +82,6 @@ export default class ParentingTime extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
             if (backgroundSurveyData.existingOrdersList 
@@ -97,6 +91,15 @@ export default class ParentingTime extends Vue {
                 } else {
                     this.survey.setVariable("existing", false);
                 }
+        }
+
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'];            
+            if (childData.length>1){
+                this.survey.setVariable("childWording", "children");                    
+            } else {
+                this.survey.setVariable("childWording", "child");
+            }
         }
 
         this.currentStep = this.$store.state.Application.currentStep;
@@ -120,5 +123,3 @@ export default class ParentingTime extends Vue {
     }
 }
 </script>
-
-

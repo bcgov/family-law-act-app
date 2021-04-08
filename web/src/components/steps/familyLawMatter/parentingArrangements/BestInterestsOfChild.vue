@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "../forms/parentingArrangements/best-interests-of-child.json";
+import surveyJson from "./forms/best-interests-of-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -23,14 +23,10 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-
 export default class BestInterestsOfChild extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    step!: stepInfoType;    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -84,9 +80,7 @@ export default class BestInterestsOfChild extends Vue {
         if (this.step.result && this.step.result['bestInterestOfChildSurvey']) {
             this.survey.data = this.step.result['bestInterestOfChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+        }        
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
@@ -97,6 +91,15 @@ export default class BestInterestsOfChild extends Vue {
                 } else {
                     this.survey.setVariable("existing", false);
                 }
+        }
+
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'];            
+            if (childData.length>1){
+                this.survey.setVariable("childWording", "children");                    
+            } else {
+                this.survey.setVariable("childWording", "child");
+            }
         }
 
         this.currentStep = this.$store.state.Application.currentStep;

@@ -9,10 +9,10 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "../forms/parentingArrangements/parental-responsibilities.json";
+import surveyJson from "./forms/parental-responsibilities.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -27,10 +27,7 @@ const applicationState = namespace("Application");
 export default class ParentalResponsibilities extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    step!: stepInfoType;    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -93,15 +90,14 @@ export default class ParentalResponsibilities extends Vue {
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
         this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"]=[];
-        this.childData = [];
-        
+        this.childData = [];        
 
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'];            
             for (const child of childData){                
                 this.childData.push(child);                
                 this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
-            }
+            }            
         }
     }
     
@@ -109,6 +105,10 @@ export default class ParentalResponsibilities extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['parentalResponsibilitiesSurvey']) {
             this.survey.data = this.step.result['parentalResponsibilitiesSurvey'].data;
+
+            if (this.childData.length == 1){
+                this.survey.setValue("childrenRequestedResponsibilities", Vue.filter('getFullName')(this.childData[0].name));
+            }
 
             if (this.survey.data.childrenRequestedResponsibilities
                 && this.survey.data.childrenRequestedResponsibilities.length == this.childData.length){
@@ -118,9 +118,7 @@ export default class ParentalResponsibilities extends Vue {
             }
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+        }       
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
