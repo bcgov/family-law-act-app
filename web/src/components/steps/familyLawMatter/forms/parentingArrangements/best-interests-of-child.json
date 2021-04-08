@@ -3,7 +3,7 @@
   "pages": [
     {
       "name": "Best interests of the child",
-      "description": "Parenting time is the time each guardian spends with the child.  Guardians can arrange parenting time in any way that is in the best interests of the child.  Parenting time can be shared equally, or one guardian can have the child more of the time.",
+      "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the child's best interests when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
       "elements": [
         
         {
@@ -11,20 +11,12 @@
           "name": "NewChildBestInterestPanel",
           "visible": false,
           "visibleIf": "!({existing})",
-          "elements": [
-            {
-              "type": "infotext",
-              "name": "newchildBestInterestIntro",
-              "title": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
-              "description": "fff",
-              "titleLocation": "hidden",
-              "messageStyle": "inline"
-            },
+          "elements": [            
             {
               "type": "comment",
-              "name": "newParentingTimeChildBestInterestDescription",
-              "title": "Please describe how the orders you are asking for about parenting arrangements, including parental responsibilities and parenting time, are in the best interest of the child(ren):",
-              "description": "You do not need to use any special wording.  The key is to be clear about why you think the court should make the parenting order.",
+              "name": "newParentingArrangementsChildBestInterestDescription",
+              "title": "Please explain why you believe the order about parenting arrangements you are applying for, including parental responsibilities and parenting time, is in the child/children’s best interests.",
+              "description": "Please explain why you believe the order about parenting arrangements you are applying for, including parental responsibilities and parenting time, is in the child/children’s best interests.",
               "isRequired": true
             }
           ]
@@ -33,7 +25,7 @@
           "type": "panel",
           "name": "ExistingChildBestInterestPanel",
           "visible": false,
-          "visibleIf": "({existing} and (({parentGuardianApplicant} = 'y') or ({applyingGuardianApplicant} = 'y')))",
+          "visibleIf": "({existing})",
           "elements": [
             {
               "type": "comment",

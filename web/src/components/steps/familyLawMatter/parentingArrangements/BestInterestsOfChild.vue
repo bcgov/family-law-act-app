@@ -74,7 +74,7 @@ export default class BestInterestsOfChild extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
-            console.log(options)
+            // console.log(options)
             
         })
     }

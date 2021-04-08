@@ -77,9 +77,9 @@ export default class ParentingArrangements extends Vue {
             console.log(options)
             if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
                 if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                    this.togglePages([4, 5, 6], false);
+                    this.togglePages([4, 5, 6, 7], false);
                 } else {
-                    this.togglePages([4, 5, 6], true);
+                    this.togglePages([4, 5, 6, 7], true);
                 }
             }           
             
