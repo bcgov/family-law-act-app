@@ -18,7 +18,7 @@
             {
               "type": "yesno",
               "name": "applyingGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)",
+              "title": "I am applying to be a guardian of the child(ren)",
               "visible": false,
               "visibleIf": "{parentGuardianApplicant} = 'n'"
             },
@@ -164,7 +164,30 @@
                 "child1",
                 "child2"
               ]
-            }
+            },
+            {
+              "type": "paneldynamic",
+              "name": "OlderChildDynamicPanel",
+              "visible": false,
+              "visibleIf":"{overAgeChildSelected}",
+              "title": "Since you are asking for support for a child who is over the age of 19, please select the option that best describes the reason.",
+              "valueName": "otherChildInfo",
+              "templateElements": [
+               {
+                "type": "radiogroup",
+                "name": "whyOlderChildNeedSupport",
+                "title": "Why are you asking for support for {panel.name}?",
+                "isRequired": true,
+                "choices": [
+                 "Illness",
+                 "Disability",
+                 "Student"
+                ]
+               }
+              ],
+              "allowAddPanel": false,
+              "allowRemovePanel": false
+             }
           ]
         }
       ],

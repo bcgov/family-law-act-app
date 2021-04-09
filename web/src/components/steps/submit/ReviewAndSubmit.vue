@@ -18,16 +18,7 @@
                     <tooltip :index="0" title='swear or affirm'/> the information in your application during your court appearance. 
                 </span>           
             
-                <b-card style="margin:2rem 0;border-radius:10px; border:2px solid #AAAAFF;">
-                    <div style="float:left; margin: 0.5rem 1rem;color:#3434eb; font-size:20px; font-weight:bold;" > Application About a Protection Order (FORM K)</div>
-                    <b-button 
-                        style="float:right; margin: 0.25rem 1rem;"                  
-                        v-on:click.prevent="onDownload()"
-                        variant="success">
-                            <span class="fa fa-print btn-icon-left"/>
-                            Review and Print
-                    </b-button>
-                </b-card>
+                <form-list type="Print" @onDownload="onDownload" @formsList="setFormList" :currentPage="currentPage"/>
 
                 <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -222,7 +213,8 @@
     import { stepInfoType } from "@/types/Application";
     import PageBase from "@/components/steps/PageBase.vue";   
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
-    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"    
+    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
+    import FormList from "./components/FormList.vue"
 
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
@@ -237,7 +229,8 @@
             PageBase,
             GetHelpForPdf,
             GetHelpScanning,
-            Tooltip
+            Tooltip,
+            FormList
         }
     })
     
@@ -320,6 +313,8 @@
         showTypeOfDocuments = false;
 
         submitEnable = true;
+        formsList = [];
+        currentPage=0;
 
         mounted(){
 
@@ -328,7 +323,8 @@
 
             //console.log(this.currentStep)
             //console.log(this.steps[this.currentStep])
-            this.UpdatePageProgress({ currentStep: this.currentStep, currentPage:this.steps[this.currentStep].currentPage, progress:progress });
+            this.currentPage = this.steps[this.currentStep].currentPage
+            this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
        
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
@@ -396,7 +392,11 @@
             this.UpdateGotoNextStepPage()
         }
 
-        public onDownload() {
+        public setFormList(formsList){
+            this.formsList = formsList
+        }
+
+        public onDownload(formName) {
             console.log('downloading')
             if(this.checkErrorOnPages()){
                 const currentDate = moment().format();

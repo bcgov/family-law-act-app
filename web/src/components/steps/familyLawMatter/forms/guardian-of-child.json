@@ -39,10 +39,7 @@
               "name": "childrenList",
               "title": "I am applying to be appointed as a guardian of the following child(ren):",
               "isRequired": true,
-              "choices": [
-                "Child1",
-                "Child2"
-              ]
+              "choices": "{childNames}"
             },
             {
               "type": "radiogroup",

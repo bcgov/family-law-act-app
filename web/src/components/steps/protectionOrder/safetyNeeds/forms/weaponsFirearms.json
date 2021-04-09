@@ -33,7 +33,7 @@
          {
           "type": "comment",
           "name": "firearmsYesReason",
-          "visibleIf": "{RespondentFirearmsYes} = 'y'",
+          "visibleIf": "{RespondentFirearms} = 'y' and {RespondentFirearmsYes} = 'y'",
           "title": "Explain the reason for your belief:",
           "isRequired": true
          },
@@ -63,7 +63,7 @@
          {
           "type": "comment",
           "name": "weaponsYesReason",
-          "visibleIf": "{RespondentWeaponsYes} = 'y'",
+          "visibleIf": "{RespondentWeapons} = 'y' and {RespondentWeaponsYes} = 'y'",
           "title": "Explain the reason for your belief:",
           "isRequired": true
          },
