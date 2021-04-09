@@ -2,8 +2,9 @@ import hashlib
 import logging
 import json
 import uuid
-from django.utils import timezone
+from django.conf import settings
 from django.http import JsonResponse, HttpResponse
+from django.utils import timezone
 from rest_framework import permissions, generics
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
 from api.models import EFilingSubmission as EFilingSubmissionModel
@@ -115,6 +116,11 @@ class EFilingSubmitView(generics.GenericAPIView):
             return validations_errors
 
         application = get_application_for_user(application_id, request.user.id)
+        application_steps = json.loads(
+            settings.ENCRYPTOR.decrypt(application.key_id, application.steps).decode(
+                "utf-8"
+            )
+        )
         if application.prepared_pdf_id is None:
             return JsonMessageResponse("PO PDF is not generated.", status=400)
 
@@ -127,7 +133,7 @@ class EFilingSubmitView(generics.GenericAPIView):
         del request_files
 
         data = self.efiling_parsing.convert_data_for_efiling(
-            request, application, outgoing_documents
+            request, application, application_steps, outgoing_documents
         )
 
         # EFiling upload document.
