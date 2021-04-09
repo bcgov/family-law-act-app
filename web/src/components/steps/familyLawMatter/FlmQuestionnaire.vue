@@ -121,8 +121,8 @@ export default class FlmQuestionnaire extends Vue {
 
     created() {  
         //console.log(this.step)      
-        if (this.step.result && this.step.result['selectedForm']) {
-            this.selectedForm = this.step.result['selectedForm'];
+        if (this.step.result && this.step.result['flmSelectedForm']) {
+            this.selectedForm = this.step.result['flmSelectedForm'].data;
         }
     }
 
@@ -192,7 +192,9 @@ export default class FlmQuestionnaire extends Vue {
     beforeDestroy() {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        this.UpdateStepResultData({step:this.step, data: {selectedForm: this.selectedForm}})
+        // this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: this.selectedForm}})
+        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: {}, pageName:"", currentStep:this.currentStep, currentPage:this.currentPage}}});
+   
     }
 };
 </script>
