@@ -20,7 +20,7 @@
                                     <th scope="col">Your relationship to the child</th>
                                     <th scope="col">Child's relationship to the other party</th>
                                     <th scope="col">Child currently living with</th>
-                                    <th scope="col">Additional Information</th>
+                                    <!-- <th scope="col">Additional Information</th> -->
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -28,11 +28,11 @@
                                     <div></div>
                                     <tr v-for="child in childData" :key="child.id">
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
-                                    <td>{{child.dob}}</td>
+                                    <td>{{child.dob | beautify-date}}</td>
                                     <td>{{child.relation}}</td>
                                     <td>{{child.opRelation}}</td>
                                     <td>{{child.currentLiving}}</td>
-                                    <td>{{child.additionalInfoDetails}}</td>
+                                    <!-- <td>{{child.additionalInfoDetails}}</td> -->
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
@@ -160,8 +160,9 @@ export default class ChildrenInfo extends Vue {
     }
 
     created() {
+        console.log(this.step)
         if (this.step.result && this.step.result["childData"]) {
-            this.childData = this.step.result["childData"];
+            this.childData = this.step.result["childData"].data;
         }
         if (this.step.result && this.step.result["childBestInterestAcknowledgement"]) {
             this.childBestInterestUnderstanding = this.step.result["childBestInterestAcknowledgement"];
@@ -186,6 +187,27 @@ export default class ChildrenInfo extends Vue {
 
 
         this.UpdateStepResultData({step:this.step, data: {childData: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
+        this.UpdateStepResultData({step:this.step, data: {childData: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
+    }
+
+    public getChildrenResults(){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        for(const child of this.childData)
+        {
+            questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
+        }
+        console.log(questionResults)
+        return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
+    }
+
+    public getChildInfo(child){
+        const resultString = [];
+        resultString.push("Name: "+Vue.filter('getFullName')(child.name));
+        resultString.push("Birthdate: "+Vue.filter('beautify-date')(child.dob))
+        resultString.push("Relation to Applicant: "+child.relation)
+        resultString.push("Relation to Other Party: "+child.opRelation)
+        resultString.push("Living with: "+child.currentLiving)
+        return resultString
     }
 };
 </script>

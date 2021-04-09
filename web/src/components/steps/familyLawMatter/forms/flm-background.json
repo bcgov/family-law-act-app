@@ -10,7 +10,7 @@
                "elements": [
                   {
                      "type": "yesno",
-                     "name": "existingPOOrders",
+                     "name": "ExistingOrders",
                      "title": "Are there any existing written agreements or court `order`s about parenting arrangements, `child support`, contact with a child, guardianship of a child and/or spousal support?",
                      "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
                      "isRequired": true
@@ -18,14 +18,14 @@
                   {
                      "type": "infotext",
                      "name": "attachCopyOfExistingOrders",
-                     "visibleIf": "{existingPOOrders} = 'y'",
+                     "visibleIf": "{ExistingOrders} = 'y'",
                      "title": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
                      "titleLocation": "hidden"
                   },
                   {
                      "type": "checkbox",
                      "name": "existingOrdersList",
-                     "visibleIf": "{existingPOOrders} = 'y'",
+                     "visibleIf": "{ExistingOrders} = 'y'",
                      "title": "Please select which family law matter issue your existing written agreement or court order is about:",
                      "description": "Select all that apply.",
                      "isRequired": true,
@@ -39,7 +39,7 @@
                   },
                   {
                      "type": "yesno",
-                     "name": "existingPOOrder",
+                     "name": "existingPOOrders",
                      "title": "Are there any existing court `orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders?",
                      "description": "This includes:<ul><li>any family law protection order from Provincial Court, Supreme Court, or another jurisdiction</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
                      "isRequired": true
@@ -47,7 +47,7 @@
                   {
                      "type": "infotext",
                      "name": "attachCopyOfExistingPOOrders",
-                     "visibleIf": "{existingPOOrder} = 'y'",
+                     "visibleIf": "{existingPOOrders} = 'y'",
                      "title": "You will need to include a copy of the order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
                   },

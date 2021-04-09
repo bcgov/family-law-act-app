@@ -64,6 +64,8 @@
               "name": "allResponsibilitiesOrder",
               "description": "If you get a court order that gives you all parental responsibilities for a child, it means that you get to make all decisions about a child and have full responsibility for a child. The child may have another guardian but the other guardian will not have parental responsibility for the child.",
               "title": "Are you applying for an order that gives you all parental responsibilities for a child?",
+              "visible": false,
+              "visibleIf": "(!({existing})) and ({parentalResponsibilitiesOrder} = 'y')",
               "isRequired": true
             },
             {
