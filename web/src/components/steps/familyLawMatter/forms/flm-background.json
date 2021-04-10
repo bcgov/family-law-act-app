@@ -19,7 +19,7 @@
                      "type": "infotext",
                      "name": "attachCopyOfExistingOrders",
                      "visibleIf": "{ExistingOrders} = 'y'",
-                     "title": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
+                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
                   },
                   {
@@ -48,7 +48,7 @@
                      "type": "infotext",
                      "name": "attachCopyOfExistingPOOrders",
                      "visibleIf": "{existingPOOrders} = 'y'",
-                     "title": "You will need to include a copy of the order(s) when you file your documents at the courthouse. You will be reminded to include a copy at the end of the service.",
+                     "title": "You will need to include a copy of your order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
                   },
                   {
@@ -92,7 +92,7 @@
                      "type": "yesno",
                      "name": "isSeperated",
                      "isRequired": true,
-                     "title": "Are the protected party and the other party currently separated",
+                     "title": "Are you and the other party currently separated?",
                      "description": "Spouses may be separated while continuing to live in the same residence"
                   },
                   {
