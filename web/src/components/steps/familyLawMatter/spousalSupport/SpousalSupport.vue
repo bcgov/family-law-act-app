@@ -9,9 +9,9 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/contact-with-child.json";
+import surveyJson from "./forms/spousal-support.json";
 
-import PageBase from "../PageBase.vue";
+import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ContactWithChild extends Vue {
+export default class SpousalSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -73,15 +73,8 @@ export default class ContactWithChild extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
-            // console.log(options)
-            if (options.name == "contactTypeChoices"){
-                if (options.value.includes("In person")){
-                    console.log('has person');
-                    this.survey.setVariable("InPerson", true);
-                } else {
-                    this.survey.setVariable("InPerson", false);
-                }
-            }            
+            console.log(options)
+            
         })
     }
     
@@ -89,12 +82,7 @@ export default class ContactWithChild extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['contactWithChildSurvey']) {
             this.survey.data = this.step.result['contactWithChildSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
-            if (this.survey.data.contactTypeChoices.includes("In person")){                    
-                    this.survey.setVariable("InPerson", true);
-                } else {
-                    this.survey.setVariable("InPerson", false);
-            }            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
@@ -125,5 +113,5 @@ export default class ContactWithChild extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "../../../../styles/survey";
 </style>
