@@ -186,7 +186,7 @@ export default class ChildrenInfo extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
 
-        this.UpdateStepResultData({step:this.step, data: {childData: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
+        //this.UpdateStepResultData({step:this.step, data: {childData: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
         this.UpdateStepResultData({step:this.step, data: {childData: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
     }
 

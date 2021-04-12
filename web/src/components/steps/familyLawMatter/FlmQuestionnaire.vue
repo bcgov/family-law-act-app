@@ -24,7 +24,7 @@
                 stacked
                 >                
                 <div class="checkbox-border">
-                    <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting arrangements</div>
+                    <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting Arrangements</div>
                     <p>
                         how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" :index="0"/> 
                         for decision making about a child and the <tooltip title="parenting time" :index="0"/> each guardian spends with a child. 
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="checkbox-border">
-                    <b-form-checkbox value="contactWithChild"><div class="checkbox-choices">Contact with a child</div>
+                    <b-form-checkbox value="contactWithChild"><div class="checkbox-choices">Contact With a Child</div>
                         <p>
                             time a child spends with someone who is not their guardian. This person could include a parent who is not a 
                             guardian to a child, or other people, like grandparents, elders, aunts and uncles, or a family friend.  
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="checkbox-border">
-                    <b-form-checkbox value="guardianOfChild"><div class="checkbox-choices">Guardian of a child</div>
+                    <b-form-checkbox value="guardianOfChild"><div class="checkbox-choices">Guardian Of a Child</div>
                     <p>
                         who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child. 
                         An agreement or order about parenting arrangements can say a child’s guardians share parental responsibilities 
@@ -188,13 +188,25 @@ export default class FlmQuestionnaire extends Vue {
     public onNext() {
         this.UpdateGotoNextStepPage();       
     }   
+
+    public getSelectedFormsNames(){
+        let result = ''
+        console.log(this.selectedForm)
+        for(const form of this.selectedForm){
+            if(form=='parentingArrangements') result+='Parenting Arrangements'+'\n';
+            if(form=='childSupport') result+='Child Support'+'\n';
+            if(form=='contactWithChild') result+='Contact With a Child'+'\n';
+            if(form=='guardianOfChild') result+='Guardian Of a Child'+'\n';
+            if(form=='spousalSupport') result+='Spousal Support'+'\n';
+        }
+        return result;
+    }
   
     beforeDestroy() {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        // this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: this.selectedForm}})
-        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: {}, pageName:"", currentStep:this.currentStep, currentPage:this.currentPage}}});
-   
+        const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
+        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>
