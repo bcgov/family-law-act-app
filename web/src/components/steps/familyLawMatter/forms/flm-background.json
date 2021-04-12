@@ -10,7 +10,7 @@
                "elements": [
                   {
                      "type": "yesno",
-                     "name": "ExistingOrders",
+                     "name": "ExistingOrdersFLM",
                      "title": "Are there any existing written agreements or court `order`s about parenting arrangements, `child support`, contact with a child, guardianship of a child and/or spousal support?",
                      "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
                      "isRequired": true
@@ -18,14 +18,14 @@
                   {
                      "type": "infotext",
                      "name": "attachCopyOfExistingOrders",
-                     "visibleIf": "{ExistingOrders} = 'y'",
+                     "visibleIf": "{ExistingOrdersFLM} = 'y'",
                      "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
                   },
                   {
                      "type": "checkbox",
-                     "name": "existingOrdersList",
-                     "visibleIf": "{ExistingOrders} = 'y'",
+                     "name": "existingOrdersListFLM",
+                     "visibleIf": "{ExistingOrdersFLM} = 'y'",
                      "title": "Please select which family law matter issue your existing written agreement or court order is about:",
                      "description": "Select all that apply.",
                      "isRequired": true,

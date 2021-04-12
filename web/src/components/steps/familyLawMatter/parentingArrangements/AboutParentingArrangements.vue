@@ -8,11 +8,11 @@
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/spousal-support.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import surveyJson from "./forms/about-parenting-order.json";
 
-import PageBase from "../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import PageBase from "../../PageBase.vue";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -24,13 +24,10 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class SpousalSupport extends Vue {
+export default class AboutParentingArrangements extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -41,6 +38,10 @@ export default class SpousalSupport extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
+
+    selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -69,29 +70,33 @@ export default class SpousalSupport extends Vue {
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
-    
+
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            console.log(options)
-            
+            this.UpdateSurveyChangedPO(true);
         })
     }
-    
-    public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result['contactWithChildSurvey']) {
-            this.survey.data = this.step.result['contactWithChildSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
+    public reloadPageInformation() { 
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result && this.step.result['aboutPOSurvey']){
+            this.survey.data = this.step.result['aboutPOSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+        }
+
+        console.log(this.$store.state.Application.steps)
+
+        const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
+        if(order) {
+            this.survey.setVariable("userPreferredService", order.orderType);
+        }       
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
-
+    
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
@@ -100,18 +105,18 @@ export default class SpousalSupport extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
-    
-    beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {contactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
-}
+  
+    beforeDestroy() {
+
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+
+        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "../../../../styles/survey";
 </style>

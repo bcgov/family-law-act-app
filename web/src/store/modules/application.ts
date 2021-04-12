@@ -258,21 +258,21 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "3";
-        p.label = "Parenting arrangements";
+        p.label = "Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "4";
-        p.label = "Parental responsibilities";
+        p.label = "Parental Responsibilities";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "5";
-        p.label = "Parenting time";
+        p.label = "Parenting Time";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -286,55 +286,71 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "7";
-        p.label = "Best interests of the child";
+        p.label = "Parenting Order/Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
+        
         p = {} as pageInfoType;
         p.key = "8";
-        p.label = "Child Support";
+        p.label = "About Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
+        
         p = {} as pageInfoType;
         p.key = "9";
-        p.label = "Contact with a child";
+        p.label = "Parenting Arrangement Changes";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "10";
-        p.label = "Guardian of a child";
+        p.label = "Best Interests of the Child";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "11";
-        p.label = "Spousal Support";
+        p.label = "Child Support";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
-    
+        s.pages.push(p);
+
         p = {} as pageInfoType;
         p.key = "12";
-        p.label = "Family Law Form";
+        p.label = "Contact with a Child";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "13";
+        p.label = "Guardianship of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.label = "Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+    
+       
+
+        p = {} as pageInfoType;
+        p.key = "15";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "16";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    
