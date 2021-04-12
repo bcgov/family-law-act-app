@@ -1,14 +1,14 @@
 <template>
     <step-base v-bind:step="step">
-        <flm-Questionnaire v-bind:step="step" v-if="step.currentPage == 0"></flm-Questionnaire>
-        <flm-background v-bind:step="step" v-if="step.currentPage == 1"></flm-background>
-        <children-info v-bind:step="step" v-if="step.currentPage == 2"></children-info>    
+        <flm-Questionnaire v-bind:step="step" v-if="step.currentPage == 0"/>
+        <flm-background v-bind:step="step" v-if="step.currentPage == 1"/>
+        <children-info v-bind:step="step" v-if="step.currentPage == 2"/>    
         
         
-        <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"></parenting-arrangements>    
-        <parental-responsibilities v-bind:step="step" v-if="step.currentPage == 4"></parental-responsibilities> 
-        <parenting-time v-bind:step="step" v-if="step.currentPage == 5"></parenting-time> 
-        <parental-arrangements v-bind:step="step" v-if="step.currentPage == 6"></parental-arrangements> 
+        <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"/>    
+        <parental-responsibilities v-bind:step="step" v-if="step.currentPage == 4"/> 
+        <parenting-time v-bind:step="step" v-if="step.currentPage == 5"/> 
+        <parental-arrangements v-bind:step="step" v-if="step.currentPage == 6"/> 
         
         <parenting-order-agreement v-bind:step="step" v-if="step.currentPage == 7"/>
         <about-parenting-arrangements v-bind:step="step" v-if="step.currentPage == 8"/>
@@ -16,13 +16,28 @@
         <best-interests-of-child v-bind:step="step" v-if="step.currentPage == 10"/>
 
         
-        <child-support v-bind:step="step" v-if="step.currentPage == 11"></child-support> 
-        <contact-with-child v-bind:step="step" v-if="step.currentPage == 12"></contact-with-child>  
-        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 13"></guardian-of-child>  
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 14"></spousal-support>   
+        <child-support v-bind:step="step" v-if="step.currentPage == 11"/> 
+        <child-support-current-arrangements v-bind:step="step" v-if="step.currentPage == 12"/> 
+        <income-and-earning-potential v-bind:step="step" v-if="step.currentPage == 13"/> 
+        <about-child-support-order v-bind:step="step" v-if="step.currentPage == 14"/>
+       
+        <child-support-order-agreement v-bind:step="step" v-if="step.currentPage == 15"/>
+        <about-existing-child-support v-bind:step="step" v-if="step.currentPage == 16"/> 
+        
+        <calculating-child-support v-bind:step="step" v-if="step.currentPage == 17"/>
+        <undue-hardship v-bind:step="step" v-if="step.currentPage == 18"/> 
+        <special-and-extraordinary-expenses v-bind:step="step" v-if="step.currentPage == 19"/> 
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 15"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 16"/>
+        <about-child-support-changes v-bind:step="step" v-if="step.currentPage == 20"/> 
+        <unpaid-child-support v-bind:step="step" v-if="step.currentPage == 21"/>
+
+
+        <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>  
+        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 23"/>  
+        <spousal-support v-bind:step="step" v-if="step.currentPage == 24"/>   
+
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 25"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 26"/>
     </step-base>
 </template>
 

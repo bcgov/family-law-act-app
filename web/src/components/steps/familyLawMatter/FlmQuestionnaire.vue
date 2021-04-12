@@ -117,8 +117,19 @@ export default class FlmQuestionnaire extends Vue {
     //returningUser = false
     showLegalAssistance = false
     // preparationInfo = false
-    currentStep=0;
-    currentPage=0;
+    currentStep = 0;
+    currentPage = 0;
+
+    allPages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+        
+    childrenInfoPage = [2];
+
+    // parentingArrangementsPages = [];
+    // childSupportPages = [];
+    // contactWithChildPages = []
+    // guardianOfChildPages = []
+    // spousalSupportPages = []
+
 
     created() {  
         //console.log(this.step)      
@@ -142,24 +153,29 @@ export default class FlmQuestionnaire extends Vue {
         // console.log(selectedForm)
         if (selectedForm) {
                         
-            this.togglePages([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], false);
+            this.togglePages(this.allPages, false);
+
             if (selectedForm.length > 0){
                 this.togglePages([1], true);
             }
-            if (selectedForm.includes("parentingArrangements")){
-                this.togglePages([2, 3, 4, 5, 6, 7], true);
-            } 
-            if (selectedForm.includes("childSupport")) {
-                this.togglePages([2, 8], true);
-            } 
-            if (selectedForm.includes("contactWithChild")) {
-                this.togglePages([2, 9], true);
-            } 
-            if (selectedForm.includes("guardianOfChild")) {
-                this.togglePages([2, 10], true);
-            } 
-            if (selectedForm.includes("spousalSupport")) {
-                this.togglePages([11], true);
+            // if (selectedForm.includes("parentingArrangements")){
+            //     this.togglePages(this.parentingArrangementsPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            // if (selectedForm.includes("childSupport")) {
+            //     this.togglePages(this.childSupportPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            // if (selectedForm.includes("contactWithChild")) {
+            //     this.togglePages(this.contactWithChildPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            // if (selectedForm.includes("guardianOfChild")) {
+            //     this.togglePages(this.guardianOfChildPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            if (selectedForm.length >1 || (selectedForm.length == 1 && !selectedForm.includes("spousalSupport"))) {            
+                this.togglePages(this.childrenInfoPage, true);
             }     
 
         }

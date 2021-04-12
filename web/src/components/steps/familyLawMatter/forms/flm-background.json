@@ -18,6 +18,7 @@
                   {
                      "type": "infotext",
                      "name": "attachCopyOfExistingOrders",
+                     "visible": false,
                      "visibleIf": "{ExistingOrdersFLM} = 'y'",
                      "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
@@ -25,6 +26,7 @@
                   {
                      "type": "checkbox",
                      "name": "existingOrdersListFLM",
+                     "visible": false,
                      "visibleIf": "{ExistingOrdersFLM} = 'y'",
                      "title": "Please select which family law matter issue your existing written agreement or court order is about:",
                      "description": "Select all that apply.",
@@ -32,8 +34,8 @@
                      "choices": [
                         "Parenting Arrangements including `parental responsibilities` and `parenting time`",
                         "Child Support",
-                        "Contact with a child",
-                        "Guardianship of a child",
+                        "Contact with a Child",
+                        "Guardianship of a Child",
                         "Spousal Support"
                      ]
                   },
@@ -47,6 +49,7 @@
                   {
                      "type": "infotext",
                      "name": "attachCopyOfExistingPOOrders",
+                     "visible": false,
                      "visibleIf": "{existingPOOrders} = 'y'",
                      "title": "You will need to include a copy of your order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
@@ -74,6 +77,7 @@
                   {
                      "type": "text",
                      "name": "liveTogetherPODate",
+                     "visible": false,
                      "visibleIf": "{werePOPartiesMarried} = \"y\"",
                      "title": " Date on which the parties began to live together in a marriage-like relationship",
                      "inputType": "date",
@@ -83,6 +87,7 @@
                   {
                      "type": "text",
                      "name": "dateOfMarriagePO",
+                     "visible": false,
                      "visibleIf": "{werePOPartiesMarried} = 'y' ",
                      "title": "Date of marriage",
                      "description": "Complete only if the parties were/are married",
@@ -98,6 +103,7 @@
                   {
                      "type": "text",
                      "name": "separationDate",
+                     "visible": false,
                      "visibleIf": "{isSeperated} = 'y'",
                      "title": "Parties separated on",
                      "isRequired": true,
@@ -112,6 +118,7 @@
                   },
                   {
                      "type": "comment",
+                     "visible": false,
                      "visibleIf": "{likeToAddCulturalExplanation} = \"y\"",
                      "name": "culturalExplain",
                      "title": "I would like to share the following information about my family:",
