@@ -5,6 +5,7 @@ import ContactInfo from "./components/ContactInfo.vue";
 import CustomDate from "./components/CustomDate.vue";
 import HelpText from "./components/HelpText.vue";
 import InfoText from "./components/InfoText.vue";
+import InfoTextTitle from "./components/InfoTextTitle.vue";
 import PersonName from "./components/PersonName.vue";
 import YesNo from "./components/YesNo.vue";
 
@@ -189,6 +190,36 @@ function initInfoText(Survey: any) {
   };
 
   Vue.component("InfoText", InfoText);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+function initInfoTextTitle(Survey: any) {
+  const widget = {
+    name: "InfoTextTitle",
+    title: "Message Text",
+    iconName: "icon-panel",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "infotexttitle";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("infotexttitle", [], null, "empty");
+      Survey.JsonObject.metaData.addProperties("infotexttitle", [
+        {
+          name: "body:text"
+        },
+        {
+          name: "messageStyle",
+          default: "info",
+          choices: ["info", "inline", "error","redinfo"]
+        }
+      ]);
+    }
+  };
+
+  Vue.component("InfoTextTitle", InfoTextTitle);
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
@@ -406,6 +437,7 @@ export function addQuestionTypes(Survey: any) {
   // fixCheckboxes(Survey);
   initYesNo(Survey);
   initInfoText(Survey);
+  initInfoTextTitle(Survey);
   initHelpText(Survey);
   initPersonName(Survey);
   initAddressBlock(Survey);
@@ -444,6 +476,17 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "infotext",
+      titleLocation: "hidden"
+    }
+  });
+  editor.toolbox.addItem({
+    name: "infotexttitle",
+    title: "Message Text",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "infotexttitle",
       titleLocation: "hidden"
     }
   });

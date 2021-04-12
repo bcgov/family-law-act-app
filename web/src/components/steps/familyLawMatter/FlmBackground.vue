@@ -7,6 +7,8 @@
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
+import * as _ from 'underscore';
+
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/flm-background.json";
@@ -42,14 +44,14 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    allPages = _.range(3,21)
     commonPages = [];
 
     parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
     parentingArrangementsExistingPages = [7, 8, 9, 10];    
 
-    childSupportNewPages = [];
-    childSupportExistingPages = [];
+    childSupportNewPages = [11, 12, 13, 14, 17, 18, 19];
+    childSupportExistingPages = [15, 16, 17, 20, 21];
 
     contactWithChildNewPages = []
     contactWithChildExistingPages = []
@@ -69,6 +71,7 @@ export default class FlmBackground extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
+        console.log(this.allPages)
     }
 
     public initializeSurvey(){
