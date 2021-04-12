@@ -19,7 +19,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class PreviewForms extends Vue {
+export default class PreviewFormsFlm extends Vue {
     
     // @Prop({required: true})
     // type!: string;

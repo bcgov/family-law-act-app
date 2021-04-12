@@ -93,7 +93,7 @@ export default class ParentalResponsibilities extends Vue {
         this.childData = [];        
 
         if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
+            const childData = this.step.result['childData'].data;            
             for (const child of childData){                
                 this.childData.push(child);                
                 this.surveyJsonCopy.pages[0].elements[3].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
@@ -120,7 +120,7 @@ export default class ParentalResponsibilities extends Vue {
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
-            if (backgroundSurveyData.existingOrdersList 
+            if (backgroundSurveyData.ExistingOrders == 'y' && backgroundSurveyData.existingOrdersList 
                 && backgroundSurveyData.existingOrdersList.length > 0 
                 && backgroundSurveyData.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                     this.survey.setVariable("existing", true);                    

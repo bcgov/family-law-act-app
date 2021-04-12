@@ -145,7 +145,7 @@
                      "name": "ExplanationCourtLocation",
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n'",
-                     "title": "You must file your application at the court location:<ul><li>closest to where the child lives most of the time, if your case involves a child-related issue, or</li><li>closest to where the child lives most of the time, if your case involves a child-related issue, or</li></ul>Select the court location where you will be filing:",
+                     "title": "You must file your application at the court location:<ul><li>closest to where the child lives most of the time, if your case involves a child-related issue, or</li><li>closest to where you live, if your case does not involve a child-related issue</li></ul>Select the court location where you will be filing:",
                      "titleLocation": "hidden",
                      "isRequired":true
                   },
