@@ -17,6 +17,8 @@
               "name": "newParentingArrangementsChildBestInterestDescription",
               "title": "Please explain why you believe the order about parenting arrangements you are applying for, including parental responsibilities and parenting time, is in the {childWording}’s best interests.",
               "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests.",
+              "visible": false,
+              "visibleIf": "!({existing})",
               "isRequired": true
             }
           ]
