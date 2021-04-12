@@ -15,6 +15,8 @@
               "type": "yesno",
               "name": "guardianApplicant",
               "title": "Are you a guardian of the {childWording}?",
+              "visible": false,
+              "visibleIf": "!({existing})",
               "isRequired": true
             },
             {
@@ -28,6 +30,8 @@
               "type": "yesno",
               "name": "applyingGuardianApplicant",
               "title": "Are you applying to be appointed as a guardian of the {childWording}?",
+              "visible": false,
+              "visibleIf": "!({existing})",
               "isRequired": true
             },
             {
@@ -56,12 +60,15 @@
             {
               "type": "yesno",
               "name": "parentGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)"
+              "title": "I am a parent or guardian of the child(ren)",
+              "visible": false,
+              "visibleIf": "{existing}",
+              "isRequired": true
             },
             {
               "type": "yesno",
               "name": "applyingGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)",
+              "title": "I am applying to become a guardian of the child(ren)",
               "visible": false,
               "visibleIf": "{parentGuardianApplicant} = 'n'"
             },
@@ -85,6 +92,9 @@
               "type": "radiogroup",
               "name": "existingType",
               "title": "Which do you have:",
+              "visible": false,
+              "visibleIf": "{existing} and ({parentGuardianApplicant} = 'y' or {applyingGuardianApplicant} = 'y')",          
+              "isRequired": true,
               "choices": [
                 {
                   "value": "ExistingAgreement",
@@ -95,7 +105,7 @@
                   "text": "Existing order about parenting arrangements"
                 },
                 {
-                  "value": "neither",
+                  "value": "Neither Existing Agreement nor Existing Order",
                   "text": "None of the above"
                 }
               ],
@@ -107,7 +117,7 @@
               "title": "You need to reselect the correct existing order/agreement in the 'Background' page.",
               "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{existingType} = 'neither'"
+              "visibleIf": "{existingType} = 'Neither Existing Agreement nor Existing Order'"
             },
             {
               "type": "text",

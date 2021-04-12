@@ -50,11 +50,11 @@ Vue.filter('getFullName',function(nameObject){
 
 Vue.filter('getFullAddress',function(nameObject){
 	if (nameObject) {
-		return 	nameObject.street?(nameObject.street +", "):'' +
-				nameObject.city?(nameObject.city +", "):'' +
-				nameObject.state?(nameObject.state +", "):'' +
-				nameObject.country?(nameObject.country +", "):'' +
-				nameObject.postcode;
+		return 	(nameObject.street?(nameObject.street +", "):'') +
+				(nameObject.city?(nameObject.city +", "):'') +
+				(nameObject.state?(nameObject.state +", "):'') +
+				(nameObject.country?(nameObject.country +", "):'') +
+				(nameObject.postcode);
 	} else{
 		return " "
 	}
