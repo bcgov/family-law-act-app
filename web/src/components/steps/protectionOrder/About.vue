@@ -18,6 +18,9 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import "@/store/modules/common";
+const commonState = namespace("Common");
+
 @Component({
     components:{
         PageBase
@@ -28,6 +31,9 @@ export default class About extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @commonState.State
+    public locationsInfo!: any[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -43,6 +49,7 @@ export default class About extends Vue {
 
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy;
     currentStep=0;
     currentPage=0;
    
@@ -64,7 +71,8 @@ export default class About extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForLocations();
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -75,6 +83,18 @@ export default class About extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             this.UpdateSurveyChangedPO(true);
         })
+    }
+
+    public adjustSurveyForLocations(){
+
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
+        console.log(this.surveyJsonCopy.pages[0])
+        
+        this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];        
+        
+        for(const location of this.locationsInfo){ 
+            this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
+        }
     }
 
     public reloadPageInformation() { 
