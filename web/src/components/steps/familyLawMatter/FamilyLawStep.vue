@@ -61,6 +61,16 @@ import ParentingArrangementChanges from "./parentingArrangements/ParentingArrang
 import BestInterestsOfChild from "./parentingArrangements/BestInterestsOfChild.vue";
 
 import ChildSupport from "./childSupport/ChildSupport.vue";
+import ChildSupportCurrentArrangements from "./childSupport/ChildSupportCurrentArrangement.vue"
+import IncomeAndEarningPotential from "./childSupport/IncomeAndEarningPotential.vue"
+import AboutChildSupportOrder from "./childSupport/AboutChildSupportOrder.vue"
+import ChildSupportOrderAgreement from "./childSupport/ChildSupportOrderAgreement.vue"
+import AboutExistingChildSupport from "./childSupport/AboutExistingChildSupport.vue"
+import CalculatingChildSupport from "./childSupport/CalculatingChildSupport.vue"
+import UndueHardship from "./childSupport/UndueHardship.vue"
+import SpecialAndExtraordinaryExpenses from "./childSupport/SpecialAndExtraordinaryExpenses.vue"
+import AboutChildSupportChanges from "./childSupport/AboutChildSupportChanges.vue"
+import UnpaidChildSupport from "./childSupport/UnpaidChildSupport.vue"
 
 import ContactWithChild from "./contactWithChild/ContactWithChild.vue";
 
@@ -75,10 +85,12 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
 @Component({
     components:{
         StepBase,      
-        
+
+
         FlmQuestionnaire,
         FlmBackground, 
         ChildrenInfo,
+
 
         ParentingArrangements,
         ParentalResponsibilities,
@@ -88,8 +100,22 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         AboutParentingArrangements,
         ParentingArrangementChanges,
         BestInterestsOfChild, 
+
+
+        ChildSupport, 
+        ChildSupportCurrentArrangements,
+        IncomeAndEarningPotential,
+        AboutChildSupportOrder,
+       
+        ChildSupportOrderAgreement,
+        AboutExistingChildSupport,
         
-        ChildSupport,     
+        CalculatingChildSupport,
+        UndueHardship,
+        SpecialAndExtraordinaryExpenses,
+
+        AboutChildSupportChanges,
+        UnpaidChildSupport,    
               
         ContactWithChild,
 
