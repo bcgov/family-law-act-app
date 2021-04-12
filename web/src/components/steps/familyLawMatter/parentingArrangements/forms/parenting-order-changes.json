@@ -2,226 +2,242 @@
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
         {
-            "name": "About Protection Order",
+            "name": "What parts of your order do you want changed?",
+            "visible": false,
+            "visibleIf": "{existingType} = 'ExistingOrder'",
             "elements": [
                 {
+                    "type": "infotext",
+                    "name": "ChangeOrderExplanationFAQ",
+                    "title": "An order about parenting arrangements can include terms about `parental responsibilities`, `parenting time` and other general parenting arrangements. You might not need to change all the order terms or you may want your order changed to add terms that weren’t there before.",
+                    "titleLocation": "hidden",
+                    "messageStyle": "inline"
+                },
+                {
+                    "type": "checkbox",
+                    "name": "orderChangeList",
+                    "title": "Select each option that applies to your situation. These are the things you want changed or added to an order about parenting arrangements.",
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "parentalResponsibilities",
+                            "text": "Parental Responsibilities"
+                        },
+                        {
+                            "value": "parentingTime",
+                            "text": "Parenting Time"
+                        },
+                        {
+                            "value": "conditionsOnParentingTime",
+                            "text": "Conditions on Parenting Time"
+                        },
+                        {
+                            "value": "otherTermsAboutParentingArrangements",
+                            "text": "Other terms about Parenting Arrangements"
+                        }
+                    ]
+                },
+                {
                     "type": "panel",
-                    "name": "aboutPOPanel",
+                    "name": "ChangeParentalResponsibilitiesOrderPanel",
+                    "title": "Parental Responsibilities",
+                    "visible": false,
+                    "visibleIf": "{orderChangeList} contains 'parentalResponsibilities'",
                     "elements": [
                         {
-                            "type": "text",
-                            "name": "dateOfPO",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "On what date was the Protection Order you want changed made?",
-                            "isRequired": true,
-                            "inputType": "date"
+                            "type": "infotext",
+                            "name": "ChangeParentalResponsibilitiesOrderExplanationFAQ",
+                            "title": "Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians can share parental responsibilities in whatever way works best for their child.<br>The <a href=\"https://www.leg.bc.ca/pages/bclass-legacy.aspx#/content/legacy/web/39th4th/1st_read/gov16-1.htm\" target=\"blank\">Family Law Act</a> provides a list of parental responsibilities.<br><br>If you are the only guardian for a child, you may want a court order to more easily show that you are the only person with parental responsibility for the child including making decisions about things like permission to travel and consent for medical procedures.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parental responsibilities and when. Parental responsibilities may be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline"
                         },
                         {
-                            "type": "text",
-                            "name": "terminateDateOfPO",
-                            "visibleIf": "{userPreferredService} = 'terminatePO'",
-                            "title": "On what date was the Protection Order you want terminated made?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        },
+                            "type": "comment",
+                            "name": "existingOrderChangeParentalResponsibilitiesDescription",
+                            "title": "Please describe the order about parental responsibilities you would like the court to make.",
+                            "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+                            "isRequired": true
+                        }
+                    ]
+                },
+                {
+                    "type": "panel",
+                    "name": "ChangeParentalTimeOrderPanel",
+                    "title": "Parenting Time",
+                    "visible": false,
+                    "visibleIf": "({orderChangeList} contains 'parentingTime') or ({orderChangeList} contains 'conditionsOnParentingTime')",
+                    "elements": [
                         {
                             "type": "infotext",
-                            "name": "existingCaseInfo",
-                            "title": "Please provide the following information about your family law case:",
-                            "messageStyle": "inline",
-                            "titleLocation": "hidden"
+                            "name": "ChangeParentingTimeOrderExplanationFAQ",
+                            "title": "This is the time each guardian spends with the child. Guardians can arrange parenting time in any way that is in the best interests of the child. Parenting time can be shared equally, or one guardian can have the child more of the time.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline"
                         },
+                        {
+                            "type": "comment",
+                            "name": "existingOrderChangeParentingTimeDescription",
+                            "title": "Please describe the order about parenting time you would like the court to make.",
+                            "description": "You do not need to use any special wording. You can give as much detail as you would like to ask the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. You should think about a calendar: where will your child be on different days, including holidays and vacations.",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "({orderChangeList} contains 'parentingTime')"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "existingOrderChangeParentingTimeConditionsDescription",
+                            "title": "Please describe the order about conditions on parenting time you would like the court to make.",
+                            "description": "Conditions may include things like a child’s participation in extra-curricular activities, religious or cultural events, visits by extended family or friends during parenting time, or where the parenting time will take place.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. ",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "({orderChangeList} contains 'conditionsOnParentingTime')"
+                        }
+                    ]
+                },
+                {
+                    "type": "panel",
+                    "name": "ChangeParentingArrangementsOrderPanel",
+                    "title": "Parenting Arrangements",
+                    "visible": false,
+                    "visibleIf": "({orderChangeList} contains 'otherTermsAboutParentingArrangements')",
+                    "elements": [
                         {
                             "type": "infotext",
-                            "name": "existingCaseHelp",
-                            "title": "Your court location and file number can be found on the top right corner of the Protection Order.",
-                            "titleLocation": "hidden"
-                        },
-                        {
-                            "type": "dropdown",
-                            "name": "ExistingCourt",
-                            "isRequired": true,
-                            "title": "Court Location",
-                            "choices": [
-                                "100 Mile House",
-                                "Abbotsford",
-                                "Alexis Creek",
-                                "Anahim Lake",
-                                "Ashcroft",
-                                "Bella Bella",
-                                "Bella Coola",
-                                "Burns Lake",
-                                "Campbell River",
-                                "Castlegar",
-                                "Chase",
-                                "Chetwynd",
-                                "Chilliwack",
-                                "Clearwater",
-                                "Courtenay",
-                                "Cranbrook",
-                                "Creston",
-                                "Dawson Creek",
-                                "Dease Lake",
-                                "Duncan",
-                                "Fernie",
-                                "Fort Nelson",
-                                "Fort St. James",
-                                "Fort St. John",
-                                "Fort Ware (Kwadacha)",
-                                "Fraser Lake",
-                                "Ganges",
-                                "Golden",
-                                "Gold River",
-                                "Good Hope Lake",
-                                "Grand Forks",
-                                "Hazelton",
-                                "Houston",
-                                "Hudson's Hope",
-                                "Invermere",
-                                "Kamloops",
-                                "Kelowna",
-                                "Kitimat",
-                                "Klemtu",
-                                "Lillooet",
-                                "Lower Post",
-                                "Mackenzie",
-                                "Masset",
-                                "McBride",
-                                "Merritt",
-                                "Nakusp",
-                                "Nanaimo",
-                                "Nelson",
-                                "New Aiyansh",
-                                "New Westminster",
-                                "North Vancouver",
-                                "Pemberton",
-                                "Penticton",
-                                "Port Alberni",
-                                "Port Coquitlam",
-                                "Port Hardy",
-                                "Powell River",
-                                "Prince George",
-                                "Prince Rupert",
-                                "Princeton",
-                                "Queen Charlotte",
-                                "Quesnel",
-                                "Revelstoke",
-                                "Richmond",
-                                "Rossland",
-                                "Salmon Arm",
-                                "Sechelt",
-                                "Sidney",
-                                "Smithers",
-                                "Sparwood",
-                                "Stewart",
-                                "Surrey",
-                                "Tahsis",
-                                "Terrace",
-                                "Tofino",
-                                "Tsay Keh Dene (Ingenika)",
-                                "Tumbler Ridge",
-                                "Ucluelet",
-                                "Valemount",
-                                "Vancouver Robson Square",
-                                "Vanderhoof",
-                                "Vernon",
-                                "Victoria",
-                                "Western Communities",
-                                "Williams Lake"
-                            ]
-                        },
-                        {
-                            "type": "text",
-                            "name": "ExistingFileNumber",
-                            "startWithNewLine": false,
-                            "title": "File Number",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "yesno",
-                            "name": "inCourtForPO",
-                            "title": "Were you in court when the Protection Order was made?",
-                            "isRequired": true
+                            "name": "ChangeOtherTermsAboutParentingArrangementsOrderExplanationFAQ",
+                            "title": "Sometimes there are other things related to parenting arrangements that you would like included in your court order, such as: <ul><li>how you and the other guardian will communicate with each other</li><li>exchange and transport of the children between guardians</li><li>where the children and/or guardians’ residence is located</li><li>travel with the children</li><li>what you will do if there are problems with the parenting time or other parenting issues</li><li>how you will make changes to parental responsibilities or parenting time if the child’s needs change</li></ul>Talk to a lawyer if you need help figuring out if there are other parenting arrangements your family needs to consider.<br><br>The following resources may be helpful:<br>Department of Justice <a href=\"https://www.justice.gc.ca/eng/fl-df/parent/ppc-lvppp/index.html\" target=\"blank\">Parenting Plan Checklist</a><br>Provincial Court BC – <a href=\"https://www.provincialcourt.bc.ca/downloads/pdf/Dars%20FLA%20Orders%20Bench%20Picklist%20-%20for%20website.pdf\" target=\"blank\">FLA Picklist</a>",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline"
                         },
                         {
                             "type": "comment",
-                            "name": "whyNotInCourt",
-                            "isRequired": true,
-                            "visibleIf": "{inCourtForPO} = \"n\"",
-                            "title": "Please explain why you were not in Court"
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "kindofPartyIbPO",
-                            "title": "In the Protection Order I am:",
-                            "description": "*Select all options that apply:",
-                            "isRequired": true,
-                            "choices": [
-                                {
-                                    "value": "protectedParty",
-                                    "text": "Protected Party"
-                                },
-                                {
-                                    "value": "restrainedParty",
-                                    "text": "Restrained Party"
-                                },
-                                {
-                                    "value": "parentGuardian",
-                                    "text": "Parent/Guardian of protected party"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whatChangesNeeded",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "What changes are you asking for?",
+                            "name": "existingOrderChangeOtherTermsDescription",
+                            "title": "Please describe the other order term(s) about parenting arrangements you would like the court to make.",
+                            "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
                             "isRequired": true
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whyChangesNeeded",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "Why do you want these changes?",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whyTerminatePO",
-                            "visibleIf": "{userPreferredService} = 'terminatePO'",
-                            "title": "Why do you want the order terminated?",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "changePOattachment",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "You need to attach a copy of the existing protection order when submitting this form.",
-                            "isRequired": true,
-                            "choices": [
-                                {
-                                    "value": "confirmed",
-                                    "text": "I will attach a copy of the existing protection order made on {dateOfPO}."
-                                }
-                            ]
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "terminatePOattachment",
-                            "visibleIf": "{userPreferredService} = 'terminatePO'",
-                            "title": "You need to attach a copy of the existing protection order when submitting this form.",
-                            "isRequired": true,
-                            "choices": [
-                                {
-                                    "value": "confirmed",
-                                    "text": "I will attach a copy of the existing protection order made on {terminateDateOfPO} that I am asking to have terminated."
-                                }
-                            ]
                         }
                     ]
                 }
             ],
-            "title": "About Protection Order"
+            "title": "What parts of your order do you want changed?"
+        },
+        {
+            "name": "What parts of your written agreement do you want changed?",
+            "visible": false,
+            "visibleIf": "{existingType} = 'ExistingAgreement'",
+            "elements": [
+                {
+                    "type": "infotext",
+                    "name": "ChangeAgreementExplanationFAQ",
+                    "title": "A written agreement about parenting arrangements can include terms about `parental responsibilities`, `parenting time` and other general parenting arrangements. You might not need to replace all the terms, or you may want your written agreement replaced with more terms than there were before.",
+                    "titleLocation": "hidden",
+                    "messageStyle": "inline"
+                },
+                {
+                    "type": "checkbox",
+                    "name": "orderChangeList",
+                    "title": "Select each option that applies to your situation. These are the things you want replaced or added to an order about parenting arrangements.",
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "parentalResponsibilities",
+                            "text": "Parental Responsibilities"
+                        },
+                        {
+                            "value": "parentingTime",
+                            "text": "Parenting Time"
+                        },
+                        {
+                            "value": "conditionsOnParentingTime",
+                            "text": "Conditions on Parenting Time"
+                        },
+                        {
+                            "value": "otherTermsAboutParentingArrangements",
+                            "text": "Other terms about Parenting Arrangements"
+                        }
+                    ]
+                },
+                {
+                    "type": "panel",
+                    "name": "ChangeParentalResponsibilitiesOrderPanel",
+                    "title": "Parental Responsibilities",
+                    "visible": false,
+                    "visibleIf": "{orderChangeList} contains 'parentalResponsibilities'",
+                    "elements": [
+                        {
+                            "type": "infotext",
+                            "name": "ChangeParentalResponsibilitiesOrderExplanationFAQ",
+                            "title": "Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians can share parental responsibilities in whatever way works best for their child.<br>The <a href=\"https://www.leg.bc.ca/pages/bclass-legacy.aspx#/content/legacy/web/39th4th/1st_read/gov16-1.htm\" target=\"blank\">Family Law Act</a> provides a list of parental responsibilities.<br><br>If you are the only guardian for a child, you may want a court order to more easily show that you are the only person with parental responsibility for the child including making decisions about things like permission to travel and consent for medical procedures.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parental responsibilities and when. Parental responsibilities may be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "existingOrderChangeParentalResponsibilitiesDescription",
+                            "title": "Please describe the order about parental responsibilities you would like the court to make.",
+                            "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+                            "isRequired": true
+                        }
+                    ]
+                },
+                {
+                    "type": "panel",
+                    "name": "ChangeParentalTimeOrderPanel",
+                    "title": "Parenting Time",
+                    "visible": false,
+                    "visibleIf": "({orderChangeList} contains 'parentingTime') or ({orderChangeList} contains 'conditionsOnParentingTime')",
+                    "elements": [
+                        {
+                            "type": "infotext",
+                            "name": "ChangeParentingTimeOrderExplanationFAQ",
+                            "title": "This is the time each guardian spends with the child. Guardians can arrange parenting time in any way that is in the best interests of the child. Parenting time can be shared equally, or one guardian can have the child more of the time.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "existingOrderChangeParentingTimeDescription",
+                            "title": "Please describe the order about parenting time you would like the court to make.",
+                            "description": "You do not need to use any special wording. You can give as much detail as you would like to ask the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. You should think about a calendar: where will your child be on different days, including holidays and vacations.",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "({orderChangeList} contains 'parentingTime')"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "existingOrderChangeParentingTimeConditionsDescription",
+                            "title": "Please describe the order about conditions on parenting time you would like the court to make.",
+                            "description": "Conditions may include things like a child’s participation in extra-curricular activities, religious or cultural events, visits by extended family or friends during parenting time, or where the parenting time will take place.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. ",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "({orderChangeList} contains 'conditionsOnParentingTime')"
+                        }
+                    ]
+                },
+                {
+                    "type": "panel",
+                    "name": "ChangeParentingArrangementsOrderPanel",
+                    "title": "Parenting Arrangements",
+                    "visible": false,
+                    "visibleIf": "({orderChangeList} contains 'otherTermsAboutParentingArrangements')",
+                    "elements": [
+                        {
+                            "type": "infotext",
+                            "name": "ChangeOtherTermsAboutParentingArrangementsOrderExplanationFAQ",
+                            "title": "Sometimes there are other things related to parenting arrangements that you would like included in your court order, such as: <ul><li>how you and the other guardian will communicate with each other</li><li>exchange and transport of the children between guardians</li><li>where the children and/or guardians’ residence is located</li><li>travel with the children</li><li>what you will do if there are problems with the parenting time or other parenting issues</li><li>how you will make changes to parental responsibilities or parenting time if the child’s needs change</li></ul>Talk to a lawyer if you need help figuring out if there are other parenting arrangements your family needs to consider.<br><br>The following resources may be helpful:<br>Department of Justice <a href=\"https://www.justice.gc.ca/eng/fl-df/parent/ppc-lvppp/index.html\" target=\"blank\">Parenting Plan Checklist</a><br>Provincial Court BC – <a href=\"https://www.provincialcourt.bc.ca/downloads/pdf/Dars%20FLA%20Orders%20Bench%20Picklist%20-%20for%20website.pdf\" target=\"blank\">FLA Picklist</a>",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "existingOrderChangeOtherTermsDescription",
+                            "title": "Please describe the other order term(s) about parenting arrangements you would like the court to make.",
+                            "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+                            "isRequired": true
+                        }
+                    ]
+                }
+            ],
+            "title": "What parts of your written agreement do you want changed?"
         }
     ],
     "showQuestionNumbers": "off",

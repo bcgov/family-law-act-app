@@ -46,7 +46,7 @@ export default class FlmBackground extends Vue {
     commonPages = [];
 
     parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
-    parentingArrangementsExistingPages = [7, 8, 9, 10];    
+    parentingArrangementsExistingPages = [7, 8];    
 
     childSupportNewPages = [];
     childSupportExistingPages = [];

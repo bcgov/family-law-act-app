@@ -343,14 +343,14 @@ class Application extends VuexModule {
        
 
         p = {} as pageInfoType;
-        p.key = "15";
+        p.key = "25";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "16";
+        p.key = "26";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    

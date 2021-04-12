@@ -2,226 +2,58 @@
     "title": "Provincial Court Family Law Act Protection Order",
     "pages": [
         {
-            "name": "About Protection Order",
+            "name": "Parenting Order/Agreement - Existing",
             "elements": [
+                {
+                    "type": "infotext",
+                    "name": "parentingArrangementsExistingDescription",
+                    "title": "This next section is completed only if there is an existing court order or written agreement about parenting arrangements for the child, even if it is not about you as the guardian.<br><br>Parental responsibilities and parenting time together are known as `parenting arrangements`. They must be in the best interests of the child. Only a guardian can have parental responsibilities and parenting time.<br><br>You can apply for parenting arrangements only if you are a guardian of a child or are applying to be a guardian of a child. Only a guardian can have parental responsibilities and parenting time.",
+                    "messageStyle": "inline",
+                    "titleLocation": "hidden"
+                },
                 {
                     "type": "panel",
                     "name": "aboutPOPanel",
                     "elements": [
                         {
-                            "type": "text",
-                            "name": "dateOfPO",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "On what date was the Protection Order you want changed made?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        },
-                        {
-                            "type": "text",
-                            "name": "terminateDateOfPO",
-                            "visibleIf": "{userPreferredService} = 'terminatePO'",
-                            "title": "On what date was the Protection Order you want terminated made?",
-                            "isRequired": true,
-                            "inputType": "date"
-                        },
-                        {
-                            "type": "infotext",
-                            "name": "existingCaseInfo",
-                            "title": "Please provide the following information about your family law case:",
-                            "messageStyle": "inline",
-                            "titleLocation": "hidden"
-                        },
-                        {
-                            "type": "infotext",
-                            "name": "existingCaseHelp",
-                            "title": "Your court location and file number can be found on the top right corner of the Protection Order.",
-                            "titleLocation": "hidden"
-                        },
-                        {
-                            "type": "dropdown",
-                            "name": "ExistingCourt",
-                            "isRequired": true,
-                            "title": "Court Location",
-                            "choices": [
-                                "100 Mile House",
-                                "Abbotsford",
-                                "Alexis Creek",
-                                "Anahim Lake",
-                                "Ashcroft",
-                                "Bella Bella",
-                                "Bella Coola",
-                                "Burns Lake",
-                                "Campbell River",
-                                "Castlegar",
-                                "Chase",
-                                "Chetwynd",
-                                "Chilliwack",
-                                "Clearwater",
-                                "Courtenay",
-                                "Cranbrook",
-                                "Creston",
-                                "Dawson Creek",
-                                "Dease Lake",
-                                "Duncan",
-                                "Fernie",
-                                "Fort Nelson",
-                                "Fort St. James",
-                                "Fort St. John",
-                                "Fort Ware (Kwadacha)",
-                                "Fraser Lake",
-                                "Ganges",
-                                "Golden",
-                                "Gold River",
-                                "Good Hope Lake",
-                                "Grand Forks",
-                                "Hazelton",
-                                "Houston",
-                                "Hudson's Hope",
-                                "Invermere",
-                                "Kamloops",
-                                "Kelowna",
-                                "Kitimat",
-                                "Klemtu",
-                                "Lillooet",
-                                "Lower Post",
-                                "Mackenzie",
-                                "Masset",
-                                "McBride",
-                                "Merritt",
-                                "Nakusp",
-                                "Nanaimo",
-                                "Nelson",
-                                "New Aiyansh",
-                                "New Westminster",
-                                "North Vancouver",
-                                "Pemberton",
-                                "Penticton",
-                                "Port Alberni",
-                                "Port Coquitlam",
-                                "Port Hardy",
-                                "Powell River",
-                                "Prince George",
-                                "Prince Rupert",
-                                "Princeton",
-                                "Queen Charlotte",
-                                "Quesnel",
-                                "Revelstoke",
-                                "Richmond",
-                                "Rossland",
-                                "Salmon Arm",
-                                "Sechelt",
-                                "Sidney",
-                                "Smithers",
-                                "Sparwood",
-                                "Stewart",
-                                "Surrey",
-                                "Tahsis",
-                                "Terrace",
-                                "Tofino",
-                                "Tsay Keh Dene (Ingenika)",
-                                "Tumbler Ridge",
-                                "Ucluelet",
-                                "Valemount",
-                                "Vancouver Robson Square",
-                                "Vanderhoof",
-                                "Vernon",
-                                "Victoria",
-                                "Western Communities",
-                                "Williams Lake"
-                            ]
-                        },
-                        {
-                            "type": "text",
-                            "name": "ExistingFileNumber",
-                            "startWithNewLine": false,
-                            "title": "File Number",
-                            "isRequired": true
-                        },
-                        {
                             "type": "yesno",
-                            "name": "inCourtForPO",
-                            "title": "Were you in court when the Protection Order was made?",
+                            "name": "guardianApplicant",
+                            "title": "Are you a guardian of the {childWording}?",                            
                             "isRequired": true
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whyNotInCourt",
-                            "isRequired": true,
-                            "visibleIf": "{inCourtForPO} = \"n\"",
-                            "title": "Please explain why you were not in Court"
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "kindofPartyIbPO",
-                            "title": "In the Protection Order I am:",
-                            "description": "*Select all options that apply:",
-                            "isRequired": true,
-                            "choices": [
-                                {
-                                    "value": "protectedParty",
-                                    "text": "Protected Party"
-                                },
-                                {
-                                    "value": "restrainedParty",
-                                    "text": "Restrained Party"
-                                },
-                                {
-                                    "value": "parentGuardian",
-                                    "text": "Parent/Guardian of protected party"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whatChangesNeeded",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "What changes are you asking for?",
+                          },
+                          {
+                            "type": "helptext",
+                            "name": "FAQGuardian",
+                            "title": "I am the child’s parent, does that mean I’m their guardian?",
+                            "titleLocation": "hidden",
+                            "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
+                          },
+                          {
+                            "type": "yesno",
+                            "name": "applyingGuardianApplicant",
+                            "title": "Are you applying to be appointed as a guardian of the {childWording}?",
+                            
                             "isRequired": true
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whyChangesNeeded",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "Why do you want these changes?",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "comment",
-                            "name": "whyTerminatePO",
-                            "visibleIf": "{userPreferredService} = 'terminatePO'",
-                            "title": "Why do you want the order terminated?",
-                            "isRequired": true
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "changePOattachment",
-                            "visibleIf": "{userPreferredService} = 'changePO'",
-                            "title": "You need to attach a copy of the existing protection order when submitting this form.",
-                            "isRequired": true,
-                            "choices": [
-                                {
-                                    "value": "confirmed",
-                                    "text": "I will attach a copy of the existing protection order made on {dateOfPO}."
-                                }
-                            ]
-                        },
-                        {
-                            "type": "checkbox",
-                            "name": "terminatePOattachment",
-                            "visibleIf": "{userPreferredService} = 'terminatePO'",
-                            "title": "You need to attach a copy of the existing protection order when submitting this form.",
-                            "isRequired": true,
-                            "choices": [
-                                {
-                                    "value": "confirmed",
-                                    "text": "I will attach a copy of the existing protection order made on {terminateDateOfPO} that I am asking to have terminated."
-                                }
-                            ]
-                        }
+                          },
+                          {
+                            "type": "helptext",
+                            "name": "FAQApplyingGuardian",
+                            "title": "What if my application is about more than one child and I am the guardian of one and applying to be the guardian of the other?",
+                            "titleLocation": "hidden",
+                            "body": "If this situation applies to you, select YES for both of the above questions. Once your application is"
+                          },
+                          {
+                            "type": "infotext",
+                            "name": "WrongPathwayExplanation",
+                            "visible": false,
+                            "visibleIf": "{applyingGuardianApplicant} = 'n' and {guardianApplicant} = 'n'",
+                            "title": "You have identified you are not the child’s guardian and you are not applying to become the child’s guardian. You cannot ask for parenting arrangements for a child. If you want to spend time with the child, but are not their guardian, you can ask for <b>contact with a child</b>. Go back to the ‘I need help with the following family law matter’ step and select contact with a child instead of parenting arrangements.",
+                            "titleLocation": "hidden"
+                          }
                     ]
                 }
             ],
-            "title": "About Protection Order"
+            "title": "Parenting Order/Agreement - Existing"
         }
     ],
     "showQuestionNumbers": "off",

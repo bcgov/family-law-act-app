@@ -37,11 +37,7 @@ export default class ParentingArrangementChanges extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
-    @applicationState.Action
-    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
-
-    selectedPOOrder = null;
+    
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -73,7 +69,7 @@ export default class ParentingArrangementChanges extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            this.UpdateSurveyChangedPO(true);
+            console.log(options)            
         })
     }
 
@@ -82,17 +78,15 @@ export default class ParentingArrangementChanges extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutPOSurvey']){
-            this.survey.data = this.step.result['aboutPOSurvey'].data;
+        if (this.step.result && this.step.result['parentingArrangementChangesSurvey']){
+            this.survey.data = this.step.result['parentingArrangementChangesSurvey'].data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        console.log(this.$store.state.Application.steps)
-
-        const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
-        if(order) {
-            this.survey.setVariable("userPreferredService", order.orderType);
-        }       
+        if (this.step.result && this.step.result['aboutParentingArrangementsSurvey']){
+            const aboutPA = this.step.result['aboutParentingArrangementsSurvey'].data;            
+            this.survey.setVariable("existingType", aboutPA.existingType);            
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
@@ -111,7 +105,7 @@ export default class ParentingArrangementChanges extends Vue {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {parentingAgreementChangesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>

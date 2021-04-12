@@ -73,7 +73,14 @@ export default class ParentingOrderAgreement extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            this.UpdateSurveyChangedPO(true);
+            if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
+                if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
+                    this.togglePages([8, 9, 10], false);
+                } else {
+                    this.togglePages([8], true);
+                }
+            }   
+            
         })
     }
 
@@ -82,17 +89,20 @@ export default class ParentingOrderAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutPOSurvey']){
-            this.survey.data = this.step.result['aboutPOSurvey'].data;
+        if (this.step.result && this.step.result['parentingOrderAgreementSurvey']){
+            this.survey.data = this.step.result['parentingOrderAgreementSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
+        console.log(this.step.result)
 
-        console.log(this.$store.state.Application.steps)
-
-        const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
-        if(order) {
-            this.survey.setVariable("userPreferredService", order.orderType);
-        }       
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'].data;            
+            if (childData.length>1){
+                this.survey.setVariable("childWording", "children");                    
+            } else {
+                this.survey.setVariable("childWording", "child");
+            }
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
@@ -106,12 +116,22 @@ export default class ParentingOrderAgreement extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
+    }
   
     beforeDestroy() {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {parentingOrderAgreementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>
