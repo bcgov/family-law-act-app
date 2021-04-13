@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/child-support.json";
+import surveyJson from "./forms/child-support-about-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -48,14 +48,8 @@ export default class AboutChildSupportOrder extends Vue {
     surveyJsonCopy;
     childData = [];
     overAgeChildren = [];
-    currentStep=0;
-    currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -70,7 +64,7 @@ export default class AboutChildSupportOrder extends Vue {
 
     public initializeSurvey(){
         this.adjustSurveyForChildren();
-        this.adjustSurveyForOtherParties();
+        //this.adjustSurveyForOtherParties();
         this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
@@ -81,20 +75,20 @@ export default class AboutChildSupportOrder extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
-        this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
-        this.childData = [];
-        this.overAgeChildren = [];        
+        // this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
+        // this.childData = [];
+        // this.overAgeChildren = [];        
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
-            for (const child of childData){
-                this.childData.push(child);
-                if (this.getAge(child.dob) >= 19){
-                    this.overAgeChildren.push(Vue.filter('getFullName')(child.name))
-                }
-                this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"].push(Vue.filter('getFullName')(child.name));
-            }
-        }
+        // if (this.step.result && this.step.result['childData']) {
+        //     const childData = this.step.result['childData'];            
+        //     for (const child of childData){
+        //         this.childData.push(child);
+        //         if (this.getAge(child.dob) >= 19){
+        //             this.overAgeChildren.push(Vue.filter('getFullName')(child.name))
+        //         }
+        //         this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"].push(Vue.filter('getFullName')(child.name));
+        //     }
+        // }
     }
 
     public adjustSurveyForOtherParties(){        

@@ -1,0 +1,48 @@
+{
+  "title": "Child Support About Order",
+  "pages": [
+    {
+      "name": "Child Support About Order",
+      "description":"Usually the court orders an amount of child support based on the <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html'  target='_blank'>Federal Child Support Guidelines</a>. This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.<br><br>The court can order an amount other than the guideline table amount in certain situations, such as:<ul><li>when a child is 19 or older</li><li>when the parent paying support has an income over $150,000</li><li>when parents split or share parenting time</li><li>when there is undue hardship</li></ul> The next series of questions will help inform the factors that are important for calculating child support for your family situation.",         
+      "elements": [
+        {
+          "type": "panel",
+          "name": "incomePanel",             
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "knowIncome",
+              "title":"Do you know the income of the other party?",
+              "isRequired": true              
+            },
+            {
+              "type": "comment",
+              "name": "incomeAmount",
+              "visible":false,
+              "visibleIf":"{knowIncome} == 'y'",
+              "isRequired": true,
+              "title":"I believe the other party’s annual income is: $"              
+            },
+            {
+              "type": "yesno",
+              "name": "knowFacts",
+              "title":"Do you know any `facts` about the other party’s employment, training, health and ability to work?",
+              "isRequired": true              
+            },
+            {
+              "type": "comment",
+              "name": "factsExplanation",
+              "visible":false,
+              "visibleIf":"{knowFacts} == 'y'",
+              "isRequired": true,
+              "title":"I know the following facts about the other party’s employment, training, health and ability to work:"              
+            }            
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

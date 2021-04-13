@@ -8,8 +8,8 @@
     }"
   >
     <div class="panel-heading">
-      <label class="panel-title">
-        <span
+      <!-- <label class="panel-title">
+        <div
           class="heading-icon fa"
           v-if="
             question.messageStyle === 'error' ||
@@ -19,9 +19,9 @@
             'fa-ban': question.messageStyle === 'error',
             'fa-info-circle': question.messageStyle === 'info'
           }"
-        ></span>
-        <!-- <span class="title-text" v-html="titleHtml"></span> -->
-      </label>
+        ></div>
+        <span class="title-text" v-html="titleHtml"></span>
+      </label> -->
     </div>
     <div class="panel-body" v-if="bodyHtml" v-html="bodyHtml"></div>
     <div class="row accept-row" v-if="question.isRequired && !value">
