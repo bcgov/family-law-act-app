@@ -44,7 +44,7 @@
               "name": "FAQLawyer1",
               "title": "What if I plan to get a lawyer but I haven't done that yet?",
               "titleLocation": "hidden",
-              "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
+              "body": "Until you hire a lawyer, you will need to provide a different address where you can receive court document. Select no for the question above.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
             },
             {
               "type": "helptext",
