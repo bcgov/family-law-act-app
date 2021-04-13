@@ -1,0 +1,49 @@
+{
+  "title": "Best interests of the child",
+  "pages": [
+    {
+      "name": "Best interests of the child",
+      "description": "When you make parenting arrangements, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
+      "elements": [
+        
+        {
+          "type": "panel",
+          "name": "NewChildBestInterestPanel",
+          "visible": false,
+          "visibleIf": "!({existing})",
+          "elements": [            
+            {
+              "type": "comment",
+              "name": "newParentingArrangementsChildBestInterestDescription",
+              "title": "Please explain why you believe the order about parenting arrangements you are applying for, including parental responsibilities and parenting time, is in the {childWording}’s best interests.",
+              "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests.",
+              "visible": false,
+              "visibleIf": "!({existing})",
+              "isRequired": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingChildBestInterestPanel",
+          "visible": false,
+          "visibleIf": "({existing})",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "existingParentingArrangementsChildBestInterestDescription",
+              "title": "Please explain why you believe the order you are applying for is in the {childWording}’s best interests.",
+              "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want the court to make is in the child’s best interests.",
+              "visible": false,
+              "visibleIf": "({existing})",
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Best interests of the child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

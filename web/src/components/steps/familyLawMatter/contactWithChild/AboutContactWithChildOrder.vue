@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/contact-with-child.json";
+import surveyJson from "./forms/about-contact-with-child-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ContactWithChild extends Vue {
+export default class AboutContactWithChildOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;   
@@ -71,13 +71,14 @@ export default class ContactWithChild extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if (this.survey.data.parentGuardianApplicant) {
-                if (this.survey.data.parentGuardianApplicant == 'y') {
-                    this.togglePages([23, 24], false);
+            if (options.name == "contactTypeChoices"){
+                if (options.value.includes("In person")){
+                    console.log('has person');
+                    this.survey.setVariable("InPerson", true);
                 } else {
-                    this.togglePages([23, 24], true);
+                    this.survey.setVariable("InPerson", false);
                 }
-            }             
+            }            
         })
     }
     
@@ -115,17 +116,7 @@ export default class ContactWithChild extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-    
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
+    }  
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);

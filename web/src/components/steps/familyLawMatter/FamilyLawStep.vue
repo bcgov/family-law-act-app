@@ -32,12 +32,18 @@
         <unpaid-child-support v-bind:step="step" v-if="step.currentPage == 21"/>
 
 
-        <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>  
-        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 23"/>  
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 24"/>   
+        <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>
+        <about-contact-with-child-order v-bind:step="step" v-if="step.currentPage == 23"/>
+        <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 24"/>
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 25"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 26"/>
+
+
+
+        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 25"/>  
+        <spousal-support v-bind:step="step" v-if="step.currentPage == 26"/>   
+
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 27"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 28"/>
     </step-base>
 </template>
 
@@ -73,6 +79,8 @@ import AboutChildSupportChanges from "./childSupport/AboutChildSupportChanges.vu
 import UnpaidChildSupport from "./childSupport/UnpaidChildSupport.vue"
 
 import ContactWithChild from "./contactWithChild/ContactWithChild.vue";
+import AboutContactWithChildOrder from "./contactWithChild/AboutContactWithChildOrder.vue";
+import ContactWithChildBestInterestsOfChild from "./contactWithChild/ContactWithChildBestInterestsOfChild.vue";
 
 import GuardianOfChild from "./guardianOfChild/GuardianOfChild.vue";
 
@@ -118,6 +126,8 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         UnpaidChildSupport,    
               
         ContactWithChild,
+        AboutContactWithChildOrder,
+        ContactWithChildBestInterestsOfChild,
 
         GuardianOfChild,
 
