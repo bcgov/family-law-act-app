@@ -4,7 +4,7 @@ from api.efiling import EFilingResources
 
 
 class EFilingLocationView(generics.GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         court_locations = EFilingResources().get_courts()

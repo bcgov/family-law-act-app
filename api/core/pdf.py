@@ -9,7 +9,7 @@ from PIL import Image
 PDF_URL = os.environ.get("PDF_SERVICE_URL")
 
 
-def render(*html):
+def render(html):
     """
     Calls the PDF rendering microservice to convert html into
     a PDF file.
