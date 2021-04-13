@@ -29,37 +29,6 @@
         },
         {
           "type": "panel",
-          "name": "ExistingApplicantParentingTimePanel",
-          "visible": false,
-          "visibleIf": "{existing}",
-          "elements": [
-            {
-              "type": "yesno",
-              "name": "parentGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)",
-              "visible": false,
-              "visibleIf": "{existing}",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "applyingGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n'"
-            },
-            {
-              "type": "infotext",
-              "name": "ifChildFAQ",
-              "title": "You need to complete a 'Contact with a Child' application.",
-              "titleLocation": "hidden",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'"
-            }
-          ]
-        },
-        {
-          "type": "panel",
           "name": "ParentingResponsibilityApplicationPanel",
           "visible": false,
           "visibleIf": "(!({existing})) and ({parentalResponsibilitiesOrder} = 'y')",

@@ -32,7 +32,7 @@
             {
               "type": "comment",
               "name": "existingParentingArrangementsChildBestInterestDescription",
-              "title": "Please explain why you believe the order you are applying for is in the child/children’s best interests.",
+              "title": "Please explain why you believe the order you are applying for is in the {childWording}’s best interests.",
               "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want the court to make is in the child’s best interests.",
               "visible": false,
               "visibleIf": "({existing})",

@@ -14,9 +14,7 @@
             {
               "type": "yesno",
               "name": "parentingTimeOrder",
-              "title": "Are you applying for an order about parenting time?",
-              "visible": false,
-              "visibleIf": "!({existing})",
+              "title": "Are you applying for an order about parenting time?",             
               "isRequired": true
             }
           ]
@@ -25,7 +23,7 @@
           "type": "panel",
           "name": "ApplicantParentingTimeApplicationPanel",
           "visible": false,
-          "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+          "visibleIf": "{parentingTimeOrder} = 'y'",
           "elements": [
             {
               "type": "comment",
@@ -33,7 +31,7 @@
               "title": "I am asking for the {childWording} to spend time with me as follows:",
               "description": "You can give as much detail as you would like to ask the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. You should think about a calendar: where will your child be on different days, including holidays and vacations.",
               "visible": false,
-              "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+              "visibleIf": "{parentingTimeOrder} = 'y'",
               "isRequired": true
             },
             {
@@ -42,7 +40,7 @@
               "description": "Consider if there should be any conditions related to the parenting time. Conditions may include things like a child’s participation in extra-curricular activities, religious or cultural events, visits by extended family or friends during parenting time, or where the parenting time will take place.",
               "title": "Do you think the court order should include any conditions related to your parenting time?",
               "visible": false,
-              "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+              "visibleIf": "{parentingTimeOrder} = 'y'",
               "isRequired": true
             },
             {
@@ -52,7 +50,7 @@
               "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "!({existing})) and ({parentingTimeOrder} = 'y' and {conditionedApplicantParentingTime} = 'y'"
+              "visibleIf": "{parentingTimeOrder} = 'y' and {conditionedApplicantParentingTime} = 'y'"
             }
           ]
         },
@@ -60,7 +58,7 @@
           "type": "panel",
           "name": "RespondentParentingTimeApplicationPanel",
           "visible": false,
-          "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+          "visibleIf": "{parentingTimeOrder} = 'y'",
           "elements": [
             {
               "type": "comment",
@@ -68,7 +66,7 @@
               "title": "I am asking for the {childWording} to spend time with the other party as follows:",
               "description": "You can give as much detail as you would like to ask the court to include in the order. You know your family. If you think lots of detail is needed, make sure you make that clear here. You should think about a calendar: where will your child be on different days, including holidays and vacations.",
               "visible": false,
-              "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+              "visibleIf": "{parentingTimeOrder} = 'y'",
               "isRequired": true
             },
             {
@@ -77,7 +75,7 @@
               "description": "Consider if there should be any conditions related to the parenting time. Conditions may include things like a child’s participation in extra-curricular activities, religious or cultural events, visits by extended family or friends during parenting time, or where the parenting time will take place.",
               "title": "Do you think the court order should include any conditions related to the other party’s parenting time?",
               "visible": false,
-              "visibleIf": "(!({existing})) and ({parentingTimeOrder} = 'y')",
+              "visibleIf": "({parentingTimeOrder} = 'y')",
               "isRequired": true
             },
             {
@@ -87,7 +85,7 @@
               "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "!({existing})) and ({parentingTimeOrder} = 'y' and {conditionedRespondentParentingTime} = 'y'"
+              "visibleIf": "{parentingTimeOrder} = 'y' and {conditionedRespondentParentingTime} = 'y'"
             }
           ]
         }

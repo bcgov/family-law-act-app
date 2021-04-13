@@ -89,14 +89,14 @@ export default class ParentalResponsibilities extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
-        this.surveyJsonCopy.pages[0].elements[3].elements[1]["choices"]=[];
+        this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"]=[];
         this.childData = [];        
 
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'].data;            
             for (const child of childData){                
                 this.childData.push(child);                
-                this.surveyJsonCopy.pages[0].elements[3].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
             }                       
         }
     }
@@ -131,6 +131,7 @@ export default class ParentalResponsibilities extends Vue {
         
         if (this.childData.length == 1){
             this.survey.setValue("childrenRequestedResponsibilities", Vue.filter('getFullName')(this.childData[0].name));
+            this.survey.setVariable("allChildrenSelected", true);  
         }
 
         this.currentStep = this.$store.state.Application.currentStep;

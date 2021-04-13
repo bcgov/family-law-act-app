@@ -70,13 +70,24 @@ export default class AboutParentingArrangements extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            console.log(this.survey.data.agreementDifferenceType)
 
-            if(this.survey.data.orderDifferenceType == 'changeOrder' || this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([9], true);
-                this.togglePages([10], false);
-            } else if(this.survey.data.orderDifferenceType == 'cancelOrder' || this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([10], true);
-                this.togglePages([9], false);
+            if (this.survey.data.existingType == 'ExistingOrder') {
+                if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                    this.togglePages([9], true);
+                    this.togglePages([10], false);
+                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                    this.togglePages([10], true);
+                    this.togglePages([9], false);
+                }
+            } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
+                    this.togglePages([9], true);
+                    this.togglePages([10], false);
+                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+                    this.togglePages([10], true);
+                    this.togglePages([9], false);
+                }
             }           
             
         })
