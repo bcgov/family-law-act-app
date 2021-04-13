@@ -1,0 +1,139 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+        {
+            "name": "About the existing order or written agreement",
+            "elements": [
+                {
+                    "type": "panel",
+                    "name": "ExistingInfoPanel",
+                    "elements": [
+                        {
+                            "type": "radiogroup",
+                            "name": "existingType",
+                            "title": "Which do you have:",
+                            "description": "Select the correct option.",
+                            "isRequired": true,
+                            "choices": [
+                                {
+                                    "value": "ExistingOrder",
+                                    "text": "Court Order about parenting arrangements."
+                                },
+                                {
+                                    "value": "ExistingAgreement",
+                                    "text": "Written Agreement about parenting arrangements"
+                                },
+                                {
+                                    "value": "Neither",
+                                    "text": "None of the above"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ifNeitherexistingFAQ",
+                            "title": "In a previous step you identified that you had an existing order or written agreement about parenting arrangements. If you need an order about parenting arrangements, and there is no order or written agreement already in place, please return to the Background step and de-select parenting arrangements under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
+                            "titleLocation": "hidden",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'Neither'"
+                        },
+                        {
+                            "type": "text",
+                            "name": "orderDate",
+                            "title": "Please provide the date the court made the order.",
+                            "description": "The date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+                            "isRequired": true,
+                            "inputType": "date",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'"
+                        },
+                        {
+                            "type": "text",
+                            "name": "agreementDate",
+                            "title": "Please provide the date the written agreement was signed.",
+                            "isRequired": true,
+                            "inputType": "date",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ChangeOrderExplanationFAQ",
+                            "title": "Family dynamics change and children grow up.  A parenting order that was made in the past may not make sense anymore.<br>The court can only change or cancel an order if there has been a change in the needs or circumstances of the child since the original court order was made, including a change in the circumstances of another person such as a parent.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'"
+                        },
+                        {
+                            "type": "infotext",
+                            "name": "ChangeAgreementExplanationFAQ",
+                            "title": "Family dynamics change and children grow up.  A written agreement that was made in the past may not make sense anymore. <br>The court can only set aside or replace an agreement if it is not in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"blank\">best interests of the child</a>.",
+                            "titleLocation": "hidden",
+                            "messageStyle": "inline",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "changesSinceOrder",
+                            "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
+                            "description": "You do not need to use any special wording. The key is to be clear about what needs or circumstances have changed.",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'"
+                        },
+                        {
+                            "type": "comment",
+                            "name": "changesSinceAgreement",
+                            "title": "Explain to the court why you believe the agreement is not in the best interests of the child.",
+                            "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'"
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "orderDifferenceType",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingOrder'",
+                            "title": "Do you want the existing order changed or cancelled?",
+                            "description": "You can apply to change the existing order if you still need an order about parenting arrangements, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
+                            "choices": [
+                                {
+                                    "value": "changeOrder",
+                                    "text": "Change"
+                                },
+                                {
+                                    "value": "cancelOrder",
+                                    "text": "Cancel"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "radiogroup",
+                            "name": "agreementDifferenceType",
+                            "visible": false,
+                            "visibleIf": "{existingType} = 'ExistingAgreement'",
+                            "title": "Do you want the existing written agreement set aside or replaced?",
+                            "description": "You can apply to set aside (cancel) all or part of the existing agreement if you believe that it is not in the best interests of the child.  You can also apply to replace (change) all or part of the existing agreement if you believe something different would be in the best interests of the child.<br><br>Select the option that fits your situation.",
+                            "choices": [
+                                {
+                                    "value": "setAsideAgreement",
+                                    "text": "Set aside"
+                                },
+                                {
+                                    "value": "replacedAgreement",
+                                    "text": "Replace"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "title": "About the existing order or written agreement"
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

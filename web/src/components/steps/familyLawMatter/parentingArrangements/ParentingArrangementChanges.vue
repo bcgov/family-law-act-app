@@ -8,8 +8,8 @@
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/parental-arrangements.json";
+import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import surveyJson from "./forms/parenting-order-changes.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -23,10 +23,11 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class ParentalArrangements extends Vue {
+
+export default class ParentingArrangementChanges extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;   
+    step!: stepInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -36,11 +37,10 @@ export default class ParentalArrangements extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-
+    
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-    existing = false;
    
     @Watch('pageIndex')
     pageIndexChange(newVal) 
@@ -66,38 +66,31 @@ export default class ParentalArrangements extends Vue {
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
-    
+
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            console.log(options)
-            
+            console.log(options)            
         })
     }
-    
-    public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result['parentalArrangementsSurvey']) {
-            this.survey.data = this.step.result['parentalArrangementsSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                    this.survey.setVariable("existing", true);                    
-                } else {
-                    this.survey.setVariable("existing", false);
-                }
-        }
-
+    public reloadPageInformation() { 
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result && this.step.result['parentingArrangementChangesSurvey']){
+            this.survey.data = this.step.result['parentingArrangementChangesSurvey'].data;            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+        }
+
+        if (this.step.result && this.step.result['aboutParentingArrangementsSurvey']){
+            const aboutPA = this.step.result['aboutParentingArrangementsSurvey'].data;            
+            this.survey.setVariable("existingType", aboutPA.existingType);            
+        }
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
-
+    
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
@@ -106,13 +99,18 @@ export default class ParentalArrangements extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
-    
-    beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {parentalArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-}
+  
+    beforeDestroy() {
+
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+
+        this.UpdateStepResultData({step:this.step, data: {parentingAgreementChangesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+    }
+};
 </script>
 
-
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss">
+@import "../../../../styles/survey";
+</style>

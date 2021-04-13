@@ -74,9 +74,9 @@ export default class ParentingArrangements extends Vue {
             // console.log(options)
             if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
                 if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                    this.togglePages([4, 5, 6, 7], false);
+                    this.togglePages([4, 5, 6, 10], false);
                 } else {
-                    this.togglePages([4, 5, 6, 7], true);
+                    this.togglePages([4, 5, 6, 10], true);
                 }
             }          
             
@@ -92,9 +92,9 @@ export default class ParentingArrangements extends Vue {
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
-            if (backgroundSurveyData.ExistingOrders == 'y' && backgroundSurveyData.existingOrdersList 
-                && backgroundSurveyData.existingOrdersList.length > 0 
-                && backgroundSurveyData.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
+                && backgroundSurveyData.existingOrdersListFLM.length > 0 
+                && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                     this.survey.setVariable("existing", true);                    
                 } else {
                     this.survey.setVariable("existing", false);
@@ -102,7 +102,7 @@ export default class ParentingArrangements extends Vue {
         }
 
         if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
+            const childData = this.step.result['childData'].data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
