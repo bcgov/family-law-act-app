@@ -39,6 +39,7 @@ export default class AboutContactWithChildOrder extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy;
     currentStep=0;
     currentPage=0;
    
@@ -60,7 +61,8 @@ export default class AboutContactWithChildOrder extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForChildren();
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -69,7 +71,7 @@ export default class AboutContactWithChildOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
+            console.log(this.survey.data);
             // console.log(options)
             if (options.name == "contactTypeChoices"){
                 if (options.value.includes("In person")){
@@ -78,8 +80,29 @@ export default class AboutContactWithChildOrder extends Vue {
                 } else {
                     this.survey.setVariable("InPerson", false);
                 }
-            }            
+            } 
+            
+            if (this.survey.data.childrenRequireContactChoices){
+                if (this.survey.data.childrenRequireContactChoices.length>1){
+                    this.survey.setVariable("selectedChildWording", "children");                    
+                } else {
+                    this.survey.setVariable("selectedChildWording", "child");
+                }
+            }
         })
+    }
+
+    public adjustSurveyForChildren(){
+
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
+        this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"]=[];        
+
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'].data;            
+            for (const child of childData){
+                this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
+            }                       
+        }
     }
     
     public reloadPageInformation() {
@@ -87,6 +110,15 @@ export default class AboutContactWithChildOrder extends Vue {
         if (this.step.result && this.step.result['contactWithChildSurvey'] && this.step.result['contactWithChildSurvey'].data) {
             this.survey.data = this.step.result['contactWithChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+
+            if (this.survey.data.childrenRequireContactChoices){
+                if (this.survey.data.childrenRequireContactChoiceslength>1){
+                    this.survey.setVariable("selectedChildWording", "children");                    
+                } else {
+                    this.survey.setVariable("selectedChildWording", "child");
+                }
+            }
+
             if (this.survey.data.contactTypeChoices && this.survey.data.contactTypeChoices.includes("In person")){                    
                     this.survey.setVariable("InPerson", true);
                 } else {

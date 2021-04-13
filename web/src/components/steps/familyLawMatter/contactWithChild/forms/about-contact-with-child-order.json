@@ -1,52 +1,18 @@
 {
-  "title": "Contact With a Child - New",
+  "title": "About the order",
   "pages": [
     {
-      "name": "Contact With a Child - New",
-      "elements": [
-        {
-          "type": "infotext",
-          "name": "contactWithChildDescription",
-          "title": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/i-am-not-the-child-s-guardian-can-i-still-have-contact-with-the-child\" target=\"blank\">Contact with a child</a> is the time a child spends with someone who is not their guardian. Usually, a child’s parent is also the child’s guardian. A parent is a child’s guardian if:<ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but do not live with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul><br>A parent can become a guardian of a child through a court order or by an agreement with all the other guardians of the child. A non-parent can become a guardian through a court order.<br><br>Children often have important relationships with people other than their parents. These include grandparents, elders, relatives, and others close to the child. Usually these relationships are supported by the parents or guardians.<br><br>If an agreement is not possible, the person who believes they should have contact with the child can apply for a court order. The court will make a decision about contact with the child based on the best interests of the child.",
-          "messageStyle": "inline",
-          "titleLocation": "hidden"
-        },
+      "name": "About the order",
+      "description": "You can apply to the court for an order for contact with a child. The order will usually include details about how the contact will happen.",
+      "elements": [ 
         {
           "type": "panel",
-          "name": "ApplicantPanel",
-          "elements": [
-            {
-              "type": "yesno",
-              "name": "parentGuardianApplicant",
-              "title": "Are you a guardian of the {childWording}?"
-            },
-            {
-              "type": "helptext",
-              "name": "FAQParentGuardian",
-              "title": "I am the child's parent, does that mean I am their guardian?",
-              "titleLocation": "hidden",
-              "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.<br><br>A person who is not a parent can become a guardian of a child by court order or under a will.<br><br>If you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
-            },
-            {
-              "type": "infotext",
-              "name": "parentGuardianApplicantFAQ",
-              "title": "You have identified you are the child’s guardian. Only a person who is <b>not</b> a child’s guardian can have contact with a child. <b>A guardian would have parenting time.</b>  If you want to spend time with the child, and you are their guardian, you can ask for <b>parenting time</b>. Go back to the ‘I need help with the following family law matter’ step and select parenting arrangements instead of contact with a child. If you are not the guardian of one or more children identified in this application, select NO to the above question and you can select only the child or children you are asking to have contact with.",
-              "titleLocation": "hidden",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'y'"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "nonParentGuardianPanel",
-          "visible": false,
-          "visibleIf": "{parentGuardianApplicant} = 'n'",
+          "name": "nonParentGuardianPanel",          
           "elements": [
             {
               "type": "checkbox",
               "name": "childrenRequireContactChoices",
-              "title": "Select each child that you want to apply to have contact with",
+              "title": "Select each child from the list below that you want an order for contact with.",
               "isRequired": true,
               "choices": [
                 "child1",
@@ -54,10 +20,17 @@
               ]
             },
             {
+              "type": "text",
+              "name": "lastContactDate",
+              "title": "When did you last have contact with the {selectedChildWording}?",
+              "description": "If you do not remember the exact date, pick any date on or around the time you last remember having contact. If there is more than one child, pick the most recent date you had contact with any of the children.",
+              "inputType": "date"
+            },
+            {
               "type": "checkbox",
               "name": "contactTypeChoices",
-              "title": "I am applying for contact with the child(ren) as follows:",
-              "description": "The order will usually include details about how the contact will happen.  Tell the court and the other party what contact you are asking for.  Think about your relationship with the child(ren) and their parent(s)/guardian(s) to decide what the contact should look like.<br><br>Select all that apply",
+              "title": "Tell the court and the other party what contact you are asking for.",
+              "description": "Select each option that applies.",
               "isRequired": true,
               "hasOther": true,
               "choices": [
@@ -116,12 +89,7 @@
               "visible": false,
               "visibleIf": "{placeConditions} = 'willing'"
             },
-            {
-              "type": "text",
-              "name": "lastContactDate",
-              "title": "I last had contact with the child(ren) on or around:",
-              "inputType": "date"
-            },
+            
             {
               "type": "comment",
               "name": "newContactOrderChildBestInterestDescription",
@@ -132,7 +100,7 @@
           ]
         }
       ],
-      "title": "Contact With a Child - New"
+      "title": "About the order"
     }
   ],
   "showQuestionNumbers": "off",

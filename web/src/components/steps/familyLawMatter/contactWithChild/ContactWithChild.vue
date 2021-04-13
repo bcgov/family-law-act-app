@@ -85,12 +85,7 @@ export default class ContactWithChild extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['contactWithChildSurvey'] && this.step.result['contactWithChildSurvey'].data) {
             this.survey.data = this.step.result['contactWithChildSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
-            if (this.survey.data.contactTypeChoices && this.survey.data.contactTypeChoices.includes("In person")){                    
-                    this.survey.setVariable("InPerson", true);
-                } else {
-                    this.survey.setVariable("InPerson", false);
-            }            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
         if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            
