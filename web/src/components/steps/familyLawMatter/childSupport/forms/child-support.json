@@ -8,19 +8,19 @@
         {
           "type": "panel",
           "name": "ChildSupportPanel",
-          "isRequired": true,
           "elements": [           
             {
               "type": "infotexttitle",
-              "name": "ChildSupportGuardianSelectionHelp", 
+              "name": "GuardianTypeSelectionHelp", 
               "title": "Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.",            
               "description":"If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option.",
               "messageStyle": "inline"
             },
             {
               "type": "radiogroup",
-              "name": "applicantChildSupportGuardianSelection",
+              "name": "applicantGuardianType",
               "title":"I am:",
+              "isRequired": true,
               "hasOther": true,              
               "choices": [
                 {
@@ -36,160 +36,32 @@
             },
             {
               "type": "radiogroup",
-              "name": "otherPartyChildSupportGuardianSelection",
-              "title":"{otherParty} is:",
+              "name": "otherParty[0]GuardianType",
+              "title":"Other Party is:",
+              "isRequired": true,
               "hasOther": true,
               "otherText": "Other (For example, a step-parent.)",
-              "choices": [
-                {
-                  "value": "guardian",
-                  "text": "A parent or guardian of the child(ren)"
-                },
-                {
-                  "value": "onBehalfChild",
-                  "text": "A person standing in the place of a parent to the child(ren)"
-                }
-              ],
-              "choicesOrder": "asc"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "RespondantPanel",
-          "isRequired": true,
-          "elements": [
-            {
-              "type": "radiogroup",
-              "name": "respondantType",
-              "title": "The 'Other Party' is",
-              "hasOther": true,
-              "isRequired": true,
               "choices": [
                 {
                   "value": "parentGuardian",
                   "text": "A parent or guardian of the child(ren)"
                 },
                 {
-                  "value": "parentSubstitute",
-                  "text": "A person standing in the place of a parent to the child(ren) [for example step parent] "
+                  "value": "appointedGuardian",
+                  "text": "A person standing in the place of a parent to the child(ren)"
                 }
               ],
               "choicesOrder": "asc"
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4Info",
+              "visible":false,
+              "visibleIf":"{applicantGuardianType} == 'parentGuardian'",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
+              "titleLocation":"hidden",
+              "messageStyle": "info"
             }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "ParentingDescriptionPanel",
-          "isRequired": true,
-          "visible": false,
-          "visibleIf": "{respondantType} notempty",
-          "elements": [
-            {
-              "type": "comment",
-              "name": "howChildSpendTimeWithParties",
-              "title": "Describe how the child(ren) spend time with the parties",
-              "description": "The amount of time a child lives with each parent or guardian may determine who may be required to pay child support.  The time a child lives with each parent or guardian includes the time that they are responsible for the child, even if the child is not physically with them.<br><br>If the child lives with more than one parent or guardian try to describe the amount of time they live with each parent over a period of one year.  If you can estimate a percentage of time, it is helpful for the court.  For example, if they live two days a week with one parent and the rest with the other, they live approximately 30% of the time with the first parent and 70% with the other.<br><br>If you have more than one child and the living arrangements are different for each child, try to be clear about the amount of time a time each child lives with each parent.",
-              "isRequired": true
-            },
-            {
-              "type": "radiogroup",
-              "name": "parentingType",
-              "visible": false,
-              "visibleIf": "{howChildSpendTimeWithParties} notempty",
-              "title": "Based on above, would you describe the arrangement as `split parenting` or `shared parenting` time?",
-              "description": "Parenting time may be shared equally by the parents, split between the parents, with one or more children each living with a different parent, or the children may live only or primarily with one parent.",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "shared",
-                  "text": "Shared"
-                },
-                {
-                  "value": "split",
-                  "text": "Split"
-                }
-              ],
-              "choicesOrder": "asc"
-            },
-            {
-              "type": "comment",
-              "name": "currentSupportArrangements",
-              "title": "The current support arrangements are as follows:",
-              "description": "You do not need to use any special wording.  Just explain to the court how the child(ren) is/are currently being looked after financially.  Include:  how much money are you receiving or paying for the support of the child(ren), how often and when did these payments begin or stop.",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "applicantIncome",
-              "description": "When a parent has an income over $150,000, the <i>Federal Child Support Guidelines</i> may apply a little differently. This information will help to determine if you need to provide more financial information to the court.",
-              "title": "Is your annual income $150,000 or less?",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "knowRespondentIncome",
-              "title": "Do you know the other party's income?",
-              "isRequired": true
-            },
-            {
-              "type": "text",
-              "name": "respondentIncome",
-              "title": "The other party's annual income is:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{knowRespondentIncome} = 'y'"
-            },
-            {
-              "type": "comment",
-              "name": "otherPartyInformation",
-              "title": "I know the following facts about the other party's employment, training, health, and ability to work:",
-              "description": "The court requires financial information to be able to decide on a fair and proper amount for child support.  The other party will be asked to give their own financial information to the court, but if they do not, the court may impute income (decide how much income a person makes or should be making).  The court will look at the information you have provided about the other party's income, if known, and anything you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training that they have, to make this decision. Only provide information you know. If you don't have any factual information, you can leave this section blank."
-            },
-            {
-              "type": "checkbox",
-              "name": "childSupportChoices",
-              "title": "I am asking for support to be paid by:",
-              "isRequired": true,
-              "choices": [
-                "{ApplicantName}",
-                "{RespondentName}"
-              ]
-            },
-            {
-              "type": "checkbox",
-              "name": "childrenRequireSupportChoices",
-              "title": "For which child(ren) are you asking for support for?",
-              "isRequired": true,
-              "choices": [
-                "child1",
-                "child2"
-              ]
-            },
-            {
-              "type": "paneldynamic",
-              "name": "OlderChildDynamicPanel",
-              "visible": false,
-              "visibleIf":"{overAgeChildSelected}",
-              "title": "Since you are asking for support for a child who is over the age of 19, please select the option that best describes the reason.",
-              "valueName": "otherChildInfo",
-              "templateElements": [
-               {
-                "type": "radiogroup",
-                "name": "whyOlderChildNeedSupport",
-                "title": "Why are you asking for support for {panel.name}?",
-                "isRequired": true,
-                "choices": [
-                 "Illness",
-                 "Disability",
-                 "Student"
-                ]
-               }
-              ],
-              "allowAddPanel": false,
-              "allowRemovePanel": false
-             }
           ]
         }
       ],
