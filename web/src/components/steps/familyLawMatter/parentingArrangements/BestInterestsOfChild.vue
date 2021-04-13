@@ -84,13 +84,13 @@ export default class BestInterestsOfChild extends Vue {
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
-            if (backgroundSurveyData.existingOrdersList 
+            if (backgroundSurveyData.ExistingOrders == 'y' && backgroundSurveyData.existingOrdersList 
                 && backgroundSurveyData.existingOrdersList.length > 0 
                 && backgroundSurveyData.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                     this.survey.setVariable("existing", true);                    
-                } else {
-                    this.survey.setVariable("existing", false);
-                }
+            } else {
+                this.survey.setVariable("existing", false);
+            }
         }
 
         if (this.step.result && this.step.result['childData']) {

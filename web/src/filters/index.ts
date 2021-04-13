@@ -50,15 +50,11 @@ Vue.filter('getFullName',function(nameObject){
 
 Vue.filter('getFullAddress',function(nameObject){
 	if (nameObject) {
-		return nameObject.street +
-			", " +
-			nameObject.city +
-			", " +
-			nameObject.state+
-			", " +
-			nameObject.country+
-			", " +
-			nameObject.postcode;
+		return 	nameObject.street?(nameObject.street +", "):'' +
+				nameObject.city?(nameObject.city +", "):'' +
+				nameObject.state?(nameObject.state +", "):'' +
+				nameObject.country?(nameObject.country +", "):'' +
+				nameObject.postcode;
 	} else{
 		return " "
 	}
@@ -103,7 +99,10 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	// console.log(survey.data)
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
 	for(const question of survey.currentPage.questions){
-		if(question.isVisible && question.questionValue!=true && question.questionValue!=false)
+		//console.log(question.title)
+		//console.log(question.isVisible)
+		//console.log(question.questionValue)
+		if(question.isVisible && question.questionValue!=true){			
 			if(survey.data[question.name]){
 				// console.log("____________")
 				// console.log(question)
@@ -126,6 +125,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 				questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})
 				
 			}
+		}
 		//__specialities
 		else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
 			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})

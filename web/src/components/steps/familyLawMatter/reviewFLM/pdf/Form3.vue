@@ -137,24 +137,24 @@
             <div style="margin-left:1rem;">
                 <i>Select all options that apply, complete and attach the required schedule(s)</i>
                 <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
-                <check-box style="" :check="true?'yes':''" text="parenting arrangements – new <i>[complete and attach Schedule 1]</i> <br/>	including parental responsibilities and parenting time"/>
-                <check-box style="" :check="true?'yes':''" text="parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i><br/> including parental responsibilities and parenting time"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting arrangements – new <i>[complete and attach Schedule 1]</i> <br/>	including parental responsibilities and parenting time"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule2')?'yes':''" text="parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i><br/> including parental responsibilities and parenting time"/>
             
                 <div style="margin-top:0.25rem;"><b>Child support</b></div>
-                <check-box style="" :check="true?'yes':''" text="child support – new <i>[complete and attach Schedule 3]</i>"/>
-                <check-box style="" :check="true?'yes':''" text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule3')?'yes':''" text="child support – new <i>[complete and attach Schedule 3]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule4')?'yes':''" text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>
                 
                 <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-                <check-box style="" :check="true?'yes':''" text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
-                <check-box style="" :check="true?'yes':''" text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule5')?'yes':''" text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule6')?'yes':''" text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>
 
                 <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
-                <check-box style="" :check="true?'yes':''" text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
-                <check-box style="" :check="true?'yes':''" text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule7')?'yes':''" text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule8')?'yes':''" text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>
 
                 <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-                <check-box style="" :check="true?'yes':''" text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
-                <check-box style="" :check="true?'yes':''" text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule9')?'yes':''" text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
+                <check-box style="" :check="selectedSchedules.includes('schedule10')?'yes':''" text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>
 
             </div>
         </section>
@@ -164,8 +164,8 @@
         <section>
             <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
             <div style="margin-left:1rem">
-                <check-box style="display:inline;" :check="true?'yes':''" text="Yes"/>
-                <check-box style="display:inline;margin-left:2rem" :check="true?'yes':''" text="No"/>
+                <check-box style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
+                <check-box style="display:inline;margin-left:2rem" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
                 <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
             </div>
         </section>
@@ -174,8 +174,8 @@
         <section> 
             <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
             <div style="margin-left:1rem">
-                <check-box style="display:inline;" :check="true?'yes':''" text="Yes"/>
-                <check-box style="display:inline;margin-left:2rem" :check="true?'yes':''" text="No"/>
+                <check-box style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
+                <check-box style="display:inline;margin-left:2rem" :check="!existingOrders.existingPO?'yes':''" text="No"/>
                 <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
             </div>
         </section>  
@@ -184,7 +184,7 @@
 <!-- <9> -->
         <section>
             <div style="display:inline; margin-left:0.25rem">The parties are: </div>          
-            <i style="display:block;margin-left:1rem" >Describe how you and the other party/parties are related for the purposes of this family law application</i>
+            <i style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</i>
         </section>
 
 <!-- <10> -->
@@ -195,13 +195,13 @@
                 <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text=""/>
             </div>
             <div style="margin-left:1rem">
-                <check-box style="display:inline;" :check="true?'yes':''" text="Yes"/>
-                <check-box style="display:inline;margin-left:2rem" :check="true?'yes':''" text="No"/>
+                <check-box style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
+                <check-box style="display:inline;margin-left:2rem" :check="!relationshipBetweenParties.spouses?'yes':''" text="No"/>
                 <i style="display:block">If yes, please complete all options below that apply to the parties</i>
                 
-                <underline-form style="margin-left:0.5rem; text-indent:0rem" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="(mmm/dd/yyyy)" text="APR 01 2020"/>
-                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage:" hint="(mmm/dd/yyyy)" text="APR 01 2020"/>
-                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of separation:" hint="(mmm/dd/yyyy)" text="APR 01 2020"/>    
+                <underline-form style="margin-left:0.5rem; text-indent:0rem" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.startDate"/>
+                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.marriageDate"/>
+                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of separation:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.separationDate"/>    
                 <i style="margin-left:1.5rem;display:block">Note:  Spouses may be separated despite continuing to live in the same residence [Family Law Act s.3(4)]</i>
             </div>
         </section>
@@ -1382,10 +1382,14 @@ export default class Form3 extends Vue {
     yourInformationSurvey;
 
     applicantList = []
+
+    selectedSchedules = []
+    existingOrders = {}
+    relationshipBetweenParties = {}
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getRepGrantResultData()
+        this.result = this.getRepGrantResultData();
         this.extractInfo();       
         this.dataReady = true;
     }
@@ -1467,10 +1471,82 @@ export default class Form3 extends Vue {
         //     }
         // }
 
+        this.selectedSchedules = this.getSchedulesInfo();
+        this.existingOrders = this.getExistingOrdersInfo();
+        this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
         this.otherPartyInfo=this.getOtherPartyInfo()
         this.yourInformationSurvey = this.getYourInfo()
         console.log(this.yourInformationSurvey)
 
+    }
+
+    public getRelationshipBetweenPartiesInfo(){
+
+        let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: ''};
+        relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
+        relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
+        if (relationshipInfo.spouses){
+            relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
+            relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
+            relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
+        }
+        return relationshipInfo;
+    }
+
+    public getExistingOrdersInfo(){
+        let existing = {existingFlm: false, existingPO: false}
+
+        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
+        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
+
+        return existing;
+    }
+
+    public getSchedulesInfo(){
+        console.log(this.result)
+
+        let schedules = [];
+        const selectedFLMs = this.result.flmSelectedForm;
+        const flmBackgroundInfo = this.result.flmBackgroundSurvey;
+
+        if (flmBackgroundInfo.ExistingOrders == 'n') {
+            
+            if (selectedFLMs.includes("parentingArrangements")){
+                schedules.push("schedule1")
+            }
+            if (selectedFLMs.includes("childSupport")){
+                schedules.push("schedule3")
+            }
+            if (selectedFLMs.includes("contactWithChild")){
+                schedules.push("schedule5")
+            }
+            if (selectedFLMs.includes("guardianOfChild")){
+                schedules.push("schedule7")
+            }
+            if (selectedFLMs.includes("spousalSupport")){
+                schedules.push("schedule9")
+            }
+
+        } else if (flmBackgroundInfo.ExistingOrders == 'y' && flmBackgroundInfo.existingOrdersList && flmBackgroundInfo.existingOrdersList.length > 0){
+
+            if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                schedules.push("schedule2")
+            }
+            if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersList.includes("Child Support")){
+                schedules.push("schedule4")
+            }
+            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersList.includes("Contact with a child")){
+                schedules.push("schedule6")
+            }
+            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersList.includes("Guardianship of a child")){
+                schedules.push("schedule8")
+            }
+            if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersList.includes("Spousal Support")){
+                schedules.push("schedule10")
+            }
+        }
+
+        return schedules;
     }
 
     public getYourInfo(){

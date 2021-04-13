@@ -34,7 +34,7 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td>{{op.dob}}</td>
+                                    <td>{{op.dob | beautify-date}}</td>
                                     <td>{{op.opRelation}}</td>
                                     <td>{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
                                     <td>{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
