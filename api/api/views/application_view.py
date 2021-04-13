@@ -53,7 +53,8 @@ class ApplicationView(APIView):
                 "applicationLocation": application.application_location,
                 "packageNumber": submission.package_number if submission is not None else "",
                 "packageUrl": submission.package_url if submission is not None else "",
-                "lastFiled": application.last_filed}
+                "lastFiled": application.last_filed,
+                "version": application.version}
         return Response(data)
 
     def post(self, request: Request):
@@ -82,6 +83,7 @@ class ApplicationView(APIView):
             protected_party_name=body.get("protectedPartyName"),
             protected_child_name=body.get("protectedChildName"),
             application_location=body.get("applicationLocation"),
+            version=body.get("version"),
             user_id=uid)
 
         db_app.save()
@@ -110,6 +112,7 @@ class ApplicationView(APIView):
         app.protected_party_name = body.get("protectedPartyName")
         app.protected_child_name = body.get("protectedChildName")
         app.application_location = body.get("applicationLocation")
+        app.version = body.get("version")
         app.save()
 
         return Response("success")

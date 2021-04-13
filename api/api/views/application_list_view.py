@@ -23,6 +23,6 @@ class ApplicationListView(generics.ListAPIView):
         user_id = request.user.id
         if not user_id:
             return HttpResponseForbidden("User id not provided")
-        applications = self.get_application_list_for_user(request.user.id)
+        applications = self.get_application_list_for_user(user_id)
         serializer = ApplicationListSerializer(applications, many=True)
         return Response(serializer.data)
