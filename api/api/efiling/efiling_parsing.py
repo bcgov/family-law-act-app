@@ -15,10 +15,11 @@ class EFilingParsing:
             proto = "http"
         return f"{proto}://{host}{settings.FORCE_SCRIPT_NAME}{extra}"
 
-    def convert_data_for_efiling(self, request, application, documents):
+    def convert_data_for_efiling(self, request, application, application_steps, documents):
         applicant = application.applicant_name
         respondent = application.respondent_name
         converted_data = {
+            "fileNumber": application_steps[2]['result']['filingLocationSurvey']['ExistingFileNumber'],
             "locationName": request.user.location,
             "documents": documents,
             "organizationParties": [],

@@ -59,7 +59,6 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class SurveySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SurveyResult
         fields = [
