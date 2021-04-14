@@ -5,4 +5,4 @@ export CYPRESS_BCEID_USERNAME=xxx
 export CYPRESS_BCEID_PASSWORD=xxx
 npm run-script cypress:open
 
-3. Run survey.spec.js
+3. Run fpo.spec.js
