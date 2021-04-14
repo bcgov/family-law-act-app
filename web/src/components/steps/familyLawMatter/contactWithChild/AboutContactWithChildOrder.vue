@@ -107,8 +107,8 @@ export default class AboutContactWithChildOrder extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['contactWithChildSurvey'] && this.step.result['contactWithChildSurvey'].data) {
-            this.survey.data = this.step.result['contactWithChildSurvey'].data;
+        if (this.step.result && this.step.result['aboutContactWithChildSurvey'] && this.step.result['aboutContactWithChildSurvey'].data) {
+            this.survey.data = this.step.result['aboutContactWithChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
 
             if (this.survey.data.childrenRequireContactChoices){
@@ -155,7 +155,7 @@ export default class AboutContactWithChildOrder extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {contactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutContactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 }

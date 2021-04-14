@@ -77,8 +77,8 @@ export default class ContactWithChildBestInterestsOfChild extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['bestInterestOfChildSurvey']) {
-            this.survey.data = this.step.result['bestInterestOfChildSurvey'].data;
+        if (this.step.result && this.step.result['contactWithChildBestInterestOfChildSurvey']) {
+            this.survey.data = this.step.result['contactWithChildBestInterestOfChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
 
@@ -119,7 +119,7 @@ export default class ContactWithChildBestInterestsOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {bestInterestOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {contactWithChildBestInterestOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
