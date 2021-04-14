@@ -1,0 +1,48 @@
+{
+  "title": "Calculating Child Support",
+  "pages": [
+    {
+      "name": "Calculating Child Support",
+      "description":"The court requires financial information to be able to decide on a fair and proper amount for child support.<br>The other party will be asked to give their own financial information to the court.  If they do not, the court may decide how much income a person makes or should be making. The court will look at the information you have provided about the other party’s income. It will also look at information you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training they have, to make this decision.",         
+      "elements": [
+        {
+          "type": "panel",
+          "name": "incomePanel",             
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "knowIncome",
+              "title":"Do you know the income of the other party?",
+              "isRequired": true              
+            },
+            {
+              "type": "comment",
+              "name": "incomeAmount",
+              "visible":false,
+              "visibleIf":"{knowIncome} == 'y'",
+              "isRequired": true,
+              "title":"I believe the other party’s annual income is: $"              
+            },
+            {
+              "type": "yesno",
+              "name": "knowFacts",
+              "title":"Do you know any `facts` about the other party’s employment, training, health and ability to work?",
+              "isRequired": true              
+            },
+            {
+              "type": "comment",
+              "name": "factsExplanation",
+              "visible":false,
+              "visibleIf":"{knowFacts} == 'y'",
+              "isRequired": true,
+              "title":"I know the following facts about the other party’s employment, training, health and ability to work:"              
+            }            
+          ]
+        }
+      ],
+      "title": "Calculating Child Support"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
