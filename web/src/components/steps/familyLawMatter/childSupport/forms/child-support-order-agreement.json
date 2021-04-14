@@ -1,9 +1,9 @@
 {
-  "title": "Child Support About Order",
+  "title": "Child Support Income and earning potential",
   "pages": [
     {
-      "name": "Child Support About Order",
-      "description":"Usually the court orders an amount of child support based on the <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html'  target='_blank'>Federal Child Support Guidelines</a>. This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.<br><br>The court can order an amount other than the guideline table amount in certain situations, such as:<ul><li>when a child is 19 or older</li><li>when the parent paying support has an income over $150,000</li><li>when parents split or share parenting time</li><li>when there is undue hardship</li></ul> The next series of questions will help inform the factors that are important for calculating child support for your family situation.",         
+      "name": "Child Support Income and earning potential",
+      "description":"The court requires financial information to be able to decide on a fair and proper amount for child support.<br>The other party will be asked to give their own financial information to the court.  If they do not, the court may decide how much income a person makes or should be making. The court will look at the information you have provided about the other party’s income. It will also look at information you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training they have, to make this decision.",         
       "elements": [
         {
           "type": "panel",
@@ -40,7 +40,7 @@
           ]
         }
       ],
-      "title": "About the Order"
+      "title": "Income and earning potential"
     }
   ],
   "showQuestionNumbers": "off",
