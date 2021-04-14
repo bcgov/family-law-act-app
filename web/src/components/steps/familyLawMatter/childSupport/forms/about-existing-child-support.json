@@ -1,129 +1,213 @@
 {
-  "title": "Child Support About Order",
+  "title": "About the existing order or written agreement",
   "pages": [
     {
-      "name": "Child Support About Order",
-      "description":"Usually the court orders an amount of child support based on the <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html'  target='_blank'>Federal Child Support Guidelines</a>. This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.<br><br>The court can order an amount other than the guideline table amount in certain situations, such as:<ul><li>when a child is 19 or older</li><li>when the parent paying support has an income over $150,000</li><li>when parents split or share parenting time</li><li>when there is undue hardship</li></ul> The next series of questions will help inform the factors that are important for calculating child support for your family situation.",         
+      "name": "About the existing order or written agreement",
       "elements": [
         {
           "type": "panel",
-          "name": "aboutPanel",             
+          "name": "ExistingInfoPanel",
           "elements": [
             {
-              "type": "checkbox",
-              "name": "listOfSupportPayees",
-              "title":"I am asking for child support in the monthly amount set out in the child support guidelines table to be paid by:",
-              "isRequired": true,              
-              "choices": [                
-              ]              
-            },
-            {
-              "type": "helptext",
-              "name": "FAQpayingparent",
-              "title": "How do I determine who is the paying parent?",
-              "body": "When one parent lives with the children most of the time, the other parent <b>pays child support</b>.<br><br>If the children spend equal (or almost equal) time with both parents, this is called a <b>shared parenting time arrangement</b>. In this case, child support is calculated by figuring out what each parent would pay if the child lived with the other parent most of the time. Then, the parents <b>subtract</b> the lower amount from the higher amount and the parent who has the higher income <b>pays the difference as child support</b> to the other parent.<br><br>When each parent has one or more children living mostly in their care, this is called a <b>split parenting time arrangement</b>. n this case, each parent calculates the full amount of child support they’d pay to the other parent for the children in that parent’s care. Then, the parents <b>subtract</b> the lower amount from the higher amount and the parent who has the higher income <b>pays the difference as child support</b> to the other parent.<br><br><b>If you would like the order about child support to show both parents as the paying party because one of the above situations applies, even if someone is only paying the difference, you can select both parents.</b><br><br>To calculate how much child support should be paid, you can visit the <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/index.html' target='_blank'>Department of Justice website</a> on child support which includes detailed information including the <a href='https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html' target='_blank'>Federal Child Support Guidelines</a>: Step-by-Step and a <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/cst-orpe.html' target='_blank'>Child Support Table Look-up</a>. <br><br> You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a>, <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a> or a lawyer.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "helptext",
-              "name": "FAQamountdifference",
-              "title": "Can the amount of child support be different from the child support guidelines table amount?",
-              "body": "Yes, but you need to start somewhere. The <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html' target='_blank'>Federal Child Support Guidelines</a> are a set of rules and tables used to determine child support when parents separate or divorce. They are the law. Their main goals are:<ul><li>to establish a fair standard of support for children so that they continue to benefit from both parents’ incomes after the separation or divorce</li><li>to reduce conflict and tension between parents by making the calculation of child support more objective</li><li>to ensure that parents and children in similar situations are treated the same</li><li>to make the legal process more efficient and encourage settlements by giving courts and parents guidance about child support</li></ul>It will be up to the court to determine if a different amount is appropriate based on the other information and evidence you provide. ",
-              "titleLocation": "hidden"
-            },
+              "type": "radiogroup",
+              "name": "existingType",
+              "title": "Which do you have?",
+              "description": "Select the correct option.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "ExistingOrder",
+                  "text": "Court Order about child support"
+                },
+                {
+                  "value": "ExistingAgreement",
+                  "text": "Written Agreement about child support"
+                },
+                {
+                  "value": "Neither",
+                  "text": "None of the above"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "infotext",
+          "name": "ifNeitherexistingFAQ",
+          "title": "In a previous step you identified that you had an existing order or written agreement about child support. If you need an order about child support, and there is no order or written agreement already in place, please return to the Background step and de-select child support under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
+          "titleLocation": "hidden",
+          "visible": false,
+          "visibleIf": "{existingType} = 'Neither'"
+        },
+        {
+          "type": "panel",
+          "name": "ExistingDetailsPanel",
+          "visible": false,
+          "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
+          "elements": [
             {
               "type": "infotext",
-              "name": "parentFileForm4Info",
-              "visible":true,
-              "visibleIf":"true",
-              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
-              "titleLocation":"hidden",
-              "messageStyle": "info"
+              "name": "ifExistingFAQ",
+              "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden"
             },
             {
               "type": "radiogroup",
-              "name": "payeeEarnsHigh",
-              "title":"Does the paying parent earn more than $150,000 per year?",
-              "isRequired": true,              
-              "choices": [ 
+              "name": "existingResponsibilityType",
+              "title": "Select the option that best describes your responsibility for child support in the existing order or agreement.",
+              "isRequired": true,
+              "hasOther": true,
+              "choices": [
                 {
-                  "value": "yes",
-                  "text": "Yes"
+                  "value": "payor",
+                  "text": "I am required to make payments for support of a child"
                 },
                 {
-                  "value": "no",
-                  "text": "No"
-                }, {
-                  "value": "unknown",
-                  "text": "I don’t know"
-                }           
-              ]             
-            },
-            {
-              "type": "infotext",
-              "name": "parentFileForm4Info2",
-              "visible":false,
-              "visibleIf":"{payeeEarnsHigh}=='yes'",
-              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
-              "titleLocation":"hidden",
-              "messageStyle": "info"
-            },
-            {
-              "type": "checkbox",
-              "name": "listOfChildren",
-              "title":"Select each child you are applying for support for.",
-              "isRequired": true,              
-              "choices": [                
-              ]              
+                  "value": "payee",
+                  "text": "I am to be paid support for a child"
+                }
+              ]
             },
             {
               "type": "yesno",
-              "name": "supportChildOver19",
-              "title":"Are you applying for support for any child who is 19 years of age or older?",
-              "description":"The duty to pay child support may not end when a child turns 19 if the child is unable to support themselves financially because of illness, disability or they are a full-time student. If so, you can apply for child support for a child who is 19 or older.",
-              "isRequired": true              
-            },          
-            {              
-              "type": "radiogroup",
-              "name": "whyOlderChildNeedSupport[0]",
-              "title": "Why {child[0]} needs support?",
-              "visible":false,
-              "visibleIf":"{supportChildOver19}=='y' and {listOfChildren} contains 'child[0]' ",
-              "isRequired": true,
-              "choices": [
-                "Illness",
-                "Disability",
-                "Student"
-              ]              
+              "name": "filedWithDirector",
+              "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child support?",
+              "isRequired": true
             },
             {
               "type": "infotext",
-              "name": "parentFileForm4InfoMoreLines",
-              "visible":false,
-              "visibleIf":"{supportChildOver19}=='y'",
-              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.<br><br>In some cases, the court may also require income information for your child. You don’t need to provide it yet. Just be prepared if the court does ask for it.",            
-              "titleLocation":"hidden",
-              "messageStyle": "info"
+              "name": "ifExistingFAQ",
+              "title": "If your order or written agreement is filed with the Director of Maintenance Enforcement, you must serve a copy of the application on the director. The Director of Maintenance Enforcement can be served by mailing the documents to the postal address provided by the director. Contact the <a href=\"https://www.fmep.gov.bc.ca/\" target=\"blank\">Family Maintenance Enforcement Program</a> to find out how best to serve them.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{filedWithDirector} = 'y'"
             },
             {
               "type": "text",
-              "name": "paymentRequestStartingDate",
-              "title": "When do you want the child support payments to start?",
-              "description": "You need to tell the court when you think the child support payments should start. This could be a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
+              "name": "orderDate",
+              "title": "Please provide the date the court made the order.",
+              "description": "The date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
               "isRequired": true,
-              "inputType": "date"
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'"
+            },
+            {
+              "type": "text",
+              "name": "agreementDate",
+              "title": "Please provide the date the written agreement was signed.",
+              "isRequired": true,
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'"
+            },
+            {
+              "type": "infotext",
+              "name": "ChangeOrderExplanationFAQ",
+              "title": "Family dynamics change and children grow up. A child support order that was made in the past may not make sense anymore. The court can only change or cancel an order if:<br><ul><li>there has been a change in circumstances since the original court order was made</li><li>evidence of a substantial nature that was not available during the previous hearing has become available</li><li>evidence of a lack of financial disclosure by a party was discovered after the last order was made</li></ul>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'"
+            },
+            {
+              "type": "infotext",
+              "name": "ChangeAgreementExplanationFAQ",
+              "title": "Family dynamics change and children grow up. An agreement about child support that was made in the past may not make sense anymore. The court can only set aside or replace an agreement if the court would make an order for child support that is different from the agreement on consideration of the matters set out in section 150 [determining child support] of the <a href=\"https://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section150\" target=\"blank\">Family Law Act</a>. <br><br>Section 150 of the Family Law Act says that a court must consider the Child Support Guidelines when making an order about child support but may consider an amount different from the Child Support Guidelines if satisfied that:<ul><li>the agreement about child support establishes reasonable arrangements for support of the child despite the amount being different from the Child Support Guidelines amount, or</li><li>applying the Child Support Guidelines would be inequitable on consideration of:<ul><li>an agreement or order respecting the financial duties of the parents or guardians or the division or transfer of property, other than an agreement about child support, benefits the child directly or indirectly, or</li><li>special provisions have otherwise been made for the benefit of the child</li></ul></ul>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'"
+            },
+            {
+              "type": "checkbox",
+              "name": "changesSinceOrderList",
+              "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
+              "description": "Select each option that fits your situation and provide the additional detail as required.",
+              "choices":["My financial situation has changed", 
+                "I believe the other party’s financial situation has changed",
+                "The `special and extraordinary expenses` have changed",
+                "The living arrangements for a child have changed",
+                "Information has become available that was not available when the order was made",
+                "Other changes or circumstances"
+              ],
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'"
             },
             {
               "type": "comment",
-              "name": "paymentRequestStartingDateWhy",
+              "name": "changesSinceOrder",
+              "title": "Please describe the changes:",
               "isRequired": true,
-              "title":"Why do you want the child support payments to start on this date?"              
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} anyof ['The `special and extraordinary expenses` have changed', 'The living arrangements for a child have changed'])"
+            },
+            {
+              "type": "comment",
+              "name": "newInfoSinceOrder",
+              "title": "Please describe the new information:",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Information has become available that was not available when the order was made')"
+            },
+            {
+              "type": "comment",
+              "name": "otherChangesSinceOrder",
+              "title": "Please describe the changes or circumstances:",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Other changes or circumstances')"
+            },
+            {
+              "type": "comment",
+              "name": "changesSinceAgreement",
+              "title": "Explain to the court why you believe the agreement should be set aside or replaced.",
+              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'"
+            },
+            {
+              "type": "radiogroup",
+              "name": "orderDifferenceType",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingOrder'",
+              "title": "Do you want the existing order changed or cancelled?",
+              "description": "You can apply to change the existing order if you still need an order about child support, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
+              "choices": [
+                {
+                  "value": "changeOrder",
+                  "text": "Change"
+                },
+                {
+                  "value": "cancelOrder",
+                  "text": "Cancel"
+                }
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "agreementDifferenceType",
+              "visible": false,
+              "visibleIf": "{existingType} = 'ExistingAgreement'",
+              "title": "Do you want the existing written agreement set aside or replaced?",
+              "description": "You can apply to set aside (cancel) the existing agreement or to replace it with a child support order if you believe you need something different.",
+              "choices": [
+                {
+                  "value": "setAsideAgreement",
+                  "text": "Set aside"
+                },
+                {
+                  "value": "replacedAgreement",
+                  "text": "Replace"
+                }
+              ]
             }
-                      
           ]
         }
       ],
-      "title": "About the Order"
+      "title": "About the existing order or written agreement"
     }
   ],
   "showQuestionNumbers": "off",

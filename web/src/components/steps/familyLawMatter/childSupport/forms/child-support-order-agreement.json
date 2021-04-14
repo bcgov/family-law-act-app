@@ -1,46 +1,19 @@
 {
-  "title": "Child Support Income and earning potential",
+  "title": "Child Support Order/Agreement – Existing",
   "pages": [
     {
-      "name": "Child Support Income and earning potential",
-      "description":"The court requires financial information to be able to decide on a fair and proper amount for child support.<br>The other party will be asked to give their own financial information to the court.  If they do not, the court may decide how much income a person makes or should be making. The court will look at the information you have provided about the other party’s income. It will also look at information you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training they have, to make this decision.",         
+      "name": "Child Support Order/Agreement – Existing",
       "elements": [
         {
-          "type": "panel",
-          "name": "incomePanel",             
-          "elements": [
-            {
-              "type": "yesno",
-              "name": "knowIncome",
-              "title":"Do you know the income of the other party?",
-              "isRequired": true              
-            },
-            {
-              "type": "comment",
-              "name": "incomeAmount",
-              "visible":false,
-              "visibleIf":"{knowIncome} == 'y'",
-              "isRequired": true,
-              "title":"I believe the other party’s annual income is: $"              
-            },
-            {
-              "type": "yesno",
-              "name": "knowFacts",
-              "title":"Do you know any `facts` about the other party’s employment, training, health and ability to work?",
-              "isRequired": true              
-            },
-            {
-              "type": "comment",
-              "name": "factsExplanation",
-              "visible":false,
-              "visibleIf":"{knowFacts} == 'y'",
-              "isRequired": true,
-              "title":"I know the following facts about the other party’s employment, training, health and ability to work:"              
-            }            
-          ]
+          "type": "infotext",
+          "name": "childSupportExistingDescription",
+          "title": "This next section is completed only if there is an existing court order or written agreement about child support.<br><br>Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.<br><br>Although parents have the primary responsibility to pay child support, other guardians and step-parents may be responsible for paying child support. If you are a step-parent, and you need more information about step-parents and child support, see the fact sheet <a href=\"https://family.legalaid.bc.ca/children/parenting-guardianship/parenting/step-parents-rights-and-responsibilities\" target=\"blank\"> Step-parents Rights and Responsibilities</a> by Legal Aid BC.<br><br>For more information about child support and referrals to other child support resources, visit the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/child-support/more-info\" target=\"blank\">BC Government website</a> at www.gov.bc.ca.      ",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
         }
+        
       ],
-      "title": "Income and earning potential"
+      "title": "Child Support Order/Agreement – Existing"
     }
   ],
   "showQuestionNumbers": "off",
