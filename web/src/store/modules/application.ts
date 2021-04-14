@@ -403,29 +403,38 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+        
+
         p = {} as pageInfoType;
         p.key = "23";
-        p.label = "About the order";
+        p.label = "Contact Order/Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "24";
+        p.label = "About the order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "25";
         p.label = "Best Interests of the Child";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 //____________Guardianship of a Child
         p = {} as pageInfoType;
-        p.key = "25";
+        p.key = "26";
         p.label = "Guardianship of a Child";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 //____________Spousal Support
         p = {} as pageInfoType;
-        p.key = "26";
+        p.key = "27";
         p.label = "Spousal Support";
         p.active = false;
         p.progress = 0;    
@@ -434,14 +443,14 @@ class Application extends VuexModule {
        
 //____________Review
         p = {} as pageInfoType;
-        p.key = "27";
+        p.key = "28";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "28";
+        p.key = "30";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    

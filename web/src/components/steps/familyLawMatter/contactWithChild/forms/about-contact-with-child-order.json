@@ -3,11 +3,62 @@
   "pages": [
     {
       "name": "About the order",
-      "description": "You can apply to the court for an order for contact with a child. The order will usually include details about how the contact will happen.",
       "elements": [
         {
+          "type": "infotext",
+          "name": "aboutExistingContactWithChildDescription",
+          "title": "The order will usually include new details about how the contact will happen.",
+          "messageStyle": "inline",
+          "visible": false,
+          "visibleIf": "{existing}",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "infotext",
+          "name": "aboutNewContactWithChildDescription",
+          "title": "You can apply to the court for an order for contact with a child. The order will usually include details about how the contact will happen.",
+          "messageStyle": "inline",
+          "visible": false,
+          "visibleIf": "!({existing})",
+          "titleLocation": "hidden"
+        },
+        {
           "type": "panel",
-          "name": "nonParentGuardianPanel",
+          "name": "existingContactWithChildPanel",
+          "visible": false,
+          "visibleIf": "{existing}",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "contactTypeChoices",
+              "title": "Tell the court and the other party what contact you are asking for.",
+              "description": "Select each option that applies.",
+              "isRequired": true,
+              "hasOther": true,
+              "otherText": "Other method of communication",
+              "choices": [
+                "In person",
+                "Telephone communication",
+                "Video communication",
+                "Written communication"
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "inPersonDetails",
+              "title": "For the in person contact with the {childWording}, please provide details about when the contact will occur.",
+              "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{InPerson}"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "newContactWithChildPanel",
+          "visible": false,
+          "visibleIf": "!({existing})",
           "elements": [
             {
               "type": "checkbox",
@@ -44,7 +95,7 @@
             {
               "type": "comment",
               "name": "inPersonDetails",
-              "title": "For the in person contact with the child/children, please provide details about when the contact will occur.",
+              "title": "For the in person contact with the {selectedChildWording}, please provide details about when the contact will occur.",
               "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
               "isRequired": true,
               "visible": false,

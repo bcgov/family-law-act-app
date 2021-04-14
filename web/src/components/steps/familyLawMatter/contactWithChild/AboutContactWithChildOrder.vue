@@ -95,12 +95,12 @@ export default class AboutContactWithChildOrder extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
-        this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"]=[];        
+        this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"]=[];        
 
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'].data;            
             for (const child of childData){
-                this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
             }                       
         }
     }
@@ -124,6 +124,17 @@ export default class AboutContactWithChildOrder extends Vue {
                 } else {
                     this.survey.setVariable("InPerson", false);
             }            
+        }
+
+        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
+            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
+                && backgroundSurveyData.existingOrdersListFLM.length > 0 
+                && backgroundSurveyData.existingOrdersListFLM.includes("Contact with a Child")){
+                    this.survey.setVariable("existing", true);                    
+            } else {
+                this.survey.setVariable("existing", false);
+            }
         }
 
         if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            

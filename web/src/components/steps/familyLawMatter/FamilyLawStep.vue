@@ -33,17 +33,23 @@
 
 
         <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>
-        <about-contact-with-child-order v-bind:step="step" v-if="step.currentPage == 23"/>
-        <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 24"/>
+        
+        <contact-with-child-order v-bind:step="step" v-if="step.currentPage == 23"/>
+        <about-contact-with-child-order v-bind:step="step" v-if="step.currentPage == 24"/>
+
+
+        <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 25"/>
 
 
 
 
-        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 25"/>  
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 26"/>   
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 27"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 28"/>
+
+        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 26"/>  
+        <spousal-support v-bind:step="step" v-if="step.currentPage == 27"/>   
+
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 28"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 29"/>
     </step-base>
 </template>
 
@@ -80,6 +86,7 @@ import UnpaidChildSupport from "./childSupport/UnpaidChildSupport.vue"
 
 import ContactWithChild from "./contactWithChild/ContactWithChild.vue";
 import AboutContactWithChildOrder from "./contactWithChild/AboutContactWithChildOrder.vue";
+import ContactWithChildOrder from "./contactWithChild/ContactWithChildOrder.vue";
 import ContactWithChildBestInterestsOfChild from "./contactWithChild/ContactWithChildBestInterestsOfChild.vue";
 
 import GuardianOfChild from "./guardianOfChild/GuardianOfChild.vue";
@@ -127,6 +134,7 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
               
         ContactWithChild,
         AboutContactWithChildOrder,
+        ContactWithChildOrder,
         ContactWithChildBestInterestsOfChild,
 
         GuardianOfChild,
