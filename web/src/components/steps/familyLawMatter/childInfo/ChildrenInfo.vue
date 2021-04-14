@@ -16,10 +16,10 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Child's name</th>
-                                    <th scope="col">Birthdate</th>
+                                    <th scope="col">Child's date of birth</th>
                                     <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Child's relationship to the other party</th>
-                                    <th scope="col">Child currently living with</th>
+                                    <th scope="col">Other party's relationship to the child</th>
+                                    <th scope="col">Child is currently living with</th>
                                     <!-- <th scope="col">Additional Information</th> -->
                                     <th scope="col"></th>
                                     </tr>
