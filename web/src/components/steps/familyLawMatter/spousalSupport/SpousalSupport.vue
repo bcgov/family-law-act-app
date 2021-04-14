@@ -9,10 +9,10 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/parental-arrangements.json";
+import surveyJson from "./forms/spousal-support.json";
 
 import PageBase from "../../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -23,10 +23,14 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class ParentalArrangements extends Vue {
+
+export default class SpousalSupport extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;   
+    step!: stepInfoType;
+
+    @applicationState.State
+    public applicantName!: nameInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,7 +44,6 @@ export default class ParentalArrangements extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-    existing = false;
    
     @Watch('pageIndex')
     pageIndexChange(newVal) 
@@ -77,21 +80,12 @@ export default class ParentalArrangements extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['parentalArrangementsSurvey']) {
-            this.survey.data = this.step.result['parentalArrangementsSurvey'].data;
+        if (this.step.result && this.step.result['contactWithChildSurvey']) {
+            this.survey.data = this.step.result['contactWithChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                    this.survey.setVariable("existing", true);                    
-                } else {
-                    this.survey.setVariable("existing", false);
-                }
-        }
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -109,10 +103,15 @@ export default class ParentalArrangements extends Vue {
     }  
     
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {parentalArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+        
+        this.UpdateStepResultData({step:this.step, data: {contactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 }
 </script>
 
-
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss">
+@import "../../../../styles/survey";
+</style>

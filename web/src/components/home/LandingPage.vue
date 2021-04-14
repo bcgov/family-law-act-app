@@ -161,6 +161,9 @@ export default class LandingPage extends Vue {
     @commonState.Action
     public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
     
+    @commonState.Action
+    public UpdateLocationsInfo!: (newLocationsInfo) => void
+
     isLoggedIn= false
     pageReady = false
     safetyInst = false
@@ -183,6 +186,7 @@ export default class LandingPage extends Vue {
         this.$store.commit("Application/setUserType", userType);          
         if (userType === "new") {
               this.loadDocumentTypes();
+               this.extractFilingLocations();
               this.$router.push({ name: "service-locator" });
         } else if (userType === "returning") {
               this.$router.push({ name: "applicant-status" });
@@ -215,6 +219,30 @@ export default class LandingPage extends Vue {
             console.log(err)
             //this.error = err;        
         });
+    }
+
+    public extractFilingLocations() {
+        this.$http.get('/efiling/locations/')
+        .then((response) => {
+            // console.log(Object.keys(response.data))
+            const locationsInfo = response.data 
+            const locationNames = Object.keys(response.data);
+            const locations = []
+            for (const location of locationNames){
+                // console.log(location)
+                // console.log(locationsInfo[location])
+                const locationInfo = locationsInfo[location];
+                const address = locationInfo.address_1?(locationInfo.address_1+ ', '):''  + 
+                                locationInfo.address_2?(locationInfo.address_2 + ', '):'' + 
+                                locationInfo.address_3?(locationInfo.address_3 + ', '):'' + 
+                                locationInfo.address_2?(locationInfo.postal):'';
+                locations.push({id: locationInfo.location_id, name: location, address: address})
+            }
+            console.log(locations)
+            this.UpdateLocationsInfo(locations);
+        
+        },(err) => console.log(err));
+        
     }
   
 };

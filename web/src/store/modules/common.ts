@@ -9,6 +9,8 @@ class Common extends VuexModule {
     public userId = '';
     public userLocation = '';
 
+    public locationsInfo = [];
+
     @Mutation
     public setExistingApplication(existingApplication: boolean): void {   
         this.existingApplication = existingApplication
@@ -43,6 +45,15 @@ class Common extends VuexModule {
     @Action
     public UpdateDocumentTypesJson(newDocumentTypesJson) {
         this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
+    }
+
+    @Mutation
+    public setLocationsInfo(locationsInfo): void {   
+        this.locationsInfo = locationsInfo
+    }
+    @Action
+    public UpdateLocationsInfo(newLocationsInfo): void {
+        this.context.commit('setLocationsInfo', newLocationsInfo)
     }
 
 }

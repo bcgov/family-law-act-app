@@ -1,0 +1,61 @@
+{
+    "title": "Provincial Court Family Law Act Protection Order",
+    "pages": [
+        {
+            "name": "Parenting Order/Agreement - Existing",
+            "elements": [
+                {
+                    "type": "infotext",
+                    "name": "parentingArrangementsExistingDescription",
+                    "title": "This next section is completed only if there is an existing court order or written agreement about parenting arrangements for the child, even if it is not about you as the guardian.<br><br>Parental responsibilities and parenting time together are known as `parenting arrangements`. They must be in the best interests of the child. Only a guardian can have parental responsibilities and parenting time.<br><br>You can apply for parenting arrangements only if you are a guardian of a child or are applying to be a guardian of a child. Only a guardian can have parental responsibilities and parenting time.",
+                    "messageStyle": "inline",
+                    "titleLocation": "hidden"
+                },
+                {
+                    "type": "panel",
+                    "name": "aboutPOPanel",
+                    "elements": [
+                        {
+                            "type": "yesno",
+                            "name": "guardianApplicant",
+                            "title": "Are you a guardian of the {childWording}?",                            
+                            "isRequired": true
+                          },
+                          {
+                            "type": "helptext",
+                            "name": "FAQGuardian",
+                            "title": "I am the child’s parent, does that mean I’m their guardian?",
+                            "titleLocation": "hidden",
+                            "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
+                          },
+                          {
+                            "type": "yesno",
+                            "name": "applyingGuardianApplicant",
+                            "title": "Are you applying to be appointed as a guardian of the {childWording}?",
+                            
+                            "isRequired": true
+                          },
+                          {
+                            "type": "helptext",
+                            "name": "FAQApplyingGuardian",
+                            "title": "What if my application is about more than one child and I am the guardian of one and applying to be the guardian of the other?",
+                            "titleLocation": "hidden",
+                            "body": "If this situation applies to you, select YES for both of the above questions. Once your application is"
+                          },
+                          {
+                            "type": "infotext",
+                            "name": "WrongPathwayExplanation",
+                            "visible": false,
+                            "visibleIf": "{applyingGuardianApplicant} = 'n' and {guardianApplicant} = 'n'",
+                            "title": "You have identified you are not the child’s guardian and you are not applying to become the child’s guardian. You cannot ask for parenting arrangements for a child. If you want to spend time with the child, but are not their guardian, you can ask for <b>contact with a child</b>. Go back to the ‘I need help with the following family law matter’ step and select contact with a child instead of parenting arrangements.",
+                            "titleLocation": "hidden"
+                          }
+                    ]
+                }
+            ],
+            "title": "Parenting Order/Agreement - Existing"
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

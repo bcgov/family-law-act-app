@@ -14,9 +14,13 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import PageBase from "../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
-import { namespace } from "vuex-class";   
+import { namespace } from "vuex-class";
+
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import "@/store/modules/common";
+const commonState = namespace("Common");
 
 @Component({
     components:{
@@ -28,6 +32,9 @@ export default class FilingLocation extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;   
+
+    @commonState.State
+    public locationsInfo!: any[];
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -48,6 +55,7 @@ export default class FilingLocation extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy;
     disableNextButton = false;
     currentStep=0;
     currentPage=0;   
@@ -65,7 +73,8 @@ export default class FilingLocation extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForLocations();
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -76,6 +85,20 @@ export default class FilingLocation extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             console.log(this.survey.data);            
         })   
+    }
+
+    public adjustSurveyForLocations(){
+
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
+        
+        this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"] = [];
+        
+        for(const location of this.locationsInfo){
+            
+            this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"].push(location["name"])
+            this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"].push(location["name"])
+        }
     }
 
     public reloadPageInformation() {

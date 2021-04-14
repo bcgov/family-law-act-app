@@ -219,7 +219,7 @@ export default class OtherPartyCommon extends Vue {
 
     beforeDestroy() {
 
-        this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
+        if(this.otherPartyData && this.otherPartyData.length>0) this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
         const progress = this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
@@ -228,10 +228,11 @@ export default class OtherPartyCommon extends Vue {
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-        for(const otherParty of this.otherPartyData)
-        {
-            questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
-        }
+        if(this.otherPartyData)
+            for(const otherParty of this.otherPartyData)
+            {
+                questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
+            }
         console.log(questionResults)
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }

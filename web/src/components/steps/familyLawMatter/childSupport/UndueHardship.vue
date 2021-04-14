@@ -11,7 +11,7 @@ import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/child-support.json";
 
-import PageBase from "../PageBase.vue";
+import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ChildSupport extends Vue {
+export default class UndueHardship extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -200,5 +200,5 @@ export default class ChildSupport extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "../../../../styles/survey";
 </style>
