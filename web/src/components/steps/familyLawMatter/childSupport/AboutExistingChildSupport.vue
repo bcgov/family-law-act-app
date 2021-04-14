@@ -76,13 +76,31 @@ export default class AboutExistingChildSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data)  
+            //console.log(this.survey.data)  
             
             if (this.survey.data.existingType && this.survey.data.existingType == "Neither") {                
                 this.togglePages([17, 20, 21], false);
             } else {
                 this.togglePages([17, 20, 21], true);
-            }          
+            } 
+            
+            if (this.survey.data.existingType == 'ExistingOrder') {
+                if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                    this.togglePages([20], true);
+                    
+                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                    
+                    this.togglePages([20], false);
+                }
+            } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
+                    this.togglePages([20], true);
+                   
+                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+                    
+                    this.togglePages([20], false);
+                }
+            }      
 
         })
     }
