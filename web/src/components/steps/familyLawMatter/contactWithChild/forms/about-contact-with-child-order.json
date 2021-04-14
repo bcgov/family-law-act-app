@@ -4,10 +4,10 @@
     {
       "name": "About the order",
       "description": "You can apply to the court for an order for contact with a child. The order will usually include details about how the contact will happen.",
-      "elements": [ 
+      "elements": [
         {
           "type": "panel",
-          "name": "nonParentGuardianPanel",          
+          "name": "nonParentGuardianPanel",
           "elements": [
             {
               "type": "checkbox",
@@ -35,15 +35,16 @@
               "hasOther": true,
               "choices": [
                 "In person",
-                "telephone communication",
-                "video communication",
-                "written communication"
+                "Telephone communication",
+                "Video communication",
+                "Written communication"
               ]
             },
             {
               "type": "comment",
               "name": "inPersonDetails",
-              "title": "Provide specific dates or events requested, or dates and times that would be most suitable for in person contact with the child(ren).",
+              "title": "For the in person contact with the child/children, please provide details about when the contact will occur.",
+              "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{InPerson}"
@@ -53,49 +54,22 @@
         {
           "type": "panel",
           "name": "ParentingDescriptionPanel",
-          "visible": false,
-          "visibleIf": "{nonParentGuardianApplicant} = 'y'",
           "elements": [
             {
-              "type": "infotext",
-              "name": "changeInConditionsFAQ",
-              "title": "Sometimes, the court or the other party may only consider it in the best interests of the child(ren) for there to be conditions on your contact with the child(ren). Conditions may include:<br><ul><li>Supervised visits</li><li>Contact during specified times</li><li>Contact only in a specific location</li><li>Things a person has to do if they want contact with a child (for example, not use drugs or alcohol while with the child or not have guests over while the child is visiting)</li></ul>",
-              "titleLocation": "hidden",
-              "messageStyle": "inline"
-            },
-            {
-              "type": "radiogroup",
+              "type": "yesno",
               "name": "placeConditions",
-              "title": "",
-              "titleLocation": "hidden",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "willing",
-                  "text": "I am willing to have the conditions placed on my contact with the child(ren)."
-                },
-                {
-                  "value": "unWilling",
-                  "text": " I do not want any conditions placed on my contact with the child(ren)"
-                }
-              ]
+              "title": "Are you willing to have the court order include any conditions related to your contact with the child?",
+              "description": "Sometimes, the court or the other party may only consider it in the best interests of the child for there to be conditions on your contact with the child. Conditions may include:<br><ul><li>supervised visits</li><li>contact during specified times</li><li>contact only in a specific location</li><li>things a person must do while they have contact with the child (for example, not use drugs or alcohol while with the child or not have guests over while the child is visiting)</li></ul>",
+              "isRequired": true
             },
             {
               "type": "comment",
               "name": "conditionsDescription",
-              "title": "Describe the conditions you are willing to have on your contact with child(ren)",
-              "description": "If there are any conditions you are willing to have placed on your contact with the child(ren) be sure to include them in the space provided.",
+              "title": "Please describe the conditions you are willing to have on your contact with the child:",
+              "description": "If there are any conditions you are willing to have placed on your contact with the child be sure to include them in the space provided. You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{placeConditions} = 'willing'"
-            },
-            
-            {
-              "type": "comment",
-              "name": "newContactOrderChildBestInterestDescription",
-              "title": "I believe the order about contact I am applying for is in the child(ren)'s best interests because:",
-              "description": "When you ask for a court order involving a child, you must consider what is in the best interest of the child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for the child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when asking for contact with a child, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul><br>You do not need to use any special wording.  The key is to be clear about why you think the court should make the contact order.",
-              "isRequired": true
+              "visibleIf": "{placeConditions} = 'y'"
             }
           ]
         }
