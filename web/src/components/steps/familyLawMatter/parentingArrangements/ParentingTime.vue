@@ -84,9 +84,9 @@ export default class ParentingTime extends Vue {
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
-            if (backgroundSurveyData.ExistingOrders == 'y' && backgroundSurveyData.existingOrdersList 
-                && backgroundSurveyData.existingOrdersList.length > 0 
-                && backgroundSurveyData.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
+                && backgroundSurveyData.existingOrdersListFLM.length > 0 
+                && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                     this.survey.setVariable("existing", true);                    
                 } else {
                     this.survey.setVariable("existing", false);
@@ -94,7 +94,7 @@ export default class ParentingTime extends Vue {
         }
 
         if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
+            const childData = this.step.result['childData'].data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

@@ -1,20 +1,43 @@
 <template>
     <step-base v-bind:step="step">
-        <flm-Questionnaire v-bind:step="step" v-if="step.currentPage == 0"></flm-Questionnaire>
-        <flm-background v-bind:step="step" v-if="step.currentPage == 1"></flm-background>
-        <children-info v-bind:step="step" v-if="step.currentPage == 2"></children-info>    
-        <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"></parenting-arrangements>    
-        <parental-responsibilities v-bind:step="step" v-if="step.currentPage == 4"></parental-responsibilities> 
-        <parenting-time v-bind:step="step" v-if="step.currentPage == 5"></parenting-time> 
-        <parental-arrangements v-bind:step="step" v-if="step.currentPage == 6"></parental-arrangements> 
-        <best-interests-of-child v-bind:step="step" v-if="step.currentPage == 7"></best-interests-of-child>
-        <child-support v-bind:step="step" v-if="step.currentPage == 8"></child-support> 
-        <contact-with-child v-bind:step="step" v-if="step.currentPage == 9"></contact-with-child>  
-        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 10"></guardian-of-child>  
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 11"></spousal-support>   
-        <family-form v-bind:step="step" v-if="step.currentPage == 12"></family-form>
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 13"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 14"/>
+        <flm-Questionnaire v-bind:step="step" v-if="step.currentPage == 0"/>
+        <flm-background v-bind:step="step" v-if="step.currentPage == 1"/>
+        <children-info v-bind:step="step" v-if="step.currentPage == 2"/>    
+        
+        
+        <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"/>    
+        <parental-responsibilities v-bind:step="step" v-if="step.currentPage == 4"/> 
+        <parenting-time v-bind:step="step" v-if="step.currentPage == 5"/> 
+        <parental-arrangements v-bind:step="step" v-if="step.currentPage == 6"/> 
+        
+        <parenting-order-agreement v-bind:step="step" v-if="step.currentPage == 7"/>
+        <about-parenting-arrangements v-bind:step="step" v-if="step.currentPage == 8"/>
+        <parenting-arrangement-changes v-bind:step="step" v-if="step.currentPage == 9"/>
+        <best-interests-of-child v-bind:step="step" v-if="step.currentPage == 10"/>
+
+        
+        <child-support v-bind:step="step" v-if="step.currentPage == 11"/> 
+        <child-support-current-arrangements v-bind:step="step" v-if="step.currentPage == 12"/> 
+        <income-and-earning-potential v-bind:step="step" v-if="step.currentPage == 13"/> 
+        <about-child-support-order v-bind:step="step" v-if="step.currentPage == 14"/>
+       
+        <child-support-order-agreement v-bind:step="step" v-if="step.currentPage == 15"/>
+        <about-existing-child-support v-bind:step="step" v-if="step.currentPage == 16"/> 
+        
+        <calculating-child-support v-bind:step="step" v-if="step.currentPage == 17"/>
+        <undue-hardship v-bind:step="step" v-if="step.currentPage == 18"/> 
+        <special-and-extraordinary-expenses v-bind:step="step" v-if="step.currentPage == 19"/> 
+
+        <about-child-support-changes v-bind:step="step" v-if="step.currentPage == 20"/> 
+        <unpaid-child-support v-bind:step="step" v-if="step.currentPage == 21"/>
+
+
+        <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>  
+        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 23"/>  
+        <spousal-support v-bind:step="step" v-if="step.currentPage == 24"/>   
+
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 25"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 26"/>
     </step-base>
 </template>
 
@@ -25,17 +48,35 @@ import { stepInfoType } from "@/types/Application";
 
 import FlmQuestionnaire from "./FlmQuestionnaire.vue";
 import FlmBackground from "./FlmBackground.vue";
-import ChildrenInfo from "./childComponent/ChildrenInfo.vue";
+import ChildrenInfo from "./childInfo/ChildrenInfo.vue";
+
+
 import ParentingArrangements from "./parentingArrangements/ParentingArrangements.vue";
 import ParentalResponsibilities from "./parentingArrangements/ParentalResponsibilities.vue";
 import ParentingTime from "./parentingArrangements/ParentingTime.vue";
 import ParentalArrangements from "./parentingArrangements/ParentalArrangements.vue";
+import ParentingOrderAgreement from "./parentingArrangements/ParentingOrderAgreement.vue";
+import AboutParentingArrangements from "./parentingArrangements/AboutParentingArrangements.vue";
+import ParentingArrangementChanges from "./parentingArrangements/ParentingArrangementChanges.vue";
 import BestInterestsOfChild from "./parentingArrangements/BestInterestsOfChild.vue";
-import ChildSupport from "./ChildSupport.vue";
-import ContactWithChild from "./ContactWithChild.vue";
-import GuardianOfChild from "./GuardianOfChild.vue";
-import SpousalSupport from "./SpousalSupport.vue";
-import FamilyForm  from "./FamilyForm.vue"
+
+import ChildSupport from "./childSupport/ChildSupport.vue";
+import ChildSupportCurrentArrangements from "./childSupport/ChildSupportCurrentArrangement.vue"
+import IncomeAndEarningPotential from "./childSupport/IncomeAndEarningPotential.vue"
+import AboutChildSupportOrder from "./childSupport/AboutChildSupportOrder.vue"
+import ChildSupportOrderAgreement from "./childSupport/ChildSupportOrderAgreement.vue"
+import AboutExistingChildSupport from "./childSupport/AboutExistingChildSupport.vue"
+import CalculatingChildSupport from "./childSupport/CalculatingChildSupport.vue"
+import UndueHardship from "./childSupport/UndueHardship.vue"
+import SpecialAndExtraordinaryExpenses from "./childSupport/SpecialAndExtraordinaryExpenses.vue"
+import AboutChildSupportChanges from "./childSupport/AboutChildSupportChanges.vue"
+import UnpaidChildSupport from "./childSupport/UnpaidChildSupport.vue"
+
+import ContactWithChild from "./contactWithChild/ContactWithChild.vue";
+
+import GuardianOfChild from "./guardianOfChild/GuardianOfChild.vue";
+
+import SpousalSupport from "./spousalSupport/SpousalSupport.vue";
 
 import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue"
 import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
@@ -44,19 +85,44 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
 @Component({
     components:{
         StepBase,      
+
+
         FlmQuestionnaire,
-        ChildSupport,     
-        FlmBackground,      
+        FlmBackground, 
         ChildrenInfo,
+
+
         ParentingArrangements,
         ParentalResponsibilities,
         ParentingTime,
         ParentalArrangements,
-        BestInterestsOfChild,       
+        ParentingOrderAgreement,
+        AboutParentingArrangements,
+        ParentingArrangementChanges,
+        BestInterestsOfChild, 
+
+
+        ChildSupport, 
+        ChildSupportCurrentArrangements,
+        IncomeAndEarningPotential,
+        AboutChildSupportOrder,
+       
+        ChildSupportOrderAgreement,
+        AboutExistingChildSupport,
+        
+        CalculatingChildSupport,
+        UndueHardship,
+        SpecialAndExtraordinaryExpenses,
+
+        AboutChildSupportChanges,
+        UnpaidChildSupport,    
+              
         ContactWithChild,
+
         GuardianOfChild,
-        SpousalSupport,    
-        FamilyForm,
+
+        SpousalSupport,
+
         ReviewYourAnswersFlm,
         PreviewFormsFlm,
     }

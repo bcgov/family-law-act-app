@@ -9,17 +9,14 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
-import surveyJson from "./forms/aboutPO.json";
+import surveyJson from "./forms/about-parenting-order.json";
 
-import PageBase from "../PageBase.vue";
+import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-
-import "@/store/modules/common";
-const commonState = namespace("Common");
 
 @Component({
     components:{
@@ -27,13 +24,10 @@ const commonState = namespace("Common");
     }
 })
 
-export default class About extends Vue {
+export default class AboutParentingArrangements extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    @commonState.State
-    public locationsInfo!: any[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -42,14 +36,10 @@ export default class About extends Vue {
     public UpdateGotoNextStepPage!: () => void
 
     @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void    
 
-    @applicationState.Action
-    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
-
-    selectedPOOrder = null;
+    
     survey = new SurveyVue.Model(surveyJson);
-    surveyJsonCopy;
     currentStep=0;
     currentPage=0;
    
@@ -71,8 +61,7 @@ export default class About extends Vue {
     }
 
     public initializeSurvey(){
-        this.adjustSurveyForLocations();
-        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
+        this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -81,19 +70,36 @@ export default class About extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            this.UpdateSurveyChangedPO(true);
+            console.log(this.survey.data.agreementDifferenceType)
+
+            if (this.survey.data.existingType == 'ExistingOrder') {
+                if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                    this.togglePages([9], true);
+                    this.togglePages([10], false);
+                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                    this.togglePages([10], true);
+                    this.togglePages([9], false);
+                }
+            } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
+                    this.togglePages([9], true);
+                    this.togglePages([10], false);
+                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+                    this.togglePages([10], true);
+                    this.togglePages([9], false);
+                }
+            }           
+            
         })
     }
 
-    public adjustSurveyForLocations(){
-
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
-        console.log(this.surveyJsonCopy.pages[0])
-        
-        this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];        
-        
-        for(const location of this.locationsInfo){ 
-            this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"].push(location["name"])
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
         }
     }
 
@@ -102,17 +108,12 @@ export default class About extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutPOSurvey']){
-            this.survey.data = this.step.result['aboutPOSurvey'].data;
+        if (this.step.result && this.step.result['aboutParentingArrangementsSurvey']){
+            this.survey.data = this.step.result['aboutParentingArrangementsSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        console.log(this.$store.state.Application.steps)
-
-        const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
-        if(order) {
-            this.survey.setVariable("userPreferredService", order.orderType);
-        }       
+         
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
@@ -131,12 +132,12 @@ export default class About extends Vue {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutParentingArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "../../../../styles/survey";
 </style>

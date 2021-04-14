@@ -13,7 +13,7 @@
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
             <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
+                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
             </div>
         </div>
         <div>
@@ -25,7 +25,7 @@
                 stacked
                 >                
                 <div class="checkbox-border">
-                    <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting arrangements</div>
+                    <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting Arrangements</div>
                     <p>
                         Parenting arrangement are how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" :index="0"/> 
                         for decision making about a child and the <tooltip title="parenting time" :index="0"/> each guardian spends with a child. 
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="checkbox-border">
-                    <b-form-checkbox value="contactWithChild"><div class="checkbox-choices">Contact with a child</div>
+                    <b-form-checkbox value="contactWithChild"><div class="checkbox-choices">Contact With a Child</div>
                         <p>
                             Contact with a child is the time a child spends with someone who is not their guardian. This person could include a parent who is not a 
                             guardian to a child, or other people, like grandparents, elders, aunts and uncles, or a family friend.  
@@ -117,8 +117,19 @@ export default class FlmQuestionnaire extends Vue {
     //returningUser = false
     showLegalAssistance = false
     // preparationInfo = false
-    currentStep=0;
-    currentPage=0;
+    currentStep = 0;
+    currentPage = 0;
+
+    allPages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+        
+    childrenInfoPage = [2];
+
+    // parentingArrangementsPages = [];
+    // childSupportPages = [];
+    // contactWithChildPages = []
+    // guardianOfChildPages = []
+    // spousalSupportPages = []
+
 
     created() {  
         //console.log(this.step)      
@@ -142,24 +153,29 @@ export default class FlmQuestionnaire extends Vue {
         // console.log(selectedForm)
         if (selectedForm) {
                         
-            this.togglePages([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], false);
+            this.togglePages(this.allPages, false);
+
             if (selectedForm.length > 0){
                 this.togglePages([1], true);
             }
-            if (selectedForm.includes("parentingArrangements")){
-                this.togglePages([2, 3, 4, 5, 6, 7], true);
-            } 
-            if (selectedForm.includes("childSupport")) {
-                this.togglePages([2, 8], true);
-            } 
-            if (selectedForm.includes("contactWithChild")) {
-                this.togglePages([2, 9], true);
-            } 
-            if (selectedForm.includes("guardianOfChild")) {
-                this.togglePages([2, 10], true);
-            } 
-            if (selectedForm.includes("spousalSupport")) {
-                this.togglePages([11], true);
+            // if (selectedForm.includes("parentingArrangements")){
+            //     this.togglePages(this.parentingArrangementsPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            // if (selectedForm.includes("childSupport")) {
+            //     this.togglePages(this.childSupportPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            // if (selectedForm.includes("contactWithChild")) {
+            //     this.togglePages(this.contactWithChildPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            // if (selectedForm.includes("guardianOfChild")) {
+            //     this.togglePages(this.guardianOfChildPages, true);
+            //     this.togglePages(this.childrenInfoPage, true);
+            // } 
+            if (selectedForm.length >1 || (selectedForm.length == 1 && !selectedForm.includes("spousalSupport"))) {            
+                this.togglePages(this.childrenInfoPage, true);
             }     
 
         }
@@ -189,13 +205,25 @@ export default class FlmQuestionnaire extends Vue {
     public onNext() {
         this.UpdateGotoNextStepPage();       
     }   
+
+    public getSelectedFormsNames(){
+        let result = ''
+        console.log(this.selectedForm)
+        for(const form of this.selectedForm){
+            if(form=='parentingArrangements') result+='Parenting Arrangements'+'\n';
+            if(form=='childSupport') result+='Child Support'+'\n';
+            if(form=='contactWithChild') result+='Contact With a Child'+'\n';
+            if(form=='guardianOfChild') result+='Guardian Of a Child'+'\n';
+            if(form=='spousalSupport') result+='Spousal Support'+'\n';
+        }
+        return result;
+    }
   
     beforeDestroy() {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        // this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: this.selectedForm}})
-        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: {}, pageName:"", currentStep:this.currentStep, currentPage:this.currentPage}}});
-   
+        const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
+        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>

@@ -1527,21 +1527,21 @@ export default class Form3 extends Vue {
                 schedules.push("schedule9")
             }
 
-        } else if (flmBackgroundInfo.ExistingOrders == 'y' && flmBackgroundInfo.existingOrdersList && flmBackgroundInfo.existingOrdersList.length > 0){
+        } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
 
-            if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersList.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+            if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                 schedules.push("schedule2")
             }
-            if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersList.includes("Child Support")){
+            if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
                 schedules.push("schedule4")
             }
-            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersList.includes("Contact with a child")){
+            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a child")){
                 schedules.push("schedule6")
             }
-            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersList.includes("Guardianship of a child")){
+            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a child")){
                 schedules.push("schedule8")
             }
-            if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersList.includes("Spousal Support")){
+            if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
                 schedules.push("schedule10")
             }
         }

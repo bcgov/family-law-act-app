@@ -256,23 +256,25 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
+
+//____________Parenting Arrangements_________
         p = {} as pageInfoType;
         p.key = "3";
-        p.label = "Parenting arrangements";
+        p.label = "Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "4";
-        p.label = "Parental responsibilities";
+        p.label = "Parental Responsibilities";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "5";
-        p.label = "Parenting time";
+        p.label = "Parenting Time";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -286,55 +288,146 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "7";
-        p.label = "Best interests of the child";
+        p.label = "Parenting Order/Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
+        
         p = {} as pageInfoType;
         p.key = "8";
-        p.label = "Child Support";
+        p.label = "About Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
+        
         p = {} as pageInfoType;
         p.key = "9";
-        p.label = "Contact with a child";
+        p.label = "Parenting Arrangement Changes";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "10";
-        p.label = "Guardian of a child";
+        p.label = "Best Interests of the Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+//____________Child Support__________
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.label = "Child Support";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "11";
-        p.label = "Spousal Support";
-        p.active = false;
-        p.progress = 0;    
-        s.pages.push(p);        
-    
-        p = {} as pageInfoType;
         p.key = "12";
-        p.label = "Family Law Form";
+        p.label = "Current Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "13";
+        p.label = "Income and Earning Potential";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "14";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "15";
+        p.label = "Child Support Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+        
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.label = "About Existing Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "17";
+        p.label = "Calculating Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "18";
+        p.label = "Undue Hardship";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "19";
+        p.label = "Special and Extraordinary Expenses";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "20";
+        p.label = "About Child Support Changes";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "21";
+        p.label = "Unpaid Child Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+
+//____________Contact with a Child
+        p = {} as pageInfoType;
+        p.key = "22";
+        p.label = "Contact with a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+//____________Guardianship of a Child
+        p = {} as pageInfoType;
+        p.key = "23";
+        p.label = "Guardianship of a Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+//____________Spousal Support
+        p = {} as pageInfoType;
+        p.key = "24";
+        p.label = "Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+    
+       
+//____________Review
+        p = {} as pageInfoType;
+        p.key = "25";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "14";
+        p.key = "26";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    

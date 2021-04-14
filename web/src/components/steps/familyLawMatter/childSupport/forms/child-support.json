@@ -2,50 +2,52 @@
   "title": "Child Support",
   "pages": [
     {
-      "name": "Child Support",
-      "description": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child(ren).  A child has the right to be supported by both parents, whether or not the parents ever lived together or the parent has ever lived with the child.",
+      "name": "Child Support ",
+      "description": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.<br><br>Although parents have the primary responsibility to pay child support, other guardians and step-parents may be responsible for paying child support. If you are a step-parent, and you need more information about step-parents and child support, see the fact sheet <a href='https://familylaw.lss.bc.ca/resources/fact_sheets/step_parents_rights.php' target='_blank'>Step-parents Rights and Responsibilities</a> by Legal Aid BC.<br><br>For more information about child support and referrals to other child support resources, visit the <a href='https://www2.gov.bc.ca/gov/content?id=9FC4E697F0204229BE702F32475C9107' target='_blank'>BC Government website</a> at www.gov.bc.ca.",
       "elements": [
         {
           "type": "panel",
-          "name": "ApplicantPanel",
+          "name": "ChildSupportPanel",
           "isRequired": true,
-          "elements": [
+          "elements": [           
             {
-              "type": "yesno",
-              "name": "parentGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)"
-            },
-            {
-              "type": "yesno",
-              "name": "applyingGuardianApplicant",
-              "title": "I am applying to be a guardian of the child(ren)",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n'"
-            },
-            {
-              "type": "infotext",
-              "name": "ifChildPOFAQ",
-              "title": "An application for child support may be made by the child or a person acting on behalf of the child, or if the right to apply for an order is assigned to a minister under the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02040_01\" target=\"_blank\">Employment and Assistance Act</a> or the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02041_01\" target=\"_blank\">Employment and Assistance for Persons with Disabilities Act</a>, the minister to whom the right is assigned in the name of the government or the name of the person who made the assignment.",
-              "titleLocation": "hidden",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'",
+              "type": "infotexttitle",
+              "name": "ChildSupportGuardianSelectionHelp", 
+              "title": "Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.",            
+              "description":"If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option.",
               "messageStyle": "inline"
             },
             {
               "type": "radiogroup",
-              "name": "applicantType",
-              "title": "Please select from the options below:",
-              "hasOther": true,
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'",
+              "name": "applicantChildSupportGuardianSelection",
+              "title":"I am:",
+              "hasOther": true,              
               "choices": [
                 {
-                  "value": "child",
-                  "text": "I am the child"
+                  "value": "parentGuardian",
+                  "text": "A parent or guardian of the child(ren)"
+                },
+                {
+                  "value": "appointedGuardian",
+                  "text": "Applying to be appointed as a guardian of the child(ren)"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "radiogroup",
+              "name": "otherPartyChildSupportGuardianSelection",
+              "title":"{otherParty} is:",
+              "hasOther": true,
+              "otherText": "Other (For example, a step-parent.)",
+              "choices": [
+                {
+                  "value": "guardian",
+                  "text": "A parent or guardian of the child(ren)"
                 },
                 {
                   "value": "onBehalfChild",
-                  "text": "I am a person acting on behalf of the child"
+                  "text": "A person standing in the place of a parent to the child(ren)"
                 }
               ],
               "choicesOrder": "asc"
@@ -191,7 +193,7 @@
           ]
         }
       ],
-      "title": "Child Support"
+      "title": "Child Support - New"
     }
   ],
   "showQuestionNumbers": "off",
