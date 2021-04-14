@@ -33,6 +33,7 @@
               "description": "Select each option that applies.",
               "isRequired": true,
               "hasOther": true,
+              "otherText": "Other method of communication",
               "choices": [
                 "In person",
                 "Telephone communication",
