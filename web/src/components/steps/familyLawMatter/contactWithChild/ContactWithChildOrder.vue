@@ -89,7 +89,11 @@ export default class ContactWithChildOrder extends Vue {
                     this.togglePages([25], true);
                     this.togglePages([24], false);
                 }
-            }    
+            } else if (this.survey.data.existingType == 'Neither') {
+                
+                this.togglePages([24, 25], false);
+                
+            }      
         })
     }
     

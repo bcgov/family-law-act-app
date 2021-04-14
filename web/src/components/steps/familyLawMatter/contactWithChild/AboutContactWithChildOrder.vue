@@ -102,7 +102,7 @@ export default class AboutContactWithChildOrder extends Vue {
             for (const child of childData){
                 this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
             }                       
-        }
+        }        
     }
     
     public reloadPageInformation() {
@@ -136,8 +136,9 @@ export default class AboutContactWithChildOrder extends Vue {
                 this.survey.setVariable("existing", false);
             }
         }
+        this.survey.setVariable("selectedChildWording", "child");
 
-        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            
+        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) { 
             const childData = this.step.result['childData'].data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    

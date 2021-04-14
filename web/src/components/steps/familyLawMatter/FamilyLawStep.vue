@@ -35,16 +35,10 @@
         <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>
         
         <contact-with-child-order v-bind:step="step" v-if="step.currentPage == 23"/>
+        
         <about-contact-with-child-order v-bind:step="step" v-if="step.currentPage == 24"/>
-
-
         <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 25"/>
-
-
-
-
-
-
+        
         <guardian-of-child v-bind:step="step" v-if="step.currentPage == 26"/>  
         <spousal-support v-bind:step="step" v-if="step.currentPage == 27"/>   
 
