@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -51,6 +51,7 @@ export default class PoQuestionnaire extends Vue {
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
     
@@ -68,6 +69,7 @@ export default class PoQuestionnaire extends Vue {
     }
 
     created() {
+        this.disableNextButton = false; 
         if (this.step.result && this.step.result['questionnaireSurvey']) {            
             this.determinePeaceBondAndBlock();
         }
@@ -122,17 +124,19 @@ export default class PoQuestionnaire extends Vue {
                 
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: this.currentStep, currentPage:0}}})
 
+                if (selectedOrder == "none") {
+                    this.disableNextButton = true;
 
-                if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
+                } else if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
+                    this.disableNextButton = false;
                     this.togglePages(this.changeTerminatePages, true);
                     //this.resetProgress(this.commonPages)
                     console.log(this.step.result)//['aboutPOSurvey'])
                     this.setConditionalProgress('aboutPOSurvey', this.aboutPage, 8)
                     this.resetProgress(this.urgencyPage)
                     //this.setConditionalProgress('urgencySurvey', this.urgencyPage, this.aboutPage);
-                } 
-
-                if (selectedOrder == "needPO") {
+                } else if (selectedOrder == "needPO") {
+                    this.disableNextButton = false;
                     if (sender.data.PORConfirmed) {  
                         if(this.isSurveyAnsweredCorectly()){          
                             this.togglePages(this.needPoPages, true);
@@ -143,7 +147,9 @@ export default class PoQuestionnaire extends Vue {
                             this.togglePages([1,2], true);
                         }
                     }
-                }                
+                }              
+                
+                
             }
 
             if (options.name == "PORConfirmed" && selectedOrder == "needPO" ) {
@@ -171,6 +177,9 @@ export default class PoQuestionnaire extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result["questionnaireSurvey"]){
             this.survey.data = this.step.result["questionnaireSurvey"];
+            if (this.survey.data.orderType == "none"){
+                this.disableNextButton = true;
+            }
         }       
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);

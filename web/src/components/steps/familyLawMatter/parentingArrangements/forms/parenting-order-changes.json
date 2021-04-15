@@ -112,6 +112,8 @@
                             "name": "existingOrderChangeOtherTermsDescription",
                             "title": "Please describe the other order term(s) about parenting arrangements you would like the court to make.",
                             "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+                            "visible": false,
+                            "visibleIf": "({orderChangeList} contains 'otherTermsAboutParentingArrangements')",
                             "isRequired": true
                         }
                     ]
@@ -228,6 +230,8 @@
                             "name": "existingOrderChangeOtherTermsDescription",
                             "title": "Please describe the other order term(s) about parenting arrangements you would like the court to make.",
                             "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
+                            "visible": false,
+                            "visibleIf": "({orderChangeList} contains 'otherTermsAboutParentingArrangements')",
                             "isRequired": true
                         }
                     ]

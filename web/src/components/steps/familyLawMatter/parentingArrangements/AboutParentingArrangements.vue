@@ -80,8 +80,8 @@ export default class AboutParentingArrangements extends Vue {
             if (this.survey.data.existingType == 'ExistingOrder') {
                 this.disableNextButton = false;
                 if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                    this.togglePages([9], true);
-                    this.togglePages([10], false);
+                    this.togglePages([9, 10], true);
+                    //this.togglePages([10], false);
                 } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
                     this.togglePages([10], true);
                     this.togglePages([9], false);
@@ -89,8 +89,8 @@ export default class AboutParentingArrangements extends Vue {
             } else if (this.survey.data.existingType == 'ExistingAgreement') {
                 this.disableNextButton = false;
                 if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                    this.togglePages([9], true);
-                    this.togglePages([10], false);
+                    this.togglePages([9, 10], true);
+                    // this.togglePages([10], false);
                 } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
                     this.togglePages([10], true);
                     this.togglePages([9], false);
