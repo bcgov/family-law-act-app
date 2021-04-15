@@ -158,22 +158,7 @@ export default class FlmQuestionnaire extends Vue {
             if (selectedForm.length > 0){
                 this.togglePages([1], true);
             }
-            // if (selectedForm.includes("parentingArrangements")){
-            //     this.togglePages(this.parentingArrangementsPages, true);
-            //     this.togglePages(this.childrenInfoPage, true);
-            // } 
-            // if (selectedForm.includes("childSupport")) {
-            //     this.togglePages(this.childSupportPages, true);
-            //     this.togglePages(this.childrenInfoPage, true);
-            // } 
-            // if (selectedForm.includes("contactWithChild")) {
-            //     this.togglePages(this.contactWithChildPages, true);
-            //     this.togglePages(this.childrenInfoPage, true);
-            // } 
-            // if (selectedForm.includes("guardianOfChild")) {
-            //     this.togglePages(this.guardianOfChildPages, true);
-            //     this.togglePages(this.childrenInfoPage, true);
-            // } 
+            
             if (selectedForm.length >1 || (selectedForm.length == 1 && !selectedForm.includes("spousalSupport"))) {            
                 this.togglePages(this.childrenInfoPage, true);
             }     

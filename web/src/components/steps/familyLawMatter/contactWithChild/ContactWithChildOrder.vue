@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -39,6 +39,7 @@ export default class ContactWithChildOrder extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
    
@@ -51,6 +52,13 @@ export default class ContactWithChildOrder extends Vue {
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
+    }
+
+    created() {
+        this.disableNextButton = false;
+        if (this.step.result && this.step.result['contactOrderSurvey']) { 
+            this.disableNextButton = false;           
+        }
     }
 
     mounted(){
@@ -74,6 +82,7 @@ export default class ContactWithChildOrder extends Vue {
             
             
             if (this.survey.data.existingType == 'ExistingOrder') {
+                this.disableNextButton = false;
                 if(this.survey.data.orderDifferenceType == 'changeOrder'){
                     this.togglePages([24], true);
                     this.togglePages([25], false);
@@ -82,6 +91,7 @@ export default class ContactWithChildOrder extends Vue {
                     this.togglePages([24], false);
                 }
             } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                this.disableNextButton = false;
                 if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
                     this.togglePages([24], true);
                     this.togglePages([25], false);
@@ -92,6 +102,7 @@ export default class ContactWithChildOrder extends Vue {
             } else if (this.survey.data.existingType == 'Neither') {
                 
                 this.togglePages([24, 25], false);
+                this.disableNextButton = true;
                 
             }      
         })
@@ -101,6 +112,9 @@ export default class ContactWithChildOrder extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['contactOrderSurvey'] && this.step.result['contactOrderSurvey'].data) {
             this.survey.data = this.step.result['contactOrderSurvey'].data;
+            if (this.survey.data.existingType == 'Neither') {
+                this.disableNextButton = true;
+            }      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 

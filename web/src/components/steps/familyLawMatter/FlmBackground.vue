@@ -92,7 +92,7 @@ export default class FlmBackground extends Vue {
 
     public reloadPageInformation() {  
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey']){
+        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             this.survey.data = this.step.result['flmBackgroundSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
@@ -139,7 +139,6 @@ export default class FlmBackground extends Vue {
                 } else {
                     this.togglePages(this.contactWithChildExistingPages, false);
                     this.togglePages(this.contactWithChildNewPages, true);
-
                 }
                     
             } 
