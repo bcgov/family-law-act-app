@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -45,7 +45,7 @@ export default class AboutExistingChildSupport extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);  
-   
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
    
@@ -58,6 +58,10 @@ export default class AboutExistingChildSupport extends Vue {
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
+    }
+
+    created() {
+        this.disableNextButton = false;        
     }
 
     mounted(){
@@ -78,13 +82,17 @@ export default class AboutExistingChildSupport extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data)  
             
-            if (this.survey.data.existingType && this.survey.data.existingType == "Neither") {                
-                this.togglePages([17, 20, 21], false);
-            } else {
-                this.togglePages([17, 20, 21], true);
-            } 
+            // if (this.survey.data.existingType && this.survey.data.existingType == "Neither") {                
+            //     this.togglePages([17, 20, 21], false);
+            //     this.disableNextButton = true;
+            // } else {
+            //     this.togglePages([17, 20, 21], true);
+            //     this.disableNextButton = false;
+            // } 
             
             if (this.survey.data.existingType == 'ExistingOrder') {
+                this.disableNextButton = false;
+                this.togglePages([17, 20, 21], true);
                 if(this.survey.data.orderDifferenceType == 'changeOrder'){
                     this.togglePages([20], true);
                     
@@ -93,6 +101,8 @@ export default class AboutExistingChildSupport extends Vue {
                     this.togglePages([20], false);
                 }
             } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                this.disableNextButton = false;
+                this.togglePages([17, 20, 21], true);
                 if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
                     this.togglePages([20], true);
                    
@@ -100,7 +110,11 @@ export default class AboutExistingChildSupport extends Vue {
                     
                     this.togglePages([20], false);
                 }
-            }      
+            } else if (this.survey.data.existingType == "Neither") {
+                this.togglePages([17, 20, 21], false);
+                this.disableNextButton = true;
+
+            }     
 
         })
     }
@@ -118,6 +132,9 @@ export default class AboutExistingChildSupport extends Vue {
     public reloadPageInformation() {        
         if (this.step.result && this.step.result['aboutExistingChildSupportSurvey']) {
             this.survey.data = this.step.result['aboutExistingChildSupportSurvey'].data;           
+            if (this.survey.data.existingType == 'Neither') {
+                this.disableNextButton = true;
+            } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 

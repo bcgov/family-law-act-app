@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -40,6 +40,7 @@ export default class AboutParentingArrangements extends Vue {
 
     
     survey = new SurveyVue.Model(surveyJson);
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
    
@@ -52,6 +53,10 @@ export default class AboutParentingArrangements extends Vue {
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
+    }
+
+    created() {
+        this.disableNextButton = false;       
     }
 
     mounted(){
@@ -70,9 +75,10 @@ export default class AboutParentingArrangements extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data.agreementDifferenceType)
+            
 
             if (this.survey.data.existingType == 'ExistingOrder') {
+                this.disableNextButton = false;
                 if(this.survey.data.orderDifferenceType == 'changeOrder'){
                     this.togglePages([9], true);
                     this.togglePages([10], false);
@@ -81,6 +87,7 @@ export default class AboutParentingArrangements extends Vue {
                     this.togglePages([9], false);
                 }
             } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                this.disableNextButton = false;
                 if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
                     this.togglePages([9], true);
                     this.togglePages([10], false);
@@ -88,7 +95,10 @@ export default class AboutParentingArrangements extends Vue {
                     this.togglePages([10], true);
                     this.togglePages([9], false);
                 }
-            }           
+            } else if (this.survey.data.existingType == 'Neither') {
+                this.disableNextButton = true;
+                this.togglePages([9, 10], false);
+            }              
             
         })
     }
@@ -110,6 +120,9 @@ export default class AboutParentingArrangements extends Vue {
 
         if (this.step.result && this.step.result['aboutParentingArrangementsSurvey']){
             this.survey.data = this.step.result['aboutParentingArrangementsSurvey'].data;
+            if (this.survey.data.existingType == 'Neither') {
+                this.disableNextButton = true;
+            } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 

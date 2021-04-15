@@ -55,10 +55,7 @@ export default class ContactWithChildOrder extends Vue {
     }
 
     created() {
-        this.disableNextButton = false;
-        if (this.step.result && this.step.result['contactOrderSurvey']) { 
-            this.disableNextButton = false;           
-        }
+        this.disableNextButton = false;       
     }
 
     mounted(){
