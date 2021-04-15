@@ -18,7 +18,7 @@
           "visibleIf": "{unpaid} == 'y'",
           "elements": [
             {
-              "type": "comment",
+              "type": "text",
               "name": "unPaidAmount",
               "isRequired": true,
               "title": "What is the amount of unpaid child support you believe is still owing?"
@@ -30,7 +30,7 @@
               "isRequired": true
             },
             {
-              "type": "comment",
+              "type": "text",
               "name": "reduceAmount",
               "title": "What amount do you want it reduced to?",
               "visible": false,
@@ -64,9 +64,9 @@
               ]             
             },
             {
-              "type": "comment",
+              "type": "text",
               "name": "monthlyAmount",
-              "title": "Please enter the monthly rate:",
+              "title": "Please enter the monthly rate:",                         
               "visible": false,
               "visibleIf": "{paymentSchedule} == 'monthly'",
               "isRequired": true
