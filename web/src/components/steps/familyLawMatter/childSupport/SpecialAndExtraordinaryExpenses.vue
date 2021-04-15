@@ -1,15 +1,44 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
+        <div v-if="showTable" :key="tableKey">
+            <b-table
+                :items="childrenSupportExpenseItem"
+                :fields="childrenSupportExpenseFields"
+                class="mt-2"
+                small                    
+                bordered>
+                    <template v-slot:cell()="data">                            
+                        <div v-if="data.index==0" style="text-align:center;font-size:10pt" ><b>{{data.value}}</b></div>
+                        <div v-else-if="data.index==7" style="text-align:left;font-size:14pt">${{calculateTotal(data.field.key)}}</div>
+                        <div v-else style="text-align:left;font-size:12pt;color:#000">                            
+                            <b-form>
+                                <label style="float:left;margin:0.5rem 0;">$</label>
+                                <b-form-input 
+                                    style="float:left;margin-left:0.3rem;width:90%;"
+                                    @change="tableKey=tableKey+1"                                    
+                                    v-model="childrenSupportExpenseItem[data.index][data.field.key]"
+                                    type="number">
+                                </b-form-input>
+                            </b-form>
+                        </div>                                           
+                    </template>
+                    <template v-slot:cell(name)="data">                            
+                        <div v-if="data.index==0" style="text-align:left;font-size:12pt;" ><b>{{data.value}}</b></div>
+                        <div v-else-if="data.index==7" style="text-align:right;font-size:12pt;" ><b>{{data.value}}</b></div>                            
+                        <div v-else style="text-align:left;font-size:12pt;">{{data.value}}</div>                                           
+                    </template>
+            </b-table>
+        </div>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/child-support.json";
+import surveyJson from "./forms/special-and-extraordinary-expenses.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -45,119 +74,104 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    surveyJsonCopy;
-    childData = [];
-    overAgeChildren = [];
-    currentStep=0;
-    currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+    currentStep =0;
+    currentPage =0;
+    showTable = false;
+    tableKey = 0;
 
+    childData = [];
+
+    childrenSupportExpenseItem =[
+        {name:'Special and Extraordinary Expense', child0:"Annual Amount"},
+        {name:'Child care expenses', child0:'0'},
+        {name:'Portion of medical/dental premiums attributable to child', child0:'0'},
+        {name:'Health related expenses that exceed insurance reimbursement by at least $100', child0:'0'},
+        {name:'Extraordinary expenses for primary or secondary school', child0:'0'},
+        {name:'Post-secondary school expenses', child0:'10'},
+        {name:'Extraordinary extracurricular activities expenses', child0:'0'},
+        {name:'Total', child0:"0",},
+    ]
+    childrenSupportExpenseFields = [
+        {key:"name", label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-primary text-right border-bottom-0", thStyle:"font-size:12pt; width:26%;"},
+       // {key:"child0", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},
+       // {key:"child1", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},
+       // {key:"amount3", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},
+       // {key:"amount4", label:"",   tdClass:"align-middle", thClass:"", thStyle:"width:17%;"},        
+    ]
+   
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
 
     mounted(){
+        this.showTable = false;
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
     }
 
     public initializeSurvey(){
-        this.adjustSurveyForChildren();
-        this.adjustSurveyForOtherParties();
-        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
+        this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
-
-    public adjustSurveyForChildren(){
-
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
-        this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
-        this.childData = [];
-        this.overAgeChildren = [];        
-
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
-            for (const child of childData){
-                this.childData.push(child);
-                if (this.getAge(child.dob) >= 19){
-                    this.overAgeChildren.push(Vue.filter('getFullName')(child.name))
-                }
-                this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"].push(Vue.filter('getFullName')(child.name));
-            }
-        }
-    }
-
-    public adjustSurveyForOtherParties(){        
-             
-        this.surveyJsonCopy.pages[0].elements[2].elements[7]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
-
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
-            for (const otherParty of otherPartyData){
-               this.surveyJsonCopy.pages[0].elements[2].elements[7]["choices"].push(Vue.filter('getFullName')(otherParty.name));
-            }
-        }
-    }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.childData);
-            console.log(this.overAgeChildren);
-            console.log(options)
-            if (options.name == "childrenRequireSupportChoices"){
-                const overAgeSelected = [];
-                for (const overAge of this.overAgeChildren) {
-                    if (options.value.includes(overAge)){
-                        overAgeSelected.push(overAge);
-                    }
-                }
-                if (overAgeSelected.length > 0) {
-                    this.survey.setVariable("overAgeChildSelected", true);
-                } else {
-                    this.survey.setVariable("overAgeChildSelected", false);
-                }
-                
-            } 
-
+        this.survey.onValueChanged.add((sender, options) => {           
+            //console.log(options)
+            this.determineShowingTable()
         })
     }
     
     public reloadPageInformation() {        
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-            const overAgeSelected = [];
-            for (const overAge of this.overAgeChildren) {
-                if (this.survey.data["childrenRequireSupportChoices"] && 
-                    this.survey.data["childrenRequireSupportChoices"].includes(overAge)){
-                    overAgeSelected.push(overAge);
-                }
-            }
-            if (overAgeSelected.length > 0) {
-                this.survey.setVariable("overAgeChildSelected", true);
-            } else {
-                this.survey.setVariable("overAgeChildSelected", false);
-            }
-
+        if (this.step.result && this.step.result['specialAndExtraordinaryExpensesSurvey']) {
+            this.survey.data = this.step.result['specialAndExtraordinaryExpensesSurvey'].data;           
+            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+        this.populateChildrenInfo()
+        this.determineShowingTable();
 
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public populateChildrenInfo(){
+
+        //console.log(this.survey.data.childrenSupportExpenseItem)
+
+        if (this.step.result && this.step.result['childData']) {
+                this.childData = this.step.result['childData'].data;                           
+                //console.log(childData)                 
+                for (const childInx in this.childData){
+                    const child = this.childData[childInx];
+                    const key = "child"+childInx
+                    this.childrenSupportExpenseFields.push({key:key, label:Vue.filter('getFullName')(child.name),  tdClass:"align-middle", thClass:"text-primary text-center", thStyle:"width:10%;"})
+                    this.childrenSupportExpenseItem[0][key]= 'Annual Amount';
+                    for(let index=1; index<8; index++){
+                        //console.log(this.childrenSupportExpenseItem[index])
+                        if(this.survey.data.childrenSupportExpenseItem && this.survey.data.childrenSupportExpenseItem[index][key])
+                            this.childrenSupportExpenseItem[index][key] = this.survey.data.childrenSupportExpenseItem[index][key]
+                        else
+                            this.childrenSupportExpenseItem[index][key] = 0
+                    }
+                }
+        }
+    }
+
+    public calculateTotal(key){        
+        let sum = 0;
+        for(let index=1; index<7; index++){
+            sum+= Number(this.childrenSupportExpenseItem[index][key])
+        }
+        this.childrenSupportExpenseItem[7][key] = sum
+        return sum;
     }
 
     public onPrev() {
@@ -168,32 +182,34 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
+    }
 
-    public getAge(dateOfBirth: string){
-        const dob = dateOfBirth.split('-')
-        
-        const today_date = new Date();
-        const today_year = today_date.getFullYear();
-        const today_month = today_date.getMonth();
-        const today_day = today_date.getDate();
-        let age = today_year - Number(dob[0]);
+    public determineShowingTable(){
+        if(this.survey.data && this.survey.data.applyForExtraordinaryExpenses=='y')
+            this.showTable=true;
+        else
+            this.showTable=false;
+    }
 
-        if ( today_month < (Number(dob[1]) - 1)) {
-            age--;
+    public getTotalExpenses(){
+        let result = ''
+        for (const [key, value] of Object.entries(this.childrenSupportExpenseItem[7]))
+        {            
+            if(key!='name'){         
+                if(!isNaN(Number(key.substring(5)))){
+                    const child =this.childData[Number(key.substring(5))]
+                   result += Vue.filter('getFullName')(child.name)+': Total  $'+value+'\n'
+                }
+            }
         }
-        if (((Number(dob[1]) - 1) == today_month) && (today_day < Number(dob[2]))) {
-            age--;
-        }
-
-        return age;
+        return result
     }
     
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {childSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        //console.log(this.childrenSupportExpenseItem)
+        this.survey.setValue("childrenSupportExpenseItem",this.childrenSupportExpenseItem)
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {specialAndExtraordinaryExpensesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, this.getTotalExpenses())}})
     }
 }
 </script>

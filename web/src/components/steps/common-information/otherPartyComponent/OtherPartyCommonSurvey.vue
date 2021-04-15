@@ -98,7 +98,7 @@ export default class OtherPartyCommonSurvey extends Vue {
 
             this.UpdateSurveyChangedPO(true);
 
-            console.log(this.survey)
+            //console.log(this.survey)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
             if (id == null || id == undefined) {
@@ -119,7 +119,7 @@ export default class OtherPartyCommonSurvey extends Vue {
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
         if (this.types.length == 1 && this.types[0] == "Case Management") {
-            console.log('true')
+            //console.log('true')
             this.survey.setVariable("csOnly", true);
         } else {
             this.survey.setVariable("csOnly", false);
@@ -205,16 +205,16 @@ export default class OtherPartyCommonSurvey extends Vue {
 
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="current";
-            }  
-        }       
+        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        // if(currPage){
+        //     if(this.survey.isCurrentPageHasErrors)
+        //         currPage.style.color = "red";
+        //     else
+        //     {
+        //         currPage.style.color = "";
+        //         currPage.className="current";
+        //     }  
+        // }       
     
     }
   

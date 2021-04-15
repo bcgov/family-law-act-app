@@ -233,7 +233,7 @@ export default class OtherPartyCommon extends Vue {
             {
                 questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
-        console.log(questionResults)
+        //console.log(questionResults)
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 

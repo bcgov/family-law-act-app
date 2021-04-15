@@ -48,7 +48,6 @@ export default class AboutChildSupportOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     childData = [];
-    overAgeChildren = [];
     currentStep =0;
     currentPage =0;
 
@@ -77,21 +76,20 @@ export default class AboutChildSupportOrder extends Vue {
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
         // this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
-        // this.childData = [];
-        // this.overAgeChildren = [];
-        //console.log(this.step.result)
+        this.childData = [];
+        
 
         if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;
-            const _19yearsBefore = moment().add(-19,'years')
+            this.childData = this.step.result['childData'].data;           
+            const _19yearsBefore = moment().add(-19,'years')           
             const whysupport19childTemplate = JSON.parse(JSON.stringify(this.surveyJsonCopy.pages[0].elements[0].elements[8]))
             this.surveyJsonCopy.pages[0].elements[0].elements.splice(8,1)
-            console.log(whysupport19childTemplate)
+            //console.log(whysupport19childTemplate)
             // console.log(_19yearsBefore.format()) 
             let numOf19child = 0   
-            for (const childInx in childData){
-                const child = childData[childInx];
-                console.log(child)
+            for (const childInx in this.childData){
+                const child = this.childData[childInx];
+                //console.log(child)
                 // this.childData.push(child);
                 this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child['+childInx+']',text:Vue.filter('getFullName')(child.name)});
 
@@ -123,50 +121,26 @@ export default class AboutChildSupportOrder extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.childData);
-            console.log(this.overAgeChildren);
-            console.log(options)
-            if (options.name == "childrenRequireSupportChoices"){
-                const overAgeSelected = [];
-                for (const overAge of this.overAgeChildren) {
-                    if (options.value.includes(overAge)){
-                        overAgeSelected.push(overAge);
-                    }
-                }
-                if (overAgeSelected.length > 0) {
-                    this.survey.setVariable("overAgeChildSelected", true);
-                } else {
-                    this.survey.setVariable("overAgeChildSelected", false);
-                }
-                
-            } 
-
+        this.survey.onValueChanged.add((sender, options) => {           
+            //console.log(options)
+            if(options.name == 'listOfSupportPayees'){                
+                this.survey.setVariable("listOfSupportPayeesLength",options.value.length)
+            }
         })
     }
     
     public reloadPageInformation() {        
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
+        if (this.step.result && this.step.result['aboutChildSupportOrderSurvey']) {
+            this.survey.data = this.step.result['aboutChildSupportOrderSurvey'].data;
 
-            const overAgeSelected = [];
-            for (const overAge of this.overAgeChildren) {
-                if (this.survey.data["childrenRequireSupportChoices"] && 
-                    this.survey.data["childrenRequireSupportChoices"].includes(overAge)){
-                    overAgeSelected.push(overAge);
-                }
-            }
-            if (overAgeSelected.length > 0) {
-                this.survey.setVariable("overAgeChildSelected", true);
-            } else {
-                this.survey.setVariable("overAgeChildSelected", false);
-            }
+            this.survey.setVariable("listOfSupportPayeesLength",this.survey.data.listOfSupportPayees?this.survey.data.listOfSupportPayees.length:0)
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+        if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]')
 
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -182,32 +156,11 @@ export default class AboutChildSupportOrder extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }  
-
-    public getAge(dateOfBirth: string){
-        const today_date = moment().diff('2020-01-01')
-        // const dob = dateOfBirth.split('-')
-        
-        // const today_date = new Date();
-        // const today_year = today_date.getFullYear();
-        // const today_month = today_date.getMonth();
-        // const today_day = today_date.getDate();
-        // let age = today_year - Number(dob[0]);
-
-        // if ( today_month < (Number(dob[1]) - 1)) {
-        //     age--;
-        // }
-        // if (((Number(dob[1]) - 1) == today_month) && (today_day < Number(dob[2]))) {
-        //     age--;
-        // }
-
-        return null;
-    }
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {childSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        this.UpdateStepResultData({step:this.step, data: {aboutChildSupportOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
