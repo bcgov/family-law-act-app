@@ -81,7 +81,21 @@ export default class CalculatingChildSupport extends Vue {
             this.survey.data = this.step.result['calculatingChildSupportSurvey'].data;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }        
+
+        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
+            
+            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
+                && backgroundSurveyData.existingOrdersListFLM.length > 0 
+                && backgroundSurveyData.existingOrdersListFLM.includes("Child Support")){
+                    this.survey.setVariable("existing", true);                    
+            } else {
+                this.survey.setVariable("existing", false);
+            }
         }
+
+
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
