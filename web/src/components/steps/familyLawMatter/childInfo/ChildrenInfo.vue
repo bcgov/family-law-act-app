@@ -16,10 +16,10 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Child's name</th>
-                                    <th scope="col">Birthdate</th>
+                                    <th scope="col">Child's date of birth</th>
                                     <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Child's relationship to the other party</th>
-                                    <th scope="col">Child currently living with</th>
+                                    <th scope="col">Other party's relationship to the child</th>
+                                    <th scope="col">Child is currently living with</th>
                                     <!-- <th scope="col">Additional Information</th> -->
                                     <th scope="col"></th>
                                     </tr>
@@ -160,7 +160,7 @@ export default class ChildrenInfo extends Vue {
     }
 
     created() {
-        console.log(this.step)
+        //console.log(this.step)
         if (this.step.result && this.step.result["childData"]) {
             this.childData = this.step.result["childData"].data;
         }
@@ -170,7 +170,7 @@ export default class ChildrenInfo extends Vue {
     }
 
     mounted(){
-        console.log(this.childBestInterestUnderstanding)
+        //console.log(this.childBestInterestUnderstanding)
 
         const progress = this.childData.length>0 && this.childBestInterestUnderstanding? 100 : 50;            
         this.currentStep = this.$store.state.Application.currentStep;
@@ -198,7 +198,7 @@ export default class ChildrenInfo extends Vue {
         {
             questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
         }
-        console.log(questionResults)
+        //console.log(questionResults)
         return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 

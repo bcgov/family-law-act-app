@@ -1,0 +1,75 @@
+{
+  "title": "About Child Support Changes",
+  "pages": [
+    {
+      "name": "About Child Support Changes",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "aboutChildSupportChangesPanel",
+          "elements": [
+            {
+              "type": "comment",
+              "name": "orderDescription",
+              "isRequired": true,
+              "title": "Please describe the order about child support you would like the court to make.",
+              "description": "Explain what you need the new court order to say about child support. You do not need to use any special wording. The key is to be clear about what part of the existing order or agreement you want to keep and what may need to be changed."
+            },
+            {
+              "type": "text",
+              "name": "orderStartingDate",
+              "title": "When do you want the order about child support to start?",
+              "description": "You need to tell the court when you think the new order should start. Child support payments may start or end on a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
+              "isRequired": true,
+              "inputType": "date",
+              "dateYearsAhead": 20
+            },
+            {
+              "type": "comment",
+              "name": "orderStartDateReason",
+              "isRequired": true,
+              "title": "Why do you want the child support payments to start on this date?"
+            },
+            {
+              "type": "checkbox",
+              "name": "listOfSituations",
+              "title": "You may be required to file a Financial Statement in Form 4 with your application for an order about child support. Select each option below that applies to your situation.",
+              "isRequired": true,
+              "choices": [
+                "I am required to pay child support",
+                "There is `split` or `shared` parenting time",
+                "There is a child 19 years or older for who support is for",
+                "A party has been acting as a parent to a child of the other party, for example a step-parent",
+                "The paying parent earns more than $150,000 per year",
+                "There is a claim for `special and extraordinary expenses` for a child",
+                "I am claiming `undue hardship`",
+                "None of the above apply to my situation"
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4Info",
+              "visible": true,
+              "visibleIf": "({listOfSituations} notempty) and !({listOfSituations} contains 'None of the above apply to my situation')",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service. If you have previously filed a Financial Statement, you will need to update the information and file a new one.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "parentNotFileForm4Info",
+              "visible": true,
+              "visibleIf": "{listOfSituations} contains 'None of the above apply to my situation'",
+              "title": "Based on your answer, you are not required to file a Financial Statement in Form 4 with your application for an order about child support. Depending on the other party’s reply, you may be required to file a Financial Statement later.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

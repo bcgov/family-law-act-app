@@ -90,7 +90,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        console.log(newVal)
+        //console.log(newVal)
         this.togglePages([this.previewFormsPage], !this.pageHasError);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
@@ -116,7 +116,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     }
 
     public beautifyResponse(value, dataItem){
-        console.log(value)
+        //console.log(value)
         //console.log(dataItem)
         const inputType = dataItem?dataItem['inputType']:""
         const inputName = dataItem?dataItem['name']:""
@@ -133,6 +133,7 @@ export default class ReviewYourAnswersFlm extends Vue {
         else if(Array.isArray(value))
         {
             //console.log(value)
+            if(value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
             if(value[0].childName)return this.getChildInfo(value) 
             if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
             if(typeof value[0] === 'string' || value[0] instanceof String)
@@ -165,7 +166,7 @@ export default class ReviewYourAnswersFlm extends Vue {
         else if(value.phone)
             return Vue.filter('getFullContactInfo')(value)
         else if(inputType == "date")
-            return Vue.filter('beautify-date')(value)
+            return Vue.filter('beautify-date')(value)          
         else 
             return value;    
     }
@@ -182,6 +183,20 @@ export default class ReviewYourAnswersFlm extends Vue {
                 resultString +="\n"
         }
         return resultString;
+    }
+
+    public getChildrenNames(selectedChildren){
+        let result = ''
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'].data;
+            for(const selectedChild of selectedChildren ){
+                if(!isNaN(Number(selectedChild.substring(6,7)))){
+                    const child = childData[Number(selectedChild.substring(6,7))]
+                    result += Vue.filter('getFullName')(child.name)+'\n'
+                }
+            }
+        }
+        return result
     }
 
     public getAnotherAdultInfo(adults){
