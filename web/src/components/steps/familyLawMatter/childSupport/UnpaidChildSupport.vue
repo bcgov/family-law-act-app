@@ -16,6 +16,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import moment from 'moment';
 const applicationState = namespace("Application");
 
 @Component({
@@ -81,7 +82,10 @@ export default class UnpaidChildSupport extends Vue {
         if (this.step.result && this.step.result['unpaidChildSupportSurvey']) {
             this.survey.data = this.step.result['unpaidChildSupportSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }        
+        }
+        
+        const currentDate = moment().format("MMM DD, yyyy");        
+        this.survey.setVariable("currentDate", currentDate);        
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -96,25 +100,6 @@ export default class UnpaidChildSupport extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
-
-    public getAge(dateOfBirth: string){
-        const dob = dateOfBirth.split('-')
-        
-        const today_date = new Date();
-        const today_year = today_date.getFullYear();
-        const today_month = today_date.getMonth();
-        const today_day = today_date.getDate();
-        let age = today_year - Number(dob[0]);
-
-        if ( today_month < (Number(dob[1]) - 1)) {
-            age--;
-        }
-        if (((Number(dob[1]) - 1) == today_month) && (today_day < Number(dob[2]))) {
-            age--;
-        }
-
-        return age;
     }
     
     beforeDestroy() {
