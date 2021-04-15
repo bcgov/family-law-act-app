@@ -12,6 +12,9 @@ context('Actions', () => {
 
   //read environment variables for creds.
   it('Smoke Test - Login to BCEID', () => {
+    cy.log('Checking for CYPRESS_BCEID_USERNAME &&  CYPRESS_BCEID_PASSWORD environment variables.')
+    .wait(1000)
+    .skipOn(Cypress.env('BCEID_USERNAME') === undefined || Cypress.env('BCEID_PASSWORD') === undefined)
     //Click login
     cy.visit('https://dev.oidc.gov.bc.ca/auth/admin/tz0e228w/console')
     cy.get('#zocial-bceid').click()
@@ -45,10 +48,10 @@ context('Actions', () => {
     cy.get('#__BVID__29___BV_modal_footer_ > .btn').click()
 
     //Select Yes
-    cy.get('.survey-yesno-outer > :nth-child(1)').click()
+    cy.get('span[data-test-id="isVictoriaLawCourt_y"]').click()
 
     //Select Victoria
-    cy.get('#sq_103i_1').click()
+    cy.get('div[name="ServiceLocation"] input[value="Victoria"]').click()
 
     cy.intercept('POST', 'apply-for-family-order/api/v1/app/').as('updateApp')
 
@@ -87,286 +90,281 @@ context('Actions', () => {
     cy.waitFor('@appListCheck')
 
     //Click on begin new application 
-    cy.get('.col-5 > .btn').click()
+    cy.get('.register-button').click()
 
     //Protection from family violence
-    cy.get(':nth-child(1) > .custom-control').click()
+    cy.get('input[value="protectionOrder"]').click({force: true})
 
     //Next button
     cy.get('.survey-nav-right > .btn').click()
 
     //I need a protection order
-    cy.get(':nth-child(2) > label').click()
+    cy.get('div[name="orderType"] input[value="needPO"]').click()
 
     //Click continue
     cy.get('.col-sm-12 > .btn').click()
 
     //Is someone making you feel unsafe - Yes
-    //Can be 112 or 116
-    cy.get('#sq_112i').click()
+    cy.get('span[data-test-id="unsafe_y"]').click()
 
     //Is the individual that needs protectiong a family member... - Yes
-    //Can be 114 or?
-    cy.get('#sq_114i').click()
+    cy.get('span[data-test-id="familyUnsafe_y"]').click()
 
     //I want to apply for a provincial court family act protection order 
-    cy.get('.sv-checkbox > label > .sv-checkbox-label > :nth-child(1) > span').click()
+    cy.get('input[value="confirmed"]').click()
     
     //Next
     cy.get('.survey-nav-right > .btn').click();
 
     const randomString = () => [...Array(50)].map(() => Math.random().toString(36)[2]).join('');
     //Fill in name
-    cy.get('#sq_130i').type(randomString())
-    cy.get('#sq_130i-middle').type(randomString())
-    cy.get('#sq_130i-last').type(randomString())
+    cy.get('div[name="ApplicantName"] input[data-test-id="first"]').type(randomString())
+    cy.get('div[name="ApplicantName"] input[data-test-id="middle"]').type(randomString())
+    cy.get('div[name="ApplicantName"] input[data-test-id="last"]').type(randomString())
 
-    cy.get('#sq_131i').select('2021')
-    cy.get('#sq_131i-month').select('January')
-    cy.get('#sq_131i-day').select('1')
+    cy.get('div[name="ApplicantDOB"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="ApplicantDOB"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="ApplicantDOB"] select[data-test-id="day"]').select('1')
 
     //Has a lawyer agreed to receive court documents for you? - Yes
-    cy.get('#sq_132i').click()
+    cy.get('span[data-test-id="Lawyer_y"]').click()
 
     //Lawyer Name
-    cy.get('#sq_138i').type(randomString())
-    cy.get('#sq_138i-middle').type(randomString())
-    cy.get('#sq_138i-last').type(randomString())
+    cy.get('div[name="LawyerName"] input[data-test-id="first"]').type(randomString())
+    cy.get('div[name="LawyerName"] input[data-test-id="middle"]').type(randomString())
+    cy.get('div[name="LawyerName"] input[data-test-id="last"]').type(randomString())
 
     //Lawyer Address
-    cy.get('#sq_139i').type(randomString())
-    cy.get('#sq_139i-city').type(randomString())
-    cy.get('#sq_139i-state').select('Yukon') // Shouldn't be able to select Yukon
-    cy.get('#sq_139i-country').select('USA')
-    cy.get('#sq_139i-postcode').type(randomString())
+    cy.get('div[name="LawyerAddress"] input[data-test-id="address"]').type(randomString())
+    cy.get('div[name="LawyerAddress"] input[data-test-id="city"]').type(randomString())
+    cy.get('div[name="LawyerAddress"] select[data-test-id="state"]').select('Yukon') // Shouldn't be able to select Yukon
+    cy.get('div[name="LawyerAddress"] select[data-test-id="country"]').select('USA')
+    cy.get('div[name="LawyerAddress"] input[data-test-id="postcode"]').type(randomString())
 
     //Lawyer Contact
-    cy.get('#sq_140i').type(randomString())
-    cy.get('#sq_140i-email').type(randomString())
-    cy.get('#sq_140i-fax').type(randomString())
+    cy.get('div[name="LawyerContact"] input[data-test-id="phone"]').type(randomString())
+    cy.get('div[name="LawyerContact"] input[data-test-id="email"]').type(randomString())
+    cy.get('div[name="LawyerContact"] input[data-test-id="fax"]').type(randomString())
     //Check for .alert?
 
     //Profession
-    cy.get('#sq_141i').type(randomString())
+    cy.get('div[name="ApplicantOccupation"] input').type(randomString())
 
     cy.get('.survey-nav-right > .btn').click()
 
     //Protection from Whom?
-    cy.get('#sq_177i').type(randomString())
-    cy.get('#sq_177i-middle').type(randomString())
-    cy.get('#sq_177i-last').type(randomString())
+    cy.get('div[name="RespondentName"] input[data-test-id="first"]').type(randomString())
+    cy.get('div[name="RespondentName"] input[data-test-id="middle"]').type(randomString())
+    cy.get('div[name="RespondentName"] input[data-test-id="last"]').type(randomString())
 
 
     //Know date of birth? - Yes
-    cy.get('#sq_178i').click()
+    cy.get('span[data-test-id="RespondentDOBExact_y"]').click()
 
-    cy.get('#sq_179i').select('2021')
-    cy.get('#sq_179i-month').select('January')
-    cy.get('#sq_179i-day').select('1')
+    cy.get('div[name="RespondentDOB"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="RespondentDOB"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="RespondentDOB"] select[data-test-id="day"] ').select('1')
 
     //Address
-    cy.get('#sq_180i').type(randomString())
-    cy.get('#sq_180i-city').type(randomString())
-    cy.get('#sq_180i-state').select('Nunavut')
-    cy.get('#sq_180i-country').select('Canada')
-    cy.get('#sq_180i-postcode').type(randomString())
+    cy.get('div[name="RespondentAddress"] input[data-test-id="address"]').type(randomString())
+    cy.get('div[name="RespondentAddress"] input[data-test-id="city"]').type(randomString())
+    cy.get('div[name="RespondentAddress"] select[data-test-id="state"]').select('Nunavut')
+    cy.get('div[name="RespondentAddress"] select[data-test-id="country"]').select('Canada')
+    cy.get('div[name="RespondentAddress"] input[data-test-id="postcode"]').type(randomString())
 
     //Contact Info
-    cy.get('#sq_181i').type(randomString())
-    cy.get('#sq_181i-email').type(randomString())
-    cy.get('#sq_181i-fax').type(randomString())
+    cy.get('div[name="RespondentContact"] input[data-test-id="phone"]').type(randomString())
+    cy.get('div[name="RespondentContact"] input[data-test-id="email"]').type(randomString())
+    cy.get('div[name="RespondentContact"] input[data-test-id="fax"]').type(randomString())
 
     //Do you need to be protected? - Yes
-    cy.get('#sq_182i').click()
+    cy.get('span[data-test-id="ApplicantNeedsProtection_y"]').click()
 
     //Do you have a child that needs to be protected? - Yes
-    cy.get('#sq_188i').click()
+    cy.get('span[data-test-id="childPO_y"]').click()
 
     //Name of Child
-    cy.get('#sq_205i').type(randomString())
-    cy.get('#sq_205i-middle').type(randomString())
-    cy.get('#sq_205i-last').type(randomString())
+    cy.get('div[name="childName"] input[data-test-id="first"]').type(randomString())
+    cy.get('div[name="childName"] input[data-test-id="middle"]').type(randomString())
+    cy.get('div[name="childName"] input[data-test-id="last"]').type(randomString())
 
-    cy.get('#sq_206i').select('1955')
-    cy.get('#sq_206i-month').select('February')
-    cy.get('#sq_206i-day').select('5')
+    cy.get('div[name="childDOB"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="childDOB"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="childDOB"] select[data-test-id="day"]').select('1')
 
     //Relationship to child:
-    cy.get('#sq_207i').type(randomString())
+    cy.get('div[name="childRelationship"] input').type(randomString())
     //Who does child live with:
-    cy.get('#sq_208i').type(randomString())
+    cy.get('div[name="childLivingWith"] input').type(randomString())
 
     //Is there another adult family member sharing a residence? - Yes
-    cy.get('#sq_195i').click()
+    cy.get('span[data-test-id="anotherAdultSharingResi_y"]').click()
 
     //Name
-    cy.get('#sq_209i').type(randomString())
-    cy.get('#sq_209i-middle').type(randomString())
-    cy.get('#sq_209i-last').type(randomString())
+    cy.get('div[name="anotherAdultSharingResiName"] input[data-test-id="first"]').type(randomString())
+    cy.get('div[name="anotherAdultSharingResiName"] input[data-test-id="middle"]').type(randomString())
+    cy.get('div[name="anotherAdultSharingResiName"] input[data-test-id="last"]').type(randomString())
+
     //Birthday
-    cy.get('#sq_210i').select('1955')
-    cy.get('#sq_210i-month').select('February')
-    cy.get('#sq_210i-day').select('5')
+    cy.get('div[name="anotheradultSharingResiDOB"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="anotheradultSharingResiDOB"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="anotheradultSharingResiDOB"] select[data-test-id="day"]').select('1')
+
     //Relationship
-    cy.get('#sq_211i').type(randomString())
-
+    cy.get('div[name="anotherAdultSharingResiRelation"] input').type(randomString())
     //Is there already a file? - Yes
-    cy.get('#sq_201i').click()
+    cy.get('span[data-test-id="ExistingFamilyCase_y"]').click()
 
-    cy.get('#sq_203i').select('Victoria')
-    cy.get('#sq_204i').type('20210317')
+    cy.get('div[name="ExistingCourt"] select').select('Victoria')
+    cy.get('div[name="ExistingFileNumber"] input').type('20210317')
 
     //Next
     cy.get('.survey-nav-right > .btn').click()
 
     //Share a residence - Yes
-    cy.get('#sq_214i').click()
+    cy.get('span[data-test-id="RespondentLiveTogether_y"]').click()
 
     //I believe police assistance - All options
-    cy.get('#sq_215i_0').click()
-    cy.get('#sq_215i_1').click()
-    cy.get('#sq_215i_2').click()
-    cy.get('#sq_215i_3').click()
-    cy.get('#sq_215i_4').click()
-    cy.get('.sv_q_checkbox_other').type(randomString())
+    cy.get('div[name="needPolice"] input[type="checkbox"]').each(($el, index, $list) => { // Get the elements and run .each() on them
+      cy.wrap($el).check();
+    })
+    cy.get('div[name="needPolice"] textarea').type(randomString())
 
-    //Next
+    //Next - No Go
     cy.get('.survey-nav-right > .btn').click()
 
     //No Go - Are there places where you want to stay away from - Yes - all
-    cy.get('#sq_219i').click()
+    cy.get('span[data-test-id="RespondentNoGo_y"]').click()
 
-    cy.get('#sq_220i_0').click()
-    cy.get('#sq_220i_1').click()
-    cy.get('#sq_220i_2').click()
-    cy.get('#sq_220i_3').click()
-    cy.get('#sq_220i_4').click()
-    cy.get('.sv_q_checkbox_other').type(randomString())
+    cy.get('div[name="RespondentNoGoPlaces"] input[type="checkbox"]').each(($el, index, $list) => { // Get the elements and run .each() on them
+      cy.wrap($el).check();
+    })
+    cy.get('div[name="RespondentNoGoPlaces"] textarea').type(randomString())
 
-    //Next
+    //Next - No Contact
     cy.get('.survey-nav-right > .btn').click()
 
     //No Contact - Yes
-    cy.get('#sq_226i').click()
-    cy.get('#sq_227i_0').click()
-    cy.get('#sq_227i_1').click()
-    cy.get('#sq_227i_2').click()
-    cy.get('#sq_227i_3').click()
-    cy.get('.sv_q_checkbox_other').type(randomString())
+    cy.get('span[data-test-id="needCommunication_y"]').click()
+    cy.get('div[name="reasonForCommunication"] input[type="checkbox"]').each(($el, index, $list) => { // Get the elements and run .each() on them
+      cy.wrap($el).check();
+    })
+    cy.get('div[name="reasonForCommunication"] textarea').type(randomString())
 
-    //Next
+    //Next - Weapons and Firearms
     cy.get('.survey-nav-right > .btn').click()
 
     //Concerns with weapons or Firearms - Yes
-    cy.get('#sq_237i').click()
-    cy.get('#sq_238i').type(randomString())
+    cy.get('span[data-test-id="RespondentFirearms_y"]').click()
+    cy.get('div[name="firearmsReason"] textarea').type(randomString())
 
     //Do you think they have other firearms - Yes
-    cy.get('#sq_239i').click()
-    cy.get('#sq_240i').type(randomString())
+    cy.get('span[data-test-id="RespondentFirearmsYes_y"]').click()
+    cy.get('div[name="firearmsYesReason"] textarea').type(randomString())
 
     //Concerns would threaten with weapons that aren't guns or explosives - Yes
-    cy.get('#sq_241i').click()
-    cy.get('#sq_242i').type(randomString())
+    cy.get('span[data-test-id="RespondentWeapons_y"]').click()
+    cy.get('div[name="weaponsReasons"] textarea').type(randomString())
 
     //Own any weapons that are not everyday objects, guns or explosives?
-    cy.get('#sq_243i').click()
-    cy.get('#sq_244i').type(randomString())
+    cy.get('span[data-test-id="RespondentWeaponsYes_y"]').click()
+    cy.get('div[name="weaponsYesReason"] textarea').type(randomString())
 
-    //Next
+    //Next - Background tab
     cy.get('.survey-nav-right > .btn').click()
 
     //Describe how..
-    cy.get('#sq_287i').type(randomString())
+    cy.get('div[name="howPartiesRelated"] textarea').type(randomString())
 
     //Is the protected party a spouse or has been a spouce - Yes
-    cy.get('#sq_289i').click()
+    cy.get('span[data-test-id="werePOPartiesMarried_y"]').click()
 
     //Date which parties live like marriage
-    cy.get('#sq_291i').select('1955')
-    cy.get('#sq_291i-month').select('February')
-    cy.get('#sq_291i-day').select('5')
+    cy.get('div[name="liveTogetherPODate"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="liveTogetherPODate"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="liveTogetherPODate"] select[data-test-id="day"]').select('1')
+
     //Date of marriage
-    cy.get('#sq_292i').select('1955')
-    cy.get('#sq_292i-month').select('February')
-    cy.get('#sq_292i-day').select('5')
+    cy.get('div[name="dateOfMarriagePO"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="dateOfMarriagePO"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="dateOfMarriagePO"] select[data-test-id="day"]').select('1')
 
     //Are they currently separated? - Yes
-    cy.get('#sq_293i_0').click()
+    cy.get('div[name="isSeperatedPO"] input[value="Yes"]').click()
     //Seperated On
-    cy.get('#sq_294i').select('1955')
-    cy.get('#sq_294i-month').select('February')
-    cy.get('#sq_294i-day').select('5')
+    cy.get('div[name="separationDate"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="separationDate"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="separationDate"] select[data-test-id="day"]').select('1')
 
     //Additional Children - Yes
-    cy.get('#sq_298i').click()
-    cy.get('#sq_323i').type(randomString())
-    cy.get('#sq_323i-middle').type(randomString())
-    cy.get('#sq_323i-last').type(randomString())
-    cy.get('#sq_324i').select('1955')
-    cy.get('#sq_324i-month').select('February')
-    cy.get('#sq_324i-day').select('5')
+    cy.get('span[data-test-id="PartiesHasOtherChilderen_y"]').click()
+    cy.get('div[name="childName"] input[data-test-id="first"]').type(randomString())
+    cy.get('div[name="childName"] input[data-test-id="middle"]').type(randomString())
+    cy.get('div[name="childName"] input[data-test-id="last"]').type(randomString())
+    cy.get('div[name="childDOB"] select[data-test-id="year"]').select('2021')
+    cy.get('div[name="childDOB"] select[data-test-id="month"]').select('January')
+    cy.get('div[name="childDOB"] select[data-test-id="day"]').select('1')
     //Relationship to child
-    cy.get('#sq_325i').type(randomString())
+    cy.get('div[name="childRelationshipWithProtected"] input').type(randomString())
     //Relationship to child2
-    cy.get('#sq_326i').type(randomString())
+    cy.get('div[name="childRelationshipWithOther"] input').type(randomString())
     //Living with
-    cy.get('#sq_327i').type(randomString())
+    cy.get('div[name="childLivingWith"] input').type(randomString())
 
     //Are there any existing written agreements? - Yes
-    cy.get('#sq_305i').click()
+    cy.get('span[data-test-id="ExistingOrders_y"]').click()
 
     //Any information about cultural.. upbringing.. - Yes
-    cy.get('#sq_307i').click()
-    cy.get('#sq_308i').type(randomString())
+    cy.get('span[data-test-id="likeToAddCulturalExplanation_y"]').click()
+    cy.get('div[name="culturalExplain"] textarea').type(randomString())
 
     //Mental health concerns? - Yes
-    cy.get('#sq_309i').click()
-    cy.get('#sq_310i').type(randomString())
+    cy.get('span[data-test-id="mentalHealthConcernPO_y"]').click()
+    cy.get('div[name="explainReasonsPO"] textarea').type(randomString())
 
     //Circumstances that increase risk of family violence? - Yes
-    cy.get('#sq_311i').click()
-    cy.get('#sq_312i').type(randomString())
+    cy.get('span[data-test-id="riskOfViolencePO_y"]').click()
+    cy.get('div[name="describeCirumstancesPO"] textarea').type(randomString())
 
     //Existing court orders between?  - Yes
-    cy.get('#sq_313i').click()
+    cy.get('span[data-test-id="existingPOOrders_y"]').click()
 
     //Failed to obey court order?  - Yes
-    cy.get('#sq_315i_0').click()
-    cy.get('#sq_316i').type(randomString())
+    cy.get('div[name="otherPartyDisobeyOrder"] input[value="Yes"]').click()
+    cy.get('div[name="describeDisobeyOrder"] textarea').type(randomString())
 
     //Concerns other party wont obey a court order? - Yes
-    cy.get('#sq_317i').click()
-    cy.get('#sq_318i').type(randomString())
+    cy.get('span[data-test-id="concernForNotObeying_y"]').click()
+    cy.get('div[name="explainReasonsForConcern"] textarea').type(randomString())
 
     //Reported safety concerns to police? - Yes
-    cy.get('#sq_319i').click()
-    cy.get('#sq_320i').type(randomString())
+    cy.get('span[data-test-id="reportedConcernsToPolice_y"]').click()
+    cy.get('div[name="describeActionsByPolice"] textarea').type(randomString())
 
     //Reported safety concerns to social worker? - Yes
-    cy.get('#sq_321i').click()
-    cy.get('#sq_322i').type(randomString())
+    cy.get('span[data-test-id="reportedConcernsToSW_y"]').click()
+    cy.get('div[name="desrcibeSWAction"] textarea').type(randomString())
 
     //Next
     cy.get('.survey-nav-right > .btn').click()
 
     //Any family violence not described? - Yes
-    cy.get('#sq_336i').click()
-    cy.get('#sq_337i').type(randomString())
+    cy.get('span[data-test-id="isFamilyViolence_y"]').click()
+    cy.get('div[name="whatViolence"] textarea').type(randomString())
 
     //Concerns for safety? - Yes
-    cy.get('#sq_338i').click()
-    cy.get('#sq_339i').type(randomString())
+    cy.get('span[data-test-id="isNoneExplainedConcerns_y"]').click()
+    cy.get('div[name="noneExplainedConcerns"] textarea').type(randomString())
 
     //Describe any recent incidents
-    cy.get('#sq_340i').type(randomString())
+    cy.get('div[name="recentIncidents"] textarea').type(randomString())
 
     //Next
     cy.get('.survey-nav-right > .btn').click()
 
     //Do you want the judge to make their decision before the other paty gets to tell their story? - Yes
-    cy.get('#sq_347i').click()
-    cy.get('#sq_348i').type(randomString())
+    cy.get('span[data-test-id="PORNoNotice_y"]').click()
+    cy.get('div[name="PORWhyNoNotice"] textarea').type(randomString())
 
     //Next
     cy.get('.survey-nav-right > .btn').click()
