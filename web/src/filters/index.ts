@@ -91,7 +91,7 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 })
 
 
-Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number){
+Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number, optionalArg?){
 	//____________________________________________________________________
 	//console.log(survey)if(question.titleLocation!="hidden" && question.title != " " && question.title != "" && question.isVisible)
 	// console.log(survey.currentPage.title)
@@ -124,12 +124,15 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 				// console.log(question.questionValue);
 				questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})
 				
-			}
+			}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){
+				console.log(question)//
+				questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.title, inputType:question.inputType})
+			}	
 		}
 		//__specialities
 		else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
 			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
-
+		
 	}
 	// console.log(result)
 	// console.log(document.getElementsByName("inCourtForPO"))

@@ -19,7 +19,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
-import { addQuestionTypes } from "@/components/survey/question-types.ts";
+//import { addQuestionTypes } from "@/components/survey/question-types.ts";
 
 @Component
 export default class ChildrenSurvey extends Vue {
@@ -42,32 +42,32 @@ export default class ChildrenSurvey extends Vue {
     }
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
-        addQuestionTypes(Survey);
-        Survey.defaultBootstrapCss.page.root = "sv_page";
-        Survey.defaultBootstrapCss.pageDescription = "sv_page_description";
-        Survey.defaultBootstrapCss.page.description = "sv_page_description";
-        Survey.defaultBootstrapCss.pageTitle = "sv_page_title";
-        Survey.defaultBootstrapCss.page.title = "sv_page_title";
-        Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
-        Survey.defaultBootstrapCss.question.title = "sv_q_title";
-        Survey.defaultBootstrapCss.question.description = "sv_q_description";
-        Survey.defaultBootstrapCss.panel.description = "sv_p_description";
-        Survey.defaultBootstrapCss.matrixdynamic.button = "btn btn-primary";
-        Survey.defaultBootstrapCss.paneldynamic.button = "btn btn-primary";
-        Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic";
-        Survey.defaultBootstrapCss.checkbox.item = "sv-checkbox";
-        Survey.defaultBootstrapCss.checkbox.controlLabel = "sv-checkbox-label";
-        Survey.defaultBootstrapCss.checkbox.materialDecorator = "";
-        Survey.defaultBootstrapCss.radiogroup.item = "sv-radio";
-        Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
-        Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
-        Survey.StylesManager.applyTheme("bootstrap");
+        // addQuestionTypes(Survey);
+        // Survey.defaultBootstrapCss.page.root = "sv_page";
+        // Survey.defaultBootstrapCss.pageDescription = "sv_page_description";
+        // Survey.defaultBootstrapCss.page.description = "sv_page_description";
+        // Survey.defaultBootstrapCss.pageTitle = "sv_page_title";
+        // Survey.defaultBootstrapCss.page.title = "sv_page_title";
+        // Survey.defaultBootstrapCss.navigationButton = "btn btn-primary";
+        // Survey.defaultBootstrapCss.question.title = "sv_q_title";
+        // Survey.defaultBootstrapCss.question.description = "sv_q_description";
+        // Survey.defaultBootstrapCss.panel.description = "sv_p_description";
+        // Survey.defaultBootstrapCss.matrixdynamic.button = "btn btn-primary";
+        // Survey.defaultBootstrapCss.paneldynamic.button = "btn btn-primary";
+        // Survey.defaultBootstrapCss.paneldynamic.root = "sv_p_dynamic";
+        // Survey.defaultBootstrapCss.checkbox.item = "sv-checkbox";
+        // Survey.defaultBootstrapCss.checkbox.controlLabel = "sv-checkbox-label";
+        // Survey.defaultBootstrapCss.checkbox.materialDecorator = "";
+        // Survey.defaultBootstrapCss.radiogroup.item = "sv-radio";
+        // Survey.defaultBootstrapCss.radiogroup.controlLabel = "sv-checkbox-label";
+        // Survey.defaultBootstrapCss.radiogroup.materialDecorator = "";
+        // Survey.StylesManager.applyTheme("bootstrap");
     }
 
     mounted(){
@@ -150,16 +150,16 @@ export default class ChildrenSurvey extends Vue {
     beforeDestroy() {
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="current";
-            }  
-        }  
+        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
+        // if(currPage){
+        //     if(this.survey.isCurrentPageHasErrors)
+        //         currPage.style.color = "red";
+        //     else
+        //     {
+        //         currPage.style.color = "";
+        //         currPage.className="current";
+        //     }  
+        // }  
     }
 };
 </script>
