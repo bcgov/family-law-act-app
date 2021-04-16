@@ -432,9 +432,25 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-//____________Spousal Support
+
         p = {} as pageInfoType;
         p.key = "27";
+        p.label = "Best interests of the child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "28";
+        p.label = "Indigenous ancestry of child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+
+//____________Spousal Support
+        p = {} as pageInfoType;
+        p.key = "29";
         p.label = "Spousal Support";
         p.active = false;
         p.progress = 0;    
@@ -443,14 +459,14 @@ class Application extends VuexModule {
        
 //____________Review
         p = {} as pageInfoType;
-        p.key = "28";
+        p.key = "30";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "30";
+        p.key = "31";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    

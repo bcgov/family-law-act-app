@@ -44,7 +44,7 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,28)
+    allPages = _.range(3,30)
     commonPages = [];
 
     parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
@@ -56,10 +56,10 @@ export default class FlmBackground extends Vue {
     contactWithChildNewPages = [22, 24, 25]
     contactWithChildExistingPages = [23, 24, 25]
 
-    guardianOfChildNewPages = [26]
+    guardianOfChildNewPages = [26, 27, 28]
     guardianOfChildExistingPages = []
 
-    spousalSupportNewPages = [27]
+    spousalSupportNewPages = [29]
     spousalSupportExistingPages = []
 
     beforeCreate() {
@@ -143,10 +143,10 @@ export default class FlmBackground extends Vue {
                     
             } 
             if (this.selectedForms.includes("guardianOfChild")) {
-                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Guardianship of a Child'))
-                    this.togglePages(this.guardianOfChildExistingPages, true);
-                else
-                    this.togglePages(this.guardianOfChildNewPages, true);
+                // if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Guardianship of a Child'))
+                //     this.togglePages(this.guardianOfChildExistingPages, true);
+                // else
+                this.togglePages(this.guardianOfChildNewPages, true);
             } 
             if (this.selectedForms.includes("spousalSupport")) {
                 if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Spousal Support'))

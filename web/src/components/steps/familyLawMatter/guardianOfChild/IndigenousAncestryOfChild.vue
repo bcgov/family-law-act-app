@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/guardian-of-child.json";
+import surveyJson from "./forms/indigenous-ancestry-of-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class GuardianOfChild extends Vue {
+export default class IndigenousAncestryOfChild extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -79,26 +79,26 @@ export default class GuardianOfChild extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
-        this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"]=[];
-        this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[0]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"]=[];
+        this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[1]["choices"] = [];
 
         if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
+            const childData = this.step.result['childData'];            
             for (const child of childData){
-                this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
-                this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[0]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[1]["choices"].push(Vue.filter('getFullName')(child.name));
             }
         }
     }
 
     public adjustSurveyForOtherParties(){
              
-        this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[1]["choices"]=[];
+        this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[0]["choices"]=[];
 
         if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
             const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
             for (const otherParty of otherPartyData){
-                this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[1]["choices"].push(Vue.filter('getFullName')(otherParty.name));
+                this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
             }
         }
     }
@@ -113,8 +113,8 @@ export default class GuardianOfChild extends Vue {
     
     public reloadPageInformation() {
         // console.log(this.step.result)
-        if (this.step.result && this.step.result['GuardianOfChildSurvey']) {
-            this.survey.data = this.step.result['GuardianOfChildSurvey'].data;
+        if (this.step.result && this.step.result['IndigenousAncestryOfChildSurvey']) {
+            this.survey.data = this.step.result['IndigenousAncestryOfChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -137,7 +137,7 @@ export default class GuardianOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {GuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {IndigenousAncestryOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
