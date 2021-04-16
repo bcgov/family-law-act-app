@@ -43,10 +43,13 @@
         <guardian-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 27"/>
         <indigenous-ancestry-of-child v-bind:step="step" v-if="step.currentPage == 28"/>
 
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 29"/>   
+        <spousal-support v-bind:step="step" v-if="step.currentPage == 29"/>
+        <spousal-support-income-and-earning-potential v-bind:step="step" v-if="step.currentPage == 30"/> 
+        <about-spousal-support-order v-bind:step="step" v-if="step.currentPage == 31"/> 
+        <calculating-spousal-support v-bind:step="step" v-if="step.currentPage == 32"/> 
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 30"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 31"/>
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 33"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 34"/>
     </step-base>
 </template>
 
@@ -91,6 +94,9 @@ import GuardianOfChildBestInterestsOfChild from "./guardianOfChild/GuardianOfChi
 import IndigenousAncestryOfChild from "./guardianOfChild/IndigenousAncestryOfChild.vue";
 
 import SpousalSupport from "./spousalSupport/SpousalSupport.vue";
+import AboutSpousalSupportOrder from "./spousalSupport/AboutSpousalSupportOrder.vue";
+import CalculatingSpousalSupport from "./spousalSupport/CalculatingSpousalSupport.vue";
+import SpousalSupportIncomeAndEarningPotential from "./spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
 
 import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue"
 import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
@@ -141,6 +147,9 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         IndigenousAncestryOfChild,
 
         SpousalSupport,
+        AboutSpousalSupportOrder,
+        CalculatingSpousalSupport,
+        SpousalSupportIncomeAndEarningPotential,
 
         ReviewYourAnswersFlm,
         PreviewFormsFlm,
