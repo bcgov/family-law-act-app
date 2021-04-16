@@ -31,10 +31,28 @@ class SurveyPdfView(generics.GenericAPIView):
             LOGGER.debug("No record found")
             return
 
-    def post(self, request, pk, name=None):
+    def create_download_response(self, pdf_content):
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = 'attachment; filename="report.pdf"'
+        response.write(pdf_content)
+
+    def get(self, request, application_id):
+        user_id = request.user.id
+        app = get_application_for_user(application_id, user_id)
+        if not app:
+            return HttpResponseNotFound("No record found.")
+        pdf_type = request.query_params.get("pdf_type")
+        if None in [pdf_type]:
+            return HttpResponseBadRequest("Missing parameters.")
+
+        prepared_pdf = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
+        pdf_content = settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.data)
+        return self.create_download_response(pdf_content)
+
+    def post(self, request, application_id, name=None):
         data = request.data
         user_id = request.user.id
-        app = get_application_for_user(pk, user_id)
+        app = get_application_for_user(application_id, user_id)
         if not app:
             return HttpResponseNotFound("No record found.")
 
@@ -45,7 +63,7 @@ class SurveyPdfView(generics.GenericAPIView):
             return HttpResponseBadRequest("Missing parameters.")
 
         try:
-            pdf_result = self.get_pdf_by_application_id_and_type(pk, pdf_type)
+            pdf_result = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
             pdf_content = self.generate_pdf(name, data)
             (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
             (pdf_key_id, json_enc) = settings.ENCRYPTOR.encrypt(
@@ -59,7 +77,7 @@ class SurveyPdfView(generics.GenericAPIView):
                 pdf_result.version = version
             else:
                 pdf_result = PreparedPdf(
-                    application_id=pk,
+                    application_id=application_id,
                     data=pdf_content_enc,
                     json_data=json_enc,
                     key_id=pdf_key_id,
@@ -77,7 +95,4 @@ class SurveyPdfView(generics.GenericAPIView):
         if request.query_params.get("noDownload"):
             return HttpResponse(status=204)
         else:
-            response = HttpResponse(content_type="application/pdf")
-            response["Content-Disposition"] = 'attachment; filename="report.pdf"'
-            response.write(pdf_content)
-            return response
+            return self.create_download_response(pdf_content)
