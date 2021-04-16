@@ -35,6 +35,7 @@ class SurveyPdfView(generics.GenericAPIView):
         response = HttpResponse(content_type="application/pdf")
         response["Content-Disposition"] = 'attachment; filename="report.pdf"'
         response.write(pdf_content)
+        return response
 
     def get(self, request, application_id):
         user_id = request.user.id
@@ -44,8 +45,9 @@ class SurveyPdfView(generics.GenericAPIView):
         pdf_type = request.query_params.get("pdf_type")
         if None in [pdf_type]:
             return HttpResponseBadRequest("Missing parameters.")
-
         prepared_pdf = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
+        if prepared_pdf is None:
+            return HttpResponseNotFound("No record found.")
         pdf_content = settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.data)
         return self.create_download_response(pdf_content)
 
