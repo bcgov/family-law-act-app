@@ -18,7 +18,7 @@
                     <tooltip :index="0" title='swear or affirm'/> the information in your application during your court appearance. 
                 </span>           
             
-                <form-list type="Print" @onDownload="onDownload" @formsList="setFormList" :currentPage="currentPage"/>
+                <form-list type="Print" :currentPage="currentPage"/>
 
                 <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -207,7 +207,6 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import moment from 'moment-timezone';
     import Tooltip from "@/components/survey/Tooltip.vue"
     
     import { stepInfoType } from "@/types/Application";
@@ -338,7 +337,7 @@
             //TODO: use get api for document-types
            
             this.fileTypes = this.documentTypesJson;
-            this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
+            //this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
 
             const dropArea = document.getElementById('drop-area');
             dropArea.addEventListener('drop', this.handleFileDrop, false);
@@ -390,115 +389,10 @@
 
         public onNext() {
             this.UpdateGotoNextStepPage()
-        }
+        }        
 
-        public setFormList(formsList){
-            this.formsList = formsList
-        }
-
-        public onDownload(formName) {
-            console.log('downloading')
-            if(this.checkErrorOnPages()){
-                const currentDate = moment().format();
-                this.UpdateLastPrinted(currentDate);
-                this.loadPdf(false);
-            }
-        }
-
-        public checkErrorOnPages(){
-            
-            const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-
-            for(const stepIndex of [1,2]){
-            const step = this.$store.state.Application.steps[stepIndex]
-                if(step.active){
-                    for(const page of step.pages){
-                        if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                            this.UpdateCurrentStep(step.id);
-                            this.UpdateCurrentStepPage({currentStep: step.id, currentPage: page.key });                       
-                            return false;
-                        }
-                    }
-                }
-                
-            }
-            return true;
-        }
-
-        public getStepId(stepIndex) {
-            return "step-" + stepIndex;
-        }
-
-        public getStepGroupId(stepIndex) {
-            return this.getStepId(stepIndex) + "-group";
-        }
-
-        public getStepPageId(stepIndex, pageIndex) {
-            return this.getStepId(stepIndex) + "-page-" + pageIndex;
-        }
-
-        public loadPdf(noDownload) {
-            
-            const url = '/survey-print/'+this.id+'/?name=application-about-a-protection-order'+(noDownload?'&noDownload=true':'');
-            const body = this.getFPOResultData()
-            const options = {
-                responseType: "blob",
-                headers: {
-                "Content-Type": "application/json",
-                }
-            }
-            //console.log(body)
-            this.$http.post(url,body, options)
-            .then(res => {
-                console.log('done')
-                if(noDownload)
-                    this.eFile();
-                else
-                {
-                    const blob = res.data;
-                    const link = document.createElement("a");
-                    link.href = URL.createObjectURL(blob);
-                    document.body.appendChild(link);
-                    link.download = "fpo.pdf";
-                    link.click();
-                    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-                    this.error = "";                    
-                }
-                //this.submitEnable =  true;
-            },err => {
-                console.error(err);
-                this.error = "Print failed, please try again.";                
-            });
-
-        }
-
-        public getFPOResultData() {      
-            var result = this.steps[0].result; 
-            for(var i=1;i<3; i++){
-                const stepResults = this.steps[i].result
-                for(const stepResult in stepResults){                    
-                    result[stepResult]=stepResults[stepResult].data;  
-                }
-            } 
-
-            //Object.assign(result, result, {selectedPOOrder:this.$store.state.Application.steps[1].result.selectedPOOrder});             
-            Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurveyPO.data}); 
-        
-            
-            var protectedPartyName = {protectedPartyName: this.protectedPartyName}
-            Object.assign(result, result, protectedPartyName);           
-           
-            if(this.applicationLocation)
-                Object.assign(result, result,{applicationLocation: this.applicationLocation}); 
-            else
-                Object.assign(result, result,{applicationLocation: this.userLocation});
-            return result;
-        }
-
-        public onSubmit() {
-            if(this.checkErrorOnPages()){
-                this.loadPdf(true);
-            }            
+        public onSubmit() {            
+            this.eFile()              
         }
 
         public eFile() {

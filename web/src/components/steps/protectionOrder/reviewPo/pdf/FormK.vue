@@ -1,13 +1,14 @@
 <template>
 <div v-if="dataReady"> 
-    <!-- <b-button @click="onPrint()">print</b-button>   -->
-    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->
+    <b-button @click="onPrint()">print</b-button>  
+    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>  
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div class="formheader">
-            <div style="float:left; display: inline-block;">
+        <div class="form-header"> 
+            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
+            <div style="float:left; display: inline-block;">               
                 <div style="font-size:13pt;"><b>APPLICATION ABOUT A PROTECTION ORDER</b></div>
                 <div style="font-size:10pt;"><b>FORM K</b></div>
                 <div>Provincial Court (Family) Rules</div>
@@ -110,13 +111,13 @@
 <!-- <For registery> -->
         <div class="print-block">
             <div style="margin-top:1rem;"><i>For registry use only</i></div>
-            <div style="width:99%; border:1px solid; text-weight:bold; padding:0.5rem;font-family:BCSansRegular">
+            <div style="width:99%; border:1px solid; text-weight:bold; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin-top:1rem; font-family:BCSansRegular"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin-top:1rem; font-family:BCSans"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
         </div>
 
 
@@ -126,8 +127,8 @@
     <div v-if="result.selectedPOOrder.orderType == 'needPO'">
         <div class="new-page" />
 
-        <div style="text-align:center;font-family:BCSansRegular"><b> SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</b></div>
-        <div style="text-align:center;font-family:BCSansRegular"><b> This is Schedule 1 to the Application about a Protection Order</b></div>
+        <div style="text-align:center;font-family:BCSans"><b> SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</b></div>
+        <div style="text-align:center;font-family:BCSans"><b> This is Schedule 1 to the Application about a Protection Order</b></div>
 
         <div style="margin:1rem 0; text-align:justify">
             <i>This schedule must be completed if you are applying for a protection order. A judge can make decisions based only on the
@@ -165,7 +166,7 @@
                 :items="childrenItem"
                 :fields="childrenFields"
                 class="mt-2"
-                style="font-family:BCSansRegular;"
+                style="font-family:BCSans;"
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
@@ -184,7 +185,7 @@
                 :items="sharingAdultItem"
                 :fields="sharingAdultFields"
                 class="mt-2"
-                style="font-family:BCSansRegular;"
+                style="font-family:BCSans;"
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
@@ -204,7 +205,7 @@
                 <div v-else style="margin-bottom:3rem;"></div>
             </div>
 
-            <div style="text-indent:0px;margin:1rem 0 0 0;font-family:BCSansRegular;">
+            <div style="text-indent:0px;margin:1rem 0 0 0;font-family:BCSans;">
                 <b>
                     The person(s) identified in the section above is/are referred to as the protected party/parties. The other party is the
                     person they need protection from.
@@ -323,7 +324,7 @@
         </section>
 
         <div style="margin-top:3rem;"><b> YOUR STORY</b></div>
-        <div style="margin-top:0rem;font-family:BCSansRegular;"><b>Relationship between parties</b></div>
+        <div style="margin-top:0rem;font-family:BCSans;"><b>Relationship between parties</b></div>
 <!-- <11> -->
         <section>
             The protection party and the other party are:
@@ -332,7 +333,7 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-        <div style="margin-top:1rem;font-family:BCSansRegular;"><b><i> * If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).</i></b></div>
+        <div style="margin-top:1rem;font-family:BCSans;"><b><i> * If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).</i></b></div>
 <!-- <12> -->
         <section> 
             The protected party is or has been spouses, or lives or has lived together in a marriage-like relationship, with the other party
@@ -362,7 +363,7 @@
             </div>
         </section> 
 
-        <div style="margin-top:2rem;font-family:BCSansRegular;"><b>Cildren</b></div>
+        <div style="margin-top:2rem;font-family:BCSans;"><b>Cildren</b></div>
 <!-- <13> -->
         <section>
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>
@@ -375,7 +376,7 @@
                 :items="otherChildrenItem"
                 :fields="otherChildrenFields"
                 class="mt-2"
-                style="font-family:BCSansRegular;"
+                style="font-family:BCSans;"
                 small
                 bordered>                    
                     <template v-slot:cell()="data">
@@ -403,7 +404,7 @@
             </div>  
         </section> 
 
-        <div style="margin-top:2rem;font-family:BCSansRegular;"><b>About my family</b></div>
+        <div style="margin-top:2rem;font-family:BCSans;"><b>About my family</b></div>
 <!-- <15> -->
         <section>
             <i style="display:inline;margin-left:0.5rem;">You may choose to complete this section or leave this section blank</i>
@@ -413,7 +414,7 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-       <div style="margin-top:2rem;font-family:BCSansRegular;"><b>Other information</b></div>
+       <div style="margin-top:2rem;font-family:BCSans;"><b>Other information</b></div>
 <!-- <16> -->
         <section>
             <div style="display:inline;margin-left:.5rem;">I have concerns about the mental health of the protected party and/or the other party</div>
@@ -575,8 +576,8 @@
         <div class="new-page" />
 
 
-        <div style="text-align:center;font-family:BCSansRegular"><b> Schedule 2 - Change an Existing Protection Order</b></div>
-        <div style="text-align:center;font-family:BCSansRegular"><b> This is Schedule 2 to the Application about a Protection Order</b></div>
+        <div style="text-align:center;font-family:BCSans"><b> Schedule 2 - Change an Existing Protection Order</b></div>
+        <div style="text-align:center;font-family:BCSans"><b> This is Schedule 2 to the Application about a Protection Order</b></div>
 
         <div style="margin:1rem 0; text-align:justify">
             <i>This schedule must be completed if you are applying to change an existing protection order.</i>
@@ -643,8 +644,8 @@
         <div class="new-page" />
 
 
-        <div style="text-align:center;font-family:BCSansRegular"><b> Schedule 3 – Terminate an Existing Protection Order</b></div>
-        <div style="text-align:center;font-family:BCSansRegular"><b> This is Schedule 3 to the Application about a Protection Order</b></div>
+        <div style="text-align:center;font-family:BCSans"><b> Schedule 3 – Terminate an Existing Protection Order</b></div>
+        <div style="text-align:center;font-family:BCSans"><b> This is Schedule 3 to the Application about a Protection Order</b></div>
 
         <div style="margin:1rem 0; text-align:justify">
             <i>This schedule must be completed if you are applying to terminate an existing protection order.</i>
@@ -744,6 +745,7 @@ export default class FormK extends Vue {
         this.result = this.getRepGrantResultData()
         this.extractInfo();       
         this.dataReady = true;
+        Vue.nextTick(()=> this.onPrint())
     }
 
     childrenItem = [{name:'', dob:'', relation:'',living:''}];
@@ -901,27 +903,25 @@ export default class FormK extends Vue {
     }
 
     public getOtherChildrenInfo(){
-
         //this.otherChildrenItem = [];//{name:'', dob:'', protectedRelation:'', otherRelation:'', livingWith:''}
         if(this.result.backgroundSurvey.PartiesHasOtherChilderen=='y'){
-                this.otherChildrenItem = [];
-                for(const child of this.result.backgroundSurvey.allOtherChilderen){
-                    this.otherChildrenItem.push({
-                        name:Vue.filter('getFullName')(child.childName), 
-                        dob:Vue.filter('beautify-date')(child.childDOB), 
-                        protectedRelation:child.childRelationshipWithProtected,
-                        otherRelation:child.childRelationshipWithOther,
-                        livingWith:child.childLivingWith
-                    })
-                }
+            this.otherChildrenItem = [];
+            for(const child of this.result.backgroundSurvey.allOtherChilderen){
+                this.otherChildrenItem.push({
+                    name:Vue.filter('getFullName')(child.childName), 
+                    dob:Vue.filter('beautify-date')(child.childDOB), 
+                    protectedRelation:child.childRelationshipWithProtected,
+                    otherRelation:child.childRelationshipWithOther,
+                    livingWith:child.childLivingWith
+                })
+            }
         }
     }
 
 
-    public onPrint() {
-        
+    public onPrint() {        
         const el= document.getElementById("print");
-        console.log(el)
+        //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
         const bottomRightText = `" "`
@@ -933,34 +933,28 @@ export default class FormK extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        console.log(body)
+        //console.log(body)
         this.$http.post(url,body, options)
         .then(res => {
-            // const blob = res.data;
-            // const link = document.createElement("a");
-            // link.href = URL.createObjectURL(blob);
-            // document.body.appendChild(link);
-            // link.download = "FormK.pdf";
-            // link.click();
-            // setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
+            //TODO
+            const currentDate = moment().format();
+            this.$store.commit("Application/setLastPrinted", currentDate); 
+            this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        
         });
     }
 
-    public onPrintSave(){
-        
+    public onPrintSave(){        
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FPO&version=1.0'
-        const body = {}
+        const url = '/survey-print/'+applicationId+'/?pdf_type=FPO'
         const options = {
             responseType: "blob",
             headers: {
             "Content-Type": "application/json",
             }
         }
-        //console.log(body)
-        this.$http.post(url,body, options)
+        this.$http.get(url, options)
         .then(res => {
             const blob = res.data;
             const link = document.createElement("a");
@@ -999,8 +993,6 @@ export default class FormK extends Vue {
         console.log(result)
 
         return result;
-
-    //Vue.filter('getFullName')(yourInformationSurveyPO.ApplicantName)
     }
 
 }
@@ -1021,7 +1013,7 @@ export default class FormK extends Vue {
     .answer{color: #000; display:inline; font-size:11pt;}
     .answerbox{color: #000; font-size:11pt; display:block;text-indent:0px; margin:0.5rem 0 0 0.1rem;}
     .uline{text-decoration: underline; display: inline;}
-    .formheader{display:block; margin:0 0 2rem 0;}
+    .form-header{display:block; margin:0 0 2rem 0;}
 
     section{
         counter-increment: question-counter;       

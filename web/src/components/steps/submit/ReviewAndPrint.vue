@@ -16,7 +16,7 @@
             <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>  
-                <form-list type="Print" @onDownload="onDownload" @formsList="setFormList" :currentPage="currentPage"/>
+                <form-list type="Print" :currentPage="currentPage"/>
 
                 <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -78,7 +78,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
 
-import moment from 'moment-timezone';
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 
 import FormList from "./components/FormList.vue"
@@ -138,7 +137,7 @@ export default class ReviewAndPrint extends Vue {
         }  
         
         this.requiredDocuments = [];
-        this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
+        //this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
 
     }
 
@@ -150,109 +149,7 @@ export default class ReviewAndPrint extends Vue {
         this.UpdateGotoNextStepPage()     
     }
 
-    public onDownload(formName) {
-        console.log(formName)
-
-        if(this.checkErrorOnPages()){
-            const currentDate = moment().format();
-            this.$store.commit("Application/setLastPrinted", currentDate);
-            this.loadPdf();
-        }
-    }
-
-    public setFormList(formsList){
-        this.formsList = formsList
-    }
-
-    public checkErrorOnPages(){
-
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-        for(const stepIndex of [1,2]){
-            const step = this.$store.state.Application.steps[stepIndex]
-            if(step.active){
-                for(const page of step.pages){
-                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                        this.$store.commit("Application/setCurrentStep", step.id);
-                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
-                        return false;
-                    }
-                }
-            }            
-        }
-        return true;        
-    }
-
-    public getStepId(stepIndex) {
-        return "step-" + stepIndex;
-    }
-
-    public getStepGroupId(stepIndex) {
-        return this.getStepId(stepIndex) + "-group";
-    }
-
-    public getStepPageId(stepIndex, pageIndex) {
-        return this.getStepId(stepIndex) + "-page-" + pageIndex;
-    }
-
-    public loadPdf() {
-        const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-        const body = this.getFPOResultData()
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        //console.log(body)
-        this.$http.post(url,body, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "fpo.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-            this.error = "";
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
-        },err => {
-            console.error(err);
-            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
-        });
-
-    }
-
-    public getFPOResultData() {  
-        
-        var result = this.$store.state.Application.steps[0].result; 
-        for(var i=1;i<3; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
-            for(const stepResult in stepResults){
-                console.log(stepResults[stepResult])
-                console.log(stepResults[stepResult].data)
-                result[stepResult]=stepResults[stepResult].data; 
-                //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
-            }
-        }
-        
-        //Object.assign(result, result, {selectedPOOrder:this.$store.state.Application.steps[2].result.selectedPOOrder});             
-        Object.assign(result, result,{yourInformationSurvey: this.$store.state.Application.steps[1].result.yourInformationSurveyPO.data}); 
-        
-        var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-        Object.assign(result, result, protectedPartyName);
-        
-        var applicationLocation = this.$store.state.Application.applicationLocation;
-        var userLocation = this.$store.state.Common.userLocation;
-        //console.log(applicationLocation)
-        //console.log(userLocation)
-        if(applicationLocation)
-            Object.assign(result, result,{applicationLocation: applicationLocation}); 
-        else
-            Object.assign(result, result,{applicationLocation: userLocation});
-        console.log(result)
-        return result;
-    }
+  
 
     // beforeDestroy() {
     //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
