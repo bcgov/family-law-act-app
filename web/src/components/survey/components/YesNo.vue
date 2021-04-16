@@ -5,6 +5,7 @@
         <input
           type="radio"
           :name="question.name + '_' + question.id"
+          :data-test-id="question.name + '_' + opt.value"
           :value="opt.value"
           :checked="value == opt.value"
           @click="checkValue(opt.value, $event.target.checked)"
@@ -13,6 +14,7 @@
           class="survey-yesno-button"
           tabindex="0"
           role="button"
+          :data-test-id="question.name + '_' + opt.value"
           :id="opt.value === 'y' ? question.inputId : null"
           @keydown.space.prevent="setValue(opt.value)"
           >{{ opt.label }}</span

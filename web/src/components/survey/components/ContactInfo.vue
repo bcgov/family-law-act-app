@@ -11,6 +11,7 @@
         <input
           class="form-control"
           :id="field.id"
+          :data-test-id="field.name"
           v-model="pendingValue[field.name]"
         />
         <p v-if="field.desc" class="survey-desc small">{{ field.desc }}</p>
