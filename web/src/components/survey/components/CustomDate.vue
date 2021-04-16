@@ -6,6 +6,7 @@
           ref="year"
           class="form-control date-select-year mr-1"
           :id="question.inputId"
+          data-test-id="year"
           v-model="pendingValue['year']"
           @change="updated('year')"
         >
@@ -18,6 +19,7 @@
           ref="month"
           class="form-control date-select-month mr-1"
           :id="question.inputId + '-month'"
+          data-test-id="month"
           v-model="pendingValue['month']"
           @change="updated('month')"
         >
@@ -33,6 +35,7 @@
           ref="day"
           class="form-control date-select-day mr-1"
           :id="question.inputId + '-day'"
+          data-test-id="day"
           v-model="pendingValue['day']"
           @change="updated('day')"
         >
