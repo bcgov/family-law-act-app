@@ -23,7 +23,7 @@
               "titleLocation": "hidden"
             },
             {
-              "type": "radiogroup",
+              "type": "checkbox",
               "name": "payeeEarnsHigh",
               "visible":"false",
               "visibleIf":"{changeAmount} == 'y'",

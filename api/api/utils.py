@@ -63,7 +63,7 @@ def get_application_for_user(pk, uid):
 
 
 def get_protection_order_content(application):
-    prepared_pdf = PreparedPdf.objects.get(id=application.prepared_pdf_id)
+    prepared_pdf = PreparedPdf.objects.get(application_id=application.id, pdf_type='FPO')
     po_pdf_content = settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.data)
     po_json = json.loads(
         settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.json_data).decode(

@@ -86,7 +86,7 @@
             {              
               "type": "radiogroup",
               "name": "whyOlderChildNeedSupport[0]",
-              "title": "Why {child[0]} needs support?",
+              "title": "Why does {child[0]} need support?",
               "visible":false,
               "visibleIf":"{supportChildOver19}=='y' and {listOfChildren} contains 'child[0]' ",
               "isRequired": true,
