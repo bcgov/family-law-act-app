@@ -76,9 +76,18 @@ export default class ChildSupportCurrentArrangement extends Vue {
         
         if (this.step.result && this.step.result['childSupportCurrentArrangementSurvey']) {
             this.survey.data = this.step.result['childSupportCurrentArrangementSurvey'].data;
-
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        if (this.step.result && this.step.result['childData']) {
+            const childData = this.step.result['childData'].data;            
+            if (childData.length>1){
+                this.survey.setVariable("childWording", "children");                    
+            } else {
+                this.survey.setVariable("childWording", "child");
+            }
+        }
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
