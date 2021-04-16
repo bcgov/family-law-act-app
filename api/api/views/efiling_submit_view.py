@@ -121,8 +121,6 @@ class EFilingSubmitView(generics.GenericAPIView):
                 "utf-8"
             )
         )
-        if application.prepared_pdf_id is None:
-            return JsonMessageResponse("PO PDF is not generated.", status=400)
 
         # Data conversion.
         incoming_documents = json.loads(documents_string)
