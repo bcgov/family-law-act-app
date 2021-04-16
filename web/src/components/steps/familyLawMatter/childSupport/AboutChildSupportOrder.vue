@@ -50,6 +50,7 @@ export default class AboutChildSupportOrder extends Vue {
     childData = [];
     currentStep =0;
     currentPage =0;
+    applicantFullName ='';
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -95,7 +96,7 @@ export default class AboutChildSupportOrder extends Vue {
 
                 if ((moment(child.dob).isBefore(_19yearsBefore))){
                     const temp =JSON.parse(JSON.stringify(whysupport19childTemplate))
-                    temp.title = "Why "+Vue.filter('getFullName')(child.name) +" needs support?"
+                    temp.title = "Why does "+Vue.filter('getFullName')(child.name) +" need support?"
                     temp.name  = "whyOlderChildNeedSupport["+childInx+"]"
                     temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains 'child["+childInx+"]' "
                     this.surveyJsonCopy.pages[0].elements[0].elements.splice(8+numOf19child,0,temp)
@@ -123,8 +124,9 @@ export default class AboutChildSupportOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
             //console.log(options)
-            if(options.name == 'listOfSupportPayees'){                
-                this.survey.setVariable("listOfSupportPayeesLength",options.value.length)
+            if(options.name == 'listOfSupportPayees'){     
+                //console.log(options.value.includes(this.applicantFullName)           )
+                this.determineNumberOfPayee();               
             }
         })
     }
@@ -138,10 +140,12 @@ export default class AboutChildSupportOrder extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
+        this.applicantFullName = Vue.filter('getFullName')(this.applicantName);
+        this.survey.setVariable("ApplicantName", this.applicantFullName);
+        
+        this.determineNumberOfPayee();
         if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]')
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
@@ -156,6 +160,17 @@ export default class AboutChildSupportOrder extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }  
+
+    public determineNumberOfPayee(){
+        if(this.survey.data &&this.survey.data.listOfSupportPayees){
+            if(this.survey.data.listOfSupportPayees.includes(this.applicantFullName))
+                this.survey.setVariable("listOfSupportPayeesLength",2)
+            else
+                this.survey.setVariable("listOfSupportPayeesLength",this.survey.data.listOfSupportPayees.length)
+        }
+        else
+            this.survey.setVariable("listOfSupportPayeesLength",0);
+    }
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);

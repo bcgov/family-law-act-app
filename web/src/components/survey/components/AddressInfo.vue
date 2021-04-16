@@ -19,6 +19,7 @@
         <input
           class="form-control"
           placeholder="Street address, for example: 800 Hornby St."
+          data-test-id="address"
           :id="question.inputId"
           v-model="pendingValue['street']"
           @change="updateValue"
@@ -33,6 +34,7 @@
         <input
           class="form-control"
           :id="question.inputId + '-city'"
+          data-test-id="city"
           v-model="pendingValue['city']"
           @change="updateValue"
         />
@@ -44,6 +46,7 @@
         <select
           class="form-control"
           v-model="pendingValue['state']"
+          data-test-id="state"
           :id="question.inputId + '-state'"
           @change="updateValue"
         >
@@ -65,6 +68,7 @@
         <select
           class="form-control"
           v-model="pendingValue['country']"
+          data-test-id="country"
           :id="question.inputId + '-country'"
           @change="updateValue"
         >
@@ -84,6 +88,7 @@
         <input
           class="form-control"
           :id="question.inputId + '-postcode'"
+          data-test-id="postcode"
           v-model="pendingValue['postcode']"
           @change="updateValue"
         />
