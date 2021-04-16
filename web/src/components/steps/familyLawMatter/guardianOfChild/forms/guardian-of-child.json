@@ -103,36 +103,13 @@
               "removeRowText": "Remove Child"
             },
             {
-              "type": "checkbox",
-              "name": "whoAmICancelGaurdian",
-              "title": "I am",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "guardian",
-                  "text": "A guardian of the child(ren)"
-                },
-                {
-                  "value": "applyingForGuardian",
-                  "text": "Applying to be appointed as a guardian of the child(ren)"
-                }
-              ]
-            },
-            {
-              "type": "infotext",
-              "name": "childBestInterestIntro",
-              "title":"<b>Best interests of the child</b><br>When you ask for a court order involving a child, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
-
-              
+              "type": "helptext",
+              "name": "FAQGuardian",
+              "title": "I am the child’s parent, does that mean I’m their guardian?",
               "titleLocation": "hidden",
-              "messageStyle": "inline"
-            },
-            {
-              "type": "comment",
-              "name": "ancelGuradianChildBestInterest",
-              "title": "I believe it is in the child(ren)'s best interests to cancel the guardianship of the person(s) because:",
-              "isRequired": true
+              "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
             }
+            
           ]
         }
       ],

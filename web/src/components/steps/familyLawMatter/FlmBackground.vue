@@ -56,7 +56,7 @@ export default class FlmBackground extends Vue {
     contactWithChildNewPages = [22, 24, 25]
     contactWithChildExistingPages = [23, 24, 25]
 
-    guardianOfChildNewPages = [26, 27, 28]
+    guardianOfChildNewPages = [26, 28]
     guardianOfChildExistingPages = []
 
     spousalSupportNewPages = [29]

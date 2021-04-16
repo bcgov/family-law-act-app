@@ -104,11 +104,24 @@ export default class GuardianOfChild extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            console.log(options)
+        this.survey.onValueChanged.add((sender, options) => {          
             
+            if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
+                this.togglePages([27], true);                
+            } else {
+                this.togglePages([27], false);
+            }            
         })
+    }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
     }
     
     public reloadPageInformation() {
