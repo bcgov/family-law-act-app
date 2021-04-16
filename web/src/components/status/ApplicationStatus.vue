@@ -320,7 +320,6 @@ export default class ApplicationStatus extends Vue {
             this.error = "";
         },err => {
             console.error(err);
-            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
         });
 
     }
