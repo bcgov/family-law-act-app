@@ -77,9 +77,8 @@ export default class CalculatingSpousalSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['calculatingChildSupportSurvey']) {
-            this.survey.data = this.step.result['calculatingChildSupportSurvey'].data;
-
+        if (this.step.result && this.step.result['calculatingSpousalSupportSurvey']) {
+            this.survey.data = this.step.result['calculatingSpousalSupportSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
 
@@ -88,15 +87,13 @@ export default class CalculatingSpousalSupport extends Vue {
             const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
             if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
                 && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Child Support")){
+                && backgroundSurveyData.existingOrdersListFLM.includes("Spousal Support")){
                     this.survey.setVariable("existing", true);                    
             } else {
                 this.survey.setVariable("existing", false);
             }
         }
 
-
-       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
@@ -113,7 +110,7 @@ export default class CalculatingSpousalSupport extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {calculatingChildSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {calculatingSpousalSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

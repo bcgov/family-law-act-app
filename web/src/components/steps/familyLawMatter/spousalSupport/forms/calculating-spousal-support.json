@@ -1,9 +1,9 @@
 {
-  "title": "Calculating Child Support",
+  "title": "Calculating spousal support",
   "pages": [
     {
-      "name": "Calculating Child Support",
-      "description":"To calculate how much child support should be paid, you can visit the <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/index.html' target='_blank'>Department of Justice website</a> on child support which includes detailed information including the <a href='https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html' target='_blank'>Federal Child Support Guidelines</a>: Step-by-Step and a <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/cst-orpe.html' target='_blank'>Child Support Table Look-up</a>. <br><br> You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a>, <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a> or a lawyer.<br><br>It is helpful for both the court and the other party if you include a calculation with this application showing how much you believe should be paid in child support according to the child support guidelines.<br><br>The calculation should show:<ul><li>Your income (if applicable)</li><li>Other party’s income (if applicable)</li><li>Number of children who need support</li><li>Basic amount of child support based on the income and number of children for each payor (use the tools above to help find this amount)</li><li>Depending on your parenting time arrangements, subtract the lower amount from the higher amount to determine the amount owing</li></ul>",         
+      "name": "Calculating spousal support",
+      "description":"To calculate how much spousal support should be paid, you can use the <a href='https://www.justice.gc.ca/eng/fl-df/spousal-epoux/ssag-ldfpae.html' target='_blank'>Spousal Support Advisory Guidelines</a> or DIVORCEmate’s free spousal support calculator at <a href='https://www.mysupportcalculator.ca/' target='_blank'>www.mysupportcalculator.ca</a>.<br><br>You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a> (they can also help with spousal support), <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a> or a lawyer.<br><br>It is helpful for both the court and the other party if you include a calculation with this application showing how much you believe should be paid in spousal support according to the spousal support guidelines.",         
       "elements": [
         {
           "type": "panel",
@@ -12,7 +12,7 @@
             {
               "type": "yesno",
               "name": "attachingCalculations",
-              "title":"Will you be attaching calculations showing how much child support you believe should be paid according to the child support guidelines?",
+              "title":"Will you be attaching calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines?",
               "isRequired": true,
               "visible":false,
               "visibleIf": "!({existing})"              
@@ -47,7 +47,7 @@
           ]
         }
       ],
-      "title": "Calculating Child Support"
+      "title": "Calculating spousal support"
     }
   ],
   "showQuestionNumbers": "off",

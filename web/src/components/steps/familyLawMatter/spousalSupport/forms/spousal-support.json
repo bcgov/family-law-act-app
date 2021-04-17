@@ -3,167 +3,51 @@
   "pages": [
     {
       "name": "Spousal Support",
-      "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/what-is\" target=\"_blank\">Spousal support</a> is money that one spouse pays to another spouse for their financial support after separation.  It is different from child support.<br>A person is only entitled to spousal support in certain situations.  It is not a right in every case.  There are rules under the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_00\" target=\"_blank\"> Family Law Act </a>about what makes you a spouse and when you can ask for an order for spousal support.<br>You can apply for spousal support if:<br><ul><li>you are a spouse because:</li><li>You were married</li><li>You lived together in a marriage-like relationship for at least two years, or</li><li>You lived in a marriage-like relationship for less than two years, but you have a child together</li><li>you can prove entitlement to the court for spousal support, and</li><li>you are applying in time (Married spouses must start a court proceeding claiming spousal support within two years of the date of their divorce or an order annulling their marriage. Unmarried spouses must start a court proceeding within two years of the date of their separation).</li></ul>",
+      "description": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/what-is\" target=\"_blank\">Spousal support</a> is money that one spouse pays to another spouse for their financial support after separation.  It is different from child support. The purpose of spousal support is to help meet the on-going financial needs of a financially dependent spouse for a defined time.<br><br>A person is only entitled to spousal support in certain situations.  It is not a right in every case.  There are rules under the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_00\" target=\"_blank\"> Family Law Act </a>about what makes you a spouse and when you can ask for an order for spousal support.<br><br>You can apply for spousal support if:<br><ul><li>you are a spouse because:</li><ul><li>You were married</li><li>You lived together in a marriage-like relationship for at least two years, or</li><li>You lived in a marriage-like relationship for less than two years, but you have a child together</li></ul><li>you can prove entitlement to the court for spousal support, and</li><li>you are applying in time (Married spouses must start a court proceeding claiming spousal support within two years of the date of their divorce or an order annulling their marriage. Unmarried spouses must start a court proceeding within two years of the date of their separation. We recommend that you talk to a lawyer if you are not sure about the timing of your application.)</li></ul><br><br>For more information about spousal support and referrals to other spousal support resources, visit the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/spousal-support/more-info\" target=\"blank\">BC Government website</a> at <a href=\"http://www.gov.bc.ca/\" target=\"blank\">www.gov.bc.ca</a>.<br><br>We recommend that you talk to a lawyer before you make any final decisions about spousal support.",
       "elements": [
+        {
+          "type": "helptext",
+          "name": "FAQLegalAdvice",
+          "title": "Where can I get legal assistance?",
+          "titleLocation": "hidden",
+          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+        },
         {
           "type": "panel",
           "name": "ApplicantPanel",
           "isRequired": true,
           "elements": [
             {
-              "type": "yesno",
-              "name": "parentGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)"
-            },
-            {
-              "type": "yesno",
-              "name": "applyingGuardianApplicant",
-              "title": "I am a parent or guardian of the child(ren)",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n'"
-            },
-            {
-              "type": "infotext",
-              "name": "ifChildPOFAQ",
-              "title": "An application for child support may be made by the child or a person acting on behalf of the child, or if the right to apply for an order is assigned to a minister under the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02040_01\" target=\"_blank\">Employment and Assistance Act</a> or the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02041_01\" target=\"_blank\">Employment and Assistance for Persons with Disabilities Act</a>, the minister to whom the right is assigned in the name of the government or the name of the person who made the assignment.",
-              "titleLocation": "hidden",
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'",
-              "messageStyle": "inline"
-            },
-            {
-              "type": "radiogroup",
-              "name": "applicantType",
-              "title": "Please select from the options below:",
-              "hasOther": true,
-              "visible": false,
-              "visibleIf": "{parentGuardianApplicant} = 'n' and {applyingGuardianApplicant} = 'n'",
-              "choices": [
-                {
-                  "value": "child",
-                  "text": "I am the child"
-                },
-                {
-                  "value": "onBehalfChild",
-                  "text": "I am a person acting on behalf of the child"
-                }
-              ],
-              "choicesOrder": "asc"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "RespondantPanel",
-          "isRequired": true,
-          "elements": [
-            {
-              "type": "radiogroup",
-              "name": "respondantType",
-              "title": "The 'Other Party' is",
-              "hasOther": true,
+              "type": "checkbox",
+              "name": "listOfSupportPayees",
+              "title": "I am applying for spousal support to be paid by:",
+              "description": "Select from the list below.",
               "isRequired": true,
-              "choices": [
-                {
-                  "value": "parentGuardian",
-                  "text": "A parent or guardian of the child(ren)"
-                },
-                {
-                  "value": "parentSubstitute",
-                  "text": "A person standing in the place of a parent to the child(ren) [for example step parent] "
-                }
-              ],
-              "choicesOrder": "asc"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "ParentingDescriptionPanel",
-          "isRequired": true,
-          "visible": false,
-          "visibleIf": "{respondantType} notempty",
-          "elements": [
-            {
-              "type": "comment",
-              "name": "howChildSpendTimeWithParties",
-              "title": "Describe how the child(ren) spend time with the parties",
-              "description": "The amount of time a child lives with each parent or guardian may determine who may be required to pay child support.  The time a child lives with each parent or guardian includes the time that they are responsible for the child, even if the child is not physically with them.<br><br>If the child lives with more than one parent or guardian try to describe the amount of time they live with each parent over a period of one year.  If you can estimate a percentage of time, it is helpful for the court.  For example, if they live two days a week with one parent and the rest with the other, they live approximately 30% of the time with the first parent and 70% with the other.<br><br>If you have more than one child and the living arrangements are different for each child, try to be clear about the amount of time a time each child lives with each parent.",
-              "isRequired": true
-            },
-            {
-              "type": "radiogroup",
-              "name": "parentingType",
-              "visible": false,
-              "visibleIf": "{howChildSpendTimeWithParties} notempty",
-              "title": "Based on above, would you describe the arrangement as `split parenting` or `shared parenting` time?",
-              "description": "Parenting time may be shared equally by the parents, split between the parents, with one or more children each living with a different parent, or the children may live only or primarily with one parent.",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "shared",
-                  "text": "Shared"
-                },
-                {
-                  "value": "split",
-                  "text": "Split"
-                }
-              ],
-              "choicesOrder": "asc"
-            },
-            {
-              "type": "comment",
-              "name": "currentSupportArrangements",
-              "title": "The current support arrangements are as follows:",
-              "description": "You do not need to use any special wording.  Just explain to the court how the child(ren) is/are currently being looked after financially.  Include:  how much money are you receiving or paying for the support of the child(ren), how often and when did these payments begin or stop.",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "applicantIncome",
-              "description": "When a parent has an income over $150,000, the <i>Federal Child Support Guidelines</i> may apply a little differently. This information will help to determine if you need to provide more financial information to the court.",
-              "title": "Is your annual income $150,000 or less?",
-              "isRequired": true
-            },
-            {
-              "type": "yesno",
-              "name": "knowRespondentIncome",
-              "title": "Do you know the other party's income?",
-              "isRequired": true
-            },
-            {
-              "type": "text",
-              "name": "respondentIncome",
-              "title": "The other party's annual income is:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{knowRespondentIncome} = 'y'"
-            },
-            {
-              "type": "comment",
-              "name": "otherPartyInformation",
-              "title": "I know the following facts about the other party's employment, training, health, and ability to work:",
-              "description": "The court requires financial information to be able to decide on a fair and proper amount for child support.  The other party will be asked to give their own financial information to the court, but if they do not, the court may impute income (decide how much income a person makes or should be making).  The court will look at the information you have provided about the other party's income, if known, and anything you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training that they have, to make this decision. Only provide information you know. If you don't have any factual information, you can leave this section blank."
+              "choices": []
             },
             {
               "type": "checkbox",
-              "name": "childSupportChoices",
-              "title": "I am asking for support to be paid by:",
+              "name": "listOfReasons",
+              "description": "Entitlement to spousal support is determined in consideration of the objectives under section 161 of the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_00\" target=\"blank\">Family Law Act</a> as listed below. Be prepared to provide evidence to help the court determine if a spouse is entitled to spousal support.<br><br>Select all options that apply. ",
+              "title": "I believe that {Payee} is entitled to spousal support for the following reason:",
               "isRequired": true,
+              "visible": false,
+              "visibleIf": "{listOfSupportPayees} notempty",
               "choices": [
-                "{ApplicantName}",
-                "{RespondentName}"
+                "There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship",
+                "To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child",
+                "To relieve economic hardship of the spouses arising from the breakdown of the relationship",
+                "To help each spouse become financially independent within a reasonable period"
               ]
             },
             {
-              "type": "checkbox",
-              "name": "childrenRequireSupportChoices",
-              "title": "For which child(ren) are you asking for support for?",
-              "isRequired": true,
-              "choices": [
-                "child1",
-                "child2"
-              ]
+              "type": "comment",
+              "name": "currentSupport",
+              "visible": false,
+              "visibleIf": "{listOfSupportPayees} notempty",
+              "title": "Please describe the current support arrangements.",
+              "description": "You do not need to use any special wording. Just explain to the court how the spouse you believe is entitled to support is currently being looked after financially. Include:<ul><li>how much money you are receiving or paying for the support of the spouse</li><li>how often payments are/were being made</li><li>when did these payments begin or stop",
+              "isRequired": true
             }
           ]
         }
