@@ -319,7 +319,7 @@
                 <check-box style="" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
                 <check-box style="" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
             </div>
         </section>
 

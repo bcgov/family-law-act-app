@@ -1,11 +1,12 @@
 <template>
-<div v-if="dataReady"> 
-    <!-- <b-button @click="onPrint()">print</b-button>  -->
+<div v-if="dataReady">    
+    <b-button id="app-print" @click="onPrint()">print</b-button> 
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="formheader">
+        <div  class="form-header">
+            <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
                 <div style="font-size:13pt;"><b>Application About a Family Law Matter</b></div>
                 <div style="font-size:10pt;"><b>FORM 3</b></div>
@@ -110,8 +111,8 @@
         <section>
             <div style="display:inline; margin-left:0.25rem">Complete this section only if you are a lawyer for the party. You may leave this section blank.</div>
             <div>
-                <check-box style="margin:0 0 0 1rem;display:inline" :check="true?'yes':''" text=""/>
-                <underline-form style="text-indent:2px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" text=""/>
+                <check-box  inline="inline" boxMargin="0" style="margin:0 0 0 1rem;display:inline" :check="true?'yes':''" text=""/>
+                <underline-form style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" text=""/>
                 <underline-form style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" text=""/>
                 <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act</i>. </div>
             </div>           
@@ -166,8 +167,8 @@
         <section>
             <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
             <div style="margin-left:1rem">
-                <check-box style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
-                <check-box style="display:inline;margin-left:2rem" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
                 <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
             </div>
         </section>
@@ -176,8 +177,8 @@
         <section> 
             <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
             <div style="margin-left:1rem">
-                <check-box style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
-                <check-box style="display:inline;margin-left:2rem" :check="!existingOrders.existingPO?'yes':''" text="No"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
                 <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
             </div>
         </section>  
@@ -197,11 +198,11 @@
                 <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text=""/>
             </div>
             <div style="margin-left:1rem">
-                <check-box style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
-                <check-box style="display:inline;margin-left:2rem" :check="!relationshipBetweenParties.spouses?'yes':''" text="No"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!relationshipBetweenParties.spouses?'yes':''" text="No"/>
                 <i style="display:block">If yes, please complete all options below that apply to the parties</i>
                 
-                <underline-form style="margin-left:0.5rem; text-indent:0rem" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.startDate"/>
+                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.startDate"/>
                 <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.marriageDate"/>
                 <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of separation:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.separationDate"/>    
                 <i style="margin-left:1.5rem;display:block">Note:  Spouses may be separated despite continuing to live in the same residence [Family Law Act s.3(4)]</i>
@@ -209,7 +210,7 @@
         </section>
 
         <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
-<!-- <9> -->
+<!-- <11> -->
         <section>
             <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
             <div style="margin-left:1.5rem">
@@ -234,14 +235,14 @@
 <!-- <12> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box style="display:inline;" :check="true?'yes':''" text=""/>
-                <div style="margin:0 0 0 0;display:inline;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
-                <div style="margin:0 0 0 3.5rem;display:inline-block;">asking the court to make about the child.</div>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text=""/>
+                <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
+                <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
             </div>
         </section>
        
         <div style="margin-top:1rem;"><b>About us</b></div>
-<!-- <9> -->
+<!-- <13> -->
         <section>
             <i style="display:inline; margin-left:0.25rem">You may choose to complete this section or leave this section blank</i>
             <div style="margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
@@ -294,7 +295,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if there are additional order terms you want. You may leave this section blank.</i>
                 <div>
-                    <check-box style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text=""/>
+                    <check-box  inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text=""/>
                     <div style="display:inline;">I am applying for the following other order term(s) about parenting arrangements:</div>
                 </div>                
             </section> 
@@ -328,7 +329,7 @@
             <div style="margin-top:1rem;"></div>
 <!-- <2> -->
             <section>
-                <check-box style="display:inline; margin:0 0 0 0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about parenting arrangements"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about parenting arrangements"/>
                 <underline-form style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" text="APR 01 2020"/>
             </section>
 
@@ -337,7 +338,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing order. You may leave this section blank.</i>
                 <div>
-                    <check-box style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for the existing final order to be:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for the existing final order to be:"/>
                     <div style="margin:0 0 0 3rem;">
                         <check-box style="" :check="true?'yes':''" text="changed"/>
                         <check-box style="" :check="true?'yes':''" text="cancelled"/>
@@ -351,7 +352,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
                 <div>
-                    <check-box style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
                     <div style="margin:0 0 0 3rem;">
                         <check-box style="" :check="true?'yes':''" text="set aside"/>
                         <check-box style="" :check="true?'yes':''" text="replaced"/>
@@ -366,7 +367,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to parental responsibilities. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the parental responsibilities (who makes certain decisions about a child) to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the parental responsibilities (who makes certain decisions about a child) to be changed or replaced as follows:"/>
                 </div>
             </section>
 
@@ -375,7 +376,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to parenting time. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the parenting time schedule to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the parenting time schedule to be changed or replaced as follows:"/>
                 </div>
             </section>
 
@@ -384,7 +385,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to conditions on parenting time. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the conditions on my parenting time or the other guardian’s parenting time to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the conditions on my parenting time or the other guardian’s parenting time to be changed or replaced as follows:"/>
                 </div>
             </section>
 
@@ -393,7 +394,7 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to other parenting arrangements. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the other order term(s) about parenting arrangements to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the other order term(s) about parenting arrangements to be changed or replaced as follows:"/>
                 </div>
             </section>
 
@@ -424,7 +425,7 @@
                 <div style="margin-left:1rem;">
                     <check-box style="" :check="true?'yes':''" text="a parent or guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="true?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
-                    <check-box style="display:inline;margin-left:-1.05rem;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
+                    <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" text=""/>            
                 </div>
             </section>
@@ -436,7 +437,7 @@
                 <div style="margin-left:1rem;">
                     <check-box style="" :check="true?'yes':''" text="a parent or guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="true?'yes':''" text="a person standing in the place of a parent to the child(ren) <i>(for example, a step-parent)</i>"/>
-                    <check-box style="display:inline;margin-left:-1.05rem;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
+                    <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" text=""/>            
                 </div>
             </section>
@@ -464,8 +465,8 @@
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                 <div style="margin:0 0 0 1rem;">
                     <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I do not know the income of the other party"/>
-                    <check-box style="display:inline;margin-left:-1.05rem;" :check="true?'yes':''" text="I believe the other party’s annual income is "/>
-                    <underline-form style="text-indent:3px;display:inline-block;" textwidth="10rem" beforetext=" $" hint="" text=""/>                            
+                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="I believe the other party’s annual income is "/>
+                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext=" $" hint="" text=""/>                            
                 </div>
             </section>
 
@@ -479,11 +480,11 @@
             <div style="margin-top:3rem;"></div>
 <!-- <7> -->
             <section>
-                <check-box style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
+                <check-box class="marginleft1p5vue" inline="inline" boxMargin="0" style="display:inline-block;margin-left:0.5rem" :check="true?'yes':''" text=""/>
                 <underline-form style="text-indent:0px;display:inline-block;" textwidth="15rem" beforetext="I am applying for an order for ongoing support to be paid by" hint="name of paying party" text=""/>
-                <div style="display:block;text-indent:0px; margin-left:2rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 11 of this application: </div>
-                <i style="margin-left:2rem; display:inline" >List the name of each child you are applying for support for</i>
-                <underline-form style="text-indent:3px;display:inline-block;" textwidth="16.5rem" beforetext="" hint="" text=""/>
+                <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 11 of this application: </div>
+                <i class="marginleft1p5vue" style="margin-left:2.8rem; display:inline" >List the name of each child you are applying for support for</i>
+                <underline-form style="text-indent:3px;display:inline-block;" textwidth="16.85rem" beforetext="" hint="" text=""/>
             </section>
 
             <div style="margin-top:1rem;"></div>
@@ -492,7 +493,7 @@
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                 <div style="margin:0 0 0 1rem;">
                     <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="Each child I am applying for an order for child support for is under 19 years of age"/>
-                    <check-box style="display:inline;margin-left:-1.05rem;" :check="true?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
+                    <check-box style="" :check="true?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
                 </div>
                 <b-table
                     :items="childrenSupportItem"
@@ -507,109 +508,120 @@
                             Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
                         </template>
                         <template v-slot:cell(reasonForSupport)="data">      
-                            <check-box shift="10" shiftmark="0" style="display:inline;margin-left:0rem;" :check="data.value.illness?'yes':''" text="illness"/>
-                            <check-box shift="10" shiftmark="0" style="display:inline;margin-left:0.5rem;" :check="data.value.disability?'yes':''" text="disability"/>
-                            <check-box shift="10" shiftmark="0" style="display:inline;margin-left:0.5rem;" :check="data.value.student?'yes':''" text="student"/>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0rem;" :check="data.value.illness?'yes':''" text="illness"/>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.disability?'yes':''" text="disability"/>
+                            <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" shift="10" shiftmark="0" style="display:inline;margin-left:0.25rem;" :check="data.value.student?'yes':''" text="student"/>
                         </template>
                 </b-table>
             </section>          
-
-            <div style="margin-top:1rem;"><b>Start of payment(s)</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Start of payment(s)</b></div>
 <!-- <9> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Child support payments may start on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job </i>
-                <div>
-                    <underline-form style="margin:0 0 0 1rem;text-indent:0px;display:inline-block" textwidth="16.5rem" beforetext="Child support payments should start on" hint="mmm/dd/yyyy or event" text=""/>
-                    <div style="margin:0 0 0 0.5rem; display:inline;">because:</div>
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Child support payments may start on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job </i>
+                    <div>
+                        <underline-form style="margin:0 0 0 1rem;text-indent:0px;display:inline-block" textwidth="16.5rem" beforetext="Child support payments should start on" hint="mmm/dd/yyyy or event" text=""/>
+                        <div style="margin:0 0 0 0.5rem; display:inline;">because:</div>
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:3rem;"><b>Calculations</b></div>
+            <div class="print-block">
+                <div style="margin-top:3rem;"><b>Calculations</b></div>
 <!-- <10> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                <div style="margin:0 0 3rem 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not attaching calculations because:"/>
-                </div>
-            </section>        
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
+                    <div style="margin:0 0 3rem 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not attaching calculations because:"/>
+                    </div>
+                </section>
+            </div>  
 
-            <div style="margin-top:1rem;"><b>Undue hardship</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Undue hardship</b></div>
 <!-- <11> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Complete only if applicable. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for an order to change the guideline amount payable because the guideline amount would cause me undue hardship for the following reason(s):<br/><i> Note:  If this option applies to your situation, you will need to complete the undue hardship portion of the Financial Statement, Part 4 and Part 5, in addition to any other required parts</i>"/>                    
-                </div>
-                <div style="margin:0 0 3rem 3.25rem;">
-                    <check-box style="" :check="true?'yes':''" text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
-                    <check-box style="" :check="true?'yes':''" text="I have unusually high expenses to exercise parenting time or contact with the child(ren)"/>
-                    <check-box style="" :check="true?'yes':''" text="I have a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
-                    <check-box style="" :check="true?'yes':''" text="I have a legal duty to support a dependent child from another relationship"/>
-                    <check-box style="" :check="true?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if applicable. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for an order to change the guideline amount payable because the guideline amount would cause me undue hardship for the following reason(s):<br/><i> Note:  If this option applies to your situation, you will need to complete the undue hardship portion of the Financial Statement, Part 4 and Part 5, in addition to any other required parts</i>"/>                    
+                    </div>
+                    <div style="margin:0 0 3rem 3.25rem;">
+                        <check-box style="" :check="true?'yes':''" text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
+                        <check-box style="" :check="true?'yes':''" text="I have unusually high expenses to exercise parenting time or contact with the child(ren)"/>
+                        <check-box style="" :check="true?'yes':''" text="I have a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
+                        <check-box style="" :check="true?'yes':''" text="I have a legal duty to support a dependent child from another relationship"/>
+                        <check-box style="" :check="true?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>Special and extraordinary expenses</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Special and extraordinary expenses</b></div>
 <!-- <12> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not applying for an order for special and extraordinary expenses for the child(ren)"/>                    
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for an order for special and extraordinary expenses under section 7 of the child support guidelines. The following special or extraordinary expenses (net of tax credits, subsidies, deductions, credits and contributions from the child(ren)) are included in my application for child support:"/>
-                </div>
-                <b-table
-                    :items="childrenSupportExpenseItem"
-                    :fields="childrenSupportExpenseFields"
-                    class="mt-2"
-                    small                    
-                    bordered>
-                        <template v-slot:cell()="data">                            
-                            <div v-if="data.index==0" style="text-align:center;font-size:7.43pt" ><b>{{data.value}}</b></div>
-                            <div v-else style="text-align:left;font-size:8pt;color:#000">{{data.value}}</div>                                           
-                        </template>
-                        <template v-slot:cell(name)="data">                            
-                            <div v-if="data.index==0" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>
-                            <div v-else-if="data.index==7" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>                            
-                            <div v-else style="text-align:left;font-size:8pt;">{{data.value}}</div>                                           
-                        </template>
-                </b-table>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not applying for an order for special and extraordinary expenses for the child(ren)"/>                    
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for an order for special and extraordinary expenses under section 7 of the child support guidelines. The following special or extraordinary expenses (net of tax credits, subsidies, deductions, credits and contributions from the child(ren)) are included in my application for child support:"/>
+                    </div>
+                    <b-table
+                        :items="childrenSupportExpenseItem"
+                        :fields="childrenSupportExpenseFields"
+                        class="mt-2"
+                        small                    
+                        bordered>
+                            <template v-slot:cell()="data">                            
+                                <div v-if="data.index==0" style="text-align:center;font-size:7.43pt" ><b>{{data.value}}</b></div>
+                                <div v-else style="text-align:left;font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            </template>
+                            <template v-slot:cell(name)="data">                            
+                                <div v-if="data.index==0" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>
+                                <div v-else-if="data.index==7" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>                            
+                                <div v-else style="text-align:left;font-size:8pt;">{{data.value}}</div>                                           
+                            </template>
+                    </b-table>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>Financial statement</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Financial statement</b></div>
 <!-- <13> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:	<br/><i>Select all options that apply</i>"/>                    
-                </div>
-                <div style="margin:0 0 0 3.25rem;">
-                    <check-box style="" :check="true?'yes':''" text="I am the payor"/>
-                    <check-box style="" :check="true?'yes':''" text="there is split or shared parenting time"/>
-                    <check-box style="" :check="true?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                    <check-box style="" :check="true?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                    <check-box style="" :check="true?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                    <check-box style="" :check="true?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                    <check-box style="" :check="true?'yes':''" text="I am claiming undue hardship"/>
-                </div>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:	<br/><i>Select all options that apply</i>"/>                    
+                    </div>
+                    <div style="margin:0 0 0 3.25rem;">
+                        <check-box style="" :check="true?'yes':''" text="I am the payor"/>
+                        <check-box style="" :check="true?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box style="" :check="true?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box style="" :check="true?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="true?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box style="" :check="true?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box style="" :check="true?'yes':''" text="I am claiming undue hardship"/>
+                    </div>
 
-                <div style="margin:0.5rem 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/>
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
-                </div>
-            </section>
+                    <div style="margin:0.5rem 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/>
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE OTHER PARTY:</b></div>
-            <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>This family law case includes an application about child support. You must provide your financial information with your reply to this application by completing and filing a Financial Statement in Form 4. </b></div>
-            <div style="margin-top:1rem;text-align:justify;">
-                If you do not give your complete, true, and up-to-date financial information when needed, the court can:
-                <ul>
-                    <li>order that the income information be provided</li>
-                    <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
-                    <li>require a party to give security</li>
-                    <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
-                    <li>make any other order the court considers appropriate</li>
-                </ul>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE OTHER PARTY:</b></div>
+                <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>This family law case includes an application about child support. You must provide your financial information with your reply to this application by completing and filing a Financial Statement in Form 4. </b></div>
+                <div style="margin-top:1rem;text-align:justify;">
+                    If you do not give your complete, true, and up-to-date financial information when needed, the court can:
+                    <ul>
+                        <li>order that the income information be provided</li>
+                        <li>assume a party’s income is a certain amount for support purposes and make an order based on it</li>
+                        <li>require a party to give security</li>
+                        <li>require a party to pay the other party’s expenses, an amount to the other party up to $5,000, or a fine up to $5,000</li>
+                        <li>make any other order the court considers appropriate</li>
+                    </ul>
+                </div>
             </div>
 
         </div>
@@ -633,7 +645,7 @@
                     <i>Select only one of the options below</i>
                     <check-box style="" :check="true?'yes':''" text="make payments for support of a child or children"/>
                     <check-box style="width:120%;" :check="true?'yes':''" text="receive payments for support of a child or children"/>
-                    <check-box style="display:inline;margin-left:-1.05rem;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
+                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" text=""/>            
                 </div>
             </section>
@@ -641,61 +653,69 @@
             <div style="margin-top:1rem;"></div>
 <!-- <2> -->
             <section>
-                <check-box style="display:inline; margin-left:0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about child support made on"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about child support made on"/>
                 <underline-form style="margin-left:2rem; text-indent:0px;" textwidth="10rem" beforetext="" hint="mmm/dd/yyyy" text="APR 20 2020"/>
             </section>
-            
-            <div style="margin-top:1rem;"><b>Existing final order</b></div>
+
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Existing final order</b></div>
 <!-- <3> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing order. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the existing final order about child support to be:"/>                    
-                </div>
-                <div style="margin:0 0 0 3.25rem;">
-                    <check-box style="" :check="true?'yes':''" text="changed"/>
-                    <check-box style="" :check="true?'yes':''" text="cancelled"/>
-                    <div>Since the final order about child support was made, circumstances have changed as follows:</div>
-                    <i style="margin-left:-1rem;">Select all options that apply and complete the required information</i>
-                    <check-box style="" :check="true?'yes':''" text="my financial situation has changed"/>
-                    <check-box style="" :check="true?'yes':''" text="I believe the other party’s financial situation has changed"/>
-                    <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
-                    <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
-                    <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
-                    <check-box style="margin:0 0 3rem 0;" :check="true?'yes':''" text="other changes or circumstances (specify):"/>
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing order. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the existing final order about child support to be:"/>                    
+                    </div>
+                    <div style="margin:0 0 0 3.25rem;">
+                        <check-box style="" :check="true?'yes':''" text="changed"/>
+                        <check-box style="" :check="true?'yes':''" text="cancelled"/>
+                        <div>Since the final order about child support was made, circumstances have changed as follows:</div>
+                        <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
+                        <check-box style="" :check="true?'yes':''" text="my financial situation has changed"/>
+                        <check-box style="" :check="true?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
+                        <check-box style="margin:0 0 3rem 0;" :check="true?'yes':''" text="other changes or circumstances (specify):"/>
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>Existing agreement</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Existing agreement</b></div>
 <!-- <4> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the existing agreement about child support to be:"/>                    
-                </div>
-                <div style="margin:0 0 0 3.25rem;">
-                    <check-box style="" :check="true?'yes':''" text="set aside"/>
-                    <check-box style="" :check="true?'yes':''" text="replaced"/>
-                    <div style="margin:0 0 3rem 0;">I believe the agreement should be set aside or replaced because:</div>                    
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the existing agreement about child support to be:"/>                    
+                    </div>
+                    <div style="margin:0 0 0 3.25rem;">
+                        <check-box style="" :check="true?'yes':''" text="set aside"/>
+                        <check-box style="" :check="true?'yes':''" text="replaced"/>
+                        <div style="margin:0 0 3rem 0;">I believe the agreement should be set aside or replaced because:</div>                    
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>About the order</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>About the order</b></div>
 <!-- <5> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Complete only if you are applying to change or replace an existing final order or agreement about child support. You may leave this section blank.</i>
-                
-                <div style="margin:0 0 0 1rem;">
-                    <div style="margin:0 0 3rem 0;">I am applying for the final order or agreement about child support to be changed or replaced as follows:</div>                    
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if you are applying to change or replace an existing final order or agreement about child support. You may leave this section blank.</i>
+                    
+                    <div style="margin:0 0 0 1rem;">
+                        <div style="margin:0 0 3rem 0;">I am applying for the final order or agreement about child support to be changed or replaced as follows:</div>                    
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>Unpaid child support</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Unpaid child support</b></div>
 <!-- <6> -->
-            <section>
-                <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" text="APR 20 2020"/>
-                <underline-form style="margin-left:0.1rem; text-indent:0px;" textwidth="8rem" beforetext=", the amount of unpaid child support (arrears) was $" hint="" text="125000.00"/>          
-            </section>
+                <section>
+                    <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" text="APR 20 2020"/>
+                    <underline-form style="margin-left:0.1rem; text-indent:0px;" textwidth="8rem" beforetext=", the amount of unpaid child support (arrears) was $" hint="" text="125000.00"/>          
+                </section>
+            </div>
 
             <div style="margin-top:1rem;"></div>
 <!-- <7> -->
@@ -706,7 +726,7 @@
                     <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not applying to reduce the amount of unpaid child support (arrears)"/>                    
                 </div>
                 <div style="margin:0 0 0 1.5rem;">    
-                    <check-box style="display:inline; margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="I am applying to reduce the amount of unpaid child support (arrears) to"/>                    
+                    <check-box  inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0.05rem;" :check="true?'yes':''" text="I am applying to reduce the amount of unpaid child support (arrears) to"/>                    
                     <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" text="200,000.00"/>
                     <div style="margin:0 0 3rem 0;">because:</div>
                 </div>
@@ -721,59 +741,65 @@
                 <div style="margin:0 0 0 1.5rem;">
                     <i>Select all options that apply and complete the required information</i>
                 </div>
-                <div style="margin:0 0 0 1.5rem;">                        
-                    <check-box style="display:inline; margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="at a rate of "/>                    
+                <div style="margin:0.25rem 0 0 1.5rem;">                        
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="at a rate of "/>                    
                     <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" text="200,000.00"/>
                 </div>
                 <div style="margin:0 0 0 1.5rem;">
                     <check-box style="margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="in a lump sum"/>
-                    <check-box style="display:inline;margin-left:-1.05rem;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
+                    <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" text=""/>
                  </div>
             </section>
 
-            <div style="margin-top:1rem;"><b>Calculations</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Calculations</b></div>
 <!-- <9> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
-                    <check-box style="margin:0 0rem 3rem 0rem;" :check="true?'yes':''" text="I am not attaching calculations because:"/>
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
+                        <check-box style="margin:0 0rem 3rem 0rem;" :check="true?'yes':''" text="I am not attaching calculations because:"/>
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>Start of payment(s)</b></div>
+            <div class="print-block">    
+                <div style="margin-top:1rem;"><b>Start of payment(s)</b></div>
 <!-- <10> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Child support payments may start or end on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job</i>
-                <div style="margin:0 0 3rem 1.25rem;">
-                    <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" text=""/>
-                    <div style="display:inline; margin:0 0 0 0.5rem;">because:</div>
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Child support payments may start or end on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job</i>
+                    <div style="margin:0 0 3rem 1.1rem;">
+                        <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" text=""/>
+                        <div style="display:inline; margin:0 0 0 0.5rem;">because:</div>
+                    </div>
+                </section>
+            </div>
 
-            <div style="margin-top:1rem;"><b>Financial statement</b></div>
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Financial statement</b></div>
 <!-- <11> -->
-            <section>
-                <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
-                </div>
-                <div style="margin:0 0 0 3.25rem;">
-                    <i>Select all options that apply</i>
-                    <check-box style="" :check="true?'yes':''" text="I am the payor"/>
-                    <check-box style="" :check="true?'yes':''" text="there is split or shared parenting time"/>
-                    <check-box style="" :check="true?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                    <check-box style="" :check="true?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                    <check-box style="" :check="true?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                    <check-box style="" :check="true?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                    <check-box style="" :check="true?'yes':''" text="I am claiming undue hardship"/>
-                </div>
-                <div style="margin:0.5rem 0 0 1.5rem;">
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
-                </div>
-            </section>
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
+                    </div>
+                    <div style="margin:0 0 0 3.25rem;">
+                        <i>Select all options that apply</i>
+                        <check-box style="" :check="true?'yes':''" text="I am the payor"/>
+                        <check-box style="" :check="true?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box style="" :check="true?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box style="" :check="true?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="true?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box style="" :check="true?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box style="" :check="true?'yes':''" text="I am claiming undue hardship"/>
+                    </div>
+                    <div style="margin:0.5rem 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
+                    </div>
+                </section>
+            </div>
 
             <div style="margin-top:1rem;"><b>IMPORTANT NOTE TO THE PARTIES:</b></div>
             <div style="margin-top:0rem; font-size:9.7pt; text-align:justify;"><b>If this family law case includes an application to change or replace an order or agreement for child support, you must provide financial information with your application or reply to this application by completing and filing a Financial Statement in Form 4.</b></div>
@@ -1398,24 +1424,24 @@ export default class Form3 extends Vue {
 
     childrenItem = [{name:'', dob:'', relation:'',living:''}];
     childrenFields=[
-        {key:"name", label:"Child's full legal name",tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:32%;"},
-        {key:"dob", label:"Child's date of birth (mmm/dd/yyyy)",tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myrelation", label:"My relationship to the child",tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"relation", label:"Other party's relationship to the child",tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
-        {key:"living", label:"Child is currently living with",tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"name",       label:"Child's full legal name",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",        label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"myrelation", label:"My relationship to the child",           tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"relation",   label:"Other party's relationship to the child",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
+        {key:"living",     label:"Child is currently living with",         tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]
 
     sharingAdultItem = [{name:'', dob:'', relation:''}]
     sharingAdultFields = [
-        {key:"name", label:"Full name",tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob", label:"Date of birth (mmm/dd/yyyy)",tdClass:"text-center", thClass:"text-center", thStyle:"font-size:8pt; width:17%;"},
-        {key:"relation", label:"Relationship to other protected person(s)",tdClass:"text-center", thClass:"text-center", thStyle:"font-size:8pt; width:20%;"},
+        {key:"name",     label:"Full name",                                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",      label:"Date of birth (mmm/dd/yyyy)",              tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
+        {key:"relation", label:"Relationship to other protected person(s)",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
     ]
 
     childrenSupportItem =[{name:'', reasonForSupport:{illness:false, disability:true, student:false}}]
     childrenSupportFields = [
-        {key:"name", label:"Full name of child", tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
-        {key:"reasonForSupport", label:"Reason for child support", tdClass:"text-center", thClass:"text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
+        {key:"name",             label:"Full name of child",       tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:55%;"},
+        {key:"reasonForSupport", label:"Reason for child support", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:35%;"},
     ]
 
     childrenSupportExpenseItem =[
@@ -1429,11 +1455,11 @@ export default class Form3 extends Vue {
         {name:'Total', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
     ]
     childrenSupportExpenseFields = [
-        {key:"name", label:"Name of Child:", tdClass:"border-top-0", thClass:"text-right border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"},
-        {key:"amount1", label:"",   tdClass:"", thClass:"", thStyle:"width:17%;"},
-        {key:"amount2", label:"",   tdClass:"", thClass:"", thStyle:"width:17%;"},
-        {key:"amount3", label:"",   tdClass:"", thClass:"", thStyle:"width:17%;"},
-        {key:"amount4", label:"",   tdClass:"", thClass:"", thStyle:"width:17%;"},
+        {key:"name",    label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-right border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"},
+        {key:"amount1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        {key:"amount2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        {key:"amount3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        {key:"amount4", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
         
     ]
 
@@ -1441,9 +1467,9 @@ export default class Form3 extends Vue {
         {gaurdianName:'', childName:'', gaurdianSince:''}
     ]
     childrenGuardianshipFields = [
-        {key:"gaurdianName", label:"Full name of guardian",   tdClass:"", thClass:"text-center align-middle", thStyle:"width:30%;"},
-        {key:"childName", label:"Name of child(ren)",   tdClass:"", thClass:"text-center align-middle", thStyle:"width:30%;"},
-        {key:"gaurdianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"text-center align-middle", thClass:"", thStyle:"width:25%;"},
+        {key:"gaurdianName",  label:"Full name of guardian",                                tdClass:"",                         thClass:"text-center align-middle", thStyle:"width:30%;"},
+        {key:"childName",     label:"Name of child(ren)",                                   tdClass:"",                         thClass:"text-center align-middle", thStyle:"width:30%;"},
+        {key:"gaurdianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"text-center align-middle", thClass:"",                         thStyle:"width:25%;"},
     ]
 
 
@@ -1628,15 +1654,15 @@ export default class Form3 extends Vue {
 
         return info
     }
-
-    public onPrint() {
+        
+    public onPrint() {     
         
         const el= document.getElementById("print");
         console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 712   `+moment().format("MMMM D, YYYY")+` \\a           Form 3";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FLC&version=1.0'//&noDownload=true'
+        const url = '/survey-prints/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FLC&version=1.0'//&noDownload=true'
         const body = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
         const options = {
             responseType: "blob",
@@ -1702,11 +1728,14 @@ export default class Form3 extends Vue {
 
     .new-page{margin-top:7rem;}
     .marginleft{margin-left:-1rem;}
-    
+    .marginleft1vue{margin-left:1rem !important;}
+    .marginleft1p5vue{margin-left:1.5rem !important;}
+    .marginleft-1vue{margin-left:-1rem !important;}
+
     .answer{color: #000; display:inline; font-size:11pt;}
     .answerbox{color: #000; font-size:11pt; display:block;text-indent:0px; margin:0.5rem 0 0 0.1rem;}
     .uline{text-decoration: underline; display: inline;}
-    .formheader{display:block; margin:0 0 2rem 0;}
+    .form-header{display:block; margin:0 0 2rem 0;}
 
     section{
         counter-increment: question-counter;         
@@ -1772,7 +1801,14 @@ export default class Form3 extends Vue {
         color: #313132 !important;
     }
         
-
+    #app-print {
+    padding: 8px 15px;
+    position: absolute;
+    position: fixed;
+    right: 55rem;
+    top: 0;
+    z-index: 100; 
+    }
     
 
 </style>
