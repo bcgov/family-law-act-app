@@ -1,6 +1,6 @@
 <template>
 <div v-if="dataReady">    
-    <b-button id="app-print" @click="onPrint()">print</b-button> 
+    <!-- <b-button id="app-print" @click="onPrint()">print</b-button>  -->
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
 
 <!-- <Page 1> -->
