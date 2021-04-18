@@ -10,6 +10,22 @@
                 <p class="my-0 ml-2 " style="display:block"> {{applicationLocation.address}} </p>
                 <p class="my-0 ml-2" style="display:block"> {{applicationLocation.cityStatePostcode}} </p>
             </div>
+
+            <div class="info-section mt-3" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
+                <div class="row justify-content-center text-warning">
+                    <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
+                </div>
+                <div style="font-size: 18px;" class="mx-3 mb-1">
+                    By clicking on the 'Review and Print' button next to the document, a PDF version of the application
+                     will download or open. Depending on your browser settings, your PDF might save the form to your 
+                     computer or it will open in a new tab or window. For more information about opening and saving 
+                     PDF forms, click on <span class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
+                     Get help opening and saving PDF forms</span> below. If you are concerned about 
+                     having a copy saved to your computer, may want to review and print from a safe computer, tablet 
+                     or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
+                     school or an internet café.                    
+                </div>
+            </div>
             
             <h3 class="mt-5">To prepare the application for filing:</h3>
 
@@ -102,6 +118,9 @@ export default class ReviewAndPrint extends Vue {
     // @applicationState.State
     // public requiredDocuments!: string[];
 
+    @applicationState.State
+    public types!: string[];
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -113,12 +132,15 @@ export default class ReviewAndPrint extends Vue {
     currentPage=0;
 
     formsList = [];
+    includesPO = false;
 
     showGetHelpForPDF = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
     requiredDocuments: string[] = [];
 
     mounted(){
+
+        this.includesPO = this.types.includes("Protection Order") || this.types.includes("New Protection Order") || this.types.includes("Change Protection Order") || this.types.includes("Terminate Protection Order")
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
