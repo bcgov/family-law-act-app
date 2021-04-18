@@ -121,7 +121,7 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-    allPages = _.range(1,22)
+    allPages = _.range(1,25)
         
     childrenInfoPage = [2];
 
