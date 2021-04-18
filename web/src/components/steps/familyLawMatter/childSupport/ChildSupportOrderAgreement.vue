@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/child-support.json";
+import surveyJson from "./forms/child-support-order-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";

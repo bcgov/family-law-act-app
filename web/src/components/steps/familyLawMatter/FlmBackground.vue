@@ -44,7 +44,7 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,21)
+    allPages = _.range(3,22)
     commonPages = [];
 
     parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
@@ -71,7 +71,7 @@ export default class FlmBackground extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
-        console.log(this.allPages)
+        //console.log(this.allPages)
     }
 
     public initializeSurvey(){
