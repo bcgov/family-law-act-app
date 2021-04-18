@@ -421,8 +421,10 @@
                     docType.push({type: tempSupportingDocs[0]['documentType'], files: filesIndices, rotations:filesRotation})
                 }
             }
+            
+            docType.push({type:"FPO"})
 
-            // for(const index in this.supportingDocuments){
+            // for(const index in this.supportingDocuments){//, files:[], rotations:[]
             //     const supportingDoc = this.supportingDocuments[index]
             //     bodyFormData.append('files',supportingDoc['file']); 
                           

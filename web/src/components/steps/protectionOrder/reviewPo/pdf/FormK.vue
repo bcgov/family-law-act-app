@@ -742,7 +742,7 @@ export default class FormK extends Vue {
     
     mounted(){
         this.dataReady = false;
-        this.result = this.getRepGrantResultData()
+        this.result = this.getFPOResultData()
         this.extractInfo();       
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
@@ -926,7 +926,18 @@ export default class FormK extends Vue {
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FPO&version=1.0&noDownload=true'
-        const body = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
+        const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
+
+        // const body = new FormData();
+        // body.append('html',pdfhtml)
+        // body.append('json_data',null)
+
+        const body =
+            {
+                'html':[pdfhtml],
+                'json_data':this.getFPOResultData()
+            }       
+        
         const options = {
             responseType: "blob",
             headers: {
@@ -968,7 +979,7 @@ export default class FormK extends Vue {
         });
     }
  
-    public getRepGrantResultData() {  
+    public getFPOResultData() {  
         
         let result = this.$store.state.Application.steps[0].result; 
         for(let i=1;i<9; i++){

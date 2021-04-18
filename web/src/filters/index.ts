@@ -172,7 +172,7 @@ Vue.filter('extractRequiredDocuments', function(questions){
 Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 
 	//console.log(customCss)
-	const body = [
+	const body = 
 		`<!DOCTYPE html>
 		<html lang="en">
 		<head>		
@@ -283,7 +283,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			
 				<div class="container">
 					`+html+
-		`</div></body></html>`]		 
+		`</div></body></html>`	 
 	
 	return body
 })
