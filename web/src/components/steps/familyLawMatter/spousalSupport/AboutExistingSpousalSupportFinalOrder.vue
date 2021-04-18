@@ -1,11 +1,5 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <input style="display:inline" type="number" id='monthly-amount' v-model="monthlyAmount"  @change="changeMonthlyAmount"/>
-        <input style="display:inline" type="number" id='lump-sum-amount' v-model="lumpSumAmount"  @change="changeLumpSumAmount"/>
-
-        <input style="display:inline" type="date" id='start-date' v-model="startDate"  @change="changeStartDate"/>
-        <input style="display:inline" type="date" id='end-date' v-model="endDate"  @change="changeEndDate"/>
-
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -15,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/about-spousal-support-order.json";
+import surveyJson from "./forms/about-existing-spousal-support-final-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -31,7 +25,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class AboutSpousalSupportOrder extends Vue {
+export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;       
@@ -48,10 +42,7 @@ export default class AboutSpousalSupportOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep =0;
     currentPage =0;
-    monthlyAmount = 0;
-    startDate='';
-    endDate='';
-    lumpSumAmount = 0;    
+    
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -81,52 +72,18 @@ export default class AboutSpousalSupportOrder extends Vue {
         })
     }
     
-    public reloadPageInformation() {
-        
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-
-        if (this.step.result && this.step.result['aboutSpousalSupportOrderSurvey']) {
-            this.survey.data = this.step.result['aboutSpousalSupportOrderSurvey'].data;
+    public reloadPageInformation() {        
+        if (this.step.result && this.step.result['aboutExistingSpousalSupportFinalOrderSurvey']) {
+            this.survey.data = this.step.result['aboutExistingSpousalSupportFinalOrderSurvey'].data;
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
         this.survey.setValue("text", 5)
         
-        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-
-        Vue.nextTick(()=>{
-            const monthlyAmountTemplate = document.getElementById('monthly-amount-template')
-            const monthlyAmountEl = document.getElementById('monthly-amount')          
-            monthlyAmountTemplate.replaceWith(monthlyAmountEl)
-
-            const lumpSumAmountTemplate = document.getElementById('lump-sum-amount-template')
-            const lumpSumAmountEl = document.getElementById('lump-sum-amount')          
-            lumpSumAmountTemplate.replaceWith(lumpSumAmountEl)
-
-            const startDateTemplate = document.getElementById('start-date-template')
-            const startDateEl = document.getElementById('start-date')          
-            startDateTemplate.replaceWith(startDateEl)
-
-            const endDateTemplate = document.getElementById('end-date-template')
-            const endDateEl = document.getElementById('end-date')          
-            endDateTemplate.replaceWith(endDateEl)
-
-        })
-    }
-
-    public changeMonthlyAmount(){
-
-        this.survey.setValue('monthlyAmount', this.monthlyAmount);
-
-    }
-
-    public changeLumpSumAmount(){
-
-        this.survey.setValue('lumpSumAmount', this.lumpSumAmount);
-        
     }
 
     public onPrev() {
@@ -142,7 +99,7 @@ export default class AboutSpousalSupportOrder extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {aboutSpousalSupportOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutExistingSpousalSupportFinalOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

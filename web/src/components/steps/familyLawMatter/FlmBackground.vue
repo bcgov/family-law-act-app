@@ -44,7 +44,7 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,33)
+    allPages = _.range(3,39)
     commonPages = [];
 
     parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
@@ -59,8 +59,8 @@ export default class FlmBackground extends Vue {
     guardianOfChildNewPages = [26, 28]
     //guardianOfChildExistingPages = []
 
-    spousalSupportNewPages = [29, 30, 31, 32]
-    spousalSupportExistingPages = []
+    spousalSupportNewPages = [29, 30, 31, 36]
+    spousalSupportExistingPages = [32, 33, 34, 35, 36, 37, 38]
 
     beforeCreate() {
         const Survey = SurveyVue;

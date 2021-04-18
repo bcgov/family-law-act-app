@@ -17,11 +17,8 @@
               "isRequired": true,
               "hasOther": true,
               "choices": [
-                {
-                  "value": "At a rate of BLANK $ per month",
-                  "text": "At a rate of $ <input type='number'/> per month"
-                },
-                "In lump sum"
+                "in the amount of $<input id='monthly-amount-template'/> per month starting on <input id='start-date-template'/> until <input id='end-date-template'/>",
+                "in a lump sum of $<input id='lump-sum-amount-template'/>"
               ]
             }
           ]
