@@ -11,7 +11,7 @@
                 <p class="my-0 ml-2" style="display:block"> {{applicationLocation.cityStatePostcode}} </p>
             </div>
 
-            <div class="info-section mt-3" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
+            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
                 <div class="row justify-content-center text-warning">
                     <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
                 </div>
