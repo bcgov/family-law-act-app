@@ -86,6 +86,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";

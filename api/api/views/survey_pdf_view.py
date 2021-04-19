@@ -43,7 +43,7 @@ class SurveyPdfView(generics.GenericAPIView):
         if not app:
             return HttpResponseNotFound("No record found.")
         pdf_type = request.query_params.get("pdf_type")
-        if None in [pdf_type]:
+        if pdf_type is None:
             return HttpResponseBadRequest("Missing parameters.")
         prepared_pdf = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
         if prepared_pdf is None:
@@ -52,7 +52,8 @@ class SurveyPdfView(generics.GenericAPIView):
         return self.create_download_response(pdf_content)
 
     def post(self, request, application_id, name=None):
-        data = request.data
+        html = request.data['html']
+        json_data = request.data['json_data']
         user_id = request.user.id
         app = get_application_for_user(application_id, user_id)
         if not app:
@@ -66,10 +67,10 @@ class SurveyPdfView(generics.GenericAPIView):
 
         try:
             pdf_result = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
-            pdf_content = self.generate_pdf(name, data)
+            pdf_content = self.generate_pdf(name, html)
             (pdf_key_id, pdf_content_enc) = settings.ENCRYPTOR.encrypt(pdf_content)
             (pdf_key_id, json_enc) = settings.ENCRYPTOR.encrypt(
-                json.dumps(data).encode("utf-8")
+                json.dumps(json_data).encode("utf-8")
             )
             if pdf_result:
                 pdf_result.data = pdf_content_enc

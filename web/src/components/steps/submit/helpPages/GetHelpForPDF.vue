@@ -54,6 +54,41 @@
             <li>When Adobe Reader is open, go to File, then to Open, then go to your “Downloads” folder (or to where you saved the document).</li>
             <li>View and/or print your form.</li>
         </ol>
+
+        <h2 class="mb-2">
+            Remove Downloaded Documents from your computer
+        </h2>
+        
+        <ol>
+            <li>Navigate to the search bar next to the Windows Start Menu.</li>
+            <li>Enter "File Explorer" and select File Explorer.</li>
+            <li>Select the <b>Downloads</b> folder on the left side of the window.</li>
+            <li>Select the document <b>in the Downloads</b> folder.</li>
+            <li>Right-click the selected file and select <b>Delete</b>.</li>
+            <li><b>Navigate to your Recycle Bin</b> and empty the recycle bin.</li>
+        </ol>
+
+        <h2 class="mb-2">
+            Delete saved pdf document from your computer            
+        </h2>
+        
+        <ol>
+            <li>Navigate to the <b>file</b> you want to <b>delete</b> from the computer.</li>
+            <li>Right-click on the <b>file</b> to bring up the contextual menu and select <b>“Delete”</b>.</li>
+            <li>Go to the desktop and double-click on the Recycle Bin to open it.</li>
+            <li>Click on the <b>file</b>, press <b>“Delete”</b> and click “Yes” to permanently <b>delete</b> that one <b>file</b>.</li>           
+        </ol>
+
+        <h2 class="mb-2">
+            Clear Browser History from your computer
+        </h2>
+        <p>
+            All web browsers remember a list of the web pages you’ve visited. You can delete this list at any time, 
+            clearing your browsing history and erasing the tracks stored on your computer, smartphone, or tablet. 
+            Each browser has its own separate history, so you’ll need to clear the history in multiple places if 
+            you’ve used more than one browser.            
+        </p>
+
     </div>    
 </template>
 
