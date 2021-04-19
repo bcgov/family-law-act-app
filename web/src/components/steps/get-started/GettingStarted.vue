@@ -218,31 +218,33 @@ export default class GettingStarted extends Vue {
   
     public onChange(selectedForms) {
         console.log(selectedForms)
-        const orgApplicationTypes = this.types;
+        // const orgApplicationTypes = this.types;
         const applicationTypes = [];
         const poIndex = selectedForms.indexOf("protectionOrder");
-        if (poIndex !=-1){
-            if (orgApplicationTypes.includes("New Protection Order")) {
+        
+        if (poIndex !=-1 && this.steps[1] && this.steps[1].result && 
+            this.steps[1].result.questionnaireSurvey && this.steps[1].result.questionnaireSurvey.orderType){
+            const orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
+            
+            if (orgFPOType == "needPO") {
                 applicationTypes.push("New Protection Order")
                 selectedForms.splice(poIndex, 1);
-            } else if (orgApplicationTypes.includes("Change Protection Order")){
+            } else if (orgFPOType == "changePO"){
                 applicationTypes.push("Change Protection Order")
                 selectedForms.splice(poIndex, 1);
-            } else if (orgApplicationTypes.includes("Terminate Protection Order")){
+            } else if (orgFPOType == "terminatePO"){
                 applicationTypes.push("Terminate Protection Order")
                 selectedForms.splice(poIndex, 1);
             }
         } 
             
-        for (const form of selectedForms){            
+        for (const form of selectedForms){                    
             applicationTypes.push(this.getApplicationType(form));
         }
         console.log(applicationTypes)
         console.log(Array.from(new Set(applicationTypes)));
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
         
-       
-                
         this.setSteps(selectedForms);
     }
 

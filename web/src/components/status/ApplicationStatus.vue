@@ -182,7 +182,7 @@ export default class ApplicationStatus extends Vue {
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
-                app.app_type = appJson.app_type;
+                app.app_type = this.extractTypes(appJson.app_type.split(',')).toString();
                 if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                     if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
@@ -254,7 +254,7 @@ export default class ApplicationStatus extends Vue {
             this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
             this.currentApplication.protectedChildName = applicationData.protectedChildName;
             this.currentApplication.applicationLocation = applicationData.applicationLocation;            
-            this.currentApplication.types = (applicationData.type.length>0)?applicationData.type.split(','):[];
+            this.currentApplication.types = (applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];
             this.currentApplication.userId = applicationData.user;
             this.currentApplication.userName = applicationData.userName;
             this.currentApplication.userType = applicationData.userType;        
@@ -269,6 +269,35 @@ export default class ApplicationStatus extends Vue {
             this.error = err;        
         });
     }   
+
+    public extractTypes(applicationTypes: string) {
+
+        let types = [];
+
+        for (const applicationType of applicationTypes){
+            if (applicationType.includes("FPO")){
+                types.push(applicationType.replace("FPO", "Protection Order"));            
+            }
+            if (applicationType.includes("FLC")){
+                types.push("Family Law Matter");
+            }
+            if (applicationType.includes("ACMO")){
+                types.push("Case Management");
+            }
+            if (applicationType.includes("AXP")){
+                types.push("Priotity Parenting Matter");
+            }
+            if (applicationType.includes("APRC")){
+                types.push("Relocation of a Child");
+            }
+            if (applicationType.includes("AFET")){
+                types.push("Enforcement of Agreements and Court Orders");
+            }
+        }
+
+        return types;
+
+    }
 
     public removeApplication(application, index) {
         this.deleteErrorMsg = '';
