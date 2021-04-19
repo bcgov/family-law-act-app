@@ -5,17 +5,19 @@ import uuid
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
+from api.models import PreparedPdf
 from rest_framework import permissions, generics
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
 from api.models import EFilingSubmission as EFilingSubmissionModel
 from api.utils import (
     convert_document_to_multi_part,
     get_application_for_user,
-    get_protection_order_content,
     is_valid_json,
 )
 from core.pdf import rotate_images_and_convert_pdf
 from core.utils.json_message_response import JsonMessageResponse
+from django.http.response import Http404
+from rest_framework.exceptions import NotFound
 
 logger = logging.getLogger(__name__)
 
@@ -55,18 +57,39 @@ class EFilingSubmitView(generics.GenericAPIView):
 
     """ This inserts our generated file, iterates over files and converts to PDF if necessary. """
 
+    def _get_pdf_content(self, application, application_steps):
+        outgoing_documents = []
+        for document_type in application_steps[0]['result']['existingOrders']['type']:
+            try:
+                prepared_pdf = PreparedPdf.objects.get(
+                    application_id=application.id, pdf_type=f"{document_type}"
+                )
+            except PreparedPdf.DoesNotExist:
+                raise NotFound(detail=f'Missing document type {document_type} from database.')
+            pdf_content = settings.ENCRYPTOR.decrypt(
+                prepared_pdf.key_id, prepared_pdf.data
+            )
+            document_json = json.loads(
+                settings.ENCRYPTOR.decrypt(
+                    prepared_pdf.key_id, prepared_pdf.json_data
+                ).decode("utf-8")
+            )
+            document_json.update({"applicationId": application.id})
+            outgoing_documents.append(
+                {
+                    "type": f"{document_type}",
+                    "name": f"{document_type}_generated.pdf",
+                    "file_data": pdf_content,
+                    "data": document_json,
+                    "md5": hashlib.md5(pdf_content).hexdigest(),
+                }
+            )
+        return outgoing_documents
+
     def _process_incoming_files_and_documents(
-        self, po_pdf_content, po_json, incoming_documents, incoming_files
+        self, application, application_steps, incoming_documents, incoming_files
     ):
-        outgoing_documents = [
-            {
-                "type": "POR",
-                "name": "fpo_generated.pdf",
-                "file_data": po_pdf_content,
-                "data": po_json,
-                "md5": hashlib.md5(po_pdf_content).hexdigest(),
-            }
-        ]
+        outgoing_documents = self._get_pdf_content(application, application_steps)
         for incoming_document in incoming_documents:
             file_indexes = incoming_document["files"]
             files = [incoming_files[index] for index in file_indexes]
@@ -124,9 +147,9 @@ class EFilingSubmitView(generics.GenericAPIView):
 
         # Data conversion.
         incoming_documents = json.loads(documents_string)
-        po_pdf_content, po_json = get_protection_order_content(application)
+
         outgoing_documents = self._process_incoming_files_and_documents(
-            po_pdf_content, po_json, incoming_documents, request_files
+            application, application_steps, incoming_documents, request_files
         )
         del request_files
 
