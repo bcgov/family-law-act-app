@@ -111,7 +111,8 @@
               "title": "When do you want the child support payments to start?",
               "description": "You need to tell the court when you think the child support payments should start. This could be a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
               "isRequired": true,
-              "inputType": "date"
+              "inputType": "date",
+              "dateYearsAhead": 5
             },
             {
               "type": "comment",

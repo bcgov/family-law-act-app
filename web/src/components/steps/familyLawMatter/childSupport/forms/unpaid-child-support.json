@@ -1,46 +1,81 @@
 {
-  "title": "Calculating Child Support",
+  "title": "Unpaid child support",
   "pages": [
     {
-      "name": "Calculating Child Support",
-      "description":"The court requires financial information to be able to decide on a fair and proper amount for child support.<br>The other party will be asked to give their own financial information to the court.  If they do not, the court may decide how much income a person makes or should be making. The court will look at the information you have provided about the other party’s income. It will also look at information you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training they have, to make this decision.",         
+      "name": "Unpaid child support",
+      "description": "Past child support payments that have not been made are called arrears. If you are making an application when there is already an order or agreement about child support, the court needs to know if there is any unpaid child support.<br><br>The court can reduce or cancel arrears if there is a good reason to. The court can also make an order about how the arrears will be paid, including setting up a payment schedule.",
       "elements": [
         {
+          "type": "yesno",
+          "name": "unpaid",
+          "title": "As of {currentDate}, are there any past child support payments that have not been paid?",
+          "isRequired": true
+        },
+        {
           "type": "panel",
-          "name": "incomePanel",             
+          "name": "unpaidPanel",
+          "visible": false,
+          "visibleIf": "{unpaid} == 'y'",
           "elements": [
             {
-              "type": "yesno",
-              "name": "knowIncome",
-              "title":"Do you know the income of the other party?",
-              "isRequired": true              
-            },
-            {
-              "type": "comment",
-              "name": "incomeAmount",
-              "visible":false,
-              "visibleIf":"{knowIncome} == 'y'",
+              "type": "text",
+              "name": "unPaidAmount",
               "isRequired": true,
-              "title":"I believe the other party’s annual income is: $"              
+              "title": "What is the amount of unpaid child support you believe is still owing?"
             },
             {
               "type": "yesno",
-              "name": "knowFacts",
-              "title":"Do you know any `facts` about the other party’s employment, training, health and ability to work?",
-              "isRequired": true              
+              "name": "applyToReduce",
+              "title": "Do you want to apply to reduce the amount of unpaid child support owing?",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "reduceAmount",
+              "title": "What amount do you want it reduced to?",
+              "visible": false,
+              "visibleIf": "{applyToReduce} == 'y'",
+              "isRequired": true
             },
             {
               "type": "comment",
-              "name": "factsExplanation",
-              "visible":false,
-              "visibleIf":"{knowFacts} == 'y'",
-              "isRequired": true,
-              "title":"I know the following facts about the other party’s employment, training, health and ability to work:"              
-            }            
+              "name": "whyReduceAmount",
+              "title": "Why have you chosen this amount?",
+              "visible": false,
+              "visibleIf": "{applyToReduce} == 'y'",
+              "isRequired": true
+            },
+            {
+              "type": "radiogroup",
+              "name": "paymentSchedule",
+              "title":"How do you want the remaining unpaid child support to be paid?",
+              "description": "Select each option that applies and complete the required information.",
+              "isRequired": true, 
+              "hasOther": true,             
+              "choices": [ 
+                {
+                  "value": "monthly",
+                  "text": "At a monthly Rate"
+                },
+                {
+                  "value": "lumpSum",
+                  "text": "In a lump sum (all at once)"
+                }          
+              ]             
+            },
+            {
+              "type": "text",
+              "name": "monthlyAmount",
+              "title": "Please enter the monthly rate:",                         
+              "visible": false,
+              "visibleIf": "{paymentSchedule} == 'monthly'",
+              "isRequired": true
+            }
+
           ]
         }
       ],
-      "title": "Calculating Child Support"
+      "title": "Unpaid child support"
     }
   ],
   "showQuestionNumbers": "off",

@@ -44,10 +44,8 @@ export default class AboutExistingChildSupport extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    survey = new SurveyVue.Model(surveyJson);
-    surveyJsonCopy;
-    childData = [];
-    overAgeChildren = [];
+    survey = new SurveyVue.Model(surveyJson);  
+   
     currentStep=0;
     currentPage=0;
    
@@ -68,92 +66,60 @@ export default class AboutExistingChildSupport extends Vue {
         this.reloadPageInformation();
     }
 
-    public initializeSurvey(){
-        this.adjustSurveyForChildren();
-        this.adjustSurveyForOtherParties();
-        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
+    public initializeSurvey(){        
+        this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
-
-    public adjustSurveyForChildren(){
-
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
-        this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
-        this.childData = [];
-        this.overAgeChildren = [];        
-
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
-            for (const child of childData){
-                this.childData.push(child);
-                if (this.getAge(child.dob) >= 19){
-                    this.overAgeChildren.push(Vue.filter('getFullName')(child.name))
-                }
-                this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"].push(Vue.filter('getFullName')(child.name));
-            }
-        }
-    }
-
-    public adjustSurveyForOtherParties(){        
-             
-        this.surveyJsonCopy.pages[0].elements[2].elements[7]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
-
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
-            for (const otherParty of otherPartyData){
-               this.surveyJsonCopy.pages[0].elements[2].elements[7]["choices"].push(Vue.filter('getFullName')(otherParty.name));
-            }
-        }
-    }
+    }    
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.childData);
-            console.log(this.overAgeChildren);
-            console.log(options)
-            if (options.name == "childrenRequireSupportChoices"){
-                const overAgeSelected = [];
-                for (const overAge of this.overAgeChildren) {
-                    if (options.value.includes(overAge)){
-                        overAgeSelected.push(overAge);
-                    }
-                }
-                if (overAgeSelected.length > 0) {
-                    this.survey.setVariable("overAgeChildSelected", true);
-                } else {
-                    this.survey.setVariable("overAgeChildSelected", false);
-                }
-                
+            //console.log(this.survey.data)  
+            
+            if (this.survey.data.existingType && this.survey.data.existingType == "Neither") {                
+                this.togglePages([17, 20, 21], false);
+            } else {
+                this.togglePages([17, 20, 21], true);
             } 
+            
+            if (this.survey.data.existingType == 'ExistingOrder') {
+                if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                    this.togglePages([20], true);
+                    
+                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                    
+                    this.togglePages([20], false);
+                }
+            } else if (this.survey.data.existingType == 'ExistingAgreement') {
+                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
+                    this.togglePages([20], true);
+                   
+                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+                    
+                    this.togglePages([20], false);
+                }
+            }      
 
         })
     }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
+    }
     
     public reloadPageInformation() {        
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
-
-            const overAgeSelected = [];
-            for (const overAge of this.overAgeChildren) {
-                if (this.survey.data["childrenRequireSupportChoices"] && 
-                    this.survey.data["childrenRequireSupportChoices"].includes(overAge)){
-                    overAgeSelected.push(overAge);
-                }
-            }
-            if (overAgeSelected.length > 0) {
-                this.survey.setVariable("overAgeChildSelected", true);
-            } else {
-                this.survey.setVariable("overAgeChildSelected", false);
-            }
-
+        if (this.step.result && this.step.result['aboutExistingChildSupportSurvey']) {
+            this.survey.data = this.step.result['aboutExistingChildSupportSurvey'].data;           
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -168,31 +134,12 @@ export default class AboutExistingChildSupport extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
-
-    public getAge(dateOfBirth: string){
-        const dob = dateOfBirth.split('-')
-        
-        const today_date = new Date();
-        const today_year = today_date.getFullYear();
-        const today_month = today_date.getMonth();
-        const today_day = today_date.getDate();
-        let age = today_year - Number(dob[0]);
-
-        if ( today_month < (Number(dob[1]) - 1)) {
-            age--;
-        }
-        if (((Number(dob[1]) - 1) == today_month) && (today_day < Number(dob[2]))) {
-            age--;
-        }
-
-        return age;
-    }
+    } 
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {childSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutExistingChildSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 }
