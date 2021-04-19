@@ -46,10 +46,6 @@ class ApplicationView(APIView):
                 "userType": application.user_type,
                 "userName": application.user_name,
                 "userId": application.user_id,
-                "applicantName": application.applicant_name,
-                "respondentName": application.respondent_name,
-                "protectedPartyName": application.protected_party_name,
-                "protectedChildName": application.protected_child_name,
                 "applicationLocation": application.application_location,
                 "packageNumber": submission.package_number if submission is not None else "",
                 "packageUrl": submission.package_url if submission is not None else "",
@@ -76,12 +72,8 @@ class ApplicationView(APIView):
             all_completed=body.get("allCompleted"),
             steps=steps_enc,
             user_type=body.get("userType"),
-            applicant_name=body.get("applicantName"),
             user_name=body.get("userName"),
             key_id=steps_key_id,
-            respondent_name=body.get("respondentName"),
-            protected_party_name=body.get("protectedPartyName"),
-            protected_child_name=body.get("protectedChildName"),
             application_location=body.get("applicationLocation"),
             version=body.get("version"),
             user_id=uid)
@@ -106,11 +98,7 @@ class ApplicationView(APIView):
         app.current_step = body.get("currentStep")
         app.steps = steps_enc
         app.user_type = body.get("userType")
-        app.applicant_name = body.get("applicantName")
         app.user_name = body.get("userName")
-        app.respondent_name = body.get("respondentName")
-        app.protected_party_name = body.get("protectedPartyName")
-        app.protected_child_name = body.get("protectedChildName")
         app.application_location = body.get("applicationLocation")
         app.version = body.get("version")
         app.save()
