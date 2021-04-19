@@ -932,11 +932,10 @@ export default class FormK extends Vue {
         // body.append('html',pdfhtml)
         // body.append('json_data',null)
 
-        const body =
-            {
-                'html':[pdfhtml],
-                'json_data':this.getFPOResultData()
-            }       
+        const body = {
+            'html':[pdfhtml],
+            'json_data':this.getFPOResultData()
+        }       
         
         const options = {
             responseType: "blob",
