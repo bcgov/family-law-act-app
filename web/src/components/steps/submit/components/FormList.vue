@@ -24,6 +24,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import moment from 'moment-timezone';
+
 @Component({
     components:{
        
@@ -49,8 +51,8 @@ export default class FormList extends Vue {
     showPDFpreview = false;
 
     formsList =[                
-        { name:'PK', color:"danger", title:"Application About a Protection Order (FORM K)"},
-        { name:'P3', color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+        { name:'PK', pdfType:'FPO', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
+     //   { name:'P3', pdfType:'FLC', chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
     ]
 
     mounted(){
@@ -71,9 +73,9 @@ export default class FormList extends Vue {
     public onDownload(formName, inx) {
         console.log("downloading"+inx)
         console.log(this.formsList[inx])
-         this.$emit('onDownload',this.formsList[inx].name)
+        console.log(formName)
 
-         this.formsList[inx].color = "success";
+        
         // this.showPDFformName = formName;
         // this.showPDFpreview = true;
 
@@ -86,11 +88,28 @@ export default class FormList extends Vue {
 
         // this.setProgress()
 
-        // if(this.checkErrorOnPages()){ 
-        //     const currentDate = moment().format();
-        //     this.$store.commit("Application/setLastPrinted", currentDate); 
-        //     this.loadPdf();
-        // }
+        if(this.checkErrorOnPages(this.formsList[inx].chkSteps)){             
+            this.savePdf(this.formsList[inx].pdfType, inx);            
+        }
+    }
+
+     
+    public checkErrorOnPages(checkingSteps){
+
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+        for(const stepIndex of checkingSteps){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
     }
 
     public setProgress(){
@@ -108,6 +127,30 @@ export default class FormList extends Vue {
                 return false
             }
         return true
+    }
+
+    public savePdf(pdfType: string, formsListIndex){        
+        const applicationId = this.$store.state.Application.id;
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdfType
+        const options = {
+            responseType: "blob",
+            headers: {
+            "Content-Type": "application/json",
+            }
+        }
+        this.$http.get(url, options)
+        .then(res => {
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = pdfType+".pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            this.formsList[formsListIndex].color = "success";
+        },err => {
+            console.error(err);
+        });
     }
 
 }

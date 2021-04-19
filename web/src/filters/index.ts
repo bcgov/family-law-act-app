@@ -172,7 +172,7 @@ Vue.filter('extractRequiredDocuments', function(questions){
 Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 
 	//console.log(customCss)
-	const body = [
+	const body = 
 		`<!DOCTYPE html>
 		<html lang="en">
 		<head>		
@@ -221,6 +221,8 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`+
 			`td.border-dark {border: 1px solid #313132 !important;}`+
 			`th.border-dark {border: 1px solid #313132 !important;}`+
+			`td.border-top-0{border-top: 0px solid #FFF !important;border-bottom: 1px solid #313132 !important;border-left: 1px solid #313132 !important; border-right: 1px solid #313132 !important;}`+
+			`th.border-bottom-0{border-top: 1px solid #313132 !important;border-bottom: 0px solid #FFF !important;border-left: 1px solid #313132 !important; border-right: 1px solid #313132 !important;}`+
 			`tr{height: 1.5rem;}`+
 			`table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}`+
 			`table.fullsize tr{border:1px solid #313132;}`+
@@ -229,12 +231,11 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0 0rem;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
-			`.formheader{display:block; margin:0 0 6rem 0;}`+
+			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+
-			`.marginleftplus{margin:0 0 0 1rem !important;}`+
-
+			`.marginleftplus{margin:0 0 0 1rem !important;}`+			
 
 			`section{ counter-increment: question-counter; text-indent: -17px; text-align: justify; text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;}`+ 
 			`section:before {font-weight: bolder; content:counter(question-counter) ".";}`+
@@ -282,7 +283,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			
 				<div class="container">
 					`+html+
-		`</div></body></html>`]		 
+		`</div></body></html>`	 
 	
 	return body
 })

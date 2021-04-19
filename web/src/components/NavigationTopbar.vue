@@ -123,13 +123,42 @@ export default class NavigationTopbar extends Vue {
     return this.$store.state.Application.userName;
   }
 
+  public translateTypes(applicationTypes: string[]) {
+
+        let types = [];
+
+        for (const applicationType of applicationTypes){
+            if (applicationType.includes("Protection Order")){
+                types.push(applicationType.replace("Protection Order", "FPO"));
+            }
+            if (applicationType.includes("Family Law Matter")){
+                types.push("FLC");
+            }
+            if (applicationType.includes("Case Management")){
+                types.push("ACMO");
+            }
+            if (applicationType.includes("Priotity Parenting Matter")){
+                types.push("AXP");
+            }
+            if (applicationType.includes("Relocation of a Child")){
+                types.push("APRC");
+            }
+            if (applicationType.includes("Enforcement of Agreements and Court Orders")){
+                types.push("AFET");
+            }
+        }
+
+        return types.toString();
+
+    }
+
   public logout(isQuickExit) {
     const emptyApplicationRoutes = ["/", "/status", "/serviceLocator"];
     if (emptyApplicationRoutes.indexOf(this.$route.fullPath) == -1) {
       const lastUpdated = moment().format();
       this.$store.commit("Application/setLastUpdated", lastUpdated);
       const application = this.$store.state.Application;
-      application.type = this.$store.state.Application.types.toString();
+      application.type = this.translateTypes(this.$store.state.Application.types);
       const applicationId = application.id;
       const header = {
         responseType: "json",
