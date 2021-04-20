@@ -1,5 +1,6 @@
 <template>
 <div v-if="dataReady"> 
+    <!-- <b-button @click="Clear()">CLEAR</b-button>   -->
     <!-- <b-button @click="onPrint()">print</b-button>  
     <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
@@ -719,13 +720,7 @@ import moment from 'moment';
     }
 })
 
-export default class FormK extends Vue {    
-
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+export default class FormK extends Vue {
 
     result;
     dataReady = false;
@@ -925,7 +920,7 @@ export default class FormK extends Vue {
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FPO&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=AAP&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         // const body = new FormData();
@@ -933,7 +928,7 @@ export default class FormK extends Vue {
         // body.append('json_data',null)
 
         const body = {
-            'html':[pdfhtml],
+            'html':pdfhtml,
             'json_data':this.getFPOResultData()
         }       
         
@@ -977,11 +972,15 @@ export default class FormK extends Vue {
             console.error(err);
         });
     }
+
+    public Clear(){
+        this.$store.state.Application.steps[0].result = {}
+    }
  
     public getFPOResultData() {  
         
-        let result = this.$store.state.Application.steps[0].result; 
-        for(let i=1;i<9; i++){
+        let result = Object.assign({},this.$store.state.Application.steps[0].result); 
+        for(let i=1;i<2; i++){
             const stepResults = this.$store.state.Application.steps[i].result
             for(const stepResult in stepResults){
                 //console.log(stepResults[stepResult])

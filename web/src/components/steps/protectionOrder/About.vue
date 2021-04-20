@@ -136,17 +136,17 @@ export default class About extends Vue {
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
 
         if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == 'FPO')})
+            const index = existingOrders.findIndex(order=>{return(order.type == 'AAP')})
             if(index >= 0 ){                
-                existingOrders[index]={type: 'FPO', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
+                existingOrders[index]={type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
             }else{                
-                existingOrders.push({type: 'FPO', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                existingOrders.push({type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
 
         }else{            
-            this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'FPO', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
         }
     }
   

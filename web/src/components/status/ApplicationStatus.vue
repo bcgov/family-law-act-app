@@ -258,7 +258,7 @@ export default class ApplicationStatus extends Vue {
 
             if(this.currentApplication.steps[0]['result']){
                 this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
-                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentName']?this.currentApplication.steps[0]['result']['respondentName'][0]:'';//applicationData.respondentName;
+                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondents']?this.currentApplication.steps[0]['result']['respondents'][0]:'';//applicationData.respondentName;
                 this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
                 this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
             }
