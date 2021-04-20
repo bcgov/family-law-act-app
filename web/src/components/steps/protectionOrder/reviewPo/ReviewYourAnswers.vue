@@ -66,11 +66,11 @@ export default class ReviewYourAnswers extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
-    @applicationState.Action
-    public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+    // @applicationState.Action
+    // public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdateRequiredDocuments!: (newRequiredDocuments: string[]) => void
+    // @applicationState.Action
+    // public UpdateRequiredDocuments!: (newRequiredDocuments: string[]) => void
 
     fields =[
         {key:'title', label:'Question', thClass:'border-right', tdClass:'border-top border-right ', thStyle:''},
@@ -204,6 +204,10 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     public reloadPageInformation() {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         this.pageHasError = false;
         for(const stepIndex of [1]){ //search answers through these step numbers
             const step = this.$store.state.Application.steps[stepIndex]
@@ -241,9 +245,7 @@ export default class ReviewYourAnswers extends Vue {
         //let progress = 100;
         // if(Object.keys(this.survey.data).length)
         //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         //this.togglePages([0,1], true);
@@ -306,7 +308,7 @@ export default class ReviewYourAnswers extends Vue {
     public togglePages(pageArr, activeIndicator) {
         for (let i = 0; i < pageArr.length; i++) {
             this.$store.commit("Application/setPageActive", {
-                currentStep: this.step.id,
+                currentStep: this.currentStep,
                 currentPage: pageArr[i],
                 active: activeIndicator
             });

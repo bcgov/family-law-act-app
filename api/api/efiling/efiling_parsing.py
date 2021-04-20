@@ -21,10 +21,14 @@ class EFilingParsing:
     ):
         applicant = application_steps[0]["result"]["applicantName"]
         respondents = application_steps[0]["result"]["respondents"]
-
+        file_number = (
+            application_steps[0]["result"]["existingOrders"][0]["fileNumber"]
+            if len(application_steps[0]["result"]["existingOrders"]) > 0
+            else ""
+        )
         converted_data = {
-            "fileNumber": application_steps[0]["result"]["existingOrders"][0]["fileNumber"],
-            "locationName": application.application_location,
+            "fileNumber": file_number,
+            "locationName": application.application_location or 'Victoria',
             "documents": documents,
             "organizationParties": [],
             "parties": flatten(

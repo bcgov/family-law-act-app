@@ -47,6 +47,9 @@ export default class ProtectionFromWhom extends Vue {
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     applicantName = ""
 
     survey = new SurveyVue.Model(surveyJson);
@@ -76,13 +79,14 @@ export default class ProtectionFromWhom extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
+            // console.log(this.survey.data);
             //  console.log(options)
 
             this.UpdateSurveyChangedPO(true);
 
             if(options.name == "RespondentName") {        
-                this.$store.commit("Application/setRespondentName", options.value);
+                this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);
+                this.UpdateCommonStepResults({data:{'respondents':[this.survey.data["RespondentName"]]}});
             }
 
             // if(options.name == "childPO" && options.value == "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
@@ -172,24 +176,66 @@ export default class ProtectionFromWhom extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }
+
+    public setRelatedNames(){
+        if(this.survey.data &&  this.survey.data["RespondentName"]) {        
+            this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);
+            this.UpdateCommonStepResults({data:{'respondents':[this.survey.data["RespondentName"]]}});
+        }
+
+        if (this.survey.data && this.survey.data.ApplicantNeedsProtection == "n" && this.survey.data.anotherAdultPO == "y") {
+            this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
+            this.UpdateCommonStepResults({data:{'protectedPartyName':this.survey.data.anotherAdultName}})
+        }else{
+            const applicantname = this.$store.state.Application.applicantName
+            this.$store.commit("Application/setProtectedPartyName",applicantname);
+            this.UpdateCommonStepResults({data:{'protectedPartyName':applicantname}})
+        }        
+        
+        if(this.survey.data && this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) {
+            this.$store.commit("Application/setProtectedChildName",this.survey.data.allchildren);
+            this.UpdateCommonStepResults({data:{'protectedChildName':this.survey.data.allchildren}});           
+        }else{ 
+            this.$store.commit("Application/setProtectedChildName",[]);
+            this.UpdateCommonStepResults({data:{'protectedChildName':[]}});
+        }
+    }
+
+    public setExistingFileNumber(){
+        
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+
+        if(existingOrders){
+            const index = existingOrders.findIndex(order=>{return(order.type == 'AAP')})
+            if(index >= 0 ){
+                if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
+                    existingOrders[index]={type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
+                else
+                    existingOrders.splice(index, 1);                                 
+            }else{
+                if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
+                    existingOrders.push({type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+            }
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
+
+        }else{
+            if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+        }
+    }
   
     beforeDestroy() {
+        
+        //console.log(this.survey.data)
+
+        this.setRelatedNames();
+        this.setExistingFileNumber();
 
         if(this.checkAnswersforContinue())
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         else
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
-
-        if (this.survey.data.anotherAdultPO == "y") {
-            this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
-        }else{
-            this.$store.commit("Application/setProtectedPartyName", this.$store.state.Application.applicantName);
-        }
-        //console.log(this.survey.data)
-        if(this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) 
-            this.$store.commit("Application/setProtectedChildName",this.survey.data.allchildren);
-        else 
-            this.$store.commit("Application/setProtectedChildName",[]);
 
         this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 

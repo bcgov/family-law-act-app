@@ -59,7 +59,8 @@ class EFilingSubmitView(generics.GenericAPIView):
 
     def _get_pdf_content(self, application, application_steps):
         outgoing_documents = []
-        for document_type in application_steps[0]['result']['existingOrders']['type']:
+        for existing_orders in application_steps[0]['result']['existingOrders']:
+            document_type = existing_orders['type']
             try:
                 prepared_pdf = PreparedPdf.objects.get(
                     application_id=application.id, pdf_type=f"{document_type}"
@@ -91,6 +92,8 @@ class EFilingSubmitView(generics.GenericAPIView):
     ):
         outgoing_documents = self._get_pdf_content(application, application_steps)
         for incoming_document in incoming_documents:
+            if "files" not in incoming_document:
+                continue
             file_indexes = incoming_document["files"]
             files = [incoming_files[index] for index in file_indexes]
             if files[0].name.endswith(".pdf"):
