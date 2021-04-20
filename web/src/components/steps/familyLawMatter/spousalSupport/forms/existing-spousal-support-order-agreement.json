@@ -14,7 +14,7 @@
         {
           "type": "infotext",
           "name": "requiredFinancialStatementReminder",
-          "title": "This next section is completed only if there is an existing court order or written agreement about child support.<br><br>Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.<br><br>Although parents have the primary responsibility to pay child support, other guardians and step-parents may be responsible for paying child support. If you are a step-parent, and you need more information about step-parents and child support, see the fact sheet <a href=\"https://family.legalaid.bc.ca/children/parenting-guardianship/parenting/step-parents-rights-and-responsibilities\" target=\"blank\"> Step-parents Rights and Responsibilities</a> by Legal Aid BC.<br><br>For more information about child support and referrals to other child support resources, visit the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/child-support/more-info\" target=\"blank\">BC Government website</a> at www.gov.bc.ca.      ",
+          "title": "You are required to file a Financial Statement in Form 4 with your application for an order about spousal support. You will be reminded to include a copy at the end of the service. If you have previously filed a Financial Statement, you will need to update the information and file a new one.",
           "titleLocation": "hidden"
         },
         {

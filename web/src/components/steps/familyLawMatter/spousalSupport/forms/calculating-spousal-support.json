@@ -20,7 +20,7 @@
             {
               "type": "yesno",
               "name": "attachingCalculations",
-              "title":"Will you be attaching calculations showing how much child support you believe should be paid according to the child support guidelines?",
+              "title":"Will you be attaching calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines?",
               "description": "If you are applying to cancel or set aside an existing order or agreement, select no. There may also be other reasons why you aren’t able to do a calculation.",
               "isRequired": true,
               "visible":false,

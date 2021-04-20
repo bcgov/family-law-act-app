@@ -1,198 +1,46 @@
 {
-  "title": "About the existing order or written agreement",
+  "title": "Existing written agreement",
   "pages": [
     {
-      "name": "About the existing order or written agreement",
+      "name": "Existing written agreement",
       "elements": [
         {
           "type": "panel",
-          "name": "ExistingInfoPanel",
-          "elements": [
-            {
-              "type": "radiogroup",
-              "name": "existingType",
-              "title": "Which do you have?",
-              "description": "Select the correct option.",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "ExistingOrder",
-                  "text": "Court Order about child support"
-                },
-                {
-                  "value": "ExistingAgreement",
-                  "text": "Written Agreement about child support"
-                },
-                {
-                  "value": "Neither",
-                  "text": "None of the above"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "infotext",
-          "name": "ifNeitherexistingFAQ",
-          "title": "In a previous step you identified that you had an existing order or written agreement about child support. If you need an order about child support, and there is no order or written agreement already in place, please return to the Background step and de-select child support under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
-          "titleLocation": "hidden",
-          "visible": false,
-          "visibleIf": "{existingType} = 'Neither'"
-        },
-        {
-          "type": "panel",
           "name": "ExistingDetailsPanel",
-          "visible": false,
-          "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
           "elements": [
-            {
-              "type": "infotext",
-              "name": "ifExistingFAQ",
-              "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
-              "titleLocation": "hidden"
-            },
-            {
-              "type": "radiogroup",
-              "name": "existingResponsibilityType",
-              "title": "Select the option that best describes your responsibility for child support in the existing order or agreement.",
-              "isRequired": true,
-              "hasOther": true,
-              "choices": [
-                {
-                  "value": "payor",
-                  "text": "I am required to make payments for support of a child"
-                },
-                {
-                  "value": "payee",
-                  "text": "I am to be paid support for a child"
-                }
-              ]
-            },
-            {
-              "type": "yesno",
-              "name": "filedWithDirector",
-              "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child support?",
-              "isRequired": true
-            },
-            {
-              "type": "infotext",
-              "name": "ifExistingFAQ",
-              "title": "If your order or written agreement is filed with the Director of Maintenance Enforcement, you must serve a copy of the application on the director. The Director of Maintenance Enforcement can be served by mailing the documents to the postal address provided by the director. Contact the <a href=\"https://www.fmep.gov.bc.ca/\" target=\"blank\">Family Maintenance Enforcement Program</a> to find out how best to serve them.",
-              "titleLocation": "hidden",
-              "visible": false,
-              "visibleIf": "{filedWithDirector} = 'y'"
-            },
-            {
-              "type": "text",
-              "name": "orderDate",
-              "title": "Please provide the date the court made the order.",
-              "description": "The date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'"
-            },
             {
               "type": "text",
               "name": "agreementDate",
               "title": "Please provide the date the written agreement was signed.",
               "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'"
-            },
-            {
-              "type": "infotext",
-              "name": "ChangeOrderExplanationFAQ",
-              "title": "Family dynamics change and children grow up. A child support order that was made in the past may not make sense anymore. The court can only change or cancel an order if:<br><ul><li>there has been a change in circumstances since the original court order was made</li><li>evidence of a substantial nature that was not available during the previous hearing has become available</li><li>evidence of a lack of financial disclosure by a party was discovered after the last order was made</li></ul>",
-              "titleLocation": "hidden",
-              "messageStyle": "inline",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'"
+              "inputType": "date"
             },
             {
               "type": "infotext",
               "name": "ChangeAgreementExplanationFAQ",
-              "title": "Family dynamics change and children grow up. An agreement about child support that was made in the past may not make sense anymore. The court can only set aside or replace an agreement if the court would make an order for child support that is different from the agreement on consideration of the matters set out in section 150 [determining child support] of the <a href=\"https://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section150\" target=\"blank\">Family Law Act</a>. <br><br>Section 150 of the Family Law Act says that a court must consider the Child Support Guidelines when making an order about child support but may consider an amount different from the Child Support Guidelines if satisfied that:<ul><li>the agreement about child support establishes reasonable arrangements for support of the child despite the amount being different from the Child Support Guidelines amount, or</li><li>applying the Child Support Guidelines would be inequitable on consideration of:<ul><li>an agreement or order respecting the financial duties of the parents or guardians or the division or transfer of property, other than an agreement about child support, benefits the child directly or indirectly, or</li><li>special provisions have otherwise been made for the benefit of the child</li></ul></ul>",
+              "title": "A written agreement about spousal support that was made in the past may not make sense anymore. The <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a> has rules about setting aside or replacing an agreement about spousal support with a new order. The court may set aside an agreement about spousal support or set aside and replace an agreement about spousal support with an order made under Division 4 of Part 7 of the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>:<br><br><ul><li>if the court is satisfied that one or more of the following circumstances [set out in section 164 (3) of the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>] existed when the parties entered into the agreement:<ul><li>a spouse failed to disclose income, significant property or debts, or other information relevant to the negotiation of the agreement;</li><li>a spouse took improper advantage of the other spouse's vulnerability, including the other party's ignorance, need or distress;</li><li>a spouse did not understand the nature or consequences of the agreement;</li><li>other circumstances that would under the common law cause all or part of a contract to be voidable;</li></ul><br>and the court would not make a different order on consideration of all the evidence, or;</li><br><li>if on consideration of the following matters [set out in section 164 (5) the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>], the court is satisfied that the agreement is significantly unfair:<ul><li>the length of time that has passed since the agreement was made;</li><li>any changes, since the agreement was made, in the condition, means, needs or other circumstances of a spouse;</li><li>the intention of the spouses, in making the agreement, to achieve certainty;</li><li>the degree to which the spouses relied on the terms of the agreement;</li><li>the degree to which the agreement meets the objectives set out in section 161 [objectives of spousal support].</li></ul></li></ul>",
               "titleLocation": "hidden",
-              "messageStyle": "inline",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'"
-            },
-            {
-              "type": "checkbox",
-              "name": "changesSinceOrderList",
-              "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
-              "description": "Select each option that fits your situation and provide the additional detail as required.",
-              "choices":["My financial situation has changed", 
-                "I believe the other party’s financial situation has changed",
-                "The `special and extraordinary expenses` have changed",
-                "The living arrangements for a child have changed",
-                "Information has become available that was not available when the order was made",
-                "Other changes or circumstances"
-              ],
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'"
+              "messageStyle": "inline"
             },
             {
               "type": "comment",
-              "name": "changesSinceOrder",
-              "title": "Please describe the changes:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} anyof ['The `special and extraordinary expenses` have changed', 'The living arrangements for a child have changed'])"
-            },
-            {
-              "type": "comment",
-              "name": "newInfoSinceOrder",
-              "title": "Please describe the new information:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Information has become available that was not available when the order was made')"
-            },
-            {
-              "type": "comment",
-              "name": "otherChangesSinceOrder",
-              "title": "Please describe the changes or circumstances:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Other changes or circumstances')"
-            },
-            {
-              "type": "comment",
-              "name": "changesSinceAgreement",
+              "name": "changesReasoning",
               "title": "Explain to the court why you believe the agreement should be set aside or replaced.",
               "description": "You do not need to use any special wording. The key is to be as clear as possible.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'"
+              "isRequired": true
             },
             {
-              "type": "radiogroup",
-              "name": "orderDifferenceType",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'",
-              "title": "Do you want the existing order changed or cancelled?",
-              "description": "You can apply to change the existing order if you still need an order about child support, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
-              "choices": [
-                {
-                  "value": "changeOrder",
-                  "text": "Change"
-                },
-                {
-                  "value": "cancelOrder",
-                  "text": "Cancel"
-                }
-              ]
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
             },
             {
               "type": "radiogroup",
               "name": "agreementDifferenceType",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'",
               "title": "Do you want the existing written agreement set aside or replaced?",
-              "description": "You can apply to set aside (cancel) the existing agreement or to replace it with a child support order if you believe you need something different.",
+              "description": "You can apply to set aside (cancel) the existing agreement or to replace it with an order about spousal support if you believe you need something different.<br>Select the option that fits your situation.",
               "choices": [
                 {
                   "value": "setAsideAgreement",
@@ -207,7 +55,7 @@
           ]
         }
       ],
-      "title": "About the existing order or written agreement"
+      "title": "Existing written agreement"
     }
   ],
   "showQuestionNumbers": "off",

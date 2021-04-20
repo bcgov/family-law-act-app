@@ -96,7 +96,7 @@ export default class SpousalSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
+            //console.log(this.survey.data);
             // console.log(options)
             if (this.survey.data && this.survey.data.listOfSupportPayees && this.survey.data.listOfSupportPayees.length > 0 && this.otherPartyNames.length > 0){
                 for (const otherPartyName of this.otherPartyNames) {
@@ -110,7 +110,10 @@ export default class SpousalSupport extends Vue {
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
+       
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.step.result && this.step.result['spousalSupportSurvey']) {
             this.survey.data = this.step.result['spousalSupportSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
@@ -125,9 +128,7 @@ export default class SpousalSupport extends Vue {
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

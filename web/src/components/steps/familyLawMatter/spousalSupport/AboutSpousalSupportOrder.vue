@@ -1,10 +1,10 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <input style="display:inline" type="number" id='monthly-amount' v-model="monthlyAmount"  @change="changeMonthlyAmount"/>
-        <input style="display:inline" type="number" id='lump-sum-amount' v-model="lumpSumAmount"  @change="changeLumpSumAmount"/>
+        <input style="display:inline; margin:0 0.5rem 0 0.5rem; width:8rem;" type="number" id='monthly-amount' v-model="monthlyAmount"  @change="changeMonthlyAmount"/>
+        <input style="display:inline; margin:1rem 0.5rem 0 0.5rem; width:9rem" type="number" id='lump-sum-amount' v-model="lumpSumAmount"  @change="changeLumpSumAmount"/>
 
-        <input style="display:inline" type="date" id='start-date' v-model="startDate"  @change="changeStartDate"/>
-        <input style="display:inline" type="date" id='end-date' v-model="endDate"  @change="changeEndDate"/>
+        <input style="display:inline; margin:0 0.5rem 0 0.5rem;" type="date" id='start-date' v-model="startDate"  @change="changeStartDate"/>
+        <input style="display:inline; margin:1rem 0.5rem 0 0.5rem;" type="date" id='end-date' v-model="endDate"  @change="changeEndDate"/>
 
         <survey v-bind:survey="survey"></survey>
     </page-base>
@@ -18,11 +18,10 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/about-spousal-support-order.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import moment from 'moment';
 const applicationState = namespace("Application");
 
 @Component({
@@ -30,7 +29,6 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-
 export default class AboutSpousalSupportOrder extends Vue {
     
     @Prop({required: true})
@@ -74,9 +72,7 @@ export default class AboutSpousalSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            console.log(this.survey.data)
-            const el = document.querySelector('input')
-            console.log(el)
+            //console.log(this.survey.data)           
             
         })
     }
@@ -88,12 +84,10 @@ export default class AboutSpousalSupportOrder extends Vue {
 
         if (this.step.result && this.step.result['aboutSpousalSupportOrderSurvey']) {
             this.survey.data = this.step.result['aboutSpousalSupportOrderSurvey'].data;
+            this.loadReplacedElementsData();   
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        this.survey.setValue("text", 5)
-        
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
 
@@ -118,15 +112,38 @@ export default class AboutSpousalSupportOrder extends Vue {
     }
 
     public changeMonthlyAmount(){
-
         this.survey.setValue('monthlyAmount', this.monthlyAmount);
-
     }
 
     public changeLumpSumAmount(){
+        this.survey.setValue('lumpSumAmount', this.lumpSumAmount);        
+    }
 
-        this.survey.setValue('lumpSumAmount', this.lumpSumAmount);
-        
+    public changeStartDate(){
+        this.survey.setValue('startDate', this.startDate);
+    }
+
+    public changeEndDate(){
+        this.survey.setValue('endDate', this.endDate);        
+    }
+
+    public loadReplacedElementsData(){
+
+        if (this.survey.data["monthlyAmount"]){
+            this.monthlyAmount = this.survey.data["monthlyAmount"];
+        }
+
+        if (this.survey.data["lumpSumAmount"]){
+            this.lumpSumAmount = this.survey.data["lumpSumAmount"];
+        }
+
+        if (this.survey.data["startDate"]){
+            this.startDate = this.survey.data["startDate"];
+        }
+
+        if (this.survey.data["endDate"]){
+            this.endDate = this.survey.data["endDate"];
+        }
     }
 
     public onPrev() {

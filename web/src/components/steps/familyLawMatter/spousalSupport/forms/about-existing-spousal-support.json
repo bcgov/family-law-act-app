@@ -52,26 +52,9 @@
               "titleLocation": "hidden"
             },
             {
-              "type": "radiogroup",
-              "name": "existingResponsibilityType",
-              "title": "Select the option that best describes your responsibility for child support in the existing order or agreement.",
-              "isRequired": true,
-              "hasOther": true,
-              "choices": [
-                {
-                  "value": "payor",
-                  "text": "I am required to make payments for support of a child"
-                },
-                {
-                  "value": "payee",
-                  "text": "I am to be paid support for a child"
-                }
-              ]
-            },
-            {
               "type": "yesno",
               "name": "filedWithDirector",
-              "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child support?",
+              "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting spousal support?",
               "isRequired": true
             },
             {
@@ -83,124 +66,36 @@
               "visibleIf": "{filedWithDirector} = 'y'"
             },
             {
-              "type": "text",
-              "name": "orderDate",
-              "title": "Please provide the date the court made the order.",
-              "description": "The date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'"
-            },
-            {
-              "type": "text",
-              "name": "agreementDate",
-              "title": "Please provide the date the written agreement was signed.",
-              "isRequired": true,
-              "inputType": "date",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'"
+              "type": "yesno",
+              "name": "reviewableTerm",
+              "title": "Does the existing order or written agreement include a term that the spousal support can or will be reviewed?",
+              "description": "An order or written agreement can include a term that spousal support be reviewed on a specified date or after a specified time or event or you may be applying for a review of spousal support because you or your spouse has started receiving or is eligible to start receiving benefits under a pension.",
+              "isRequired": true
             },
             {
               "type": "infotext",
-              "name": "ChangeOrderExplanationFAQ",
-              "title": "Family dynamics change and children grow up. A child support order that was made in the past may not make sense anymore. The court can only change or cancel an order if:<br><ul><li>there has been a change in circumstances since the original court order was made</li><li>evidence of a substantial nature that was not available during the previous hearing has become available</li><li>evidence of a lack of financial disclosure by a party was discovered after the last order was made</li></ul>",
+              "name": "ifReviewableFAQ",
+              "title": "You may instead complete the Request for <a href=\"https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178\" target=\"blank\">Scheduling Form 39</a> to request a court appearance to review spousal support.<br><br>Under section 168 and 169 of the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section164\" target=\"blank\">Family Law Act</a>, at a review of spousal support a court can do one or more of the following:<ul><li>confirm that the terms about spousal support in the agreement or order remain appropriate</li><li>set aside (cancel) all or part of the agreement or terminate (cancel) the order</li><li>make a new order for spousal support under section 165 of the <a href=\"http://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section165\" target=\"blank\">Family Law Act</a>.</li></ul>Asking for a review of spousal support under section 168 and 169 of the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_07#section168\" target=\"blank\">Family Law Act</a> is different from asking to change or cancel an existing agreement or order about spousal support.<br><br>If you are not sure how to proceed, we recommend you talk with a <a href=\"https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C\" target=\"blank\">child support officer</a> (they can also help with spousal support), <a href=\"https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA\" target=\blank\">family justice counsellor</a> or a lawyer.",
               "titleLocation": "hidden",
-              "messageStyle": "inline",
               "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'"
-            },
-            {
-              "type": "infotext",
-              "name": "ChangeAgreementExplanationFAQ",
-              "title": "Family dynamics change and children grow up. An agreement about child support that was made in the past may not make sense anymore. The court can only set aside or replace an agreement if the court would make an order for child support that is different from the agreement on consideration of the matters set out in section 150 [determining child support] of the <a href=\"https://www.bclaws.ca/civix/document/id/complete/statreg/11025_07#section150\" target=\"blank\">Family Law Act</a>. <br><br>Section 150 of the Family Law Act says that a court must consider the Child Support Guidelines when making an order about child support but may consider an amount different from the Child Support Guidelines if satisfied that:<ul><li>the agreement about child support establishes reasonable arrangements for support of the child despite the amount being different from the Child Support Guidelines amount, or</li><li>applying the Child Support Guidelines would be inequitable on consideration of:<ul><li>an agreement or order respecting the financial duties of the parents or guardians or the division or transfer of property, other than an agreement about child support, benefits the child directly or indirectly, or</li><li>special provisions have otherwise been made for the benefit of the child</li></ul></ul>",
-              "titleLocation": "hidden",
-              "messageStyle": "inline",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'"
-            },
-            {
-              "type": "checkbox",
-              "name": "changesSinceOrderList",
-              "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
-              "description": "Select each option that fits your situation and provide the additional detail as required.",
-              "choices":["My financial situation has changed", 
-                "I believe the other party’s financial situation has changed",
-                "The `special and extraordinary expenses` have changed",
-                "The living arrangements for a child have changed",
-                "Information has become available that was not available when the order was made",
-                "Other changes or circumstances"
-              ],
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'"
-            },
-            {
-              "type": "comment",
-              "name": "changesSinceOrder",
-              "title": "Please describe the changes:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} anyof ['The `special and extraordinary expenses` have changed', 'The living arrangements for a child have changed'])"
-            },
-            {
-              "type": "comment",
-              "name": "newInfoSinceOrder",
-              "title": "Please describe the new information:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Information has become available that was not available when the order was made')"
-            },
-            {
-              "type": "comment",
-              "name": "otherChangesSinceOrder",
-              "title": "Please describe the changes or circumstances:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Other changes or circumstances')"
-            },
-            {
-              "type": "comment",
-              "name": "changesSinceAgreement",
-              "title": "Explain to the court why you believe the agreement should be set aside or replaced.",
-              "description": "You do not need to use any special wording. The key is to be as clear as possible.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'"
+              "visibleIf": "{reviewableTerm} = 'y'"
             },
             {
               "type": "radiogroup",
-              "name": "orderDifferenceType",
+              "name": "fillOutForm",
+              "title": "",
+              "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{existingType} = 'ExistingOrder'",
-              "title": "Do you want the existing order changed or cancelled?",
-              "description": "You can apply to change the existing order if you still need an order about child support, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
+              "visibleIf": "{reviewableTerm} = 'y'",
+              "isRequired": true,
               "choices": [
                 {
-                  "value": "changeOrder",
-                  "text": "Change"
+                  "value": "completeNow",
+                  "text": "I want to complete the <a href=\"https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178\" target=\"blank\">Request for Scheduling Form 39</a>. Note: Completion of the form is not currently supported by this service. If you select this option, a fillable PDF version of the form will be opened in another window for you to complete."
                 },
                 {
-                  "value": "cancelOrder",
-                  "text": "Cancel"
-                }
-              ]
-            },
-            {
-              "type": "radiogroup",
-              "name": "agreementDifferenceType",
-              "visible": false,
-              "visibleIf": "{existingType} = 'ExistingAgreement'",
-              "title": "Do you want the existing written agreement set aside or replaced?",
-              "description": "You can apply to set aside (cancel) the existing agreement or to replace it with a child support order if you believe you need something different.",
-              "choices": [
-                {
-                  "value": "setAsideAgreement",
-                  "text": "Set aside"
-                },
-                {
-                  "value": "replacedAgreement",
-                  "text": "Replace"
+                  "value": "completeLater",
+                  "text": "I want to continue my application about an existing order or written agreement about spousal support."
                 }
               ]
             }

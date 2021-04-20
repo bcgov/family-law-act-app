@@ -12,11 +12,10 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/about-existing-spousal-support-final-order.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import moment from 'moment';
 const applicationState = namespace("Application");
 
 @Component({
@@ -24,7 +23,6 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-
 export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     
     @Prop({required: true})
@@ -65,24 +63,38 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            console.log(this.survey.data)
-            const el = document.querySelector('input')
-            console.log(el)
+           // console.log(this.survey.data)
+            if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                this.togglePages([37], true);
+                
+            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                
+                this.togglePages([37], false);
+            }
             
         })
     }
-    
-    public reloadPageInformation() {        
-        if (this.step.result && this.step.result['aboutExistingSpousalSupportFinalOrderSurvey']) {
-            this.survey.data = this.step.result['aboutExistingSpousalSupportFinalOrderSurvey'].data;
-            
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
 
-        this.survey.setValue("text", 5)
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
+    }
+    
+    public reloadPageInformation() {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result && this.step.result['aboutExistingSpousalSupportFinalOrderSurvey']) {
+            this.survey.data = this.step.result['aboutExistingSpousalSupportFinalOrderSurvey'].data;            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

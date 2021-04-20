@@ -78,17 +78,19 @@ export default class UnpaidSpousalSupport extends Vue {
         })
     }
     
-    public reloadPageInformation() {        
+    public reloadPageInformation() {  
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.step.result && this.step.result['unpaidSpousalSupportSurvey']) {
             this.survey.data = this.step.result['unpaidSpousalSupportSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
         const currentDate = moment().format("MMM DD, yyyy");        
-        this.survey.setVariable("currentDate", currentDate);        
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.survey.setVariable("currentDate", currentDate);
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

@@ -12,11 +12,10 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/about-existing-spousal-support-order.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import moment from 'moment';
 const applicationState = namespace("Application");
 
 @Component({
@@ -65,24 +64,21 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            console.log(this.survey.data)
-            const el = document.querySelector('input')
-            console.log(el)
+            //console.log(this.survey.data)            
             
         })
     }
     
-    public reloadPageInformation() {        
-        if (this.step.result && this.step.result['aboutExistingSpousalSupportOrderSurvey']) {
-            this.survey.data = this.step.result['aboutExistingSpousalSupportOrderSurvey'].data;
-            
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
-        this.survey.setValue("text", 5)
+    public reloadPageInformation() {   
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result && this.step.result['aboutExistingSpousalSupportOrderSurvey']) {
+            this.survey.data = this.step.result['aboutExistingSpousalSupportOrderSurvey'].data;            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

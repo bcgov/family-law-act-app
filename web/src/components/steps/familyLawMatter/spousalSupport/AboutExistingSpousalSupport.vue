@@ -80,41 +80,27 @@ export default class AboutExistingSpousalSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data)  
-            
-            // if (this.survey.data.existingType && this.survey.data.existingType == "Neither") {                
-            //     this.togglePages([17, 20, 21], false);
-            //     this.disableNextButton = true;
-            // } else {
-            //     this.togglePages([17, 20, 21], true);
-            //     this.disableNextButton = false;
-            // } 
+            //console.log(this.survey.data)
             
             if (this.survey.data.existingType == 'ExistingOrder') {
                 this.disableNextButton = false;
-                this.togglePages([17, 20, 21], true);
-                if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                    this.togglePages([20], true);
-                    
-                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                    
-                    this.togglePages([20], false);
-                }
+                this.togglePages([34, 36, 38], true); 
+                this.togglePages([35], false);               
             } else if (this.survey.data.existingType == 'ExistingAgreement') {
                 this.disableNextButton = false;
-                this.togglePages([17, 20, 21], true);
-                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                    this.togglePages([20], true);
-                   
-                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                    
-                    this.togglePages([20], false);
-                }
+                this.togglePages([35, 36, 38], true); 
+                this.togglePages([34], false);                
             } else if (this.survey.data.existingType == "Neither") {
-                this.togglePages([17, 20, 21], false);
+                this.togglePages([34, 35, 36, 37, 38], false);
                 this.disableNextButton = true;
-
-            }     
+            }
+            
+            if (options.name = 'fillOutForm'){
+                // console.log(options)
+                if (options.value == 'completeNow'){
+                    window.open('https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178')
+                }
+            }
 
         })
     }
@@ -129,7 +115,11 @@ export default class AboutExistingSpousalSupport extends Vue {
         }
     }
     
-    public reloadPageInformation() {        
+    public reloadPageInformation() {  
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
+        
         if (this.step.result && this.step.result['aboutExistingSpousalSupportSurvey']) {
             this.survey.data = this.step.result['aboutExistingSpousalSupportSurvey'].data;           
             if (this.survey.data.existingType == 'Neither') {
@@ -137,9 +127,7 @@ export default class AboutExistingSpousalSupport extends Vue {
             } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
