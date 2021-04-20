@@ -226,11 +226,11 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
                 <div style="margin-left:1.5rem">
-                    <check-box style="" :check="true?'yes':''" text="My application does not ask for any order(s) about a child or children <i>(skip section 12)</i>"/>
-                    <check-box style="" :check="true?'yes':''" text="My application is asking for an order(s) about the following child or children:"/>
+                    <check-box style="" :check="!aboutChildren?'yes':''" text="My application does not ask for any order(s) about a child or children <i>(skip section 12)</i>"/>
+                    <check-box style="" :check="aboutChildren?'yes':''" text="My application is asking for an order(s) about the following child or children:"/>
                 </div>
                 <b-table
-                    :items="childrenItem"
+                    :items="childrenInfo"
                     :fields="childrenFields"
                     class="mt-2"
                     small
@@ -248,7 +248,7 @@
 <!-- <12> -->
         <section>
             <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text=""/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
                 <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
                 <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
             </div>
@@ -260,6 +260,9 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">You may choose to complete this section or leave this section blank</i>
                 <div style="margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
+                <div style="margin-left:.5rem; text-indent:0rem;"></div>
+                <div v-if="result.flmBackgroundSurvey.likeToAddCulturalExplanation == 'y'" class="answerbox">{{culturalInfo}}</div>
+                <div v-else style="margin-bottom:3rem;"></div>
             </section>  
         </div>
 
@@ -267,7 +270,7 @@
         <div class="new-page" />
 <!-- <Page 2> --> 
 <!-- <Header> -->
-        <div >
+        <div v-if="selectedSchedules.includes('schedule1')" >
             <div style="text-align:center;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>
             <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
 
@@ -278,8 +281,8 @@
 <!-- <1> -->
             <section class="resetquestion"> 
                 I am:
-                <check-box style="margin:0 0 0 1rem;" :check="true?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
-                <check-box style="margin:0 0 0 1rem;" :check="true?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
             </section>
 
             <div class="print-block">
@@ -289,8 +292,15 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
                     <div style="margin-left:1rem">
-                        <check-box style="" :check="true?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>                    
-                        <check-box style="margin-top:1rem;" :check="true?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
+                        <check-box style="" :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
+                        <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
+                            <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx">child</li>
+                        </ul>                    
+                        <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
+                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
+                        <div v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
+                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)" class="answerbox">{{parentArrInfo.parentResp.expl}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
                     </div>            
                 </section>
             </div>
@@ -302,10 +312,41 @@
                 <section>
                     I am applying for an order about the allocation of parenting time as follows:
                     <i style="display:block; margin-left:1rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
-                    <check-box style="margin:0 0 2rem 1rem;" :check="true?'yes':''" text="I am asking for the child(ren) to spend time with me as follows:"/>
-                    <check-box style="margin:0 0 2rem 1rem;" :check="true?'yes':''" text="I am willing to have the following conditions placed on my time with the child(ren):"/>
-                    <check-box style="margin:0 0 2rem 1rem;" :check="true?'yes':''" text="I am asking for the child(ren) to spend time with the other guardian(s) as follows:"/>
-                    <check-box style="margin:0 0 2rem 1rem;" :check="true?'yes':''" text="I am asking to have the following conditions placed on the other guardian’s time with the child(ren):"/>
+                    <check-box style="margin:0 0 2rem 1rem;" 
+                            :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired?'yes':''" 
+                            text="I am asking for the child(ren) to spend time with me as follows:"/> 
+                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired)" 
+                        class="answerbox">{{parentArrInfo.parentTime.desired}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
+
+
+                    <check-box 
+                        style="margin:0 0 2rem 1rem;" 
+                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe?'yes':''" 
+                        text="I am willing to have the following conditions placed on my time with the child(ren):"/>
+                    
+                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe)" 
+                        class="answerbox">{{parentArrInfo.parentTime.myConditions}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>                    
+                    
+                    
+                    <check-box 
+                        style="margin:0 0 2rem 1rem;" 
+                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired?'yes':''" 
+                        text="I am asking for the child(ren) to spend time with the other guardian(s) as follows:"/>
+                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired)" 
+                        class="answerbox">{{parentArrInfo.parentTime.opDesired}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
+                    
+                    
+                    <check-box 
+                        style="margin:0 0 2rem 1rem;" 
+                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp?'yes':''" 
+                        text="I am asking to have the following conditions placed on the other guardian’s time with the child(ren):"/>
+                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp)" 
+                        class="answerbox">{{parentArrInfo.parentTime.opConditions}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>       
+               
                 </section>
             </div>
 
@@ -315,8 +356,17 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if there are additional order terms you want. You may leave this section blank.</i>
                     <div>
-                        <check-box  inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text=""/>
+                        <check-box  
+                            inline="inline" 
+                            boxMargin="0" 
+                            style="display:inline; margin:0 0 0 1rem;" 
+                            :check="parentArrInfo.parentalArr.applying?'yes':''" text=""/>
                         <div style="display:inline;">I am applying for the following other order term(s) about parenting arrangements:</div>
+                        <div v-if="(parentArrInfo.parentalArr.applying && parentArrInfo.parentalArr.desc)" 
+                        class="answerbox">{{parentArrInfo.parentalArr.desc}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>  
+                    
+                    
                     </div>                
                 </section> 
             </div>
@@ -326,6 +376,9 @@
 <!-- <5> -->
                 <section>
                     I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the child(ren)’s best interests because:
+                    <div v-if="parentArrInfo.childBestInterest" 
+                        class="answerbox">{{parentArrInfo.childBestInterest}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>  
                 </section>
             </div>
         </div>
@@ -333,7 +386,7 @@
         <div class="new-page" />
 <!-- <Page 3> --> 
 <!-- <Header> -->
-        <div >
+        <div v-if="selectedSchedules.includes('schedule2')">
             <div style="text-align:center;"><b> SCHEDULE 2 – PARENTING ORDER/ AGREEMENT – EXISTING</b></div>
             <div style="text-align:center;"><b> This is Schedule 2 to the Application About a Family Law Matter</b></div>
 
@@ -442,7 +495,7 @@
         <div class="new-page" />
 <!-- <Page 4> --> 
 <!-- <Header> -->
-        <div >
+        <div v-if="selectedSchedules.includes('schedule3')">
             <div style="text-align:center;"><b>SCHEDULE 3 – CHILD SUPPORT – NEW</b></div>
             <div style="text-align:center;"><b>This is Schedule 3 to the Application About a Family Law Matter</b></div>
 
@@ -660,7 +713,7 @@
         <div class="new-page" />
 <!-- <Page 5> --> 
 <!-- <Header> -->
-        <div >
+        <div v-if="selectedSchedules.includes('schedule4')">
             <div style="text-align:center;"><b>SCHEDULE 4 – CHILD SUPPORT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
             <div style="text-align:center;"><b>This is Schedule 4 to the Application About a Family Law Matter</b></div>
 
@@ -851,7 +904,7 @@
         <div class="new-page" />
 <!-- <Page 6> --> 
 <!-- <Header> -->
-        <div >
+        <div v-if="selectedSchedules.includes('schedule5')">
             <div style="text-align:center;"><b>SCHEDULE 5 – CONTACT WITH A CHILD – NEW</b></div>
             <div style="text-align:center;"><b>This is Schedule 5 to the Application About a Family Law Matter</b></div>
 
@@ -917,7 +970,7 @@
         <div class="new-page" />
 <!-- <Page 7> --> 
 <!-- <Header> -->
-        <div>
+        <div v-if="selectedSchedules.includes('schedule6')">
             <div style="text-align:center;"><b>SCHEDULE 6 – CONTACT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
             <div style="text-align:center;"><b>This is Schedule 6 to the Application About a Family Law Matter</b></div>
 
@@ -1013,7 +1066,7 @@
         <div class="new-page" />
 <!-- <Page 8> --> 
 <!-- <Header> -->
-        <div>
+        <div v-if="selectedSchedules.includes('schedule7')">
             <div style="text-align:center;"><b>SCHEDULE 7 – APPOINTING A GUARDIAN OF A CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 7 to the Application About a Family Law Matter</b></div>
 
@@ -1095,7 +1148,7 @@
         <div class="new-page" />
 <!-- <Page 9> --> 
 <!-- <Header> -->
-        <div>
+        <div v-if="selectedSchedules.includes('schedule8')">
             <div style="text-align:center;"><b>SCHEDULE 8 – CANCELLING GUARDIANSHIP OF A CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 8 to the Application About a Family Law Matter</b></div>
 
@@ -1172,7 +1225,7 @@
         <div class="new-page" />
 <!-- <Page 10> --> 
 <!-- <Header> -->
-        <div>
+        <div v-if="selectedSchedules.includes('schedule9')">
             <div style="text-align:center;"><b>SCHEDULE 9 – SPOUSAL SUPPORT – NEW</b></div>
             <div style="text-align:center;"><b>This is Schedule 9 to the Application About a Family Law Matter</b></div>
 
@@ -1300,7 +1353,7 @@
         <div class="new-page" />
 <!-- <Page 11> --> 
 <!-- <Header> -->
-        <div>
+        <div v-if="selectedSchedules.includes('schedule10')">
             <div style="text-align:center;"><b>SCHEDULE 10 – SPOUSAL SUPPORT – EXISTING</b></div>
             <div style="text-align:center;"><b>This is Schedule 10 to the Application About a Family Law Matter</b></div>
 
@@ -1470,6 +1523,8 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import moment from 'moment';
+import ChildrenInfo from '../../childInfo/ChildrenInfo.vue';
+import ParentingTime from '../../parentingArrangements/ParentingTime.vue';
 
 @Component({
     components:{
@@ -1488,6 +1543,7 @@ export default class Form3 extends Vue {
 
     result;
     dataReady = false;
+    aboutChildren = false;
 
     otherPartyInfo=[];
     yourInformationSurvey;
@@ -1497,6 +1553,10 @@ export default class Form3 extends Vue {
     selectedSchedules = []
     existingOrders = {}
     relationshipBetweenParties = {}
+    childrenInfo = []
+    childBestInterestAcknowledmentCheck = false;
+    culturalInfo = '';
+    parentArrInfo = {}
    
     mounted(){
         this.dataReady = false;
@@ -1504,14 +1564,13 @@ export default class Form3 extends Vue {
         this.extractInfo();       
         this.dataReady = true;
     }
-
-    childrenItem = [{name:'', dob:'', relation:'',living:''}];
+   
     childrenFields=[
-        {key:"name",       label:"Child's full legal name",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"fullName",       label:"Child's full legal name",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",        label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myrelation", label:"My relationship to the child",           tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"relation",   label:"Other party's relationship to the child",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
-        {key:"living",     label:"Child is currently living with",         tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
+        {key:"myRelationship", label:"My relationship to the child",           tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"otherPartyRelationship",   label:"Other party's relationship to the child",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
+        {key:"currentSituation",     label:"Child is currently living with",         tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]
 
     sharingAdultItem = [{name:'', dob:'', relation:''}]
@@ -1558,57 +1617,145 @@ export default class Form3 extends Vue {
 
 
     public extractInfo(){
-        // if(this.result.protectionWhomSurvey && this.result.protectionWhomSurvey.ApplicantNeedsProtection== "y"){
-        //     if(this.result.protectionWhomSurvey.childPO=='y'){
-        //         this.childrenItem = [];
-        //         for(const child of this.result.protectionWhomSurvey.allchildren){
-        //             this.childrenItem.push({
-        //                 name:Vue.filter('getFullName')(child.childName), 
-        //                 dob:Vue.filter('beautify-date')(child.childDOB), 
-        //                 relation:child.childRelationship,
-        //                 living:child.childLivingWith
-        //             })
-        //         }
-        //     }
-        //     if(this.result.protectionWhomSurvey.anotherAdultSharingResi=='y'){
-        //         this.sharingAdultItem = [];
-        //         for(const sharingAdult of this.result.protectionWhomSurvey.allAnotherAdultsSharingResi){
-        //             this.sharingAdultItem.push({
-        //                 name:Vue.filter('getFullName')(sharingAdult.anotherAdultSharingResiName), 
-        //                 dob:Vue.filter('beautify-date')(sharingAdult.anotheradultSharingResiDOB), 
-        //                 relation:sharingAdult.anotherAdultSharingResiRelation
-        //             })
-        //         }
-        //     }
-        // }
+        if(this.result.protectionWhomSurvey && this.result.protectionWhomSurvey.ApplicantNeedsProtection== "y"){            
+            if(this.result.protectionWhomSurvey.anotherAdultSharingResi=='y'){
+                this.sharingAdultItem = [];
+                for(const sharingAdult of this.result.protectionWhomSurvey.allAnotherAdultsSharingResi){
+                    this.sharingAdultItem.push({
+                        name:Vue.filter('getFullName')(sharingAdult.anotherAdultSharingResiName), 
+                        dob:Vue.filter('beautify-date')(sharingAdult.anotheradultSharingResiDOB), 
+                        relation:sharingAdult.anotherAdultSharingResiRelation
+                    })
+                }
+            }
+        }
 
         this.selectedSchedules = this.getSchedulesInfo();
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
+        if (this.result.childData && this.result.childData.length > 0){
+            this.aboutChildren = true;
+            this.childrenInfo = this.getChildrenInfo();
+            this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
+        } else {
+            this.aboutChildren = false;
+            this.childrenInfo = [];
+            this.childBestInterestAcknowledmentCheck = false;
+        }
+
+        if (this.result.flmBackgroundSurvey.culturalExplain) {
+            this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
+        }
+
+        if (this.selectedSchedules.includes('schedule1')){
+            this.parentArrInfo = this.getParentingArrangementsInfo();
+        }
+        
         this.otherPartyInfo=this.getOtherPartyInfo()
         this.yourInformationSurvey = this.getYourInfo()
-        console.log(this.yourInformationSurvey)
+        //console.log(this.yourInformationSurvey)
 
     }
 
     public getRelationshipBetweenPartiesInfo(){
 
         let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: ''};
-        // relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
-        // relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
-        // if (relationshipInfo.spouses){
-        //     relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
-        //     relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
-        //     relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
-        // }
+        relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
+        relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
+        if (relationshipInfo.spouses){
+            relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
+            relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
+            relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
+        }
         return relationshipInfo;
+    }
+
+    public getParentingArrangementsInfo(){
+        let parentingArrangements = {parentResp: {}, parentTime: {}, parentalArr: {}, childBestInterest: ''};
+
+        if (this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
+            parentingArrangements.parentResp = {
+                applying: true,
+                allResp: this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y',
+                children: this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities,
+                allKids: this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities.length == this.childrenInfo.length,
+                expl: this.result.parentalResponsibilitiesSurvey.ExplainResponsibilities? this.result.parentalResponsibilitiesSurvey.ExplainResponsibilities:''
+            }
+
+        } else {
+            parentingArrangements.parentResp = {
+                applying: false
+            }
+        }
+
+        if (this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
+            const parentingTime = this.result.parentingTimeSurvey
+            parentingArrangements.parentTime = {
+                applying: true,
+                desired: parentingTime.applicantDesiredParentingTime,
+                conditionMe: parentingTime.conditionedApplicantParentingTime == 'y',
+                myConditions: (parentingTime.conditionedApplicantParentingTime == 'y')? parentingTime.ApplicantParentingTimeConditions:'',
+                conditionOp: parentingTime.conditionedRespondentParentingTime == 'y',
+                opConditions: (parentingTime.conditionedRespondentParentingTime == 'y')?parentingTime.RespondentParentingTimeConditions:'',
+                opDesired: parentingTime.respondentDesiredParentingTime
+            }
+
+        } else {
+            parentingArrangements.parentTime = {
+                applying: false
+            }
+        }
+
+        if (this.result.parentalArrangementsSurvey.parentalArrangements == 'y'){
+            const parentalArrangements = this.result.parentalArrangementsSurvey
+            parentingArrangements.parentalArr = {
+                applying: true,
+                desc: parentalArrangements.parentalArrangementsDescription                
+            }
+        } else {
+            parentingArrangements.parentalArr = {
+                applying: false
+            }
+        }
+        
+        if (this.result.bestInterestOfChildSurvey 
+            && this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
+                parentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription
+
+        } else {
+            console.log('here')
+            parentingArrangements.childBestInterest = '';
+        }
+
+        console.log(parentingArrangements)
+
+        return parentingArrangements;
+    }
+
+    public getChildrenInfo(){
+
+        const childrenInfo = [];
+        let childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+        const childData = this.result.childData;
+       
+        for (const child of childData){            
+            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+            childInfo.fullName = Vue.filter('getFullName')(child.name);
+            childInfo.dob = Vue.filter('beautify-date')(child.dob);
+            childInfo.myRelationship = child.relation;
+            childInfo.otherPartyRelationship = child.opRelation;
+            childInfo.currentSituation = child.currentLiving;
+            childrenInfo.push(childInfo)
+        }        
+
+        return childrenInfo;
     }
 
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        //existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
-        //existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
+        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
 
         return existing;
     }
@@ -1617,45 +1764,45 @@ export default class Form3 extends Vue {
         console.log(this.result)
 
         let schedules = [];
-        // const selectedFLMs = this.result.flmSelectedForm;
-        // const flmBackgroundInfo = this.result.flmBackgroundSurvey;
+        const selectedFLMs = this.result.flmSelectedForm;
+        const flmBackgroundInfo = this.result.flmBackgroundSurvey;
 
-        // if (flmBackgroundInfo.ExistingOrders == 'n') {
+        if (flmBackgroundInfo.ExistingOrdersFLM == 'n') {
             
-        //     if (selectedFLMs.includes("parentingArrangements")){
-        //         schedules.push("schedule1")
-        //     }
-        //     if (selectedFLMs.includes("childSupport")){
-        //         schedules.push("schedule3")
-        //     }
-        //     if (selectedFLMs.includes("contactWithChild")){
-        //         schedules.push("schedule5")
-        //     }
-        //     if (selectedFLMs.includes("guardianOfChild")){
-        //         schedules.push("schedule7")
-        //     }
-        //     if (selectedFLMs.includes("spousalSupport")){
-        //         schedules.push("schedule9")
-        //     }
+            if (selectedFLMs.includes("parentingArrangements")){
+                schedules.push("schedule1")
+            }
+            if (selectedFLMs.includes("childSupport")){
+                schedules.push("schedule3")
+            }
+            if (selectedFLMs.includes("contactWithChild")){
+                schedules.push("schedule5")
+            }
+            if (selectedFLMs.includes("guardianOfChild")){
+                schedules.push("schedule7")
+            }
+            if (selectedFLMs.includes("spousalSupport")){
+                schedules.push("schedule9")
+            }
 
-        // } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
+        } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
 
-        //     if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-        //         schedules.push("schedule2")
-        //     }
-        //     if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
-        //         schedules.push("schedule4")
-        //     }
-        //     if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a child")){
-        //         schedules.push("schedule6")
-        //     }
-        //     if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a child")){
-        //         schedules.push("schedule8")
-        //     }
-        //     if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
-        //         schedules.push("schedule10")
-        //     }
-        // }
+            if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                schedules.push("schedule2")
+            }
+            if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
+                schedules.push("schedule4")
+            }
+            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a child")){
+                schedules.push("schedule6")
+            }
+            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a child")){
+                schedules.push("schedule8")
+            }
+            if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
+                schedules.push("schedule10")
+            }
+        }
 
         return schedules;
     }
@@ -1820,8 +1967,13 @@ export default class Form3 extends Vue {
                     result[stepResult]=stepResults[stepResult].data; 
             }
         }
+
+        //console.log(this.$store.state.Application.steps[0].result)
     //     const protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
     //     Object.assign(result, result, protectedPartyName);
+
+        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[3].result.childBestInterestAcknowledgement};
+        Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;

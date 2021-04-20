@@ -27,6 +27,7 @@
     "survey-vue": "^1.5.5",
     "surveyjs-widgets": "^1.5.5",
     "ts-loader": "^6.2.1",
+    "underscore": "^1.10.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-class-component": "6.3.2",
@@ -37,10 +38,9 @@
     "vue-resource": "^1.5.1",
     "vue-router": "^3.1.5",
     "vuex": "^3.3.0",
-    "yorkie": "^2.0.0",
-    "vuex-module-decorators": "^0.17.0",
     "vuex-class": "^0.3.2",
-    "underscore": "^1.10.2"
+    "vuex-module-decorators": "^0.17.0",
+    "yorkie": "^2.0.0"
   },
   "devDependencies": {
     "@cypress/skip-test": "^2.6.0",
