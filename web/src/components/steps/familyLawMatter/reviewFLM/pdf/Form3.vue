@@ -1594,21 +1594,21 @@ export default class Form3 extends Vue {
     public getRelationshipBetweenPartiesInfo(){
 
         let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: ''};
-        relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
-        relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
-        if (relationshipInfo.spouses){
-            relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
-            relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
-            relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
-        }
+        // relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
+        // relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
+        // if (relationshipInfo.spouses){
+        //     relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
+        //     relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
+        //     relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
+        // }
         return relationshipInfo;
     }
 
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
-        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
+        //existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
+        //existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
 
         return existing;
     }
@@ -1617,45 +1617,45 @@ export default class Form3 extends Vue {
         console.log(this.result)
 
         let schedules = [];
-        const selectedFLMs = this.result.flmSelectedForm;
-        const flmBackgroundInfo = this.result.flmBackgroundSurvey;
+        // const selectedFLMs = this.result.flmSelectedForm;
+        // const flmBackgroundInfo = this.result.flmBackgroundSurvey;
 
-        if (flmBackgroundInfo.ExistingOrders == 'n') {
+        // if (flmBackgroundInfo.ExistingOrders == 'n') {
             
-            if (selectedFLMs.includes("parentingArrangements")){
-                schedules.push("schedule1")
-            }
-            if (selectedFLMs.includes("childSupport")){
-                schedules.push("schedule3")
-            }
-            if (selectedFLMs.includes("contactWithChild")){
-                schedules.push("schedule5")
-            }
-            if (selectedFLMs.includes("guardianOfChild")){
-                schedules.push("schedule7")
-            }
-            if (selectedFLMs.includes("spousalSupport")){
-                schedules.push("schedule9")
-            }
+        //     if (selectedFLMs.includes("parentingArrangements")){
+        //         schedules.push("schedule1")
+        //     }
+        //     if (selectedFLMs.includes("childSupport")){
+        //         schedules.push("schedule3")
+        //     }
+        //     if (selectedFLMs.includes("contactWithChild")){
+        //         schedules.push("schedule5")
+        //     }
+        //     if (selectedFLMs.includes("guardianOfChild")){
+        //         schedules.push("schedule7")
+        //     }
+        //     if (selectedFLMs.includes("spousalSupport")){
+        //         schedules.push("schedule9")
+        //     }
 
-        } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
+        // } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
 
-            if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                schedules.push("schedule2")
-            }
-            if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
-                schedules.push("schedule4")
-            }
-            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a child")){
-                schedules.push("schedule6")
-            }
-            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a child")){
-                schedules.push("schedule8")
-            }
-            if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
-                schedules.push("schedule10")
-            }
-        }
+        //     if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+        //         schedules.push("schedule2")
+        //     }
+        //     if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
+        //         schedules.push("schedule4")
+        //     }
+        //     if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a child")){
+        //         schedules.push("schedule6")
+        //     }
+        //     if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a child")){
+        //         schedules.push("schedule8")
+        //     }
+        //     if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
+        //         schedules.push("schedule10")
+        //     }
+        // }
 
         return schedules;
     }

@@ -243,22 +243,28 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
             const applicationData = response.data
 
-            //console.log(applicationData)
+            console.log(applicationData)
             
             this.currentApplication.id = applicationId;
-            this.currentApplication.applicantName = applicationData.applicantName;
             this.currentApplication.currentStep = applicationData.currentStep;
             this.currentApplication.lastUpdate = applicationData.lastUpdated;
             this.currentApplication.lastPrinted = applicationData.lastPrinted;
-            this.currentApplication.respondentName = applicationData.respondentName;
-            this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
-            this.currentApplication.protectedChildName = applicationData.protectedChildName;
-            this.currentApplication.applicationLocation = applicationData.applicationLocation;            
+            this.currentApplication.applicationLocation = applicationData.applicationLocation;                        
             this.currentApplication.types = (applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];
-            this.currentApplication.userId = applicationData.user;
+            this.currentApplication.userId = applicationData.userId;
             this.currentApplication.userName = applicationData.userName;
             this.currentApplication.userType = applicationData.userType;        
             this.currentApplication.steps = applicationData.steps;
+
+            if(this.currentApplication.steps[0]['result']){
+                this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
+                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentName']?this.currentApplication.steps[0]['result']['respondentName'][0]:'';//applicationData.respondentName;
+                this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
+                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
+            }
+                       
+            
+
             console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);      
