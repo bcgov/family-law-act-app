@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/contact-with-child.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -27,10 +27,7 @@ const applicationState = namespace("Application");
 export default class ContactWithChild extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    step!: stepInfoType;   
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -74,30 +71,31 @@ export default class ContactWithChild extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if (options.name == "contactTypeChoices"){
-                if (options.value.includes("In person")){
-                    console.log('has person');
-                    this.survey.setVariable("InPerson", true);
+            if (this.survey.data.parentGuardianApplicant) {
+                if (this.survey.data.parentGuardianApplicant == 'y') {
+                    this.togglePages([24, 25], false);
                 } else {
-                    this.survey.setVariable("InPerson", false);
+                    this.togglePages([24, 25], true);
                 }
-            }            
+            }             
         })
     }
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['contactWithChildSurvey']) {
+        if (this.step.result && this.step.result['contactWithChildSurvey'] && this.step.result['contactWithChildSurvey'].data) {
             this.survey.data = this.step.result['contactWithChildSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
-            if (this.survey.data.contactTypeChoices.includes("In person")){                    
-                    this.survey.setVariable("InPerson", true);
-                } else {
-                    this.survey.setVariable("InPerson", false);
-            }            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
+        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            
+            const childData = this.step.result['childData'].data;            
+            if (childData.length>1){
+                this.survey.setVariable("childWording", "children");                    
+            } else {
+                this.survey.setVariable("childWording", "child");
+            }
+        }       
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -112,7 +110,17 @@ export default class ContactWithChild extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
+    }
+    
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
+    }
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);

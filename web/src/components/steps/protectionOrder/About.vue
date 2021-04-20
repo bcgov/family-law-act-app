@@ -47,6 +47,9 @@ export default class About extends Vue {
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
@@ -82,6 +85,7 @@ export default class About extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             this.UpdateSurveyChangedPO(true);
+            console.log(this.survey.data);
         })
     }
 
@@ -126,8 +130,29 @@ export default class About extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }
+
+     public setExistingFileNumber(){
+        
+        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+
+        if(existingOrders){
+            const index = existingOrders.findIndex(order=>{return(order.type == 'AAP')})
+            if(index >= 0 ){                
+                existingOrders[index]={type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
+            }else{                
+                existingOrders.push({type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+            }
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
+
+        }else{            
+            this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+        }
+    }
   
     beforeDestroy() {
+
+        this.setExistingFileNumber();
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 

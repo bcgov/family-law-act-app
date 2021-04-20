@@ -44,7 +44,7 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,22)
+    allPages = _.range(3,28)
     commonPages = [];
 
     parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
@@ -53,13 +53,13 @@ export default class FlmBackground extends Vue {
     childSupportNewPages = [11, 12, 13, 14, 17, 18, 19];
     childSupportExistingPages = [15, 16, 17, 20, 21];
 
-    contactWithChildNewPages = []
-    contactWithChildExistingPages = []
+    contactWithChildNewPages = [22, 24, 25]
+    contactWithChildExistingPages = [23, 24, 25]
 
-    guardianOfChildNewPages = []
+    guardianOfChildNewPages = [26]
     guardianOfChildExistingPages = []
 
-    spousalSupportNewPages = []
+    spousalSupportNewPages = [27]
     spousalSupportExistingPages = []
 
     beforeCreate() {
@@ -92,7 +92,7 @@ export default class FlmBackground extends Vue {
 
     public reloadPageInformation() {  
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey']){
+        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             this.survey.data = this.step.result['flmBackgroundSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
@@ -133,10 +133,14 @@ export default class FlmBackground extends Vue {
                     this.togglePages(this.childSupportNewPages, true);
             } 
             if (this.selectedForms.includes("contactWithChild")) {
-                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Contact with a Child'))
+                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Contact with a Child')){
+                    this.togglePages(this.contactWithChildNewPages, false);
                     this.togglePages(this.contactWithChildExistingPages, true);
-                else
+                } else {
+                    this.togglePages(this.contactWithChildExistingPages, false);
                     this.togglePages(this.contactWithChildNewPages, true);
+                }
+                    
             } 
             if (this.selectedForms.includes("guardianOfChild")) {
                 if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Guardianship of a Child'))

@@ -1,133 +1,45 @@
 {
-  "title": "Contact With Child",
+  "title": "Contact With a Child - New",
   "pages": [
     {
-      "name": "Contact With Child",
-      "description": "Children often have important relationships with people other than their parents or guardians, including grandparents, relatives, and others close to the child. Usually these relationships are facilitated by the parents or guardians.<br><br>If an agreement about contact with a child is not possible, the person who believes they should have contact with the child can apply for a court order.  The court will make a decision about contact with the child based on the best interests of the child.",
+      "name": "Contact With a Child - New",
       "elements": [
+        {
+          "type": "infotext",
+          "name": "contactWithChildDescription",
+          "title": "<a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/i-am-not-the-child-s-guardian-can-i-still-have-contact-with-the-child\" target=\"blank\">Contact with a child</a> is the time a child spends with someone who is not their guardian. Usually, a child’s parent is also the child’s guardian. A parent is a child’s guardian if:<ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but do not live with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul><br>A parent can become a guardian of a child through a court order or by an agreement with all the other guardians of the child. A non-parent can become a guardian through a court order.<br><br>Children often have important relationships with people other than their parents. These include grandparents, elders, relatives, and others close to the child. Usually these relationships are supported by the parents or guardians.<br><br>If an agreement is not possible, the person who believes they should have contact with the child can apply for a court order. The court will make a decision about contact with the child based on the best interests of the child.",
+          "messageStyle": "inline",
+          "titleLocation": "hidden"
+        },
         {
           "type": "panel",
           "name": "ApplicantPanel",
-          "isRequired": true,
           "elements": [
             {
               "type": "yesno",
-              "name": "nonParentGuardianApplicant",
-              "title": "I am not a guardian of the child(ren)"
+              "name": "parentGuardianApplicant",
+              "title": "Are you a guardian of the {childWording}?"
             },
             {
               "type": "helptext",
               "name": "FAQParentGuardian",
-              "title": "I am the child's/children's parent, does that mean I am their guardian?",
+              "title": "I am the child's parent, does that mean I am their guardian?",
               "titleLocation": "hidden",
-              "body": "A parent is a child's guardian if:\n<br>\n<br><ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but do not live with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul><br>A parent can become a guardian of a child through a court order or by an agreement with all of the other guardians of the child. A non-parent can become a guardian through a court order."
+              "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.<br><br>A person who is not a parent can become a guardian of a child by court order or under a will.<br><br>If you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
             },
             {
               "type": "infotext",
               "name": "parentGuardianApplicantFAQ",
-              "title": "You are not eligible to continue with this survey because you have indicated you are a guardian of the child(ren). You need to select 'Parenting Arrangements' to get parenting time with the child(ren). Please go back a step and select the correct option.",
+              "title": "You have identified you are the child’s guardian. Only a person who is <b>not</b> a child’s guardian can have contact with a child. <b>A guardian would have parenting time.</b>  If you want to spend time with the child, and you are their guardian, you can ask for <b>parenting time</b>. Go back to the ‘I need help with the following family law matter’ step and select parenting arrangements instead of contact with a child. If you are not the guardian of one or more children identified in this application, select NO to the above question and you can select only the child or children you are asking to have contact with.",
               "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{nonParentGuardianApplicant} = 'n'"
+              "visibleIf": "{parentGuardianApplicant} = 'y'"
             }
           ]
-        },
-        {
-          "type": "panel",
-          "name": "nonParentGuardianPanel",
-          "visible": false,
-          "visibleIf": "{nonParentGuardianApplicant} = 'y'",
-          "elements": [
-            {
-              "type": "checkbox",
-              "name": "childrenRequireContactChoices",
-              "title": "Select each child that you want to apply to have contact with",
-              "isRequired": true,
-              "choices": [
-                "child1",
-                "child2"
-              ]
-            },
-            {
-              "type": "checkbox",
-              "name": "contactTypeChoices",
-              "title": "I am applying for contact with the child(ren) as follows:",
-              "description": "The order will usually include details about how the contact will happen.  Tell the court and the other party what contact you are asking for.  Think about your relationship with the child(ren) and their parent(s)/guardian(s) to decide what the contact should look like.<br><br>Select all that apply",
-              "isRequired": true,
-              "hasOther": true,
-              "choices": [
-                "In person",
-                "telephone communication",
-                "video communication",
-                "written communication"
-              ]
-            },
-            {
-              "type": "comment",
-              "name": "inPersonDetails",
-              "title": "Provide specific dates or events requested, or dates and times that would be most suitable for in person contact with the child(ren).",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{InPerson}"
-            }
-          ]
-        },
-        {
-          "type": "panel",
-          "name": "ParentingDescriptionPanel",
-          "visible": false,
-          "visibleIf": "{nonParentGuardianApplicant} = 'y'",
-          "elements": [
-            {
-              "type": "infotext",
-              "name": "changeInConditionsFAQ",
-              "title": "Sometimes, the court or the other party may only consider it in the best interests of the child(ren) for there to be conditions on your contact with the child(ren). Conditions may include:<br><ul><li>Supervised visits</li><li>Contact during specified times</li><li>Contact only in a specific location</li><li>Things a person has to do if they want contact with a child (for example, not use drugs or alcohol while with the child or not have guests over while the child is visiting)</li></ul>",
-              "titleLocation": "hidden",
-              "messageStyle": "inline"
-            },
-            {
-              "type": "radiogroup",
-              "name": "placeConditions",
-              "title": "",
-              "titleLocation": "hidden",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "willing",
-                  "text": "I am willing to have the conditions placed on my contact with the child(ren)."
-                },
-                {
-                  "value": "unWilling",
-                  "text": " I do not want any conditions placed on my contact with the child(ren)"
-                }
-              ]
-            },
-            {
-              "type": "comment",
-              "name": "conditionsDescription",
-              "title": "Describe the conditions you are willing to have on your contact with child(ren)",
-              "description": "If there are any conditions you are willing to have placed on your contact with the child(ren) be sure to include them in the space provided.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{placeConditions} = 'willing'"
-            },
-            {
-              "type": "text",
-              "name": "lastContactDate",
-              "title": "I last had contact with the child(ren) on or around:",
-              "inputType": "date"
-            },
-            {
-              "type": "comment",
-              "name": "newContactOrderChildBestInterestDescription",
-              "title": "I believe the order about contact I am applying for is in the child(ren)'s best interests because:",
-              "description": "When you ask for a court order involving a child, you must consider what is in the best interest of the child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for the child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when asking for contact with a child, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul><br>You do not need to use any special wording.  The key is to be clear about why you think the court should make the contact order.",
-              "isRequired": true
-            }
-          ]
-        }
+        }      
+       
       ],
-      "title": "Contact With Child"
+      "title": "Contact With a Child - New"
     }
   ],
   "showQuestionNumbers": "off",
