@@ -121,8 +121,10 @@ export default class ResultPage extends Vue {
             const packageRef = this.$route.query.packageRef
             //console.log(packageRef)
             this.packageUrl = atob(String(packageRef))
-            //console.log(packageUrl)
-            this.packageNumber = this.packageUrl.substring(this.packageUrl.lastIndexOf('/')+1)
+            console.log(this.packageUrl)
+            const urlParams = new URLSearchParams(this.packageUrl.split('?')[1]);
+            console.log(urlParams.get('packageNo'))
+            this.packageNumber = urlParams.get('packageNo')//this.packageUrl.substring(this.packageUrl.lastIndexOf('/')+1)
             //console.log(packageNumber)
             this.saveApplication(ApplicationId, this.packageNumber, this.packageUrl);
 

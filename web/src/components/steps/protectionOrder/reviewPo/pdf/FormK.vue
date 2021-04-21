@@ -320,7 +320,7 @@
                 <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
                 <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
             </div>
         </section>
 
@@ -920,7 +920,7 @@ export default class FormK extends Vue {
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=AAP&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=POR&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         // const body = new FormData();
