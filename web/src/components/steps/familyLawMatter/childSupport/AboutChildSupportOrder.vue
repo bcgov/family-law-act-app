@@ -131,7 +131,11 @@ export default class AboutChildSupportOrder extends Vue {
         })
     }
     
-    public reloadPageInformation() {        
+    public reloadPageInformation() {  
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.step.result && this.step.result['aboutChildSupportOrderSurvey']) {
             this.survey.data = this.step.result['aboutChildSupportOrderSurvey'].data;
 
@@ -144,10 +148,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.survey.setVariable("ApplicantName", this.applicantFullName);
         
         this.determineNumberOfPayee();
-        if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]')
+        if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]')        
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

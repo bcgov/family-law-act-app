@@ -193,13 +193,13 @@ export default class GettingStarted extends Vue {
     dataReady = false;
 
     created() {
-        console.log(this.step)
+        //console.log(this.step)
         // get the user type and if existing user with existing cases, show different
         this.returningUser = (this.$store.state.Application.userType == 'returning');
         if (this.steps[0].result && this.steps[0].result['selectedForms']) {
             this.selected = this.steps[0].result['selectedForms'];
         }
-        console.log(this.selected)
+        //console.log(this.selected)
     }
 
     mounted(){
@@ -212,12 +212,12 @@ export default class GettingStarted extends Vue {
         if (this.steps[0].result && this.steps[0].result['selectedForms']) {
             this.selected = this.steps[0].result['selectedForms'];
         }
-        console.log(this.selected)
+        //console.log(this.selected)
         this.dataReady = true;
     }
   
     public onChange(selectedForms) {
-        console.log(selectedForms)
+        //console.log(selectedForms)
         // const orgApplicationTypes = this.types;
         const applicationTypes = [];
         const poIndex = selectedForms.indexOf("protectionOrder");
@@ -241,8 +241,8 @@ export default class GettingStarted extends Vue {
         for (const form of selectedForms){                    
             applicationTypes.push(this.getApplicationType(form));
         }
-        console.log(applicationTypes)
-        console.log(Array.from(new Set(applicationTypes)));
+        // console.log(applicationTypes)
+        // console.log(Array.from(new Set(applicationTypes)));
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
         
         this.setSteps(selectedForms);

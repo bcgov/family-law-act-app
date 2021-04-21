@@ -19,7 +19,7 @@
                     By clicking on the 'Review and Print' button next to the document, a PDF version of the application
                      will download or open. Depending on your browser settings, your PDF might save the form to your 
                      computer or it will open in a new tab or window. For more information about opening and saving 
-                     PDF forms, click on <span class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
+                     PDF forms, click on <span @click="navigateToGuide" class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
                      Get help opening and saving PDF forms</span> below. If you are concerned about 
                      having a copy saved to your computer, may want to review and print from a safe computer, tablet 
                      or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
@@ -35,7 +35,7 @@
                 <form-list type="Print" :currentPage="currentPage"/>
                
 
-                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
+                <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
                 </div>
 
@@ -190,6 +190,10 @@ export default class ReviewAndSave extends Vue {
     public onNext() {
         this.UpdateGotoNextStepPage()
     }
+
+    public navigateToGuide(){
+        Vue.filter('scrollToLocation')("pdf-guide");
+    }  
 
     // beforeDestroy() {
     //     const progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
