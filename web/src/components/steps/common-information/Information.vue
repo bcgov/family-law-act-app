@@ -41,6 +41,9 @@ export default class Information extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -75,7 +78,8 @@ export default class Information extends Vue {
             //console.log(this.survey.data);
             // console.log(options)
             if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", options.value);
+                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
             }
         })
     }
@@ -104,6 +108,12 @@ export default class Information extends Vue {
     }  
     
     beforeDestroy() {
+
+        if(this.survey.data && this.survey.data["ApplicantName"]) {
+            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+            this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+        }
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})

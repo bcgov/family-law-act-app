@@ -32,7 +32,8 @@ export const SessionManager = {
                 const userName = response.data.display_name || response.data.first_name + " " + response.data.last_name;
                 store.commit("Application/setUserName", userName);
                 store.commit("Common/setUserId", userId);
-                store.commit("Common/setUserLocation",userLocation)
+                store.commit("Common/setUserLocation",userLocation);
+                //store.commit("Application/setApplicationLocation", userLocation);
             }
             return { userId, loginUrl };
         }

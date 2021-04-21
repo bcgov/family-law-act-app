@@ -1,30 +1,36 @@
 {
-  "title": "Guardian Of Child",
+  "title": "Guardianship of a child",
   "pages": [
     {
-      "name": "Guardian Of Child",
-      "description": "A <a href=\"http://www.bclaws.ca/civix/document/id/oic/oic_cur/0137_2019\" target=\"_blank\">guardian</a> is responsible for a child.  Only guardians have parenting responsibilities and parenting time with a child.<br><br>A non-guardian parent can become a guardian of a child through a court order or by an agreement with all of the other guardians of the child.  A non-parent can become a guardian through a court order.<br><br>In some cases, it may not be appropriate for a parent or guardian to remain a guardian.  A parent can be removed as guardian by agreement with all of the other guardians or court order.  If a parent is not a guardian, they can still have time with the child 'contact' but will not have any parental responsibilities.",
+      "name": "Guardianship of a child",
+      "description": "A <a href=\"http://www.bclaws.ca/civix/document/id/oic/oic_cur/0137_2019\" target=\"_blank\">guardian</a> is responsible for a child.  Only guardians have parenting responsibilities and parenting time with a child.<br><br>A parent is a child’s guardian if:<ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but have never lived with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul><br>A parent can become a guardian of a child through a court order or by an agreement with all the other guardians of the child. A non-parent can become a guardian through a court order.<br><br>The <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01\" target=\"blank\">Family Law Act</a> provides that generally both parents will continue to be guardians even if the parents are not together, and each will have parenting time and parental responsibilities. This does not mean that parents must have equal time or responsibility for a child. An agreement or order about parenting arrangements can make all the child’s guardians share parenting responsibilities or parenting time. Or it can make only one or more guardians responsible for parenting decisions and time with the child to the exclusion of all other guardians.<br><br>Anyone who wants to become a guardian can apply, including a parent who is not a guardian or anyone else (even if they are not related to the child).<br><br>In some cases, it may not be appropriate for a parent or guardian to remain a guardian. A parent can be removed as guardian by agreement with all the other guardians or court order. If a parent is not a guardian, they can still have time with the child – contact – but will not have any parenting responsibilities.<br><br>We recommend that you talk to a lawyer before you make decisions about your future parenting arrangements or if you are applying to become a guardian.",
       "elements": [
+        {
+          "type": "helptext",
+          "name": "FAQLegalAdvice",
+          "title": "Where can I get legal assistance?",
+          "titleLocation": "hidden",
+          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+        },
         {
           "type": "panel",
           "name": "ApplicantPanel",
           "isRequired": true,
           "elements": [
             {
-              "type": "radiogroup",
+              "type": "checkbox",
               "name": "applicantionType",
-              "title": "I am applying:",
+              "title": "Select each correct statement below:",
               "choices": [
                 {
                   "value": "becomeGuardian",
-                  "text": "to be appointed as a guardian of a child"
+                  "text": "I am applying to be appointed as a guardian of a child"
                 },
                 {
                   "value": "cancelGuardian",
-                  "text": "to cancel a person's guardianship of a child"
+                  "text": "I am applying for a person to no longer be a guardian of a child"
                 }
-              ],
-              "choicesOrder": "asc"
+              ]
             }
           ]
         },
@@ -32,64 +38,35 @@
           "type": "panel",
           "name": "becomeGuardianPanel",
           "visible": false,
-          "visibleIf": "{applicantionType} = 'becomeGuardian'",
+          "visibleIf": "{applicantionType} contains 'becomeGuardian'",
           "elements": [
             {
               "type": "checkbox",
               "name": "childrenList",
-              "title": "I am applying to be appointed as a guardian of the following child(ren):",
+              "title": "Select each child from the list below that you want to be appointed as a guardian of.",
               "isRequired": true,
               "choices": "{childNames}"
-            },
-            {
-              "type": "radiogroup",
-              "name": "applicantionRequirement",
-              "title": "Select one of the following options:",
-              "choices": [
-                {
-                  "value": "ableToFile",
-                  "text": "I am able to complete a Guardianship Affidavit and file it along with this claim."
-                },
-                {
-                  "value": "unableToFile",
-                  "text": "I am not able to complete a Guardianship Affidavit at this time and I have completed an Application for Case Management Order Without Notice or Appearance in Form 11 requesting to waive the requirement that this claim be filed with a completed affidavit."
-                }
-              ],
-              "choicesOrder": "asc"
-            },
-            {
-              "type": "helptext",
-              "name": "FAQGuardianShipAffidavit1",
-              "title": "What is a Guardianship Affidavit?",
-              "titleLocation": "hidden",
-              "body": "There is an extra form that you have to complete when you are applying for guardianship.  It is called <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\"> Affidavit Form 34</a>.  Before you can complete the affidavit, you must complete the following background checks referenced in the form:<br><br><ul><li>A Ministry of Children and Family Development record check</li><li>A protection order record check from the protection order registry, and</li><li>A criminal record check</li></ul><br>To get a criminal records check, ask at the police station or RCMP detachment in your community.<br><br>To get the Ministry of Children and Family Development and Protection Order Registry record checks, you must fill out:<br><br><ul><li>a <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Section 51 - Consent for Child Protection Record Check</a>, and</li><li>a <a href=\"https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms/prov-family-forms\" target=\"_blank\">Request for Protection Order Registry Search</a>.</li></ul><br>Give them to the court registry where you will be filing your application. The registry will let you know when the results from the record checks come in. The registry will then give you copies to attach to your affidavit.<br><br>If you want to get an order quickly and you do not have time to get all the background checks first, you can apply to the court to be able to file the claim without the completed affidavit and request an interim order.<br><br>This interim order will last 90 days. During this time, you must get the background checks and fill out and file the affidavit."
-             }
+            }            
           ]
         },
         {
           "type": "panel",
           "name": "CancelGuardianPanel",
           "visible": false,
-          "visibleIf": "{applicantionType} = 'cancelGuardian'",
+          "visibleIf": "{applicantionType} contains 'cancelGuardian'",
           "elements": [
             {
               "type": "matrixdynamic",
               "name": "cancelGuardianDetails",
-              "title": "I am applying for the following person(s) to no longer be the guardian(s) of the child or children:",
+              "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
+              "description": "The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “Add Child” button. If you are done entering information for all the children, click the “Next” button.",
               "isRequired": true,
-              "columns": [
-                {
-                  "name": "NameOfGuardian",
-                  "title": "Full name of guardian",
-                  "isRequired": true,
-                  "choices": [
-                    "G1",
-                    "G2"
-                  ]
-                },
+              "visible": false,
+              "visibleIf": "{applicantionType} contains 'cancelGuardian'",
+              "columns": [                
                 {
                   "name": "NameOfChild",
-                  "title": "Name of child(ren)",
+                  "title": "Name of child",
                   "isRequired": true,
                   "choices": [
                     "child1",
@@ -97,53 +74,48 @@
                   ]
                 },
                 {
+                  "name": "NameOfGuardian",
+                  "title": "Name of Other Party (Guardian who you are applying to cancel their guardianship of a child)",
+                  "isRequired": true,
+                  "choices": [
+                    "G1",
+                    "G2"
+                  ]
+                },
+                {
                   "name": "date",
-                  "title": "They have been a guardian of the child(ren) since:",
+                  "title": "When did the other <br>party become a guardian of the child?",
                   "cellType": "text",
                   "isRequired": true,
                   "inputType": "date"
+                },
+                {
+                  "name": "applicantRelationshipWithChild",
+                  "title": "What is your guardianship relationship to the child?",
+                  "isRequired": true,
+                  "choices": [
+                    "Guardian",
+                    "Applying to be appointed as a guardian"
+                  ]
                 }
               ],
               "rowCount": 1,
               "addRowLocation": "bottom",
-              "addRowText": "Add row",
-              "removeRowText": "Remove row"
+              "addRowText": "Add Child",
+              "removeRowText": "Remove Child"
             },
             {
-              "type": "checkbox",
-              "name": "whoAmICancelGaurdian",
-              "title": "I am",
-              "isRequired": true,
-              "choices": [
-                {
-                  "value": "guardian",
-                  "text": "A guardian of the child(ren)"
-                },
-                {
-                  "value": "applyingForGuardian",
-                  "text": "Applying to be appointed as a guardian of the child(ren)"
-                }
-              ]
-            },
-            {
-              "type": "infotext",
-              "name": "childBestInterestIntro",
-              "title":"<b>Best interests of the child</b><br>When you ask for a court order involving a child, you must consider what is in the best interests of your child(ren).  Every family situation is unique and the court needs to know why you believe the order you are asking for is best for your child(ren).<br><br>To determine what is in the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests\" target=\"_blank\">child's best interests</a> when making parenting arrangements, you must consider factors including:<br><ul><li>The child's emotional health and well-being</li><li>The child's views, unless it would be inappropriate to consider them</li><li>The child's relationships with parents, guardians, and other important people</li><li>The history of care, and</li><li>The impact of any family violence</li></ul>",
-
-              
+              "type": "helptext",
+              "name": "FAQGuardian",
+              "title": "I am the child’s parent, does that mean I’m their guardian?",
               "titleLocation": "hidden",
-              "messageStyle": "inline"
-            },
-            {
-              "type": "comment",
-              "name": "ancelGuradianChildBestInterest",
-              "title": "I believe it is in the child(ren)'s best interests to cancel the guardianship of the person(s) because:",
-              "isRequired": true
+              "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
             }
+            
           ]
         }
       ],
-      "title": "Guardian Of Child"
+      "title": "Guardianship of a child"
     }
   ],
   "showQuestionNumbers": "off",

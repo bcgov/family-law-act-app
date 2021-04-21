@@ -39,7 +39,7 @@
                                 </b-button>
 
                                 <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                    @click="viewApplicationPdf(row.item.id)"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
                                     v-b-tooltip.hover.noninteractive
                                     title="View the Submitted Application">
                                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
@@ -114,6 +114,30 @@
                 <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
                 >&times;</b-button>
             </template>
+        </b-modal>
+
+
+        <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info">                        
+            <template v-slot:modal-title>
+                <h2 class="mb-0 text-primary">Select File for Download</h2>                                  
+            </template>
+            <b-row v-for="(pdf,inx) in printingListOfPdfs" :key="inx"> 
+                <b-button size="sm" variant="transparent" class="my-2 py-1 px-5"
+                    @click="downloadApplicationPdf(printingApplicationId, pdf)"
+                    >
+                    {{extractTypes([pdf])[0]}}
+                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                </b-button>
+            </b-row>
+            
+            
+            <template v-slot:modal-footer>                
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-select-pdf')">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
+                >&times;</b-button>
+            </template>
         </b-modal> 
 
     </b-card>
@@ -175,13 +199,15 @@ export default class ApplicationStatus extends Vue {
     //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
+            console.log(response)
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', last_efiling_submission:{package_number:'',package_url:''}};
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}};
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
+                app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
                 app.app_type = this.extractTypes(appJson.app_type.split(',')).toString();
                 if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
@@ -189,7 +215,7 @@ export default class ApplicationStatus extends Vue {
                 }
                 this.previousApplications.push(app);
             }
-            //console.log(this.previousApplications)       
+            console.log(this.previousApplications)       
         },(err) => {            
             //console.log(err)
             this.error = err;        
@@ -258,7 +284,7 @@ export default class ApplicationStatus extends Vue {
 
             if(this.currentApplication.steps[0]['result']){
                 this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
-                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentName']?this.currentApplication.steps[0]['result']['respondentName'][0]:'';//applicationData.respondentName;
+                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondents']?this.currentApplication.steps[0]['result']['respondents'][0]:'';//applicationData.respondentName;
                 this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
                 this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
             }
@@ -299,6 +325,10 @@ export default class ApplicationStatus extends Vue {
             if (applicationType.includes("AFET")){
                 types.push("Enforcement of Agreements and Court Orders");
             }
+
+            if (applicationType.includes("POR")){
+                types.push(applicationType.replace("POR", "Protection Order"));            
+            }
         }
 
         return types;
@@ -332,31 +362,39 @@ export default class ApplicationStatus extends Vue {
         this.confirmDelete=false;  
     }
 
-    public viewApplicationPdf(applicationId) {
-            
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-        const body = {}
+    printingApplicationId = 0;
+    printingListOfPdfs = [];
+    showSelectFileForPrint =  false;
+    public viewApplicationPdf(applicationId, listOfPdfs) {
+        console.log(applicationId)
+        console.log(listOfPdfs)
+        this.printingApplicationId = applicationId;
+        this.printingListOfPdfs = listOfPdfs;
+        this.showSelectFileForPrint =  true;
+    }
+
+    public downloadApplicationPdf(applicationId, pdf_type){
+        
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
         const options = {
             responseType: "blob",
             headers: {
             "Content-Type": "application/json",
             }
-        }
-        //console.log(body)
-        this.$http.post(url,body, options)
+        }  
+        this.$http.get(url, options)
         .then(res => {
             const blob = res.data;
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             document.body.appendChild(link);
-            link.download = "fpo.pdf";
+            link.download = pdf_type+".pdf";
             link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-            this.error = "";
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);  
+            this.error = "";          
         },err => {
             console.error(err);
         });
-
     }
 
     public loadDocumentTypes() {

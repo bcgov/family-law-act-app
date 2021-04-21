@@ -186,7 +186,7 @@ export default class OtherParty extends Vue {
         if(this.otherPartyData && this.otherPartyData.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
-            this.UpdateCommonStepResults({data:{'respondentName':respondentName}})
+            this.UpdateCommonStepResults({data:{'respondents':respondentName}})
         } 
 
 

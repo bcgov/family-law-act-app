@@ -71,7 +71,7 @@ export default class AboutContactWithChildOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
+            //console.log(this.survey.data);
             // console.log(options)
             if (options.name == "contactTypeChoices"){
                 if (options.value.includes("In person")){

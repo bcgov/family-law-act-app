@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/guardian-of-child.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -30,10 +30,7 @@ export default class GuardianOfChild extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    public steps!: any    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -79,49 +76,61 @@ export default class GuardianOfChild extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
-        this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"]=[];
-        this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[1]["choices"] = [];
+        this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"]=[];
+        this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[0]["choices"] = [];
 
         if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'];            
+            const childData = this.step.result['childData'].data;            
             for (const child of childData){
-                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
-                this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[1]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
+                this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[0]["choices"].push(Vue.filter('getFullName')(child.name));
             }
         }
     }
 
     public adjustSurveyForOtherParties(){
              
-        this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[0]["choices"]=[];
+        this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[1]["choices"]=[];
 
         if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
             const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
             for (const otherParty of otherPartyData){
-                this.surveyJsonCopy.pages[0].elements[2].elements[0].columns[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
+                this.surveyJsonCopy.pages[0].elements[3].elements[0].columns[1]["choices"].push(Vue.filter('getFullName')(otherParty.name));
             }
         }
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
-            console.log(options)
+        this.survey.onValueChanged.add((sender, options) => {          
             
+            if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
+                this.togglePages([27], true);                
+            } else {
+                this.togglePages([27], false);
+            }            
         })
+    }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
     }
     
     public reloadPageInformation() {
         // console.log(this.step.result)
-        if (this.step.result && this.step.result['contactWithChildSurvey']) {
-            this.survey.data = this.step.result['contactWithChildSurvey'].data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result && this.step.result['GuardianOfChildSurvey']) {
+            this.survey.data = this.step.result['GuardianOfChildSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }       
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
@@ -137,7 +146,7 @@ export default class GuardianOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {contactWithChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {GuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

@@ -129,7 +129,11 @@ export default class AboutExistingChildSupport extends Vue {
         }
     }
     
-    public reloadPageInformation() {        
+    public reloadPageInformation() {   
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.step.result && this.step.result['aboutExistingChildSupportSurvey']) {
             this.survey.data = this.step.result['aboutExistingChildSupportSurvey'].data;           
             if (this.survey.data.existingType == 'Neither') {
@@ -137,9 +141,7 @@ export default class AboutExistingChildSupport extends Vue {
             } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

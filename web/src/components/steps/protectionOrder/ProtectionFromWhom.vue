@@ -86,7 +86,7 @@ export default class ProtectionFromWhom extends Vue {
 
             if(options.name == "RespondentName") {        
                 this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);
-                this.UpdateCommonStepResults({data:{'respondentName':[this.survey.data["RespondentName"]]}});
+                this.UpdateCommonStepResults({data:{'respondents':[this.survey.data["RespondentName"]]}});
             }
 
             // if(options.name == "childPO" && options.value == "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
@@ -180,7 +180,7 @@ export default class ProtectionFromWhom extends Vue {
     public setRelatedNames(){
         if(this.survey.data &&  this.survey.data["RespondentName"]) {        
             this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);
-            this.UpdateCommonStepResults({data:{'respondentName':[this.survey.data["RespondentName"]]}});
+            this.UpdateCommonStepResults({data:{'respondents':[this.survey.data["RespondentName"]]}});
         }
 
         if (this.survey.data && this.survey.data.ApplicantNeedsProtection == "n" && this.survey.data.anotherAdultPO == "y") {
@@ -204,24 +204,30 @@ export default class ProtectionFromWhom extends Vue {
     public setExistingFileNumber(){
         
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+        const currentLocation = this.$store.state.Application.applicationLocation
+        const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || (this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'y'))
 
         if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == 'FPO')})
+            const index = existingOrders.findIndex(order=>{return(order.type == 'POR')})
             if(index >= 0 ){
-                if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
-                    existingOrders[index]={type: 'FPO', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
+                if(existingOrdersCondition)
+                    existingOrders[index]={type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
                 else
-                    existingOrders.splice(index, 1);                                 
+                    existingOrders[index]={type: 'POR', filingLocation: currentLocation, fileNumber: ''}                                 
             }else{
-                if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
-                    existingOrders.push({type: 'FPO', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                if(existingOrdersCondition)
+                    existingOrders.push({type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                else
+                    existingOrders.push({type: 'POR', filingLocation: currentLocation, fileNumber: ''});                     
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
 
         }else{
-            if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'FPO', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            if(existingOrdersCondition)
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            else
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'POR', filingLocation: currentLocation, fileNumber: '' }]}});    
         }
     }
   

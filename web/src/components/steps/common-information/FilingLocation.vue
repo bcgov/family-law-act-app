@@ -83,7 +83,7 @@ export default class FilingLocation extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);            
+            //console.log(this.survey.data);            
         })   
     }
 
@@ -109,7 +109,7 @@ export default class FilingLocation extends Vue {
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
-        console.log(this.respondentName)
+        //console.log(this.respondentName)
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        

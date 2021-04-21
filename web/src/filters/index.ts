@@ -285,5 +285,5 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 					`+html+
 		`</div></body></html>`	 
 	
-	return JSON.stringify(body)
+	return body
 })

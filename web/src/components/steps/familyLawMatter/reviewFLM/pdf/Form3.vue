@@ -1900,7 +1900,7 @@ export default class Form3 extends Vue {
         // body.append('json_data',null)
 
         const body = {
-            'html':[pdfhtml],
+            'html':pdfhtml,
             'json_data':this.getFLMResultData()
         }       
         
@@ -1914,13 +1914,13 @@ export default class Form3 extends Vue {
         this.$http.post(url,body, options)
         .then(res => {
 
-            // const blob = res.data;
-            // const link = document.createElement("a");
-            // link.href = URL.createObjectURL(blob);
-            // document.body.appendChild(link);
-            // link.download = "Form3.pdf";
-            // link.click();
-            // setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+            const blob = res.data;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.download = "Form3.pdf";
+            link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 
             //TODO
             // const currentDate = moment().format();
