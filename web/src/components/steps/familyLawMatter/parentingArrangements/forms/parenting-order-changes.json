@@ -172,7 +172,7 @@
                         },
                         {
                             "type": "comment",
-                            "name": "existingAgreementChangeParentalResponsibilitiesDescription",
+                            "name": "existingOrderChangeParentalResponsibilitiesDescription",
                             "title": "Please describe the order about parental responsibilities you would like the court to make.",
                             "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
                             "isRequired": true

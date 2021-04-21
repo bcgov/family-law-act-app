@@ -267,10 +267,11 @@
         </div>
 
 
-        <div class="new-page" />
+        
 <!-- <Page 2> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule1')" >
+            <div class="new-page" />
             <div style="text-align:center;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>
             <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
 
@@ -383,10 +384,11 @@
             </div>
         </div>
 
-        <div class="new-page" />
+        
 <!-- <Page 3> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule2')">
+            <div class="new-page" />
             <div style="text-align:center;"><b> SCHEDULE 2 – PARENTING ORDER/ AGREEMENT – EXISTING</b></div>
             <div style="text-align:center;"><b> This is Schedule 2 to the Application About a Family Law Matter</b></div>
 
@@ -397,8 +399,8 @@
             <section class="resetquestion"> 
                 I am:
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="true?'yes':''" text="a guardian of the child(ren)"/>
-                    <check-box style="width:120%;" :check="true?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                    <check-box style="" :check="result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
+                    <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
 
@@ -406,7 +408,9 @@
 <!-- <2> -->
             <section>
                 <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about parenting arrangements"/>
-                <underline-form style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" text="APR 01 2020"/>
+                <underline-form v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="result.aboutParentingArrangementsSurvey.orderDate | beautify-date"/>
+                <underline-form v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="result.aboutParentingArrangementsSurvey.agreementDate | beautify-date"/>
+            
             </section>
 
             <div class="print-block">
@@ -415,12 +419,18 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing order. You may leave this section blank.</i>
                     <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for the existing final order to be:"/>
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder'?'yes':''" text="I am applying for the existing final order to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="true?'yes':''" text="changed"/>
-                            <check-box style="" :check="true?'yes':''" text="cancelled"/>
+                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' && result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder')?'yes':''" text="changed"/>
+                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' && result.aboutParentingArrangementsSurvey.orderDifferenceType == 'cancelOrder')?'yes':''" text="cancelled"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">Since the final order was made, needs or circumstances have changed as follows:</div>
+                    
+                        <div v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' && result.aboutParentingArrangementsSurvey.changesSinceOrder" 
+                        class="answerbox">{{result.aboutParentingArrangementsSurvey.changesSinceOrder}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div> 
+                    
+                    
                     </div>                
                 </section>
             </div>
@@ -431,12 +441,15 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
                     <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="true?'yes':''" text="set aside"/>
-                            <check-box style="" :check="true?'yes':''" text="replaced"/>
+                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' && result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement')?'yes':''" text="set aside"/>
+                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' && result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement')?'yes':''" text="replaced"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">I believe the agreement is not in the best interests of the child(ren) because:</div>
+                        <div v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' && result.aboutParentingArrangementsSurvey.changesSinceAgreement" 
+                        class="answerbox">{{result.aboutParentingArrangementsSurvey.changesSinceAgreement}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div> 
                     </div>                
                 </section>
             </div>
@@ -447,8 +460,11 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to parental responsibilities. You may leave this section blank.</i>
                     <div style="margin:0 0 0 1rem;">
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the parental responsibilities (who makes certain decisions about a child) to be changed or replaced as follows:"/>
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentResp.applying?'yes':''" text="I am applying for the parental responsibilities (who makes certain decisions about a child) to be changed or replaced as follows:"/>
                     </div>
+                    <div v-if="exParentArrInfo.parentResp.applying && exParentArrInfo.parentResp.desc" 
+                        class="answerbox">{{exParentArrInfo.parentResp.desc}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div> 
                 </section>
             </div>
 
@@ -457,8 +473,11 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to parenting time. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the parenting time schedule to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentTime.applying?'yes':''" text="I am applying for the parenting time schedule to be changed or replaced as follows:"/>
                 </div>
+                <div v-if="exParentArrInfo.parentTime.applying && exParentArrInfo.parentTime.desc" 
+                        class="answerbox">{{exParentArrInfo.parentTime.desc}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
             </section>
 
             <div style="margin-top:3rem;"></div>
@@ -466,8 +485,11 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to conditions on parenting time. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the conditions on my parenting time or the other guardian’s parenting time to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentCond.applying?'yes':''" text="I am applying for the conditions on my parenting time or the other guardian’s parenting time to be changed or replaced as follows:"/>
                 </div>
+                <div v-if="exParentArrInfo.parentCond.applying && exParentArrInfo.parentCond.desc" 
+                        class="answerbox">{{exParentArrInfo.parentCond.desc}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
             </section>
 
             <div style="margin-top:3rem;"></div>
@@ -475,8 +497,11 @@
             <section>
                 <i style="display:inline; margin-left:0.25rem">Complete only if you are applying for changes to other parenting arrangements. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the other order term(s) about parenting arrangements to be changed or replaced as follows:"/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0rem;" :check="exParentArrInfo.parentalArr.applying?'yes':''" text="I am applying for the other order term(s) about parenting arrangements to be changed or replaced as follows:"/>
                 </div>
+                <div v-if="exParentArrInfo.parentalArr.applying && exParentArrInfo.parentalArr.desc" 
+                        class="answerbox">{{exParentArrInfo.parentalArr.desc}}</div>
+                <div v-else style="margin-bottom:3rem;"></div>
             </section>
 
             <div class="print-block">
@@ -486,16 +511,19 @@
                     <div style="display:inline; margin-left:0.25rem">
                         I believe the order I am applying for is in the child(ren)’s best interests because:
                     </div>
+                    <div v-if="exParentArrInfo.childBestInterest" 
+                        class="answerbox">{{exParentArrInfo.childBestInterest}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                 </section>
             </div>
 
         </div>
 
-
-        <div class="new-page" />
+        
 <!-- <Page 4> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule3')">
+            <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 3 – CHILD SUPPORT – NEW</b></div>
             <div style="text-align:center;"><b>This is Schedule 3 to the Application About a Family Law Matter</b></div>
 
@@ -710,10 +738,10 @@
 
         </div>
 
-        <div class="new-page" />
 <!-- <Page 5> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule4')">
+            <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 4 – CHILD SUPPORT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
             <div style="text-align:center;"><b>This is Schedule 4 to the Application About a Family Law Matter</b></div>
 
@@ -901,10 +929,10 @@
             </div>
         </div>
 
-        <div class="new-page" />
 <!-- <Page 6> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule5')">
+            <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 5 – CONTACT WITH A CHILD – NEW</b></div>
             <div style="text-align:center;"><b>This is Schedule 5 to the Application About a Family Law Matter</b></div>
 
@@ -967,10 +995,10 @@
         </div>
 
 
-        <div class="new-page" />
 <!-- <Page 7> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule6')">
+             <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 6 – CONTACT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
             <div style="text-align:center;"><b>This is Schedule 6 to the Application About a Family Law Matter</b></div>
 
@@ -1061,12 +1089,11 @@
             </div>
         </div>           
 
-
-
-        <div class="new-page" />
+        
 <!-- <Page 8> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule7')">
+            <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 7 – APPOINTING A GUARDIAN OF A CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 7 to the Application About a Family Law Matter</b></div>
 
@@ -1145,10 +1172,11 @@
             </section>
         </div>
 
-        <div class="new-page" />
+        
 <!-- <Page 9> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule8')">
+            <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 8 – CANCELLING GUARDIANSHIP OF A CHILD OR CHILDREN</b></div>
             <div style="text-align:center;"><b>This is Schedule 8 to the Application About a Family Law Matter</b></div>
 
@@ -1222,10 +1250,11 @@
             </div>
         </div>
 
-        <div class="new-page" />
+       
 <!-- <Page 10> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule9')">
+            <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 9 – SPOUSAL SUPPORT – NEW</b></div>
             <div style="text-align:center;"><b>This is Schedule 9 to the Application About a Family Law Matter</b></div>
 
@@ -1350,10 +1379,10 @@
         </div>     
 
 
-        <div class="new-page" />
 <!-- <Page 11> --> 
 <!-- <Header> -->
         <div v-if="selectedSchedules.includes('schedule10')">
+             <div class="new-page" />
             <div style="text-align:center;"><b>SCHEDULE 10 – SPOUSAL SUPPORT – EXISTING</b></div>
             <div style="text-align:center;"><b>This is Schedule 10 to the Application About a Family Law Matter</b></div>
 
@@ -1557,6 +1586,7 @@ export default class Form3 extends Vue {
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';
     parentArrInfo = {}
+    exParentArrInfo = {}
    
     mounted(){
         this.dataReady = false;
@@ -1650,6 +1680,10 @@ export default class Form3 extends Vue {
         if (this.selectedSchedules.includes('schedule1')){
             this.parentArrInfo = this.getParentingArrangementsInfo();
         }
+
+        if (this.selectedSchedules.includes('schedule2')){
+            this.exParentArrInfo = this.getExistingParentingArrangementsInfo();
+        }
         
         this.otherPartyInfo=this.getOtherPartyInfo()
         this.yourInformationSurvey = this.getYourInfo()
@@ -1727,9 +1761,70 @@ export default class Form3 extends Vue {
             parentingArrangements.childBestInterest = '';
         }
 
-        console.log(parentingArrangements)
+        //console.log(parentingArrangements)
 
         return parentingArrangements;
+    }
+
+     public getExistingParentingArrangementsInfo(){
+        let existingParentingArrangements = {parentResp: {}, parentTime: {}, parentCond:{}, parentalArr: {}, childBestInterest: ''};
+
+        if (this.result.parentingArrangementChangesSurvey.orderChangeList &&  this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentalResponsibilities")){
+            existingParentingArrangements.parentResp = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription:''
+            }
+
+        } else {
+            existingParentingArrangements.parentResp = {
+                applying: false
+            }
+        }
+
+        if (this.result.parentingArrangementChangesSurvey.orderChangeList &&  this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentingTime")){
+            existingParentingArrangements.parentTime = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
+            }
+
+        } else {
+            existingParentingArrangements.parentTime = {
+                applying: false
+            }
+        }
+
+        if (this.result.parentingArrangementChangesSurvey.orderChangeList &&  this.result.parentingArrangementChangesSurvey.orderChangeList.includes("conditionsOnParentingTime")){
+            existingParentingArrangements.parentCond = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
+            }
+
+        } else {
+            existingParentingArrangements.parentCond = {
+                applying: false
+            }
+        }
+
+        if (this.result.parentingArrangementChangesSurvey.orderChangeList &&  this.result.parentingArrangementChangesSurvey.orderChangeList.includes("otherTermsAboutParentingArrangements")){
+            existingParentingArrangements.parentalArr = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
+            }
+
+        } else {
+            existingParentingArrangements.parentalArr = {
+                applying: false
+            }
+        }         
+        
+        if (this.result.bestInterestOfChildSurvey 
+            && this.result.bestInterestOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
+                existingParentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
+        } else {            
+            existingParentingArrangements.childBestInterest = '';
+        }
+        //console.log(parentingArrangements)
+        return existingParentingArrangements;
     }
 
     public getChildrenInfo(){
