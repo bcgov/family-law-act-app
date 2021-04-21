@@ -51,7 +51,7 @@ export default class FormList extends Vue {
     showPDFpreview = false;
 
     formsList =[                
-        { name:'PK', pdfType:'FPO', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
+        { name:'PK', pdfType:'POR', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
      //   { name:'P3', pdfType:'FLC', chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
     ]
 

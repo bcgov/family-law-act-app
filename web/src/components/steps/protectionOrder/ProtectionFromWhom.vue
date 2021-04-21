@@ -204,24 +204,30 @@ export default class ProtectionFromWhom extends Vue {
     public setExistingFileNumber(){
         
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
+        const currentLocation = this.$store.state.Application.applicationLocation
+        const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || (this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'y'))
 
         if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == 'AAP')})
+            const index = existingOrders.findIndex(order=>{return(order.type == 'POR')})
             if(index >= 0 ){
-                if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
-                    existingOrders[index]={type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
+                if(existingOrdersCondition)
+                    existingOrders[index]={type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
                 else
-                    existingOrders.splice(index, 1);                                 
+                    existingOrders[index]={type: 'POR', filingLocation: currentLocation, fileNumber: ''}                                 
             }else{
-                if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
-                    existingOrders.push({type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                if(existingOrdersCondition)
+                    existingOrders.push({type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                else
+                    existingOrders.push({type: 'POR', filingLocation: currentLocation, fileNumber: ''});                     
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
 
         }else{
-            if(this.survey.data && this.survey.data.ExistingFamilyCase == "y")
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'AAP', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            if(existingOrdersCondition)
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            else
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'POR', filingLocation: currentLocation, fileNumber: '' }]}});    
         }
     }
   
