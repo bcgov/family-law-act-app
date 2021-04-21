@@ -124,6 +124,10 @@ export default class OtherPartyCommon extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
+
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {
@@ -219,8 +223,13 @@ export default class OtherPartyCommon extends Vue {
 
     beforeDestroy() {
 
-        if(this.otherPartyData && this.otherPartyData.length>0) this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
-        const progress = this.otherPartyData.length==0? 50 : 100;
+        if(this.otherPartyData && this.otherPartyData.length>0){
+            this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
+            const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
+            this.UpdateCommonStepResults({data:{'respondents':respondentName}})
+        }       
+        
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       

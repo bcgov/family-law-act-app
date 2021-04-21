@@ -1,5 +1,6 @@
 <template>
 <div v-if="dataReady"> 
+    <!-- <b-button @click="Clear()">CLEAR</b-button>   -->
     <!-- <b-button @click="onPrint()">print</b-button>  
     <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
@@ -314,12 +315,12 @@
             <div style="margin-left:1rem;"> I believe police assistance may be required for the following purpose(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.RespondentLiveTogether == 'y' && result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
+                <check-box style="" :check="result.removeSurvey.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
+                <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
+                <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
+                <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
             </div>
         </section>
 
@@ -719,13 +720,7 @@ import moment from 'moment';
     }
 })
 
-export default class FormK extends Vue {    
-
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+export default class FormK extends Vue {
 
     result;
     dataReady = false;
@@ -925,18 +920,17 @@ export default class FormK extends Vue {
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FPO&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=POR&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         // const body = new FormData();
         // body.append('html',pdfhtml)
         // body.append('json_data',null)
 
-        const body =
-            {
-                'html':[pdfhtml],
-                'json_data':this.getFPOResultData()
-            }       
+        const body = {
+            'html':pdfhtml,
+            'json_data':this.getFPOResultData()
+        }       
         
         const options = {
             responseType: "blob",
@@ -978,11 +972,15 @@ export default class FormK extends Vue {
             console.error(err);
         });
     }
+
+    public Clear(){
+        this.$store.state.Application.steps[0].result = {}
+    }
  
     public getFPOResultData() {  
         
-        let result = this.$store.state.Application.steps[0].result; 
-        for(let i=1;i<9; i++){
+        let result = Object.assign({},this.$store.state.Application.steps[0].result); 
+        for(let i=1;i<2; i++){
             const stepResults = this.$store.state.Application.steps[i].result
             for(const stepResult in stepResults){
                 //console.log(stepResults[stepResult])

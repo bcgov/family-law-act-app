@@ -2,7 +2,7 @@
     <div style="display:inline-block;">
         <div v-if="beforetext" style="display:inline-block; margin-right:.25rem;" v-html="beforetext"> {{beforetext}} </div>
         <div style="display:inline-block">
-            <div :style="{position: 'absolute', marginTop:'-22px', fontSize: '11pt', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text}}</div> 
+            <div :style="{position: 'absolute', marginTop:'-20px', fontSize: '11pt', color:'#000000', minWidth: textwidth, textAlign: 'center'}">{{text}}</div> 
             <div :style="{borderBottom: '0.7px solid #313132', minWidth: textwidth}"></div>            
             <div :style="{position: 'absolute', marginTop:'-1px', fontSize: hintFontSize, color:'#313132'}">
                <i v-if="italicHint"> {{hint}} </i>

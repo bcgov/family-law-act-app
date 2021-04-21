@@ -779,6 +779,15 @@ class Application extends VuexModule {
         this.context.commit("setScrollToLocationName","");
         this.context.commit("setStepResultData", { step, data });
     } 
+
+    @Mutation
+    public setCommonStepResults({ data }): void {
+        this.steps[0].result = {...this.steps[0].result, ...data};
+    }
+    @Action
+    public UpdateCommonStepResults({ data }) {
+        this.context.commit("setCommonStepResults", { data });
+    } 
     
     @Mutation
     public setAllCompleted(allCompleted): void {
