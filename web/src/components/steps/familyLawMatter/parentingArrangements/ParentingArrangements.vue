@@ -72,18 +72,24 @@ export default class ParentingArrangements extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             // console.log(this.survey.data);
             // console.log(options)
-            if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
-                if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                    this.togglePages([4, 5, 6, 10], false);
-                } else {
-                    this.togglePages([4, 5, 6, 10], true);
-                }
-            }          
-            
+            this.setPages()
         })
-    }
+    }    
+    
+    public setPages(){
+        if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
+            if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
+                this.togglePages([4, 5, 6, 10], false);
+            } else {
+                this.togglePages([4, 5, 6, 10], true);
+            }
+        }         
+    }   
     
     public reloadPageInformation() {
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
         if (this.step.result && this.step.result['parentingArrangementsSurvey']) {
             this.survey.data = this.step.result['parentingArrangementsSurvey'].data;
@@ -109,10 +115,10 @@ export default class ParentingArrangements extends Vue {
                 this.survey.setVariable("childWording", "child");
             }
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        this.setPages()
     }
 
     public onPrev() {

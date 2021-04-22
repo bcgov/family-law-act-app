@@ -104,6 +104,9 @@ export default class OtherPartySurvey extends Vue {
     }
     
     public reloadPageInformation() {
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
@@ -111,10 +114,8 @@ export default class OtherPartySurvey extends Vue {
 
         let progress = 50;
         if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+            progress = this.survey.isCurrentPageHasErrors? 50 : 100;        
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
  

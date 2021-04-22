@@ -1,8 +1,8 @@
 {
-  "title": "Guardian Of Child",
+  "title": "Guardianship of a child",
   "pages": [
     {
-      "name": "Guardian Of Child",
+      "name": "Guardianship of a child",
       "description": "A <a href=\"http://www.bclaws.ca/civix/document/id/oic/oic_cur/0137_2019\" target=\"_blank\">guardian</a> is responsible for a child.  Only guardians have parenting responsibilities and parenting time with a child.<br><br>A parent is a child’s guardian if:<ul><li>they lived with the other parent when the child was born,</li><li>they care for the child regularly, but have never lived with the child, or</li><li>in an assisted reproduction situation, they are named as a parent in a pre-conception agreement, and</li><li>there is no agreement or order that says they are not a guardian.</li></ul><br>A parent can become a guardian of a child through a court order or by an agreement with all the other guardians of the child. A non-parent can become a guardian through a court order.<br><br>The <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_01\" target=\"blank\">Family Law Act</a> provides that generally both parents will continue to be guardians even if the parents are not together, and each will have parenting time and parental responsibilities. This does not mean that parents must have equal time or responsibility for a child. An agreement or order about parenting arrangements can make all the child’s guardians share parenting responsibilities or parenting time. Or it can make only one or more guardians responsible for parenting decisions and time with the child to the exclusion of all other guardians.<br><br>Anyone who wants to become a guardian can apply, including a parent who is not a guardian or anyone else (even if they are not related to the child).<br><br>In some cases, it may not be appropriate for a parent or guardian to remain a guardian. A parent can be removed as guardian by agreement with all the other guardians or court order. If a parent is not a guardian, they can still have time with the child – contact – but will not have any parenting responsibilities.<br><br>We recommend that you talk to a lawyer before you make decisions about your future parenting arrangements or if you are applying to become a guardian.",
       "elements": [
         {
@@ -61,6 +61,8 @@
               "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
               "description": "The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “Add Child” button. If you are done entering information for all the children, click the “Next” button.",
               "isRequired": true,
+              "visible": false,
+              "visibleIf": "{applicantionType} contains 'cancelGuardian'",
               "columns": [                
                 {
                   "name": "NameOfChild",
@@ -113,7 +115,7 @@
           ]
         }
       ],
-      "title": "Guardian Of Child"
+      "title": "Guardianship of a child"
     }
   ],
   "showQuestionNumbers": "off",

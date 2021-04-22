@@ -47,6 +47,10 @@ export default class YourInformationPo extends Vue {
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
+
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -76,9 +80,9 @@ export default class YourInformationPo extends Vue {
             //console.log(this.survey.data);
             // console.log(options)
             this.UpdateSurveyChangedPO(true);
-            
-            if(options.name == "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", options.value);
+            if(options.name=="ApplicantName") {
+                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
             }
         })
     }
@@ -109,6 +113,14 @@ export default class YourInformationPo extends Vue {
     }  
     
     beforeDestroy() {
+
+        //console.log(this.survey.data["ApplicantName"])    
+
+        if(this.survey.data && this.survey.data["ApplicantName"]) {
+            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+            this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+        }
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {yourInformationSurveyPO: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})

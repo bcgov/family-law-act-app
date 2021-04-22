@@ -70,6 +70,7 @@ export default class CalculatingChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {            
             //console.log(options)
+            //console.log(this.survey.data)
         })
     }
     

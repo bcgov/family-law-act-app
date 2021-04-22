@@ -33,6 +33,8 @@
               "name": "contactTypeChoices",
               "title": "Tell the court and the other party what contact you are asking for.",
               "description": "Select each option that applies.",
+              "visible": false,
+              "visibleIf": "{existing}",
               "isRequired": true,
               "hasOther": true,
               "otherText": "Other method of communication",
@@ -47,10 +49,10 @@
               "type": "comment",
               "name": "inPersonDetails",
               "title": "For the in person contact with the {childWording}, please provide details about when the contact will occur.",
-              "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
+              "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",              
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{InPerson}"
+              "visibleIf": "{existing}=true and {InPerson}"
             }
           ]
         },
@@ -64,6 +66,8 @@
               "type": "checkbox",
               "name": "childrenRequireContactChoices",
               "title": "Select each child from the list below that you want an order for contact with.",
+              "visible": false,
+              "visibleIf": "!({existing})",
               "isRequired": true,
               "choices": [
                 "child1",
@@ -75,13 +79,18 @@
               "name": "lastContactDate",
               "title": "When did you last have contact with the {selectedChildWording}?",
               "description": "If you do not remember the exact date, pick any date on or around the time you last remember having contact. If there is more than one child, pick the most recent date you had contact with any of the children.",
-              "inputType": "date"
+              "inputType": "date",
+              "visible": false,
+              "visibleIf": "!({existing})",
+              "isRequired": true
             },
             {
               "type": "checkbox",
               "name": "contactTypeChoices",
               "title": "Tell the court and the other party what contact you are asking for.",
               "description": "Select each option that applies.",
+              "visible": false,
+              "visibleIf": "!({existing})",
               "isRequired": true,
               "hasOther": true,
               "otherText": "Other method of communication",
@@ -99,7 +108,7 @@
               "description": "Think about your relationship with the child and their parents/guardians to decide how much detail you think the order needs to include. Provide specific dates or events requested, including cultural events, birthdays, or other special occasions. If you are asking for regular, ongoing contact with a child, include dates and times that would be most suitable for the contact.<br><br>You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. If there is more than one child, be clear if there are differences in how the contact may be different with each child.",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{InPerson}"
+              "visibleIf": "{existing} = false and {InPerson}"
             }
           ]
         },

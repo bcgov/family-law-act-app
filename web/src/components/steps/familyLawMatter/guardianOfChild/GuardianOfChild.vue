@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/guardian-of-child.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -30,10 +30,7 @@ export default class GuardianOfChild extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
+    public steps!: any    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -126,15 +123,14 @@ export default class GuardianOfChild extends Vue {
     
     public reloadPageInformation() {
         // console.log(this.step.result)
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.step.result && this.step.result['GuardianOfChildSurvey']) {
             this.survey.data = this.step.result['GuardianOfChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        }       
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
