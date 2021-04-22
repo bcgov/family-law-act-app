@@ -80,8 +80,14 @@ export default class AboutExistingChildSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data)  
+            //console.log(this.survey.data) 
             
+            this.setPages();
+            
+        })
+    }
+
+    public setPages(){
             // if (this.survey.data.existingType && this.survey.data.existingType == "Neither") {                
             //     this.togglePages([17, 20, 21], false);
             //     this.disableNextButton = true;
@@ -116,7 +122,6 @@ export default class AboutExistingChildSupport extends Vue {
 
             }     
 
-        })
     }
 
     public togglePages(pageArr, activeIndicator) {        
@@ -143,6 +148,8 @@ export default class AboutExistingChildSupport extends Vue {
         }
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        this.setPages();
     }
 
     public onPrev() {

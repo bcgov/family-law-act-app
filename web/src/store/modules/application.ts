@@ -13,8 +13,7 @@ class Application extends VuexModule {
     public lastUpdate = null
     public lastPrinted = null
     public lastFiled = null
-    public currentStep = 1
-    public allCompleted = false
+    public currentStep = 1    
     public userType = ""
     public userName = ""
     public userId = ""
@@ -32,6 +31,11 @@ class Application extends VuexModule {
     public surveyChangedPO = false;
     
     public supportingDocuments: supportingDocumentInfoType[] = [];
+    public supportingDocumentForm4: number[] = [];
+
+    public allCompleted = false;
+    public pathwayCompleted = { protectionOrder:false, familyLawMatter:false, caseMgmt:false, priotityParenting:false, childReloc:false, agreementEnfrc:false} //{Protection Order, Family Law Matters, Case management, Priority parenting, Relocation of a child, Enforcement of agreements}
+
 
     @Mutation
     public init(): void {
@@ -401,9 +405,7 @@ class Application extends VuexModule {
         p.label = "Contact with a Child";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);
-
-        
+        s.pages.push(p);        
 
         p = {} as pageInfoType;
         p.key = "23";
@@ -414,7 +416,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "24";
-        p.label = "About the order";
+        p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -425,6 +427,7 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
+
 //____________Guardianship of a Child
         p = {} as pageInfoType;
         p.key = "26";
@@ -435,18 +438,17 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "27";
-        p.label = "Best interests of the child";
+        p.label = "Best Interests of the Child";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "28";
-        p.label = "Indigenous ancestry of child";
+        p.label = "Indigenous Ancestry of Child";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
 
 //____________Spousal Support
         p = {} as pageInfoType;
@@ -793,8 +795,33 @@ class Application extends VuexModule {
     public setAllCompleted(allCompleted): void {
         this.allCompleted = allCompleted;
     }
+
+    @Mutation
+    public setPathwayCompleted({pathway, isCompleted}): void {
+        this.pathwayCompleted[pathway] = isCompleted;
+    }
     @Action
-    public UpdateAllCompleted(newAllCompleted) {
+    public UpdatePathwayCompleted({pathway, isCompleted}) {
+        //console.log(pathway,isCompleted)
+        this.context.commit("setPathwayCompleted", {pathway, isCompleted});
+        this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});    
+        //{ POR:false, FLC:false, ACMO:false, AXP:false, APRC:false, AFET:false }
+        //console.log(this.pathwayCompleted)
+        let newAllCompleted = false;
+        if(isCompleted && this.steps[0].result){
+            //console.log(this.steps[0].result['selectedForms'])
+            for(const selectedform of this.steps[0].result['selectedForms']){
+                //console.log(selectedform)
+                if(this.pathwayCompleted[selectedform]) 
+                    newAllCompleted = true;
+                else{
+                    newAllCompleted = false;
+                    break;
+                }
+            }            
+        }
+        //console.log(newAllCompleted)
+        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:8, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted);
     }    
     
@@ -904,6 +931,15 @@ class Application extends VuexModule {
     @Action
     public UpdateSupportingDocuments(newSupportingDocuments) {
         this.context.commit("setSupportingDocuments", newSupportingDocuments);
+    }
+
+    @Mutation
+    public setSupportingDocumentForm4(supportingDocumentForm4): void {
+        this.supportingDocumentForm4 = supportingDocumentForm4;
+    }
+    @Action
+    public UpdateSupportingDocumentForm4(newSupportingDocumentForm4) {
+        this.context.commit("setSupportingDocumentForm4", newSupportingDocumentForm4);
     }
 
     @Mutation

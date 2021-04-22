@@ -75,33 +75,36 @@ export default class AboutParentingArrangements extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            
-
-            if (this.survey.data.existingType == 'ExistingOrder') {
-                this.disableNextButton = false;
-                if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                    this.togglePages([9, 10], true);
-                    //this.togglePages([10], false);
-                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                    this.togglePages([10], true);
-                    this.togglePages([9], false);
-                }
-            } else if (this.survey.data.existingType == 'ExistingAgreement') {
-                this.disableNextButton = false;
-                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                    this.togglePages([9, 10], true);
-                    // this.togglePages([10], false);
-                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                    this.togglePages([10], true);
-                    this.togglePages([9], false);
-                }
-            } else if (this.survey.data.existingType == 'Neither') {
-                this.disableNextButton = true;
-                this.togglePages([9, 10], false);
-            }              
-            
+            this.setPages();
         })
     }
+
+    public setPages(){
+        if (this.survey.data.existingType == 'ExistingOrder') {
+            this.disableNextButton = false;
+            if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                this.togglePages([9, 10], true);
+                //this.togglePages([10], false);
+            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                this.togglePages([10], true);
+                this.togglePages([9], false);
+            }
+        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+            this.disableNextButton = false;
+            if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
+                this.togglePages([9, 10], true);
+                // this.togglePages([10], false);
+            } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+                this.togglePages([10], true);
+                this.togglePages([9], false);
+            }
+        } else if (this.survey.data.existingType == 'Neither') {
+            this.disableNextButton = true;
+            this.togglePages([9, 10], false);
+        }         
+    }     
+            
+       
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
@@ -124,11 +127,10 @@ export default class AboutParentingArrangements extends Vue {
                 this.disableNextButton = true;
             } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
-        }
-
-         
+        }         
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.setPages();
     }
     
     public onPrev() {

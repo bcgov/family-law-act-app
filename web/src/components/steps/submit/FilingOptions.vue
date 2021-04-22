@@ -1,11 +1,17 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base  v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
+        <b-card style="background-color: #f6e4e6; margin:4rem 0;" v-if="!allCompleted">
+            The survey has some incomplete pages ( Forms have not been reviewed, Required questions left unanswered, ... ).
+            <div style="width:18rem;margin:1rem auto"> 
+                <b-button class="ml-5" variant="primary" @click="checkErrorOnPages"> Navigate to the Error Page </b-button>
+            </div>
+        </b-card>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -29,6 +35,9 @@ export default class FilingOptions extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public allCompleted!: boolean
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -41,6 +50,13 @@ export default class FilingOptions extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
+
+    @Watch('allCompleted')
+    statusChanged(newVal) 
+    {
+        //console.log(newVal)        
+        this.determineSelectedFilingType()       
+    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -96,13 +112,13 @@ export default class FilingOptions extends Vue {
     }
 
     public determineSelectedFilingType(){
-        if(this.survey.data.selectedFilingType == 'byemail'){
+        if(this.allCompleted && this.survey.data.selectedFilingType == 'byemail'){
             this.togglePages([2,4], true);
             this.togglePages([1,3], false);
-        }else if(this.survey.data.selectedFilingType == 'inperson'){
+        }else if(this.allCompleted && this.survey.data.selectedFilingType == 'inperson'){
             this.togglePages([1,4], true);
             this.togglePages([2,3], false);
-        }else if(this.survey.data.selectedFilingType == 'byefiling'){
+        }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
             this.togglePages([3], true);
             this.togglePages([1,2,4], false);
         }else{
@@ -115,6 +131,24 @@ export default class FilingOptions extends Vue {
             this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:i, progress:0 });
     }
     
+    public checkErrorOnPages(){
+
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+        for(const stepIndex of [1,2,3,4,5,6,7,8]){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
+    }
+
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
