@@ -124,9 +124,9 @@ export default class AboutChildSupportOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
             //console.log(options)
-            if(options.name == 'listOfSupportPayees'){     
+            if(options.name == 'listOfSupportPayors'){     
                 //console.log(options.value.includes(this.applicantFullName)           )
-                this.determineNumberOfPayee();               
+                this.determineNumberOfPayors();               
             }
         })
     }
@@ -139,7 +139,7 @@ export default class AboutChildSupportOrder extends Vue {
         if (this.step.result && this.step.result['aboutChildSupportOrderSurvey']) {
             this.survey.data = this.step.result['aboutChildSupportOrderSurvey'].data;
 
-            this.survey.setVariable("listOfSupportPayeesLength",this.survey.data.listOfSupportPayees?this.survey.data.listOfSupportPayees.length:0)
+            this.survey.setVariable("listOfSupportPayorsLength",this.survey.data.listOfSupportPayors?this.survey.data.listOfSupportPayors.length:0)
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -147,7 +147,7 @@ export default class AboutChildSupportOrder extends Vue {
         this.applicantFullName = Vue.filter('getFullName')(this.applicantName);
         this.survey.setVariable("ApplicantName", this.applicantFullName);
         
-        this.determineNumberOfPayee();
+        this.determineNumberOfPayors();
         if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]')        
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
@@ -163,15 +163,15 @@ export default class AboutChildSupportOrder extends Vue {
         }
     }  
 
-    public determineNumberOfPayee(){
-        if(this.survey.data &&this.survey.data.listOfSupportPayees){
-            if(this.survey.data.listOfSupportPayees.includes(this.applicantFullName))
-                this.survey.setVariable("listOfSupportPayeesLength",2)
+    public determineNumberOfPayors(){
+        if(this.survey.data &&this.survey.data.listOfSupportPayors){
+            if(this.survey.data.listOfSupportPayors.includes(this.applicantFullName))
+                this.survey.setVariable("listOfSupportPayorsLength",2)
             else
-                this.survey.setVariable("listOfSupportPayeesLength",this.survey.data.listOfSupportPayees.length)
+                this.survey.setVariable("listOfSupportPayorsLength",this.survey.data.listOfSupportPayors.length)
         }
         else
-            this.survey.setVariable("listOfSupportPayeesLength",0);
+            this.survey.setVariable("listOfSupportPayorsLength",0);
     }
     
     beforeDestroy() {

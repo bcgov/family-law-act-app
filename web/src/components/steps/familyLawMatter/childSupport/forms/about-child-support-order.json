@@ -11,7 +11,7 @@
           "elements": [
             {
               "type": "checkbox",
-              "name": "listOfSupportPayees",
+              "name": "listOfSupportPayors",
               "title":"I am asking for child support in the monthly amount set out in the child support guidelines table to be paid by:",
               "isRequired": true,              
               "choices": [                
@@ -35,7 +35,7 @@
               "type": "infotext",
               "name": "parentFileForm4Info",
               "visible":"false",
-              "visibleIf":"{listOfSupportPayeesLength} >1",
+              "visibleIf":"{listOfSupportPayorsLength} >1",
               "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
               "titleLocation":"hidden",
               "messageStyle": "info"

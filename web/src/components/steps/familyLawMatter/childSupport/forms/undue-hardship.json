@@ -24,7 +24,7 @@
             },
             {
               "type": "checkbox",
-              "name": "payeeEarnsHigh",
+              "name": "hardshipReasons",
               "visible":"false",
               "visibleIf":"{changeAmount} == 'y'",
               "title":"Please select the reason why you are claiming undue hardship.",
