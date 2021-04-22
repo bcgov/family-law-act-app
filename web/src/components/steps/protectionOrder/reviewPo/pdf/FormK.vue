@@ -722,6 +722,9 @@ import moment from 'moment';
 
 export default class FormK extends Vue {
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     result;
     dataReady = false;
 
@@ -922,11 +925,7 @@ export default class FormK extends Vue {
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=POR&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
-
-        // const body = new FormData();
-        // body.append('html',pdfhtml)
-        // body.append('json_data',null)
-
+        
         const body = {
             'html':pdfhtml,
             'json_data':this.getFPOResultData()
@@ -941,9 +940,9 @@ export default class FormK extends Vue {
         //console.log(body)
         this.$http.post(url,body, options)
         .then(res => {
-            //TODO
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
+            this.UpdatePathwayCompleted({pathway:"protectionOrder", isCompleted:true})
             this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        

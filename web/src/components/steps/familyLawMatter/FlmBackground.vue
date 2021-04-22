@@ -44,20 +44,20 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,30)
-    commonPages = [];
+    allPages = _.range(3,31)
+    commonPages = [30];
 
-    parentingArrangementsNewPages = [3, 4, 5, 6, 10]; 
-    parentingArrangementsExistingPages = [7, 8];    
+    parentingArrangementsNewPages = [2, 3, 4, 5, 6, 10]; 
+    parentingArrangementsExistingPages = [2, 7, 8];    
 
-    childSupportNewPages = [11, 12, 13, 14, 17, 18, 19];
-    childSupportExistingPages = [15, 16, 17, 20, 21];
+    childSupportNewPages = [2, 11, 12, 13, 14, 17, 18, 19];
+    childSupportExistingPages = [2, 15, 16, 17, 20, 21];
 
-    contactWithChildNewPages = [22, 24, 25]
-    contactWithChildExistingPages = [23, 24, 25]
+    contactWithChildNewPages = [2, 22, 24, 25]
+    contactWithChildExistingPages = [2, 23, 24, 25]
 
-    guardianOfChildNewPages = [26, 28]
-    guardianOfChildExistingPages = []
+    guardianOfChildNewPages = [2, 26, 28]
+    guardianOfChildExistingPages = [2]
 
     spousalSupportNewPages = [29]
     spousalSupportExistingPages = []
@@ -85,12 +85,15 @@ export default class FlmBackground extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(options)
-            console.log(this.survey.data)
+            //console.log(this.survey.data)
             this.setPages()
         })
     }
 
     public reloadPageInformation() {  
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
             this.survey.data = this.step.result['flmBackgroundSurvey'].data;
@@ -101,10 +104,13 @@ export default class FlmBackground extends Vue {
             this.selectedForms = this.step.result['flmSelectedForm'].data
         }
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){
+            this.setPages()
+        }
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         //console.log(this.step.result['flmSelectedForm'].data)
+        
     }
 
 

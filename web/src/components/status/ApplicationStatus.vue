@@ -156,6 +156,8 @@ import {applicationInfoType} from "@/types/Application"
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
 const commonState = namespace("Common");
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
 @Component
 export default class ApplicationStatus extends Vue {
@@ -165,6 +167,9 @@ export default class ApplicationStatus extends Vue {
 
     @commonState.Action
     public UpdateLocationsInfo!: (newLocationsInfo) => void
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
 
     previousApplications = []
     previousApplicationFields = [
@@ -288,12 +293,17 @@ export default class ApplicationStatus extends Vue {
                 this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
                 this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
             }
-                       
-            
 
             console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
-            this.$store.commit("Common/setExistingApplication", true);      
+            this.$store.commit("Common/setExistingApplication", true);
+
+            if(this.currentApplication.steps[0]['result']){
+                for(const form  of this.currentApplication.steps[0]['result']['selectedForms']){
+                    if(this.currentApplication.steps[0]['result']['pathwayCompleted'][form])
+                        this.UpdatePathwayCompleted({pathway:form, isCompleted:true})
+                }
+            }
 
             this.$router.push({name: "flapp-surveys" })        
         }, err => {

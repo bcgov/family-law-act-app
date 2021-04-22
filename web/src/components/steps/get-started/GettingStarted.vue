@@ -24,14 +24,10 @@
             <b-form-group>
                 <b-form-checkbox-group
                 v-model="selected"
-                v-on:change="onChange($event)"
+                @change="onChange"
                 name="orders"
                 stacked
                 >
-                <!-- <div class="checkbox-border" >
-                    <b-form-checkbox value="protectionOrder" >
-                    <div class="checkbox-choices">Protection from family violence</div>
-                    <p> -->
                 <div class="checkbox-border">
                     <b-form-checkbox value="protectionOrder"><div class="checkbox-choices">Protection from family violence</div>
                     <p v-if="returningUser">
@@ -181,6 +177,9 @@ export default class GettingStarted extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
   
     selected = []
     returningUser = false
@@ -192,51 +191,34 @@ export default class GettingStarted extends Vue {
     currentPage=0;
     dataReady = false;
 
-    created() {
-        //console.log(this.step)
-        // get the user type and if existing user with existing cases, show different
-        this.returningUser = (this.$store.state.Application.userType == 'returning');
-        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.selected = this.steps[0].result['selectedForms'];
-        }
-        //console.log(this.selected)
-    }
-
-    mounted(){
+    mounted(){ 
         this.dataReady = false;
         this.preparationInfo = false;
-        const progress = this.selected.length==0? 50 : 100;
+        this.reloadPageInformation()
+    }
+
+    public reloadPageInformation(){               
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+
         if (this.steps[0].result && this.steps[0].result['selectedForms']) {
             this.selected = this.steps[0].result['selectedForms'];
         }
+
+        this.returningUser = (this.$store.state.Application.userType == 'returning');        
+
+        const progress = this.selected.length==0? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        
         //console.log(this.selected)
+
         this.dataReady = true;
     }
   
     public onChange(selectedForms) {
         //console.log(selectedForms)
-        // const orgApplicationTypes = this.types;
-        const applicationTypes = [];
-        const poIndex = selectedForms.indexOf("protectionOrder");
         
-        if (poIndex !=-1 && this.steps[1] && this.steps[1].result && 
-            this.steps[1].result.questionnaireSurvey && this.steps[1].result.questionnaireSurvey.orderType){
-            const orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
-            
-            if (orgFPOType == "needPO") {
-                applicationTypes.push("New Protection Order")
-                selectedForms.splice(poIndex, 1);
-            } else if (orgFPOType == "changePO"){
-                applicationTypes.push("Change Protection Order")
-                selectedForms.splice(poIndex, 1);
-            } else if (orgFPOType == "terminatePO"){
-                applicationTypes.push("Terminate Protection Order")
-                selectedForms.splice(poIndex, 1);
-            }
-        } 
+        const applicationTypes = [];       
             
         for (const form of selectedForms){                    
             applicationTypes.push(this.getApplicationType(form));
@@ -246,10 +228,20 @@ export default class GettingStarted extends Vue {
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
         
         this.setSteps(selectedForms);
+        this.resetSelectedFormsCompeleted(selectedForms);
     }
 
     public getApplicationType(selectedOrder){
-        if (selectedOrder == "protectionOrder") return "Protection Order";
+        
+        let orgFPOType = ''
+        if (this.steps[1].result && this.steps[1].result.questionnaireSurvey && this.steps[1].result.questionnaireSurvey.orderType){
+            orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
+        } 
+
+        if (selectedOrder == "protectionOrder" && orgFPOType == '') return "Protection Order";
+        else if (selectedOrder == "protectionOrder" && orgFPOType == 'needPO') return "New Protection Order";
+        else if (selectedOrder == "protectionOrder" && orgFPOType == 'changePO') return "Change Protection Order";
+        else if (selectedOrder == "protectionOrder" && orgFPOType == 'terminatePO') return "Terminate Protection Order";
         else if (selectedOrder == "familyLawMatter") return "Family Law Matter";
         else if (selectedOrder == "caseMgmt") return "Case Management";
         else if (selectedOrder == "priotityParenting") return "Priotity Parenting Matter";
@@ -260,8 +252,8 @@ export default class GettingStarted extends Vue {
 
     public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
-        if (selectedForms !== undefined) {
-            
+        if (selectedForms !== undefined) {            
+            //console.log(selectedForms)
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             this.poIncluded = selectedForms.includes("protectionOrder");
 
@@ -280,6 +272,15 @@ export default class GettingStarted extends Vue {
             this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
             this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
+    }
+
+    public resetSelectedFormsCompeleted(selectedForms){
+        if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false); this.UpdatePathwayCompleted({pathway:"protectionOrder",isCompleted:false});}
+        if(!selectedForms.includes("familyLawMatter"))   this.UpdatePathwayCompleted({pathway:"familyLawMatter",isCompleted:false});
+        if(!selectedForms.includes("caseMgmt"))          this.UpdatePathwayCompleted({pathway:"caseMgmt",isCompleted:false});
+        if(!selectedForms.includes("priotityParenting")) this.UpdatePathwayCompleted({pathway:"priotityParenting",isCompleted:false});
+        if(!selectedForms.includes("childReloc"))        this.UpdatePathwayCompleted({pathway:"childReloc",isCompleted:false});
+        if(!selectedForms.includes("agreementEnfrc"))    this.UpdatePathwayCompleted({pathway:"agreementEnfrc",isCompleted:false});
     }
 
     public toggleSteps(stepId, activeIndicator) {       

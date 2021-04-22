@@ -72,7 +72,7 @@ export default class IndigenousAncestryOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
+            console.log(this.survey.data);
             //console.log(options)
             
         })
@@ -103,7 +103,7 @@ export default class IndigenousAncestryOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {IndigenousAncestryOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {indigenousAncestryOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

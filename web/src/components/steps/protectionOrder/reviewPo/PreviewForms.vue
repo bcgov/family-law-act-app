@@ -1,6 +1,6 @@
 <template>
     <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <form-k @enableNext="disableNext=false"/>
+        <form-k @enableNext="EnableNext"/>
     </page-base>
 </template>
 
@@ -59,6 +59,11 @@ export default class PreviewForms extends Vue {
                 active: activeIndicator
             });
         }
+    }
+
+    public EnableNext(){
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+        this.disableNext=false;        
     }
 
     public onPrev() {
