@@ -19,7 +19,13 @@ module.exports = {
   chainWebpack: config => {
     config.module.rules.delete("eslint");
     config.module
-      .rule("ts")
+	 .rule('vue')
+      .use('vue-loader')
+        .tap(options => {
+          options.prettify = false
+          return options
+        });
+      config.module.rule("ts")
       .test(/\.ts$/)
       .use("ts-loader")
       .loader("ts-loader")
