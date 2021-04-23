@@ -44,9 +44,10 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,39)    
+    allPages = _.range(3,41)    
     
-    commonPages = [30];
+    //review-answers page
+    commonPages = [39];
 
     parentingArrangementsNewPages = [2, 3, 4, 5, 6, 10]; 
     parentingArrangementsExistingPages = [2, 7, 8];    

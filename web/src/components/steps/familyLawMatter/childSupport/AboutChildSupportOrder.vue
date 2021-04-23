@@ -51,6 +51,7 @@ export default class AboutChildSupportOrder extends Vue {
     currentStep =0;
     currentPage =0;
     applicantFullName ='';
+    over19Index = []
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -78,6 +79,7 @@ export default class AboutChildSupportOrder extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
         // this.surveyJsonCopy.pages[0].elements[2].elements[8]["choices"]=[];
         this.childData = [];
+        this.over19Index = [];
         
 
         if (this.step.result && this.step.result['childData']) {
@@ -101,6 +103,7 @@ export default class AboutChildSupportOrder extends Vue {
                     temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains 'child["+childInx+"]' "
                     this.surveyJsonCopy.pages[0].elements[0].elements.splice(8+numOf19child,0,temp)
                     numOf19child++;
+                    this.over19Index.push(childInx);
                     //this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push({value:'child['+childInx+']',text:Vue.filter('getFullName')(child.name)});
 
                 //     this.overAgeChildren.push(Vue.filter('getFullName')(child.name))
@@ -123,7 +126,10 @@ export default class AboutChildSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            //console.log(options)
+            console.log(options)
+            if (options.name == 'listOfChildren'){
+                this.setSelectedChildNames(options.value);
+            }
             if(options.name == 'listOfSupportPayors'){     
                 //console.log(options.value.includes(this.applicantFullName)           )
                 this.determineNumberOfPayors();               
@@ -173,8 +179,40 @@ export default class AboutChildSupportOrder extends Vue {
         else
             this.survey.setVariable("listOfSupportPayorsLength",0);
     }
+
+    public setSelectedChildNames(selectedChildren: string[]){
+        // console.log(this.childData)
+        // console.log(selectedChildren)
+        const selectedChildNames = []
+        for (const selectedChild of selectedChildren){            
+            const index = selectedChild.charAt(6)            
+            selectedChildNames.push(Vue.filter('getFullName')(this.childData[index].name))
+        }
+        //console.log(selectedChildNames)
+        this.survey.setValue("selectedChildrenNames", selectedChildNames);
+    }
+
+    public setOver19Info(){
+        const over19Details = []
+        for (const index of this.over19Index){
+            //console.log(this.survey.data['whyOlderChildNeedSupport['+ index + ']'])
+            const detail = {
+                name:Vue.filter('getFullName')(this.childData[index].name), 
+                reasonForSupport:{
+                    illness:this.survey.data['whyOlderChildNeedSupport['+ index + ']'] == 'Illness', 
+                    disability:this.survey.data['whyOlderChildNeedSupport['+ index + ']'] == 'Disability',  
+                    student:this.survey.data['whyOlderChildNeedSupport['+ index + ']'] == 'Student'
+                }
+            }
+
+            over19Details.push(detail); 
+        }
+        this.survey.setValue("over19Details", over19Details);
+
+    }
     
     beforeDestroy() {
+        this.setOver19Info();
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {aboutChildSupportOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})

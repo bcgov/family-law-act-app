@@ -42,7 +42,7 @@
             },
             {
               "type": "radiogroup",
-              "name": "payeeEarnsHigh",
+              "name": "payorEarnsHigh",
               "title":"Does the paying parent earn more than $150,000 per year?",
               "isRequired": true,              
               "choices": [ 
@@ -63,7 +63,7 @@
               "type": "infotext",
               "name": "parentFileForm4Info2",
               "visible":false,
-              "visibleIf":"{payeeEarnsHigh}=='yes'",
+              "visibleIf":"{payorEarnsHigh}=='yes'",
               "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
               "titleLocation":"hidden",
               "messageStyle": "info"
