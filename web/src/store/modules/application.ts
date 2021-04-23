@@ -456,19 +456,82 @@ class Application extends VuexModule {
         p.label = "Spousal Support";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
+        s.pages.push(p);  
+        
+        p = {} as pageInfoType;
+        p.key = "30";
+        p.label = "Income and Earning Potential";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "31";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "32";
+        p.label = "Spousal Support Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "33";
+        p.label = "About the Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "34";
+        p.label = "Existing final order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "35";
+        p.label = "Existing written agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "36";
+        p.label = "Calculating Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "37";
+        p.label = "About the order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "38";
+        p.label = "Unpaid Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
     
        
 //____________Review
         p = {} as pageInfoType;
-        p.key = "30";
+        p.key = "39";
         p.label = "Review Your Answers";
         p.active = true;
         p.progress = 50;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "31";
+        p.key = "40";
         p.label = "Preview Forms";
         p.active = true;
         p.progress = 50;    

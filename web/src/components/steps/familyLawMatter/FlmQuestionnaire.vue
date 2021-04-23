@@ -86,7 +86,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -121,8 +120,7 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-   
-    allPages = _.range(1,32)
+    allPages = _.range(1,39)
         
     //childrenInfoPage = [2];
     backgroundPage = 1
