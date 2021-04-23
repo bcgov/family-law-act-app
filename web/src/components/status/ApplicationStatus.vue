@@ -119,14 +119,14 @@
 
         <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info">                        
             <template v-slot:modal-title>
-                <h2 class="mb-0 text-primary">Select File for Download</h2>                                  
+                <h2 class="mb-0 text-primary">Click on File to Download</h2>                                  
             </template>
             <b-row v-for="(pdf,inx) in printingListOfPdfs" :key="inx"> 
-                <b-button size="sm" variant="transparent" class="my-2 py-1 px-5"
+                <b-button size="sm" variant="light" class="py-2 my-2 mx-auto px-5" style="width:20rem;"
                     @click="downloadApplicationPdf(printingApplicationId, pdf)"
-                    >
-                    {{extractTypes([pdf])[0]}}
+                    >                    
                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                    {{extractTypes([pdf])[0]}}
                 </b-button>
             </b-row>
             
@@ -289,7 +289,7 @@ export default class ApplicationStatus extends Vue {
 
             if(this.currentApplication.steps[0]['result']){
                 this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
-                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondents']?this.currentApplication.steps[0]['result']['respondents'][0]:'';//applicationData.respondentName;
+                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentsPO']?this.currentApplication.steps[0]['result']['respondentsPO'][0]:'';//applicationData.respondentName;
                 this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
                 this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
             }
@@ -314,6 +314,7 @@ export default class ApplicationStatus extends Vue {
 
     public extractTypes(applicationTypes: string) {
 
+
         let types = [];
 
         for (const applicationType of applicationTypes){
@@ -336,13 +337,12 @@ export default class ApplicationStatus extends Vue {
                 types.push("Enforcement of Agreements and Court Orders");
             }
 
-            if (applicationType.includes("POR")){
-                types.push(applicationType.replace("POR", "Protection Order"));            
+            if (applicationType.includes("AAP")){
+                types.push("Protection Order"); 
+                //types.push("Enforcement of Agreements and Court Orders");            
             }
         }
-
         return types;
-
     }
 
     public removeApplication(application, index) {

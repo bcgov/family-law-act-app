@@ -55,7 +55,7 @@ export default class FormList extends Vue {
     showPDFpreview = false;
 
     formsListTemplate =[                
-        { name:'PK', appName:'protectionOrder', pdfType:'POR', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
+        { name:'PK', appName:'protectionOrder', pdfType:'AAP', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
         { name:'P3', appName:'familyLawMatter', pdfType:'FLC', chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
     ]
 

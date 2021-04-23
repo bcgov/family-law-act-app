@@ -160,11 +160,10 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
 })
 
-Vue.filter('getPathwayABRV',function(name){
-	//POR:false, FLC:false, ACMO:false, AXP:false, APRC:false, AFET:false
+Vue.filter('getPathwayABRV',function(name){	
 	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priotityParenting:false, childReloc:false, agreementEnfrc:false
 
-	if (name == 'protectionOrder') return "POR";
+	if (name == 'protectionOrder') return "AAP";
 	if (name == 'familyLawMatter') return "FLC";
 	if (name == 'caseMgmt') return "ACMO";
 	if (name == 'priotityParenting') return "AXP";
@@ -173,6 +172,33 @@ Vue.filter('getPathwayABRV',function(name){
 	
 })
 
+Vue.filter('translateTypes',function(applicationTypes: string[]) {
+
+	let types = [];
+
+	for (const applicationType of applicationTypes){
+		if (applicationType.includes("Protection Order")){
+			types.push(applicationType.replace("Protection Order", "FPO"));
+		}
+		if (applicationType.includes("Family Law Matter")){
+			types.push("FLC");
+		}
+		if (applicationType.includes("Case Management")){
+			types.push("ACMO");
+		}
+		if (applicationType.includes("Priotity Parenting Matter")){
+			types.push("AXP");
+		}
+		if (applicationType.includes("Relocation of a Child")){
+			types.push("APRC");
+		}
+		if (applicationType.includes("Enforcement of Agreements and Court Orders")){
+			types.push("AFET");
+		}
+	}
+
+	return types.toString();
+})
 
 Vue.filter('extractRequiredDocuments', function(questions){
 	//console.log(questions)

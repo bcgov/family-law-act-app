@@ -179,14 +179,15 @@ export default class FlmQuestionnaire extends Vue {
             if (selectedForm.length > 0){
 
                 this.togglePages([this.backgroundPage], true);
-               
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutParentingArrangementPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutParentingArrangementPage, 50, false);
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 50, false);
+                //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 0, false);
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingArrangementsPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingArrangementsPage, 50, false);    

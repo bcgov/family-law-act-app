@@ -76,33 +76,34 @@ export default class ContactWithChildOrder extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            
-            
-            if (this.survey.data.existingType == 'ExistingOrder') {
-                this.disableNextButton = false;
-                if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                    this.togglePages([24], true);
-                    this.togglePages([25], false);
-                } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                    this.togglePages([25], true);
-                    this.togglePages([24], false);
-                }
-            } else if (this.survey.data.existingType == 'ExistingAgreement') {
-                this.disableNextButton = false;
-                if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                    this.togglePages([24], true);
-                    this.togglePages([25], false);
-                } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                    this.togglePages([25], true);
-                    this.togglePages([24], false);
-                }
-            } else if (this.survey.data.existingType == 'Neither') {
-                
-                this.togglePages([24, 25], false);
-                this.disableNextButton = true;
-                
-            }      
+            this.setPages()
         })
+    }    
+            
+    public setPages(){            
+        if (this.survey.data.existingType == 'ExistingOrder') {
+            this.disableNextButton = false;
+            if(this.survey.data.orderDifferenceType == 'changeOrder'){
+                this.togglePages([24], true);
+                this.togglePages([25], false);
+            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+                this.togglePages([25], true);
+                this.togglePages([24], false);
+            }
+        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+            this.disableNextButton = false;
+            if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
+                this.togglePages([24], true);
+                this.togglePages([25], false);
+            } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+                this.togglePages([25], true);
+                this.togglePages([24], false);
+            }
+        } else if (this.survey.data.existingType == 'Neither') {
+            
+            this.togglePages([24, 25], false);
+            this.disableNextButton = true;            
+        }
     }
     
     public reloadPageInformation() {
@@ -127,6 +128,7 @@ export default class ContactWithChildOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.setPages()
     }
 
     public onPrev() {
