@@ -49,8 +49,8 @@
 
         <existing-spousal-support-order-agreement v-bind:step="step" v-if="step.currentPage == 32"/>
         <about-existing-spousal-support v-bind:step="step" v-if="step.currentPage == 33"/>
-        <about-existing-spousal-support-final-order v-bind:step="step" v-if="step.currentPage == 34"/>
-        <about-existing-spousal-support-agreement v-bind:step="step" v-if="step.currentPage == 35"/>
+        <existing-spousal-support-final-order v-bind:step="step" v-if="step.currentPage == 34"/>
+        <existing-spousal-support-agreement v-bind:step="step" v-if="step.currentPage == 35"/>
         
         <calculating-spousal-support v-bind:step="step" v-if="step.currentPage == 36"/> 
 
@@ -108,8 +108,8 @@ import CalculatingSpousalSupport from "./spousalSupport/CalculatingSpousalSuppor
 import SpousalSupportIncomeAndEarningPotential from "./spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
 
 import AboutExistingSpousalSupport from "./spousalSupport/AboutExistingSpousalSupport.vue";
-import AboutExistingSpousalSupportAgreement from "./spousalSupport/AboutExistingSpousalSupportAgreement.vue";
-import AboutExistingSpousalSupportFinalOrder from "./spousalSupport/AboutExistingSpousalSupportFinalOrder.vue";
+import ExistingSpousalSupportAgreement from "./spousalSupport/ExistingSpousalSupportAgreement.vue";
+import ExistingSpousalSupportFinalOrder from "./spousalSupport/ExistingSpousalSupportFinalOrder.vue";
 import AboutExistingSpousalSupportOrder from "./spousalSupport/AboutExistingSpousalSupportOrder.vue";
 import ExistingSpousalSupportOrderAgreement from "./spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
 import UnpaidSpousalSupport from "./spousalSupport/UnpaidSpousalSupport.vue";
@@ -168,8 +168,8 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         SpousalSupportIncomeAndEarningPotential,
 
         AboutExistingSpousalSupport,
-        AboutExistingSpousalSupportAgreement,
-        AboutExistingSpousalSupportFinalOrder,
+        ExistingSpousalSupportAgreement,
+        ExistingSpousalSupportFinalOrder,
         AboutExistingSpousalSupportOrder,
         ExistingSpousalSupportOrderAgreement,
         UnpaidSpousalSupport, 

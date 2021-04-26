@@ -185,8 +185,9 @@ export default class AboutChildSupportOrder extends Vue {
         // console.log(selectedChildren)
         const selectedChildNames = []
         for (const selectedChild of selectedChildren){            
-            const index = selectedChild.charAt(6)            
-            selectedChildNames.push(Vue.filter('getFullName')(this.childData[index].name))
+            const index = selectedChild.charAt(6)   
+            if(this.childData[index])         
+                selectedChildNames.push(Vue.filter('getFullName')(this.childData[index].name))
         }
         //console.log(selectedChildNames)
         this.survey.setValue("selectedChildrenNames", selectedChildNames);

@@ -13,7 +13,7 @@
         },
         {
           "type": "infotext",
-          "name": "requiredFinancialStatementReminder",
+          "name": "parentFileForm4InfoRequiredFinancialStatementReminder",
           "title": "You are required to file a Financial Statement in Form 4 with your application for an order about spousal support. You will be reminded to include a copy at the end of the service. If you have previously filed a Financial Statement, you will need to update the information and file a new one.",
           "titleLocation": "hidden"
         },

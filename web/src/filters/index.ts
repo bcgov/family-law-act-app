@@ -233,11 +233,13 @@ Vue.filter('extractRequiredDocuments', function(questions){
 	
 	//calculatingChildSupportSurvey.attachingCalculations=='y' requiredDocuments.push("Copy of the calculations showing how much child support you believe should be paid according to the child support guidelines")"
 	
+	//calculatingSpousalSupportSurvey.attachingCalculations== 'y' requiredDocuments.push("Copy of the calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines")"
 
 
 	//REMINDERS 
 	//aboutExistingChildSupportSurvey.filedWithDirector: "y" reminders.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 	//indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") ||indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation")  reminders.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
+	//aboutExistingSpousalSupportSurvey.filedWithDirector: "y" reminders.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 	return requiredDocuments;
 })
 
