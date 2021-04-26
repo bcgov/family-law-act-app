@@ -5,6 +5,7 @@
         <label class="survey-sublabel" :for="field.id">{{ field.label }}</label>
         <input
           class="form-control"
+          :disabled="readOnly"
           :id="field.id"
           :data-test-id="field.name"
           v-model="pendingValue[field.name]"
@@ -26,7 +27,8 @@ export default {
     return {
       fields: this.makeFields(),
       pendingValue: Object.assign({}, this.question.value),
-      value: this.question.value
+      value: this.question.value,
+      readOnly: this.question.readOnly
     };
   },
   watch: {

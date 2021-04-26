@@ -101,14 +101,17 @@ export default class GuardianOfChild extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {          
-            
-            if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
-                this.togglePages([27], true);                
-            } else {
-                this.togglePages([27], false);
-            }            
+        this.survey.onValueChanged.add((sender, options) => {
+            this.setPages();
         })
+    }
+    
+    public setPages(){ 
+        if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
+            this.togglePages([27], true);                
+        } else {
+            this.togglePages([27], false);
+        }
     }
 
     public togglePages(pageArr, activeIndicator) {        
@@ -132,6 +135,7 @@ export default class GuardianOfChild extends Vue {
         }       
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.setPages();
     }
 
     public onPrev() {

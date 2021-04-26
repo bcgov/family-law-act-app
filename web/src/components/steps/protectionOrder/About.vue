@@ -132,21 +132,21 @@ export default class About extends Vue {
     }
 
     public setExistingFileNumber(){
-        
+        const fileType = 'AAP'
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
 
         if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == 'POR')})
+            const index = existingOrders.findIndex(order=>{return(order.type == fileType)})
             if(index >= 0 ){                
-                existingOrders[index]={type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
+                existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
             }else{                
-                existingOrders.push({type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
 
         }else{            
-            this.UpdateCommonStepResults({data:{'existingOrders':[{type: 'POR', filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
         }
     }
   

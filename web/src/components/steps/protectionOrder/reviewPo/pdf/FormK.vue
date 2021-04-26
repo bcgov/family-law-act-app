@@ -917,13 +917,14 @@ export default class FormK extends Vue {
     }
 
 
-    public onPrint() {        
+    public onPrint() { 
+        const pdf_type = 'AAP'    
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=POR&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
         
         const body = {

@@ -1,6 +1,6 @@
 <template>
 <div v-if="dataReady">    
-    <b-button id="app-print" @click="onPrint()">Print</b-button> 
+    <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
     <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
 
@@ -1611,16 +1611,13 @@ import { nameInfoType } from '@/types/Application';
     }
 })
 
-export default class Form3 extends Vue {    
+export default class Form3 extends Vue {
 
     @applicationState.State
     public applicantName!: nameInfoType;
     
     @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
-
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
     dataReady = false;
@@ -1647,6 +1644,7 @@ export default class Form3 extends Vue {
         this.result = this.getFLMResultData();
         this.extractInfo();       
         this.dataReady = true;
+        Vue.nextTick(()=> this.onPrint())
     }
    
     childrenFields=[
@@ -2202,7 +2200,7 @@ export default class Form3 extends Vue {
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 712   `+moment().format("MMMM D, YYYY")+` \\a           Form 3";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FLC&version=1.0'//&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FLC&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         // const body = new FormData();
@@ -2223,19 +2221,10 @@ export default class Form3 extends Vue {
         //console.log(body)
         this.$http.post(url,body, options)
         .then(res => {
-
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "Form3.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-
-            //TODO
-            // const currentDate = moment().format();
-            // this.$store.commit("Application/setLastPrinted", currentDate); 
-            // this.$emit('enableNext',true)                   
+            const currentDate = moment().format();
+            this.$store.commit("Application/setLastPrinted", currentDate); 
+            this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:true})
+            this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        
         });
@@ -2265,9 +2254,9 @@ export default class Form3 extends Vue {
     }
 
  
-    public getFLMResultData() {  
+    public getFLMResultData() {         
         
-        let result = this.$store.state.Application.steps[0].result; 
+        let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(let i=2;i<4; i++){
             const stepResults = this.$store.state.Application.steps[i].result
             for(const stepResult in stepResults){

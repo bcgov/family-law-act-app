@@ -867,8 +867,7 @@ class Application extends VuexModule {
     public UpdatePathwayCompleted({pathway, isCompleted}) {
         //console.log(pathway,isCompleted)
         this.context.commit("setPathwayCompleted", {pathway, isCompleted});
-        this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});    
-        //{ POR:false, FLC:false, ACMO:false, AXP:false, APRC:false, AFET:false }
+        this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});            
         //console.log(this.pathwayCompleted)
         let newAllCompleted = false;
         if(isCompleted && this.steps[0].result){
