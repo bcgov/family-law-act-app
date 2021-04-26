@@ -8,20 +8,18 @@
         {
           "type": "panel",
           "name": "ChildSupportPanel",
-          "elements": [           
+          "elements": [
             {
-              "type": "infotexttitle",
-              "name": "GuardianTypeSelectionHelp", 
-              "title": "Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.",            
-              "description":"If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option.",
-              "messageStyle": "inline"
+              "type": "html",
+              "name": "GuardianTypeSelectionHelp",
+              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.6em;' class='sv_main sv_q_title'>Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.</div>If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option.</div>"
             },
             {
               "type": "radiogroup",
               "name": "applicantGuardianType",
-              "title":"I am:",
+              "title": "I am:",
               "isRequired": true,
-              "hasOther": true,              
+              "hasOther": true,
               "choices": [
                 {
                   "value": "parentGuardian",
@@ -37,7 +35,7 @@
             {
               "type": "radiogroup",
               "name": "otherParty[0]GuardianType",
-              "title":"Other Party is:",
+              "title": "Other Party is:",
               "isRequired": true,
               "hasOther": true,
               "otherText": "Other (For example, a step-parent.)",
@@ -56,10 +54,10 @@
             {
               "type": "infotext",
               "name": "parentFileForm4Info",
-              "visible":false,
-              "visibleIf":"({statementRequired})",
-              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
-              "titleLocation":"hidden",
+              "visible": false,
+              "visibleIf": "({statementRequired})",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
               "messageStyle": "info"
             }
           ]
