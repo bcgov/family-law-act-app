@@ -10,8 +10,93 @@
           "title": "This next section is completed only if there is an existing court order or written agreement about child support.<br><br>Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.<br><br>Although parents have the primary responsibility to pay child support, other guardians and step-parents may be responsible for paying child support. If you are a step-parent, and you need more information about step-parents and child support, see the fact sheet <a href=\"https://family.legalaid.bc.ca/children/parenting-guardianship/parenting/step-parents-rights-and-responsibilities\" target=\"blank\"> Step-parents Rights and Responsibilities</a> by Legal Aid BC.<br><br>For more information about child support and referrals to other child support resources, visit the <a href=\"https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/child-support/more-info\" target=\"blank\">BC Government website</a> at www.gov.bc.ca.      ",
           "messageStyle": "inline",
           "titleLocation": "hidden"
+        },
+        {
+          "type": "panel",
+          "name": "ExistingInfoPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "title": "Which do you have?",
+              "description": "Select the correct option.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "ExistingOrder",
+                  "text": "Court Order about child support"
+                },
+                {
+                  "value": "ExistingAgreement",
+                  "text": "Written Agreement about child support"
+                },
+                {
+                  "value": "Neither",
+                  "text": "None of the above"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "ifNeitherexistingFAQ",
+              "title": "In a previous step you identified that you had an existing order or written agreement about child support. If you need an order about child support, and there is no order or written agreement already in place, please return to the Background step and de-select child support under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{existingType} = 'Neither'"
+            },
+            {
+              "type": "infotext",
+              "name": "ifExistingFAQ",
+              "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ExistingDetailsPanel",
+          "visible": false,
+          "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "existingResponsibilityType",
+              "title": "Select the option that best describes your responsibility for child support in the existing order or agreement.",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
+              "isRequired": true,
+              "hasOther": true,
+              "choices": [
+                {
+                  "value": "payor",
+                  "text": "I am required to make payments for support of a child"
+                },
+                {
+                  "value": "payee",
+                  "text": "I am to be paid support for a child"
+                }
+              ]
+            },
+            {
+              "type": "yesno",
+              "name": "filedWithDirector",
+              "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child support?",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')"
+            },
+            {
+              "type": "infotext",
+              "name": "ifExistingFAQ",
+              "title": "If your order or written agreement is filed with the Director of Maintenance Enforcement, you must serve a copy of the application on the director. The Director of Maintenance Enforcement can be served by mailing the documents to the postal address provided by the director. Contact the <a href=\"https://www.fmep.gov.bc.ca/\" target=\"blank\">Family Maintenance Enforcement Program</a> to find out how best to serve them.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{filedWithDirector} = 'y'"
+            }
+          ]
         }
-        
       ],
       "title": "Child Support Order/Agreement – Existing"
     }

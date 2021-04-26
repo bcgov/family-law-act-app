@@ -18,12 +18,11 @@
           "visibleIf": "{unpaid} == 'y'",
           "elements": [
             {
-              "type": "text",
+              "type": "html",
               "name": "unPaidAmount",
               "visible": false,
               "visibleIf": "{unpaid} == 'y'",
-              "isRequired": true,
-              "title": "What is the amount of unpaid child support you believe is still owing?"
+              "html": "<div style=\"font-weight: bold;\" class=\"sv_main sv_q_title\">What is the amount of unpaid child support you believe is still owing? $<input id='unpaid-amount-template'/></div>"
             },
             {
               "type": "yesno",

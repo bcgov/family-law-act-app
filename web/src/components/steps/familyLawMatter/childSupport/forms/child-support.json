@@ -57,7 +57,7 @@
               "type": "infotext",
               "name": "parentFileForm4Info",
               "visible":false,
-              "visibleIf":"{applicantGuardianType} == 'parentGuardian'",
+              "visibleIf":"({statementRequired})",
               "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
               "titleLocation":"hidden",
               "messageStyle": "info"

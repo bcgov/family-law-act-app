@@ -19,7 +19,7 @@
               "type": "comment",
               "name": "applicantTimeWithChildExplanation",
               "isRequired": true,
-              "title":"Please describe how the {childWording} spend time with you and the other party.",
+              "title":"Please describe how the {childWording} time with you and the other party.",
               "description":"If the child divides their time between more than one parent or guardian try to describe the amount of time they spend with each parent over a period of one year. If you can estimate a percentage of time, it is helpful for the court. For example, if they live two days a week with one parent and the rest with the other, they live approximately 30% of the time with the first parent and 70% with the other.<br><br>If you have more than one child and the time spent with each child is different, try to be clear about the amount of time a time each child spends with each parent."             
             },
             {

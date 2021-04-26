@@ -1,5 +1,7 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <input v-if="showUnpaidTemplate" style="display:inline; margin:0 0.5rem 0 0.5rem; width:8rem;" type="number" id='unpaid-amount' v-model="unpaidAmount"  @change="changeUnpaidAmount"/>
+       
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -45,6 +47,8 @@ export default class UnpaidChildSupport extends Vue {
     survey = new SurveyVue.Model(surveyJson);   
     currentStep=0;
     currentPage=0;
+    unpaidAmount = 0;
+    showUnpaidTemplate = false;
    
     @Watch('pageIndex')
     pageIndexChange(newVal) 
@@ -73,7 +77,10 @@ export default class UnpaidChildSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            //console.log(options)         
+            //console.log(options) 
+            if (options == 'unpaid') {
+                this.replaceUnpaidElement();
+            }       
 
         })
     }
@@ -85,6 +92,8 @@ export default class UnpaidChildSupport extends Vue {
 
         if (this.step.result && this.step.result['unpaidChildSupportSurvey']) {
             this.survey.data = this.step.result['unpaidChildSupportSurvey'].data;
+            this.loadReplacedElementsData();
+
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
@@ -92,6 +101,35 @@ export default class UnpaidChildSupport extends Vue {
         this.survey.setVariable("currentDate", currentDate); 
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.replaceUnpaidElement();
+
+        
+    }
+
+    public replaceUnpaidElement(){
+        if (this.survey.data.unpaid == 'y') {
+            this.showUnpaidTemplate = true;
+            Vue.nextTick(()=>{
+                const unpaidAmountTemplate = document.getElementById('unpaid-amount-template')
+                const unpaidAmountEl = document.getElementById('unpaid-amount')          
+                unpaidAmountTemplate.replaceWith(unpaidAmountEl)
+            })
+        } else {
+            this.showUnpaidTemplate = false;
+        }
+        
+
+    }
+
+    public changeUnpaidAmount(){
+        this.survey.setValue('unpaidAmount', this.unpaidAmount);
+    }
+
+    public loadReplacedElementsData(){
+
+        if ((this.survey.data["unpaid"] == 'y') && this.survey.data["unpaidAmount"]){
+            this.unpaidAmount = this.survey.data["unpaidAmount"];
+        }
     }
 
     public onPrev() {

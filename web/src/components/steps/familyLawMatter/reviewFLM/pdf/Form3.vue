@@ -874,7 +874,7 @@
                 <i style="display:inline; margin-left:0.35rem">Complete only if there is unpaid child support. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1.5rem;">
                     <i>Select only one of the options below.</i>
-                    <check-box style="margin:0 0 0 0rem;" :check="!exChSupInfo.unpdChSup.reduce?'yes':''" text="I am not applying to reduce the amount of unpaid child support (arrears)"/>                    
+                    <check-box style="margin:0 0 0 0rem;" :check="(exChSupInfo.unpdChSup.amnt != 0 && !exChSupInfo.unpdChSup.reduce)?'yes':''" text="I am not applying to reduce the amount of unpaid child support (arrears)"/>                    
                 </div>
                 <div style="margin:0 0 0 1.5rem;">    
                     <check-box  inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0.05rem;" :check="exChSupInfo.unpdChSup.reduce?'yes':''" text="I am applying to reduce the amount of unpaid child support (arrears) to"/>                    
@@ -1986,24 +1986,24 @@ export default class Form3 extends Vue {
 
         if (this.result.aboutExistingChildSupportSurvey){
             existingChildSupportInfo.abtEx = {                
-                payor: (this.result.aboutExistingChildSupportSurvey.existingResponsibilityType == 'payor'),
-                payee: (this.result.aboutExistingChildSupportSurvey.existingResponsibilityType == 'payee'),
-                other: (this.result.aboutExistingChildSupportSurvey.existingResponsibilityType == 'other'),
-                otherComm: (this.result.aboutExistingChildSupportSurvey.existingResponsibilityType == 'other' && this.result.aboutExistingChildSupportSurvey.existingResponsibilityTypeComment)? this.result.aboutExistingChildSupportSurvey.existingResponsibilityTypeComment:'',
+                payor: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payor'),
+                payee: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payee'),
+                other: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other'),
+                otherComm: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other' && this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment)? this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment:'',
                 orderDate: Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate),
-                exstngOrdr: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder'),
-                fldDrctr: (this.result.aboutExistingChildSupportSurvey.filedWithDirector == 'y'),
-                cancelOrdr:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
-                changeOrdr: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
-                changeList: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList:[],
-                newInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
-                expChangeInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-                lvngChangeInfo:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-                otherInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
-                exstngAgrmnt: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement'),
-                setAsideAgrmnt:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
-                replaceAgrmnt: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
-                changesSinceAgrmnt: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
+                exstngOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder'),
+                fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
+                cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
+                changeOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
+                changeList: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList:[],
+                newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
+                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
+                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
+                otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
+                exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
+                setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
+                replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
+                changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
             }
         }
 

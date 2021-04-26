@@ -1,5 +1,7 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <input style="display:inline; margin:0 0.5rem 0 0.5rem; width:8rem;" type="number" id='other-party-income' v-model="otherPartyIncome"  @change="changeOtherPartyIncome"/>
+        
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -45,6 +47,7 @@ export default class IncomeAndEarningPotential extends Vue {
 
     currentStep =0;
     currentPage =0;
+    otherPartyIncome = 0;
    
     beforeCreate() {
         const Survey = SurveyVue;
@@ -77,11 +80,29 @@ export default class IncomeAndEarningPotential extends Vue {
         
         if (this.step.result && this.step.result['childSupportIncomeEarningSurvey']) {
             this.survey.data = this.step.result['childSupportIncomeEarningSurvey'].data;
+            this.loadReplacedElementsData();
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        Vue.nextTick(()=>{
+            const otherPartyIncomeTemplate = document.getElementById('other-party-income-template')
+            const otherPartyIncomeEl = document.getElementById('other-party-income')          
+            otherPartyIncomeTemplate.replaceWith(otherPartyIncomeEl)
+        })
+    }
+
+    public changeOtherPartyIncome(){
+        this.survey.setValue('otherPartyIncome', this.otherPartyIncome);
+    }
+
+    public loadReplacedElementsData(){
+
+        if (this.survey.data["otherPartyIncome"]){
+            this.otherPartyIncome = this.survey.data["otherPartyIncome"];
+        }
     }
 
     public onPrev() {

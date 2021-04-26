@@ -84,8 +84,8 @@ export default class ContactWithChildOrder extends Vue {
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([24], true);
-                this.togglePages([25], false);
+                this.togglePages([24, 25], true);
+                // this.togglePages([25], false);
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
                 this.togglePages([25], true);
                 this.togglePages([24], false);
@@ -93,8 +93,8 @@ export default class ContactWithChildOrder extends Vue {
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([24], true);
-                this.togglePages([25], false);
+                this.togglePages([24, 25], true);
+                // this.togglePages([25], false);
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
                 this.togglePages([25], true);
                 this.togglePages([24], false);

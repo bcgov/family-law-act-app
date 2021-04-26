@@ -82,9 +82,9 @@ export default class ChildSupportCurrentArrangement extends Vue {
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'].data;            
             if (childData.length>1){
-                this.survey.setVariable("childWording", "children");                    
+                this.survey.setVariable("childWording", "children spend");                    
             } else {
-                this.survey.setVariable("childWording", "child");
+                this.survey.setVariable("childWording", "child spends");
             }
         }
 

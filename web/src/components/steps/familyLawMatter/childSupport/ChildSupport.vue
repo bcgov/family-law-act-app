@@ -46,6 +46,7 @@ export default class ChildSupport extends Vue {
     currentStep = 0;
     currentPage = 0;
     surveyHasError = false;
+    numberOfOtherParties = 0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -74,8 +75,9 @@ export default class ChildSupport extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
         if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
-            //console.log(otherPartyData)            
+            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data; 
+            this.numberOfOtherParties = otherPartyData.length;           
+            // console.log(otherPartyData)            
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];
             const infoTemplate = this.surveyJsonCopy.pages[0].elements[0].elements[3];
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
@@ -100,8 +102,8 @@ export default class ChildSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data)           
-            //console.log(options)
+            console.log(this.survey.data)
+            this.determineOtherPartyTypes();
         })
     }
     
@@ -111,13 +113,33 @@ export default class ChildSupport extends Vue {
         
         if (this.step.result && this.step.result['childSupportSurvey']) {
             this.survey.data = this.step.result['childSupportSurvey'].data;
-
+            this.determineOtherPartyTypes();
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         if(this.surveyHasError)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         else
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public determineOtherPartyTypes(){
+        const opTypes = [];
+        for (let otherIndex=0; otherIndex<this.numberOfOtherParties; otherIndex++){                
+            if (this.survey.data['otherParty['+ otherIndex + ']GuardianType'] == 'appointedGuardian'){
+                opTypes[otherIndex] = 1;
+            } else {
+                opTypes[otherIndex] = 0;
+            }
+        }
+        console.log(opTypes)
+        if (opTypes.includes(1)){
+            console.log('true')
+            this.survey.setVariable("statementRequired", true);
+        } else {
+            console.log('false')
+            this.survey.setVariable("statementRequired", false);
+        }        
+        
     }
 
     public onPrev() {
