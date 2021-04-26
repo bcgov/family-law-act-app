@@ -38,7 +38,7 @@
                                     </tr>
                                     <tr class="clickableRow" @click="openForm()">
                                     <td colspan = "7">
-                                        <a
+                                        <a :class="isDisableNext()?'text-danger h4 my-2':'h4 my-2'" style="cursor: pointer;"
                                         >+Add Child</a>
                                     </td>
                                     </tr>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12" v-if="!showTable">
+                <div class="col-md-12" v-if="!showTable" id="child-info-survey">
                     <Children-Survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
                
@@ -116,6 +116,11 @@ export default class ChildrenInfo extends Vue {
     
     public openForm(anyRowToBeEdited) {
         this.showTable = false;
+         Vue.nextTick(()=>{
+            const el = document.getElementById('child-info-survey')
+            console.log(el)
+            if(el) el.scrollIntoView();
+        })
         if(anyRowToBeEdited) {
             this.editId = anyRowToBeEdited.id;
             this.anyRowToBeEdited = anyRowToBeEdited;

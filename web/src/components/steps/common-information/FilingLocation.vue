@@ -54,6 +54,9 @@ export default class FilingLocation extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     disableNextButton = false;
@@ -109,7 +112,7 @@ export default class FilingLocation extends Vue {
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
-        console.log(this.respondentName)
+        //console.log(this.respondentName)
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
@@ -125,7 +128,39 @@ export default class FilingLocation extends Vue {
         }
     }
 
+    public setExistingFileNumber(){
+        const fileType = 'FLC'
+        const existingOrders = this.$store.state.Application.steps[0]['result']?this.$store.state.Application.steps[0]['result']['existingOrders']:''
+        //const currentLocation = this.$store.state.Application.applicationLocation
+        const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
+
+        if(existingOrders){
+            const index = existingOrders.findIndex(order=>{return(order.type == fileType)})
+            if(index >= 0 ){
+                if(existingOrdersCondition)
+                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
+                else
+                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: ''}                                 
+            }else{
+                if(existingOrdersCondition)
+                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+                else
+                    existingOrders.push({type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: ''});                     
+            }
+            
+            this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
+
+        }else{
+            if(existingOrdersCondition)
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
+            else
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: '' }]}});    
+        }
+    }
+
     beforeDestroy() {
+        this.setExistingFileNumber();
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

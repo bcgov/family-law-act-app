@@ -39,11 +39,14 @@
         <about-contact-with-child-order v-bind:step="step" v-if="step.currentPage == 24"/>
         <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 25"/>
         
-        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 26"/>  
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 27"/>   
+        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 26"/>
+        <guardian-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 27"/>
+        <indigenous-ancestry-of-child v-bind:step="step" v-if="step.currentPage == 28"/>
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 28"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 29"/>
+        <spousal-support v-bind:step="step" v-if="step.currentPage == 29"/>   
+
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 30"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 31"/>
     </step-base>
 </template>
 
@@ -84,6 +87,8 @@ import ContactWithChildOrder from "./contactWithChild/ContactWithChildOrder.vue"
 import ContactWithChildBestInterestsOfChild from "./contactWithChild/ContactWithChildBestInterestsOfChild.vue";
 
 import GuardianOfChild from "./guardianOfChild/GuardianOfChild.vue";
+import GuardianOfChildBestInterestsOfChild from "./guardianOfChild/GuardianOfChildBestInterestsOfChild.vue";
+import IndigenousAncestryOfChild from "./guardianOfChild/IndigenousAncestryOfChild.vue";
 
 import SpousalSupport from "./spousalSupport/SpousalSupport.vue";
 
@@ -132,6 +137,8 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         ContactWithChildBestInterestsOfChild,
 
         GuardianOfChild,
+        GuardianOfChildBestInterestsOfChild,
+        IndigenousAncestryOfChild,
 
         SpousalSupport,
 

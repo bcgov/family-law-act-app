@@ -41,6 +41,10 @@ export default class FormList extends Vue {
 
     @applicationState.State
     public generatedForms!: string[];
+
+    @applicationState.State
+    public pathwayCompleted!: any
+
     @applicationState.Action
     public UpdateGeneratedForms!: (newGeneratedForms) => void
 
@@ -50,23 +54,31 @@ export default class FormList extends Vue {
     showPDFformName = '';
     showPDFpreview = false;
 
-    formsList =[                
-        { name:'PK', pdfType:'POR', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
-     //   { name:'P3', pdfType:'FLC', chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+    formsListTemplate =[                
+        { name:'PK', appName:'protectionOrder', pdfType:'AAP', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
+        { name:'P3', appName:'familyLawMatter', pdfType:'FLC', chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
     ]
+
+    formsList=[];
 
     mounted(){
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
         Vue.nextTick(()=> this.setProgress());
-        this.$emit('formsList',this.formsList)
+        //this.$emit('formsList',this.formsList)
     } 
     
     public initFormsTitle(){
-        for(const formInx in this.formsList)
+        console.log(this.pathwayCompleted)
+        for(const form of this.formsListTemplate)
         {
-            if(this.generatedForms.includes(this.formsList[formInx].name))
-                this.formsList[formInx].color = "success"
+            if(this.pathwayCompleted[form.appName]){
+
+                if(this.generatedForms.includes(form.name))
+                    form.color = "success"
+
+                this.formsList.push(form);
+            }                           
         }
     }
     

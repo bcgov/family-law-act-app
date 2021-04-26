@@ -28,33 +28,37 @@
                   "text": "None of the above"
                 }
               ]
+            },
+            {
+              "type": "infotext",
+              "name": "ifNeitherexistingFAQ",
+              "title": "In a previous step you identified that you had an existing order or written agreement about child support. If you need an order about child support, and there is no order or written agreement already in place, please return to the Background step and de-select child support under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{existingType} = 'Neither'"
+            },
+            {
+              "type": "infotext",
+              "name": "ifExistingFAQ",
+              "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')"
             }
           ]
-        },
-        {
-          "type": "infotext",
-          "name": "ifNeitherexistingFAQ",
-          "title": "In a previous step you identified that you had an existing order or written agreement about child support. If you need an order about child support, and there is no order or written agreement already in place, please return to the Background step and de-select child support under the '<i>Please select which family law matter issue your existing written agreement or court order is about</i>' question",
-          "titleLocation": "hidden",
-          "visible": false,
-          "visibleIf": "{existingType} = 'Neither'"
-        },
+        },        
         {
           "type": "panel",
           "name": "ExistingDetailsPanel",
           "visible": false,
           "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
-          "elements": [
-            {
-              "type": "infotext",
-              "name": "ifExistingFAQ",
-              "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
-              "titleLocation": "hidden"
-            },
+          "elements": [            
             {
               "type": "radiogroup",
               "name": "existingResponsibilityType",
               "title": "Select the option that best describes your responsibility for child support in the existing order or agreement.",
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')",
               "isRequired": true,
               "hasOther": true,
               "choices": [
@@ -72,7 +76,9 @@
               "type": "yesno",
               "name": "filedWithDirector",
               "title": "Is your order or agreement filed with the Director of Maintenance Enforcement to help with collecting child support?",
-              "isRequired": true
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({existingType} = 'ExistingOrder') or ({existingType} = 'ExistingAgreement')"
             },
             {
               "type": "infotext",

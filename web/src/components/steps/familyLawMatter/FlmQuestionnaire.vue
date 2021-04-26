@@ -121,9 +121,23 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-    allPages = _.range(1,28)
+   
+    allPages = _.range(1,32)
         
-    childrenInfoPage = [2];
+    //childrenInfoPage = [2];
+    backgroundPage = 1
+    aboutParentingArrangementPage = 8
+    parentingArrangementsPage = 3
+
+    aboutExistingChildSupportPage = 16
+
+    contactWithChildPage = 22
+    contactWithChildOrderPage = 23
+
+    guardianOfChildPage = 26
+
+    reviewYourAnswersPage = 30
+
 
     // parentingArrangementsPages = [];
     // childSupportPages = [];
@@ -131,38 +145,66 @@ export default class FlmQuestionnaire extends Vue {
     // guardianOfChildPages = []
     // spousalSupportPages = []
 
+    mounted(){
+        this.reloadPageInformation();
+    }
 
-    created() {  
-        //console.log(this.step)      
+    public reloadPageInformation() {   
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         if (this.step.result && this.step.result['flmSelectedForm']) {
             this.selectedForm = this.step.result['flmSelectedForm'].data;
         }
-    }
-
-    mounted(){
-        const progress = this.selectedForm.length==0? 50 : 100;
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
+        const progress = this.selectedForm.length==0? 50 : 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
   
     public onChange(selectedForm) {        
         this.setSteps(selectedForm);
+        
+       // console.log(selectedForm)
     }
 
     public setSteps(selectedForm) {
         // console.log(selectedForm)
         if (selectedForm) {
                         
-            this.togglePages(this.allPages, false);
+            this.togglePages(this.allPages, false); 
+            const progress = this.selectedForm.length==0? 50 : 100;
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+
 
             if (selectedForm.length > 0){
-                this.togglePages([1], true);
-            }
+
+                this.togglePages([this.backgroundPage], true);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutParentingArrangementPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutParentingArrangementPage, 50, false);
             
-            if (selectedForm.length >1 || (selectedForm.length == 1 && !selectedForm.includes("spousalSupport"))) {            
-                this.togglePages(this.childrenInfoPage, true);
-            }     
+                //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 0, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingArrangementsPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingArrangementsPage, 50, false);    
+            
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutExistingChildSupportPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutExistingChildSupportPage, 50, false);
+            
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.contactWithChildPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.contactWithChildPage, 50, false);
+                
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.contactWithChildOrderPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.contactWithChildOrderPage, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.guardianOfChildPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.guardianOfChildPage, 50, false);
+              
+            }   
 
         }
     }
@@ -196,11 +238,11 @@ export default class FlmQuestionnaire extends Vue {
         let result = ''
         console.log(this.selectedForm)
         for(const form of this.selectedForm){
-            if(form=='parentingArrangements') result+='Parenting Arrangements'+'\n';
-            if(form=='childSupport') result+='Child Support'+'\n';
-            if(form=='contactWithChild') result+='Contact With a Child'+'\n';
-            if(form=='guardianOfChild') result+='Guardian Of a Child'+'\n';
-            if(form=='spousalSupport') result+='Spousal Support'+'\n';
+            if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
+            if(form=='childSupport')            result+='Child Support'+'\n';
+            if(form=='contactWithChild')        result+='Contact With a Child'+'\n';
+            if(form=='guardianOfChild')         result+='Guardian Of a Child'+'\n';
+            if(form=='spousalSupport')          result+='Spousal Support'+'\n';
         }
         return result;
     }

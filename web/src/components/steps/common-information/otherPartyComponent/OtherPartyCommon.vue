@@ -43,7 +43,7 @@
                                     </tr>
                                     <tr class="clickableRow" @click="openForm()">
                                     <td colspan = "7">
-                                        <a
+                                        <a :class="isDisableNext()?'text-danger h4 my-2':'h4 my-2'" style="cursor: pointer;"
                                         >+Add Other Party</a>
                                     </td>
                                     </tr>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12" v-if="!showTable">
+                <div class="col-md-12" v-if="!showTable" id="other-party-common-survey" >
                     <other-party-common-survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
 
@@ -158,7 +158,13 @@ export default class OtherPartyCommon extends Vue {
     }
     
     public openForm(anyRowToBeEdited) {
+
         this.showTable = false;
+        Vue.nextTick(()=>{
+            const el = document.getElementById('other-party-common-survey')
+            console.log(el)
+            if(el) el.scrollIntoView();
+        })
         if(anyRowToBeEdited) {
             this.editId = anyRowToBeEdited.id;
             this.anyRowToBeEdited = anyRowToBeEdited;
@@ -226,14 +232,29 @@ export default class OtherPartyCommon extends Vue {
         if(this.otherPartyData && this.otherPartyData.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
-            this.UpdateCommonStepResults({data:{'respondents':respondentName}})
-        }       
+            this.UpdateCommonStepResults({data:{'respondentsCommon':respondentName}})
+        }  
+        this.mergeRespondants()     
         
         const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
     }
+
+    public mergeRespondants(){
+        const respondentName =[]
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsPO){
+            const respondentPO = this.$store.state.Application.steps[0].result.respondentsPO        
+            respondentName.push(...respondentPO)
+        }
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsCommon){
+            const respondentCommon = this.$store.state.Application.steps[0].result.respondentsCommon
+            respondentName.push(...respondentCommon)
+        }
+        this.UpdateCommonStepResults({data:{'respondents':respondentName}})
+    }
+
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];

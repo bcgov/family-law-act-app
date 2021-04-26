@@ -89,7 +89,7 @@ export default class PageBase extends Vue {
         this.$store.commit("Application/setLastUpdated", lastUpdated); 
         const application = this.$store.state.Application;
         const applicationId = application.id;
-        application.type = this.translateTypes(this.$store.state.Application.types);
+        application.type = Vue.filter('translateTypes')(this.$store.state.Application.types);
         
         const header = {
             responseType: "json",
@@ -108,34 +108,7 @@ export default class PageBase extends Vue {
         });    
     }
 
-    public translateTypes(applicationTypes: string[]) {
-
-        let types = [];
-
-        for (const applicationType of applicationTypes){
-            if (applicationType.includes("Protection Order")){
-                types.push(applicationType.replace("Protection Order", "FPO"));
-            }
-            if (applicationType.includes("Family Law Matter")){
-                types.push("FLC");
-            }
-            if (applicationType.includes("Case Management")){
-                types.push("ACMO");
-            }
-            if (applicationType.includes("Priotity Parenting Matter")){
-                types.push("AXP");
-            }
-            if (applicationType.includes("Relocation of a Child")){
-                types.push("APRC");
-            }
-            if (applicationType.includes("Enforcement of Agreements and Court Orders")){
-                types.push("AFET");
-            }
-        }
-
-        return types.toString();
-
-    }
+    
   
 };
 </script>

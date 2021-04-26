@@ -99,11 +99,26 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	// console.log(survey.currentPage.title)
 	// console.log(survey.currentPage.questions)
 	// console.log(survey.data)
+
+	const supportingDocumentForm4 = store.state.Application.supportingDocumentForm4
+	// console.log(supportingDocumentForm4)
+	// console.log(currentPage)
+	// console.log(supportingDocumentForm4.indexOf(currentPage))
+
+	const index = supportingDocumentForm4.indexOf(currentPage)
+	if(index>=0) supportingDocumentForm4.splice(index,1);
+	let flagForm4 = false;
+
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
 	for(const question of survey.currentPage.questions){
 		//console.log(question.title)
 		//console.log(question.isVisible)
 		//console.log(question.questionValue)
+		if(question.isVisible && question.name.startsWith("parentFileForm4Info")){
+			console.log(question.name)
+			flagForm4 = true
+		}
+			
 		if(question.isVisible && question.questionValue!=true){			
 			if(survey.data[question.name]){
 				// console.log("____________")
@@ -137,10 +152,53 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		
 	}
 	// console.log(result)
+	if(flagForm4){
+		supportingDocumentForm4.push(currentPage)
+		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
+	}
 	// console.log(document.getElementsByName("inCourtForPO"))
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
 })
 
+Vue.filter('getPathwayABRV',function(name){	
+	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priotityParenting:false, childReloc:false, agreementEnfrc:false
+
+	if (name == 'protectionOrder') return "AAP";
+	if (name == 'familyLawMatter') return "FLC";
+	if (name == 'caseMgmt') return "ACMO";
+	if (name == 'priotityParenting') return "AXP";
+	if (name == 'childReloc') return "APRC";
+	if (name == 'agreementEnfrc') return "AFET";
+	
+})
+
+Vue.filter('translateTypes',function(applicationTypes: string[]) {
+
+	let types = [];
+
+	for (const applicationType of applicationTypes){
+		if (applicationType.includes("Protection Order")){
+			types.push(applicationType.replace("Protection Order", "FPO"));
+		}
+		if (applicationType.includes("Family Law Matter")){
+			types.push("FLC");
+		}
+		if (applicationType.includes("Case Management")){
+			types.push("ACMO");
+		}
+		if (applicationType.includes("Priotity Parenting Matter")){
+			types.push("AXP");
+		}
+		if (applicationType.includes("Relocation of a Child")){
+			types.push("APRC");
+		}
+		if (applicationType.includes("Enforcement of Agreements and Court Orders")){
+			types.push("AFET");
+		}
+	}
+
+	return types.toString();
+})
 
 Vue.filter('extractRequiredDocuments', function(questions){
 	//console.log(questions)
@@ -165,6 +223,21 @@ Vue.filter('extractRequiredDocuments', function(questions){
 	//console.log('required documents')
 	//console.log(requiredDocuments)
 
+	//filingLocationSurvey.ExistingFamilyCase: "y"  requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
+	
+	//flmBackgroundSurvey.ExistingOrdersFLM: "y" existingOrdersListFLM.includes(Parenting Arrangements including `parental responsibilities` and `parenting time` ||  Child Support||Contact with a Child||Guardianship of a Child||Spousal Support)  && flmSelectedForm.selectedForm "parentingArrangements" "childSupport" "contactWithChild" "guardianOfChild" "spousalSupport"  requiredDocuments.push("Copy of the existing written agreement(s) or court order(s) about Family-Law-Matter");
+	
+	//flmBackgroundSurvey.existingPOOrders=="y" 	requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+		
+	//parentFileForm4Info in STORE  requiredDocuments.push("Copy of the Financial Statement in Form 4")
+	
+	//calculatingChildSupportSurvey.attachingCalculations=='y' requiredDocuments.push("Copy of the calculations showing how much child support you believe should be paid according to the child support guidelines")"
+	
+
+
+	//REMINDERS 
+	//aboutExistingChildSupportSurvey.filedWithDirector: "y" reminders.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
+	//indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") ||indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation")  reminders.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 	return requiredDocuments;
 })
 

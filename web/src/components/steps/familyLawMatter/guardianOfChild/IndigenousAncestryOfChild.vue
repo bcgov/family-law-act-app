@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/about-child-support-changes.json";
+import surveyJson from "./forms/indigenous-ancestry-of-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -24,13 +24,13 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class AboutChildSupportChanges extends Vue {
+export default class IndigenousAncestryOfChild extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any    
+    public steps!: any   
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -41,7 +41,7 @@ export default class AboutChildSupportChanges extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    survey = new SurveyVue.Model(surveyJson);   
+    survey = new SurveyVue.Model(surveyJson);    
     currentStep=0;
     currentPage=0;
    
@@ -62,7 +62,7 @@ export default class AboutChildSupportChanges extends Vue {
         this.reloadPageInformation();
     }
 
-    public initializeSurvey(){       
+    public initializeSurvey(){        
         this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
@@ -71,19 +71,20 @@ export default class AboutChildSupportChanges extends Vue {
     }    
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
-            //console.log(options)            
-
+        this.survey.onValueChanged.add((sender, options) => {
+            console.log(this.survey.data);
+            //console.log(options)
+            
         })
     }
     
-    public reloadPageInformation() { 
-        
+    public reloadPageInformation() {
+        // console.log(this.step.result)
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutChildSupportChangesSurvey']) {
-            this.survey.data = this.step.result['aboutChildSupportChangesSurvey'].data; 
+        if (this.step.result && this.step.result['IndigenousAncestryOfChildSurvey']) {
+            this.survey.data = this.step.result['IndigenousAncestryOfChildSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
@@ -98,13 +99,11 @@ export default class AboutChildSupportChanges extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    } 
+    }  
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {aboutChildSupportChangesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        this.UpdateStepResultData({step:this.step, data: {indigenousAncestryOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

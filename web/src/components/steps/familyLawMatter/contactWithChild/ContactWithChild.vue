@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -39,6 +39,7 @@ export default class ContactWithChild extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
    
@@ -54,6 +55,7 @@ export default class ContactWithChild extends Vue {
     }
 
     mounted(){
+        this.disableNextButton = false;  
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -71,20 +73,31 @@ export default class ContactWithChild extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if (this.survey.data.parentGuardianApplicant) {
-                if (this.survey.data.parentGuardianApplicant == 'y') {
-                    this.togglePages([24, 25], false);
-                } else {
-                    this.togglePages([24, 25], true);
-                }
-            }             
+            this.setPages()
         })
+    }    
+    
+    public setPages(){
+        if (this.survey.data.parentGuardianApplicant) {
+            if (this.survey.data.parentGuardianApplicant == 'y') {
+                this.disableNextButton = true;
+                this.togglePages([24, 25], false);
+            } else {
+                this.disableNextButton = false;
+                this.togglePages([24, 25], true);
+            }
+        }             
     }
     
     public reloadPageInformation() {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['contactWithChildSurvey'] && this.step.result['contactWithChildSurvey'].data) {
             this.survey.data = this.step.result['contactWithChildSurvey'].data;
+
+            if (this.survey.data.parentGuardianApplicant && this.survey.data.parentGuardianApplicant == 'y') {
+                this.disableNextButton = true;
+            }
+
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
@@ -100,6 +113,8 @@ export default class ContactWithChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        this.setPages()
     }
 
     public onPrev() {

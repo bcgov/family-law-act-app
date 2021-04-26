@@ -20,12 +20,16 @@
             {
               "type": "text",
               "name": "unPaidAmount",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
               "isRequired": true,
               "title": "What is the amount of unpaid child support you believe is still owing?"
             },
             {
               "type": "yesno",
               "name": "applyToReduce",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
               "title": "Do you want to apply to reduce the amount of unpaid child support owing?",
               "isRequired": true
             },
@@ -50,6 +54,8 @@
               "name": "paymentSchedule",
               "title":"How do you want the remaining unpaid child support to be paid?",
               "description": "Select each option that applies and complete the required information.",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
               "isRequired": true, 
               "hasOther": true,             
               "choices": [ 

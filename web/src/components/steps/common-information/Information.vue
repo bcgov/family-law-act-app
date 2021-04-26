@@ -45,6 +45,7 @@ export default class Information extends Vue {
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy
     currentStep=0;
     currentPage=0;
    
@@ -66,7 +67,8 @@ export default class Information extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForPersonalInfo()
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -93,8 +95,29 @@ export default class Information extends Vue {
             this.survey.data = this.step.result['yourInformationSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            if(this.steps[1].result && this.steps[1].result['yourInformationSurveyPO'] && this.steps[1].result['yourInformationSurveyPO'].data)
+            {
+                this.survey.setValue('ApplicantDOB',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantDOB);
+                this.survey.setValue('ApplicantName',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantName);
+            }
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public adjustSurveyForPersonalInfo(){
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
+
+       //console.log(this.surveyJsonCopy.pages[0].elements[0].elements[0])
+       //console.log(this.steps[1].result['yourInformationSurveyPO'].data)
+       // console.log(this.steps[0].result['selectedForms'])
+        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[1].readOnly = true;
+        }
+
     }
 
     public onPrev() {

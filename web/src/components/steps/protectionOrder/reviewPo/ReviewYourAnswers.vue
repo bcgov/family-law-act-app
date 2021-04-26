@@ -65,6 +65,9 @@ export default class ReviewYourAnswers extends Vue {
 
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
+    
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
 
     // @applicationState.Action
     // public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -92,6 +95,7 @@ export default class ReviewYourAnswers extends Vue {
     {
         console.log(newVal)
         this.togglePages([this.previewFormsPage], !this.pageHasError);
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"protectionOrder", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
