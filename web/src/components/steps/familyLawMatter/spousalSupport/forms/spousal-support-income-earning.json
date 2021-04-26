@@ -18,7 +18,7 @@
             },
             {
               "type": "infotext",
-              "name": "attachingFinancialStatementReminder",             
+              "name": "parentFileForm4InfoAttachingFinancialStatementReminder",             
               "title": "You are required to file a Financial Statement in Form 4 with your application for an order about spousal support. This form will collect information about your income and expenses. You will be reminded to include a copy at the end of the service.<br><br>The other party will be asked to give their own financial information to the court. If they do not, the court may decide how much income a person makes or should be making. The court will look at the information you have provided about the other party’s income. It will also look at information you know about things like the type of work they are doing or have done in the past, or any employment qualifications or training they have, to make this decision.",            
               "titleLocation":"hidden",
               "messageStyle": "info"

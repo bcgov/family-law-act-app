@@ -110,6 +110,10 @@
   }
 }
 
+textarea {
+  width: 40rem !important;
+}
+
 .svd_container survey-widget .form-inline .form-control {
   // fix override in surveyjs css
   width: auto;

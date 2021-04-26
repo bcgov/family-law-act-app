@@ -155,6 +155,10 @@
                     <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
                 </div>
 
+                <div v-if="this.error" style="margin:1rem auto; width:15.5rem" >
+                    <b-badge class="bg-danger" style="margin:0 auto; width:8rem">Please Try Again</b-badge>
+                </div>
+
                 <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
                     <loading-spinner v-if="submissionInProgress" /> 
                     <b-button v-else

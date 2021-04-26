@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/about-existing-spousal-support-agreement.json";
+import surveyJson from "./forms/about-existing-spousal-support-final-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -23,7 +23,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class AboutExistingSpousalSupportAgreement extends Vue {
+export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;       
@@ -63,17 +63,19 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            // console.log(this.survey.data)
-
-            if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([37], true);
-                
-            } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                
-                this.togglePages([37], false);
-            }           
-            
+           // console.log(this.survey.data)
+            this.setPages()
         })
+    }
+
+    public setPages(){
+        if(this.survey.data.orderDifferenceType == 'changeOrder'){
+            this.togglePages([37], true);
+            
+        } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+            
+            this.togglePages([37], false);
+        }
     }
 
     public togglePages(pageArr, activeIndicator) {        
@@ -86,18 +88,19 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
         }
     }
     
-    public reloadPageInformation() {  
+    public reloadPageInformation() {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutExistingSpousalSupportAgreementSurvey']) {
-            this.survey.data = this.step.result['aboutExistingSpousalSupportAgreementSurvey'].data;
-            
+        if (this.step.result && this.step.result['existingSpousalSupportFinalOrderSurvey']) {
+            this.survey.data = this.step.result['existingSpousalSupportFinalOrderSurvey'].data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        this.setPages()
     }
 
     public onPrev() {
@@ -113,7 +116,7 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {aboutExistingSpousalSupportAgreementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {existingSpousalSupportFinalOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

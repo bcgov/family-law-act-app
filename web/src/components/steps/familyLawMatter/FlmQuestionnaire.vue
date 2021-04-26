@@ -136,6 +136,12 @@ export default class FlmQuestionnaire extends Vue {
 
     reviewYourAnswersPage = 39
 
+    aboutExistingSpousalSupportPage = 33
+
+    existingSpousalSupportAgreementPage = 35
+
+    existingSpousalSupportFinalOrderPage = 34
+
 
     // parentingArrangementsPages = [];
     // childSupportPages = [];
@@ -159,8 +165,13 @@ export default class FlmQuestionnaire extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
   
-    public onChange(selectedForm) {        
-        this.setSteps(selectedForm);
+    public onChange(selectedForm) {
+        if(this.checkErrorOnPages())        
+            this.setSteps(selectedForm);
+        else{ 
+            this.selectedForm = [];
+            this.togglePages(this.allPages, false); 
+        }
         
        // console.log(selectedForm)
     }
@@ -201,7 +212,16 @@ export default class FlmQuestionnaire extends Vue {
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.guardianOfChildPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.guardianOfChildPage, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutExistingSpousalSupportPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutExistingSpousalSupportPage, 50, false);
               
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportFinalOrderPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportFinalOrderPage, 50, false);
+                
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportAgreementPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportAgreementPage, 50, false);
+   
             }   
 
         }
@@ -222,6 +242,24 @@ export default class FlmQuestionnaire extends Vue {
             currentStep: stepId,
             active: activeIndicator
         });
+    }
+
+    public checkErrorOnPages(){
+
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+        for(const stepIndex of [2]){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
     }
 
     public onPrev() {

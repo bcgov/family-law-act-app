@@ -50,69 +50,12 @@
           ]
         },
         {
-          "type": "panel",
-          "name": "CancelGuardianPanel",
+          "type": "html",
+          "name": "cancelGuardianDetailsTitle",
+          "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
+          "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>Please complete the following information for each child you are applying for a person to no longer be a guardian of.</div>The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “<b-badge class='bg-success text-white' style='padding:0.06rem 0.1rem; font-size:12px ;border-radius:5px;' ><b> + </b></b-badge>” button. If you are done entering information for all the children, click the “Next” button.</div>",          
           "visible": false,
-          "visibleIf": "{applicantionType} contains 'cancelGuardian'",
-          "elements": [
-            {
-              "type": "matrixdynamic",
-              "name": "cancelGuardianDetails",
-              "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
-              "description": "The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “Add Child” button. If you are done entering information for all the children, click the “Next” button.",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "{applicantionType} contains 'cancelGuardian'",
-              "columns": [                
-                {
-                  "name": "NameOfChild",
-                  "title": "Name of child",
-                  "isRequired": true,
-                  "choices": [
-                    "child1",
-                    "child2"
-                  ]
-                },
-                {
-                  "name": "NameOfGuardian",
-                  "title": "Name of Other Party (Guardian who you are applying to cancel their guardianship of a child)",
-                  "isRequired": true,
-                  "choices": [
-                    "G1",
-                    "G2"
-                  ]
-                },
-                {
-                  "name": "date",
-                  "title": "When did the other <br>party become a guardian of the child?",
-                  "cellType": "text",
-                  "isRequired": true,
-                  "inputType": "date"
-                },
-                {
-                  "name": "applicantRelationshipWithChild",
-                  "title": "What is your guardianship relationship to the child?",
-                  "isRequired": true,
-                  "choices": [
-                    "Guardian",
-                    "Applying to be appointed as a guardian"
-                  ]
-                }
-              ],
-              "rowCount": 1,
-              "addRowLocation": "bottom",
-              "addRowText": "Add Child",
-              "removeRowText": "Remove Child"
-            },
-            {
-              "type": "helptext",
-              "name": "FAQGuardian",
-              "title": "I am the child’s parent, does that mean I’m their guardian?",
-              "titleLocation": "hidden",
-              "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.\n<br>\n<br>\nA person who is not a parent can become a guardian of a child by court order or under a will.\n<br>\n<br>\nIf you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm."
-            }
-            
-          ]
+          "visibleIf": "{applicantionType} contains 'cancelGuardian'"
         }
       ],
       "title": "Guardianship of a child"

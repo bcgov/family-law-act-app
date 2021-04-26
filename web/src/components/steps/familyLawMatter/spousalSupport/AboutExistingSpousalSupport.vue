@@ -80,20 +80,9 @@ export default class AboutExistingSpousalSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data)
+            console.log(this.survey.data)
             
-            if (this.survey.data.existingType == 'ExistingOrder') {
-                this.disableNextButton = false;
-                this.togglePages([34, 36, 38], true); 
-                this.togglePages([35], false);               
-            } else if (this.survey.data.existingType == 'ExistingAgreement') {
-                this.disableNextButton = false;
-                this.togglePages([35, 36, 38], true); 
-                this.togglePages([34], false);                
-            } else if (this.survey.data.existingType == "Neither") {
-                this.togglePages([34, 35, 36, 37, 38], false);
-                this.disableNextButton = true;
-            }
+            this.setPages()
             
             if (options.name = 'fillOutForm'){
                 // console.log(options)
@@ -103,6 +92,21 @@ export default class AboutExistingSpousalSupport extends Vue {
             }
 
         })
+    }
+
+    public setPages(){
+        if (this.survey.data.existingType == 'ExistingOrder') {
+            this.disableNextButton = false;
+            this.togglePages([34, 36, 38], true); 
+            this.togglePages([35], false);               
+        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+            this.disableNextButton = false;
+            this.togglePages([35, 36, 38], true); 
+            this.togglePages([34], false);                
+        } else if (this.survey.data.existingType == "Neither") {
+            this.togglePages([34, 35, 36, 37, 38], false);
+            this.disableNextButton = true;
+        }
     }
 
     public togglePages(pageArr, activeIndicator) {        
@@ -129,6 +133,7 @@ export default class AboutExistingSpousalSupport extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.setPages()
     }
 
     public onPrev() {

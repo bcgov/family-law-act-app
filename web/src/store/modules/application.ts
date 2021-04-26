@@ -526,15 +526,15 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "39";
         p.label = "Review Your Answers";
-        p.active = true;
-        p.progress = 50;    
+        p.active = false;
+        p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "40";
         p.label = "Preview Forms";
-        p.active = true;
-        p.progress = 50;    
+        p.active = false;
+        p.progress = 0;    
         s.pages.push(p);
 
         this.steps.push(s);
@@ -1066,8 +1066,8 @@ class Application extends VuexModule {
     get getPrevStepPage(): { prevStep: number; prevPage: number } {
 
         let prevStepPage: { prevStep: number; prevPage: number };    
-        let sIndex = this.currentStep;
-        let pIndex = this.steps[sIndex].currentPage - 1;
+        let sIndex = Number(this.currentStep);
+        let pIndex = Number(this.steps[sIndex].currentPage) - 1;
     
         while (prevStepPage == null && sIndex >= 0) {
           const s = this.steps[sIndex];
@@ -1100,8 +1100,9 @@ class Application extends VuexModule {
         //console.log("nextStep")
 
         let nextStepPage: { nextStep: number; nextPage: number };    
-        let sIndex = this.currentStep;
-        let pIndex = this.steps[sIndex].currentPage + 1;
+        let sIndex = Number(this.currentStep);       
+        let pIndex = Number(this.steps[sIndex].currentPage) + 1;
+        
         while (nextStepPage == null && sIndex < this.steps.length) {
             const s = this.steps[sIndex];
         
