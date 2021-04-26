@@ -1,5 +1,9 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <input style="display:inline; margin:0 0.5rem 0 0.5rem; width:12rem;" type="text" id='lawyer-name' v-model="lawyerName"  @change="changeLawyerName"/>
+        <input style="display:inline; margin:0 0.5rem 0 0.5rem; width:12rem;" type="text" id='client-name' v-model="clientName"  @change="changeClientName"/>
+        
+        
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -32,6 +36,9 @@ export default class Information extends Vue {
     @applicationState.State
     public steps!: any
 
+    @applicationState.State
+    public types!: string[]
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -48,6 +55,9 @@ export default class Information extends Vue {
     surveyJsonCopy
     currentStep=0;
     currentPage=0;
+
+    lawyerName = '';
+    clientName = '';
    
     @Watch('pageIndex')
     pageIndexChange(newVal) 
@@ -89,11 +99,22 @@ export default class Information extends Vue {
     public reloadPageInformation() {
         // console.log(this.steps[0].result)
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
         if (this.step.result && this.step.result['yourInformationSurvey']) {
             this.survey.data = this.step.result['yourInformationSurvey'].data;
+            this.loadReplacedElementsData();
+
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }
+
+        if (this.types.includes("Family Law Matter")){
+            this.survey.setVariable("includesFlm", true);
+            if ((this.survey.data.Lawyer == 'y') && (this.survey.data.LawyerFillingOut == 'y')){
+                this.replaceLawyerStatementFields();
+            }
+        } else {
+            this.survey.setVariable("includesFlm", false);
         }
 
         if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
@@ -105,6 +126,41 @@ export default class Information extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        this.replaceLawyerStatementFields();
+    }
+
+    public replaceLawyerStatementFields(){
+        Vue.nextTick(()=>{
+            const lawyerNameTemplate = document.getElementById('lawyer-name-template')
+            const lawyerNameEl = document.getElementById('lawyer-name')          
+            lawyerNameTemplate.replaceWith(lawyerNameEl)
+        })
+
+        Vue.nextTick(()=>{
+            const clientNameTemplate = document.getElementById('client-name-template')
+            const clientNameEl = document.getElementById('client-name')          
+            clientNameTemplate.replaceWith(clientNameEl)
+        })
+    }
+
+    public changeLawyerName(){
+        this.survey.setValue('lawyerName', this.lawyerName);
+    }
+
+    public changeClientName(){
+        this.survey.setValue('clientName', this.clientName);
+    }
+
+     public loadReplacedElementsData(){
+
+        if (this.survey.data["lawyerName"]){
+            this.lawyerName = this.survey.data["lawyerName"];
+        }
+
+        if (this.survey.data["clientName"]){
+            this.clientName = this.survey.data["clientName"];
+        }
     }
 
     public adjustSurveyForPersonalInfo(){
