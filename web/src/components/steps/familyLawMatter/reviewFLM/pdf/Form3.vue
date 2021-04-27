@@ -295,7 +295,7 @@
                     <div style="margin-left:1rem">
                         <check-box style="" :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
                         <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
-                            <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx">child</li>
+                            <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
                         </ul>                    
                         <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
                             || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
@@ -1009,20 +1009,28 @@
 <!-- <3> -->
                 <section>
                     <div style="display:inline; margin-left:0.35rem">I am applying for contact with the child(ren) as follows:</div>
-                    
+                    <ul v-if="result.aboutContactWithChildSurvey">
+                        <li v-for="(child,inx) of chContInfo.abt.conChList" :key="inx"><span class="mx-3">{{child}}</span></li>
+                    </ul>
                     <div style="margin:0 3rem 1rem 1rem;">
                         <i>Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="true?'yes':''" text="in person:"/>
+                        <check-box style="" :check="chContInfo.abt.conType.includes('In person')?'yes':''" text="in person:"/>
                         <i class='marginleft1vue' style="margin:0 0 0 1.75rem;">Provide specific dates or events requested, or dates and times that would be most suitable</i>
-                        <check-box style="margin:3rem 0 0 0" :check="true?'yes':''" text="telephone communication"/>
-                        <check-box style="" :check="true?'yes':''" text="video communication"/>
-                        <check-box style="" :check="true?'yes':''" text="written communication"/>
-                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other method of communication <i>(specify):</i>"/>
-                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" text=""/>            
+                        <div v-if="chContInfo.abt.conType.includes('In person')" 
+                            class="answerbox">{{chContInfo.abt.inPrsn}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                        <check-box style="margin:3rem 0 0 0" :check="chContInfo.abt.conType.includes('Telephone communication')?'yes':''" text="telephone communication"/>
+                        <check-box style="" :check="chContInfo.abt.conType.includes('Video communication')?'yes':''" text="video communication"/>
+                        <check-box style="" :check="chContInfo.abt.conType.includes('Written communication')?'yes':''" text="written communication"/>
+                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.includes('other')?'yes':''" text="other method of communication <i>(specify):</i>"/>
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.conType.includes('other')?chContInfo.abt.otherComm:''"/>            
                     </div>
                     <div style="margin:0 3rem 3rem 1rem;">
                         <i>Complete only if applicable. You may leave this section blank.</i>
                         <div>I am willing to have the following conditions placed on my contact with the child(ren):</div>
+                        <div v-if="result.aboutContactWithChildSurvey.placeConditions == 'y'" 
+                            class="answerbox">{{chContInfo.abt.cond}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
                     </div>
                 </section> 
             </div>
@@ -1030,7 +1038,7 @@
             <div style="margin-top:1rem;"></div>
 <!-- <4> -->
             <section>
-                <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="I last had contact with the child(ren) on or around " hint="mmm/dd/yyyy" text="APR 20 2020"/>
+                <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="I last had contact with the child(ren) on or around " hint="mmm/dd/yyyy" :text="chContInfo.abt.lastCont"/>
             </section>
 
             <div class="print-block">
@@ -1038,6 +1046,9 @@
 <!-- <5> -->
                 <section>
                     <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact I am applying for is in the child(ren)’s best interests because:</div>
+                     <div v-if="result.contactWithChildBestInterestOfChildSurvey" 
+                        class="answerbox">{{chContInfo.bstIntrst}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                 </section>
             </div>
         </div>
@@ -1638,6 +1649,7 @@ export default class Form3 extends Vue {
     exParentArrInfo = {}
     chSupInfo = {}
     exChSupInfo = {}
+    chContInfo = {}
    
     mounted(){
         this.dataReady = false;
@@ -1741,6 +1753,10 @@ export default class Form3 extends Vue {
 
         if (this.selectedSchedules.includes('schedule4')){
             this.exChSupInfo = this.getExistingChildSupportInfo();
+        }
+
+        if (this.selectedSchedules.includes('schedule5')){
+            this.chContInfo = this.getNewChildContactInfo();
         }
         
         this.otherPartyInfo=this.getOtherPartyInfo()
@@ -1954,7 +1970,10 @@ export default class Form3 extends Vue {
                     dependent:this.result.undueHardshipSurvey.hardshipReasons.includes("support a dependent child"), 
                     other: this.result.undueHardshipSurvey.hardshipReasons.includes("other")
                 }: {excessive: false, high: false, another: false, dependent:false, other: false},
-                otherCom: (this.result.undueHardshipSurvey.hardshipReasons.includes("other") && this.result.undueHardshipSurvey.hardshipReasonsComment)? this.result.undueHardshipSurvey.hardshipReasonsComment:'',
+                otherCom: (this.result.undueHardshipSurvey.changeAmount == 'y' 
+                    && this.result.undueHardshipSurvey.hardshipReasons
+                    && this.result.undueHardshipSurvey.hardshipReasons.includes("other") 
+                    && this.result.undueHardshipSurvey.hardshipReasonsComment)? this.result.undueHardshipSurvey.hardshipReasonsComment:'',
             }
         }
 
@@ -2038,6 +2057,34 @@ export default class Form3 extends Vue {
         }
 
         return existingChildSupportInfo;
+    }
+
+    public getNewChildContactInfo(){
+
+        let newChildContactInfo = {guardian: true, abt: {}, bstIntrst:''};
+
+        console.log(this.result)
+
+        if (this.result.contactWithChildSurvey){
+            newChildContactInfo.guardian = this.result.contactWithChildSurvey.parentGuardianApplicant == 'y';
+        }
+
+        if (this.result.aboutContactWithChildSurvey){
+            newChildContactInfo.abt = {
+                conChList: this.result.aboutContactWithChildSurvey.childrenRequireContactChoices,
+                conType: this.result.aboutContactWithChildSurvey.contactTypeChoices,
+                inPrsn: (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'',
+                otherComm: (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'',
+                cond: (this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:'',
+                lastCont: Vue.filter('beautify-date')(this.result.aboutContactWithChildSurvey.lastContactDate)
+            }
+        }
+
+        if (this.result.contactWithChildBestInterestOfChildSurvey){
+            newChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestOfChildSurvey.newChildBestInterestDescription;
+        }
+
+        return newChildContactInfo;
     }
 
     public getChildrenInfo(){
@@ -2149,24 +2196,9 @@ export default class Form3 extends Vue {
         let address = ''
         let contactInfo = ''
 
-        if(this.result.selectedPOOrder && this.result.selectedPOOrder.orderType == 'needPO' && this.result.protectionWhomSurvey){            
-
-            if(this.result.protectionWhomSurvey['RespondentDOBExact'] == 'y' &&   this.result.protectionWhomSurvey['RespondentDOB'])
-                dob = this.result.protectionWhomSurvey['RespondentDOB']
-            
-            if(this.result.protectionWhomSurvey['RespondentName'])
-                name = this.result.protectionWhomSurvey['RespondentName']
-            
-            if(this.result.protectionWhomSurvey['RespondentAddress'])
-                address = this.result.protectionWhomSurvey['RespondentAddress']
-            
-            if(this.result.protectionWhomSurvey['RespondentContact'])
-                contactInfo = this.result.protectionWhomSurvey['RespondentContact']
-                
-            info = [{'name':name, 'DOB': dob , 'address': address ,'contact': contactInfo}]
-        }
-        else if(this.result.selectedPOOrder && (this.result.selectedPOOrder.orderType == 'changePO' || this.result.selectedPOOrder.orderType == 'terminatePO')){    
-            for(const party of this.result.otherPartySurvey){
+        if (this.result.otherPartyCommonSurvey){
+            console.log()    
+            for(const party of this.result.otherPartyCommonSurvey){
                 dob = 'unknown'
                 name = ''
                 address = ''
@@ -2186,8 +2218,7 @@ export default class Form3 extends Vue {
                 
                 info.push({'name':name, 'DOB': dob , 'address': address ,'contact': contactInfo})
             }
-        }
-        else
+        } else
             info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': ''}]
 
         return info
