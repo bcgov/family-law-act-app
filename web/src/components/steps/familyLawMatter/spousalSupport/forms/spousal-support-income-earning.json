@@ -28,14 +28,16 @@
               "name": "knowIncome",
               "title":"Do you know the income of the other party?",
               "isRequired": true              
-            },
+            },            
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "incomeAmount",
+              "title":"<div style='display:inline; font-weight: bold;font-size: 1.45em;' class='sv_main sv_q_title'>I believe the other party’s annual income is: $ </div>",
+              "titleLocation":"hidden",
+              "widthInput":"9rem",
               "visible":false,
               "visibleIf":"{knowIncome} == 'y'",
-              "isRequired": true,
-              "title":"I believe the other party’s annual income is: $"              
+              "isRequired": true
             },
             {
               "type": "yesno",

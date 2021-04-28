@@ -171,6 +171,9 @@ export default class ApplicationStatus extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
+    @applicationState.Action
+    public UpdateRequiredDocuments!: (newRequiredDocuments) => void
+
     previousApplications = []
     previousApplicationFields = [
         { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
@@ -291,12 +294,15 @@ export default class ApplicationStatus extends Vue {
                 this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
                 this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentsPO']?this.currentApplication.steps[0]['result']['respondentsPO'][0]:'';//applicationData.respondentName;
                 this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
-                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
+                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;                
             }
 
             console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);
+
+            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
+                this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
 
             if(this.currentApplication.steps[0]['result']){
                 for(const form  of this.currentApplication.steps[0]['result']['selectedForms']){

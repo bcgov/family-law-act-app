@@ -224,13 +224,13 @@ export default class GuardianOfChild extends Vue {
     }
 
     public AddRow(){
-        console.log('add')
+        //console.log('add')
         if(this.childrenNames.length>this.guardianOfChildItem.length)
             this.guardianOfChildItem.push({name:'', nameOther:'', date:'', relationship:''},)
     }
 
     public RemoveRow(){
-        console.log('remove')
+        //console.log('remove')
         if(this.guardianOfChildItem.length>1)
             this.guardianOfChildItem.pop()
     }

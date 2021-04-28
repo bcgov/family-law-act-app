@@ -238,16 +238,7 @@ export default class GettingStarted extends Vue {
             orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
         } 
 
-        if (selectedOrder == "protectionOrder" && orgFPOType == '') return "Protection Order";
-        else if (selectedOrder == "protectionOrder" && orgFPOType == 'needPO') return "New Protection Order";
-        else if (selectedOrder == "protectionOrder" && orgFPOType == 'changePO') return "Change Protection Order";
-        else if (selectedOrder == "protectionOrder" && orgFPOType == 'terminatePO') return "Terminate Protection Order";
-        else if (selectedOrder == "familyLawMatter") return "Family Law Matter";
-        else if (selectedOrder == "caseMgmt") return "Case Management";
-        else if (selectedOrder == "priotityParenting") return "Priotity Parenting Matter";
-        else if (selectedOrder == "childReloc") return "Relocation of a Child";
-        else if (selectedOrder == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
-        else return "";
+        return Vue.filter('getFullOrderName')(selectedOrder, orgFPOType);
     }
 
     public setSteps(selectedForms) {

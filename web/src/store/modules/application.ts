@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import { stepInfoType, pageInfoType, nameInfoType } from "@/types/Application";
-import { supportingDocumentInfoType } from "@/types/Common";
+import { supportingDocumentInfoType, requiredDocumentsInfoType } from "@/types/Common";
 
 @Module({
   namespaced: true
@@ -23,7 +23,7 @@ class Application extends VuexModule {
     public protectedChildName = ""
     public applicationLocation = ""
     public scrollToLocationName = ""
-    public requiredDocuments: string[] = []
+    public requiredDocuments = {} as requiredDocumentsInfoType
     public packageNumber = ""
     public eFilingHubLink = ""
     public generatedForms: string[] = [];
@@ -735,11 +735,21 @@ class Application extends VuexModule {
     @Mutation
     public setRequiredDocuments(requiredDocuments): void {
         this.requiredDocuments = requiredDocuments;
-    }
-    
+    }    
     @Action
     public UpdateRequiredDocuments(newRequiredDocuments) {
-        this.context.commit("setRequiredDocuments", newRequiredDocuments);
+        this.context.commit("setRequiredDocuments", newRequiredDocuments);        
+    }
+
+    @Mutation
+    public setRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }): void {
+        this.requiredDocuments[typeOfRequiredDocuments] = requiredDocuments;
+    }    
+    @Action
+    public UpdateRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }) {
+        this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
+        //console.log(this.requiredDocuments)
+        this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
     }
 
     @Mutation
