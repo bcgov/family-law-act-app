@@ -5,7 +5,7 @@
             <template v-slot:overlay>               
                 <div> 
                     <spinner style="width:5rem; margin:0 auto;"/> 
-                    <p class="text-center" id="loading-label">Waiting for eFiling Hub ...</p>
+                    <p class="text-center" id="loading-label">{{waitingText}}</p>
                 </div>                
             </template> 
         </b-overlay> 
@@ -13,7 +13,7 @@
     <!-- the card seems to create a white background effect, thus why we have inline -->
     <div v-else>
         <spinner/> 
-        <p id="loading-label">Waiting for eFiling Hub ...</p>
+        <p id="loading-label">{{waitingText}}</p>
     </div>  
 </template>
 
@@ -21,14 +21,17 @@
     import { Component, Vue, Prop } from 'vue-property-decorator';
     import Spinner from "./Spinner.vue";
 @Component({
-        components: {           
-            Spinner
-        }        
-    })    
-    export default class LoadingSpinner extends Vue {
-        @Prop({ required: false })
-        inline!: boolean;
-    }
+    components: {           
+        Spinner
+    }        
+})    
+export default class LoadingSpinner extends Vue {
+    @Prop({ required: true })
+    waitingText!: string;
+
+    @Prop({ required: false })
+    inline!: boolean;
+}
 </script>
 
 <style scoped>   

@@ -7,6 +7,8 @@
                     <h1>Previous Applications</h1>
                     <hr class="bg-light" style="height: 2px;"/>
 
+                    <loading-spinner v-if="!dataLoaded" waitingText="Loading ..." /> 
+
                     <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
                             <span class="text-muted ml-4 mb-5">No previous applications.</span>
                     </b-card>
@@ -174,6 +176,8 @@ export default class ApplicationStatus extends Vue {
     @applicationState.Action
     public UpdateRequiredDocuments!: (newRequiredDocuments) => void
 
+    dataLoaded = false;
+
     previousApplications = []
     previousApplicationFields = [
         { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
@@ -223,9 +227,11 @@ export default class ApplicationStatus extends Vue {
                 }
                 this.previousApplications.push(app);
             }
-            console.log(this.previousApplications)       
+            console.log(this.previousApplications)
+            this.dataLoaded = true;       
         },(err) => {            
             //console.log(err)
+            this.dataLoaded = true;
             this.error = err;        
         });
     }
