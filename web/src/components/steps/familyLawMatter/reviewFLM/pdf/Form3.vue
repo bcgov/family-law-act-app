@@ -800,25 +800,25 @@
                         <check-box style="" :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
                         <div>Since the final order about child support was made, circumstances have changed as follows:</div>
                         <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="exChSupInfo.abtEx.changeList.includes('My financial situation has changed')?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.changeList.includes('I believe the other party’s financial situation has changed')?'yes':''" text="I believe the other party’s financial situation has changed"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')" 
+                        <check-box style="" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('My financial situation has changed')?'yes':''" text="my financial situation has changed"/>
+                        <check-box style="" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('I believe the other party’s financial situation has changed')?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')" 
                             class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')" 
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')" 
                             class="answerbox">{{exChSupInfo.abtEx.lvngChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')" 
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')" 
                             class="answerbox">{{exChSupInfo.abtEx.newInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                         
-                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')?'yes':''" text="other changes or circumstances (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')" 
+                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')?'yes':''" text="other changes or circumstances (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')" 
                             class="answerbox">{{exChSupInfo.abtEx.otherInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -1927,7 +1927,7 @@ export default class Form3 extends Vue {
         if (this.result.aboutChildSupportOrderSurvey){
             newChildSupportInfo.desiredSup = {  
                 payor: this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.toString(),
-                applicantPayor: this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)),
+                applicantPayor: (this.result.aboutChildSupportOrderSurvey.listOfSupportPayors)?this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
                 payees: this.result.aboutChildSupportOrderSurvey.selectedChildrenNames.toString(),              
                 over19: (this.result.aboutChildSupportOrderSurvey.supportChildOver19 == 'y'),
                 payorErnsHigh:( this.result.aboutChildSupportOrderSurvey.payorEarnsHigh == 'yes'),
@@ -1996,10 +1996,10 @@ export default class Form3 extends Vue {
                 cancelOrdr:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
                 changeOrdr: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
                 changeList: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList:[],
-                newInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
-                expChangeInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-                lvngChangeInfo:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-                otherInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
+                newInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
+                expChangeInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
+                lvngChangeInfo:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
+                otherInfo: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
                 exstngAgrmnt: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement'),
                 setAsideAgrmnt:(this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
                 replaceAgrmnt: (this.result.aboutExistingChildSupportSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
@@ -2101,10 +2101,10 @@ export default class Form3 extends Vue {
             if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
                 schedules.push("schedule4")
             }
-            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a child")){
+            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a Child")){
                 schedules.push("schedule6")
             }
-            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a child")){
+            if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a Child")){
                 schedules.push("schedule8")
             }
             if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
