@@ -49,7 +49,10 @@ export default class AboutSpousalSupportOrder extends Vue {
     monthlyAmount = 0;
     startDate='';
     endDate='';
-    lumpSumAmount = 0;    
+    lumpSumAmount = 0;   
+    
+    choise1 = "in the amount of $<input id='monthly-amount-template'/> per month starting on <input id='start-date-template'/> until <input id='end-date-template'/>"
+    choise2 = "in a lump sum of $<input id='lump-sum-amount-template'/>"
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -72,9 +75,30 @@ export default class AboutSpousalSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            //console.log(this.survey.data)           
-            
+            //console.log(this.survey.pages[0].questions)           
+            console.log(this.survey.data)
+            this.determineHowToPay()
         })
+    }
+
+    public determineHowToPay(){
+        
+        if(this.survey.data.howToPaySpousalSupport){
+            const howToPay: string[]=[];           
+            if(this.survey.data.howToPaySpousalSupport.includes(this.choise1)){
+                howToPay.push('monthly');                
+            }
+            if(this.survey.data.howToPaySpousalSupport.includes(this.choise2)){
+                howToPay.push('lumpsum');             
+            }
+            if(this.survey.data.howToPaySpousalSupport.includes('other')){
+                howToPay.push('other');              
+            }
+        
+            this.survey.setValue('howToPay',howToPay)
+        }
+        else 
+            this.survey.clearValue('howToPay')  
     }
     
     public reloadPageInformation() {
@@ -109,6 +133,8 @@ export default class AboutSpousalSupportOrder extends Vue {
             endDateTemplate.replaceWith(endDateEl)
 
         })
+        
+        this.determineHowToPay()                
     }
 
     public changeMonthlyAmount(){
@@ -150,7 +176,7 @@ export default class AboutSpousalSupportOrder extends Vue {
         this.UpdateGotoPrevStepPage()
     }
 
-    public onNext() {
+    public onNext() {        
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }

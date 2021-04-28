@@ -181,7 +181,7 @@ export default class GuardianOfChild extends Vue {
     }
 
     public determineShowingTable(){
-        if(this.survey.data && this.survey.data.applicantionType.includes('cancelGuardian'))
+        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes('cancelGuardian'))
             this.showTable=true;
         else
             this.showTable=false;
@@ -224,13 +224,13 @@ export default class GuardianOfChild extends Vue {
     }
 
     public AddRow(){
-        console.log('add')
+        //console.log('add')
         if(this.childrenNames.length>this.guardianOfChildItem.length)
             this.guardianOfChildItem.push({name:'', nameOther:'', date:'', relationship:''},)
     }
 
     public RemoveRow(){
-        console.log('remove')
+        //console.log('remove')
         if(this.guardianOfChildItem.length>1)
             this.guardianOfChildItem.pop()
     }

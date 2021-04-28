@@ -2,18 +2,18 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         
         <h2 class="mt-4">Review and Submit</h2>
-        <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
             <div class="ml-0">
                 You have indicated that you will file at the following court registry:
                 <p class="h3 mt-2 ml-0 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
             </div>
 
-            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
+            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
                 <div class="row justify-content-center text-warning">
                     <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
                 </div>
-                <div style="font-size: 18px;" class="mx-3 mb-1">
+                <div style="font-size: 18px;" class="mx-3 mb-1 pb-3">
                     By clicking on the 'Review and Print' button next to the document, a PDF version of the application
                      will download or open. Depending on your browser settings, your PDF might save the form to your 
                      computer or it will open in a new tab or window. For more information about opening and saving 
@@ -45,31 +45,9 @@
                 </div>
             </b-card>
 
-            <b-card v-if="requiredDocuments.length > 0" style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
-                <span class="text-primary" style='font-size:1.4rem;'>Additional Documents to Include:</span> 
-
-                <div>The following additional documents are required as part of your filing:</div>
-                <ul class="mt-3">
-                    <li class="mb-2" v-for="requiredDocument in requiredDocuments" :key="requiredDocument">{{requiredDocument}}</li>
-                </ul>
-
-            </b-card>
-
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
-                <span class="text-primary" style='font-size:1.4rem;'>Upload Documents:</span>
-
-                <div class="ml-2">                     
-                    <ul class="mt-3">
-                        <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
-                        <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
-                        <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
-                            <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
-                        </div>
-                        <li>Upload the documents bellow:</li>
-                    </ul>
-                </div>
+                <required-document type="Submit" title="Upload Documents:" />
                 
                 <!-- <b-img v-for="(supportingDocument,index) in supportingDocuments" :key="index" :src="supportingDocument.image" width="100" height="100"  /> -->
                 
@@ -142,6 +120,8 @@
 
             </b-card>
 
+            <reminder-notes  type="Submit"/>
+
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
                 <span class="text-primary" style='font-size:1.4rem;'>Filing with Court Services Online:</span>
 
@@ -187,19 +167,6 @@
             </template>
         </b-modal>
 
-        <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-white">
-            <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Scanning Documents</h1> 
-            </template>
-            <get-help-scanning/>        
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="showGetHelpScanning=false">Close</b-button>
-            </template>            
-            <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
-            </template>
-        </b-modal>
-
         <b-modal size="lg" v-model="showTypeOfDocuments" hide-header-close hide-header>
             <b-card style="border-radius:10px" class="bg-light">
                 <h1 class="text-center bg-primary text-white" style="border-radius:10px; width:35rem; margin:0 auto; padding:1rem 0;">Specify the Type of Document(s)</h1>
@@ -232,9 +199,11 @@
     import { stepInfoType } from "@/types/Application";
     import PageBase from "@/components/steps/PageBase.vue";   
     import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
-    import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
-    import FormList from "./components/FormList.vue"
 
+    import FormList from "./components/FormList.vue"
+    import RequiredDocument from "./components/RequiredDocument.vue"
+    import ReminderNotes from "./components/ReminderNotes.vue"
+    
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
     const applicationState = namespace("Application");
@@ -247,9 +216,10 @@
         components:{
             PageBase,
             GetHelpForPdf,
-            GetHelpScanning,
             Tooltip,
-            FormList
+            FormList,
+            RequiredDocument,
+            ReminderNotes
         }
     })
     
@@ -279,14 +249,10 @@
         @commonState.State
         public documentTypesJson!: any;
 
-        // @applicationState.State
-        // public requiredDocuments!: string[];
-
         @applicationState.State
         public supportingDocuments!: any;
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
-
 
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
@@ -312,7 +278,7 @@
 
         error = "";
         showGetHelpForPDF = false;
-        showGetHelpScanning = false;
+
         applicantLocation = {name:'', address:'', cityStatePostcode:'', email:''}        
         submissionInProgress = false;
         
@@ -321,7 +287,7 @@
         selectedSupportingDocumentState = true;
         fileType = "";
         fileTypes = [];
-        requiredDocuments: string[] = [];
+
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
             { key: 'fileType', label: 'File Type',tdClass:'align-middle'},
@@ -357,8 +323,7 @@
             //TODO: use get api for document-types
            
             this.fileTypes = this.documentTypesJson;
-            //this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
-
+           
             const dropArea = document.getElementById('drop-area');
             dropArea.addEventListener('drop', this.handleFileDrop, false);
             dropArea.addEventListener('dragenter', this.dragPreventDefaults, false);

@@ -170,7 +170,7 @@ export default class FlmQuestionnaire extends Vue {
             this.setSteps(selectedForm);
         else{ 
             this.selectedForm = [];
-            this.togglePages(this.allPages, false); 
+            //this.togglePages(this.allPages, false); 
         }
         
        // console.log(selectedForm)
@@ -179,7 +179,6 @@ export default class FlmQuestionnaire extends Vue {
     public setSteps(selectedForm) {
         // console.log(selectedForm)
         if (selectedForm) {
-                        
             this.togglePages(this.allPages, false); 
             const progress = this.selectedForm.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
@@ -229,6 +228,7 @@ export default class FlmQuestionnaire extends Vue {
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
+            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
                 currentPage: pageArr[i],
@@ -252,6 +252,7 @@ export default class FlmQuestionnaire extends Vue {
             if(step.active){
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.togglePages(this.allPages, false); 
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
                         return false;

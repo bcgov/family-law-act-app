@@ -10,7 +10,7 @@
           "name": "aboutPanel",
           "elements": [
             {
-              "type": "checkbox",
+              "type": "radiogroup",
               "name": "howToPaySpousalSupport",
               "title": "I am applying for spousal support:",
               "description": "Select from the list below.",
@@ -19,6 +19,13 @@
               "choices": [
                 "in the amount of $<input id='monthly-amount-template'/> per month starting on <input id='start-date-template'/> until <input id='end-date-template'/>",
                 "in a lump sum of $<input id='lump-sum-amount-template'/>"
+              ],
+              "validators": [
+                {
+                    "type": "expression",
+                    "text": "Please complete all fields.",
+                    "expression": "({monthlyAmount} notempty and {startDate} notempty and {endDate} notempty and {howToPay} contains 'monthly') or ({lumpSumAmount} notempty and {howToPay} contains 'lumpsum') or ({howToPay} contains 'other')"
+                }
               ]
             }
           ]
