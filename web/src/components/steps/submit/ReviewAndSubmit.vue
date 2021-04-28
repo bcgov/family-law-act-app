@@ -140,7 +140,7 @@
                 </div>
 
                 <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
-                    <loading-spinner v-if="submissionInProgress" /> 
+                    <loading-spinner v-if="submissionInProgress" waitingText="Waiting for eFiling Hub ..."/> 
                     <b-button v-else
                         :disabled="!submitEnable"                   
                         v-on:click.prevent="onSubmit()"                        
