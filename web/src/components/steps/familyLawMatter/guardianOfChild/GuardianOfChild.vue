@@ -181,7 +181,7 @@ export default class GuardianOfChild extends Vue {
     }
 
     public determineShowingTable(){
-        if(this.survey.data && this.survey.data.applicantionType.includes('cancelGuardian'))
+        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes('cancelGuardian'))
             this.showTable=true;
         else
             this.showTable=false;
