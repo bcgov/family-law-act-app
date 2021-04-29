@@ -800,25 +800,25 @@
                         <check-box style="" :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
                         <div>Since the final order about child support was made, circumstances have changed as follows:</div>
                         <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="exChSupInfo.abtEx.changeList.includes('My financial situation has changed')?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.changeList.includes('I believe the other party’s financial situation has changed')?'yes':''" text="I believe the other party’s financial situation has changed"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')" 
+                        <check-box style="" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('My financial situation has changed')?'yes':''" text="my financial situation has changed"/>
+                        <check-box style="" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('I believe the other party’s financial situation has changed')?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')" 
                             class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')" 
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')" 
                             class="answerbox">{{exChSupInfo.abtEx.lvngChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')" 
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')" 
                             class="answerbox">{{exChSupInfo.abtEx.newInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                         
-                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')?'yes':''" text="other changes or circumstances (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')" 
+                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')?'yes':''" text="other changes or circumstances (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')" 
                             class="answerbox">{{exChSupInfo.abtEx.otherInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -852,7 +852,7 @@
                     
                     <div style="margin:0 0 0 1rem;">
                         <div style="margin:0 0 3rem 0;">I am applying for the final order or agreement about child support to be changed or replaced as follows:</div>                    
-                        <div v-if="exChSupInfo.abtOrg.newOrderDesc.length>0" 
+                        <div v-if="exChSupInfo.abtOrg.newOrderDesc" 
                             class="answerbox">{{exChSupInfo.abtOrg.newOrderDesc}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -929,7 +929,7 @@
                     <div style="margin:0 0 3rem 1.1rem;">
                         <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate"/>
                         <div style="display:inline; margin:0 0 0 0.5rem;">because:</div>
-                        <div v-if="exChSupInfo.abtOrg.startReason.length>0" 
+                        <div v-if="exChSupInfo.abtOrg.startReason" 
                             class="answerbox">{{exChSupInfo.abtOrg.startReason}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -942,20 +942,20 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                     <div style="margin:0 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList.length>0 && !exChSupInfo.abtOrg.situationList.includes('None of the above apply to my situation')?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
+                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.length>0 && !exChSupInfo.abtOrg.situationList.includes('None of the above apply to my situation')?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
                         <i>Select all options that apply</i>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('I am required to pay child support')?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('There is `split` or `shared` parenting time')?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('There is a child 19 years or older for who support is for')?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('A party has been acting as a parent to a child of the other party, for example a step-parent')?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('The paying parent earns more than $150,000 per year')?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('There is a claim for `special and extraordinary expenses` for a child')?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList.includes('I am claiming `undue hardship`')?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('I am required to pay child support')?'yes':''" text="I am the payor"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('There is `split` or `shared` parenting time')?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('There is a child 19 years or older for who support is for')?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('A party has been acting as a parent to a child of the other party, for example a step-parent')?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('The paying parent earns more than $150,000 per year')?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('There is a claim for `special and extraordinary expenses` for a child')?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('I am claiming `undue hardship`')?'yes':''" text="I am claiming undue hardship"/>
                     </div>
                     <div style="margin:0.5rem 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList.includes('None of the above apply to my situation')?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
+                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('None of the above apply to my situation')?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
                         <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
                     </div>
                 </section>
@@ -1972,7 +1972,7 @@ export default class Form3 extends Vue {
         if (this.result.aboutChildSupportOrderSurvey){
             newChildSupportInfo.desiredSup = {  
                 payor: this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.toString(),
-                applicantPayor: this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)),
+                applicantPayor: (this.result.aboutChildSupportOrderSurvey.listOfSupportPayors)?this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
                 payees: this.result.aboutChildSupportOrderSurvey.selectedChildrenNames.toString(),              
                 over19: (this.result.aboutChildSupportOrderSurvey.supportChildOver19 == 'y'),
                 payorErnsHigh:( this.result.aboutChildSupportOrderSurvey.payorEarnsHigh == 'yes'),
@@ -2495,7 +2495,7 @@ export default class Form3 extends Vue {
 
         const body = {
             'html':pdfhtml,
-            'json_data':this.getFLMResultData()
+            'json_data':this.result
         }       
         
         const options = {
@@ -2568,7 +2568,11 @@ export default class Form3 extends Vue {
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
+        
+        
         //console.log(result)
+
+        Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
 
         return result;
     }

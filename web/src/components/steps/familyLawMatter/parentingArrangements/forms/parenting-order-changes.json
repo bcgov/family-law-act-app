@@ -160,6 +160,7 @@
                     "visible": false,
                     "visibleIf": "{orderChangeList} contains 'parentalResponsibilities'",
                     "elements": [
+                        
                         {
                             "type": "html",
                             "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Parental Responsibilities</div>Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians can share parental responsibilities in whatever way works best for their child.<br>The <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section41\" target=\"blank\">Family Law Act</a> provides a list of parental responsibilities.<br><br>If you are the only guardian for a child, you may want a court order to more easily show that you are the only person with parental responsibility for the child including making decisions about things like permission to travel and consent for medical procedures.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parental responsibilities and when. Parental responsibilities may be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.</div>",
@@ -170,7 +171,9 @@
                             "name": "existingOrderChangeParentalResponsibilitiesDescription",
                             "title": "Please describe the order about parental responsibilities you would like the court to make.",
                             "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.",
-                            "isRequired": true
+                            "isRequired": true,
+                            "visible": false,
+                            "visibleIf": "{orderChangeList} contains 'parentalResponsibilities'"
                         }
                     ]
                 },
@@ -180,6 +183,7 @@
                     "visible": false,
                     "visibleIf": "({orderChangeList} contains 'parentingTime') or ({orderChangeList} contains 'conditionsOnParentingTime')",
                     "elements": [
+                        
                         {
                             "type": "html",
                             "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Parenting Time</div>This is the time each guardian spends with the child. Guardians can arrange parenting time in any way that is in the best interests of the child. Parenting time can be shared equally, or one guardian can have the child more of the time.</div>",

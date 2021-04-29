@@ -2,6 +2,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
         <div v-if="showTable" :key="tableKey" class="my-5">
+            <b-card v-if="tableError" style="background-color:#f6e4e6; color: #961c1c">Please enter all the values.</b-card>
             <b-table
                 :items="guardianOfChildItem"
                 :fields="guardianOfChildFields"
@@ -102,7 +103,8 @@ export default class GuardianOfChild extends Vue {
 
     tableKey = 0;
     showTable = false;
-    showGuardianAssistance = false
+    showGuardianAssistance = false;
+    tableError = false;
 
     childrenNames = [];
     otherPartyNames = [];
@@ -119,11 +121,11 @@ export default class GuardianOfChild extends Vue {
     ]
 
    
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+    // @Watch('pageIndex')
+    // pageIndexChange(newVal) 
+    // {
+    //     this.survey.currentPageNo = newVal;        
+    // }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -216,23 +218,40 @@ export default class GuardianOfChild extends Vue {
             if(this.survey.data.cancelGuardianDetails) this.guardianOfChildItem = this.survey.data.cancelGuardianDetails;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }       
+        }
         
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.setPages();
         this.determineShowingTable();
+
+        if(this.checkTableError())
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);        
+        else
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
     }
 
     public AddRow(){
-        console.log('add')
+        //console.log('add')
         if(this.childrenNames.length>this.guardianOfChildItem.length)
             this.guardianOfChildItem.push({name:'', nameOther:'', date:'', relationship:''},)
     }
 
     public RemoveRow(){
-        console.log('remove')
+        //console.log('remove')
         if(this.guardianOfChildItem.length>1)
             this.guardianOfChildItem.pop()
+    }
+
+    public checkTableError(){
+        console.log( this.guardianOfChildItem)
+        for(const itemIndex in this.guardianOfChildItem){
+            const childItem = this.guardianOfChildItem[itemIndex]
+            if(!childItem.name || !childItem.nameOther || !childItem.date || !childItem.relationship){
+                this.tableError = true;
+                return true
+            }
+        }
+        this.tableError=false;
+        return false
     }
 
     public onPrev() {
@@ -240,14 +259,17 @@ export default class GuardianOfChild extends Vue {
     }
 
     public onNext() {
-        if(!this.survey.isCurrentPageHasErrors) {
+        if(!this.survey.isCurrentPageHasErrors && !this.checkTableError()) {
             this.UpdateGotoNextStepPage()
         }
     }  
     
     beforeDestroy() {
         this.survey.setValue('cancelGuardianDetails', this.guardianOfChildItem)
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        if(this.checkTableError())
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);        
+        else
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {GuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

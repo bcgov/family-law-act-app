@@ -18,10 +18,12 @@
           "visibleIf": "{unpaid} == 'y'",
           "elements": [
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "unPaidAmount",
-              "isRequired": true,
-              "title": "What is the amount of unpaid spousal support you believe is still owing?"
+              "title":"<div style='display:inline; font-weight: bold;font-size: 1.45em;' class='sv_main sv_q_title'>What is the amount of unpaid spousal support you believe is still owing? $ </div>",
+              "titleLocation":"hidden",
+              "widthInput":"9rem",              
+              "isRequired": true
             },
             {
               "type": "yesno",
@@ -30,13 +32,15 @@
               "isRequired": true
             },
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "reduceAmount",
-              "title": "What amount do you want it reduced to?",
+              "title":"<div style='display:inline; font-weight: bold;font-size: 1.45em;' class='sv_main sv_q_title'>What amount do you want it reduced to? $ </div>",
+              "titleLocation":"hidden",
+              "widthInput":"9rem",
               "visible": false,
-              "visibleIf": "{applyToReduce} == 'y'",
+              "visibleIf": "{applyToReduce} == 'y'", 
               "isRequired": true
-            },
+            },           
             {
               "type": "comment",
               "name": "whyReduceAmount",
@@ -64,14 +68,15 @@
               ]             
             },
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "monthlyAmount",
-              "title": "Please enter the monthly rate:",                         
+              "title":"<div style='display:inline; font-weight: bold;font-size: 1.45em;' class='sv_main sv_q_title'>Please enter the monthly rate: $ </div>",
+              "titleLocation":"hidden",
+              "widthInput":"9rem",
               "visible": false,
-              "visibleIf": "{paymentSchedule} == 'monthly'",
+              "visibleIf": "{paymentSchedule} == 'monthly'", 
               "isRequired": true
             }
-
           ]
         }
       ],
