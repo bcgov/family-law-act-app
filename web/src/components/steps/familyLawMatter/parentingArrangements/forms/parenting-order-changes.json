@@ -160,12 +160,12 @@
                     "visible": false,
                     "visibleIf": "{orderChangeList} contains 'parentalResponsibilities'",
                     "elements": [
+                        
                         {
-                            "type": "infotexttitle",
-                            "title": "Parental Responsibilities",
+                            "type": "html",
                             "name": "ChangeParentalResponsibilitiesAgreementExplanation",
-                            "description": "Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians can share parental responsibilities in whatever way works best for their child.<br>The <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section41\" target=\"blank\">Family Law Act</a> provides a list of parental responsibilities.<br><br>If you are the only guardian for a child, you may want a court order to more easily show that you are the only person with parental responsibility for the child including making decisions about things like permission to travel and consent for medical procedures.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parental responsibilities and when. Parental responsibilities may be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.",
-                            "messageStyle": "inline"
+                            "title": "Parental Responsibilities",
+                            "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Parental Responsibilities</div>Guardians make decisions about their child, including daily care and supervision, education, medical treatment, receiving information about the child from others, and protecting the child’s legal and financial interests. These are examples of parental responsibilities. Guardians can share parental responsibilities in whatever way works best for their child.<br>The <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section41\" target=\"blank\">Family Law Act</a> provides a list of parental responsibilities.<br><br>If you are the only guardian for a child, you may want a court order to more easily show that you are the only person with parental responsibility for the child including making decisions about things like permission to travel and consent for medical procedures.<br><br>If there is more than one guardian for a child, an agreement or court order can help to make it clear who has certain parental responsibilities and when. Parental responsibilities may be shared with the guardians cooperating to make decisions jointly, exercised by only one guardian, or divided between more than one guardian with each having parental responsibilities over different decisions. You must carefully consider what is best for the child.<br><br>Talk to a lawyer if you need help figuring out how parental responsibilities should be set up for your family.</div>"
                         },
                         {
                             "type": "comment",
@@ -184,12 +184,12 @@
                     "visible": false,
                     "visibleIf": "({orderChangeList} contains 'parentingTime') or ({orderChangeList} contains 'conditionsOnParentingTime')",
                     "elements": [
+                        
                         {
-                            "type": "infotexttitle",
-                            "title": "Parenting Time",
+                            "type": "html",
                             "name": "ChangeParentingTimeAgreementExplanation",
-                            "description": "This is the time each guardian spends with the child. Guardians can arrange parenting time in any way that is in the best interests of the child. Parenting time can be shared equally, or one guardian can have the child more of the time.",
-                            "messageStyle": "inline"
+                            "title": "Parenting Time",
+                            "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Parenting Time</div>This is the time each guardian spends with the child. Guardians can arrange parenting time in any way that is in the best interests of the child. Parenting time can be shared equally, or one guardian can have the child more of the time.</div>"
                         },
                         {
                             "type": "comment",
@@ -218,11 +218,11 @@
                     "visibleIf": "({orderChangeList} contains 'otherTermsAboutParentingArrangements')",
                     "elements": [
                         {
-                            "type": "infotexttitle",
+                            "type": "html",
                             "title": "Parenting Arrangements",
                             "name": "ChangeOtherTermsAboutParentingArrangementsOrderExplanationFAQ",
-                            "description": "Sometimes there are other things related to parenting arrangements that you would like included in your court order, such as: <ul><li>how you and the other guardian will communicate with each other</li><li>exchange and transport of the children between guardians</li><li>where the children and/or guardians’ residence is located</li><li>travel with the children</li><li>what you will do if there are problems with the parenting time or other parenting issues</li><li>how you will make changes to parental responsibilities or parenting time if the child’s needs change</li></ul>Talk to a lawyer if you need help figuring out if there are other parenting arrangements your family needs to consider.<br><br>The following resources may be helpful:<br>Department of Justice <a href=\"https://www.justice.gc.ca/eng/fl-df/parent/ppc-lvppp/index.html\" target=\"blank\">Parenting Plan Checklist</a><br>Provincial Court BC – <a href=\"https://www.provincialcourt.bc.ca/downloads/pdf/Dars%20FLA%20Orders%20Bench%20Picklist%20-%20for%20website.pdf\" target=\"blank\">FLA Picklist</a>",
-                            "messageStyle": "inline"
+                            "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Parenting Arrangements</div>Sometimes there are other things related to parenting arrangements that you would like included in your court order, such as: <ul><li>how you and the other guardian will communicate with each other</li><li>exchange and transport of the children between guardians</li><li>where the children and/or guardians’ residence is located</li><li>travel with the children</li><li>what you will do if there are problems with the parenting time or other parenting issues</li><li>how you will make changes to parental responsibilities or parenting time if the child’s needs change</li></ul>Talk to a lawyer if you need help figuring out if there are other parenting arrangements your family needs to consider.<br><br>The following resources may be helpful:<br>Department of Justice <a href=\"https://www.justice.gc.ca/eng/fl-df/parent/ppc-lvppp/index.html\" target=\"blank\">Parenting Plan Checklist</a><br>Provincial Court BC – <a href=\"https://www.provincialcourt.bc.ca/downloads/pdf/Dars%20FLA%20Orders%20Bench%20Picklist%20-%20for%20website.pdf\" target=\"blank\">FLA Picklist</a></div>"
+                            
                         },
                         {
                             "type": "comment",
