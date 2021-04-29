@@ -171,7 +171,7 @@ export default class ApplicationStatus extends Vue {
     public UpdateLocationsInfo!: (newLocationsInfo) => void
 
     @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public UpdatePathwayCompletedFull!: (newPathwayCompleted) => void
 
     @applicationState.Action
     public UpdateRequiredDocuments!: (newRequiredDocuments) => void
@@ -310,12 +310,8 @@ export default class ApplicationStatus extends Vue {
             if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
                 this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
 
-            if(this.currentApplication.steps[0]['result']){
-                for(const form  of this.currentApplication.steps[0]['result']['selectedForms']){
-                    if(this.currentApplication.steps[0]['result']['pathwayCompleted'][form])
-                        this.UpdatePathwayCompleted({pathway:form, isCompleted:true})
-                }
-            }
+            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['pathwayCompleted'])
+                this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           
 
             this.$router.push({name: "flapp-surveys" })        
         }, err => {

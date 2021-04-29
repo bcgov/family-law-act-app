@@ -870,13 +870,22 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public setPathwayCompletedFull(newPathwayCompleted): void {
+        this.pathwayCompleted = newPathwayCompleted;
+    }
+    @Action
+    public UpdatePathwayCompletedFull(newPathwayCompleted) {
+        this.context.commit("setPathwayCompletedFull",newPathwayCompleted);
+    }
+
+    @Mutation
     public setPathwayCompleted({pathway, isCompleted}): void {
         this.pathwayCompleted[pathway] = isCompleted;
     }
     @Action
     public UpdatePathwayCompleted({pathway, isCompleted}) {
         //console.log(pathway,isCompleted)
-        this.context.commit("setPathwayCompleted", {pathway, isCompleted});
+        this.context.commit("setPathwayCompleted", {pathway, isCompleted}); 
         this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});            
         //console.log(this.pathwayCompleted)
         let newAllCompleted = false;

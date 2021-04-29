@@ -7,7 +7,7 @@
                 :style="{display:'inline-block', width:inputWidths[inx], margin:'0.5rem'}" 
                 :type="inputTypes[inx]" 
                 :disabled="readOnly"
-                @change="inputChanged(inx)"
+                @change="inputChanged"
                 v-model="pendingValue[fields[inx].name]"
                 :id="fields[inx].id"/>
         </div>
@@ -90,7 +90,7 @@ export default class MultipleTextInput extends Vue {
         return dataInput.split('},{');
     }
 
-    public inputChanged(inx){
+    public inputChanged(){
         //console.log(inx)
         const currentVal = this.question.value || {};
         let updatedVal = {};

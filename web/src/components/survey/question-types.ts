@@ -11,6 +11,7 @@ import YesNo from "./components/YesNo.vue";
 import InfoTextTitle from "./components/InfoTextTitle.vue";
 import TextBeforeInputNumber from "./components/TextBeforeInputNumber.vue";
 import MultipleTextInput from "./components/MultipleTextInput.vue"
+import AdvancedRadioGroup from "./components/AdvancedRadioGroup.vue"
 
 function fixCheckboxes(Survey: any) {
   const widget = {
@@ -461,6 +462,58 @@ function initMultipleTextInput(Survey: any) {
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
+function initAdvancedRadioGroup(Survey: any) {
+  const widget = {
+    name: "AdvancedRadioGroup",
+    title: "Advanced Radio Group",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "advancedradiogroup";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("advancedradiogroup",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("advancedradiogroup", [        
+        {
+          name: "textClass:text"
+        },
+        {
+          name: "inputNames:text"
+        },
+        {
+          name: "inputTypes:text"
+        },
+        {
+          name: "inputWidths:text"
+        },
+        {
+          name: "radioOutputValues:text"
+        },
+        {
+          name: "textBeforeInputs:text"
+        },
+        {
+          name: "radioTextMargins:text"
+        },
+        {
+          name: "radioMargins:text"
+        },
+        {
+          name: "hasOther:boolean"
+        },
+        {
+          name: "otherText:text"
+        },
+      ]);
+    },
+  };
+
+  Vue.component("AdvancedRadioGroup", AdvancedRadioGroup);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
 
 //__________________________________________________________________________________________________
 // Returns 'y' or 'n', or 'u' for undefined and 'e' for error
@@ -516,6 +569,7 @@ export function addQuestionTypes(Survey: any) {
   initInfoTextTitle(Survey);
   initTextBeforeInputNumber(Survey);
   initMultipleTextInput(Survey);
+  initAdvancedRadioGroup(Survey);
 
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
@@ -616,6 +670,18 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "multipletextinput",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "advancedradiogroup",
+    title: "Advanced Radio Group",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "advancedradiogroup",
       titleLocation: "hidden"
     }
   });
