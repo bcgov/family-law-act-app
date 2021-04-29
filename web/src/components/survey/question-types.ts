@@ -10,6 +10,7 @@ import YesNo from "./components/YesNo.vue";
 
 import InfoTextTitle from "./components/InfoTextTitle.vue";
 import TextBeforeInputNumber from "./components/TextBeforeInputNumber.vue";
+import MultipleTextInput from "./components/MultipleTextInput.vue"
 
 function fixCheckboxes(Survey: any) {
   const widget = {
@@ -195,36 +196,6 @@ function initInfoText(Survey: any) {
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
-function initInfoTextTitle(Survey: any) {
-  const widget = {
-    name: "InfoTextTitle",
-    title: "Message Text",
-    iconName: "icon-panel",
-    widgetIsLoaded: function() {
-      return true;
-    },
-    isFit: function(question: any) {
-      return question.getType() === "infotexttitle";
-    },
-    activatedByChanged: function(activatedBy: any) {
-      Survey.JsonObject.metaData.addClass("infotexttitle", [], null, "empty");
-      Survey.JsonObject.metaData.addProperties("infotexttitle", [
-        {
-          name: "body:text"
-        },
-        {
-          name: "messageStyle",
-          default: "info",
-          choices: ["info", "inline", "error","redinfo"]
-        }
-      ]);
-    }
-  };
-
-  Vue.component("InfoTextTitle", InfoTextTitle);
-  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
-}
-
 function initYesNo(Survey: any) {
   const widget = {
     name: "YesNo",
@@ -394,6 +365,39 @@ function initCustomDate(Survey: any) {
   Vue.component("CustomDate", CustomDate);
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "property");
 }
+//_______________________________________________________________________________________
+//_______________________________________ NEW CUSTOM ____________________________________
+//_______________________________________________________________________________________
+
+function initInfoTextTitle(Survey: any) {
+  const widget = {
+    name: "InfoTextTitle",
+    title: "Message Text",
+    iconName: "icon-panel",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "infotexttitle";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("infotexttitle", [], null, "empty");
+      Survey.JsonObject.metaData.addProperties("infotexttitle", [
+        {
+          name: "body:text"
+        },
+        {
+          name: "messageStyle",
+          default: "info",
+          choices: ["info", "inline", "error","redinfo"]
+        }
+      ]);
+    }
+  };
+
+  Vue.component("InfoTextTitle", InfoTextTitle);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
 
 function initTextBeforeInputNumber(Survey: any) {
   const widget = {
@@ -420,6 +424,45 @@ function initTextBeforeInputNumber(Survey: any) {
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
+function initMultipleTextInput(Survey: any) {
+  const widget = {
+    name: "MultipleTextInput",
+    title: "Multiple Text Input",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "multipletextinput";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("multipletextinput",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("multipletextinput", [        
+        {
+          name: "textClass:text"
+        },
+        {
+          name: "inputNames:text"
+        },
+        {
+          name: "inputTypes:text"
+        },
+        {
+          name: "inputWidths:text"
+        },
+        {
+          name: "textBeforeInputs:text"
+        }
+      ]);
+    },
+  };
+
+  Vue.component("MultipleTextInput", MultipleTextInput);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
+
+//__________________________________________________________________________________________________
 // Returns 'y' or 'n', or 'u' for undefined and 'e' for error
 function isChild(params: any) {
   if (!params && !params.length) return "u";
@@ -472,6 +515,7 @@ export function addQuestionTypes(Survey: any) {
   
   initInfoTextTitle(Survey);
   initTextBeforeInputNumber(Survey);
+  initMultipleTextInput(Survey);
 
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
@@ -560,6 +604,18 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "textbeforeinputnumber",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "multipletextinput",
+    title: "Multiple Text Input",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "multipletextinput",
       titleLocation: "hidden"
     }
   });

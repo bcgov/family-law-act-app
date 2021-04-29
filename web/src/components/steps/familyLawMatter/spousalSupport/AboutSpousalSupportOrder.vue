@@ -1,10 +1,10 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <input style="display:inline; margin:0 0.5rem 0 0.5rem; width:8rem;" type="number" id='monthly-amount' v-model="monthlyAmount"  @change="changeMonthlyAmount"/>
-        <input style="display:inline; margin:1rem 0.5rem 0 0.5rem; width:9rem" type="number" id='lump-sum-amount' v-model="lumpSumAmount"  @change="changeLumpSumAmount"/>
+        <input class="form-control" style="display:inline; margin:0 0.5rem 0 0.5rem; width:8rem;" type="number" id='monthly-amount' v-model="monthlyAmount"  @change="changeMonthlyAmount"/>
+        <input class="form-control" style="display:inline; margin:1rem 0.5rem 0 0.5rem; width:9rem" type="number" id='lump-sum-amount' v-model="lumpSumAmount"  @change="changeLumpSumAmount"/>
 
-        <input style="display:inline; margin:0 0.5rem 0 0.5rem;" type="date" id='start-date' v-model="startDate"  @change="changeStartDate"/>
-        <input style="display:inline; margin:1rem 0.5rem 0 0.5rem;" type="date" id='end-date' v-model="endDate"  @change="changeEndDate"/>
+        <input class="form-control" style="display:inline; margin:0 0.5rem 0 0.5rem;" type="date" id='start-date' v-model="startDate"  @change="changeStartDate"/>
+        <input class="form-control" style="display:inline; margin:1rem 0.5rem 0 0.5rem;" type="date" id='end-date' v-model="endDate"  @change="changeEndDate"/>
 
         <survey v-bind:survey="survey"></survey>
     </page-base>
