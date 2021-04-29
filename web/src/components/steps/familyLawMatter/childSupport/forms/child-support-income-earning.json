@@ -16,11 +16,14 @@
               "isRequired": true
             },
             {
-              "type": "html",
-              "name": "incomeAmount",
-              "visible": false,
-              "visibleIf": "{knowIncome} == 'y'",
-              "html": "<div style=\"font-weight: bold;\" class=\"sv_main sv_q_title\">I believe the other party’s annual income is: $<input id='other-party-income-template'/></div>"
+              "type": "textbeforeinputnumber",
+              "name": "otherPartyIncome",
+              "title":"<div style='display:inline; font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>I believe the other party’s annual income is: $ </div>",
+              "titleLocation":"hidden",
+              "widthInput":"9rem",
+              "visible":false,
+              "visibleIf":"{knowIncome} == 'y'",
+              "isRequired": true
             },
             {
               "type": "yesno",

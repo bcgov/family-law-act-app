@@ -151,7 +151,7 @@ export default class OtherPartyCommon extends Vue {
 
     mounted(){    
         this.flmInfo = false;    
-        const progress = this.otherPartyData.length==0? 50 : 100;            
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
@@ -179,7 +179,7 @@ export default class OtherPartyCommon extends Vue {
 
     public populateSurveyData(opValue) {
         const currentIndexValue =
-            this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
+            this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
         this.otherPartyData = [...this.otherPartyData, newParty];
@@ -219,7 +219,7 @@ export default class OtherPartyCommon extends Vue {
 
     public isDisableNext() {
         // demo
-        return this.otherPartyData.length <= 0;
+        return this.otherPartyData? (this.otherPartyData.length <= 0): true;
     }
 
     public getDisableNextText() {

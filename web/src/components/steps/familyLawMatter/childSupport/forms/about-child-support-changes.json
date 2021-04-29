@@ -14,16 +14,22 @@
               "isRequired": true,
               "title": "Please describe the order about child support you would like the court to make.",
               "description": "Explain what you need the new court order to say about child support. You do not need to use any special wording. The key is to be clear about what part of the existing order or agreement you want to keep and what may need to be changed."
-            },
+            },            
             {
-              "type": "text",
+              "type": "advancedradiogroup",
               "name": "orderStartingDate",
               "title": "When do you want the order about child support to start?",
               "description": "You need to tell the court when you think the new order should start. Child support payments may start or end on a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
-              "isRequired": true,
-              "inputType": "date",
-              "dateYearsAhead": 20
-            },
+              "radioOutputValues":"{ExactDate}",
+              "inputNames":"{startingDate}",
+              "inputTypes":"{date}",
+              "inputWidths":"{12rem}",                  
+              "textBeforeInputs":"{Enter exact date:},{}",
+              "radioMargins":"0 0 0.5rem 0",
+              "radioTextMargins":"-0.6rem 0 0 0",
+              "hasOther": true,
+              "isRequired": true
+            },    
             {
               "type": "comment",
               "name": "orderStartDateReason",

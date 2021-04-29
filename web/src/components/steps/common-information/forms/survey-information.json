@@ -156,12 +156,20 @@
                   "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Lawyer’s statement</div>Complete the statement below.</div>"
                 },
                 {
-                  "type": "html",
+                  "type": "multipletextinput",
                   "name": "lawyerStatement",
                   "visible": false,
                   "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
-                  "html": "<div style='font-weight: bold;' class='sv_q_title'>I <input id='lawyer-name-template'/>, the lawyer for <input id='client-name-template'/>, acknowledge that I have complied with the requirements of section 8 of the Family Law Act. </div>"
-                },
+                  "title": " ",
+                  "titleLocation":"hidden",
+                  "inputNames":"{lawyerName},{clientName}",
+                  "inputTypes":"{text},{text}",
+                  "inputWidths":"{35rem},{30rem}",                  
+                  "textBeforeInputs":"{I},{, the lawyer for},{, acknowledge that I have complied with the requirements of section 8 of the Family Law Act.}",
+                  "textClass": "sv_q_title font-weight-bold",
+                  "isRequired": true
+
+                },               
                 {
                   "type": "helptext",
                   "name": "FAQLawyerStatement",

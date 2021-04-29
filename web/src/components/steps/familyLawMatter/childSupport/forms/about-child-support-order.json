@@ -104,16 +104,22 @@
               "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.<br><br>In some cases, the court may also require income information for your child. You don’t need to provide it yet. Just be prepared if the court does ask for it.",            
               "titleLocation":"hidden",
               "messageStyle": "info"
-            },
+            },           
             {
-              "type": "text",
-              "name": "paymentRequestStartingDate",
+              "type": "advancedradiogroup",
+              "name": "paymentRequestStartingDate",              
               "title": "When do you want the child support payments to start?",
-              "description": "You need to tell the court when you think the child support payments should start. This could be a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
-              "isRequired": true,
-              "inputType": "date",
-              "dateYearsAhead": 5
-            },
+              "description" : "You need to tell the court when you think the child support payments should start. This could be a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
+              "radioOutputValues":"{ExactDate}",
+              "inputNames":"{startingDate}",
+              "inputTypes":"{date}",
+              "inputWidths":"{12rem}",                  
+              "textBeforeInputs":"{Enter exact date:},{}",
+              "radioMargins":"0 0 0.5rem 0",
+              "radioTextMargins":"-0.6rem 0 0 0",
+              "hasOther": true,
+              "isRequired": true
+            },       
             {
               "type": "comment",
               "name": "paymentRequestStartingDateWhy",

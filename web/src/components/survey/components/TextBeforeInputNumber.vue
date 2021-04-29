@@ -1,7 +1,12 @@
 <template>
     <div class="survey-personname">
        <div style="display:inline;" v-html="title" />
-       <input :style="{display:'inline',width:widthInput}" type="number" v-model="question.value"/>
+       <input 
+            class="form-control" 
+            :id="question.inputId" 
+            :style="{display:'inline',width:widthInput}" 
+            type="number" 
+            v-model="question.value"/>
     </div>
 </template>
 

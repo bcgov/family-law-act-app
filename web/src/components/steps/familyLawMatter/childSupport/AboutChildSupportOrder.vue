@@ -1,42 +1,6 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <survey v-bind:survey="survey"></survey>
-        <div>
-            <div style='margin-bottom:1rem'>
-                <div style='font-weight: bold;font-size: 1.5em;color: #556077;' class='sv_main sv_q_title'>
-                    When do you want the child support payments to start?
-                </div> 
-                You need to tell the court when you think the child support payments should start.
-                This could be a date or event in the past, present, or it could be a future date or event.
-                The court can order payment of retroactive child support (starting from a date in the past)
-                and order ongoing child support.
-            </div>
-            <div>
-                <b-form-group >
-                    <b-form-radio 
-                        style='margin-bottom:1rem'
-                        v-model="childSupportStartType" 
-                        value="date">
-                        <b-form-input 
-                            v-model="startDate" 
-                            type="date"
-                            :disabled="childSupportStartType == 'event'">
-                        </b-form-input>
-                    </b-form-radio>
-                    <b-form-radio 
-                        style='margin-bottom:1rem'
-                        v-model="childSupportStartType" 
-                        value="event">
-                        <b-form-input 
-                            v-model="startEvent"
-                            :disabled="childSupportStartType == 'date'">
-                        </b-form-input>
-                    </b-form-radio>
-                </b-form-group>                
-
-            </div>
-
-        </div>
+        <survey v-bind:survey="survey"></survey>        
     </page-base>
 </template>
 
@@ -165,7 +129,9 @@ export default class AboutChildSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            console.log(options)
+            //console.log(options)
+            console.log(this.survey.data['paymentRequestStartingDate'])
+
             if (options.name == 'listOfChildren'){
                 this.setSelectedChildNames(options.value);
             }
