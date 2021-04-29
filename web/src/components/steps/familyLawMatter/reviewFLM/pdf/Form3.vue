@@ -800,25 +800,25 @@
                         <check-box style="" :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
                         <div>Since the final order about child support was made, circumstances have changed as follows:</div>
                         <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('My financial situation has changed')?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('I believe the other party’s financial situation has changed')?'yes':''" text="I believe the other party’s financial situation has changed"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The `special and extraordinary expenses` have changed')" 
+                        <check-box style="" :check="exChSupInfo.abtEx.changes.myfin?'yes':''" text="my financial situation has changed"/>
+                        <check-box style="" :check="exChSupInfo.abtEx.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changes.spcl?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changes.spcl" 
                             class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('The living arrangements for a child have changed')" 
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changes.lvng?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changes.lvng" 
                             class="answerbox">{{exChSupInfo.abtEx.lvngChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Information has become available that was not available when the order was made')" 
+                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changes.newInfo" 
                             class="answerbox">{{exChSupInfo.abtEx.newInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                         
-                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')?'yes':''" text="other changes or circumstances (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changeList && exChSupInfo.abtEx.changeList.includes('Other changes or circumstances')" 
+                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changes.other?'yes':''" text="other changes or circumstances (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changes.other" 
                             class="answerbox">{{exChSupInfo.abtEx.otherInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -942,20 +942,20 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                     <div style="margin:0 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.length>0 && !exChSupInfo.abtOrg.situationList.includes('None of the above apply to my situation')?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
+                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList.length>0 && !exChSupInfo.abtOrg.situation.other?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
                         <i>Select all options that apply</i>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('I am required to pay child support')?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('There is `split` or `shared` parenting time')?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('There is a child 19 years or older for who support is for')?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('A party has been acting as a parent to a child of the other party, for example a step-parent')?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('The paying parent earns more than $150,000 per year')?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('There is a claim for `special and extraordinary expenses` for a child')?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('I am claiming `undue hardship`')?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box style="" :check="exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
                     </div>
                     <div style="margin:0.5rem 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList && exChSupInfo.abtOrg.situationList.includes('None of the above apply to my situation')?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
+                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situation.none?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
                         <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
                     </div>
                 </section>
@@ -1348,10 +1348,10 @@
                 <div style="display:inline; margin:0 0 0 0.5rem;">I believe that I am, or the other party is, entitled to spousal support for the following reason(s):</div>
                 <div style="margin:0 0 0 1.5rem;">
                     <i style="margin:0 0 0 0rem;" >Select all options that apply</i>
-                    <check-box style="" :check="true?'yes':''" text="there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
-                    <check-box style="" :check="true?'yes':''" text="to share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
-                    <check-box style="" :check="true?'yes':''" text="to relieve economic hardship of the spouses arising from the breakdown of the relationship"/>
-                    <check-box style="" :check="true?'yes':''" text="to help each spouse become financially independent within a reasonable period"/>                    
+                    <check-box style="" :check="spsSupInfo.current.adv?'yes':''" text="there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
+                    <check-box style="" :check="spsSupInfo.current.share?'yes':''" text="to share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
+                    <check-box style="" :check="spsSupInfo.current.hardship?'yes':''" text="to relieve economic hardship of the spouses arising from the breakdown of the relationship"/>
+                    <check-box style="" :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="to help each spouse become financially independent within a reasonable period"/>                    
                 </div>            
             </section>
 
@@ -1360,6 +1360,9 @@
 <!-- <2> -->
                 <section>
                     <div style="display:inline; margin:0 0 0rem 0.35rem;">The current support arrangements are as follows:</div>
+                    <div v-if="spsSupInfo.current.crntArrngmnt.length > 0" 
+                            class="answerbox">{{spsSupInfo.current.crntArrngmnt}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                 </section>        
             </div>
         
@@ -1368,6 +1371,9 @@
 <!-- <3> -->
                 <section>
                     <div style="display:inline; margin:0 0 0rem 0.35rem;">My current employment situation, training, health and ability to work are as follows:</div>
+                    <div v-if="spsSupInfo.incomeInfo.myIncome.length > 0" 
+                            class="answerbox">{{spsSupInfo.incomeInfo.myIncome}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                 </section>
             </div>
 
@@ -1376,9 +1382,9 @@
             <section>               
                 <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                 <div style="margin:0 0 0 1.25rem;">
-                    <check-box style="" :check="true?'yes':''" text="I do not know the income of the other party"/>
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="I believe the other party’s annual income is $"/>
-                    <underline-form style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" text="123,456.78"/>
+                    <check-box style="" :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the other party"/>
+                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the other party’s annual income is $"/>
+                    <underline-form style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
                 </div>
             </section>
 
@@ -1389,30 +1395,33 @@
                 <div style="margin:0 0 3rem 1.5rem;">
                     <i style="margin:0 0 0 0rem;" >If you do not have any information, please leave this section blank</i>
                 </div>
+                <div v-if="spsSupInfo.incomeInfo.myIncome.knowFacts" 
+                     class="answerbox">{{spsSupInfo.incomeInfo.facts}}</div>
+                <div v-else style="margin-bottom:3rem;"></div>
             </section>
 
             <div class="print-block">
                 <div style="margin-top:1rem;"><b>About the order</b></div>
 <!-- <6> -->
                 <section>
-                    <underline-form style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" beforetext="I am applying for an order for spousal support to be paid by" hint="name of paying party" text=""/>                
+                    <underline-form style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" beforetext="I am applying for an order for spousal support to be paid by" hint="name of paying party" :text="spsSupInfo.current.payors"/>                
                     <div style="display:inline; margin:0 0 0 0.5rem;">as follows:</div>
                     <div>
                         <i style="margin:0 0 0 1.5rem;" >Select all options that apply and complete the required information</i>
                     </div>
                     <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="in the amount of "/>
-                        <underline-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="5rem" beforetext="$" hint="" text="123,456.00"/>            
-                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="per month to commence on" hint="mmm/dd/yyyy" text="APR 20, 2020"/>            
-                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="until" hint="mmm/dd/yyyy" text="APR 20, 2020"/>            
+                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.monthly?'yes':''" text="in the amount of "/>
+                        <underline-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="5rem" beforetext="$" hint="" :text="spsSupInfo.payDetails.rate"/>            
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="per month to commence on" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.start"/>            
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="until" hint="mmm/dd/yyyy" :text="spsSupInfo.payDetails.end"/>            
                     </div>
                     <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.5rem;">
-                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="in a lump sum of"/>
-                        <underline-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="8rem" beforetext="$" hint="" text="123,456.00"/>            
+                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.lumpSum?'yes':''" text="in a lump sum of"/>
+                        <underline-form style="text-indent:0;margin-left:.25rem;display:inline-block;" textwidth="8rem" beforetext="$" hint="" :text="spsSupInfo.payDetails.lumpSumAmount"/>            
                     </div>
                     <div class="marginleft2p5vue" style="margin:0.25rem 0 0rem 1.5rem;">
-                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
-                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" text=""/>            
+                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>"/>
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="32.35rem" beforetext="" hint="" :text="spsSupInfo.payDetails.otherComm"/>            
                     
                     </div>
                 </section>
@@ -1424,9 +1433,12 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 3rem 1.25rem;">
-                        <check-box style="" :check="true?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
-                        <check-box style="" :check="true?'yes':''" text="I am not attaching calculations because:"/>
+                        <check-box style="" :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
+                        <check-box style="" :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
                     </div>
+                    <div v-if="!spsSupInfo.calc.attaching" 
+                        class="answerbox">{{spsSupInfo.calc.reason}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
                 </section>
             </div>
 
@@ -1671,6 +1683,7 @@ export default class Form3 extends Vue {
     chContInfo = {}
     exChContInfo = {}
     guardInfo = {}
+    spsSupInfo = {}
    
     mounted(){
         this.dataReady = false;
@@ -1786,7 +1799,15 @@ export default class Form3 extends Vue {
 
         if (this.selectedSchedules.includes('schedule7') || this.selectedSchedules.includes('schedule8')){
             this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
-        }        
+        } 
+        
+        if (this.selectedSchedules.includes('schedule9')){
+            this.spsSupInfo = this.getNewSpousalSupportInfo();
+        }
+
+        if (this.selectedSchedules.includes('schedule10')){
+            this.spsSupInfo = this.getExistingSpousalSupportInfo();
+        }
         
         this.otherPartyInfo=this.getOtherPartyInfo()
         this.yourInformationSurvey = this.getYourInfo()
@@ -2028,11 +2049,62 @@ export default class Form3 extends Vue {
     }
 
     public getExistingChildSupportInfo(){
-        let existingChildSupportInfo = {abtEx: {}, abtOrg: {}, unpdChSup: {}, calc:{}, strtPy:{}, finStmnt:{}};
+        let existingChildSupportInfo = {
+            abtEx: {
+                payor: false,
+                payee: false,
+                other: false,
+                otherComm: '',
+                orderDate: '',
+                exstngOrdr: false,
+                fldDrctr: false,
+                cancelOrdr: false,
+                changeOrdr: false,
+                changeList: [],
+                changes:{
+                    myfin: false,
+                    opfin: false,
+                    spcl: false,
+                    lvng: false,
+                    newInfo: false,
+                    other: false
+                },
+                newInfo: '',
+                expChangeInfo: '',
+                lvngChangeInfo:'',
+                otherInfo: '',
+                exstngAgrmnt: false,
+                setAsideAgrmnt: false,
+                replaceAgrmnt: false,
+                changesSinceAgrmnt: ''  
+            }, 
+            abtOrg: {
+                newOrderDesc: '',
+                startDate: '',
+                startReason: '',
+                situationList: [],
+                situation: {
+                    payor: false,
+                    split: false,
+                    over19: false,
+                    partyParentOfOther: false,
+                    payorEarnsHigh: false,
+                    specialClaim: false,
+                    undueHardship: false,
+                    none:false
+                }
+            }, 
+            unpdChSup: {}, 
+            calc:{}, 
+            strtPy:{}, 
+            finStmnt:{}
+        };
 
         console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey){
+            const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList:[];
+                
             existingChildSupportInfo.abtEx = {                
                 payor: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payor'),
                 payee: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payee'),
@@ -2043,7 +2115,15 @@ export default class Form3 extends Vue {
                 fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
                 cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
                 changeOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
-                changeList: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList:[],
+                changeList: orderChangeList,
+                changes:{
+                    myfin: orderChangeList.includes('My financial situation has changed'),
+                    opfin: orderChangeList.includes('I believe the other party’s financial situation has changed'),
+                    spcl: orderChangeList.includes('The `special and extraordinary expenses` have changed'),
+                    lvng: orderChangeList.includes('The living arrangements for a child have changed'),
+                    newInfo: orderChangeList.includes('Information has become available that was not available when the order was made'),
+                    other: orderChangeList.includes('Other changes or circumstances')
+                },
                 newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
                 expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
                 lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
@@ -2056,11 +2136,22 @@ export default class Form3 extends Vue {
         }
 
         if (this.result.aboutChildSupportChangesSurvey){
+            const orgSituationList = ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.listOfSituations)?this.result.aboutChildSupportChangesSurvey.listOfSituations:[]
             existingChildSupportInfo.abtOrg = {                
                 newOrderDesc: (existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr'])?this.result.aboutChildSupportChangesSurvey.orderDescription:'',
                 startDate: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.orderStartingDate)?this.result.aboutChildSupportChangesSurvey.orderStartingDate:'',
                 startReason: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.orderStartDateReason)?this.result.aboutChildSupportChangesSurvey.orderStartDateReason:'',
-                situationList: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.listOfSituations)?this.result.aboutChildSupportChangesSurvey.listOfSituations:[]                    
+                situationList: orgSituationList,                    
+                situation: {
+                    payor: orgSituationList.includes('I am required to pay child support'),
+                    split: orgSituationList.includes('There is `split` or `shared` parenting time'),
+                    over19: orgSituationList.includes('There is a child 19 years or older for who support is for'),
+                    partyParentOfOther: orgSituationList.includes('A party has been acting as a parent to a child of the other party, for example a step-parent'),
+                    payorEarnsHigh: orgSituationList.includes('The paying parent earns more than $150,000 per year'),
+                    specialClaim: orgSituationList.includes('There is a claim for `special and extraordinary expenses` for a child'),
+                    undueHardship: orgSituationList.includes('I am claiming `undue hardship`'),
+                    none: orgSituationList.includes('None of the above apply to my situation')
+                }
             }
         }
 
@@ -2319,11 +2410,267 @@ export default class Form3 extends Vue {
                     over12: false,
                     acknowledge: false                    
                 };
-            }          
+            } 
+        }
+        return guardianshipInfo;
+    }
+
+    public getNewSpousalSupportInfo(){
+        let newSpousalSupportInfo = {
+            current: {
+                adv: false,
+                share: false,
+                hardship: false,
+                bcmIndpndnt: false,
+                crntArrngmnt: '',
+                payors: ''
+            },
+            incomeInfo: {
+                myIncome: '',
+                knowOpIncome: false,
+                opIncome: '',
+                knowFacts: false,
+                facts: ''
+            },
+            payDetails:{
+                monthly: false,
+                start: '',
+                end: '',
+                rate: '',
+                lumpSum: false,
+                lumpSumAmount: '',
+                other: false,
+                otherComm: ''
+            },
+            calc: {
+                attaching: false,
+                reason: ''
+            }
+        }
+
+        console.log(this.result)
+
+        if (this.result.spousalSupportSurvey){
+            const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons?this.result.spousalSupportSurvey.listOfReasons:[]
+            newSpousalSupportInfo.current = {
+                adv: entitlementReasons.includes('There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship'),
+                share: entitlementReasons.includes('To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child'),
+                hardship: entitlementReasons.includes('To relieve economic hardship of the spouses arising from the breakdown of the relationship'),
+                bcmIndpndnt: entitlementReasons.includes('To help each spouse become financially independent within a reasonable period'),
+                crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
+                payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
+                        && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors.toString():''
+            }
 
         }
 
-        return guardianshipInfo;
+        if (this.result.spousalSupportIncomeAndEarningPotentialSurvey){
+            newSpousalSupportInfo.incomeInfo = {
+                myIncome: this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo:'',
+                knowOpIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
+                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'),
+                opIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
+                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'
+                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount:'',
+                knowFacts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
+                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'),
+                facts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
+                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'
+                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation:''                
+            }
+        }
+
+        if (this.result.aboutSpousalSupportOrderSurvey){            
+            newSpousalSupportInfo.payDetails = {
+                monthly: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly'): false,
+                start: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
+                        && this.result.aboutSpousalSupportOrderSurvey.startDate)?this.result.aboutSpousalSupportOrderSurvey.startDate:'',
+                end: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
+                        && this.result.aboutSpousalSupportOrderSurvey.endDate)?this.result.aboutSpousalSupportOrderSurvey.endDate:'',
+                rate: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
+                        && this.result.aboutSpousalSupportOrderSurvey.monthlyAmount)?this.result.aboutSpousalSupportOrderSurvey.monthlyAmount:'',
+                lumpSum: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum'): false,
+                lumpSumAmount: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum')
+                        && this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount)? this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount:'',
+                other: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other'): false,
+                otherComm: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other') 
+                        && this.result.aboutSpousalSupportOrderSurvey.howToPayComment)? this.result.aboutSpousalSupportOrderSurvey.howToPayComment:''
+            }
+        }
+
+        if (this.result.calculatingSpousalSupportSurvey){
+            newSpousalSupportInfo.calc = {
+                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
+                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
+                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
+                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
+                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
+            }
+        }
+
+        return newSpousalSupportInfo;
+    }
+
+    public getExistingSpousalSupportInfo(){
+
+
+        // orderDate: Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate),
+        //         exstngOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder'),
+        //         fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
+        //         cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
+        //         changeOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
+        //         changeList: orderChangeList,
+        //         changes:{
+        //             myfin: orderChangeList.includes('My financial situation has changed'),
+        //             opfin: orderChangeList.includes('I believe the other party’s financial situation has changed'),
+        //             spcl: orderChangeList.includes('The `special and extraordinary expenses` have changed'),
+        //             lvng: orderChangeList.includes('The living arrangements for a child have changed'),
+        //             newInfo: orderChangeList.includes('Information has become available that was not available when the order was made'),
+        //             other: orderChangeList.includes('Other changes or circumstances')
+        //         },
+        //         newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
+        //         expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
+        //         lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
+        //         otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
+        //         exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
+        //         setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
+        //         replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
+        //         changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
+            
+
+        let existingSpousalSupportInfo = {
+            current: {
+                date: '',
+                order: false,
+                agreement: false,
+                directors: false,
+                reviewable: false,
+                fillForm: '',
+                description: ''
+            },
+            orderInfo: {
+                changes: {
+                    myfin: false,
+                    opfin: false,
+                    myEmp: false,
+                    opEmp: false,
+                    houseHold: false,
+                    newInfo: false,
+                    other: false
+                },
+                changesSinceOrder: '',
+                newInfo: '',
+                otherChange: '',
+                change: false,
+                cancel: false,
+                date: ''
+            },
+            agreementInfo: {
+                changes: {
+                    myfin: false,
+                    opfin: false,
+                    myEmp: false,
+                    opEmp: false,
+                    houseHold: false,
+                    newInfo: false,
+                    other: false
+                },
+                changesSinceOrder: '',
+                newInfo: '',
+                otherChange: '',
+                change: false,
+                cancel: false,
+                date: ''
+            },
+            payDetails:{
+                unpaid: false,
+                unPaidAmount: '',
+                reduce: false,
+                reduceAmmount: '',
+                reduceReason: '',
+                monthly: false,                
+                rate: '',
+                lumpSum: false,                
+                other: false,
+                otherComm: ''
+            },
+            calc: {
+                attaching: false,
+                reason: ''
+            }
+        }
+
+        console.log(this.result)
+
+        // if (this.result.spousalSupportSurvey){
+        //     const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons?this.result.spousalSupportSurvey.listOfReasons:[]
+        //     newSpousalSupportInfo.current = {
+        //         adv: entitlementReasons.includes('There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship'),
+        //         share: entitlementReasons.includes('To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child'),
+        //         hardship: entitlementReasons.includes('To relieve economic hardship of the spouses arising from the breakdown of the relationship'),
+        //         bcmIndpndnt: entitlementReasons.includes('To help each spouse become financially independent within a reasonable period'),
+        //         crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
+        //         payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
+        //                 && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors.toString():''
+        //     }
+
+        // }
+
+        // if (this.result.spousalSupportIncomeAndEarningPotentialSurvey){
+        //     newSpousalSupportInfo.incomeInfo = {
+        //         myIncome: this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo:'',
+        //         knowOpIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
+        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'),
+        //         opIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
+        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'
+        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount:'',
+        //         knowFacts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
+        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'),
+        //         facts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
+        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'
+        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation:''                
+        //     }
+        // }
+
+        // if (this.result.aboutSpousalSupportOrderSurvey){            
+        //     newSpousalSupportInfo.payDetails = {
+        //         monthly: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly'): false,
+        //         start: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
+        //                 && this.result.aboutSpousalSupportOrderSurvey.startDate)?this.result.aboutSpousalSupportOrderSurvey.startDate:'',
+        //         end: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
+        //                 && this.result.aboutSpousalSupportOrderSurvey.endDate)?this.result.aboutSpousalSupportOrderSurvey.endDate:'',
+        //         rate: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
+        //                 && this.result.aboutSpousalSupportOrderSurvey.monthlyAmount)?this.result.aboutSpousalSupportOrderSurvey.monthlyAmount:'',
+        //         lumpSum: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum'): false,
+        //         lumpSumAmount: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum')
+        //                 && this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount)? this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount:'',
+        //         other: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other'): false,
+        //         otherComm: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
+        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other') 
+        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPayComment)? this.result.aboutSpousalSupportOrderSurvey.howToPayComment:''
+        //     }
+        // }
+
+        if (this.result.calculatingSpousalSupportSurvey){
+            existingSpousalSupportInfo.calc = {
+                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
+                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
+                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
+                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
+                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
+            }
+        }
+
+        return existingSpousalSupportInfo;
 
     }
 
@@ -2372,10 +2719,7 @@ export default class Form3 extends Vue {
             }
             if (selectedFLMs.includes("contactWithChild")){
                 schedules.push("schedule5")
-            }
-            // if (selectedFLMs.includes("guardianOfChild")){
-            //     schedules.push("schedule7")
-            // }
+            }            
             if (selectedFLMs.includes("spousalSupport")){
                 schedules.push("schedule9")
             }
@@ -2390,10 +2734,7 @@ export default class Form3 extends Vue {
             }
             if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a Child")){
                 schedules.push("schedule6")
-            }
-            // if (selectedFLMs.includes("guardianOfChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Guardianship of a Child")){
-            //     schedules.push("schedule8")
-            // }
+            }           
             if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
                 schedules.push("schedule10")
             }
