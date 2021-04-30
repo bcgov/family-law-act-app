@@ -211,7 +211,18 @@ export default class OtherParty extends Vue {
             const respondentCommon = this.$store.state.Application.steps[0].result.respondentsCommon
             respondentName.push(...respondentCommon)
         }
-        this.UpdateCommonStepResults({data:{'respondents':respondentName}})
+        //console.log(respondentName)
+        const fullNamesArray =[];
+        for(const name of respondentName ){
+            fullNamesArray.push(Vue.filter('getFullName')(name))
+        }
+
+        const uniqueArray = respondentName.filter(function(item, index) {
+            const fullName = Vue.filter('getFullName')(item)
+            return fullNamesArray.indexOf(fullName) == index;
+        })
+        //console.log(uniqueArray);
+        this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
 
 

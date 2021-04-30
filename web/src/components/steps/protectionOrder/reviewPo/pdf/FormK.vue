@@ -1001,6 +1001,8 @@ export default class FormK extends Vue {
             Object.assign(result, result,{applicationLocation: userLocation});
         console.log(result)
 
+        Vue.filter('extractRequiredDocuments')(result, 'protectionOrder')
+
         return result;
     }
 

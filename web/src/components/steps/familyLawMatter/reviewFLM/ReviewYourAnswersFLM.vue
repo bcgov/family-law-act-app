@@ -72,6 +72,9 @@ export default class ReviewYourAnswersFlm extends Vue {
     @applicationState.Action
     public UpdateRequiredDocuments!: (newRequiredDocuments: string[]) => void
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     fields =[
         {key:'title', label:'Question', thClass:'border-right', tdClass:'border-top border-right ', thStyle:''},
         {key:'value', label:'Response', thClass:'', tdClass:'border-top border-right', thStyle:''},
@@ -83,7 +86,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     currentPage=0;
     pageHasError = false;
 
-    previewFormsPage = 31;
+    previewFormsPage = 40;
 
     errorQuestionNames = [];
 
@@ -92,6 +95,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     {
         //console.log(newVal)
         this.togglePages([this.previewFormsPage], !this.pageHasError);
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }

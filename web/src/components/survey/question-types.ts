@@ -5,9 +5,11 @@ import ContactInfo from "./components/ContactInfo.vue";
 import CustomDate from "./components/CustomDate.vue";
 import HelpText from "./components/HelpText.vue";
 import InfoText from "./components/InfoText.vue";
-import InfoTextTitle from "./components/InfoTextTitle.vue";
 import PersonName from "./components/PersonName.vue";
 import YesNo from "./components/YesNo.vue";
+
+import InfoTextTitle from "./components/InfoTextTitle.vue";
+import TextBeforeInputNumber from "./components/TextBeforeInputNumber.vue";
 
 function fixCheckboxes(Survey: any) {
   const widget = {
@@ -393,6 +395,31 @@ function initCustomDate(Survey: any) {
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "property");
 }
 
+function initTextBeforeInputNumber(Survey: any) {
+  const widget = {
+    name: "TextBeforeInputNumber",
+    title: "Text Before Input Number",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "textbeforeinputnumber";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("textbeforeinputnumber",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("textbeforeinputnumber", [
+        {
+          name: "widthInput:text"
+        }
+      ]);
+    },
+  };
+
+  Vue.component("TextBeforeInputNumber", TextBeforeInputNumber);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
+
 // Returns 'y' or 'n', or 'u' for undefined and 'e' for error
 function isChild(params: any) {
   if (!params && !params.length) return "u";
@@ -436,13 +463,16 @@ function isChild(params: any) {
 export function addQuestionTypes(Survey: any) {
   // fixCheckboxes(Survey);
   initYesNo(Survey);
-  initInfoText(Survey);
-  initInfoTextTitle(Survey);
+  initInfoText(Survey);  
   initHelpText(Survey);
   initPersonName(Survey);
   initAddressBlock(Survey);
   initContactInfoBlock(Survey);
   initCustomDate(Survey);
+  
+  initInfoTextTitle(Survey);
+  initTextBeforeInputNumber(Survey);
+
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
 
@@ -478,18 +508,7 @@ export function addToolboxOptions(editor: any) {
       type: "infotext",
       titleLocation: "hidden"
     }
-  });
-  editor.toolbox.addItem({
-    name: "infotexttitle",
-    title: "Message Text",
-    category: "Custom",
-    isCopied: true,
-    iconName: "icon-panel",
-    json: {
-      type: "infotexttitle",
-      titleLocation: "hidden"
-    }
-  });
+  });  
   editor.toolbox.addItem({
     name: "personname",
     title: "Name Input",
@@ -520,4 +539,29 @@ export function addToolboxOptions(editor: any) {
       type: "contactinfo"
     }
   });
+
+  editor.toolbox.addItem({
+    name: "infotexttitle",
+    title: "Message Text",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "infotexttitle",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "textbeforeinputnumber",
+    title: "Text Before Input Number",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "textbeforeinputnumber",
+      titleLocation: "hidden"
+    }
+  });
+
 }

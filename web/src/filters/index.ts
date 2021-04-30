@@ -92,7 +92,6 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 	// }
 })
 
-
 Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number, optionalArg?){
 	//____________________________________________________________________
 	//console.log(survey)if(question.titleLocation!="hidden" && question.title != " " && question.title != "" && question.isVisible)
@@ -172,6 +171,19 @@ Vue.filter('getPathwayABRV',function(name){
 	
 })
 
+Vue.filter('getFullOrderName',function(orderName, specific){
+	if (orderName == "protectionOrder" && specific == '') return "Protection Order";
+	else if (orderName == "protectionOrder" && specific == 'needPO') return "New Protection Order";
+	else if (orderName == "protectionOrder" && specific == 'changePO') return "Change Protection Order";
+	else if (orderName == "protectionOrder" && specific == 'terminatePO') return "Terminate Protection Order";
+	else if (orderName == "familyLawMatter") return "Family Law Matter";
+	else if (orderName == "caseMgmt") return "Case Management";
+	else if (orderName == "priotityParenting") return "Priotity Parenting Matter";
+	else if (orderName == "childReloc") return "Relocation of a Child";
+	else if (orderName == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
+	else return "";
+})
+
 Vue.filter('translateTypes',function(applicationTypes: string[]) {
 
 	let types = [];
@@ -200,44 +212,83 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 	return types.toString();
 })
 
-Vue.filter('extractRequiredDocuments', function(questions){
+Vue.filter('extractRequiredDocuments', function(questions, type){
 	//console.log(questions)
-	const requiredDocuments = [];
-	if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "changePO"){
-		requiredDocuments.push("Copy of the existing protection order")
-	}else if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "terminatePO"){
-		requiredDocuments.push("Copy of the existing protection order")
-	}else if(questions.questionnaireSurvey && questions.questionnaireSurvey.orderType == "needPO"){
-		if(questions.protectionWhomSurvey && questions.protectionWhomSurvey.ExistingFamilyCase =="y"){
-			if(questions.protectionWhomSurvey.ExistingFileNumber && questions.protectionWhomSurvey.ExistingCourt) requiredDocuments.push("Copy of the Family Law file number:" + questions.protectionWhomSurvey.ExistingFileNumber + " submitted to the court at " + questions.protectionWhomSurvey.ExistingCourt);
-			else requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
-		}
-		if(questions.backgroundSurvey && questions.backgroundSurvey.existingPOOrders=="y"){
-			requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
-		}
-		if(questions.backgroundSurvey && questions.backgroundSurvey.ExistingOrders=="y"){
-			requiredDocuments.push("Copy of the existing written agreements or court order(s) about the child(ren) concerning parenting arrangements, child support, contact with a child or guardianship of a child");
+	const requiredDocuments: string[] = [];
+	const reminderDocuments: string[] = [];
+
+	if(type == 'protectionOrder'){		
+	
+		if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "changePO"){
+			requiredDocuments.push("Copy of the existing protection order")
+		}else if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "terminatePO"){
+			requiredDocuments.push("Copy of the existing protection order")
+		}else if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "needPO"){
+			if(questions.protectionWhomSurvey && questions.protectionWhomSurvey.ExistingFamilyCase =="y"){
+				if(questions.protectionWhomSurvey.ExistingFileNumber && questions.protectionWhomSurvey.ExistingCourt) requiredDocuments.push("Copy of the Family Law file number:" + questions.protectionWhomSurvey.ExistingFileNumber + " submitted to the court at " + questions.protectionWhomSurvey.ExistingCourt);
+				else requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
+			}
+			if(questions.backgroundSurvey && questions.backgroundSurvey.existingPOOrders=="y"){
+				requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+			}
+			if(questions.backgroundSurvey && questions.backgroundSurvey.ExistingOrders=="y"){
+				requiredDocuments.push("Copy of the existing written agreements or court order(s) about the child(ren) concerning parenting arrangements, child support, contact with a child or guardianship of a child");
+			}
 		}
 	}
-	//this.UpdateRequiredDocuments(requiredDocuments)
-	//console.log('required documents')
-	//console.log(requiredDocuments)
 
-	//filingLocationSurvey.ExistingFamilyCase: "y"  requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
+	if(type == 'familyLawMatter'){	
+
+		if(questions.filingLocationSurvey && questions.filingLocationSurvey.ExistingFamilyCase == "y")
+		  	requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
 	
-	//flmBackgroundSurvey.ExistingOrdersFLM: "y" existingOrdersListFLM.includes(Parenting Arrangements including `parental responsibilities` and `parenting time` ||  Child Support||Contact with a Child||Guardianship of a Child||Spousal Support)  && flmSelectedForm.selectedForm "parentingArrangements" "childSupport" "contactWithChild" "guardianOfChild" "spousalSupport"  requiredDocuments.push("Copy of the existing written agreement(s) or court order(s) about Family-Law-Matter");
-	
-	//flmBackgroundSurvey.existingPOOrders=="y" 	requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.ExistingOrdersFLM == "y")
+		   	requiredDocuments.push("Copy of the existing written agreement(s) or court order(s) about Family-Law-Matter");
+		//questions.flmBackgroundSurvey.existingOrdersListFLM.includes('Parenting Arrangements including `parental responsibilities` and `parenting time`') && questions.flmSelectedForm.includes("parentingArrangements")
+		//	||  'Child Support'||'Contact with a Child'||'Guardianship of a Child'||'Spousal Support')  &&
+		//	"childSupport" "contactWithChild" "guardianOfChild" "spousalSupport"  
 		
-	//parentFileForm4Info in STORE  requiredDocuments.push("Copy of the Financial Statement in Form 4")
+		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y")
+			requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+		
+		if(store.state.Application.supportingDocumentForm4.length>0)	
+			requiredDocuments.push("Copy of the Financial Statement in Form 4");
+		
+		if( questions.calculatingChildSupportSurvey && 
+			questions.calculatingChildSupportSurvey.attachingCalculations == 'y' &&
+			questions.flmSelectedForm &&
+			questions.flmSelectedForm.includes("childSupport"))
+			requiredDocuments.push("Copy of the calculations showing how much child support you believe should be paid according to the child support guidelines");
 	
-	//calculatingChildSupportSurvey.attachingCalculations=='y' requiredDocuments.push("Copy of the calculations showing how much child support you believe should be paid according to the child support guidelines")"
+		if( questions.calculatingSpousalSupportSurvey && 
+			questions.calculatingSpousalSupportSurvey.attachingCalculations== 'y' &&
+			questions.flmSelectedForm &&
+			questions.flmSelectedForm.includes("spousalSupport"))
+			requiredDocuments.push("Copy of the calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines");
 	
+		//REMINDERS 
+	
+		if( (questions.flmSelectedForm && ( questions.flmSelectedForm.includes("childSupport")||questions.flmSelectedForm.includes("spousalSupport") )) &&
+			(questions.aboutExistingChildSupportSurvey && questions.aboutExistingChildSupportSurvey.filedWithDirector == "y")||(questions.aboutExistingSpousalSupportSurvey && questions.aboutExistingSpousalSupportSurvey.filedWithDirector == "y"))
+			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
+		
+		if( (questions.flmSelectedForm && questions.flmSelectedForm.includes("guardianOfChild")) &&
+			(questions.indigenousAncestryOfChildSurvey && (questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") || questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation"))) )
+			reminderDocuments.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 
+		// if(questions.aboutExistingSpousalSupportSurvey && questions.aboutExistingSpousalSupportSurvey.filedWithDirector == "y") 
+		// 	reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
+	}
+	
+	
+	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments ,reminder:reminderDocuments} });	
+	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});
+	
+	
+	console.log('required documents')
+	console.log(requiredDocuments)
+	console.log(reminderDocuments)
 
-	//REMINDERS 
-	//aboutExistingChildSupportSurvey.filedWithDirector: "y" reminders.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
-	//indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") ||indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation")  reminders.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 	return requiredDocuments;
 })
 

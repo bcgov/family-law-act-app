@@ -1,6 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import { stepInfoType, pageInfoType, nameInfoType } from "@/types/Application";
-import { supportingDocumentInfoType } from "@/types/Common";
+import { supportingDocumentInfoType, requiredDocumentsInfoType } from "@/types/Common";
 
 @Module({
   namespaced: true
@@ -23,7 +23,7 @@ class Application extends VuexModule {
     public protectedChildName = ""
     public applicationLocation = ""
     public scrollToLocationName = ""
-    public requiredDocuments: string[] = []
+    public requiredDocuments = {} as requiredDocumentsInfoType
     public packageNumber = ""
     public eFilingHubLink = ""
     public generatedForms: string[] = [];
@@ -456,22 +456,85 @@ class Application extends VuexModule {
         p.label = "Spousal Support";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
-    
-       
-//____________Review
+        s.pages.push(p);  
+        
         p = {} as pageInfoType;
         p.key = "30";
-        p.label = "Review Your Answers";
-        p.active = true;
-        p.progress = 50;    
+        p.label = "Income and Earning Potential";
+        p.active = false;
+        p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "31";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "32";
+        p.label = "Spousal Support Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "33";
+        p.label = "About the Order/Agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "34";
+        p.label = "Existing final order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "35";
+        p.label = "Existing written agreement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "36";
+        p.label = "Calculating Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "37";
+        p.label = "About the order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "38";
+        p.label = "Unpaid Spousal Support";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+       
+//____________Review
+        p = {} as pageInfoType;
+        p.key = "39";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "40";
         p.label = "Preview Forms";
-        p.active = true;
-        p.progress = 50;    
+        p.active = false;
+        p.progress = 0;    
         s.pages.push(p);
 
         this.steps.push(s);
@@ -672,11 +735,21 @@ class Application extends VuexModule {
     @Mutation
     public setRequiredDocuments(requiredDocuments): void {
         this.requiredDocuments = requiredDocuments;
-    }
-    
+    }    
     @Action
     public UpdateRequiredDocuments(newRequiredDocuments) {
-        this.context.commit("setRequiredDocuments", newRequiredDocuments);
+        this.context.commit("setRequiredDocuments", newRequiredDocuments);        
+    }
+
+    @Mutation
+    public setRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }): void {
+        this.requiredDocuments[typeOfRequiredDocuments] = requiredDocuments;
+    }    
+    @Action
+    public UpdateRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }) {
+        this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
+        //console.log(this.requiredDocuments)
+        this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
     }
 
     @Mutation
@@ -1003,8 +1076,8 @@ class Application extends VuexModule {
     get getPrevStepPage(): { prevStep: number; prevPage: number } {
 
         let prevStepPage: { prevStep: number; prevPage: number };    
-        let sIndex = this.currentStep;
-        let pIndex = this.steps[sIndex].currentPage - 1;
+        let sIndex = Number(this.currentStep);
+        let pIndex = Number(this.steps[sIndex].currentPage) - 1;
     
         while (prevStepPage == null && sIndex >= 0) {
           const s = this.steps[sIndex];
@@ -1037,8 +1110,9 @@ class Application extends VuexModule {
         //console.log("nextStep")
 
         let nextStepPage: { nextStep: number; nextPage: number };    
-        let sIndex = this.currentStep;
-        let pIndex = this.steps[sIndex].currentPage + 1;
+        let sIndex = Number(this.currentStep);       
+        let pIndex = Number(this.steps[sIndex].currentPage) + 1;
+        
         while (nextStepPage == null && sIndex < this.steps.length) {
             const s = this.steps[sIndex];
         

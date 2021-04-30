@@ -2,7 +2,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         
         <h2 class="mt-4">Review and Print</h2>
-        <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry: 
@@ -11,11 +11,11 @@
                 <p class="my-0 ml-2" style="display:block"> {{applicationLocation.cityStatePostcode}} </p>
             </div>
 
-            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555;">
+            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
                 <div class="row justify-content-center text-warning">
                     <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
                 </div>
-                <div style="font-size: 18px;" class="mx-3 mb-1">
+                <div style="font-size: 18px;" class="mx-3 mb-1 pb-3">
                     By clicking on the 'Review and Print' button next to the document, a PDF version of the application
                      will download or open. Depending on your browser settings, your PDF might save the form to your 
                      computer or it will open in a new tab or window. For more information about opening and saving 
@@ -29,7 +29,7 @@
             
             <h3 class="mt-5">To prepare the application for filing:</h3>
 
-            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>  
                 <form-list type="Print" :currentPage="currentPage"/>
@@ -43,22 +43,13 @@
                 </div>
             </b-card>
 
-            <b-card  style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
-                <span class="text-primary" style='font-size:1.4rem;'>Additional Documents to Include:</span> 
-                
-                <ul class="mt-3">
-                    <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application</li>
-                    <li class="mb-2">Print or make copies of all documents, including your application and any supporting documents: one set for you, one set for the court and one set for each other party</li>
-                </ul>
- 
-                <div v-if="requiredDocuments.length > 0" class="mt-4 h4">The following additional documents are required as part of your filing:</div>
-                <ul class="mt-3">
-                    <li class="mb-2" v-for="requiredDocument in requiredDocuments" :key="requiredDocument">{{requiredDocument}}</li>
-                </ul>
+            <b-card  style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+                <required-document type="Print" />
             </b-card>
 
-            <b-card  style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <reminder-notes type="Print" />
+
+            <b-card  style="border:1px solid #ddebed;border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Submit Documents:</span>
                 <ul class="mt-3">                    
@@ -97,6 +88,8 @@ import PageBase from "@/components/steps/PageBase.vue";
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
 
 import FormList from "./components/FormList.vue"
+import RequiredDocument from "./components/RequiredDocument.vue"
+import ReminderNotes from "./components/ReminderNotes.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -106,7 +99,9 @@ const applicationState = namespace("Application");
     components:{
         PageBase,
         GetHelpForPdf,
-        FormList
+        FormList,
+        RequiredDocument,
+        ReminderNotes
     }
 })
 
@@ -114,9 +109,6 @@ export default class ReviewAndPrint extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    // @applicationState.State
-    // public requiredDocuments!: string[];
 
     @applicationState.State
     public types!: string[];
@@ -132,11 +124,11 @@ export default class ReviewAndPrint extends Vue {
     currentPage=0;
 
     formsList = [];
-    includesPO = false;
+    includesPO = false;    
 
     showGetHelpForPDF = false;
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
-    requiredDocuments: string[] = [];
+    
 
     mounted(){
 
@@ -157,11 +149,8 @@ export default class ReviewAndPrint extends Vue {
         }else if(location == 'Surrey'){
             this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
         }  
-        
-        this.requiredDocuments = [];
-        //this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
 
-    }
+    }    
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

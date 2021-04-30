@@ -7,6 +7,8 @@
                     <h1>Previous Applications</h1>
                     <hr class="bg-light" style="height: 2px;"/>
 
+                    <loading-spinner v-if="!dataLoaded" waitingText="Loading ..." /> 
+
                     <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
                             <span class="text-muted ml-4 mb-5">No previous applications.</span>
                     </b-card>
@@ -171,6 +173,11 @@ export default class ApplicationStatus extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
+    @applicationState.Action
+    public UpdateRequiredDocuments!: (newRequiredDocuments) => void
+
+    dataLoaded = false;
+
     previousApplications = []
     previousApplicationFields = [
         { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
@@ -220,9 +227,11 @@ export default class ApplicationStatus extends Vue {
                 }
                 this.previousApplications.push(app);
             }
-            console.log(this.previousApplications)       
+            console.log(this.previousApplications)
+            this.dataLoaded = true;       
         },(err) => {            
             //console.log(err)
+            this.dataLoaded = true;
             this.error = err;        
         });
     }
@@ -291,12 +300,15 @@ export default class ApplicationStatus extends Vue {
                 this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
                 this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentsPO']?this.currentApplication.steps[0]['result']['respondentsPO'][0]:'';//applicationData.respondentName;
                 this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
-                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;
+                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;                
             }
 
             console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);
+
+            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
+                this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
 
             if(this.currentApplication.steps[0]['result']){
                 for(const form  of this.currentApplication.steps[0]['result']['selectedForms']){

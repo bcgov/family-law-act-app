@@ -86,7 +86,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -121,8 +120,7 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-   
-    allPages = _.range(1,32)
+    allPages = _.range(1,41)
         
     //childrenInfoPage = [2];
     backgroundPage = 1
@@ -136,7 +134,13 @@ export default class FlmQuestionnaire extends Vue {
 
     guardianOfChildPage = 26
 
-    reviewYourAnswersPage = 30
+    reviewYourAnswersPage = 39
+
+    aboutExistingSpousalSupportPage = 33
+
+    existingSpousalSupportAgreementPage = 35
+
+    existingSpousalSupportFinalOrderPage = 34
 
 
     // parentingArrangementsPages = [];
@@ -161,8 +165,13 @@ export default class FlmQuestionnaire extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
   
-    public onChange(selectedForm) {        
-        this.setSteps(selectedForm);
+    public onChange(selectedForm) {
+        if(this.checkErrorOnPages())        
+            this.setSteps(selectedForm);
+        else{ 
+            this.selectedForm = [];
+            //this.togglePages(this.allPages, false); 
+        }
         
        // console.log(selectedForm)
     }
@@ -170,7 +179,6 @@ export default class FlmQuestionnaire extends Vue {
     public setSteps(selectedForm) {
         // console.log(selectedForm)
         if (selectedForm) {
-                        
             this.togglePages(this.allPages, false); 
             const progress = this.selectedForm.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
@@ -203,7 +211,16 @@ export default class FlmQuestionnaire extends Vue {
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.guardianOfChildPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.guardianOfChildPage, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutExistingSpousalSupportPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutExistingSpousalSupportPage, 50, false);
               
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportFinalOrderPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportFinalOrderPage, 50, false);
+                
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportAgreementPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportAgreementPage, 50, false);
+   
             }   
 
         }
@@ -211,6 +228,7 @@ export default class FlmQuestionnaire extends Vue {
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
+            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
                 currentPage: pageArr[i],
@@ -224,6 +242,25 @@ export default class FlmQuestionnaire extends Vue {
             currentStep: stepId,
             active: activeIndicator
         });
+    }
+
+    public checkErrorOnPages(){
+
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
+        for(const stepIndex of [2]){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.togglePages(this.allPages, false); 
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
     }
 
     public onPrev() {

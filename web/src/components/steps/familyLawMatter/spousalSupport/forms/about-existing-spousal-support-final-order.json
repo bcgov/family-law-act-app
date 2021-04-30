@@ -1,0 +1,90 @@
+{
+  "title": "Existing final order",
+  "pages": [
+    {
+      "name": "Existing final order",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ExistingDetailsPanel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "orderDate",
+              "title": "Please provide the date the court made the order.",
+              "description": "The date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+              "isRequired": true,
+              "inputType": "date"
+            },
+            {
+              "type": "infotext",
+              "name": "ChangeOrderExplanationFAQ",
+              "title": "An order about spousal support that was made in the past may not make sense anymore. The court can only change or cancel an order if:<br><ul><li>there has been a change in the condition, means, needs or other circumstances of either spouse since the order about spousal support was made;</li><li>evidence of a substantial nature that was not available during the previous hearing has become available;</li><li>evidence of a lack of financial disclosure by either spouse was discovered after the last order was made.</li></ul>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "checkbox",
+              "name": "changesSinceOrderList",
+              "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
+              "description": "Select each option that fits your situation and provide the additional detail as required.",
+              "choices": [
+                "My financial situation has changed",
+                "I believe the other party’s financial situation has changed",
+                "My employment, training, health and/or ability to work have changed",
+                "I believe the other party’s employment, training, health and/or ability to work have changed",
+                "My household expenses have changed",
+                "Information has become available that was not available when the order was made",
+                "Other changes or circumstances"
+              ],
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "changesSinceOrder",
+              "title": "Please describe the changes:",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({changesSinceOrderList} anyof ['My employment, training, health and/or ability to work have changed', 'I believe the other party’s employment, training, health and/or ability to work have changed', 'My household expenses have changed'])"
+            },
+            {
+              "type": "comment",
+              "name": "newInfoSinceOrder",
+              "title": "Please describe the new information:",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({changesSinceOrderList} contains 'Information has become available that was not available when the order was made')"
+            },
+            {
+              "type": "comment",
+              "name": "otherChangesSinceOrder",
+              "title": "Please describe the changes or circumstances:",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "({changesSinceOrderList} contains 'Other changes or circumstances')"
+            },
+            {
+              "type": "radiogroup",
+              "name": "orderDifferenceType",
+              "title": "Do you want the existing order changed or cancelled?",
+              "description": "You can apply to change the existing order if you still need an order about spousal support, but you want something different. Or you can apply to cancel the existing order.<br>Select the option that fits your situation.",
+              "choices": [
+                {
+                  "value": "changeOrder",
+                  "text": "Change"
+                },
+                {
+                  "value": "cancelOrder",
+                  "text": "Cancel"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "title": "Existing final order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
