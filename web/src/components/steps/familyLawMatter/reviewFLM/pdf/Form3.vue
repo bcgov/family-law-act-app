@@ -3,17 +3,17 @@
     <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
     <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <common-section />
-        <schedule-1 :data="result"  v-if="selectedSchedules.includes('schedule1')" />
-        <schedule-2 :data="result"  v-if="selectedSchedules.includes('schedule2')" />
-        <schedule-3 :data="result"  v-if="selectedSchedules.includes('schedule3')" />
-        <schedule-4 :data="result"  v-if="selectedSchedules.includes('schedule4')" />
-        <schedule-5 :data="result"  v-if="selectedSchedules.includes('schedule5')" />
-        <schedule-6 :data="result"  v-if="selectedSchedules.includes('schedule6')" />
-        <schedule-7 :data="result"  v-if="selectedSchedules.includes('schedule7')" />
-        <schedule-8 :data="result"  v-if="selectedSchedules.includes('schedule8')" />
-        <schedule-9 :data="result"  v-if="selectedSchedules.includes('schedule9')" />
-        <schedule-10 :data="result" v-if="selectedSchedules.includes('schedule10')" />
+        <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"/>
+        <schedule-1 v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
+        <schedule-2 v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
+        <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
+        <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
+        <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />
+        <schedule-6 v-bind:result="result"  v-if="selectedSchedules.includes('schedule6')" />
+        <schedule-7 v-bind:result="result"  v-if="selectedSchedules.includes('schedule7')" />
+        <schedule-8 v-bind:result="result"  v-if="selectedSchedules.includes('schedule8')" />
+        <schedule-9 v-bind:result="result"  v-if="selectedSchedules.includes('schedule9')" />
+        <schedule-10 v-bind:result="result" v-if="selectedSchedules.includes('schedule10')" />
 
     </b-card>
 </div>
