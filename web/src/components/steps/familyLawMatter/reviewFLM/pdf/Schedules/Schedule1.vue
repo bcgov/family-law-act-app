@@ -119,13 +119,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { nameInfoType } from '@/types/Application';
 
 @Component({
     components:{
