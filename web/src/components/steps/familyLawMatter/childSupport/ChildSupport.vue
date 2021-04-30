@@ -82,7 +82,7 @@ export default class ChildSupport extends Vue {
             const infoTemplate = this.surveyJsonCopy.pages[0].elements[0].elements[3];
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
-            let visibleCondition = "{applicantGuardianType} == 'parentGuardian' "
+            let visibleCondition = "false"
             
             for (const otherIndex in otherPartyData){                
                 const otherParty = otherPartyData[otherIndex]
@@ -90,7 +90,7 @@ export default class ChildSupport extends Vue {
                 temp.title = Vue.filter('getFullName')(otherParty['name']) +' is:'
                 temp['name'] = "otherParty["+otherIndex+"]GuardianType"
                 this.surveyJsonCopy.pages[0].elements[0].elements.push(temp);
-                visibleCondition += "or {otherParty["+otherIndex+"]GuardianType} == 'parentGuardian' "
+                visibleCondition += "or {otherParty["+otherIndex+"]GuardianType} == 'appointedGuardian' "
             }
             //console.log(visibleCondition)
             infoTemplate.visibleIf = visibleCondition
@@ -103,7 +103,6 @@ export default class ChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             console.log(this.survey.data)
-            this.determineOtherPartyTypes();
         })
     }
     
@@ -113,34 +112,14 @@ export default class ChildSupport extends Vue {
         
         if (this.step.result && this.step.result['childSupportSurvey']) {
             this.survey.data = this.step.result['childSupportSurvey'].data;
-            this.determineOtherPartyTypes();
+           
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         if(this.surveyHasError)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         else
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-    }
-
-    public determineOtherPartyTypes(){
-        const opTypes = [];
-        for (let otherIndex=0; otherIndex<this.numberOfOtherParties; otherIndex++){                
-            if (this.survey.data['otherParty['+ otherIndex + ']GuardianType'] == 'appointedGuardian'){
-                opTypes[otherIndex] = 1;
-            } else {
-                opTypes[otherIndex] = 0;
-            }
-        }
-        console.log(opTypes)
-        if (opTypes.includes(1)){
-            console.log('true')
-            this.survey.setVariable("statementRequired", true);
-        } else {
-            console.log('false')
-            this.survey.setVariable("statementRequired", false);
-        }        
-        
-    }
+    }   
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

@@ -36,11 +36,13 @@
               "isRequired": true
             },
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "reduceAmount",
-              "title": "What amount do you want it reduced to?",
+              "title": "<div style='display:inline; font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>What amount do you want it reduced to? $ </div>",
               "visible": false,
               "visibleIf": "{applyToReduce} == 'y'",
+              "titleLocation":"hidden",
+              "widthInput":"9rem",
               "isRequired": true
             },
             {
