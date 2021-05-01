@@ -147,7 +147,7 @@ import CheckBox from "./components/CheckBox.vue"
     }
 })
 
-export default class Form3 extends Vue {
+export default class Schedule2 extends Vue {
 
     @Prop({required:true})
     result!: any;
