@@ -415,7 +415,13 @@ function initTextBeforeInputNumber(Survey: any) {
       Survey.JsonObject.metaData.addClass("textbeforeinputnumber",[],null,"empty");    
       Survey.JsonObject.metaData.addProperties("textbeforeinputnumber", [
         {
-          name: "widthInput:text"
+          name: "textClass:text"
+        },
+        {
+          name: "bodyText:text"
+        },
+        {
+          name: "inputWidth:text"
         }
       ]);
     },

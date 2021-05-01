@@ -18,9 +18,11 @@
             {
               "type": "textbeforeinputnumber",
               "name": "otherPartyIncome",
-              "title":"<div style='display:inline; font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>I believe the other party’s annual income is: $ </div>",
-              "titleLocation":"hidden",
-              "widthInput":"9rem",
+              "title":"I believe the other party’s annual income is: $",
+              "titleLocation":"hidden",              
+              "bodyText":"I believe the other party’s annual income is: $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
               "visible":false,
               "visibleIf":"{knowIncome} == 'y'",
               "isRequired": true

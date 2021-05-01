@@ -176,12 +176,12 @@ export default class ReviewYourAnswers extends Vue {
     public getChildInfo(children){
         let resultString = "";
         for(const child of children ){            
-                resultString +="Name: " + Vue.filter('getFullName')(child['childName']) +"\n";
-                resultString +="Birth Date: " + Vue.filter('beautify-date')(child['childDOB']) +"\n";
-                if(child['childRelationshipWithProtected']) resultString +="Relation With Protected: " + child['childRelationshipWithProtected'] +"\n";
-                if(child['childRelationshipWithOther']) resultString +="Relation With Other: " + child['childRelationshipWithOther']  +"\n"; 
-                if(child['childRelationship']) resultString +="Relation With Other: " + child['childRelationship']  +"\n"; 
-                if(child['childLivingWith']) resultString +="Child Living With: " + child['childLivingWith']  +"\n";           
+                resultString +=Vue.filter('styleTitle')("Name: ") + Vue.filter('getFullName')(child['childName']) +"\n";
+                resultString +=Vue.filter('styleTitle')("Birth Date: ") + Vue.filter('beautify-date')(child['childDOB']) +"\n";
+                if(child['childRelationshipWithProtected']) resultString +=Vue.filter('styleTitle')("Relation With Protected: ") + child['childRelationshipWithProtected'] +"\n";
+                if(child['childRelationshipWithOther']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationshipWithOther']  +"\n"; 
+                if(child['childRelationship']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationship']  +"\n"; 
+                if(child['childLivingWith']) resultString +=Vue.filter('styleTitle')("Child Living With: ") + child['childLivingWith']  +"\n";           
                 resultString +="\n"
         }
         return resultString;
@@ -190,9 +190,9 @@ export default class ReviewYourAnswers extends Vue {
     public getAnotherAdultInfo(adults){
         let resultString = "";
         for(const adult of adults ){            
-                resultString +="Name: " + Vue.filter('getFullName')(adult['anotherAdultSharingResiName']) +"\n";
-                resultString +="Birth Date: " + Vue.filter('beautify-date')(adult['anotheradultSharingResiDOB']) +"\n";
-                resultString +="Relation With Protected: " + adult['anotherAdultSharingResiRelation'] +"\n\n";               
+                resultString +=Vue.filter('styleTitle')("Name: ") + Vue.filter('getFullName')(adult['anotherAdultSharingResiName']) +"\n";
+                resultString +=Vue.filter('styleTitle')("Birth Date: ") + Vue.filter('beautify-date')(adult['anotheradultSharingResiDOB']) +"\n";
+                resultString +=Vue.filter('styleTitle')("Relation With Protected: ") + adult['anotherAdultSharingResiRelation'] +"\n\n";               
         }
         return resultString;
     }

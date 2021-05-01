@@ -86,7 +86,7 @@ export default class AdvancedRadioGroup extends Vue {
         // console.log(this.otherText)
 
         this.numberOfRows = this.inputTypes.length
-        //console.log(this.textBefore)
+        //console.log(this.textBefore) 
         // console.log(this.inputNames)
         // console.log(this.inputTypes)
         // console.log(this.inputWidths)
@@ -121,13 +121,14 @@ export default class AdvancedRadioGroup extends Vue {
                 row = this.numberOfRows -1
             }else{
                 row = this.radioOutputValues[0].indexOf(this.pendingValue['selected'])
-            }
-
+                if(this.textBefore[row].length<2) return null
+            }            
             let error = null      
             for (const field of this.fields[row]) {
                 const newValue = (this.pendingValue[field.name] || "").trim();
-                //console.log(newValue)
-                if (!newValue.length){
+                // console.log(field)
+                // console.log(newValue)
+                if (!newValue ||(newValue && !newValue.length)){
                     error = new SurveyVue.SurveyError("Please enter all fields")
                     //console.error('error')
                     break;

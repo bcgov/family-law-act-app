@@ -38,6 +38,11 @@ Vue.filter('scrollToLocation', function(locationName){
 	}
 })
 
+Vue.filter('styleTitle',function(title){
+	return "<div style='display:inline; color:#29877c'>" + title + "</div>"
+})
+
+
 Vue.filter('getFullName',function(nameObject){
 	if (nameObject) {
 		return nameObject.first +
@@ -63,12 +68,14 @@ Vue.filter('getFullAddress',function(nameObject){
 })
 
 Vue.filter('getFullContactInfo',function(nameObject){
+	const pre = "<div style='display:inline; color:#10669c'>"
+	const post = "</div>"
 	if (nameObject) {
-		return "Phone: " +
+		return pre+"Phone: "+post+
 			nameObject.phone +
-			", Email: " +
+			", "+pre+"Email: "+post+
 			nameObject.email +
-			", Fax: " +
+			", "+pre+"Fax: "+post+
 			nameObject.fax;
 	} else{
 		return " "
@@ -150,6 +157,14 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
 		
 	}
+
+	if(optionalArg && optionalArg.name && optionalArg.value && optionalArg.title){
+		console.error('_________')
+		console.log(optionalArg)
+		questionResults.push(optionalArg)
+	}
+
+
 	// console.log(result)
 	if(flagForm4){
 		supportingDocumentForm4.push(currentPage)

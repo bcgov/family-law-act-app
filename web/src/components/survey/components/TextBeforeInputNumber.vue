@@ -1,10 +1,10 @@
 <template>
     <div class="survey-personname">
-       <div style="display:inline;" v-html="title" />
+       <div :class="textClass" style="display:inline; margin-right:0.5rem;" v-html="bodyText" />
        <input 
             class="form-control" 
             :id="question.inputId" 
-            :style="{display:'inline',width:widthInput}" 
+            :style="{display:'inline',width:inputWidth}" 
             type="number" 
             v-model="question.value"/>
     </div>
@@ -22,15 +22,17 @@ export default class TextBeforeInputNumber extends Vue {
     @Prop({required: true})
     question!: Question
  
-    title = ''
-    widthInput =''
+    bodyText = ''
+    inputWidth = ''
+    textClass = ''
     readOnly = false    
 
     mounted(){        
         //console.log(this.question)
         this.readOnly = this.question.readOnly;
-        this.title = this.question.title;
-        this.widthInput = this.question.widthInput
+        this.bodyText = this.question.bodyText;
+        this.inputWidth = this.question.inputWidth;
+        this.textClass = this.question.textClass;
     }
 };
 </script>

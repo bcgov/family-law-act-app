@@ -160,7 +160,7 @@
                   "name": "lawyerStatement",
                   "visible": false,
                   "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
-                  "title": " ",
+                  "title": "Lawyer acknowledgment",
                   "titleLocation":"hidden",
                   "inputNames":"{lawyerName},{clientName}",
                   "inputTypes":"{text},{text}",

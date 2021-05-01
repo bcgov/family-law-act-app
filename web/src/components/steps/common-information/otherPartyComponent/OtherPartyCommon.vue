@@ -281,10 +281,10 @@ export default class OtherPartyCommon extends Vue {
 
     public getOtherPartyInfo(otherParty){
         const resultString = [];
-        resultString.push("Name: "+Vue.filter('getFullName')(otherParty.name));
-        resultString.push("Birthdate: "+Vue.filter('beautify-date')(otherParty.dob))
-        resultString.push("Address: "+Vue.filter('getFullAddress')(otherParty.address))
-        resultString.push("Contact: "+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
+        resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
+        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
+        resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
+        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
 
         return resultString
     }

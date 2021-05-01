@@ -20,9 +20,11 @@
             {
               "type": "textbeforeinputnumber",
               "name": "unPaidAmount",
-              "title":"<div style='display:inline; font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>What is the amount of unpaid child support you believe is still owing? $ </div>",
-              "titleLocation":"hidden",
-              "widthInput":"9rem",
+              "title":"What is the amount of unpaid child support you believe is still owing? $ ",
+              "titleLocation":"hidden",      
+              "bodyText":"What is the amount of unpaid child support you believe is still owing? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
               "visible":false,
               "visibleIf": "{unpaid} == 'y'",              
               "isRequired": true
@@ -38,11 +40,13 @@
             {
               "type": "textbeforeinputnumber",
               "name": "reduceAmount",
-              "title": "<div style='display:inline; font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>What amount do you want it reduced to? $ </div>",
+              "title": "What amount do you want it reduced to? $",
               "visible": false,
               "visibleIf": "{applyToReduce} == 'y'",
               "titleLocation":"hidden",
-              "widthInput":"9rem",
+              "bodyText":"What amount do you want it reduced to? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
               "isRequired": true
             },
             {

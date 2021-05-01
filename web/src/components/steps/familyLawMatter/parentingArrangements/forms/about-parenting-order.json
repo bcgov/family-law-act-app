@@ -95,6 +95,7 @@
                         {
                             "type": "radiogroup",
                             "name": "orderDifferenceType",
+                            "isRequired": true,
                             "visible": false,
                             "visibleIf": "{existingType} = 'ExistingOrder'",
                             "title": "Do you want the existing order changed or cancelled?",
@@ -113,6 +114,7 @@
                         {
                             "type": "radiogroup",
                             "name": "agreementDifferenceType",
+                            "isRequired": true,
                             "visible": false,
                             "visibleIf": "{existingType} = 'ExistingAgreement'",
                             "title": "Do you want the existing written agreement set aside or replaced?",
