@@ -358,9 +358,9 @@ export default class CommonSection extends Vue {
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
-            relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
-            relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
-            relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
+            relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
+            relationshipInfo.marriageDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO);
+            relationshipInfo.separationDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate);
         }
         return relationshipInfo;
     }
@@ -377,7 +377,7 @@ export default class CommonSection extends Vue {
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = child.currentLiving;
+            childInfo.currentSituation = (child.currentLiving == 'other')? child.currentLivingComment:child.currentLiving;
             childrenInfo.push(childInfo)
         }        
 
