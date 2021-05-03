@@ -54,12 +54,6 @@ export default class Information extends Vue {
 
     lawyerName = '';
     clientName = '';
-   
-    // @Watch('pageIndex')
-    // pageIndexChange(newVal) 
-    // {
-    //     this.survey.currentPageNo = newVal;        
-    // }
 
     beforeCreate() {
         const Survey = SurveyVue;

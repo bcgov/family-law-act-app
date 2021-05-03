@@ -66,7 +66,8 @@ export default class IncomeAndEarningPotential extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {         
+        this.survey.onValueChanged.add((sender, options) => { 
+            Vue.filter('surveyChanged')('familyLawMatter')        
             // console.log(options)
         })
     }

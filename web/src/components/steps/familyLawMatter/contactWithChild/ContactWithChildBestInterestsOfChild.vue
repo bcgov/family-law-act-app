@@ -42,7 +42,7 @@ export default class ContactWithChildBestInterestsOfChild extends Vue {
     currentPage=0;
     existing = false;
    
-    @Watch('pageIndex')
+    
     pageIndexChange(newVal) 
     {
         this.survey.currentPageNo = newVal;        
@@ -69,6 +69,7 @@ export default class ContactWithChildBestInterestsOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
             // console.log(options)
             

@@ -42,12 +42,6 @@ export default class ContactWithChildOrder extends Vue {
     disableNextButton = false;
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -74,6 +68,7 @@ export default class ContactWithChildOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
             // console.log(options)
             this.setPages()

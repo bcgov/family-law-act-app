@@ -68,7 +68,8 @@ export default class CalculatingChildSupport extends Vue {
   
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {            
+        this.survey.onValueChanged.add((sender, options) => { 
+            Vue.filter('surveyChanged')('familyLawMatter')           
             //console.log(options)
             //console.log(this.survey.data)
         })

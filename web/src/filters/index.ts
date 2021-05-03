@@ -306,7 +306,29 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	return requiredDocuments;
 })
+Vue.filter('surveyChanged', function(type: string) {
+	let step = 1
+	let reviewPage = 12
+	let previewPage = 13
+	
+	if(type == 'protectionOrder'){step = 1; reviewPage = 12; previewPage = 13;}
+	else if(type == 'familyLawMatter'){step = 3; reviewPage = 39; previewPage = 40;	}
 
+	const steps = store.state.Application.steps
+
+	if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
+		store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
+		store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
+	
+		if(steps[step].pages[previewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
+	}  	
+	
+	store.commit("Application/resetStep", 8);
+	for (let i=1; i<5; i++) {
+		store.commit("Application/setPageActive", { currentStep: 8, currentPage: i, active: false });
+		store.commit("Application/setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
+	}	
+})
 
 Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 

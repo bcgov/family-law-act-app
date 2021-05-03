@@ -42,12 +42,6 @@ export default class ContactWithChild extends Vue {
     disableNextButton = false;
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -71,6 +65,7 @@ export default class ContactWithChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
             // console.log(options)
             this.setPages()
@@ -81,10 +76,10 @@ export default class ContactWithChild extends Vue {
         if (this.survey.data.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
-                this.togglePages([24, 25], false);
+                this.togglePages([24, 25, 39], false);
             } else {
                 this.disableNextButton = false;
-                this.togglePages([24, 25], true);
+                this.togglePages([24, 25, 39], true);
             }
         }             
     }

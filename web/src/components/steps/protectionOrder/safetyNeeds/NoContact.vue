@@ -45,12 +45,6 @@ export default class NoContact extends Vue {
     currentStep=0;
     currentPage=0;
 
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
-
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);

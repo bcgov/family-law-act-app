@@ -50,12 +50,6 @@ export default class SpousalSupport extends Vue {
     currentStep=0;
     currentPage=0;
     applicantFullName ='';
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;

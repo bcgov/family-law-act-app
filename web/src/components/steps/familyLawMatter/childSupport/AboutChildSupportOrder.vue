@@ -95,21 +95,25 @@ export default class AboutChildSupportOrder extends Vue {
             let numOf19child = 0   
             for (const childInx in this.childData){
                 const child = this.childData[childInx];
+                const childName = Vue.filter('getFullName')(child.name)
                 //console.log(child)
                 // this.childData.push(child);
-                this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child['+childInx+']',text:Vue.filter('getFullName')(child.name)});
+                //this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child['+childInx+']',text:childName});
+                this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push(childName);
 
                 if ((moment(child.dob).isBefore(_19yearsBefore))){
                     const temp =JSON.parse(JSON.stringify(whysupport19childTemplate))
-                    temp.title = "Why does "+Vue.filter('getFullName')(child.name) +" need support?"
+                    temp.title = "Why does "+childName +" need support?"
                     temp.name  = "whyOlderChildNeedSupport["+childInx+"]"
-                    temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains 'child["+childInx+"]' "
+                    //temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains 'child["+childInx+"]' "
+                    temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains '"+childName+"' "
+                    
                     this.surveyJsonCopy.pages[0].elements[0].elements.splice(8+numOf19child,0,temp)
                     numOf19child++;
                     this.over19Index.push(childInx);
-                    //this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push({value:'child['+childInx+']',text:Vue.filter('getFullName')(child.name)});
+                    //this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push({value:'child['+childInx+']',text:childName});
 
-                //     this.overAgeChildren.push(Vue.filter('getFullName')(child.name))
+                //     this.overAgeChildren.push(childName)
                 }
             }
         }
@@ -129,6 +133,7 @@ export default class AboutChildSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(options)
             console.log(this.survey.data['paymentRequestStartingDate'])
 
@@ -159,7 +164,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.survey.setVariable("ApplicantName", this.applicantFullName);
         
         this.determineNumberOfPayors();
-        if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]')        
+        //if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]') 
+        if(this.childData.length==1) this.survey.setValue('listOfChildren',Vue.filter('getFullName')(this.childData[0].name))       
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }

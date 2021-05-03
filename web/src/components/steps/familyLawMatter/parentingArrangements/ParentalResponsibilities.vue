@@ -44,12 +44,6 @@ export default class ParentalResponsibilities extends Vue {
     currentStep=0;
     currentPage=0;
     existing = false;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -73,6 +67,7 @@ export default class ParentalResponsibilities extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             // console.log(this.survey.data);
             // console.log(options)
             if (options.name == "childrenRequestedResponsibilities"){
@@ -114,7 +109,7 @@ export default class ParentalResponsibilities extends Vue {
             } else {
                 this.survey.setVariable("allChildrenSelected", false);
             }
-
+            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }       
 

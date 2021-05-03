@@ -112,6 +112,7 @@ export default class GuardianOfChild extends Vue {
     guardianOfChildItem =[
         {name:'', nameOther:'', date:'', relationship:''},
     ]
+    
     guardianOfChildFields = [
         {key:"name",         label:"Name of Child",                                                                               tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:20%;"},
         {key:"nameOther",    label:"Name of Other Party (Guardian who you are applying to cancel their guardianship of a child)", tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:25%;"},
@@ -119,13 +120,6 @@ export default class GuardianOfChild extends Vue {
         {key:"relationship", label:"What is your guardianship relationship to the child?",                                        tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:18%;"},
         {key:"control",      label:"",                                                                                            tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:4%;"},
     ]
-
-   
-    // @Watch('pageIndex')
-    // pageIndexChange(newVal) 
-    // {
-    //     this.survey.currentPageNo = newVal;        
-    // }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -191,9 +185,9 @@ export default class GuardianOfChild extends Vue {
     
     public setPages(){ 
         if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
-            this.togglePages([27], true);                
+            this.togglePages([27,39], true);                
         } else {
-            this.togglePages([27], false);
+            this.togglePages([27,39], false);
         }
     }
 
