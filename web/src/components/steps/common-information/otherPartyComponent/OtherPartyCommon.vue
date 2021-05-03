@@ -151,7 +151,7 @@ export default class OtherPartyCommon extends Vue {
 
     mounted(){    
         this.flmInfo = false;    
-        const progress = this.otherPartyData.length==0? 50 : 100;            
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
@@ -179,7 +179,7 @@ export default class OtherPartyCommon extends Vue {
 
     public populateSurveyData(opValue) {
         const currentIndexValue =
-            this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
+            this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
         this.otherPartyData = [...this.otherPartyData, newParty];
@@ -219,7 +219,7 @@ export default class OtherPartyCommon extends Vue {
 
     public isDisableNext() {
         // demo
-        return this.otherPartyData.length <= 0;
+        return this.otherPartyData? (this.otherPartyData.length <= 0): true;
     }
 
     public getDisableNextText() {
@@ -281,10 +281,10 @@ export default class OtherPartyCommon extends Vue {
 
     public getOtherPartyInfo(otherParty){
         const resultString = [];
-        resultString.push("Name: "+Vue.filter('getFullName')(otherParty.name));
-        resultString.push("Birthdate: "+Vue.filter('beautify-date')(otherParty.dob))
-        resultString.push("Address: "+Vue.filter('getFullAddress')(otherParty.address))
-        resultString.push("Contact: "+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
+        resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
+        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
+        resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
+        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
 
         return resultString
     }

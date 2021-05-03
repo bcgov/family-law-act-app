@@ -96,6 +96,8 @@
                   {
                      "type": "yesno",
                      "name": "isSeperated",
+                     "visible": false,
+                     "visibleIf": "{werePOPartiesMarried} = 'y'",
                      "isRequired": true,
                      "title": "Are you and the other party currently separated?",
                      "description": "Spouses may be separated while continuing to live in the same residence"
@@ -104,7 +106,7 @@
                      "type": "text",
                      "name": "separationDate",
                      "visible": false,
-                     "visibleIf": "{isSeperated} = 'y'",
+                     "visibleIf": "{werePOPartiesMarried} = 'y' and {isSeperated} = 'y'",
                      "title": "Parties separated on",
                      "isRequired": true,
                      "inputType": "date"

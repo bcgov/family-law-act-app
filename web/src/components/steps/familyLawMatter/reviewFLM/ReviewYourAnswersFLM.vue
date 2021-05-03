@@ -26,7 +26,7 @@
                             <b v-html="beautifyQuestion(data.value)" >{{beautifyQuestion(data.value)}}</b>
                         </template>
                         <template v-slot:cell(value)="data" >
-                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''">{{beautifyResponse(data.value, data.item)}}</div>
+                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''" v-html="beautifyResponse(data.value, data.item)">{{beautifyResponse(data.value, data.item)}}</div>
                         </template>
                         <template v-slot:cell(edit)="data" > 
                             <b-button style="border:white;" size="sm" variant="transparent" v-b-tooltip.hover.noninteractive title="Edit"  @click="edit(section,data)"><b-icon icon="pencil-square" font-scale="1.25" variant="primary"/></b-button>
@@ -134,14 +134,18 @@ export default class ReviewYourAnswersFlm extends Vue {
             this.pageHasError = true;
             return "REQUIRED";
         }
+        else if(value['selected']){
+            return this.getAdvancedRadioGroupResults(value)
+        }       
         else if(Array.isArray(value))
         {
             //console.log(value)
-            if(value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
+            if(value[0].date && value[0].name && value[0].nameOther && value[0].relationship) return this.getGuardianOfChildTable(value)
+            if(value[0] && value[0] instanceof String && value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
             if(value[0].childName)return this.getChildInfo(value) 
             if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
             if(typeof value[0] === 'string' || value[0] instanceof String)
-                return value.join(", \n ");
+                return value.join(", \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
             else{
                 this.pageHasError = true;
                 return "REQUIRED";
@@ -170,7 +174,10 @@ export default class ReviewYourAnswersFlm extends Vue {
         else if(value.phone)
             return Vue.filter('getFullContactInfo')(value)
         else if(inputType == "date")
-            return Vue.filter('beautify-date')(value)          
+            return Vue.filter('beautify-date')(value) 
+        else if(typeof value ==='object' && value !== null){
+            return this.getMultipleTextInputResults(value)
+        }         
         else 
             return value;    
     }
@@ -178,18 +185,19 @@ export default class ReviewYourAnswersFlm extends Vue {
     public getChildInfo(children){
         let resultString = "";
         for(const child of children ){            
-                resultString +="Name: " + Vue.filter('getFullName')(child['childName']) +"\n";
-                resultString +="Birth Date: " + Vue.filter('beautify-date')(child['childDOB']) +"\n";
-                if(child['childRelationshipWithProtected']) resultString +="Relation With Protected: " + child['childRelationshipWithProtected'] +"\n";
-                if(child['childRelationshipWithOther']) resultString +="Relation With Other: " + child['childRelationshipWithOther']  +"\n"; 
-                if(child['childRelationship']) resultString +="Relation With Other: " + child['childRelationship']  +"\n"; 
-                if(child['childLivingWith']) resultString +="Child Living With: " + child['childLivingWith']  +"\n";           
+                resultString +=Vue.filter('styleTitle')("Name: ") + Vue.filter('getFullName')(child['childName']) +"\n";
+                resultString +=Vue.filter('styleTitle')("Birth Date: " )+ Vue.filter('beautify-date')(child['childDOB']) +"\n";
+                if(child['childRelationshipWithProtected']) resultString +=Vue.filter('styleTitle')("Relation With Protected: ") + child['childRelationshipWithProtected'] +"\n";
+                if(child['childRelationshipWithOther']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationshipWithOther']  +"\n"; 
+                if(child['childRelationship']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationship']  +"\n"; 
+                if(child['childLivingWith']) resultString +=Vue.filter('styleTitle')("Child Living With: ") + child['childLivingWith']  +"\n";           
                 resultString +="\n"
         }
         return resultString;
     }
 
     public getChildrenNames(selectedChildren){
+        console.log('_________')
         let result = ''
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'].data;
@@ -206,11 +214,64 @@ export default class ReviewYourAnswersFlm extends Vue {
     public getAnotherAdultInfo(adults){
         let resultString = "";
         for(const adult of adults ){            
-                resultString +="Name: " + Vue.filter('getFullName')(adult['anotherAdultSharingResiName']) +"\n";
-                resultString +="Birth Date: " + Vue.filter('beautify-date')(adult['anotheradultSharingResiDOB']) +"\n";
-                resultString +="Relation With Protected: " + adult['anotherAdultSharingResiRelation'] +"\n\n";               
+            resultString +=Vue.filter('styleTitle')("Name:") + Vue.filter('getFullName')(adult['anotherAdultSharingResiName']) +"\n";
+            resultString +=Vue.filter('styleTitle')("Birth Date:") + Vue.filter('beautify-date')(adult['anotheradultSharingResiDOB']) +"\n";
+            resultString +=Vue.filter('styleTitle')("Relation With Protected:") + adult['anotherAdultSharingResiRelation'] +"\n\n";               
         }
         return resultString;
+    }
+
+    public getAdvancedRadioGroupResults(argValue){        
+        const selected = argValue['selected']
+        let keyBeauty = selected.charAt(0).toUpperCase() + selected.slice(1);
+        keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2') 
+        let resultString = Vue.filter('styleTitle')("Selected: ")+keyBeauty+"\n";
+
+        for (const [key, value] of Object.entries(argValue))
+        {
+            // console.error("____________")
+            // console.log(key)
+            // console.log(value) 
+            if(key.startsWith(selected)){
+                if(value){                
+                    keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
+                    keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
+                    resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
+                }else{
+                    this.pageHasError = true;
+                    return "REQUIRED";
+                }
+            }
+        }
+        return resultString;
+    }
+
+    public getMultipleTextInputResults(argValue){
+        let resultString = "";
+        for (const [key, value] of Object.entries(argValue))
+        {
+            if(value){                
+                let keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
+                keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
+                resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
+            }else{
+                this.pageHasError = true;
+                return "REQUIRED";
+            }            
+        }
+        return resultString;
+    }  
+
+    public getGuardianOfChildTable(tableValue){
+        //console.log(tableValue)
+        let resultString = "";
+        for(const item of tableValue){
+            resultString +=Vue.filter('styleTitle')("Child Name: ") + item['name'] +"\n";
+            resultString +=Vue.filter('styleTitle')("Other Party Name: ") + item['nameOther'] +"\n";
+            resultString +=Vue.filter('styleTitle')("Guardian Start Date: ") + Vue.filter('beautify-date')(item['date']) +"\n";
+            resultString +=Vue.filter('styleTitle')("Your Relationship to Child: ") + item['relationship'] +"\n\n";               
+        }
+        return resultString
     }
 
     public edit(section, data){

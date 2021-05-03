@@ -98,9 +98,9 @@ export default class SpousalSupport extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             //console.log(this.survey.data);
             // console.log(options)
-            if (this.survey.data && this.survey.data.listOfSupportPayees && this.survey.data.listOfSupportPayees.length > 0 && this.otherPartyNames.length > 0){
+            if (this.survey.data && this.survey.data.listOfSupportPayors && this.survey.data.listOfSupportPayors.length > 0 && this.otherPartyNames.length > 0){
                 for (const otherPartyName of this.otherPartyNames) {
-                    if (!this.survey.data.listOfSupportPayees.includes(otherPartyName)){
+                    if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
                         this.survey.setVariable("Payee", otherPartyName);
                     }
                 }
@@ -119,9 +119,9 @@ export default class SpousalSupport extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.survey.data && this.survey.data.listOfSupportPayees && this.survey.data.listOfSupportPayees.length > 0 && this.otherPartyNames.length > 0){
+        if (this.survey.data && this.survey.data.listOfSupportPayors && this.survey.data.listOfSupportPayors.length > 0 && this.otherPartyNames.length > 0){
             for (const otherPartyName of this.otherPartyNames) {
-                if (!this.survey.data.listOfSupportPayees.includes(otherPartyName)){
+                if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
                     this.survey.setVariable("Payee", otherPartyName);
                 }
             }

@@ -19,7 +19,7 @@
           "elements": [
             {
               "type": "checkbox",
-              "name": "listOfSupportPayees",
+              "name": "listOfSupportPayors",
               "title": "I am applying for spousal support to be paid by:",
               "description": "Select from the list below.",
               "isRequired": true,
@@ -32,7 +32,7 @@
               "title": "I believe that {Payee} is entitled to spousal support for the following reason:",
               "isRequired": true,
               "visible": false,
-              "visibleIf": "{listOfSupportPayees} notempty",
+              "visibleIf": "{listOfSupportPayors} notempty",
               "choices": [
                 "There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship",
                 "To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child",
@@ -44,7 +44,7 @@
               "type": "comment",
               "name": "currentSupport",
               "visible": false,
-              "visibleIf": "{listOfSupportPayees} notempty",
+              "visibleIf": "{listOfSupportPayors} notempty",
               "title": "Please describe the current support arrangements.",
               "description": "You do not need to use any special wording. Just explain to the court how the spouse you believe is entitled to support is currently being looked after financially. Include:<ul><li>how much money you are receiving or paying for the support of the spouse</li><li>how often payments are/were being made</li><li>when did these payments begin or stop",
               "isRequired": true

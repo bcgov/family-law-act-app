@@ -83,8 +83,9 @@ export default class IndigenousAncestryOfChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['IndigenousAncestryOfChildSurvey']) {
-            this.survey.data = this.step.result['IndigenousAncestryOfChildSurvey'].data;
+        if (this.step.result && this.step.result['indigenousAncestryOfChildSurvey']) {
+            this.survey.data = this.step.result['indigenousAncestryOfChildSurvey'].data;
+            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         

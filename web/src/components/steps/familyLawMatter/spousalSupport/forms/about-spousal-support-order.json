@@ -8,25 +8,22 @@
         {
           "type": "panel",
           "name": "aboutPanel",
-          "elements": [
+          "elements": [            
             {
-              "type": "radiogroup",
-              "name": "howToPaySpousalSupport",
+              "type": "advancedradiogroup",
+              "name": "howToPaySpousalSupport",              
               "title": "I am applying for spousal support:",
-              "description": "Select from the list below.",
-              "isRequired": true,
+              "description" : "Select from the list below.",
+              "radioOutputValues":"{monthly},{lumpsum}",
+              "inputNames":"{monthlyAmount},{monthlyStartDate},{monthlyEndDate};{lumpsumAmount}",
+              "inputTypes":"{number},{date},{date};{number}",
+              "inputWidths":"{7rem},{11rem},{11rem};{9rem}",                  
+              "textBeforeInputs":"{in the amount of $},{per month starting on},{until},{};{in a lump sum of $},{}",
+              "textClasss": "sv_q_title font-weight-bold",
+              "radioMargins":"0 0 0.5rem 0",
+              "radioTextMargins":"-0.72rem 0 0 0",
               "hasOther": true,
-              "choices": [
-                "in the amount of $<input id='monthly-amount-template'/> per month starting on <input id='start-date-template'/> until <input id='end-date-template'/>",
-                "in a lump sum of $<input id='lump-sum-amount-template'/>"
-              ],
-              "validators": [
-                {
-                    "type": "expression",
-                    "text": "Please complete all fields.",
-                    "expression": "({monthlyAmount} notempty and {startDate} notempty and {endDate} notempty and {howToPay} contains 'monthly') or ({lumpSumAmount} notempty and {howToPay} contains 'lumpsum') or ({howToPay} contains 'other')"
-                }
-              ]
+              "isRequired": true
             }
           ]
         }

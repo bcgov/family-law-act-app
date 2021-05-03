@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -12,7 +12,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/child-support-order-agreement.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -41,7 +41,8 @@ export default class ChildSupportOrderAgreement extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    survey = new SurveyVue.Model(surveyJson);    
+    survey = new SurveyVue.Model(surveyJson); 
+    disableNextButton = false;   
     currentStep=0;
     currentPage=0;
    
@@ -54,6 +55,10 @@ export default class ChildSupportOrderAgreement extends Vue {
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
+    }
+
+    created() {
+        this.disableNextButton = false;        
     }
 
     mounted(){
@@ -73,7 +78,7 @@ export default class ChildSupportOrderAgreement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             console.log(options)
-
+            this.setPages();
         })
     }
     
@@ -84,10 +89,40 @@ export default class ChildSupportOrderAgreement extends Vue {
 
         if (this.step.result && this.step.result['childSupportOrderAgreementSurvey']) {
             this.survey.data = this.step.result['childSupportOrderAgreementSurvey'].data; 
+            if (this.survey.data.existingType == 'Neither') {
+                this.disableNextButton = true;
+            } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+
+        this.setPages();
+    }
+
+    public setPages(){            
+            
+        if (this.survey.data.existingType == 'ExistingOrder') {
+            this.disableNextButton = false;
+            this.togglePages([16, 17, 20, 21], true);
+            
+        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+            this.disableNextButton = false;
+            this.togglePages([16, 17, 20, 21], true);                
+        } else if (this.survey.data.existingType == "Neither") {
+            this.togglePages([16, 17, 20, 21], false);
+            this.disableNextButton = true;
+        }
+    }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
     }
 
     public onPrev() {

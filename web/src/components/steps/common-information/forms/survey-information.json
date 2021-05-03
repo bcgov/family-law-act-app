@@ -7,13 +7,13 @@
         {
           "type": "panel",
           "name": "ApplicantPanel",
-          "elements": [            
+          "elements": [
             {
               "type": "personname",
               "name": "ApplicantName",
               "title": "What is your full name?",
               "description": "This is the name of the person making the application. If you are helping someone use this app, use their name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
-              "isRequired": true,              
+              "isRequired": true,
               "defaultSubstitution": "(Applicant Name)",
               "descFirstName": "First Name is also known as Given Name",
               "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
@@ -28,10 +28,10 @@
             },
             {
               "type": "infotext",
-              "name": "ExplanationLawyer",              
-              "title": "The court needs to know where to send documents to you and how to reach you.",              
+              "name": "ExplanationLawyer",
+              "title": "The court needs to know where to send documents to you and how to reach you.",
               "titleLocation": "hidden"
-            },            
+            },
             {
               "type": "yesno",
               "name": "Lawyer",
@@ -50,9 +50,9 @@
               "type": "helptext",
               "name": "FAQLawyer2",
               "title": "What if I used to have a lawyer but not anymore?",
-              "titleLocation": "hidden",             
+              "titleLocation": "hidden",
               "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nYou will need to give an address where it is safe for you to receive court documents.\n<br>\n<br>\nIf you already have a Provincial Court Family Law file and you don't have a lawyer anymore, you may need to update your address for service.\n<br>\n<br>\n<a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa053.pdf?forcedownload=true\" target=\"_blank\">Click here to download the form.</a> (This link will open in a new tab.)"
-            },           
+            },
             {
               "type": "infotext",
               "name": "ExplanationServiceAddress",
@@ -65,7 +65,7 @@
             {
               "type": "panel",
               "name": "ApplicantContactPanel",
-              "elements": [                
+              "elements": [
                 {
                   "type": "address",
                   "name": "ApplicantAddress",
@@ -82,7 +82,7 @@
                       "expression": "{ApplicantAddress.street} notempty and {ApplicantAddress.postcode} notempty and {ApplicantAddress.city} notempty"
                     }
                   ]
-                },                
+                },
                 {
                   "type": "contactinfo",
                   "name": "ApplicantContact",
@@ -131,6 +131,53 @@
                   "visibleIf": "{Lawyer} = 'y'",
                   "title": "Lawyer's Contact Information",
                   "isRequired": true
+                },
+                {
+                  "type": "yesno",
+                  "name": "LawyerFillingOut",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm}",
+                  "title": "Are you a lawyer completing this application for your client?",
+                  "isRequired": true
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationLawyerFilling",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'n')",
+                  "title": "Note: A lawyer consulted by a party to a family law dispute has a duty under s. 8 of the Family Law Act to:<ul><li>assess for any risk of family violence,</li><li>discuss ways to resolve the family law dispute and other issues out of court, and</li><li>advise the party that agreements and orders respecting guardianship, parenting arrangements and contact with a child must be made in the best interests of the child only.</li></ul>",
+                  "titleLocation": "hidden"
+                },
+                {
+                  "type": "html",
+                  "name": "lawyerStatementHeading",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Lawyer’s statement</div>Complete the statement below.</div>"
+                },
+                {
+                  "type": "multipletextinput",
+                  "name": "lawyerStatement",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "title": "Lawyer acknowledgment",
+                  "titleLocation":"hidden",
+                  "inputNames":"{lawyerName},{clientName}",
+                  "inputTypes":"{text},{text}",
+                  "inputWidths":"{35rem},{30rem}",                  
+                  "textBeforeInputs":"{I},{, the lawyer for},{, acknowledge that I have complied with the requirements of section 8 of the Family Law Act.}",
+                  "textClass": "sv_q_title font-weight-bold",
+                  "isRequired": true
+
+                },               
+                {
+                  "type": "helptext",
+                  "name": "FAQLawyerStatement",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "title": "What are the requirements of section 8 of the Family Law Act?",
+                  "titleLocation": "hidden",
+                  "body": "Section 8 of the Family Law Act sets out the duties of family dispute resolution professionals as follows:<ol><li>A family dispute resolution professional consulted by a party to a family law dispute must assess, in accordance with the regulations, whether family violence may be present, and if it appears to the family dispute resolution professional that family violence is present, the extent to which the family violence may adversely affect<ol style='list-style-type: lower-alpha'><li>the safety of the party or a family member of that party, and</li><li>the ability of the party to negotiate a fair agreement.</li></ol></li><li>Having regard to the assessment made under subsection (1), a family dispute resolution professional consulted by a party to a family law dispute must<ol style='list-style-type: lower-alpha'><li>discuss with the party the advisability of using various types of family dispute resolution to resolve the matter, and</li><li>inform the party of the facilities and other resources, known to the family dispute resolution professional, that may be available to assist in resolving the dispute.</li></ol></li><li>A family dispute resolution professional consulted by a party to a family law dispute must advise the party that agreements and orders respecting the following matters must be made in the best interests of the child only:<ol style='list-style-type: lower-alpha'><li>guardianship;</li><li>parenting arrangements;</li><li>contact with a child.</li></ol></li></ol>"
                 }
               ],
               "visible": false,

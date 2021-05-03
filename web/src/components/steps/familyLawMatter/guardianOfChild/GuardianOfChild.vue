@@ -243,13 +243,14 @@ export default class GuardianOfChild extends Vue {
 
     public checkTableError(){
         console.log( this.guardianOfChildItem)
-        for(const itemIndex in this.guardianOfChildItem){
-            const childItem = this.guardianOfChildItem[itemIndex]
-            if(!childItem.name || !childItem.nameOther || !childItem.date || !childItem.relationship){
-                this.tableError = true;
-                return true
+        if(this.showTable)
+            for(const itemIndex in this.guardianOfChildItem){
+                const childItem = this.guardianOfChildItem[itemIndex]
+                if(!childItem.name || !childItem.nameOther || !childItem.date || !childItem.relationship){
+                    this.tableError = true;
+                    return true
+                }
             }
-        }
         this.tableError=false;
         return false
     }
@@ -270,7 +271,9 @@ export default class GuardianOfChild extends Vue {
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);        
         else
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {GuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
+        const tableQuestion = this.showTable? {name:'cancelChildGuardianship', value: this.guardianOfChildItem, title:'Please complete the following information for each child you are applying for a person to no longer be a guardian of', inputType:''}: ''
+        this.UpdateStepResultData({step:this.step, data: {GuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, tableQuestion)}})
     }
 }
 </script>

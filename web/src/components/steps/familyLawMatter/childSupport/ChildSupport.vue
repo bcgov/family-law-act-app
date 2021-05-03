@@ -46,6 +46,7 @@ export default class ChildSupport extends Vue {
     currentStep = 0;
     currentPage = 0;
     surveyHasError = false;
+    numberOfOtherParties = 0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -74,13 +75,14 @@ export default class ChildSupport extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
         if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
-            //console.log(otherPartyData)            
+            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data; 
+            this.numberOfOtherParties = otherPartyData.length;           
+            // console.log(otherPartyData)            
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];
             const infoTemplate = this.surveyJsonCopy.pages[0].elements[0].elements[3];
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
-            let visibleCondition = "{applicantGuardianType} == 'parentGuardian' "
+            let visibleCondition = "false"
             
             for (const otherIndex in otherPartyData){                
                 const otherParty = otherPartyData[otherIndex]
@@ -88,7 +90,7 @@ export default class ChildSupport extends Vue {
                 temp.title = Vue.filter('getFullName')(otherParty['name']) +' is:'
                 temp['name'] = "otherParty["+otherIndex+"]GuardianType"
                 this.surveyJsonCopy.pages[0].elements[0].elements.push(temp);
-                visibleCondition += "or {otherParty["+otherIndex+"]GuardianType} == 'parentGuardian' "
+                visibleCondition += "or {otherParty["+otherIndex+"]GuardianType} == 'appointedGuardian' "
             }
             //console.log(visibleCondition)
             infoTemplate.visibleIf = visibleCondition
@@ -100,8 +102,7 @@ export default class ChildSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data)           
-            //console.log(options)
+            console.log(this.survey.data)
         })
     }
     
@@ -111,14 +112,14 @@ export default class ChildSupport extends Vue {
         
         if (this.step.result && this.step.result['childSupportSurvey']) {
             this.survey.data = this.step.result['childSupportSurvey'].data;
-
+           
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         if(this.surveyHasError)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         else
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-    }
+    }   
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

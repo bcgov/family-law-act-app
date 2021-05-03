@@ -209,11 +209,12 @@ export default class ChildrenInfo extends Vue {
 
     public getChildInfo(child){
         const resultString = [];
-        resultString.push("Name: "+Vue.filter('getFullName')(child.name));
-        resultString.push("Birthdate: "+Vue.filter('beautify-date')(child.dob))
-        resultString.push("Relation to Applicant: "+child.relation)
-        resultString.push("Relation to Other Party: "+child.opRelation)
-        resultString.push("Living with: "+child.currentLiving)
+
+        resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
+        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
+        resultString.push(Vue.filter('styleTitle')("Relation to Applicant: ")+child.relation)
+        resultString.push(Vue.filter('styleTitle')("Relation to Other Party: ")+child.opRelation)
+        resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
         return resultString
     }
 };

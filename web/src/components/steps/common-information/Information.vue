@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">   
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -32,6 +32,9 @@ export default class Information extends Vue {
     @applicationState.State
     public steps!: any
 
+    @applicationState.State
+    public types!: string[]
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -48,12 +51,15 @@ export default class Information extends Vue {
     surveyJsonCopy
     currentStep=0;
     currentPage=0;
+
+    lawyerName = '';
+    clientName = '';
    
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+    // @Watch('pageIndex')
+    // pageIndexChange(newVal) 
+    // {
+    //     this.survey.currentPageNo = newVal;        
+    // }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -77,7 +83,7 @@ export default class Information extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);
+            console.log(this.survey.data);
             // console.log(options)
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
@@ -89,11 +95,17 @@ export default class Information extends Vue {
     public reloadPageInformation() {
         // console.log(this.steps[0].result)
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
         if (this.step.result && this.step.result['yourInformationSurvey']) {
             this.survey.data = this.step.result['yourInformationSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+        }
+
+        if (this.types.includes("Family Law Matter")){
+            this.survey.setVariable("includesFlm", true);            
+        } else {
+            this.survey.setVariable("includesFlm", false);
         }
 
         if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
@@ -104,7 +116,7 @@ export default class Information extends Vue {
             }
         }
         
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
     }
 
     public adjustSurveyForPersonalInfo(){

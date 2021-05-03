@@ -16,14 +16,18 @@
           "name": "unpaidPanel",
           "visible": false,
           "visibleIf": "{unpaid} == 'y'",
-          "elements": [
+          "elements": [           
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "unPaidAmount",
-              "visible": false,
-              "visibleIf": "{unpaid} == 'y'",
-              "isRequired": true,
-              "title": "What is the amount of unpaid child support you believe is still owing?"
+              "title":"What is the amount of unpaid child support you believe is still owing? $ ",
+              "titleLocation":"hidden",      
+              "bodyText":"What is the amount of unpaid child support you believe is still owing? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
+              "visible":false,
+              "visibleIf": "{unpaid} == 'y'",              
+              "isRequired": true
             },
             {
               "type": "yesno",
@@ -34,11 +38,15 @@
               "isRequired": true
             },
             {
-              "type": "text",
+              "type": "textbeforeinputnumber",
               "name": "reduceAmount",
-              "title": "What amount do you want it reduced to?",
+              "title": "What amount do you want it reduced to? $",
               "visible": false,
               "visibleIf": "{applyToReduce} == 'y'",
+              "titleLocation":"hidden",
+              "bodyText":"What amount do you want it reduced to? $", 
+              "inputWidth": "9rem",
+              "textClass" : "sv_main sv_q_title font-weight-bold",
               "isRequired": true
             },
             {
@@ -50,31 +58,20 @@
               "isRequired": true
             },
             {
-              "type": "radiogroup",
+              "type": "advancedradiogroup",
               "name": "paymentSchedule",
               "title":"How do you want the remaining unpaid child support to be paid?",
               "description": "Select each option that applies and complete the required information.",
               "visible": false,
-              "visibleIf": "{unpaid} == 'y'",
-              "isRequired": true, 
-              "hasOther": true,             
-              "choices": [ 
-                {
-                  "value": "monthly",
-                  "text": "At a monthly Rate"
-                },
-                {
-                  "value": "lumpSum",
-                  "text": "In a lump sum (all at once)"
-                }          
-              ]             
-            },
-            {
-              "type": "text",
-              "name": "monthlyAmount",
-              "title": "Please enter the monthly rate:",                         
-              "visible": false,
-              "visibleIf": "{paymentSchedule} == 'monthly'",
+              "visibleIf": "{unpaid} == 'y'",                     
+              "radioOutputValues":"{monthly},{lumpSum}",
+              "inputNames":"{monthlyAmount}",
+              "inputTypes":"{number}",
+              "inputWidths":"{9rem}",                  
+              "textBeforeInputs":"{At a monthly Rate},{};{In a lump sum (all at once)}",              
+              "radioMargins":"0 0 0.2rem 0",
+              "radioTextMargins":"-0.6rem 0 0 0",
+              "hasOther": true,
               "isRequired": true
             }
 

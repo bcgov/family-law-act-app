@@ -13,7 +13,7 @@
           "elements": [            
             {
               "type": "comment",
-              "name": "newParentingArrangementsChildBestInterestDescription",
+              "name": "newChildBestInterestDescription",
               "title": "Please explain why you believe the order about contact with a child you are applying for is in the {childWording}’s best interests.",
               "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want to make is in the child’s best interests.",
               "visible": false,
@@ -30,7 +30,7 @@
           "elements": [
             {
               "type": "comment",
-              "name": "existingParentingArrangementsChildBestInterestDescription",
+              "name": "existingChildBestInterestDescription",
               "title": "Please explain why you believe the order about contact with a child you are applying for is in the {childWording}’s best interests.",
               "description": "You do not need to use any special wording. The key is to be clear about why you think the order you want the court to make is in the child’s best interests.",
               "visible": false,

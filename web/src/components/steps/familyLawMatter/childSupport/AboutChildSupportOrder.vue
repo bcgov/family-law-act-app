@@ -1,6 +1,6 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <survey v-bind:survey="survey"></survey>
+        <survey v-bind:survey="survey"></survey>        
     </page-base>
 </template>
 
@@ -51,7 +51,10 @@ export default class AboutChildSupportOrder extends Vue {
     currentStep =0;
     currentPage =0;
     applicantFullName ='';
-    over19Index = []
+    over19Index = [];
+    childSupportStartType = '';
+    startDate = '';
+    startEvent = '';
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -126,7 +129,9 @@ export default class AboutChildSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
-            console.log(options)
+            //console.log(options)
+            console.log(this.survey.data['paymentRequestStartingDate'])
+
             if (options.name == 'listOfChildren'){
                 this.setSelectedChildNames(options.value);
             }

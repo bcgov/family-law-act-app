@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -39,6 +39,7 @@ export default class ParentingArrangements extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
     existing = false;
@@ -52,6 +53,10 @@ export default class ParentingArrangements extends Vue {
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
+    }
+
+    created() {
+        this.disableNextButton = false;       
     }
 
     mounted(){
@@ -79,8 +84,10 @@ export default class ParentingArrangements extends Vue {
     public setPages(){
         if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
+                this.disableNextButton = true;
                 this.togglePages([4, 5, 6, 10], false);
             } else {
+                this.disableNextButton = false;
                 this.togglePages([4, 5, 6, 10], true);
             }
         }         
@@ -93,6 +100,9 @@ export default class ParentingArrangements extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['parentingArrangementsSurvey']) {
             this.survey.data = this.step.result['parentingArrangementsSurvey'].data;
+            if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
+                this.disableNextButton = true;
+            } 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
 
