@@ -125,7 +125,7 @@ export default class ParentalResponsibilities extends Vue {
         }
         
         if (this.childData.length == 1){
-            this.survey.setValue("childrenRequestedResponsibilities", Vue.filter('getFullName')(this.childData[0].name));
+            this.survey.setValue("childrenRequestedResponsibilities", [Vue.filter('getFullName')(this.childData[0].name)]);
             this.survey.setVariable("allChildrenSelected", true);  
         }
 

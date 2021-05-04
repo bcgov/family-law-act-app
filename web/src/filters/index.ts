@@ -396,7 +396,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.fullsize td{padding:0 0 0 .5rem; color: #313132;}`+
 
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
-			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0 0rem;}`+
+			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.25rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+

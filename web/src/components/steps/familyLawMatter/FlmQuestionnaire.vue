@@ -112,7 +112,10 @@ export default class FlmQuestionnaire extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-  
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+    
     selectedForm = [];
     //returningUser = false
     showLegalAssistance = false
@@ -168,10 +171,11 @@ export default class FlmQuestionnaire extends Vue {
     }
   
     public onChange(selectedForm) {
+        this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         if(this.checkErrorOnPages())        
             this.setSteps(selectedForm);
         else{ 
-            this.selectedForm = [];
+            this.selectedForm = [];            
             //this.togglePages(this.allPages, false); 
         }
         Vue.filter('surveyChanged')('familyLawMatter')
