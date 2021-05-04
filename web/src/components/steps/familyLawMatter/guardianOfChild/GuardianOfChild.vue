@@ -11,7 +11,8 @@
                 bordereless>
                 <template v-slot:cell(name)="data">
                     <b-form-select
-                    id="input-3"
+                    id="input-2"
+                    @change="tableChanged()"
                     v-model="data.item.name"
                     :options="childrenNames"
                     required
@@ -20,17 +21,19 @@
                 <template v-slot:cell(nameOther)="data">
                     <b-form-select
                     id="input-3"
+                    @change="tableChanged()"
                     v-model="data.item.nameOther"
                     :options="otherPartyNames"
                     required
                     ></b-form-select>
                 </template>
                 <template v-slot:cell(date)="data">
-                    <b-form-input type="date" v-model="data.item.date" />
+                    <b-form-input @change="tableChanged()" type="date" v-model="data.item.date" />
                 </template> 
                 <template v-slot:cell(relationship)="data">
                     <b-form-select
-                    id="input-3"
+                    id="input-4"
+                    @change="tableChanged()"
                     v-model="data.item.relationship"
                     :options="['Guardian','Applying to be appointed as a guardian']"
                     required
@@ -215,6 +218,7 @@ export default class GuardianOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             this.setPages();
             this.determineShowingTable();
         })
@@ -236,9 +240,9 @@ export default class GuardianOfChild extends Vue {
     
     public setPages(){ 
         if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
-            this.togglePages([27,39], true);                
+            this.togglePages([27], true);                
         } else {
-            this.togglePages([27,39], false);
+            this.togglePages([27], false);
         }
     }
 
@@ -298,6 +302,10 @@ export default class GuardianOfChild extends Vue {
             }
         this.tableError=false;
         return false
+    }
+
+    public tableChanged(){
+        Vue.filter('surveyChanged')('familyLawMatter')
     }
 
     public onPrev() {

@@ -119,7 +119,7 @@ export default class ChildrenInfo extends Vue {
         this.showTable = false;
          Vue.nextTick(()=>{
             const el = document.getElementById('child-info-survey')
-            console.log(el)
+            //console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {

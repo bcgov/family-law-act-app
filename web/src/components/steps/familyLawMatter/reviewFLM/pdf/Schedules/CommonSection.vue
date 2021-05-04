@@ -123,15 +123,15 @@
 <!-- <5> -->
             <section> 
                 I am filing my application in:
-                <check-box style="margin:0 0 0 1rem;" :check="true?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="true?'?':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
                 <div style="margin:0 0 0 2.75rem;">
-                    <check-box style="" :check="true?'yes':''" text="needs assessment"/>
-                    <check-box style="" :check="true?'yes':''" text="parenting education program"/>
-                    <check-box style="" :check="true?'yes':''" text="consensual dispute resolution"/>
+                    <check-box style="" :check="true?'?':''" text="needs assessment"/>
+                    <check-box style="" :check="true?'?':''" text="parenting education program"/>
+                    <check-box style="" :check="true?'?':''" text="consensual dispute resolution"/>
                 </div>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="none of the above "/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="none of the above "/>
             </section>
         </div>
 
@@ -193,8 +193,10 @@
             <div style="margin-top:1rem;"><b>Relationship between the parties</b></div>
 <!-- <9> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">The parties are: </div>          
-                <i style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</i>
+                <div style="display:inline; margin-left:0.25rem">The parties are: </div> 
+                <div class="answer">         
+                    <i style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</i>
+                </div>
             </section>
         </div>
 
@@ -203,7 +205,7 @@
             <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
             <div>
                 <i style="display:inline;margin-left:1rem" >Specify which other party if there is more than one: </i>
-                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text=""/>
+                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text="?"/>
             </div>
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
@@ -387,7 +389,7 @@ export default class CommonSection extends Vue {
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
         existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
 
         return existing;

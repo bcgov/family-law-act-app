@@ -25,9 +25,11 @@
                     <i style="display:inline; margin-left:0.25rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
                     <div style="margin-left:1rem">
                         <check-box style="" :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
-                        <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
-                            <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
-                        </ul>                    
+                        <div class="answer">
+                            <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
+                                <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
+                            </ul>
+                        </div>                    
                         <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
                             || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
                         <div v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
@@ -44,7 +46,7 @@
                 <section>
                     I am applying for an order about the allocation of parenting time as follows:
                     <i style="display:block; margin-left:1rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
-                    <check-box style="margin:0 0 2rem 1rem;" 
+                    <check-box style="margin:0 0 0 1rem;" 
                             :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired?'yes':''" 
                             text="I am asking for the child(ren) to spend time with me as follows:"/> 
                     <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired)" 
@@ -53,7 +55,7 @@
 
 
                     <check-box 
-                        style="margin:0 0 2rem 1rem;" 
+                        style="margin:1rem 0 0 1rem;" 
                         :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe?'yes':''" 
                         text="I am willing to have the following conditions placed on my time with the child(ren):"/>
                     
@@ -63,7 +65,7 @@
                     
                     
                     <check-box 
-                        style="margin:0 0 2rem 1rem;" 
+                        style="margin:1rem 0 0rem 1rem;" 
                         :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired?'yes':''" 
                         text="I am asking for the child(ren) to spend time with the other guardian(s) as follows:"/>
                     <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired)" 
@@ -72,7 +74,7 @@
                     
                     
                     <check-box 
-                        style="margin:0 0 2rem 1rem;" 
+                        style="margin:1rem 0 0rem 1rem;" 
                         :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp?'yes':''" 
                         text="I am asking to have the following conditions placed on the other guardian’s time with the child(ren):"/>
                     <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp)" 

@@ -66,9 +66,10 @@ export default class SpousalSupportIncomeAndEarningPotential extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {         
+        this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')         
             //console.log(options)
-            console.log(this.survey.data)
+            //console.log(this.survey.data)
             
         })
     }

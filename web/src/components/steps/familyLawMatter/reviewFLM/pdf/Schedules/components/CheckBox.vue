@@ -45,7 +45,8 @@ export default class CheckBox extends Vue {
 
 
     public getCheck(){
-        if(this.check) return "&#10003"
+        if(this.check=='?') return "&#63"
+        else if(this.check) return "&#10003"
         return ""
     }
     public getShift(){
