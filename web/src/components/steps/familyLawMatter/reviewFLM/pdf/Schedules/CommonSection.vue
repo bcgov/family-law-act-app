@@ -445,7 +445,7 @@ export default class CommonSection extends Vue {
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
-                    dob: 'unknown',
+                    dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
                     contactInfo: ''
