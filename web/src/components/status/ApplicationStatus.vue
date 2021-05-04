@@ -7,6 +7,8 @@
                     <h1>Previous Applications</h1>
                     <hr class="bg-light" style="height: 2px;"/>
 
+                    <loading-spinner v-if="!dataLoaded" waitingText="Loading ..." /> 
+
                     <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
                             <span class="text-muted ml-4 mb-5">No previous applications.</span>
                     </b-card>
@@ -39,7 +41,7 @@
                                 </b-button>
 
                                 <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                    @click="viewApplicationPdf(row.item.id)"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
                                     v-b-tooltip.hover.noninteractive
                                     title="View the Submitted Application">
                                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
@@ -114,6 +116,30 @@
                 <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-confirm-delete')"
                 >&times;</b-button>
             </template>
+        </b-modal>
+
+
+        <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info">                        
+            <template v-slot:modal-title>
+                <h2 class="mb-0 text-primary">Click on File to Download</h2>                                  
+            </template>
+            <b-row v-for="(pdf,inx) in printingListOfPdfs" :key="inx"> 
+                <b-button size="sm" variant="light" class="py-2 my-2 mx-auto px-5" style="width:20rem;"
+                    @click="downloadApplicationPdf(printingApplicationId, pdf)"
+                    >                    
+                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                    {{extractTypes([pdf])[0]}}
+                </b-button>
+            </b-row>
+            
+            
+            <template v-slot:modal-footer>                
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-select-pdf')">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
+                >&times;</b-button>
+            </template>
         </b-modal> 
 
     </b-card>
@@ -130,14 +156,27 @@ import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"
 
 import { namespace } from "vuex-class";   
+import "@/store/modules/common";
+const commonState = namespace("Common");
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 @Component
 export default class ApplicationStatus extends Vue {
 
-    @applicationState.Action
+    @commonState.Action
     public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
+
+    @commonState.Action
+    public UpdateLocationsInfo!: (newLocationsInfo) => void
+
+    @applicationState.Action
+    public UpdatePathwayCompletedFull!: (newPathwayCompleted) => void
+
+    @applicationState.Action
+    public UpdateRequiredDocuments!: (newRequiredDocuments) => void
+
+    dataLoaded = false;
 
     previousApplications = []
     previousApplicationFields = [
@@ -159,6 +198,7 @@ export default class ApplicationStatus extends Vue {
 
     mounted() {
         this.loadDocumentTypes();
+        this.extractFilingLocations();
         this.loadApplications();
     }
 
@@ -171,23 +211,27 @@ export default class ApplicationStatus extends Vue {
     //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
+            console.log(response)
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', last_efiling_submission:{package_number:'',package_url:''}};
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}};
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
-                app.app_type = appJson.app_type;
+                app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
+                app.app_type = this.extractTypes(appJson.app_type.split(',')).toString();
                 if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                     if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
                 }
                 this.previousApplications.push(app);
             }
-            //console.log(this.previousApplications)       
+            console.log(this.previousApplications)
+            this.dataLoaded = true;       
         },(err) => {            
             //console.log(err)
+            this.dataLoaded = true;
             this.error = err;        
         });
     }
@@ -205,7 +249,7 @@ export default class ApplicationStatus extends Vue {
         store.commit("Application/setUserType", userType);
 
         const application = store.state.Application;
-        
+        application.type = store.state.Application.types.toString();
         //console.log(application)
         const url = "/app/";
         const header = {
@@ -239,26 +283,35 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
             const applicationData = response.data
 
-            //console.log(applicationData)
+            console.log(applicationData)
             
             this.currentApplication.id = applicationId;
-            this.currentApplication.allCompleted = applicationData.allCompleted;
-            this.currentApplication.applicantName = applicationData.applicantName;
             this.currentApplication.currentStep = applicationData.currentStep;
             this.currentApplication.lastUpdate = applicationData.lastUpdated;
             this.currentApplication.lastPrinted = applicationData.lastPrinted;
-            this.currentApplication.respondentName = applicationData.respondentName;
-            this.currentApplication.protectedPartyName = applicationData.protectedPartyName;
-            this.currentApplication.protectedChildName = applicationData.protectedChildName;
-            this.currentApplication.applicationLocation = applicationData.applicationLocation;
-            
-            this.currentApplication.type = applicationData.type;
-            this.currentApplication.userId = applicationData.user;
+            this.currentApplication.applicationLocation = applicationData.applicationLocation;                        
+            this.currentApplication.types = (applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];
+            this.currentApplication.userId = applicationData.userId;
             this.currentApplication.userName = applicationData.userName;
             this.currentApplication.userType = applicationData.userType;        
             this.currentApplication.steps = applicationData.steps;
+
+            if(this.currentApplication.steps[0]['result']){
+                this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
+                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentsPO']?this.currentApplication.steps[0]['result']['respondentsPO'][0]:'';//applicationData.respondentName;
+                this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
+                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;                
+            }
+
+            console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
-            this.$store.commit("Common/setExistingApplication", true);      
+            this.$store.commit("Common/setExistingApplication", true);
+
+            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
+                this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
+
+            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['pathwayCompleted'])
+                this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           
 
             this.$router.push({name: "flapp-surveys" })        
         }, err => {
@@ -266,6 +319,39 @@ export default class ApplicationStatus extends Vue {
             this.error = err;        
         });
     }   
+
+    public extractTypes(applicationTypes: string) {
+
+
+        let types = [];
+
+        for (const applicationType of applicationTypes){
+            if (applicationType.includes("FPO")){
+                types.push(applicationType.replace("FPO", "Protection Order"));            
+            }
+            if (applicationType.includes("FLC")){
+                types.push("Family Law Matter");
+            }
+            if (applicationType.includes("ACMO")){
+                types.push("Case Management");
+            }
+            if (applicationType.includes("AXP")){
+                types.push("Priotity Parenting Matter");
+            }
+            if (applicationType.includes("APRC")){
+                types.push("Relocation of a Child");
+            }
+            if (applicationType.includes("AFET")){
+                types.push("Enforcement of Agreements and Court Orders");
+            }
+
+            if (applicationType.includes("AAP")){
+                types.push("Protection Order"); 
+                //types.push("Enforcement of Agreements and Court Orders");            
+            }
+        }
+        return types;
+    }
 
     public removeApplication(application, index) {
         this.deleteErrorMsg = '';
@@ -294,32 +380,39 @@ export default class ApplicationStatus extends Vue {
         this.confirmDelete=false;  
     }
 
-    public viewApplicationPdf(applicationId) {
-            
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-        const body = {}
+    printingApplicationId = 0;
+    printingListOfPdfs = [];
+    showSelectFileForPrint =  false;
+    public viewApplicationPdf(applicationId, listOfPdfs) {
+        console.log(applicationId)
+        console.log(listOfPdfs)
+        this.printingApplicationId = applicationId;
+        this.printingListOfPdfs = listOfPdfs;
+        this.showSelectFileForPrint =  true;
+    }
+
+    public downloadApplicationPdf(applicationId, pdf_type){
+        
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
         const options = {
             responseType: "blob",
             headers: {
             "Content-Type": "application/json",
             }
-        }
-        //console.log(body)
-        this.$http.post(url,body, options)
+        }  
+        this.$http.get(url, options)
         .then(res => {
             const blob = res.data;
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             document.body.appendChild(link);
-            link.download = "fpo.pdf";
+            link.download = pdf_type+".pdf";
             link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-            this.error = "";
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);  
+            this.error = "";          
         },err => {
             console.error(err);
-            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
         });
-
     }
 
     public loadDocumentTypes() {
@@ -336,6 +429,30 @@ export default class ApplicationStatus extends Vue {
             console.log(err)
             //this.error = err;        
         });
+    }
+
+    public extractFilingLocations() {
+        this.$http.get('/efiling/locations/')
+        .then((response) => {
+            // console.log(Object.keys(response.data))
+            const locationsInfo = response.data 
+            const locationNames = Object.keys(response.data);
+            const locations = []
+            for (const location of locationNames){
+                // console.log(location)
+                // console.log(locationsInfo[location])
+                const locationInfo = locationsInfo[location];
+                const address = locationInfo.address_1?(locationInfo.address_1+ ', '):''  + 
+                                locationInfo.address_2?(locationInfo.address_2 + ', '):'' + 
+                                locationInfo.address_3?(locationInfo.address_3 + ', '):'' + 
+                                locationInfo.address_2?(locationInfo.postal):'';
+                locations.push({id: locationInfo.location_id, name: location, address: address})
+            }
+            console.log(locations)
+            this.UpdateLocationsInfo(locations); 
+        
+        },(err) => console.log(err));
+        
     }
 
     beforeCreate() {

@@ -18,7 +18,7 @@
 """
 from rest_framework import serializers
 
-from api.models import SurveyResult, User, Application, EFilingSubmission
+from api.models import SurveyResult, User, Application, EFilingSubmission, PreparedPdf
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -30,14 +30,18 @@ class UserSerializer(serializers.ModelSerializer):
 class EFilingSubmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = EFilingSubmission
-        fields = [
-            "package_number",
-            "package_url"
-        ]
+        fields = ["package_number", "package_url"]
+
+
+class PreparedPdfSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreparedPdf
+        fields = ["id", "pdf_type", "version", "created_date"]
 
 
 class ApplicationListSerializer(serializers.ModelSerializer):
     last_efiling_submission = EFilingSubmissionSerializer()
+    prepared_pdfs = serializers.SerializerMethodField()
 
     class Meta:
         model = Application
@@ -46,8 +50,14 @@ class ApplicationListSerializer(serializers.ModelSerializer):
             "app_type",
             "last_updated",
             "last_filed",
-            "last_efiling_submission"
+            "last_efiling_submission",
+            "prepared_pdfs",
         ]
+
+    def get_prepared_pdfs(self, obj):
+        return PreparedPdfSerializer(
+            PreparedPdf.objects.filter(application_id=obj.id), many=True
+        ).data
 
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -59,7 +69,6 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
 
 class SurveySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = SurveyResult
         fields = [

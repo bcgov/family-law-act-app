@@ -1,0 +1,69 @@
+{
+  "title": "Indigenous ancestry of child",
+  "pages": [
+    {
+      "name": "Indigenous ancestry of child",
+      "description": "This section helps you to identify any Indigenous ancestry of the child for the court and to acknowledge your requirements if a child is a Nisga’a or treaty First Nation child.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "IndigenousChildPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "indigenousChild",
+              "title": "Is a child this guardianship application is about an Indigenous child?",
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "yes",
+                  "text": "Yes"
+                },
+                {
+                  "value": "no",
+                  "text": "No"
+                },
+                {
+                  "value": "unknown",
+                  "text": "Unknown"
+                }
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": "indigenousAncestry",
+              "title": "Please select the option(s) below that best describe the Indigenous ancestry of the child.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{indigenousChild} = 'yes'",
+              "choices": [
+                "First Nation",
+                "Nisga’a",
+                "Treaty First Nation",
+                "the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous",
+                "the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "ServeAcknowledgement",
+              "title": "",
+              "visible": false,
+              "visibleIf": "{indigenousChild} = 'yes' and ({indigenousAncestry} anyof ['Nisga’a', 'Treaty First Nation'])",
+              "titleLocation": "hidden",
+              "choices": [
+                {
+                  "value": "I acknowledge",
+                  "text": "I acknowledge that I must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section208\" target=\"blank\">section 208 or 209 of the Family Law Act</a>."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "title": "Indigenous ancestry of child"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

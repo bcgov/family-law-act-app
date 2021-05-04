@@ -1,0 +1,71 @@
+{
+  "title": "Child Support",
+  "pages": [
+    {
+      "name": "Child Support ",
+      "description": "Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever lived with the child.<br><br>Although parents have the primary responsibility to pay child support, other guardians and step-parents may be responsible for paying child support. If you are a step-parent, and you need more information about step-parents and child support, see the fact sheet <a href='https://familylaw.lss.bc.ca/resources/fact_sheets/step_parents_rights.php' target='_blank'>Step-parents Rights and Responsibilities</a> by Legal Aid BC.<br><br>For more information about child support and referrals to other child support resources, visit the <a href='https://www2.gov.bc.ca/gov/content?id=9FC4E697F0204229BE702F32475C9107' target='_blank'>BC Government website</a> at www.gov.bc.ca.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ChildSupportPanel",
+          "elements": [
+            {
+              "type": "html",
+              "name": "GuardianTypeSelectionHelp",
+              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.6em;' class='sv_main sv_q_title'>Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.</div>If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option.</div>"
+            },
+            {
+              "type": "radiogroup",
+              "name": "applicantGuardianType",
+              "title": "I am:",
+              "isRequired": true,
+              "hasOther": true,
+              "choices": [
+                {
+                  "value": "parentGuardian",
+                  "text": "A parent or guardian of the child(ren)"
+                },
+                {
+                  "value": "appointedGuardian",
+                  "text": "Applying to be appointed as a guardian of the child(ren)"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "radiogroup",
+              "name": "otherParty[0]GuardianType",
+              "title": "Other Party is:",
+              "isRequired": true,
+              "hasOther": true,
+              "otherText": "Other (For example, a step-parent.)",
+              "choices": [
+                {
+                  "value": "parentGuardian",
+                  "text": "A parent or guardian of the child(ren)"
+                },
+                {
+                  "value": "appointedGuardian",
+                  "text": "A person standing in the place of a parent to the child(ren)"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4Info",
+              "visible": false,
+              "visibleIf": "{statementRequired}",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        }
+      ],
+      "title": "Child Support - New"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

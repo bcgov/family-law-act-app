@@ -3,7 +3,7 @@
     <div class="row survey-address-line" v-if="selOptions.length">
       <div class="col-sm-6 form-inline">
         <label class="survey-sublabel">Copy from:</label>
-        <select class="form-control ml-2" ref="copyFrom">
+        <select v-model="copiedAddress" class="form-control ml-2" ref="copyFrom" @change="copySelected">
           <option value="">(Select Address)</option>
           <option
             v-for="(opt,inx) in selOptions"
@@ -19,6 +19,7 @@
         <input
           class="form-control"
           placeholder="Street address, for example: 800 Hornby St."
+          data-test-id="address"
           :id="question.inputId"
           v-model="pendingValue['street']"
           @change="updateValue"
@@ -33,6 +34,7 @@
         <input
           class="form-control"
           :id="question.inputId + '-city'"
+          data-test-id="city"
           v-model="pendingValue['city']"
           @change="updateValue"
         />
@@ -44,6 +46,7 @@
         <select
           class="form-control"
           v-model="pendingValue['state']"
+          data-test-id="state"
           :id="question.inputId + '-state'"
           @change="updateValue"
         >
@@ -65,6 +68,7 @@
         <select
           class="form-control"
           v-model="pendingValue['country']"
+          data-test-id="country"
           :id="question.inputId + '-country'"
           @change="updateValue"
         >
@@ -84,6 +88,7 @@
         <input
           class="form-control"
           :id="question.inputId + '-postcode'"
+          data-test-id="postcode"
           v-model="pendingValue['postcode']"
           @change="updateValue"
         />
@@ -168,6 +173,7 @@ export default {
       selOptions: [],
       pendingValue: this.loadValue(this.question.value),
       value: this.question.value,
+      copiedAddress: ""
     };
   },
   methods: {
@@ -232,6 +238,11 @@ export default {
       };
       return pending;
     },
+    copySelected(){      
+      //console.log(this.copiedAddress)
+      this.pendingValue = this.copiedAddress;
+      this.updateValue()
+    }
   },
   mounted() {
     const q = this.question;
