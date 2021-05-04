@@ -387,7 +387,7 @@ export default class CommonSection extends Vue {
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
         existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
 
         return existing;
@@ -445,7 +445,7 @@ export default class CommonSection extends Vue {
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
-                    dob: 'unknown',
+                    dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
                     contactInfo: ''
