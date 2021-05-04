@@ -336,21 +336,22 @@ export default class Schedule3 extends Vue {
                 facts: this.result.childSupportIncomeEarningSurvey.knowFacts == 'y',
                 income: this.result.childSupportIncomeEarningSurvey.knowIncome == 'y',              
                 factsDesc: (this.result.childSupportIncomeEarningSurvey.knowFacts == 'y' && this.result.childSupportIncomeEarningSurvey.factsExplanation)? this.result.childSupportIncomeEarningSurvey.factsExplanation: '',
-                incomeAmt: (this.result.childSupportIncomeEarningSurvey.knowIncome == 'y' && this.result.childSupportIncomeEarningSurvey.incomeAmount)? this.result.childSupportIncomeEarningSurvey.incomeAmount: ''
+                incomeAmt: (this.result.childSupportIncomeEarningSurvey.knowIncome == 'y' && this.result.childSupportIncomeEarningSurvey.otherPartyIncome)? this.result.childSupportIncomeEarningSurvey.otherPartyIncome: ''
             }
         }
 
         if (this.result.aboutChildSupportOrderSurvey){
+            const aboutChildSupport = this.result.aboutChildSupportOrderSurvey;
             newChildSupportInfo.desiredSup = {  
-                payor: this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.toString(),
-                applicantPayor: (this.result.aboutChildSupportOrderSurvey.listOfSupportPayors)?this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
-                payees: this.result.aboutChildSupportOrderSurvey.selectedChildrenNames.toString(),              
-                over19: (this.result.aboutChildSupportOrderSurvey.supportChildOver19 == 'y'),
-                payorErnsHigh:( this.result.aboutChildSupportOrderSurvey.payorEarnsHigh == 'yes'),
-                startDate: this.result.aboutChildSupportOrderSurvey.paymentRequestStartingDate,
-                reason: (this.result.aboutChildSupportOrderSurvey.paymentRequestStartingDateWhy)? this.result.aboutChildSupportOrderSurvey.paymentRequestStartingDateWhy: ''
+                payor: aboutChildSupport.listOfSupportPayors.toString(),
+                applicantPayor: (aboutChildSupport.listOfSupportPayors)?aboutChildSupport.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
+                payees: aboutChildSupport.selectedChildrenNames.toString(),              
+                over19: (aboutChildSupport.supportChildOver19 == 'y'),
+                payorErnsHigh:(aboutChildSupport.payorEarnsHigh == 'yes'),
+                startDate: (aboutChildSupport.paymentRequestStartingDate.selected == 'startingDate')?Vue.filter('beautify-date')(aboutChildSupport.paymentRequestStartingDate.startingDate):aboutChildSupport.paymentRequestStartingDate.otherComment,
+                reason: (aboutChildSupport.paymentRequestStartingDateWhy)? aboutChildSupport.paymentRequestStartingDateWhy: ''
             }
-            this.over19ChildSupportDetails = (this.result.aboutChildSupportOrderSurvey.supportChildOver19 == 'y')?this.result.aboutChildSupportOrderSurvey.over19Details:[]            
+            this.over19ChildSupportDetails = (aboutChildSupport.supportChildOver19 == 'y')?aboutChildSupport.over19Details:[]            
         }        
 
         if (this.result.calculatingChildSupportSurvey){
