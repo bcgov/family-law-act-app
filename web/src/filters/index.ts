@@ -42,7 +42,6 @@ Vue.filter('styleTitle',function(title){
 	return "<div style='display:inline; color:#29877c'>" + title + "</div>"
 })
 
-
 Vue.filter('getFullName',function(nameObject){
 	if (nameObject) {
 		return nameObject.first +
@@ -97,6 +96,12 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 	// 	console.log(currentStep)
 	// 	store.commit("Application/setPageProgress", { currentStep: 8, currentPage:0, progress:50 });
 	// }
+})
+
+Vue.filter('setProgressForPages', function(currentStep: number, pageNumbers: number[], progress: number){
+	for (const page of pageNumbers)
+		if(store.state.Application.steps[currentStep].pages[page].progress)
+			store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:page, progress:progress });
 })
 
 Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number, optionalArg?){
@@ -306,6 +311,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	return requiredDocuments;
 })
+
 Vue.filter('surveyChanged', function(type: string) {
 	let step = 1
 	let reviewPage = 12

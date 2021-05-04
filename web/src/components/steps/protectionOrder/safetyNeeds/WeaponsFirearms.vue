@@ -66,7 +66,7 @@ export default class WeaponsFirearms extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            this.UpdateSurveyChangedPO(true);
+            Vue.filter('surveyChanged')('protectionOrder')
         })
     }
 

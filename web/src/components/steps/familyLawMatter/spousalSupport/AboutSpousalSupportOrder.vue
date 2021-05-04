@@ -62,8 +62,9 @@ export default class AboutSpousalSupportOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.pages[0].questions)           
-            console.log(this.survey.data)
+            //console.log(this.survey.data)
         })
     }
     

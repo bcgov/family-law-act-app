@@ -89,7 +89,7 @@ export default class OtherPartySurvey extends Vue {
     public addSurveyListener(){
         this.survey.onComplete.add((sender, options) => {
 
-            this.UpdateSurveyChangedPO(true);
+            Vue.filter('surveyChanged')('protectionOrder')
 
             //console.log(this.survey.data)
             this.populateOpModel(sender.data);

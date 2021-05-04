@@ -66,7 +66,8 @@ export default class IndigenousAncestryOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);
+            Vue.filter('surveyChanged')('familyLawMatter')
+            //console.log(this.survey.data);
             //console.log(options)
             
         })

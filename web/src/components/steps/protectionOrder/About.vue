@@ -78,8 +78,8 @@ export default class About extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            this.UpdateSurveyChangedPO(true);
-            console.log(this.survey.data);
+            Vue.filter('surveyChanged')('protectionOrder')
+            //console.log(this.survey.data);
         })
     }
 

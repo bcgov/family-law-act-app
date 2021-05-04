@@ -50,6 +50,7 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     }
 
     mounted(){
+        console.log('mount')
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -66,8 +67,9 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
-            console.log(options)
+            //console.log(options)
             
         })
     }

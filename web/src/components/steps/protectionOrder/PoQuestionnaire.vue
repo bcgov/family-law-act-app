@@ -94,7 +94,7 @@ export default class PoQuestionnaire extends Vue {
             //console.log(this.survey.data);
             //console.log(options)
 
-            this.UpdateSurveyChangedPO(true);
+            Vue.filter('surveyChanged')('protectionOrder')
 
             let selectedOrder = this.survey.data.orderType;
 
