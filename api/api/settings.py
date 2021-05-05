@@ -13,7 +13,6 @@ from corsheaders.defaults import default_headers
 
 from core import database
 from core.encryption import Encryptor
-from core.utils.filter_logging_requests import filter_logging_requests
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -161,11 +160,6 @@ LOGGING = {
         "require_debug_false":
         {
             "()": "django.utils.log.RequireDebugFalse"
-        },
-        "filter_logging_requests":
-        {
-            "()": "django.utils.log.CallbackFilter",
-            "callback": filter_logging_requests
         }
     },
     "formatters": {
@@ -181,7 +175,6 @@ LOGGING = {
         "console_handler": {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
-            "filters": ["filter_logging_requests"],
             "formatter": "verbose",
         }
     },
