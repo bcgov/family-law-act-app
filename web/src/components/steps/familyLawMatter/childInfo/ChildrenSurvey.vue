@@ -86,7 +86,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public addSurveyListener(){
-        Vue.filter('surveyChanged')('familyLawMatter')
+        Vue.filter('surveyChanged')('familyLawMatter')        
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");
@@ -118,6 +118,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
+        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, 39],50)
         this.survey.completeLastPage();
     }
 

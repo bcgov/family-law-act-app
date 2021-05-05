@@ -82,7 +82,7 @@ export default class ProtectionFromWhom extends Vue {
             // console.log(this.survey.data);
             //  console.log(options)
 
-            this.UpdateSurveyChangedPO(true);
+            Vue.filter('surveyChanged')('protectionOrder')
 
             if(options.name == "RespondentName") {        
                 this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);

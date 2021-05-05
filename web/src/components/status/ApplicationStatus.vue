@@ -449,6 +449,7 @@ export default class ApplicationStatus extends Vue {
                 locations.push({id: locationInfo.location_id, name: location, address: address})
             }
             console.log(locations)
+            //locations.push({id: 1, name: 'location', address: 'address'})
             this.UpdateLocationsInfo(locations); 
         
         },(err) => console.log(err));

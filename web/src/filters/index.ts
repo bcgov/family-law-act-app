@@ -42,7 +42,6 @@ Vue.filter('styleTitle',function(title){
 	return "<div style='display:inline; color:#29877c'>" + title + "</div>"
 })
 
-
 Vue.filter('getFullName',function(nameObject){
 	if (nameObject) {
 		return nameObject.first +
@@ -97,6 +96,12 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 	// 	console.log(currentStep)
 	// 	store.commit("Application/setPageProgress", { currentStep: 8, currentPage:0, progress:50 });
 	// }
+})
+
+Vue.filter('setProgressForPages', function(currentStep: number, pageNumbers: number[], progress: number){
+	for (const page of pageNumbers)
+		if(store.state.Application.steps[currentStep].pages[page].progress)
+			store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:page, progress:progress });
 })
 
 Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage: number, optionalArg?){
@@ -306,6 +311,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	return requiredDocuments;
 })
+
 Vue.filter('surveyChanged', function(type: string) {
 	let step = 1
 	let reviewPage = 12
@@ -390,7 +396,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.fullsize td{padding:0 0 0 .5rem; color: #313132;}`+
 
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
-			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0 0rem;}`+
+			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.25rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
