@@ -362,7 +362,7 @@ export default class CommonSection extends Vue {
         if (relationshipInfo.spouses){
             relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
             relationshipInfo.marriageDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO);
-            relationshipInfo.separationDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate);
+            relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
         }
         return relationshipInfo;
     }
