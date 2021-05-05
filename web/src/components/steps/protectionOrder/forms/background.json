@@ -15,17 +15,12 @@
           "description":"You do not need to use any special wording. Describe the relationship or connection in your own words, for example, we were living together in a relationship and are both parents of the child. If there is more than one protected party, be clear about the relationship or connection of the other party to each of them.",
           "isRequired": true
          },
-         {
-          "type": "infotext",
-          "name": "ifChildPOFAQ",
-          "title": "<strong>If the protection order is only for the protection of a child(ren), please answer the following question for the parents or guardians of the child(ren).",
-          "titleLocation": "hidden",
-          "messageStyle": "inline"
-         },
+         
          {
           "type": "yesno",
           "name": "werePOPartiesMarried",
           "title": "Is the protected party a spouse (or has been a spouse) of the other party OR does the protected party live (or has lived) together in a marriage-like relationship with the other party?",
+          "description":"If the protection order is only for the protection of a child, please answer the question for the parent or guardian of the protected child and their relationship to the other party.",
           "isRequired": true
          },
          {
@@ -183,7 +178,7 @@
             "visibleIf": "({PartiesHasOtherChilderen} = \"y\") or ({protectedChildName} notempty)",
             "isRequired": true,
             "title": "Are there any existing written agreements or court `order`(s) about the child(ren) concerning parenting arrangements, `child support`, contact with a child or guardianship of a child?",
-            "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court."
+            "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court."
          },
          {
             "type": "infotext",
@@ -197,7 +192,7 @@
          {
             "type": "yesno",
             "name": "likeToAddCulturalExplanation",
-            "title": "Do you have any information you would like to share with court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
+            "title": "Do you have any information you would like to share with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of your family, including, if a child is an Indigenous child, the child’s Indigenous identity?",
             "description": "There is no requirement to share but sometimes there is information you may choose to share with the court to help them in considering your application.",
             "isRequired": true
          },
@@ -233,7 +228,7 @@
           "type": "comment",
           "name": "describeCirumstancesPO",
           "visibleIf": "{riskOfViolencePO} = \"y\"",
-          "title": "Describe the circumstances. You do not need to use any special wording. The key is to be clear about you mean.",
+          "title": "Describe the circumstances. You do not need to use any special wording. The key is to be clear about what you mean.",
           "isRequired": true
          },
          {

@@ -38,6 +38,9 @@ export default class NoContact extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
+
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
@@ -55,6 +58,7 @@ export default class NoContact extends Vue {
 
     mounted(){
         this.initializeSurvey();
+        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -66,16 +70,23 @@ export default class NoContact extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
 
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            this.UpdateSurveyChangedPO(true);
+        })
+    }
 
-    public reloadPageInformation() {
+
+    public reloadPageInformation() { 
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         if (this.step.result && this.step.result['noContactSurvey']){
             this.survey.data = this.step.result['noContactSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
@@ -91,10 +102,6 @@ export default class NoContact extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }  
   
     beforeDestroy() {

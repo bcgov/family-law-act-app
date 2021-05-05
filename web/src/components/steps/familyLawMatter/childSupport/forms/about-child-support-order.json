@@ -1,0 +1,138 @@
+{
+  "title": "Child Support About Order",
+  "pages": [
+    {
+      "name": "Child Support About Order",
+      "description":"Usually the court orders an amount of child support based on the <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html'  target='_blank'>Federal Child Support Guidelines</a>. This amount is called the guideline table amount and is meant to cover regular expenses like clothes, food and housing.<br><br>The court can order an amount other than the guideline table amount in certain situations, such as:<ul><li>when a child is 19 or older</li><li>when the parent paying support has an income over $150,000</li><li>when parents split or share parenting time</li><li>when there is undue hardship</li></ul> The next series of questions will help inform the factors that are important for calculating child support for your family situation.",         
+      "elements": [
+        {
+          "type": "panel",
+          "name": "aboutPanel",             
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "listOfSupportPayors",
+              "title":"I am asking for child support in the monthly amount set out in the child support guidelines table to be paid by:",
+              "isRequired": true,              
+              "choices": [                
+              ]              
+            },
+            {
+              "type": "helptext",
+              "name": "FAQpayingparent",
+              "title": "How do I determine who is the paying parent?",
+              "body": "When one parent lives with the children most of the time, the other parent <b>pays child support</b>.<br><br>If the children spend equal (or almost equal) time with both parents, this is called a <b>shared parenting time arrangement</b>. In this case, child support is calculated by figuring out what each parent would pay if the child lived with the other parent most of the time. Then, the parents <b>subtract</b> the lower amount from the higher amount and the parent who has the higher income <b>pays the difference as child support</b> to the other parent.<br><br>When each parent has one or more children living mostly in their care, this is called a <b>split parenting time arrangement</b>. In this case, each parent calculates the full amount of child support they’d pay to the other parent for the children in that parent’s care. Then, the parents <b>subtract</b> the lower amount from the higher amount and the parent who has the higher income <b>pays the difference as child support</b> to the other parent.<br><br><b>If you would like the order about child support to show both parents as the paying party because one of the above situations applies, even if someone is only paying the difference, you can select both parents.</b><br><br>To calculate how much child support should be paid, you can visit the <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/index.html' target='_blank'>Department of Justice website</a> on child support which includes detailed information including the <a href='https://www.justice.gc.ca/eng/rp-pr/fl-lf/child-enfant/guide/index.html' target='_blank'>Federal Child Support Guidelines</a>: Step-by-Step and a <a href='https://www.justice.gc.ca/eng/fl-df/child-enfant/cst-orpe.html' target='_blank'>Child Support Table Look-up</a>. <br><br> You can also talk with a <a href='https://www2.gov.bc.ca/gov/content?id=26B7738D71734FB69C1B43246B53483C' target='_blank'>child support officer</a>, <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a> or a lawyer.",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQamountdifference",
+              "title": "Can the amount of child support be different from the child support guidelines table amount?",
+              "body": "Yes, but you need to start somewhere. The <a href='https://laws-lois.justice.gc.ca/eng/regulations/SOR-97-175/index.html' target='_blank'>Federal Child Support Guidelines</a> are a set of rules and tables used to determine child support when parents separate or divorce. They are the law. Their main goals are:<ul><li>to establish a fair standard of support for children so that they continue to benefit from both parents’ incomes after the separation or divorce</li><li>to reduce conflict and tension between parents by making the calculation of child support more objective</li><li>to ensure that parents and children in similar situations are treated the same</li><li>to make the legal process more efficient and encourage settlements by giving courts and parents guidance about child support</li></ul>It will be up to the court to determine if a different amount is appropriate based on the other information and evidence you provide. ",
+              "titleLocation": "hidden"
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4Info",
+              "visible":"false",
+              "visibleIf":"{listOfSupportPayorsLength} >1",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
+              "titleLocation":"hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "radiogroup",
+              "name": "payorEarnsHigh",
+              "title":"Does the paying parent earn more than $150,000 per year?",
+              "isRequired": true,              
+              "choices": [ 
+                {
+                  "value": "yes",
+                  "text": "Yes"
+                },
+                {
+                  "value": "no",
+                  "text": "No"
+                }, {
+                  "value": "unknown",
+                  "text": "I don’t know"
+                }           
+              ]             
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4Info2",
+              "visible":false,
+              "visibleIf":"{payorEarnsHigh}=='yes'",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
+              "titleLocation":"hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "checkbox",
+              "name": "listOfChildren",
+              "title":"Select each child you are applying for support for.",
+              "isRequired": true,              
+              "choices": [                
+              ]              
+            },
+            {
+              "type": "yesno",
+              "name": "supportChildOver19",
+              "title":"Are you applying for support for any child who is 19 years of age or older?",
+              "description":"The duty to pay child support may not end when a child turns 19 if the child is unable to support themselves financially because of illness, disability or they are a full-time student. If so, you can apply for child support for a child who is 19 or older.",
+              "isRequired": true              
+            },          
+            {              
+              "type": "radiogroup",
+              "name": "whyOlderChildNeedSupport[0]",
+              "title": "Why does {child[0]} need support?",
+              "visible":false,
+              "visibleIf":"{supportChildOver19}=='y' and {listOfChildren} contains 'child[0]' ",
+              "isRequired": true,
+              "choices": [
+                "Illness",
+                "Disability",
+                "Student"
+              ]              
+            },
+            {
+              "type": "infotext",
+              "name": "parentFileForm4InfoMoreLines",
+              "visible":false,
+              "visibleIf":"{supportChildOver19}=='y'",
+              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.<br><br>In some cases, the court may also require income information for your child. You don’t need to provide it yet. Just be prepared if the court does ask for it.",            
+              "titleLocation":"hidden",
+              "messageStyle": "info"
+            },           
+            {
+              "type": "advancedradiogroup",
+              "name": "paymentRequestStartingDate",              
+              "title": "When do you want the child support payments to start?",
+              "description" : "You need to tell the court when you think the child support payments should start. This could be a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
+              "radioOutputValues":"{ExactDate}",
+              "inputNames":"{startingDate}",
+              "inputTypes":"{date}",
+              "inputWidths":"{12rem}",                  
+              "textBeforeInputs":"{Enter exact date:},{}",
+              "radioMargins":"0 0 0.5rem 0",
+              "radioTextMargins":"-0.6rem 0 0 0",
+              "hasOther": true,
+              "isRequired": true
+            },       
+            {
+              "type": "comment",
+              "name": "paymentRequestStartingDateWhy",
+              "isRequired": true,
+              "title":"Why do you want the child support payments to start on this date?"              
+            }
+                      
+          ]
+        }
+      ],
+      "title": "About the Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

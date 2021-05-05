@@ -1,0 +1,238 @@
+<template>
+    <div v-if="dataReady">
+
+<!-- <Page 7> --> 
+<!-- <Header> -->
+        <div>
+             <div class="new-page" />
+            <div style="text-align:center;"><b>SCHEDULE 6 – CONTACT ORDER OR WRITTEN AGREEMENT – EXISTING</b></div>
+            <div style="text-align:center;"><b>This is Schedule 6 to the Application About a Family Law Matter</b></div>
+
+            <div style="margin:1rem 0; text-align:justify">
+                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 11 of this application.</i>
+            </div>
+
+<!-- <1> -->
+            <section class="resetquestion"> 
+                <div style="display:inline; margin-left:0.25rem">I am:</div>
+                <div style="margin-left:1rem;">
+                    <check-box style="" :check="!exChContInfo.guardian?'yes':''" text="a person allowed to have contact with the child(ren) according to a court order or written agreement"/>
+                    <check-box style="width:120%;" :check="exChContInfo.guardian?'yes':''" text="a guardian of the child(ren)"/>                    
+                </div>                
+            </section>
+
+            <div style="margin-top:1rem;"></div>
+<!-- <2> -->
+            <section>
+                <check-box inline="inline" boxMargin="0" style="display:inline; margin-left:0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about contact made on"/>
+                <underline-form style="margin-left:2rem; text-indent:0px;" textwidth="10rem" beforetext="" hint="mmm/dd/yyyy" :text="exChContInfo.date"/>
+            </section>
+
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Existing final order</b></div>
+<!-- <3> -->
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing order. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="exChContInfo.order?'yes':''" text="I am applying for the existing final order about contact with a child or children to be:"/>                    
+                    </div>
+                    <div style="margin:0 0 3rem 3.25rem;">
+                        <check-box style="" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'changeOrder'?'yes':''" text="changed"/>
+                        <check-box style="" :check="exChContInfo.order && exChContInfo.abtExOrdr.ordrdiff == 'cancelOrder'?'yes':''" text="cancelled"/>
+                        <div>Since the order was made, needs or circumstances have changed as follows:</div>                    
+                        <div v-if="exChContInfo.order && exChContInfo.abtExOrdr.change" 
+                            class="answerbox">{{exChContInfo.abtExOrdr.change}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Existing agreement</b></div>
+<!-- <4> -->
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1.5rem;">
+                        <check-box style="margin:0 0 0 0rem;" :check="(!exChContInfo.order)?'yes':''" text="I am applying for all or part of the existing agreement about contact with a child or children to be:"/>                    
+                    </div>
+                    <div style="margin:0 0 3rem 3.25rem;">
+                        <check-box style="" :check="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.agrmntdiff == 'setAsideAgreement'?'yes':''" text="set aside"/>
+                        <check-box style="" :check="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.agrmntdiff == 'replacedAgreement'?'yes':''" text="replaced"/>
+                        <div>I believe the agreement is not in the best interests of the child(ren) because:</div>                    
+                        <div v-if="(!exChContInfo.order) && exChContInfo.abtExAgrmnt.change" 
+                            class="answerbox">{{exChContInfo.abtExAgrmnt.change}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                    </div>
+                </section>
+            </div>
+
+
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>About the order</b></div>
+<!-- <5> -->
+                <section>
+                    <i style="display:inline; margin-left:0.35rem">Complete only if you are applying to change or replace an existing final order or agreement about contact with a child or children. You may leave this section blank.</i>
+                    <div style="margin:0 0 0 1rem;">I am applying to change or replace the existing final order or agreement about contact as follows:</div>
+                    <i class="marginleftplus" >Select all options that apply</i>
+                    <div style="margin:0 3rem 1rem 1rem;">
+                        
+                        <check-box style="" :check="true?'yes':''" text="no contact of any type"/>
+                        <check-box style="" :check="exChContInfo.abt.conType.inPerson?'yes':''" text="in person: "/>
+                        <i class="marginleft1vue" style="margin:0 0 0 1.75rem;">Provide specific dates or events requested, or dates and times that would be most suitable</i>
+                        <div v-if="exChContInfo.abt.conType.inPerson" 
+                            class="answerbox">{{exChContInfo.abt.inPrsn}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                        <check-box style="margin:3rem 0 0 0" :check="exChContInfo.abt.conType.tel?'yes':''" text="telephone communication"/>
+                        <check-box style="" :check="exChContInfo.abt.conType.video?'yes':''" text="video communication"/>
+                        <check-box style="" :check="exChContInfo.abt.conType.written?'yes':''" text="written communication"/>
+                        <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exChContInfo.abt.conType.other?'yes':''" text="other method of communication <i>(specify):</i>"/>
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="exChContInfo.abt.otherComm"/>            
+                    </div>
+                    <div style="margin:0 3rem 3rem 1rem;">
+                        <i>Complete only if applicable. You may leave this section blank.</i>
+                        <div>I am applying to have the following conditions placed on the contact with the child(ren):</div>
+                        <div v-if="result.aboutContactWithChildSurvey.placeConditions == 'y'" 
+                            class="answerbox">{{exChContInfo.abt.cond}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                    </div>
+                </section> 
+            </div> 
+
+            <div class="print-block">
+                <div style="margin-top:1rem;"><b>Best interests of child</b></div>
+<!-- <6> -->
+                <section>
+                    <div style="display:inline; margin:0 0 3rem 0.35rem;">I believe the order about contact I am applying for is in the child(ren)’s best interests because:</div>
+                    <div v-if="exChContInfo.bstIntrst.length > 0" 
+                            class="answerbox">{{exChContInfo.bstIntrst}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
+                </section>
+            </div>
+        </div>           
+
+    </div>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+
+@Component({
+    components:{
+        UnderlineForm,
+        CheckBox
+    }
+})
+
+export default class Schedule6 extends Vue {
+
+    @Prop({required:true})
+    result!: any; 
+   
+    dataReady = false;
+    exChContInfo = {}
+   
+    mounted(){
+        this.dataReady = false;      
+        this.extractInfo();       
+        this.dataReady = true;        
+    }    
+
+    public extractInfo(){       
+       
+        this.exChContInfo = this.getExistingChildContactInfo(); 
+
+    }
+
+    public getExistingChildContactInfo(){
+
+        let existingChildContactInfo = {
+            guardian: true, 
+            date: '', 
+            order: true, 
+            abtExOrdr: {
+                change: '',
+                ordrdiff: ''
+            }, 
+            abtExAgrmnt: {
+                change: '',
+                agrmntdiff: ''
+            }, 
+            abt:{
+                
+                conChList: [],
+                conType: {
+                    inPerson: false,
+                    tel: false,
+                    video: false,
+                    written:false,
+                    other: false
+                },
+                inPrsn: '',
+                otherComm: '',
+                cond: ''
+            
+            }, 
+            bstIntrst:''
+        };
+        console.log(this.result)
+
+        if (this.result.contactOrderSurvey){
+            existingChildContactInfo.guardian = this.result.contactOrderSurvey.roleType != 'allowedContact';
+            if (this.result.contactOrderSurvey.existingType == "ExistingOrder"){
+                existingChildContactInfo.date = Vue.filter('beautify-date')(this.result.contactOrderSurvey.orderDate);
+                existingChildContactInfo.order = true;
+                existingChildContactInfo.abtExOrdr = {
+                    change: this.result.contactOrderSurvey.changesSinceOrder,
+                    ordrdiff: this.result.contactOrderSurvey.orderDifferenceType                    
+                }
+                existingChildContactInfo.abtExAgrmnt = {
+                    change: '',
+                    agrmntdiff: ''
+                }
+            } else if (this.result.contactOrderSurvey.existingType == "ExistingAgreement") {
+                existingChildContactInfo.order = false;
+                existingChildContactInfo.date = Vue.filter('beautify-date')(this.result.contactOrderSurvey.agreementDate);                
+                existingChildContactInfo.abtExAgrmnt = {                    
+                    change: this.result.contactOrderSurvey.changesSinceAgreement,
+                    agrmntdiff: this.result.contactOrderSurvey.agreementDifferenceType                   
+                }
+                existingChildContactInfo.abtExOrdr = {
+                    change: '',
+                    ordrdiff: ''
+                }
+            }            
+        }
+
+        if (this.result.aboutContactWithChildSurvey){
+            const contactChoices = this.result.aboutContactWithChildSurvey.contactTypeChoices?this.result.aboutContactWithChildSurvey.contactTypeChoices:[];
+            existingChildContactInfo.abt = {
+                conChList: this.result.aboutContactWithChildSurvey.childrenRequireContactChoices,
+                conType: {
+                    inPerson: contactChoices.includes('In person'),
+                    tel: contactChoices.includes('Telephone communication'),
+                    video: contactChoices.includes('Video communication'),
+                    written:contactChoices.includes('Written communication'),
+                    other: contactChoices.includes('other')
+                },
+                inPrsn: (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'',
+                otherComm: (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'',
+                cond: (this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:''
+            }
+        }
+
+        if (this.result.contactWithChildBestInterestOfChildSurvey){
+            existingChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestOfChildSurvey.existingChildBestInterestDescription;
+        }
+
+        return existingChildContactInfo;
+
+    }  
+
+}
+</script>
+
+<style scoped lang="scss" src="@/styles/_pdf.scss">
+
+</style> 

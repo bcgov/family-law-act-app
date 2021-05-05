@@ -22,7 +22,7 @@
                         <b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919
                     </p>
                     <p>
-                        <b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <div style='display:inline-block'>1-866-577-2525</div>, or contact the <a href='https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F' target="_blank">Justice Access Centre</a>
+                        <b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <div style='display:inline-block'>1-866-577-2525</div>
                     </p>
                     <p>
                         <b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
@@ -52,7 +52,7 @@
 
 <script lang="ts">
     import { Component, Vue} from 'vue-property-decorator';
-    import PageBase from "../PageBase.vue";
+    import PageBase from "@/components/steps/PageBase.vue";
 
     import Tooltip from "@/components/survey/Tooltip.vue";
 

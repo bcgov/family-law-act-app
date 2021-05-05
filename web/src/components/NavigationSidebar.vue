@@ -75,68 +75,25 @@ export default class NavigationSidebar extends Vue {
     error = "";
     updateSidebar = 0;
 
-    // @Watch('currentStep')
-    // pageIndexChange(newVal) 
-    // {
-    //     console.log('step changed in sidebar')
-    //     console.log(newVal);  
-    //     this.updateSidebar++;      
-    // }
+   
 
     public  onSelectStep(event) {
-        // const currIndex = this.$store.state.Application.currentStep;
-        // const curr = document.getElementById(this.getStepId(currIndex));
-        // const currChildGroup = document.getElementById(this.getStepGroupId(currIndex));
+    
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
-        // const nextChildGroup = document.getElementById(this.getStepGroupId(nextIndex));
-
-        // if(!this.isStepTouched(nextIndex)) return
-
-        // if (curr == next) {
-        //     // same choice.
-        //     next.classList.add("current");
-        //     nextChildGroup.style.display = "block";
-        // } else {
-        //     next.classList.add("current");
-        //     nextChildGroup.style.display = "block";
-
-        //     curr.classList.remove("current");
-        //     currChildGroup.style.display = "none";
-        // }
         
         this.$store.commit("Application/setCurrentStep", nextIndex);
-        // const currPageIndex = this.getNavigation()[nextIndex].currentPage;
-        // const currPage = document.getElementById(this.getStepPageId(nextIndex, currPageIndex));
-        // //console.log("now step")
-        // currPage.className="current";
         Vue.nextTick().then(()=>{this.saveChanges();});
     }
 
 
-    //TODO: This is where the step is selected
+   
     public onSelectPage(event) {
         const currStepIndex = this.$store.state.Application.currentStep;
-        //const currPageIndex = this.getNavigation()[currStepIndex].currentPage;
-        //const currPage = document.getElementById(this.getStepPageId(currStepIndex, currPageIndex));
         const nextPage = event.currentTarget;
         const nextPageIndex = parseInt(nextPage.getAttribute("index"));
 
         if(this.$store.state.Application.steps[currStepIndex].pages[nextPageIndex].progress == 0) return
-
-
-        // if (currPage == nextPage) {
-        //     // same choice; do nothing
-        // } else {
-        //     Vue.nextTick().then(()=>{
-        //         //console.log("now page")
-        //         nextPage.classList.add("current");
-
-        //         if (currPage !== null) {
-        //         currPage.classList.remove("current");
-        //         }
-        //     })
-        // }
 
         this.$store.commit("Application/setCurrentStepPage", {currentStep: currStepIndex, currentPage: nextPageIndex });
         Vue.nextTick().then(()=>{this.saveChanges();});
@@ -165,10 +122,6 @@ export default class NavigationSidebar extends Vue {
         return this.$store.state.Application.currentStep == stepIndex;
     }
 
-    public isAllCompleted() {
-        return this.$store.state.Application.allCompleted;
-    }
-
     public getStepId(stepIndex) {
         return "step-" + stepIndex;
     }
@@ -190,6 +143,7 @@ export default class NavigationSidebar extends Vue {
         this.$store.commit("Application/setLastUpdated", lastUpdated);
         const application = this.$store.state.Application;      
         const applicationId = application.id;      
+        application.type = this.translateTypes(this.$store.state.Application.types);
         
         const header = {
             responseType: "json",
@@ -206,6 +160,35 @@ export default class NavigationSidebar extends Vue {
             console.error(err);
             this.error = err;
         });        
+    }
+
+    public translateTypes(applicationTypes: string[]) {
+
+        let types = [];
+
+        for (const applicationType of applicationTypes){
+            if (applicationType.includes("Protection Order")){
+                types.push(applicationType.replace("Protection Order", "FPO"));
+            }
+            if (applicationType.includes("Family Law Matter")){
+                types.push("FLC");
+            }
+            if (applicationType.includes("Case Management")){
+                types.push("ACMO");
+            }
+            if (applicationType.includes("Priotity Parenting Matter")){
+                types.push("AXP");
+            }
+            if (applicationType.includes("Relocation of a Child")){
+                types.push("APRC");
+            }
+            if (applicationType.includes("Enforcement of Agreements and Court Orders")){
+                types.push("AFET");
+            }
+        }
+
+        return types.toString();
+
     }
     
     public isStepTouched(nextStepIndex){

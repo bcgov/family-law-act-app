@@ -12,7 +12,7 @@
               "type": "personname",
               "name": "ApplicantName",
               "title": "What is your full name?",
-              "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
+              "description": "This is the name of the person making the application. If you are helping someone use this app, use their name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
               "isRequired": true,
               "defaultSubstitution": "(Applicant Name)",
               "descFirstName": "First Name is also known as Given Name",
@@ -27,10 +27,16 @@
               "inputType": "date"
             },
             {
+              "type": "infotext",
+              "name": "ExplanationLawyer",
+              "title": "The court needs to know where to send documents to you and how to reach you.",
+              "titleLocation": "hidden"
+            },
+            {
               "type": "yesno",
               "name": "Lawyer",
               "title": "Has a lawyer agreed to receive court documents for you?",
-              "description": "You do not need a lawyer to use this service.  If you have a lawyer, you can still use this service.",
+              "description": "You do not need a lawyer to go to court. Some lawyers are hired for a limited purpose. For example, you may hire a lawyer only to give you legal advice, help you to complete court documents or come to a court appearance with you. You will still be responsible for all other aspects of your case. If you hire a lawyer for a limited purpose, make sure you and the lawyer are clear about whether their name and address goes on the court documents. Usually it won’t.",
               "isRequired": true
             },
             {
@@ -38,7 +44,7 @@
               "name": "FAQLawyer1",
               "title": "What if I plan to get a lawyer but I haven't done that yet?",
               "titleLocation": "hidden",
-              "body": "You do not have a lawyer that has agreed to receive court documents for you.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
+              "body": "Until you hire a lawyer, you will need to provide a different address where you can receive court document. Select no for the question above.\n<br>\n<br>\nAfter you get your lawyer, they may help you change the address for receiving court documents to their address."
             },
             {
               "type": "helptext",
@@ -52,7 +58,7 @@
               "name": "ExplanationServiceAddress",
               "visible": false,
               "visibleIf": "{Lawyer} = 'n'",
-              "title": "You need to give an address where it is safe for you to receive court documents. The person protection is needed from will see this address on your court documents.\n<br>\n<br>\nYou do not have to use your home address or the address of where you are staying right now. You can pick an address where you can receive court documents such as your workplace, a family member's home or a friend's home.",
+              "title": "You need to give an address where you can receive court documents by mail. It does not need to be your home address or the address where you are living. The other party will see this address on your court documents.\n<br>\n<br>\nIf you do not have a stable mailing address, or you are worried about your safety, you can give the address of a friend or family member, or somewhere that mail can be collected for you.",
               "isRequired": true,
               "titleLocation": "hidden"
             },
@@ -63,9 +69,10 @@
                 {
                   "type": "address",
                   "name": "ApplicantAddress",
-                  "visibleIf": "{Lawyer} = 'n'",
-                  "title": "What is a safe address where you can receive court documents?",
-                  "description": "The person making you (or your family) feel unsafe may need to send you court documents to this address.",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'n')",
+                  "title": "What is the address where you want to receive court documents?",
+                  "description": "The other party will see this address on court documents.",
                   "isRequired": true,
                   "referLabel": "Applicant's Address",
                   "validators": [
@@ -79,9 +86,10 @@
                 {
                   "type": "contactinfo",
                   "name": "ApplicantContact",
+                  "visible": false,
                   "visibleIf": "{Lawyer} = 'n'",
                   "title": "Contact Information",
-                  "description": "The person making you (or your family) feel unsafe will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
+                  "description": "The other party will see this contact information on your court documents. <br/><br/>If you provide an email address, the court registry and the other party can send documents or communicate with you by email instead of using mail. If you can’t or don’t want to use email, you don’t have to give an email address.",
                   "isRequired": true,
                   "labelEmail": "Email",
                   "labelFax": "Fax Number (Optional)",
@@ -123,17 +131,57 @@
                   "visibleIf": "{Lawyer} = 'y'",
                   "title": "Lawyer's Contact Information",
                   "isRequired": true
+                },
+                {
+                  "type": "yesno",
+                  "name": "LawyerFillingOut",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm}",
+                  "title": "Are you a lawyer completing this application for your client?",
+                  "isRequired": true
+                },
+                {
+                  "type": "infotext",
+                  "name": "ExplanationLawyerFilling",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'n')",
+                  "title": "Note: A lawyer consulted by a party to a family law dispute has a duty under s. 8 of the Family Law Act to:<ul><li>assess for any risk of family violence,</li><li>discuss ways to resolve the family law dispute and other issues out of court, and</li><li>advise the party that agreements and orders respecting guardianship, parenting arrangements and contact with a child must be made in the best interests of the child only.</li></ul>",
+                  "titleLocation": "hidden"
+                },
+                {
+                  "type": "html",
+                  "name": "lawyerStatementHeading",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>Lawyer’s statement</div>Complete the statement below.</div>"
+                },
+                {
+                  "type": "multipletextinput",
+                  "name": "lawyerStatement",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "title": "Lawyer acknowledgment",
+                  "titleLocation":"hidden",
+                  "inputNames":"{lawyerName},{clientName}",
+                  "inputTypes":"{text},{text}",
+                  "inputWidths":"{35rem},{30rem}",                  
+                  "textBeforeInputs":"{I},{, the lawyer for},{, acknowledge that I have complied with the requirements of section 8 of the Family Law Act.}",
+                  "textClass": "sv_q_title font-weight-bold",
+                  "isRequired": true
+
+                },               
+                {
+                  "type": "helptext",
+                  "name": "FAQLawyerStatement",
+                  "visible": false,
+                  "visibleIf": "({Lawyer} = 'y') and {includesFlm} and ({LawyerFillingOut} = 'y')",
+                  "title": "What are the requirements of section 8 of the Family Law Act?",
+                  "titleLocation": "hidden",
+                  "body": "Section 8 of the Family Law Act sets out the duties of family dispute resolution professionals as follows:<ol><li>A family dispute resolution professional consulted by a party to a family law dispute must assess, in accordance with the regulations, whether family violence may be present, and if it appears to the family dispute resolution professional that family violence is present, the extent to which the family violence may adversely affect<ol style='list-style-type: lower-alpha'><li>the safety of the party or a family member of that party, and</li><li>the ability of the party to negotiate a fair agreement.</li></ol></li><li>Having regard to the assessment made under subsection (1), a family dispute resolution professional consulted by a party to a family law dispute must<ol style='list-style-type: lower-alpha'><li>discuss with the party the advisability of using various types of family dispute resolution to resolve the matter, and</li><li>inform the party of the facilities and other resources, known to the family dispute resolution professional, that may be available to assist in resolving the dispute.</li></ol></li><li>A family dispute resolution professional consulted by a party to a family law dispute must advise the party that agreements and orders respecting the following matters must be made in the best interests of the child only:<ol style='list-style-type: lower-alpha'><li>guardianship;</li><li>parenting arrangements;</li><li>contact with a child.</li></ol></li></ol>"
                 }
               ],
               "visible": false,
               "visibleIf": "{Lawyer} = 'y'"
-            },
-            {
-              "type": "text",
-              "name": "ApplicantOccupation",
-              "visibleIf": " {Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y'",
-              "title": "What is your job or profession?",
-              "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
             }
           ]
         }

@@ -2,7 +2,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         
         <h2 class="mt-4">Review and Save</h2>
-        <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+        <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry:
@@ -10,23 +10,32 @@
                 <a :href="'mailto:'+applicationLocation.email" class="my-0 ml-2 " style="display:block"> {{applicationLocation.email}} </a>
 
             </div>
+
+            <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
+                <div class="row justify-content-center text-warning">
+                    <p class="bg-primary py-0 px-2 mt-2 " style="border-radius: 10px; font-size: 20px;">SAFETY CHECK</p>
+                </div>
+                <div style="font-size: 18px;" class="mx-3 mb-1 pb-3">
+                    By clicking on the 'Review and Print' button next to the document, a PDF version of the application
+                     will download or open. Depending on your browser settings, your PDF might save the form to your 
+                     computer or it will open in a new tab or window. For more information about opening and saving 
+                     PDF forms, click on <span @click="navigateToGuide" class="text-primary" ><span style='font-size:1.2rem;' class="fa fa-question-circle" /> 
+                     Get help opening and saving PDF forms</span> below. If you are concerned about 
+                     having a copy saved to your computer, may want to review and print from a safe computer, tablet 
+                     or device, for example a computer, tablet or device of a trusted friend, at work, a library, 
+                     school or an internet café.                    
+                </div>
+            </div>
             
             <h3 class="mt-5">To prepare the application for filing:</h3>
             
-            <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
+            <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+                
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>            
-            
-                <div style="margin:1rem 0; width:19rem;">
-                    <b-button                   
-                        v-on:click.prevent="onDownload()"
-                        variant="success">
-                            <span class="fa fa-print btn-icon-left"/>
-                            Review and Save Your Application
-                    </b-button>
-                </div>
+                <form-list type="Print" :currentPage="currentPage"/>
+               
 
-                <div class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
+                <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
                 </div>
 
@@ -35,29 +44,13 @@
                 </div>
             </b-card>
 
-            <b-card  style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
-
-                <span class="text-primary" style='font-size:1.4rem;'>Additional Documents to Include:</span> 
-
-                <ul class="my-3">
-                    <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application </li>
-                    <li>Scan and save an electronic copy of any existing orders or agreements, existing protection orders and any exhibits referenced in your application to your computer</li>
-                    <div class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
-                        <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
-                    </div>
-                </ul>
-
-
-                <div v-if="requiredDocuments.length > 0" class="mt-5 h4">The following additional documents are required as part of your filing:</div>
-                <ul class="mt-3">
-                    <li class="mb-2" v-for="requiredDocument in requiredDocuments" :key="requiredDocument">{{requiredDocument}}</li>
-                </ul>
-
+            <b-card  style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+                <required-document type="Save" />
             </b-card>
 
-
+            <reminder-notes type="Print" />
             
-            <b-card  style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
+            <b-card  style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Submit Documents:</span>
                 <ul class="mt-3">                    
@@ -89,18 +82,7 @@
             </template>
         </b-modal>
 
-        <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-white">
-            <template v-slot:modal-title>
-                <h1 class="mb-0 text-primary">Get Help Scanning Documents</h1> 
-            </template>
-            <get-help-scanning/>        
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="showGetHelpScanning=false">Close</b-button>
-            </template>            
-            <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showGetHelpScanning=false">&times;</b-button>
-            </template>
-        </b-modal>
+        
 
     </page-base>
 </template>
@@ -109,11 +91,14 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { stepInfoType } from "@/types/Application";
-import PageBase from "../PageBase.vue";
+import PageBase from "@/components/steps/PageBase.vue";
 
 import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
-import GetHelpScanning from "./helpPages/GetHelpScanning.vue"
-import moment from 'moment-timezone';
+
+
+import FormList from "./components/FormList.vue"
+import RequiredDocument from "./components/RequiredDocument.vue"
+import ReminderNotes from "./components/ReminderNotes.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -123,16 +108,16 @@ const applicationState = namespace("Application");
     components:{
         PageBase,
         GetHelpForPdf,
-        GetHelpScanning
+        FormList,
+        RequiredDocument,
+        ReminderNotes
+
     }
 })    
 export default class ReviewAndSave extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
-
-    // @applicationState.State
-    // public requiredDocuments!: string[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -143,10 +128,9 @@ export default class ReviewAndSave extends Vue {
     currentStep=0;
     currentPage=0;
     error = ""
-    showGetHelpForPDF = false;
-    showGetHelpScanning = false;
+
+    showGetHelpForPDF = false;    
     applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
-    requiredDocuments: string[] = [];
 
     mounted(){
 
@@ -166,8 +150,6 @@ export default class ReviewAndSave extends Vue {
             this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
         }  
 
-        this.requiredDocuments = [];
-        this.requiredDocuments = Vue.filter('extractRequiredDocuments')(this.getFPOResultData())
     }       
     
     
@@ -179,113 +161,9 @@ export default class ReviewAndSave extends Vue {
         this.UpdateGotoNextStepPage()
     }
 
-    public onDownload() {
-        //console.log("downloading")
-        if(this.checkErrorOnPages()){ 
-            const currentDate = moment().format();
-            this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.loadPdf();
-        }
-    }
-
-    public checkErrorOnPages(){
-
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-
-        for(const step of this.$store.state.Application.steps){
-            if(step.active){
-                for(const page of step.pages){
-                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                        this.$store.commit("Application/setCurrentStep", step.id);
-                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });
-                        const nextChildGroup = document.getElementById(this.getStepGroupId(step.id));
-                        // if(nextChildGroup){
-                        //     if(Number(step.id)==8){
-                        //         nextChildGroup.style.display = "none";
-                        //         Vue.nextTick(()=>nextChildGroup.style.display = "block")
-                        //     }else{
-                        //         nextChildGroup.style.display = "block";
-                        //     }
-                        // }
-                        return false;
-                    }
-                }
-            }            
-        }
-        return true;
-        
-    }
-
-    public getStepId(stepIndex) {
-        return "step-" + stepIndex;
-    }
-
-    public getStepGroupId(stepIndex) {
-        return this.getStepId(stepIndex) + "-group";
-    }
-
-    public getStepPageId(stepIndex, pageIndex) {
-        return this.getStepId(stepIndex) + "-page-" + pageIndex;
-    }
-
-    public loadPdf() {
-        const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order'
-        const body = this.getFPOResultData()
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        //console.log(body)
-        this.$http.post(url,body, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "fpo.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-            this.error = "";
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
-        },err => {
-            console.error(err);
-            this.error = "Sorry, we were unable to print your form at this time, please try again later.";
-        });
-
-    }
-
-    public getFPOResultData() { 
-        var result = this.$store.state.Application.steps[0].result; 
-        for(var i=1;i<9; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
-            for(const stepResult in stepResults){
-                console.log(stepResults[stepResult])
-                console.log(stepResults[stepResult].data)
-                result[stepResult]=stepResults[stepResult].data; 
-                //Object.assign(result, result,{$stepResult: stepResults[stepResult].data});  
-            }
-        }     
-        // var result = this.$store.state.Application.steps[0].result; 
-        // for(var i=1;i<9; i++)
-        //     Object.assign(result, result, this.$store.state.Application.steps[i].result); 
-        
-        var protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-        Object.assign(result, result, protectedPartyName);
-        
-        var applicationLocation = this.$store.state.Application.applicationLocation
-        var userLocation = this.$store.state.Common.userLocation
-        //console.log(applicationLocation)
-        //console.log(userLocation)
-        if(applicationLocation)
-            Object.assign(result, result,{applicationLocation: applicationLocation}); 
-        else
-            Object.assign(result, result,{applicationLocation: userLocation});
-        //console.log(result)
-        return result;
-    }
+    public navigateToGuide(){
+        Vue.filter('scrollToLocation')("pdf-guide");
+    }  
 
     // beforeDestroy() {
     //     const progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress

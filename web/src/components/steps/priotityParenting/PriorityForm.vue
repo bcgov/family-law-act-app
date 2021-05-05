@@ -84,10 +84,6 @@ export default class PriorityForm extends Vue {
         this.UpdateGotoNextStepPage()        
     }
 
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {priorityParentingSurvey: null}})
     }

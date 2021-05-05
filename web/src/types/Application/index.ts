@@ -1,6 +1,6 @@
 export interface applicationInfoType {   
     id?: string;
-    type: string;
+    types: string[];
     steps: stepInfoType[];
     lastUpdate: Date;
     currentStep: number;
@@ -41,4 +41,13 @@ export interface stepInfoType {
     step: stepInfoType;
     data: any;
   }
+
+  export interface nameInfoType {
+    first: string;
+    middle: string;
+    last: string;
+  }
+
+
+
 

@@ -1,6 +1,6 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-    <div class="row">
+    <div v-if="dataReady" class="row">
       <div class="col-md-12 order-heading">
         <div v-if="returningUser">
             <h1 >I need help with the following family law issues:</h1>          
@@ -17,21 +17,17 @@
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
             <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525</p>, or contact the <a href='https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F' target="_blank">Justice Access Centre</a><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
+                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
             </div>
         </div>
         <div>
             <b-form-group>
                 <b-form-checkbox-group
                 v-model="selected"
-                v-on:change="onChange($event)"
+                @change="onChange"
                 name="orders"
                 stacked
                 >
-                <!-- <div class="checkbox-border" >
-                    <b-form-checkbox value="protectionOrder" >
-                    <div class="checkbox-choices">Protection from family violence</div>
-                    <p> -->
                 <div class="checkbox-border">
                     <b-form-checkbox value="protectionOrder"><div class="checkbox-choices">Protection from family violence</div>
                     <p v-if="returningUser">
@@ -50,7 +46,7 @@
                     <span v-if="returningUser"><div class="checkbox-choices">Family Law Matters including parenting arrangements, child support, contact with a 
                         child, guardianship of a child and spousal support under the <i>Family Law Act.</i></div>
                         <p>
-                        Applying for, or replying to, an application for a new order, to change an order, or to cancel an order about
+                        Applying for an application for a new order, to change an order, or to cancel an order about
                         a Family Law Matter.
                         </p>
                     </span>
@@ -78,7 +74,7 @@
                     <div class="checkbox-choices">Priority parenting matter</div>
                     <p>
                         <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
-                        priority to get the order before any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
+                        priority to get the order before, or separate from, any family law matter order(s). There is a limited list of priority parenting matters. You can ask for other parenting matter orders you may need
                         under family law matters.
                     </p>
                     </b-form-checkbox>
@@ -98,7 +94,7 @@
                 <div class="checkbox-border">
                     <b-form-checkbox value="agreementEnfrc">
                     <div class="checkbox-choices">Enforcement of agreements and court orders</div>
-                    <p>If you have a written agreement or court order that the other party is not following, you can ask the court to enforce it.</p>
+                    <p>If you have a written agreement or court order that the other party is not following, you can ask the court to help enforce it.</p>
                     </b-form-checkbox>
                 </div>
                 </b-form-checkbox-group>
@@ -146,10 +142,11 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import store from "@/store";
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
 import Tooltip from "@/components/survey/Tooltip.vue";
 
 @Component({
@@ -163,6 +160,15 @@ export default class GettingStarted extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public steps!: any
+
+    @applicationState.State
+    public types!: string[]
+
+    @applicationState.Action
+    public UpdateApplicationType!: (newApplicationType: string[]) => void
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -171,75 +177,117 @@ export default class GettingStarted extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
   
     selected = []
     returningUser = false
     showLegalAssistance = false
     preparationInfo = false
+    poOnly = false;
+    poIncluded = false;
     currentStep=0;
     currentPage=0;
+    dataReady = false;
 
-    created() {
-        //console.log(this.step)
-        // get the user type and if existing user with existing cases, show different
-        this.returningUser = (store.state.Application.userType == 'returning');
-        if (this.step.result && this.step.result['selectedForms']) {
-            this.selected = this.step.result['selectedForms'];
-        }
+    mounted(){ 
+        this.dataReady = false;
+        this.preparationInfo = false;
+        this.reloadPageInformation()
     }
 
-    mounted(){
-        this.preparationInfo = false;
-        const progress = this.selected.length==0? 50 : 100;
+    public reloadPageInformation(){               
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
+            this.selected = this.steps[0].result['selectedForms'];
+        }
+
+        this.returningUser = (this.$store.state.Application.userType == 'returning');        
+
+        const progress = this.selected.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        
+        //console.log(this.selected)
+
+        this.dataReady = true;
     }
   
-    public onChange(event) {
-        //console.log(event)
-        this.setSteps(event);
+    public onChange(selectedForms) {
+        //console.log(selectedForms)
+        
+        const applicationTypes = [];       
+            
+        for (const form of selectedForms){                    
+            applicationTypes.push(this.getApplicationType(form));
+        }
+        // console.log(applicationTypes)
+        // console.log(Array.from(new Set(applicationTypes)));
+        this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
+        
+        this.setSteps(selectedForms);
+        this.resetSelectedFormsCompeleted(selectedForms);
     }
 
-    public setSteps(event) {
+    public getApplicationType(selectedOrder){
+        
+        let orgFPOType = ''
+        if (this.steps[1].result && this.steps[1].result.questionnaireSurvey && this.steps[1].result.questionnaireSurvey.orderType){
+            orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
+        } 
+
+        return Vue.filter('getFullOrderName')(selectedOrder, orgFPOType);
+    }
+
+    public setSteps(selectedForms) {
         //console.log("GETTING STARTED")
-        if (event !== undefined) {
-            this.toggleCommonSteps(event.includes("protectionOrder"));
-            this.toggleSteps(2, event.includes("protectionOrder"));
-            this.toggleSteps(3, event.includes("familyLawMatter"));
-            this.toggleSteps(4, event.includes("caseMgmt"));
-            this.toggleSteps(5, event.includes("priotityParenting"));
-            this.toggleSteps(6, event.includes("childReloc"));
-            this.toggleSteps(7, event.includes("agreementEnfrc"));
+        if (selectedForms !== undefined) {            
+            //console.log(selectedForms)
+            this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
+            this.poIncluded = selectedForms.includes("protectionOrder");
+
+            //this.toggleCommonSteps(selectedForms.length>0);
+            this.toggleSteps(1, selectedForms.includes("protectionOrder"));
+            this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
+            this.toggleSteps(4, selectedForms.includes("caseMgmt"));
+            this.toggleSteps(5, selectedForms.includes("priotityParenting"));
+            this.toggleSteps(6, selectedForms.includes("childReloc"));
+            this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
+
+            this.toggleSteps(8, selectedForms.length>0);//Review And Submit
+            
+            this.toggleSteps(2, selectedForms.length>0 && !this.poOnly);//Common Your Information
+            this.togglePages(2, [0], !this.poIncluded);//Safety Check
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
+            this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
     }
 
-    public toggleSteps(stepId, activeIndicator) {
-        if (stepId == 2) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: 0,
-                currentPage: 1,
-                active: activeIndicator
-            });
-        } else {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: stepId,
-                active: activeIndicator
-            });
-        }
+    public resetSelectedFormsCompeleted(selectedForms){
+        if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false); this.UpdatePathwayCompleted({pathway:"protectionOrder",isCompleted:false});}
+        if(!selectedForms.includes("familyLawMatter"))   this.UpdatePathwayCompleted({pathway:"familyLawMatter",isCompleted:false});
+        if(!selectedForms.includes("caseMgmt"))          this.UpdatePathwayCompleted({pathway:"caseMgmt",isCompleted:false});
+        if(!selectedForms.includes("priotityParenting")) this.UpdatePathwayCompleted({pathway:"priotityParenting",isCompleted:false});
+        if(!selectedForms.includes("childReloc"))        this.UpdatePathwayCompleted({pathway:"childReloc",isCompleted:false});
+        if(!selectedForms.includes("agreementEnfrc"))    this.UpdatePathwayCompleted({pathway:"agreementEnfrc",isCompleted:false});
     }
 
-    public toggleCommonSteps(activeIndicator) {
-        const steps = [1, 8];
-        for(let i=0; i<steps.length; i++) {
-            this.$store.commit("Application/setStepActive", {
-                currentStep: steps[i],
-                active: activeIndicator
-            });
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
+    }
+
+    public togglePages(step, pages, activeIndicator) {
+        for(let i=0; i<pages.length; i++) {
+            
             this.$store.commit("Application/setPageActive", {
-                currentStep: steps[i],
-                currentPage: 0,
-                active: activeIndicator
+                currentStep: step,
+                currentPage: pages[i],
+                active: (activeIndicator)
             });
         }
     }
@@ -260,11 +308,6 @@ export default class GettingStarted extends Vue {
         this.preparationInfo = false;
         this.UpdateGotoNextStepPage();
     }
-
-    public onComplete() {
-        //console.log('complete')
-        this.$store.commit("Application/setAllCompleted", true);
-    }  
   
     beforeDestroy() {
         const progress = this.selected.length==0? 50 : 100;

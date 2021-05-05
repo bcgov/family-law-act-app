@@ -140,6 +140,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -255,7 +256,6 @@ REST_FRAMEWORK = {
     )
 }
 
-# Efiling
 EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
 EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
 EFILING_COURT_CLASS = os.environ.get("EFILING_COURT_CLASS", "F")  # https://bcgov.github.io/jag-file-submission/#/data?id=court-classification
