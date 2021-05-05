@@ -28,7 +28,7 @@ class EFilingParsing:
         )
         converted_data = {
             "fileNumber": file_number,
-            "locationName": application.application_location or 'Victoria',
+            "locationName": application.application_location or 'Victoria Law Courts',
             "documents": documents,
             "organizationParties": [],
             "parties": flatten(
