@@ -55,12 +55,6 @@ export default class About extends Vue {
     surveyJsonCopy;
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -84,8 +78,8 @@ export default class About extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            this.UpdateSurveyChangedPO(true);
-            console.log(this.survey.data);
+            Vue.filter('surveyChanged')('protectionOrder')
+            //console.log(this.survey.data);
         })
     }
 

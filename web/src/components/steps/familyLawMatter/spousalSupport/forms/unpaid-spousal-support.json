@@ -24,13 +24,17 @@
               "titleLocation":"hidden",
               "bodyText":"What is the amount of unpaid spousal support you believe is still owing? $", 
               "inputWidth": "9rem",
-              "textClass" : "sv_main sv_q_title font-weight-bold",             
+              "textClass" : "sv_main sv_q_title font-weight-bold",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
               "isRequired": true
             },
             {
               "type": "yesno",
               "name": "applyToReduce",
               "title": "Do you want to apply to reduce the amount of unpaid spousal support owing?",
+              "visible": false,
+              "visibleIf": "{unpaid} == 'y'",
               "isRequired": true
             },
             {

@@ -44,12 +44,6 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -72,7 +66,8 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data)
+            Vue.filter('surveyChanged')('familyLawMatter')
+            //console.log(this.survey.data)
 
         })
     }

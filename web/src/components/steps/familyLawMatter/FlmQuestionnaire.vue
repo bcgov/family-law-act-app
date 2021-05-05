@@ -112,7 +112,10 @@ export default class FlmQuestionnaire extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
-  
+
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+    
     selectedForm = [];
     //returningUser = false
     showLegalAssistance = false
@@ -124,8 +127,10 @@ export default class FlmQuestionnaire extends Vue {
         
     //childrenInfoPage = [2];
     backgroundPage = 1
+    parentingOrderAgreementPage = 7
     aboutParentingArrangementPage = 8
     parentingArrangementsPage = 3
+    
 
     aboutExistingChildSupportPage = 16
 
@@ -166,12 +171,14 @@ export default class FlmQuestionnaire extends Vue {
     }
   
     public onChange(selectedForm) {
+        this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         if(this.checkErrorOnPages())        
             this.setSteps(selectedForm);
         else{ 
-            this.selectedForm = [];
+            this.selectedForm = [];            
             //this.togglePages(this.allPages, false); 
         }
+        Vue.filter('surveyChanged')('familyLawMatter')
         
        // console.log(selectedForm)
     }
@@ -191,6 +198,9 @@ export default class FlmQuestionnaire extends Vue {
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
 
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingOrderAgreementPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingOrderAgreementPage, 50, false);
+            
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutParentingArrangementPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutParentingArrangementPage, 50, false);
             

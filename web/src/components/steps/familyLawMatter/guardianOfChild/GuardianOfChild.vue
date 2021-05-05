@@ -11,7 +11,8 @@
                 bordereless>
                 <template v-slot:cell(name)="data">
                     <b-form-select
-                    id="input-3"
+                    id="input-2"
+                    @change="tableChanged()"
                     v-model="data.item.name"
                     :options="childrenNames"
                     required
@@ -20,17 +21,19 @@
                 <template v-slot:cell(nameOther)="data">
                     <b-form-select
                     id="input-3"
+                    @change="tableChanged()"
                     v-model="data.item.nameOther"
                     :options="otherPartyNames"
                     required
                     ></b-form-select>
                 </template>
                 <template v-slot:cell(date)="data">
-                    <b-form-input type="date" v-model="data.item.date" />
+                    <b-form-input @change="tableChanged()" type="date" v-model="data.item.date" />
                 </template> 
                 <template v-slot:cell(relationship)="data">
                     <b-form-select
-                    id="input-3"
+                    id="input-4"
+                    @change="tableChanged()"
                     v-model="data.item.relationship"
                     :options="['Guardian','Applying to be appointed as a guardian']"
                     required
@@ -56,6 +59,49 @@
                 </div>
             </div>
         </div>
+
+
+
+        <b-modal size="xl" v-model="showPopup" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">
+               
+                <p>There is another form that you must complete when you are applying for guardianship of a child.
+                    It is called <a href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178"
+                                    target='blank'>Guardianship Affidavit Form 5</a>. Before you can complete the affidavit, 
+                    you must complete the following background checks referenced in the form:</p>
+                <ul>
+                    <li>
+                        a Ministry of Children and Family Development record check
+                    </li>
+                    <li>
+                        a protection order record check from the Protection Order Registry, and
+                    </li>
+                    <li>
+                        a criminal record check                       
+                    </li>                    
+                </ul>
+                <p>To get a criminal record check, ask at the police station or RCMP detachment in your community.</p>
+                <p>To get the Ministry of Children and Family Development and Protection Order Registry record checks, you must fill out:</p>
+                 <ul>
+                    <li>
+                        a Consent for Child Protection Record Check, and
+                    </li>
+                    <li>
+                        a Request for Protection Order Registry Search.
+                    </li>                                      
+                </ul>
+                <p>
+                    I understand that I am required to file a Guardianship Affidavit in Form 5 as described in 
+                    <a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section26" target='blank'>Rule 26</a> before 
+                    the court can make a final order about guardianship.
+                </p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="success" @click="closePopup">I understand</b-button>
+            </template>            
+        </b-modal>
+
     </page-base>
 </template>
 
@@ -103,6 +149,7 @@ export default class GuardianOfChild extends Vue {
 
     tableKey = 0;
     showTable = false;
+    showPopup = false;
     showGuardianAssistance = false;
     tableError = false;
 
@@ -112,6 +159,7 @@ export default class GuardianOfChild extends Vue {
     guardianOfChildItem =[
         {name:'', nameOther:'', date:'', relationship:''},
     ]
+    
     guardianOfChildFields = [
         {key:"name",         label:"Name of Child",                                                                               tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:20%;"},
         {key:"nameOther",    label:"Name of Other Party (Guardian who you are applying to cancel their guardianship of a child)", tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:25%;"},
@@ -119,13 +167,6 @@ export default class GuardianOfChild extends Vue {
         {key:"relationship", label:"What is your guardianship relationship to the child?",                                        tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:18%;"},
         {key:"control",      label:"",                                                                                            tdClass:"align-middle", thClass:"text-primary align-middle text-center border-top-0", thStyle:"font-size:10pt; width:4%;"},
     ]
-
-   
-    // @Watch('pageIndex')
-    // pageIndexChange(newVal) 
-    // {
-    //     this.survey.currentPageNo = newVal;        
-    // }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -177,6 +218,7 @@ export default class GuardianOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             this.setPages();
             this.determineShowingTable();
         })
@@ -187,6 +229,13 @@ export default class GuardianOfChild extends Vue {
             this.showTable=true;
         else
             this.showTable=false;
+    }
+
+    public determineShowPopup(){
+        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes('becomeGuardian'))
+            return true;
+        else
+            return false;
     }
     
     public setPages(){ 
@@ -255,15 +304,31 @@ export default class GuardianOfChild extends Vue {
         return false
     }
 
+    public tableChanged(){
+        Vue.filter('surveyChanged')('familyLawMatter')
+    }
+
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors && !this.checkTableError()) {
-            this.UpdateGotoNextStepPage()
+            if (this.determineShowPopup()) {
+                this.showPopup = true;
+
+            } else {
+                this.showPopup = false;
+                this.UpdateGotoNextStepPage();
+            }
+            
         }
     }  
+
+    public closePopup(){
+        this.showPopup = false;
+        this.UpdateGotoNextStepPage();
+    }
     
     beforeDestroy() {
         this.survey.setValue('cancelGuardianDetails', this.guardianOfChildItem)

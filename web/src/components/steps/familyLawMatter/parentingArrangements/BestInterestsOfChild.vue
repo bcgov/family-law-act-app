@@ -40,12 +40,6 @@ export default class BestInterestsOfChild extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;    
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -68,6 +62,7 @@ export default class BestInterestsOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
             // console.log(options)
             
