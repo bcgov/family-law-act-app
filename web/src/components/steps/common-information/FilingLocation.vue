@@ -1,6 +1,32 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
+
+        <b-modal size="xl" v-model="locationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">
+               
+                <p>I understand the following people must be given notice of my application about a family law matter:</p>
+                <ul>
+                    <li>
+                        all parents and current guardians of each child who is the subject of the family law matter
+                    </li>
+                    <li>
+                        my spouse, if I am applying for spousal support
+                    </li>
+                    <li>
+                        each other adult who the application about a family law matter is about                       
+                    </li>                    
+                </ul>
+                <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
+                <p>They are the other party/parties I added in this case.</p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="locationInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closeLocationInfo">I agree</b-button>
+            </template>            
+        </b-modal>
+
     </page-base>
 </template>
 
@@ -61,7 +87,10 @@ export default class FilingLocation extends Vue {
     surveyJsonCopy;
     disableNextButton = false;
     currentStep=0;
-    currentPage=0;   
+    currentPage=0;
+    locationInfo = false;
+    
+    
 
     beforeCreate() {
         const Survey = SurveyVue;
