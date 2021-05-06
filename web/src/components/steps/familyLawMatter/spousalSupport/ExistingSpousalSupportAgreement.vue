@@ -71,11 +71,11 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
 
     public setPages(){
         if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-            this.togglePages([37], true);
+            this.togglePages([36], true);
             
         } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
             
-            this.togglePages([37], false);
+            this.togglePages([36], false);
         }         
     }  
 

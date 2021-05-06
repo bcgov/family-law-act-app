@@ -289,14 +289,14 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		//REMINDERS 
 	
 		if( (questions.flmSelectedForm && ( questions.flmSelectedForm.includes("childSupport")||questions.flmSelectedForm.includes("spousalSupport") )) &&
-			(questions.aboutExistingChildSupportSurvey && questions.aboutExistingChildSupportSurvey.filedWithDirector == "y")||(questions.aboutExistingSpousalSupportSurvey && questions.aboutExistingSpousalSupportSurvey.filedWithDirector == "y"))
+			(questions.aboutExistingChildSupportSurvey && questions.aboutExistingChildSupportSurvey.filedWithDirector == "y")||(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y"))
 			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 		
 		if( (questions.flmSelectedForm && questions.flmSelectedForm.includes("guardianOfChild")) &&
 			(questions.indigenousAncestryOfChildSurvey && (questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") || questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation"))) )
 			reminderDocuments.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 
-		// if(questions.aboutExistingSpousalSupportSurvey && questions.aboutExistingSpousalSupportSurvey.filedWithDirector == "y") 
+		// if(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y") 
 		// 	reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 	}
 	

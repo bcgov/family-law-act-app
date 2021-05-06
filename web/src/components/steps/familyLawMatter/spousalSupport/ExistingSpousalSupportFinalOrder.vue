@@ -71,11 +71,11 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
 
     public setPages(){
         if(this.survey.data.orderDifferenceType == 'changeOrder'){
-            this.togglePages([37], true);
+            this.togglePages([36], true);
             
         } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
             
-            this.togglePages([37], false);
+            this.togglePages([36], false);
         }
     }
 

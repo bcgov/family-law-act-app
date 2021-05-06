@@ -123,7 +123,7 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-    allPages = _.range(1,41)
+    allPages = _.range(1,40)
         
     //childrenInfoPage = [2];
     backgroundPage = 1
@@ -139,13 +139,13 @@ export default class FlmQuestionnaire extends Vue {
 
     guardianOfChildPage = 26
 
-    reviewYourAnswersPage = 39
+    reviewYourAnswersPage = 38
 
-    aboutExistingSpousalSupportPage = 33
+    existingSpousalSupportOrderAgreementPage = 32
 
-    existingSpousalSupportAgreementPage = 35
+    existingSpousalSupportAgreementPage = 34
 
-    existingSpousalSupportFinalOrderPage = 34
+    existingSpousalSupportFinalOrderPage = 33
 
 
     // parentingArrangementsPages = [];
@@ -222,8 +222,8 @@ export default class FlmQuestionnaire extends Vue {
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.guardianOfChildPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.guardianOfChildPage, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutExistingSpousalSupportPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutExistingSpousalSupportPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportOrderAgreementPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportOrderAgreementPage, 50, false);
               
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportFinalOrderPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportFinalOrderPage, 50, false);
