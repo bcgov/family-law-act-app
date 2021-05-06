@@ -45,12 +45,6 @@ export default class ParentingOrderAgreement extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -73,15 +67,19 @@ export default class ParentingOrderAgreement extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
-                if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                    this.togglePages([8, 9, 10], false);
-                } else {
-                    this.togglePages([8], true);
-                }
-            }   
-            
+            Vue.filter('surveyChanged')('familyLawMatter')
+            this.setPages()
         })
+    }
+
+    public setPages(){
+        if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
+            if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
+                this.togglePages([8, 9, 10, 39, 40], false);
+            } else {
+                this.togglePages([8, 39], true);
+            }
+        }   
     }
 
     public reloadPageInformation() { 
@@ -103,7 +101,8 @@ export default class ParentingOrderAgreement extends Vue {
                 this.survey.setVariable("childWording", "child");
             }
         }
-        
+
+        this.setPages()
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
     

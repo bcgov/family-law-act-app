@@ -39,7 +39,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-
+import moment from 'moment-timezone';
 import * as _ from 'underscore';
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -89,6 +89,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     previewFormsPage = 40;
 
     errorQuestionNames = [];
+    currentDate = ''
 
     @Watch('pageHasError')
     nextPageChange(newVal) 
@@ -101,6 +102,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     }
 
     mounted(){
+        this.currentDate = moment().format('MMM DD YYYY');
         this.reloadPageInformation();
         this.determineHiddenErrors();
         //console.log(this.step)
@@ -113,6 +115,8 @@ export default class ReviewYourAnswersFlm extends Vue {
         adjQuestion = adjQuestion.replace(/{RespondentName}/g, Vue.filter('getFullName')(this.$store.state.Application.respondentName));
         adjQuestion = adjQuestion.replace(/{ProtectedPartyName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         adjQuestion = adjQuestion.replace(/{anotherAdultName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
+        adjQuestion = adjQuestion.replace(/{Payee}/g, 'Payee(s)');
+        adjQuestion = adjQuestion.replace(/{currentDate}/g, this.currentDate);
         adjQuestion = adjQuestion.replace(/<br>/g,'');
         adjQuestion = adjQuestion.replace(/<br\/>/g,''); 
         adjQuestion = adjQuestion.replace(/{childWording}/g,'child(ren)');
@@ -285,6 +289,13 @@ export default class ReviewYourAnswersFlm extends Vue {
     }
 
     public reloadPageInformation() {
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
+        }
+
         this.pageHasError = false;
         for(const stepIndex of [2,3]){
             const step = this.$store.state.Application.steps[stepIndex]
@@ -314,42 +325,26 @@ export default class ReviewYourAnswersFlm extends Vue {
                     }
                 }
         }
-        console.log(this.questionResults )
+        //console.log(this.questionResults )
 
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
-        console.log(this.questionResults)
+        //console.log(this.questionResults)
        
         //let progress = 100;
         // if(Object.keys(this.survey.data).length)
         //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         //this.togglePages([0,1], true);
         this.togglePages([this.previewFormsPage], !this.pageHasError); 
+        
     }
 
     public determineHiddenErrors(){        
         this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","y",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child:", "PartiesHasOtherChilderen"));
         this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","n",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list", "PartiesHasOtherChilderen"));        
     }
-
-    // public getFPOResultData() {  
-        
-    //     var result = this.$store.state.Application.steps[0].result; 
-    //     for(var i=1;i<9; i++){
-    //         const stepResults = this.$store.state.Application.steps[i].result
-    //         for(const stepResult in stepResults){
-    //             console.log(stepResults[stepResult])
-    //             console.log(stepResults[stepResult].data)
-    //             result[stepResult]=stepResults[stepResult].data;                
-    //         }
-    //     }            
-    //     console.log(result)
-    //     return result;
-    // }
 
     public coOccurrence(pageName1,question1,value1,  pageName2,question2,title2:string, response){
         for(const questionResult of this.questionResults)

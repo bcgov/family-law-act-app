@@ -43,26 +43,26 @@
         <div style="margin-top:1rem;"><b>Information about the parties</b></div>
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInformationSurvey.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInformationSurvey.dob | beautify-date"/>
+            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
             <table class="fullsize">
                 <tr style="border:1px solid #414142" >
-                    <td v-if="yourInformationSurvey.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInformationSurvey.Lawyer | getFullName}}</div></td>
+                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
                 </tr>
                 <tr style="border:1px solid #414142">          
-                    <td colspan="3">Address: <div class="answer">{{yourInformationSurvey.address.street}} </div> </td>
+                    <td colspan="3">Address: <div class="answer">{{yourInfo.address.street}} </div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td  >City: <div class="answer">{{yourInformationSurvey.address.city}}</div> </td>
-                <td style="padding-left:50px">Province: <div class="answer">{{yourInformationSurvey.address.state}}</div> </td>
-                    <td>Postal Code: <div class="answer">{{yourInformationSurvey.address.postcode}}</div> </td>
+                    <td  >City: <div class="answer">{{yourInfo.address.city}}</div> </td>
+                <td style="padding-left:50px">Province: <div class="answer">{{yourInfo.address.state}}</div> </td>
+                    <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td>Email: <div class="answer">{{yourInformationSurvey.contact.email}}</div> </td>
+                    <td>Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
                     <td style="padding-left:50px"></td>
-                    <td>Telephone: <div class="answer">{{yourInformationSurvey.contact.phone}}</div> </td>
+                    <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
         </section>
@@ -110,9 +110,9 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem">Complete this section only if you are a lawyer for the party. You may leave this section blank.</div>
                 <div>
-                    <check-box  inline="inline" boxMargin="0" style="margin:0 0 0 1rem;display:inline" :check="true?'yes':''" text=""/>
-                    <underline-form style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" text=""/>
-                    <underline-form style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" text=""/>
+                    <check-box  inline="inline" boxMargin="0" style="margin:0 0 0 1rem;display:inline" :check="yourInfo.lawyerFiling?'yes':''" text=""/>
+                    <underline-form style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" :text="yourInfo.lawyerStatement.lawyerName"/>
+                    <underline-form style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" :text="yourInfo.lawyerStatement.clientName"/>
                     <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act</i>. </div>
                 </div>           
             </section>
@@ -123,15 +123,15 @@
 <!-- <5> -->
             <section> 
                 I am filing my application in:
-                <check-box style="margin:0 0 0 1rem;" :check="true?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="true?'?':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
                 <div style="margin:0 0 0 2.75rem;">
-                    <check-box style="" :check="true?'yes':''" text="needs assessment"/>
-                    <check-box style="" :check="true?'yes':''" text="parenting education program"/>
-                    <check-box style="" :check="true?'yes':''" text="consensual dispute resolution"/>
+                    <check-box style="" :check="true?'?':''" text="needs assessment"/>
+                    <check-box style="" :check="true?'?':''" text="parenting education program"/>
+                    <check-box style="" :check="true?'?':''" text="consensual dispute resolution"/>
                 </div>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="none of the above "/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="none of the above "/>
             </section>
         </div>
 
@@ -193,8 +193,10 @@
             <div style="margin-top:1rem;"><b>Relationship between the parties</b></div>
 <!-- <9> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">The parties are: </div>          
-                <i style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</i>
+                <div style="display:inline; margin-left:0.25rem">The parties are: </div> 
+                <div class="answer">         
+                    <i style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</i>
+                </div>
             </section>
         </div>
 
@@ -203,7 +205,7 @@
             <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
             <div>
                 <i style="display:inline;margin-left:1rem" >Specify which other party if there is more than one: </i>
-                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text=""/>
+                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text="?"/>
             </div>
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
@@ -299,22 +301,20 @@ export default class CommonSection extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
-    // result;
+    
     dataReady = false;
     aboutChildren = false;
 
     otherPartyInfo=[];
-    yourInformationSurvey;
+    yourInfo;
 
     applicantList = []
-
     
     existingOrders = {}
     relationshipBetweenParties = {}
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
-    culturalInfo = '';
-    parentArrInfo = {}
+    culturalInfo = '';  
     
    
     mounted(){
@@ -331,9 +331,8 @@ export default class CommonSection extends Vue {
         {key:"currentSituation",     label:"Child is currently living with",         tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
-    public extractInfo(){      
-
-        // this.selectedSchedules = this.getSchedulesInfo();
+    public extractInfo(){ 
+        
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
         if (this.result.childData && this.result.childData.length > 0){
@@ -351,7 +350,7 @@ export default class CommonSection extends Vue {
         }       
         
         this.otherPartyInfo=this.getOtherPartyInfo()
-        this.yourInformationSurvey = this.getYourInfo()       
+        this.yourInfo = this.getYourInfo()       
 
     }
 
@@ -361,9 +360,9 @@ export default class CommonSection extends Vue {
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
-            relationshipInfo.startDate = this.result.flmBackgroundSurvey.liveTogetherPODate;
-            relationshipInfo.marriageDate = this.result.flmBackgroundSurvey.dateOfMarriagePO;
-            relationshipInfo.separationDate = this.result.flmBackgroundSurvey.separationDate;
+            relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
+            relationshipInfo.marriageDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO);
+            relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
         }
         return relationshipInfo;
     }
@@ -380,7 +379,7 @@ export default class CommonSection extends Vue {
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = child.currentLiving;
+            childInfo.currentSituation = (child.currentLiving == 'other')? child.currentLivingComment:child.currentLiving;
             childrenInfo.push(childInfo)
         }        
 
@@ -390,72 +389,87 @@ export default class CommonSection extends Vue {
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
         existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
 
         return existing;
     }
 
     public getYourInfo(){
-        let dob = ''
-        let name = ''
-        let address = {street:'', city: '', country: '', postcode: '', state: ''}
-        let contact = {email:'',fax:'',phone:''}
-        let Lawyer = 'n'
+
+        let yourInformation = {
+            dob: '',
+            name: '',
+            lawyer: false,
+            lawyerName: '',
+            address: {street:'', city: '', country: '', postcode: '', state: ''},
+            contact: {email:'',fax:'',phone:''},
+            lawyerFiling: false,
+            lawyerStatement: {lawyerName: '', clientName: ''}
+        }        
+
+        console.log(this.result)
 
         if(this.result.yourInformationSurvey){
-            if(this.result.yourInformationSurvey.ApplicantName)
-                name=this.result.yourInformationSurvey.ApplicantName
-            
-            if(this.result.yourInformationSurvey.ApplicantDOB)
-                dob=this.result.yourInformationSurvey.ApplicantDOB
 
-            if(this.result.yourInformationSurvey.ApplicantAddress)
-                address=this.result.yourInformationSurvey.ApplicantAddress
+            const applicantInfo = this.result.yourInformationSurvey;
             
-            if(this.result.yourInformationSurvey.ApplicantContact)
-                contact=this.result.yourInformationSurvey.ApplicantContact
+            yourInformation = {
+                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
+                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
+                lawyer: applicantInfo.Lawyer == 'y',
+                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
 
-            if(this.result.yourInformationSurvey.Lawyer)
-                Lawyer=this.result.yourInformationSurvey.Lawyer            
+                lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
+                lawyerStatement: (applicantInfo.Lawyer == 'y' && 
+                                applicantInfo.LawyerFillingOut == 'y' && 
+                                applicantInfo.lawyerStatement)?{lawyerName: applicantInfo.lawyerStatement.lawyerName, clientName: applicantInfo.lawyerStatement.clientName}:{lawyerName: '', clientName: ''}
+            }
+                     
         }
-        return {'name':name, 'dob':dob, 'address': address ,'contact': contact, 'Lawyer':Lawyer}
+        return yourInformation;
     }
 
     public getOtherPartyInfo(){
-        
-        let info = [] 
-        let dob = 'unknown'
-        let name = ''
-        let address = ''
-        let contactInfo = ''
 
-        if (this.result.otherPartyCommonSurvey){
-            console.log()    
+        let OpInformation = [
+            {            
+                dob: 'unknown',
+                name: {'first': '','middle': '', 'last': ''},
+                address: '',
+                contactInfo: ''
+            }               
+        ];        
+
+        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+            OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
-                dob = 'unknown'
-                name = ''
-                address = ''
-                contactInfo = ''
+                let otherParty = {            
+                    dob: '',
+                    name: {'first': '','middle': '', 'last': ''},
+                    address: '',
+                    contactInfo: ''
+                }                
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
-                    dob = party['dob']
+                    otherParty.dob = party['dob']
 
                 if (party['name'])
-                    name = party['name']
+                    otherParty.name = party['name']
                 
                 if (party['address'])
-                    address = party['address']
+                    otherParty.address = party['address']
                 
                 if (party['contactInfo'])
-                    contactInfo = party['contactInfo']
+                    otherParty.contactInfo = party['contactInfo']
                 
-                info.push({'name':name, 'DOB': dob , 'address': address ,'contact': contactInfo})
+                OpInformation.push(otherParty)
             }
-        } else
-            info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': ''}]
+        } 
 
-        return info
+        return OpInformation
     }    
  
 }

@@ -64,7 +64,7 @@
               "description": "Select each option that applies and complete the required information.",
               "visible": false,
               "visibleIf": "{unpaid} == 'y'",                     
-              "radioOutputValues":"{monthly},{lumpSum}",
+              "radioOutputValues":"{monthly},{lumpsum}",
               "inputNames":"{monthlyAmount}",
               "inputTypes":"{number}",
               "inputWidths":"{9rem}",                  

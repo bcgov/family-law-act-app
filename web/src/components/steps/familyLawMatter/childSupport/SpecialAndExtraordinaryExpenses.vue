@@ -16,7 +16,7 @@
                                 <label style="float:left;margin:0.5rem 0;">$</label>
                                 <b-form-input 
                                     style="float:left;margin-left:0.3rem;width:90%;"
-                                    @change="tableKey=tableKey+1"                                    
+                                    @change="inputValueChanged()"                                    
                                     v-model="childrenSupportExpenseItem[data.index][data.field.key]"
                                     type="number">
                                 </b-form-input>
@@ -120,7 +120,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     }
     
     public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {           
+        this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')           
             //console.log(options)
             this.determineShowingTable()
         })
@@ -165,7 +166,12 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         }
     }
 
-    public calculateTotal(key){        
+    inputValueChanged(){ 0       
+        Vue.filter('surveyChanged')('familyLawMatter')
+        this.tableKey ++;
+    }
+
+    public calculateTotal(key){                
         let sum = 0;
         for(let index=1; index<7; index++){
             sum+= Number(this.childrenSupportExpenseItem[index][key])

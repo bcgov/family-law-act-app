@@ -43,12 +43,6 @@ export default class AboutParentingArrangements extends Vue {
     disableNextButton = false;
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -75,11 +69,13 @@ export default class AboutParentingArrangements extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             this.setPages();
         })
     }
 
     public setPages(){
+        this.togglePages([39], true);
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
@@ -100,7 +96,7 @@ export default class AboutParentingArrangements extends Vue {
             }
         } else if (this.survey.data.existingType == 'Neither') {
             this.disableNextButton = true;
-            this.togglePages([9, 10], false);
+            this.togglePages([9, 10, 39], false);
         }         
     }     
             

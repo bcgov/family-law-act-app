@@ -47,7 +47,7 @@
             {
               "type": "radiogroup",
               "name": "ServeAcknowledgement",
-              "title": "",
+              "title": "Serve Acknowledgement to the Nisga’a Lisims Government or the Treaty First Nation",
               "visible": false,
               "visibleIf": "{indigenousChild} = 'yes' and ({indigenousAncestry} anyof ['Nisga’a', 'Treaty First Nation'])",
               "titleLocation": "hidden",

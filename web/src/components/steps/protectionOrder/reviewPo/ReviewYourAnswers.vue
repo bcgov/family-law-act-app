@@ -26,7 +26,7 @@
                             <b>{{beautifyQuestion(data.value)}}</b>
                         </template>
                         <template v-slot:cell(value)="data" >
-                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''">{{beautifyResponse(data.value, data.item)}}</div>
+                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''" v-html="beautifyResponse(data.value, data.item)">{{beautifyResponse(data.value, data.item)}}</div>
                         </template>
                         <template v-slot:cell(edit)="data" > 
                             <b-button style="border:white;" size="sm" variant="transparent" v-b-tooltip.hover.noninteractive title="Edit"  @click="edit(section,data)"><b-icon icon="pencil-square" font-scale="1.25" variant="primary"/></b-button>
@@ -260,21 +260,6 @@ export default class ReviewYourAnswers extends Vue {
         this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","y",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child:", "PartiesHasOtherChilderen"));
         this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","n",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list", "PartiesHasOtherChilderen"));        
     }
-
-    // public getFPOResultData() {  
-        
-    //     var result = this.$store.state.Application.steps[0].result; 
-    //     for(var i=1;i<9; i++){
-    //         const stepResults = this.$store.state.Application.steps[i].result
-    //         for(const stepResult in stepResults){
-    //             console.log(stepResults[stepResult])
-    //             console.log(stepResults[stepResult].data)
-    //             result[stepResult]=stepResults[stepResult].data;                
-    //         }
-    //     }            
-    //     console.log(result)
-    //     return result;
-    // }
 
     public coOccurrence(pageName1,question1,value1,  pageName2,question2,title2:string, response){
         for(const questionResult of this.questionResults)

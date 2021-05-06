@@ -48,12 +48,6 @@ export default class AboutExistingSpousalSupport extends Vue {
     disableNextButton = false;
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -80,7 +74,8 @@ export default class AboutExistingSpousalSupport extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data)
+            Vue.filter('surveyChanged')('familyLawMatter')
+            //console.log(this.survey.data)
             
             this.setPages()
             
@@ -97,14 +92,14 @@ export default class AboutExistingSpousalSupport extends Vue {
     public setPages(){
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([34, 36, 38], true); 
+            this.togglePages([34, 36, 38, 39], true); 
             this.togglePages([35], false);               
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([35, 36, 38], true); 
+            this.togglePages([35, 36, 38, 39], true); 
             this.togglePages([34], false);                
         } else if (this.survey.data.existingType == "Neither") {
-            this.togglePages([34, 35, 36, 37, 38], false);
+            this.togglePages([34, 35, 36, 37, 38, 39], false);
             this.disableNextButton = true;
         }
     }

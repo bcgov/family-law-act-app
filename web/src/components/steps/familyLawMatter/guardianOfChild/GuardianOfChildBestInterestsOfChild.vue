@@ -43,12 +43,6 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -56,6 +50,7 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     }
 
     mounted(){
+        console.log('mount')
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -72,8 +67,9 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
-            console.log(options)
+            //console.log(options)
             
         })
     }

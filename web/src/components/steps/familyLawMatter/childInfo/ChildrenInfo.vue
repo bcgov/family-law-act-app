@@ -31,7 +31,8 @@
                                     <td>{{child.dob | beautify-date}}</td>
                                     <td>{{child.relation}}</td>
                                     <td>{{child.opRelation}}</td>
-                                    <td>{{child.currentLiving}}</td>
+                                    <td v-if="child.currentLiving != 'other'">{{child.currentLiving}}</td>
+                                    <td v-else>{{child.currentLivingComment}}</td>
                                     <!-- <td>{{child.additionalInfoDetails}}</td> -->
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
@@ -118,7 +119,7 @@ export default class ChildrenInfo extends Vue {
         this.showTable = false;
          Vue.nextTick(()=>{
             const el = document.getElementById('child-info-survey')
-            console.log(el)
+            //console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -214,7 +215,13 @@ export default class ChildrenInfo extends Vue {
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
         resultString.push(Vue.filter('styleTitle')("Relation to Applicant: ")+child.relation)
         resultString.push(Vue.filter('styleTitle')("Relation to Other Party: ")+child.opRelation)
-        resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
+        if (child.currentLiving == 'other'){
+            console.log(child)
+            resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)
+        } else {
+            resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
+        }
+        
         return resultString
     }
 };

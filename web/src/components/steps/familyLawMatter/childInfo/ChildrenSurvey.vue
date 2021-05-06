@@ -36,6 +36,7 @@ export default class ChildrenSurvey extends Vue {
         relation: "",
         opRelation: "",
         currentLiving: "",
+        currentLivingComment: "",
         ack: "",
         additionalInfo: "",
         additionalInfoDetails: ""
@@ -85,7 +86,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public addSurveyListener(){
-
+        Vue.filter('surveyChanged')('familyLawMatter')        
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");
@@ -117,10 +118,12 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
+        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, 39],50)
         this.survey.completeLastPage();
     }
 
     public populateChildModel(childData) {
+        //console.log(childData)
         this.child.name.first = childData.childName.first;
         this.child.name.middle = childData.childName.middle;
         this.child.name.last = childData.childName.last;
@@ -128,6 +131,7 @@ export default class ChildrenSurvey extends Vue {
         this.child.relation = childData.relationToChild;
         this.child.opRelation = childData.childRelationToOtherParty;
         this.child.currentLiving = childData.childCurrentlyLivingWith;
+        this.child.currentLivingComment = (childData.childCurrentlyLivingWith == 'other')?(childData.childCurrentlyLivingWithComment):"";        
         this.child.ack = childData.childInfoAckknowledge;
         this.child.additionalInfo = childData.childAdditionalInfo;
         this.child.additionalInfoDetails = childData.additionInfoDetails;
@@ -141,6 +145,7 @@ export default class ChildrenSurvey extends Vue {
         survey.setValue("relationToChild", editRowProp.relation);
         survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
         survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
+        survey.setValue("childCurrentlyLivingWithComment", editRowProp.currentLivingComment?editRowProp.currentLivingComment:'');
         survey.setValue("childInfoAckknowledge", editRowProp.ack);
         survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
         survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);

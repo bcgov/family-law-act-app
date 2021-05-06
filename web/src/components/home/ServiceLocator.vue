@@ -99,7 +99,7 @@ export default class ServiceLocator extends Vue {
         const userType = store.state.Application.userType;      
         store.commit("Application/setUserType", userType);
         const application = store.state.Application;
-        application.type = this.translateTypes(store.state.Application.types);
+        application.type = Vue.filter('translateTypes')(store.state.Application.types);
         //  = store.state.Application.types.toString();
         // console.log(store.state.Application)
         const url = "/app/"
@@ -119,35 +119,6 @@ export default class ServiceLocator extends Vue {
             console.error(err);
             this.error = err;
         });
-    }
-
-    public translateTypes(applicationTypes: string[]) {
-
-        let types = [];
-
-        for (const applicationType of applicationTypes){
-            if (applicationType.includes("Protection Order")){
-                types.push(applicationType.replace("Protection Order", "FPO"));
-            }
-            if (applicationType.includes("Family Law Matter")){
-                types.push("FLC");
-            }
-            if (applicationType.includes("Case Management")){
-                types.push("ACMO");
-            }
-            if (applicationType.includes("Priotity Parenting Matter")){
-                types.push("AXP");
-            }
-            if (applicationType.includes("Relocation of a Child")){
-                types.push("APRC");
-            }
-            if (applicationType.includes("Enforcement of Agreements and Court Orders")){
-                types.push("AFET");
-            }
-        }
-
-        return types.toString();
-
     }
 
     // beforeDestroy() {
