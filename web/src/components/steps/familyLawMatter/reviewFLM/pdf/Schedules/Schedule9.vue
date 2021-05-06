@@ -65,7 +65,7 @@
                 <div style="margin:0 0 3rem 1.5rem;">
                     <i style="margin:0 0 0 0rem;" >If you do not have any information, please leave this section blank</i>
                 </div>
-                <div v-if="spsSupInfo.incomeInfo.myIncome.knowFacts" 
+                <div v-if="spsSupInfo.incomeInfo.knowFacts" 
                      class="answerbox">{{spsSupInfo.incomeInfo.facts}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
             </section>
@@ -222,41 +222,38 @@ export default class Form3 extends Vue {
         }
 
         if (this.result.spousalSupportIncomeAndEarningPotentialSurvey){
+            const incomeEarning = this.result.spousalSupportIncomeAndEarningPotentialSurvey
             newSpousalSupportInfo.incomeInfo = {
-                myIncome: this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo:'',
-                knowOpIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
-                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'),
-                opIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
-                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'
-                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount:'',
-                knowFacts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
-                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'),
-                facts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
-                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'
-                        && this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation:''                
+                myIncome: incomeEarning.incomeInfo?incomeEarning.incomeInfo:'',
+                knowOpIncome: (incomeEarning.knowIncome
+                        && incomeEarning.knowIncome == 'y'),
+                opIncome: (incomeEarning.knowIncome
+                        && incomeEarning.knowIncome == 'y'
+                        && incomeEarning.incomeAmount)?incomeEarning.incomeAmount:'',
+                knowFacts: (incomeEarning.knowFacts
+                        && incomeEarning.knowFacts == 'y'),
+                facts: (incomeEarning.knowFacts
+                        && incomeEarning.knowFacts == 'y'
+                        && incomeEarning.factsExplanation)?incomeEarning.factsExplanation:''                
             }
         }
 
-        if (this.result.aboutSpousalSupportOrderSurvey){            
+        if (this.result.aboutSpousalSupportOrderSurvey.howToPaySpousalSupport){ 
+            const aboutSpousalSupport = this.result.aboutSpousalSupportOrderSurvey.howToPaySpousalSupport;           
             newSpousalSupportInfo.payDetails = {
-                monthly: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly'): false,
-                start: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
-                        && this.result.aboutSpousalSupportOrderSurvey.startDate)?this.result.aboutSpousalSupportOrderSurvey.startDate:'',
-                end: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
-                        && this.result.aboutSpousalSupportOrderSurvey.endDate)?this.result.aboutSpousalSupportOrderSurvey.endDate:'',
-                rate: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
-                        && this.result.aboutSpousalSupportOrderSurvey.monthlyAmount)?this.result.aboutSpousalSupportOrderSurvey.monthlyAmount:'',
-                lumpSum: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum'): false,
-                lumpSumAmount: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum')
-                        && this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount)? this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount:'',
-                other: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other'): false,
-                otherComm: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-                        && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other') 
-                        && this.result.aboutSpousalSupportOrderSurvey.howToPayComment)? this.result.aboutSpousalSupportOrderSurvey.howToPayComment:''
+                monthly: aboutSpousalSupport.selected == 'monthly',
+                start: (aboutSpousalSupport.selected == 'monthly'
+                        && aboutSpousalSupport.monthlyStartDate)?Vue.filter('beautify-date')(aboutSpousalSupport.monthlyStartDate):'',
+                end: (aboutSpousalSupport.selected == 'monthly'
+                        && aboutSpousalSupport.monthlyEndDate)?Vue.filter('beautify-date')(aboutSpousalSupport.monthlyEndDate):'',
+                rate: (aboutSpousalSupport.selected == 'monthly'
+                        && aboutSpousalSupport.monthlyAmount)?aboutSpousalSupport.monthlyAmount:'',
+                lumpSum: aboutSpousalSupport.selected == 'lumpsum',
+                lumpSumAmount: (aboutSpousalSupport.selected == 'lumpsum'
+                        && aboutSpousalSupport.lumpsumAmount)? aboutSpousalSupport.lumpsumAmount:'',
+                other: aboutSpousalSupport.selected == 'other',
+                otherComm: (aboutSpousalSupport.selected == 'other' 
+                        && aboutSpousalSupport.otherComment)? aboutSpousalSupport.otherComment:''
             }
         }
 
