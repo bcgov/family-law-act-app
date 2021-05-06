@@ -176,6 +176,9 @@ export default class ApplicationStatus extends Vue {
     @applicationState.Action
     public UpdateRequiredDocuments!: (newRequiredDocuments) => void
 
+    @applicationState.Action
+    public checkAllCompleted! :() => void
+
     dataLoaded = false;
 
     previousApplications = []
@@ -312,6 +315,8 @@ export default class ApplicationStatus extends Vue {
 
             if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['pathwayCompleted'])
                 this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           
+
+            this.checkAllCompleted();
 
             this.$router.push({name: "flapp-surveys" })        
         }, err => {
