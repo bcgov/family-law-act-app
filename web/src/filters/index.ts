@@ -322,6 +322,8 @@ Vue.filter('surveyChanged', function(type: string) {
 
 	const steps = store.state.Application.steps
 
+	store.dispatch("Application/UpdatePathwayCompleted", {pathway: type, isCompleted: false})
+	
 	if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
 		store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
 		store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });

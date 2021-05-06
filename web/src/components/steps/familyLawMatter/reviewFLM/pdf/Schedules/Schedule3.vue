@@ -105,7 +105,7 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(reasonForSupport)>
                             Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
@@ -186,7 +186,7 @@
                         bordered>
                             <template v-slot:cell()="data">                            
                                 <div v-if="data.index==0" style="text-align:center;font-size:7.43pt" ><b>{{data.value}}</b></div>
-                                <div v-else style="text-align:center;font-size:8pt;color:#000">{{data.value}}</div>                                           
+                                <div v-else style="font-size:8pt;color:#000">{{data.value}}</div>                                           
                             </template>
                             <template v-slot:cell(name)="data">                            
                                 <div v-if="data.index==0" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>
@@ -291,11 +291,11 @@ export default class Schedule3 extends Vue {
         {name:'Total', child0:"$", child1:"$", child2:"$", child3:"$"},
     ]
     childrenSupportExpenseFields = [
-        {key:"name",    label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-right border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"},
-        {key:"child0", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        {key:"child1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        {key:"child2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        {key:"child3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        {key:"name",   label:"Name of Child:", tdClass:"border-top-0 border-dark align-middle", thClass:"text-right border-dark border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"},
+        {key:"child0", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
+        {key:"child1", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
+        {key:"child2", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
+        {key:"child3", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
         
     ]   
 

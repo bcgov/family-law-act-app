@@ -87,7 +87,11 @@ export default class FilingLocation extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
+            //console.log(options)            
             //console.log(this.survey.data);            
+            if(options.name == 'CourtLocation'){
+                this.saveUserLocation()
+            }
         })   
     }
 
@@ -127,6 +131,24 @@ export default class FilingLocation extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
+    }
+
+    public saveUserLocation(){
+        const url = "/user-info/"
+        const header = {
+            responseType: "json",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+        console.log(this.survey.data.CourtLocation)
+        this.$http.put(url, {location:this.survey.data.CourtLocation}, header)            
+        .then(() => {                    
+            this.$store.commit("Application/setApplicationLocation", this.survey.data.CourtLocation);
+            //this.saveApplication()
+        }, err => {
+            console.error(err);            
+        });
     }
 
     public setExistingFileNumber(){

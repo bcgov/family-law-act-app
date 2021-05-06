@@ -13,7 +13,7 @@
             <div style="float:right;">
                 <b-table
                     :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:''}]"
-                    :fields="[{key:'name',tdClass:'border-dark'},{key:'value',tdClass:'border-dark'}]"
+                    :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
                     thead-class="d-none">
@@ -21,7 +21,7 @@
                             <div style="font-size:6pt; margin:.1rem 0;">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:cell(value)="data">
-                            <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="font-size:7pt !important; color:#000;">{{data.value}}</div>                                           
                         </template>
                 </b-table>                
             </div>
