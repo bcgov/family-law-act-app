@@ -1,5 +1,6 @@
 import json
 import random
+import hashlib
 from string import ascii_lowercase, digits
 from api.models import User, PreparedPdf
 from api.models.application import Application
@@ -60,18 +61,6 @@ def get_application_for_user(pk, uid):
         return Application.objects.get(pk=pk, user_id=uid)
     except Application.DoesNotExist:
         raise Http404
-
-
-def get_protection_order_content(application):
-    prepared_pdf = PreparedPdf.objects.get(id=application.prepared_pdf_id)
-    po_pdf_content = settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.data)
-    po_json = json.loads(
-        settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.json_data).decode(
-            "utf-8"
-        )
-    )
-    po_json.update({"applicationId": application.id})
-    return (po_pdf_content, po_json)
 
 
 def convert_document_to_multi_part(documents):

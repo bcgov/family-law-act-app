@@ -81,9 +81,11 @@ export default class ServiceLocator extends Vue {
                 "Content-Type": "application/json",
             }
         }
+        console.log(this.survey.data.ServiceLocation)
         this.$http.put(url, {location:this.survey.data.ServiceLocation}, header)            
         .then(() => {        
             this.error = "";
+            store.commit("Application/setApplicationLocation", this.survey.data.ServiceLocation);
             this.saveApplication()
         }, err => {
             console.error(err);
@@ -97,7 +99,9 @@ export default class ServiceLocator extends Vue {
         const userType = store.state.Application.userType;      
         store.commit("Application/setUserType", userType);
         const application = store.state.Application;
-        //console.log(store.state.Application)
+        application.type = Vue.filter('translateTypes')(store.state.Application.types);
+        //  = store.state.Application.types.toString();
+        // console.log(store.state.Application)
         const url = "/app/"
         const header = {
             responseType: "json",
@@ -108,20 +112,20 @@ export default class ServiceLocator extends Vue {
         this.$http.post(url, application, header)
         .then(res => {
             this.applicationId = res.data.app_id;  
-            store.commit("Application/setApplicationId", this.applicationId);
+            store.commit("Application/setApplicationId", this.applicationId);            
             this.error = "";
-            this.$router.push({name: "flapp-surveys" }) 
+            Vue.nextTick(()=>this.$router.push({name: "flapp-surveys" })) 
         }, err => {
             console.error(err);
             this.error = err;
         });
     }
 
-    beforeDestroy() {
-        //console.log(this.step)
-        //console.log(this.survey.data)
-        this.$store.commit("Application/setApplicationLocation", this.survey.data.ServiceLocation);
-    }
+    // beforeDestroy() {
+    //     //console.log(this.step)
+    //     //console.log(this.survey.data)
+    //     // this.$store.commit("Application/setApplicationLocation", this.survey.data.ServiceLocation);
+    // }
 };
 </script>
 

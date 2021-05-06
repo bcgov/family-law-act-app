@@ -1,25 +1,28 @@
 <template>
   <step-base v-bind:step="step">
-    <information v-bind:step="step" v-if="step.currentPage == 0" ></information>
-    <other-party v-bind:step="step" v-if="step.currentPage == 1"></other-party>
+    <safety-check v-bind:step="step" v-if="step.currentPage == 0"></safety-check>
+    <information v-bind:step="step" v-if="step.currentPage == 1" ></information> 
+    <other-party-common v-bind:step="step" v-if="step.currentPage == 2"></other-party-common>
+    <filing-location v-bind:step="step" v-if="step.currentPage == 3" ></filing-location>    
   </step-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import Information from "./Information.vue";
-import OtherParty from "./otherPartyComponent/OtherParty.vue";
+import FilingLocation from "./FilingLocation.vue";
+import OtherPartyCommon from "./otherPartyComponent/OtherPartyCommon.vue";
+import SafetyCheck from "./SafetyCheck.vue";
 import { stepInfoType } from "@/types/Application";
-import * as SurveyVue from "survey-vue";
-import surveyJson from "./forms/survey-information.json";
-
 
 @Component({
     components:{
       StepBase,
+      SafetyCheck,
       Information,
-      OtherParty
+      OtherPartyCommon,
+      FilingLocation
     }
 })
 export default class CommonInformationStep extends Vue {

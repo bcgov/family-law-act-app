@@ -5,10 +5,12 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "cypress:open": "cd tests && cypress open"
   },
   "dependencies": {
     "@bcgov/bootstrap-theme": "https://github.com/bcgov/bootstrap-theme/releases/download/v1.1.3/bcgov-bootstrap-theme-1.1.3.tgz",
+    "@types/underscore": "^1.10.0",
     "ace-builds": "^1.4.8",
     "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
@@ -25,6 +27,7 @@
     "survey-vue": "^1.5.5",
     "surveyjs-widgets": "^1.5.5",
     "ts-loader": "^6.2.1",
+    "underscore": "^1.10.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-class-component": "6.3.2",
@@ -35,11 +38,12 @@
     "vue-resource": "^1.5.1",
     "vue-router": "^3.1.5",
     "vuex": "^3.3.0",
-    "yorkie": "^2.0.0",
+    "vuex-class": "^0.3.2",
     "vuex-module-decorators": "^0.17.0",
-    "vuex-class": "^0.3.2"
+    "yorkie": "^2.0.0"
   },
   "devDependencies": {
+    "@cypress/skip-test": "^2.6.0",
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
@@ -51,6 +55,7 @@
     "@vue/cli-service": "^4.5.9",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
+    "cypress": "^7.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",

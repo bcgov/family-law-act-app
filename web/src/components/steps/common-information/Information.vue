@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">   
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -29,6 +29,12 @@ export default class Information extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public steps!: any
+
+    @applicationState.State
+    public types!: string[]
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -38,15 +44,16 @@ export default class Information extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy
     currentStep=0;
     currentPage=0;
-   
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
+
+    lawyerName = '';
+    clientName = '';
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -60,7 +67,8 @@ export default class Information extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForPersonalInfo()
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -69,28 +77,54 @@ export default class Information extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
             // console.log(options)
-            if(options.name === "ApplicantName") {
-                this.$store.commit("Application/setApplicantName", options.value);
+            if(options.name == "ApplicantName") {
+                this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+                this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
             }
         })
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
+        // console.log(this.steps[0].result)
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
+
         if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'];            
+            this.survey.data = this.step.result['yourInformationSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        if (this.types.includes("Family Law Matter")){
+            this.survey.setVariable("includesFlm", true);            
+        } else {
+            this.survey.setVariable("includesFlm", false);
+        }
+
+        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            if(this.steps[1].result && this.steps[1].result['yourInformationSurveyPO'] && this.steps[1].result['yourInformationSurveyPO'].data)
+            {
+                this.survey.setValue('ApplicantDOB',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantDOB);
+                this.survey.setValue('ApplicantName',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantName);
+            }
+        }
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-       
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);       
+    }
+
+    public adjustSurveyForPersonalInfo(){
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
+
+       //console.log(this.surveyJsonCopy.pages[0].elements[0].elements[0])
+       //console.log(this.steps[1].result['yourInformationSurveyPO'].data)
+       // console.log(this.steps[0].result['selectedForms'])
+        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[1].readOnly = true;
+        }
+
     }
 
     public onPrev() {
@@ -101,29 +135,19 @@ export default class Information extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
-    }
-  
+    }  
     
     beforeDestroy() {
 
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        }   
+        if(this.survey.data && this.survey.data["ApplicantName"]) {
+            this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
+            this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
+        }
         
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: this.survey.data}});
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+        
+        this.UpdateStepResultData({step:this.step, data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 }
 </script>

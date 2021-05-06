@@ -13,7 +13,6 @@ from corsheaders.defaults import default_headers
 
 from core import database
 from core.encryption import Encryptor
-from core.utils.filter_logging_requests import filter_logging_requests
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -140,6 +139,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -160,11 +160,6 @@ LOGGING = {
         "require_debug_false":
         {
             "()": "django.utils.log.RequireDebugFalse"
-        },
-        "filter_logging_requests":
-        {
-            "()": "django.utils.log.CallbackFilter",
-            "callback": filter_logging_requests
         }
     },
     "formatters": {
@@ -180,7 +175,6 @@ LOGGING = {
         "console_handler": {
             "class": "logging.StreamHandler",
             "level": "DEBUG",
-            "filters": ["filter_logging_requests"],
             "formatter": "verbose",
         }
     },
@@ -255,7 +249,6 @@ REST_FRAMEWORK = {
     )
 }
 
-# Efiling
 EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
 EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
 EFILING_COURT_CLASS = os.environ.get("EFILING_COURT_CLASS", "F")  # https://bcgov.github.io/jag-file-submission/#/data?id=court-classification

@@ -7,6 +7,56 @@ metadata:
     tags: ${NAME}
   name: ${NAME}-persistent-template
 objects:
+
+  - kind: NetworkPolicy
+    apiVersion: networking.k8s.io/v1
+    metadata:
+      name: ${NAME}
+      labels:
+        name: ${NAME}
+        app: ${APP_NAME}
+        env: ${TAG_NAME}
+    spec:
+      description: |
+        Allow the API and backup-container to access the database.
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  role: api
+                  app: ${APP_NAME}
+                  env: ${TAG_NAME}
+              namespaceSelector:
+                matchLabels:
+                  name: ${NAMESPACE_NAME}
+                  environment: ${TAG_NAME}
+            - podSelector:
+                matchLabels:
+                  role: schema-spy
+                  app: ${APP_NAME}
+                  env: ${TAG_NAME}
+              namespaceSelector:
+                matchLabels:
+                  name: ${NAMESPACE_NAME}
+                  environment: ${TAG_NAME}
+            - podSelector:
+                matchLabels:
+                  role: backup
+                  app: ${BACKUP_APP_NAME}
+                  env: ${TAG_NAME}
+              namespaceSelector:
+                matchLabels:
+                  name: ${NAMESPACE_NAME}
+                  environment: ${TAG_NAME}
+          ports:
+            - protocol: TCP
+              port: 5432
+      podSelector:
+        matchLabels:
+          role: ${ROLE}
+          app: ${APP_NAME}
+          env: ${TAG_NAME}
+
   - kind: DeploymentConfig
     apiVersion: v1
     metadata:
@@ -196,6 +246,17 @@ parameters:
     description: Role
     required: true
     value: db
+  - name: BACKUP_APP_NAME
+    displayName: Backup app name
+    description: The name of the Backup app.
+    required: true
+    value: Backup
+
+  - name: NAMESPACE_NAME
+    displayName: Namespace Name
+    description: The base namespace name for the project.
+    required: true
+    value: 09e0c5
 
   - name: IMAGE_NAMESPACE
     displayName: Image Namespace

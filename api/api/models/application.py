@@ -13,10 +13,14 @@ class Application(models.Model):
     last_filed = models.DateTimeField(blank=True, null=True)
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
+
+    # Do not use below
     applicant_name = models.JSONField(blank=True, null=True)
     respondent_name = models.JSONField(blank=True, null=True)
     protected_party_name = models.JSONField(blank=True, null=True)
     protected_child_name = models.JSONField(blank=True, null=True)
+    # Do not use above
+
     application_location = models.JSONField(blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)
@@ -31,13 +35,9 @@ class Application(models.Model):
         blank=True,
         null=True,
     )
-    prepared_pdf = models.ForeignKey(
-        "PreparedPdf",
-        related_name="pdf_data",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-    )
+
+    version = models.CharField(max_length=32, blank=True, null=True)
+
     last_efiling_submission = models.ForeignKey(
         "EFilingSubmission",
         related_name="submission_application_id",

@@ -1,0 +1,92 @@
+.table >>> th{border:1px solid #000;}
+.table >>> td{border:1px solid #000;}
+.table >>> tr{height:1.5rem;}
+
+table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}
+table.fullsize >>> tr{border:1px solid #313132;}
+table.fullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
+
+.new-page{margin-top:7rem;}
+.marginleft{margin-left:-1rem;}
+.marginleft1vue{margin-left:1rem !important;}
+.marginleft1p5vue{margin-left:1.5rem !important;}
+.marginleft2p5vue{margin-left:2.5rem !important;}
+.marginleft-1vue{margin-left:-1rem !important;}
+
+.answer{color: #000; display:inline; font-size:11pt;}
+.answerbox{color: #000; font-size:11pt; display:block;text-indent:0px; margin:0.5rem 0 0 0.1rem;}
+.uline{text-decoration: underline; display: inline;}
+.form-header{display:block; margin:0 0 2rem 0;}
+
+section{
+    counter-increment: question-counter;         
+    text-indent: -17px;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 0.5rem 0.5rem 0.5rem 1rem;
+}
+
+section:before {
+    font-weight: bolder;        
+    content:counter(question-counter) ".";
+}
+
+section:after{
+    float:none; white-space: pre;
+}
+
+section.resetquestion{counter-reset: question-counter;}
+
+
+ol.resetcounter{
+    list-style: none;
+    counter-reset: bracket-counter;
+}
+ol li.bracketnumber{
+    text-indent: -25px;
+    text-align: justify; 
+    text-justify: inter-word;
+    margin:1rem 0;
+    counter-increment: bracket-counter;
+}
+ol li.bracketnumber:before {
+    content:"(" counter(bracket-counter) ") ";
+    font-weight: bold;
+}
+
+ol.resetlist {
+    list-style: none;
+    counter-reset: list-counter;
+}
+ol li.listnumber{
+    text-indent: -25px;
+    text-align: justify; 
+    text-justify: inter-word;
+    margin:1rem 0;
+    counter-increment: list-counter;
+}
+ol li.listnumber:before {
+    content:counter(list-counter) ". ";
+    font-weight: bold;
+}
+
+.container {
+    padding: 40px !important; 
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 100% !important;
+    max-width: 760px !important;
+    min-width: 760px !important;   
+    font-size: 10pt !important;
+    font-family: BCSans;
+    color: #313132 !important;
+}
+    
+#app-prints {
+padding: 8px 15px;
+position: absolute;
+position: fixed;
+right: 55rem;
+top: 1rem;
+z-index: 100; 
+}

@@ -38,15 +38,12 @@ export default class NoContact extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
+
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
     currentPage=0;
-
-    @Watch('pageIndex')
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -55,6 +52,7 @@ export default class NoContact extends Vue {
 
     mounted(){
         this.initializeSurvey();
+        this.addSurveyListener();
         this.reloadPageInformation();
     }
 
@@ -66,43 +64,27 @@ export default class NoContact extends Vue {
         surveyEnv.setGlossaryMarkdown(this.survey);
     }
 
+    public addSurveyListener(){
+        this.survey.onValueChanged.add((sender, options) => {
+            Vue.filter('surveyChanged')('protectionOrder')
+        })
+    }
 
-    public reloadPageInformation() {
 
-        if (this.step.result && this.step.result['noContactSurvey']){
-            this.survey.data = this.step.result['noContactSurvey'];
-        }
-
-        let progress = 50;
-        if(Object.keys(this.survey.data).length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-
+    public reloadPageInformation() { 
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
 
-        const applicantNameObject = this.$store.state.Application.applicantName;
-     
-        if (applicantNameObject) {
-            const applicantName =
-                applicantNameObject.first +
-                " " +
-                applicantNameObject.middle +
-                " " +
-                applicantNameObject.last;
-            this.survey.setVariable("ApplicantName", applicantName);
+        if (this.step.result && this.step.result['noContactSurvey']){
+            this.survey.data = this.step.result['noContactSurvey'].data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-
-        const respondentNameObject = this.$store.state.Application.respondentName;
-        if (respondentNameObject) {
-            const respondentName =
-                respondentNameObject.first +
-                " " +
-                respondentNameObject.middle +
-                " " +
-                respondentNameObject.last;
-            this.survey.setVariable("RespondentName", respondentName);
-        }
+       
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        
+        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
+        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
     }
 
     
@@ -114,26 +96,14 @@ export default class NoContact extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }
-
-    public onComplete() {
-        this.$store.commit("Application/setAllCompleted", true);
     }  
   
     beforeDestroy() {
 
-        const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        if(currPage){
-            if(this.survey.isCurrentPageHasErrors)
-                currPage.style.color = "red";
-            else
-            {
-                currPage.style.color = "";
-                currPage.className="";
-            }  
-        } 
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        this.UpdateStepResultData({step:this.step, data: {noContactSurvey: this.survey.data}})
+        this.UpdateStepResultData({step:this.step, data: {noContactSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
     }
 };
 </script>

@@ -7,6 +7,7 @@ import routes from "@/routes";
 import store from "@/store";
 import http from "./plugins/http";
 import "./filters";
+import LoadingSpinner from "./components/utils/LoadingSpinner.vue";
 
 import "@/styles/index.scss";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -14,6 +15,7 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 // https://www.npmjs.com/package/vue-fontawesome-icon
 // import material-icon scss
 import "font-awesome/css/font-awesome.min.css";
+//import "@fortawesome/fontawesome-free/css/all.css";
 import { SessionManager } from "@/components/utils/utils";
 
 Vue.config.productionTip = false;
@@ -22,6 +24,7 @@ Vue.use(BootstrapVueIcons);
 Vue.use(VueRouter);
 Vue.use(VueCookies);
 Vue.use(http)
+Vue.component('loading-spinner', LoadingSpinner);
 
 const router = new VueRouter({
     routes: routes, 
@@ -32,8 +35,10 @@ const router = new VueRouter({
     }
 });
 
+//console.log(!location.pathname.includes('/result/'))
 // Redirect to /family-law-act/
-history.pushState({page: "home"}, "", process.env.BASE_URL)
+if(!location.pathname.includes('/result/'))
+    history.pushState({page: "home"}, "", process.env.BASE_URL)
 
 SessionManager.redirectIfQuickExitCookie();
 

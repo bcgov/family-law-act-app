@@ -129,6 +129,7 @@ export default class NavigationTopbar extends Vue {
       const lastUpdated = moment().format();
       this.$store.commit("Application/setLastUpdated", lastUpdated);
       const application = this.$store.state.Application;
+      application.type = Vue.filter('translateTypes')(this.$store.state.Application.types);
       const applicationId = application.id;
       const header = {
         responseType: "json",

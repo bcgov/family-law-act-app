@@ -59,8 +59,8 @@ class EFilingResources(EFilingHubCallerBase):
             locations = {}
 
             for location in cso_locations["courts"]:
-                city = location["address"]["cityName"]
-                locations[city] = {
+                name = location["name"]
+                locations[name] = {
                     "address_1": location["address"]["addressLine1"],
                     "address_2": location["address"]["addressLine2"],
                     "address_3": location["address"]["addressLine3"],

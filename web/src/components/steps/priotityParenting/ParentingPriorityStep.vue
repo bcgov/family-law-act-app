@@ -24,12 +24,6 @@ export default class ParentingPriorityStep extends Vue {
   @Prop({required: true})
   step!: stepInfoType | Object
 
-  @Watch('pageIndex')
-  pageIndexChange(newVal) 
-  {
-      this.survey.currentPageNo = newVal;        
-  }
-
   survey = new SurveyVue.Model(surveyJson);
 
 };
