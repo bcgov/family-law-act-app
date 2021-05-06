@@ -84,8 +84,10 @@
                 <check-box class="marginleft1p5vue" inline="inline" boxMargin="0" style="display:inline-block;margin-left:0.5rem" :check="chSupInfo.desiredSup.payor?'yes':''" text=""/>
                 <underline-form style="text-indent:0px;display:inline-block;" textwidth="15rem" beforetext="I am applying for an order for ongoing support to be paid by" hint="name of paying party" :text="chSupInfo.desiredSup.payor"/>
                 <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 11 of this application: </div>
-                <i class="marginleft1p5vue" style="margin-left:2.8rem; display:inline" >List the name of each child you are applying for support for</i>
-                <underline-form style="text-indent:3px;display:inline-block;" textwidth="16.85rem" beforetext="" hint="" :text="chSupInfo.desiredSup.payees"/>
+                <div style="margin-left:1.25rem;">
+                    <i class="marginleft1p5vue" style="display:inline" >List the name of each child you are applying for support for</i>
+                    <underline-form v-for="(payee,inx) in chSupInfo.desiredSup.payees" :key="inx" style="text-indent:3px;display:inline-block;" textwidth="16.85rem" beforetext="" hint="" :text="payee"/>                   
+                </div>
             </section>
 
             <div style="margin-top:1rem;"></div>
@@ -103,7 +105,7 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="font-size:11pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(reasonForSupport)>
                             Reason for child support <i style="font-size:6pt; font-weight:normal;">Select the applicable option</i>                            
@@ -122,7 +124,7 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Child support payments may start on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job </i>
                     <div>
-                        <underline-form style="margin:0 0 0 1rem;text-indent:0px;display:inline-block" textwidth="16.5rem" beforetext="Child support payments should start on" hint="mmm/dd/yyyy or event" :text="chSupInfo.desiredSup.startDate"/>
+                        <underline-form style="margin:0 0 0 1rem;text-indent:0px;display:inline-block" textwidth="20rem" beforetext="Child support payments should start on" hint="mmm/dd/yyyy or event" :text="chSupInfo.desiredSup.startDate"/>
                         <div style="margin:0 0 0 0.5rem; display:inline;">because:</div>
                         <div v-if="chSupInfo.desiredSup.reason" 
                             class="answerbox">{{chSupInfo.desiredSup.reason}}</div>
@@ -136,7 +138,7 @@
 <!-- <10> -->
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
-                    <div style="margin:0 0 3rem 1.5rem;">
+                    <div style="margin:0 0 0 1.5rem;">
                         <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.calc.attch?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
                         <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.calc.attch?'yes':''" text="I am not attaching calculations because:"/>
                     </div>
@@ -184,7 +186,7 @@
                         bordered>
                             <template v-slot:cell()="data">                            
                                 <div v-if="data.index==0" style="text-align:center;font-size:7.43pt" ><b>{{data.value}}</b></div>
-                                <div v-else style="text-align:left;font-size:8pt;color:#000">{{data.value}}</div>                                           
+                                <div v-else style="font-size:8pt;color:#000">{{data.value}}</div>                                           
                             </template>
                             <template v-slot:cell(name)="data">                            
                                 <div v-if="data.index==0" style="text-align:right;font-size:7.43pt;" ><b>{{data.value}}</b></div>
@@ -207,7 +209,7 @@
                         <check-box style="" :check="chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
                         <check-box style="" :check="chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
                         <check-box style="" :check="chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="true?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="true?'?':''" text="a party has been acting as a parent to a child of the other party"/>
                         <check-box style="" :check="chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
                         <check-box style="" :check="chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
                         <check-box style="" :check="chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
@@ -215,7 +217,7 @@
 
                     <div style="margin:0.5rem 0 0 1.5rem;">
                         <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.finStmnt.required?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/>
-                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'?':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -279,21 +281,21 @@ export default class Schedule3 extends Vue {
     ]
 
     childrenSupportExpenseItem =[
-        {name:'Special and Extraordinary Expense', amount1:"Annual Amount", amount2:"Annual Amount", amount3:"Annual Amount", amount4:"Annual Amount"},
-        {name:'Child care expenses', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
-        {name:'Portion of medical/dental premiums attributable to child', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
-        {name:'Health related expenses that exceed insurance reimbursement by at least $100', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
-        {name:'Extraordinary expenses for primary or secondary school', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
-        {name:'Post-secondary school expenses', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
-        {name:'Extraordinary extracurricular activities expenses', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
-        {name:'Total', amount1:"$", amount2:"$", amount3:"$", amount4:"$"},
+        {name:'Special and Extraordinary Expense', child0:"Annual Amount", child1:"Annual Amount", child2:"Annual Amount", child3:"Annual Amount"},
+        {name:'Child care expenses', child0:"$", child1:"$", child2:"$", child3:"$"},
+        {name:'Portion of medical/dental premiums attributable to child', child0:"$", child1:"$", child2:"$", child3:"$"},
+        {name:'Health related expenses that exceed insurance reimbursement by at least $100', child0:"$", child1:"$", child2:"$", child3:"$"},
+        {name:'Extraordinary expenses for primary or secondary school', child0:"$", child1:"$", child2:"$", child3:"$"},
+        {name:'Post-secondary school expenses', child0:"$", child1:"$", child2:"$", child3:"$"},
+        {name:'Extraordinary extracurricular activities expenses', child0:"$", child1:"$", child2:"$", child3:"$"},
+        {name:'Total', child0:"$", child1:"$", child2:"$", child3:"$"},
     ]
     childrenSupportExpenseFields = [
-        {key:"name",    label:"Name of Child:", tdClass:"border-top-0 align-middle", thClass:"text-right border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"},
-        {key:"amount1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        {key:"amount2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        {key:"amount3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        {key:"amount4", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        {key:"name",   label:"Name of Child:", tdClass:"border-top-0 border-dark align-middle", thClass:"text-right border-dark border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"},
+        {key:"child0", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
+        {key:"child1", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
+        {key:"child2", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
+        {key:"child3", label:"",               tdClass:"border-dark align-middle",              thClass:"border-dark align-middle",               thStyle:"width:17%;"},
         
     ]   
 
@@ -336,21 +338,22 @@ export default class Schedule3 extends Vue {
                 facts: this.result.childSupportIncomeEarningSurvey.knowFacts == 'y',
                 income: this.result.childSupportIncomeEarningSurvey.knowIncome == 'y',              
                 factsDesc: (this.result.childSupportIncomeEarningSurvey.knowFacts == 'y' && this.result.childSupportIncomeEarningSurvey.factsExplanation)? this.result.childSupportIncomeEarningSurvey.factsExplanation: '',
-                incomeAmt: (this.result.childSupportIncomeEarningSurvey.knowIncome == 'y' && this.result.childSupportIncomeEarningSurvey.incomeAmount)? this.result.childSupportIncomeEarningSurvey.incomeAmount: ''
+                incomeAmt: (this.result.childSupportIncomeEarningSurvey.knowIncome == 'y' && this.result.childSupportIncomeEarningSurvey.otherPartyIncome)? this.result.childSupportIncomeEarningSurvey.otherPartyIncome: ''
             }
         }
 
         if (this.result.aboutChildSupportOrderSurvey){
+            const aboutChildSupport = this.result.aboutChildSupportOrderSurvey;
             newChildSupportInfo.desiredSup = {  
-                payor: this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.toString(),
-                applicantPayor: (this.result.aboutChildSupportOrderSurvey.listOfSupportPayors)?this.result.aboutChildSupportOrderSurvey.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
-                payees: this.result.aboutChildSupportOrderSurvey.selectedChildrenNames.toString(),              
-                over19: (this.result.aboutChildSupportOrderSurvey.supportChildOver19 == 'y'),
-                payorErnsHigh:( this.result.aboutChildSupportOrderSurvey.payorEarnsHigh == 'yes'),
-                startDate: this.result.aboutChildSupportOrderSurvey.paymentRequestStartingDate,
-                reason: (this.result.aboutChildSupportOrderSurvey.paymentRequestStartingDateWhy)? this.result.aboutChildSupportOrderSurvey.paymentRequestStartingDateWhy: ''
+                payor: aboutChildSupport.listOfSupportPayors.toString(),
+                applicantPayor: (aboutChildSupport.listOfSupportPayors)?aboutChildSupport.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
+                payees: aboutChildSupport.listOfChildren,              
+                over19: (aboutChildSupport.numberOf19yrsChild>0 && aboutChildSupport.supportChildOver19 == 'y'),
+                payorErnsHigh:(aboutChildSupport.payorEarnsHigh == 'yes'),
+                startDate: (aboutChildSupport.paymentRequestStartingDate.selected == 'startingDate')?Vue.filter('beautify-date')(aboutChildSupport.paymentRequestStartingDate.startingDate):aboutChildSupport.paymentRequestStartingDate.otherComment,
+                reason: (aboutChildSupport.paymentRequestStartingDateWhy)? aboutChildSupport.paymentRequestStartingDateWhy: ''
             }
-            this.over19ChildSupportDetails = (this.result.aboutChildSupportOrderSurvey.supportChildOver19 == 'y')?this.result.aboutChildSupportOrderSurvey.over19Details:[]            
+            if(aboutChildSupport.numberOf19yrsChild>0 && aboutChildSupport.supportChildOver19 == 'y')this.over19ChildSupportDetails = aboutChildSupport.over19Details;
         }        
 
         if (this.result.calculatingChildSupportSurvey){
@@ -378,10 +381,26 @@ export default class Schedule3 extends Vue {
         }
 
         if (this.result.specialAndExtraordinaryExpensesSurvey){
+            const extraordinaryExpensesCondition = this.result.specialAndExtraordinaryExpensesSurvey.applyForExtraordinaryExpenses == 'y'
             newChildSupportInfo.specExp = {                
-                applying: (this.result.specialAndExtraordinaryExpensesSurvey.applyForExtraordinaryExpenses == 'y'),
-                expenseItems: (this.result.specialAndExtraordinaryExpensesSurvey.applyForExtraordinaryExpenses == 'y' && this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseItem)? {}: {}
+                applying: (extraordinaryExpensesCondition)
             }
+            if(extraordinaryExpensesCondition && this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseItem && this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseFields){
+                this.childrenSupportExpenseItem = this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseItem
+                this.childrenSupportExpenseFields = [{key:"name",    label:"Name of Child:", tdClass:"border-top-0 border-dark align-middle", thClass:"text-right border-dark border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"}]
+                const tableFields = this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseFields
+                for(let i=1; i<tableFields.length; i++)
+                    this.childrenSupportExpenseFields.push({key:tableFields[i].key, label:tableFields[i].label,  tdClass:"border-dark align-middle text-center",  thClass:"border-dark align-middle text-center",   thStyle:"width:17%;"},)
+
+        //         for(const item of this.childrenSupportExpenseItem)
+        // {key:"child0", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        // {key:"child1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        // {key:"child2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        // {key:"child3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
+        
+  
+            }
+            
         }
 
         //TODO: add field for 'party has been acting ...', not able to complete it at this time

@@ -80,13 +80,17 @@ export default class ProtectionFromWhom extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             // console.log(this.survey.data);
-            //  console.log(options)
+             console.log(options)
 
             Vue.filter('surveyChanged')('protectionOrder')
 
             if(options.name == "RespondentName") {        
                 this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);
                 this.UpdateCommonStepResults({data:{'respondentsPO':[this.survey.data["RespondentName"]]}});
+            }
+
+            if (options.name == 'ExistingCourt'){
+                this.saveApplicationLocation(this.survey.data.ExistingCourt)
             }
 
             // if(options.name == "childPO" && options.value == "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
@@ -98,6 +102,11 @@ export default class ProtectionFromWhom extends Vue {
 
         })
     }
+
+    public saveApplicationLocation(location){       
+        this.$store.commit("Application/setApplicationLocation", location);        
+       
+    }  
 
     public adjustSurveyForLocations(){
 

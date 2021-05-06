@@ -145,7 +145,7 @@
                     <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exChSupInfo.unpdChSup.monthlyAmount"/>
                 </div>
                 <div style="margin:0 0 0 1.5rem;">
-                    <check-box style="margin:0 0.25rem 0 0rem;" :check="exChSupInfo.unpdChSup.paySchd =='lumpSum'?'yes':''" text="in a lump sum"/>
+                    <check-box style="margin:0 0.25rem 0 0rem;" :check="exChSupInfo.unpdChSup.paySchd =='lumpsum'?'yes':''" text="in a lump sum"/>
                     <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exChSupInfo.unpdChSup.paySchd =='other'?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exChSupInfo.unpdChSup.otherComm"/>
                  </div>
@@ -172,7 +172,7 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Child support payments may start or end on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job</i>
                     <div style="margin:0 0 3rem 1.1rem;">
-                        <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate"/>
+                        <underline-form style="display:inline; text-indent:0px;" textwidth="18.5rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate"/>
                         <div style="display:inline; margin:0 0 0 0.5rem;">because:</div>
                         <div v-if="exChSupInfo.abtOrg.startReason" 
                             class="answerbox">{{exChSupInfo.abtOrg.startReason}}</div>
@@ -345,11 +345,12 @@ export default class Schedule4 extends Vue {
         }
 
         if (this.result.aboutChildSupportChangesSurvey){
-            const orgSituationList = ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.listOfSituations)?this.result.aboutChildSupportChangesSurvey.listOfSituations:[]
+            const aboutChildSupportChanges = this.result.aboutChildSupportChangesSurvey;
+            const orgSituationList = ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && aboutChildSupportChanges.listOfSituations)?aboutChildSupportChanges.listOfSituations:[]
             existingChildSupportInfo.abtOrg = {                
-                newOrderDesc: (existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr'])?this.result.aboutChildSupportChangesSurvey.orderDescription:'',
-                startDate: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.orderStartingDate)?this.result.aboutChildSupportChangesSurvey.orderStartingDate:'',
-                startReason: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && this.result.aboutChildSupportChangesSurvey.orderStartDateReason)?this.result.aboutChildSupportChangesSurvey.orderStartDateReason:'',
+                newOrderDesc: (existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr'])?aboutChildSupportChanges.orderDescription:'',
+                startDate: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && aboutChildSupportChanges.orderStartingDate)?(aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment):'',
+                startReason: ((existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr']) && aboutChildSupportChanges.orderStartDateReason)?aboutChildSupportChanges.orderStartDateReason:'',
                 situationList: orgSituationList,                    
                 situation: {
                     payor: orgSituationList.includes('I am required to pay child support'),
@@ -365,16 +366,17 @@ export default class Schedule4 extends Vue {
         }
 
         if (this.result.unpaidChildSupportSurvey){
+            const unpaidChildSupport = this.result.unpaidChildSupportSurvey;
             existingChildSupportInfo.unpdChSup = {
                 crntDate: moment().format("MMM DD, yyyy"),   
-                unpaid: this.result.unpaidChildSupportSurvey.unpaid == 'y',
-                reduce: this.result.unpaidChildSupportSurvey.unpaid == 'y' && this.result.unpaidChildSupportSurvey.applyToReduce == 'y',
-                reduceAmount: (this.result.unpaidChildSupportSurvey.unpaid == 'y' && this.result.unpaidChildSupportSurvey.applyToReduce == 'y')?this.result.unpaidChildSupportSurvey.reduceAmount:'',
-                whyReduceAmount: (this.result.unpaidChildSupportSurvey.unpaid == 'y' && this.result.unpaidChildSupportSurvey.applyToReduce == 'y')?this.result.unpaidChildSupportSurvey.whyReduceAmount:'',
-                paySchd: (this.result.unpaidChildSupportSurvey.unpaid == 'y')?this.result.unpaidChildSupportSurvey.paymentSchedule:'',
-                monthlyAmount: (this.result.unpaidChildSupportSurvey.unpaid == 'y' && this.result.unpaidChildSupportSurvey.paymentSchedule == 'monthly')? this.result.unpaidChildSupportSurvey.monthlyAmount:'',
-                amnt: (this.result.unpaidChildSupportSurvey.unpaid == 'y')?this.result.unpaidChildSupportSurvey.unPaidAmount:0, 
-                otherComm: (this.result.unpaidChildSupportSurvey.unpaid == 'y') && (this.result.unpaidChildSupportSurvey.paymentSchedule == 'other')? this.result.unpaidChildSupportSurvey.paymentScheduleComment:''       
+                unpaid: unpaidChildSupport.unpaid == 'y',
+                reduce: unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y',
+                reduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.reduceAmount:'',
+                whyReduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.whyReduceAmount:'',
+                paySchd: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.paymentSchedule.selected:'',
+                monthlyAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount:'',
+                amnt: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.unPaidAmount:0, 
+                otherComm: (unpaidChildSupport.unpaid == 'y') && (unpaidChildSupport.paymentSchedule.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment:''       
             }
         }
 

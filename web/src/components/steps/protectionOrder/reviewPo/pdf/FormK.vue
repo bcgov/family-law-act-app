@@ -16,7 +16,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:(result.protectionWhomSurvey && result.protectionWhomSurvey.ExistingCourt)?result.protectionWhomSurvey.ExistingCourt:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.protectionWhomSurvey?result.protectionWhomSurvey.ExistingFileNumber:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.protectionWhomSurvey?result.protectionWhomSurvey.ExistingFileNumber:''}]"
                     :fields="[{key:'name',tdClass:'border-dark'},{key:'value',tdClass:'border-dark'}]"
                     small
                     bordered
@@ -992,13 +992,12 @@ export default class FormK extends Vue {
     //     Object.assign(result, result, protectedPartyName);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
-        const userLocation = this.$store.state.Common.userLocation;
-        //console.log(applicationLocation)
+        //const userLocation = this.$store.state.Common.userLocation;
+        console.log(applicationLocation)
         //console.log(userLocation)
-        if(applicationLocation)
-            Object.assign(result, result,{applicationLocation: applicationLocation}); 
-        else
-            Object.assign(result, result,{applicationLocation: userLocation});
+        
+        Object.assign(result, result,{applicationLocation: applicationLocation}); 
+       
         console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'protectionOrder')

@@ -178,8 +178,12 @@ export default class GettingStarted extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    
+    @applicationState.State
+    public pathwayCompleted!: any
+    
     @applicationState.Action
-    public UpdatePathwayCompleted!: (changedpathway) => void
+    public UpdatePathwayCompletedFull!: (changedpathway) => void
   
     selected = []
     returningUser = false
@@ -266,12 +270,15 @@ export default class GettingStarted extends Vue {
     }
 
     public resetSelectedFormsCompeleted(selectedForms){
-        if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false); this.UpdatePathwayCompleted({pathway:"protectionOrder",isCompleted:false});}
-        if(!selectedForms.includes("familyLawMatter"))   this.UpdatePathwayCompleted({pathway:"familyLawMatter",isCompleted:false});
-        if(!selectedForms.includes("caseMgmt"))          this.UpdatePathwayCompleted({pathway:"caseMgmt",isCompleted:false});
-        if(!selectedForms.includes("priotityParenting")) this.UpdatePathwayCompleted({pathway:"priotityParenting",isCompleted:false});
-        if(!selectedForms.includes("childReloc"))        this.UpdatePathwayCompleted({pathway:"childReloc",isCompleted:false});
-        if(!selectedForms.includes("agreementEnfrc"))    this.UpdatePathwayCompleted({pathway:"agreementEnfrc",isCompleted:false});
+        const pathwayCompleted = this.pathwayCompleted
+        if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false); pathwayCompleted["protectionOrder"] = false;}
+        if(!selectedForms.includes("familyLawMatter"))   pathwayCompleted["familyLawMatter"] = false;
+        if(!selectedForms.includes("caseMgmt"))          pathwayCompleted["caseMgmt"] = false;
+        if(!selectedForms.includes("priotityParenting")) pathwayCompleted["priotityParenting"] = false;
+        if(!selectedForms.includes("childReloc"))        pathwayCompleted["childReloc"] = false;
+        if(!selectedForms.includes("agreementEnfrc"))    pathwayCompleted["agreementEnfrc"] = false;
+        this.UpdatePathwayCompletedFull(pathwayCompleted);
+
     }
 
     public toggleSteps(stepId, activeIndicator) {       

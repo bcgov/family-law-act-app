@@ -214,6 +214,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     beforeDestroy() {
         //console.log(this.childrenSupportExpenseItem)
         this.survey.setValue("childrenSupportExpenseItem",this.childrenSupportExpenseItem)
+        this.survey.setValue("childrenSupportExpenseFields",this.childrenSupportExpenseFields)
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {specialAndExtraordinaryExpensesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, this.getTotalExpenses())}})
     }
