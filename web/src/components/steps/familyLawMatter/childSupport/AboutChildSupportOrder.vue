@@ -55,6 +55,7 @@ export default class AboutChildSupportOrder extends Vue {
     childSupportStartType = '';
     startDate = '';
     startEvent = '';
+    numOf19child = 0 ;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -92,7 +93,7 @@ export default class AboutChildSupportOrder extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements.splice(8,1)
             //console.log(whysupport19childTemplate)
             // console.log(_19yearsBefore.format()) 
-            let numOf19child = 0   
+            this.numOf19child = 0   
             for (const childInx in this.childData){
                 const child = this.childData[childInx];
                 const childName = Vue.filter('getFullName')(child.name)
@@ -108,8 +109,8 @@ export default class AboutChildSupportOrder extends Vue {
                     //temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains 'child["+childInx+"]' "
                     temp.visibleIf = "{supportChildOver19}=='y' and {listOfChildren} contains '"+childName+"' "
                     
-                    this.surveyJsonCopy.pages[0].elements[0].elements.splice(8+numOf19child,0,temp)
-                    numOf19child++;
+                    this.surveyJsonCopy.pages[0].elements[0].elements.splice(8+this.numOf19child,0,temp)
+                    this.numOf19child++;
                     this.over19Index.push(childInx);
                     //this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push({value:'child['+childInx+']',text:childName});
 
@@ -166,9 +167,11 @@ export default class AboutChildSupportOrder extends Vue {
         this.determineNumberOfPayors();
         //if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]') 
         if(this.childData.length==1){
-            this.survey.setValue('listOfChildren',Vue.filter('getFullName')(this.childData[0].name))
-            this.survey.setValue("selectedChildrenNames", [Vue.filter('getFullName')(this.childData[0].name)]);
-        }       
+            this.survey.setValue('listOfChildren',[Vue.filter('getFullName')(this.childData[0].name)])
+            //this.survey.setValue("selectedChildrenNames", [Vue.filter('getFullName')(this.childData[0].name)]);
+        }
+        
+        this.survey.setValue('numberOf19yrsChild',this.numOf19child);
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
