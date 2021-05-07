@@ -34,8 +34,8 @@
             <section>
                 <div style="display:inline; margin-left:0.35rem">I am: </div>
                 <div style="margin:0 0 0 1.35rem;">                    
-                    <check-box style="" :check="guardInfo.guardian?'yes':''" text="a guardian of the child(ren)"/>
-                    <check-box style="" :check="true?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                    <check-box style="" :check="guardInfo.abtCancel.cancelDetails[0].relationship == 'Guardian'?'yes':''" text="a guardian of the child(ren)"/>
+                    <check-box style="" :check="guardInfo.abtCancel.cancelDetails[0].relationship != 'Guardian'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
 
@@ -160,7 +160,8 @@ export default class Form3 extends Vue {
                     {
                         guardianName: '', 
                         childName: '',
-                        guardianSince: ''
+                        guardianSince: '',
+                        relationship: ''
                     }
                 ]
             }
@@ -177,7 +178,8 @@ export default class Form3 extends Vue {
                     guardianshipInfo.abtCancel['cancelDetails'].push({
                         guardianName: detail.nameOther, 
                         childName: detail.name,
-                        guardianSince: Vue.filter('beautify-date')(detail.date)
+                        guardianSince: Vue.filter('beautify-date')(detail.date),
+                        relationship: detail.relationship
                     })
                 }                
             }

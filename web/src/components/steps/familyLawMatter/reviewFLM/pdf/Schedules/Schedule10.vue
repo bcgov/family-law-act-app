@@ -16,7 +16,7 @@
 <!-- <1> -->
             <section class="resetquestion">
                 <check-box inline="inline" boxMargin="0" shift="5" style="display:inline; margin-left:0.0rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or written agreement about spousal support made"/>
-                <underline-form style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="on" hint="mmm/dd/yyyy" text="APR 20 2020"/>
+                <underline-form style="margin:0.25rem 1.45rem; text-indent:0px;" textwidth="10rem" beforetext="on" hint="mmm/dd/yyyy" :text="exSpsSupInfo.current.date"/>
             </section>
 
             <div class="print-block">
@@ -25,22 +25,28 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Complete only if you have an existing order. You may leave this section blank.</i>
                     <div style="margin:0 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am applying for the existing final order about spousal support to be:"/>                    
+                        <check-box style="margin:0 0 0 0rem;" :check="exSpsSupInfo.current.order?'yes':''" text="I am applying for the existing final order about spousal support to be:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="true?'yes':''" text="changed"/>
-                        <check-box style="" :check="true?'yes':''" text="cancelled"/>
+                        <check-box style="" :check="exSpsSupInfo.orderInfo.change?'yes':''" text="changed"/>
+                        <check-box style="" :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="cancelled"/>
                         <div>Since the final order about spousal support was made, circumstances have changed as follows:</div>
                         <i class='marginleft-1vue' style="margin-left:0rem;">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="true?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="true?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box style="" :check="exSpsSupInfo.orderInfo.changes.myfin?'yes':''" text="my financial situation has changed"/>
+                        <check-box style="" :check="exSpsSupInfo.orderInfo.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
                         
-                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="my employment, training, health and/or ability to work has changed as follows:"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="I believe the other party’s employment, training, health and/or ability to work has changed as follows:"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="my household expenses have changed as follows:"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="my employment, training, health and/or ability to work has changed as follows:"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.opEmp?'yes':''" text="I believe the other party’s employment, training, health and/or ability to work has changed as follows:"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.houseHold?'yes':''" text="my household expenses have changed as follows:"/>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="true?'yes':''" text="information has become available that was not available when the order was made <i>(specify):</i>"/>
-                        <check-box style="margin:0 0 3rem 0;" :check="true?'yes':''" text="other changes or circumstances <i>(specify)</i>:"/>
+                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made <i>(specify):</i>"/>
+                        <div v-if="exSpsSupInfo.orderInfo.changes.newInfo" 
+                                class="answerbox">{{exSpsSupInfo.orderInfo.newInfo}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
+                        <check-box style="margin:0 0 3rem 0;" :check="exSpsSupInfo.orderInfo.changes.other?'yes':''" text="other changes or circumstances <i>(specify)</i>:"/>
+                        <div v-if="exSpsSupInfo.orderInfo.other" 
+                                class="answerbox">{{exSpsSupInfo.orderInfo.otherChange}}</div>
+                        <div v-else style="margin-bottom:3rem;"></div>
                     </div>
                 </section>
             </div>
@@ -51,7 +57,7 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
                     <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="true?'yes':''" text="I am applying for the existing written agreement about spousal support to be:"/>
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exSpsSupInfo.current.agreement?'yes':''" text="I am applying for the existing written agreement about spousal support to be:"/>
                         <div style="margin:0 0 0 3rem;">
                             <check-box style="" :check="true?'yes':''" text="set aside"/>
                             <check-box style="" :check="true?'yes':''" text="replaced"/>
@@ -283,7 +289,7 @@ export default class Form3 extends Vue {
                 && this.result.existingSpousalSupportFinalOrderSurvey
                 && this.result.existingSpousalSupportFinalOrderSurvey.orderDate){
 
-                    existingSpousalSupportInfo.current.date = this.result.existingSpousalSupportFinalOrderSurvey.orderDate;
+                    existingSpousalSupportInfo.current.date = Vue.filter('beautify-date')(this.result.existingSpousalSupportFinalOrderSurvey.orderDate);
 
             }
 
@@ -291,7 +297,7 @@ export default class Form3 extends Vue {
                 && this.result.existingSpousalSupportAgreementSurvey
                 && this.result.existingSpousalSupportAgreementSurvey.agreementDate){
                     
-                    existingSpousalSupportInfo.current.date = this.result.existingSpousalSupportAgreementSurvey.agreementDate;
+                    existingSpousalSupportInfo.current.date = Vue.filter('beautify-date')(this.result.existingSpousalSupportAgreementSurvey.agreementDate);
 
             }
 
@@ -312,9 +318,9 @@ export default class Form3 extends Vue {
                 changes: {
                     myfin: orderChangeList.includes('My financial situation has changed'),
                     opfin: orderChangeList.includes('I believe the other party’s financial situation has changed'),
-                    myEmp: false,
-                    opEmp: false,
-                    houseHold: false,
+                    myEmp: orderChangeList.includes('My employment, training, health and/or ability to work have changed'),
+                    opEmp: orderChangeList.includes('I believe the other party’s employment, training, health and/or ability to work have changed'),
+                    houseHold: orderChangeList.includes('My household expenses have changed'),
                     newInfo: orderChangeList.includes('Information has become available that was not available when the order was made'),
                     
                     other: orderChangeList.includes('Other changes or circumstances')
@@ -325,25 +331,11 @@ export default class Form3 extends Vue {
                 
                 otherChange: (orderChangeList.includes('Other changes or circumstances') && this.result.aboutExistingSpousalSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingSpousalSupportSurvey.otherChangesSinceOrder:'',
                 
-                change: false,
-                cancel: false
-
-
-
-              
+                change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
+                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
                 
             }
-
-
         }
-
-
-
-        
-
-        
-
-
 
         // if (this.result.spousalSupportIncomeAndEarningPotentialSurvey){
         //     newSpousalSupportInfo.incomeInfo = {

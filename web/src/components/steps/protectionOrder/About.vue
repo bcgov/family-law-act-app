@@ -79,9 +79,17 @@ export default class About extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('protectionOrder')
-            //console.log(this.survey.data);
+            // console.log(options);
+            if (options.name == 'ExistingCourt'){
+                this.saveApplicationLocation(this.survey.data.ExistingCourt)
+            }
         })
     }
+
+    public saveApplicationLocation(location){       
+        this.$store.commit("Application/setApplicationLocation", location);        
+       
+    } 
 
     public adjustSurveyForLocations(){
 

@@ -10,6 +10,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import moment from 'moment-timezone';
 
 import PageBase from "../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -87,7 +88,15 @@ export default class FilingLocation extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
+            console.log(options)            
             //console.log(this.survey.data);            
+            if(options.name == 'CourtLocation') {
+                this.saveApplicationLocation(this.survey.data.CourtLocation)
+            }
+
+            if (options.name == 'ExistingCourt'){
+                this.saveApplicationLocation(this.survey.data.ExistingCourt)
+            }
         })   
     }
 
@@ -128,6 +137,11 @@ export default class FilingLocation extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }
+
+    public saveApplicationLocation(location){       
+        this.$store.commit("Application/setApplicationLocation", location);        
+       
+    }  
 
     public setExistingFileNumber(){
         const fileType = 'FLC'

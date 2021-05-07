@@ -864,10 +864,7 @@ class Application extends VuexModule {
         this.context.commit("setCommonStepResults", { data });
     } 
     
-    @Mutation
-    public setAllCompleted(allCompleted): void {
-        this.allCompleted = allCompleted;
-    }
+   
 
     @Mutation
     public setPathwayCompletedFull(newPathwayCompleted): void {
@@ -879,17 +876,13 @@ class Application extends VuexModule {
     }
 
     @Mutation
-    public setPathwayCompleted({pathway, isCompleted}): void {
-        this.pathwayCompleted[pathway] = isCompleted;
+    public setAllCompleted(allCompleted): void {
+        this.allCompleted = allCompleted;
     }
     @Action
-    public UpdatePathwayCompleted({pathway, isCompleted}) {
-        //console.log(pathway,isCompleted)
-        this.context.commit("setPathwayCompleted", {pathway, isCompleted}); 
-        this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});            
-        //console.log(this.pathwayCompleted)
+    public checkAllCompleted() {
         let newAllCompleted = false;
-        if(isCompleted && this.steps[0].result){
+        if(this.steps[0].result){
             //console.log(this.steps[0].result['selectedForms'])
             for(const selectedform of this.steps[0].result['selectedForms']){
                 //console.log(selectedform)
@@ -901,10 +894,24 @@ class Application extends VuexModule {
                 }
             }            
         }
-        //console.log(newAllCompleted)
+        console.log(newAllCompleted)
         if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:8, currentPage:0 });
-        this.context.commit("setAllCompleted", newAllCompleted);
+        this.context.commit("setAllCompleted", newAllCompleted)
+    }
+
+    @Mutation
+    public setPathwayCompleted({pathway, isCompleted}): void {
+        this.pathwayCompleted[pathway] = isCompleted;        
+    }
+    @Action
+    public UpdatePathwayCompleted({pathway, isCompleted}) {
+        //console.log(pathway,isCompleted)   
+        this.context.commit("setPathwayCompleted", {pathway, isCompleted}); 
+        this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});            
+        //console.log(this.pathwayCompleted)
+        this.context.dispatch("checkAllCompleted")
     }    
+    
     
     @Mutation
     public setApplicantName(applicantName): void {
