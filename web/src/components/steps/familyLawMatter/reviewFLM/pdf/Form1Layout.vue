@@ -34,7 +34,7 @@
             <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline;"> . My contact information is:</div>
-            <table class="fullsize">
+            <table class="fullsize" style="margin-top:0.5 !important">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -56,14 +56,14 @@
         </section>
 <!-- <2> -->
         <section class="mt-3">
-            <b style="margin-left:0.25rem">I would like help with the following family law matter(s):</b>
+            <div style="display:inline; margin-left:0.25rem">I would like help with the following family law matter(s):</div>
             <div style="margin-left:1rem;">
                 <i>Select all options that apply</i>               
                 <check-box style="" :check="selectedPathways.includes('parentingArrangements')?'yes':''" text="parenting arrangements, including parental responsibilities and parenting time"/>                
                 <check-box style="" :check="selectedPathways.includes('childSupport')?'yes':''" text="child support"/> 
                 <check-box style="" :check="selectedPathways.includes('contactWithChild')?'yes':''" text="contact with a child"/>
                 <check-box style="" :check="selectedPathways.includes('guardianOfChild')?'yes':''" text="appointing a guardian of a child"/>
-                <check-box style="" :check="selectedPathways.includes('spousalSupport')?'yes':''" text="spousal support"/>
+                <check-box style="margin-bottom:0.5rem;" :check="selectedPathways.includes('spousalSupport')?'yes':''" text="spousal support"/>
             </div>
         </section>
 
@@ -80,7 +80,7 @@
                 <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support</li>
                 <li style="text-indent:0.25rem;">each other adult who the application about a family law matter is about</li>
             </ul>
-            <p style="margin:0.5rem 0 0 2.35rem; text-indent:0;">They are the other party/parties in this case.</p>                
+            <p style="margin:0.5rem 0 1rem 2.35rem; text-indent:0;">They are the other party/parties in this case.</p>                
         </section>
 
 <!-- <4> -->
@@ -190,11 +190,10 @@
             </section>
         </div> 
 
-        <div class="print-block">
-            
-<!-- <7> -->
+        <div class="print-block mt-4">            
+<!-- <5> -->
             <section>
-                <b style="margin-left:0.25rem">I am filing this form in the court registry:</b>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
                 <div style="margin-left:1rem;">
                     <i>Select only one of the options below</i>
                     <check-box style="" 
