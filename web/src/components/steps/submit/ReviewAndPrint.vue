@@ -6,9 +6,9 @@
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry: 
-                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicationLocation.name}} </p>
-                <p class="my-0 ml-2 " style="display:block"> {{applicationLocation.address}} </p>
-                <p class="my-0 ml-2" style="display:block"> {{applicationLocation.cityStatePostcode}} </p>
+                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
+                <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalcode}} </p>
             </div>
 
             <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
@@ -55,9 +55,9 @@
                 <ul class="mt-3">                    
                     <li>Bring all copies to the court registry for filing  
                         <br/> 
-                        <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicationLocation.name}} </p>
-                        <p class="my-0 ml-2 " style="display:block"> {{applicationLocation.address}} </p>
-                        <p class="my-0 ml-2" style="display:block"> {{applicationLocation.cityStatePostcode}} </p>                
+                        <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                        <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
+                        <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalCode}} </p>                
                     </li>
                 </ul>
             </b-card>
@@ -95,6 +95,9 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import "@/store/modules/common";
+const commonState = namespace("Common");
+
 @Component({
     components:{
         PageBase,
@@ -109,6 +112,9 @@ export default class ReviewAndPrint extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @commonState.State
+    public locationsInfo!: any[];
 
     @applicationState.State
     public types!: string[];
@@ -127,8 +133,7 @@ export default class ReviewAndPrint extends Vue {
     includesPO = false;    
 
     showGetHelpForPDF = false;
-    applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
-    
+    applicantLocation = {}    
 
     mounted(){
 
@@ -144,11 +149,14 @@ export default class ReviewAndPrint extends Vue {
         if(!location) location = this.$store.state.Common.userLocation
         //console.log(location)
 
-        if(location == 'Victoria'){
-            this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-        }else if(location == 'Surrey'){
-            this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-        }  
+        this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
+           
+
+        // if(location == 'Victoria'){
+        //     this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
+        // }else if(location == 'Surrey'){
+        //     this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
+        // }  
 
     }    
 

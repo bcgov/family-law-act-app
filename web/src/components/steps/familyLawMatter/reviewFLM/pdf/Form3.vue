@@ -204,18 +204,39 @@ export default class Form3 extends Vue {
 
         } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
 
-            if (selectedFLMs.includes("parentingArrangements") && flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                schedules.push("schedule2")
+            if (selectedFLMs.includes("parentingArrangements")) {
+
+                if (flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+                    
+                    schedules.push("schedule2");
+                } else {
+                    schedules.push("schedule1");
+                }
             }
-            if (selectedFLMs.includes("childSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
-                schedules.push("schedule4")
+
+            if (selectedFLMs.includes("childSupport")){
+                if (flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
+                    schedules.push("schedule4");
+                } else {
+                    schedules.push("schedule3")
+                }
             }
-            if (selectedFLMs.includes("contactWithChild") && flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a Child")){
-                schedules.push("schedule6")
-            }           
-            if (selectedFLMs.includes("spousalSupport") && flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
-                schedules.push("schedule10")
+
+            if (selectedFLMs.includes("contactWithChild")){
+                if (flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a Child")){
+                    schedules.push("schedule6")
+                } else {
+                    schedules.push("schedule5")
+                }
             }
+
+            if (selectedFLMs.includes("spousalSupport")){
+                if (flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
+                    schedules.push("schedule10")
+                } else {
+                    schedules.push("schedule9");
+                }
+            } 
         }
 
         if (selectedFLMs.includes("guardianOfChild")){

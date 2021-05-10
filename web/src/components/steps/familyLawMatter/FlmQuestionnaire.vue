@@ -140,6 +140,7 @@ export default class FlmQuestionnaire extends Vue {
     guardianOfChildPage = 26
 
     reviewYourAnswersPage = 38
+    formPreviewPage = 39
 
     existingSpousalSupportOrderAgreementPage = 32
 
@@ -147,15 +148,13 @@ export default class FlmQuestionnaire extends Vue {
 
     existingSpousalSupportFinalOrderPage = 33
 
+
     //review-answers page
     commonPages = [38];
 
 
-    // parentingArrangementsPages = [];
-    // childSupportPages = [];
-    // contactWithChildPages = []
-    // guardianOfChildPages = []
-    // spousalSupportPages = []
+
+ 
 
     mounted(){
         this.reloadPageInformation();
@@ -167,6 +166,8 @@ export default class FlmQuestionnaire extends Vue {
         
         if (this.step.result && this.step.result['flmSelectedForm']) {
             this.selectedForm = this.step.result['flmSelectedForm'].data;
+            this.determineSteps();
+
         }
         
         const progress = this.selectedForm.length==0? 50 : 100;        
@@ -196,22 +197,7 @@ export default class FlmQuestionnaire extends Vue {
 
             if (selectedForm.length > 0){
 
-                let formOneRequired = false;
-
-                if(this.$store.state.Application.steps[2] && 
-                    this.$store.state.Application.steps[2].result &&
-                    this.$store.state.Application.steps[2].result.filingLocationSurvey &&
-                    this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
-                        const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
-                        formOneRequired = this.determineRequiredForm(filingLocationData);
-                }
-
-                if (!formOneRequired){
-                    this.togglePages([this.backgroundPage], true);
-                } else {
-                    this.togglePages([this.backgroundPage], false);
-                    this.togglePages(this.commonPages, true);
-                }               
+                this.determineSteps();                            
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
@@ -252,6 +238,28 @@ export default class FlmQuestionnaire extends Vue {
             }   
 
         }
+    }
+
+    public determineSteps(){
+        let formOneRequired = false;
+
+        if(this.$store.state.Application.steps[2] && 
+            this.$store.state.Application.steps[2].result &&
+            this.$store.state.Application.steps[2].result.filingLocationSurvey &&
+            this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
+                const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
+                formOneRequired = this.determineRequiredForm(filingLocationData);
+        }
+
+        if (!formOneRequired){
+            this.togglePages([this.backgroundPage], true);
+            // this.togglePages(this.commonPages, false);
+            this.togglePages([this.formPreviewPage], false);
+
+        } else {
+            this.togglePages([this.backgroundPage], false);
+            this.togglePages(this.commonPages, true);
+        }   
     }
 
     public determineRequiredForm(filingLocationData){

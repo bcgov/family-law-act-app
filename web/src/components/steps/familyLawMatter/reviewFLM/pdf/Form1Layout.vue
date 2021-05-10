@@ -357,14 +357,12 @@ export default class Form1Layout extends Vue {
             this.filingLocationReason = this.result.filingLocationSurvey.registryLocationReason;
         }
         
-        this.otherPartyInfo=this.getOtherPartyInfo()
-        console.log(this.otherPartyInfo)
+        this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
         if (this,this.otherPartyInfo.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
-        }
-        console.log(this.additionalOtherParties)
+        }        
         this.yourInfo = this.getYourInfo()       
 
     }    

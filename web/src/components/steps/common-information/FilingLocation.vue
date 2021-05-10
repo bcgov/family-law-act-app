@@ -176,11 +176,19 @@ export default class FilingLocation extends Vue {
         if (this.courtsA.includes(location)){
             this.messageA = true;
             this.locationInfo = true;
+            this.survey.setValue("familyJusticeRegistry", true);
+            this.survey.setValue("familyEducationProgram", false);
+            this.survey.setValue("earlyResolutionRegistry", false);
         } else if (this.courtsB.includes(location)) {
             this.messageB = true;
-            this.locationInfo = true;            
+            this.locationInfo = true;
+            this.survey.setValue("familyJusticeRegistry", false);
+            this.survey.setValue("earlyResolutionRegistry", false);
+            this.survey.setValue("familyEducationProgram", true);            
         } else {            
             this.locationInfo = false;
+            this.survey.setValue("familyJusticeRegistry", false);
+            this.survey.setValue("familyEducationProgram", false);           
             this.UpdateGotoNextStepPage();            
         }  
     }
@@ -246,8 +254,12 @@ export default class FilingLocation extends Vue {
         this.survey.setVariable("registryLocation", location);
         if(this.courtsC.includes(location)){
             this.survey.setVariable("victoriaSurrey", true);
+            this.survey.setValue("familyJusticeRegistry", false);
+            this.survey.setValue("familyEducationProgram", false);
+            this.survey.setValue("earlyResolutionRegistry", true);
         } else {
             this.survey.setVariable("victoriaSurrey", false);
+            this.survey.setValue("earlyResolutionRegistry", false);
         } 
     }  
 
