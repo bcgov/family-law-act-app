@@ -118,7 +118,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
-        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, 39],50)
+        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, 38],50)
         this.survey.completeLastPage();
     }
 

@@ -318,7 +318,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	let previewPage = 13
 	
 	if(type == 'protectionOrder'){step = 1; reviewPage = 12; previewPage = 13;}
-	else if(type == 'familyLawMatter'){step = 3; reviewPage = 39; previewPage = 40;	}
+	else if(type == 'familyLawMatter'){step = 3; reviewPage = 38; previewPage = 39;	}
 
 	const steps = store.state.Application.steps
 
@@ -398,7 +398,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.fullsize td{padding:0 0 0 .5rem; color: #313132;}`+
 
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
-			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.25rem 0 !important;}`+
+			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 7rem 0;}`+

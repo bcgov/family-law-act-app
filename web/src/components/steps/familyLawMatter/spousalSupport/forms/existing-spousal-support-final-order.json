@@ -24,44 +24,20 @@
               "messageStyle": "inline"
             },
             {
-              "type": "checkbox",
+              "type": "multiplecommentcheckbox",
               "name": "changesSinceOrderList",
               "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
-              "description": "Select each option that fits your situation and provide the additional detail as required.",
+              "description": "Select each option that fits your situation and provide the additional detail as required.",   
               "choices": [
-                "My financial situation has changed",
-                "I believe the other party’s financial situation has changed",
-                "My employment, training, health and/or ability to work have changed",
-                "I believe the other party’s employment, training, health and/or ability to work have changed",
-                "My household expenses have changed",
-                "Information has become available that was not available when the order was made",
-                "Other changes or circumstances"
+                {"value":"myFinancialChanged",    "comment":false,  "text":"My financial situation has changed"},
+                {"value":"partyFinancialChanged", "comment":false,  "text":"I believe the other party’s financial situation has changed"},
+                {"value":"myEmploymentChanged",   "comment":true,  "text":"My employment, training, health and/or ability to work have changed"},
+                {"value":"partyEmploymentChanged","comment":true,  "text":"I believe the other party’s employment, training, health and/or ability to work have changed"},
+                {"value":"myHouseholdChanged",    "comment":true,  "text":"My household expenses have changed"},
+                {"value":"newInformation",        "comment":true,  "text":"Information has become available that was not available when the order was made"},
+                {"value":"other",                 "comment":true,  "text":"Other changes or circumstances"}
               ],
               "isRequired": true
-            },
-            {
-              "type": "comment",
-              "name": "changesSinceOrder",
-              "title": "Please describe the changes:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({changesSinceOrderList} anyof ['My employment, training, health and/or ability to work have changed', 'I believe the other party’s employment, training, health and/or ability to work have changed', 'My household expenses have changed'])"
-            },
-            {
-              "type": "comment",
-              "name": "newInfoSinceOrder",
-              "title": "Please describe the new information:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({changesSinceOrderList} contains 'Information has become available that was not available when the order was made')"
-            },
-            {
-              "type": "comment",
-              "name": "otherChangesSinceOrder",
-              "title": "Please describe the changes or circumstances:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({changesSinceOrderList} contains 'Other changes or circumstances')"
             },
             {
               "type": "radiogroup",
