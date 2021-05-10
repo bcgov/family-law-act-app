@@ -4,26 +4,41 @@
 
         <b-modal size="xl" v-model="locationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
             
-            <div class="m-3">
+            <div v-if="messageA" class="m-3">
                
-                <p>I understand the following people must be given notice of my application about a family law matter:</p>
-                <ul>
-                    <li>
-                        all parents and current guardians of each child who is the subject of the family law matter
-                    </li>
-                    <li>
-                        my spouse, if I am applying for spousal support
-                    </li>
-                    <li>
-                        each other adult who the application about a family law matter is about                       
-                    </li>                    
-                </ul>
-                <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
-                <p>They are the other party/parties I added in this case.</p>
+                <p>
+                    I am filing my application in a family justice registry and I understand I 
+                    will be required to participate in a needs assessment and complete a parenting 
+                    education program, unless exempt, before a family management conference can be scheduled.
+                </p>
+                
+                <p>
+                    For more information about family justice registry requirements, 
+                    <a href="https://www2.gov.bc.ca/gov/content?id=065CC36FFE804085B96DF218DAB22AF3" target="blank">
+                        click here
+                    </a>.
+                </p>
+                
             </div>
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="locationInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closeLocationInfo">I agree</b-button>
+            <div v-if="messageB" class="m-3">
+               
+                <p>
+                    I am filing my application in a parenting education program registry 
+                    and I understand I will be required to complete a parenting education 
+                    program, unless exempt, before a family management conference can be scheduled.
+                </p>
+                
+                <p>
+                    For more information about the parenting education program requirements, 
+                    <a href="https://www2.gov.bc.ca/gov/content?id=991A99470F9B4576B6BD3E97CB649B2A" target="blank">
+                        click here
+                    </a>.
+                </p>  
+            </div>
+
+
+            <template v-slot:modal-footer>               
+                <b-button variant="success" @click="closeLocationInfo">I understand</b-button>
             </template>            
         </b-modal>
 
@@ -90,7 +105,32 @@ export default class FilingLocation extends Vue {
     currentStep=0;
     currentPage=0;
     locationInfo = false;
-    
+    messageA = false;
+    messageB = false;
+    courtsA = [
+            "Kelowna Law Courts", 
+            "Nanaimo Law Courts", 
+            "Vancouver Law Courts"
+        ];
+    courtsB = [
+            "Abbotsford Provincial Court", 
+            "Campbell River Court", 
+            "Chilliwack Law Courts",
+            "Courtenay Law Courts",
+            "Kamloops Court",
+            "New Westminster Law Courts",
+            "North Vancouver Court",
+            "Penticton Law Courts",
+            "Port Coquitlam Court",
+            "Prince George Law Courts",
+            "Richmond Court Small Claims and Family Court",
+            "Richmond Provincial Court",
+            "Vernon Law Courts"
+        ];
+    courtsC = [
+            "Victoria Law Courts",
+            "Surrey Provincial Court"
+        ];    
     
 
     beforeCreate() {
@@ -100,6 +140,7 @@ export default class FilingLocation extends Vue {
 
 
     mounted(){
+        this.locationInfo = false;
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -117,16 +158,36 @@ export default class FilingLocation extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            console.log(options)            
+            // console.log(options)            
             //console.log(this.survey.data);            
             if(options.name == 'CourtLocation') {
-                this.saveApplicationLocation(this.survey.data.CourtLocation)
+                this.saveApplicationLocation(this.survey.data.CourtLocation);
             }
 
             if (options.name == 'ExistingCourt'){
-                this.saveApplicationLocation(this.survey.data.ExistingCourt)
+                this.saveApplicationLocation(this.survey.data.ExistingCourt);
             }
         })   
+    }
+
+    public determineRegistry(location){
+        console.log(location)
+        
+        if (this.courtsA.includes(location)){
+            this.messageA = true;
+            this.locationInfo = true;
+        } else if (this.courtsB.includes(location)) {
+            this.messageB = true;
+            this.locationInfo = true;            
+        } else {            
+            this.locationInfo = false;
+            this.UpdateGotoNextStepPage();            
+        }  
+    }
+
+    public closeLocationInfo(){
+        this.locationInfo = false;
+        this.UpdateGotoNextStepPage();
     }
 
     public adjustSurveyForLocations(){
@@ -147,6 +208,13 @@ export default class FilingLocation extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result["filingLocationSurvey"]){
             this.survey.data = this.step.result["filingLocationSurvey"].data;
+            if(this.survey.data.ExistingFamilyCase && this.survey.data.ExistingFamilyCase == 'n' && this.survey.data.CourtLocation) {
+                this.saveApplicationLocation(this.survey.data.CourtLocation);
+            }
+
+            if (this.survey.data.ExistingFamilyCase && this.survey.data.ExistingFamilyCase == 'y' && this.survey.data.ExistingCourt){
+                this.saveApplicationLocation(this.survey.data.ExistingCourt);                
+            }
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
@@ -163,19 +231,30 @@ export default class FilingLocation extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            if (this.survey.data.ExistingFamilyCase == 'y' && this.survey.data.ExistingCourt){
+                this.determineRegistry(this.survey.data.ExistingCourt);
+            } else if (this.survey.data.ExistingFamilyCase == 'n' && this.survey.data.CourtLocation){
+                this.determineRegistry(this.survey.data.CourtLocation);
+            } else {
+                this.UpdateGotoNextStepPage();
+            }            
         }
     }
 
     public saveApplicationLocation(location){       
-        this.$store.commit("Application/setApplicationLocation", location);        
-       
+        this.$store.commit("Application/setApplicationLocation", location);
+        this.survey.setVariable("registryLocation", location);
+        if(this.courtsC.includes(location)){
+            this.survey.setVariable("victoriaSurrey", true);
+        } else {
+            this.survey.setVariable("victoriaSurrey", false);
+        } 
     }  
 
     public setExistingFileNumber(){
         const fileType = 'FLC'
         const existingOrders = this.$store.state.Application.steps[0]['result']?this.$store.state.Application.steps[0]['result']['existingOrders']:''
-        //const currentLocation = this.$store.state.Application.applicationLocation
+        
         const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
 
         if(existingOrders){

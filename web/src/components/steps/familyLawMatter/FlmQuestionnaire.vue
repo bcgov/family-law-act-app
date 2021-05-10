@@ -147,6 +147,9 @@ export default class FlmQuestionnaire extends Vue {
 
     existingSpousalSupportFinalOrderPage = 33
 
+    //review-answers page
+    commonPages = [38];
+
 
     // parentingArrangementsPages = [];
     // childSupportPages = [];
@@ -193,7 +196,22 @@ export default class FlmQuestionnaire extends Vue {
 
             if (selectedForm.length > 0){
 
-                this.togglePages([this.backgroundPage], true);
+                let formOneRequired = false;
+
+                if(this.$store.state.Application.steps[2] && 
+                    this.$store.state.Application.steps[2].result &&
+                    this.$store.state.Application.steps[2].result.filingLocationSurvey &&
+                    this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
+                        const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
+                        formOneRequired = this.determineRequiredForm(filingLocationData);
+                }
+
+                if (!formOneRequired){
+                    this.togglePages([this.backgroundPage], true);
+                } else {
+                    this.togglePages([this.backgroundPage], false);
+                    this.togglePages(this.commonPages, true);
+                }               
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
@@ -234,6 +252,30 @@ export default class FlmQuestionnaire extends Vue {
             }   
 
         }
+    }
+
+    public determineRequiredForm(filingLocationData){
+
+        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
+        let location = ''
+
+        if(filingLocationData.ExistingFamilyCase && 
+            filingLocationData.ExistingFamilyCase == 'n' && 
+            filingLocationData.CourtLocation) {
+                location = filingLocationData.CourtLocation;
+        } else if (filingLocationData.ExistingFamilyCase && 
+            filingLocationData.ExistingFamilyCase == 'y' && 
+            filingLocationData.ExistingCourt){
+            location = filingLocationData.ExistingCourt;                
+        }
+
+        if(courtsC.includes(location) && 
+            filingLocationData.MetEarlyResolutionRequirements == 'n'){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public togglePages(pageArr, activeIndicator) {        

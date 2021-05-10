@@ -1,7 +1,8 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-            <form3 @enableNext="EnableNext"/>
+            <form3 v-if="requiredForm == 3" @enableNext="EnableNext"/>
+            <form1 v-if="requiredForm == 1" @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -9,6 +10,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import Form3 from  "./pdf/Form3.vue"
+import Form1 from  "./pdf/Form1.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -18,6 +20,7 @@ const applicationState = namespace("Application");
 @Component({
     components:{
         Form3,
+        Form1,
         PageBase
     }
 })
@@ -34,6 +37,7 @@ export default class PreviewFormsFlm extends Vue {
     currentPage = 0;
     disableNext = true;
     dataReady = false;
+    requiredForm = 3;
     
 
     mounted(){
@@ -42,7 +46,43 @@ export default class PreviewFormsFlm extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+        this.determineRequiredForm();
         if(this.checkErrorOnPages([2,3])) this.dataReady = true;
+    }
+
+    public determineRequiredForm(){        
+
+        if(this.$store.state.Application.steps[2] && 
+            this.$store.state.Application.steps[2].result &&
+            this.$store.state.Application.steps[2].result.filingLocationSurvey &&
+            this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
+            const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
+            const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
+            let location = ''
+
+            if(filingLocationData.ExistingFamilyCase && 
+                filingLocationData.ExistingFamilyCase == 'n' && 
+                filingLocationData.CourtLocation) {
+                    location = filingLocationData.CourtLocation;
+            } else if (filingLocationData.ExistingFamilyCase && 
+                filingLocationData.ExistingFamilyCase == 'y' && 
+                filingLocationData.ExistingCourt){
+                location = filingLocationData.ExistingCourt;                
+            }
+
+            if(courtsC.includes(location) && 
+                filingLocationData.MetEarlyResolutionRequirements == 'n'){
+                    this.requiredForm = 1;
+                
+            } else {
+                this.requiredForm = 3;
+            }
+        
+        } else {
+            this.requiredForm = 3;
+        }
+
+               
     }
 
     public EnableNext(){
