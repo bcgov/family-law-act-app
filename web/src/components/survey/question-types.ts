@@ -12,6 +12,7 @@ import InfoTextTitle from "./components/InfoTextTitle.vue";
 import TextBeforeInputNumber from "./components/TextBeforeInputNumber.vue";
 import MultipleTextInput from "./components/MultipleTextInput.vue"
 import AdvancedRadioGroup from "./components/AdvancedRadioGroup.vue"
+import MultipleCommentCheckbox from "./components/MultipleCommentCheckbox.vue"
 
 function fixCheckboxes(Survey: any) {
   const widget = {
@@ -520,7 +521,30 @@ function initAdvancedRadioGroup(Survey: any) {
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
 
+function initMultipleCommentCheckbox(Survey: any) {
+  const widget = {
+    name: "MultipleCommentCheckbox",
+    title: "Multiple Comment Checkbox",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "multiplecommentcheckbox";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("multiplecommentcheckbox",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("multiplecommentcheckbox", [        
+        {
+          name: "choices:[]"
+        }
+      ]);
+    },
+  };
 
+  Vue.component("MultipleCommentCheckbox", MultipleCommentCheckbox);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
 //__________________________________________________________________________________________________
 // Returns 'y' or 'n', or 'u' for undefined and 'e' for error
 function isChild(params: any) {
@@ -576,6 +600,7 @@ export function addQuestionTypes(Survey: any) {
   initTextBeforeInputNumber(Survey);
   initMultipleTextInput(Survey);
   initAdvancedRadioGroup(Survey);
+  initMultipleCommentCheckbox(Survey);
 
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
@@ -688,6 +713,18 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "advancedradiogroup",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "multiplecommentcheckbox",
+    title: "Multiple Comment Checkbox",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "multiplecommentcheckbox",
       titleLocation: "hidden"
     }
   });

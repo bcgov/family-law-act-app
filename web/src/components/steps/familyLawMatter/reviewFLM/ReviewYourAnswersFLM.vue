@@ -140,7 +140,10 @@ export default class ReviewYourAnswersFlm extends Vue {
         }
         else if(value['selected']){
             return this.getAdvancedRadioGroupResults(value)
-        }       
+        }
+        else if(value['checked']){
+           return this.getMultipleCommentCheckboxResults(value)
+        }    
         else if(Array.isArray(value))
         {
             //console.log(value)
@@ -225,13 +228,42 @@ export default class ReviewYourAnswersFlm extends Vue {
         return resultString;
     }
 
-    public getAdvancedRadioGroupResults(argValue){        
-        const selected = argValue['selected']
+    public getMultipleCommentCheckboxResults(questionValue){
+        let resultString =Vue.filter('styleTitle')("Selected: ")
+        for(const checked of questionValue['checked']){
+            let keyBeauty = checked.charAt(0).toUpperCase() + checked.slice(1);
+            keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2') 
+            resultString += "<div class='ml-3'> - "+keyBeauty+"</div>";
+        }
+        
+        for (const [key, value] of Object.entries(questionValue))
+        {
+            //  console.error("____________")
+            //  console.log(key)
+            //  console.log(value)
+            if(questionValue['checked'].includes(key.slice(0,-7))){
+                if(value){ 
+                    let keyBeauty = ''
+                    keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
+                    keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
+                    resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
+                }else{
+                    this.pageHasError = true;
+                    return "REQUIRED";
+                }
+            }
+        }
+        return resultString;
+    }
+
+    public getAdvancedRadioGroupResults(questionValue){        
+        const selected = questionValue['selected']
+        //console.log(selected)
         let keyBeauty = selected.charAt(0).toUpperCase() + selected.slice(1);
         keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2') 
         let resultString = Vue.filter('styleTitle')("Selected: ")+keyBeauty+"\n";
 
-        for (const [key, value] of Object.entries(argValue))
+        for (const [key, value] of Object.entries(questionValue))
         {
             // console.error("____________")
             // console.log(key)

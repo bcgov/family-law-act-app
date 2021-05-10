@@ -894,7 +894,7 @@ class Application extends VuexModule {
                 }
             }            
         }
-        console.log(newAllCompleted)
+        //console.log(newAllCompleted)
         if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:8, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted)
     }
