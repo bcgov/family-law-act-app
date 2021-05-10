@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/about-existing-spousal-support-final-order.json";
+import surveyJson from "./forms/existing-spousal-support-final-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -40,6 +40,7 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep =0;
     currentPage =0;
+    aboutSpousalSupportOrderPage = 36
     
 
     beforeCreate() {
@@ -71,11 +72,11 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
 
     public setPages(){
         if(this.survey.data.orderDifferenceType == 'changeOrder'){
-            this.togglePages([36], true);
+            this.togglePages([this.aboutSpousalSupportOrderPage ], true);
             
         } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
             
-            this.togglePages([36], false);
+            this.togglePages([this.aboutSpousalSupportOrderPage ], false);
         }
     }
 

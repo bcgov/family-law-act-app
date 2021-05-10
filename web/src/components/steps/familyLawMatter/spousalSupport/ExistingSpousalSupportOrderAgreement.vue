@@ -16,6 +16,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import ReviewYourAnswers from '../../protectionOrder/reviewPo/ReviewYourAnswers.vue';
 const applicationState = namespace("Application");
 
 @Component({
@@ -45,6 +46,13 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     disableNextButton = false;    
     currentStep=0;
     currentPage=0;
+
+    existingSpousalSupportPages = [33, 34, 35, 36, 37, 38]
+    existingSpousalSupportFinalOrderPage = 33
+    existingSpousalSupportAgreementPage = 34
+    calculatingSpousalSupportPage = 35
+    unpaidSpousalSupportPage = 37
+    reviewYourAnswersPage = 38
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -89,14 +97,14 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     public setPages(){
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([34, 36, 38, 39], true); 
-            this.togglePages([35], false);               
+            this.togglePages([this.existingSpousalSupportFinalOrderPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage, this.reviewYourAnswersPage], true); 
+            this.togglePages([this.existingSpousalSupportAgreementPage], false);               
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([35, 36, 38, 39], true); 
-            this.togglePages([34], false);                
+            this.togglePages([this.existingSpousalSupportAgreementPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage, this.reviewYourAnswersPage], true); 
+            this.togglePages([this.existingSpousalSupportFinalOrderPage], false);                
         } else if (this.survey.data.existingType == "Neither") {
-            this.togglePages([34, 35, 36, 37, 38, 39], false);
+            this.togglePages(this.existingSpousalSupportPages, false);
             this.disableNextButton = true;
         }
     }

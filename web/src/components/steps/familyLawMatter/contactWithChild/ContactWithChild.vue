@@ -76,10 +76,10 @@ export default class ContactWithChild extends Vue {
         if (this.survey.data.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
-                this.togglePages([24, 25, 39], false);
+                this.togglePages([24, 25, 38], false);
             } else {
                 this.disableNextButton = false;
-                this.togglePages([24, 25, 39], true);
+                this.togglePages([24, 25, 38], true);
             }
         }             
     }
