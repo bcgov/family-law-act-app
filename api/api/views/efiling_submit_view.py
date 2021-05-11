@@ -2,9 +2,11 @@ import hashlib
 import logging
 import json
 import uuid
+from collections import Counter
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
+from numpy import unique
 from api.models import PreparedPdf
 from rest_framework import permissions, generics
 from api.efiling import EFilingPackaging, EFilingParsing, EFilingSubmission
@@ -55,18 +57,29 @@ class EFilingSubmitView(generics.GenericAPIView):
                 return JsonMessageResponse("Wrong file format.", status=400)
         return None
 
+    def _unique_file_names(self, request_files):
+        file_names =  [file.name.split('.')[0] for file in request_files]
+        dup = dict(Counter(file_names))
+        l_uniq = unique(file_names)
+        unique_names = [key if i == 0 else key + str(i+1) for key in l_uniq for i in range(dup[key])]
+        for i, unique_name in enumerate(unique_names):
+            request_files[i].name = f"{unique_name}.{request_files[i].name.split('.')[1]}"
+        return request_files
+
     """ This inserts our generated file, iterates over files and converts to PDF if necessary. """
 
     def _get_pdf_content(self, application, application_steps):
         outgoing_documents = []
-        for existing_orders in application_steps[0]['result']['existingOrders']:
-            document_type = existing_orders['type']
+        for existing_orders in application_steps[0]["result"]["existingOrders"]:
+            document_type = existing_orders["type"]
             try:
                 prepared_pdf = PreparedPdf.objects.get(
                     application_id=application.id, pdf_type=f"{document_type}"
                 )
             except PreparedPdf.DoesNotExist:
-                raise NotFound(detail=f'Missing document type {document_type} from database.')
+                raise NotFound(
+                    detail=f"Missing document type {document_type} from database."
+                )
             pdf_content = settings.ENCRYPTOR.decrypt(
                 prepared_pdf.key_id, prepared_pdf.data
             )
@@ -96,22 +109,34 @@ class EFilingSubmitView(generics.GenericAPIView):
                 continue
             file_indexes = incoming_document["files"]
             files = [incoming_files[index] for index in file_indexes]
-            if files[0].name.endswith(".pdf"):
-                data = files[0].read()
-                file_name = files[0].name
-            else:
+            # 1 PDF and 2 JPG for example, we need to split into 2 PDFs.
+            pdf_files = [x for x in files if x.name.endswith(".pdf")]
+            image_files = [x for x in files if not x.name.endswith(".pdf")]
+            for file in pdf_files:
+                data = file.read()
+                file_name = file.name
+                outgoing_documents.append(
+                    {
+                        "type": incoming_document["type"],
+                        "name": file_name,
+                        "file_data": data,
+                        "data": "",
+                        "md5": hashlib.md5(data).hexdigest(),
+                    }
+                )
+            if len(image_files) > 0:
                 rotations = incoming_document["rotations"]
-                data = rotate_images_and_convert_pdf(files, rotations)
-                file_name = f"{files[0].name.split('.')[0]}.pdf"
-            outgoing_documents.append(
-                {
-                    "type": incoming_document["type"],
-                    "name": file_name,
-                    "file_data": data,
-                    "data": "",
-                    "md5": hashlib.md5(data).hexdigest(),
-                }
-            )
+                data = rotate_images_and_convert_pdf(image_files, rotations)
+                file_name = f"{image_files[0].name.split('.')[0]}.pdf"
+                outgoing_documents.append(
+                    {
+                        "type": incoming_document["type"],
+                        "name": file_name,
+                        "file_data": data,
+                        "data": "",
+                        "md5": hashlib.md5(data).hexdigest(),
+                    }
+                )
         return outgoing_documents
 
     def put(self, request, application_id):
@@ -140,6 +165,9 @@ class EFilingSubmitView(generics.GenericAPIView):
         )
         if validations_errors:
             return validations_errors
+
+        # Unique names.
+        request_files = self._unique_file_names(request_files)
 
         application = get_application_for_user(application_id, request.user.id)
         application_steps = json.loads(
