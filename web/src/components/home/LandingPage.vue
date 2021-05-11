@@ -54,8 +54,8 @@
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 
                                         OR
-                                        Submit them through our eFiling system.
-                                        That's it!
+                                        Submit them through our eFiling system
+                                        by email.
                                     </p>
                                 </div>
                             </div>

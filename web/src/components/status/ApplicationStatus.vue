@@ -196,8 +196,7 @@ export default class ApplicationStatus extends Vue {
     public checkAllCompleted! :() => void
 
     dataLoaded = false;
-    showDisclaimer = true;
-
+    showDisclaimer = false;
 
     previousApplications = []
     previousApplicationFields = [
@@ -217,7 +216,8 @@ export default class ApplicationStatus extends Vue {
     deleteErrorMsgDesc = ''
     deleteError = false  
 
-    mounted() {        
+    mounted() { 
+        this.showDisclaimer = false;       
         this.loadDocumentTypes();
         this.extractFilingLocations();
         this.loadApplications();
