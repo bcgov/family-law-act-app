@@ -16,7 +16,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.protectionWhomSurvey?result.protectionWhomSurvey.ExistingFileNumber:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.poFilingLocationSurvey?result.poFilingLocationSurvey.ExistingFileNumber:''}]"
                     :fields="[{key:'name',tdClass:'border-dark'},{key:'value',tdClass:'border-dark'}]"
                     small
                     bordered
