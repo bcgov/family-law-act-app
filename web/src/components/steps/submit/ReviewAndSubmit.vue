@@ -135,8 +135,8 @@
                     <p style="font-weight: bold;">You will need your Court File Number if you are filing any additional documentation.</p>
                 </div>
 
-                <div v-if="this.error" style="margin:1rem auto; width:15.5rem" >
-                    <b-badge class="bg-danger" style="margin:0 auto; width:8rem">Please Try Again</b-badge>
+                <div v-if="error" style="margin:1rem auto; display: block;">
+                    <b-badge class="bg-danger" style="margin:1rem auto; display: block;">{{error}}</b-badge>
                 </div>
 
                 <div style="width:19rem; margin: 0 auto;" v-b-tooltip.hover.v-danger  :title="submitEnable? '':'Please review your application before submission'">
@@ -231,6 +231,9 @@
         @commonState.State
         public userLocation!: string;
 
+        @commonState.State
+        public locationsInfo!: any[];
+
         @applicationState.State
         public id!: string;
 
@@ -279,7 +282,7 @@
         error = "";
         showGetHelpForPDF = false;
 
-        applicantLocation = {name:'', address:'', cityStatePostcode:'', email:''}        
+        applicantLocation = {}        
         submissionInProgress = false;
         
         supportingFile = null;
@@ -313,13 +316,15 @@
        
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
-       
 
-            if(location == 'Victoria'){
-                this.applicantLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-            } else if(location == 'Surrey'){
-                this.applicantLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-            }
+            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
+            // console.log(this.applicantLocation)       
+
+            // if(location == 'Victoria'){
+            //     this.applicantLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
+            // } else if(location == 'Surrey'){
+            //     this.applicantLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
+            // }
             //TODO: use get api for document-types
            
             this.fileTypes = this.documentTypesJson;
@@ -445,7 +450,7 @@
                 }
             }, err => {
                 console.error(err);
-                this.error = err;
+                this.error = err.response.data.message;
                 this.submissionInProgress = false;
             });           
         }

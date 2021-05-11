@@ -12,7 +12,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:locationInfo.existingFileNumber}]"
                     :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
@@ -123,15 +123,15 @@
 <!-- <5> -->
             <section> 
                 I am filing my application in:
-                <check-box style="margin:0 0 0 1rem;" :check="true?'?':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
                 <div style="margin:0 0 0 2.75rem;">
                     <check-box style="" :check="true?'?':''" text="needs assessment"/>
                     <check-box style="" :check="true?'?':''" text="parenting education program"/>
                     <check-box style="" :check="true?'?':''" text="consensual dispute resolution"/>
                 </div>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'?':''" text="none of the above "/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.familyJusticeRegistry?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.educationRegistry?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
+                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.none?'yes':''" text="none of the above "/>
             </section>
         </div>
 
@@ -195,7 +195,7 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem">The parties are: </div> 
                 <div class="answer">         
-                    <i style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</i>
+                    <span style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</span>
                 </div>
             </section>
         </div>
@@ -205,7 +205,7 @@
             <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
             <div>
                 <i style="display:inline;margin-left:1rem" >Specify which other party if there is more than one: </i>
-                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" text="?"/>
+                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" :text="relationshipBetweenParties.nameOfSpouse"/>
             </div>
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
@@ -305,6 +305,8 @@ export default class CommonSection extends Vue {
     dataReady = false;
     aboutChildren = false;
 
+    locationInfo = {};
+
     otherPartyInfo=[];
     yourInfo;
 
@@ -350,19 +352,56 @@ export default class CommonSection extends Vue {
         }       
         
         this.otherPartyInfo=this.getOtherPartyInfo()
-        this.yourInfo = this.getYourInfo()       
+        this.yourInfo = this.getYourInfo()     
+        this.locationInfo = this.getLocationInfo();  
 
+    }
+
+    public getLocationInfo(){
+
+        let locationInformation = {
+            courtLocation: '',
+            existingFileNumber: '', 
+            educationRegistry: false,
+            familyJusticeRegistry: false,
+            earlyResolutionRegistry: false,
+            none: false
+        };
+        if (this.result.filingLocationSurvey){
+            const locationData = this.result.filingLocationSurvey;
+            if (locationData.ExistingFamilyCase == 'y'){
+                locationInformation.existingFileNumber = locationData.ExistingFileNumber?locationData.ExistingFileNumber:'';
+                locationInformation.courtLocation = locationData.ExistingCourt?locationData.ExistingCourt:'';
+            } else {
+                locationInformation.existingFileNumber = '';
+                locationInformation.courtLocation = locationData.CourtLocation?locationData.CourtLocation:'';
+            }
+
+            locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
+            locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
+            locationInformation.educationRegistry = locationData.familyEducationProgram;  
+            locationInformation.none = !(locationInformation.educationRegistry
+                                        || locationInformation.familyJusticeRegistry
+                                        || locationInformation.earlyResolutionRegistry);         
+
+        }
+
+        console.log(locationInformation)
+         
+
+        return locationInformation;
     }
 
     public getRelationshipBetweenPartiesInfo(){
 
-        let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: ''};
+        let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: '', nameOfSpouse: ''};
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
             relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
             relationshipInfo.marriageDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO);
             relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
+            relationshipInfo.nameOfSpouse = this.result.flmBackgroundSurvey.listOfSpouses;
         }
         return relationshipInfo;
     }
@@ -408,7 +447,7 @@ export default class CommonSection extends Vue {
             lawyerStatement: {lawyerName: '', clientName: ''}
         }        
 
-        console.log(this.result)
+        console.log(this.result.filingLocationSurvey)
 
         if(this.result.yourInformationSurvey){
 

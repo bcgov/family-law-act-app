@@ -48,17 +48,16 @@
         <about-spousal-support-order v-bind:step="step" v-if="step.currentPage == 31"/>
 
         <existing-spousal-support-order-agreement v-bind:step="step" v-if="step.currentPage == 32"/>
-        <about-existing-spousal-support v-bind:step="step" v-if="step.currentPage == 33"/>
-        <existing-spousal-support-final-order v-bind:step="step" v-if="step.currentPage == 34"/>
-        <existing-spousal-support-agreement v-bind:step="step" v-if="step.currentPage == 35"/>
+        <existing-spousal-support-final-order v-bind:step="step" v-if="step.currentPage == 33"/>
+        <existing-spousal-support-agreement v-bind:step="step" v-if="step.currentPage == 34"/>
         
-        <calculating-spousal-support v-bind:step="step" v-if="step.currentPage == 36"/> 
+        <calculating-spousal-support v-bind:step="step" v-if="step.currentPage == 35"/> 
 
-        <about-existing-spousal-support-order v-bind:step="step" v-if="step.currentPage == 37"/>
-        <unpaid-spousal-support v-bind:step="step" v-if="step.currentPage == 38"/>
+        <about-existing-spousal-support-order v-bind:step="step" v-if="step.currentPage == 36"/>
+        <unpaid-spousal-support v-bind:step="step" v-if="step.currentPage == 37"/>
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 39"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 40"/>
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 38"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 39"/>
     </step-base>
 </template>
 
@@ -107,7 +106,7 @@ import AboutSpousalSupportOrder from "./spousalSupport/AboutSpousalSupportOrder.
 import CalculatingSpousalSupport from "./spousalSupport/CalculatingSpousalSupport.vue";
 import SpousalSupportIncomeAndEarningPotential from "./spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
 
-import AboutExistingSpousalSupport from "./spousalSupport/AboutExistingSpousalSupport.vue";
+// import AboutExistingSpousalSupport from "./spousalSupport/AboutExistingSpousalSupport.vue";
 import ExistingSpousalSupportAgreement from "./spousalSupport/ExistingSpousalSupportAgreement.vue";
 import ExistingSpousalSupportFinalOrder from "./spousalSupport/ExistingSpousalSupportFinalOrder.vue";
 import AboutExistingSpousalSupportOrder from "./spousalSupport/AboutExistingSpousalSupportOrder.vue";
@@ -166,8 +165,7 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         AboutSpousalSupportOrder,
         CalculatingSpousalSupport,
         SpousalSupportIncomeAndEarningPotential,
-
-        AboutExistingSpousalSupport,
+       
         ExistingSpousalSupportAgreement,
         ExistingSpousalSupportFinalOrder,
         AboutExistingSpousalSupportOrder,
