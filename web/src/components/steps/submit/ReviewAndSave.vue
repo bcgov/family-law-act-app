@@ -6,8 +6,8 @@
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry:
-                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicationLocation.name}} </p>
-                <a :href="'mailto:'+applicationLocation.email" class="my-0 ml-2 " style="display:block"> {{applicationLocation.email}} </a>
+                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
+                <a :href="'mailto:'+applicantLocation.email" class="my-0 ml-2 " style="display:block"> {{applicantLocation.email}} </a>
 
             </div>
 
@@ -54,7 +54,7 @@
 
                 <span class="text-primary" style='font-size:1.4rem;'>Submit Documents:</span>
                 <ul class="mt-3">                    
-                    <li>Draft and send an email to the registry email address above (<a :href="'mailto:'+applicationLocation.email" class="my-0 ml-2 " >{{applicationLocation.email}} </a> )
+                    <li>Draft and send an email to the registry email address above (<a :href="'mailto:'+applicantLocation.email" class="my-0 ml-2 " >{{applicantLocation.email}} </a> )
                         <br/><b>Subject line:</b> Application About a Protection Order for filing
                         <br/><b>Body of email:</b>
                         <br/>
@@ -104,6 +104,9 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import "@/store/modules/common";
+const commonState = namespace("Common");
+
 @Component({
     components:{
         PageBase,
@@ -119,6 +122,9 @@ export default class ReviewAndSave extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @commonState.State
+    public locationsInfo!: any[];
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -130,7 +136,7 @@ export default class ReviewAndSave extends Vue {
     error = ""
 
     showGetHelpForPDF = false;    
-    applicationLocation = {name:'', address:'', cityStatePostcode:'', email:''}
+    applicantLocation = {}
 
     mounted(){
 
@@ -142,13 +148,16 @@ export default class ReviewAndSave extends Vue {
            
         let location = this.$store.state.Application.applicationLocation
         if(!location) location = this.$store.state.Common.userLocation
+
+        this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
+            
         //console.log(location)
 
-        if(location == 'Victoria'){
-            this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-        }else if(location == 'Surrey'){
-            this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-        }  
+        // if(location == 'Victoria'){
+        //     this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
+        // }else if(location == 'Surrey'){
+        //     this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
+        // }  
 
     }       
     

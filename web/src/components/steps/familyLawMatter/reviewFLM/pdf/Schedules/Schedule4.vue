@@ -47,24 +47,24 @@
                         <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
                         <check-box style="" :check="exChSupInfo.abtEx.changes.myfin?'yes':''" text="my financial situation has changed"/>
                         <check-box style="" :check="exChSupInfo.abtEx.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changes.spcl?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exChSupInfo.abtEx.changes.spcl?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
                         <div v-if="exChSupInfo.abtEx.changes.spcl" 
-                            class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
+                             class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changes.lvng?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
-                        <div v-if="exChSupInfo.abtEx.changes.lvng" 
-                            class="answerbox">{{exChSupInfo.abtEx.lvngChangeInfo}}</div>
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exChSupInfo.abtEx.changes.lvng?'yes':''" text="the child(ren)’s living arrangement(s) have changed as follows:"/>
+                        <div v-if="exChSupInfo.abtEx.changes.lvng"                            
+                             class="answerbox">{{exChSupInfo.abtEx.lvngChangeInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
 
-                        <check-box style="margin:0 0 2rem 0;" :check="exChSupInfo.abtEx.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
-                        <div v-if="exChSupInfo.abtEx.changes.newInfo" 
-                            class="answerbox">{{exChSupInfo.abtEx.newInfo}}</div>
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exChSupInfo.abtEx.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made (specify):"/>
+                        <div v-if="exChSupInfo.abtEx.changes.newInfo"                            
+                             class="answerbox">{{exChSupInfo.abtEx.newInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                         
-                        <check-box style="margin:0 0 3rem 0;" :check="exChSupInfo.abtEx.changes.other?'yes':''" text="other changes or circumstances (specify):"/>
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exChSupInfo.abtEx.changes.other?'yes':''" text="other changes or circumstances (specify):"/>
                         <div v-if="exChSupInfo.abtEx.changes.other" 
-                            class="answerbox">{{exChSupInfo.abtEx.otherInfo}}</div>
+                             class="answerbox">{{exChSupInfo.abtEx.otherInfo}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
                 </section>
@@ -81,7 +81,7 @@
                     <div style="margin:0 0 0 3.25rem;">
                         <check-box style="" :check="exChSupInfo.abtEx.setAsideAgrmnt?'yes':''" text="set aside"/>
                         <check-box style="" :check="exChSupInfo.abtEx.replaceAgrmnt?'yes':''" text="replaced"/>
-                        <div style="margin:0 0 3rem 0;">I believe the agreement should be set aside or replaced because:</div>                    
+                        <div style="margin:0 0 -0.25rem 0;">I believe the agreement should be set aside or replaced because:</div>                    
                         <div v-if="exChSupInfo.abtEx.exstngAgrmnt" 
                             class="answerbox">{{exChSupInfo.abtEx.changesSinceAgrmnt}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
@@ -96,7 +96,7 @@
                     <i style="display:inline; margin-left:0.35rem">Complete only if you are applying to change or replace an existing final order or agreement about child support. You may leave this section blank.</i>
                     
                     <div style="margin:0 0 0 1rem;">
-                        <div style="margin:0 0 3rem 0;">I am applying for the final order or agreement about child support to be changed or replaced as follows:</div>                    
+                        <div style="margin:0 0 -.25rem 0;">I am applying for the final order or agreement about child support to be changed or replaced as follows:</div>                    
                         <div v-if="exChSupInfo.abtOrg.newOrderDesc" 
                             class="answerbox">{{exChSupInfo.abtOrg.newOrderDesc}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
@@ -124,7 +124,7 @@
                 <div style="margin:0 0 0 1.5rem;">    
                     <check-box  inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0.05rem;" :check="exChSupInfo.unpdChSup.reduce?'yes':''" text="I am applying to reduce the amount of unpaid child support (arrears) to"/>                    
                     <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exChSupInfo.unpdChSup.reduceAmount"/>
-                    <div style="margin:0 0 3rem 0;">because:</div>
+                    <div style="margin:0 0 -0.25rem 0;">because:</div>
                     <div v-if="exChSupInfo.unpdChSup.reduce" 
                             class="answerbox">{{exChSupInfo.unpdChSup.whyReduceAmount}}</div>
                     <div v-else style="margin-bottom:3rem;"></div>
@@ -158,7 +158,7 @@
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                     <div style="margin:0 0 0 1.5rem;">
                         <check-box style="margin:0 0.25rem 0 0rem;" :check="exChSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
-                        <check-box style="margin:0 0rem 3rem 0rem;" :check="!exChSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
+                        <check-box style="margin:0 0rem -0.25rem 0rem;" :check="!exChSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
                         <div v-if="!exChSupInfo.calc.attaching" 
                             class="answerbox">{{exChSupInfo.calc.reason}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
@@ -201,7 +201,7 @@
                     </div>
                     <div style="margin:0.5rem 0 0 1.5rem;">
                         <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situation.none?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
-                        <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
+                        <check-box style="margin:0 0 0 0rem;" :check="true?'?':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
                     </div>
                 </section>
             </div>
@@ -312,7 +312,7 @@ export default class Schedule4 extends Vue {
         console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey){
-            const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList:[];
+            const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];
                 
             existingChildSupportInfo.abtEx = {                
                 payor: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payor'),
@@ -326,17 +326,17 @@ export default class Schedule4 extends Vue {
                 changeOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
                 changeList: orderChangeList,
                 changes:{
-                    myfin: orderChangeList.includes('My financial situation has changed'),
-                    opfin: orderChangeList.includes('I believe the other party’s financial situation has changed'),
-                    spcl: orderChangeList.includes('The `special and extraordinary expenses` have changed'),
-                    lvng: orderChangeList.includes('The living arrangements for a child have changed'),
-                    newInfo: orderChangeList.includes('Information has become available that was not available when the order was made'),
-                    other: orderChangeList.includes('Other changes or circumstances')
+                    myfin: orderChangeList.includes('myFinancialChanged'),
+                    opfin: orderChangeList.includes('partyFinancialChanged'),
+                    spcl: orderChangeList.includes('expensesChanged'),
+                    lvng: orderChangeList.includes('arrangementsChanged'),
+                    newInfo: orderChangeList.includes('newInformation'),
+                    other: orderChangeList.includes('other')
                 },
-                newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
-                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-                otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
+                newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&        orderChangeList.includes('newInformation')     && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment)?      this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment:'',
+                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('expensesChanged')    && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment)?     this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment:'',
+                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('arrangementsChanged') && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment)?this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment:'',
+                otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&      orderChangeList.includes('other')              && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment)?               this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment:'',
                 exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
                 setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
                 replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),

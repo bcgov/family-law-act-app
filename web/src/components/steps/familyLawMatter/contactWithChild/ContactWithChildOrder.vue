@@ -76,7 +76,7 @@ export default class ContactWithChildOrder extends Vue {
     }    
             
     public setPages(){ 
-        this.togglePages([39], true);           
+        this.togglePages([38], true);           
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
@@ -97,7 +97,7 @@ export default class ContactWithChildOrder extends Vue {
             }
         } else if (this.survey.data.existingType == 'Neither') {
             
-            this.togglePages([24, 25, 39], false);
+            this.togglePages([24, 25, 38], false);
             this.disableNextButton = true;            
         }
     }

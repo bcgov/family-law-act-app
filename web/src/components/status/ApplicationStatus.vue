@@ -446,14 +446,15 @@ export default class ApplicationStatus extends Vue {
             for (const location of locationNames){
                 // console.log(location)
                 // console.log(locationsInfo[location])
-                const locationInfo = locationsInfo[location];
-                const address = locationInfo.address_1?(locationInfo.address_1+ ', '):''  + 
-                                locationInfo.address_2?(locationInfo.address_2 + ', '):'' + 
-                                locationInfo.address_3?(locationInfo.address_3 + ', '):'' + 
-                                locationInfo.address_2?(locationInfo.postal):'';
-                locations.push({id: locationInfo.location_id, name: location, address: address})
+                const locationInfo = locationsInfo[location];              
+                
+                const address = (locationInfo.address_1?(locationInfo.address_1+ ', '):'')  + 
+                                (locationInfo.address_2?(locationInfo.address_2 + ', '):'') + 
+                                (locationInfo.address_3?(locationInfo.address_3):'');
+                const postalCode = (locationInfo.postal?(locationInfo.postal):'');
+                locations.push({id: locationInfo.location_id, name: location, address: address, postalCode: postalCode, email:''})
             }
-            console.log(locations)
+            // console.log(locations)
             //locations.push({id: 1, name: 'location', address: 'address'})
             this.UpdateLocationsInfo(locations); 
         

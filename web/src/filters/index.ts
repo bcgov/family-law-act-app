@@ -289,14 +289,14 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		//REMINDERS 
 	
 		if( (questions.flmSelectedForm && ( questions.flmSelectedForm.includes("childSupport")||questions.flmSelectedForm.includes("spousalSupport") )) &&
-			(questions.aboutExistingChildSupportSurvey && questions.aboutExistingChildSupportSurvey.filedWithDirector == "y")||(questions.aboutExistingSpousalSupportSurvey && questions.aboutExistingSpousalSupportSurvey.filedWithDirector == "y"))
+			(questions.aboutExistingChildSupportSurvey && questions.aboutExistingChildSupportSurvey.filedWithDirector == "y")||(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y"))
 			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 		
 		if( (questions.flmSelectedForm && questions.flmSelectedForm.includes("guardianOfChild")) &&
 			(questions.indigenousAncestryOfChildSurvey && (questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") || questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation"))) )
 			reminderDocuments.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 
-		// if(questions.aboutExistingSpousalSupportSurvey && questions.aboutExistingSpousalSupportSurvey.filedWithDirector == "y") 
+		// if(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y") 
 		// 	reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 	}
 	
@@ -318,7 +318,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	let previewPage = 13
 	
 	if(type == 'protectionOrder'){step = 1; reviewPage = 12; previewPage = 13;}
-	else if(type == 'familyLawMatter'){step = 3; reviewPage = 39; previewPage = 40;	}
+	else if(type == 'familyLawMatter'){step = 3; reviewPage = 38; previewPage = 39;	}
 
 	const steps = store.state.Application.steps
 
@@ -398,9 +398,10 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.fullsize td{padding:0 0 0 .5rem; color: #313132;}`+
 
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
-			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.25rem 0 !important;}`+
+			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
+			`.form-one-header{display:block; margin:0 0 6.25rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

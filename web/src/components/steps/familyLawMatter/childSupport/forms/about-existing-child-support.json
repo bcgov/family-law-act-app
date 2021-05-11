@@ -48,45 +48,21 @@
               "visibleIf": "{existingType} = 'ExistingAgreement'"
             },
             {
-              "type": "checkbox",
+              "type": "multiplecommentcheckbox",
               "name": "changesSinceOrderList",
               "title": "Explain to the court what has changed that makes the existing order no longer appropriate.",
               "description": "Select each option that fits your situation and provide the additional detail as required.",
               "choices": [
-                "My financial situation has changed",
-                "I believe the other party’s financial situation has changed",
-                "The `special and extraordinary expenses` have changed",
-                "The living arrangements for a child have changed",
-                "Information has become available that was not available when the order was made",
-                "Other changes or circumstances"
+                {"value":"myFinancialChanged",    "comment":false, "text":"My financial situation has changed"},
+                {"value":"partyFinancialChanged", "comment":false, "text":"I believe the other party’s financial situation has changed"},
+                {"value":"expensesChanged",       "comment":true,  "text":"The `special and extraordinary expenses` have changed"},
+                {"value":"arrangementsChanged",   "comment":true,  "text":"The living arrangements for a child have changed"},
+                {"value":"newInformation",        "comment":true,  "text":"Information has become available that was not available when the order was made"},
+                {"value":"other",                 "comment":true,  "text":"Other changes or circumstances"}
               ],
               "isRequired": true,
               "visible": false,
               "visibleIf": "{existingType} = 'ExistingOrder'"
-            },
-            {
-              "type": "comment",
-              "name": "changesSinceOrder",
-              "title": "Please describe the changes:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} anyof ['The `special and extraordinary expenses` have changed', 'The living arrangements for a child have changed'])"
-            },
-            {
-              "type": "comment",
-              "name": "newInfoSinceOrder",
-              "title": "Please describe the new information:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Information has become available that was not available when the order was made')"
-            },
-            {
-              "type": "comment",
-              "name": "otherChangesSinceOrder",
-              "title": "Please describe the changes or circumstances:",
-              "isRequired": true,
-              "visible": false,
-              "visibleIf": "({existingType} = 'ExistingOrder') and ({changesSinceOrderList} contains 'Other changes or circumstances')"
             },
             {
               "type": "comment",
@@ -96,7 +72,7 @@
               "isRequired": true,
               "visible": false,
               "visibleIf": "{existingType} = 'ExistingAgreement'"
-            },
+            },        
             {
               "type": "radiogroup",
               "name": "orderDifferenceType",
