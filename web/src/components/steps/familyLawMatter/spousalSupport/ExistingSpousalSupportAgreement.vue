@@ -9,7 +9,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/about-existing-spousal-support-agreement.json";
+import surveyJson from "./forms/existing-spousal-support-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -40,7 +40,7 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep =0;
     currentPage =0;
-    
+    aboutSpousalSupportOrderPage = 36
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -71,11 +71,11 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
 
     public setPages(){
         if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-            this.togglePages([37], true);
+            this.togglePages([this.aboutSpousalSupportOrderPage ], true);
             
         } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
             
-            this.togglePages([37], false);
+            this.togglePages([this.aboutSpousalSupportOrderPage ], false);
         }         
     }  
 

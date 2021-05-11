@@ -75,7 +75,7 @@ export default class AboutParentingArrangements extends Vue {
     }
 
     public setPages(){
-        this.togglePages([39], true);
+        this.togglePages([38], true);
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
@@ -96,7 +96,7 @@ export default class AboutParentingArrangements extends Vue {
             }
         } else if (this.survey.data.existingType == 'Neither') {
             this.disableNextButton = true;
-            this.togglePages([9, 10, 39], false);
+            this.togglePages([9, 10, 38], false);
         }         
     }     
             

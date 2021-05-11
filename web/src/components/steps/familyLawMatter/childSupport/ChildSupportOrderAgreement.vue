@@ -99,13 +99,13 @@ export default class ChildSupportOrderAgreement extends Vue {
             
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([16, 17, 20, 21, 39], true);
+            this.togglePages([16, 17, 20, 21, 38], true);
             
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([16, 17, 20, 21, 39], true);                
+            this.togglePages([16, 17, 20, 21, 38], true);                
         } else if (this.survey.data.existingType == "Neither") {
-            this.togglePages([16, 17, 20, 21, 39], false);
+            this.togglePages([16, 17, 20, 21, 38], false);
             this.disableNextButton = true;
         }
     }

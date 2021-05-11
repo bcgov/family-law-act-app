@@ -30,6 +30,9 @@ export default class FlmBackground extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public steps!: any
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -40,14 +43,16 @@ export default class FlmBackground extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
+    surveyJsonCopy; 
+    otherPartyNames = [];
     currentStep =0;
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,41)    
+    allPages = _.range(3,40)    
     
     //review-answers page
-    commonPages = [39];
+    commonPages = [38];
 
     parentingArrangementsNewPages = [2, 3, 4, 5, 6, 10]; 
     parentingArrangementsExistingPages = [2, 7, 8];    
@@ -61,8 +66,8 @@ export default class FlmBackground extends Vue {
     guardianOfChildNewPages = [2, 26, 28]
     guardianOfChildExistingPages = [2]
 
-    spousalSupportNewPages = [29, 30, 31, 36]
-    spousalSupportExistingPages = [32, 33, 36, 38]
+    spousalSupportNewPages = [29, 30, 31, 35]
+    spousalSupportExistingPages = [32, 35, 37]
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -77,7 +82,8 @@ export default class FlmBackground extends Vue {
     }
 
     public initializeSurvey(){
-        this.survey = new SurveyVue.Model(surveyJson);
+        this.adjustSurveyForOtherParties();
+        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -93,6 +99,20 @@ export default class FlmBackground extends Vue {
         })
     }
 
+    public adjustSurveyForOtherParties(){  
+        
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));       
+       
+        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
+            
+            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
+            for (const otherParty of otherPartyData){
+                this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push(Vue.filter('getFullName')(otherParty.name));
+                this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name));
+            }                 
+        }
+    }
+
     public reloadPageInformation() {  
         
         this.currentStep = this.$store.state.Application.currentStep;
@@ -102,6 +122,13 @@ export default class FlmBackground extends Vue {
             this.survey.data = this.step.result['flmBackgroundSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
+        
+        if (this.otherPartyNames.length > 1){
+            this.survey.setVariable("multipleOP", true); 
+            console.log("show")               
+        } else {
+            this.survey.setVariable("multipleOP", false);
+        }       
 
         if (this.step.result && this.step.result['flmSelectedForm']){
             this.selectedForms = this.step.result['flmSelectedForm'].data

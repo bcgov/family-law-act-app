@@ -274,18 +274,18 @@ export default class Form3 extends Vue {
 
         console.log(this.result)
 
-        if (this.result.aboutExistingSpousalSupportSurvey){
+        if (this.result.existingSpousalSupportOrderAgreementSurvey){
             existingSpousalSupportInfo.current = {
                 date: '',
-                order: this.result.aboutExistingSpousalSupportSurvey.existingType == 'ExistingOrder',
-                agreement: this.result.aboutExistingSpousalSupportSurvey.existingType == 'ExistingAgreement',
-                directors: this.result.aboutExistingSpousalSupportSurvey.filedWithDirector == 'y',
-                reviewable: this.result.aboutExistingSpousalSupportSurvey.reviewableTerm == 'y',
-                fillForm: this.result.aboutExistingSpousalSupportSurvey.fillOutForm == 'completeNow',
+                order: this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder',
+                agreement: this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement',
+                directors: this.result.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == 'y',
+                reviewable: this.result.existingSpousalSupportOrderAgreementSurvey.reviewableTerm == 'y',
+                fillForm: this.result.existingSpousalSupportOrderAgreementSurvey.fillOutForm == 'completeNow',
                 description: ''
             }
 
-            if (this.result.aboutExistingSpousalSupportSurvey.existingType == 'ExistingOrder'
+            if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'
                 && this.result.existingSpousalSupportFinalOrderSurvey
                 && this.result.existingSpousalSupportFinalOrderSurvey.orderDate){
 
@@ -293,7 +293,7 @@ export default class Form3 extends Vue {
 
             }
 
-            if (this.result.aboutExistingSpousalSupportSurvey.existingType == 'ExistingAgreement'
+            if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'
                 && this.result.existingSpousalSupportAgreementSurvey
                 && this.result.existingSpousalSupportAgreementSurvey.agreementDate){
                     
@@ -311,7 +311,7 @@ export default class Form3 extends Vue {
             }
         }
 
-        if (this.result.aboutExistingSpousalSupportSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
+        if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
             const orderChangeList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList?this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList:[];
             existingSpousalSupportInfo.orderInfo = {
 
@@ -325,11 +325,11 @@ export default class Form3 extends Vue {
                     
                     other: orderChangeList.includes('Other changes or circumstances')
                 },
-                changesSinceOrder: (orderChangeList.includes('Other changes or circumstances') && this.result.aboutExistingSpousalSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingSpousalSupportSurvey.otherChangesSinceOrder:'',
+                changesSinceOrder: (orderChangeList.includes('Other changes or circumstances') && this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder)?this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder:'',
                 
-                newInfo: (orderChangeList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingSpousalSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingSpousalSupportSurvey.newInfoSinceOrder:'',
+                newInfo: (orderChangeList.includes('Information has become available that was not available when the order was made') && this.result.existingSpousalSupportOrderAgreementSurvey.newInfoSinceOrder)?this.result.existingSpousalSupportOrderAgreementSurvey.newInfoSinceOrder:'',
                 
-                otherChange: (orderChangeList.includes('Other changes or circumstances') && this.result.aboutExistingSpousalSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingSpousalSupportSurvey.otherChangesSinceOrder:'',
+                otherChange: (orderChangeList.includes('Other changes or circumstances') && this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder)?this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder:'',
                 
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
                 cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             

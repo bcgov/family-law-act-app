@@ -75,6 +75,15 @@
                      "body": "Spouses can include both married and unmarried individuals. A spouse is a person: <ul><li>who is married to another person, or</li><li>has lived with another person in a marriage-like relationship (commonly called a common law relationship), and</li><ol style='list-style-type: lower-roman' ><li>has lived with the other person for at least 2 years without a break, or</li><li>has a child with the other person</li><ol/></ul>"
                   },
                   {
+                     "type": "radioGroup",
+                     "name": "listOfSpouses",
+                     "title": "Select which other party was a spouse or has lived with you in a marriage-like relationship:",                     
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{multipleOP} and {werePOPartiesMarried} = 'y'",
+                     "choices": []
+                   },
+                  {
                      "type": "text",
                      "name": "liveTogetherPODate",
                      "visible": false,
