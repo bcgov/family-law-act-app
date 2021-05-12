@@ -1,5 +1,4 @@
 import LandingPage from "@/components/home/LandingPage.vue";
-import ServiceLocator from "@/components/home/ServiceLocator.vue";
 import ResultPage from "@/components/steps/submit/ResultPage.vue";
 import AvailableServices from "@/components/home/AvailableServices.vue";
 import FlappSurveys from "@/components/FlappSurveys.vue";
@@ -26,13 +25,7 @@ const routes = [
   {
     path: "/apply-for-family-order",
     component: LandingPage
-  },
-  {
-    path: "/serviceLocator",
-    name: "service-locator",
-    beforeEnter: authGuard,
-    component: ServiceLocator,
-  },
+  },  
   {
     path: "/availableServices",
     name: "available-services",

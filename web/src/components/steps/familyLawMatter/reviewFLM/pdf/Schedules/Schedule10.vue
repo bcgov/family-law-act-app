@@ -35,55 +35,73 @@
                         <check-box style="" :check="exSpsSupInfo.orderInfo.changes.myfin?'yes':''" text="my financial situation has changed"/>
                         <check-box style="" :check="exSpsSupInfo.orderInfo.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
                         
-                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="my employment, training, health and/or ability to work has changed as follows:"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.opEmp?'yes':''" text="I believe the other party’s employment, training, health and/or ability to work has changed as follows:"/>
-                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.houseHold?'yes':''" text="my household expenses have changed as follows:"/>
-
-                        <check-box style="margin:0 0 2rem 0;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made <i>(specify):</i>"/>
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="my employment, training, health and/or ability to work has changed as follows:"/>
+                        <div v-if="exSpsSupInfo.orderInfo.changes.myEmp" 
+                                class="answerbox">{{exSpsSupInfo.orderInfo.myEmp}}</div>
+                        <div v-else style="margin-bottom:2rem;"></div>
+                        
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.opEmp?'yes':''" text="I believe the other party’s employment, training, health and/or ability to work has changed as follows:"/>
+                        <div v-if="exSpsSupInfo.orderInfo.changes.opEmp" 
+                                class="answerbox">{{exSpsSupInfo.orderInfo.opEmp}}</div>
+                        <div v-else style="margin-bottom:2rem;"></div>
+                        
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.houseHold?'yes':''" text="my household expenses have changed as follows:"/>
+                        <div v-if="exSpsSupInfo.orderInfo.changes.houseHold" 
+                                class="answerbox">{{exSpsSupInfo.orderInfo.houseHold}}</div>
+                        <div v-else style="margin-bottom:2rem;"></div>
+                        
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.newInfo?'yes':''" text="information has become available that was not available when the order was made <i>(specify):</i>"/>
                         <div v-if="exSpsSupInfo.orderInfo.changes.newInfo" 
                                 class="answerbox">{{exSpsSupInfo.orderInfo.newInfo}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
-                        <check-box style="margin:0 0 3rem 0;" :check="exSpsSupInfo.orderInfo.changes.other?'yes':''" text="other changes or circumstances <i>(specify)</i>:"/>
-                        <div v-if="exSpsSupInfo.orderInfo.other" 
+                        <div v-else style="margin-bottom:2rem;"></div>
+                        
+                        <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.other?'yes':''" text="other changes or circumstances <i>(specify)</i>:"/>
+                        <div v-if="exSpsSupInfo.orderInfo.changes.other" 
                                 class="answerbox">{{exSpsSupInfo.orderInfo.otherChange}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
+                        <div v-else style="margin-bottom:2rem;"></div>
                     </div>
                 </section>
             </div>
 
             <div class="print-block">
-                <div style="margin-top:3rem;"><b>Existing agreement</b></div>
+                <div style="margin-top:2rem;"><b>Existing agreement</b></div>
 <!-- <3> -->
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
                     <div>
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exSpsSupInfo.current.agreement?'yes':''" text="I am applying for the existing written agreement about spousal support to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="true?'yes':''" text="set aside"/>
-                            <check-box style="" :check="true?'yes':''" text="replaced"/>
+                            <check-box style="" :check="exSpsSupInfo.agreementInfo.setAside?'yes':''" text="set aside"/>
+                            <check-box style="" :check="exSpsSupInfo.agreementInfo.replace?'yes':''" text="replaced"/>
                         </div>
                         <div style="margin:0 0 0 3rem;">I believe the agreement should be set aside or replaced because:</div>
+                        <div style="margin:0 0 0 2rem;" v-if="exSpsSupInfo.agreementInfo.reason" 
+                                class="answerbox">{{exSpsSupInfo.agreementInfo.reason}}</div>
+                        <div v-else style="margin-bottom:2rem;"></div>
                     </div>                
                 </section> 
             </div>       
         
             <div class="print-block">
-                <div style="margin-top:3rem;"><b>About the order</b></div>
+                <div style="margin-top:2rem;"><b>About the order</b></div>
 <!-- <4> -->
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you are applying to change or replace an existing final order or written agreement about spousal support. You may leave this section blank.</i>
                     <div style="margin:0 0 0 0rem; text-indent:0rem;">
                         I am applying for the final order or agreement about spousal support to be changed or replaced as follows:
-                    </div>
+                    </div>                    
+                    <div style="margin:0 0 0 0rem;" v-if="exSpsSupInfo.about.chSinceOrder" 
+                        class="answerbox">{{exSpsSupInfo.about.chSinceOrder}}</div>
+                    <div v-else style="margin-bottom:2rem;"></div>
                 </section>
             </div>
 
             <div class="print-block">
-                <div style="margin-top:3rem;"><b>Unpaid spousal support</b></div>
+                <div style="margin-top:1.5rem;"><b>Unpaid spousal support</b></div>
 <!-- <5> -->
                 <section>
-                    <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" text="APR 20 2020"/>
-                    <underline-form style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of unpaid spousal support (arrears) was $" hint="" text="125000.00"/>          
+                    <underline-form style="margin-left:0.5rem; text-indent:0px;" textwidth="9rem" beforetext="As of " hint="mmm/dd/yyyy" :text="exSpsSupInfo.payDetails.currentDate"/>
+                    <underline-form style="margin-left:0.1rem; text-indent:0px;" textwidth="7rem" beforetext=", the amount of unpaid spousal support (arrears) was $" hint="" :text="exSpsSupInfo.payDetails.unPaidAmount"/>          
                 </section>
             </div>
 
@@ -93,12 +111,15 @@
                 <i style="display:inline; margin-left:0.35rem">Complete only if there is unpaid spousal support. You may leave this section blank.</i>
                 <div style="margin:0 0 0 1.5rem;">
                     <i>Select only one of the options below.</i>
-                    <check-box style="margin:0 0 0 0rem;" :check="true?'yes':''" text="I am not applying to reduce the amount of unpaid spousal support (arrears)"/>                    
+                    <check-box style="margin:0 0 0 0rem;" :check="exSpsSupInfo.payDetails.unpaid && !exSpsSupInfo.payDetails.reduce?'yes':''" text="I am not applying to reduce the amount of unpaid spousal support (arrears)"/>                    
                 </div>
                 <div style="margin:0 0 0 1.5rem;">    
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0.07rem;" :check="true?'yes':''" text="I am applying to reduce the amount of unpaid spousal support (arrears) to"/>                    
-                    <underline-form style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" hint="" text="200,000.00"/>
-                    <div style="margin:0 0 3rem 0;">because:</div>
+                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0.07rem;" :check="exSpsSupInfo.payDetails.reduce?'yes':''" text="I am applying to reduce the amount of unpaid spousal support (arrears) to"/>                    
+                    <underline-form style="display:inline; text-indent:0px;" textwidth="8rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.reduceAmount"/>
+                    <div style="margin:0 0 0rem 0;">because:</div>
+                    <div style="margin:0 0 0 1rem;" v-if="exSpsSupInfo.payDetails.reduce" 
+                        class="answerbox">{{exSpsSupInfo.payDetails.reduceReason}}</div>
+                    <div v-else style="margin-bottom:2rem;"></div>
                 </div>
             </section>
 
@@ -111,39 +132,42 @@
                     <i>Select all options that apply and complete the required information</i>
                 </div>
                 <div style="margin:0.25rem 0 0 1.5rem;">                        
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="at a rate of "/>                    
-                    <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" text="200,000.00"/>
+                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline; margin:0 0.25rem 0 0rem;" :check="exSpsSupInfo.payDetails.monthly?'yes':''" text="at a rate of "/>                    
+                    <underline-form style="display:inline; text-indent:0px;" textwidth="9rem" beforetext=" $" hint="" :text="exSpsSupInfo.payDetails.rate"/>
                     <div style="display:inline;margin:0 0 0 0.25rem;">per month</div>
                 </div>
                 <div style="margin:0.25rem 0 0 1.45rem;">
-                    <check-box style="margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="in a lump sum"/>
+                    <check-box style="margin:0 0.25rem 0 0rem;" :check="exSpsSupInfo.payDetails.lumpSum?'yes':''" text="in a lump sum"/>
                 </div>
                 <div class="marginleft2p5vue" style="margin:0.25rem 0 0 1.45rem;">
-                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other <i>(specify):</i>"/>
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" text=""/>
+                    <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exSpsSupInfo.payDetails.other?'yes':''" text="other <i>(specify):</i>"/>
+                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="32rem" beforetext="" hint="" :text="exSpsSupInfo.payDetails.otherComm"/>
                  </div>
             </section>
 
             <div class="print-block">
-                <div style="margin-top:1rem;"><b>Calculations</b></div>
+                <div style="margin-top:2rem;"><b>Calculations</b></div>
 <!-- <8> -->
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                     <div style="margin:0 0 0 1.25rem;">
-                        <check-box style="margin:0 0.25rem 0 0rem;" :check="true?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
-                        <check-box style="margin:0 0rem 3rem 0rem;" :check="true?'yes':''" text="I am not attaching calculations because:"/>
+                        <check-box style="margin:0 0.25rem 0 0rem;" :check="exSpsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
+                        <check-box style="margin:0 0rem 0rem 0rem;" :check="!exSpsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
+                        <div style="margin:0 0 0 1rem;" v-if="!exSpsSupInfo.calc.attaching" 
+                            class="answerbox">{{exSpsSupInfo.calc.reason}}</div>
+                        <div v-else style="margin-bottom:2rem;"></div>
                     </div>
                 </section>
             </div>
 
             <div class="print-block">
-                <div style="margin-top:1rem;"><b>Financial statement</b></div>
+                <div style="margin-top:1.5rem;"><b>Financial statement</b></div>
 <!-- <9> -->
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box style="" :check="true?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box style="" :check="true?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box style="" :check="filingForm4?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box style="" :check="true?'?':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -172,6 +196,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import moment from 'moment';
 
 @Component({
     components:{
@@ -186,6 +211,7 @@ export default class Form3 extends Vue {
   
     dataReady = false;    
     exSpsSupInfo = {}
+    filingForm4 = false;
    
     mounted(){
         this.dataReady = false;       
@@ -224,7 +250,7 @@ export default class Form3 extends Vue {
             
 
         let existingSpousalSupportInfo = {
-            current: {
+            current: {                
                 date: '',
                 order: false,
                 agreement: false,
@@ -243,7 +269,9 @@ export default class Form3 extends Vue {
                     newInfo: false,
                     other: false
                 },
-                changesSinceOrder: '',
+                myEmp: '',
+                opEmp: '',
+                houseHold: '',
                 newInfo: '',
                 otherChange: '',
                 change: false,
@@ -255,10 +283,11 @@ export default class Form3 extends Vue {
                 reason: ''
             },
             payDetails:{
+                currentDate:'',
                 unpaid: false,
                 unPaidAmount: '',
                 reduce: false,
-                reduceAmmount: '',
+                reduceAmount: '',
                 reduceReason: '',
                 monthly: false,                
                 rate: '',
@@ -269,10 +298,13 @@ export default class Form3 extends Vue {
             calc: {
                 attaching: false,
                 reason: ''
+            },
+            about:{
+                chSinceOrder:''
             }
         }
 
-        console.log(this.result)
+        //console.log(this.result)
 
         if (this.result.existingSpousalSupportOrderAgreementSurvey){
             existingSpousalSupportInfo.current = {
@@ -290,7 +322,6 @@ export default class Form3 extends Vue {
                 && this.result.existingSpousalSupportFinalOrderSurvey.orderDate){
 
                     existingSpousalSupportInfo.current.date = Vue.filter('beautify-date')(this.result.existingSpousalSupportFinalOrderSurvey.orderDate);
-
             }
 
             if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'
@@ -298,12 +329,11 @@ export default class Form3 extends Vue {
                 && this.result.existingSpousalSupportAgreementSurvey.agreementDate){
                     
                     existingSpousalSupportInfo.current.date = Vue.filter('beautify-date')(this.result.existingSpousalSupportAgreementSurvey.agreementDate);
-
             }
 
         }
 
-        if (this.result.existingSpousalSupportAgreementSurvey){
+        if ( this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey){
             existingSpousalSupportInfo.agreementInfo = {                
                 replace: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement',
                 setAside: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'setAsideAgreement',
@@ -312,24 +342,46 @@ export default class Form3 extends Vue {
         }
 
         if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
-            const orderChangeList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList?this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList:[];
-            existingSpousalSupportInfo.orderInfo = {
+            const orderChangeList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.checked.length>0?this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.checked:[];
+            const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
+            
+            existingSpousalSupportInfo.orderInfo =changeCondition?{
 
                 changes: {
-                    myfin: orderChangeList.includes('My financial situation has changed'),
-                    opfin: orderChangeList.includes('I believe the other party’s financial situation has changed'),
-                    myEmp: orderChangeList.includes('My employment, training, health and/or ability to work have changed'),
-                    opEmp: orderChangeList.includes('I believe the other party’s employment, training, health and/or ability to work have changed'),
-                    houseHold: orderChangeList.includes('My household expenses have changed'),
-                    newInfo: orderChangeList.includes('Information has become available that was not available when the order was made'),
-                    
-                    other: orderChangeList.includes('Other changes or circumstances')
+                    myfin: orderChangeList.includes('myFinancialChanged'),
+                    opfin: orderChangeList.includes('partyFinancialChanged'),
+                    myEmp: orderChangeList.includes('myEmploymentChanged'),
+                    opEmp: orderChangeList.includes('partyEmploymentChanged'),
+                    houseHold: orderChangeList.includes('myHouseholdChanged'),
+                    newInfo: orderChangeList.includes('newInformation'),                    
+                    other: orderChangeList.includes('other')
                 },
-                changesSinceOrder: (orderChangeList.includes('Other changes or circumstances') && this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder)?this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder:'',
+
+                newInfo:     (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('newInformation')         && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.newInformationComment)?         this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.newInformationComment:'',
+                houseHold:   (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('myHouseholdChanged')     && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myHouseholdChangedComment)?     this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myHouseholdChangedComment:'',
+                myEmp:       (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('myEmploymentChanged')    && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myEmploymentChangedComment)?    this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myEmploymentChangedComment:'',
+                opEmp:       (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('partyEmploymentChanged') && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.partyEmploymentChangedComment)? this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.partyEmploymentChangedComment:'',
+                otherChange: (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('other')                  && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.otherComment)?                  this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.otherComment:'',
                 
-                newInfo: (orderChangeList.includes('Information has become available that was not available when the order was made') && this.result.existingSpousalSupportOrderAgreementSurvey.newInfoSinceOrder)?this.result.existingSpousalSupportOrderAgreementSurvey.newInfoSinceOrder:'',
+                change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
+                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
                 
-                otherChange: (orderChangeList.includes('Other changes or circumstances') && this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder)?this.result.existingSpousalSupportOrderAgreementSurvey.otherChangesSinceOrder:'',
+            }:{
+                changes: {
+                    myfin: false,
+                    opfin: false,
+                    myEmp: false,
+                    opEmp: false,
+                    houseHold: false,
+                    newInfo: false,
+                    other: false
+                },
+
+                newInfo: '',    
+                houseHold:'',
+                myEmp: '',     
+                opEmp: '',     
+                otherChange:'',
                 
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
                 cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
@@ -337,6 +389,14 @@ export default class Form3 extends Vue {
             }
         }
 
+        if (this.result.aboutExistingSpousalSupportOrderSurvey){
+            const changeOrReplaceCondition = ((this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'     && this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder') ||
+                                              (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement'));
+               
+            existingSpousalSupportInfo.about ={
+                chSinceOrder: changeOrReplaceCondition? this.result.aboutExistingSpousalSupportOrderSurvey.changesSinceOrder:''
+            }
+        }
         // if (this.result.spousalSupportIncomeAndEarningPotentialSurvey){
         //     newSpousalSupportInfo.incomeInfo = {
         //         myIncome: this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo:'',
@@ -353,28 +413,34 @@ export default class Form3 extends Vue {
         //     }
         // }
 
-        // if (this.result.aboutSpousalSupportOrderSurvey){            
-        //     newSpousalSupportInfo.payDetails = {
-        //         monthly: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly'): false,
-        //         start: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
-        //                 && this.result.aboutSpousalSupportOrderSurvey.startDate)?this.result.aboutSpousalSupportOrderSurvey.startDate:'',
-        //         end: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
-        //                 && this.result.aboutSpousalSupportOrderSurvey.endDate)?this.result.aboutSpousalSupportOrderSurvey.endDate:'',
-        //         rate: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('monthly')
-        //                 && this.result.aboutSpousalSupportOrderSurvey.monthlyAmount)?this.result.aboutSpousalSupportOrderSurvey.monthlyAmount:'',
-        //         lumpSum: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum'): false,
-        //         lumpSumAmount: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('lumpsum')
-        //                 && this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount)? this.result.aboutSpousalSupportOrderSurvey.lumpSumAmount:'',
-        //         other: (this.result.aboutSpousalSupportOrderSurvey.howToPay)? this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other'): false,
-        //         otherComm: (this.result.aboutSpousalSupportOrderSurvey.howToPay 
-        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPay.includes('other') 
-        //                 && this.result.aboutSpousalSupportOrderSurvey.howToPayComment)? this.result.aboutSpousalSupportOrderSurvey.howToPayComment:''
-        //     }
-        // }
+        if (this.result.unpaidSpousalSupportSurvey){            
+            existingSpousalSupportInfo.payDetails = this.result.unpaidSpousalSupportSurvey.unpaid == "y"?
+            {
+                currentDate: moment().format("MMM DD, yyyy"),
+                unpaid:true ,
+                unPaidAmount: this.result.unpaidSpousalSupportSurvey.unPaidAmount,
+                reduce: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? true : false,
+                reduceAmount: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.reduceAmount:'',
+                reduceReason: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.whyReduceAmount:'',
+                monthly: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'monthly',                
+                rate: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'monthly'? this.result.unpaidSpousalSupportSurvey.paymentSchedule.monthlyAmount:'',
+                lumpSum: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'lumpsum',                
+                other: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'other',
+                otherComm: this.result.unpaidSpousalSupportSurvey.paymentSchedule.otherComment
+            }:{
+                currentDate:'',
+                unpaid: false,
+                unPaidAmount: '',
+                reduce: false,
+                reduceAmount: '',
+                reduceReason: '',
+                monthly: false,                
+                rate: '',
+                lumpSum: false,                
+                other: false,
+                otherComm: ''
+            }
+        }
 
         if (this.result.calculatingSpousalSupportSurvey){
             existingSpousalSupportInfo.calc = {
@@ -385,6 +451,12 @@ export default class Form3 extends Vue {
                         && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
             }
         }
+
+        if(this.$store.state.Application.supportingDocumentForm4 && this.$store.state.Application.supportingDocumentForm4.length>0) 
+            this.filingForm4 = true;
+        else 
+            this.filingForm4 = false;
+
         return existingSpousalSupportInfo;
     }   
 

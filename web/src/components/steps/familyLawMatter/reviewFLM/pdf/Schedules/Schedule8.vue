@@ -113,9 +113,9 @@ export default class Form3 extends Vue {
     }   
     
     childrenGuardianshipFields = [
-        {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
-        {key:"childName",     label:"Name of child(ren)",                                   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
-        {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:25%;"},
+        {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:30%;"},
+        {key:"childName",     label:"Name of child(ren)",                                   tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:30%;"},
+        {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:25%;"},
     ]
 
     public extractInfo(){   

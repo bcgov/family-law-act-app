@@ -139,7 +139,7 @@ export default class AboutContactWithChildOrder extends Vue {
                 this.survey.setVariable("childWording", "children");                    
             } else {
                 this.survey.setVariable("childWording", "child");
-                this.survey.setValue("childrenRequireContactChoices", Vue.filter('getFullName')(childData[0].name));
+                this.survey.setValue("childrenRequireContactChoices", [Vue.filter('getFullName')(childData[0].name)]);
                 this.survey.setVariable("selectedChildWording", "child");
             }
         }       

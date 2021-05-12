@@ -37,7 +37,7 @@
             </div>
         
             <div class="print-block">
-                <div style="margin-top:4rem;"><b>Income and earning potential</b></div>
+                <div style="margin-top:2rem;"><b>Income and earning potential</b></div>
 <!-- <3> -->
                 <section>
                     <div style="display:inline; margin:0 0 0rem 0.35rem;">My current employment situation, training, health and ability to work are as follows:</div>
@@ -47,7 +47,7 @@
                 </section>
             </div>
 
-            <div style="margin-top:4rem;"></div>
+            <div style="margin-top:1.5rem;"></div>
 <!-- <4> -->
             <section>               
                 <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
@@ -62,7 +62,7 @@
 <!-- <5> -->
             <section>
                 <div style="display:inline; margin:0 0 0 0.5rem;">I know the following facts about the other party’s employment, training, health and ability to work:</div>
-                <div style="margin:0 0 3rem 1.5rem;">
+                <div style="margin:0 0 0rem 1.5rem;">
                     <i style="margin:0 0 0 0rem;" >If you do not have any information, please leave this section blank</i>
                 </div>
                 <div v-if="spsSupInfo.incomeInfo.knowFacts" 
@@ -71,10 +71,11 @@
             </section>
 
             <div class="print-block">
-                <div style="margin-top:1rem;"><b>About the order</b></div>
+                <div style="margin-top:1.5rem;"><b>About the order</b></div>
 <!-- <6> -->
                 <section>
-                    <underline-form style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" beforetext="I am applying for an order for spousal support to be paid by" hint="name of paying party" :text="spsSupInfo.current.payors"/>                
+                    <div style="display:inline; margin:0 0 0 0.25rem;"> I am applying for an order for spousal support to be paid by</div>                   
+                    <underline-form v-for="payor,inx in spsSupInfo.current.payors" :key="inx" style="text-indent:0px;display:inline; margin:0 0 0 0.5rem;" textwidth="11.5rem" :beforetext="inx>0?', ':''" hint="name of paying party" :text="payor"/>          
                     <div style="display:inline; margin:0 0 0 0.5rem;">as follows:</div>
                     <div>
                         <i style="margin:0 0 0 1.5rem;" >Select all options that apply and complete the required information</i>
@@ -102,7 +103,7 @@
 <!-- <7> -->
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
-                    <div style="margin:0 0 3rem 1.25rem;">
+                    <div style="margin:0 0 0rem 1.25rem;">
                         <check-box style="" :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
                         <check-box style="" :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
                     </div>
@@ -118,8 +119,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box style="" :check="true?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box style="" :check="true?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box style="" :check="filingForm4?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box style="" :check="true?'?':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -161,6 +162,8 @@ export default class Form3 extends Vue {
   
     dataReady = false;
     spsSupInfo = {}
+
+    filingForm4 = false;
    
     mounted(){
         this.dataReady = false;        
@@ -216,7 +219,7 @@ export default class Form3 extends Vue {
                 bcmIndpndnt: entitlementReasons.includes('To help each spouse become financially independent within a reasonable period'),
                 crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
                 payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
-                        && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors.toString():''
+                        && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
             }
 
         }
@@ -266,6 +269,12 @@ export default class Form3 extends Vue {
                         && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
             }
         }
+        
+        if(this.$store.state.Application.supportingDocumentForm4 && this.$store.state.Application.supportingDocumentForm4.length>0) 
+            this.filingForm4 = true;
+        else 
+            this.filingForm4 = false;
+
         return newSpousalSupportInfo;
     }
 }

@@ -86,7 +86,7 @@ export default class ReviewYourAnswers extends Vue {
     currentPage=0;
     pageHasError = false;
 
-    previewFormsPage = 13;
+    previewFormsPage = 14;
 
     errorQuestionNames = [];
 
