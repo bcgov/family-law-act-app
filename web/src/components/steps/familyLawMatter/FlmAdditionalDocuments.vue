@@ -66,7 +66,7 @@ export default class FlmAdditionalDocuments extends Vue {
 
     isRequiredDocument = false;
     requiredDocumentLists = [];
-
+    appointedAsGuardian = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -105,7 +105,10 @@ export default class FlmAdditionalDocuments extends Vue {
         this.surveyJsonCopy.pages[0].elements[0].elements[2]["choices"]=[];
         for (const doc of this.requiredDocumentLists){
             console.log(doc)
-            if(doc.includes('form'))
+            console.log(doc.includes('Form 5'))
+            if(doc.includes('Form 5'))
+                this.appointedAsGuardian = true;
+            if(doc.includes('form') || doc.includes('Form'))
                 this.surveyJsonCopy.pages[0].elements[0].elements[2]["choices"].push(doc);            
         }                     
     }
@@ -119,6 +122,8 @@ export default class FlmAdditionalDocuments extends Vue {
             this.survey.data = this.step.result['flmAdditionalDocsSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
+
+        this.survey.setVariable('appointedAsGuardian', this.appointedAsGuardian);
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
@@ -129,8 +134,8 @@ export default class FlmAdditionalDocuments extends Vue {
             this.requiredDocumentLists = this.requiredDocuments['familyLawMatter'].required
             this.isRequiredDocument = true
         }
-        console.log(this.requiredDocuments['familyLawMatter'])
-        console.log(this.requiredDocumentLists)
+       // console.log(this.requiredDocuments['familyLawMatter'])
+       // console.log(this.requiredDocumentLists)
     }
 
     public getFLMResultData() {         
@@ -160,8 +165,7 @@ export default class FlmAdditionalDocuments extends Vue {
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
 
         //return result;
-    }
-    
+    }    
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

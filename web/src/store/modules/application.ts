@@ -1041,7 +1041,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateSupportingDocumentForm4(newSupportingDocumentForm4) {
-        this.context.commit("setSupportingDocumentForm4", newSupportingDocumentForm4);
+        this.context.commit("setSupportingDocumentForm4", newSupportingDocumentForm4);        
     }
 
     @Mutation

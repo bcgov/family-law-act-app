@@ -174,6 +174,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	if(flagForm4){
 		supportingDocumentForm4.push(currentPage)
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
+		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
 	}
 	// console.log(document.getElementsByName("inCourtForPO"))
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
@@ -259,6 +260,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	if(type == 'familyLawMatter'){	
 
+		//const selectedPathways = store.state.Application.steps[3].result && store.state.Application.steps[3].result.flmSelectedForm && store.state.Application.steps[3].result.flmSelectedForm.data? store.state.Application.steps[3].result.flmSelectedForm.data:[]
 		//if(questions.filingLocationSurvey && questions.filingLocationSurvey.ExistingFamilyCase == "y")
 		
 		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y"|| questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.ExistingOrdersFLM == "y")
@@ -284,9 +286,13 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			questions.flmSelectedForm.includes("spousalSupport")))
 				requiredDocuments.push("Support calculation");
 
-		if(questions.GuardianOfChildSurvey && questions.GuardianOfChildSurvey.applicantionType && questions.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian') ){
-			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
-			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");
+		if( questions.flmSelectedForm &&
+			questions.flmSelectedForm.includes("guardianOfChild") && 
+			questions.GuardianOfChildSurvey && 
+			questions.GuardianOfChildSurvey.applicantionType && 
+			questions.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian') ){
+				requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
+				requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");
 		
 		}
 

@@ -19,12 +19,34 @@
             {
                 "type": "radiogroup",
                 "name": "selectedFilingType",
+                "visible": false,
+                "visibleIf":"{efilingAllowed} = 'n'",
                 "isRequired": true,
                 "title": "I want to file my application",
                 "choices": [
                     {
                     "value": "inperson",
-                    "text": "In Person"
+                    "text": "In Person",
+                    "disabled":true
+                    },
+                    {
+                    "value": "byemail",
+                    "text": "By Email"
+                    }                    
+                ]
+            },
+            {
+                "type": "radiogroup",
+                "name": "selectedFilingType",
+                "visible": false,
+                "visibleIf":"{efilingAllowed} = 'y'",
+                "isRequired": true,
+                "title": "I want to file my application",
+                "choices": [
+                    {
+                    "value": "inperson",
+                    "text": "In Person",
+                    "disabled":true
                     },
                     {
                     "value": "byemail",
