@@ -104,79 +104,86 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-    
+
         p = {} as pageInfoType;
         p.key = "3";
-        p.label = "Remove person or belongings";
+        p.label = "Filing Location";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "4";
-        p.label = "No Go";
+        p.label = "Remove person or belongings";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "5";
-        p.label = "No Contact";
+        p.label = "No Go";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "6";
-        p.label = "Weapons and Firearms";
+        p.label = "No Contact";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "7";
-        p.label = "Background";
+        p.label = "Weapons and Firearms";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "8";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+    
+        p = {} as pageInfoType;
+        p.key = "9";
         p.label = "Your Story";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "9";
+        p.key = "10";
         p.label = "Other Party";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "11";
         p.label = "About Protection Order";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
-        p.key = "11";
+        p.key = "12";
         p.label = "Urgency";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "12";
+        p.key = "13";
         p.label = "Review Your Answers";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "13";
+        p.key = "14";
         p.label = "Preview Forms";
         p.active = false;
         p.progress = 0;    

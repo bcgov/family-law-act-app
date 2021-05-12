@@ -54,8 +54,8 @@
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 
                                         OR
-                                        Submit them through our eFiling system.
-                                        That's it!
+                                        Submit them through our eFiling system
+                                        by email.
                                     </p>
                                 </div>
                             </div>
@@ -174,7 +174,8 @@ export default class LandingPage extends Vue {
         await SessionManager.getUserInfo(this.$store);
         if(this.$store.state.Common.userId !== ""){
             this.isLoggedIn = true
-            this.determineUserType()
+            this.$router.push({ name: "applicant-status" });
+            // this.determineUserType()
         }else{
             this.isLoggedIn = false;
             this.pageReady = true;
@@ -182,68 +183,61 @@ export default class LandingPage extends Vue {
     }
   
     public navigate(userType) {
-
-        this.$store.commit("Application/setUserType", userType);          
-        if (userType === "new") {
-              this.loadDocumentTypes();
-               this.extractFilingLocations();
-              this.$router.push({ name: "service-locator" });
-        } else if (userType === "returning") {
-              this.$router.push({ name: "applicant-status" });
-        }  
+        this.$store.commit("Application/setUserType", userType); 
+        this.$router.push({ name: "applicant-status" });       
     }
     
-    public determineUserType () {
-        this.$http.get('/app-list/')
-        .then((response) => {
-            if(response.data.length>0) {
-                this.navigate("returning");
-            }else{
-                this.navigate("new");
-            }        
+    // public determineUserType () {
+    //     this.$http.get('/app-list/')
+    //     .then((response) => {
+    //         if(response.data.length>0) {
+    //             this.navigate("returning");
+    //         }else{
+    //             this.navigate("new");
+    //         }        
         
-        },(err) => console.log(err));
-    }
+    //     },(err) => console.log(err));
+    // }
 
-    public loadDocumentTypes() {
-        const documentTypesJson = require("./forms/documentTypes.json");
-        //console.log(documentTypesJson)
-        this.UpdateDocumentTypesJson(documentTypesJson);
-        this.$http.get('/efiling/document-types/')
-        .then((response) => { 
-            if(response.data && response.data.length>0){
-                //console.log(response.data) 
-                this.UpdateDocumentTypesJson(response.data);
-            }
-        },(err) => {            
-            console.log(err)
-            //this.error = err;        
-        });
-    }
+    // public loadDocumentTypes() {
+    //     const documentTypesJson = require("./forms/documentTypes.json");
+    //     //console.log(documentTypesJson)
+    //     this.UpdateDocumentTypesJson(documentTypesJson);
+    //     this.$http.get('/efiling/document-types/')
+    //     .then((response) => { 
+    //         if(response.data && response.data.length>0){
+    //             //console.log(response.data) 
+    //             this.UpdateDocumentTypesJson(response.data);
+    //         }
+    //     },(err) => {            
+    //         console.log(err)
+    //         //this.error = err;        
+    //     });
+    // }
 
-    public extractFilingLocations() {
-        this.$http.get('/efiling/locations/')
-        .then((response) => {
-            // console.log(Object.keys(response.data))
-            const locationsInfo = response.data 
-            const locationNames = Object.keys(response.data);
-            const locations = []
-            for (const location of locationNames){
-                // console.log(location)
-                // console.log(locationsInfo[location])
-                const locationInfo = locationsInfo[location];                
-                const address = (locationInfo.address_1?(locationInfo.address_1+ ', '):'')  + 
-                                (locationInfo.address_2?(locationInfo.address_2 + ', '):'') + 
-                                (locationInfo.address_3?(locationInfo.address_3):'');
-                const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-                locations.push({id: locationInfo.location_id, name: location, address: address, postalCode: postalCode, email:''})               
-            }
-            console.log(locations)
-            this.UpdateLocationsInfo(locations);
+    // public extractFilingLocations() {
+    //     this.$http.get('/efiling/locations/')
+    //     .then((response) => {
+    //         // console.log(Object.keys(response.data))
+    //         const locationsInfo = response.data 
+    //         const locationNames = Object.keys(response.data);
+    //         const locations = []
+    //         for (const location of locationNames){
+    //             // console.log(location)
+    //             // console.log(locationsInfo[location])
+    //             const locationInfo = locationsInfo[location];                
+    //             const address = (locationInfo.address_1?(locationInfo.address_1+ ', '):'')  + 
+    //                             (locationInfo.address_2?(locationInfo.address_2 + ', '):'') + 
+    //                             (locationInfo.address_3?(locationInfo.address_3):'');
+    //             const postalCode = (locationInfo.postal?(locationInfo.postal):'');
+    //             locations.push({id: locationInfo.location_id, name: location, address: address, postalCode: postalCode, email:''})               
+    //         }
+    //         console.log(locations)
+    //         this.UpdateLocationsInfo(locations);
         
-        },(err) => console.log(err));
+    //     },(err) => console.log(err));
         
-    }
+    // }
   
 };
 </script>

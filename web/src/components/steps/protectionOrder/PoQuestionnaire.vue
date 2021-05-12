@@ -55,13 +55,13 @@ export default class PoQuestionnaire extends Vue {
     currentStep=0;
     currentPage=0;
     
-    allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12,13];
-    needPoPages = [1, 2, 3, 4, 6, 7, 8, 11, 12];
-    changeTerminatePages = [ 1, 9, 10, 11, 12];
-    commonPages = [11, 12, 13]
-    noContantPage = [5];
-    aboutPage = 10;
-    urgencyPage = [11];
+    allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12,13, 14];
+    needPoPages = [1, 2, 3, 4, 5, 7, 8, 9, 12, 13];
+    changeTerminatePages = [ 1, 10, 11, 12, 13];
+    commonPages = [12, 13, 14]
+    noContantPage = [6];
+    aboutPage = 11;
+    urgencyPage = [12];
 
     beforeCreate() {
         const Survey = SurveyVue;

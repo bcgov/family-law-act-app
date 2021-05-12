@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -52,25 +52,25 @@ export default class ProtectionFromWhom extends Vue {
 
     applicantName = ""
 
-    survey = new SurveyVue.Model(surveyJson);
-    surveyJsonCopy;
+    survey = new SurveyVue.Model(surveyJson); 
+    disableNextButton = false;
     currentStep=0;
     currentPage=0;
 
-    beforeCreate() {
+    beforeCreate() {        
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);        
     }
 
     mounted(){
+        this.disableNextButton = false; 
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
     }
     
     public initializeSurvey(){
-        this.adjustSurveyForLocations();
-        this.survey = new SurveyVue.Model(this.surveyJsonCopy);
+        this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
@@ -80,7 +80,7 @@ export default class ProtectionFromWhom extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             // console.log(this.survey.data);
-             console.log(options)
+            //  console.log(options)
 
             Vue.filter('surveyChanged')('protectionOrder')
 
@@ -92,32 +92,16 @@ export default class ProtectionFromWhom extends Vue {
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt)
             }
-
-            // if(options.name == "childPO" && options.value == "y" && this.$store.state.Application.steps[2].pages[5].progress) { 
-            //     console.log('progress')       
-            //     console.log(this.$store.state.Application.steps[2].result['backgroundSurvey'].data['ExistingOrders'])
-            // }   
+              
             this.determineNoContactPage()
             this.checkAnswersforContinue()
-
         })
     }
 
     public saveApplicationLocation(location){       
         this.$store.commit("Application/setApplicationLocation", location);        
        
-    }  
-
-    public adjustSurveyForLocations(){
-
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
-        
-        this.surveyJsonCopy.pages[0].elements[2].elements[2]["choices"] = [];        
-        
-        for(const location of this.locationsInfo){
-            this.surveyJsonCopy.pages[0].elements[2].elements[2]["choices"].push(location["name"])
-        }
-    }
+    }    
 
     public reloadPageInformation() {
 
@@ -137,7 +121,7 @@ export default class ProtectionFromWhom extends Vue {
     }
 
     public determineNoContactPage(){       
-        const noContantPage = 5;
+        const noContantPage = 6;
 
         if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
             this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: true});
@@ -156,11 +140,13 @@ export default class ProtectionFromWhom extends Vue {
 
     public checkAnswersforContinue(){
         if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages([3,4,5,6,7,8,10,11,12,13], false);
+            this.togglePages([3,4,5,6,7,8, 9,11,12,13, 14], false);
+            this.disableNextButton = true;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
-        }else{
-            this.togglePages([3,4,6,7,8,11,12], true);
+        } else {
+            this.togglePages([3,4,5,7,8,9, 12,13], true);   
+            this.disableNextButton = false;         
             this.determineNoContactPage()
             return true
         }

@@ -1,268 +1,225 @@
 {
-    "title": "Provincial Court Family Law Act Protection Order",
-    "pages": [
-     {
-      "name": "Protection from whom?",
-      "elements": [
-       {
-        "type": "panel",
-        "name": "RespondentPanel",
-        "elements": [
-         {
-          "type": "personname",
-          "name": "RespondentName",
-          "title": "Who is the person that protection is needed from?",
-          "description": "If you know how their name is written on their ID cards, that will be the most useful.",
-          "defaultSubstitution": "(Respondent Name)",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "RespondentDOBExact",
-          "visible": false,
-          "visibleIf": "{RespondentName} notempty",
-          "isRequired": true,
-          "title": "Do you know {RespondentName}'s exact date of birth?",
-          "description": "You can still use this service without this information. A Protection Order is most effective with this information."
-         },
-         {
-          "type": "text",
-          "name": "RespondentDOB",
-          "visible": false,
-          "visibleIf": "{RespondentDOBExact} = 'y'",
-          "title": "What is {RespondentName}'s date of birth?",
-          "inputType": "date",
-          "isRequired": true
-         },
-         {
-          "type": "address",
-          "name": "RespondentAddress",
-          "visible": false,
-          "visibleIf": "{RespondentName} notempty",
-          "title": "What is an address where {RespondentName} can receive court documents?",
-          "description": "You can pick a daytime address such as {RespondentName}'s workplace or somewhere you know {RespondentName} will be staying.\n<br>\n<br>\nIf you don't have an address for {RespondentName}, fill out as much information as you know. The rest can be left blank."
-         },
-         {
-          "type": "contactinfo",
-          "name": "RespondentContact",
-          "visible": false,
-          "visibleIf": "{RespondentName} notempty",
-          "title": "Contact Information",
-          "labelEmail": "Email (Optional)",
-          "labelFax": "Fax Number (Optional)",
-          "labelPhone": "Daytime Phone Number"
-         }
-        ]
-       },
-       {
-        "type": "panel",
-        "name": "PanelApplicantNeedsProtection",
-        "elements": [
-         {
-          "type": "yesno",
-          "name": "ApplicantNeedsProtection",
-          "isRequired": true,
-          "title": "Do you, {ApplicantName}, need to be protected from {RespondentName}, on this `Protection Order`?",
-          "description": "A judge will review what you are asking for and decide on the conditions for your protection order."
-         },
-         {
-          "type": "infotext",
-          "name": "ExplanationApplicantNeedsNoProtection",
-          "visible": false,
-          "visibleIf": "{ApplicantNeedsProtection} = 'n'",
-          "title": "You can still use this service to protect your children, or to apply for a protection order on behalf of another adult, even if you do not need to be protected from {RespondentName} on this Protection Order.",
-          "titleLocation": "hidden"
-         },
-         {
-          "type": "yesno",
-          "name": "anotherAdultPO",
-          "visibleIf": "{ApplicantNeedsProtection} = \"n\"",
-          "title": "Are you applying for a Protection Order on behalf of another adult?",
-          "isRequired": true
-         },
-         {
-          "type": "personname",
-          "name": "anotherAdultName",
-          "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
-          "title": "What is the Adult's full name?",
-          "defaultSubstitution": "{anotherAdultName}",
-          "isRequired": true
-         },
-         {
-          "type": "text",
-          "name": "anotherAdultDOB",
-          "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
-          "title": "What is the Adult's date of birth?",
-          "inputType": "date",
-          "isRequired": true
-         },
-         {
-          "type": "comment",
-          "name": "anotherAdultReasonForPO",
-          "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultName} notempty",
-          "title": "Please explain why you are applying for {anotherAdultName}",
-          "isRequired": true
-         },
-         {
-          "type": "yesno",
-          "name": "childPO",
-          "isRequired": true,
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\") or {ApplicantNeedsProtection} = \"y\"",
-          "title": "Do you have a child that needs to be protected from {RespondentName}, on this Protection Order?"
-         },
-         {
-            "type": "paneldynamic",
-            "name": "allchildren",
-            "visibleIf": "({childPO} = 'y' and {ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n') or ({ApplicantNeedsProtection} = 'y' and {childPO} = 'y')",
-            "title": "Child(ren) information:",
-            "isRequired": true,
-            "templateElements": [ 
-               {
-               "type": "personname",
-               "name": "childName",
-               "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-               "title": "What is the name of the child?",
-               "defaultSubstitution": "{childName}",
-               "isRequired": true
-               },
-               {
-               "type": "text",
-               "name": "childDOB",
-               "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-               "title": "What is the child's date of birth?",
-               "inputType": "date",
-               "isRequired": true
-               },
-               {
-               "type": "text",
-               "name": "childRelationship",
-               "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-               "title": "What is {RespondentName}'s relationship to the child?",
-               "description":"Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-               "isRequired": true
-               },
-               {
-                  "type": "text",
-                  "name": "childLivingWith",
-                  "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
-                  "title": "Who does the child currently live with?",
-                  "description": "You can use the name of the person or their relationship to the child.",
-                  "isRequired": true
-               }
-            ],
-            "panelCount": 1,
-            "panelAddText": "Add another child",
-            "panelRemoveText": "Remove above child"
-         },
-         {
-          "type": "helptext",
-          "name": "notMyChildFAQ",
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"n\") or {ApplicantNeedsProtection} = \"y\" and  {childPO} = \"n\"",
-          "title": "Do you need Protection Order for the child of the person you are applying for?",
-          "titleLocation": "hidden",
-          "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\">Child Protection Services</a>"
-         },
-         {
-          "type": "yesno",
-          "name": "anotherAdultSharingResi",
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-          "title": "Is there another adult `family member` sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?",
-          "isRequired": true
-         },
-         {
-          "type": "helptext",
-          "name": "sharingResidenceFAQ",
-          "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} != \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"n\"",
-          "title": "Does this include a roommate?",
-          "titleLocation": "hidden",
-          "body": "No, a family law protection order can be made \nonly to protect an at-risk family member from another family member. An adult person, who lives with an at-risk family member, and is a relative of the at-risk person \n(even if they are not related to the person they need protection from) is included in the Family Law Act definition of a `family member`. This usually would \ninclude grandparents, parents, siblings, or other relatives of the at-risk family member. If you have a roommate that needs protection, \nthey should apply for a `Peace Bond`."
-         },
-
-         {
-            "type": "paneldynamic",
-            "name": "allAnotherAdultsSharingResi",
-            "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-            "title": "Information of other adult(s) that need(s) to be protected:",
-            "isRequired": true,
-            "templateElements": [             
-               {
-               "type": "personname",
-               "name": "anotherAdultSharingResiName",
-               "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-               "title": "What is the name of the adult sharing the residence with you?",
-               "defaultSubstitution": "{anotherAdultSharingResiName}",
-               "isRequired": true
-               },
-               {
-               "type": "text",
-               "name": "anotheradultSharingResiDOB",
-               "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
-               "title": "What is the date of birth of the adult sharing the residence with you? ",
-               "inputType": "date",
-               "isRequired": true
-               },
-               {
-               "type": "text",
-               "name": "anotherAdultSharingResiRelation",
-               "visibleIf": "({panel.anotherAdultSharingResiName} notempty) and (({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\"))",
-               "title": "What is {panel.anotherAdultSharingResiName}'s relationship to the protected person(s)?",
-               "isRequired": true
-               }
-            ],
-            "panelCount": 1,
-            "panelAddText": "Add another adult sharing the residence",
-            "panelRemoveText": "Remove above adult sharing the residence"
-         }
-        ],
-        "visible": false,
-        "visibleIf": "{RespondentName} notempty"
-       },
-       {
-        "type": "panel",
-        "name": "ExistingFamilyCasePanel",
-        "elements": [
-         {
-          "type": "yesno",
-          "name": "ExistingFamilyCase",
-          "visibleIf": "({RespondentName} notempty and {ApplicantNeedsProtection} = 'y') or ({anotherAdultPO} = 'n' and {childPO} = 'y')",
-          "isRequired": true,
-          "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
-          "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
-         },
-         {
-          "type": "helptext",
-          "name": "ExistingFamilyCaseFAQ",
-          "title": "If I have a Family Law file open in the Supreme Court of British Columbia, should I include that?",
-          "titleLocation": "hidden",
-          "body": "No, the file numbers are different between Provincial and Supreme Court. If you already have a Provincial Court file number, you will want to make sure that this document gets filed with the same file number."
-         },
-         {
-          "type": "dropdown",
-          "name": "ExistingCourt",
-          "visible": false,
-          "visibleIf": "{ExistingFamilyCase} = 'y'",
-          "isRequired": true,
-          "title": "Court Location",
-          "choices": []
-         },
-         {
-          "type": "text",
-          "name": "ExistingFileNumber",
-          "visible": false,
-          "visibleIf": "{ExistingFamilyCase} = 'y'",
-          "startWithNewLine": false,
-          "title": "File Number",
-          "isRequired": true
-         }
-         
-        ],
-        "visible": false,
-        "visibleIf": "({RespondentName} notempty and {ApplicantNeedsProtection} = 'y') or ({anotherAdultPO} = 'n' and {childPO} = 'y')"
-       }
-      ],
-      "title": "Protection from whom?"
-     }
-    ],
-    "showQuestionNumbers": "off",
-    "requiredText": ""
-   }
+   "title": "Provincial Court Family Law Act Protection Order",
+   "pages": [
+      {
+         "name": "Protection from whom?",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "RespondentPanel",
+               "elements": [
+                  {
+                     "type": "personname",
+                     "name": "RespondentName",
+                     "title": "Who is the person that protection is needed from?",
+                     "description": "If you know how their name is written on their ID cards, that will be the most useful.",
+                     "defaultSubstitution": "(Respondent Name)",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "RespondentDOBExact",
+                     "visible": false,
+                     "visibleIf": "{RespondentName} notempty",
+                     "isRequired": true,
+                     "title": "Do you know {RespondentName}'s exact date of birth?",
+                     "description": "You can still use this service without this information. A Protection Order is most effective with this information."
+                  },
+                  {
+                     "type": "text",
+                     "name": "RespondentDOB",
+                     "visible": false,
+                     "visibleIf": "{RespondentDOBExact} = 'y'",
+                     "title": "What is {RespondentName}'s date of birth?",
+                     "inputType": "date",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "address",
+                     "name": "RespondentAddress",
+                     "visible": false,
+                     "visibleIf": "{RespondentName} notempty",
+                     "title": "What is an address where {RespondentName} can receive court documents?",
+                     "description": "You can pick a daytime address such as {RespondentName}'s workplace or somewhere you know {RespondentName} will be staying.\n<br>\n<br>\nIf you don't have an address for {RespondentName}, fill out as much information as you know. The rest can be left blank."
+                  },
+                  {
+                     "type": "contactinfo",
+                     "name": "RespondentContact",
+                     "visible": false,
+                     "visibleIf": "{RespondentName} notempty",
+                     "title": "Contact Information",
+                     "labelEmail": "Email (Optional)",
+                     "labelFax": "Fax Number (Optional)",
+                     "labelPhone": "Daytime Phone Number"
+                  }
+               ]
+            },
+            {
+               "type": "panel",
+               "name": "PanelApplicantNeedsProtection",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "ApplicantNeedsProtection",
+                     "isRequired": true,
+                     "title": "Do you, {ApplicantName}, need to be protected from {RespondentName}, on this `Protection Order`?",
+                     "description": "A judge will review what you are asking for and decide on the conditions for your protection order."
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "ExplanationApplicantNeedsNoProtection",
+                     "visible": false,
+                     "visibleIf": "{ApplicantNeedsProtection} = 'n'",
+                     "title": "You can still use this service to protect your children, or to apply for a protection order on behalf of another adult, even if you do not need to be protected from {RespondentName} on this Protection Order.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "anotherAdultPO",
+                     "visibleIf": "{ApplicantNeedsProtection} = \"n\"",
+                     "title": "Are you applying for a Protection Order on behalf of another adult?",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "personname",
+                     "name": "anotherAdultName",
+                     "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
+                     "title": "What is the Adult's full name?",
+                     "defaultSubstitution": "{anotherAdultName}",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "text",
+                     "name": "anotherAdultDOB",
+                     "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\"",
+                     "title": "What is the Adult's date of birth?",
+                     "inputType": "date",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "anotherAdultReasonForPO",
+                     "visibleIf": "{anotherAdultPO} = \"y\" and {ApplicantNeedsProtection} = \"n\" and {anotherAdultName} notempty",
+                     "title": "Please explain why you are applying for {anotherAdultName}",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "childPO",
+                     "isRequired": true,
+                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\") or {ApplicantNeedsProtection} = \"y\"",
+                     "title": "Do you have a child that needs to be protected from {RespondentName}, on this Protection Order?"
+                  },
+                  {
+                     "type": "paneldynamic",
+                     "name": "allchildren",
+                     "visibleIf": "({childPO} = 'y' and {ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n') or ({ApplicantNeedsProtection} = 'y' and {childPO} = 'y')",
+                     "title": "Child(ren) information:",
+                     "isRequired": true,
+                     "templateElements": [
+                        {
+                           "type": "personname",
+                           "name": "childName",
+                           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+                           "title": "What is the name of the child?",
+                           "defaultSubstitution": "{childName}",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childDOB",
+                           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+                           "title": "What is the child's date of birth?",
+                           "inputType": "date",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childRelationship",
+                           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+                           "title": "What is {RespondentName}'s relationship to the child?",
+                           "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "childLivingWith",
+                           "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" ",
+                           "title": "Who does the child currently live with?",
+                           "description": "You can use the name of the person or their relationship to the child.",
+                           "isRequired": true
+                        }
+                     ],
+                     "panelCount": 1,
+                     "panelAddText": "Add another child",
+                     "panelRemoveText": "Remove above child"
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "notMyChildFAQ",
+                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"n\") or {ApplicantNeedsProtection} = \"y\" and  {childPO} = \"n\"",
+                     "title": "Do you need Protection Order for the child of the person you are applying for?",
+                     "titleLocation": "hidden",
+                     "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\">Child Protection Services</a>"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "anotherAdultSharingResi",
+                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                     "title": "Is there another adult `family member` sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "sharingResidenceFAQ",
+                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} != \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"n\"",
+                     "title": "Does this include a roommate?",
+                     "titleLocation": "hidden",
+                     "body": "No, a family law protection order can be made \nonly to protect an at-risk family member from another family member. An adult person, who lives with an at-risk family member, and is a relative of the at-risk person \n(even if they are not related to the person they need protection from) is included in the Family Law Act definition of a `family member`. This usually would \ninclude grandparents, parents, siblings, or other relatives of the at-risk family member. If you have a roommate that needs protection, \nthey should apply for a `Peace Bond`."
+                  },
+                  {
+                     "type": "paneldynamic",
+                     "name": "allAnotherAdultsSharingResi",
+                     "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                     "title": "Information of other adult(s) that need(s) to be protected:",
+                     "isRequired": true,
+                     "templateElements": [
+                        {
+                           "type": "personname",
+                           "name": "anotherAdultSharingResiName",
+                           "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                           "title": "What is the name of the adult sharing the residence with you?",
+                           "defaultSubstitution": "{anotherAdultSharingResiName}",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "anotheradultSharingResiDOB",
+                           "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                           "title": "What is the date of birth of the adult sharing the residence with you? ",
+                           "inputType": "date",
+                           "isRequired": true
+                        },
+                        {
+                           "type": "text",
+                           "name": "anotherAdultSharingResiRelation",
+                           "visibleIf": "({panel.anotherAdultSharingResiName} notempty) and (({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\"))",
+                           "title": "What is {panel.anotherAdultSharingResiName}'s relationship to the protected person(s)?",
+                           "isRequired": true
+                        }
+                     ],
+                     "panelCount": 1,
+                     "panelAddText": "Add another adult sharing the residence",
+                     "panelRemoveText": "Remove above adult sharing the residence"
+                  }
+               ],
+               "visible": false,
+               "visibleIf": "{RespondentName} notempty"
+            }
+         ],
+         "title": "Protection from whom?"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}
