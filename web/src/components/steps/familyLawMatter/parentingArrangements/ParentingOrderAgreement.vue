@@ -46,6 +46,10 @@ export default class ParentingOrderAgreement extends Vue {
     currentStep=0;
     currentPage=0;
 
+    additionalDocumentsPage = 38; 
+    reviewAnswersPage = 39;
+    previewPdfPage = 40 ;
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -75,9 +79,9 @@ export default class ParentingOrderAgreement extends Vue {
     public setPages(){
         if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                this.togglePages([8, 9, 10, 38, 39], false);
+                this.togglePages([8, 9, 10, this.additionalDocumentsPage, this.reviewAnswersPage, this.previewPdfPage], false);
             } else {
-                this.togglePages([8, 38], true);
+                this.togglePages([8, this.additionalDocumentsPage, this.reviewAnswersPage], true);
             }
         }   
     }

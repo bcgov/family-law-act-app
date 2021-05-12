@@ -44,6 +44,9 @@ export default class AboutParentingArrangements extends Vue {
     currentStep=0;
     currentPage=0;
 
+    additionalDocumentsPage = 38 
+    reviewAnswersPage = 39;
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -75,7 +78,7 @@ export default class AboutParentingArrangements extends Vue {
     }
 
     public setPages(){
-        this.togglePages([38], true);
+        this.togglePages([this.additionalDocumentsPage, this.reviewAnswersPage], true);
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
@@ -96,7 +99,7 @@ export default class AboutParentingArrangements extends Vue {
             }
         } else if (this.survey.data.existingType == 'Neither') {
             this.disableNextButton = true;
-            this.togglePages([9, 10, 38], false);
+            this.togglePages([9, 10, this.additionalDocumentsPage, this.reviewAnswersPage], false);
         }         
     }     
             

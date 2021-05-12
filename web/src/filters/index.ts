@@ -240,9 +240,9 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	if(type == 'protectionOrder'){		
 	
 		if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "changePO"){
-			requiredDocuments.push("Copy of the existing protection order")
+			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)")
 		}else if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "terminatePO"){
-			requiredDocuments.push("Copy of the existing protection order")
+			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)")
 		}else if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "needPO"){
 			if(questions.protectionWhomSurvey && questions.protectionWhomSurvey.ExistingFamilyCase =="y"){
 				if(questions.protectionWhomSurvey.ExistingFileNumber && questions.protectionWhomSurvey.ExistingCourt) requiredDocuments.push("Copy of the Family Law file number:" + questions.protectionWhomSurvey.ExistingFileNumber + " submitted to the court at " + questions.protectionWhomSurvey.ExistingCourt);
@@ -259,32 +259,48 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	if(type == 'familyLawMatter'){	
 
-		if(questions.filingLocationSurvey && questions.filingLocationSurvey.ExistingFamilyCase == "y")
-		  	requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
+		//if(questions.filingLocationSurvey && questions.filingLocationSurvey.ExistingFamilyCase == "y")
+		
+		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y"|| questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.ExistingOrdersFLM == "y")
+		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 	
-		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.ExistingOrdersFLM == "y")
-		   	requiredDocuments.push("Copy of the existing written agreement(s) or court order(s) about Family-Law-Matter");
 		//questions.flmBackgroundSurvey.existingOrdersListFLM.includes('Parenting Arrangements including `parental responsibilities` and `parenting time`') && questions.flmSelectedForm.includes("parentingArrangements")
 		//	||  'Child Support'||'Contact with a Child'||'Guardianship of a Child'||'Spousal Support')  &&
 		//	"childSupport" "contactWithChild" "guardianOfChild" "spousalSupport"  
 		
-		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y")
-			requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
+		// if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y")
+		// 	requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
 		
 		if(store.state.Application.supportingDocumentForm4.length>0)	
-			requiredDocuments.push("Copy of the Financial Statement in Form 4");
+			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement Form 4 </a>");
 		
-		if( questions.calculatingChildSupportSurvey && 
+		if((questions.calculatingChildSupportSurvey && 
 			questions.calculatingChildSupportSurvey.attachingCalculations == 'y' &&
 			questions.flmSelectedForm &&
 			questions.flmSelectedForm.includes("childSupport"))
-			requiredDocuments.push("Copy of the calculations showing how much child support you believe should be paid according to the child support guidelines");
-	
-		if( questions.calculatingSpousalSupportSurvey && 
+		|| (questions.calculatingSpousalSupportSurvey && 
 			questions.calculatingSpousalSupportSurvey.attachingCalculations== 'y' &&
 			questions.flmSelectedForm &&
-			questions.flmSelectedForm.includes("spousalSupport"))
-			requiredDocuments.push("Copy of the calculations showing how much spousal support you believe should be paid according to the Spousal Support Advisory Guidelines");
+			questions.flmSelectedForm.includes("spousalSupport")))
+				requiredDocuments.push("Support calculation");
+
+		if(questions.GuardianOfChildSurvey && questions.GuardianOfChildSurvey.applicantionType && questions.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian') ){
+			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
+			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form");
+		
+		}
+
+		// if( questions.calculatingChildSupportSurvey && 
+		// 	questions.calculatingChildSupportSurvey.attachingCalculations == 'y' &&
+		// 	questions.flmSelectedForm &&
+		// 	questions.flmSelectedForm.includes("childSupport"))
+		// 	requiredDocuments.push("Support calculation for child support");
+	
+		// if( questions.calculatingSpousalSupportSurvey && 
+		// 	questions.calculatingSpousalSupportSurvey.attachingCalculations== 'y' &&
+		// 	questions.flmSelectedForm &&
+		// 	questions.flmSelectedForm.includes("spousalSupport"))
+		// 	requiredDocuments.push("Support calculation for spousal support");
 	
 		//REMINDERS 
 	
@@ -318,7 +334,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	let previewPage = 13
 	
 	if(type == 'protectionOrder'){step = 1; reviewPage = 12; previewPage = 13;}
-	else if(type == 'familyLawMatter'){step = 3; reviewPage = 38; previewPage = 39;	}
+	else if(type == 'familyLawMatter'){step = 3; reviewPage = 39; previewPage = 40;	}
 
 	const steps = store.state.Application.steps
 

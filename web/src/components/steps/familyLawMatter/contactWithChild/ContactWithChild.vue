@@ -43,6 +43,9 @@ export default class ContactWithChild extends Vue {
     currentStep=0;
     currentPage=0;
 
+    additionalDocumentsPage = 38 
+    reviewAnswersPage = 39;
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -76,10 +79,10 @@ export default class ContactWithChild extends Vue {
         if (this.survey.data.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
-                this.togglePages([24, 25, 38], false);
+                this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], false);
             } else {
                 this.disableNextButton = false;
-                this.togglePages([24, 25, 38], true);
+                this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], true);
             }
         }             
     }

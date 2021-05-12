@@ -123,7 +123,7 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-    allPages = _.range(1,40)
+    allPages = _.range(1,41)
         
     //childrenInfoPage = [2];
     backgroundPage = 1
@@ -139,8 +139,10 @@ export default class FlmQuestionnaire extends Vue {
 
     guardianOfChildPage = 26
 
-    reviewYourAnswersPage = 38
-    formPreviewPage = 39
+
+    additionalDocumentsPage = 38
+    reviewYourAnswersPage = 39
+    formPreviewPage = 40
 
     existingSpousalSupportOrderAgreementPage = 32
 
@@ -150,7 +152,7 @@ export default class FlmQuestionnaire extends Vue {
 
 
     //review-answers page
-    commonPages = [38];
+    commonPages = [39];
 
 
 
@@ -210,6 +212,7 @@ export default class FlmQuestionnaire extends Vue {
             
                 //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
                 Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.additionalDocumentsPage, 0, false);
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingArrangementsPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingArrangementsPage, 50, false);    

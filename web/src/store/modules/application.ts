@@ -527,18 +527,25 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-    
-       
-//____________Review
+
+//______ Additional Documents
         p = {} as pageInfoType;
         p.key = "38";
+        p.label = "Additional Documents";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+//____________Review
+        p = {} as pageInfoType;
+        p.key = "39";
         p.label = "Review Your Answers";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "39";
+        p.key = "40";
         p.label = "Preview Forms";
         p.active = false;
         p.progress = 0;    
