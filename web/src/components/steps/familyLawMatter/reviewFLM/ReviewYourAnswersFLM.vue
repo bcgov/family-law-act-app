@@ -120,6 +120,7 @@ export default class ReviewYourAnswersFlm extends Vue {
         adjQuestion = adjQuestion.replace(/<br>/g,'');
         adjQuestion = adjQuestion.replace(/<br\/>/g,''); 
         adjQuestion = adjQuestion.replace(/{childWording}/g,'child(ren)');
+        adjQuestion = adjQuestion.replace(/{selectedChildWording}/g,'child(ren)');
         return adjQuestion
     }
 

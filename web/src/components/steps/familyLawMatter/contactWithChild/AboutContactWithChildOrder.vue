@@ -69,7 +69,14 @@ export default class AboutContactWithChildOrder extends Vue {
             //console.log(this.survey.data);
             // console.log(options)
             if (options.name == "contactTypeChoices"){
-                if (options.value.includes("In person")){
+
+                if(options.value.includes('No contact of any type')){
+                    //console.log('clear')
+                    Vue.nextTick(()=>
+                        this.survey.setValue('contactTypeChoices',['No contact of any type'])
+                    )
+                    this.survey.setVariable("InPerson", false);
+                } else if(options.value.includes("In person")){
                     console.log('has person');
                     this.survey.setVariable("InPerson", true);
                 } else {

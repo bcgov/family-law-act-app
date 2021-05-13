@@ -110,7 +110,7 @@ export default class FilingLocation extends Vue {
     courtsA = [
             "Kelowna Law Courts", 
             "Nanaimo Law Courts", 
-            "Vancouver Law Courts"
+            "Robson Square Provincial Court"
         ];
     courtsB = [
             "Abbotsford Provincial Court", 

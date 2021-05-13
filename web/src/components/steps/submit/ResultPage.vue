@@ -3,7 +3,7 @@
         <h2 :class="'mt-4 text-center '+headerColor">{{headerText}}</h2>
         <div class="my-2 font-weight-bold">{{message}}</div>
         <div v-if="packageNumber">
-            <div class="mb-2"> Your CSO Online Package # (?) is <b class="text-success"> {{packageNumber}} </b></div>
+            <div class="mb-2"> Your CSO Online Package # is <b class="text-success"> {{packageNumber}} </b></div>
         
             You can view the following items at any time:
             <ul>

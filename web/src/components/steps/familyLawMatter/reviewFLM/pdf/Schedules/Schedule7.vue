@@ -31,7 +31,7 @@
                 <section>
                     <div style="display:inline; margin-left:0.35rem">Is the child or children Indigenous? </div>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.indigenous?'yes':''" text="Yes"/>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="!guardInfo.indigenous?'yes':''" text="No"/>
+                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown"/>
                     <div style="margin:0 0 0 1.35rem;">
                         <i style="margin:0 0 0 -0.25rem;" >If yes, please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</i>
@@ -146,6 +146,7 @@ export default class Schedule7 extends Vue {
             abtGuardian: {}, 
             abtCancel: {}, 
             indigenous: false, 
+            nonIndigenous: false,
             unKnownAncestry: false, 
             ancestry: {
                 firstNation: false,
@@ -201,6 +202,7 @@ export default class Schedule7 extends Vue {
             const ancestryInfo = this.result.indigenousAncestryOfChildSurvey;
             if (ancestryInfo.indigenousChild == 'yes'){
                 guardianshipInfo.indigenous = true;
+                guardianshipInfo.nonIndigenous = false;
                 guardianshipInfo.unKnownAncestry = false;
                 guardianshipInfo.ancestry = {
                     firstNation: ancestryInfo.indigenousAncestry.includes('First Nation'),
@@ -210,8 +212,9 @@ export default class Schedule7 extends Vue {
                     over12: ancestryInfo.indigenousAncestry.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous'),
                     acknowledge: (ancestryInfo.indigenousAncestry.includes('Nisga’a') || ancestryInfo.indigenousAncestry.includes('Treaty First Nation'))? (ancestryInfo.ServeAcknowledgement == 'I acknowledge'):false
                 }
-            } else if (ancestryInfo.indigenousChild == 'n'){
+            } else if (ancestryInfo.indigenousChild == 'no'){
                 guardianshipInfo.indigenous = false;
+                guardianshipInfo.nonIndigenous = true;
                 guardianshipInfo.unKnownAncestry = false;
                 guardianshipInfo.ancestry = {
                     firstNation: false,
@@ -223,6 +226,7 @@ export default class Schedule7 extends Vue {
                 };
             } else {
                 guardianshipInfo.indigenous = false;
+                guardianshipInfo.nonIndigenous = false;
                 guardianshipInfo.unKnownAncestry = true;
                 guardianshipInfo.ancestry = {
                     firstNation: false,

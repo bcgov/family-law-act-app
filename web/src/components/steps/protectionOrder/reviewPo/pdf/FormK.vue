@@ -16,7 +16,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:result.poFilingLocationSurvey?result.poFilingLocationSurvey.ExistingFileNumber:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:existingFileNumber}]"
                     :fields="[{key:'name',tdClass:'border-dark'},{key:'value',tdClass:'border-dark'}]"
                     small
                     bordered
@@ -729,6 +729,7 @@ export default class FormK extends Vue {
     dataReady = false;
 
     otherPartyInfo=[];
+    existingFileNumber = '';
 
     applicantList = []
     serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
@@ -999,6 +1000,42 @@ export default class FormK extends Vue {
         Object.assign(result, result,{applicationLocation: applicationLocation}); 
        
         console.log(result)
+        if (result.selectedPOOrder && result.selectedPOOrder.orderType){
+
+            const orderType = result.selectedPOOrder.orderType;
+            if (orderType == 'needPO'){
+
+                if (result.poFilingLocationSurvey && 
+                    result.poFilingLocationSurvey.ExistingFamilyCase && 
+                    result.poFilingLocationSurvey.ExistingFamilyCase == 'y' &&
+                    result.poFilingLocationSurvey.ExistingFileNumber){
+                        this.existingFileNumber = result.poFilingLocationSurvey.ExistingFileNumber;
+                    } else {
+                        this.existingFileNumber = '';
+                    }
+
+            } else if (orderType == 'changePO'){
+
+                if (result.aboutPOSurvey &&                    
+                    result.aboutPOSurvey.ExistingFileNumber){
+                        this.existingFileNumber = result.aboutPOSurvey.ExistingFileNumber;
+                    } else {
+                        this.existingFileNumber = '';
+                    }
+
+            } else if (orderType == 'terminatePO'){
+
+                if (result.aboutPOSurvey &&                    
+                    result.aboutPOSurvey.ExistingFileNumber){
+                        this.existingFileNumber = result.aboutPOSurvey.ExistingFileNumber;
+                    } else {
+                        this.existingFileNumber = '';
+                    }
+            }
+
+        }        
+
+        // if ()
 
         Vue.filter('extractRequiredDocuments')(result, 'protectionOrder')
 
