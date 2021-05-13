@@ -78,7 +78,7 @@ export default class AboutParentingArrangements extends Vue {
     }
 
     public setPages(){
-        this.togglePages([this.additionalDocumentsPage, this.reviewAnswersPage], true);
+        this.togglePages([ this.reviewAnswersPage], true);
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){

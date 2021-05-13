@@ -99,11 +99,11 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     public setPages(){
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([this.existingSpousalSupportFinalOrderPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage, this.additionalDocumentsPage, this.reviewYourAnswersPage], true); 
+            this.togglePages([this.existingSpousalSupportFinalOrderPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage,  this.reviewYourAnswersPage], true); 
             this.togglePages([this.existingSpousalSupportAgreementPage], false);               
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([this.existingSpousalSupportAgreementPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage, this.additionalDocumentsPage, this.reviewYourAnswersPage], true); 
+            this.togglePages([this.existingSpousalSupportAgreementPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage,  this.reviewYourAnswersPage], true); 
             this.togglePages([this.existingSpousalSupportFinalOrderPage], false);                
         } else if (this.survey.data.existingType == "Neither") {
             this.togglePages(this.existingSpousalSupportPages, false);

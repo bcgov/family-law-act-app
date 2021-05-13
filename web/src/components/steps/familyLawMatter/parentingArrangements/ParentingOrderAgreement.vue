@@ -81,7 +81,7 @@ export default class ParentingOrderAgreement extends Vue {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
                 this.togglePages([8, 9, 10, this.additionalDocumentsPage, this.reviewAnswersPage, this.previewPdfPage], false);
             } else {
-                this.togglePages([8, this.additionalDocumentsPage, this.reviewAnswersPage], true);
+                this.togglePages([8,  this.reviewAnswersPage], true);
             }
         }   
     }

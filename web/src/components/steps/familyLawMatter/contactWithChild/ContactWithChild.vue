@@ -82,7 +82,7 @@ export default class ContactWithChild extends Vue {
                 this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], false);
             } else {
                 this.disableNextButton = false;
-                this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], true);
+                this.togglePages([24, 25, this.reviewAnswersPage], true);
             }
         }             
     }
