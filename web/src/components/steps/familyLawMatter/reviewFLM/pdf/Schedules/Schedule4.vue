@@ -313,13 +313,19 @@ export default class Schedule4 extends Vue {
 
         if (this.result.aboutExistingChildSupportSurvey){
             const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];
-                
+            const existingType = this.result.childSupportOrderAgreementSurvey.existingType;  
+            let date = '';
+            if (existingType == 'ExistingOrder'){
+                date = Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate);
+            } else if (existingType == 'ExistingAgreement'){
+                date = Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.agreementDate);
+            }
             existingChildSupportInfo.abtEx = {                
                 payor: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payor'),
                 payee: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payee'),
                 other: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other'),
                 otherComm: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other' && this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment)? this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment:'',
-                orderDate: Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate),
+                orderDate: date,
                 exstngOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder'),
                 fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
                 cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
