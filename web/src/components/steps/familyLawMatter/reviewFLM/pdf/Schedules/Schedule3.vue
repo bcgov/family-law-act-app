@@ -206,18 +206,18 @@
                         <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.finStmnt.required?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:	<br/><i>Select all options that apply</i>"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="true?'?':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.opType.standing?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
                     </div>
 
                     <div style="margin:0.5rem 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.finStmnt.required?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/>
-                        <check-box style="margin:0 0 0 0rem;" :check="true?'?':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.applyForCaseManagement && !chSupInfo.finStmnt.required?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/>
+                        <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.applyForCaseManagement?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -305,7 +305,7 @@ export default class Schedule3 extends Vue {
 
     public getNewChildSupportInfo(){
         console.log(this.result)
-        let newChildSupportInfo = {appType: {}, opType: {}, currCond:{}, opInfo: {}, desiredSup: {}, calc:{}, ndHard:{}, specExp: {}, finStmnt:{}};
+        let newChildSupportInfo = {appType: {}, opType: {}, currCond:{}, opInfo: {}, desiredSup: {}, calc:{}, ndHard:{}, specExp: {}, finStmnt:{}, applyForCaseManagement: false};
 
         if (this.result.childSupportSurvey.applicantGuardianType){
             newChildSupportInfo.appType = {
@@ -396,23 +396,26 @@ export default class Schedule3 extends Vue {
         // {key:"child0", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
         // {key:"child1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
         // {key:"child2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        
-  
-            }
-            
+        // {key:"child3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},  
+            }            
         }
 
-        //TODO: add field for 'party has been acting ...', not able to complete it at this time
         newChildSupportInfo.finStmnt = {
             required: (newChildSupportInfo.desiredSup['applicantPayor'] ||
                     newChildSupportInfo.desiredSup['over19'] ||
                     newChildSupportInfo.desiredSup['payorErnsHigh'] ||
                     newChildSupportInfo.currCond['splitShared'] ||
                     newChildSupportInfo.specExp['applying'] ||
+                    newChildSupportInfo.opType['standing']|
                     newChildSupportInfo.ndHard['change'])
 
         }
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+            newChildSupportInfo.applyForCaseManagement = true
+            newChildSupportInfo.finStmnt['required'] = false
+        }
+
         return newChildSupportInfo;
     } 
 

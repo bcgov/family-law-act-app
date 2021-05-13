@@ -57,7 +57,7 @@
                 <div style="margin-top:1rem;"><b>Guardianship affidavit and supporting documents</b></div>
 <!-- <4> -->
                 <section>
-                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'?':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
+                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
                     <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
                 </section>
             </div>
@@ -65,7 +65,7 @@
             <div style="margin-top:1rem;"></div>
 <!-- <5> -->
             <section>
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'?':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
+                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
                 <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
             </section>
 
@@ -74,14 +74,14 @@
             <section>
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
                 <div style="margin:0 0 0 1rem;">                     
-                    <check-box style="" :check="true?'?':''" text="I am filing the following required documents along with this application"/>
+                    <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
                 </div>
                 <div style="margin:0 0 0 3rem;">
-                   <check-box style="" :check="true?'?':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
-                   <check-box style="" :check="true?'?':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
+                   <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
+                   <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
                 </div>
                 <div style="margin:0.5rem 0 0 1rem;">                     
-                    <check-box style="" :check="true?'?':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
+                    <check-box style="" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
                 </div>
             </section>
         </div>
@@ -234,6 +234,29 @@ export default class Schedule7 extends Vue {
                 };
             } 
         }
+
+        if( this.result.GuardianOfChildSurvey && 
+            this.result.GuardianOfChildSurvey.applicantionType &&
+            this.result.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian')){
+                guardianshipInfo['becomeGuardian'] = true;
+
+        }else guardianshipInfo['becomeGuardian'] = false;
+
+        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.criminalChecked =='y' ){
+            guardianshipInfo['criminalCheck'] = true;
+        }else {
+            guardianshipInfo['criminalCheck'] = false;
+        }
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='y' )){
+            guardianshipInfo['applyForCaseManagement'] = 'n'
+        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+            guardianshipInfo['applyForCaseManagement'] = 'y'
+        }else{
+            guardianshipInfo['applyForCaseManagement'] = ''
+        }
+
+
         return guardianshipInfo;
     }  
 

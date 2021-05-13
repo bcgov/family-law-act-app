@@ -153,8 +153,11 @@ export default class GuardianOfChild extends Vue {
     showGuardianAssistance = false;
     tableError = false;
 
+    applicantionType=[]
+
     childrenNames = [];
     otherPartyNames = [];
+    pageProgress = 0;
 
     guardianOfChildItem =[
         {name:'', nameOther:'', date:'', relationship:''},
@@ -221,6 +224,13 @@ export default class GuardianOfChild extends Vue {
             Vue.filter('surveyChanged')('familyLawMatter')
             this.setPages();
             this.determineShowingTable();
+            //console.log(options)
+            //console.log(this.survey.data)
+            //console.log(this.applicantionType)
+            if((!this.applicantionType||(this.applicantionType && !this.applicantionType.includes("becomeGuardian"))) && options.name == "applicantionType" && options.value.includes("becomeGuardian")){                
+                this.showPopup = true;               
+            } 
+            Vue.nextTick(()=> this.applicantionType = this.survey.data.applicantionType)
         })
     }
 
@@ -232,8 +242,11 @@ export default class GuardianOfChild extends Vue {
     }
 
     public determineShowPopup(){
-        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes('becomeGuardian'))
-            return true;
+        if( 
+            this.survey.data && 
+            this.survey.data.applicantionType && 
+            this.survey.data.applicantionType.includes('becomeGuardian'))
+                return true;
         else
             return false;
     }
@@ -264,6 +277,8 @@ export default class GuardianOfChild extends Vue {
         if (this.step.result && this.step.result['GuardianOfChildSurvey']) {
             this.survey.data = this.step.result['GuardianOfChildSurvey'].data;
 
+            this.applicantionType = this.survey.data.applicantionType
+
             if(this.survey.data.cancelGuardianDetails) this.guardianOfChildItem = this.survey.data.cancelGuardianDetails;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
@@ -271,6 +286,8 @@ export default class GuardianOfChild extends Vue {
         
         this.setPages();
         this.determineShowingTable();
+
+        this.pageProgress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
 
         if(this.checkTableError())
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);        
@@ -314,20 +331,20 @@ export default class GuardianOfChild extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors && !this.checkTableError()) {
-            if (this.determineShowPopup()) {
-                this.showPopup = true;
+            // if (this.determineShowPopup()) {
+            //     this.showPopup = true;
 
-            } else {
-                this.showPopup = false;
-                this.UpdateGotoNextStepPage();
-            }
-            
+            // } else {
+            //     this.showPopup = false;
+            //     this.UpdateGotoNextStepPage();
+            // }
+            this.UpdateGotoNextStepPage();
         }
     }  
 
     public closePopup(){
         this.showPopup = false;
-        this.UpdateGotoNextStepPage();
+        //this.UpdateGotoNextStepPage();
     }
     
     beforeDestroy() {

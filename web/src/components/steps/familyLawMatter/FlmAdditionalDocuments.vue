@@ -90,7 +90,7 @@ export default class FlmAdditionalDocuments extends Vue {
         
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));       
         this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
-        let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<ul>";
+        let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<br><br><ul>";
         for (const doc of this.requiredDocumentLists){
             //console.log(doc)
             //console.log(doc.includes('Form 5'))

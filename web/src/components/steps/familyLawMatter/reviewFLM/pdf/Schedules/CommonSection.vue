@@ -235,7 +235,7 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
@@ -354,7 +354,7 @@ export default class CommonSection extends Vue {
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
         } else {
             this.aboutChildren = false;
-            this.childrenInfo = [];
+            this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
             this.childBestInterestAcknowledmentCheck = false;
         }
 

@@ -166,8 +166,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box style="" :check="filingForm4?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box style="" :check="true?'?':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box style="" :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box style="" :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
@@ -211,7 +211,6 @@ export default class Form3 extends Vue {
   
     dataReady = false;    
     exSpsSupInfo = {}
-    filingForm4 = false;
    
     mounted(){
         this.dataReady = false;       
@@ -301,7 +300,8 @@ export default class Form3 extends Vue {
             },
             about:{
                 chSinceOrder:''
-            }
+            },
+            applyForCaseManagement: false
         }
 
         //console.log(this.result)
@@ -452,10 +452,11 @@ export default class Form3 extends Vue {
             }
         }
 
-        if(this.$store.state.Application.supportingDocumentForm4 && this.$store.state.Application.supportingDocumentForm4.length>0) 
-            this.filingForm4 = true;
-        else 
-            this.filingForm4 = false;
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+            existingSpousalSupportInfo.applyForCaseManagement = true           
+        }
+
+        
 
         return existingSpousalSupportInfo;
     }   

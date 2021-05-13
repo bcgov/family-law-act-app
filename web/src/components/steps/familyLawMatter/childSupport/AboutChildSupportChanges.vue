@@ -67,7 +67,15 @@ export default class AboutChildSupportChanges extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')            
-            //console.log(options)            
+            // console.log(options) 
+            if(options.name == 'listOfSituations'){
+                if(options.value.includes('None of the above apply to my situation')){
+                    //console.log('clear')
+                    Vue.nextTick(()=>
+                        this.survey.setValue('listOfSituations',['None of the above apply to my situation'])
+                    )
+                }                    
+            }           
 
         })
     }
