@@ -1,18 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <div class="sv_main">
-            <div class="sv_page">                
-                <h4 class="sv_page_title">Additional Documents to File</h4>
-                <div class="sv_p_container">
-                    <div class="sv_page_description">Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:</div>
-                    <div v-if="isRequiredDocument" class="h4" style="margin:2rem 0.1rem;">                        
-                        <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
-                            <li class="mb-2 font-weight-normal" v-html="requiredDocument">{{requiredDocument}}</li>
-                        </ul>        
-                    </div>
-                </div>
-            </div>
-        </div>
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">        
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -102,15 +89,20 @@ export default class FlmAdditionalDocuments extends Vue {
     public adjustSurveyForAdditionalDocs(){  
         
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));       
-        this.surveyJsonCopy.pages[0].elements[0].elements[2]["choices"]=[];
+        this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
+        let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<ul>";
         for (const doc of this.requiredDocumentLists){
-            console.log(doc)
-            console.log(doc.includes('Form 5'))
+            //console.log(doc)
+            //console.log(doc.includes('Form 5'))
             if(doc.includes('Form 5'))
                 this.appointedAsGuardian = true;
-            if(doc.includes('form') || doc.includes('Form'))
-                this.surveyJsonCopy.pages[0].elements[0].elements[2]["choices"].push(doc);            
-        }                     
+            if(doc.includes('form') || doc.includes('Form')){
+                descriptionHtml += "<li>"+doc+"</li>"
+                this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"].push(doc);            
+            }
+        }  
+        descriptionHtml += "</ul>"
+        this.surveyJsonCopy.pages[0].elements[0].elements[0]["html"] = descriptionHtml
     }
 
     public reloadPageInformation() {  

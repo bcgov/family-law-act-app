@@ -9,6 +9,11 @@
                "name": "additionalDocsPanel",
                "elements": [
                   {
+                  "type": "html",
+                  "name": "additionalDocsExplanation",
+                  "html": "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:"
+                  },
+                  {
                      "type": "yesno",
                      "name": "isFillingAdditionalDocs",
                      "title": "Will you be able to file the required additional forms with your application?",
@@ -62,7 +67,7 @@
                ]
             }            
          ],
-         "title": ""
+         "title": "Additional Forms to File"
       }
    ],
    "showQuestionNumbers": "off",
