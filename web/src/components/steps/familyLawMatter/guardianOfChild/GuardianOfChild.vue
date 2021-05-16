@@ -297,7 +297,7 @@ export default class GuardianOfChild extends Vue {
 
     public AddRow(){
         //console.log('add')
-        if(this.childrenNames.length>this.guardianOfChildItem.length)
+        //if(this.childrenNames.length>this.guardianOfChildItem.length)
             this.guardianOfChildItem.push({name:'', nameOther:'', date:'', relationship:''},)
     }
 
