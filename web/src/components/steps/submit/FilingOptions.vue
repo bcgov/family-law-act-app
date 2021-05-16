@@ -114,11 +114,11 @@ export default class FilingOptions extends Vue {
     }
 
     public allowEfiling(){
-        console.log(this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data)
+        //console.log(this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data)
         if( this.$store.state.Application.steps[3].result &&
             this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
             this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
-            (this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFillingAdditionalDocs == "n"
+            (this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs == "n"
             ||            
             this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.criminalChecked == "n")
         )this.survey.setVariable('efilingAllowed','n')

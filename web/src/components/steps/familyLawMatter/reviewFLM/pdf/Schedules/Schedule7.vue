@@ -252,9 +252,9 @@ export default class Schedule7 extends Vue {
             guardianshipInfo['criminalCheck'] = false;
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='y' )){
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
             guardianshipInfo['applyForCaseManagement'] = 'n'
-        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
             guardianshipInfo['applyForCaseManagement'] = 'y'
         }else{
             guardianshipInfo['applyForCaseManagement'] = ''

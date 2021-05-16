@@ -380,26 +380,19 @@ export default class CommonSection extends Vue {
         };
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
-            if (locationData.ExistingFamilyCase == 'y'){
-                locationInformation.existingFileNumber = locationData.ExistingFileNumber?locationData.ExistingFileNumber:'';
-                locationInformation.courtLocation = locationData.ExistingCourt?locationData.ExistingCourt:'';
-            } else {
-                locationInformation.existingFileNumber = '';
-                locationInformation.courtLocation = locationData.CourtLocation?locationData.CourtLocation:'';
-            }
+           
+            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
 
             locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
             locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
             locationInformation.educationRegistry = locationData.familyEducationProgram;  
             locationInformation.none = !(locationInformation.educationRegistry
                                         || locationInformation.familyJusticeRegistry
-                                        || locationInformation.earlyResolutionRegistry);         
-
+                                        || locationInformation.earlyResolutionRegistry);
         }
 
         console.log(locationInformation)
-         
-
         return locationInformation;
     }
 

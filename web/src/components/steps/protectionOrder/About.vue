@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -31,6 +31,9 @@ export default class About extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public steps!: any
 
     @commonState.State
     public locationsInfo!: any[];
@@ -82,6 +85,7 @@ export default class About extends Vue {
             // console.log(options);
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt)
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
             }
         })
     }
@@ -159,6 +163,17 @@ export default class About extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
         this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
+        if (this.steps[2].result && this.steps[2].result.filingLocationSurvey && this.steps[2].result.filingLocationSurvey.data) {
+            const filingLocationSurveyCommon = this.steps[2].result.filingLocationSurvey
+            filingLocationSurveyCommon.data.ExistingCourt = this.survey.data["ExistingCourt"]
+            filingLocationSurveyCommon.data.ExistingFileNumber = this.survey.data["ExistingFileNumber"]           
+            // console.log("common information already exists");
+            // console.log(this.steps[2].result.filingLocationSurvey)
+            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: filingLocationSurveyCommon }})
+        } else {
+            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 3)}});
+        }
     }
 };
 </script>

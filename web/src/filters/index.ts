@@ -377,7 +377,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	let reviewPage = 12
 	let previewPage = 13
 	
-	if(type == 'protectionOrder'){step = 1; reviewPage = 12; previewPage = 13;}
+	if(type == 'protectionOrder'){step = 1; reviewPage = 13; previewPage = 14;}
 	else if(type == 'familyLawMatter'){step = 3; reviewPage = 39; previewPage = 40;	}
 
 	const steps = store.state.Application.steps

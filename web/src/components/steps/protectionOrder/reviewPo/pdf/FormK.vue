@@ -229,12 +229,12 @@
             <div style="margin-left:1rem;"> I do not want the other party to be able to attend at, enter or be found at the following places:</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>
-                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces.includes('Home')?'yes':''" text="Residence"/>
-                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces.includes('School')?'yes':''" text="School"/>
-                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces.includes('Workplace')?'yes':''" text="Place of Employment"/>
-                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces.includes('other')?result.noGoSurvey.RespondentNoGoPlacesComment:'' "/>
+                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces && result.noGoSurvey.RespondentNoGoPlaces.includes('Home')?'yes':''" text="Residence"/>
+                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces && result.noGoSurvey.RespondentNoGoPlaces.includes('School')?'yes':''" text="School"/>
+                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces && result.noGoSurvey.RespondentNoGoPlaces.includes('Workplace')?'yes':''" text="Place of Employment"/>
+                <check-box style="" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces && result.noGoSurvey.RespondentNoGoPlaces.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces && result.noGoSurvey.RespondentNoGoPlaces.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="result.noGoSurvey.RespondentNoGo == 'y' && result.noGoSurvey.RespondentNoGoPlaces && result.noGoSurvey.RespondentNoGoPlaces.includes('other')?result.noGoSurvey.RespondentNoGoPlacesComment:'' "/>
             </div>
         </section>
 
@@ -245,11 +245,11 @@
             <div style="margin-left:1rem;"> The protected party may need to communicate with the other party for the following reason(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
-                <check-box style="" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
-                <check-box style="" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication.includes('other')?result.noContactSurvey.reasonForCommunicationComment:'' "/>
+                <check-box style="" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
+                <check-box style="" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
+                <check-box style="" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="result.noContactSurvey && result.noContactSurvey.needCommunication == 'y' && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication && result.noContactSurvey.reasonForCommunication.includes('other')?result.noContactSurvey.reasonForCommunicationComment:'' "/>
             </div>
         </section>
 
@@ -315,12 +315,12 @@
             <div style="margin-left:1rem;"> I believe police assistance may be required for the following purpose(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.removeSurvey.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
+                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
+                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
+                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
+                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
             </div>
         </section>
 
@@ -612,9 +612,9 @@
             I am the:
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>
 
@@ -681,9 +681,9 @@
             I am the:
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>
 

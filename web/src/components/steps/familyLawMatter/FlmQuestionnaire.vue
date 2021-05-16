@@ -153,9 +153,6 @@ export default class FlmQuestionnaire extends Vue {
 
     //review-answers page
     commonPages = [39];
-
-
-
  
 
     mounted(){
@@ -169,7 +166,6 @@ export default class FlmQuestionnaire extends Vue {
         if (this.step.result && this.step.result['flmSelectedForm']) {
             this.selectedForm = this.step.result['flmSelectedForm'].data;
             this.determineSteps();
-
         }
         
         const progress = this.selectedForm.length==0? 50 : 100;        
@@ -184,8 +180,7 @@ export default class FlmQuestionnaire extends Vue {
             this.selectedForm = [];            
             //this.togglePages(this.allPages, false); 
         }
-        Vue.filter('surveyChanged')('familyLawMatter')
-        
+        Vue.filter('surveyChanged')('familyLawMatter')        
        // console.log(selectedForm)
     }
 
@@ -246,8 +241,7 @@ export default class FlmQuestionnaire extends Vue {
     public determineSteps(){
         let formOneRequired = false;
 
-        if(this.$store.state.Application.steps[2] && 
-            this.$store.state.Application.steps[2].result &&
+        if( this.$store.state.Application.steps[2].result &&
             this.$store.state.Application.steps[2].result.filingLocationSurvey &&
             this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
                 const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
@@ -261,7 +255,7 @@ export default class FlmQuestionnaire extends Vue {
 
         } else {
             this.togglePages([this.backgroundPage], false);
-            this.togglePages(this.commonPages, true);
+            this.togglePages(this.commonPages, true);//reviewAnswers
         }   
     }
 
@@ -270,16 +264,8 @@ export default class FlmQuestionnaire extends Vue {
         const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         let location = ''
 
-        if(filingLocationData.ExistingFamilyCase && 
-            filingLocationData.ExistingFamilyCase == 'n' && 
-            filingLocationData.CourtLocation) {
-                location = filingLocationData.CourtLocation;
-        } else if (filingLocationData.ExistingFamilyCase && 
-            filingLocationData.ExistingFamilyCase == 'y' && 
-            filingLocationData.ExistingCourt){
-            location = filingLocationData.ExistingCourt;                
-        }
-
+        location = filingLocationData.ExistingCourt;                
+        
         if(courtsC.includes(location) && 
             filingLocationData.MetEarlyResolutionRequirements == 'n'){
             return true;

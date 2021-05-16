@@ -15,7 +15,7 @@
                   },
                   {
                      "type": "yesno",
-                     "name": "isFillingAdditionalDocs",
+                     "name": "isFilingAdditionalDocs",
                      "title": "Will you be able to file the required additional forms with your application?",
                      "description": "Note: This service does not currently support the completion of the forms listed above. You can complete the fillable PDFs and upload them during the Review and File step to file with this service.",
                      "isRequired": true
@@ -31,7 +31,7 @@
                      "type": "checkbox",
                      "name": "unableFileForms",
                      "visible": false,
-                     "visibleIf": "{isFillingAdditionalDocs} = 'n'",
+                     "visibleIf": "{isFilingAdditionalDocs} = 'n'",
                      "title": "Select each form you will be unable to file with your Application About a Family Law Matter?",                    
                      "isRequired": true,
                      "choices": [
@@ -44,7 +44,7 @@
                      "type": "html",
                      "name": "appointedAsGuardianExplanation",
                      "visible": false,
-                     "visibleIf": "{isFillingAdditionalDocs} and {appointedAsGuardian}",
+                     "visibleIf": "{isFilingAdditionalDocs} and {appointedAsGuardian}",
                      "title": "Parenting Time",
                      "html": "As part of your application for guardianship of a child, you must complete a Guardianship Affidavit Form 5. It does not need to be filed with your application but there are steps you need to take so you can file it. In addition to the Child Protection Record Check results and Protection Order Registry search results which you are requesting with the documents above, you must also attach a copy of your criminal record check.<br><br>To get a criminal record check, ask at the police station or RCMP detachment in your community."
                   },
@@ -52,7 +52,7 @@
                      "type": "yesno",
                      "name": "criminalChecked",
                      "visible": false,
-                     "visibleIf": "{isFillingAdditionalDocs} and {appointedAsGuardian}",
+                     "visibleIf": "{isFilingAdditionalDocs} and {appointedAsGuardian}",
                      "title": "Will you have initiated or completed your criminal record check before filing your application?",                     
                      "isRequired": true
                   },
@@ -61,7 +61,7 @@
                      "name": "appointedAsGuardianExplanation",                                          
                      "titleLocation":"hidden",
                      "visible": false,
-                     "visibleIf": "({criminalChecked} = 'n') or ({isFillingAdditionalDocs} = 'n')",
+                     "visibleIf": "({criminalChecked} = 'n') or ({isFilingAdditionalDocs} = 'n')",
                      "title": "You may still be allowed to file your application without the required additional documents or requirements listed above, but you will need permission from the court to do so. To get permission, you must complete an Application for Case Management Order Without Notice or Attendance Form 11. If you select case management order in Step 1 Get Started, this service will help complete the form.<br>The Application for Case Management Order Without Notice or Attendance Form 11 must be submitted with your Application About a Family Law Matter."
                   }                                  
                ]

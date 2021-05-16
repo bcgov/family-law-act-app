@@ -411,7 +411,7 @@ export default class Schedule3 extends Vue {
 
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
             newChildSupportInfo.applyForCaseManagement = true
             newChildSupportInfo.finStmnt['required'] = false
         }

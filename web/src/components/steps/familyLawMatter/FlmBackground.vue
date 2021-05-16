@@ -143,7 +143,6 @@ export default class FlmBackground extends Vue {
         
     }
 
-
     public setPages() {
         
         // console.log(selectedForm)
@@ -212,6 +211,7 @@ export default class FlmBackground extends Vue {
     }
   
     beforeDestroy() {
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
         this.UpdateStepResultData({step:this.step, data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})

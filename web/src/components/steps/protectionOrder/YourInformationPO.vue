@@ -126,8 +126,13 @@ export default class YourInformationPo extends Vue {
         this.UpdateStepResultData({step:this.step, data: {yourInformationSurveyPO: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
        
         if (this.types.length > 1) {
-            if (this.steps[2].result && this.steps[2].result.yourInformationSurvey) {
-                console.log("common information already exists");
+            if (this.steps[2].result && this.steps[2].result.yourInformationSurvey && this.steps[2].result.yourInformationSurvey.data) {
+                const yourInformationSurveyCommon = this.steps[2].result.yourInformationSurvey
+                yourInformationSurveyCommon.data.ApplicantName = this.survey.data["ApplicantName"]
+                yourInformationSurveyCommon.data.ApplicantDOB = this.survey.data["ApplicantDOB"]
+                // console.log("common information already exists");
+                // console.log(this.steps[2].result.yourInformationSurvey)
+                this.UpdateStepResultData({step:this.steps[2], data: {yourInformationSurvey: yourInformationSurveyCommon }})
             } else {
                 this.UpdateStepResultData({step:this.steps[2], data: {yourInformationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 1)}});
             }

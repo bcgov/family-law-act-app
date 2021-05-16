@@ -58,17 +58,8 @@ export default class PreviewFormsFlm extends Vue {
             this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
             const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
             const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-            let location = ''
-
-            if(filingLocationData.ExistingFamilyCase && 
-                filingLocationData.ExistingFamilyCase == 'n' && 
-                filingLocationData.CourtLocation) {
-                    location = filingLocationData.CourtLocation;
-            } else if (filingLocationData.ExistingFamilyCase && 
-                filingLocationData.ExistingFamilyCase == 'y' && 
-                filingLocationData.ExistingCourt){
-                location = filingLocationData.ExistingCourt;                
-            }
+    
+            const location = filingLocationData.ExistingCourt;                            
 
             if(courtsC.includes(location) && 
                 filingLocationData.MetEarlyResolutionRequirements == 'n'){
@@ -117,7 +108,8 @@ export default class PreviewFormsFlm extends Vue {
     }
 
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+        const progress = this.dataReady? 100: 50
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
 
 }

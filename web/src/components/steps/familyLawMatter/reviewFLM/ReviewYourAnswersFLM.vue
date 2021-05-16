@@ -205,7 +205,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     }
 
     public getChildrenNames(selectedChildren){
-        console.log('_________')
+        //console.log('_________')
         let result = ''
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'].data;
@@ -338,8 +338,10 @@ export default class ReviewYourAnswersFlm extends Vue {
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
                 {
-                    //  console.error("____________")
-                    //  console.log(key)
+                    console.error("____________")
+                    console.log(value['currentPage'])
+                    console.log(step.pages[value['currentPage']]?step.pages[value['currentPage']].active:'undefined')
+                    console.log(key)
                     //  console.log(value)
                     if(value && value['data'] && value['data'].length == 0){
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 

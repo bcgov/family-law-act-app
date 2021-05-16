@@ -452,7 +452,7 @@ export default class Form3 extends Vue {
             }
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
             existingSpousalSupportInfo.applyForCaseManagement = true           
         }
 

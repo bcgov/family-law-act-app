@@ -419,7 +419,7 @@ export default class Schedule4 extends Vue {
                     existingChildSupportInfo.abtOrg.situation.undueHardship )
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFillingAdditionalDocs=='n' )){
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
             existingChildSupportInfo.applyForCaseManagement = true
             existingChildSupportInfo.finStmnt['required'] = false
         }
