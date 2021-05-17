@@ -193,6 +193,9 @@ export default class ApplicationStatus extends Vue {
     public UpdateRequiredDocuments!: (newRequiredDocuments) => void
 
     @applicationState.Action
+    public UpdateSupportingDocumentForm4!: (newSupportingDocumentForm4) => void
+
+    @applicationState.Action
     public checkAllCompleted! :() => void
 
     dataLoaded = false;
@@ -335,6 +338,9 @@ export default class ApplicationStatus extends Vue {
 
             if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
                 this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
+ 
+            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['supportingDocumentForm4'])
+                this.UpdateSupportingDocumentForm4(this.currentApplication.steps[0]['result']['supportingDocumentForm4'])
 
             if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['pathwayCompleted'])
                 this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           

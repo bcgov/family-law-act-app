@@ -125,9 +125,9 @@
                 I am filing my application in:
                 <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
                 <div style="margin:0 0 0 2.75rem;">
-                    <check-box style="" :check="true?'?':''" text="needs assessment"/>
-                    <check-box style="" :check="true?'?':''" text="parenting education program"/>
-                    <check-box style="" :check="true?'?':''" text="consensual dispute resolution"/>
+                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="needs assessment"/>
+                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="parenting education program"/>
+                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="consensual dispute resolution"/>
                 </div>
                 <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.familyJusticeRegistry?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
                 <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.educationRegistry?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
@@ -235,7 +235,7 @@
                     small
                     bordered>                    
                         <template v-slot:cell()="data">
-                            <div style="font-size:8pt;color:#000">{{data.value}}</div>                                           
+                            <div style="height:1rem; font-size:8pt;color:#000">{{data.value}}</div>                                           
                         </template>
                         <template v-slot:head(dob)>
                             Child's date of birth <i style="font-size:6pt; font-weight:normal;">(mmm/dd/yyyy)</i>
@@ -279,6 +279,7 @@ import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import moment from 'moment';
 import { nameInfoType } from '@/types/Application';
+import Schedule1 from './Schedule1.vue';
 
 @Component({
     components:{
@@ -337,13 +338,23 @@ export default class CommonSection extends Vue {
         
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
-        if (this.result.childData && this.result.childData.length > 0){
+        const childRelatedApplication = ( 
+            this.selectedSchedules.includes('schedule1') ||
+            this.selectedSchedules.includes('schedule2') || 
+            this.selectedSchedules.includes('schedule3') ||
+            this.selectedSchedules.includes('schedule4') ||
+            this.selectedSchedules.includes('schedule5') || 
+            this.selectedSchedules.includes('schedule6') ||
+            this.selectedSchedules.includes('schedule7') || 
+            this.selectedSchedules.includes('schedule8')
+        )
+        if (childRelatedApplication && this.result.childData && this.result.childData.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
         } else {
             this.aboutChildren = false;
-            this.childrenInfo = [];
+            this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
             this.childBestInterestAcknowledmentCheck = false;
         }
 
@@ -369,26 +380,19 @@ export default class CommonSection extends Vue {
         };
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
-            if (locationData.ExistingFamilyCase == 'y'){
-                locationInformation.existingFileNumber = locationData.ExistingFileNumber?locationData.ExistingFileNumber:'';
-                locationInformation.courtLocation = locationData.ExistingCourt?locationData.ExistingCourt:'';
-            } else {
-                locationInformation.existingFileNumber = '';
-                locationInformation.courtLocation = locationData.CourtLocation?locationData.CourtLocation:'';
-            }
+           
+            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
 
             locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
             locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
             locationInformation.educationRegistry = locationData.familyEducationProgram;  
             locationInformation.none = !(locationInformation.educationRegistry
                                         || locationInformation.familyJusticeRegistry
-                                        || locationInformation.earlyResolutionRegistry);         
-
+                                        || locationInformation.earlyResolutionRegistry);
         }
 
         console.log(locationInformation)
-         
-
         return locationInformation;
     }
 

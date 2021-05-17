@@ -39,6 +39,7 @@
               "hasOther": true,
               "otherText": "Other method of communication",
               "choices": [
+                "No contact of any type",
                 "In person",
                 "Telephone communication",
                 "Video communication",

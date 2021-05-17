@@ -46,6 +46,8 @@ export default class ChildrenSurvey extends Vue {
     currentStep =0;
     currentPage =0;
 
+    reviewYourAnswersPage = 39
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -118,7 +120,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
-        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, 38],50)
+        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, this.reviewYourAnswersPage],50)
         this.survey.completeLastPage();
     }
 

@@ -187,21 +187,21 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                     <div style="margin:0 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situationList.length>0 && !exChSupInfo.abtOrg.situation.other?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
+                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.finStmnt.required?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
                         <i>Select all options that apply</i>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
                     </div>
                     <div style="margin:0.5rem 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtOrg.situation.none?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
-                        <check-box style="margin:0 0 0 0rem;" :check="true?'?':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
+                        <check-box style="margin:0 0 0 0rem;" :check="!exChSupInfo.applyForCaseManagement && exChSupInfo.abtOrg.situation.none?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 
+                        <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.applyForCaseManagement?'yes':''" text="I am required to file a Financial Statement but I am not able to complete it at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>                   
                     </div>
                 </section>
             </div>
@@ -306,20 +306,27 @@ export default class Schedule4 extends Vue {
             unpdChSup: {}, 
             calc:{}, 
             strtPy:{}, 
-            finStmnt:{}
+            finStmnt:{},
+            applyForCaseManagement:false
         };
 
         console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey){
             const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];
-                
+            const existingType = this.result.childSupportOrderAgreementSurvey.existingType;  
+            let date = '';
+            if (existingType == 'ExistingOrder'){
+                date = Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate);
+            } else if (existingType == 'ExistingAgreement'){
+                date = Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.agreementDate);
+            }
             existingChildSupportInfo.abtEx = {                
                 payor: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payor'),
                 payee: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payee'),
                 other: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other'),
                 otherComm: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other' && this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment)? this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment:'',
-                orderDate: Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate),
+                orderDate: date,
                 exstngOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder'),
                 fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
                 cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
@@ -367,7 +374,8 @@ export default class Schedule4 extends Vue {
 
         if (this.result.unpaidChildSupportSurvey){
             const unpaidChildSupport = this.result.unpaidChildSupportSurvey;
-            existingChildSupportInfo.unpdChSup = {
+            existingChildSupportInfo.unpdChSup = unpaidChildSupport.unpaid == 'y'?
+            {
                 crntDate: moment().format("MMM DD, yyyy"),   
                 unpaid: unpaidChildSupport.unpaid == 'y',
                 reduce: unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y',
@@ -377,6 +385,16 @@ export default class Schedule4 extends Vue {
                 monthlyAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount:'',
                 amnt: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.unPaidAmount:0, 
                 otherComm: (unpaidChildSupport.unpaid == 'y') && (unpaidChildSupport.paymentSchedule.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment:''       
+            }:{
+                crntDate:'',   
+                unpaid: false,
+                reduce: false,
+                reduceAmount: '',
+                whyReduceAmount: '',
+                paySchd: '',
+                monthlyAmount: '',
+                amnt: '', 
+                otherComm:''  
             }
         }
 
@@ -385,6 +403,25 @@ export default class Schedule4 extends Vue {
                 attaching: this.result.calculatingChildSupportSurvey.attachingCalculations == 'y',
                 reason: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'n' && this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations: ''
             }
+        }
+
+        // console.log('____')
+        // console.log(existingChildSupportInfo.abtOrg.situation)
+
+
+        existingChildSupportInfo.finStmnt = {
+            required: (existingChildSupportInfo.abtOrg.situation.payor ||
+                    existingChildSupportInfo.abtOrg.situation.over19 ||
+                    existingChildSupportInfo.abtOrg.situation.split  ||
+                    existingChildSupportInfo.abtOrg.situation.partyParentOfOther  ||
+                    existingChildSupportInfo.abtOrg.situation.payorEarnsHigh ||
+                    existingChildSupportInfo.abtOrg.situation.specialClaim ||
+                    existingChildSupportInfo.abtOrg.situation.undueHardship )
+        }
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
+            existingChildSupportInfo.applyForCaseManagement = true
+            existingChildSupportInfo.finStmnt['required'] = false
         }
 
         return existingChildSupportInfo;

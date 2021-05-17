@@ -1,7 +1,9 @@
 <template>
-    <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
-        <form-k @enableNext="EnableNext"/>
-    </page-base>
+    <div v-if="dataReady" >
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+            <form-k @enableNext="EnableNext"/>
+        </page-base>
+    </div>
 </template>
 
 <script lang="ts">
@@ -42,13 +44,17 @@ export default class PreviewForms extends Vue {
     currentStep = 0;
     currentPage = 0;
     disableNext = true;
+    dataReady = false
 
     mounted(){
+        this.dataReady = false;
         this.disableNext = true;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-        //this.togglePages([this.currentPage+1],true)
+
+        if(this.checkErrorOnPages([1])) this.dataReady = true;
+
     } 
 
     public togglePages(pageArr, activeIndicator) {        
@@ -59,6 +65,24 @@ export default class PreviewForms extends Vue {
                 active: activeIndicator
             });
         }
+    }
+
+    public checkErrorOnPages(steps){
+
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms"]
+        for(const stepIndex of steps){
+            const step = this.$store.state.Application.steps[stepIndex]
+            if(step.active){
+                for(const page of step.pages){
+                    if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                        this.$store.commit("Application/setCurrentStep", step.id);
+                        this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
+                        return false;
+                    }
+                }
+            }            
+        }
+        return true;        
     }
 
     public EnableNext(){
@@ -75,7 +99,8 @@ export default class PreviewForms extends Vue {
     }
 
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+        const progress = this.dataReady? 100: 50
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
 
 }

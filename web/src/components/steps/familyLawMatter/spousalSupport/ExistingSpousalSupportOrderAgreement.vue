@@ -47,12 +47,14 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     currentStep=0;
     currentPage=0;
 
-    existingSpousalSupportPages = [33, 34, 35, 36, 37, 38]
+    existingSpousalSupportPages = [33, 34, 35, 36, 37, 38, 39]
     existingSpousalSupportFinalOrderPage = 33
     existingSpousalSupportAgreementPage = 34
     calculatingSpousalSupportPage = 35
     unpaidSpousalSupportPage = 37
-    reviewYourAnswersPage = 38
+
+    additionalDocumentsPage = 38 
+    reviewYourAnswersPage = 39
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -97,11 +99,11 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     public setPages(){
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([this.existingSpousalSupportFinalOrderPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage, this.reviewYourAnswersPage], true); 
+            this.togglePages([this.existingSpousalSupportFinalOrderPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage,  this.reviewYourAnswersPage], true); 
             this.togglePages([this.existingSpousalSupportAgreementPage], false);               
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([this.existingSpousalSupportAgreementPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage, this.reviewYourAnswersPage], true); 
+            this.togglePages([this.existingSpousalSupportAgreementPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage,  this.reviewYourAnswersPage], true); 
             this.togglePages([this.existingSpousalSupportFinalOrderPage], false);                
         } else if (this.survey.data.existingType == "Neither") {
             this.togglePages(this.existingSpousalSupportPages, false);

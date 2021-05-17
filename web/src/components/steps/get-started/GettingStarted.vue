@@ -233,6 +233,7 @@ export default class GettingStarted extends Vue {
         
         this.setSteps(selectedForms);
         this.resetSelectedFormsCompeleted(selectedForms);
+        this.resetProgressOfAllPages(selectedForms);
     }
 
     public getApplicationType(selectedOrder){
@@ -278,6 +279,21 @@ export default class GettingStarted extends Vue {
         if(!selectedForms.includes("childReloc"))        pathwayCompleted["childReloc"] = false;
         if(!selectedForms.includes("agreementEnfrc"))    pathwayCompleted["agreementEnfrc"] = false;
         this.UpdatePathwayCompletedFull(pathwayCompleted);
+
+    }
+
+    public resetProgressOfAllPages(selectedForms){
+
+        for(const step of this.$store.state.Application.steps){
+            if(step.id == 2 && selectedForms.includes("protectionOrder"))
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: 1 });   
+            else 
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: 0 });               
+
+            for(const page of step.pages){               
+               this.$store.commit("Application/setPageProgress", { currentStep: step.id, currentPage:page.key, progress:0 });
+            }
+        }
 
     }
 

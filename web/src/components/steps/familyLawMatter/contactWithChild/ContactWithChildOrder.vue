@@ -43,6 +43,9 @@ export default class ContactWithChildOrder extends Vue {
     currentStep=0;
     currentPage=0;
 
+    additionalDocumentsPage = 38; 
+    reviewAnswersPage = 39;
+
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
@@ -76,7 +79,7 @@ export default class ContactWithChildOrder extends Vue {
     }    
             
     public setPages(){ 
-        this.togglePages([38], true);           
+        this.togglePages([ this.reviewAnswersPage], true);           
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
@@ -97,7 +100,7 @@ export default class ContactWithChildOrder extends Vue {
             }
         } else if (this.survey.data.existingType == 'Neither') {
             
-            this.togglePages([24, 25, 38], false);
+            this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], false);
             this.disableNextButton = true;            
         }
     }

@@ -64,7 +64,6 @@ import moment from 'moment-timezone';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { nextTick } from 'vue/types/umd';
 const applicationState = namespace("Application");
 
 @Component
@@ -93,8 +92,6 @@ export default class NavigationSidebar extends Vue {
         this.$store.commit("Application/setCurrentStep", nextIndex);
         Vue.nextTick().then(()=>{this.saveChanges();});
     }
-
-
    
     public onSelectPage(event) {
         const currStepIndex = this.$store.state.Application.currentStep;
