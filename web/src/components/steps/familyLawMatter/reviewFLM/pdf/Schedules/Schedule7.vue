@@ -252,15 +252,28 @@ export default class Schedule7 extends Vue {
             guardianshipInfo['criminalCheck'] = false;
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
-            guardianshipInfo['applyForCaseManagement'] = 'n'
-        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
-            guardianshipInfo['applyForCaseManagement'] = 'y'
-        }else{
-            guardianshipInfo['applyForCaseManagement'] = ''
+
+        let form5unable = false;
+
+        if(this.result.flmAdditionalDocsSurvey){
+            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+                if(form.includes("Form 5")||form.includes("registry search")){
+                    form5unable = true;
+                }
+            }   
         }
 
 
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
+            guardianshipInfo['applyForCaseManagement'] = 'n'
+        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form5unable){
+            guardianshipInfo['applyForCaseManagement'] = 'y'
+        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && !form5unable){
+            guardianshipInfo['applyForCaseManagement'] = 'n'
+        }else{
+            guardianshipInfo['applyForCaseManagement'] = ''
+        }
         return guardianshipInfo;
     }  
 

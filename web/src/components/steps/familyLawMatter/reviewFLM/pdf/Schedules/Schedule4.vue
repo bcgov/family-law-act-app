@@ -419,7 +419,17 @@ export default class Schedule4 extends Vue {
                     existingChildSupportInfo.abtOrg.situation.undueHardship )
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
+        let form4unable = false;
+
+        if(this.result.flmAdditionalDocsSurvey){
+            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+                if(form.includes("Financial Statement Form 4")){
+                    form4unable = true;
+                }
+            }   
+        }
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
             existingChildSupportInfo.applyForCaseManagement = true
             existingChildSupportInfo.finStmnt['required'] = false
         }
