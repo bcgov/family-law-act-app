@@ -55,6 +55,15 @@
                      "titleLocation": "hidden"
                   },
                   {
+                     "type": "custombutton",
+                     "name": "editLocation",
+                     "title": " ",
+                     "buttonText": "Edit Location Information ",
+                     "textClass":"bg-warning text-dark",
+                     "visible": false,
+                     "visibleIf": "{editButton}"
+                  },
+                  {
                      "type": "infotext",
                      "name": "ExplanationCourtLocation",
                      "visible": false,

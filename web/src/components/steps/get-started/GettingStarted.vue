@@ -184,6 +184,9 @@ export default class GettingStarted extends Vue {
     
     @applicationState.Action
     public UpdatePathwayCompletedFull!: (changedpathway) => void
+    
+    @applicationState.Action
+    public checkAllCompleted!: () => void
   
     selected = []
     returningUser = false
@@ -272,13 +275,21 @@ export default class GettingStarted extends Vue {
 
     public resetSelectedFormsCompeleted(selectedForms){
         const pathwayCompleted = this.pathwayCompleted
-        if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false); pathwayCompleted["protectionOrder"] = false;}
-        if(!selectedForms.includes("familyLawMatter"))   pathwayCompleted["familyLawMatter"] = false;
-        if(!selectedForms.includes("caseMgmt"))          pathwayCompleted["caseMgmt"] = false;
-        if(!selectedForms.includes("priotityParenting")) pathwayCompleted["priotityParenting"] = false;
-        if(!selectedForms.includes("childReloc"))        pathwayCompleted["childReloc"] = false;
-        if(!selectedForms.includes("agreementEnfrc"))    pathwayCompleted["agreementEnfrc"] = false;
+        //if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false);}
+        pathwayCompleted["protectionOrder"] = false;
+        //if(!selectedForms.includes("familyLawMatter"))   
+        pathwayCompleted["familyLawMatter"] = false;
+        //if(!selectedForms.includes("caseMgmt"))          
+        pathwayCompleted["caseMgmt"] = false;
+        //if(!selectedForms.includes("priotityParenting")) 
+        pathwayCompleted["priotityParenting"] = false;
+        //if(!selectedForms.includes("childReloc"))        
+        pathwayCompleted["childReloc"] = false;
+        //if(!selectedForms.includes("agreementEnfrc"))    
+        pathwayCompleted["agreementEnfrc"] = false;
         this.UpdatePathwayCompletedFull(pathwayCompleted);
+        this.checkAllCompleted();
+        //this.$store.commit("Application/setAllCompleted", false)
 
     }
 

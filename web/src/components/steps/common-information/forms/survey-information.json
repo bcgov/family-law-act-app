@@ -27,6 +27,15 @@
               "inputType": "date"
             },
             {
+              "type": "custombutton",
+              "name": "editName",
+              "title": " ",
+              "buttonText": "Edit Full Name & Date of Birth",
+              "textClass":"bg-warning text-dark",
+              "visible": false,
+              "visibleIf": "{editButton}"
+            },
+            {
               "type": "infotext",
               "name": "ExplanationLawyer",
               "title": "The court needs to know where to send documents to you and how to reach you.",

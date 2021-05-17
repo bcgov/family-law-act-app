@@ -109,6 +109,10 @@ export default class FilingLocation extends Vue {
     messageA = false;
     messageB = false;
 
+    aboutPOpage = 11
+    filingLocationPOpage = 3
+    editButton = false
+
     courtsA = [
         "Kelowna Law Courts", 
         "Nanaimo Law Courts", 
@@ -162,6 +166,20 @@ export default class FilingLocation extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
             // console.log(options)            
+            
+            if(options.name == 'editLocation'){  
+
+                let pageNO = this.aboutPOpage
+                if( this.$store.state.Application.steps[1].result && 
+                    this.$store.state.Application.steps[1].result.selectedPOOrder &&
+                    this.$store.state.Application.steps[1].result.selectedPOOrder.data &&
+                    this.$store.state.Application.steps[1].result.selectedPOOrder.data.orderType == 'needPO')
+                        pageNO = this.filingLocationPOpage              
+
+                this.$store.commit("Application/setCurrentStep", 1);
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: 1, currentPage: pageNO }); 
+            }
+
             //console.log(this.survey.data);
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);
@@ -218,6 +236,7 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[3].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[7].readOnly = true;
+            this.editButton = true
         }
     }
 
@@ -234,6 +253,8 @@ export default class FilingLocation extends Vue {
             }
         }
 
+        this.survey.setVariable("editButton",this.editButton);
+
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
         //console.log(this.respondentName)        
@@ -246,7 +267,7 @@ export default class FilingLocation extends Vue {
                 this.steps[1].result['selectedPOOrder'].data &&
                 this.steps[1].result['selectedPOOrder'].data.orderType == 'needPO')
             {
-                console.log('case1')
+              //  console.log('case1')
                 this.survey.setValue('ExistingFamilyCase',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFamilyCase);
                 this.survey.setValue('ExistingCourt',     this.steps[1].result['poFilingLocationSurvey'].data.ExistingCourt);
                 this.survey.setValue('ExistingFileNumber',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFileNumber);
@@ -257,7 +278,7 @@ export default class FilingLocation extends Vue {
                 this.steps[1].result['selectedPOOrder'] &&
                 this.steps[1].result['selectedPOOrder'].data &&
                 (this.steps[1].result['selectedPOOrder'].data.orderType == 'changePO'||this.steps[1].result['selectedPOOrder'].data.orderType == 'terminatePO'))
-            {console.log('case2')
+            {//console.log('case2')
                 this.survey.setValue('ExistingFamilyCase','y');
                 this.survey.setValue('ExistingCourt',     this.steps[1].result['aboutPOSurvey'].data.ExistingCourt);
                 this.survey.setValue('ExistingFileNumber',this.steps[1].result['aboutPOSurvey'].data.ExistingFileNumber);

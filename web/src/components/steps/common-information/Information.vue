@@ -52,6 +52,9 @@ export default class Information extends Vue {
     currentStep=0;
     currentPage=0;
 
+    yourInformationPOpage = 1
+    editButton = false
+
     lawyerName = '';
     clientName = '';
 
@@ -80,6 +83,12 @@ export default class Information extends Vue {
             Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(this.survey.data);
             // console.log(options)
+
+            if(options.name == 'editName'){ 
+                this.$store.commit("Application/setCurrentStep", 1);
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: 1, currentPage: this.yourInformationPOpage }); 
+            }
+
             if(options.name == "ApplicantName") {
                 this.$store.commit("Application/setApplicantName", this.survey.data["ApplicantName"]);
                 this.UpdateCommonStepResults({data:{'applicantName':this.survey.data["ApplicantName"]}})
@@ -96,6 +105,8 @@ export default class Information extends Vue {
             this.survey.data = this.step.result['yourInformationSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        this.survey.setVariable("editButton",this.editButton);
 
         if (this.types.includes("Family Law Matter")){
             this.survey.setVariable("includesFlm", true);            
@@ -123,6 +134,7 @@ export default class Information extends Vue {
         if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[1].readOnly = true;
+            this.editButton = true;
         }
 
     }

@@ -333,15 +333,15 @@ export default class ReviewYourAnswersFlm extends Vue {
         for(const stepIndex of [2,3]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
-            console.log(step)
+            // console.log(step)
             //console.log(stepResult);
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
                 {
-                    console.error("____________")
-                    console.log(value['currentPage'])
-                    console.log(step.pages[value['currentPage']]?step.pages[value['currentPage']].active:'undefined')
-                    console.log(key)
+                    // console.error("____________")
+                    // console.log(value['currentPage'])
+                    // console.log(step.pages[value['currentPage']]?step.pages[value['currentPage']].active:'undefined')
+                    // console.log(key)
                     //  console.log(value)
                     if(value && value['data'] && value['data'].length == 0){
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
