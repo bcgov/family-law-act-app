@@ -65,7 +65,7 @@
                   },
                   {
                      "type": "dropdown",
-                     "name": "CourtLocation",
+                     "name": "ExistingCourt",                     
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
                      "isRequired": true,

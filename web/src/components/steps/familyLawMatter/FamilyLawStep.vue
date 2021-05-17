@@ -56,8 +56,10 @@
         <about-existing-spousal-support-order v-bind:step="step" v-if="step.currentPage == 36"/>
         <unpaid-spousal-support v-bind:step="step" v-if="step.currentPage == 37"/>
 
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 38"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 39"/>
+        <flm-additional-documents v-bind:step="step" v-if="step.currentPage == 38"/>
+
+        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 39"/>
+        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 40"/>
     </step-base>
 </template>
 
@@ -112,6 +114,8 @@ import ExistingSpousalSupportFinalOrder from "./spousalSupport/ExistingSpousalSu
 import AboutExistingSpousalSupportOrder from "./spousalSupport/AboutExistingSpousalSupportOrder.vue";
 import ExistingSpousalSupportOrderAgreement from "./spousalSupport/ExistingSpousalSupportOrderAgreement.vue";
 import UnpaidSpousalSupport from "./spousalSupport/UnpaidSpousalSupport.vue";
+
+import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue"
 
 import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue"
 import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
@@ -170,7 +174,9 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         ExistingSpousalSupportFinalOrder,
         AboutExistingSpousalSupportOrder,
         ExistingSpousalSupportOrderAgreement,
-        UnpaidSpousalSupport, 
+        UnpaidSpousalSupport,
+        
+        FlmAdditionalDocuments,
 
         ReviewYourAnswersFlm,
         PreviewFormsFlm,

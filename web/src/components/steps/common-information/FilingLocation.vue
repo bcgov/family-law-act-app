@@ -55,6 +55,7 @@ import moment from 'moment-timezone';
 
 import PageBase from "../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import * as _ from 'underscore';
 
 import { namespace } from "vuex-class";
 
@@ -107,31 +108,33 @@ export default class FilingLocation extends Vue {
     locationInfo = false;
     messageA = false;
     messageB = false;
+
     courtsA = [
-            "Kelowna Law Courts", 
-            "Nanaimo Law Courts", 
-            "Vancouver Law Courts"
-        ];
+        "Kelowna Law Courts", 
+        "Nanaimo Law Courts", 
+        "Robson Square Provincial Court"
+    ];
     courtsB = [
-            "Abbotsford Provincial Court", 
-            "Campbell River Court", 
-            "Chilliwack Law Courts",
-            "Courtenay Law Courts",
-            "Kamloops Court",
-            "New Westminster Law Courts",
-            "North Vancouver Court",
-            "Penticton Law Courts",
-            "Port Coquitlam Court",
-            "Prince George Law Courts",
-            "Richmond Court Small Claims and Family Court",
-            "Richmond Provincial Court",
-            "Vernon Law Courts"
-        ];
+        "Abbotsford Provincial Court", 
+        "Campbell River Court", 
+        "Chilliwack Law Courts",
+        "Courtenay Law Courts",
+        "Kamloops Court",
+        "New Westminster Law Courts",
+        "North Vancouver Court",
+        "Penticton Law Courts",
+        "Port Coquitlam Court",
+        "Prince George Law Courts",
+        "Richmond Court Small Claims and Family Court",
+        "Richmond Provincial Court",
+        "Vernon Law Courts"
+    ];
     courtsC = [
-            "Victoria Law Courts",
-            "Surrey Provincial Court"
-        ];    
+        "Victoria Law Courts",
+        "Surrey Provincial Court"
+    ];    
     
+    allPages = _.range(1,41)
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -159,43 +162,42 @@ export default class FilingLocation extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
             // console.log(options)            
-            //console.log(this.survey.data);            
-            if(options.name == 'CourtLocation') {
-                this.saveApplicationLocation(this.survey.data.CourtLocation);
-            }
-
+            //console.log(this.survey.data);
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);
+                this.messageForLocation();
             }
+            //reset step 3 page to 0
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
         })   
     }
 
     public determineRegistry(location){
-        console.log(location)
         
-        if (this.courtsA.includes(location)){
-            this.messageA = true;
-            this.locationInfo = true;
-            this.survey.setValue("familyJusticeRegistry", true);
-            this.survey.setValue("familyEducationProgram", false);
+        if (this.courtsA.includes(location)){           
+            this.survey.setValue("familyJusticeRegistry",   true);
+            this.survey.setValue("familyEducationProgram",  false);
             this.survey.setValue("earlyResolutionRegistry", false);
-        } else if (this.courtsB.includes(location)) {
-            this.messageB = true;
-            this.locationInfo = true;
-            this.survey.setValue("familyJusticeRegistry", false);
+        } else if (this.courtsB.includes(location)) {           
+            this.survey.setValue("familyJusticeRegistry",   false);           
+            this.survey.setValue("familyEducationProgram",  true);  
+            this.survey.setValue("earlyResolutionRegistry", false); 
+        } else if (this.courtsC.includes(location)) {           
+            this.survey.setValue("familyJusticeRegistry",   false);            
+            this.survey.setValue("familyEducationProgram",  false);
+            if(this.survey.data.MetEarlyResolutionRequirements == 'n'){                
+                this.togglePages(this.allPages,false);
+            }          
+        } else {                       
+            this.survey.setValue("familyJusticeRegistry",   false);
+            this.survey.setValue("familyEducationProgram",  false);  
             this.survey.setValue("earlyResolutionRegistry", false);
-            this.survey.setValue("familyEducationProgram", true);            
-        } else {            
-            this.locationInfo = false;
-            this.survey.setValue("familyJusticeRegistry", false);
-            this.survey.setValue("familyEducationProgram", false);           
-            this.UpdateGotoNextStepPage();            
         }  
     }
 
     public closeLocationInfo(){
         this.locationInfo = false;
-        this.UpdateGotoNextStepPage();
+        //this.UpdateGotoNextStepPage();
     }
 
     public adjustSurveyForLocations(){
@@ -210,26 +212,61 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[7]["choices"].push(location["name"])
             this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"].push(location["name"])
         }
+
+        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[3].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
+            this.surveyJsonCopy.pages[0].elements[0].elements[7].readOnly = true;
+        }
     }
 
     public reloadPageInformation() {
+        
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
         if (this.step.result && this.step.result["filingLocationSurvey"]){
             this.survey.data = this.step.result["filingLocationSurvey"].data;
-            if(this.survey.data.ExistingFamilyCase && this.survey.data.ExistingFamilyCase == 'n' && this.survey.data.CourtLocation) {
-                this.saveApplicationLocation(this.survey.data.CourtLocation);
-            }
-
-            if (this.survey.data.ExistingFamilyCase && this.survey.data.ExistingFamilyCase == 'y' && this.survey.data.ExistingCourt){
+            
+            if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
-        //console.log(this.respondentName)
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.steps[this.currentStep].currentPage;
+        //console.log(this.respondentName)        
+
+        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            if( this.steps[1].result && 
+                this.steps[1].result['poFilingLocationSurvey'] && 
+                this.steps[1].result['poFilingLocationSurvey'].data &&
+                this.steps[1].result['selectedPOOrder'] &&
+                this.steps[1].result['selectedPOOrder'].data &&
+                this.steps[1].result['selectedPOOrder'].data.orderType == 'needPO')
+            {
+                console.log('case1')
+                this.survey.setValue('ExistingFamilyCase',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFamilyCase);
+                this.survey.setValue('ExistingCourt',     this.steps[1].result['poFilingLocationSurvey'].data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFileNumber);
+            }
+            else if( this.steps[1].result &&
+                this.steps[1].result['aboutPOSurvey'] &&
+                this.steps[1].result['aboutPOSurvey'].data &&
+                this.steps[1].result['selectedPOOrder'] &&
+                this.steps[1].result['selectedPOOrder'].data &&
+                (this.steps[1].result['selectedPOOrder'].data.orderType == 'changePO'||this.steps[1].result['selectedPOOrder'].data.orderType == 'terminatePO'))
+            {console.log('case2')
+                this.survey.setValue('ExistingFamilyCase','y');
+                this.survey.setValue('ExistingCourt',     this.steps[1].result['aboutPOSurvey'].data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',this.steps[1].result['aboutPOSurvey'].data.ExistingFileNumber);
+            }
+
+            this.messageForLocation();
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
+        }
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 
@@ -239,13 +276,21 @@ export default class FilingLocation extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            if (this.survey.data.ExistingFamilyCase == 'y' && this.survey.data.ExistingCourt){
-                this.determineRegistry(this.survey.data.ExistingCourt);
-            } else if (this.survey.data.ExistingFamilyCase == 'n' && this.survey.data.CourtLocation){
-                this.determineRegistry(this.survey.data.CourtLocation);
-            } else {
-                this.UpdateGotoNextStepPage();
-            }            
+            this.UpdateGotoNextStepPage();                                 
+        }
+    }
+
+    public messageForLocation(){
+        const location = this.survey.data.ExistingCourt
+
+        if (this.courtsA.includes(location)){
+            this.messageA = true;
+            this.locationInfo = true;
+        } else if (this.courtsB.includes(location)) {
+            this.messageB = true;
+            this.locationInfo = true;                
+        } else {            
+            this.locationInfo = false; 
         }
     }
 
@@ -275,12 +320,12 @@ export default class FilingLocation extends Vue {
                 if(existingOrdersCondition)
                     existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
                 else
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: ''}                                 
+                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''}                                 
             }else{
                 if(existingOrdersCondition)
                     existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
                 else
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: ''});                     
+                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''});                     
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
@@ -289,13 +334,25 @@ export default class FilingLocation extends Vue {
             if(existingOrdersCondition)
                 this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
             else
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: '' }]}});    
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: '' }]}});    
+        }
+    }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {            
+            this.$store.commit("Application/setPageActive", {
+                currentStep: 3,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
         }
     }
 
     beforeDestroy() {
         this.setExistingFileNumber();
-
+        
+        this.determineRegistry(this.survey.data.ExistingCourt);
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

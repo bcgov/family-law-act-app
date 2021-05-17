@@ -76,7 +76,7 @@
                     <i class="marginleftplus" >Select all options that apply</i>
                     <div style="margin:0 3rem 1rem 1rem;">
                         
-                        <check-box style="" :check="true?'?':''" text="no contact of any type"/>
+                        <check-box style="" :check="exChContInfo.abt.conType.noContact?'yes':''" text="no contact of any type"/>
                         <check-box style="" :check="exChContInfo.abt.conType.inPerson?'yes':''" text="in person: "/>
                         <i class="marginleft1vue" style="margin:0 0 0 1.75rem;">Provide specific dates or events requested, or dates and times that would be most suitable</i>
                         <div v-if="exChContInfo.abt.conType.inPerson" 
@@ -163,6 +163,7 @@ export default class Schedule6 extends Vue {
                 
                 conChList: [],
                 conType: {
+                    noContact: false,
                     inPerson: false,
                     tel: false,
                     video: false,
@@ -214,12 +215,14 @@ export default class Schedule6 extends Vue {
                 conChList: this.result.aboutContactWithChildSurvey.childrenRequireContactChoices,
                 conType: changeOrReplaceCondition?
                 {
+                    noContact: contactChoices.includes('No contact of any type'),
                     inPerson: contactChoices.includes('In person'),
                     tel: contactChoices.includes('Telephone communication'),
                     video: contactChoices.includes('Video communication'),
                     written:contactChoices.includes('Written communication'),
                     other: contactChoices.includes('other')
                 }:{
+                    noContact: false,
                     inPerson: false,
                     tel: false,
                     video: false,

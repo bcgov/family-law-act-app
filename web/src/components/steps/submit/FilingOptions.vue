@@ -79,13 +79,15 @@ export default class FilingOptions extends Vue {
     }
 
     public reloadPageInformation() {
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
         if (this.step.result && this.step.result["filingOptions"]){
             this.survey.data = this.step.result["filingOptions"];
         }
        
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+       this.allowEfiling();
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
         this.determineSelectedFilingType()
@@ -109,6 +111,18 @@ export default class FilingOptions extends Vue {
                 active: activeIndicator
             });
         }
+    }
+
+    public allowEfiling(){
+        //console.log(this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data)
+        if( this.$store.state.Application.steps[3].result &&
+            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
+            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
+            (this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs == "n"
+            ||            
+            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.criminalChecked == "n")
+        )this.survey.setVariable('efilingAllowed','n')
+        else this.survey.setVariable('efilingAllowed','y')
     }
 
     public determineSelectedFilingType(){

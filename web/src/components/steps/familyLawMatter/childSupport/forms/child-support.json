@@ -56,7 +56,7 @@
               "name": "parentFileForm4Info",
               "visible": false,
               "visibleIf": "{statementRequired}",
-              "title": "You are required to file a Financial Statement in Form 4 with your application for an order about child support. You will be reminded to include a copy at the end of the service.",
+              "title": "You are required to file a <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.",
               "titleLocation": "hidden",
               "messageStyle": "info"
             }

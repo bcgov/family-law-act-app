@@ -31,7 +31,7 @@
                 <section>
                     <div style="display:inline; margin-left:0.35rem">Is the child or children Indigenous? </div>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.indigenous?'yes':''" text="Yes"/>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="!guardInfo.indigenous?'yes':''" text="No"/>
+                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.nonIndigenous?'yes':''" text="No"/>
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown"/>
                     <div style="margin:0 0 0 1.35rem;">
                         <i style="margin:0 0 0 -0.25rem;" >If yes, please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</i>
@@ -57,7 +57,7 @@
                 <div style="margin-top:1rem;"><b>Guardianship affidavit and supporting documents</b></div>
 <!-- <4> -->
                 <section>
-                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'?':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
+                    <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I understand that I am required to file a Guardianship Affidavit in Form 5 as described in Rule 26"/>
                     <div style="margin:0 0 0 2rem; display:inline;">before the court can make a final order about guardianship</div>
                 </section>
             </div>
@@ -65,7 +65,7 @@
             <div style="margin-top:1rem;"></div>
 <!-- <5> -->
             <section>
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'?':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
+                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.criminalCheck?'yes':''" text="I have initiated or completed a criminal record check as required for the Guardianship Affidavit in"/>
                 <div style="margin:0 0 0 2rem; display:inline;">Form 5</div>
             </section>
 
@@ -74,14 +74,14 @@
             <section>
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
                 <div style="margin:0 0 0 1rem;">                     
-                    <check-box style="" :check="true?'?':''" text="I am filing the following required documents along with this application"/>
+                    <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
                 </div>
                 <div style="margin:0 0 0 3rem;">
-                   <check-box style="" :check="true?'?':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
-                   <check-box style="" :check="true?'?':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
+                   <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
+                   <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
                 </div>
                 <div style="margin:0.5rem 0 0 1rem;">                     
-                    <check-box style="" :check="true?'?':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
+                    <check-box style="" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
                 </div>
             </section>
         </div>
@@ -146,6 +146,7 @@ export default class Schedule7 extends Vue {
             abtGuardian: {}, 
             abtCancel: {}, 
             indigenous: false, 
+            nonIndigenous: false,
             unKnownAncestry: false, 
             ancestry: {
                 firstNation: false,
@@ -201,6 +202,7 @@ export default class Schedule7 extends Vue {
             const ancestryInfo = this.result.indigenousAncestryOfChildSurvey;
             if (ancestryInfo.indigenousChild == 'yes'){
                 guardianshipInfo.indigenous = true;
+                guardianshipInfo.nonIndigenous = false;
                 guardianshipInfo.unKnownAncestry = false;
                 guardianshipInfo.ancestry = {
                     firstNation: ancestryInfo.indigenousAncestry.includes('First Nation'),
@@ -210,8 +212,9 @@ export default class Schedule7 extends Vue {
                     over12: ancestryInfo.indigenousAncestry.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous'),
                     acknowledge: (ancestryInfo.indigenousAncestry.includes('Nisga’a') || ancestryInfo.indigenousAncestry.includes('Treaty First Nation'))? (ancestryInfo.ServeAcknowledgement == 'I acknowledge'):false
                 }
-            } else if (ancestryInfo.indigenousChild == 'n'){
+            } else if (ancestryInfo.indigenousChild == 'no'){
                 guardianshipInfo.indigenous = false;
+                guardianshipInfo.nonIndigenous = true;
                 guardianshipInfo.unKnownAncestry = false;
                 guardianshipInfo.ancestry = {
                     firstNation: false,
@@ -223,6 +226,7 @@ export default class Schedule7 extends Vue {
                 };
             } else {
                 guardianshipInfo.indigenous = false;
+                guardianshipInfo.nonIndigenous = false;
                 guardianshipInfo.unKnownAncestry = true;
                 guardianshipInfo.ancestry = {
                     firstNation: false,
@@ -234,6 +238,29 @@ export default class Schedule7 extends Vue {
                 };
             } 
         }
+
+        if( this.result.GuardianOfChildSurvey && 
+            this.result.GuardianOfChildSurvey.applicantionType &&
+            this.result.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian')){
+                guardianshipInfo['becomeGuardian'] = true;
+
+        }else guardianshipInfo['becomeGuardian'] = false;
+
+        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.criminalChecked =='y' ){
+            guardianshipInfo['criminalCheck'] = true;
+        }else {
+            guardianshipInfo['criminalCheck'] = false;
+        }
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
+            guardianshipInfo['applyForCaseManagement'] = 'n'
+        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
+            guardianshipInfo['applyForCaseManagement'] = 'y'
+        }else{
+            guardianshipInfo['applyForCaseManagement'] = ''
+        }
+
+
         return guardianshipInfo;
     }  
 

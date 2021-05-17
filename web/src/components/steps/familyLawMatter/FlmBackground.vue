@@ -49,10 +49,10 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,40)    
+    allPages = _.range(3,41)    
     
-    //review-answers page
-    commonPages = [38];
+    //additional documents page && review-answers page
+    commonPages = [39];
 
     parentingArrangementsNewPages = [2, 3, 4, 5, 6, 10]; 
     parentingArrangementsExistingPages = [2, 7, 8];    
@@ -143,7 +143,6 @@ export default class FlmBackground extends Vue {
         
     }
 
-
     public setPages() {
         
         // console.log(selectedForm)
@@ -212,6 +211,7 @@ export default class FlmBackground extends Vue {
     }
   
     beforeDestroy() {
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
         this.UpdateStepResultData({step:this.step, data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})

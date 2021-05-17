@@ -18,7 +18,7 @@
                 <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
                     <li v-if="requiredDocument.required.length>0"  class="mb-2"> For the {{requiredDocument.name}} Application:
                         <ul class="mt-3" v-for="requiredDoc,inx in requiredDocument.required" :key="inx">
-                            <li class="mb-2 font-weight-normal">{{requiredDoc}}</li>
+                            <li class="mb-2 font-weight-normal" v-html="requiredDoc" >{{requiredDoc}}</li>
                         </ul>
                     </li>                        
                 </ul>

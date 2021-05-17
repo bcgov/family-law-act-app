@@ -150,7 +150,7 @@ export default class PoQuestionnaire extends Vue {
                 }              
                 
                 
-            }
+            }           
 
             if (options.name == "PORConfirmed" && selectedOrder == "needPO" ) {
 
@@ -163,7 +163,7 @@ export default class PoQuestionnaire extends Vue {
                     this.togglePages(this.needPoPages, false);
                     this.determineNoContactPage(false);
                 }
-            }
+            }           
 
             this.determinePeaceBondAndBlock();
         })   
@@ -240,14 +240,20 @@ export default class PoQuestionnaire extends Vue {
     
     public determinePeaceBondAndBlock(){
         if(this.survey &&((this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO')||(this.survey.data.unsafe == 'n' && this.survey.data.orderType == 'needPO'))){ 
-            this.togglePages(this.needPoPages, false);            
-        }else{                
+            this.togglePages(this.needPoPages, false);
+            this.disableNextButton = true;            
+        }else{
+            this.disableNextButton = false;                
             if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
                 if (this.isSurveyAnsweredCorectly())
                     this.togglePages(this.needPoPages, true);
                 else 
                     this.togglePages([1,2], true);
             }      
+        }
+
+        if (this.survey.data.orderType == 'none'){
+            this.disableNextButton = true;
         }
     }
 

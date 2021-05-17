@@ -87,15 +87,13 @@ export default class PoFilingLocation extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('protectionOrder')
             // console.log(options)            
             //console.log(this.survey.data);            
-            if(options.name == 'CourtLocation') {
-                this.saveApplicationLocation(this.survey.data.CourtLocation);
-            }
 
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
             }
         })   
     }   
@@ -123,11 +121,8 @@ export default class PoFilingLocation extends Vue {
         //console.log(this.step.result)
         if (this.step.result && this.step.result["poFilingLocationSurvey"]){
             this.survey.data = this.step.result["poFilingLocationSurvey"].data;
-            if(this.survey.data.ExistingFamilyCase && this.survey.data.ExistingFamilyCase == 'n' && this.survey.data.CourtLocation) {
-                this.saveApplicationLocation(this.survey.data.CourtLocation);
-            }
-
-            if (this.survey.data.ExistingFamilyCase && this.survey.data.ExistingFamilyCase == 'y' && this.survey.data.ExistingCourt){
+           
+            if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         }
@@ -168,12 +163,12 @@ export default class PoFilingLocation extends Vue {
                 if(existingOrdersCondition)
                     existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
                 else
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: ''}                                 
+                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''}                                 
             }else{
                 if(existingOrdersCondition)
                     existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
                 else
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: ''});                     
+                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''});                     
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
@@ -182,7 +177,7 @@ export default class PoFilingLocation extends Vue {
             if(existingOrdersCondition)
                 this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
             else
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.CourtLocation, fileNumber: '' }]}});    
+                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: '' }]}});    
         }
     }
 
@@ -191,6 +186,18 @@ export default class PoFilingLocation extends Vue {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {poFilingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+
+        if (this.steps[2].result && this.steps[2].result.filingLocationSurvey && this.steps[2].result.filingLocationSurvey.data) {
+            const filingLocationSurveyCommon = this.steps[2].result.filingLocationSurvey
+            filingLocationSurveyCommon.data.ExistingCourt = this.survey.data["ExistingCourt"]
+            filingLocationSurveyCommon.data.ExistingFileNumber = this.survey.data["ExistingFileNumber"]
+            filingLocationSurveyCommon.data.ExistingFamilyCase = this.survey.data["ExistingFamilyCase"]
+            // console.log("common information already exists");
+            // console.log(this.steps[2].result.filingLocationSurvey)
+            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: filingLocationSurveyCommon }})
+        } else {
+            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 3)}});
+        }
     }
 };
 </script>
