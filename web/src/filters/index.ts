@@ -372,6 +372,34 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	return requiredDocuments;
 })
 
+Vue.filter('replaceRequiredDocuments', function(){
+	const requireDocs = JSON.parse(JSON.stringify(store.state.Application.requiredDocuments));
+
+	if(store.state.Application.requiredDocuments['familyLawMatter'] && store.state.Application.requiredDocuments['familyLawMatter'].required){
+		requireDocs['familyLawMatter']['required'] = []		
+		let caseManagementDocPushed = false
+		for(const doc of store.state.Application.requiredDocuments['familyLawMatter'].required){
+			if( store.state.Application.steps[3].result &&
+				store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
+				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
+				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms && 
+				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms.includes(doc)){
+					if(!caseManagementDocPushed){
+						requireDocs['familyLawMatter']['required'].push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true' target='_blank'> Application for Case Management Order Without Notice or Attendance </a> Form 11")
+						caseManagementDocPushed = true;
+					}
+			}
+			else
+				requireDocs['familyLawMatter']['required'].push(doc)
+		}
+		
+		//this.UpdateRequiredDocuments(requireDocs)
+		store.commit("Application/setRequiredDocuments", requireDocs);
+		//this.isRequiredDocument = true
+	}
+})
+
+
 Vue.filter('surveyChanged', function(type: string) {
 	let step = 1
 	let reviewPage = 12

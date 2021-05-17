@@ -6,8 +6,8 @@
                 <h4>
                     You need to complete an Application for
                     <a
-                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa724.pdf?forcedownload=true"
-                    >Order Prohibiting the Relocation of a Child in Form O</a> if you need an order prohibiting the relocation of a child under s. 69
+                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa724.pdf?forcedownload=true" target='_blank'
+                    >Order Prohibiting the Relocation of a Child in Form 16</a> if you need an order prohibiting the relocation of a child under s. 69
                     of the Family Law Act.
                 </h4>
                 <p>Section 69 of the Family Law Act applies if:</p>

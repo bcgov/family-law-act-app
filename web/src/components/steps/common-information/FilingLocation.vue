@@ -260,6 +260,7 @@ export default class FilingLocation extends Vue {
         //console.log(this.respondentName)        
 
         if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+            
             if( this.steps[1].result && 
                 this.steps[1].result['poFilingLocationSurvey'] && 
                 this.steps[1].result['poFilingLocationSurvey'].data &&
@@ -267,10 +268,13 @@ export default class FilingLocation extends Vue {
                 this.steps[1].result['selectedPOOrder'].data &&
                 this.steps[1].result['selectedPOOrder'].data.orderType == 'needPO')
             {
-              //  console.log('case1')
+                // console.log('case1')
+                // console.log(this.steps[1].result['poFilingLocationSurvey'].data.ExistingCourt)
                 this.survey.setValue('ExistingFamilyCase',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFamilyCase);
                 this.survey.setValue('ExistingCourt',     this.steps[1].result['poFilingLocationSurvey'].data.ExistingCourt);
                 this.survey.setValue('ExistingFileNumber',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFileNumber);
+                // console.log(this.survey.data)
+
             }
             else if( this.steps[1].result &&
                 this.steps[1].result['aboutPOSurvey'] &&

@@ -75,6 +75,7 @@ export default class RequiredDocument extends Vue {
     requiredDocumentLists = [];
 
     mounted(){
+        Vue.filter('replaceRequiredDocuments')()
         this.getRequiredDocuments()
     }
 

@@ -6,8 +6,8 @@
                 <h4>
                     You need to complete an Application for
                     <a
-                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa722.pdf?forcedownload=true"
-                    >Priority Parenting Matter in Form M</a> if you need an order about a priority parenting matter,
+                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa722.pdf?forcedownload=true" target='_blank'
+                    >Priority Parenting Matter in Form 15</a> if you need an order about a priority parenting matter,
                     including a new order or to change or cancel an existing order.
                 </h4>
                 <p>Priority parenting matters are usually:</p>
@@ -29,7 +29,7 @@
                         relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, if
                         <ul>
                             <li>no written agreement or order respecting parenting arrangements applies in respect of the child, and</li>
-                            <li>he change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian;</li>
+                            <li>the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian;</li>
                         </ul>
                     </li>
                     <li>relating to the removal of a child under section 64 [orders to prevent removal of child] of the Family Law Act;</li>

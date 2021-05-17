@@ -57,8 +57,8 @@
           "visible": false,
           "isRequired": true,
           "visibleIf": "{RespondentWeapons} = 'y'",
-          "title": "Do you think {RespondentName} own any weapons that are not everyday objects, guns or explosives?",
-          "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knifes, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
+          "title": "Do you think {RespondentName} owns any weapons that are not everyday objects, guns or explosives?",
+          "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knives, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
          },
          {
           "type": "comment",

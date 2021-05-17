@@ -11,7 +11,7 @@
                      "type": "yesno",
                      "name": "ExistingFamilyCase",
                      "isRequired": true,
-                     "title": "Is there already a Family Law file open between {ApplicantName} and {RespondentName} in the Provincial Court of British Columbia?",
+                     "title": "Is there already a Family Law file open between the same parties in the Provincial Court of British Columbia?",
                      "description": "An open file could mean that documents have been filed at the courthouse but a judge may not have made an order yet."
                   },
                   {
@@ -53,16 +53,7 @@
                      "visibleIf": "{ExistingFamilyCase} = 'y'",
                      "title": "<b>Note: You must file any new application at the court registry where your existing case is filed.</b> If you want your case moved to another court registry, you must get a court order to transfer the file. You can apply for this case management order by selecting the case management option in the first step of this service.",
                      "titleLocation": "hidden"
-                  },
-                  {
-                     "type": "custombutton",
-                     "name": "editLocation",
-                     "title": " ",
-                     "buttonText": "Edit Location Information ",
-                     "textClass":"bg-warning text-dark",
-                     "visible": false,
-                     "visibleIf": "{editButton}"
-                  },
+                  },                 
                   {
                      "type": "infotext",
                      "name": "ExplanationCourtLocation",
@@ -80,6 +71,15 @@
                      "isRequired": true,
                      "title": "Court Location",
                      "choices": []
+                  },
+                  {
+                     "type": "custombutton",
+                     "name": "editLocation",
+                     "title": " ",
+                     "buttonText": "Edit Location Information ",
+                     "textClass":"bg-warning text-dark",
+                     "visible": false,
+                     "visibleIf": "{editButton}"
                   },
                   {
                      "type": "helptext",
