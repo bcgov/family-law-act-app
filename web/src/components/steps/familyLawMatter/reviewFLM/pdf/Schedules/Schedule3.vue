@@ -411,8 +411,20 @@ export default class Schedule3 extends Vue {
 
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' )){
-            newChildSupportInfo.applyForCaseManagement = true
+        //console.log(this.result.flmAdditionalDocsSurvey)
+
+        let form4unable = false;
+
+        if(this.result.flmAdditionalDocsSurvey){
+            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+                if(form.includes("Financial Statement Form 4")){
+                    form4unable = true;
+                }
+            }   
+        }
+
+        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
+           newChildSupportInfo.applyForCaseManagement = true
             newChildSupportInfo.finStmnt['required'] = false
         }
 

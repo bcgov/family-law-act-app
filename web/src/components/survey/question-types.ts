@@ -13,6 +13,7 @@ import TextBeforeInputNumber from "./components/TextBeforeInputNumber.vue";
 import MultipleTextInput from "./components/MultipleTextInput.vue"
 import AdvancedRadioGroup from "./components/AdvancedRadioGroup.vue"
 import MultipleCommentCheckbox from "./components/MultipleCommentCheckbox.vue"
+import CustomButton from "./components/CustomButton.vue"
 
 function fixCheckboxes(Survey: any) {
   const widget = {
@@ -545,6 +546,34 @@ function initMultipleCommentCheckbox(Survey: any) {
   Vue.component("MultipleCommentCheckbox", MultipleCommentCheckbox);
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
+
+function initCustomButton(Survey: any) {
+  const widget = {
+    name: "CustomButton",
+    title: "Custom Button",
+    iconName: "icon-multipletext",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "custombutton";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("custombutton",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("custombutton", [        
+        {
+          name: "textClass:text"
+        },
+        {
+          name: "buttonText:text"
+        }
+      ]);
+    },
+  };
+
+  Vue.component("CustomButton", CustomButton);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
 //__________________________________________________________________________________________________
 // Returns 'y' or 'n', or 'u' for undefined and 'e' for error
 function isChild(params: any) {
@@ -601,6 +630,7 @@ export function addQuestionTypes(Survey: any) {
   initMultipleTextInput(Survey);
   initAdvancedRadioGroup(Survey);
   initMultipleCommentCheckbox(Survey);
+  initCustomButton(Survey);
 
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
@@ -725,6 +755,18 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "multiplecommentcheckbox",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "custombutton",
+    title: "Custom Button",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "custombutton",
       titleLocation: "hidden"
     }
   });

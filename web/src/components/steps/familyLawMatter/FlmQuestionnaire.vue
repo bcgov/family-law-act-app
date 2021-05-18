@@ -27,7 +27,7 @@
                 <div class="checkbox-border">
                     <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting Arrangements</div>
                     <p>
-                        Parenting arrangement are how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" :index="0"/> 
+                        Parenting arrangements are how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" :index="0"/> 
                         for decision making about a child and the <tooltip title="parenting time" :index="0"/> each guardian spends with a child. 
                         Parental responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting
                          arrangements is what is in the best interests of the child.

@@ -160,7 +160,7 @@
                      "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"n\") or {ApplicantNeedsProtection} = \"y\" and  {childPO} = \"n\"",
                      "title": "Do you need Protection Order for the child of the person you are applying for?",
                      "titleLocation": "hidden",
-                     "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\">Child Protection Services</a>"
+                     "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\" target='_blank'>Child Protection Services</a>"
                   },
                   {
                      "type": "yesno",

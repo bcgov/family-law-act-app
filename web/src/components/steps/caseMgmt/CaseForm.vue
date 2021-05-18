@@ -20,14 +20,14 @@
                 <br />
                 <p>
                     The <a
-                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa717.pdf?forcedownload=true"
-                    >Application for Case Management Order Form H</a> can be used to apply to the court for one or more of the following case management orders:
+                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa717.pdf?forcedownload=true" target='_blank'
+                    >Application for Case Management Order Form 10</a> can be used to apply to the court for one or more of the following case management orders:
                 </p>
                 <ul>
                     <li>transferring a court file to another registry for all purposes or specific purposes;</li>
                     <li>relating to the management of a court record, file or document, including access to a court file;</li>
                     <li>correcting or amending a filed document, including the correction of a name or date of birth;</li>
-                    <li>setting a specified period for the filing and exchanging of information or evidence, including a financial statement in Form D [Financial Statement];</li>
+                    <li>setting a specified period for the filing and exchanging of information or evidence, including a financial statement in Form 4 [Financial Statement];</li>
                     <li>specifying or requiring information that must be disclosed by a person who is not a party to a case;</li>
                     <li>requiring that a parentage test be taken under section 33 [parentage tests] of the Family Law Act;</li>
                     <li>requiring access to information in accordance with section 242 [orders respecting searchable information] of the Family Law Act; </li>
@@ -55,8 +55,8 @@
                 <p>
                     The following case management orders can be requested without notice and without an appearance by filing an
                     <a
-                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true"
-                    >Application for Case Management Order without Notice or Appearance in Form I</a>; however, Form H can also be used to apply for the same case management orders,
+                        href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true" target='_blank'
+                    >Application for Case Management Order without Notice or Appearance in Form 11</a>; however, Form 10 can also be used to apply for the same case management orders,
                     if they are by consent or you want a hearing:
                 </p>
                 <ul>

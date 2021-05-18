@@ -26,7 +26,7 @@
           />
         </a>
         <div class="navbar-brand navbar-text">
-          Apply for a Family Law Act
+          Apply for a Family Law Act Order
           <span class="navbar-tag">BETA</span>
         </div>
 
