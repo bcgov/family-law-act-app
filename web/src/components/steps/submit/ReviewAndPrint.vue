@@ -32,7 +32,7 @@
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <span class="text-primary" style='font-size:1.4rem;'>Review your application:</span>  
-                <form-list type="Print" :currentPage="currentPage"/>
+                <form-list @downloaded="downloaded" type="Print" :currentPage="currentPage"/>
 
                 <div name="pdf-guide" class="my-4 text-primary" @click="showGetHelpForPDF = true" style="cursor: pointer;border-bottom:1px solid; width:20.25rem;">
                     <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help opening and saving PDF forms 
@@ -158,7 +158,11 @@ export default class ReviewAndPrint extends Vue {
         //     this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
         // }  
 
-    }    
+    }  
+    
+    public downloaded(){
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
+    }
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

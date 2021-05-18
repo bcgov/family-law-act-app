@@ -379,7 +379,7 @@ export default class Form1Layout extends Vue {
             lawyerStatement: {lawyerName: '', clientName: ''}
         }        
 
-        console.log(this.result)
+        // console.log(this.result)
 
         if(this.result.yourInformationSurvey){
 
@@ -416,7 +416,7 @@ export default class Form1Layout extends Vue {
 
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
             OpInformation = [];  
-            console.log(this.result.otherPartyCommonSurvey)  
+            // console.log(this.result.otherPartyCommonSurvey)  
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
                     dob: '',

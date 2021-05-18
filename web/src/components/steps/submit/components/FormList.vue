@@ -55,8 +55,9 @@ export default class FormList extends Vue {
     showPDFpreview = false;
 
     formsListTemplate =[                
-        { name:'PK', appName:'protectionOrder', pdfType:'AAP', chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
-        { name:'P3', appName:'familyLawMatter', pdfType:'FLC', chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+        { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM K)"},
+        { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+        { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[2,3], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
     ]
 
     formsList=[];
@@ -69,10 +70,14 @@ export default class FormList extends Vue {
     } 
     
     public initFormsTitle(){
-        console.log(this.pathwayCompleted)
-        for(const form of this.formsListTemplate)
+        // console.log(this.pathwayCompleted)
+        for(const form of this.formsListTemplate)        
         {
             if(this.pathwayCompleted[form.appName]){
+
+                if(form.name=='P1' && !this.isForm1()) continue
+
+                if(form.name=='P3' && this.isForm1()) continue
 
                 if(this.generatedForms.includes(form.name))
                     form.color = "success"
@@ -81,11 +86,26 @@ export default class FormList extends Vue {
             }                           
         }
     }
+
+    public isForm1(){
+        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
+        const locationSurvey = this.$store.state.Application.steps[2].result
+       
+        if(locationSurvey && locationSurvey.filingLocationSurvey && locationSurvey.filingLocationSurvey.data){
+            //console.log(locationSurvey.filingLocationSurvey.data)
+            const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
+            if(courtsC.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+                return true
+            else 
+                return false
+        }
+        return false        
+    }
     
     public onDownload(formName, inx) {
-        console.log("downloading"+inx)
-        console.log(this.formsList[inx])
-        console.log(formName)
+        // console.log("downloading"+inx)
+        // console.log(this.formsList[inx])
+        // console.log(formName)
 
         
         // this.showPDFformName = formName;
@@ -135,7 +155,7 @@ export default class FormList extends Vue {
     public isFormReviewed(){
         for(const form of this.formsList)
             if(!this.generatedForms.includes(form.name)){
-                console.log(form)
+                // console.log(form)
                 return false
             }
         return true
@@ -160,6 +180,8 @@ export default class FormList extends Vue {
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);
             this.formsList[formsListIndex].color = "success";
+            this.$emit('downloaded')
+
         },err => {
             console.error(err);
         });
