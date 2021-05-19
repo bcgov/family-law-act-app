@@ -230,7 +230,7 @@ export default class LandingPage extends Vue {
     //                             (locationInfo.address_2?(locationInfo.address_2 + ', '):'') + 
     //                             (locationInfo.address_3?(locationInfo.address_3):'');
     //             const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-    //             locations.push({id: locationInfo.location_id, name: location, address: address, postalCode: postalCode, email:''})               
+    //             locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:''})               
     //         }
     //         console.log(locations)
     //         this.UpdateLocationsInfo(locations);
