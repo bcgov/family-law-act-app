@@ -32,6 +32,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('accepted_terms_at', models.DateTimeField(blank=True, null=True)),
+                ('idir_userid', models.CharField(blank=True, max_length=500, null=True)),
                 ('authorization_id', models.CharField(blank=True, max_length=500, null=True)),
                 ('authorization_guid', models.UUIDField(default=None, null=True, unique=True)),
                 ('authorization_directory', models.CharField(blank=True, max_length=100, null=True)),
