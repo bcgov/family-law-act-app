@@ -5,7 +5,7 @@ djangorestframework>=3.12.2,<4
 djangorestframework-bulk>=0.2.1,<1
 django-cors-headers>=3.4.0,<4
 # Important to use this instead of the original library
-git+https://github.com/seeker25/django-oidc-rp.git@idir_and_bceid#egg=django-oidc-rp
+git+https://github.com/seeker25/django-oidc-rp.git@76c2ce7ece1c1d4c1afd22172379285650967376#egg=django-oidc-rp
 
 # Database managment
 psycopg2-binary>=2.7.3.1,<3
