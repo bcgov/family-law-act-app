@@ -150,8 +150,12 @@ export default class ReviewAndPrint extends Vue {
         //console.log(location)
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
+        // console.log(this.applicantLocation) 
            
-
+        if (this.applicantLocation["filingLocation"]){
+            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.id == this.applicantLocation["filingLocation"]) return true})[0]
+            // console.log(this.applicantLocation)
+        }
         // if(location == 'Victoria'){
         //     this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
         // }else if(location == 'Surrey'){

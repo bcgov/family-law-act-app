@@ -98,7 +98,7 @@ export default class About extends Vue {
     public adjustSurveyForLocations(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson)); 
-        console.log(this.surveyJsonCopy.pages[0])
+        // console.log(this.surveyJsonCopy.pages[0])
         
         this.surveyJsonCopy.pages[0].elements[0].elements[4]["choices"] = [];        
         
@@ -117,7 +117,7 @@ export default class About extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        console.log(this.$store.state.Application.steps)
+        // console.log(this.$store.state.Application.steps)
 
         const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
         if(order) {

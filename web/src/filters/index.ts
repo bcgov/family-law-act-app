@@ -32,7 +32,7 @@ Vue.filter('scrollToLocation', function(locationName){
 	if(locationName){
 		Vue.nextTick(()=>{
 			const el = document.getElementsByName(locationName)
-			console.log(el)
+			// console.log(el)
 			if(el[0]) el[0].scrollIntoView();
 		})
 	}
@@ -126,7 +126,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		//console.log(question.isVisible)
 		//console.log(question.questionValue)
 		if(question.isVisible && question.name.startsWith("parentFileForm4Info")){
-			console.log(question.name)
+			// console.log(question.name)
 			flagForm4 = true
 		}
 			
@@ -153,7 +153,7 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 				questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})
 				
 			}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){
-				console.log(question)//
+				// console.log(question)//
 				questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.title, inputType:question.inputType})
 			}	
 		}
@@ -164,8 +164,8 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	}
 
 	if(optionalArg && optionalArg.name && optionalArg.value && optionalArg.title){
-		console.error('_________')
-		console.log(optionalArg)
+		// console.error('_________')
+		// console.log(optionalArg)
 		questionResults.push(optionalArg)
 	}
 
@@ -365,9 +365,9 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});
 	
 	
-	console.log('required documents')
-	console.log(requiredDocuments)
-	console.log(reminderDocuments)
+	// console.log('required documents')
+	// console.log(requiredDocuments)
+	// console.log(reminderDocuments)
 
 	return requiredDocuments;
 })

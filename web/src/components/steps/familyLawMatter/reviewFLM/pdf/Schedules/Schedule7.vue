@@ -157,7 +157,7 @@ export default class Schedule7 extends Vue {
                 acknowledge: false                    
             }
         };
-        console.log(this.result)
+        // console.log(this.result)
 
         if (guardian){
             guardianshipInfo.abtGuardian = {

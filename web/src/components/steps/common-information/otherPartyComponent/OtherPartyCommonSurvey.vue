@@ -110,7 +110,7 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
     
     public reloadPageInformation() {
-        console.log(this.types)
+        // console.log(this.types)
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
         }

@@ -125,7 +125,7 @@ export default class FlmBackground extends Vue {
         
         if (this.otherPartyNames.length > 1){
             this.survey.setVariable("multipleOP", true); 
-            console.log("show")               
+            // console.log("show")               
         } else {
             this.survey.setVariable("multipleOP", false);
         }       

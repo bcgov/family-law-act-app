@@ -15,8 +15,8 @@ class EFilingPackaging:
 
     def _resolve_location_code(self, location_name) -> {}:
         court_locations = EFilingResources().get_courts()
-        return court_locations.get(location_name, {"location_id": "0000"}).get(
-            "location_id"
+        return court_locations.get(location_name, {"location_code": "0000"}).get(
+            "location_code"
         )
 
     def build_efiling_body(self, data) -> {}:

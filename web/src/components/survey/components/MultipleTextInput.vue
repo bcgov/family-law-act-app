@@ -75,7 +75,7 @@ export default class MultipleTextInput extends Vue {
             let error = null      
             for (const field of this.fields) {
                 const newValue = (this.pendingValue[field.name] || "").trim();
-                console.log(newValue)
+                // console.log(newValue)
                 if (!newValue.length){
                     error = new SurveyVue.SurveyError("Please enter all fields")
                     break;

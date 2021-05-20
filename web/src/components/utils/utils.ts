@@ -38,7 +38,7 @@ export const SessionManager = {
             return { userId, loginUrl };
         }
         catch (error) {
-            console.log(error);  
+            // console.log(error);  
         }
     }
 }
