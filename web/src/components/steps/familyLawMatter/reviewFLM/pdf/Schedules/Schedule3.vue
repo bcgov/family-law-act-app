@@ -304,7 +304,7 @@ export default class Schedule3 extends Vue {
     }
 
     public getNewChildSupportInfo(){
-        console.log(this.result)
+        // console.log(this.result)
         let newChildSupportInfo = {appType: {}, opType: {}, currCond:{}, opInfo: {}, desiredSup: {}, calc:{}, ndHard:{}, specExp: {}, finStmnt:{}, applyForCaseManagement: false};
 
         if (this.result.childSupportSurvey.applicantGuardianType){

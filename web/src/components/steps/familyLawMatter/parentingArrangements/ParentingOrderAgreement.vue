@@ -95,7 +95,7 @@ export default class ParentingOrderAgreement extends Vue {
             this.survey.data = this.step.result['parentingOrderAgreementSurvey'].data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-        console.log(this.step.result)
+        // console.log(this.step.result)
 
         if (this.step.result && this.step.result['childData']) {
             const childData = this.step.result['childData'].data;            

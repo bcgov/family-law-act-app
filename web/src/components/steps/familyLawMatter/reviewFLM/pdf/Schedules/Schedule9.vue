@@ -209,7 +209,7 @@ export default class Form3 extends Vue {
             applyForCaseManagement: false
         }
 
-        console.log(this.result)
+        // console.log(this.result)
 
         if (this.result.spousalSupportSurvey){
             const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons?this.result.spousalSupportSurvey.listOfReasons:[]

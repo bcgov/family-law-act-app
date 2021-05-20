@@ -322,7 +322,7 @@ export default class FlmQuestionnaire extends Vue {
 
     public getSelectedFormsNames(){
         let result = ''
-        console.log(this.selectedForm)
+        // console.log(this.selectedForm)
         for(const form of this.selectedForm){
             if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
             if(form=='childSupport')            result+='Child Support'+'\n';

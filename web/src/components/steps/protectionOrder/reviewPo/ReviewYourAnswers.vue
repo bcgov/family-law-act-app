@@ -93,7 +93,7 @@ export default class ReviewYourAnswers extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        console.log(newVal)
+        // console.log(newVal)
         this.togglePages([this.previewFormsPage], !this.pageHasError);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"protectionOrder", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
@@ -198,8 +198,8 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     public edit(section, data){
-        console.log(data)
-        console.log(section)
+        // console.log(data)
+        // console.log(section)
         this.$store.commit("Application/setScrollToLocationName",data.item.name);
         this.$store.commit("Application/setCurrentStep", section.currentStep);
         this.$store.commit("Application/setCurrentStepPage", {currentStep: section.currentStep, currentPage: section.currentPage });
@@ -241,10 +241,10 @@ export default class ReviewYourAnswers extends Vue {
                     }
                 }
         }
-        console.log(this.questionResults )
+        // console.log(this.questionResults )
 
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
-        console.log(this.questionResults)
+        // console.log(this.questionResults)
        
         //let progress = 100;
         // if(Object.keys(this.survey.data).length)
@@ -277,9 +277,9 @@ export default class ReviewYourAnswers extends Vue {
                                 for(const question of questionResult.questions){
                                     if(question.name == question2 && question.title.trim()==title2.trim())
                                     {
-                                        console.log(question.title)
-                                        console.log(title2)
-                                        console.log(question.title.trim()==title2.trim())
+                                        // console.log(question.title)
+                                        // console.log(title2)
+                                        // console.log(question.title.trim()==title2.trim())
                                         return response
                                     }
                                 }

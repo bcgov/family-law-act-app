@@ -346,7 +346,7 @@
             e.stopPropagation()
             const dt = e.dataTransfer
             const files = dt.files
-            console.log(files)
+            // console.log(files)
             if (files && files[0]) 
             {
                 this.supportingFile = files;
@@ -355,16 +355,16 @@
         } 
 
         public uploadClicked(){
-            console.log('click')
+            // console.log('click')
             const el = document.getElementById("inputfile");
             if(el) el.click();
         }
 
         public handleSelectedFile(event){
-            console.log(event)
+            // console.log(event)
             event.preventDefault();
             event.stopPropagation();
-            console.log(event.target.files[0])
+            // console.log(event.target.files[0])
             
             if (event.target.files && event.target.files[0]) 
             {
@@ -390,15 +390,15 @@
             const bodyFormData = new FormData();
             const docType = []
 
-            console.log(this.supportingDocuments[this.supportingDocuments.length-1])
+            // console.log(this.supportingDocuments[this.supportingDocuments.length-1])
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
             
-            console.log(lastFileTypes)
+            // console.log(lastFileTypes)
             let fileIndex = 0;
             for(const filetype of lastFileTypes){
-                console.log(filetype)
+                // console.log(filetype)
                 const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.documentType==filetype)})
-                console.log(tempSupportingDocs)
+                // console.log(tempSupportingDocs)
                 if(tempSupportingDocs.length>0){
                     const filesIndices = [];
                     const filesRotation = [];
@@ -422,13 +422,13 @@
             //    // bodyFormData.append('documents', );
             //    // console.log(supportingDoc['imageRotation'])
             // }
-            console.log(docType);
+            // console.log(docType);
             const docTypeJson = JSON.stringify(docType);
             //const docTypeBlob = new Blob([docTypeJson], {type: 'application/json'});
             bodyFormData.append('documents', docTypeJson);
             
 
-            console.log(bodyFormData.get('documents'))
+            // console.log(bodyFormData.get('documents'))
 
             const url = "/efiling/"+this.id+"/submit/" 
             const header = {
@@ -443,13 +443,13 @@
             
             this.$http.post(url, bodyFormData, header)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 if(res.data.message=="success")
                 {
                     this.generateUrl(res.data.redirectUrl)                   
                 }
             }, err => {
-                console.error(err);
+                // console.error(err);
                 this.error = err.response.data.message;
                 this.submissionInProgress = false;
             });           
@@ -477,7 +477,7 @@
                 let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
                 if(!typeIndex.includes(this.fileType))
                     typeIndex.push(this.fileType)
-                console.log(typeIndex)
+                // console.log(typeIndex)
                 
                 for(const supportingfile of this.supportingFile){
                
@@ -497,7 +497,7 @@
                 this.fileType = "";
                 Vue.nextTick(()=>{
                     const el = document.getElementById('drop-area');
-                    console.log(el)
+                    // console.log(el)
                     if(el) el.scrollIntoView();
                 })
             }

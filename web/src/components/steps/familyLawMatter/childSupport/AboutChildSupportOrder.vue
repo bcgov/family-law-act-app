@@ -136,7 +136,7 @@ export default class AboutChildSupportOrder extends Vue {
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(options)
-            console.log(this.survey.data['paymentRequestStartingDate'])
+            // console.log(this.survey.data['paymentRequestStartingDate'])
 
             if (options.name == 'listOfChildren'){
                 this.setSelectedChildNames(options.value);

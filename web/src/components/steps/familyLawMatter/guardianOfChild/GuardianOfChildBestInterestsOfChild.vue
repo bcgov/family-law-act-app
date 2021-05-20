@@ -50,7 +50,7 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     }
 
     mounted(){
-        console.log('mount')
+        // console.log('mount')
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();

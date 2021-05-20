@@ -229,7 +229,7 @@ export default class Schedule1 extends Vue {
                 parentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription
 
         } else {
-            console.log('here')
+            // console.log('here')
             parentingArrangements.childBestInterest = '';
         }
         //console.log(parentingArrangements)

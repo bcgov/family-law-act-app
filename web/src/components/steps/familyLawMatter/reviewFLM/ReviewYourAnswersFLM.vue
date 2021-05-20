@@ -312,8 +312,8 @@ export default class ReviewYourAnswersFlm extends Vue {
     }
 
     public edit(section, data){
-        console.log(data)
-        console.log(section)
+        // console.log(data)
+        // console.log(section)
         this.$store.commit("Application/setScrollToLocationName",data.item.name);
         this.$store.commit("Application/setCurrentStep", section.currentStep);
         this.$store.commit("Application/setCurrentStepPage", {currentStep: section.currentStep, currentPage: section.currentPage });
@@ -397,9 +397,9 @@ export default class ReviewYourAnswersFlm extends Vue {
                                 for(const question of questionResult.questions){
                                     if(question.name == question2 && question.title.trim()==title2.trim())
                                     {
-                                        console.log(question.title)
-                                        console.log(title2)
-                                        console.log(question.title.trim()==title2.trim())
+                                        // console.log(question.title)
+                                        // console.log(title2)
+                                        // console.log(question.title.trim()==title2.trim())
                                         return response
                                     }
                                 }

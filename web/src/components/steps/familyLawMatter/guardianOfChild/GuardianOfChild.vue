@@ -308,7 +308,7 @@ export default class GuardianOfChild extends Vue {
     }
 
     public checkTableError(){
-        console.log( this.guardianOfChildItem)
+        // console.log( this.guardianOfChildItem)
         if(this.showTable)
             for(const itemIndex in this.guardianOfChildItem){
                 const childItem = this.guardianOfChildItem[itemIndex]
