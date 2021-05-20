@@ -44,6 +44,8 @@
               "type": "checkbox",
               "name": "childrenList",
               "title": "Select each child from the list below that you want to be appointed as a guardian of.",
+              "visible": false,
+              "visibleIf": "{applicantionType} contains 'becomeGuardian'",
               "isRequired": true,
               "choices": "{childNames}"
             }            

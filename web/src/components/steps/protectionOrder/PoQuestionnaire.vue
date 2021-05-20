@@ -131,7 +131,7 @@ export default class PoQuestionnaire extends Vue {
                     this.disableNextButton = false;
                     this.togglePages(this.changeTerminatePages, true);
                     //this.resetProgress(this.commonPages)
-                    console.log(this.step.result)//['aboutPOSurvey'])
+                    // console.log(this.step.result)//['aboutPOSurvey'])
                     this.setConditionalProgress('aboutPOSurvey', this.aboutPage, 8)
                     this.resetProgress(this.urgencyPage)
                     //this.setConditionalProgress('urgencySurvey', this.urgencyPage, this.aboutPage);
@@ -205,7 +205,7 @@ export default class PoQuestionnaire extends Vue {
 
     public setConditionalProgress(pagename, pagenumber: number, previouspagenumber: number){
         
-        console.log(this.steps[this.currentStep].pages[previouspagenumber].progress)
+        // console.log(this.steps[this.currentStep].pages[previouspagenumber].progress)
         let progress = 0;
         if(this.steps[this.currentStep].pages[pagenumber-1].progress >0 && this.step.result && this.step.result[pagename]) progress = 50;
             this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: pagenumber, progress:progress });

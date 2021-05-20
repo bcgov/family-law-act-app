@@ -254,7 +254,7 @@ export default class GettingStarted extends Vue {
         if (selectedForms !== undefined) {            
             //console.log(selectedForms)
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
-            this.poIncluded = selectedForms.includes("protectionOrder");
+            this.poIncluded = selectedForms.includes("protectionOrder");           
 
             //this.toggleCommonSteps(selectedForms.length>0);
             this.toggleSteps(1, selectedForms.includes("protectionOrder"));
@@ -266,7 +266,7 @@ export default class GettingStarted extends Vue {
 
             this.toggleSteps(8, selectedForms.length>0);//Review And Submit
             
-            this.toggleSteps(2, selectedForms.length>0 && !this.poOnly);//Common Your Information
+            this.toggleSteps(2, selectedForms.includes("familyLawMatter"));//Common Your Information
             this.togglePages(2, [0], !this.poIncluded);//Safety Check
             this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
             this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location

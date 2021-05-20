@@ -312,7 +312,7 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
             const applicationData = response.data
 
-            console.log(applicationData)
+            // console.log(applicationData)
             
             this.currentApplication.id = applicationId;
             this.currentApplication.currentStep = applicationData.currentStep;
@@ -332,7 +332,7 @@ export default class ApplicationStatus extends Vue {
                 this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;                
             }
 
-            console.log(this.currentApplication.types)
+            // console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);
 
@@ -418,8 +418,8 @@ export default class ApplicationStatus extends Vue {
     printingListOfPdfs = [];
     showSelectFileForPrint =  false;
     public viewApplicationPdf(applicationId, listOfPdfs) {
-        console.log(applicationId)
-        console.log(listOfPdfs)
+        // console.log(applicationId)
+        // console.log(listOfPdfs)
         this.printingApplicationId = applicationId;
         this.printingListOfPdfs = listOfPdfs;
         this.showSelectFileForPrint =  true;
@@ -477,11 +477,14 @@ export default class ApplicationStatus extends Vue {
                 // console.log(locationsInfo[location])
                 const locationInfo = locationsInfo[location];              
                 
-                const address = (locationInfo.address_1?(locationInfo.address_1+ ', '):'')  + 
-                                (locationInfo.address_2?(locationInfo.address_2 + ', '):'') + 
-                                (locationInfo.address_3?(locationInfo.address_3):'');
+                const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
+                                (locationInfo.address_2?(', ' + locationInfo.address_2):'') + 
+                                (locationInfo.address_3?(', ' + locationInfo.address_3):'');
                 const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-                locations.push({id: locationInfo.location_id, name: location, address: address, postalCode: postalCode, email:''})
+               // locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:''})
+                const email = (locationInfo.email?(locationInfo.email):'');
+                const filingLocation = (locationInfo.in_person_filing_location_code?(locationInfo.in_person_filing_location_code):'');
+                locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:email, filingLocation: filingLocation});
             }
             // console.log(locations)
             //locations.push({id: 1, name: 'location', address: 'address'})

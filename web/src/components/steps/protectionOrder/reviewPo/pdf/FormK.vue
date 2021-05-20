@@ -872,7 +872,7 @@ export default class FormK extends Vue {
             info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': ''}]
 
         this.otherPartyInfo = info
-        console.log(info)
+        // console.log(info)
     }
 
     public getBackgroundSurvey(){
@@ -994,12 +994,12 @@ export default class FormK extends Vue {
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         //const userLocation = this.$store.state.Common.userLocation;
-        console.log(applicationLocation)
+        // console.log(applicationLocation)
         //console.log(userLocation)
         
         Object.assign(result, result,{applicationLocation: applicationLocation}); 
        
-        console.log(result)
+        // console.log(result)
         if (result.selectedPOOrder && result.selectedPOOrder.orderType){
 
             const orderType = result.selectedPOOrder.orderType;

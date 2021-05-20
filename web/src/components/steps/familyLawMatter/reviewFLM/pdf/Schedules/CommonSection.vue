@@ -392,7 +392,7 @@ export default class CommonSection extends Vue {
                                         || locationInformation.earlyResolutionRegistry);
         }
 
-        console.log(locationInformation)
+        // console.log(locationInformation)
         return locationInformation;
     }
 
@@ -451,7 +451,7 @@ export default class CommonSection extends Vue {
             lawyerStatement: {lawyerName: '', clientName: ''}
         }        
 
-        console.log(this.result.filingLocationSurvey)
+        // console.log(this.result.filingLocationSurvey)
 
         if(this.result.yourInformationSurvey){
 

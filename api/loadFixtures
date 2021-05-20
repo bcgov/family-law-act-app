@@ -1,0 +1,1 @@
+python manage.py loaddata api/fixtures/api_location.json

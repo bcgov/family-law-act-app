@@ -310,7 +310,7 @@ export default class Schedule4 extends Vue {
             applyForCaseManagement:false
         };
 
-        console.log(this.result)
+        // console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey){
             const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];

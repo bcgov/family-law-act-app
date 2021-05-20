@@ -129,7 +129,7 @@ export default class Schedule5 extends Vue {
             bstIntrst:''
         };
 
-        console.log(this.result)
+        // console.log(this.result)
 
         if (this.result.contactWithChildSurvey){
             newChildContactInfo.guardian = this.result.contactWithChildSurvey.parentGuardianApplicant == 'y';

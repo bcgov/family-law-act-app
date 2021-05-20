@@ -72,7 +72,7 @@ export default class AboutExistingChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            console.log(this.survey.data) 
+            // console.log(this.survey.data) 
             
             this.setPages();
             

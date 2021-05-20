@@ -177,7 +177,7 @@ export default class Schedule6 extends Vue {
             }, 
             bstIntrst:''
         };
-        console.log(this.result)
+        // console.log(this.result)
 
         if (this.result.contactOrderSurvey){
             existingChildContactInfo.guardian = this.result.contactOrderSurvey.roleType != 'allowedContact';

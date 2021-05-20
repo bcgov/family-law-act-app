@@ -82,7 +82,7 @@ export default class MultipleCommentCheckbox extends Vue {
         // };
 
         
-        console.log(this.question.choices)
+        // console.log(this.question.choices)
         this.questionValidator();
         //console.log(this.pendingValue)
         this.dataReady = true;
@@ -117,7 +117,7 @@ export default class MultipleCommentCheckbox extends Vue {
             }
         }
         this.pendingValue['checked'] = checkedChoices;
-        console.log(this.pendingValue)
+        // console.log(this.pendingValue)
 
         const currentVal = this.question.value || {};
         let updatedVal = {};
@@ -175,11 +175,11 @@ export default class MultipleCommentCheckbox extends Vue {
     }
 
     public addTooltip(choiceInx){
-        console.log(this.choices[choiceInx])
+        // console.log(this.choices[choiceInx])
         const text = this.choices[choiceInx].text
         const splitedText = text.split('`')
-        console.log(text)
-        console.log(text.split('`'))
+        // console.log(text)
+        // console.log(text.split('`'))
         const allTexts = []
         for(const part in splitedText){            
             if(Number(part)%2 == 1)
@@ -187,7 +187,7 @@ export default class MultipleCommentCheckbox extends Vue {
             else
                 allTexts.push({text:splitedText[part], tootlip:false})
         }
-        console.log(allTexts)
+        // console.log(allTexts)
         this.choices[choiceInx].text = allTexts
         //this.choices[choiceInx].text = text.replace(/`.*`/, '<tooltip title="spouse" :index="0"/>')
         //<tooltip title="spouse" :index="0"/>

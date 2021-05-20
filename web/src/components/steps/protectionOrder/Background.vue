@@ -117,7 +117,7 @@ export default class Background extends Vue {
 
         if (this.types.length > 1 && this.types.includes("Family Law Matter")) {
             if (this.steps[3].result && this.steps[3].result.flmBackgroundSurvey) {
-                console.log("flm background information already exists");
+                // console.log("flm background information already exists");
             } else {
                 this.UpdateStepResultData({step:this.steps[3], data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, 3, 1)}});
             }
