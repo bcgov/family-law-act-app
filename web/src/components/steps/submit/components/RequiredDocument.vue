@@ -4,8 +4,8 @@
         <span class="text-primary" style='font-size:1.4rem;'>{{title}}</span> 
         
         <ul class="mt-3">
-            <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application</li>
-            <li class="mb-2">Print or make copies of all documents, including your application and any supporting documents: one set for you, one set for the court and one set for each other party</li>
+            <!-- <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application</li> -->
+            <div class="mb-2">Print or make copies of all documents, including your application and any supporting documents: one set for you, one set for the court and one set for each other party</div>
             <div v-if="type!='Print'" class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
                 <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
             </div>
