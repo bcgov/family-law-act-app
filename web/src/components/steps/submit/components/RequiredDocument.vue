@@ -16,7 +16,7 @@
             <ul>
                 <li><b class="text-danger"> The following additional documents are required as part of your filing:</b> </li>                   
                 <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
-                    <li v-if="requiredDocument.required.length>0"  class="mb-2"> For the {{requiredDocument.name}} Application:
+                    <li v-if="requiredDocument.required.length>0"  class="mb-2"> For the Application About a {{requiredDocument.name}} :
                         <ul class="mt-3" v-for="requiredDoc,inx in requiredDocument.required" :key="inx">
                             <li class="mb-2 font-weight-normal" v-html="requiredDoc" >{{requiredDoc}}</li>
                         </ul>
@@ -26,7 +26,7 @@
         </div>
         
         <ul v-if="type=='Submit'" class="mt-3">
-            <li>Upload the documents bellow:</li>
+            <li>Upload the documents below:</li>
         </ul>
 
         <b-modal size="xl" v-model="showGetHelpScanning" header-class="bg-white">
