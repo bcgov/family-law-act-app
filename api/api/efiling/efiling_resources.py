@@ -65,6 +65,7 @@ class EFilingResources(EFilingHubCallerBase):
                     "address_2": location["address"]["addressLine2"],
                     "address_3": location["address"]["addressLine3"],
                     "postal": location["address"]["postalCode"],
+                    "city": location["address"]["city"],
                     "location_code": location["identifierCode"],
                 }
             cache.set("courts", locations)
