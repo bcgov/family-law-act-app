@@ -120,6 +120,7 @@ objects:
       oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
       oidc-rp-host: ${OIDC_RP_HOST}
       encryption-key: ${DATA_SECURITY_KEY}
+      efiling-enabled: ${EFILING_ENABLED}
       efiling-auth-url: ${EFILING_HUB_KEYCLOAK_BASE_URL}
       efiling-auth-realm: ${EFILING_HUB_KEYCLOAK_REALM}
       efiling-client-id: ${EFILING_HUB_KEYCLOAK_CLIENT_ID}
@@ -230,6 +231,11 @@ objects:
                       name: ${NAME}
                       key: encryption-key
 
+                - name: EFILING_ENABLED
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}
+                      key: efiling-enabled
                 - name: EFILING_HUB_KEYCLOAK_BASE_URL
                   valueFrom:
                     secretKeyRef:
@@ -380,6 +386,11 @@ parameters:
     generate: expression
     from: "[a-zA-Z0-9]{32}"
 
+  - name: EFILING_ENABLED
+    displayName: EFILING Enable
+    description: EFILING Enable
+    required: false
+    value: "false"
   - name: EFILING_HUB_KEYCLOAK_BASE_URL
     displayName: EFILING authentication url
     description: EFILING authentication url
