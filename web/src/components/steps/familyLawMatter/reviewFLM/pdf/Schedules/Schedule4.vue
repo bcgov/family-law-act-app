@@ -421,7 +421,7 @@ export default class Schedule4 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey){
+        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
             for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;

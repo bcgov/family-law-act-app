@@ -389,8 +389,9 @@ export default class Schedule3 extends Vue {
                 this.childrenSupportExpenseItem = this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseItem
                 this.childrenSupportExpenseFields = [{key:"name",    label:"Name of Child:", tdClass:"border-top-0 border-dark align-middle", thClass:"text-right border-dark border-bottom-0", thStyle:"font-size:7.43pt; width:26%;"}]
                 const tableFields = this.result.specialAndExtraordinaryExpensesSurvey.childrenSupportExpenseFields
-                for(let i=1; i<tableFields.length; i++)
-                    this.childrenSupportExpenseFields.push({key:tableFields[i].key, label:tableFields[i].label,  tdClass:"border-dark align-middle text-center",  thClass:"border-dark align-middle text-center",   thStyle:"width:17%;"},)
+                if(tableFields)
+                    for(let i=1; i<tableFields.length; i++)
+                        this.childrenSupportExpenseFields.push({key:tableFields[i].key, label:tableFields[i].label,  tdClass:"border-dark align-middle text-center",  thClass:"border-dark align-middle text-center",   thStyle:"width:17%;"},)
 
         //         for(const item of this.childrenSupportExpenseItem)
         // {key:"child0", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
@@ -415,7 +416,7 @@ export default class Schedule3 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey){
+        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
             for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;

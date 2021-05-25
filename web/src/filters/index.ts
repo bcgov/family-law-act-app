@@ -279,19 +279,23 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	if(type == 'protectionOrder'){		
 	
 		if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "changePO"){
+			
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)")
+		
 		}else if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "terminatePO"){
+		
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)")
+		
 		}else if(questions.selectedPOOrder && questions.selectedPOOrder.orderType == "needPO"){
-			if(questions.protectionWhomSurvey && questions.protectionWhomSurvey.ExistingFamilyCase =="y"){
-				if(questions.protectionWhomSurvey.ExistingFileNumber && questions.protectionWhomSurvey.ExistingCourt) requiredDocuments.push("Copy of the Family Law file number:" + questions.protectionWhomSurvey.ExistingFileNumber + " submitted to the court at " + questions.protectionWhomSurvey.ExistingCourt);
-				else requiredDocuments.push("Copy of the Family Law file open between you and the other parties");
-			}
-			if(questions.backgroundSurvey && questions.backgroundSurvey.existingPOOrders=="y"){
-				requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
-			}
-			if(questions.backgroundSurvey && questions.backgroundSurvey.ExistingOrders=="y"){
-				requiredDocuments.push("Copy of the existing written agreements or court order(s) about the child(ren) concerning parenting arrangements, child support, contact with a child or guardianship of a child");
+			
+			requiredDocuments.push("Any exhibits referenced in your application");
+			
+			if( (questions.poFilingLocationSurvey && questions.poFilingLocationSurvey.ExistingFamilyCase =="y") ||
+			    (questions.backgroundSurvey &&
+				 (questions.backgroundSurvey.existingPOOrders=="y" ||
+				  questions.backgroundSurvey.ExistingOrders=="y"))
+			){
+					requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			}
 		}
 	}
@@ -398,7 +402,6 @@ Vue.filter('replaceRequiredDocuments', function(){
 		//this.isRequiredDocument = true
 	}
 })
-
 
 Vue.filter('surveyChanged', function(type: string) {
 	let step = 1

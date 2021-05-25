@@ -126,9 +126,15 @@
                 <span class="text-primary" style='font-size:1.4rem;'>Filing with Court Services Online:</span>
 
                 <div class="mt-3">
-                    <p>When you click Submit Documents, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do
-                        a final review of the documents you are submitting for filing and (if completed successfully) receive a Package Number.
-                    </p>
+                    <div class="mb-3">When you click Submit Documents, you will be taken to the Court Services Online e-filing hub. In the next few steps you will be able to do
+                        a final review of the documents you are submitting for filing and (if completed successfully) receive a 
+                        <div style="display:inline;">
+                            <b style="display:inline;" v-b-tooltip.hover class="text-primary" title="A number assigned by the system to track the documents you have submitted for filing."> 
+                                Package Number.
+                                <div style="display:inline; font-size:1.2rem;" class="fa fa-question-circle"></div>
+                            </b>
+                        </div>
+                    </div>
                     <p>Once your filings have been reviewed by the Court Registry, you will be provided a Court File Number via e-mail. 
                         This may take up to one week.
                     </p>
