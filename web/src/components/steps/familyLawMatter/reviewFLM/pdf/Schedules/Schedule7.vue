@@ -255,7 +255,7 @@ export default class Schedule7 extends Vue {
 
         let form5unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey){
+        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
             for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
                 if(form.includes("Form 5")||form.includes("registry search")){
                     form5unable = true;

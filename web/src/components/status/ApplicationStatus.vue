@@ -479,7 +479,10 @@ export default class ApplicationStatus extends Vue {
                 
                 const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
                                 (locationInfo.address_2?(', ' + locationInfo.address_2):'') + 
-                                (locationInfo.address_3?(', ' + locationInfo.address_3):'');
+                                (locationInfo.address_3?(', ' + locationInfo.address_3):'') +
+                                (locationInfo.address_3?(', ' + locationInfo.address_3):'') + 
+                                (locationInfo.city?(', ' + locationInfo.city):'') +
+                                (locationInfo.province?(', ' + locationInfo.province):'');
                 const postalCode = (locationInfo.postal?(locationInfo.postal):'');
                // locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:''})
                 const email = (locationInfo.email?(locationInfo.email):'');

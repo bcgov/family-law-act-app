@@ -55,13 +55,14 @@
                 <span class="text-primary" style='font-size:1.4rem;'>Submit Documents:</span>
                 <ul class="mt-3">                    
                     <li>Draft and send an email to the registry email address above (<a :href="'mailto:'+applicantLocation.email" class="my-0 ml-2 " >{{applicantLocation.email}} </a> )
-                        <br/><b>Subject line:</b> Application About a Protection Order for filing
+                        <br/><b>Subject line:</b> Provincial Court Family Application for filing
                         <br/><b>Body of email:</b>
                         <br/>
                         <ul>
-                            <li>Specify if you are applying without notice to the other party, or with notice.</li>
+                            <li v-if="hasPOselected">For your Application About a Protection Order, specify if you are applying without notice to the other party, or with notice.</li>
                             <li>Provide your name and contact telephone number in case there are problems opening your attachments.</li>
-                            <li>Attach the saved application and any existing orders or agreements, existing protection orders and any exhibits referenced in your application to the email</li>             
+                            <li>List all the documents you are attaching to the email.</li>
+                            <li>Attach the saved application and additional documents identified above to the email.</li>             
                         </ul>
                     </li>
                 </ul>
@@ -134,12 +135,13 @@ export default class ReviewAndSave extends Vue {
     currentStep=0;
     currentPage=0;
     error = ""
+    hasPOselected =  false;
 
     showGetHelpForPDF = false;    
     applicantLocation = {}
 
     mounted(){
-
+        this.hasPOselected =  false;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         let progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
@@ -150,6 +152,11 @@ export default class ReviewAndSave extends Vue {
         if(!location) location = this.$store.state.Common.userLocation
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
+
+        if( this.$store.state.Application.steps[0].result && 
+            this.$store.state.Application.steps[0].result.selectedForms &&
+            this.$store.state.Application.steps[0].result.selectedForms.includes('protectionOrder') 
+        )  this.hasPOselected =  true;
             
         //console.log(location)
 

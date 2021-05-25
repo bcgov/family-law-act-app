@@ -7,8 +7,8 @@
             <div class="ml-2">
                 You have indicated that you will file at the following court registry: 
                 <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
-                <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
-                <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalcode}} </p>
+                <!-- <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
+                <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalcode}} </p> -->
             </div>
 
             <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
@@ -55,9 +55,9 @@
                 <ul class="mt-3">                    
                     <li>Bring all copies to the court registry for filing  
                         <br/> 
-                        <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
-                        <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
-                        <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalCode}} </p>                
+                        <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{filingLocation.name}} </p>
+                        <p class="my-0 ml-2 " style="display:block"> {{filingLocation.address}} </p>
+                        <p class="my-0 ml-2" style="display:block"> {{filingLocation.postalCode}} </p>                
                     </li>
                 </ul>
             </b-card>
@@ -133,7 +133,8 @@ export default class ReviewAndPrint extends Vue {
     includesPO = false;    
 
     showGetHelpForPDF = false;
-    applicantLocation = {}    
+    applicantLocation = {}
+    filingLocation = {}      
 
     mounted(){
 
@@ -150,11 +151,13 @@ export default class ReviewAndPrint extends Vue {
         //console.log(location)
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
-        // console.log(this.applicantLocation) 
+        console.log(this.applicantLocation) 
            
         if (this.applicantLocation["filingLocation"]){
-            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.id == this.applicantLocation["filingLocation"]) return true})[0]
+            this.filingLocation = this.locationsInfo.filter(loc => {if (loc.id == this.applicantLocation["filingLocation"]) return true})[0]
             // console.log(this.applicantLocation)
+        } else {
+            this.filingLocation = this.applicantLocation;
         }
         // if(location == 'Victoria'){
         //     this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
