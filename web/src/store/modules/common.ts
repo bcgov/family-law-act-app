@@ -8,6 +8,7 @@ class Common extends VuexModule {
     public documentTypesJson = [];
     public userId = '';
     public userLocation = '';
+    public efilingEnabled = false;
 
     public locationsInfo = [];
 
@@ -55,7 +56,10 @@ class Common extends VuexModule {
     public UpdateLocationsInfo(newLocationsInfo): void {
         this.context.commit('setLocationsInfo', newLocationsInfo)
     }
-
+    @Mutation
+    public setEfilingEnabled(efilingEnabled): void {
+        this.efilingEnabled = efilingEnabled;
+    }
 }
 
 export default Common

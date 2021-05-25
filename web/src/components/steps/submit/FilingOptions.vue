@@ -114,17 +114,16 @@ export default class FilingOptions extends Vue {
     }
 
     public allowEfiling(){
-        this.survey.setVariable('efilingAllowed','n')
-        // TODO:THIS SHOULD BE USED WHEN EFILING IS ACTIVATED
         //console.log(this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data)
-        // if( this.$store.state.Application.steps[3].result &&
-        //     this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
-        //     this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
-        //     (this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs == "n"
-        //     ||            
-        //     this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.criminalChecked == "n")
-        // )this.survey.setVariable('efilingAllowed','n')
-        // else this.survey.setVariable('efilingAllowed','y')
+        if (!this.$store.state.Common.efilingEnabled || (this.$store.state.Application.steps[3].result &&
+            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
+            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
+            (this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs == "n"
+            ||            
+            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.criminalChecked == "n"))
+        )
+        this.survey.setVariable('efilingAllowed','n')
+        else this.survey.setVariable('efilingAllowed','y')
     }
 
     public determineSelectedFilingType(){
