@@ -20,7 +20,6 @@ if createOperation; then
   readParameter "OIDC_RP_CLIENT_SECRET - Please provide the OIDC RP Client Secret.  The default is a blank string." OIDC_RP_CLIENT_SECRET "" "false"
 
   # Get the eFiling settings
-  readParameter "EFILING_ENABLED - Please provide a boolean to enable eFiling.  The default is false." EFILING_ENABLED "" "false"
   readParameter "EFILING_HUB_KEYCLOAK_BASE_URL - Please provide the url for the eFiling authentication.  The default is a blank string." EFILING_HUB_KEYCLOAK_BASE_URL "" "false"
   readParameter "EFILING_HUB_KEYCLOAK_REALM - Please provide the realm for the eFiling authentication.  The default is a blank string." EFILING_HUB_KEYCLOAK_REALM "" "false"
   readParameter "EFILING_HUB_KEYCLOAK_CLIENT_ID - Please provide the service client id for submitting the application.  The default is a blank string." EFILING_HUB_KEYCLOAK_CLIENT_ID "" "false"
@@ -35,7 +34,6 @@ else
   writeParameter "OIDC_RP_PROVIDER_ENDPOINT" "prompt_skipped" "false"
   writeParameter "OIDC_RP_CLIENT_SECRET" "prompt_skipped" "false"
 
-  writeParameter "EFILING_ENABLED" "prompt_skipped" "false"
   writeParameter "EFILING_HUB_KEYCLOAK_BASE_URL" "prompt_skipped" "false"
   writeParameter "EFILING_HUB_KEYCLOAK_REALM" "prompt_skipped" "false"
   writeParameter "EFILING_HUB_KEYCLOAK_CLIENT_ID" "prompt_skipped" "false"

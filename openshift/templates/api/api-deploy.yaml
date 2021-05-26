@@ -120,7 +120,6 @@ objects:
       oidc-rp-client-secret: ${OIDC_RP_CLIENT_SECRET}
       oidc-rp-host: ${OIDC_RP_HOST}
       encryption-key: ${DATA_SECURITY_KEY}
-      efiling-enabled: ${EFILING_ENABLED}
       efiling-auth-url: ${EFILING_HUB_KEYCLOAK_BASE_URL}
       efiling-auth-realm: ${EFILING_HUB_KEYCLOAK_REALM}
       efiling-client-id: ${EFILING_HUB_KEYCLOAK_CLIENT_ID}
@@ -212,6 +211,8 @@ objects:
                   value: ${DJANGO_DEBUG}
                 - name: PDF_SERVICE_URL
                   value: ${PDF_SERVICE_URL}
+                - name: EFILING_ENABLED
+                  value: ${EFILING_ENABLED}
                 - name: OIDC_RP_PROVIDER_ENDPOINT
                   valueFrom:
                     secretKeyRef:
@@ -231,11 +232,6 @@ objects:
                       name: ${NAME}
                       key: encryption-key
 
-                - name: EFILING_ENABLED
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}
-                      key: efiling-enabled
                 - name: EFILING_HUB_KEYCLOAK_BASE_URL
                   valueFrom:
                     secretKeyRef:
