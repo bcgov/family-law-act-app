@@ -62,6 +62,7 @@ def build_get_user_object(logged_in, request):
         "is_staff": logged_in and request.user.is_staff,
         "universal_id": logged_in and request.user.universal_id,
         "login_uri": get_login_uri(request),
-        "logout_uri": get_logout_uri(request)
+        "logout_uri": get_logout_uri(request),
+        "efiling_enabled": settings.EFILING_ENABLED
     }
 

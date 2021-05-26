@@ -24,6 +24,7 @@ export const SessionManager = {
             const userId = response.data.user_id;
             const loginUrl = response.data.login_uri;
             const userLocation = response.data.location;
+            const efilingEnabled = response.data.efiling_enabled;
             if (userId) {
                 const universalId = response.data.universal_id;
                 if (!universalId) {
@@ -33,6 +34,7 @@ export const SessionManager = {
                 store.commit("Application/setUserName", userName);
                 store.commit("Common/setUserId", userId);
                 store.commit("Common/setUserLocation",userLocation);
+                store.commit("Common/setEfilingEnabled", efilingEnabled);
                 //store.commit("Application/setApplicationLocation", userLocation);
             }
             return { userId, loginUrl };

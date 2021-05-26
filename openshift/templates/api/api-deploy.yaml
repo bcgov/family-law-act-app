@@ -211,6 +211,8 @@ objects:
                   value: ${DJANGO_DEBUG}
                 - name: PDF_SERVICE_URL
                   value: ${PDF_SERVICE_URL}
+                - name: EFILING_ENABLED
+                  value: ${EFILING_ENABLED}
                 - name: OIDC_RP_PROVIDER_ENDPOINT
                   valueFrom:
                     secretKeyRef:
@@ -380,6 +382,11 @@ parameters:
     generate: expression
     from: "[a-zA-Z0-9]{32}"
 
+  - name: EFILING_ENABLED
+    displayName: EFILING Enable
+    description: EFILING Enable
+    required: false
+    value: "false"
   - name: EFILING_HUB_KEYCLOAK_BASE_URL
     displayName: EFILING authentication url
     description: EFILING authentication url
