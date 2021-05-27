@@ -51,7 +51,7 @@
                     <div style="margin:0 3rem 1rem 1rem;">
                         <i>Complete only if applicable. You may leave this section blank.</i>
                         <div>I am willing to have the following conditions placed on my contact with the child(ren):</div>
-                        <div v-if="result.aboutContactWithChildSurvey.placeConditions == 'y'" 
+                        <div v-if="result.aboutContactWithChildSurvey && result.aboutContactWithChildSurvey.placeConditions == 'y'" 
                             class="answerbox">{{chContInfo.abt.cond}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -146,8 +146,8 @@ export default class Schedule5 extends Vue {
                     written:contactChoices.includes('Written communication'),
                     other: contactChoices.includes('other')
                 },
-                inPrsn: (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'',
-                otherComm: (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'',
+                inPrsn: (contactChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'',
+                otherComm: (contactChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'',
                 cond: (this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:'',
                 lastCont: (this.result.aboutContactWithChildSurvey.lastContactDate)?Vue.filter('beautify-date')(this.result.aboutContactWithChildSurvey.lastContactDate):''
             }

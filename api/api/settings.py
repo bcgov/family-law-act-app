@@ -249,6 +249,7 @@ REST_FRAMEWORK = {
     )
 }
 
+EFILING_ENABLED = os.environ.get("EFILING_ENABLED", "false").lower() == "true"
 EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
 EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
 EFILING_COURT_CLASS = os.environ.get("EFILING_COURT_CLASS", "F")  # https://bcgov.github.io/jag-file-submission/#/data?id=court-classification

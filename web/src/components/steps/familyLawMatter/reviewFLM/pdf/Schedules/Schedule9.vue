@@ -213,14 +213,26 @@ export default class Form3 extends Vue {
 
         if (this.result.spousalSupportSurvey){
             const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons?this.result.spousalSupportSurvey.listOfReasons:[]
-            newSpousalSupportInfo.current = {
-                adv: entitlementReasons.includes('There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship'),
-                share: entitlementReasons.includes('To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child'),
-                hardship: entitlementReasons.includes('To relieve economic hardship of the spouses arising from the breakdown of the relationship'),
-                bcmIndpndnt: entitlementReasons.includes('To help each spouse become financially independent within a reasonable period'),
-                crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
-                payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
-                        && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
+            if(entitlementReasons){
+                newSpousalSupportInfo.current = {
+                    adv: entitlementReasons.includes('There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship'),
+                    share: entitlementReasons.includes('To share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child'),
+                    hardship: entitlementReasons.includes('To relieve economic hardship of the spouses arising from the breakdown of the relationship'),
+                    bcmIndpndnt: entitlementReasons.includes('To help each spouse become financially independent within a reasonable period'),
+                    crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
+                    payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
+                            && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
+                }
+            } else{
+                newSpousalSupportInfo.current = {
+                    adv: false,
+                    share: false,
+                    hardship: false,
+                    bcmIndpndnt: false,
+                    crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
+                    payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
+                            && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
+                }
             }
 
         }

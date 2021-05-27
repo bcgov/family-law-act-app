@@ -86,7 +86,7 @@
                         </ul>
                     </p>
                     <p>
-                        The court may need proof you had the documents served. The person serving the documents must complete a Certificate of Service Form 7 so that you can prove personal service of the documents. You must attach a copy of the documents to the Certificate of Service. Remember to make a copy before the documents are served.
+                        The court may need proof you had the documents served. The person serving the documents must complete a <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa714.pdf?forcedownload=true" target="_blank">Certificate of Service Form 7</a> so that you can prove personal service of the documents. You must attach a copy of the documents to the Certificate of Service. Remember to make a copy before the documents are served.
                     </p>
                 </div>
              </div>

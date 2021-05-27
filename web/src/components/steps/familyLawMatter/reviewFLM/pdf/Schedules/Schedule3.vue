@@ -307,7 +307,7 @@ export default class Schedule3 extends Vue {
         // console.log(this.result)
         let newChildSupportInfo = {appType: {}, opType: {}, currCond:{}, opInfo: {}, desiredSup: {}, calc:{}, ndHard:{}, specExp: {}, finStmnt:{}, applyForCaseManagement: false};
 
-        if (this.result.childSupportSurvey.applicantGuardianType){
+        if (this.result.childSupportSurvey && this.result.childSupportSurvey.applicantGuardianType){
             newChildSupportInfo.appType = {
                 guardian: this.result.childSupportSurvey.applicantGuardianType == 'parentGuardian',
                 standing: this.result.childSupportSurvey.applicantGuardianType == 'appointedGuardian',
@@ -316,7 +316,7 @@ export default class Schedule3 extends Vue {
             }
         }
 
-        if (this.result.childSupportSurvey['otherParty[0]GuardianType']){
+        if (this.result.childSupportSurvey && this.result.childSupportSurvey['otherParty[0]GuardianType']){
             newChildSupportInfo.opType = {
                 guardian: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'parentGuardian',
                 standing: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'appointedGuardian',
