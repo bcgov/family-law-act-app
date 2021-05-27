@@ -182,7 +182,7 @@ export default class Schedule7 extends Vue {
 
             if (this.result.GuardianOfChildBestInterestOfChildSurvey){
                 const bestInterestInfo = this.result.GuardianOfChildBestInterestOfChildSurvey;
-                guardianshipInfo.abtCancel['bestInterest'] = bestInterestInfo.cancelGuradianChildBestInterest?bestInterestInfo.cancelGuradianChildBestInterest:''
+                guardianshipInfo.abtCancel['bestInterest'] = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
             }
             if (this.result.GuardianOfChildSurvey && this.result.GuardianOfChildSurvey.cancelGuardianDetails){
                 if (this.result.GuardianOfChildSurvey.cancelGuardianDetails.length > 0){
@@ -200,11 +200,11 @@ export default class Schedule7 extends Vue {
 
         if (this.result.indigenousAncestryOfChildSurvey){
             const ancestryInfo = this.result.indigenousAncestryOfChildSurvey;
-            if (ancestryInfo.indigenousChild == 'yes'){
+            if (ancestryInfo.indigenousChild == 'yes' && ancestryInfo.indigenousAncestry){
                 guardianshipInfo.indigenous = true;
                 guardianshipInfo.nonIndigenous = false;
                 guardianshipInfo.unKnownAncestry = false;
-                guardianshipInfo.ancestry = {
+                guardianshipInfo.ancestry ={
                     firstNation: ancestryInfo.indigenousAncestry.includes('First Nation'),
                     nisga: ancestryInfo.indigenousAncestry.includes('Nisga’a'),
                     treatyFirstNation: ancestryInfo.indigenousAncestry.includes('Treaty First Nation'),

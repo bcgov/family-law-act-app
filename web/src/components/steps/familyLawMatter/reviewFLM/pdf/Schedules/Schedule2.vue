@@ -13,8 +13,8 @@
             <section class="resetquestion"> 
                 I am:
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
-                    <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                    <check-box style="" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
+                    <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
 
@@ -22,8 +22,8 @@
 <!-- <2> -->
             <section>
                 <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the existing final order or agreement about parenting arrangements"/>
-                <underline-form v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="result.aboutParentingArrangementsSurvey.orderDate | beautify-date"/>
-                <underline-form v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="result.aboutParentingArrangementsSurvey.agreementDate | beautify-date"/>
+                <underline-form v-if="exParentArrInfo.type == 'ExistingOrder'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="exParentArrInfo.existingDate | beautify-date"/>
+                <underline-form v-if="exParentArrInfo.type == 'ExistingAgreement'" style="margin-left:1.75rem; text-indent:0rem" textwidth="8rem" beforetext="made on " hint="(mmm/dd/yyyy)" :text="exParentArrInfo.existingDate | beautify-date"/>
             
             </section>
 
@@ -33,15 +33,15 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing order. You may leave this section blank.</i>
                     <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder'?'yes':''" text="I am applying for the existing final order to be:"/>
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingOrder'?'yes':''" text="I am applying for the existing final order to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' && result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder')?'yes':''" text="changed"/>
-                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' && result.aboutParentingArrangementsSurvey.orderDifferenceType == 'cancelOrder')?'yes':''" text="cancelled"/>
+                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
+                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">Since the final order was made, needs or circumstances have changed as follows:</div>
                     
-                        <div v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' && result.aboutParentingArrangementsSurvey.changesSinceOrder" 
-                        class="answerbox">{{result.aboutParentingArrangementsSurvey.changesSinceOrder}}</div>
+                        <div v-if="exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.changesSince" 
+                        class="answerbox">{{exParentArrInfo.changesSince}}</div>
                         <div v-else style="margin-bottom:3rem;"></div> 
                     
                     
@@ -55,14 +55,14 @@
                 <section>
                     <i style="display:inline; margin-left:0.25rem">Complete only if you have an existing agreement. You may leave this section blank.</i>
                     <div>
-                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
+                        <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingAgreement'?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' && result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement')?'yes':''" text="set aside"/>
-                            <check-box style="" :check="(result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' && result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement')?'yes':''" text="replaced"/>
+                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside"/>
+                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">I believe the agreement is not in the best interests of the child(ren) because:</div>
-                        <div v-if="result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' && result.aboutParentingArrangementsSurvey.changesSinceAgreement" 
-                        class="answerbox">{{result.aboutParentingArrangementsSurvey.changesSinceAgreement}}</div>
+                        <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
+                        class="answerbox">{{exParentArrInfo.changesSince}}</div>
                         <div v-else style="margin-bottom:3rem;"></div> 
                     </div>                
                 </section>
@@ -166,8 +166,8 @@ export default class Schedule2 extends Vue {
     }
 
     public getExistingParentingArrangementsInfo(){
-        let existingParentingArrangements = {parentResp: {}, parentTime: {}, parentCond:{}, parentalArr: {}, childBestInterest: ''};
-        
+        let existingParentingArrangements = {type:'', subType:'', existingDate:'', changesSince:'', parentResp: {}, parentTime: {}, parentCond:{}, parentalArr: {}, childBestInterest: ''};
+
         const generalCondition = (( this.result.aboutParentingArrangementsSurvey && 
                                     this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' &&                                    
                                     this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder')
@@ -176,6 +176,32 @@ export default class Schedule2 extends Vue {
                                     this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'&& 
                                     this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'))
 
+        
+        
+        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' ){
+            existingParentingArrangements.type = 'ExistingOrder'
+            existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.orderDate
+            existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceOrder
+            if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder'){
+                existingParentingArrangements.subType = 'changeOrder'                
+            } else if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'cancelOrder'){
+                existingParentingArrangements.subType = 'cancelOrder'
+            }
+        }
+        
+        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' ){
+            existingParentingArrangements.type = 'ExistingAgreement'
+            existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.agreementDate
+            existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceAgreement
+            if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'replacedAgreement'){
+                existingParentingArrangements.subType = 'replacedAgreement'                
+            } else if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'setAsideAgreement'){
+                existingParentingArrangements.subType = 'setAsideAgreement'
+            }
+        }
+        
+        
+        
         if (generalCondition && this.result.parentingArrangementChangesSurvey && 
             this.result.parentingArrangementChangesSurvey.orderChangeList &&  
             this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentalResponsibilities")){
