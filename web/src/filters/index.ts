@@ -316,8 +316,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		// 	requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
 		
 		if(Vue.filter('FLMform4Required')())	
-			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement Form 4 </a>");
-		
+			//requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement Form 4 </a>");
+			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 		if((questions.calculatingChildSupportSurvey && 
 			questions.calculatingChildSupportSurvey.attachingCalculations == 'y' &&
 			questions.flmSelectedForm &&
@@ -386,6 +386,7 @@ Vue.filter('replaceRequiredDocuments', function(){
 			if( store.state.Application.steps[3].result &&
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
+				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs =='n' &&
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms && 
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms.includes(doc)){
 					if(!caseManagementDocPushed){
