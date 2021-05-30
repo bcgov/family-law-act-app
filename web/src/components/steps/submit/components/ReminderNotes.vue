@@ -42,8 +42,12 @@ export default class ReminderNotes extends Vue {
         for (const [key, value] of Object.entries(this.requiredDocuments)){
             // console.log(key)
             // console.log(value)
-            this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})            
-            if(value['reminder'].length>0) this.isReminder = true;
+            if(this.$store.state.Application.steps[0].result && 
+               this.$store.state.Application.steps[0].result.selectedForms &&
+               this.$store.state.Application.steps[0].result.selectedForms.includes(key)){
+                    this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})            
+                    if(value['reminder'].length>0) this.isReminder = true;
+            }
         }
         //console.log(this.requiredDocumentLists)
     }
