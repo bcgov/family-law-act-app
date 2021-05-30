@@ -163,6 +163,8 @@ export default class Schedule2 extends Vue {
 
     public extractInfo(){        
         this.exParentArrInfo = this.getExistingParentingArrangementsInfo();
+        console.log(this.exParentArrInfo)
+        console.log(this.result)
     }
 
     public getExistingParentingArrangementsInfo(){
@@ -193,9 +195,9 @@ export default class Schedule2 extends Vue {
             existingParentingArrangements.type = 'ExistingAgreement'
             existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.agreementDate
             existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceAgreement
-            if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'replacedAgreement'){
+            if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'){
                 existingParentingArrangements.subType = 'replacedAgreement'                
-            } else if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'setAsideAgreement'){
+            } else if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement'){
                 existingParentingArrangements.subType = 'setAsideAgreement'
             }
         }
@@ -221,7 +223,7 @@ export default class Schedule2 extends Vue {
             this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentingTime")){
                 existingParentingArrangements.parentTime = {
                     applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
+                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription:''
                 }
 
         } else {

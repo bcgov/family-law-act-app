@@ -52,7 +52,7 @@
                     </span>
                     <span v-else><div class="checkbox-choices">Family law matter</div>
                         <p>
-                        Family law matters include: parenting arrangements(<tooltip title="parental responsibilities" :index="0"/> and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, <tooltip title="contact with a child" :index="0"/>, 
+                        Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" :index="0"/> and <tooltip title="parenting time" :index="0"/>), <tooltip title="child support" :index="0"/>, <tooltip title="contact with a child" :index="0"/>, 
                         <tooltip title="guardianship of a child" index="0"/> and <tooltip title="spousal support" index="0" />.
                         </p>
                     </span>
