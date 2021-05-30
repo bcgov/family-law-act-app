@@ -33,17 +33,11 @@
                     "isRequired": true
                 },
                 {
-                    "type": "radiogroup",
+                    "type": "text",
                     "name": "childCurrentlyLivingWith",
                     "title": "Who is the child currently living with?",
                     "description": "You can use the name of the person or their relationship to the child.",
-                    "isRequired": true,
-                    "hasOther": true,
-                    "choices": [
-                        "me",
-                        "other party",
-                        "both"
-                    ]
+                    "isRequired": true
                 }
             ]
         }

@@ -12,7 +12,7 @@
                      "type": "yesno",
                      "name": "ExistingOrdersFLM",
                      "title": "Are there any existing written agreements or court `orders` about parenting arrangements, `child support`, contact with a child, guardianship of a child and/or spousal support?",
-                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order made be from any court in any place, including the Supreme Court.",
+                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court.",
                      "isRequired": true
                   },
                   {

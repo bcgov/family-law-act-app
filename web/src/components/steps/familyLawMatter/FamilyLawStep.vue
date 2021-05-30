@@ -8,7 +8,7 @@
         <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"/>    
         <parental-responsibilities v-bind:step="step" v-if="step.currentPage == 4"/> 
         <parenting-time v-bind:step="step" v-if="step.currentPage == 5"/> 
-        <parental-arrangements v-bind:step="step" v-if="step.currentPage == 6"/> 
+        <other-parenting-arrangements v-bind:step="step" v-if="step.currentPage == 6"/> 
         
         <parenting-order-agreement v-bind:step="step" v-if="step.currentPage == 7"/>
         <about-parenting-arrangements v-bind:step="step" v-if="step.currentPage == 8"/>
@@ -76,7 +76,7 @@ import ChildrenInfo from "./childInfo/ChildrenInfo.vue";
 import ParentingArrangements from "./parentingArrangements/ParentingArrangements.vue";
 import ParentalResponsibilities from "./parentingArrangements/ParentalResponsibilities.vue";
 import ParentingTime from "./parentingArrangements/ParentingTime.vue";
-import ParentalArrangements from "./parentingArrangements/ParentalArrangements.vue";
+import OtherParentingArrangements from "./parentingArrangements/OtherParentingArrangements.vue";
 import ParentingOrderAgreement from "./parentingArrangements/ParentingOrderAgreement.vue";
 import AboutParentingArrangements from "./parentingArrangements/AboutParentingArrangements.vue";
 import ParentingArrangementChanges from "./parentingArrangements/ParentingArrangementChanges.vue";
@@ -134,7 +134,7 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
         ParentingArrangements,
         ParentalResponsibilities,
         ParentingTime,
-        ParentalArrangements,
+        OtherParentingArrangements,
         ParentingOrderAgreement,
         AboutParentingArrangements,
         ParentingArrangementChanges,

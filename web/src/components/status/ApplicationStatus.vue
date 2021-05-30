@@ -370,7 +370,7 @@ export default class ApplicationStatus extends Vue {
                 types.push("Case Management");
             }
             if (applicationType.includes("AXP")){
-                types.push("Priotity Parenting Matter");
+                types.push("Priority Parenting Matter");
             }
             if (applicationType.includes("APRC")){
                 types.push("Relocation of a Child");

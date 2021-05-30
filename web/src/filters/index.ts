@@ -183,12 +183,12 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 })
 
 Vue.filter('getPathwayABRV',function(name){	
-	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priotityParenting:false, childReloc:false, agreementEnfrc:false
+	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false
 
 	if (name == 'protectionOrder') return "AAP";
 	if (name == 'familyLawMatter') return "FLC";
 	if (name == 'caseMgmt') return "ACMO";
-	if (name == 'priotityParenting') return "AXP";
+	if (name == 'priorityParenting') return "AXP";
 	if (name == 'childReloc') return "APRC";
 	if (name == 'agreementEnfrc') return "AFET";
 	
@@ -201,7 +201,7 @@ Vue.filter('getFullOrderName',function(orderName, specific){
 	else if (orderName == "protectionOrder" && specific == 'terminatePO') return "Terminate Protection Order";
 	else if (orderName == "familyLawMatter") return "Family Law Matter";
 	else if (orderName == "caseMgmt") return "Case Management";
-	else if (orderName == "priotityParenting") return "Priotity Parenting Matter";
+	else if (orderName == "priorityParenting") return "Priority Parenting Matter";
 	else if (orderName == "childReloc") return "Relocation of a Child";
 	else if (orderName == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
 	else return "";
@@ -221,7 +221,7 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 		if (applicationType.includes("Case Management")){
 			types.push("ACMO");
 		}
-		if (applicationType.includes("Priotity Parenting Matter")){
+		if (applicationType.includes("Priority Parenting Matter")){
 			types.push("AXP");
 		}
 		if (applicationType.includes("Relocation of a Child")){

@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="checkbox-border">
-                    <b-form-checkbox value="priotityParenting">
+                    <b-form-checkbox value="priorityParenting">
                     <div class="checkbox-choices">Priority parenting matter</div>
                     <p>
                         <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child or children that require the agreement of each of the child's guardians or an order from the court and it is
@@ -260,7 +260,7 @@ export default class GettingStarted extends Vue {
             this.toggleSteps(1, selectedForms.includes("protectionOrder"));
             this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
             this.toggleSteps(4, selectedForms.includes("caseMgmt"));
-            this.toggleSteps(5, selectedForms.includes("priotityParenting"));
+            this.toggleSteps(5, selectedForms.includes("priorityParenting"));
             this.toggleSteps(6, selectedForms.includes("childReloc"));
             this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
 
@@ -281,8 +281,8 @@ export default class GettingStarted extends Vue {
         pathwayCompleted["familyLawMatter"] = false;
         //if(!selectedForms.includes("caseMgmt"))          
         pathwayCompleted["caseMgmt"] = false;
-        //if(!selectedForms.includes("priotityParenting")) 
-        pathwayCompleted["priotityParenting"] = false;
+        //if(!selectedForms.includes("priorityParenting")) 
+        pathwayCompleted["priorityParenting"] = false;
         //if(!selectedForms.includes("childReloc"))        
         pathwayCompleted["childReloc"] = false;
         //if(!selectedForms.includes("agreementEnfrc"))    
