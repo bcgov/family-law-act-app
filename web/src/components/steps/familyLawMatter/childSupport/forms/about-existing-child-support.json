@@ -55,10 +55,10 @@
               "choices": [
                 {"value":"myFinancialChanged",    "comment":false, "text":"My financial situation has changed"},
                 {"value":"partyFinancialChanged", "comment":false, "text":"I believe the other party’s financial situation has changed"},
-                {"value":"expensesChanged",       "comment":true,  "text":"The `special and extraordinary expenses` have changed"},
-                {"value":"arrangementsChanged",   "comment":true,  "text":"The living arrangements for a child have changed"},
-                {"value":"newInformation",        "comment":true,  "text":"Information has become available that was not available when the order was made"},
-                {"value":"other",                 "comment":true,  "text":"Other changes or circumstances"}
+                {"value":"expensesChanged",       "comment":true,  "text":"The `special and extraordinary expenses` have changed as follows:"},
+                {"value":"arrangementsChanged",   "comment":true,  "text":"The living arrangements for a child have changed as follows:"},
+                {"value":"newInformation",        "comment":true,  "text":"Information has become available that was not available when the order was made (specify what information)"},
+                {"value":"other",                 "comment":true,  "text":"Other changes or circumstances as follows:"}
               ],
               "isRequired": true,
               "visible": false,

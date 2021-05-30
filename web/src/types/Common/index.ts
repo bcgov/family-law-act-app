@@ -8,7 +8,7 @@ export interface requiredDocumentsInfoType {
     protectionOrder?: requiredReminederInfoTyp;
 	familyLawMatter?: requiredReminederInfoTyp;
 	caseMgmt?: requiredReminederInfoTyp;
-	priotityParenting?: requiredReminederInfoTyp;
+	priorityParenting?: requiredReminederInfoTyp;
 	childReloc?: requiredReminederInfoTyp;
 	agreementEnfrc?: requiredReminederInfoTyp;
 }

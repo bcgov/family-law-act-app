@@ -213,8 +213,8 @@ export default class ChildrenInfo extends Vue {
 
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
-        resultString.push(Vue.filter('styleTitle')("Relation to Applicant: ")+child.relation)
-        resultString.push(Vue.filter('styleTitle')("Relation to Other Party: ")+child.opRelation)
+        resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
+        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)
         if (child.currentLiving == 'other'){
             // console.log(child)
             resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)

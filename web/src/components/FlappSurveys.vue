@@ -27,7 +27,7 @@ import GetStarted from "./steps/get-started/GetStartedStep.vue";
 import CommonInformationStep from "./steps/common-information/CommonInformationStep.vue";
 import ProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
 import FamilyLawStep from "./steps/familyLawMatter/FamilyLawStep.vue";
-import ParentingPriorityStep from "./steps/priotityParenting/ParentingPriorityStep.vue";
+import ParentingPriorityStep from "./steps/priorityParenting/ParentingPriorityStep.vue";
 import CaseManagementStep from "./steps/caseMgmt/CaseManagementStep.vue";
 import ChildRelocationStep from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgreeStep from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
