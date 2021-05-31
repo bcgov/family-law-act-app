@@ -14,13 +14,6 @@ class Application(models.Model):
     user_type = models.CharField(max_length=100, default="", blank=True)
     user_name = models.CharField(max_length=100, default="", blank=True)
 
-    # Do not use below
-    applicant_name = models.JSONField(blank=True, null=True)
-    respondent_name = models.JSONField(blank=True, null=True)
-    protected_party_name = models.JSONField(blank=True, null=True)
-    protected_child_name = models.JSONField(blank=True, null=True)
-    # Do not use above
-
     application_location = models.JSONField(blank=True, null=True)
     # encryption key identifier
     key_id = models.CharField(max_length=32, blank=True, null=True)

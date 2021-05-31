@@ -97,7 +97,7 @@
                     "visibleIf": "!({csOnly})",
                     "title": "What if I don't have contact information for the other party?",
                     "titleLocation": "hidden",
-                    "body": "If you don't have contact information, you can leave any part of this section blank.  Provide as much information as you do have.  \n<br>\n<br>\nYou will still be required to arrange for service of court documents on the other party but you don't always need a physical address to do that.  You might know a place where the person goes regularly like a gym or a coffee shop.\n<br>\n<br>\nYou also have options to apply to the court for an order allowing you to serve the other party in another way or the court registry can work with you to make a search request for information about where the other party may be located."
+                    "body": "If you don't have contact information, you can leave any part of this section blank.  Provide as much information as you do have.  \n<br>\nYou will still be required to arrange for service of court documents on the other party but you don't always need a physical address to do that.  You might know a place where the person goes regularly like a gym or a coffee shop.\n<br>\n<br>\nYou also have options to apply to the court for an order allowing you to serve the other party in another way or the court registry can work with you to make a search request for information about where the other party may be located."
                 },
                 {
                     "type": "contactinfo",

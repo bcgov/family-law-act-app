@@ -3,7 +3,7 @@
   "pages": [
     {
       "name": "Indigenous ancestry of child",
-      "description": "This section helps you to identify any Indigenous ancestry of the child for the court and to acknowledge your requirements if a child is a Nisga’a or treaty First Nation child.",
+      "description": "This section helps you to identify any Indigenous ancestry of the child for the court and to acknowledge your requirements if a child is a Nisg̲a’a or treaty First Nation child.",
       "elements": [
         {
           "type": "panel",
@@ -38,7 +38,7 @@
               "visibleIf": "{indigenousChild} = 'yes'",
               "choices": [
                 "First Nation",
-                "Nisga’a",
+                "Nisg̲a’a",
                 "Treaty First Nation",
                 "the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous",
                 "the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"
@@ -47,14 +47,15 @@
             {
               "type": "radiogroup",
               "name": "ServeAcknowledgement",
-              "title": "Serve Acknowledgement to the Nisga’a Lisims Government or the Treaty First Nation",
+              "title": "Serve Acknowledgement to the Nisg̲a’a Lisims Government or the Treaty First Nation",
               "visible": false,
-              "visibleIf": "{indigenousChild} = 'yes' and ({indigenousAncestry} anyof ['Nisga’a', 'Treaty First Nation'])",
+              "visibleIf": "{indigenousChild} = 'yes' and ({indigenousAncestry} anyof ['Nisg̲a’a', 'Treaty First Nation'])",
               "titleLocation": "hidden",
+              "isRequired": true,
               "choices": [
                 {
                   "value": "I acknowledge",
-                  "text": "I acknowledge that I must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section208\" target=\"blank\">section 208 or 209 of the Family Law Act</a>."
+                  "text": "I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section208\" target=\"blank\">section 208 or 209 of the Family Law Act</a>."
                 }
               ]
             }

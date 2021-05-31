@@ -108,6 +108,18 @@
   .sv-radio > label {
     display: block; // fix alignment on checkbox row
   }
+
+  .sv-paneldynamic__add-btn{
+    float: none !important;
+    background-color: forestgreen;
+    margin-top: -18px !important;
+  }
+
+  .sv-paneldynamic__remove-btn {
+    background-color: rgb(212, 48, 18);
+    margin-top: 1.25em;
+  } 
+
 }
 
 textarea {

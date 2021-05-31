@@ -51,7 +51,7 @@
                     <div style="margin:0 0 0 1.35rem;">
                         <i style="margin:0 0 0 -0.25rem;" >If yes, please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</i>
                         <check-box style="" :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
-                        <check-box style="" :check="guardInfo.ancestry.nisga?'yes':''" text="Nisga’a"/>
+                        <check-box style="" :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
                         <check-box style="" :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation"/>
                         <check-box style="" :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
                         <check-box style="" :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
@@ -62,9 +62,9 @@
             <div style="margin-top:1rem;"></div>
 <!-- <4> -->
             <section>
-                <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisga’a child or a Treaty First Nation child</i>
+                <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisg̲a’a child or a Treaty First Nation child</i>
                 <div style="margin:0 0 0 1.35rem;">
-                    <check-box style="" :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisga'a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
+                    <check-box style="" :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
                 </div>
             </section>
 
@@ -194,11 +194,11 @@ export default class Form3 extends Vue {
                 guardianshipInfo.unKnownAncestry = false;
                 guardianshipInfo.ancestry = {
                     firstNation: ancestryInfo.indigenousAncestry.includes('First Nation'),
-                    nisga: ancestryInfo.indigenousAncestry.includes('Nisga’a'),
+                    nisga: ancestryInfo.indigenousAncestry.includes('Nisg̲a’a'),
                     treatyFirstNation: ancestryInfo.indigenousAncestry.includes('Treaty First Nation'),
                     under12: ancestryInfo.indigenousAncestry.includes('the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous'),
                     over12: ancestryInfo.indigenousAncestry.includes('the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous'),
-                    acknowledge: (ancestryInfo.indigenousAncestry.includes('Nisga’a') || ancestryInfo.indigenousAncestry.includes('Treaty First Nation'))? (ancestryInfo.ServeAcknowledgement == 'I acknowledge'):false
+                    acknowledge: (ancestryInfo.indigenousAncestry.includes('Nisg̲a’a') || ancestryInfo.indigenousAncestry.includes('Treaty First Nation'))? (ancestryInfo.ServeAcknowledgement == 'I acknowledge'):false
                 }
             } else if (ancestryInfo.indigenousChild == 'no'){
                 guardianshipInfo.indigenous = false;

@@ -24,7 +24,7 @@
                                     <tr>
                                     <th scope="col">Other Party Name</th>
                                     <th scope="col">Birthdate</th>
-                                    <th scope="col">Your relationship to the other party</th>
+                                    <!-- <th scope="col">Your relationship to the other party</th> -->
                                     <th scope="col">Address Information</th>
                                     <th scope="col">Contact Information</th>
                                     <th scope="col"></th>
@@ -35,7 +35,7 @@
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
                                     <td>{{op.dob | beautify-date}}</td>
-                                    <td>{{op.opRelation}}</td>
+                                    <!-- <td>{{op.opRelation}}</td> -->
                                     <td>{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
                                     <td>{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
                                     <td><a class="btn btn-light" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
@@ -285,7 +285,7 @@ export default class OtherPartyCommon extends Vue {
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
         resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
         resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
-
+        //console.log(resultString)
         return resultString
     }
 

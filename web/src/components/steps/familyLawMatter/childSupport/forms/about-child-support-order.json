@@ -36,7 +36,7 @@
               "name": "parentFileForm4Info",
               "visible":"false",
               "visibleIf":"{listOfSupportPayorsLength} >1",
-              "title": "You are required to file a <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
+              "title": "You are required to file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
               "titleLocation":"hidden",
               "messageStyle": "info"
             },
@@ -64,7 +64,7 @@
               "name": "parentFileForm4Info2",
               "visible":false,
               "visibleIf":"{payorEarnsHigh}=='yes'",
-              "title": "You are required to file a <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
+              "title": "You are required to file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.",            
               "titleLocation":"hidden",
               "messageStyle": "info"
             },
@@ -101,7 +101,7 @@
               "name": "parentFileForm4InfoMoreLines",
               "visible":false,
               "visibleIf":"{supportChildOver19}=='y'",
-              "title": "You are required to file a <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.<br><br>In some cases, the court may also require income information for your child. You don’t need to provide it yet. Just be prepared if the court does ask for it.",            
+              "title": "You are required to file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service.<br><br>In some cases, the court may also require income information for your child. You don’t need to provide it yet. Just be prepared if the court does ask for it.",            
               "titleLocation":"hidden",
               "messageStyle": "info"
             },           

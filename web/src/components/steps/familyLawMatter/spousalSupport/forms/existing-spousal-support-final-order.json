@@ -31,11 +31,11 @@
               "choices": [
                 {"value":"myFinancialChanged",    "comment":false,  "text":"My financial situation has changed"},
                 {"value":"partyFinancialChanged", "comment":false,  "text":"I believe the other party’s financial situation has changed"},
-                {"value":"myEmploymentChanged",   "comment":true,  "text":"My employment, training, health and/or ability to work have changed"},
-                {"value":"partyEmploymentChanged","comment":true,  "text":"I believe the other party’s employment, training, health and/or ability to work have changed"},
-                {"value":"myHouseholdChanged",    "comment":true,  "text":"My household expenses have changed"},
-                {"value":"newInformation",        "comment":true,  "text":"Information has become available that was not available when the order was made"},
-                {"value":"other",                 "comment":true,  "text":"Other changes or circumstances"}
+                {"value":"myEmploymentChanged",   "comment":true,  "text":"My employment, training, health and/or ability to work have changed as follows:"},
+                {"value":"partyEmploymentChanged","comment":true,  "text":"I believe the other party’s employment, training, health and/or ability to work have changed as follows:"},
+                {"value":"myHouseholdChanged",    "comment":true,  "text":"My household expenses have changed as follows:"},
+                {"value":"newInformation",        "comment":true,  "text":"Information has become available that was not available when the order was made (specify what information)"},
+                {"value":"other",                 "comment":true,  "text":"Other changes or circumstances as follows:"}
               ],
               "isRequired": true
             },
