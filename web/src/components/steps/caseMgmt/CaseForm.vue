@@ -105,6 +105,19 @@ export default class CaseForm extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
+    currentStep=0;
+    currentPage=0;
+
+    mounted(){
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
+        this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:true})
+    }
+
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }

@@ -118,7 +118,8 @@ export default class ReviewYourAnswersFlm extends Vue {
         adjQuestion = adjQuestion.replace(/{Payee}/g, 'Payee(s)');
         adjQuestion = adjQuestion.replace(/{currentDate}/g, this.currentDate);
         adjQuestion = adjQuestion.replace(/<br>/g,'');
-        adjQuestion = adjQuestion.replace(/<br\/>/g,''); 
+        adjQuestion = adjQuestion.replace(/<br\/>/g,'');
+        adjQuestion = adjQuestion.replace(/`/g,'');
         adjQuestion = adjQuestion.replace(/{childWording}/g,'child(ren)');
         adjQuestion = adjQuestion.replace(/{selectedChildWording}/g,'child(ren)');
         return adjQuestion
@@ -153,7 +154,7 @@ export default class ReviewYourAnswersFlm extends Vue {
             if(value[0].childName)return this.getChildInfo(value) 
             if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
             if(typeof value[0] === 'string' || value[0] instanceof String)
-                return value.join(", \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+                return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
             else{
                 this.pageHasError = true;
                 return "REQUIRED";
@@ -186,8 +187,14 @@ export default class ReviewYourAnswersFlm extends Vue {
         else if(typeof value ==='object' && value !== null){
             return this.getMultipleTextInputResults(value)
         }         
-        else 
-            return value;    
+        else if(typeof value ==='string' && value !== ''){
+            let keyBeauty = value.charAt(0).toUpperCase() + value.slice(1);
+            keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')  
+            return keyBeauty;    
+        }
+        else {
+            return value
+        }
     }
 
     public getChildInfo(children){
