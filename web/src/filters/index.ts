@@ -72,9 +72,9 @@ Vue.filter('getFullContactInfo',function(nameObject){
 	if (nameObject) {
 		return pre+"Phone: "+post+
 			nameObject.phone +
-			", "+pre+"Email: "+post+
+			" "+pre+"Email: "+post+
 			nameObject.email +
-			", "+pre+"Fax: "+post+
+			" "+pre+"Fax: "+post+
 			nameObject.fax;
 	} else{
 		return " "

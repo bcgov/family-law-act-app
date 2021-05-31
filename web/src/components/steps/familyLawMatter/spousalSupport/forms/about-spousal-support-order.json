@@ -14,7 +14,7 @@
               "name": "howToPaySpousalSupport",              
               "title": "I am applying for spousal support:",
               "description" : "Select from the list below.",
-              "radioOutputValues":"{monthly},{lumpsum}",
+              "radioOutputValues":"{monthly},{Lump Sum}",
               "inputNames":"{monthlyAmount},{monthlyStartDate},{monthlyEndDate};{lumpsumAmount}",
               "inputTypes":"{number},{date},{date};{number}",
               "inputWidths":"{7rem},{11rem},{11rem};{9rem}",                  

@@ -264,8 +264,8 @@ export default class Form3 extends Vue {
                         && aboutSpousalSupport.monthlyEndDate)?Vue.filter('beautify-date')(aboutSpousalSupport.monthlyEndDate):'',
                 rate: (aboutSpousalSupport.selected == 'monthly'
                         && aboutSpousalSupport.monthlyAmount)?aboutSpousalSupport.monthlyAmount:'',
-                lumpSum: aboutSpousalSupport.selected == 'lumpsum',
-                lumpSumAmount: (aboutSpousalSupport.selected == 'lumpsum'
+                lumpSum: aboutSpousalSupport.selected == 'Lump Sum',
+                lumpSumAmount: (aboutSpousalSupport.selected == 'Lump Sum'
                         && aboutSpousalSupport.lumpsumAmount)? aboutSpousalSupport.lumpsumAmount:'',
                 other: aboutSpousalSupport.selected == 'other',
                 otherComm: (aboutSpousalSupport.selected == 'other' 

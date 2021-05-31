@@ -388,7 +388,7 @@ export default class Form3 extends Vue {
                 reduceReason: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.whyReduceAmount:'',
                 monthly: paymentSchedule?   paymentSchedule.selected == 'monthly':false,                
                 rate:    (paymentSchedule && paymentSchedule.selected == 'monthly')? paymentSchedule.monthlyAmount:'',
-                lumpSum: paymentSchedule?   paymentSchedule.selected == 'lumpsum':false,                
+                lumpSum: paymentSchedule?   paymentSchedule.selected == 'Lump Sum':false,                
                 other:   paymentSchedule?   paymentSchedule.selected == 'other':false,
                 otherComm: paymentSchedule? paymentSchedule.otherComment: ''
             }:{
