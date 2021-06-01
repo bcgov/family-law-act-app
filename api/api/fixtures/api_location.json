@@ -61,6 +61,18 @@
 },
 {
     "model": "api.location",
+    "pk": 87,
+    "fields": {
+        "location_code": "5691",
+        "name": "Atlin",
+        "email": "Office15228@gov.bc.ca",
+        "created_date": "2021-05-18T21:48:02.579Z",
+        "last_updated": "2021-05-18T21:48:02.579Z",
+        "in_person_filing_location_code": "5771"
+    }
+},
+{
+    "model": "api.location",
     "pk": 6,
     "fields": {
         "location_code": "2007",
@@ -509,10 +521,10 @@
     "fields": {
         "location_code": "5841",
         "name": "Masset",
-        "email": "VCMassetCrt@gov.bc.ca",
+        "email": "Office15220@gov.bc.ca",
         "created_date": "2021-05-18T21:48:02.579Z",
         "last_updated": "2021-05-18T21:48:02.579Z",
-        "in_person_filing_location_code": ""
+        "in_person_filing_location_code": "5901"
     }
 },
 {
