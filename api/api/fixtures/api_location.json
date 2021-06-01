@@ -17,7 +17,7 @@
     "fields": {
         "location_code": "3561",
         "name": "Abbotsford",
-        "email": "AbbotsfordCriminalRegistry@gov.bc.ca",
+        "email": "CSBAbbotsford.CourtScheduling@gov.bc.ca",
         "created_date": "2021-05-18T21:48:02.579Z",
         "last_updated": "2021-05-18T21:48:02.579Z",
         "in_person_filing_location_code": ""
@@ -521,7 +521,7 @@
     "fields": {
         "location_code": "5845",
         "name": "McBride",
-        "email": "Office15222@gov.bc.ca",
+        "email": "Office15215@gov.bc.ca",
         "created_date": "2021-05-18T21:48:02.579Z",
         "last_updated": "2021-05-18T21:48:02.579Z",
         "in_person_filing_location_code": "5959"
@@ -953,7 +953,7 @@
     "fields": {
         "location_code": "5959",
         "name": "Valemount",
-        "email": "Office15222@gov.bc.ca",
+        "email": "Office15215@gov.bc.ca",
         "created_date": "2021-05-18T21:48:02.579Z",
         "last_updated": "2021-05-18T21:48:02.579Z",
         "in_person_filing_location_code": ""
