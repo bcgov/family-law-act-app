@@ -124,10 +124,14 @@ $indicator-thickness: 0.2em;
   border-bottom-width: 1px;
   margin-bottom: -1px;
   text-decoration: none;
+  color: #1a5a96 !important;
 }
-.glossary-link:hover,
-.glossary-link.active {
+
+.glossary-link:hover .tooltip .tooltiptext {
   border-bottom-style: solid;
+  display: block;
+  visibility: visible !important;
+  color: #fff !important;
   text-decoration: none;
 }
 

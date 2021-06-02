@@ -473,8 +473,7 @@ export default class ApplicationStatus extends Vue {
             const locationNames = Object.keys(response.data);
             const locations = []
             for (const location of locationNames){
-                // console.log(location)
-                console.log(locationsInfo[location])
+                 // console.log(locationsInfo[location])
                 const locationInfo = locationsInfo[location];              
                 
                 const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 

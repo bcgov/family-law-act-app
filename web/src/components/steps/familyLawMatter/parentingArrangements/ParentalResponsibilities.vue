@@ -99,11 +99,10 @@ export default class ParentalResponsibilities extends Vue {
     public reloadPageInformation() {
         //console.log(this.step.result)
         if (this.step.result && this.step.result['parentalResponsibilitiesSurvey']) {
-            this.survey.data = this.step.result['parentalResponsibilitiesSurvey'].data;
+            this.survey.data = this.step.result['parentalResponsibilitiesSurvey'].data;            
 
-            
-
-            if (this.survey.data.childrenRequestedResponsibilities
+            if (this.survey.data.allResponsibilitiesOrder == 'y'
+                && this.survey.data.childrenRequestedResponsibilities
                 && this.survey.data.childrenRequestedResponsibilities.length == this.childData.length){
                     this.survey.setVariable("allChildrenSelected", true);                    
             } else {
