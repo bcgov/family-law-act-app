@@ -270,11 +270,11 @@
         <section>
             I believe the other party owns or has access to guns, explosives or another kind of firearm
             <div style="display:block; margin-left:0.5rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearms == 'y' && result.weaponsSurvey.RespondentFirearmsYes == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearms == 'y' && result.weaponsSurvey.RespondentFirearmsYes == 'n'?'yes':''" text="No"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearmsYes == 'y'?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearmsYes == 'n'?'yes':''" text="No"/>
             </div>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentFirearms == 'y' && result.weaponsSurvey.RespondentFirearmsYes == 'y'">{{result.weaponsSurvey.firearmsYesReason}}</div>
+            <div class="answerbox" v-if="result.weaponsSurvey.RespondentFirearmsYes == 'y'">{{result.weaponsSurvey.firearmsYesReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -293,11 +293,11 @@
 <!-- <8> -->
         <section>
             I believe the other party owns a weapon that is not a gun or explosive            
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeapons == 'y' && result.weaponsSurvey.RespondentWeaponsYes == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeapons == 'y' && result.weaponsSurvey.RespondentWeaponsYes == 'n'?'yes':''" text="No"/>            
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeaponsYes == 'y'?'yes':''" text="Yes"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeaponsYes == 'n'?'yes':''" text="No"/>            
             <i style="display:block; margin-left:1rem;">Examples of weapons someone may own include swords, hunting knives, and nunchucks.</i>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentWeapons == 'y' && result.weaponsSurvey.RespondentWeaponsYes == 'y'">{{result.weaponsSurvey.weaponsYesReason}}</div>
+            <div class="answerbox" v-if="result.weaponsSurvey.RespondentWeaponsYes == 'y'">{{result.weaponsSurvey.weaponsYesReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 

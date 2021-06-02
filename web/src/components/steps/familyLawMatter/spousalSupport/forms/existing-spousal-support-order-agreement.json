@@ -121,7 +121,7 @@
                   "text": "I want to complete the <a href=\"https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true\" target=\"blank\">Request for Scheduling Form 39</a>. Note: Completion of the form is not currently supported by this service. If you select this option, a fillable PDF version of the form will be opened in another window for you to complete."
                 },
                 {
-                  "value": "completeLater",
+                  "value": "continueApplication",
                   "text": "I want to continue my application about an existing order or written agreement about spousal support."
                 }
               ]
