@@ -365,7 +365,7 @@
             </div>
         </section> 
 
-        <div style="margin-top:2rem;font-family:BCSans;"><b>Cildren</b></div>
+        <div style="margin-top:2rem;font-family:BCSans;"><b>Children</b></div>
 <!-- <13> -->
         <section>
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>

@@ -35,13 +35,15 @@ export function setGlossaryMarkdown(survey) {
         str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
             if (hasTerm(m1)) {
               //       // note: m1 is already html format
-              return (
-                '<a href="#" class="glossary-link" data-glossary="' +
-                m1 +
-                '">' +
-                m1 +
-                "</a>"
-              );
+              // return (
+              //   '<a href="#" class="glossary-link" data-glossary="' +
+              //   m1 +
+              //   '">' +
+              //   m1 +
+              //   "</a>" );
+              //console.log(getTerm(m1, true))
+              //console.log(terms[m1.trim().toLowerCase()])
+              return ('<b class="glossary-link">' + m1 + '<div class="tooltip" ><div class="tooltiptext">' + getTerm(m1, true) + '</div></div></b>')
             }
             if (showMissingTerms) {
                 return "<code>" + m1 + "</code>";
@@ -52,7 +54,7 @@ export function setGlossaryMarkdown(survey) {
     });
 
     survey.onAfterRenderQuestion.add((sender, options) => {
-        registerTargets(options.htmlElement);
+        // registerTargets(options.htmlElement);
       });
 }
 
