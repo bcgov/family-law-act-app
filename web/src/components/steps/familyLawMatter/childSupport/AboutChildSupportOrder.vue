@@ -165,10 +165,9 @@ export default class AboutChildSupportOrder extends Vue {
         this.survey.setVariable("ApplicantName", this.applicantFullName);
         
         this.determineNumberOfPayors();
-        //if(this.childData.length==1) this.survey.setValue('listOfChildren','child[0]') 
+        
         if(this.childData.length==1){
-            this.survey.setValue('listOfChildren',[Vue.filter('getFullName')(this.childData[0].name)])
-            //this.survey.setValue("selectedChildrenNames", [Vue.filter('getFullName')(this.childData[0].name)]);
+            this.survey.setValue('listOfChildren',[Vue.filter('getFullName')(this.childData[0].name)])           
         }
         
         this.survey.setValue('numberOf19yrsChild',this.numOf19child);
