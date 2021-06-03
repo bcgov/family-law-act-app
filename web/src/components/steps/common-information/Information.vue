@@ -30,7 +30,7 @@ export default class Information extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public types!: string[]

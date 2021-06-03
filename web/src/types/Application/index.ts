@@ -21,7 +21,7 @@ export interface stepInfoType {
     type: string;
     label: string;
     icon: string;
-    result: {};
+    result?: Object;
     metadata?: object;
     pages?: pageInfoType[];
     currentPage: number;
@@ -47,6 +47,16 @@ export interface stepInfoType {
     middle: string;
     last: string;
   }
+
+  export interface pathwayCompletedInfoType { 
+    protectionOrder: boolean; 
+    familyLawMatter: boolean;
+    caseMgmt: boolean; 
+    priorityParenting: boolean; 
+    childReloc: boolean;
+    agreementEnfrc: boolean;
+  } 
+
 
 
 

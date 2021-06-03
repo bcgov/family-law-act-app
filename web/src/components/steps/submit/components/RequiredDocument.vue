@@ -52,6 +52,7 @@ import GetHelpScanning from "../helpPages/GetHelpScanning.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { requiredDocumentsInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component({
@@ -68,7 +69,7 @@ export default class RequiredDocument extends Vue {
     title!: string;
 
     @applicationState.State
-    public requiredDocuments!: any
+    public requiredDocuments!: requiredDocumentsInfoType;
 
     showGetHelpScanning = false;
     isRequiredDocument = false;

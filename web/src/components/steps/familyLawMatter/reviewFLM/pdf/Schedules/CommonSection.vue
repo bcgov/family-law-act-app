@@ -391,8 +391,7 @@ export default class CommonSection extends Vue {
                                         || locationInformation.familyJusticeRegistry
                                         || locationInformation.earlyResolutionRegistry);
         }
-
-        // console.log(locationInformation)
+        
         return locationInformation;
     }
 

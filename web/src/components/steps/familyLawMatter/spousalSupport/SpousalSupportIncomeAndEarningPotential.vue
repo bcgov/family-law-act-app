@@ -30,7 +30,7 @@ export default class SpousalSupportIncomeAndEarningPotential extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

@@ -141,7 +141,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -161,7 +161,7 @@ export default class GettingStarted extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public types!: string[]
@@ -180,10 +180,10 @@ export default class GettingStarted extends Vue {
 
     
     @applicationState.State
-    public pathwayCompleted!: any
+    public pathwayCompleted!: pathwayCompletedInfoType;
     
     @applicationState.Action
-    public UpdatePathwayCompletedFull!: (changedpathway) => void
+    public UpdatePathwayCompletedFull!: (changedpathway: pathwayCompletedInfoType) => void
     
     @applicationState.Action
     public checkAllCompleted!: () => void

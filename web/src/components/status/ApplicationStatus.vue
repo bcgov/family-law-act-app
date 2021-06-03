@@ -175,13 +175,14 @@ import { namespace } from "vuex-class";
 import "@/store/modules/common";
 const commonState = namespace("Common");
 import "@/store/modules/application";
+import { documentTypesJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component
 export default class ApplicationStatus extends Vue {
 
     @commonState.Action
-    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson: documentTypesJsonInfoType[]) => void
 
     @commonState.Action
     public UpdateLocationsInfo!: (newLocationsInfo) => void

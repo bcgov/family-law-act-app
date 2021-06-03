@@ -1,3 +1,4 @@
+import { documentTypesJsonInfoType } from '@/types/Common';
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 
 @Module({
@@ -40,11 +41,11 @@ class Common extends VuexModule {
     }
     
     @Mutation
-    public setDocumentTypesJson(documentTypesJson): void {
+    public setDocumentTypesJson(documentTypesJson: documentTypesJsonInfoType[]): void {
         this.documentTypesJson = documentTypesJson;
     }
     @Action
-    public UpdateDocumentTypesJson(newDocumentTypesJson) {
+    public UpdateDocumentTypesJson(newDocumentTypesJson: documentTypesJsonInfoType[]) {
         this.context.commit("setDocumentTypesJson", newDocumentTypesJson);
     }
 

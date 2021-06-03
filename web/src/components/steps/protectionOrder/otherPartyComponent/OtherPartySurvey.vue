@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-
+import { otherPartyInfoType } from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -33,34 +33,7 @@ export default class OtherPartySurvey extends Vue {
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
-    op= {
-        name: {
-            first: "",
-            middle: "",
-            last: ""
-        },
-        knowDob: "",
-        dob: "",
-        opRelation: "",
-        livedTogether: "",
-        dateOfLivedTogether: "",
-        married: "",
-        dateOfMarriage: "",
-        separated: "",
-        dateSeparated: "",
-        address: {
-            street: "",
-            city: "",
-            state: "",
-            country: "",
-            postcode: ""
-        },
-        contactInfo: {
-            phone: "",
-            fax: "",
-            email: ""
-        }
-    }
+    op = {} as otherPartyInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;

@@ -19,26 +19,14 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo-common.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 import { addQuestionTypes } from "@/components/survey/question-types.ts";
+import { childInfoType } from '@/types/Application/CommonInformation';
 
 @Component
 export default class ChildrenSurveyCommon extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;
-    child = {
-        name: {
-            first: "",
-            middle: "",
-            last: ""
-        },
-        dob: "",
-        relation: "",
-        opRelation: "",
-        currentLiving: "",
-        ack: "",
-        additionalInfo: "",
-        additionalInfoDetails: ""
-    }
+    child = {} as childInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
 

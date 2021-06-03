@@ -25,6 +25,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import moment from 'moment-timezone';
+import { pathwayCompletedInfoType } from '@/types/Application';
 
 @Component({
     components:{
@@ -43,7 +44,7 @@ export default class FormList extends Vue {
     public generatedForms!: string[];
 
     @applicationState.State
-    public pathwayCompleted!: any
+    public pathwayCompleted!: pathwayCompletedInfoType;
 
     @applicationState.Action
     public UpdateGeneratedForms!: (newGeneratedForms) => void
