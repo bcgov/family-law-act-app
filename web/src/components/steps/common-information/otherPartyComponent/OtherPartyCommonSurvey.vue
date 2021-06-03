@@ -115,9 +115,7 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
 
     public populateOpModel(opData) {
-        this.op.name.first = opData.OtherPartyName.first;
-        this.op.name.middle = opData.OtherPartyName.middle;
-        this.op.name.last = opData.OtherPartyName.last;
+        this.op.name = opData.OtherPartyName;       
 
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
@@ -131,17 +129,11 @@ export default class OtherPartyCommonSurvey extends Vue {
 
         if(opData.otherPartyAddress)
         {
-            this.op.address.street = opData.otherPartyAddress.street;
-            this.op.address.city = opData.otherPartyAddress.city;
-            this.op.address.state = opData.otherPartyAddress.state;
-            this.op.address.country = opData.otherPartyAddress.country;
-            this.op.address.postcode = opData.otherPartyAddress.postcode;
+            this.op.address = opData.otherPartyAddress;          
         }
         if(opData.otherPartyContact)
         {
-            this.op.contactInfo.phone = opData.otherPartyContact.phone;
-            this.op.contactInfo.fax = opData.otherPartyContact.fax;
-            this.op.contactInfo.email = opData.otherPartyContact.email;
+            this.op.contactInfo = opData.otherPartyContact;
         }
     }
 

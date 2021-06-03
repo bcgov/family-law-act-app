@@ -8,14 +8,7 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
         fileNumber: string;
     }
 
-    export interface ProtectionOrderInfoType {
-        required: string[];
-        reminder: any[];
-    }
-
-    export interface RequiredDocumentsInfoType {
-        protectionOrder: ProtectionOrderInfoType;
-    }
+   
 
     // export interface selectedPOOrderDataInfoType {
     //     orderType: string;
@@ -100,7 +93,7 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
         ExistingFamilyCase: string;
         ExplanationCourtLocation: boolean;
         ExistingCourt: string;
-        ExistingFileNumber?: string;
+        ExistingFileNumber?: string;        
     }   
 
     export interface poFilingLocationSurveyInfoType {
@@ -212,15 +205,18 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
     }
 
     export interface aboutPOSurveydataInfoType {
-        dateOfPO: string;
+        dateOfPO?: string;
         ExistingCourt: string;
         ExistingFileNumber: string;
         inCourtForPO: string;
-        whyNotInCourt: string;
+        whyNotInCourt?: string;
         kindofPartyIbPO: string[];
-        whatChangesNeeded: string;
-        whyChangesNeeded: string;
-        changePOattachment: string[];
+        whatChangesNeeded?: string;
+        whyChangesNeeded?: string;
+        changePOattachment?: string[];
+        terminateDateOfPO?: string;
+        whyTerminatePO?: string;
+        terminatePOattachment?: string[];
     }
 
     export interface aboutPOSurveyInfoType {

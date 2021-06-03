@@ -1,5 +1,6 @@
 import {  filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
-import {  childDetailsDataInfoType, childDetailsSurveyInfoType, flmBackgroundSurveyInfoType, parentalArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementsbestInterestOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter";
+import {  childDetailsSurveyInfoType, flmBackgroundSurveyInfoType } from "./FamilyLawMatter";
+import { aboutParentingArrangementsSurveyInfoType, parentalArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { backgroundSurveyInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
 
 export interface applicationInfoType {   
@@ -52,13 +53,13 @@ export interface stepInfoType {
     childData?: childDetailsSurveyInfoType;
     flmAdditionalDocsSurvey?: any;
 
-    aboutParentingArrangementsSurvey?: any;
+    aboutParentingArrangementsSurvey?: aboutParentingArrangementsSurveyInfoType;
     bestInterestOfChildSurvey?: parentingArrangementsbestInterestOfChildSurveyInfoType;
     parentalArrangementsSurvey?: parentalArrangementsSurveyInfoType;
     parentalResponsibilitiesSurvey?: parentalResponsibilitiesSurveyInfoType;
-    parentingArrangementChangesSurvey?: any;
+    parentingArrangementChangesSurvey?: parentingArrangementChangesSurveyInfoType;
     parentingArrangementsSurvey?: parentingArrangementsSurveyInfoType;
-    parentingOrderAgreementSurvey?: any;
+    parentingOrderAgreementSurvey?: parentingOrderAgreementSurveyInfoType;
     parentingTimeSurvey?: parentingTimeSurveyInfoType;
 
     aboutChildSupportChangesSurvey?: any;
