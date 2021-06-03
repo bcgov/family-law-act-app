@@ -21,7 +21,7 @@ export interface stepInfoType {
     type: string;
     label: string;
     icon: string;
-    result?: Object;
+    result?: resultInfoType;
     metadata?: object;
     pages?: pageInfoType[];
     currentPage: number;
@@ -40,6 +40,75 @@ export interface stepInfoType {
   export interface stepResultInfoType {
     step: stepInfoType;
     data: any;
+  }
+
+  export interface resultInfoType{
+    flmSelectedForm?: any;
+    flmBackgroundSurvey?: any;
+    childData?: any;
+    flmAdditionalDocsSurvey?: any;
+
+    aboutParentingArrangementsSurvey?: any;
+    bestInterestOfChildSurvey?: any;
+    parentalArrangementsSurvey?: any;
+    parentalResponsibilitiesSurvey?: any;
+    parentingArrangementChangesSurvey?: any;
+    parentingArrangementsSurvey?: any;
+    parentingOrderAgreementSurvey?: any;
+    parentingTimeSurvey?: any;
+
+    aboutChildSupportChangesSurvey?: any;
+    aboutChildSupportOrderSurvey?: any;
+    aboutExistingChildSupportSurvey?: any;
+    calculatingChildSupportSurvey?: any;
+    childSupportSurvey?: any;
+    childSupportCurrentArrangementSurvey?: any;
+    childSupportOrderAgreementSurvey?: any;
+    childSupportIncomeEarningSurvey?: any;
+    specialAndExtraordinaryExpensesSurvey?: any;
+    undueHardshipSurvey?: any;
+    unpaidChildSupportSurvey?: any;
+
+    aboutContactWithChildSurvey?: any;
+    contactWithChildSurvey?: any;
+    contactWithChildBestInterestOfChildSurvey?: any;
+    contactOrderSurvey?: any;
+
+    GuardianOfChildSurvey?: any;
+    GuardianOfChildBestInterestOfChildSurvey?: any;
+    indigenousAncestryOfChildSurvey?: any;
+
+    aboutExistingSpousalSupportOrderSurvey?: any;
+    aboutSpousalSupportOrderSurvey?: any;
+    calculatingSpousalSupportSurvey?: any;
+    existingSpousalSupportAgreementSurvey?: any;
+    existingSpousalSupportFinalOrderSurvey?: any;
+    existingSpousalSupportOrderAgreementSurvey?: any;
+    spousalSupportSurvey?: any;
+    spousalSupportIncomeAndEarningPotentialSurvey?: any;
+    unpaidSpousalSupportSurvey?: any;
+
+
+    //__________
+    aboutPOSurvey?: any;
+    backgroundSurvey?: any;
+    poFilingLocationSurvey?: any;
+    questionnaireSurvey?: any;
+    protectionWhomSurvey?: any;
+    urgencySurvey?: any;
+    yourInformationSurveyPO?: any;
+    yourStory?: any;
+    noContactSurvey?: any;
+    noGoSurvey?: any;
+    removeSurvey?: any;
+    weaponsSurvey?: any;
+
+    //__________________
+    otherPartyCommonSurvey?: any;
+    filingLocationSurvey?: any;
+    yourInformationSurvey?: any;
+    safetySurvey?: any;
+
   }
 
   export interface nameInfoType {
