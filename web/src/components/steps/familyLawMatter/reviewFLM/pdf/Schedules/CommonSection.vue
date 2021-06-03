@@ -96,9 +96,9 @@
                         <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
+                        <td>Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
                         <td style="padding-left:50px"></td>
-                        <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
+                        <td>Telephone: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.phone:''}}</div> </td>
                     </tr>
                 </table>
             </div>

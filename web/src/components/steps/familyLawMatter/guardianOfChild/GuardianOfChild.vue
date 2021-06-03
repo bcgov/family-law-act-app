@@ -161,6 +161,9 @@ export default class GuardianOfChild extends Vue {
     otherPartyNames = [];
     pageProgress = 0;
 
+    additionalDocumentsPage = 38
+    guardianOfChildBestInterestsOfChildPage = 27
+
     guardianOfChildItem =[
         {name:'', nameOther:'', date:'', relationship:''},
     ]
@@ -227,10 +230,14 @@ export default class GuardianOfChild extends Vue {
             this.setPages();
             this.determineShowingTable();
             //console.log(options)
-            //console.log(this.survey.data)
+            // console.log(this.survey.data)
             //console.log(this.applicantionType)
             if((!this.applicantionType||(this.applicantionType && !this.applicantionType.includes("becomeGuardian"))) && options.name == "applicantionType" && options.value.includes("becomeGuardian")){                
-                this.showPopup = true;               
+                this.showPopup = true; 
+
+                this.togglePages([this.additionalDocumentsPage], true);
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.additionalDocumentsPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.additionalDocumentsPage, 50, false);
             } 
             Vue.nextTick(()=> this.applicantionType = this.survey.data.applicantionType)
         })
@@ -255,9 +262,15 @@ export default class GuardianOfChild extends Vue {
     
     public setPages(){ 
         if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
-            this.togglePages([27], true);                
+            this.togglePages([this.guardianOfChildBestInterestsOfChildPage], true);                
         } else {
-            this.togglePages([27], false);
+            this.togglePages([this.guardianOfChildBestInterestsOfChildPage], false);
+        }
+
+        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes("becomeGuardian")){
+          // 
+        }else if(Vue.filter('FLMform4Required')()==false){
+            this.togglePages([this.additionalDocumentsPage], false);
         }
     }
 
