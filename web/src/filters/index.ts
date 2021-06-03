@@ -172,12 +172,18 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 
 	// console.log(result)
 	if(flagForm4){
+		const additionalDocumentsStep = 3
+		const additionalDocumentsPage = 38
+		if(store.state.Application.steps[additionalDocumentsStep].pages[additionalDocumentsPage].progress==100)
+			Vue.filter('setSurveyProgress')(null, additionalDocumentsStep, additionalDocumentsPage, 50, false);
 		supportingDocumentForm4.push(currentPage)
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
 	}
-
-	Vue.filter('FLMformsRequired')();
+	
+	Vue.nextTick(()=>{
+		Vue.filter('FLMformsRequired')();
+	});
 	// console.log(document.getElementsByName("inCourtForPO"))
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
 })
@@ -242,6 +248,7 @@ Vue.filter('FLMform4Required', function(){
 		for(const page of form4Pages){
 			if(store.state.Application.steps[3].pages[page].active)
 			{
+				//console.log('FORM4')
 				return true
 			}
 		}				
@@ -258,8 +265,10 @@ Vue.filter('FLMform5Required', function(){
 		results.GuardianOfChildSurvey && 
 		results.GuardianOfChildSurvey.data && 
 		results.GuardianOfChildSurvey.data.applicantionType && 
-		results.GuardianOfChildSurvey.data.applicantionType.includes('becomeGuardian') )
+		results.GuardianOfChildSurvey.data.applicantionType.includes('becomeGuardian') ){
+			//console.log('FORM5')
 			return true
+		}
 	else  return false
 })
 

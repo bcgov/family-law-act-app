@@ -320,9 +320,9 @@ export default class Form3 extends Vue {
         if (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
             const changesSinceOrderList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList
             const orderChangeList = (changesSinceOrderList && changesSinceOrderList.checked && changesSinceOrderList.checked.length>0)? changesSinceOrderList.checked:[];
-            const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
+            // const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
             
-            existingSpousalSupportInfo.orderInfo =changeCondition?{
+            existingSpousalSupportInfo.orderInfo ={
 
                 changes: {
                     myfin: orderChangeList.includes('myFinancialChanged'),
@@ -343,27 +343,28 @@ export default class Form3 extends Vue {
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
                 cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
                 
-            }:{
-                changes: {
-                    myfin: false,
-                    opfin: false,
-                    myEmp: false,
-                    opEmp: false,
-                    houseHold: false,
-                    newInfo: false,
-                    other: false
-                },
-
-                newInfo: '',    
-                houseHold:'',
-                myEmp: '',     
-                opEmp: '',     
-                otherChange:'',
-                
-                change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
-                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
-                
             }
+            // :{
+            //     changes: {
+            //         myfin: false,
+            //         opfin: false,
+            //         myEmp: false,
+            //         opEmp: false,
+            //         houseHold: false,
+            //         newInfo: false,
+            //         other: false
+            //     },
+
+            //     newInfo: '',    
+            //     houseHold:'',
+            //     myEmp: '',     
+            //     opEmp: '',     
+            //     otherChange:'',
+                
+            //     change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
+            //     cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
+                
+            // }
         }
 
         if (this.result.aboutExistingSpousalSupportOrderSurvey){

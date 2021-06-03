@@ -151,6 +151,7 @@
             {
               "type": "text",
               "name": "ApplicantOccupation",
+              "isRequired": true,
               "visible":false,
               "visibleIf": "({newApp}) and ({Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y')",
               "title": "What is your job or profession?",

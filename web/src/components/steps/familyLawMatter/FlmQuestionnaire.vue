@@ -252,6 +252,9 @@ export default class FlmQuestionnaire extends Vue {
             this.togglePages([this.backgroundPage], true);
             // this.togglePages(this.commonPages, false);
             this.togglePages([this.formPreviewPage], false);
+            this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
+            if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 50, false);
 
         } else {
             this.togglePages([this.backgroundPage], false);
