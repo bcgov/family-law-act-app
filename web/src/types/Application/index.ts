@@ -1,3 +1,6 @@
+import { filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
+import { backgroundSurveyInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
+
 export interface applicationInfoType {   
     id?: string;
     types: string[];
@@ -91,22 +94,22 @@ export interface stepInfoType {
 
     //__________
     aboutPOSurvey?: any;
-    backgroundSurvey?: any;
-    poFilingLocationSurvey?: any;
-    questionnaireSurvey?: any;
-    protectionWhomSurvey?: any;
-    urgencySurvey?: any;
-    yourInformationSurveyPO?: any;
-    yourStory?: any;
-    noContactSurvey?: any;
-    noGoSurvey?: any;
-    removeSurvey?: any;
-    weaponsSurvey?: any;
+    backgroundSurvey?: backgroundSurveyInfoType;
+    poFilingLocationSurvey?: poFilingLocationSurveyInfoType;
+    questionnaireSurvey?: poQuestionnaireSurveyInfoType;
+    protectionWhomSurvey?: protectionWhomSurveyInfoType;
+    urgencySurvey?: urgencySurveyInfoType;
+    yourInformationSurveyPO?: yourInformationSurveyPOInfoType;
+    yourStory?: yourStoryInfoType;
+    noContactSurvey?: noContactSurveyInfoType;
+    noGoSurvey?: noGoSurveyInfoType;
+    removeSurvey?: removeSurveyInfoType;
+    weaponsSurvey?: weaponsSurveyInfoType;
 
     //__________________
-    otherPartyCommonSurvey?: any;
-    filingLocationSurvey?: any;
-    yourInformationSurvey?: any;
+    otherPartyCommonSurvey?: otherPartyCommonSurveyInfoType;
+    filingLocationSurvey?: filingLocationSurveyInfoType;
+    yourInformationSurvey?: yourInformationSurveyInfoType;
     safetySurvey?: any;
 
   }

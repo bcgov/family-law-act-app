@@ -11,10 +11,19 @@ export interface otherPartyInfoType {
   dateSeparated: string;
   address: addressInfoType;
   contactInfo: contactInfoType;
+  id?: number;
+}
+
+export interface otherPartyCommonSurveyInfoType {
+  data: otherPartyInfoType[];
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
 }
 
 export interface childInfoType {
-  name: nameInfoType;  
+  name: nameInfoType;
   dob: string;
   relation: string;
   opRelation: string;
@@ -45,6 +54,70 @@ export interface addressInfoType {
   postcode: string;
 }
 
+export interface questionInfoType {
+  name: string;
+  value: any;
+  title: string;
+  inputType?: string;
+}
+
+export interface filingLocationSurveyDataInfoType {
+  ExistingFamilyCase: string;
+  ExplanationCourtLocation: boolean;
+  ExistingCourt: string;
+}
+
+export interface FilingLocationSurveyInfoType {
+  data: filingLocationSurveyDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
+}
+
+export interface filingLocationDataInfoType {
+  ExistingFamilyCase: string;
+  ExplanationCourtLocation: boolean;
+  ExistingCourt: string;
+  ExistingFileNumber: string;
+  earlyResolutionRegistry: boolean;
+  familyJusticeRegistry: boolean;
+  familyEducationProgram: boolean;
+}
 
 
+export interface filingLocationSurveyInfoType {
+  data: filingLocationDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
+}
 
+export interface yourInformationDataInfoType {
+  ApplicantName: nameInfoType;
+  ApplicantDOB: string;
+  Lawyer: string;
+  ExplanationServiceAddress: boolean;
+  ApplicantAddress: addressInfoType;
+  ApplicantContact: contactInfoType;
+  ApplicantOccupation?: string;
+  LawyerName?: nameInfoType;
+  LawyerAddress?: addressInfoType;
+  LawyerContact?: contactInfoType;
+  LawyerFillingOut?: string;
+  lawyerStatement?: lawyerStatementInfoType;
+}
+
+export interface lawyerStatementInfoType {
+  lawyerName: string;
+  clientName: string;
+}
+
+export interface yourInformationSurveyInfoType {
+  data: yourInformationDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
+}
