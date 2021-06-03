@@ -21,11 +21,12 @@ export interface applicationInfoType {
 
 export interface stepInfoType {
     id?: string;
+    name: string;
     type: string;
     label: string;
     icon: string;
     result?: resultInfoType;
-    metadata?: object;
+    //metadata?: object;
     pages?: pageInfoType[];
     currentPage: number;
     active: boolean;
@@ -34,6 +35,7 @@ export interface stepInfoType {
 
   export interface pageInfoType {
     key: string;
+    name: string;
     label: string;
     progress: number;
     active: boolean;

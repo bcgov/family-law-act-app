@@ -2,7 +2,7 @@
     <step-base v-bind:step="step">
         <po-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></po-questionnaire>
         <your-information-po v-bind:step="step" v-if="step.currentPage == 1" />
-        <protection-fromWhom v-bind:step="step" v-if="step.currentPage == 2"></protection-fromWhom>
+        <protection-from-whom v-bind:step="step" v-if="step.currentPage == 2"></protection-from-whom>
         <po-filing-location v-bind:step="step" v-if="step.currentPage == 3"></po-filing-location>
         <remove-person v-bind:step="step" v-if="step.currentPage == 4"></remove-person>
         <no-go v-bind:step="step" v-if="step.currentPage == 5"></no-go>

@@ -57,7 +57,7 @@ import { Question } from "survey-vue";
 import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import * as SurveyVue from "survey-vue";
-import surveyJson from "../forms/survey-information.json";
+import surveyJson from "../forms/your-information.json";
 import PageBase from "../../PageBase.vue";
 
 import { namespace } from "vuex-class";   

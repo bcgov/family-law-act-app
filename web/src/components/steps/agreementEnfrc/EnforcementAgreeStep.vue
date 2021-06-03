@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 import * as SurveyVue from "survey-vue";
-import surveyJson from "../common-information/forms/survey-information.json";
+import surveyJson from "../common-information/forms/your-information.json";
 import  EnforcementForm  from "./EnforcementForm.vue"
 
 @Component({
