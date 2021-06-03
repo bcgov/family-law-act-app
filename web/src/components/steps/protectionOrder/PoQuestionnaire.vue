@@ -56,7 +56,7 @@ export default class PoQuestionnaire extends Vue {
     currentPage=0;
     
     allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12,13, 14];
-    needPoPages = [1, 2, 3, 4, 5, 7, 8, 9, 12, 13];
+    needPoPages =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13];
     changeTerminatePages = [ 1, 10, 11, 12, 13];
     commonPages = [12, 13, 14]
     noContantPage = [6];
@@ -140,7 +140,7 @@ export default class PoQuestionnaire extends Vue {
                     if (sender.data.PORConfirmed) {  
                         if(this.isSurveyAnsweredCorectly()){          
                             this.togglePages(this.needPoPages, true);
-                            this.determineNoContactPage(true);
+                            //this.determineNoContactPage(true);
                             //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
                             this.resetProgress(this.urgencyPage)
                         }else{
@@ -156,12 +156,12 @@ export default class PoQuestionnaire extends Vue {
 
                 if (options.value.length !== 0) {
                     this.togglePages(this.needPoPages, true);
-                    this.determineNoContactPage(true);
+                    //this.determineNoContactPage(true);
                     //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
                     this.resetProgress(this.urgencyPage)
                 } else {
                     this.togglePages(this.needPoPages, false);
-                    this.determineNoContactPage(false);
+                    //this.determineNoContactPage(false);
                 }
             }           
 
@@ -257,14 +257,14 @@ export default class PoQuestionnaire extends Vue {
         }
     }
 
-    public determineNoContactPage(enablePage){
+    // public determineNoContactPage(enablePage){
     
-        if(enablePage && this.step.result && this.step.result['protectionWhomSurvey'] && this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection']=='y')
-            this.togglePages(this.noContantPage, true);
-        else
-            this.togglePages(this.noContantPage, false);
-            //console.log(this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection'])                    
-    } 
+    //     if(enablePage && this.step.result && this.step.result['protectionWhomSurvey'] && this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection']=='y')
+    //         this.togglePages(this.noContantPage, true);
+    //     else
+    //         this.togglePages(this.noContantPage, false);
+    //         //console.log(this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection'])                    
+    // } 
 
     public isSurveyAnsweredCorectly(){
         //console.log(this.step.result['protectionWhomSurvey'].data)
