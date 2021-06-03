@@ -1,4 +1,5 @@
-import { filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
+import {  filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
+import {  childDetailsDataInfoType, childDetailsSurveyInfoType, flmBackgroundSurveyInfoType, parentalArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementsbestInterestOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter";
 import { backgroundSurveyInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
 
 export interface applicationInfoType {   
@@ -47,18 +48,18 @@ export interface stepInfoType {
 
   export interface resultInfoType{
     flmSelectedForm?: any;
-    flmBackgroundSurvey?: any;
-    childData?: any;
+    flmBackgroundSurvey?: flmBackgroundSurveyInfoType;
+    childData?: childDetailsSurveyInfoType;
     flmAdditionalDocsSurvey?: any;
 
     aboutParentingArrangementsSurvey?: any;
-    bestInterestOfChildSurvey?: any;
-    parentalArrangementsSurvey?: any;
-    parentalResponsibilitiesSurvey?: any;
+    bestInterestOfChildSurvey?: parentingArrangementsbestInterestOfChildSurveyInfoType;
+    parentalArrangementsSurvey?: parentalArrangementsSurveyInfoType;
+    parentalResponsibilitiesSurvey?: parentalResponsibilitiesSurveyInfoType;
     parentingArrangementChangesSurvey?: any;
-    parentingArrangementsSurvey?: any;
+    parentingArrangementsSurvey?: parentingArrangementsSurveyInfoType;
     parentingOrderAgreementSurvey?: any;
-    parentingTimeSurvey?: any;
+    parentingTimeSurvey?: parentingTimeSurveyInfoType;
 
     aboutChildSupportChangesSurvey?: any;
     aboutChildSupportOrderSurvey?: any;
