@@ -152,7 +152,7 @@ export default class ReviewAndPrint extends Vue {
         //console.log(location)
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
-        console.log(this.applicantLocation) 
+        //console.log(this.applicantLocation) 
            
         if (this.applicantLocation["filingLocation"]){
             this.filingLocation = this.locationsInfo.filter(loc => {if (loc.id == this.applicantLocation["filingLocation"]) return true})[0]

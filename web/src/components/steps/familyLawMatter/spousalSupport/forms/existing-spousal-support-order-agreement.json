@@ -110,7 +110,7 @@
             {
               "type": "radiogroup",
               "name": "fillOutForm",
-              "title": "",
+              "title": "Do you want to Complete the Request for Scheduling Form 39 or Continue with your application?",
               "titleLocation": "hidden",
               "visible": false,
               "visibleIf": "{reviewableTerm} = 'y'",

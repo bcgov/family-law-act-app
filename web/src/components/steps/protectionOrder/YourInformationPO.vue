@@ -89,7 +89,7 @@ export default class YourInformationPo extends Vue {
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        console.log(this.step.result)
+        //console.log(this.step.result)
 
         if (this.step.result && this.step.result['questionnaireSurvey'] && this.step.result['questionnaireSurvey'].orderType) {
             const orderType = this.step.result['questionnaireSurvey'].orderType
