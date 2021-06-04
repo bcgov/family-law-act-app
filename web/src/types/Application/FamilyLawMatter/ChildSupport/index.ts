@@ -1,0 +1,1 @@
+import { questionInfoType } from "../../CommonInformation";

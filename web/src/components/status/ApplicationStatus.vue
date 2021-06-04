@@ -170,18 +170,20 @@ import store from "@/store";
 
 import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"
+import {stepsAndPagesNumberInfoType} from "../../types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
 const commonState = namespace("Common");
 import "@/store/modules/application";
+import { documentTypesJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component
 export default class ApplicationStatus extends Vue {
 
     @commonState.Action
-    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson: documentTypesJsonInfoType[]) => void
 
     @commonState.Action
     public UpdateLocationsInfo!: (newLocationsInfo) => void
@@ -197,6 +199,9 @@ export default class ApplicationStatus extends Vue {
 
     @applicationState.Action
     public checkAllCompleted! :() => void
+
+    @applicationState.Action
+    public UpdateStPgNo!: (newStPgNo) => void
 
     dataLoaded = false;
     showDisclaimer = false;
@@ -293,6 +298,7 @@ export default class ApplicationStatus extends Vue {
             this.applicationId = res.data.app_id;  
             store.commit("Application/setApplicationId", this.applicationId);
             this.error = "";
+            this.loadStepsAndPagesNames();
             this.$router.push({name: "flapp-surveys" }) 
         }, err => {
             console.error(err);
@@ -346,7 +352,7 @@ export default class ApplicationStatus extends Vue {
                 this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           
 
             this.checkAllCompleted();
-
+            this.loadStepsAndPagesNames();
             this.$router.push({name: "flapp-surveys" })        
         }, err => {
             //console.log(err)
@@ -494,6 +500,23 @@ export default class ApplicationStatus extends Vue {
         
         },(err) => console.log(err));
         
+    }
+
+    public loadStepsAndPagesNames(){
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        console.log(this.$store.state.Application)
+        const steps = this.$store.state.Application.steps
+        for(const step of steps){
+            stepsAndPagesNumber[step.name]._StepNo = step.id
+            console.error(step.name)
+            //console.warn(stepsAndPagesNumber[step.name].StepNo)
+            for(const page of step.pages){
+                console.log(page.name)
+                stepsAndPagesNumber[step.name][page.name] = page.key
+            }
+        }
+        console.log(stepsAndPagesNumber)
+        this.UpdateStPgNo(stepsAndPagesNumber)
     }
 
     beforeCreate() {

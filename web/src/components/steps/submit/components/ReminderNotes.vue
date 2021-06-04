@@ -18,6 +18,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { requiredDocumentsInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component
@@ -27,7 +28,7 @@ export default class ReminderNotes extends Vue {
     type!: string;
 
     @applicationState.State
-    public requiredDocuments!: any
+    public requiredDocuments!: requiredDocumentsInfoType;
 
     isReminder = false;
     requiredDocumentLists = [];

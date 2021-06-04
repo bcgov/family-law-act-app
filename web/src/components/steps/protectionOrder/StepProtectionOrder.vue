@@ -1,20 +1,20 @@
 <template>
     <step-base v-bind:step="step">
-        <po-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></po-questionnaire>
+        <po-questionnaire v-bind:step="step" v-if="step.currentPage == 0" />
         <your-information-po v-bind:step="step" v-if="step.currentPage == 1" />
-        <protection-fromWhom v-bind:step="step" v-if="step.currentPage == 2"></protection-fromWhom>
-        <po-filing-location v-bind:step="step" v-if="step.currentPage == 3"></po-filing-location>
-        <remove-person v-bind:step="step" v-if="step.currentPage == 4"></remove-person>
-        <no-go v-bind:step="step" v-if="step.currentPage == 5"></no-go>
-        <no-contact v-bind:step="step" v-if="step.currentPage == 6"></no-contact>
-        <weapons-firearms v-bind:step="step" v-if="step.currentPage == 7"></weapons-firearms>
-        <background v-bind:step="step" v-if="step.currentPage == 8"></background>
-        <your-story v-bind:step="step" v-if="step.currentPage == 9"></your-story>
-        <other-party v-bind:step="step" v-if="step.currentPage == 10"></other-party>
-        <about v-bind:step="step" v-if="step.currentPage == 11"></about>
-        <urgency v-bind:step="step" v-if="step.currentPage == 12"></urgency>
-        <review-your-answers v-bind:step="step" v-if="step.currentPage == 13"/>
-        <preview-forms v-bind:step="step" v-if="step.currentPage == 14"/>      
+        <protection-from-whom v-bind:step="step" v-if="step.currentPage == 2" />
+        <po-filing-location v-bind:step="step" v-if="step.currentPage == 3" />
+        <remove-person v-bind:step="step" v-if="step.currentPage == 4" />
+        <no-go v-bind:step="step" v-if="step.currentPage == 5" />
+        <no-contact v-bind:step="step" v-if="step.currentPage == 6" />
+        <weapons-firearms v-bind:step="step" v-if="step.currentPage == 7" />
+        <background v-bind:step="step" v-if="step.currentPage == 8" />
+        <your-story v-bind:step="step" v-if="step.currentPage == 9" />
+        <other-party v-bind:step="step" v-if="step.currentPage == 10" />
+        <about v-bind:step="step" v-if="step.currentPage == 11" />
+        <urgency v-bind:step="step" v-if="step.currentPage == 12" />
+        <review-your-answers v-bind:step="step" v-if="step.currentPage == 13" />
+        <preview-forms v-bind:step="step" v-if="step.currentPage == 14" />      
     </step-base>
 </template>
 

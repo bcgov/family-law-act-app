@@ -1,16 +1,16 @@
 <template>
   <step-base v-bind:step="step">
-    <safety-check v-bind:step="step" v-if="step.currentPage == 0"></safety-check>
-    <information v-bind:step="step" v-if="step.currentPage == 1" ></information> 
-    <other-party-common v-bind:step="step" v-if="step.currentPage == 2"></other-party-common>
-    <filing-location v-bind:step="step" v-if="step.currentPage == 3" ></filing-location>    
+    <safety-check v-bind:step="step" v-if="step.currentPage == 0" />
+    <your-information v-bind:step="step" v-if="step.currentPage == 1" /> 
+    <other-party-common v-bind:step="step" v-if="step.currentPage == 2" />
+    <filing-location v-bind:step="step" v-if="step.currentPage == 3" />    
   </step-base>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
-import Information from "./Information.vue";
+import YourInformation from "./YourInformation.vue";
 import FilingLocation from "./FilingLocation.vue";
 import OtherPartyCommon from "./otherPartyComponent/OtherPartyCommon.vue";
 import SafetyCheck from "./SafetyCheck.vue";
@@ -20,7 +20,7 @@ import { stepInfoType } from "@/types/Application";
     components:{
       StepBase,
       SafetyCheck,
-      Information,
+      YourInformation,
       OtherPartyCommon,
       FilingLocation
     }

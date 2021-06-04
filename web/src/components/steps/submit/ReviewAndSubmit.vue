@@ -215,6 +215,7 @@
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
+import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -238,7 +239,7 @@
         public userLocation!: string;
 
         @commonState.State
-        public locationsInfo!: any[];
+        public locationsInfo!: locationsInfoType[];
 
         @applicationState.State
         public id!: string;
@@ -256,10 +257,11 @@
         public currentStep!: number;
 
         @commonState.State
-        public documentTypesJson!: any;
+        public documentTypesJson!: documentTypesJsonInfoType[];
 
         @applicationState.State
         public supportingDocuments!: any;
+
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
 

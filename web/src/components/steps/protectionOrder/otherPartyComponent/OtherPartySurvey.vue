@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-
+import { otherPartyInfoType } from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -33,34 +33,7 @@ export default class OtherPartySurvey extends Vue {
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
-    op= {
-        name: {
-            first: "",
-            middle: "",
-            last: ""
-        },
-        knowDob: "",
-        dob: "",
-        opRelation: "",
-        livedTogether: "",
-        dateOfLivedTogether: "",
-        married: "",
-        dateOfMarriage: "",
-        separated: "",
-        dateSeparated: "",
-        address: {
-            street: "",
-            city: "",
-            state: "",
-            country: "",
-            postcode: ""
-        },
-        contactInfo: {
-            phone: "",
-            fax: "",
-            email: ""
-        }
-    }
+    op = {} as otherPartyInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep=0;
@@ -128,10 +101,9 @@ export default class OtherPartySurvey extends Vue {
     }
 
     public populateOpModel(opData) {
-        this.op.name.first = opData.OtherPartyName.first;
-        this.op.name.middle = opData.OtherPartyName.middle;
-        this.op.name.last = opData.OtherPartyName.last;
-
+        console.log(opData)
+        console.log(this.op)
+        this.op.name = opData.OtherPartyName;
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
         this.op.opRelation = opData.relationWithOtherParty;
@@ -144,17 +116,11 @@ export default class OtherPartySurvey extends Vue {
 
         if(opData.otherPartyAddress)
         {
-            this.op.address.street = opData.otherPartyAddress.street;
-            this.op.address.city = opData.otherPartyAddress.city;
-            this.op.address.state = opData.otherPartyAddress.state;
-            this.op.address.country = opData.otherPartyAddress.country;
-            this.op.address.postcode = opData.otherPartyAddress.postcode;
+            this.op.address = opData.otherPartyAddress;            
         }
         if(opData.otherPartyContact)
         {
-            this.op.contactInfo.phone = opData.otherPartyContact.phone;
-            this.op.contactInfo.fax = opData.otherPartyContact.fax;
-            this.op.contactInfo.email = opData.otherPartyContact.email;
+            this.op.contactInfo = opData.otherPartyContact;
         }
     }
 

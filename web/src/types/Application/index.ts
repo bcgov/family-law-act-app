@@ -1,3 +1,8 @@
+import {  filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
+import {  childDetailsSurveyInfoType, flmBackgroundSurveyInfoType } from "./FamilyLawMatter";
+import { aboutParentingArrangementsSurveyInfoType, parentalArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
+import { backgroundSurveyInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
+
 export interface applicationInfoType {   
     id?: string;
     types: string[];
@@ -18,11 +23,12 @@ export interface applicationInfoType {
 
 export interface stepInfoType {
     id?: string;
+    name: string;
     type: string;
     label: string;
     icon: string;
-    result: {};
-    metadata?: object;
+    result?: resultInfoType;
+    //metadata?: object;
     pages?: pageInfoType[];
     currentPage: number;
     active: boolean;
@@ -31,6 +37,7 @@ export interface stepInfoType {
 
   export interface pageInfoType {
     key: string;
+    name: string;
     label: string;
     progress: number;
     active: boolean;
@@ -42,11 +49,90 @@ export interface stepInfoType {
     data: any;
   }
 
+  export interface resultInfoType{
+    flmSelectedForm?: any;
+    flmBackgroundSurvey?: flmBackgroundSurveyInfoType;
+    childData?: childDetailsSurveyInfoType;
+    flmAdditionalDocsSurvey?: any;
+
+    aboutParentingArrangementsSurvey?: aboutParentingArrangementsSurveyInfoType;
+    bestInterestOfChildSurvey?: parentingArrangementsbestInterestOfChildSurveyInfoType;
+    parentalArrangementsSurvey?: parentalArrangementsSurveyInfoType;
+    parentalResponsibilitiesSurvey?: parentalResponsibilitiesSurveyInfoType;
+    parentingArrangementChangesSurvey?: parentingArrangementChangesSurveyInfoType;
+    parentingArrangementsSurvey?: parentingArrangementsSurveyInfoType;
+    parentingOrderAgreementSurvey?: parentingOrderAgreementSurveyInfoType;
+    parentingTimeSurvey?: parentingTimeSurveyInfoType;
+
+    aboutChildSupportChangesSurvey?: any;
+    aboutChildSupportOrderSurvey?: any;
+    aboutExistingChildSupportSurvey?: any;
+    calculatingChildSupportSurvey?: any;
+    childSupportSurvey?: any;
+    childSupportCurrentArrangementSurvey?: any;
+    childSupportOrderAgreementSurvey?: any;
+    childSupportIncomeEarningSurvey?: any;
+    specialAndExtraordinaryExpensesSurvey?: any;
+    undueHardshipSurvey?: any;
+    unpaidChildSupportSurvey?: any;
+
+    aboutContactWithChildSurvey?: any;
+    contactWithChildSurvey?: any;
+    contactWithChildBestInterestOfChildSurvey?: any;
+    contactOrderSurvey?: any;
+
+    GuardianOfChildSurvey?: any;
+    GuardianOfChildBestInterestOfChildSurvey?: any;
+    indigenousAncestryOfChildSurvey?: any;
+
+    aboutExistingSpousalSupportOrderSurvey?: any;
+    aboutSpousalSupportOrderSurvey?: any;
+    calculatingSpousalSupportSurvey?: any;
+    existingSpousalSupportAgreementSurvey?: any;
+    existingSpousalSupportFinalOrderSurvey?: any;
+    existingSpousalSupportOrderAgreementSurvey?: any;
+    spousalSupportSurvey?: any;
+    spousalSupportIncomeAndEarningPotentialSurvey?: any;
+    unpaidSpousalSupportSurvey?: any;
+
+
+    //__________
+    aboutPOSurvey?: any;
+    backgroundSurvey?: backgroundSurveyInfoType;
+    poFilingLocationSurvey?: poFilingLocationSurveyInfoType;
+    questionnaireSurvey?: poQuestionnaireSurveyInfoType;
+    protectionWhomSurvey?: protectionWhomSurveyInfoType;
+    urgencySurvey?: urgencySurveyInfoType;
+    yourInformationSurveyPO?: yourInformationSurveyPOInfoType;
+    yourStory?: yourStoryInfoType;
+    noContactSurvey?: noContactSurveyInfoType;
+    noGoSurvey?: noGoSurveyInfoType;
+    removeSurvey?: removeSurveyInfoType;
+    weaponsSurvey?: weaponsSurveyInfoType;
+
+    //__________________
+    otherPartyCommonSurvey?: otherPartyCommonSurveyInfoType;
+    filingLocationSurvey?: filingLocationSurveyInfoType;
+    yourInformationSurvey?: yourInformationSurveyInfoType;
+    safetySurvey?: any;
+
+  }
+
   export interface nameInfoType {
     first: string;
     middle: string;
     last: string;
   }
+
+  export interface pathwayCompletedInfoType { 
+    protectionOrder: boolean; 
+    familyLawMatter: boolean;
+    caseMgmt: boolean; 
+    priorityParenting: boolean; 
+    childReloc: boolean;
+    agreementEnfrc: boolean;
+  } 
+
 
 
 

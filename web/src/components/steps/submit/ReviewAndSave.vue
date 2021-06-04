@@ -106,6 +106,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import "@/store/modules/common";
+import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
 @Component({
@@ -124,7 +125,7 @@ export default class ReviewAndSave extends Vue {
     step!: stepInfoType;
 
     @commonState.State
-    public locationsInfo!: any[];
+    public locationsInfo!: locationsInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void

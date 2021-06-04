@@ -18,6 +18,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { requiredDocumentsInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component({
@@ -31,7 +32,7 @@ export default class FlmAdditionalDocuments extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -43,7 +44,7 @@ export default class FlmAdditionalDocuments extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     @applicationState.State
-    public requiredDocuments!: any
+    public requiredDocuments!: requiredDocumentsInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy; 

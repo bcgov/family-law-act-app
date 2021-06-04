@@ -1,19 +1,33 @@
-export interface supportingDocumentInfoType {   
+export interface supportingDocumentInfoType {
     fileName: string;
     file: File;
     documentType: string;
 }
 
 export interface requiredDocumentsInfoType {
-    protectionOrder?: requiredReminederInfoTyp;
-	familyLawMatter?: requiredReminederInfoTyp;
-	caseMgmt?: requiredReminederInfoTyp;
-	priorityParenting?: requiredReminederInfoTyp;
-	childReloc?: requiredReminederInfoTyp;
-	agreementEnfrc?: requiredReminederInfoTyp;
+    protectionOrder?: requiredReminderInfoType;
+    familyLawMatter?: requiredReminderInfoType;
+    caseMgmt?: requiredReminderInfoType;
+    priorityParenting?: requiredReminderInfoType;
+    childReloc?: requiredReminderInfoType;
+    agreementEnfrc?: requiredReminderInfoType;
 }
 
-export interface requiredReminederInfoTyp{
+export interface requiredReminderInfoType {
     required: string[];
     reminder: string[];
+}
+
+export interface locationsInfoType {
+    address: string;
+    email: string;
+    filingLocation: string;
+    id: string;
+    name: string;
+    postalCode: string;
+}
+
+export interface documentTypesJsonInfoType {
+    description: string;
+    type: string;
 }
