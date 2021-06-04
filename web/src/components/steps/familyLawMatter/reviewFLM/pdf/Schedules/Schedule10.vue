@@ -393,9 +393,9 @@ export default class Form3 extends Vue {
                 other:   paymentSchedule?   paymentSchedule.selected == 'other':false,
                 otherComm: paymentSchedule? paymentSchedule.otherComment: ''
             }:{
-                currentDate:'',
+                currentDate:moment().format("MMM DD, yyyy"),
                 unpaid: false,
-                unPaidAmount: '',
+                unPaidAmount: '0',
                 reduce: false,
                 reduceAmount: '',
                 reduceReason: '',
