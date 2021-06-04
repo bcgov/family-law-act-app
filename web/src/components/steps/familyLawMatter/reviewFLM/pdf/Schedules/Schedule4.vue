@@ -387,14 +387,14 @@ export default class Schedule4 extends Vue {
                 amnt: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.unPaidAmount:0, 
                 otherComm: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule) && (unpaidChildSupport.paymentSchedule.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment:''       
             }:{
-                crntDate:'',   
+                crntDate: moment().format("MMM DD, yyyy"),   
                 unpaid: false,
                 reduce: false,
                 reduceAmount: '',
                 whyReduceAmount: '',
                 paySchd: '',
                 monthlyAmount: '',
-                amnt: '', 
+                amnt: '0', 
                 otherComm:''  
             }
         }
