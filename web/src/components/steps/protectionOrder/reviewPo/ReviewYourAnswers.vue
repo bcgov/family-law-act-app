@@ -114,6 +114,7 @@ export default class ReviewYourAnswers extends Vue {
         adjQuestion = adjQuestion.replace(/{ProtectedPartyName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         adjQuestion = adjQuestion.replace(/{anotherAdultName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         adjQuestion = adjQuestion.replace(/<br>/g,'');
+        adjQuestion = adjQuestion.replace(/`/g,'');
         adjQuestion = adjQuestion.replace(/<br\/>/g,''); 
         return adjQuestion
     }
@@ -139,7 +140,7 @@ export default class ReviewYourAnswers extends Vue {
             if(value[0].childName)return this.getChildInfo(value) 
             if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
             if(typeof value[0] === 'string' || value[0] instanceof String)
-                return value.join(", \n ");
+                return value.join(" \n ");
             else{
                 this.pageHasError = true;
                 return "REQUIRED";

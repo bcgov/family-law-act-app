@@ -11,6 +11,21 @@
             {
               "type": "personname",
               "name": "ApplicantName",
+              "visible":false,
+              "visibleIf":"!({newApp})",
+              "title": "What is your full name?",
+              "description": "Copy your name from the application or other document filed in your existing case.",
+              "isRequired": true,    
+              "defaultSubstitution": "(Applicant Name)",
+              "descFirstName": "First Name is also known as Given Name",
+              "descMiddleName": "If you have more than one Middle Name, write them all in this box with spaces separating your Middle Names",
+              "descLastName": "Last Name is also known as Family Name or Surname"
+            },
+            {
+              "type": "personname",
+              "name": "ApplicantName",
+              "visible":false,
+              "visibleIf":"({newApp})",
               "title": "What is your full name?",
               "description": "This is the name of the person 'making the Protection Order application'. If you are helping someone use this app and they are the ones who will be making the application themselves, use their name. If you are making this application on behalf of another person, use your name.\n\nUse the name as it is written on your primary ID cards. This name will be the most useful.",
               "isRequired": true,    
@@ -136,7 +151,9 @@
             {
               "type": "text",
               "name": "ApplicantOccupation",
-              "visibleIf": " ({Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y')",
+              "isRequired": true,
+              "visible":false,
+              "visibleIf": "({newApp}) and ({Lawyer} = 'n' and {ExplanationServiceAddress} > 0 or {Lawyer} = 'y')",
               "title": "What is your job or profession?",
               "description": "For example: Nurse, Homemaker, Carpenter, Accountant, etc.\t"
             }

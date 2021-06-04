@@ -34,7 +34,7 @@ class Application extends VuexModule {
     public supportingDocumentForm4: number[] = [];
 
     public allCompleted = false;
-    public pathwayCompleted = { protectionOrder:false, familyLawMatter:false, caseMgmt:false, priotityParenting:false, childReloc:false, agreementEnfrc:false} //{Protection Order, Family Law Matters, Case management, Priority parenting, Relocation of a child, Enforcement of agreements}
+    public pathwayCompleted = { protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false} //{Protection Order, Family Law Matters, Case management, Priority parenting, Relocation of a child, Enforcement of agreements}
 
 
     @Mutation
@@ -292,7 +292,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "6";
-        p.label = "Parental Arrangements";
+        p.label = "Other Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);

@@ -222,31 +222,7 @@ export default class Form3 extends Vue {
         this.exSpsSupInfo = this.getExistingSpousalSupportInfo();
     }
 
-    public getExistingSpousalSupportInfo(){
-
-        // orderDate: Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate),
-        //         exstngOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder'),
-        //         fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
-        //         cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
-        //         changeOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
-        //         changeList: orderChangeList,
-        //         changes:{
-        //             myfin: orderChangeList.includes('My financial situation has changed'),
-        //             opfin: orderChangeList.includes('I believe the other party’s financial situation has changed'),
-        //             spcl: orderChangeList.includes('The `special and extraordinary expenses` have changed'),
-        //             lvng: orderChangeList.includes('The living arrangements for a child have changed'),
-        //             newInfo: orderChangeList.includes('Information has become available that was not available when the order was made'),
-        //             other: orderChangeList.includes('Other changes or circumstances')
-        //         },
-        //         newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Information has become available that was not available when the order was made') && this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder)?this.result.aboutExistingChildSupportSurvey.newInfoSinceOrder:'',
-        //         expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The `special and extraordinary expenses` have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-        //         lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('The living arrangements for a child have changed') && this.result.aboutExistingChildSupportSurvey.changesSinceOrder)?this.result.aboutExistingChildSupportSurvey.changesSinceOrder:'',
-        //         otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.includes('Other changes or circumstances') && this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder)?this.result.aboutExistingChildSupportSurvey.otherChangesSinceOrder:'',
-        //         exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
-        //         setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
-        //         replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
-        //         changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
-            
+    public getExistingSpousalSupportInfo(){        
 
         let existingSpousalSupportInfo = {
             current: {                
@@ -333,7 +309,7 @@ export default class Form3 extends Vue {
 
         }
 
-        if ( this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey){
+        if ( this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey){
             existingSpousalSupportInfo.agreementInfo = {                
                 replace: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement',
                 setAside: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'setAsideAgreement',
@@ -341,11 +317,12 @@ export default class Form3 extends Vue {
             }
         }
 
-        if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
-            const orderChangeList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.checked.length>0?this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.checked:[];
-            const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
+        if (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
+            const changesSinceOrderList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList
+            const orderChangeList = (changesSinceOrderList && changesSinceOrderList.checked && changesSinceOrderList.checked.length>0)? changesSinceOrderList.checked:[];
+            // const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
             
-            existingSpousalSupportInfo.orderInfo =changeCondition?{
+            existingSpousalSupportInfo.orderInfo ={
 
                 changes: {
                     myfin: orderChangeList.includes('myFinancialChanged'),
@@ -357,63 +334,51 @@ export default class Form3 extends Vue {
                     other: orderChangeList.includes('other')
                 },
 
-                newInfo:     (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('newInformation')         && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.newInformationComment)?         this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.newInformationComment:'',
-                houseHold:   (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('myHouseholdChanged')     && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myHouseholdChangedComment)?     this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myHouseholdChangedComment:'',
-                myEmp:       (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('myEmploymentChanged')    && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myEmploymentChangedComment)?    this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.myEmploymentChangedComment:'',
-                opEmp:       (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('partyEmploymentChanged') && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.partyEmploymentChangedComment)? this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.partyEmploymentChangedComment:'',
-                otherChange: (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('other')                  && this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.otherComment)?                  this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList.otherComment:'',
-                
-                change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
-                cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
-                
-            }:{
-                changes: {
-                    myfin: false,
-                    opfin: false,
-                    myEmp: false,
-                    opEmp: false,
-                    houseHold: false,
-                    newInfo: false,
-                    other: false
-                },
-
-                newInfo: '',    
-                houseHold:'',
-                myEmp: '',     
-                opEmp: '',     
-                otherChange:'',
+                newInfo:     (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('newInformation')         && changesSinceOrderList && changesSinceOrderList.newInformationComment)?         changesSinceOrderList.newInformationComment:'',
+                houseHold:   (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('myHouseholdChanged')     && changesSinceOrderList && changesSinceOrderList.myHouseholdChangedComment)?     changesSinceOrderList.myHouseholdChangedComment:'',
+                myEmp:       (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('myEmploymentChanged')    && changesSinceOrderList && changesSinceOrderList.myEmploymentChangedComment)?    changesSinceOrderList.myEmploymentChangedComment:'',
+                opEmp:       (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('partyEmploymentChanged') && changesSinceOrderList && changesSinceOrderList.partyEmploymentChangedComment)? changesSinceOrderList.partyEmploymentChangedComment:'',
+                otherChange: (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('other')                  && changesSinceOrderList && changesSinceOrderList.otherComment)?                  changesSinceOrderList.otherComment:'',
                 
                 change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
                 cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
                 
             }
+            // :{
+            //     changes: {
+            //         myfin: false,
+            //         opfin: false,
+            //         myEmp: false,
+            //         opEmp: false,
+            //         houseHold: false,
+            //         newInfo: false,
+            //         other: false
+            //     },
+
+            //     newInfo: '',    
+            //     houseHold:'',
+            //     myEmp: '',     
+            //     opEmp: '',     
+            //     otherChange:'',
+                
+            //     change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
+            //     cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
+                
+            // }
         }
 
         if (this.result.aboutExistingSpousalSupportOrderSurvey){
-            const changeOrReplaceCondition = ((this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'     && this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder') ||
-                                              (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement'));
+            const changeOrReplaceCondition = ((this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'     && this.result.existingSpousalSupportFinalOrderSurvey && this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder') ||
+                                              (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey  && this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement'));
                
             existingSpousalSupportInfo.about ={
                 chSinceOrder: changeOrReplaceCondition? this.result.aboutExistingSpousalSupportOrderSurvey.changesSinceOrder:''
             }
-        }
-        // if (this.result.spousalSupportIncomeAndEarningPotentialSurvey){
-        //     newSpousalSupportInfo.incomeInfo = {
-        //         myIncome: this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeInfo:'',
-        //         knowOpIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
-        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'),
-        //         opIncome: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome
-        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowIncome == 'y'
-        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.incomeAmount:'',
-        //         knowFacts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
-        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'),
-        //         facts: (this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts
-        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.knowFacts == 'y'
-        //                 && this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation)?this.result.spousalSupportIncomeAndEarningPotentialSurvey.factsExplanation:''                
-        //     }
-        // }
+        }       
 
-        if (this.result.unpaidSpousalSupportSurvey){            
+        if (this.result.unpaidSpousalSupportSurvey){  
+            
+            const paymentSchedule = this.result.unpaidSpousalSupportSurvey.paymentSchedule
             existingSpousalSupportInfo.payDetails = this.result.unpaidSpousalSupportSurvey.unpaid == "y"?
             {
                 currentDate: moment().format("MMM DD, yyyy"),
@@ -422,15 +387,15 @@ export default class Form3 extends Vue {
                 reduce: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? true : false,
                 reduceAmount: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.reduceAmount:'',
                 reduceReason: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.whyReduceAmount:'',
-                monthly: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'monthly',                
-                rate: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'monthly'? this.result.unpaidSpousalSupportSurvey.paymentSchedule.monthlyAmount:'',
-                lumpSum: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'lumpsum',                
-                other: this.result.unpaidSpousalSupportSurvey.paymentSchedule.selected == 'other',
-                otherComm: this.result.unpaidSpousalSupportSurvey.paymentSchedule.otherComment
+                monthly: paymentSchedule?   paymentSchedule.selected == 'monthly':false,                
+                rate:    (paymentSchedule && paymentSchedule.selected == 'monthly')? paymentSchedule.monthlyAmount:'',
+                lumpSum: paymentSchedule?   paymentSchedule.selected == 'Lump Sum':false,                
+                other:   paymentSchedule?   paymentSchedule.selected == 'other':false,
+                otherComm: paymentSchedule? paymentSchedule.otherComment: ''
             }:{
-                currentDate:'',
+                currentDate:moment().format("MMM DD, yyyy"),
                 unpaid: false,
-                unPaidAmount: '',
+                unPaidAmount: '0',
                 reduce: false,
                 reduceAmount: '',
                 reduceReason: '',

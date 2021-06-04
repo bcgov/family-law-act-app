@@ -72,9 +72,9 @@ Vue.filter('getFullContactInfo',function(nameObject){
 	if (nameObject) {
 		return pre+"Phone: "+post+
 			nameObject.phone +
-			", "+pre+"Email: "+post+
+			" "+pre+"Email: "+post+
 			nameObject.email +
-			", "+pre+"Fax: "+post+
+			" "+pre+"Fax: "+post+
 			nameObject.fax;
 	} else{
 		return " "
@@ -172,23 +172,29 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 
 	// console.log(result)
 	if(flagForm4){
+		const additionalDocumentsStep = 3
+		const additionalDocumentsPage = 38
+		if(store.state.Application.steps[additionalDocumentsStep].pages[additionalDocumentsPage].progress==100)
+			Vue.filter('setSurveyProgress')(null, additionalDocumentsStep, additionalDocumentsPage, 50, false);
 		supportingDocumentForm4.push(currentPage)
 		store.commit("Application/setSupportingDocumentForm4", supportingDocumentForm4);
 		store.commit("Application/setCommonStepResults",{data:{'supportingDocumentForm4':supportingDocumentForm4}}); 
 	}
-
-	Vue.filter('FLMformsRequired')();
+	
+	Vue.nextTick(()=>{
+		Vue.filter('FLMformsRequired')();
+	});
 	// console.log(document.getElementsByName("inCourtForPO"))
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
 })
 
 Vue.filter('getPathwayABRV',function(name){	
-	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priotityParenting:false, childReloc:false, agreementEnfrc:false
+	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false
 
 	if (name == 'protectionOrder') return "AAP";
 	if (name == 'familyLawMatter') return "FLC";
 	if (name == 'caseMgmt') return "ACMO";
-	if (name == 'priotityParenting') return "AXP";
+	if (name == 'priorityParenting') return "AXP";
 	if (name == 'childReloc') return "APRC";
 	if (name == 'agreementEnfrc') return "AFET";
 	
@@ -201,7 +207,7 @@ Vue.filter('getFullOrderName',function(orderName, specific){
 	else if (orderName == "protectionOrder" && specific == 'terminatePO') return "Terminate Protection Order";
 	else if (orderName == "familyLawMatter") return "Family Law Matter";
 	else if (orderName == "caseMgmt") return "Case Management";
-	else if (orderName == "priotityParenting") return "Priotity Parenting Matter";
+	else if (orderName == "priorityParenting") return "Priority Parenting Matter";
 	else if (orderName == "childReloc") return "Relocation of a Child";
 	else if (orderName == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
 	else return "";
@@ -221,7 +227,7 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 		if (applicationType.includes("Case Management")){
 			types.push("ACMO");
 		}
-		if (applicationType.includes("Priotity Parenting Matter")){
+		if (applicationType.includes("Priority Parenting Matter")){
 			types.push("AXP");
 		}
 		if (applicationType.includes("Relocation of a Child")){
@@ -242,6 +248,7 @@ Vue.filter('FLMform4Required', function(){
 		for(const page of form4Pages){
 			if(store.state.Application.steps[3].pages[page].active)
 			{
+				//console.log('FORM4')
 				return true
 			}
 		}				
@@ -258,8 +265,10 @@ Vue.filter('FLMform5Required', function(){
 		results.GuardianOfChildSurvey && 
 		results.GuardianOfChildSurvey.data && 
 		results.GuardianOfChildSurvey.data.applicantionType && 
-		results.GuardianOfChildSurvey.data.applicantionType.includes('becomeGuardian') )
+		results.GuardianOfChildSurvey.data.applicantionType.includes('becomeGuardian') ){
+			//console.log('FORM5')
 			return true
+		}
 	else  return false
 })
 
@@ -316,8 +325,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		// 	requiredDocuments.push("Copy of the existing court orders protecting one of the parties or restraining contact between the parties");
 		
 		if(Vue.filter('FLMform4Required')())	
-			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement Form 4 </a>");
-		
+			//requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement Form 4 </a>");
+			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 		if((questions.calculatingChildSupportSurvey && 
 			questions.calculatingChildSupportSurvey.attachingCalculations == 'y' &&
 			questions.flmSelectedForm &&
@@ -357,8 +366,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 		
 		if( (questions.flmSelectedForm && questions.flmSelectedForm.includes("guardianOfChild")) &&
-			(questions.indigenousAncestryOfChildSurvey && questions.indigenousAncestryOfChildSurvey.indigenousAncestry && (questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisga’a") || questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation"))) )
-			reminderDocuments.push("You must serve the Nisga’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
+			(questions.indigenousAncestryOfChildSurvey && questions.indigenousAncestryOfChildSurvey.indigenousAncestry && (questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation"))) )
+			reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 
 		// if(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y") 
 		// 	reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
@@ -386,6 +395,7 @@ Vue.filter('replaceRequiredDocuments', function(){
 			if( store.state.Application.steps[3].result &&
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
+				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs =='n' &&
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms && 
 				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms.includes(doc)){
 					if(!caseManagementDocPushed){

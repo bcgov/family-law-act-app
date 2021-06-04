@@ -91,7 +91,7 @@
                     <div style="margin:0 3rem 2rem 1rem;">
                         <i>Complete only if applicable. You may leave this section blank.</i>
                         <div>I am applying to have the following conditions placed on the contact with the child(ren):</div>
-                        <div v-if="result.aboutContactWithChildSurvey.placeConditions == 'y'" 
+                        <div v-if="result.aboutContactWithChildSurvey && result.aboutContactWithChildSurvey.placeConditions == 'y'" 
                             class="answerbox">{{exChContInfo.abt.cond}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -208,8 +208,8 @@ export default class Schedule6 extends Vue {
 
         if (this.result.aboutContactWithChildSurvey){
             const contactChoices = this.result.aboutContactWithChildSurvey.contactTypeChoices?this.result.aboutContactWithChildSurvey.contactTypeChoices:[];
-            const changeOrReplaceCondition = ((this.result.contactOrderSurvey.existingType =='ExistingOrder' && this.result.contactOrderSurvey.orderDifferenceType == 'changeOrder') ||
-                                             (this.result.contactOrderSurvey.existingType =='ExistingAgreement' && this.result.contactOrderSurvey.agreementDifferenceType == 'replacedAgreement'));
+            const changeOrReplaceCondition = ((this.result.contactOrderSurvey && this.result.contactOrderSurvey.existingType =='ExistingOrder' && this.result.contactOrderSurvey.orderDifferenceType == 'changeOrder') ||
+                                             ( this.result.contactOrderSurvey && this.result.contactOrderSurvey.existingType =='ExistingAgreement' && this.result.contactOrderSurvey.agreementDifferenceType == 'replacedAgreement'));
                
             existingChildContactInfo.abt = {
                 conChList: this.result.aboutContactWithChildSurvey.childrenRequireContactChoices,
@@ -229,9 +229,9 @@ export default class Schedule6 extends Vue {
                     written:false,
                     other: false
                 },
-                inPrsn: changeOrReplaceCondition? (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'':'',
-                otherComm: changeOrReplaceCondition? (this.result.aboutContactWithChildSurvey.contactTypeChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'':'',
-                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:'':''
+                inPrsn: changeOrReplaceCondition? (contactChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'':'',
+                otherComm: changeOrReplaceCondition? (contactChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'':'',
+                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildSurvey && this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:'':''
             }
         }
 

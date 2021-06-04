@@ -35,7 +35,7 @@
                      "title": "Select each form you will be unable to file with your Application About a Family Law Matter?",                    
                      "isRequired": true,
                      "choices": [
-                        "Completed <a href='https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178' target='_blank' > Financial Statement Form 4 </a>",
+                        "Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>",
                         "Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a><i class='ml-1'> Family Law Act Regulation </i>",
                         "Completed <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true' target='_blank' > Request for protection order registry search </a> form"                        
                      ]

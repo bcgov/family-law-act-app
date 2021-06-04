@@ -67,7 +67,7 @@
             <div class="m-3">
                
                 <p>There is another form that you must complete when you are applying for guardianship of a child.
-                    It is called <a href="https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178"
+                    It is called <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa733.pdf?forcedownload=true"
                                     target='blank'>Guardianship Affidavit Form 5</a>. Before you can complete the affidavit, 
                     you must complete the following background checks referenced in the form:</p>
                 <ul>
@@ -85,10 +85,12 @@
                 <p>To get the Ministry of Children and Family Development and Protection Order Registry record checks, you must fill out:</p>
                  <ul>
                     <li>
-                        a Consent for Child Protection Record Check, and
+                        a <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true"
+                        target='blank'>Consent for Child Protection Record Check</a>, and
                     </li>
                     <li>
-                        a Request for Protection Order Registry Search.
+                        a <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa914.pdf?forcedownload=true"
+                        target='blank'>Request for Protection Order Registry Search</a>.
                     </li>                                      
                 </ul>
                 <p>
@@ -159,6 +161,9 @@ export default class GuardianOfChild extends Vue {
     otherPartyNames = [];
     pageProgress = 0;
 
+    additionalDocumentsPage = 38
+    guardianOfChildBestInterestsOfChildPage = 27
+
     guardianOfChildItem =[
         {name:'', nameOther:'', date:'', relationship:''},
     ]
@@ -225,10 +230,14 @@ export default class GuardianOfChild extends Vue {
             this.setPages();
             this.determineShowingTable();
             //console.log(options)
-            //console.log(this.survey.data)
+            // console.log(this.survey.data)
             //console.log(this.applicantionType)
             if((!this.applicantionType||(this.applicantionType && !this.applicantionType.includes("becomeGuardian"))) && options.name == "applicantionType" && options.value.includes("becomeGuardian")){                
-                this.showPopup = true;               
+                this.showPopup = true; 
+
+                this.togglePages([this.additionalDocumentsPage], true);
+                if(this.$store.state.Application.steps[this.currentStep].pages[this.additionalDocumentsPage].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.additionalDocumentsPage, 50, false);
             } 
             Vue.nextTick(()=> this.applicantionType = this.survey.data.applicantionType)
         })
@@ -253,9 +262,15 @@ export default class GuardianOfChild extends Vue {
     
     public setPages(){ 
         if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
-            this.togglePages([27], true);                
+            this.togglePages([this.guardianOfChildBestInterestsOfChildPage], true);                
         } else {
-            this.togglePages([27], false);
+            this.togglePages([this.guardianOfChildBestInterestsOfChildPage], false);
+        }
+
+        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes("becomeGuardian")){
+          // 
+        }else if(Vue.filter('FLMform4Required')()==false){
+            this.togglePages([this.additionalDocumentsPage], false);
         }
     }
 

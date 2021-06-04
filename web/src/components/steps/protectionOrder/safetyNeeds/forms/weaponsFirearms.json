@@ -24,16 +24,14 @@
          },
          {
           "type": "yesno",
-          "name": "RespondentFirearmsYes",
-          "visible": false,
-          "visibleIf": "{RespondentFirearms} = 'y'",
+          "name": "RespondentFirearmsYes",          
           "isRequired": true,
           "title": "Do you think {RespondentName} has guns, explosives or any other kind of firearm?"
          },
          {
           "type": "comment",
           "name": "firearmsYesReason",
-          "visibleIf": "{RespondentFirearms} = 'y' and {RespondentFirearmsYes} = 'y'",
+          "visibleIf": "{RespondentFirearmsYes} = 'y'",
           "title": "Explain the reason for your belief:",
           "isRequired": true
          },
@@ -53,17 +51,15 @@
          },
          {
           "type": "yesno",
-          "name": "RespondentWeaponsYes",
-          "visible": false,
-          "isRequired": true,
-          "visibleIf": "{RespondentWeapons} = 'y'",
+          "name": "RespondentWeaponsYes",          
+          "isRequired": true,          
           "title": "Do you think {RespondentName} owns any weapons that are not everyday objects, guns or explosives?",
           "description": "Do not answer \"YES\" for everyday objects like a kitchen knife, baseball bat or a hammer.\n<br>\n<br>\nExamples of weapons that someone may own include hunting knives, bows and arrows, swords, nunchucks, brass knuckles or throwing stars."
          },
          {
           "type": "comment",
           "name": "weaponsYesReason",
-          "visibleIf": "{RespondentWeapons} = 'y' and {RespondentWeaponsYes} = 'y'",
+          "visibleIf": "{RespondentWeaponsYes} = 'y'",
           "title": "Explain the reason for your belief:",
           "isRequired": true
          },
@@ -72,7 +68,7 @@
           "name": "RespondentNoWeapons",
           "visible": false,
           "isRequired": true,
-          "visibleIf": "{RespondentWeapons} = 'n' and {RespondentFirearms} = 'n'",
+          "visibleIf": "{RespondentWeapons} = 'n' and {RespondentFirearms} = 'n' and {RespondentWeaponsYes} = 'n' and {RespondentFirearmsYes} = 'n'",
           "title": "By answering \"NO\" to the questions above, you believe there is no need for a judge to order {RespondentName} not to have any weapons or firearms. If there is a concern about {RespondentName} having or using weapons or firearms, go back to the questions above and answer \"YES.\"\n<br>\n<br>\nIf you have no concerns about weapons or firearms, please confirm by checking the statement below.",
           "choices": [
            {

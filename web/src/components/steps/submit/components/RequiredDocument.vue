@@ -83,10 +83,14 @@ export default class RequiredDocument extends Vue {
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
         for (const [key, value] of Object.entries(this.requiredDocuments)){
-            // console.log(key)
-            // console.log(value)
-            this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})
-            if(value['required'].length>0) this.isRequiredDocument = true;
+            //  console.log(key)
+            //  console.log(value)
+            if(this.$store.state.Application.steps[0].result && 
+               this.$store.state.Application.steps[0].result.selectedForms &&
+               this.$store.state.Application.steps[0].result.selectedForms.includes(key)){
+                    this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})
+                    if(value['required'].length>0) this.isRequiredDocument = true;
+            }
         }
         // console.log(this.requiredDocumentLists)
     }

@@ -10,9 +10,10 @@
         <div class="form-header"> 
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">               
-                <div style="font-size:13pt;"><b>APPLICATION ABOUT A PROTECTION ORDER</b></div>
-                <div style="font-size:10pt;"><b>FORM K</b></div>
-                <div>Provincial Court (Family) Rules</div>
+                <div style="font-size:13pt;"><b>Application About a Protection Order</b></div>
+                <div style="font-size:10pt;"><b>FORM 12</b></div>
+                <div>Provincial Court Family Rules</div>
+                <div>Rules 67, 68 and 172</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -269,11 +270,11 @@
         <section>
             I believe the other party owns or has access to guns, explosives or another kind of firearm
             <div style="display:block; margin-left:0.5rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearms == 'y' && result.weaponsSurvey.RespondentFirearmsYes == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearms == 'y' && result.weaponsSurvey.RespondentFirearmsYes == 'n'?'yes':''" text="No"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearmsYes == 'y'?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearmsYes == 'n'?'yes':''" text="No"/>
             </div>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentFirearms == 'y' && result.weaponsSurvey.RespondentFirearmsYes == 'y'">{{result.weaponsSurvey.firearmsYesReason}}</div>
+            <div class="answerbox" v-if="result.weaponsSurvey.RespondentFirearmsYes == 'y'">{{result.weaponsSurvey.firearmsYesReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -292,11 +293,11 @@
 <!-- <8> -->
         <section>
             I believe the other party owns a weapon that is not a gun or explosive            
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeapons == 'y' && result.weaponsSurvey.RespondentWeaponsYes == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeapons == 'y' && result.weaponsSurvey.RespondentWeaponsYes == 'n'?'yes':''" text="No"/>            
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeaponsYes == 'y'?'yes':''" text="Yes"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeaponsYes == 'n'?'yes':''" text="No"/>            
             <i style="display:block; margin-left:1rem;">Examples of weapons someone may own include swords, hunting knives, and nunchucks.</i>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentWeapons == 'y' && result.weaponsSurvey.RespondentWeaponsYes == 'y'">{{result.weaponsSurvey.weaponsYesReason}}</div>
+            <div class="answerbox" v-if="result.weaponsSurvey.RespondentWeaponsYes == 'y'">{{result.weaponsSurvey.weaponsYesReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -364,7 +365,7 @@
             </div>
         </section> 
 
-        <div style="margin-top:2rem;font-family:BCSans;"><b>Cildren</b></div>
+        <div style="margin-top:2rem;font-family:BCSans;"><b>Children</b></div>
 <!-- <13> -->
         <section>
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>

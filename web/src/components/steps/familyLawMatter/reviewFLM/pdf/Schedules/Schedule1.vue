@@ -13,8 +13,8 @@
 <!-- <1> -->
             <section class="resetquestion"> 
                 I am:
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
+                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
             </section>
 
             <div class="print-block">
@@ -177,14 +177,15 @@ export default class Schedule1 extends Vue {
     }
 
     public getParentingArrangementsInfo(){
-        let parentingArrangements = {parentResp: {}, parentTime: {}, parentalArr: {}, childBestInterest: ''};
+        let parentingArrangements = {parentResp: {}, parentTime: {}, parentalArr: {}, childBestInterest: ''};       
 
-        if (this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
+        if (this.result.parentalResponsibilitiesSurvey && this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
+            const allResponsibilities = this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y' && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities;
             parentingArrangements.parentResp = {
                 applying: true,
                 allResp: this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y',
-                children: this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities,
-                allKids: this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities.length == this.childrenInfo.length,
+                children: allResponsibilities?this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities:[],
+                allKids: allResponsibilities && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities.length == this.childrenInfo.length,
                 expl: this.result.parentalResponsibilitiesSurvey.ExplainResponsibilities? this.result.parentalResponsibilitiesSurvey.ExplainResponsibilities:''
             }
 
@@ -194,7 +195,7 @@ export default class Schedule1 extends Vue {
             }
         }
 
-        if (this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
+        if (this.result.parentingTimeSurvey && this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
             const parentingTime = this.result.parentingTimeSurvey
             parentingArrangements.parentTime = {
                 applying: true,
@@ -212,7 +213,7 @@ export default class Schedule1 extends Vue {
             }
         }
 
-        if (this.result.parentalArrangementsSurvey.parentalArrangements == 'y'){
+        if (this.result.parentalArrangementsSurvey && this.result.parentalArrangementsSurvey.parentalArrangements == 'y'){
             const parentalArrangements = this.result.parentalArrangementsSurvey
             parentingArrangements.parentalArr = {
                 applying: true,

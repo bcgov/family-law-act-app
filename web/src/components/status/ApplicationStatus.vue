@@ -235,7 +235,7 @@ export default class ApplicationStatus extends Vue {
     //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
-            console.log(response)
+            //console.log(response)
             for (const appJson of response.data) {                
                 const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}};
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -370,7 +370,7 @@ export default class ApplicationStatus extends Vue {
                 types.push("Case Management");
             }
             if (applicationType.includes("AXP")){
-                types.push("Priotity Parenting Matter");
+                types.push("Priority Parenting Matter");
             }
             if (applicationType.includes("APRC")){
                 types.push("Relocation of a Child");
@@ -473,15 +473,14 @@ export default class ApplicationStatus extends Vue {
             const locationNames = Object.keys(response.data);
             const locations = []
             for (const location of locationNames){
-                // console.log(location)
-                // console.log(locationsInfo[location])
+                 // console.log(locationsInfo[location])
                 const locationInfo = locationsInfo[location];              
                 
                 const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
                                 (locationInfo.address_2?(', ' + locationInfo.address_2):'') + 
                                 (locationInfo.address_3?(', ' + locationInfo.address_3):'') +
-                                (locationInfo.address_3?(', ' + locationInfo.address_3):'') + 
-                                (locationInfo.city?(', ' + locationInfo.city):'') +
+                                (((locationInfo.address_1 && locationInfo.address_1.trim()) || (locationInfo.address_2 && locationInfo.address_2.trim()) || (locationInfo.address_3 && locationInfo.address_3.trim()))?', ':'') +                               
+                                (locationInfo.city?(locationInfo.city):'') +
                                 (locationInfo.province?(', ' + locationInfo.province):'');
                 const postalCode = (locationInfo.postal?(locationInfo.postal):'');
                // locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:''})
