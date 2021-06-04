@@ -147,6 +147,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 import Tooltip from "@/components/survey/Tooltip.vue";
 
 @Component({
@@ -159,6 +161,9 @@ export default class GettingStarted extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -194,14 +199,15 @@ export default class GettingStarted extends Vue {
     preparationInfo = false
     poOnly = false;
     poIncluded = false;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     dataReady = false;
 
     mounted(){ 
         this.dataReady = false;
         this.preparationInfo = false;
         this.reloadPageInformation()
+        // console.log(this.stPgNo.PO._StepNo)
     }
 
     public reloadPageInformation(){               
@@ -240,10 +246,10 @@ export default class GettingStarted extends Vue {
     }
 
     public getApplicationType(selectedOrder){
-        
+        const step = this.steps[this.stPgNo.PO._StepNo]
         let orgFPOType = ''
-        if (this.steps[1].result && this.steps[1].result.questionnaireSurvey && this.steps[1].result.questionnaireSurvey.orderType){
-            orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
+        if (step.result && step.result.questionnaireSurvey && step.result.questionnaireSurvey.orderType){
+            orgFPOType = step.result.questionnaireSurvey.orderType;
         } 
 
         return Vue.filter('getFullOrderName')(selectedOrder, orgFPOType);
@@ -256,50 +262,42 @@ export default class GettingStarted extends Vue {
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             this.poIncluded = selectedForms.includes("protectionOrder");           
 
-            //this.toggleCommonSteps(selectedForms.length>0);
-            this.toggleSteps(1, selectedForms.includes("protectionOrder"));
-            this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
-            this.toggleSteps(4, selectedForms.includes("caseMgmt"));
-            this.toggleSteps(5, selectedForms.includes("priorityParenting"));
-            this.toggleSteps(6, selectedForms.includes("childReloc"));
-            this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
+            this.toggleSteps(this.stPgNo.PO._StepNo,    selectedForms.includes("protectionOrder"));
+            this.toggleSteps(this.stPgNo.FLM._StepNo,   selectedForms.includes("familyLawMatter"));
+            this.toggleSteps(this.stPgNo.CM._StepNo,    selectedForms.includes("caseMgmt"));
+            this.toggleSteps(this.stPgNo.PPM._StepNo,   selectedForms.includes("priorityParenting"));
+            this.toggleSteps(this.stPgNo.RELOC._StepNo, selectedForms.includes("childReloc"));
+            this.toggleSteps(this.stPgNo.ENFRC._StepNo, selectedForms.includes("agreementEnfrc"));
 
-            this.toggleSteps(8, selectedForms.length>0);//Review And Submit
+            this.toggleSteps(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
             
-            this.toggleSteps(2, selectedForms.includes("familyLawMatter"));//Common Your Information
-            this.togglePages(2, [0], !this.poIncluded);//Safety Check
-            this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
-            this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
+            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter"));//Common Your Information
+            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.SafetyCheck], !this.poIncluded);//Safety Check
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (this.poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
+            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
     }
 
     public resetSelectedFormsCompeleted(selectedForms){
         const pathwayCompleted = this.pathwayCompleted
-        //if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false);}
-        pathwayCompleted["protectionOrder"] = false;
-        //if(!selectedForms.includes("familyLawMatter"))   
-        pathwayCompleted["familyLawMatter"] = false;
-        //if(!selectedForms.includes("caseMgmt"))          
-        pathwayCompleted["caseMgmt"] = false;
-        //if(!selectedForms.includes("priorityParenting")) 
-        pathwayCompleted["priorityParenting"] = false;
-        //if(!selectedForms.includes("childReloc"))        
-        pathwayCompleted["childReloc"] = false;
-        //if(!selectedForms.includes("agreementEnfrc"))    
+        
+        pathwayCompleted["protectionOrder"] = false;        
+        pathwayCompleted["familyLawMatter"] = false;        
+        pathwayCompleted["caseMgmt"] = false;       
+        pathwayCompleted["priorityParenting"] = false;       
+        pathwayCompleted["childReloc"] = false;       
         pathwayCompleted["agreementEnfrc"] = false;
         this.UpdatePathwayCompletedFull(pathwayCompleted);
         this.checkAllCompleted();
-        //this.$store.commit("Application/setAllCompleted", false)
-
     }
 
     public resetProgressOfAllPages(selectedForms){
 
         for(const step of this.$store.state.Application.steps){
-            if(step.id == 2 && selectedForms.includes("protectionOrder"))
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: 1 });   
+            if(step.id == this.stPgNo.COMMON._StepNo && selectedForms.includes("protectionOrder"))
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.YourInformation });   
             else 
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: 0 });               
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.SafetyCheck });               
 
             for(const page of step.pages){               
                this.$store.commit("Application/setPageProgress", { currentStep: step.id, currentPage:page.key, progress:0 });

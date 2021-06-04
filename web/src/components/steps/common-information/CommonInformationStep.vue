@@ -1,9 +1,9 @@
 <template>
   <step-base v-bind:step="step">
-    <safety-check v-bind:step="step" v-if="step.currentPage == 0"></safety-check>
-    <your-information v-bind:step="step" v-if="step.currentPage == 1" ></information> 
-    <other-party-common v-bind:step="step" v-if="step.currentPage == 2"></other-party-common>
-    <filing-location v-bind:step="step" v-if="step.currentPage == 3" ></filing-location>    
+    <safety-check v-bind:step="step" v-if="step.currentPage == 0" />
+    <your-information v-bind:step="step" v-if="step.currentPage == 1" /> 
+    <other-party-common v-bind:step="step" v-if="step.currentPage == 2" />
+    <filing-location v-bind:step="step" v-if="step.currentPage == 3" />    
   </step-base>
 </template>
 
