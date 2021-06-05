@@ -1,14 +1,14 @@
 export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
-  dob: string;
+  dob?: string;
   opRelation: string;
   livedTogether: string;
-  dateOfLivedTogether: string;
+  dateOfLivedTogether?: string;
   married: string;
-  dateOfMarriage: string;
+  dateOfMarriage?: string;
   separated: string;
-  dateSeparated: string;
+  dateSeparated?: string;
   address: addressInfoType;
   contactInfo: contactInfoType;
   id?: number;
@@ -61,30 +61,17 @@ export interface questionInfoType {
   inputType?: string;
 }
 
-export interface filingLocationSurveyDataInfoType {
-  ExistingFamilyCase: string;
-  ExplanationCourtLocation: boolean;
-  ExistingCourt: string;
-}
-
-export interface FilingLocationSurveyInfoType {
-  data: filingLocationSurveyDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
-}
-
 export interface filingLocationDataInfoType {
   ExistingFamilyCase: string;
   ExplanationCourtLocation: boolean;
   ExistingCourt: string;
   ExistingFileNumber: string;
+  MetEarlyResolutionRequirements?:string;
+  registryLocationReason?: string;
   earlyResolutionRegistry: boolean;
   familyJusticeRegistry: boolean;
   familyEducationProgram: boolean;
 }
-
 
 export interface filingLocationSurveyInfoType {
   data: filingLocationDataInfoType;
@@ -94,13 +81,17 @@ export interface filingLocationSurveyInfoType {
   currentPage: number;
 }
 
+export interface safetySurveyInfoType {
+  unsafe: string;
+}
+
 export interface yourInformationDataInfoType {
   ApplicantName: nameInfoType;
   ApplicantDOB: string;
   Lawyer: string;
-  ExplanationServiceAddress: boolean;
-  ApplicantAddress: addressInfoType;
-  ApplicantContact: contactInfoType;
+  ExplanationServiceAddress?: boolean;
+  ApplicantAddress?: addressInfoType;
+  ApplicantContact?: contactInfoType;
   ApplicantOccupation?: string;
   LawyerName?: nameInfoType;
   LawyerAddress?: addressInfoType;

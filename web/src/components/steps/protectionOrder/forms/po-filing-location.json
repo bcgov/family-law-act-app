@@ -89,59 +89,6 @@
                      "visible": false,
                      "visibleIf": "{ExistingFamilyCase} = 'n' and {ExplanationCourtLocation}>0",
                      "body": "If the child lives equally in two different locations closest to two different court locations, you will need to decide where you want to file your application. The rule about which court registry to use for filing an application is meant to ensure all applications are filed in the same registry and that the location is fair to the parties. Think about your family and which location is the most fair for everyone. If the other party doesn’t agree the registry you choose is the closest, they can ask the court to transfer the file to another location. It will then be up to the court to decide where the file is located."
-                  },
-                  {
-                     "type": "panel",
-                     "name": "VictoriaSurreyPanel",
-                     "visible": false,
-                     "visibleIf": "{victoriaSurrey}",
-                     "elements": [
-                        {
-                           "type": "infotext",
-                           "name": "registriesExplanation",
-                           "title": "You are filing your application in an early resolution registry. Before filing your Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual needs assessment meeting with a Family Justice Counsellor</li><li>Completion of a Parenting After Separation online course, if applicable</li><li>Participation in a Consensual dispute resolution session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the needs assessor or the court from participating in any of these.<br><br>If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.",
-                           "titleLocation": "hidden",
-                           "messageStyle": "inline"
-                        },
-                        {
-                           "type": "yesno",
-                           "name": "MetEarlyResolutionRequirements",
-                           "isRequired": true,
-                           "visible": false,
-                           "visibleIf": "{victoriaSurrey}",
-                           "title": "Have you already met the early resolution requirements?"
-                        },
-                        {
-                           "type": "infotext",
-                           "name": "MetEarlyResolutionRequirementsExplanation",
-                           "title": "Be sure to let the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> where you attended for your needs assessment know you are planning to file your application. They will send the court registry proof of your participation or exemption in the early resolution requirements so that you can file your application.",
-                           "titleLocation": "hidden",
-                           "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'y'"
-                        },
-                        {
-                           "type": "infotext",
-                           "name": "NotMetEarlyResolutionRequirementsExplanation",
-                           "title": "The first step to resolving a family law matter at an early resolution registry is to complete the Notice to Resolve a Family Matter form, provide a copy to the other party, and contact the <a href=\"https://www2.gov.bc.ca/gov/content?id=4372A527CC574299A7C0C225496F154F\" target=\"blank\">Justice Access Centre</a> to complete your early resolution requirements. We’ll help you to complete and file your form.",
-                           "titleLocation": "hidden",
-                           "messageStyle": "inline",
-                           "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'n'"
-                        },
-                        {
-                           "type": "radiogroup",
-                           "name": "registryLocationReason",
-                           "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
-                           "isRequired": true,
-                           "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'n'",
-                           "choices": [
-                              "It is the court location where my existing case with the same party/parties is filed",
-                              "It is the court location closest to where the child lives, because my case involves a child-related issue",
-                              "It is the court location closest to where I live, because my case does not involve a child-related issue"
-                           ]
-                        }
-                     ]
                   }
                ]
             }
