@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">   
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -13,6 +13,8 @@ import surveyJson from "./forms/your-information.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -28,6 +30,9 @@ export default class YourInformation extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -49,10 +54,9 @@ export default class YourInformation extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
-    yourInformationPOpage = 1
     editButton = false
 
     lawyerName = '';
@@ -85,8 +89,8 @@ export default class YourInformation extends Vue {
             // console.log(options)
 
             if(options.name == 'editName'){ 
-                this.$store.commit("Application/setCurrentStep", 1);
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: 1, currentPage: this.yourInformationPOpage }); 
+                this.$store.commit("Application/setCurrentStep", this.stPgNo.PO._StepNo);
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PO._StepNo, currentPage: this.stPgNo.PO.YourinformationPO}); 
             }
 
             if(options.name == "ApplicantName") {
@@ -114,11 +118,13 @@ export default class YourInformation extends Vue {
             this.survey.setVariable("includesFlm", false);
         }
 
+        const stepPO = this.steps[this.stPgNo.PO._StepNo]
+
         if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
-            if(this.steps[1].result && this.steps[1].result['yourInformationSurveyPO'] && this.steps[1].result['yourInformationSurveyPO'].data)
+            if(stepPO.result && stepPO.result['yourInformationSurveyPO'] && stepPO.result['yourInformationSurveyPO'].data)
             {
-                this.survey.setValue('ApplicantDOB',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantDOB);
-                this.survey.setValue('ApplicantName',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantName);
+                this.survey.setValue('ApplicantDOB',stepPO.result['yourInformationSurveyPO'].data.ApplicantDOB);
+                this.survey.setValue('ApplicantName',stepPO.result['yourInformationSurveyPO'].data.ApplicantName);
             }
         }
         
@@ -166,5 +172,5 @@ export default class YourInformation extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/survey";
 </style>

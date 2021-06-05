@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
 
         <b-modal size="xl" v-model="locationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
@@ -51,16 +51,17 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
-import moment from 'moment-timezone';
+//import moment from 'moment-timezone';
 
 import PageBase from "../PageBase.vue";
 import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 import * as _ from 'underscore';
 
 import { namespace } from "vuex-class";
-
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
@@ -76,6 +77,9 @@ export default class FilingLocation extends Vue {
         
     @Prop({required: true})
     step!: stepInfoType;   
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @commonState.State
     public locationsInfo!: locationsInfoType[];
@@ -110,8 +114,8 @@ export default class FilingLocation extends Vue {
     messageA = false;
     messageB = false;
 
-    aboutPOpage = 11
-    filingLocationPOpage = 3
+    allPages = []
+
     editButton = false
 
     courtsA = [
@@ -139,7 +143,7 @@ export default class FilingLocation extends Vue {
         "Surrey Provincial Court"
     ];    
     
-    allPages = _.range(1,41)
+    
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -148,6 +152,7 @@ export default class FilingLocation extends Vue {
 
 
     mounted(){
+        this.allPages = _.range(this.stPgNo.FLM.FlmBackground, Object.keys(this.stPgNo.FLM).length-1)
         this.locationInfo = false;
         this.initializeSurvey();
         this.addSurveyListener();
@@ -169,16 +174,16 @@ export default class FilingLocation extends Vue {
             // console.log(options)            
             
             if(options.name == 'editLocation'){  
+                const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
+                let pageNO = this.stPgNo.PO.About
+                if( stepPO.result && 
+                    stepPO.result.selectedPOOrder &&
+                    stepPO.result.selectedPOOrder.data &&
+                    stepPO.result.selectedPOOrder.data.orderType == 'needPO')
+                        pageNO = this.stPgNo.PO.PoFilingLocation              
 
-                let pageNO = this.aboutPOpage
-                if( this.$store.state.Application.steps[1].result && 
-                    this.$store.state.Application.steps[1].result.selectedPOOrder &&
-                    this.$store.state.Application.steps[1].result.selectedPOOrder.data &&
-                    this.$store.state.Application.steps[1].result.selectedPOOrder.data.orderType == 'needPO')
-                        pageNO = this.filingLocationPOpage              
-
-                this.$store.commit("Application/setCurrentStep", 1);
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: 1, currentPage: pageNO }); 
+                this.$store.commit("Application/setCurrentStep", this.stPgNo.PO._StepNo);
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PO._StepNo, currentPage: pageNO }); 
             }
 
             //console.log(this.survey.data);
@@ -187,7 +192,7 @@ export default class FilingLocation extends Vue {
                 this.messageForLocation();
             }
             //reset step 3 page to 0
-            this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
         })   
     }
 
@@ -258,39 +263,41 @@ export default class FilingLocation extends Vue {
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
-        //console.log(this.respondentName)        
+        //console.log(this.respondentName)   
+        
+        const stepPO = this.steps[this.stPgNo.PO._StepNo]
 
         if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
             
-            if( this.steps[1].result && 
-                this.steps[1].result['poFilingLocationSurvey'] && 
-                this.steps[1].result['poFilingLocationSurvey'].data &&
-                this.steps[1].result['selectedPOOrder'] &&
-                this.steps[1].result['selectedPOOrder'].data &&
-                this.steps[1].result['selectedPOOrder'].data.orderType == 'needPO')
+            if( stepPO.result && 
+                stepPO.result['poFilingLocationSurvey'] && 
+                stepPO.result['poFilingLocationSurvey'].data &&
+                stepPO.result['selectedPOOrder'] &&
+                stepPO.result['selectedPOOrder'].data &&
+                stepPO.result['selectedPOOrder'].data.orderType == 'needPO')
             {
                 // console.log('case1')
-                // console.log(this.steps[1].result['poFilingLocationSurvey'].data.ExistingCourt)
-                this.survey.setValue('ExistingFamilyCase',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFamilyCase);
-                this.survey.setValue('ExistingCourt',     this.steps[1].result['poFilingLocationSurvey'].data.ExistingCourt);
-                this.survey.setValue('ExistingFileNumber',this.steps[1].result['poFilingLocationSurvey'].data.ExistingFileNumber);
+                // console.log(stepPO.result['poFilingLocationSurvey'].data.ExistingCourt)
+                this.survey.setValue('ExistingFamilyCase',stepPO.result['poFilingLocationSurvey'].data.ExistingFamilyCase);
+                this.survey.setValue('ExistingCourt',     stepPO.result['poFilingLocationSurvey'].data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',stepPO.result['poFilingLocationSurvey'].data.ExistingFileNumber);
                 // console.log(this.survey.data)
 
             }
-            else if( this.steps[1].result &&
-                this.steps[1].result['aboutPOSurvey'] &&
-                this.steps[1].result['aboutPOSurvey'].data &&
-                this.steps[1].result['selectedPOOrder'] &&
-                this.steps[1].result['selectedPOOrder'].data &&
-                (this.steps[1].result['selectedPOOrder'].data.orderType == 'changePO'||this.steps[1].result['selectedPOOrder'].data.orderType == 'terminatePO'))
+            else if( stepPO.result &&
+                stepPO.result['aboutPOSurvey'] &&
+                stepPO.result['aboutPOSurvey'].data &&
+                stepPO.result['selectedPOOrder'] &&
+                stepPO.result['selectedPOOrder'].data &&
+                (stepPO.result['selectedPOOrder'].data.orderType == 'changePO'||stepPO.result['selectedPOOrder'].data.orderType == 'terminatePO'))
             {//console.log('case2')
                 this.survey.setValue('ExistingFamilyCase','y');
-                this.survey.setValue('ExistingCourt',     this.steps[1].result['aboutPOSurvey'].data.ExistingCourt);
-                this.survey.setValue('ExistingFileNumber',this.steps[1].result['aboutPOSurvey'].data.ExistingFileNumber);
+                this.survey.setValue('ExistingCourt',     stepPO.result['aboutPOSurvey'].data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',stepPO.result['aboutPOSurvey'].data.ExistingFileNumber);
             }
 
             this.messageForLocation();
-            this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
         }
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
@@ -367,7 +374,7 @@ export default class FilingLocation extends Vue {
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {            
             this.$store.commit("Application/setPageActive", {
-                currentStep: 3,
+                currentStep: this.stPgNo.FLM._StepNo,
                 currentPage: pageArr[i],
                 active: activeIndicator
             });
@@ -387,5 +394,5 @@ export default class FilingLocation extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/survey";
 </style>

@@ -1,5 +1,13 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation";
 
+export interface flmSelectedFormInfoType {
+    data: string[];
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
 export interface flmBackgroundSurveyDataInfoType {
     ExistingOrdersFLM: string;
     existingOrdersListFLM: string[];
@@ -38,6 +46,19 @@ export interface childDetailsDataInfoType {
   
 export interface childDetailsSurveyInfoType {
     data: childDetailsDataInfoType[];
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
+export interface flmAdditionalDocsDataInfoType {
+    isFilingAdditionalDocs: string;
+    criminalChecked: string;
+}
+
+export interface flmAdditionalDocsSurveyInfoType {
+    data: flmAdditionalDocsDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;

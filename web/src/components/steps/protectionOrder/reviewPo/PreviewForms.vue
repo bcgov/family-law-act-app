@@ -1,6 +1,6 @@
 <template>
     <div v-if="dataReady" >
-        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
             <form-k @enableNext="EnableNext"/>
         </page-base>
     </div>
@@ -14,6 +14,8 @@ import PageBase from "@/components/steps/PageBase.vue";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -34,6 +36,9 @@ export default class PreviewForms extends Vue {
     // @applicationState.Action
     // public UpdateGeneratedForms!: (newGeneratedForms) => void
 
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -53,7 +58,7 @@ export default class PreviewForms extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
 
-        if(this.checkErrorOnPages([1])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.PO._StepNo])) this.dataReady = true;
 
     } 
 

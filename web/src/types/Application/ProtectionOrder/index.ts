@@ -2,46 +2,31 @@ import { nameInfoType } from "..";
 import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInformation"; 
   
 
-    export interface ExistingOrderInfoTypeInfoType {
+    export interface ExistingOrderInfoType {
         type: string;
         filingLocation: string;
         fileNumber: string;
     }
 
-   
-
-    // export interface selectedPOOrderDataInfoType {
-    //     orderType: string;
-    //     explanationQualifying: boolean;
-    //     unsafe: string;
-    //     familyUnsafe: string;
-    //     PORConfirmed: string[];
-    // }
-
-    // export interface selectedPOOrderInfoType {
-    //     data: selectedPOOrderDataInfoType;
-    //     questions?: any;
-    //     pageName: string;
-    //     currentStep: number;
-    //     currentPage: number;
-    // }
-
     export interface poQuestionnaireSurveyInfoType {
         orderType: string;
-        explanationQualifying: boolean;
-        unsafe: string;
-        familyUnsafe: string;
-        PORConfirmed: string[];
+        explanationQualifying?: boolean;
+        unsafe?: string;
+        familyUnsafe?: string;
+        PORConfirmed?: string[];
     }    
 
     export interface yourInformationSurveyPODataInfoType {
         ApplicantName: nameInfoType;
         ApplicantDOB: string;
         Lawyer: string;
-        ExplanationServiceAddress: boolean;
-        ApplicantAddress: addressInfoType;
-        ApplicantContact: contactInfoType;
-        ApplicantOccupation: string;
+        ExplanationServiceAddress?: boolean;
+        ApplicantAddress?: addressInfoType;
+        ApplicantContact?: contactInfoType;
+        LawyerName?: nameInfoType;
+        LawyerAddress?: addressInfoType;
+        LawyerContact?: contactInfoType;
+        ApplicantOccupation?: string;
     }
 
     export interface yourInformationSurveyPOInfoType {
@@ -54,6 +39,8 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
 
     export interface noContactSurveyDataInfoType {
         needCommunication: string;
+        reasonForCommunication?: string[];
+        reasonForCommunicationComment?: string;
     }  
 
     export interface noContactSurveyInfoType {
@@ -64,21 +51,34 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
         currentPage: number;
     }
 
-    export interface AllchildrenInfoType {
+    export interface allchildrenInfoType {
+        childName?: nameInfoType;
+        childDOB?: string;
+        childRelationship?: string;
+        childLivingWith?: string;
     }
 
-    export interface AllAnotherAdultsSharingResiInfoType {
+    export interface allAnotherAdultsSharingResiInfoType {
+        anotherAdultSharingResiName?: nameInfoType;
+        anotheradultSharingResiDOB?: string;
+        anotherAdultSharingResiRelation?: string;
     }
 
     export interface protectionWhomSurveyDataInfoType {
-        allchildren: AllchildrenInfoType[];
-        allAnotherAdultsSharingResi: AllAnotherAdultsSharingResiInfoType[];
+        allchildren?: allchildrenInfoType[];
+        allAnotherAdultsSharingResi?: allAnotherAdultsSharingResiInfoType[];
         RespondentName: nameInfoType;
         RespondentDOBExact: string;
+        RespondentDOB?: string;
         RespondentAddress: addressInfoType;
         RespondentContact: contactInfoType;
         ApplicantNeedsProtection: string;
+        anotherAdultPO?: string;
+        anotherAdultName?: string;
+        anotherAdultDOB?: string;
+        anotherAdultReasonForPO?: string;
         childPO: string;
+        anotherAdultSharingResi?: string;
     }   
 
     export interface protectionWhomSurveyInfoType {
@@ -92,7 +92,7 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
     export interface poFilingLocationSurveyDataInfoType {
         ExistingFamilyCase: string;
         ExplanationCourtLocation: boolean;
-        ExistingCourt: string;
+        ExistingCourt?: string;
         ExistingFileNumber?: string;        
     }   
 
@@ -107,6 +107,7 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
     export interface removeSurveyDataInfoType {
         RespondentLiveTogether: string;
         needPolice: string[];
+        needPoliceComment?: string;
     }    
 
     export interface removeSurveyInfoType {
@@ -119,6 +120,8 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
 
     export interface noGoSurveyDataInfoType {
         RespondentNoGo: string;
+        RespondentNoGoPlaces?: string[];
+        RespondentNoGoPlacesComment?: string;
     }
 
     export interface noGoSurveyInfoType {
@@ -131,10 +134,14 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
 
     export interface weaponsSurveyDataInfoType {
         RespondentFirearms: string;
+        firearmsReason?: string;
         RespondentFirearmsYes: string;
+        firearmsYesReason?: string;
         RespondentWeapons: string;
+        weaponsReasons?: string;
         RespondentWeaponsYes: string;
-        RespondentNoWeapons: string[];
+        weaponsYesReason?: string;
+        RespondentNoWeapons?: string[];
     }  
 
     export interface weaponsSurveyInfoType {
@@ -145,23 +152,39 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
         currentPage: number;
     }
 
-    export interface AllOtherChilderenInfoType {
+    export interface allOtherChilderenInfoType {
+        childName: nameInfoType;
+        childDOB: string;
+        childRelationshipWithProtected: string;
+        childRelationshipWithOther: string;
+        childLivingWith: string;
     }
 
     export interface backgroundSurveyDataInfoType {
-        allOtherChilderen: AllOtherChilderenInfoType[];
+        allOtherChilderen?: allOtherChilderenInfoType[];
         howPartiesRelated: string;
         werePOPartiesMarried: string;
+        liveTogetherPODate?: string;
+        dateOfMarriagePO?: string;
         isSeperatedPO: string;
-        PartiesHasOtherChilderen: string;
+        separationDate?: string;
+        PartiesHasOtherChilderen?: string;
+        ExistingOrders?: string;
         likeToAddCulturalExplanation: string;
+        culturalExplain?: string;
         mentalHealthConcernPO: string;
+        explainReasonsPO?: string;
         riskOfViolencePO: string;
+        describeCirumstancesPO?: string;
         existingPOOrders: string;
         otherPartyDisobeyOrder: string;
+        describeDisobeyOrder?: string;
         concernForNotObeying: string;
+        explainReasonsForConcern?: string;
         reportedConcernsToPolice: string;
+        describeActionsByPolice?: string;
         reportedConcernsToSW: string;
+        desrcibeSWAction?: string;
     }  
 
     export interface backgroundSurveyInfoType {
@@ -174,8 +197,11 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
 
     export interface yourStoryDataInfoType {
         isFamilyViolence: string;
+        whatViolence?: string;
         isNoneExplainedConcerns: string;
+        noneExplainedConcerns?: string;
         recentIncidents: string;
+        recentIncidentWithChild?: string;
     }    
 
     export interface yourStoryInfoType {
@@ -188,7 +214,7 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
 
     export interface urgencySurveyDataInfoType {
         PORNoNotice: string;
-        PORWhyNoNotice: string;
+        PORWhyNoNotice?: string;
     }
 
 
@@ -226,34 +252,3 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
         currentStep: number;
         currentPage: number;
     }
-
-    // export interface resultInfoType {
-    //     selectedForms: string[];
-    //     pathwayCompleted: PathwayCompleted;
-    //     applicantName: ApplicantName;
-    //     respondentsPO: RespondentsPO[];
-    //     respondents: Respondent[];
-    //     protectedPartyName: ProtectedPartyName;
-    //     protectedChildName: any[];
-    //     existingOrders: ExistingOrder[];
-    //     requiredDocuments: RequiredDocuments;
-    //     selectedPOOrder: SelectedPOOrder;
-    //     
-    //    
-    //     
-    //    
-    //     
-    //     
-    //    
-    //    
-    //     
-    //    
-    //     
-    //     filingLocationSurvey: FilingLocationSurvey;
-    //     filingOptions: FilingOptions;
-    // }
-
-    
-
-
-

@@ -19,7 +19,7 @@
           "elements": [
             {
               "type": "checkbox",
-              "name": "applicantionType",
+              "name": "applicationType",
               "title": "Select each correct statement below:",
               "choices": [
                 {
@@ -38,14 +38,14 @@
           "type": "panel",
           "name": "becomeGuardianPanel",
           "visible": false,
-          "visibleIf": "{applicantionType} contains 'becomeGuardian'",
+          "visibleIf": "{applicationType} contains 'becomeGuardian'",
           "elements": [
             {
               "type": "checkbox",
               "name": "childrenList",
               "title": "Select each child from the list below that you want to be appointed as a guardian of.",
               "visible": false,
-              "visibleIf": "{applicantionType} contains 'becomeGuardian'",
+              "visibleIf": "{applicationType} contains 'becomeGuardian'",
               "isRequired": true,
               "choices": "{childNames}"
             }            
@@ -57,7 +57,7 @@
           "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
           "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>Please complete the following information for each child you are applying for a person to no longer be a guardian of.</div>The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “<b-badge class='bg-success text-white' style='padding:0.06rem 0.1rem; font-size:12px ;border-radius:5px;' ><b> + </b></b-badge>” button. If you are done entering information for all the children, click the “Next” button.</div>",          
           "visible": false,
-          "visibleIf": "{applicantionType} contains 'cancelGuardian'"
+          "visibleIf": "{applicationType} contains 'cancelGuardian'"
         }
       ],
       "title": "Guardianship of a child"

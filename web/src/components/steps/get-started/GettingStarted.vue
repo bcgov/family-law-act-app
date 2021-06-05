@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
     <div v-if="dataReady" class="row">
       <div class="col-md-12 order-heading">
         <div v-if="returningUser">

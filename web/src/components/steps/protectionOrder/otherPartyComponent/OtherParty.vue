@@ -1,19 +1,11 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
                     <h1>Other Party Information</h1>
                     <p>Please add the details of the other party in the fields below. </p>
-                    <!-- <p>
-                    <b><u>Who do I name as the other party?</u></b>
-                    <ul>
-                        <li>If your application is about a child, the other party must include each of their parents and guardians</li>
-                        <li>If your application is about spousal support, the other party is your spouse</li>
-                        <li>If another adult is the subject of your application, such as a step-parent, grandparent or other important person in a child's life, this person is the other party</li>
-                        <li>If there is already an existing case, you cannot add more parties, the other party is the person or persons that are already involved in that case</li>
-                        </ul>
-                    </p> -->
+
                     <div class="outerSection" v-if="showTable">
                         <div class="innerSection">
                             <table class="table table-hover">
@@ -62,11 +54,9 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 
-//import { Question } from "survey-vue";
 import OtherPartySurvey from "./OtherPartySurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-//import * as SurveyVue from "survey-vue";
-//import surveyJson from "../forms/your-information.json";
+
 import PageBase from "../../PageBase.vue";
 
 
@@ -104,8 +94,8 @@ export default class OtherParty extends Vue {
 
     }
 
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     showTable = true;
     otherPartyData = [];
     anyRowToBeEdited = null;
@@ -124,9 +114,9 @@ export default class OtherParty extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
-    public openForm(anyRowToBeEdited) {
+    public openForm(anyRowToBeEdited?) {
         this.showTable = false;
-         Vue.nextTick(()=>{
+        Vue.nextTick(()=>{
             const el = document.getElementById('other-party-survey')
             // console.log(el)
             if(el) el.scrollIntoView();
@@ -148,7 +138,8 @@ export default class OtherParty extends Vue {
             this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
-        this.otherPartyData = [...this.otherPartyData, newParty];
+
+        this.otherPartyData = this.otherPartyData? [...this.otherPartyData, newParty]:[newParty];
 
         this.showTable = true; 
     }

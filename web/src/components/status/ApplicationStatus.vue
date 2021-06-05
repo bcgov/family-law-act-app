@@ -456,9 +456,9 @@ export default class ApplicationStatus extends Vue {
     }
 
     public loadDocumentTypes() {
-        const documentTypesJson = require("../home/forms/documentTypes.json");
-        //console.log(documentTypesJson)
-        this.UpdateDocumentTypesJson(documentTypesJson);
+        // const documentTypesJson = require("../home/forms/documentTypes.json");
+        // //console.log(documentTypesJson)
+        // this.UpdateDocumentTypesJson(documentTypesJson);
         this.$http.get('/efiling/document-types/')
         .then((response) => { 
             if(response.data && response.data.length>0){
@@ -507,12 +507,12 @@ export default class ApplicationStatus extends Vue {
         console.log(this.$store.state.Application)
         const steps = this.$store.state.Application.steps
         for(const step of steps){
-            stepsAndPagesNumber[step.name]._StepNo = step.id
+            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
             console.error(step.name)
             //console.warn(stepsAndPagesNumber[step.name].StepNo)
             for(const page of step.pages){
                 console.log(page.name)
-                stepsAndPagesNumber[step.name][page.name] = page.key
+                stepsAndPagesNumber[step.name][page.name] = Number(page.key)
             }
         }
         console.log(stepsAndPagesNumber)

@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -40,8 +40,8 @@ export default class SafetyCheck extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;   
+    currentStep =0;
+    currentPage =0;   
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -99,5 +99,5 @@ export default class SafetyCheck extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/survey";
 </style>

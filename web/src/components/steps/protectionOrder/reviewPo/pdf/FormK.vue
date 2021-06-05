@@ -710,6 +710,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import moment from 'moment';
@@ -725,6 +727,9 @@ export default class FormK extends Vue {
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     result;
     dataReady = false;
@@ -982,21 +987,16 @@ export default class FormK extends Vue {
     public getFPOResultData() {  
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=1;i<2; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
+        for(const stepIndex of [this.stPgNo.PO._StepNo]){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResult in stepResults){
                 //console.log(stepResults[stepResult])
                 //console.log(stepResults[stepResult].data)
                 result[stepResult]=stepResults[stepResult].data; 
             }
         }
-    //     const protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-    //     Object.assign(result, result, protectedPartyName);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
-        //const userLocation = this.$store.state.Common.userLocation;
-        // console.log(applicationLocation)
-        //console.log(userLocation)
         
         Object.assign(result, result,{applicationLocation: applicationLocation}); 
        
@@ -1035,8 +1035,6 @@ export default class FormK extends Vue {
             }
 
         }        
-
-        // if ()
 
         Vue.filter('extractRequiredDocuments')(result, 'protectionOrder')
 
