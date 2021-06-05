@@ -240,8 +240,8 @@ export default class Schedule7 extends Vue {
         }
 
         if( this.result.GuardianOfChildSurvey && 
-            this.result.GuardianOfChildSurvey.applicantionType &&
-            this.result.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian')){
+            this.result.GuardianOfChildSurvey.applicationType &&
+            this.result.GuardianOfChildSurvey.applicationType.includes('becomeGuardian')){
                 guardianshipInfo['becomeGuardian'] = true;
 
         }else guardianshipInfo['becomeGuardian'] = false;

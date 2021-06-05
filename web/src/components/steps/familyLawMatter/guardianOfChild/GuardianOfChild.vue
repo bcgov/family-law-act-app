@@ -155,7 +155,7 @@ export default class GuardianOfChild extends Vue {
     showGuardianAssistance = false;
     tableError = false;
 
-    applicantionType=[]
+    applicationType=[]
 
     childrenNames = [];
     otherPartyNames = [];
@@ -231,20 +231,20 @@ export default class GuardianOfChild extends Vue {
             this.determineShowingTable();
             //console.log(options)
             // console.log(this.survey.data)
-            //console.log(this.applicantionType)
-            if((!this.applicantionType||(this.applicantionType && !this.applicantionType.includes("becomeGuardian"))) && options.name == "applicantionType" && options.value.includes("becomeGuardian")){                
+            //console.log(this.applicationType)
+            if((!this.applicationType||(this.applicationType && !this.applicationType.includes("becomeGuardian"))) && options.name == "applicationType" && options.value.includes("becomeGuardian")){                
                 this.showPopup = true; 
 
                 this.togglePages([this.additionalDocumentsPage], true);
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.additionalDocumentsPage].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.additionalDocumentsPage, 50, false);
             } 
-            Vue.nextTick(()=> this.applicantionType = this.survey.data.applicantionType)
+            Vue.nextTick(()=> this.applicationType = this.survey.data.applicationType)
         })
     }
 
     public determineShowingTable(){
-        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes('cancelGuardian'))
+        if(this.survey.data && this.survey.data.applicationType && this.survey.data.applicationType.includes('cancelGuardian'))
             this.showTable=true;
         else
             this.showTable=false;
@@ -253,21 +253,21 @@ export default class GuardianOfChild extends Vue {
     public determineShowPopup(){
         if( 
             this.survey.data && 
-            this.survey.data.applicantionType && 
-            this.survey.data.applicantionType.includes('becomeGuardian'))
+            this.survey.data.applicationType && 
+            this.survey.data.applicationType.includes('becomeGuardian'))
                 return true;
         else
             return false;
     }
     
     public setPages(){ 
-        if (this.survey.data.applicantionType && this.survey.data.applicantionType.includes("cancelGuardian")) {                
+        if (this.survey.data.applicationType && this.survey.data.applicationType.includes("cancelGuardian")) {                
             this.togglePages([this.guardianOfChildBestInterestsOfChildPage], true);                
         } else {
             this.togglePages([this.guardianOfChildBestInterestsOfChildPage], false);
         }
 
-        if(this.survey.data && this.survey.data.applicantionType && this.survey.data.applicantionType.includes("becomeGuardian")){
+        if(this.survey.data && this.survey.data.applicationType && this.survey.data.applicationType.includes("becomeGuardian")){
           // 
         }else if(Vue.filter('FLMform4Required')()==false){
             this.togglePages([this.additionalDocumentsPage], false);
@@ -292,7 +292,7 @@ export default class GuardianOfChild extends Vue {
         if (this.step.result && this.step.result['GuardianOfChildSurvey']) {
             this.survey.data = this.step.result['GuardianOfChildSurvey'].data;
 
-            this.applicantionType = this.survey.data.applicantionType
+            this.applicationType = this.survey.data.applicationType
 
             if(this.survey.data.cancelGuardianDetails) this.guardianOfChildItem = this.survey.data.cancelGuardianDetails;
 

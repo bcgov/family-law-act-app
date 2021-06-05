@@ -142,8 +142,8 @@ export default class IndigenousAncestryOfChild extends Vue {
     //        this.$store.state.Application.steps[this.currentStep].result &&
     //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey && 
     //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data &&
-    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data.applicantionType && 
-    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data.applicantionType.includes('becomeGuardian'))
+    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data.applicationType && 
+    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data.applicationType.includes('becomeGuardian'))
     //         return true;
     //     else
     //         return false;

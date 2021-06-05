@@ -456,9 +456,9 @@ export default class ApplicationStatus extends Vue {
     }
 
     public loadDocumentTypes() {
-        const documentTypesJson = require("../home/forms/documentTypes.json");
-        //console.log(documentTypesJson)
-        this.UpdateDocumentTypesJson(documentTypesJson);
+        // const documentTypesJson = require("../home/forms/documentTypes.json");
+        // //console.log(documentTypesJson)
+        // this.UpdateDocumentTypesJson(documentTypesJson);
         this.$http.get('/efiling/document-types/')
         .then((response) => { 
             if(response.data && response.data.length>0){

@@ -242,13 +242,13 @@ export default class Form3 extends Vue {
         if (selectedFLMs.includes("guardianOfChild")){
             if (this.result.GuardianOfChildSurvey){
                 if (this.result.GuardianOfChildSurvey && 
-                    this.result.GuardianOfChildSurvey.applicantionType && 
-                    this.result.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian')){
+                    this.result.GuardianOfChildSurvey.applicationType && 
+                    this.result.GuardianOfChildSurvey.applicationType.includes('becomeGuardian')){
                     schedules.push("schedule7")
                 }
                 if (this.result.GuardianOfChildSurvey && 
-                    this.result.GuardianOfChildSurvey.applicantionType && 
-                    this.result.GuardianOfChildSurvey.applicantionType.includes('cancelGuardian')){
+                    this.result.GuardianOfChildSurvey.applicationType && 
+                    this.result.GuardianOfChildSurvey.applicationType.includes('cancelGuardian')){
                     schedules.push("schedule8")
                 }
             }            
