@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -157,7 +157,7 @@ export default class OtherPartyCommon extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
-    public openForm(anyRowToBeEdited) {
+    public openForm(anyRowToBeEdited?) {
 
         this.showTable = false;
         Vue.nextTick(()=>{
@@ -182,7 +182,8 @@ export default class OtherPartyCommon extends Vue {
             this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
-        this.otherPartyData = [...this.otherPartyData, newParty];
+
+        this.otherPartyData = this.otherPartyData?[...this.otherPartyData, newParty]:[newParty];
 
         this.showTable = true; 
     }

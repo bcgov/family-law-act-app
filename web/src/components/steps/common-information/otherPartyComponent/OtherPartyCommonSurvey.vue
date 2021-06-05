@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { otherPartyInfoType } from "@/types/Application/CommonInformation";
+import { otherPartyInfoType, addressInfoType, contactInfoType} from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -131,10 +131,15 @@ export default class OtherPartyCommonSurvey extends Vue {
         {
             this.op.address = opData.otherPartyAddress;          
         }
+        else
+            this.op.address = {} as addressInfoType
+
         if(opData.otherPartyContact)
         {
             this.op.contactInfo = opData.otherPartyContact;
         }
+        else
+            this.op.contactInfo = {} as contactInfoType
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
