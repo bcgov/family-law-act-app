@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -22,6 +22,8 @@ import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -32,6 +34,9 @@ export default class About extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -57,8 +62,8 @@ export default class About extends Vue {
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -86,7 +91,7 @@ export default class About extends Vue {
             // console.log(options);
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt)
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
             }
         })
     }
@@ -165,15 +170,17 @@ export default class About extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
-        if (this.steps[2].result && this.steps[2].result.filingLocationSurvey && this.steps[2].result.filingLocationSurvey.data) {
-            const filingLocationSurveyCommon = this.steps[2].result.filingLocationSurvey
+        const step = this.steps[this.stPgNo.COMMON._StepNo]
+
+        if (step.result && step.result.filingLocationSurvey && step.result.filingLocationSurvey.data) {
+            const filingLocationSurveyCommon = step.result.filingLocationSurvey
             filingLocationSurveyCommon.data.ExistingCourt = this.survey.data["ExistingCourt"]
             filingLocationSurveyCommon.data.ExistingFileNumber = this.survey.data["ExistingFileNumber"]           
             // console.log("common information already exists");
-            // console.log(this.steps[2].result.filingLocationSurvey)
-            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: filingLocationSurveyCommon }})
+            // console.log(step.result.filingLocationSurvey)
+            this.UpdateStepResultData({step:step, data: {filingLocationSurvey: filingLocationSurveyCommon }})
         } else {
-            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 3)}});
+            this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 3)}});
         }
     }
 };

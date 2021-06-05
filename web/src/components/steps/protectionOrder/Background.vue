@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -27,6 +29,9 @@ export default class Background extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -47,8 +52,8 @@ export default class Background extends Vue {
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -115,11 +120,13 @@ export default class Background extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {backgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
+        const step = this.steps[this.stPgNo.FLM._StepNo]
+
         if (this.types.length > 1 && this.types.includes("Family Law Matter")) {
-            if (this.steps[3].result && this.steps[3].result.flmBackgroundSurvey) {
+            if (step.result && step.result.flmBackgroundSurvey) {
                 // console.log("flm background information already exists");
             } else {
-                this.UpdateStepResultData({step:this.steps[3], data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, 3, 1)}});
+                this.UpdateStepResultData({step:step, data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.FLM._StepNo, this.stPgNo.FLM.FlmBackground)}});
             }
         }
     }

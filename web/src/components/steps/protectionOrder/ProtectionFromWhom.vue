@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -9,6 +9,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+
+import * as _ from 'underscore';
 
 import surveyJson from "./forms/protectionFromWhom.json";
 import PageBase from "../PageBase.vue";
@@ -22,6 +24,8 @@ import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -32,6 +36,9 @@ export default class ProtectionFromWhom extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @commonState.State
     public locationsInfo!: locationsInfoType[];
@@ -140,13 +147,17 @@ export default class ProtectionFromWhom extends Vue {
     // }
 
     public checkAnswersforContinue(){
+        const p = this.stPgNo.PO
+        const needPoPages = [p.PoFilingLocation, p.RemovePerson, p.NoGo, p.NoContact, p.WeaponsFirearms, p.Background, p.YourStory,  p.Urgency, p.ReviewYourAnswers];
+        const PoAllPages = _.range(p.PoFilingLocation, Object.keys(this.stPgNo.PO).length-1) 
+
         if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages([3,4,5,6,7,8,9,11,12,13, 14], false);
+            this.togglePages(PoAllPages, false);
             this.disableNextButton = true;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
         } else {
-            this.togglePages([3,4,5,6,7,8,9,12,13], true);   
+            this.togglePages(needPoPages, true);   
             this.disableNextButton = false;         
             //this.determineNoContactPage()
             return true
