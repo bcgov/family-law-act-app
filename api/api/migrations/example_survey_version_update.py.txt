@@ -1,0 +1,35 @@
+# This is simply an example, do not use.
+import json
+from django.conf import settings
+from django.db import migrations
+
+def update_survey_data(apps, schema_editor):
+    Application = apps.get_model("api", "Application")
+    for application in Application.objects.all():
+        if application.app_type != 'Change FPO':
+            continue
+        
+        steps_json = json.loads(
+            settings.ENCRYPTOR.decrypt(
+                application.key_id, application.steps
+            ).decode("utf-8")
+        )
+        
+        for step in steps_json:
+            if step['type'] != 'stepPO':
+                continue
+            step['result']['yourInformationSurveyPO']['data']['ApplicantDOB'] = '1900-01-01'
+
+        (steps_key_id, steps_enc) = settings.ENCRYPTOR.encrypt(json.dumps(steps_json).encode("ascii"))
+        application.steps = steps_enc
+        application.save()
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('api', '0019_hide_pi'),
+    ]
+
+    operations = [
+        migrations.RunPython(update_survey_data)
+    ]
