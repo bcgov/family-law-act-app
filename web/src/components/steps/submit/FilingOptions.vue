@@ -1,5 +1,5 @@
 <template>
-    <page-base  v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base  v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
         <b-card style="background-color: #f6e4e6; margin:4rem 0;" v-if="!allCompleted">
             The survey has some incomplete pages ( Forms have not been reviewed, Required questions left unanswered, ... ).

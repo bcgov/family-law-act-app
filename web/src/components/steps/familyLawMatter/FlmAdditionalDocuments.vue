@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">        
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >        
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -21,6 +21,8 @@ import "@/store/modules/application";
 import { requiredDocumentsInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -30,6 +32,9 @@ export default class FlmAdditionalDocuments extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -132,17 +137,20 @@ export default class FlmAdditionalDocuments extends Vue {
     }
 
     public getFLMResultData() {         
-        
+        const steps = [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]
+
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=2;i<4; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
+        for(const stepIndex of steps){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResult in stepResults){
                 if(stepResults[stepResult])
                     result[stepResult]=stepResults[stepResult].data; 
             }
         }
 
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[3].result.childBestInterestAcknowledgement};
+        const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
+
+        const childBestInterestAck = {childBestInterestAcknowledgement: stepFLM.result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
