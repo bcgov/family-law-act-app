@@ -111,8 +111,8 @@ export default class FlmAdditionalDocuments extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['flmAdditionalDocsSurvey'] && this.step.result['flmAdditionalDocsSurvey'].data){
-            this.survey.data = this.step.result['flmAdditionalDocsSurvey'].data;
+        if (this.step.result && this.step.result.flmAdditionalDocsSurvey && this.step.result.flmAdditionalDocsSurvey.data){
+            this.survey.data = this.step.result.flmAdditionalDocsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
@@ -123,11 +123,11 @@ export default class FlmAdditionalDocuments extends Vue {
 
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
-        if(this.requiredDocuments['familyLawMatter'] && this.requiredDocuments['familyLawMatter'].required){
-            this.requiredDocumentLists = this.requiredDocuments['familyLawMatter'].required
+        if(this.requiredDocuments.familyLawMatter && this.requiredDocuments.familyLawMatter.required){
+            this.requiredDocumentLists = this.requiredDocuments.familyLawMatter.required
             this.isRequiredDocument = true
         }
-       // console.log(this.requiredDocuments['familyLawMatter'])
+       // console.log(this.requiredDocuments.familyLawMatter)
        // console.log(this.requiredDocumentLists)
     }
 

@@ -95,8 +95,8 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['existingSpousalSupportFinalOrderSurvey']) {
-            this.survey.data = this.step.result['existingSpousalSupportFinalOrderSurvey'].data;            
+        if (this.step.result && this.step.result.existingSpousalSupportFinalOrderSurvey) {
+            this.survey.data = this.step.result.existingSpousalSupportFinalOrderSurvey.data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         

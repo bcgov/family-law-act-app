@@ -89,8 +89,8 @@ export default class ContactWithChild extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['contactWithChildSurvey'] && this.step.result['contactWithChildSurvey'].data) {
-            this.survey.data = this.step.result['contactWithChildSurvey'].data;
+        if (this.step.result && this.step.result.contactWithChildSurvey && this.step.result.contactWithChildSurvey.data) {
+            this.survey.data = this.step.result.contactWithChildSurvey.data;
 
             if (this.survey.data.parentGuardianApplicant && this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
@@ -99,8 +99,8 @@ export default class ContactWithChild extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
-        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData && this.step.result.childData.data) {            
+            const childData = this.step.result.childData.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

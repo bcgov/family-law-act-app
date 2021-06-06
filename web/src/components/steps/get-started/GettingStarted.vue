@@ -214,8 +214,8 @@ export default class GettingStarted extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.selected = this.steps[0].result['selectedForms'];
+        if (this.steps[0].result && this.steps[0].result.selectedForms) {
+            this.selected = this.steps[0].result.selectedForms;
         }
 
         this.returningUser = (this.$store.state.Application.userType == 'returning');        
@@ -281,12 +281,12 @@ export default class GettingStarted extends Vue {
     public resetSelectedFormsCompeleted(selectedForms){
         const pathwayCompleted = this.pathwayCompleted
         
-        pathwayCompleted["protectionOrder"] = false;        
-        pathwayCompleted["familyLawMatter"] = false;        
-        pathwayCompleted["caseMgmt"] = false;       
-        pathwayCompleted["priorityParenting"] = false;       
-        pathwayCompleted["childReloc"] = false;       
-        pathwayCompleted["agreementEnfrc"] = false;
+        pathwayCompleted.protectionOrder = false;        
+        pathwayCompleted.familyLawMatter = false;        
+        pathwayCompleted.caseMgmt = false;       
+        pathwayCompleted.priorityParenting = false;       
+        pathwayCompleted.childReloc = false;       
+        pathwayCompleted.agreementEnfrc = false;
         this.UpdatePathwayCompletedFull(pathwayCompleted);
         this.checkAllCompleted();
     }

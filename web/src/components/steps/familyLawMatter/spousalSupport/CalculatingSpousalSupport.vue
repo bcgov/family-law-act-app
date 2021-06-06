@@ -78,14 +78,14 @@ export default class CalculatingSpousalSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['calculatingSpousalSupportSurvey']) {
-            this.survey.data = this.step.result['calculatingSpousalSupportSurvey'].data;
+        if (this.step.result && this.step.result.calculatingSpousalSupportSurvey) {
+            this.survey.data = this.step.result.calculatingSpousalSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
+        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
             
-            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
             if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
                 && backgroundSurveyData.existingOrdersListFLM.length > 0 
                 && backgroundSurveyData.existingOrdersListFLM.includes("Spousal Support")){

@@ -125,8 +125,8 @@ export default class PoFilingLocation extends Vue {
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["poFilingLocationSurvey"]){
-            this.survey.data = this.step.result["poFilingLocationSurvey"].data;
+        if (this.step.result && this.step.result.poFilingLocationSurvey){
+            this.survey.data = this.step.result.poFilingLocationSurvey.data;
            
             if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                

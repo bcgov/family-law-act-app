@@ -72,13 +72,13 @@ export default class ParentingTime extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['parentingTimeSurvey']) {
-            this.survey.data = this.step.result['parentingTimeSurvey'].data;
+        if (this.step.result && this.step.result.parentingTimeSurvey) {
+            this.survey.data = this.step.result.parentingTimeSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
             if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
                 && backgroundSurveyData.existingOrdersListFLM.length > 0 
                 && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
@@ -88,8 +88,8 @@ export default class ParentingTime extends Vue {
                 }
         }
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData) {
+            const childData = this.step.result.childData.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

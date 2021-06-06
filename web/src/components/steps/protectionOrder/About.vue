@@ -118,8 +118,8 @@ export default class About extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutPOSurvey']){
-            this.survey.data = this.step.result['aboutPOSurvey'].data;
+        if (this.step.result && this.step.result.aboutPOSurvey){
+            this.survey.data = this.step.result.aboutPOSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 

@@ -79,8 +79,8 @@ export default class SpousalSupport extends Vue {
              
         this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
 
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
+        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
+            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
                this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name));
@@ -109,8 +109,8 @@ export default class SpousalSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['spousalSupportSurvey']) {
-            this.survey.data = this.step.result['spousalSupportSurvey'].data;
+        if (this.step.result && this.step.result.spousalSupportSurvey) {
+            this.survey.data = this.step.result.spousalSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 

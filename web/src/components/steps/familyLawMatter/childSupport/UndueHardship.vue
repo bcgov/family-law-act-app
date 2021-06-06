@@ -76,8 +76,8 @@ export default class UndueHardship extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;       
         
-        if (this.step.result && this.step.result['undueHardshipSurvey']) {
-            this.survey.data = this.step.result['undueHardshipSurvey'].data;
+        if (this.step.result && this.step.result.undueHardshipSurvey) {
+            this.survey.data = this.step.result.undueHardshipSurvey.data;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }

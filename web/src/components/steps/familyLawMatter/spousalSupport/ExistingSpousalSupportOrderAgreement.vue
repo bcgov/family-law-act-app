@@ -122,8 +122,8 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     }
     
     public reloadPageInformation() {        
-        if (this.step.result && this.step.result['existingSpousalSupportOrderAgreementSurvey']) {
-            this.survey.data = this.step.result['existingSpousalSupportOrderAgreementSurvey'].data; 
+        if (this.step.result && this.step.result.existingSpousalSupportOrderAgreementSurvey) {
+            this.survey.data = this.step.result.existingSpousalSupportOrderAgreementSurvey.data; 
             
             if (this.survey.data.existingType == 'Neither') {
                 this.disableNextButton = true;

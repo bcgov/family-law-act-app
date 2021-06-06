@@ -75,8 +75,8 @@ export default class WeaponsFirearms extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['weaponsSurvey']){
-            this.survey.data = this.step.result['weaponsSurvey'].data;
+        if (this.step.result && this.step.result.weaponsSurvey){
+            this.survey.data = this.step.result.weaponsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         } 
         

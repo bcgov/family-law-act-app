@@ -85,8 +85,8 @@ export default class Background extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['backgroundSurvey']){
-            this.survey.data = this.step.result['backgroundSurvey'].data;
+        if (this.step.result && this.step.result.backgroundSurvey){
+            this.survey.data = this.step.result.backgroundSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         //console.log(this.survey.currentPage.questions)        

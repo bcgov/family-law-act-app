@@ -202,8 +202,8 @@ export default class GuardianOfChild extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
         this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"]=[];        
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data; 
+        if (this.step.result && this.step.result.childData) {
+            const childData = this.step.result.childData.data; 
             this.childrenNames = [];       
             for (const child of childData){
                 const childName = Vue.filter('getFullName')(child.name);
@@ -215,8 +215,8 @@ export default class GuardianOfChild extends Vue {
 
     public adjustSurveyForOtherParties(){
         
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;
+        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
+            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data;
             this.otherPartyNames = [];            
             for (const otherParty of otherPartyData){
                 this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name))                
@@ -289,8 +289,8 @@ export default class GuardianOfChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['GuardianOfChildSurvey']) {
-            this.survey.data = this.step.result['GuardianOfChildSurvey'].data;
+        if (this.step.result && this.step.result.GuardianOfChildSurvey) {
+            this.survey.data = this.step.result.GuardianOfChildSurvey.data;
 
             this.applicationType = this.survey.data.applicationType
 

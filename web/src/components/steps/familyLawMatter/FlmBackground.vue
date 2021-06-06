@@ -103,9 +103,9 @@ export default class FlmBackground extends Vue {
         
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));       
        
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
+        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
             
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
+            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                 this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push(Vue.filter('getFullName')(otherParty.name));
                 this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name));
@@ -118,8 +118,8 @@ export default class FlmBackground extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            this.survey.data = this.step.result['flmBackgroundSurvey'].data;
+        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+            this.survey.data = this.step.result.flmBackgroundSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
@@ -130,8 +130,8 @@ export default class FlmBackground extends Vue {
             this.survey.setVariable("multipleOP", false);
         }       
 
-        if (this.step.result && this.step.result['flmSelectedForm']){
-            this.selectedForms = this.step.result['flmSelectedForm'].data
+        if (this.step.result && this.step.result.flmSelectedForm){
+            this.selectedForms = this.step.result.flmSelectedForm.data
         }
         
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){
@@ -139,7 +139,7 @@ export default class FlmBackground extends Vue {
         }
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        //console.log(this.step.result['flmSelectedForm'].data)
+        //console.log(this.step.result.flmSelectedForm.data)
         
     }
 

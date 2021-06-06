@@ -105,8 +105,8 @@ export default class YourInformation extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'].data;
+        if (this.step.result && this.step.result.yourInformationSurvey) {
+            this.survey.data = this.step.result.yourInformationSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -120,11 +120,11 @@ export default class YourInformation extends Vue {
 
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
 
-        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
-            if(stepPO.result && stepPO.result['yourInformationSurveyPO'] && stepPO.result['yourInformationSurveyPO'].data)
+        if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
+            if(stepPO.result && stepPO.result.yourInformationSurveyPO && stepPO.result.yourInformationSurveyPO.data)
             {
-                this.survey.setValue('ApplicantDOB',stepPO.result['yourInformationSurveyPO'].data.ApplicantDOB);
-                this.survey.setValue('ApplicantName',stepPO.result['yourInformationSurveyPO'].data.ApplicantName);
+                this.survey.setValue('ApplicantDOB',stepPO.result.yourInformationSurveyPO.data.ApplicantDOB);
+                this.survey.setValue('ApplicantName',stepPO.result.yourInformationSurveyPO.data.ApplicantName);
             }
         }
         
@@ -135,9 +135,9 @@ export default class YourInformation extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
        //console.log(this.surveyJsonCopy.pages[0].elements[0].elements[0])
-       //console.log(this.steps[1].result['yourInformationSurveyPO'].data)
-       // console.log(this.steps[0].result['selectedForms'])
-        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+       //console.log(this.steps[1].result.yourInformationSurveyPO.data)
+       // console.log(this.steps[0].result.selectedForms)
+        if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[1].readOnly = true;
             this.editButton = true;

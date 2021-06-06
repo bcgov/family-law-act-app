@@ -48,9 +48,9 @@ export default class AboutChildSupportOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     childData = [];
-    currentStep =0;
-    currentPage =0;
-    applicantFullName ='';
+    currentStep = 0;
+    currentPage = 0;
+    applicantFullName = '';
     over19Index = [];
     childSupportStartType = '';
     startDate = '';
@@ -86,8 +86,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.over19Index = [];
         
 
-        if (this.step.result && this.step.result['childData']) {
-            this.childData = this.step.result['childData'].data;           
+        if (this.step.result && this.step.result.childData) {
+            this.childData = this.step.result.childData.data;           
             const _19yearsBefore = moment().add(-19,'years')           
             const whysupport19childTemplate = JSON.parse(JSON.stringify(this.surveyJsonCopy.pages[0].elements[0].elements[8]))
             this.surveyJsonCopy.pages[0].elements[0].elements.splice(8,1)
@@ -99,7 +99,7 @@ export default class AboutChildSupportOrder extends Vue {
                 const childName = Vue.filter('getFullName')(child.name)
                 //console.log(child)
                 // this.childData.push(child);
-                //this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child['+childInx+']',text:childName});
+                //this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child.+childInx+',text:childName});
                 this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push(childName);
 
                 if ((moment(child.dob).isBefore(_19yearsBefore))){
@@ -124,8 +124,8 @@ export default class AboutChildSupportOrder extends Vue {
              
         this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
 
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
+        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
+            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
             }
@@ -136,7 +136,7 @@ export default class AboutChildSupportOrder extends Vue {
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(options)
-            // console.log(this.survey.data['paymentRequestStartingDate'])
+            // console.log(this.survey.data.paymentRequestStartingDate'])
 
             if (options.name == 'listOfChildren'){
                 this.setSelectedChildNames(options.value);
@@ -153,8 +153,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutChildSupportOrderSurvey']) {
-            this.survey.data = this.step.result['aboutChildSupportOrderSurvey'].data;
+        if (this.step.result && this.step.result.aboutChildSupportOrderSurvey) {
+            this.survey.data = this.step.result.aboutChildSupportOrderSurvey.data;
 
             this.survey.setVariable("listOfSupportPayorsLength",this.survey.data.listOfSupportPayors?this.survey.data.listOfSupportPayors.length:0)
 
@@ -212,7 +212,7 @@ export default class AboutChildSupportOrder extends Vue {
     public setOver19Info(){
         const over19Details = []
         for (const index of this.over19Index){
-            //console.log(this.survey.data['whyOlderChildNeedSupport['+ index + ']'])
+            //console.log(this.survey.data.whyOlderChildNeedSupport['+ index + ']'])
             const detail = {
                 name:Vue.filter('getFullName')(this.childData[index].name), 
                 reasonForSupport:{

@@ -167,11 +167,11 @@ export default class ChildrenInfo extends Vue {
 
     created() {
         //console.log(this.step)
-        if (this.step.result && this.step.result["childData"]) {
-            this.childData = this.step.result["childData"].data;
+        if (this.step.result && this.step.result.childData) {
+            this.childData = this.step.result.childData.data;
         }
-        if (this.step.result && this.step.result["childBestInterestAcknowledgement"]) {
-            this.childBestInterestUnderstanding = this.step.result["childBestInterestAcknowledgement"];
+        if (this.step.result && this.step.result.childBestInterestAcknowledgement) {
+            this.childBestInterestUnderstanding = this.step.result.childBestInterestAcknowledgement;
         }
     }
 

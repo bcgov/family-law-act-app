@@ -163,8 +163,8 @@ export default class FlmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['flmSelectedForm']) {
-            this.selectedForm = this.step.result['flmSelectedForm'].data;
+        if (this.step.result && this.step.result.flmSelectedForm) {
+            this.selectedForm = this.step.result.flmSelectedForm.data;
             this.determineSteps();
         }
         

@@ -99,8 +99,8 @@ export default class AboutContactWithChildOrder extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
         this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"]=[];        
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData) {
+            const childData = this.step.result.childData.data;            
             for (const child of childData){
                 this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
             }                       
@@ -109,8 +109,8 @@ export default class AboutContactWithChildOrder extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['aboutContactWithChildSurvey'] && this.step.result['aboutContactWithChildSurvey'].data) {
-            this.survey.data = this.step.result['aboutContactWithChildSurvey'].data;
+        if (this.step.result && this.step.result.aboutContactWithChildSurvey && this.step.result.aboutContactWithChildSurvey.data) {
+            this.survey.data = this.step.result.aboutContactWithChildSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
 
             if (this.survey.data.childrenRequireContactChoices){
@@ -128,8 +128,8 @@ export default class AboutContactWithChildOrder extends Vue {
             }            
         }
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
             if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
                 && backgroundSurveyData.existingOrdersListFLM.length > 0 
                 && backgroundSurveyData.existingOrdersListFLM.includes("Contact with a Child")){
@@ -140,8 +140,8 @@ export default class AboutContactWithChildOrder extends Vue {
         }
         this.survey.setVariable("selectedChildWording", "child");
 
-        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) { 
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData && this.step.result.childData.data) { 
+            const childData = this.step.result.childData.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

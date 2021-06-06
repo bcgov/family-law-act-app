@@ -237,7 +237,7 @@ export default class FilingLocation extends Vue {
             this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"].push(location["name"])
         }
 
-        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+        if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[3].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[4].readOnly = true;
@@ -251,8 +251,8 @@ export default class FilingLocation extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["filingLocationSurvey"]){
-            this.survey.data = this.step.result["filingLocationSurvey"].data;
+        if (this.step.result && this.step.result.filingLocationSurvey){
+            this.survey.data = this.step.result.filingLocationSurvey.data;
             
             if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
@@ -267,33 +267,33 @@ export default class FilingLocation extends Vue {
         
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
 
-        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+        if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
             
             if( stepPO.result && 
-                stepPO.result['poFilingLocationSurvey'] && 
-                stepPO.result['poFilingLocationSurvey'].data &&
-                stepPO.result['selectedPOOrder'] &&
-                stepPO.result['selectedPOOrder'].data &&
-                stepPO.result['selectedPOOrder'].data.orderType == 'needPO')
+                stepPO.result.poFilingLocationSurvey && 
+                stepPO.result.poFilingLocationSurvey.data &&
+                stepPO.result.selectedPOOrder &&
+                stepPO.result.selectedPOOrder.data &&
+                stepPO.result.selectedPOOrder.data.orderType == 'needPO')
             {
                 // console.log('case1')
-                // console.log(stepPO.result['poFilingLocationSurvey'].data.ExistingCourt)
-                this.survey.setValue('ExistingFamilyCase',stepPO.result['poFilingLocationSurvey'].data.ExistingFamilyCase);
-                this.survey.setValue('ExistingCourt',     stepPO.result['poFilingLocationSurvey'].data.ExistingCourt);
-                this.survey.setValue('ExistingFileNumber',stepPO.result['poFilingLocationSurvey'].data.ExistingFileNumber);
+                // console.log(stepPO.result.poFilingLocationSurvey.data.ExistingCourt)
+                this.survey.setValue('ExistingFamilyCase',stepPO.result.poFilingLocationSurvey.data.ExistingFamilyCase);
+                this.survey.setValue('ExistingCourt',     stepPO.result.poFilingLocationSurvey.data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',stepPO.result.poFilingLocationSurvey.data.ExistingFileNumber);
                 // console.log(this.survey.data)
 
             }
             else if( stepPO.result &&
-                stepPO.result['aboutPOSurvey'] &&
-                stepPO.result['aboutPOSurvey'].data &&
-                stepPO.result['selectedPOOrder'] &&
-                stepPO.result['selectedPOOrder'].data &&
-                (stepPO.result['selectedPOOrder'].data.orderType == 'changePO'||stepPO.result['selectedPOOrder'].data.orderType == 'terminatePO'))
+                stepPO.result.aboutPOSurvey &&
+                stepPO.result.aboutPOSurvey.data &&
+                stepPO.result.selectedPOOrder &&
+                stepPO.result.selectedPOOrder.data &&
+                (stepPO.result.selectedPOOrder.data.orderType == 'changePO'||stepPO.result.selectedPOOrder.data.orderType == 'terminatePO'))
             {//console.log('case2')
                 this.survey.setValue('ExistingFamilyCase','y');
-                this.survey.setValue('ExistingCourt',     stepPO.result['aboutPOSurvey'].data.ExistingCourt);
-                this.survey.setValue('ExistingFileNumber',stepPO.result['aboutPOSurvey'].data.ExistingFileNumber);
+                this.survey.setValue('ExistingCourt',     stepPO.result.aboutPOSurvey.data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',stepPO.result.aboutPOSurvey.data.ExistingFileNumber);
             }
 
             this.messageForLocation();
@@ -343,7 +343,7 @@ export default class FilingLocation extends Vue {
 
     public setExistingFileNumber(){
         const fileType = 'FLC'
-        const existingOrders = this.$store.state.Application.steps[0]['result']?this.$store.state.Application.steps[0]['result']['existingOrders']:''
+        const existingOrders = this.$store.state.Application.steps[0].result?this.$store.state.Application.steps[0].result.existingOrders:''
         
         const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
 

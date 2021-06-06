@@ -144,8 +144,8 @@ export default class OtherPartyCommon extends Vue {
     editId = null;
  
     created() {
-        if (this.step.result && this.step.result["otherPartyCommonSurvey"]) {
-            this.otherPartyData = this.step.result["otherPartyCommonSurvey"].data;
+        if (this.step.result && this.step.result.otherPartyCommonSurvey) {
+            this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
         }
     }
 

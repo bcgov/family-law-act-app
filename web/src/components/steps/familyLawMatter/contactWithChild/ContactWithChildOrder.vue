@@ -107,16 +107,16 @@ export default class ContactWithChildOrder extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['contactOrderSurvey'] && this.step.result['contactOrderSurvey'].data) {
-            this.survey.data = this.step.result['contactOrderSurvey'].data;
+        if (this.step.result && this.step.result.contactOrderSurvey && this.step.result.contactOrderSurvey.data) {
+            this.survey.data = this.step.result.contactOrderSurvey.data;
             if (this.survey.data.existingType == 'Neither') {
                 this.disableNextButton = true;
             }      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
-        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData && this.step.result.childData.data) {            
+            const childData = this.step.result.childData.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

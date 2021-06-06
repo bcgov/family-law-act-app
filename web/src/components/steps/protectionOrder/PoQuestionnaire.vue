@@ -74,7 +74,7 @@ export default class PoQuestionnaire extends Vue {
 
     created() {
         this.disableNextButton = false; 
-        if (this.step.result && this.step.result['questionnaireSurvey']) {            
+        if (this.step.result && this.step.result.questionnaireSurvey) {            
             this.determinePeaceBondAndBlock();
         }
     }
@@ -191,8 +191,8 @@ export default class PoQuestionnaire extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["questionnaireSurvey"]){
-            this.survey.data = this.step.result["questionnaireSurvey"];
+        if (this.step.result && this.step.result.questionnaireSurvey){
+            this.survey.data = this.step.result.questionnaireSurvey;
             if (this.survey.data.orderType == "none"){
                 this.disableNextButton = true;
             }
@@ -274,16 +274,16 @@ export default class PoQuestionnaire extends Vue {
 
     // public determineNoContactPage(enablePage){
     
-    //     if(enablePage && this.step.result && this.step.result['protectionWhomSurvey'] && this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection']=='y')
+    //     if(enablePage && this.step.result && this.step.result.protectionWhomSurvey'] && this.step.result.protectionWhomSurvey'].data['ApplicantNeedsProtection']=='y')
     //         this.togglePages(this.noContantPage, true);
     //     else
     //         this.togglePages(this.noContantPage, false);
-    //         //console.log(this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection'])                    
+    //         //console.log(this.step.result.protectionWhomSurvey'].data['ApplicantNeedsProtection'])                    
     // } 
 
     public isSurveyAnsweredCorectly(){
-        //console.log(this.step.result['protectionWhomSurvey'].data)
-        if(this.step.result && this.step.result['protectionWhomSurvey'] && this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection']== 'n' && this.step.result['protectionWhomSurvey'].data['anotherAdultPO'] == 'n' && this.step.result['protectionWhomSurvey'].data['childPO'] == 'n'){
+        //console.log(this.step.result.protectionWhomSurvey'].data)
+        if(this.step.result && this.step.result.protectionWhomSurvey && this.step.result.protectionWhomSurvey.data.ApplicantNeedsProtection== 'n' && this.step.result.protectionWhomSurvey.data.anotherAdultPO == 'n' && this.step.result.protectionWhomSurvey.data.childPO == 'n'){
             return false;
         }
         else return true;

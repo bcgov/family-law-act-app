@@ -131,8 +131,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['specialAndExtraordinaryExpensesSurvey']) {
-            this.survey.data = this.step.result['specialAndExtraordinaryExpensesSurvey'].data;           
+        if (this.step.result && this.step.result.specialAndExtraordinaryExpensesSurvey) {
+            this.survey.data = this.step.result.specialAndExtraordinaryExpensesSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -147,8 +147,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
 
         //console.log(this.survey.data.childrenSupportExpenseItem)
 
-        if (this.step.result && this.step.result['childData']) {
-                this.childData = this.step.result['childData'].data;                           
+        if (this.step.result && this.step.result.childData) {
+                this.childData = this.step.result.childData.data;                           
                 //console.log(childData)                 
                 for (const childInx in this.childData){
                     const child = this.childData[childInx];

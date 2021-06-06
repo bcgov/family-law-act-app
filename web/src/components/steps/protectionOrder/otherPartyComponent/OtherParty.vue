@@ -102,8 +102,8 @@ export default class OtherParty extends Vue {
     editId = null;
  
     created() {
-        if (this.step.result && this.step.result["otherPartySurvey"]) {
-            this.otherPartyData = this.step.result["otherPartySurvey"].data;
+        if (this.step.result && this.step.result.otherPartySurvey) {
+            this.otherPartyData = this.step.result.otherPartySurvey.data;
         }
     }
 

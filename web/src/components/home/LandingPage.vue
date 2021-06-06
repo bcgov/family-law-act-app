@@ -165,9 +165,9 @@ export default class LandingPage extends Vue {
     @commonState.Action
     public UpdateLocationsInfo!: (newLocationsInfo: locationsInfoType[]) => void
 
-    isLoggedIn= false
-    pageReady = false
-    safetyInst = false
+    isLoggedIn = false;
+    pageReady = false;
+    safetyInst = false;
       
     async mounted() {
         this.pageReady = false;

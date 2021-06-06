@@ -838,17 +838,17 @@ export default class FormK extends Vue {
 
         if(this.result.selectedPOOrder && this.result.selectedPOOrder.orderType == 'needPO' && this.result.protectionWhomSurvey){            
 
-            if(this.result.protectionWhomSurvey['RespondentDOBExact'] == 'y' &&   this.result.protectionWhomSurvey['RespondentDOB'])
-                dob = this.result.protectionWhomSurvey['RespondentDOB']
+            if(this.result.protectionWhomSurvey.RespondentDOBExact == 'y' &&   this.result.protectionWhomSurvey.RespondentDOB)
+                dob = this.result.protectionWhomSurvey.RespondentDOB
             
-            if(this.result.protectionWhomSurvey['RespondentName'])
-                name = this.result.protectionWhomSurvey['RespondentName']
+            if(this.result.protectionWhomSurvey.RespondentName)
+                name = this.result.protectionWhomSurvey.RespondentName
             
-            if(this.result.protectionWhomSurvey['RespondentAddress'])
-                address = this.result.protectionWhomSurvey['RespondentAddress']
+            if(this.result.protectionWhomSurvey.RespondentAddress)
+                address = this.result.protectionWhomSurvey.RespondentAddress
             
-            if(this.result.protectionWhomSurvey['RespondentContact'])
-                contactInfo = this.result.protectionWhomSurvey['RespondentContact']
+            if(this.result.protectionWhomSurvey.RespondentContact)
+                contactInfo = this.result.protectionWhomSurvey.RespondentContact
                 
             info = [{'name':name, 'dob': dob , 'address': address ,'contact': contactInfo}]
         }

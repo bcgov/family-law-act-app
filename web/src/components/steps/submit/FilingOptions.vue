@@ -82,8 +82,8 @@ export default class FilingOptions extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["filingOptions"]){
-            this.survey.data = this.step.result["filingOptions"];
+        if (this.step.result && this.step.result.filingOptions){
+            this.survey.data = this.step.result.filingOptions;
         }
        
        this.allowEfiling();

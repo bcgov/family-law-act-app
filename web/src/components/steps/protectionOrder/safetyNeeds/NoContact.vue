@@ -76,8 +76,8 @@ export default class NoContact extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['noContactSurvey']){
-            this.survey.data = this.step.result['noContactSurvey'].data;
+        if (this.step.result && this.step.result.noContactSurvey){
+            this.survey.data = this.step.result.noContactSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
        

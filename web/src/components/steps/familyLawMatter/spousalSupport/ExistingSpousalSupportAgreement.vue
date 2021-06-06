@@ -38,9 +38,9 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);    
-    currentStep =0;
-    currentPage =0;
-    aboutSpousalSupportOrderPage = 36
+    currentStep = 0;
+    currentPage = 0;
+    aboutSpousalSupportOrderPage = 36;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -94,8 +94,8 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['existingSpousalSupportAgreementSurvey']) {
-            this.survey.data = this.step.result['existingSpousalSupportAgreementSurvey'].data;
+        if (this.step.result && this.step.result.existingSpousalSupportAgreementSurvey) {
+            this.survey.data = this.step.result.existingSpousalSupportAgreementSurvey.data;
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }

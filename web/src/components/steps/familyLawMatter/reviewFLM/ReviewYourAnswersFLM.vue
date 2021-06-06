@@ -215,8 +215,8 @@ export default class ReviewYourAnswersFlm extends Vue {
     public getChildrenNames(selectedChildren){
         //console.log('_________')
         let result = ''
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;
+        if (this.step.result && this.step.result.childData) {
+            const childData = this.step.result.childData.data;
             for(const selectedChild of selectedChildren ){
                 if(!isNaN(Number(selectedChild.substring(6,7)))){
                     const child = childData[Number(selectedChild.substring(6,7))]

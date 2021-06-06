@@ -76,8 +76,8 @@ export default class IncomeAndEarningPotential extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['childSupportIncomeEarningSurvey']) {
-            this.survey.data = this.step.result['childSupportIncomeEarningSurvey'].data;
+        if (this.step.result && this.step.result.childSupportIncomeEarningSurvey) {
+            this.survey.data = this.step.result.childSupportIncomeEarningSurvey.data;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }

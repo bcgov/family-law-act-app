@@ -75,13 +75,13 @@ export default class ChildSupportCurrentArrangement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['childSupportCurrentArrangementSurvey']) {
-            this.survey.data = this.step.result['childSupportCurrentArrangementSurvey'].data;
+        if (this.step.result && this.step.result.childSupportCurrentArrangementSurvey) {
+            this.survey.data = this.step.result.childSupportCurrentArrangementSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData) {
+            const childData = this.step.result.childData.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWordingSpend", "children spend");                    
             } else {

@@ -75,8 +75,8 @@ export default class Urgency extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['urgencySurvey']) {
-            this.survey.data = this.step.result['urgencySurvey'].data;
+        if (this.step.result && this.step.result.urgencySurvey) {
+            this.survey.data = this.step.result.urgencySurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 

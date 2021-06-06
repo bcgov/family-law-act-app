@@ -71,8 +71,8 @@ export default class SafetyCheck extends Vue {
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["safetySurvey"]){
-            this.survey.data = this.step.result["safetySurvey"];
+        if (this.step.result && this.step.result.safetySurvey){
+            this.survey.data = this.step.result.safetySurvey;
         }
         
         this.currentStep = this.$store.state.Application.currentStep;

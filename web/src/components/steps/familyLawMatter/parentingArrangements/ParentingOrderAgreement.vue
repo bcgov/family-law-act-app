@@ -91,14 +91,14 @@ export default class ParentingOrderAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['parentingOrderAgreementSurvey']){
-            this.survey.data = this.step.result['parentingOrderAgreementSurvey'].data;
+        if (this.step.result && this.step.result.parentingOrderAgreementSurvey){
+            this.survey.data = this.step.result.parentingOrderAgreementSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         // console.log(this.step.result)
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childData) {
+            const childData = this.step.result.childData.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

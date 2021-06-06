@@ -96,8 +96,8 @@ export default class YourInformationPo extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
 
-        if (this.step.result && this.step.result['questionnaireSurvey'] && this.step.result['questionnaireSurvey'].orderType) {
-            const orderType = this.step.result['questionnaireSurvey'].orderType
+        if (this.step.result && this.step.result.questionnaireSurvey && this.step.result.questionnaireSurvey.orderType) {
+            const orderType = this.step.result.questionnaireSurvey.orderType
             if (orderType == 'changePO' || orderType == 'terminatePO') {
                 this.survey.setVariable("newApp", false);
 
@@ -106,8 +106,8 @@ export default class YourInformationPo extends Vue {
             }        
         }
 
-        if (this.step.result && this.step.result['yourInformationSurveyPO']) {
-            this.survey.data = this.step.result['yourInformationSurveyPO'].data;
+        if (this.step.result && this.step.result.yourInformationSurveyPO) {
+            this.survey.data = this.step.result.yourInformationSurveyPO.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
        

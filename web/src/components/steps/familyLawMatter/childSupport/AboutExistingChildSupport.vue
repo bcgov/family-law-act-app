@@ -117,15 +117,15 @@ export default class AboutExistingChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['childSupportOrderAgreementSurvey']) {
-            const existingTypeData = this.step.result['childSupportOrderAgreementSurvey'].data;
+        if (this.step.result && this.step.result.childSupportOrderAgreementSurvey) {
+            const existingTypeData = this.step.result.childSupportOrderAgreementSurvey.data;
             // console.log(existingTypeData)
             this.survey.setVariable("existingType", existingTypeData.existingType)
             this.existingType = existingTypeData.existingType;
         }
 
-        if (this.step.result && this.step.result['aboutExistingChildSupportSurvey']) {
-            this.survey.data = this.step.result['aboutExistingChildSupportSurvey'].data;           
+        if (this.step.result && this.step.result.aboutExistingChildSupportSurvey) {
+            this.survey.data = this.step.result.aboutExistingChildSupportSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        

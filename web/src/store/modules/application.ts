@@ -972,8 +972,8 @@ class Application extends VuexModule {
     public checkAllCompleted() {
         let newAllCompleted = false;
         if(this.steps[0].result){
-            //console.log(this.steps[0].result['selectedForms'])
-            for(const selectedform of this.steps[0].result['selectedForms']){
+            //console.log(this.steps[0].result.selectedForms)
+            for(const selectedform of this.steps[0].result.selectedForms){
                 //console.log(selectedform)
                 if(this.pathwayCompleted[selectedform]) 
                     newAllCompleted = true;

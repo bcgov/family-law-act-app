@@ -331,25 +331,25 @@ export default class ApplicationStatus extends Vue {
             this.currentApplication.userType = applicationData.userType;        
             this.currentApplication.steps = applicationData.steps;
 
-            if(this.currentApplication.steps[0]['result']){
-                this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
-                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentsPO']?this.currentApplication.steps[0]['result']['respondentsPO'][0]:'';//applicationData.respondentName;
-                this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
-                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;                
+            if(this.currentApplication.steps[0].result){
+                this.currentApplication.applicantName =  this.currentApplication.steps[0].result.applicantName;
+                this.currentApplication.respondentName = this.currentApplication.steps[0].result.respondentsPO?this.currentApplication.steps[0].result.respondentsPO[0]:'';//applicationData.respondentName;
+                this.currentApplication.protectedPartyName = this.currentApplication.steps[0].result.protectedPartyName;//applicationData.protectedPartyName;
+                this.currentApplication.protectedChildName = this.currentApplication.steps[0].result.protectedChildName;//applicationData.protectedChildName;                
             }
 
             // console.log(this.currentApplication.types)
             this.$store.commit("Application/setCurrentApplication", this.currentApplication);
             this.$store.commit("Common/setExistingApplication", true);
 
-            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
-                this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
+            if(this.currentApplication.steps[0].result && this.currentApplication.steps[0].result.requiredDocuments)
+                this.UpdateRequiredDocuments(this.currentApplication.steps[0].result.requiredDocuments)
  
-            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['supportingDocumentForm4'])
-                this.UpdateSupportingDocumentForm4(this.currentApplication.steps[0]['result']['supportingDocumentForm4'])
+            if(this.currentApplication.steps[0].result && this.currentApplication.steps[0].result.supportingDocumentForm4)
+                this.UpdateSupportingDocumentForm4(this.currentApplication.steps[0].result.supportingDocumentForm4)
 
-            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['pathwayCompleted'])
-                this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           
+            if(this.currentApplication.steps[0].result && this.currentApplication.steps[0].result.pathwayCompleted)
+                this.UpdatePathwayCompletedFull(this.currentApplication.steps[0].result.pathwayCompleted)           
 
             this.checkAllCompleted();
             this.loadStepsAndPagesNames();

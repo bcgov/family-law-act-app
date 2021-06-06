@@ -85,8 +85,8 @@ export default class AboutChildSupportChanges extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutChildSupportChangesSurvey']) {
-            this.survey.data = this.step.result['aboutChildSupportChangesSurvey'].data; 
+        if (this.step.result && this.step.result.aboutChildSupportChangesSurvey) {
+            this.survey.data = this.step.result.aboutChildSupportChangesSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         

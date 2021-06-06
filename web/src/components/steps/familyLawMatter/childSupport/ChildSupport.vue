@@ -74,8 +74,8 @@ export default class ChildSupport extends Vue {
     public adjustSurveyForOtherParties(){        
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data; 
+        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
+            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data; 
             this.numberOfOtherParties = otherPartyData.length;           
             // console.log(otherPartyData)            
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];
@@ -111,8 +111,8 @@ export default class ChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
+        if (this.step.result && this.step.result.childSupportSurvey) {
+            this.survey.data = this.step.result.childSupportSurvey.data;
            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
