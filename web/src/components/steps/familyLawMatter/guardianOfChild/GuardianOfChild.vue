@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
         <div v-if="showTable" :key="tableKey" class="my-5">
             <b-card v-if="tableError" style="background-color:#f6e4e6; color: #961c1c">Please enter all the values.</b-card>

@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12"> <!-- v-if="showTable" -->
@@ -115,7 +115,7 @@ export default class ChildrenInfo extends Vue {
     anyRowToBeEdited = null;
     editId = null;    
     
-    public openForm(anyRowToBeEdited) {
+    public openForm(anyRowToBeEdited?) {
         this.showTable = false;
          Vue.nextTick(()=>{
             const el = document.getElementById('child-info-survey')

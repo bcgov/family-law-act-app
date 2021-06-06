@@ -153,7 +153,7 @@ export default class Schedule2 extends Vue {
     result!: any;
 
     dataReady = false;
-    exParentArrInfo = {}   
+    exParentArrInfo = {} as any; 
    
     mounted(){
         this.dataReady = false;        

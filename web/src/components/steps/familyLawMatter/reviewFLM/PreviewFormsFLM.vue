@@ -1,6 +1,6 @@
 <template>
     <div v-if="dataReady" >
-        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
             <form3 v-if="requiredForm == 3" @enableNext="EnableNext"/>
             <form1 v-if="requiredForm == 1" @enableNext="EnableNext"/>
         </page-base>

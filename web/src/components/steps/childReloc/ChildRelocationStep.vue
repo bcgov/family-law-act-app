@@ -21,7 +21,7 @@ import  RelocationForm  from "./RelocationForm.vue";
 export default class ChildRelocationStep extends Vue {
 
   @Prop({required: true})
-  step!: stepInfoType | Object
+  step!: stepInfoType;
 
   survey = new SurveyVue.Model(surveyJson);
   

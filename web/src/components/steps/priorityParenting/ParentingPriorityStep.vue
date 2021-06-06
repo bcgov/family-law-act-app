@@ -22,7 +22,7 @@ import  PriorityForm  from "./PriorityForm.vue"
 export default class ParentingPriorityStep extends Vue {
   
   @Prop({required: true})
-  step!: stepInfoType | Object
+  step!: stepInfoType;
 
   survey = new SurveyVue.Model(surveyJson);
 

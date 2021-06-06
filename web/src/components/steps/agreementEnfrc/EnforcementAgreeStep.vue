@@ -21,7 +21,7 @@ import  EnforcementForm  from "./EnforcementForm.vue"
 export default class EnforcementAgreeStep extends Vue {
   
   @Prop({required: true})
-  step!: stepInfoType | Object
+  step!: stepInfoType;
 
   survey = new SurveyVue.Model(surveyJson);
 

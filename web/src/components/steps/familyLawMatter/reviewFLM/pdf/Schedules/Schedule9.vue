@@ -161,9 +161,7 @@ export default class Form3 extends Vue {
     result!: any;
   
     dataReady = false;
-    spsSupInfo = {}
-
-    
+    spsSupInfo = {} as any;    
    
     mounted(){
         this.dataReady = false;        

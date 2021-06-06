@@ -329,7 +329,7 @@ export default class Form1Layout extends Vue {
 
     otherPartyInfo=[];
     additionalOtherParties = [];
-    firstOtherParty = {};
+    firstOtherParty = {} as any;
     yourInfo;
 
     applicantList = []

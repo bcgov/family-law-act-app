@@ -21,7 +21,7 @@ import  CaseForm  from "./CaseForm.vue"
 export default class CaseManagementStep extends Vue {
   
   @Prop({required: true})
-  step!: stepInfoType | Object
+  step!: stepInfoType;
 
   survey = new SurveyVue.Model(surveyJson);
 };
