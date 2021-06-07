@@ -131,7 +131,7 @@ export default class Schedule6 extends Vue {
     result!: any; 
    
     dataReady = false;
-    exChContInfo = {}
+    exChContInfo = {} as any;
    
     mounted(){
         this.dataReady = false;      

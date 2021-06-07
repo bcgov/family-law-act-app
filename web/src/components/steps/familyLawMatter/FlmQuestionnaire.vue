@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
     <div class="row">
       <div class="col-md-12 order-heading">
         <div>
@@ -92,6 +92,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Tooltip from "@/components/survey/Tooltip.vue";
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -103,6 +104,9 @@ export default class FlmQuestionnaire extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -123,39 +127,10 @@ export default class FlmQuestionnaire extends Vue {
     currentStep = 0;
     currentPage = 0;
 
-    allPages = _.range(1,41)
-        
-    //childrenInfoPage = [2];
-    backgroundPage = 1
-    parentingOrderAgreementPage = 7
-    aboutParentingArrangementPage = 8
-    parentingArrangementsPage = 3
-    
-
-    aboutExistingChildSupportPage = 16
-
-    contactWithChildPage = 22
-    contactWithChildOrderPage = 23
-
-    guardianOfChildPage = 26
-
-
-    additionalDocumentsPage = 38
-    reviewYourAnswersPage = 39
-    formPreviewPage = 40
-
-    existingSpousalSupportOrderAgreementPage = 32
-
-    existingSpousalSupportAgreementPage = 34
-
-    existingSpousalSupportFinalOrderPage = 33
-
-
-    //review-answers page
-    commonPages = [39];
- 
+    allPages = []; 
 
     mounted(){
+        this.allPages = _.range(this.stPgNo.FLM.FlmBackground, Object.keys(this.stPgNo.FLM).length-1) 
         this.reloadPageInformation();
     }
 
@@ -186,6 +161,7 @@ export default class FlmQuestionnaire extends Vue {
 
     public setSteps(selectedForm) {
         // console.log(selectedForm)
+        const p = this.stPgNo.FLM
         if (selectedForm) {
             this.togglePages(this.allPages, false); 
             const progress = this.selectedForm.length==0? 50 : 100;
@@ -196,42 +172,42 @@ export default class FlmQuestionnaire extends Vue {
 
                 this.determineSteps();                            
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.FlmBackground].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmBackground, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingOrderAgreementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingOrderAgreementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ParentingOrderAgreement].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ParentingOrderAgreement, 50, false);
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutParentingArrangementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutParentingArrangementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutParentingArrangements].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutParentingArrangements, 50, false);
             
                 //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.additionalDocumentsPage, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmAdditionalDocuments, 0, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingArrangementsPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingArrangementsPage, 50, false);    
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ParentingArrangements].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ParentingArrangements, 50, false);    
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutExistingChildSupportPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutExistingChildSupportPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutExistingChildSupport].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutExistingChildSupport, 50, false);
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.contactWithChildPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.contactWithChildPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ContactWithChild].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactWithChild, 50, false);
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.contactWithChildOrderPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.contactWithChildOrderPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ContactWithChildOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactWithChildOrder, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.guardianOfChildPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.guardianOfChildPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.GuardianOfChild].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.GuardianOfChild, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportOrderAgreementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportOrderAgreementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportOrderAgreement].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportOrderAgreement, 50, false);
               
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportFinalOrderPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportFinalOrderPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportFinalOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportFinalOrder, 50, false);
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportAgreementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportAgreementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportAgreement].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportAgreement, 50, false);
    
             }   
 
@@ -240,25 +216,27 @@ export default class FlmQuestionnaire extends Vue {
 
     public determineSteps(){
         let formOneRequired = false;
+        const p = this.stPgNo.FLM
+        const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
 
-        if( this.$store.state.Application.steps[2].result &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
-                const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
+        if( stepCOM.result &&
+            stepCOM.result.filingLocationSurvey &&
+            stepCOM.result.filingLocationSurvey.data){
+                const filingLocationData = stepCOM.result.filingLocationSurvey.data;
                 formOneRequired = this.determineRequiredForm(filingLocationData);
         }
 
         if (!formOneRequired){
-            this.togglePages([this.backgroundPage], true);
+            this.togglePages([p.FlmBackground], true);
             // this.togglePages(this.commonPages, false);
-            this.togglePages([this.formPreviewPage], false);
+            this.togglePages([p.PreviewFormsFLM], false);
             this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
-            if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 50, false);
+            if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersFLM].progress==100)
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 50, false);
 
         } else {
-            this.togglePages([this.backgroundPage], false);
-            this.togglePages(this.commonPages, true);//reviewAnswers
+            this.togglePages([p.FlmBackground], false);
+            this.togglePages([p.ReviewYourAnswersFLM], true);
         }   
     }
 
@@ -299,7 +277,7 @@ export default class FlmQuestionnaire extends Vue {
     public checkErrorOnPages(){
 
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-        for(const stepIndex of [2]){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo]){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){

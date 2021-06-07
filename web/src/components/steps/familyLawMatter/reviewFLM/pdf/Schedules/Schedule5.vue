@@ -95,7 +95,7 @@ export default class Schedule5 extends Vue {
     result!: any;
     
     dataReady = false;
-    chContInfo = {}   
+    chContInfo = {} as any;   
    
     mounted(){
         this.dataReady = false;   

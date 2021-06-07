@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -17,6 +17,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -28,6 +29,9 @@ export default class ParentingOrderAgreement extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -43,12 +47,8 @@ export default class ParentingOrderAgreement extends Vue {
 
     selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
-
-    additionalDocumentsPage = 38; 
-    reviewAnswersPage = 39;
-    previewPdfPage = 40 ;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -77,11 +77,14 @@ export default class ParentingOrderAgreement extends Vue {
     }
 
     public setPages(){
+
+        const p = this.stPgNo.FLM
+        
         if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                this.togglePages([8, 9, 10, this.additionalDocumentsPage, this.reviewAnswersPage, this.previewPdfPage], false);
+                this.togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false);
             } else {
-                this.togglePages([8,  this.reviewAnswersPage], true);
+                this.togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true);
             }
         }   
     }
@@ -141,5 +144,5 @@ export default class ParentingOrderAgreement extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

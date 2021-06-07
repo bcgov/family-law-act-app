@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -28,6 +30,9 @@ export default class AboutParentingArrangements extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -41,11 +46,8 @@ export default class AboutParentingArrangements extends Vue {
     
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
-
-    additionalDocumentsPage = 38 
-    reviewAnswersPage = 39;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -78,31 +80,35 @@ export default class AboutParentingArrangements extends Vue {
     }
 
     public setPages(){
-        this.togglePages([ this.reviewAnswersPage], true);
+
+        const p = this.stPgNo.FLM
+        const paPages =    [p.ParentingArrangementChanges, p.BestInterestsOfChild]
+        const paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]
+
+        this.togglePages([p.ReviewYourAnswersFLM], true);
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([9, 10], true);
-                //this.togglePages([10], false);
+                this.togglePages(paPages, true);
+
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                this.togglePages([10], true);
-                this.togglePages([9], false);
+                this.togglePages([p.BestInterestsOfChild], true);
+                this.togglePages([p.ParentingArrangementChanges], false);
             }
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([9, 10], true);
-                // this.togglePages([10], false);
+                this.togglePages(paPages, true);
+
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([10], true);
-                this.togglePages([9], false);
+                this.togglePages([p.BestInterestsOfChild], true);
+                this.togglePages([p.ParentingArrangementChanges], false);
             }
         } else if (this.survey.data.existingType == 'Neither') {
             this.disableNextButton = true;
-            this.togglePages([9, 10, this.additionalDocumentsPage, this.reviewAnswersPage], false);
+            this.togglePages(paPagesAll, false);
         }         
     }     
-            
        
 
     public togglePages(pageArr, activeIndicator) {        
@@ -153,5 +159,5 @@ export default class AboutParentingArrangements extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

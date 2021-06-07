@@ -104,7 +104,7 @@ export default class Form3 extends Vue {
     selectedSchedules!: string[];
    
     dataReady = false;
-    guardInfo = {};    
+    guardInfo = {} as any;    
    
     mounted(){
         this.dataReady = false;       

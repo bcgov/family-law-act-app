@@ -39,6 +39,7 @@ import Schedule8 from "./Schedules/Schedule8.vue"
 import Schedule9 from "./Schedules/Schedule9.vue"
 import Schedule10 from "./Schedules/Schedule10.vue"
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
 import { nameInfoType } from '@/types/Application';
@@ -61,6 +62,9 @@ import { nameInfoType } from '@/types/Application';
 })
 
 export default class Form3 extends Vue {
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -146,8 +150,8 @@ export default class Form3 extends Vue {
     public getFLMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=2;i<4; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResult in stepResults){
                 //console.log(stepResults[stepResult])
                 //console.log(stepResults[stepResult].data)
@@ -160,7 +164,7 @@ export default class Form3 extends Vue {
     //     const protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
     //     Object.assign(result, result, protectedPartyName);
 
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[3].result.childBestInterestAcknowledgement};
+        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.FLM._StepNo].result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;

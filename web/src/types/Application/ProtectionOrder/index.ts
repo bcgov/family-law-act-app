@@ -252,3 +252,11 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
         currentStep: number;
         currentPage: number;
     }
+
+    export interface selectedPOOrderInfoType {
+        data: poQuestionnaireSurveyInfoType;
+        questions: questionInfoType[];
+        pageName: string;
+        currentStep: number;
+        currentPage: number;
+    }

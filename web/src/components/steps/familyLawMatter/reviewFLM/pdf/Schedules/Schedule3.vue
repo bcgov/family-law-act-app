@@ -266,7 +266,7 @@ export default class Schedule3 extends Vue {
     public applicantName!: nameInfoType;
    
     dataReady = false;   
-    chSupInfo = {}
+    chSupInfo = {} as any;
    
     mounted(){
         this.dataReady = false;

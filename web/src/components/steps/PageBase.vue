@@ -46,7 +46,7 @@ export default class PageBase extends Vue {
     
     error: ""
  
-    public onPrev(event) {
+    public onPrev() {
         Vue.nextTick().then(()=>{this.saveChanges();});      
         if (this.$listeners && this.$listeners.onPrev) {
             this.$emit('onPrev');
@@ -56,7 +56,7 @@ export default class PageBase extends Vue {
         //window.scrollTo(0, 0);
     }
 
-    public onNext(event) {
+    public onNext() {
         if (!this.isDisableNext()) {
             Vue.nextTick().then(()=>{this.saveChanges();});
             if (this.$listeners && this.$listeners.onNext) {  

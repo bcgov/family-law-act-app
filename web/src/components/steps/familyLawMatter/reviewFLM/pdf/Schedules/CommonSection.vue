@@ -306,15 +306,26 @@ export default class CommonSection extends Vue {
     dataReady = false;
     aboutChildren = false;
 
-    locationInfo = {};
+    locationInfo = {} as {
+            courtLocation: string;
+            existingFileNumber: string; 
+            educationRegistry: boolean;
+            familyJusticeRegistry: boolean;
+            earlyResolutionRegistry: boolean;
+            none: boolean;
+        };
 
     otherPartyInfo=[];
     yourInfo;
 
     applicantList = []
     
-    existingOrders = {}
-    relationshipBetweenParties = {}
+    existingOrders = {} as {
+        existingFlm: boolean; 
+        existingPO: boolean;
+    }
+    
+    relationshipBetweenParties = {} as any;
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';  

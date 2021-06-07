@@ -245,7 +245,7 @@ export default class Schedule4 extends Vue {
     result!: any;
 
     dataReady = false;   
-    exChSupInfo = {}
+    exChSupInfo = {} as any;
    
     mounted(){
         this.dataReady = false;      

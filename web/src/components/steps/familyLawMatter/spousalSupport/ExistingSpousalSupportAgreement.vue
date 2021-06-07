@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -26,7 +28,10 @@ const applicationState = namespace("Application");
 export default class AboutExistingSpousalSupportAgreement extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;       
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,7 +45,6 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep = 0;
     currentPage = 0;
-    aboutSpousalSupportOrderPage = 36;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -71,11 +75,11 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
 
     public setPages(){
         if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-            this.togglePages([this.aboutSpousalSupportOrderPage ], true);
+            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder ], true);
             
         } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
             
-            this.togglePages([this.aboutSpousalSupportOrderPage ], false);
+            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
         }         
     }  
 
@@ -125,5 +129,5 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

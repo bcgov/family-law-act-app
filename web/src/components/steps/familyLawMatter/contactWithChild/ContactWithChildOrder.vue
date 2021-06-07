@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -27,7 +29,10 @@ const applicationState = namespace("Application");
 export default class ContactWithChildOrder extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;   
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,11 +45,8 @@ export default class ContactWithChildOrder extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
-
-    additionalDocumentsPage = 38; 
-    reviewAnswersPage = 39;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -79,28 +81,34 @@ export default class ContactWithChildOrder extends Vue {
     }    
             
     public setPages(){ 
-        this.togglePages([ this.reviewAnswersPage], true);           
+
+        const p = this.stPgNo.FLM
+        const pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
+        const pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
+
+
+        this.togglePages([p.ReviewYourAnswersFLM], true);           
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([24, 25], true);
-                // this.togglePages([25], false);
+                this.togglePages(pgPages, true);
+
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                this.togglePages([25], true);
-                this.togglePages([24], false);
+                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
+                this.togglePages([p.AboutContactWithChildOrder], false);
             }
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([24, 25], true);
-                // this.togglePages([25], false);
+                this.togglePages(pgPages, true);
+                
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([25], true);
-                this.togglePages([24], false);
+                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
+                this.togglePages([p.AboutContactWithChildOrder], false);
             }
         } else if (this.survey.data.existingType == 'Neither') {
             
-            this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], false);
+            this.togglePages(pgPagesAll, false);
             this.disableNextButton = true;            
         }
     }

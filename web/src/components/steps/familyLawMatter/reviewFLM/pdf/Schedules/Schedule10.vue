@@ -186,9 +186,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
-    </b-card>
+        </div>    
 </div>
 </template>
 
@@ -210,7 +208,7 @@ export default class Form3 extends Vue {
     result!: any; 
   
     dataReady = false;    
-    exSpsSupInfo = {}
+    exSpsSupInfo = {} as any;
    
     mounted(){
         this.dataReady = false;       

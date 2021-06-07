@@ -135,7 +135,6 @@ export default class YourInformation extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
        //console.log(this.surveyJsonCopy.pages[0].elements[0].elements[0])
-       //console.log(this.steps[1].result.yourInformationSurveyPO.data)
        // console.log(this.steps[0].result.selectedForms)
         if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;

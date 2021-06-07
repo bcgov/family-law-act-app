@@ -31,3 +31,18 @@ export interface documentTypesJsonInfoType {
     description: string;
     type: string;
 }
+
+export interface  applicationJsonInfoType {
+    lastUpdated?: number, 
+    lastUpdatedDate?: string, 
+    id?: number, 
+    app_type?: string, 
+    lastFiled?: number, 
+    lastFiledDate?: string, 
+    packageNum?: string, 
+    listOfPdfs?: string[], 
+    last_efiling_submission:{
+        package_number?: string,
+        package_url?: string
+    }
+};

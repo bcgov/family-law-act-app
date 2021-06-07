@@ -1,6 +1,6 @@
 <template>
   <step-base v-bind:step="step">
-    <enforcement-form v-bind:step="step" v-if="step.currentPage == 0"></enforcement-form>
+    <enforcement-form v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnforcementForms" />
   </step-base>
 </template>
 
@@ -8,9 +8,13 @@
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
-import * as SurveyVue from "survey-vue";
-import surveyJson from "../common-information/forms/your-information.json";
+
 import  EnforcementForm  from "./EnforcementForm.vue"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
 @Component({
     components:{
@@ -21,14 +25,15 @@ import  EnforcementForm  from "./EnforcementForm.vue"
 export default class EnforcementAgreeStep extends Vue {
   
   @Prop({required: true})
-  step!: stepInfoType | Object
+  step!: stepInfoType;
 
-  survey = new SurveyVue.Model(surveyJson);
+  @applicationState.State
+  public stPgNo!: stepsAndPagesNumberInfoType;
 
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/survey";
 </style>

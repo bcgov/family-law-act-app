@@ -176,7 +176,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/common";
 const commonState = namespace("Common");
 import "@/store/modules/application";
-import { documentTypesJsonInfoType } from '@/types/Common';
+import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component
@@ -216,7 +216,7 @@ export default class ApplicationStatus extends Vue {
     ]
     confirmDelete = false;
     currentApplication = {} as applicationInfoType;
-    applicationToDelete = {}
+    applicationToDelete = {} as applicationJsonInfoType
     indexToDelete = -1 
     applicationId = ''
     error = ''
@@ -242,7 +242,7 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
             //console.log(response)
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}};
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -332,10 +332,10 @@ export default class ApplicationStatus extends Vue {
             this.currentApplication.steps = applicationData.steps;
 
             if(this.currentApplication.steps[0].result){
-                this.currentApplication.applicantName =  this.currentApplication.steps[0].result.applicantName;
-                this.currentApplication.respondentName = this.currentApplication.steps[0].result.respondentsPO?this.currentApplication.steps[0].result.respondentsPO[0]:'';//applicationData.respondentName;
-                this.currentApplication.protectedPartyName = this.currentApplication.steps[0].result.protectedPartyName;//applicationData.protectedPartyName;
-                this.currentApplication.protectedChildName = this.currentApplication.steps[0].result.protectedChildName;//applicationData.protectedChildName;                
+                this.currentApplication.applicantName =  Vue.filter('getFullName')(this.currentApplication.steps[0].result.applicantName);
+                this.currentApplication.respondentName = this.currentApplication.steps[0].result.respondentsPO? Vue.filter('getFullName')(this.currentApplication.steps[0].result.respondentsPO[0]):'';//applicationData.respondentName;
+                this.currentApplication.protectedPartyName =  Vue.filter('getFullName')(this.currentApplication.steps[0].result.protectedPartyName);//applicationData.protectedPartyName;
+                this.currentApplication.protectedChildName =  Vue.filter('getFullName')(this.currentApplication.steps[0].result.protectedChildName);//applicationData.protectedChildName;                
             }
 
             // console.log(this.currentApplication.types)
@@ -360,7 +360,7 @@ export default class ApplicationStatus extends Vue {
         });
     }   
 
-    public extractTypes(applicationTypes: string) {
+    public extractTypes(applicationTypes: string[]) {
 
 
         let types = [];
@@ -421,7 +421,7 @@ export default class ApplicationStatus extends Vue {
     }
 
     printingApplicationId = 0;
-    printingListOfPdfs = [];
+    printingListOfPdfs: string[] = [];
     showSelectFileForPrint =  false;
     public viewApplicationPdf(applicationId, listOfPdfs) {
         // console.log(applicationId)
@@ -511,7 +511,7 @@ export default class ApplicationStatus extends Vue {
             console.error(step.name)
             //console.warn(stepsAndPagesNumber[step.name].StepNo)
             for(const page of step.pages){
-                console.log(page.name)
+                console.log(page.key+' ' +page.name)
                 stepsAndPagesNumber[step.name][page.name] = Number(page.key)
             }
         }
