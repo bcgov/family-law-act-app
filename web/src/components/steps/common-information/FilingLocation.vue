@@ -109,6 +109,8 @@ export default class FilingLocation extends Vue {
     messageA = false;
     messageB = false;
 
+    form1Enabled = false;
+
     aboutPOpage = 11
     filingLocationPOpage = 3
     editButton = false
@@ -191,7 +193,7 @@ export default class FilingLocation extends Vue {
     }
 
     public determineRegistry(location){
-        
+        this.form1Enabled = false;
         if (this.courtsA.includes(location)){           
             this.survey.setValue("familyJusticeRegistry",   true);
             this.survey.setValue("familyEducationProgram",  false);
@@ -205,6 +207,7 @@ export default class FilingLocation extends Vue {
             this.survey.setValue("familyEducationProgram",  false);
             if(this.survey.data.MetEarlyResolutionRequirements == 'n'){                
                 this.togglePages(this.allPages,false);
+                this.form1Enabled = true;
             }          
         } else {                       
             this.survey.setValue("familyJusticeRegistry",   false);
@@ -334,13 +337,16 @@ export default class FilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
-        const fileType = 'FLC'
+        const fileTypeI  = 'FLC'
+        const fileTypeII = 'NTRF'
+        const fileType = this.form1Enabled? fileTypeII : fileTypeI
+
         const existingOrders = this.$store.state.Application.steps[0]['result']?this.$store.state.Application.steps[0]['result']['existingOrders']:''
         
         const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
 
         if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == fileType)})
+            const index = existingOrders.findIndex(order=>{return(order.type == fileTypeI || order.type == fileTypeII)})
             if(index >= 0 ){
                 if(existingOrdersCondition)
                     existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
@@ -374,9 +380,9 @@ export default class FilingLocation extends Vue {
     }
 
     beforeDestroy() {
-        this.setExistingFileNumber();
-        
+
         this.determineRegistry(this.survey.data.ExistingCourt);
+        this.setExistingFileNumber();
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
