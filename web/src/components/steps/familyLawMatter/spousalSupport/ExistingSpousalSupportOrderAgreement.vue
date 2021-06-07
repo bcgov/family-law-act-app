@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -28,6 +30,9 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];    
@@ -43,17 +48,8 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;    
-    currentStep=0;
-    currentPage=0;
-
-    existingSpousalSupportPages = [33, 34, 35, 36, 37, 38, 39]
-    existingSpousalSupportFinalOrderPage = 33
-    existingSpousalSupportAgreementPage = 34
-    calculatingSpousalSupportPage = 35
-    unpaidSpousalSupportPage = 37
-
-    additionalDocumentsPage = 38 
-    reviewYourAnswersPage = 39
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -96,16 +92,21 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     }
 
     public setPages(){
+
+        const p = this.stPgNo.FLM
+        const existingSpousalSupportPages = [p.ExistingSpousalSupportFinalOrder, p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.AboutExistingSpousalSupportOrder, p.UnpaidSpousalSupport, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]  
+
+
         if (this.survey.data.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([this.existingSpousalSupportFinalOrderPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage,  this.reviewYourAnswersPage], true); 
-            this.togglePages([this.existingSpousalSupportAgreementPage], false);               
+            this.togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true); 
+            this.togglePages([p.ExistingSpousalSupportAgreement], false);               
         } else if (this.survey.data.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([this.existingSpousalSupportAgreementPage, this.calculatingSpousalSupportPage, this.unpaidSpousalSupportPage,  this.reviewYourAnswersPage], true); 
-            this.togglePages([this.existingSpousalSupportFinalOrderPage], false);                
+            this.togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true); 
+            this.togglePages([p.ExistingSpousalSupportFinalOrder], false);                
         } else if (this.survey.data.existingType == "Neither") {
-            this.togglePages(this.existingSpousalSupportPages, false);
+            this.togglePages(existingSpousalSupportPages, false);
             this.disableNextButton = true;
         }
     }

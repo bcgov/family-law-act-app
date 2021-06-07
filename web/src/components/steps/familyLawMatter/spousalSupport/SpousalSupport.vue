@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+
 @Component({
     components:{
         PageBase
@@ -28,6 +30,9 @@ export default class SpousalSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -79,8 +84,10 @@ export default class SpousalSupport extends Vue {
              
         this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
 
-        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
-            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data;            
+        const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]        
+
+        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
                this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name));

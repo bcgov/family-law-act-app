@@ -89,13 +89,7 @@ Vue.filter('setSurveyProgress', function(survey, currentStep: number, currentPag
 		progress = survey.isCurrentPageHasErrors? 50 : 100;
 
 	store.commit("Application/setPageProgress", { currentStep: currentStep, currentPage:currentPage, progress:progress });
-	
-	// const reviewProgress = store.state.Application.steps[8].pages[0].progress
-	// if(currentStep < 8 && reviewProgress){
-	// 	console.log('review required')
-	// 	console.log(currentStep)
-	// 	store.commit("Application/setPageProgress", { currentStep: 8, currentPage:0, progress:50 });
-	// }
+
 })
 
 Vue.filter('setProgressForPages', function(currentStep: number, pageNumbers: number[], progress: number){
@@ -242,11 +236,12 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 })
 
 Vue.filter('FLMform4Required', function(){
+	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
 
 	const form4Pages = store.state.Application.supportingDocumentForm4
 	if(store.state.Application.supportingDocumentForm4.length>0){
 		for(const page of form4Pages){
-			if(store.state.Application.steps[3].pages[page].active)
+			if(store.state.Application.steps[stepFLMnum].pages[page].active)
 			{
 				//console.log('FORM4')
 				return true
@@ -257,7 +252,8 @@ Vue.filter('FLMform4Required', function(){
 })
 
 Vue.filter('FLMform5Required', function(){
-	const results = store.state.Application.steps[3].result
+	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
+	const results = store.state.Application.steps[stepFLMnum].result
 	if( results &&
 		results.flmSelectedForm &&
 		results.flmSelectedForm.data &&
@@ -311,7 +307,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	if(type == 'familyLawMatter'){	
 
-		//const selectedPathways = store.state.Application.steps[3].result && store.state.Application.steps[3].result.flmSelectedForm && store.state.Application.steps[3].result.flmSelectedForm.data? store.state.Application.steps[3].result.flmSelectedForm.data:[]
+		//const selectedPathways = store.state.Application.steps[stepFLMnum].result && store.state.Application.steps[stepFLMnum].result.flmSelectedForm && store.state.Application.steps[stepFLMnum].result.flmSelectedForm.data? store.state.Application.steps[stepFLMnum].result.flmSelectedForm.data:[]
 		//if(questions.filingLocationSurvey && questions.filingLocationSurvey.ExistingFamilyCase == "y")
 		
 		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y"|| questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.ExistingOrdersFLM == "y")
@@ -387,17 +383,18 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 Vue.filter('replaceRequiredDocuments', function(){
 	const requireDocs = JSON.parse(JSON.stringify(store.state.Application.requiredDocuments));
+	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
 
 	if(store.state.Application.requiredDocuments['familyLawMatter'] && store.state.Application.requiredDocuments['familyLawMatter'].required){
 		requireDocs['familyLawMatter']['required'] = []		
 		let caseManagementDocPushed = false
 		for(const doc of store.state.Application.requiredDocuments['familyLawMatter'].required){
-			if( store.state.Application.steps[3].result &&
-				store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
-				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
-				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs =='n' &&
-				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms && 
-				store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.unableFileForms.includes(doc)){
+			if( store.state.Application.steps[stepFLMnum].result &&
+				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocsSurvey &&
+				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocsSurvey.data &&
+				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs =='n' &&
+				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocsSurvey.data.unableFileForms && 
+				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocsSurvey.data.unableFileForms.includes(doc)){
 					if(!caseManagementDocPushed){
 						requireDocs['familyLawMatter']['required'].push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true' target='_blank'> Application for Case Management Order Without Notice or Attendance </a> Form 11")
 						caseManagementDocPushed = true;
@@ -414,12 +411,22 @@ Vue.filter('replaceRequiredDocuments', function(){
 })
 
 Vue.filter('surveyChanged', function(type: string) {
-	let step = 1
-	let reviewPage = 12
-	let previewPage = 13
+	const stepPO = store.state.Application.stPgNo.PO
+	const stepFLM = store.state.Application.stPgNo.FLM
+	let step = stepPO._StepNo; 
+	let reviewPage = stepPO.ReviewYourAnswers; 
+	let previewPage = stepPO.PreviewForms;
 	
-	if(type == 'protectionOrder'){step = 1; reviewPage = 13; previewPage = 14;}
-	else if(type == 'familyLawMatter'){step = 3; reviewPage = 39; previewPage = 40;	}
+	if(type == 'protectionOrder'){
+		step = stepPO._StepNo; 
+		reviewPage = stepPO.ReviewYourAnswers; 
+		previewPage = stepPO.PreviewForms;
+	}
+	else if(type == 'familyLawMatter'){
+		step = stepFLM._StepNo; 
+		reviewPage = stepFLM.ReviewYourAnswersFLM; 
+		previewPage = stepFLM.PreviewFormsFLM;	
+	}
 
 	const steps = store.state.Application.steps
 

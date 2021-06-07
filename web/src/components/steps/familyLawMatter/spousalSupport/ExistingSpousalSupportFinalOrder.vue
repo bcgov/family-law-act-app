@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -26,7 +28,10 @@ const applicationState = namespace("Application");
 export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;       
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,8 +45,6 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);    
     currentStep =0;
     currentPage =0;
-    aboutSpousalSupportOrderPage = 36
-    
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -72,11 +75,11 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
 
     public setPages(){
         if(this.survey.data.orderDifferenceType == 'changeOrder'){
-            this.togglePages([this.aboutSpousalSupportOrderPage ], true);
+            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true);
             
         } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
             
-            this.togglePages([this.aboutSpousalSupportOrderPage ], false);
+            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
         }
     }
 

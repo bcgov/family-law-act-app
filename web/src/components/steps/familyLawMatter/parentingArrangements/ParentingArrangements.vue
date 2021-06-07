@@ -17,6 +17,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -27,7 +28,10 @@ const applicationState = namespace("Application");
 export default class ParentingArrangements extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;    
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,8 +44,8 @@ export default class ParentingArrangements extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existing = false;
 
     beforeCreate() {
@@ -77,13 +81,16 @@ export default class ParentingArrangements extends Vue {
     }    
     
     public setPages(){
+        const p = this.stPgNo.FLM
+        const agPages = [p.ParentalResponsibilities, p.ParentingTime, p.OtherParentingArrangements,  p.BestInterestsOfChild]
+
         if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
                 this.disableNextButton = true;
-                this.togglePages([4, 5, 6, 10], false);
+                this.togglePages(agPages, false);
             } else {
                 this.disableNextButton = false;
-                this.togglePages([4, 5, 6, 10], true);
+                this.togglePages(agPages, true);
             }
         }         
     }   

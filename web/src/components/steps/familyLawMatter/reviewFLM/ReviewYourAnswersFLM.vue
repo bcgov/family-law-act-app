@@ -49,6 +49,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -59,6 +61,9 @@ export default class ReviewYourAnswersFlm extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -86,8 +91,6 @@ export default class ReviewYourAnswersFlm extends Vue {
     currentPage=0;
     pageHasError = false;
 
-    previewFormsPage = 40;
-
     errorQuestionNames = [];
     currentDate = ''
 
@@ -95,9 +98,9 @@ export default class ReviewYourAnswersFlm extends Vue {
     nextPageChange(newVal) 
     {
         //console.log(newVal)
-        this.togglePages([this.previewFormsPage], !this.pageHasError);
+        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
@@ -334,11 +337,11 @@ export default class ReviewYourAnswersFlm extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
-           Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
         }
 
         this.pageHasError = false;
-        for(const stepIndex of [2,3]){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
             // console.log(step)
@@ -380,7 +383,7 @@ export default class ReviewYourAnswersFlm extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
         //this.togglePages([0,1], true);
-        this.togglePages([this.previewFormsPage], !this.pageHasError); 
+        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError); 
         
     }
 

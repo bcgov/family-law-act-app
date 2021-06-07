@@ -16,6 +16,7 @@ import PageBase from "@/components/steps/PageBase.vue";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -25,6 +26,9 @@ const applicationState = namespace("Application");
     }
 })
 export default class PreviewFormsFlm extends Vue {
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -47,16 +51,18 @@ export default class PreviewFormsFlm extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         this.determineRequiredForm();
-        if(this.checkErrorOnPages([2,3])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo])) this.dataReady = true;
     }
 
     public determineRequiredForm(){        
 
-        if(this.$store.state.Application.steps[2] && 
-            this.$store.state.Application.steps[2].result &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
-            const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
+        const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
+
+        if( stepCOM && 
+            stepCOM.result &&
+            stepCOM.result.filingLocationSurvey &&
+            stepCOM.result.filingLocationSurvey.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
             const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
     
             const location = filingLocationData.ExistingCourt;                            

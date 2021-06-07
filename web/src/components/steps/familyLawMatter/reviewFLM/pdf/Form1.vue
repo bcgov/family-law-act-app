@@ -16,6 +16,9 @@ import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 import Form1Layout from "./Form1Layout.vue";
 
 import moment from 'moment';
@@ -28,6 +31,9 @@ import { nameInfoType } from '@/types/Application';
 })
 
 export default class Form1 extends Vue {
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -113,15 +119,15 @@ export default class Form1 extends Vue {
     public getFLMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=2;i<4; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResult in stepResults){         
                 if(stepResults[stepResult])
                     result[stepResult]=stepResults[stepResult].data; 
             }
         }     
 
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[3].result.childBestInterestAcknowledgement};
+        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.FLM._StepNo].result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;

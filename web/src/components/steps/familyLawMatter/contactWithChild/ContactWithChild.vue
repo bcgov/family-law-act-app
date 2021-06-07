@@ -17,6 +17,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -27,7 +28,10 @@ const applicationState = namespace("Application");
 export default class ContactWithChild extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;   
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,11 +44,8 @@ export default class ContactWithChild extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
-
-    additionalDocumentsPage = 38 
-    reviewAnswersPage = 39;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -76,13 +77,17 @@ export default class ContactWithChild extends Vue {
     }    
     
     public setPages(){
+        const p = this.stPgNo.FLM
+        const pgPages =    [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM]
+        const pgPagesAll = [p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
+
         if (this.survey.data.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
-                this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], false);
+                this.togglePages(pgPagesAll, false);
             } else {
                 this.disableNextButton = false;
-                this.togglePages([24, 25, this.reviewAnswersPage], true);
+                this.togglePages(pgPages, true);
             }
         }             
     }

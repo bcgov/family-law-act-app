@@ -17,6 +17,8 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 
 @Component({
     components:{
@@ -28,6 +30,9 @@ export default class ChildSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -73,9 +78,10 @@ export default class ChildSupport extends Vue {
 
     public adjustSurveyForOtherParties(){        
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
+        const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (this.steps[2].result && this.steps[2].result.otherPartyCommonSurvey && this.steps[2].result.otherPartyCommonSurvey.data) {
-            const otherPartyData = this.steps[2].result.otherPartyCommonSurvey.data; 
+        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data; 
             this.numberOfOtherParties = otherPartyData.length;           
             // console.log(otherPartyData)            
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];

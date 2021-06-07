@@ -42,8 +42,8 @@ export default class IndigenousAncestryOfChild extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);    
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     showPopup = false;
 
     beforeCreate() {
@@ -86,26 +86,8 @@ export default class IndigenousAncestryOfChild extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-
-        // if (this.determineShowPopup()) {
-        //     this.showPopup = true;
-
-        // } else {
-        //     this.showPopup = false;
-        // }
     }
 
-    // public determineShowPopup(){
-    //     if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress >0 &&
-    //        this.$store.state.Application.steps[this.currentStep].result &&
-    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey && 
-    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data &&
-    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data.applicationType && 
-    //        this.$store.state.Application.steps[this.currentStep].result.GuardianOfChildSurvey.data.applicationType.includes('becomeGuardian'))
-    //         return true;
-    //     else
-    //         return false;
-    // }
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()
@@ -126,5 +108,5 @@ export default class IndigenousAncestryOfChild extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

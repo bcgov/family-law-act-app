@@ -1,6 +1,6 @@
 
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
         <h2 class="mt-4">Next Steps</h2>
         <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
@@ -22,7 +22,7 @@
                         <b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919
                     </p>
                     <p>
-                        <b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <div style='display:inline-block'>1-866-577-2525</div>
+                        <b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <b style='display:inline-block; font-weight: normal;'>1-866-577-2525</b>
                     </p>
                     <p>
                         <b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
@@ -105,6 +105,7 @@
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
     const applicationState = namespace("Application");
+    import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
     @Component({
         components:{
@@ -115,6 +116,9 @@
 
     export default class NextSteps extends Vue {
         
+        @applicationState.State
+        public stPgNo!: stepsAndPagesNumberInfoType;
+
         @applicationState.Action
         public UpdateGotoPrevStepPage!: () => void
 
@@ -122,8 +126,8 @@
         public UpdateGotoNextStepPage!: () => void
 
         showLegalAssistance = false
-        currentStep=0;
-        currentPage=0;
+        currentStep =0;
+        currentPage =0;
         hasNeedPOselected = false
         showServeOtherParty = false
 
@@ -131,14 +135,18 @@
             this.hasNeedPOselected = false
             this.currentStep = this.$store.state.Application.currentStep;
             this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+            const stepGETSTART = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo]
+            const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
+
             //console.log(this.currentPage)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-            if( this.$store.state.Application.steps[0].result && 
-                this.$store.state.Application.steps[0].result.selectedForms &&
-                this.$store.state.Application.steps[0].result.selectedForms.includes('protectionOrder') &&
-                this.$store.state.Application.steps[1].result &&
-                this.$store.state.Application.steps[1].result.questionnaireSurvey &&
-                this.$store.state.Application.steps[1].result.questionnaireSurvey.orderType == 'needPO'
+            if( stepGETSTART.result && 
+                stepGETSTART.result.selectedForms &&
+                stepGETSTART.result.selectedForms.includes('protectionOrder') &&
+                stepPO.result &&
+                stepPO.result.questionnaireSurvey &&
+                stepPO.result.questionnaireSurvey.orderType == 'needPO'
             )  this.hasNeedPOselected =  true;
         }
 

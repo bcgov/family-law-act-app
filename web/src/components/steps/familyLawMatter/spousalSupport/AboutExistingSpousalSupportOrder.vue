@@ -103,5 +103,5 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

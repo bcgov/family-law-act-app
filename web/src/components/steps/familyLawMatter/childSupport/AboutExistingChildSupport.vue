@@ -17,6 +17,7 @@ import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Applicat
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -28,6 +29,9 @@ export default class AboutExistingChildSupport extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -46,8 +50,8 @@ export default class AboutExistingChildSupport extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);  
     
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existingType = "";
 
     beforeCreate() {
@@ -81,22 +85,24 @@ export default class AboutExistingChildSupport extends Vue {
 
     public setPages(){            
             
+        const AboutCS = this.stPgNo.FLM.AboutChildSupportChanges
+
         if (this.existingType == 'ExistingOrder') {                
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([20], true);
+                this.togglePages([AboutCS], true);
                 
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
                 
-                this.togglePages([20], false);
+                this.togglePages([AboutCS], false);
             }
         } else if (this.existingType == 'ExistingAgreement') {
             
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([20], true);
+                this.togglePages([AboutCS], true);
                 
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
                 
-                this.togglePages([20], false);
+                this.togglePages([AboutCS], false);
             }
         }    
 

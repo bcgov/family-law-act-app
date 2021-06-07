@@ -20,6 +20,11 @@ import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 //import { addQuestionTypes } from "@/components/survey/question-types.ts";
 
 @Component
@@ -27,14 +32,15 @@ export default class ChildrenSurvey extends Vue {
     
     @Prop({required: true})
     editRowProp!: Object;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
     
     child = {} as childInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     currentStep =0;
     currentPage =0;
-
-    reviewYourAnswersPage = 39
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -88,7 +94,24 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
-        Vue.filter('setProgressForPages')(this.currentStep,[3, 4, 5, 7, 10, 12, 14, 19, 22, 23, 24, 25, 26, this.reviewYourAnswersPage],50)
+        const p = this.stPgNo.FLM
+        const pages = [
+            p.ParentingArrangements,
+            p.ParentalResponsibilities,
+            p.ParentingTime,
+            p.ParentingOrderAgreement,
+            p.BestInterestsOfChild,
+            p.ChildSupportCurrentArrangements,
+            p.AboutChildSupportOrder,
+            p.SpecialAndExtraordinaryExpenses,
+            p.ContactWithChild,
+            p.ContactWithChildOrder,
+            p.AboutContactWithChildOrder,
+            p.ContactWithChildBestInterestsOfChild,
+            p.GuardianOfChild,
+            p.ReviewYourAnswersFLM
+        ]
+        Vue.filter('setProgressForPages')(this.currentStep, pages,50)
         this.survey.completeLastPage();
     }
 
@@ -125,16 +148,6 @@ export default class ChildrenSurvey extends Vue {
     beforeDestroy() {
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        // if(currPage){
-        //     if(this.survey.isCurrentPageHasErrors)
-        //         currPage.style.color = "red";
-        //     else
-        //     {
-        //         currPage.style.color = "";
-        //         currPage.className="current";
-        //     }  
-        // }  
     }
 };
 </script>

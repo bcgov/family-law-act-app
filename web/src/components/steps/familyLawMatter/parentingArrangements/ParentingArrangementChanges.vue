@@ -39,8 +39,8 @@ export default class ParentingArrangementChanges extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
     
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -107,5 +107,5 @@ export default class ParentingArrangementChanges extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>
