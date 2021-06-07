@@ -270,16 +270,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import moment from 'moment';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
 import { nameInfoType } from '@/types/Application';
-import Schedule1 from './Schedule1.vue';
+import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType, childDataInfoType, yourInformationInfoDataInfoType} from '@/types/Application/FamilyLawMatter/Pdf';
+import { yourInformationDataInfoType } from '@/types/Application/CommonInformation';
 
 @Component({
     components:{
@@ -287,7 +286,6 @@ import Schedule1 from './Schedule1.vue';
         CheckBox
     }
 })
-
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
@@ -301,31 +299,20 @@ export default class CommonSection extends Vue {
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
-
     
     dataReady = false;
     aboutChildren = false;
 
-    locationInfo = {} as {
-            courtLocation: string;
-            existingFileNumber: string; 
-            educationRegistry: boolean;
-            familyJusticeRegistry: boolean;
-            earlyResolutionRegistry: boolean;
-            none: boolean;
-        };
+    locationInfo = {} as locationInfoDataInfoType;
 
     otherPartyInfo=[];
-    yourInfo;
+    yourInfo = {} as yourInformationInfoDataInfoType;
 
     applicantList = []
     
-    existingOrders = {} as {
-        existingFlm: boolean; 
-        existingPO: boolean;
-    }
+    existingOrders = {} as existingOrdersInfoType;
     
-    relationshipBetweenParties = {} as any;
+    relationshipBetweenParties = {} as relationshipBetweenPartiesInfoType;
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';  
@@ -381,14 +368,7 @@ export default class CommonSection extends Vue {
 
     public getLocationInfo(){
 
-        let locationInformation = {
-            courtLocation: '',
-            existingFileNumber: '', 
-            educationRegistry: false,
-            familyJusticeRegistry: false,
-            earlyResolutionRegistry: false,
-            none: false
-        };
+        let locationInformation = {} as locationInfoDataInfoType;
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
@@ -408,7 +388,7 @@ export default class CommonSection extends Vue {
 
     public getRelationshipBetweenPartiesInfo(){
 
-        let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: '', nameOfSpouse: ''};
+        let relationshipInfo = {} as relationshipBetweenPartiesInfoType;
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
@@ -422,8 +402,8 @@ export default class CommonSection extends Vue {
 
     public getChildrenInfo(){
 
-        const childrenInfo = [];
-        let childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+        const childrenInfo: childDataInfoType[] = [];
+        let childInfo = {} as childDataInfoType;
         const childData = this.result.childData;
        
         for (const child of childData){            
@@ -450,16 +430,7 @@ export default class CommonSection extends Vue {
 
     public getYourInfo(){
 
-        let yourInformation = {
-            dob: '',
-            name: '',
-            lawyer: false,
-            lawyerName: '',
-            address: {street:'', city: '', country: '', postcode: '', state: ''},
-            contact: {email:'',fax:'',phone:''},
-            lawyerFiling: false,
-            lawyerStatement: {lawyerName: '', clientName: ''}
-        }        
+        let yourInformation = {} as yourInformationInfoDataInfoType;       
 
         // console.log(this.result.filingLocationSurvey)
 

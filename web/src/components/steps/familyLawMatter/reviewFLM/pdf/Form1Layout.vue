@@ -301,6 +301,7 @@ import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
 import CheckBox from "./Schedules/components/CheckBox.vue"
 import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
 import { nameInfoType } from '@/types/Application';
+import { yourInformationInfoDataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -324,13 +325,12 @@ export default class Form1Layout extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
-    
     dataReady = false;   
 
     otherPartyInfo=[];
     additionalOtherParties = [];
     firstOtherParty = {} as any;
-    yourInfo;
+    yourInfo = {} as yourInformationInfoDataInfoType;
 
     applicantList = []
     
@@ -362,29 +362,15 @@ export default class Form1Layout extends Vue {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
         }        
-        this.yourInfo = this.getYourInfo()       
-
+        this.yourInfo = this.getYourInfo();
     }    
 
     public getYourInfo(){
 
-        let yourInformation = {
-            dob: '',
-            name: '',
-            lawyer: false,
-            lawyerName: '',
-            address: {street:'', city: '', country: '', postcode: '', state: ''},
-            contact: {email:'',fax:'',phone:''},
-            lawyerFiling: false,
-            lawyerStatement: {lawyerName: '', clientName: ''}
-        }        
-
-        // console.log(this.result)
-
+        let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;
-            
+            const applicantInfo = this.result.yourInformationSurvey;            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',

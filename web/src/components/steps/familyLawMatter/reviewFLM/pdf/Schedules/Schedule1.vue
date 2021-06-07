@@ -123,6 +123,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { childDataInfoType, schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -134,13 +135,11 @@ import CheckBox from "./components/CheckBox.vue";
 export default class Schedule1 extends Vue {
 
     @Prop({required:true})
-    result!: any;  
-    
+    result!: any;
 
     dataReady = false; 
-    childrenInfo = []   
-    
-    parentArrInfo = {}    
+    childrenInfo: childDataInfoType[] = [];
+    parentArrInfo = {} as schedule1DataInfoType;   
    
     mounted(){
         this.dataReady = false;
@@ -159,8 +158,8 @@ export default class Schedule1 extends Vue {
     
     public getChildrenInfo(){
 
-        const childrenInfo = [];
-        let childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+        const childrenInfo: childDataInfoType[] = [];
+        let childInfo = {} as childDataInfoType;
         const childData = this.result.childData;
        
         for (const child of childData){            
@@ -177,7 +176,7 @@ export default class Schedule1 extends Vue {
     }
 
     public getParentingArrangementsInfo(){
-        let parentingArrangements = {parentResp: {}, parentTime: {}, parentalArr: {}, childBestInterest: ''};       
+        let parentingArrangements = {} as schedule1DataInfoType;       
 
         if (this.result.parentalResponsibilitiesSurvey && this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
             const allResponsibilities = this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y' && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities;
@@ -190,8 +189,12 @@ export default class Schedule1 extends Vue {
             }
 
         } else {
-            parentingArrangements.parentResp = {
-                applying: false
+            parentingArrangements.parentResp= {
+                applying: false,
+                allResp: false,
+                children: [],
+                allKids: false,
+                expl: ''
             }
         }
 
@@ -209,8 +212,14 @@ export default class Schedule1 extends Vue {
 
         } else {
             parentingArrangements.parentTime = {
-                applying: false
-            }
+                applying: false,
+                desired: '',
+                conditionMe: false,
+                myConditions: '',
+                conditionOp: false,
+                opConditions: '',
+                opDesired: ''    
+            }     
         }
 
         if (this.result.parentalArrangementsSurvey && this.result.parentalArrangementsSurvey.parentalArrangements == 'y'){
@@ -221,7 +230,8 @@ export default class Schedule1 extends Vue {
             }
         } else {
             parentingArrangements.parentalArr = {
-                applying: false
+                applying: false,
+                desc: ''                
             }
         }
         
