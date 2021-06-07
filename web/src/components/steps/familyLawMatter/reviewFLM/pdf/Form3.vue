@@ -74,8 +74,7 @@ export default class Form3 extends Vue {
 
     result;
     dataReady = false; 
-    selectedSchedules = []
-
+    selectedSchedules: string[] = [];
    
     mounted(){
         this.dataReady = false;
@@ -83,8 +82,7 @@ export default class Form3 extends Vue {
         this.selectedSchedules = this.getSchedulesInfo();
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
-    }
-   
+    }   
            
     public onPrint() { 
                
@@ -95,10 +93,6 @@ export default class Form3 extends Vue {
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FLC&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
-
-        // const body = new FormData();
-        // body.append('html',pdfhtml)
-        // body.append('json_data',null)
 
         const body = {
             'html':pdfhtml,
@@ -153,41 +147,30 @@ export default class Form3 extends Vue {
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResult in stepResults){
-                //console.log(stepResults[stepResult])
-                //console.log(stepResults[stepResult].data)
                 if(stepResults[stepResult])
                     result[stepResult]=stepResults[stepResult].data; 
             }
         }
-
-        //console.log(this.$store.state.Application.steps[0].result)
-    //     const protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-    //     Object.assign(result, result, protectedPartyName);
 
         const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.FLM._StepNo].result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
-        //console.log(applicationLocation)
-        //console.log(userLocation)
+       
         if(applicationLocation)
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
-        
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
 
         return result;
     }
 
-    public getSchedulesInfo(){
-        // console.log(this.result)
+    public getSchedulesInfo(){       
 
-        let schedules = [];
+        let schedules: string[] = [];
         const selectedFLMs = this.result.flmSelectedForm;
         const flmBackgroundInfo = this.result.flmBackgroundSurvey;
 

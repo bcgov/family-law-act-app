@@ -102,6 +102,7 @@ import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import moment from 'moment';
 import { nameInfoType } from '@/types/Application';
+import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -119,7 +120,7 @@ export default class Schedule7 extends Vue {
     selectedSchedules!: string[]; 
    
     dataReady = false; 
-    guardInfo = {} as any;    
+    guardInfo = {} as schedule7DataInfoType;    
    
     mounted(){
         this.dataReady = false;       
@@ -140,23 +141,7 @@ export default class Schedule7 extends Vue {
     }
 
     public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
-        let guardianshipInfo = {
-            guardian: guardian,
-            cancel: cancel, 
-            abtGuardian: {}, 
-            abtCancel: {}, 
-            indigenous: false, 
-            nonIndigenous: false,
-            unKnownAncestry: false, 
-            ancestry: {
-                firstNation: false,
-                nisga: false,
-                treatyFirstNation: false,
-                under12: false,
-                over12: false,
-                acknowledge: false                    
-            }
-        };
+        let guardianshipInfo = {} as schedule7DataInfoType;
         // console.log(this.result)
 
         if (guardian){
@@ -164,7 +149,7 @@ export default class Schedule7 extends Vue {
                 children: []
             }
             if (this.result.GuardianOfChildSurvey){
-                guardianshipInfo.abtGuardian['children'] = this.result.GuardianOfChildSurvey.childrenList?this.result.GuardianOfChildSurvey.childrenList:[];               
+                guardianshipInfo.abtGuardian.children = this.result.GuardianOfChildSurvey.childrenList?this.result.GuardianOfChildSurvey.childrenList:[];               
             }
         }
 
@@ -182,14 +167,14 @@ export default class Schedule7 extends Vue {
 
             if (this.result.GuardianOfChildBestInterestOfChildSurvey){
                 const bestInterestInfo = this.result.GuardianOfChildBestInterestOfChildSurvey;
-                guardianshipInfo.abtCancel['bestInterest'] = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
+                guardianshipInfo.abtCancel.bestInterest = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
             }
             if (this.result.GuardianOfChildSurvey && this.result.GuardianOfChildSurvey.cancelGuardianDetails){
                 if (this.result.GuardianOfChildSurvey.cancelGuardianDetails.length > 0){
-                    guardianshipInfo.abtCancel['cancelDetails'] = [];
+                    guardianshipInfo.abtCancel.cancelDetails = [];
                 }
                 for (const detail of this.result.GuardianOfChildSurvey.cancelGuardianDetails){
-                    guardianshipInfo.abtCancel['cancelDetails'].push({
+                    guardianshipInfo.abtCancel.cancelDetails.push({
                         guardianName: detail.nameOther, 
                         childName: detail.name,
                         guardianSince: Vue.filter('beautify-date')(detail.date)
@@ -242,16 +227,15 @@ export default class Schedule7 extends Vue {
         if( this.result.GuardianOfChildSurvey && 
             this.result.GuardianOfChildSurvey.applicationType &&
             this.result.GuardianOfChildSurvey.applicationType.includes('becomeGuardian')){
-                guardianshipInfo['becomeGuardian'] = true;
+                guardianshipInfo.becomeGuardian = true;
 
-        }else guardianshipInfo['becomeGuardian'] = false;
+        }else guardianshipInfo.becomeGuardian = false;
 
         if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.criminalChecked =='y' ){
-            guardianshipInfo['criminalCheck'] = true;
+            guardianshipInfo.criminalCheck = true;
         }else {
-            guardianshipInfo['criminalCheck'] = false;
+            guardianshipInfo.criminalCheck = false;
         }
-
 
         let form5unable = false;
 
@@ -263,16 +247,14 @@ export default class Schedule7 extends Vue {
             }   
         }
 
-
-
         if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
-            guardianshipInfo['applyForCaseManagement'] = 'n'
+            guardianshipInfo.applyForCaseManagement = 'n'
         }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form5unable){
-            guardianshipInfo['applyForCaseManagement'] = 'y'
+            guardianshipInfo.applyForCaseManagement = 'y'
         }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && !form5unable){
-            guardianshipInfo['applyForCaseManagement'] = 'n'
+            guardianshipInfo.applyForCaseManagement = 'n'
         }else{
-            guardianshipInfo['applyForCaseManagement'] = ''
+            guardianshipInfo.applyForCaseManagement = ''
         }
         return guardianshipInfo;
     }  

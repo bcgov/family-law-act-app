@@ -117,6 +117,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { schedule6DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -131,7 +132,7 @@ export default class Schedule6 extends Vue {
     result!: any; 
    
     dataReady = false;
-    exChContInfo = {} as any;
+    exChContInfo = {} as schedule6DataInfoType;
    
     mounted(){
         this.dataReady = false;      
@@ -147,36 +148,7 @@ export default class Schedule6 extends Vue {
 
     public getExistingChildContactInfo(){
 
-        let existingChildContactInfo = {
-            guardian: true, 
-            date: '', 
-            order: true, 
-            abtExOrdr: {
-                change: '',
-                ordrdiff: ''
-            }, 
-            abtExAgrmnt: {
-                change: '',
-                agrmntdiff: ''
-            }, 
-            abt:{
-                
-                conChList: [],
-                conType: {
-                    noContact: false,
-                    inPerson: false,
-                    tel: false,
-                    video: false,
-                    written:false,
-                    other: false
-                },
-                inPrsn: '',
-                otherComm: '',
-                cond: ''
-            
-            }, 
-            bstIntrst:''
-        };
+        let existingChildContactInfo = {} as schedule6DataInfoType;
         // console.log(this.result)
 
         if (this.result.contactOrderSurvey){

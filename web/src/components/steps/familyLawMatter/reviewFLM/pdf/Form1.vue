@@ -43,7 +43,7 @@ export default class Form1 extends Vue {
 
     result;
     dataReady = false; 
-    selectedPathways = []
+    selectedPathways: string[] = [];
 
    
     mounted(){
@@ -52,8 +52,7 @@ export default class Form1 extends Vue {
         this.selectedPathways = this.getPathwayInfo();
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
-    }
-   
+    }   
            
     public onPrint() { 
                
@@ -150,7 +149,7 @@ export default class Form1 extends Vue {
     public getPathwayInfo(){
         // console.log(this.result)
 
-        let pathways = [];
+        let pathways: string[] = [];
         const selectedFLMs = this.result.flmSelectedForm; 
             
         if (selectedFLMs.includes("parentingArrangements")){
