@@ -62,15 +62,15 @@ export interface questionInfoType {
 }
 
 export interface filingLocationDataInfoType {
-  ExistingFamilyCase: string;
-  ExplanationCourtLocation: boolean;
+  ExistingFamilyCase?: string;
+  ExplanationCourtLocation?: boolean;
   ExistingCourt: string;
   ExistingFileNumber: string;
   MetEarlyResolutionRequirements?:string;
   registryLocationReason?: string;
-  earlyResolutionRegistry: boolean;
-  familyJusticeRegistry: boolean;
-  familyEducationProgram: boolean;
+  earlyResolutionRegistry?: boolean;
+  familyJusticeRegistry?: boolean;
+  familyEducationProgram?: boolean;
 }
 
 export interface filingLocationSurveyInfoType {
