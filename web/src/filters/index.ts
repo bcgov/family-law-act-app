@@ -494,7 +494,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`td.border-top-0{border-top: 0px solid #FFF !important;border-bottom: 1px solid #313132 !important;border-left: 1px solid #313132 !important; border-right: 1px solid #313132 !important;}`+
 			`th.border-bottom-0{border-top: 1px solid #313132 !important;border-bottom: 0px solid #FFF !important;border-left: 1px solid #313132 !important; border-right: 1px solid #313132 !important;}`+
 			`tr{height: 1.5rem;}`+
-			`table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}`+
+			`table.fullsize {table-layout: fixed; width: 100%; margin-top:0.5rem;}`+
 			`table.fullsize tr{border:1px solid #313132;}`+
 			`table.fullsize td{padding:0 0 0 .5rem; color: #313132;}`+
 
@@ -502,11 +502,13 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
-			`.form-one-header{display:block; margin:0 0 6.25rem 0;}`+
+			`.form-header-po{display:block; margin:0 0 3.25rem 0;}`+
+			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+
-			`.marginleftplus{margin:0 0 0 1rem !important;}`+			
+			`.marginleftplus{margin:0 0 0 1rem !important;}`+
+			`.margintopminus{margin-top:-0.5rem !important;}`+
 
 			`section{ counter-increment: question-counter; text-indent: -17px; text-align: justify; text-justify: inter-word; margin: 0.5rem 0.5rem 0.5rem 1rem;}`+ 
 			`section:before {font-weight: bolder; content:counter(question-counter) ".";}`+
