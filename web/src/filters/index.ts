@@ -413,6 +413,7 @@ Vue.filter('replaceRequiredDocuments', function(){
 Vue.filter('surveyChanged', function(type: string) {
 	const stepPO = store.state.Application.stPgNo.PO
 	const stepFLM = store.state.Application.stPgNo.FLM
+	const stepPPM = store.state.Application.stPgNo.PPM
 	let step = stepPO._StepNo; 
 	let reviewPage = stepPO.ReviewYourAnswers; 
 	let previewPage = stepPO.PreviewForms;
@@ -426,6 +427,11 @@ Vue.filter('surveyChanged', function(type: string) {
 		step = stepFLM._StepNo; 
 		reviewPage = stepFLM.ReviewYourAnswersFLM; 
 		previewPage = stepFLM.PreviewFormsFLM;	
+	}
+	else if(type == 'priorityParenting'){
+		step = stepPPM._StepNo; 
+		reviewPage = stepPPM.ReviewYourAnswersPPM; 
+		previewPage = stepPPM.PreviewFormsPPM;	
 	}
 
 	const steps = store.state.Application.steps

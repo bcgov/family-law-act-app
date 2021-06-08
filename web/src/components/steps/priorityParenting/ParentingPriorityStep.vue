@@ -1,6 +1,14 @@
 <template>
   <step-base v-bind:step="step">
-    <priority-form v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterForm" />
+    <!-- <priority-form v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterForm" /> -->
+    <ppm-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmQuestionnaire"/>
+    <priority-parenting-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
+    <ppm-children-info     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
+    <flm-background    v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
+    <about-priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.AboutPriorityParentingMatterOrder"/>
+    <review-your-answers-ppm  v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.ReviewYourAnswersPPM"/>
+    <preview-forms-ppm        v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PreviewFormsPPM"/>
+        
   </step-base>
 </template>
 
@@ -9,7 +17,15 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 
-import  PriorityForm  from "./PriorityForm.vue"
+import PpmQuestionnaire from "./PpmQuestionnaire.vue";
+import PriorityParentingMatterOrder from "./PriorityParentingMatterOrder.vue"
+import PpmBackground from "./PpmBackground.vue";
+import PpmChildrenInfo from "./childInfo/PpmChildrenInfo.vue";
+import AboutPriorityParentingMatterOrder from "./AboutPriorityParentingMatterOrder.vue"
+
+import ReviewYourAnswersPpm from "./reviewPPM/ReviewYourAnswersPPM.vue"
+import PreviewFormsPpm from "./reviewPPM/PreviewFormsPPM.vue"
+
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
@@ -19,7 +35,15 @@ const applicationState = namespace("Application");
 @Component({
     components:{
       StepBase,
-      PriorityForm
+
+      PpmQuestionnaire,
+      PriorityParentingMatterOrder,
+      PpmBackground, 
+      PpmChildrenInfo,
+      AboutPriorityParentingMatterOrder,
+      
+      ReviewYourAnswersPpm,
+      PreviewFormsPpm
     }
 })
 export default class ParentingPriorityStep extends Vue {

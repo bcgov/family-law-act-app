@@ -96,6 +96,7 @@ export interface stepInfoType {
     filingLocationSurvey?: filingLocationSurveyInfoType;
     yourInformationSurvey?: yourInformationSurveyInfoType;
     safetySurvey?: safetySurveyInfoType;
+    noticeSurvey?: any;
 
     //__Step 3 FLM
     flmSelectedForm?: flmSelectedFormInfoType;
@@ -143,6 +144,12 @@ export interface stepInfoType {
     spousalSupportSurvey?: spousalSupportSurveyInfoType;
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
+
+    //__Step 5 PRIORITY PARENTING
+    ppmQuestionnaireSurvey?: any;
+    priorityParentingOrderSurvey?: any;
+    ppmBackgroundSurvey?: any;
+    aboutPriorityParentingMatterOrderSurvey?: any;
 
     //__Step 8 SUBMIT
     filingOptions?: any;

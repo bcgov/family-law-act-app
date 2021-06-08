@@ -252,6 +252,14 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "3";
+        p.name = "Notice";
+        p.label = "Notice";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
         p.name = "FilingLocation";
         p.label = "Filing Location";
         p.active = false;
@@ -652,12 +660,60 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "PriorityParentingMatterForm";
-        p.label = "Priority Parenting Matter Form";
+        p.name = "PpmQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "PriorityParentingMatterOrder";
+        p.label = "Priority Parenting Matter";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PpmChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "PpmBackground";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "AboutPriorityParentingMatterOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReviewYourAnswersPPM";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsPPM";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
         this.steps.push(s);
 
         //Priority parenting matter STOP

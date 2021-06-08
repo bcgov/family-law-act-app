@@ -41,6 +41,7 @@ export interface COMMONstPgTypes{
     _StepNo: number;
     
     SafetyCheck: number;
+    Notice: number;
     YourInformation: number;
     OtherPartyCommon: number;
     FilingLocation: number;
@@ -95,13 +96,20 @@ export interface FLMstPgTypes{
 export interface CMstPgTypes{
     _StepNo: number;
 
-    CaseManagementForm: number;    
+    CaseManagementForm: number; 
+    
 }
 
 export interface PPMstPgTypes{
     _StepNo: number;
     
-    PriorityParentingMatterForm: number;
+    PpmQuestionnaire: number;
+    PriorityParentingMatterOrder: number;
+    PpmBackground: number;
+    PpmChildrenInfo: number;
+    AboutPriorityParentingMatterOrder: number;
+    ReviewYourAnswersPPM: number;
+    PreviewFormsPPM: number;  
 }
 
 export interface RELOCstPgTypes{

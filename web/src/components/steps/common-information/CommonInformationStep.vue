@@ -3,6 +3,7 @@
     <safety-check v-bind:step="step"       v-if="step.currentPage == stPgNo.COMMON.SafetyCheck" />
     <your-information v-bind:step="step"   v-if="step.currentPage == stPgNo.COMMON.YourInformation" /> 
     <other-party-common v-bind:step="step" v-if="step.currentPage == stPgNo.COMMON.OtherPartyCommon" />
+    <notice v-bind:step="step" v-if="step.currentPage == stPgNo.COMMON.Notice" />
     <filing-location v-bind:step="step"    v-if="step.currentPage == stPgNo.COMMON.FilingLocation" />    
   </step-base>
 </template>
@@ -14,6 +15,7 @@ import YourInformation from "./YourInformation.vue";
 import FilingLocation from "./FilingLocation.vue";
 import OtherPartyCommon from "./otherPartyComponent/OtherPartyCommon.vue";
 import SafetyCheck from "./SafetyCheck.vue";
+import Notice from "./Notice.vue";
 import { stepInfoType } from "@/types/Application";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
@@ -29,6 +31,7 @@ const applicationState = namespace("Application");
       SafetyCheck,
       YourInformation,
       OtherPartyCommon,
+      Notice,
       FilingLocation
     }
 })
