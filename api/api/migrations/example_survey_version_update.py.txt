@@ -14,11 +14,19 @@ def update_survey_data(apps, schema_editor):
                 application.key_id, application.steps
             ).decode("utf-8")
         )
-        
+        print(json.dumps(steps_json))
         for step in steps_json:
             if step['type'] != 'stepPO':
                 continue
             step['result']['yourInformationSurveyPO']['data']['ApplicantDOB'] = '1900-01-01'
+            for question in step['result']['yourInformationSurveyPO']['questions']:
+                if question['name'] != 'ApplicantName':
+                    continue
+                question['value'] = {
+                    'first': 'hello',
+                    'middle': 'hello',
+                    'last': 'hello'
+                }
 
         (steps_key_id, steps_enc) = settings.ENCRYPTOR.encrypt(json.dumps(steps_json).encode("ascii"))
         application.steps = steps_enc

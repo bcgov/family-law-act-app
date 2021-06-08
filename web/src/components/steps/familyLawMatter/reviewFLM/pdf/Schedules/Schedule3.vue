@@ -248,7 +248,7 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
 import { schedule3DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({

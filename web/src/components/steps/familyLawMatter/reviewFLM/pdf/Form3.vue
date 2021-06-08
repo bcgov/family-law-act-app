@@ -42,7 +42,7 @@ import Schedule10 from "./Schedules/Schedule10.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{

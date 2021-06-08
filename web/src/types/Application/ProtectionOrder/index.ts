@@ -1,5 +1,4 @@
-import { nameInfoType } from "..";
-import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInformation"; 
+import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from "../CommonInformation"; 
   
 
     export interface ExistingOrderInfoType {
@@ -255,7 +254,7 @@ import { addressInfoType, contactInfoType, questionInfoType } from "../CommonInf
 
     export interface selectedPOOrderInfoType {
         data: poQuestionnaireSurveyInfoType;
-        questions: questionInfoType[];
+        questions: questionInfoType[] | null;
         pageName: string;
         currentStep: number;
         currentPage: number;

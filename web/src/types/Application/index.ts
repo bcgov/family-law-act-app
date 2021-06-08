@@ -1,6 +1,6 @@
 import { requiredDocumentsInfoType } from "../Common";
-import {  filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetySurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
-import {  childDetailsSurveyInfoType, flmAdditionalDocsSurveyInfoType, flmBackgroundSurveyInfoType, flmSelectedFormInfoType } from "./FamilyLawMatter";
+import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetySurveyInfoType, yourInformationSurveyInfoType } from "./CommonInformation";
+import { childDetailsSurveyInfoType, flmAdditionalDocsSurveyInfoType, flmBackgroundSurveyInfoType, flmSelectedFormInfoType } from "./FamilyLawMatter";
 import { aboutChildSupportChangesSurveyInfoType, aboutChildSupportOrderSurveyInfoType, aboutExistingChildSupportSurveyInfoType, calculatingChildSupportSurveyInfoType, childSupportCurrentArrangementSurveyInfoType, childSupportIncomeEarningSurveyInfoType, childSupportOrderAgreementSurveyInfoType, childSupportSurveyInfoType, specialAndExtraordinaryExpensesSurveyInfoType, undueHardshipSurveyInfoType, unpaidChildSupportSurveyInfoType } from "./FamilyLawMatter/ChildSupport";
 import { aboutContactWithChildSurveyInfoType, contactOrderSurveyInfoType, contactWithChildBestInterestOfChildSurveyInfoType, contactWithChildSurveyInfoType } from "./FamilyLawMatter/ContactWithChild";
 import { guardianOfChildBestInterestOfChildSurveyInfoType, guardianOfChildSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
@@ -9,12 +9,15 @@ import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrde
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, selectedPOOrderInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
 
 
+//This is what our database saves.
+export interface applicationStepOnlyInfoType {
+  steps: stepInfoType[];
+}
 
-export interface applicationInfoType {   
+export interface applicationInfoType extends applicationStepOnlyInfoType {   
     id?: string;
     types: string[];
-    steps: stepInfoType[];
-    lastUpdate: Date;
+    lastUpdate: Date | null;
     currentStep: number;
     allCompleted: boolean;
     lastPrinted: Date;
@@ -26,11 +29,12 @@ export interface applicationInfoType {
     protectedPartyName: string;
     protectedChildName: string;
     applicationLocation: string;
+    version: "1.0";
 }
 
 export interface stepInfoType {
     id?: string;
-    name: string;
+    name?: string;
     type: string;
     label: string;
     icon: string;
@@ -39,16 +43,16 @@ export interface stepInfoType {
     pages?: pageInfoType[];
     currentPage: number;
     active: boolean;
-    lastUpdate: Date;
+    lastUpdate: Date | null;
   }
 
   export interface pageInfoType {
     key: string;
-    name: string;
+    name?: string;
     label: string;
     progress: number;
     active: boolean;
-    clickable: boolean;
+    clickable?: boolean;
   }
 
   export interface stepResultInfoType {
@@ -144,12 +148,6 @@ export interface stepInfoType {
     filingOptions?: any;
     
 
-  }
-
-  export interface nameInfoType {
-    first: string;
-    middle: string;
-    last: string;
   }
 
   export interface pathwayCompletedInfoType { 

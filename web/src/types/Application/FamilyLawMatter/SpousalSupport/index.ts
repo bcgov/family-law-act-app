@@ -89,7 +89,7 @@ export interface existingSpousalSupportOrderAgreementSurveyInfoType {
     currentPage: number;
 }
 
-export interface changesSinceOrderListInfoType {
+export interface spousalChangesSinceOrderListInfoType {
     myEmploymentChangedComment: string;
     partyEmploymentChangedComment: string;
     myHouseholdChangedComment: string;
@@ -100,7 +100,7 @@ export interface changesSinceOrderListInfoType {
 
 export interface existingSpousalSupportFinalOrderDataInfoType {
     orderDate: string;
-    changesSinceOrderList: changesSinceOrderListInfoType;
+    changesSinceOrderList: spousalChangesSinceOrderListInfoType;
     orderDifferenceType: string;
 }
 
@@ -123,7 +123,7 @@ export interface aboutExistingSpousalSupportOrderSurveyInfoType {
     currentStep: number;
     currentPage: number;
 }
-export interface paymentScheduleInfoType {
+export interface spousalPaymentScheduleInfoType {
     monthlyAmount?: string;
     selected: string;
     otherComment?: string;
@@ -135,7 +135,7 @@ export interface unpaidSpousalSupportDataInfoType {
     applyToReduce?: string;
     reduceAmount?: string;
     whyReduceAmount?: string;
-    paymentSchedule?: paymentScheduleInfoType;
+    paymentSchedule?: spousalPaymentScheduleInfoType;
 }
 
 export interface unpaidSpousalSupportSurveyInfoType {

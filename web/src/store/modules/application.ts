@@ -1,5 +1,6 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import { stepInfoType, pageInfoType, nameInfoType } from "@/types/Application";
+import { stepInfoType, pageInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 import { supportingDocumentInfoType, requiredDocumentsInfoType } from "@/types/Common";
 
 import { stepsAndPagesNumberInfoType } from "@/types/Application/StepsAndPages";

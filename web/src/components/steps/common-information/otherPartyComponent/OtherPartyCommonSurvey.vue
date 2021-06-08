@@ -22,7 +22,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
 const applicationState = namespace("Application");
 
 @Component

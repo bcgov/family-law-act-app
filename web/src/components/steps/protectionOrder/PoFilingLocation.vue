@@ -13,7 +13,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 //import moment from 'moment-timezone';
 
 import PageBase from "../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";
 
