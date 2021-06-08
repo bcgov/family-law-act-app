@@ -6,11 +6,11 @@
         <div  class="form-one-header">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Notice to Resolve </b></div>
-                <div style="font-size:13pt;"><b>a Family Law Matter</b></div>
-                <div style="font-size:10pt;"><b>FORM 1</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rule 10</div>
+                <div style="font-size:11pt;"><b>Notice to Resolve a Family Law Matter</b></div>
+                <!-- <div style="font-size:11pt;"><b>a Family Law Matter</b></div> -->
+                <div style="font-size:9pt;"><b>FORM 1</b></div>
+                <div style="font-size:8pt;">Provincial Court Family Rules</div>
+                <div style="font-size:8pt;">Rule 10</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -55,15 +55,15 @@
             </table>
         </section>
 <!-- <2> -->
-        <section class="mt-3">
+        <section class="mt-1">
             <div style="display:inline; margin-left:0.25rem">I would like help with the following family law matter(s):</div>
             <div style="margin-left:1rem;">
                 <i>Select all options that apply</i>               
-                <check-box style="" :check="selectedPathways.includes('parentingArrangements')?'yes':''" text="parenting arrangements, including parental responsibilities and parenting time"/>                
-                <check-box style="" :check="selectedPathways.includes('childSupport')?'yes':''" text="child support"/> 
-                <check-box style="" :check="selectedPathways.includes('contactWithChild')?'yes':''" text="contact with a child"/>
-                <check-box style="" :check="selectedPathways.includes('guardianOfChild')?'yes':''" text="appointing a guardian of a child"/>
-                <check-box style="margin-bottom:0.5rem;" :check="selectedPathways.includes('spousalSupport')?'yes':''" text="spousal support"/>
+                <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('parentingArrangements')?'yes':''" text="parenting arrangements, including parental responsibilities and parenting time"/>                
+                <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('childSupport')?'yes':''" text="child support"/> 
+                <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('contactWithChild')?'yes':''" text="contact with a child"/>
+                <check-box style="line-height:1.15rem;" :check="selectedPathways.includes('guardianOfChild')?'yes':''" text="appointing a guardian of a child"/>
+                <check-box style="line-height:1.15rem;margin-bottom:0.25rem;" :check="selectedPathways.includes('spousalSupport')?'yes':''" text="spousal support"/>
             </div>
         </section>
 
@@ -80,7 +80,7 @@
                 <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support</li>
                 <li style="text-indent:0.25rem;">each other adult who the application about a family law matter is about</li>
             </ul>
-            <p style="margin:0.5rem 0 1rem 2.35rem; text-indent:0;">They are the other party/parties in this case.</p>                
+            <p style="margin:0.05rem 0 0rem 2.1rem; text-indent:0;">They are the other party/parties in this case.</p>                
         </section>
 
 <!-- <4> -->
@@ -190,7 +190,7 @@
             </section>
         </div> 
 
-        <div class="print-block mt-4">            
+        <div class="print-block mt-0">            
 <!-- <5> -->
             <section>
                 <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
@@ -210,9 +210,9 @@
         </div>
 
         <div class="print-block">
-                <div style="margin-top:1rem;"><b>NOTE TO THE PARTIES:</b></div>
+                <div style="margin-top:0rem;"><b>NOTE TO THE PARTIES:</b></div>
                 <div 
-                    style="margin-top:0rem; font-size:9.7pt; text-align:justify;">
+                    style="margin-top:0rem; font-size:9pt; text-align:justify;">
                     <b>This Notice to Resolve a Family Law Matter has been filed with the Provincial Court of British Columbia.
                         Before proceeding any further with your case, each party is required to meet the early resolution requirements described in the rules.
                         If you do not resolve all family law matters during the early resolution process, either party can apply to the Provincial Court for a court
@@ -225,42 +225,42 @@
 
         <div class="print-block mt-2 ml-4">
             <b style="margin-left:0.25rem">WHAT YOU MUST DO</b>
-            <div style="margin-left:1rem; margin-top:1rem;">
+            <div style="margin-left:1rem; margin-top:0.5rem;">
                 
                 <ordered-check-box :order="1" text="<b>Contact</b> Family Justice Services Division to <b>schedule</b> your individual <b>needs assessment</b>." style="display:inline-block;" :check="false?'yes':''"/>            
-                <p style="margin-left:3rem; margin-top:1rem;">
+                <div style="margin-left:3rem; margin-top:0.25rem;">
                     If you have already participated in some or all of the early resolution requirements within the last year,
                     Family Justice Services Division will confirm you have met the early resolution requirements and prepare
                     the required documents for the court.
-                </p>
+                </div>
 
-                <p style="margin-left:3rem; margin-top:1rem;">
+                <div style="margin:0.25rem 0 0.5rem 3rem;">
                     <b>Note:</b> You may be contacted by a needs assessor if someone else has filed a Notice to Resolve a Family
                     Law Matter and named you as the other party in that document.
-                </p>
+                </div>
 
 
                 <ordered-check-box :order="2" style="" :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
-                <p style="margin-left:3rem;">
+                <div style="margin-left:3rem;margin-bottom:0.5rem">
                     A needs assessment is a one-on-one meeting with a needs assessor who is a neutral person trained
                     to help people understand this process and other ways that are available to resolve their family law
                     matter and other issues. A needs assessor can provide some legal information, make referrals to
                     supports, including legal advice, and help identify the next steps that are right for you.
-                </p>
+                </div>
                 
                 <ordered-check-box :order="3" style="" :check="false?'yes':''" 
                 text="<b>Complete a parenting education course</b>, unless you are exempt for one of the reasons identified in Rule 17."/>
-                <p style="margin-left:3rem;">
+                <div style="margin-left:3rem;margin-bottom:0.5rem">
                     Your needs assessor will provide you with more information on the parenting education course right
                     for you and how to complete it.
-                </p>
+                </div>
 
                 <ordered-check-box :order="4" style="" :check="false?'yes':''" 
                 text="<b>Participate in consensual dispute resolution</b>, unless your needs assessor determines that it is not appropriate."/>
-                <p style="margin-left:3rem;">
+                <div style="margin-left:3rem;margin-bottom:0.25rem">
                     Your needs assessor will provide you with more information on what consensual dispute resolution
                     is, whether it is right for you, and the process for participating in it.
-                </p>
+                </div>
             </div>
         </div>
 
@@ -268,22 +268,22 @@
                 <div style="margin-top:1rem;"><b>NOTE TO THE PARTIES:</b></div>
                 <div 
                     style="margin-top:0rem; font-size:9.7pt; text-align:justify;">
-                    <p>
+                    <div style="margin-bottom:0.25rem">
                         <b>If you require a time sensitive order on a family law matter</b>
                         you may be able to postpone participation in one or more of the early resolution requirements until after you have received 
                         your time sensitive order. Please speak to Family Justice Services Division or the court registry if this situation applies to you.
-                    </p>
-                    <b>Reminder:</b>
-                    <p>
+                    </div>
+                    <b >Reminder:</b>
+                    <div>
                         If you do not resolve all family law matters during the early resolution requirements, either party can file an
                         application in the Provincial Court to request a court order.
-                    </p>
-                    <p>
+                    </div>
+                    <div  style="margin-top:0.5rem">
                         If you do not participate in the early resolution requirements, the other party will be allowed to proceed to the
                         Provincial Court to ask for a court order. A party must have met the requirements for early resolution before
                         they will be allowed to file an Application About a Family Law Matter or Reply to an Application About a Family
                         Law Matter in the case.
-                    </p>
+                    </div>
                 </div>                
         </div>      
     </div>
