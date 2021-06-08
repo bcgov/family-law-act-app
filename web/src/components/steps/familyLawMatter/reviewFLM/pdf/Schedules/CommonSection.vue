@@ -403,7 +403,7 @@ export default class CommonSection extends Vue {
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
             relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
-            relationshipInfo.marriageDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO);
+            relationshipInfo.marriageDate =this.result.flmBackgroundSurvey.dateOfMarriagePO? Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO):'';
             relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
             relationshipInfo.nameOfSpouse = this.result.flmBackgroundSurvey.listOfSpouses;
         }
