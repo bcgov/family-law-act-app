@@ -111,6 +111,12 @@ objects:
                 httpGet:
                   path: /health
                   port: 5001
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - /bin/sleep
+                      - '20'
               resources:
                 requests:
                   cpu: ${CPU_REQUEST}
