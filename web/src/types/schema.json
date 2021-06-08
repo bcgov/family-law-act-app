@@ -1614,13 +1614,8 @@
         }
       },
       "required": [
-        "ExistingFamilyCase",
-        "ExplanationCourtLocation",
         "ExistingCourt",
-        "ExistingFileNumber",
-        "earlyResolutionRegistry",
-        "familyJusticeRegistry",
-        "familyEducationProgram"
+        "ExistingFileNumber"
       ],
       "type": "object"
     },
@@ -2244,10 +2239,6 @@
       "required": [
         "name",
         "knowDob",
-        "opRelation",
-        "livedTogether",
-        "married",
-        "separated",
         "address",
         "contactInfo"
       ],

@@ -2,12 +2,12 @@ export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
   dob?: string;
-  opRelation: string;
-  livedTogether: string;
+  opRelation?: string;
+  livedTogether?: string;
   dateOfLivedTogether?: string;
-  married: string;
+  married?: string;
   dateOfMarriage?: string;
-  separated: string;
+  separated?: string;
   dateSeparated?: string;
   address: addressInfoType;
   contactInfo: contactInfoType;
