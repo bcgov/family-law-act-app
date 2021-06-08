@@ -205,7 +205,7 @@
             <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
             <div>
                 <i style="display:inline;margin-left:1rem" >Specify which other party if there is more than one: </i>
-                <underline-form style="text-indent:2px;display:inline;" textwidth="21.9rem" beforetext="" hint="name of other party" :text="relationshipBetweenParties.nameOfSpouse"/>
+                <underline-form style="text-indent:2px;display:inline;" textwidth="21.5rem" beforetext="" hint="name of other party" :text="relationshipBetweenParties.nameOfSpouse"/>
             </div>
             <div style="margin-left:1rem">
                 <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
@@ -393,7 +393,7 @@ export default class CommonSection extends Vue {
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
             relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
-            relationshipInfo.marriageDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO);
+            relationshipInfo.marriageDate =this.result.flmBackgroundSurvey.dateOfMarriagePO? Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO):'';
             relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
             relationshipInfo.nameOfSpouse = this.result.flmBackgroundSurvey.listOfSpouses;
         }
