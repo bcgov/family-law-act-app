@@ -183,6 +183,12 @@ objects:
                 httpGet:
                   path: /health/
                   port: 8080
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - /bin/sleep
+                      - '20'
               env:
                 - name: DATABASE_SERVICE_NAME
                   value: ${DATABASE_SERVICE_NAME}
