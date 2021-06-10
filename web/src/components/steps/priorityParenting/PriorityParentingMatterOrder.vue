@@ -5,12 +5,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 
-import surveyJson from "./forms/priority-parenting-order.json";
+import surveyJson from "./forms/priority-parenting-matter-order.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -85,13 +85,30 @@ export default class PriorityParentingMatterOrder extends Vue {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-
+           
         if (this.step.result && this.step.result.priorityParentingOrderSurvey) {
             this.survey.data = this.step.result.priorityParentingOrderSurvey.data; 
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);        
         }
+
+         if (this.step.result && this.step.result.ppmQuestionnaireSurvey && this.step.result.ppmQuestionnaireSurvey.data) {
+            const selectedPriorityParentingMatters = this.step.result.ppmQuestionnaireSurvey.data;
+            this.determineIssues(selectedPriorityParentingMatters);            
+        }
+
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public determineIssues(selectedPriorityParentingMatters){
+        this.survey.setVariable("preventRemoval", selectedPriorityParentingMatters.includes('preventRemoval'));
+        this.survey.setVariable("medical", selectedPriorityParentingMatters.includes('medical'));
+        this.survey.setVariable("passport", selectedPriorityParentingMatters.includes('passport'));
+        this.survey.setVariable("travel", selectedPriorityParentingMatters.includes('travel'));
+        this.survey.setVariable("locationChange", selectedPriorityParentingMatters.includes('locationChange'));
+        this.survey.setVariable("interjurisdictional", selectedPriorityParentingMatters.includes('interjurisdictional'));
+        this.survey.setVariable("wrongfulRemoval", selectedPriorityParentingMatters.includes('wrongfulRemoval'));
+        this.survey.setVariable("returnOfChild", selectedPriorityParentingMatters.includes('returnOfChild'));
     }
 
     public onPrev() {

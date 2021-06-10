@@ -3,78 +3,108 @@
     <div class="row">
       <div class="col-md-12 order-heading">
         <div>
-            <h1 >I need help with the following family law matter:</h1>
-            <p>Select all that apply.</p>
-        </div>        
+            <h1>Questionnaire</h1>
+            <p>
+                <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child that require the agreement of each of the child's 
+                guardians or an order from the court and it is priority to get the order before or separately from any 
+                family law matter order.
+            </p>
+            <p>
+                The Family Law Act s. 39 sets out that unless an agreement or order allocates <tooltip title="parental responsibilities" :index="0"/>
+                differently, each child’s guardian may exercise all parental responsibilities with respect to a child in consultation with the child’s 
+                other guardians, unless consultation would be unreasonable or inappropriate in the circumstances.  A child’s guardian must exercise 
+                their parental responsibilities in the best interests of the child.
+            </p>  
+        </div>
         <div>
+            <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">I need help with the following priority parenting matter:</h2>
+            <p style="font-size: 1.25rem;">Select all that apply.</p>
+        </div>
+        <div v class="checkbox-border">
+            <b-form-group>
+                <b-form-checkbox-group
+                v-model="selectedPriorityParentingMatter"
+                v-on:change="onChange($event)"
+                name="orders"
+                stacked
+                >                
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="medical">
+                            <div>
+                            Medical, dental or other health-related treatments for a child
+                            </div>                                      
+                        </b-form-checkbox>
+                    </div>
+
+                    <div >
+                        <b-form-checkbox class="checkbox-choices" value="passport">
+                            <div>
+                                Application for a passport, license or other thing for a child
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="travel">
+                            <div>
+                                Travel or participation in an activity for the child
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="locationChange">
+                            <div>
+                                Change in location of a child’s residence
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="preventRemoval">
+                            <div>
+                                Preventing the removal of a child
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="interjurisdictional">
+                            <div>
+                                Determining matters relating to <tooltip title="interjurisdictional issues" :index="0"/> under <tooltip title="section 74(2)(c)" :index="0"/> of the Family Law Act                            
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="wrongfulRemoval">
+                            <div>
+                                Wrongful removal of a child in BC
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="returnOfChild">
+                            <div>
+                                Return of a child under the <tooltip title="1980 Hague Convention" :index="0"/>                    
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+               
+                </b-form-checkbox-group>
+            </b-form-group>
+        </div>
+
+        <div class="mb-5">
             <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
                 <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
                 <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
             <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
+                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
             </div>
-        </div>
-        <div>
-            <b-form-group>
-                <b-form-checkbox-group
-                v-model="selectedForm"
-                v-on:change="onChange($event)"
-                name="orders"
-                stacked
-                >                
-                <div class="checkbox-border">
-                    <b-form-checkbox value="parentingArrangements"><div class="checkbox-choices">Parenting Arrangements</div>
-                    <p>
-                        Parenting arrangements are how each guardian will parent their child, including each guardian’s <tooltip title="parental responsibilities" :index="0"/> 
-                        for decision making about a child and the <tooltip title="parenting time" :index="0"/> each guardian spends with a child. 
-                        Parental responsibilities may be shared or exercised separately. The only thing you can consider in making your parenting
-                         arrangements is what is in the best interests of the child.
-                    </p>                    
-                    </b-form-checkbox>
-                </div>
-
-                <div class="checkbox-border">
-                    <b-form-checkbox value="childSupport"><div class="checkbox-choices">Child Support</div>
-                        <p>
-                        Child support is the amount of money a parent or guardian pays to another parent or guardian to help care for the child. A child 
-                        has the right to be supported by both parents, whether the parents ever lived together, or the parent has ever 
-                        lived with the child.
-                        </p>
-                    </b-form-checkbox>
-                </div>
-
-                <div class="checkbox-border">
-                    <b-form-checkbox value="contactWithChild"><div class="checkbox-choices">Contact With a Child</div>
-                        <p>
-                            Contact with a child is the time a child spends with someone who is not their guardian. This person could include a parent who is not a 
-                            guardian to a child, or other people, like grandparents, elders, aunts and uncles, or a family friend.  
-                        </p>
-                    </b-form-checkbox>
-                </div>
-
-                <div class="checkbox-border">
-                    <b-form-checkbox value="guardianOfChild"><div class="checkbox-choices">Guardianship of a child</div>
-                    <p>
-                        Guardianship is who is responsible for a child. Only guardians have parental responsibilities and parenting time with a child. 
-                        An agreement or order about parenting arrangements can say a child’s guardians share parental responsibilities 
-                        or parenting time. Or it can say one guardian is responsible for more of the parenting decisions and has more 
-                        of the parenting time with the child.
-                    </p>
-                    </b-form-checkbox>
-                </div>
-
-                <div class="checkbox-border">
-                    <b-form-checkbox value="spousalSupport"><div class="checkbox-choices">Spousal Support</div>
-                        <p>
-                            Spousal support is the money that one spouse pays to another spouse for their financial support after separation. A person is not 
-                            entitled to spousal support in every case. 
-                        </p>
-                    </b-form-checkbox>
-                </div>
-                </b-form-checkbox-group>
-            </b-form-group>
         </div>
       </div>
     </div>
@@ -120,7 +150,7 @@ export default class PpmQuestionnaire extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
     
-    selectedForm = [];
+    selectedPriorityParentingMatter = [];
     //returningUser = false
     showLegalAssistance = false
     // preparationInfo = false
@@ -139,36 +169,36 @@ export default class PpmQuestionnaire extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
         if (this.step.result && this.step.result.ppmQuestionnaireSurvey) {
-            this.selectedForm = this.step.result.ppmQuestionnaireSurvey.data;
+            this.selectedPriorityParentingMatter = this.step.result.ppmQuestionnaireSurvey.data;
             this.determineSteps();
         }
         
-        const progress = this.selectedForm.length==0? 50 : 100;        
+        const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
   
-    public onChange(selectedForm) {
+    public onChange(selectedPriorityParentingMatter) {
         this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         if(this.checkErrorOnPages())        
-            this.setSteps(selectedForm);
+            this.setSteps(selectedPriorityParentingMatter);
         else{ 
-            this.selectedForm = [];            
+            this.selectedPriorityParentingMatter = [];            
             //this.togglePages(this.allPages, false); 
         }
         Vue.filter('surveyChanged')('familyLawMatter')        
-       // console.log(selectedForm)
+       // console.log(selectedPriorityParentingMatter)
     }
 
-    public setSteps(selectedForm) {
-        // console.log(selectedForm)
+    public setSteps(selectedPriorityParentingMatter) {
+        // console.log(selectedPriorityParentingMatter)
         const p = this.stPgNo.PPM
-        if (selectedForm) {
+        if (selectedPriorityParentingMatter) {
             this.togglePages(this.allPages, false); 
-            const progress = this.selectedForm.length==0? 50 : 100;
+            const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
 
-            if (selectedForm.length > 0){
+            if (selectedPriorityParentingMatter.length > 0){
 
                 this.determineSteps();                            
 
@@ -301,10 +331,10 @@ export default class PpmQuestionnaire extends Vue {
         this.UpdateGotoNextStepPage();       
     }   
 
-    public getSelectedFormsNames(){
+    public getSelectedPriorityParentingMatterNames(){
         let result = ''
-        // console.log(this.selectedForm)
-        for(const form of this.selectedForm){
+        // console.log(this.selectedPriorityParentingMatter)
+        for(const form of this.selectedPriorityParentingMatter){
             if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
             if(form=='childSupport')            result+='Child Support'+'\n';
             if(form=='contactWithChild')        result+='Contact With a Child'+'\n';
@@ -315,10 +345,10 @@ export default class PpmQuestionnaire extends Vue {
     }
   
     beforeDestroy() {
-        const progress = this.selectedForm.length==0? 50 : 100;
+        const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedPriorityParentingMatterNames()}]        
+        this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.selectedPriorityParentingMatter, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>
@@ -332,9 +362,10 @@ export default class PpmQuestionnaire extends Vue {
   margin-top: 10px;
   margin-bottom: 8px;
 }
-.checkbox-choices{
-  margin-bottom: 10px;
-  font-weight: bold;
+.form-group .checkbox-choices{
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-weight: normal;
   font-size: 17px;
 }
 

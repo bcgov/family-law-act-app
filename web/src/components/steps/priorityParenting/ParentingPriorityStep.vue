@@ -2,7 +2,7 @@
   <step-base v-bind:step="step">
     <!-- <priority-form v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterForm" /> -->
     <ppm-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmQuestionnaire"/>
-    <priority-parenting-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
+    <priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
     <ppm-children-info     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
     <flm-background    v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
     <about-priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.AboutPriorityParentingMatterOrder"/>

@@ -64,7 +64,8 @@ export default class Notice extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);            
+            console.log(this.survey.data);            
+            this.determineRequiredApplications();
         })   
     }
 
@@ -77,6 +78,18 @@ export default class Notice extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
+    }
+
+    public determineRequiredApplications() {
+
+        if (this.survey.data && this.survey.data.noticeType) {
+            const noticeType = this.survey.data.noticeType;
+            if (noticeType == '' || noticeType == '') {
+                console.log('turn on case management')
+            }
+            //TODO: handle turning CM on if hasn't been turned on yet
+        }
+
     }
 
     public onPrev() {
