@@ -1,74 +1,34 @@
 {
-  "title": "About Child Support Changes",
+  "title": "About the order",
   "pages": [
     {
-      "name": "About Child Support Changes",
+      "name": "About the order",
+      "description": "{listOfIssuesDescription}",
       "elements": [
         {
           "type": "panel",
-          "name": "aboutChildSupportChangesPanel",
+          "name": "aboutPriorityParentingMatterPanel",
           "elements": [
             {
               "type": "comment",
               "name": "orderDescription",
               "isRequired": true,
-              "title": "Please describe the order about child support you would like the court to make.",
-              "description": "Explain what you need the new court order to say about child support. You do not need to use any special wording. The key is to be clear about what part of the existing order or agreement you want to keep and what may need to be changed."
-            },            
+              "title": "Please provide the details of the order you are asking the court to make:",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
+            },
             {
-              "type": "advancedradiogroup",
-              "name": "orderStartingDate",
-              "title": "When do you want the order about child support to start?",
-              "description": "You need to tell the court when you think the new order should start. Child support payments may start or end on a date or event in the past, present, or it could be a future date or event. The court can order payment of retroactive child support (starting from a date in the past) and order ongoing child support.",
-              "radioOutputValues":"{startingDate}",
-              "inputNames":"{startingDate}",
-              "inputTypes":"{date}",
-              "inputWidths":"{12rem}",                  
-              "textBeforeInputs":"{Enter the date:},{}",
-              "radioMargins":"0 0 0.5rem 0",
-              "radioTextMargins":"-0.6rem 0 0 0",
-              "hasOther": true,
-              "isRequired": true
-            },    
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
             {
               "type": "comment",
-              "name": "orderStartDateReason",
+              "name": "applicationFacts",
+              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include why you need the court to make the order and how your situation is a priority parenting matter.",
               "isRequired": true,
-              "title": "Why do you want the child support payments to start on this date?"
-            },
-            {
-              "type": "checkbox",
-              "name": "listOfSituations",
-              "title": "You may be required to file a Financial Statement in Form 4 with your application for an order about child support. Select each option below that applies to your situation.",
-              "isRequired": true,
-              "choices": [
-                "I am required to pay child support",
-                "There is `split` or `shared` parenting time",
-                "There is a child 19 years or older for who support is for",
-                "A party has been acting as a parent to a child of the other party, for example a step-parent",
-                "The paying parent earns more than $150,000 per year",
-                "There is a claim for `special and extraordinary expenses` for a child",
-                "I am claiming `undue hardship`",
-                "None of the above apply to my situation"
-              ]
-            },
-            {
-              "type": "infotext",
-              "name": "parentFileForm4Info",
-              "visible": true,
-              "visibleIf": "({listOfSituations} notempty) and !({listOfSituations} contains 'None of the above apply to my situation')",
-              "title": "You are required to file a <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement in Form 4 </a> with your application for an order about child support. You will be reminded to include a copy at the end of the service. If you have previously filed a Financial Statement, you will need to update the information and file a new one.",
-              "titleLocation": "hidden",
-              "messageStyle": "info"
-            },
-            {
-              "type": "infotext",
-              "name": "parentNotFileForm4Info",
-              "visible": true,
-              "visibleIf": "{listOfSituations} contains 'None of the above apply to my situation'",
-              "title": "Based on your answer, you are not required to file a Financial Statement in Form 4 with your application for an order about child support. Depending on the other party’s reply, you may be required to file a Financial Statement later.",
-              "titleLocation": "hidden",
-              "messageStyle": "info"
+              "title": "The `facts` on which this application is based are as follows:"
             }
           ]
         }

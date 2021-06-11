@@ -353,7 +353,7 @@ export default class PpmQuestionnaire extends Vue {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../../styles/survey";
 .checkbox-border {
   border: 1px solid rgba($gov-mid-blue, 0.3);

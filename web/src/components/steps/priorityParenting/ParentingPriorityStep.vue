@@ -4,7 +4,7 @@
     <ppm-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmQuestionnaire"/>
     <priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
     <ppm-children-info     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
-    <flm-background    v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
+    <ppm-background    v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
     <about-priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.AboutPriorityParentingMatterOrder"/>
     <review-your-answers-ppm  v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.ReviewYourAnswersPPM"/>
     <preview-forms-ppm        v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PreviewFormsPPM"/>

@@ -4,11 +4,10 @@
             <div class="row">
                 <div class="col-md-12"> <!-- v-if="showTable" -->
                     <h1>Children Details</h1>
-                    <p>You have indicated you are asking for orders about a child.</p>
-                    <p>Please enter the details of the child in the fields below.  
-                        Add each child who is the subject of your family law matter application.  
-                        To add a child, click the "Add Child" button.  If you are done entering 
-                        all the children, click the "Next" button.
+                   
+                    <p>Add each child who is the subject of your priority parenting matter application. 
+                        To add a child, click the "Add Child" button. If you are done entering all the 
+                        children, click the "Next" button.
                     </p>
                     <div class="childSection" v-if="showTable">
                         <div class="childAlign">
@@ -18,9 +17,7 @@
                                     <th scope="col">Child's name</th>
                                     <th scope="col">Child's date of birth</th>
                                     <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Other party's relationship to the child</th>
-                                    <th scope="col">Child is currently living with</th>
-                                    <!-- <th scope="col">Additional Information</th> -->
+                                    <th scope="col">Other party's relationship to the child</th>                                   
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -30,10 +27,7 @@
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
                                     <td>{{child.dob | beautify-date}}</td>
                                     <td>{{child.relation}}</td>
-                                    <td>{{child.opRelation}}</td>
-                                    <td v-if="child.currentLiving != 'other'">{{child.currentLiving}}</td>
-                                    <td v-else>{{child.currentLivingComment}}</td>
-                                    <!-- <td>{{child.additionalInfoDetails}}</td> -->
+                                    <td>{{child.opRelation}}</td>                                   
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -54,26 +48,7 @@
                 </div>
                
             </div>
-        </div>
-        <b-card v-if="childData.length > 0" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
-            <p>
-                The <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests" target="_blank"
-            >best interests of the child</a> is a test that the court uses to make decisions about children.  
-                Before making a decision, both parents and courts must consider the child's physical, psychological 
-                and emotional safety, security and well-being.  You must always think about the best interests of 
-                the child when you are asking the court for decisions about them.
-            </p>
-            
-            <b-form-checkbox 
-                size="lg" 
-                v-model="childBestInterestUnderstanding" 
-                style="display:inline-block;color:#556077; font-size:1.40em; font-weight:bold; transform:translate(0px,3px);">
-            </b-form-checkbox>
-            <div style="display:inline;color:#556077; font-size:1.5em; font-weight:bold;">
-                I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.
-            </div>
-            
-        </b-card>
+        </div>       
     </page-base>
 </template>
 
@@ -110,7 +85,6 @@ export default class PpmChildrenInfo extends Vue {
     currentStep=0;
     currentPage=0;
     showTable = true;
-    childBestInterestUnderstanding = false;
     childData = [];
     anyRowToBeEdited = null;
     editId = null;    
@@ -167,18 +141,13 @@ export default class PpmChildrenInfo extends Vue {
 
     created() {
         //console.log(this.step)
-        if (this.step.result && this.step.result.childData) {
-            this.childData = this.step.result.childData.data;
-        }
-        if (this.step.result && this.step.result.childBestInterestAcknowledgement) {
-            this.childBestInterestUnderstanding = this.step.result.childBestInterestAcknowledgement;
-        }
+        if (this.step.result && this.step.result.childDataPPM) {
+            this.childData = this.step.result.childDataPPM.data;
+        }        
     }
 
     mounted(){
-        //console.log(this.childBestInterestUnderstanding)
-
-        const progress = this.childData.length>0 && this.childBestInterestUnderstanding? 100 : 50;            
+        const progress = this.childData.length>0? 100 : 50;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
@@ -186,16 +155,14 @@ export default class PpmChildrenInfo extends Vue {
 
     public isDisableNext() {
         // demo
-        return (this.childData.length <= 0 || !this.childBestInterestUnderstanding);
+        return (this.childData.length <= 0);
     }
 
     beforeDestroy() {
-        const progress = this.childData.length>0 && this.childBestInterestUnderstanding? 100 : 50;
+        const progress = this.childData.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-
-        //this.UpdateStepResultData({step:this.step, data: {childData: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
-        this.UpdateStepResultData({step:this.step, data: {childData: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
+        this.UpdateStepResultData({step:this.step, data: {childDataPPM: this.getChildrenResults()}})       
     }
 
     public getChildrenResults(){
@@ -214,13 +181,7 @@ export default class PpmChildrenInfo extends Vue {
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
         resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
-        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)
-        if (child.currentLiving == 'other'){
-            // console.log(child)
-            resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)
-        } else {
-            resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
-        }
+        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)       
         
         return resultString
     }

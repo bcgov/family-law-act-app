@@ -148,6 +148,7 @@ export interface stepInfoType {
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: any;
     priorityParentingOrderSurvey?: any;
+    childDataPPM?: any;
     ppmBackgroundSurvey?: any;
     aboutPriorityParentingMatterOrderSurvey?: any;
 

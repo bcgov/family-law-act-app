@@ -44,6 +44,7 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);   
     currentStep=0;
     currentPage=0;
+    listOfIssuesDescription = '';
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -67,15 +68,7 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('priorityParenting')            
-            // console.log(options) 
-            if(options.name == 'listOfSituations'){
-                if(options.value.includes('None of the above apply to my situation')){
-                    //console.log('clear')
-                    Vue.nextTick(()=>
-                        this.survey.setValue('listOfSituations',['None of the above apply to my situation'])
-                    )
-                }                    
-            }           
+            // console.log(options)              
 
         })
     }
@@ -89,8 +82,68 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
             this.survey.data = this.step.result.aboutPriorityParentingMatterOrderSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        if (this.step.result && this.step.result.priorityParentingOrderSurvey && this.step.result.priorityParentingOrderSurvey.data){
+            this.listOfIssuesDescription = this.getDescription(this.step.result.priorityParentingOrderSurvey.data);
+            this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    }
+
+    public getDescription(data) {
+        let description = 'You indicated you are applying for an order about a priority parenting matter '
+       
+        console.log(data)
+        let listOfIssues = [];
+        const medical = (data.delayMedicalRisk && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
+        const passport = (data.delayPassportRisk && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
+        const travel = (data.delayTravelRisk && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied && data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
+        const locationChange = (data.existingParentingArrangements && data.existingParentingArrangements == 'y') && (data.impactOnRelationship && data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
+        const preventRemoval = (data.noReturnRisk && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
+        const interjurisdictional = (data.childInBC && data.childInBC == 'y') && (data.harm && data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
+        const wrongfulRemoval = (data.wrongfulInBC && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
+        const returnOfChild = (data.wrongfulReturn && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
+
+        if (medical) {
+            listOfIssues.push('<li>because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health</li>');
+        }
+
+        if (passport) {
+            listOfIssues.push('<li>because a guardian needs to apply for a passport, licence, permit, benefit, privilege or other thing for a child and a delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being</li>');
+        }
+
+        if (travel) {
+            listOfIssues.push('<li>because a guardian wrongfully denied consent for travel with a child or participation by a child in an activity</li>')
+        }
+
+        if (locationChange) {
+            listOfIssues.push('<li>because a change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian</li>')
+        }
+
+        if (preventRemoval) {
+            listOfIssues.push('<li>to prevent the removal of a child under section 64 of the Family Law Act </li>')
+        }
+
+        if (interjurisdictional) {
+            listOfIssues.push('<li>to determine matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act because you believe the child, currently in BC, would suffer serious harm if they were to remain with, or be returned to, the child’s guardian or be removed from BC</li>')
+        }
+
+        if (wrongfulRemoval) {
+            listOfIssues.push('<li>under section 77(2) of the Family Law Act because you believe a child has been wrongfully brought to or kept in BC</li>')
+        }
+
+        if (returnOfChild) {
+            listOfIssues.push('<li>relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention</li>')
+        }
+        console.log(listOfIssues.toString())
+        if (listOfIssues.length == 1){
+            description = description + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
+        } else {
+            description = description + '<ul>' + listOfIssues.toString().replace(',<li>', '<li>').replace('</li>,', '</li>') + '</ul>';
+        }
+
+        return description;
     }
 
     public onPrev() {

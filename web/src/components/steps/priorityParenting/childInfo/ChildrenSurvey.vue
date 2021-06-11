@@ -122,11 +122,11 @@ export default class ChildrenSurvey extends Vue {
         this.child.dob = childData.childDateOfBirth;
         this.child.relation = childData.relationToChild;
         this.child.opRelation = childData.childRelationToOtherParty;
-        this.child.currentLiving = childData.childCurrentlyLivingWith;
-        this.child.currentLivingComment = (childData.childCurrentlyLivingWith == 'other')?(childData.childCurrentlyLivingWithComment):"";        
-        this.child.ack = childData.childInfoAckknowledge;
-        this.child.additionalInfo = childData.childAdditionalInfo;
-        this.child.additionalInfoDetails = childData.additionInfoDetails;
+        // this.child.currentLiving = childData.childCurrentlyLivingWith;
+        // this.child.currentLivingComment = (childData.childCurrentlyLivingWith == 'other')?(childData.childCurrentlyLivingWithComment):"";        
+        // this.child.ack = childData.childInfoAckknowledge;
+        // this.child.additionalInfo = childData.childAdditionalInfo;
+        // this.child.additionalInfoDetails = childData.additionInfoDetails;
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -136,11 +136,11 @@ export default class ChildrenSurvey extends Vue {
         survey.setValue("childDateOfBirth", editRowProp.dob);
         survey.setValue("relationToChild", editRowProp.relation);
         survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
-        survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
-        survey.setValue("childCurrentlyLivingWithComment", editRowProp.currentLivingComment?editRowProp.currentLivingComment:'');
-        survey.setValue("childInfoAckknowledge", editRowProp.ack);
-        survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
-        survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
+        // survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
+        // survey.setValue("childCurrentlyLivingWithComment", editRowProp.currentLivingComment?editRowProp.currentLivingComment:'');
+        // survey.setValue("childInfoAckknowledge", editRowProp.ack);
+        // survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
+        // survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
         survey.setVariable("id", editRowProp.id);
     }
 
