@@ -69,6 +69,8 @@ export default class FormList extends Vue {
             { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[this.stPgNo.PO._StepNo],   color:"danger", title:"Application About a Protection Order (FORM 12)"},
             { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
             { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'P15', appName:'priorityParenting', pdfType:'AXP', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo], color:"danger", title:"Application About Priority Parenting Matter (Form 15)"}        
+        
         ]
 
         this.currentStep = this.$store.state.Application.currentStep;

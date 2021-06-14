@@ -3,16 +3,18 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header">
+        <div  class="form-header-ppm">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:13pt;"><b>Application About a Family Law Matter</b></div>
-                <div style="font-size:10pt;"><b>FORM 3</b></div>
-                <div>Provincial Court Family Rules (Rule 24)</div>
+                <div style="font-size:11pt;"><b>Application About</b></div>
+                <div style="font-size:11pt;"><b>Priority Parenting Matter</b></div>
+                <div style="font-size:9pt;"><b>FORM 15</b></div>
+                <div style="font-size:8pt;">Provincial Court Family Rules</div>
+                <div style="font-size:8pt;">Rule 76</div>
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:locationInfo.existingFileNumber}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:''}]"
                     :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
@@ -25,28 +27,14 @@
                         </template>
                 </b-table>                
             </div>
-        </div>
-
-        <div class="text-justify">
-            <p class="mb-0">This Application About a Family Law Matter has been filed in Provincial Court. It provides notice to each party, and the court, of the family law matters to be resolved with the help of the court and may include</p>
-            <ul style="margin-left:-1rem;">
-                <li>an application for a new order about a family law matter to be made by the court,</li>
-                <li>an application to change or cancel all or part of an existing final order about a family law matter, or</li>
-                <li>an application to set aside or replace all or part of an existing agreement about a family law matter.</li>
-            </ul>
-            <p>If you choose to reply, you or your lawyer must file a completed Reply to an Application About a Family Law Matter in Form 6 within 30 days after the date you were served with the application.</p>
-            <p>To file your reply, you may be required to file a Financial Statement if this application is about child support and/or spousal support. In an early resolution registry, you must also have met the early resolution requirements, as applicable.</p>
-            <b>If you do not file a Reply to an Application About a Family Law Matter within the 30 day period referred to above, you will not be entitled to receive notice of any part of the case, including any conference, hearing or trial, and orders may be made in your absence.</b>
-        </div>
-
-
-        <div style="margin-top:1rem;"><b>Information about the parties</b></div>
+        </div> 
+        
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
-            <table class="fullsize">
+            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+            <div style="text-indent:5px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
+            <table class="fullsize" style="margin-top:0.5 !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -66,168 +54,241 @@
                 </tr>
             </table>
         </section>
+
+       
+
 <!-- <2> -->
         <section>
-            <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="true?'yes':''" text="I understand the following people must be given notice of my application:"/>
-            <ul style="margin:0 0 0 1.5rem;">
-                <li style="text-indent:0.25rem;">all parents and current guardians of each child who is the subject of the family law matter</li>
-                <li style="text-indent:0.25rem;">my spouse, if I am applying for spousal support</li>
-                <li style="text-indent:0.25rem;">each other adult who the application about a family law matter is about</li>
-            </ul>
-            <p style="margin:0.5rem 0 0 2.35rem; text-indent:0;">They are the other party/parties in this case. To give notice, they must each be served with a copy of this document and any supporting documents.</p>                
+            <check-box 
+                inline="inline" 
+                boxMargin="0" 
+                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                :check="true?'yes':''" 
+                text="I understand I must give notice of this application to all parents and guardians of the child(ren) this
+                    application is about. They are the other party/parties. To give notice, they must be served with the
+                    application and supporting documents at least 7 days before the date set for the court appearance
+                    unless the court allows the application to be made without notice or with less than 7 days’ notice."/>
+                    <i style="margin:0 0 0 1.6rem;display:inline;">Select only one of the options below</i>
+            <div style="margin:0 0 0 1.75rem;">
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="I am giving at least 7 days’ notice to the other party"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11
+                    requesting to waive the requirement for notice of this application"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11
+                    requesting to modify the requirement for at least 7 days’ notice to the other party"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="I have a court order that allows the application to be made without notice or with less than 7 days’
+                    notice"/>
+            </div>                         
         </section>
+
+        
 
 <!-- <3> -->
-        <section> 
-            <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party is" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
-                <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
-                <table class="fullsize">
-                    <tr style="border:1px solid #313132" >                        
-                        <td colspan="3">Lawyer (if applicable): </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">          
-                        <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">
-                        <td  >City: <div class="answer">{{otherParty.address?otherParty.address.city:''}}</div> </td>
-                    <td style="padding-left:50px">Province: <div class="answer">{{otherParty.address?otherParty.address.state:''}}</div> </td>
-                        <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
-                    </tr>
-                    <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
-                        <td style="padding-left:50px"></td>
-                        <td>Telephone: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.phone:''}}</div> </td>
-                    </tr>
-                </table>
-            </div>
-        </section>
-
         <div class="print-block">
-            <div style="margin-top:1rem;"><b>Lawyer’s statement</b></div>
+            <section> 
+                <div style="display:inline; font-size: 9pt;">
+                    <underline-form 
+                        style="text-indent:2px;display:inline-block;" 
+                        textwidth="14.5rem" 
+                        beforetext="The other party is" 
+                        hint="full name of the other party" 
+                        :italicHint="false" 
+                        :text="firstOtherParty.name | getFullName"/>
+                    <underline-form 
+                        style="display:inline;text-indent:2px;" 
+                        textwidth="7rem" 
+                        beforetext=". Their date of birth is" 
+                        hint="date of birth (mmm/dd/yyyy)" 
+                        :italicHint="false" 
+                        :text="firstOtherParty.dob | beautify-date"/>
+                    <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
+                    <table class="fullsize">
+                        <tr style="border:1px solid #313132" >                        
+                            <td colspan="3">Lawyer (if applicable): </td>
+                        </tr>
+                        <tr style="border:1px solid #313132">          
+                            <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
+                        </tr>
+                        <tr style="border:1px solid #313132">
+                            <td  >City: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.city:''}}</div> </td>
+                        <td style="padding-left:50px">Province: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.state:''}}</div> </td>
+                            <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
+                        </tr>
+                        <tr style="border:1px solid #313132">
+                            <td>Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
+                            <td style="padding-left:50px"></td>
+                            <td>Telephone: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.phone:''}}</div> </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="text-indent:5px;display:inline;"><i>Additional party (Complete only if applicable. You may leave this section blank.)</i></div>
+                        
+                <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
+
+                    <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
+                    
+                        <table class="fullsize">
+                            <tr style="border:1px solid #313132">
+                                <td>Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>
+                                <td style="padding-left:50px"></td>
+                                <td>Date of birth: <div class="answer">{{otherParty.dob | beautify-date}}</div> </td>
+                            </tr>
+                            <tr style="border:1px solid #313132" >                        
+                                <td colspan="3">Contact information</td>
+                            </tr>
+                            <tr style="border:1px solid #313132" >                        
+                                <td colspan="3">Lawyer (if applicable): </td>
+                            </tr>
+                            <tr style="border:1px solid #313132">          
+                                <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
+                            </tr>
+                            <tr style="border:1px solid #313132">
+                                <td  >City: <div class="answer">{{otherParty.address?otherParty.address.city:''}}</div> </td>
+                            <td style="padding-left:50px">Province: <div class="answer">{{otherParty.address?otherParty.address.state:''}}</div> </td>
+                                <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
+                            </tr>
+                            <tr style="border:1px solid #313132">
+                                <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
+                                <td style="padding-left:50px"></td>
+                                <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
+                            </tr>
+                        </table>                    
+                    </div>
+                </div>
+                <div v-else>
+
+                    <div style="display:inline; font-size: 9pt;">
+                    
+                        <table class="fullsize">
+                            <tr style="border:1px solid #313132">
+                                <td>Full name: <div class="answer"></div> </td>
+                                <td style="padding-left:50px"></td>
+                                <td>Date of birth: <div class="answer"></div> </td>
+                            </tr>
+                            <tr style="border:1px solid #313132" >                        
+                                <td colspan="3">Contact information</td>
+                            </tr>
+                            <tr style="border:1px solid #313132" >                        
+                                <td colspan="3">Lawyer (if applicable): </td>
+                            </tr>
+                            <tr style="border:1px solid #313132">          
+                                <td colspan="3">Address: <div class="answer"> </div> </td>
+                            </tr>
+                            <tr style="border:1px solid #313132">
+                                <td  >City: <div class="answer"></div> </td>
+                            <td style="padding-left:50px">Province: <div class="answer"></div> </td>
+                                <td>Postal Code: <div class="answer"></div> </td>
+                            </tr>
+                            <tr style="border:1px solid #313132">
+                                <td>Email: <div class="answer"></div> </td>
+                                <td style="padding-left:50px"></td>
+                                <td>Telephone: <div class="answer"></div> </td>
+                            </tr>
+                        </table>                    
+                    </div>
+                </div>
+            </section>
+        </div> 
+
+        <!-- <For registery> -->
+        <div class="print-block">
+            <div style="margin-top:2rem; font-size: 9pt;"><i>For registry use only</i></div>
+            <div style="width:99%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+                <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
+                <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+            </div>
+            <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+        </div>
+
+        <div class="print-block mt-5"></div>
+
+        <div style="text-align:left;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
+            
 <!-- <4> -->
             <section>
-                <div style="display:inline; margin-left:0.25rem">Complete this section only if you are a lawyer for the party. You may leave this section blank.</div>
-                <div>
-                    <check-box  inline="inline" boxMargin="0" style="margin:0 0 0 1rem;display:inline" :check="yourInfo.lawyerFiling?'yes':''" text=""/>
-                    <underline-form style="text-indent:0px;display:inline;" textwidth="15.5rem" beforetext="I, " hint="full name of lawyer" :text="yourInfo.lawyerStatement.lawyerName"/>
-                    <underline-form style="text-indent:2px;display:inline;" textwidth="16.25rem" beforetext=", the lawyer for" hint="full name of party" :text="yourInfo.lawyerStatement.clientName"/>
-                    <div style="display:inline;">, acknowledge that I have complied with the requirements of section 8 of the <i>Family Law Act</i>. </div>
-                </div>           
-            </section>
-        </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Initial requirements</b></div>
-<!-- <5> -->
-            <section> 
-                I am filing my application in:
-                <check-box style="margin:0 0 0 1rem;" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="an early resolution registry and I have met the following requirements:<br/><i>The requirements have been met if you completed or participated in, or if you were granted an exemption from completing or participating in, the following: Select all options that apply.</i>"/>
-                <div style="margin:0 0 0 2.75rem;">
-                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="needs assessment"/>
-                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="parenting education program"/>
-                    <check-box style="" :check="locationInfo.earlyResolutionRegistry?'yes':''" text="consensual dispute resolution"/>
-                </div>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.familyJusticeRegistry?'yes':''" text="a family justice registry and I understand I will be required to participate in a needs assessment and complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.educationRegistry?'yes':''" text="a parenting education program registry and I understand I will be required to complete a parenting education program, unless exempt, before a family management conference can be scheduled"/>
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="locationInfo.none?'yes':''" text="none of the above "/>
-            </section>
-        </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Make an application</b></div>
-<!-- <6> -->
-            <section>
-                <b style="margin-left:0.25rem">I am applying for a court order about the following family law matter(s):</b>
-                <div style="margin-left:1rem;">
-                    <i>Select all options that apply, complete and attach the required schedule(s)</i>
-                    <div style="margin-top:0.25rem;"><b>Parenting arrangements</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule1')?'yes':''" text="parenting arrangements – new <i>[complete and attach Schedule 1]</i> <br/>	including parental responsibilities and parenting time"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule2')?'yes':''" text="parenting arrangements order/agreement – existing <i>[complete and attach Schedule 2]</i><br/> including parental responsibilities and parenting time"/>
-                
-                    <div style="margin-top:0.25rem;"><b>Child support</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule3')?'yes':''" text="child support – new <i>[complete and attach Schedule 3]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule4')?'yes':''" text="child support order/agreement – existing <i>[complete and attach Schedule 4]</i>"/>
-                    
-                    <div style="margin-top:0.25rem;"><b>Contact with a child</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule5')?'yes':''" text="contact with a child – new <i>[complete and attach Schedule 5]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule6')?'yes':''" text="contact order/agreement – existing <i>[complete and attach Schedule 6]</i>"/>
-
-                    <div style="margin-top:0.25rem;"><b>Guardianship of a child</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule7')?'yes':''" text="appointing a guardian of a child <i>[complete and attach Schedule 7]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule8')?'yes':''" text="cancelling guardianship of a child <i>[complete and attach Schedule 8]</i>"/>
-
-                    <div style="margin-top:0.25rem;"><b>Spousal support</b></div>
-                    <check-box style="" :check="selectedSchedules.includes('schedule9')?'yes':''" text="spousal support – new <i>[complete and attach Schedule 9]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule10')?'yes':''" text="spousal support order/agreement – existing <i>[complete and attach Schedule 10]</i>"/>
-
-                </div>
-            </section>
-        </div>
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Existing written agreements or court orders</b></div>
-<!-- <7> -->
-            <section>
-                <div style="display:inline; margin-left:0.25rem">There is an existing written agreement or court order about parenting arrangements, child support, contact with a child, guardianship of a child, and/or spousal support </div>          
-                <div style="margin-left:1rem">
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingFlm?'yes':''" text="Yes"/>
-                    <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingFlm?'yes':''" text="No"/>
-                    <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
-                </div>
-            </section>
-        </div>
-
- <!-- <8> -->
-        <section> 
-            <div style="display:inline; margin-left:0.25rem">There is an existing court order protecting one of the parties, the child(ren), or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition and other criminal order</div>            
-            <div style="margin-left:1rem">
-                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="existingOrders.existingPO?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!existingOrders.existingPO?'yes':''" text="No"/>
-                <i style="display:block">If yes, attach a copy of the order(s) to your application</i>
-            </div>
-        </section>  
-
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>Relationship between the parties</b></div>
-<!-- <9> -->
-            <section>
-                <div style="display:inline; margin-left:0.25rem">The parties are: </div> 
-                <div class="answer">         
-                    <span style="display:block;margin-left:1rem" >{{relationshipBetweenParties.description}}</span>
-                </div>
-            </section>
-        </div>
-
-<!-- <10> -->
-        <section>
-            <div style="display:inline; margin-left:0.25rem">I am or have been spouses, or live or have lived together in a marriage-like relationship, with the other party </div>          
-            <div>
-                <i style="display:inline;margin-left:1rem" >Specify which other party if there is more than one: </i>
-                <underline-form style="text-indent:2px;display:inline;" textwidth="21.5rem" beforetext="" hint="name of other party" :text="relationshipBetweenParties.nameOfSpouse"/>
-            </div>
-            <div style="margin-left:1rem">
-                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="relationshipBetweenParties.spouses?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;" :check="!relationshipBetweenParties.spouses?'yes':''" text="No"/>
-                <i style="display:block">If yes, please complete all options below that apply to the parties</i>
-                
-                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="8rem" beforetext="Date on which the parties began to live together in a marriage-like relationship:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.startDate"/>
-                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of marriage:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.marriageDate"/>
-                <underline-form style="margin-left:0.5rem; text-indent:0rem;display:block" textwidth="13rem" beforetext="Date of separation:" hint="(mmm/dd/yyyy)" :text="relationshipBetweenParties.separationDate"/>    
-                <i style="margin-left:1.5rem;display:block">Note:  Spouses may be separated despite continuing to live in the same residence [Family Law Act s.3(4)]</i>
-            </div>
+            <check-box 
+                inline="inline" 
+                boxMargin="0" 
+                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                :check="true?'yes':''" 
+                text="I am applying for an order about the following priority parenting matter(s):"/>
+                    <i style="margin:0 0 0 1.25rem;display:block;">Select all options that apply</i>
+            <div style="margin:0 0 0 1.75rem;">
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related
+                        treatments for a child, because delay will result in risk to the child’s health"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child,
+                        because delay will result in risk of harm to the child’s physical, psychological or emotional safety,
+                        security or well-being"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="applying, by a guardian, for travel with a child or participation by a child in an activity because
+                        consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a
+                        child’s residence because no written agreement or order respecting parenting arrangements applies
+                        in respect of the child, and the change of residence can reasonably be expected to have a significant
+                        impact on the child’s relationship with another guardian"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="relating to the removal of a child under section 64 of the Family Law Act"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                <check-box
+                    boxMargin="0" 
+                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                    :check="true?'yes':''" 
+                    text="relating to the return of a child alleged to have been wrongfully removed or retained under the
+                    Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25,
+                    1980"/>               
+            </div>                         
         </section>
 
+        <!-- <5> -->
+
         <div class="print-block">
-            <div style="margin-top:1rem;"><b>Identification of child(ren)</b></div>
-<!-- <11> -->
             <section>
-                <i style="display:inline; margin-left:0.25rem">Select only one of the options below and complete the required information</i>          
-                <div style="margin-left:1.5rem">
-                    <check-box style="" :check="!aboutChildren?'yes':''" text="My application does not ask for any order(s) about a child or children <i>(skip section 12)</i>"/>
-                    <check-box style="" :check="aboutChildren?'yes':''" text="My application is asking for an order(s) about the following child or children:"/>
-                </div>
+                <div style="display:inline; margin-left:0.25rem">This application is about the following child(ren):</div>          
+                
                 <b-table
                     :items="childrenInfo"
                     :fields="childrenFields"
@@ -242,81 +303,118 @@
                         </template>
                 </b-table> 
             </section>
+        </div>   
+
+        <!-- <6> -->        
+
+        <div class="print-block">            
+            <section>
+                <b-row style="margin:0 0 0 0.4rem; display: inline;">
+                    <div style="display: inline;">There is an existing written agreement or court order about the child(ren) concerning parenting
+                    arrangements, child support, contact with a child, or guardianship:</div>
+                    <div style="display: inline;">
+                        <check-box :check="ppmInfo.ExistingCase?'yes':''" text="yes"/>
+                        <check-box :check="!ppmInfo.ExistingCase?'yes':''" text="no"/> 
+                    </div>
+                </b-row>
+                <div><i style="margin:0 0 0 1rem; display: block;">If yes, attach a copy of the agreement(s) and/or order(s) to your application</i></div>            
+            </section>
+        </div>   
+
+        <!-- <7> --> 
+
+        <div class="print-block">            
+            <section>
+                I know the following information about any court proceeding that is pending or that has been initiated
+                about parenting arrangements, contact with a child or guardianship of a child who is the subject of this
+                application:
+                <i style="margin:0 0 0 1rem; display: block;">If there is no pending or ongoing court proceeding, that you know of, in this court or another court or
+                jurisdiction, you may leave this section blank</i>
+                
+                <div v-if="ppmInfo.existingProceeding && ppmInfo.proceedingInfo" 
+                    class="answerbox">{{ppmInfo.proceedingInfo}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+            
+            </section>
+        </div> 
+
+        <!-- <8> -->      
+
+        <div class="print-block">
+            
+            <section>
+                The details of the order I am applying for are as follows:
+                <i style="margin:0 0 0 1rem; display: block;">Tell the court and the other party the details of the order you are asking for</i>
+                
+                <div v-if="ppmInfo.orderdesc" 
+                    class="answerbox">{{ppmInfo.orderdesc}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+            
+            </section>
+        </div>  
+
+        <!-- <9> -->
+
+        <div class="print-block">
+            
+            <section>
+                The facts on which this application is based are as follows:  
+                <i style="margin:0 0 0 1rem; display: block;">Provide the facts you want the court to consider. Include why you need the court to make the order and how
+                your situation is a priority parenting matter.</i>             
+                
+                <div v-if="ppmInfo.facts" 
+                    class="answerbox">{{ppmInfo.facts}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+            
+            </section>
         </div>
 
-<!-- <12> -->
-        <section>
-            <div style="margin:0 0 0 .5rem;display:inline;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="childBestInterestAcknowledmentCheck?'yes':''" text=""/>
-                <div class="marginleft1vue" style="display:inline-block;">I understand that I must consider the child(ren)’s best interests with respect to each order I am </div>
-                <div style="margin:0 0 0 1.75rem;display:inline-block;">asking the court to make about the child.</div>
-            </div>
-        </section>
-       
-        <div class="print-block">
-            <div style="margin-top:1rem;"><b>About us</b></div>
-<!-- <13> -->
-            <section>
-                <i style="display:inline; margin-left:0.25rem">You may choose to complete this section or leave this section blank</i>
-                <div style="margin-left:.5rem; text-indent:0rem;">I would like to share the following information with the court about the cultural, linguistic, religious and spiritual upbringing and heritage of my family, including, if the child is an Indigenous child, the child’s Indigenous identity:</div>
-                <div style="margin-left:.5rem; text-indent:0rem;"></div>
-                <div v-if="result.flmBackgroundSurvey.likeToAddCulturalExplanation == 'y'" class="answerbox">{{culturalInfo}}</div>
-                <div v-else style="margin-bottom:3rem;"></div>
-            </section>  
-        </div>   
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "./components/UnderlineForm.vue"
+import CheckBox from "./components/CheckBox.vue"
+import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType, childDataInfoType, yourInformationInfoDataInfoType} from '@/types/Application/FamilyLawMatter/Pdf';
-import { yourInformationDataInfoType } from '@/types/Application/CommonInformation';
+import { yourInformationInfoDataInfoType, childDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { priorityParentingInformationDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox
+        CheckBox,
+        OrderedCheckBox        
     }
 })
+
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
-    result!: any;
-
-    @Prop({required:true})
-    selectedSchedules!: string[];
+    result!: any;    
     
     @applicationState.State
     public applicantName!: nameInfoType;
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
-    
-    dataReady = false;
-    aboutChildren = false;
 
-    locationInfo = {} as locationInfoDataInfoType;
+    dataReady = false;   
 
     otherPartyInfo=[];
+    additionalOtherParties = [];
+    firstOtherParty = {} as any;
     yourInfo = {} as yourInformationInfoDataInfoType;
+    ppmInfo = {} as priorityParentingInformationDataInfoType;
 
-    applicantList = []
-    
-    existingOrders = {} as existingOrdersInfoType;
-    
-    relationshipBetweenParties = {} as relationshipBetweenPartiesInfoType;
-    childrenInfo = []
-    childBestInterestAcknowledmentCheck = false;
-    culturalInfo = '';  
-    
+    childrenInfo = [];    
    
     mounted(){
         this.dataReady = false;
@@ -325,86 +423,35 @@ export default class CommonSection extends Vue {
     }
    
     childrenFields=[
-        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
         {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"Other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
-        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
+        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
     ]   
 
-    public extractInfo(){ 
+    public extractInfo(){
+        console.log(this.result)     
         
-        this.existingOrders = this.getExistingOrdersInfo();
-        this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
-        const childRelatedApplication = ( 
-            this.selectedSchedules.includes('schedule1') ||
-            this.selectedSchedules.includes('schedule2') || 
-            this.selectedSchedules.includes('schedule3') ||
-            this.selectedSchedules.includes('schedule4') ||
-            this.selectedSchedules.includes('schedule5') || 
-            this.selectedSchedules.includes('schedule6') ||
-            this.selectedSchedules.includes('schedule7') || 
-            this.selectedSchedules.includes('schedule8')
-        )
-        if (childRelatedApplication && this.result.childData && this.result.childData.length > 0){
-            this.aboutChildren = true;
+        this.otherPartyInfo=this.getOtherPartyInfo()        
+        this.firstOtherParty = this.otherPartyInfo[0];
+        if (this,this.otherPartyInfo.length > 1) {
+            this.otherPartyInfo.splice(0,1)
+            this.additionalOtherParties = this.otherPartyInfo;
+        }
+
+        if (this.result.childDataPPM && this.result.childDataPPM.length > 0){          
             this.childrenInfo = this.getChildrenInfo();
-            this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
-        } else {
-            this.aboutChildren = false;
-            this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
-            this.childBestInterestAcknowledmentCheck = false;
-        }
-
-        if (this.result.flmBackgroundSurvey.culturalExplain) {
-            this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
-        }       
-        
-        this.otherPartyInfo=this.getOtherPartyInfo()
-        this.yourInfo = this.getYourInfo()     
-        this.locationInfo = this.getLocationInfo();  
-
-    }
-
-    public getLocationInfo(){
-
-        let locationInformation = {} as locationInfoDataInfoType;
-        if (this.result.filingLocationSurvey){
-            const locationData = this.result.filingLocationSurvey;
-           
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
-
-            locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
-            locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
-            locationInformation.educationRegistry = locationData.familyEducationProgram;  
-            locationInformation.none = !(locationInformation.educationRegistry
-                                        || locationInformation.familyJusticeRegistry
-                                        || locationInformation.earlyResolutionRegistry);
         }
         
-        return locationInformation;
-    }
-
-    public getRelationshipBetweenPartiesInfo(){
-
-        let relationshipInfo = {} as relationshipBetweenPartiesInfoType;
-        relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
-        relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
-        if (relationshipInfo.spouses){
-            relationshipInfo.startDate = Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.liveTogetherPODate);
-            relationshipInfo.marriageDate =this.result.flmBackgroundSurvey.dateOfMarriagePO? Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.dateOfMarriagePO):'';
-            relationshipInfo.separationDate = (this.result.flmBackgroundSurvey.isSeperated == 'y')?Vue.filter('beautify-date')(this.result.flmBackgroundSurvey.separationDate):'';
-            relationshipInfo.nameOfSpouse = this.result.flmBackgroundSurvey.listOfSpouses;
-        }
-        return relationshipInfo;
-    }
-
+        this.yourInfo = this.getYourInfo();
+        this.ppmInfo = this.getPpmInfo();
+    }   
+    
     public getChildrenInfo(){
 
         const childrenInfo: childDataInfoType[] = [];
         let childInfo = {} as childDataInfoType;
-        const childData = this.result.childData;
+        const childData = this.result.childDataPPM;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
@@ -412,32 +459,18 @@ export default class CommonSection extends Vue {
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = (child.currentLiving == 'other')? child.currentLivingComment:child.currentLiving;
             childrenInfo.push(childInfo)
         }        
 
         return childrenInfo;
     }
 
-    public getExistingOrdersInfo(){
-        let existing = {existingFlm: false, existingPO: false}
-
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
-        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
-
-        return existing;
-    }
-
     public getYourInfo(){
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
-
-        // console.log(this.result.filingLocationSurvey)
-
+        let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;
-            
+            const applicantInfo = this.result.yourInformationSurvey;            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
@@ -445,13 +478,9 @@ export default class CommonSection extends Vue {
                 lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
                 address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
                 contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
-                lawyerStatement: (applicantInfo.Lawyer == 'y' && 
-                                applicantInfo.LawyerFillingOut == 'y' && 
-                                applicantInfo.lawyerStatement)?{lawyerName: applicantInfo.lawyerStatement.lawyerName, clientName: applicantInfo.lawyerStatement.clientName}:{lawyerName: '', clientName: ''}
-            }
-                     
+                lawyerFiling: false,
+                lawyerStatement: {lawyerName: '', clientName: ''}
+            }                     
         }
         return yourInformation;
     }
@@ -468,8 +497,9 @@ export default class CommonSection extends Vue {
         ];        
 
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
-            OpInformation = [];    
-            for(const party of this.result.otherPartyCommonSurvey){
+            OpInformation = []; 
+           
+            for(const party of this.result.otherPartyCommonSurvey){ 
                 let otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
@@ -494,7 +524,30 @@ export default class CommonSection extends Vue {
         } 
 
         return OpInformation
-    }    
+    }  
+    
+    public getPpmInfo(){
+
+        let ppmInformation = {} as priorityParentingInformationDataInfoType;
+
+        if (this.result.ppmBackgroundSurvey) {
+            ppmInformation.ExistingCase = (this.result.ppmBackgroundSurvey.ExistingOrdersFLM == 'y');
+            ppmInformation.existingProceeding = (this.result.ppmBackgroundSurvey.existingCourtProceeding == 'y');
+            ppmInformation.proceedingInfo = (this.result.ppmBackgroundSurvey.existingCourtProceeding == 'y' && 
+                                                this.result.ppmBackgroundSurvey.existingCourtProceedingDetails)? this.result.ppmBackgroundSurvey.existingCourtProceedingDetails:'';
+        }
+
+        if (this.result.aboutPriorityParentingMatterOrderSurvey) {
+            ppmInformation.facts = this.result.aboutPriorityParentingMatterOrderSurvey.applicationFacts;
+            ppmInformation.orderdesc = this.result.aboutPriorityParentingMatterOrderSurvey.orderDescription;
+        }
+
+
+
+
+
+        return ppmInformation;
+    }
  
 }
 </script>

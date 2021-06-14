@@ -3,8 +3,7 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="text-align:center;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>
-            <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:left;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>            
 
             <div style="margin:1rem 0; text-align:justify">
                 <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, making a new application about parenting arrangements for a child or children identified in section 11 of this application. 
@@ -123,7 +122,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { childDataInfoType, schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { childDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{
@@ -132,7 +132,7 @@ import { childDataInfoType, schedule1DataInfoType } from '@/types/Application/Fa
     }
 })
 
-export default class Schedule1 extends Vue {
+export default class Schedule extends Vue {
 
     @Prop({required:true})
     result!: any;

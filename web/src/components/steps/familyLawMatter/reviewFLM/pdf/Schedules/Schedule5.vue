@@ -82,7 +82,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { schedule1DataInfoType, schedule5DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule5DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{

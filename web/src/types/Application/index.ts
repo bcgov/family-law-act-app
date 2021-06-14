@@ -6,6 +6,7 @@ import { aboutContactWithChildSurveyInfoType, contactOrderSurveyInfoType, contac
 import { guardianOfChildBestInterestOfChildSurveyInfoType, guardianOfChildSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
 import { aboutParentingArrangementsSurveyInfoType, parentalArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
+import { aboutPriorityParentingMatterOrderSurveyInfoType, childDataPPMInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, selectedPOOrderInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
 
 
@@ -146,11 +147,11 @@ export interface stepInfoType {
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
 
     //__Step 5 PRIORITY PARENTING
-    ppmQuestionnaireSurvey?: any;
-    priorityParentingOrderSurvey?: any;
-    childDataPPM?: any;
-    ppmBackgroundSurvey?: any;
-    aboutPriorityParentingMatterOrderSurvey?: any;
+    ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
+    priorityParentingOrderSurvey?: priorityParentingOrderSurveyInfoType;
+    childDataPPM?: childDataPPMInfoType;
+    ppmBackgroundSurvey?: ppmBackgroundDataSurveyInfoType;
+    aboutPriorityParentingMatterOrderSurvey?: aboutPriorityParentingMatterOrderSurveyInfoType;
 
     //__Step 8 SUBMIT
     filingOptions?: any;

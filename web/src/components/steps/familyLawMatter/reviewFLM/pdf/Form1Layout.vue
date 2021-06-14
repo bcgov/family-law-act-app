@@ -301,7 +301,7 @@ import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
 import CheckBox from "./Schedules/components/CheckBox.vue"
 import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{

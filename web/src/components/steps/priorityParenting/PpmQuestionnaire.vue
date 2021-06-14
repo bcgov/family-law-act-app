@@ -178,14 +178,14 @@ export default class PpmQuestionnaire extends Vue {
     }
   
     public onChange(selectedPriorityParentingMatter) {
-        this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
+        this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false})
         if(this.checkErrorOnPages())        
             this.setSteps(selectedPriorityParentingMatter);
         else{ 
             this.selectedPriorityParentingMatter = [];            
             //this.togglePages(this.allPages, false); 
         }
-        Vue.filter('surveyChanged')('familyLawMatter')        
+        Vue.filter('surveyChanged')('priorityParenting')        
        // console.log(selectedPriorityParentingMatter)
     }
 
@@ -200,91 +200,69 @@ export default class PpmQuestionnaire extends Vue {
 
             if (selectedPriorityParentingMatter.length > 0){
 
-                this.determineSteps();                            
+                this.determineSteps(); 
+                
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.PriorityParentingMatterOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PriorityParentingMatterOrder, 50, false);
+                
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmChildrenInfo].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmChildrenInfo, 50, false);
 
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmBackground].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmBackground, 50, false);
 
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ParentingOrderAgreement].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ParentingOrderAgreement, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutPriorityParentingMatterOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutPriorityParentingMatterOrder, 50, false);
+
             
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutParentingArrangements].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutParentingArrangements, 50, false);
-            
-                //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersPPM, 0, false);
-                // Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmAdditionalDocuments, 0, false);
-
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ParentingArrangements].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ParentingArrangements, 50, false);    
-            
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutExistingChildSupport].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutExistingChildSupport, 50, false);
-            
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ContactWithChild].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactWithChild, 50, false);
                 
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ContactWithChildOrder].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactWithChildOrder, 50, false);
-
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.GuardianOfChild].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.GuardianOfChild, 50, false);
-
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportOrderAgreement].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportOrderAgreement, 50, false);
-              
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportFinalOrder].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportFinalOrder, 50, false);
-                
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportAgreement].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportAgreement, 50, false);
-   
             }   
 
         }
     }
 
     public determineSteps(){
-        let formOneRequired = false;
+        // let formOneRequired = false;
         const p = this.stPgNo.PPM
-        const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
+        //const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
 
-        if( stepCOM.result &&
-            stepCOM.result.filingLocationSurvey &&
-            stepCOM.result.filingLocationSurvey.data){
-                const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-                formOneRequired = this.determineRequiredForm(filingLocationData);
-        }
+        // if( stepCOM.result &&
+        //     stepCOM.result.filingLocationSurvey &&
+        //     stepCOM.result.filingLocationSurvey.data){
+        //         const filingLocationData = stepCOM.result.filingLocationSurvey.data;
+        //         formOneRequired = this.determineRequiredForm(filingLocationData);
+        // }
 
-        if (!formOneRequired){
-            this.togglePages([p.PpmBackground], true);
-            // this.togglePages(this.commonPages, false);
+        // if (!formOneRequired){
+            this.togglePages([p.PriorityParentingMatterOrder], true);
+            this.togglePages([p.ReviewYourAnswersPPM], true);
             this.togglePages([p.PreviewFormsPPM], false);
-            this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
+            this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false})
             if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersPPM].progress==100)
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersPPM, 50, false);
 
-        } else {
-            this.togglePages([p.PpmBackground], false);
-            this.togglePages([p.ReviewYourAnswersPPM], true);
-        }   
-    }
-
-    public determineRequiredForm(filingLocationData){
-
-        // const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-        // let location = ''
-
-        // location = filingLocationData.ExistingCourt;                
-        
-        // if(courtsC.includes(location) && 
-        //     filingLocationData.MetEarlyResolutionRequirements == 'n'){
-        //     return true;
         // } else {
-            return false;
-        // }
-
+        //     this.togglePages([p.PriorityParentingMatterOrder], false);
+        //     this.togglePages([p.ReviewYourAnswersPPM], true);
+        // }   
     }
+
+    // public determineRequiredForm(filingLocationData){
+
+    //     // const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
+    //     // let location = ''
+
+    //     // location = filingLocationData.ExistingCourt;                
+        
+    //     // if(courtsC.includes(location) && 
+    //     //     filingLocationData.MetEarlyResolutionRequirements == 'n'){
+    //     //     return true;
+    //     // } else {
+    //         return false;
+    //     // }
+
+    // }
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
@@ -332,14 +310,16 @@ export default class PpmQuestionnaire extends Vue {
     }   
 
     public getSelectedPriorityParentingMatterNames(){
-        let result = ''
-        // console.log(this.selectedPriorityParentingMatter)
+        let result = ''       
         for(const form of this.selectedPriorityParentingMatter){
-            if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
-            if(form=='childSupport')            result+='Child Support'+'\n';
-            if(form=='contactWithChild')        result+='Contact With a Child'+'\n';
-            if(form=='guardianOfChild')         result+='Guardian Of a Child'+'\n';
-            if(form=='spousalSupport')          result+='Spousal Support'+'\n';
+            if(form=='medical')   result+='Medical, dental or other health-related treatments for a child'+'\n';
+            if(form=='passport')  result+='Application for a passport, license or other thing for a child'+'\n';
+            if(form=='travel')    result+='Travel or participation in an activity for the child'+'\n';
+            if(form=='locationChange')         result+='Change in location of a child’s residence'+'\n';
+            if(form=='preventRemoval')          result+='Preventing the removal of a child'+'\n';
+            if(form=='interjurisdictional')    result+='Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
+            if(form=='wrongfulRemoval')         result+=' Wrongful removal of a child in BC'+'\n';
+            if(form=='returnOfChild')          result+='Preventing the removal of a child'+'\n';
         }
         return result;
     }
@@ -347,7 +327,7 @@ export default class PpmQuestionnaire extends Vue {
     beforeDestroy() {
         const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedPriorityParentingMatterNames()}]        
+        const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getSelectedPriorityParentingMatterNames()}]        
         this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.selectedPriorityParentingMatter, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };

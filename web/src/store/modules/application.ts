@@ -1008,9 +1008,7 @@ class Application extends VuexModule {
     @Action
     public UpdateCommonStepResults({ data }) {
         this.context.commit("setCommonStepResults", { data });
-    } 
-    
-   
+    }   
 
     @Mutation
     public setPathwayCompletedFull(newPathwayCompleted): void {

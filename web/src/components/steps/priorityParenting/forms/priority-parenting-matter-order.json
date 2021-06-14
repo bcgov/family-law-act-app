@@ -14,6 +14,8 @@
             {
               "type": "yesno",
               "name": "delayMedicalRisk",
+              "visible": false,
+              "visibleIf": "({medical})",
               "isRequired": true,
               "title": "Will a delay of the medical, dental or other health-related treatment or court decision result in a risk to the child’s health?"
             },
@@ -28,7 +30,7 @@
               "type": "checkbox",
               "name": "confirmMedicalRisk",
               "visible": false,
-              "visibleIf": "{delayMedicalRisk} = 'y'",
+              "visibleIf": "({medical}) and ({delayMedicalRisk} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health.",
               "isRequired": true,
               "choices": [
@@ -68,6 +70,8 @@
             {
               "type": "yesno",
               "name": "delayPassportRisk",
+              "visible": false,
+              "visibleIf": "({passport})",
               "isRequired": true,
               "title": "Will a delay in applying for the passport, licence, permit, benefit, privilege or other thing for a child result in a risk of harm to the child’s physical, psychological or emotional safety, security or well-being?"
             },
@@ -82,7 +86,7 @@
               "type": "checkbox",
               "name": "confirmDelayPassportRisk",
               "visible": false,
-              "visibleIf": "{delayPassportRisk} = 'y'",
+              "visibleIf": "({passport}) and ({delayPassportRisk} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter because a guardian needs to apply for a passport, licence, permit, benefit, privilege or other thing for a child and a delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being.",
               "isRequired": true,
               "choices": [
@@ -122,6 +126,8 @@
             {
               "type": "yesno",
               "name": "delayTravelRisk",
+              "visible": false,
+              "visibleIf": "({travel})",
               "isRequired": true,
               "title": "Is the consent of another guardian required for travel with a child or for the child to participate in an activity?"
             },
@@ -129,7 +135,7 @@
               "type": "infotext",
               "name": "noDelayTravelRiskInfo",
               "visible": false,
-              "visibleIf": "{delayTravelRisk} = 'n'",
+              "visibleIf": "({travel}) and ({delayTravelRisk} = 'n')",
               "title": "If consent of another guardian is not required, you may not need an order from the court for travel with a child or for a child to participate in an activity. Confirm with the appropriate authority, for example, Border Services, the child’s school or group coordinating the travel or activity. You may need to provide them with a copy of the written agreement or court order about parental responsibilities or guardianship of the child.",
               "titleLocation": "hidden",
               "messageStyle": "info"
@@ -138,7 +144,7 @@
               "type": "yesno",
               "name": "travelWrongfullyDenied",
               "visible": false,
-              "visibleIf": "{delayTravelRisk} = 'y'",
+              "visibleIf": "({travel}) and ({delayTravelRisk} = 'y')",
               "isRequired": true,
               "title": "Has the consent been wrongfully denied?",
               "description": "Unless there is an agreement or order that says something different, each child’s guardian may exercise all parental responsibilities with respect to a child in consultation with the child’s other guardians, unless it is unreasonable or inappropriate in the circumstances to consult with them. Is the other guardian’s reason for not giving their consent wrong or unfair?"
@@ -156,7 +162,7 @@
               "type": "checkbox",
               "name": "confirmTravelWrongfullyDenied",
               "visible": false,
-              "visibleIf": "{delayTravelRisk} = 'y' and {travelWrongfullyDenied} = 'y'",
+              "visibleIf": "({travel}) and ({delayTravelRisk} = 'y') and ({travelWrongfullyDenied} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter because a guardian wrongfully denied consent for travel with a child or participation by a child in an activity.",
               "isRequired": true,
               "choices": [
@@ -196,6 +202,8 @@
             {
               "type": "yesno",
               "name": "existingParentingArrangements",
+              "visible": false,
+              "visibleIf": "({locationChange})",
               "isRequired": true,
               "title": "Is there a written agreement or order about parenting arrangements for the child?",
               "description": "There are different processes depending on whether there is an agreement or court order in place. If parenting arrangements have already been formalized in a written agreement or court order, a guardian who disagrees with the change of residence for a child can instead make an Application for Order Prohibiting the Relocation of a Child."
@@ -213,10 +221,9 @@
               "type": "yesno",
               "name": "impactOnRelationship",
               "visible": false,
-              "visibleIf": "{existingParentingArrangements} = 'y'",
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n')",
               "isRequired": true,
-              "title": "Can the change of residence reasonably be expected to have a significant impact on the child’s relationship with a guardian?",
-              "description": "Unless there is an agreement or order that says something different, each child’s guardian may exercise all parental responsibilities with respect to a child in consultation with the child’s other guardians, unless it is unreasonable or inappropriate in the circumstances to consult with them. Is the other guardian’s reason for not giving their consent wrong or unfair?"
+              "title": "Can the change of residence reasonably be expected to have a significant impact on the child’s relationship with a guardian?"
             },
             {
               "type": "helptext",
@@ -224,14 +231,14 @@
               "title": "I’m not sure. Where can I get legal assistance?",
               "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{existingParentingArrangements} = 'y'",
+              "visibleIf": "{existingParentingArrangements} = 'n'",
               "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
             },
             {
               "type": "checkbox",
               "name": "confirmImpactOnRelationship",
               "visible": false,
-              "visibleIf": "{existingParentingArrangements} = 'y' and {impactOnRelationship} = 'y'",
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n') and ({impactOnRelationship} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter because a change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian.",
               "isRequired": true,
               "choices": [
@@ -245,7 +252,7 @@
               "type": "infotext",
               "name": "yesImpactOnRelationshipInfo",
               "visible": false,
-              "visibleIf": "{impactOnRelationship} = 'y'",
+              "visibleIf": "(({existingParentingArrangements} = 'n') and ({impactOnRelationship} = 'y')",
               "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
               "titleLocation": "hidden",
               "messageStyle": "info"
@@ -271,6 +278,8 @@
             {
               "type": "yesno",
               "name": "noReturnRisk",
+              "visible": false,
+              "visibleIf": "({preventRemoval})",
               "isRequired": true,
               "title": "Do you need an order to keep a person from taking a child out of a certain area in BC or believe that a person is planning to remove a child from BC and is unlikely to return the child to BC?"
             },
@@ -285,7 +294,7 @@
               "type": "checkbox",
               "name": "confirmNoReturnRisk",
               "visible": false,
-              "visibleIf": "{noReturnRisk} = 'y'",
+              "visibleIf": "({preventRemoval}) and ({noReturnRisk} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter to prevent the removal of a child under section 64 of the Family Law Act.",
               "isRequired": true,
               "choices": [
@@ -324,6 +333,8 @@
             {
               "type": "yesno",
               "name": "childInBC",
+              "visible": false,
+              "visibleIf": "({interjurisdictional})",
               "isRequired": true,
               "title": "Is the child currently in BC?",
               "description": "Sometimes a court order may be made in more than one jurisdiction, usually when the parents or guardians live in two different places. It could be two different provinces/territories or even two different countries. The Provincial Court of BC may make an order about parenting arrangements, contact with a child or guardianship of a child if the child is physically present in British Columbia when the application is filed."
@@ -350,7 +361,7 @@
               "type": "yesno",
               "name": "harm",
               "visible": false,
-              "visibleIf": "{childInBC} = 'y'",
+              "visibleIf": "({interjurisdictional}) and ({childInBC} = 'y')",
               "isRequired": true,
               "title": "Do you believe the child would suffer serious harm if the child were to remain with, or be returned to, the child’s guardian or be removed from BC?"
             },
@@ -367,7 +378,7 @@
               "type": "checkbox",
               "name": "confirmHarm",
               "visible": false,
-              "visibleIf": "{childInBC} = 'y' and {harm} = 'y'",
+              "visibleIf": "({interjurisdictional}) and ({childInBC} = 'y') and ({harm} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter to determine matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act because you believe the child, currently in BC, would suffer serious harm if they were to remain with, or be returned to, the child’s guardian or be removed from BC.",
               "isRequired": true,
               "choices": [
@@ -406,6 +417,8 @@
             {
               "type": "yesno",
               "name": "wrongfulInBC",
+              "visible": false,
+              "visibleIf": "({wrongfulRemoval})",
               "isRequired": true,
               "title": "Do you believe that the child has been wrongfully brought to, or is being wrongfully kept in, BC?",
               "description": "If the court is satisfied that a child has been wrongfully removed to, or is being wrongfully retained in BC, the court may make an order under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section77' target='blank' >section 77(2) of the Family Law Act</a>."
@@ -421,7 +434,7 @@
               "type": "checkbox",
               "name": "confirmWrongfulInBC",
               "visible": false,
-              "visibleIf": "{wrongfulInBC} = 'y'",
+              "visibleIf": "({wrongfulRemoval}) and ({wrongfulInBC} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter under section 77(2) of the Family Law Act because you believe a child has been wrongfully brought to or kept in BC.",
               "isRequired": true,
               "choices": [
@@ -460,6 +473,8 @@
             {
               "type": "yesno",
               "name": "wrongfulReturn",
+              "visible": false,
+              "visibleIf": "({returnOfChild})",
               "isRequired": true,
               "title": "Do you believe that a child has been wrongfully removed to or retained in a <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/fr_hague' target='blank'>member country</a> under the `1980 Hague Convention`, either to BC or from BC?",
               "description": "<a href='http://www.bclaws.ca/civix/document/LOC/complete/statreg/--%20F%20--/Family%20Law%20Act%20%5BSBC%202011%5D%20c.%2025/00_Act/11025_04.xml#section80' target='blank'>Section 80 of the Family Law Act</a> provides that the 1980 Hague <a href='http://www.hcch.net/index_en.php?act=conventions.text&cid=24' target='blank'>Convention on the Civil Aspects of International Child Abduction</a> has the force of law in B.C. The Hague Convention is an international treaty in force among some <a href='http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/fr_hague' target='blank'>90 countries</a>. Its goal is to help with the court process to return a child wrongfully removed or retained from their place of habitual residence.</br></br>The Convention applies to children under the age of 16. In most Convention cases, children are abducted by one of their parents."
@@ -475,7 +490,7 @@
               "type": "checkbox",
               "name": "confirmWrongfulReturn",
               "visible": false,
-              "visibleIf": "{wrongfulReturn} = 'y'",
+              "visibleIf": "({returnOfChild}) and ({wrongfulReturn} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention.",
               "isRequired": true,
               "choices": [

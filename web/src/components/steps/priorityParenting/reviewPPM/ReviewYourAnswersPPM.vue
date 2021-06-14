@@ -99,8 +99,8 @@ export default class ReviewYourAnswersPpm extends Vue {
     {
         //console.log(newVal)
         this.togglePages([this.stPgNo.PPM.PreviewFormsPPM], !this.pageHasError);
-        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
+        if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false})
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PPM.PreviewFormsPPM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
@@ -130,8 +130,7 @@ export default class ReviewYourAnswersPpm extends Vue {
     }
 
     public beautifyResponse(value, dataItem){
-        //console.log(value)
-        //console.log(dataItem)
+        
         const inputType = dataItem?dataItem['inputType']:""
         const inputName = dataItem?dataItem['name']:""
 
@@ -151,9 +150,7 @@ export default class ReviewYourAnswersPpm extends Vue {
            return this.getMultipleCommentCheckboxResults(value)
         }    
         else if(Array.isArray(value))
-        {
-            //console.log(value)
-            if(value[0].date && value[0].name && value[0].nameOther && value[0].relationship) return this.getGuardianOfChildTable(value)
+        {            
             if(value[0] && value[0] instanceof String && value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
             if(value[0].childName)return this.getChildInfo(value) 
             if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
@@ -206,20 +203,18 @@ export default class ReviewYourAnswersPpm extends Vue {
         for(const child of children ){            
                 resultString +=Vue.filter('styleTitle')("Name: ") + Vue.filter('getFullName')(child['childName']) +"\n";
                 resultString +=Vue.filter('styleTitle')("Birth Date: " )+ Vue.filter('beautify-date')(child['childDOB']) +"\n";
-                if(child['childRelationshipWithProtected']) resultString +=Vue.filter('styleTitle')("Relation With Protected: ") + child['childRelationshipWithProtected'] +"\n";
                 if(child['childRelationshipWithOther']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationshipWithOther']  +"\n"; 
-                if(child['childRelationship']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationship']  +"\n"; 
-                if(child['childLivingWith']) resultString +=Vue.filter('styleTitle')("Child Living With: ") + child['childLivingWith']  +"\n";           
+                if(child['childRelationship']) resultString +=Vue.filter('styleTitle')("Relation With Other: ") + child['childRelationship']  +"\n";
                 resultString +="\n"
         }
         return resultString;
     }
 
     public getChildrenNames(selectedChildren){
-        //console.log('_________')
+        // console.log('_________')
         let result = ''
-        if (this.step.result && this.step.result.childData) {
-            const childData = this.step.result.childData.data;
+        if (this.step.result && this.step.result.childDataPPM) {
+            const childData = this.step.result.childDataPPM.data;
             for(const selectedChild of selectedChildren ){
                 if(!isNaN(Number(selectedChild.substring(6,7)))){
                     const child = childData[Number(selectedChild.substring(6,7))]
@@ -249,10 +244,7 @@ export default class ReviewYourAnswersPpm extends Vue {
         }
         
         for (const [key, value] of Object.entries(questionValue))
-        {
-            //  console.error("____________")
-            //  console.log(key)
-            //  console.log(value)
+        {          
             if(questionValue['checked'].includes(key.slice(0,-7))){
                 if(value){ 
                     let keyBeauty = ''
@@ -269,17 +261,13 @@ export default class ReviewYourAnswersPpm extends Vue {
     }
 
     public getAdvancedRadioGroupResults(questionValue){        
-        const selected = questionValue['selected']
-        //console.log(selected)
+        const selected = questionValue['selected']        
         let keyBeauty = selected.charAt(0).toUpperCase() + selected.slice(1);
         keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2') 
         let resultString = Vue.filter('styleTitle')("Selected: ")+keyBeauty+"\n";
 
         for (const [key, value] of Object.entries(questionValue))
-        {
-            // console.error("____________")
-            // console.log(key)
-            // console.log(value) 
+        {            
             if(key.startsWith(selected)){
                 if(value){                
                     keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
@@ -308,18 +296,6 @@ export default class ReviewYourAnswersPpm extends Vue {
             }            
         }
         return resultString;
-    }  
-
-    public getGuardianOfChildTable(tableValue){
-        //console.log(tableValue)
-        let resultString = "";
-        for(const item of tableValue){
-            resultString +=Vue.filter('styleTitle')("Child Name: ") + item['name'] +"\n";
-            resultString +=Vue.filter('styleTitle')("Other Party Name: ") + item['nameOther'] +"\n";
-            resultString +=Vue.filter('styleTitle')("Guardian Start Date: ") + Vue.filter('beautify-date')(item['date']) +"\n";
-            resultString +=Vue.filter('styleTitle')("Your Relationship to Child: ") + item['relationship'] +"\n\n";               
-        }
-        return resultString
     }
 
     public edit(section, data){
@@ -337,23 +313,17 @@ export default class ReviewYourAnswersPpm extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
-           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PPM.PreviewFormsPPM,  50, false);
         }
 
         this.pageHasError = false;
-        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.PPM._StepNo]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
-            // console.log(step)
-            //console.log(stepResult);
+           
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
-                {
-                    // console.error("____________")
-                    // console.log(value['currentPage'])
-                    // console.log(step.pages[value['currentPage']]?step.pages[value['currentPage']].active:'undefined')
-                    // console.log(key)
-                    //  console.log(value)
+                {                   
                     if(value && value['data'] && value['data'].length == 0){
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
                         value['questions'][0]= {name: "require", value: "", title: value['pageName'], inputType: ""}                 
@@ -363,27 +333,18 @@ export default class ReviewYourAnswersPpm extends Vue {
                     }
                     else if(value && (value['currentPage'] || value['currentPage']==0)){ 
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
-                        //console.log(isPageActive)
-                        //value['sortOrder']=  (value['currentStep']*100+value['currentPage']);                   
+                                        
                         if(value['questions'] && isPageActive){
                             this.questionResults.push(value);
                         }
                     }
                 }
         }
-        //console.log(this.questionResults )
 
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
-        //console.log(this.questionResults)
-       
-        //let progress = 100;
-        // if(Object.keys(this.survey.data).length)
-        //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        //this.togglePages([0,1], true);
-        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError); 
+        this.togglePages([this.stPgNo.PPM.PreviewFormsPPM], !this.pageHasError); 
         
     }
 
@@ -407,10 +368,7 @@ export default class ReviewYourAnswersPpm extends Vue {
                             {
                                 for(const question of questionResult.questions){
                                     if(question.name == question2 && question.title.trim()==title2.trim())
-                                    {
-                                        // console.log(question.title)
-                                        // console.log(title2)
-                                        // console.log(question.title.trim()==title2.trim())
+                                    {                                      
                                         return response
                                     }
                                 }
@@ -440,7 +398,6 @@ export default class ReviewYourAnswersPpm extends Vue {
     }
 
     public onNext() {
-       //console.log(this.pageHasError)
         this.UpdateGotoNextStepPage()       
     }
 
@@ -453,13 +410,7 @@ export default class ReviewYourAnswersPpm extends Vue {
     }
 
     beforeDestroy() {
-
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, true);
-        // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        // if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
-
-        //this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, true);       
     }
 }
 </script>

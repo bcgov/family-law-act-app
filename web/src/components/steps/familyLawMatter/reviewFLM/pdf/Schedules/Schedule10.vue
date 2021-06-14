@@ -195,7 +195,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import moment from 'moment';
-import { schedule10DataInfoType, schedule9DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule10DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{

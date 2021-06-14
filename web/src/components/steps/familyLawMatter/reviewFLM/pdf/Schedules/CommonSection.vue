@@ -277,8 +277,8 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType, childDataInfoType, yourInformationInfoDataInfoType} from '@/types/Application/FamilyLawMatter/Pdf';
-import { yourInformationDataInfoType } from '@/types/Application/CommonInformation';
+import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { yourInformationInfoDataInfoType, childDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{

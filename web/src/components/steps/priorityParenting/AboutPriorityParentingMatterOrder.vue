@@ -92,14 +92,14 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     }
 
     public getDescription(data) {
-        let description = 'You indicated you are applying for an order about a priority parenting matter '
+        let description = '';
+        const firstDescriptionSection = 'You indicated you are applying for an order about a priority parenting matter '
        
-        console.log(data)
         let listOfIssues = [];
         const medical = (data.delayMedicalRisk && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
         const passport = (data.delayPassportRisk && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
         const travel = (data.delayTravelRisk && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied && data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
-        const locationChange = (data.existingParentingArrangements && data.existingParentingArrangements == 'y') && (data.impactOnRelationship && data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
+        const locationChange = (data.existingParentingArrangements && data.existingParentingArrangements == 'n') && (data.impactOnRelationship && data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
         const preventRemoval = (data.noReturnRisk && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
         const interjurisdictional = (data.childInBC && data.childInBC == 'y') && (data.harm && data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
         const wrongfulRemoval = (data.wrongfulInBC && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
@@ -136,11 +136,12 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
         if (returnOfChild) {
             listOfIssues.push('<li>relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention</li>')
         }
-        console.log(listOfIssues.toString())
-        if (listOfIssues.length == 1){
-            description = description + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
-        } else {
-            description = description + '<ul>' + listOfIssues.toString().replace(',<li>', '<li>').replace('</li>,', '</li>') + '</ul>';
+       
+        if (listOfIssues.length == 1){            
+            description = firstDescriptionSection + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
+        } else {           
+            const initialList = listOfIssues.toString()            
+            description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
         }
 
         return description;
