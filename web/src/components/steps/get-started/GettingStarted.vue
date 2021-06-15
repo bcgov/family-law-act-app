@@ -248,8 +248,8 @@ export default class GettingStarted extends Vue {
     public getApplicationType(selectedOrder){
         const step = this.steps[this.stPgNo.PO._StepNo]
         let orgFPOType = ''
-        if (step.result && step.result.questionnaireSurvey && step.result.questionnaireSurvey.orderType){
-            orgFPOType = step.result.questionnaireSurvey.orderType;
+        if (step.result && step.result.poQuestionnaireSurvey && step.result.poQuestionnaireSurvey.data && step.result.poQuestionnaireSurvey.data.orderType){
+            orgFPOType = step.result.poQuestionnaireSurvey.data.orderType;
         } 
 
         return Vue.filter('getFullOrderName')(selectedOrder, orgFPOType);

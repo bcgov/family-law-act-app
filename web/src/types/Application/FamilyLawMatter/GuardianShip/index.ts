@@ -25,7 +25,7 @@ export interface guardianOfChildBestInterestOfChildDataInfoType {
     cancelGuradianChildBestInterest: string;
 }
 
-export interface guardianOfChildBestInterestOfChildSurveyInfoType {
+export interface guardianOfChildBestInterestsOfChildSurveyInfoType {
     data: guardianOfChildBestInterestOfChildDataInfoType;
     questions: questionInfoType[];
     pageName: string;

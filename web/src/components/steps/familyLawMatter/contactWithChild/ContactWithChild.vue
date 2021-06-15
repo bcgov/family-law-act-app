@@ -104,8 +104,8 @@ export default class ContactWithChild extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
-        if (this.step.result && this.step.result.childData && this.step.result.childData.data) {            
-            const childData = this.step.result.childData.data;            
+        if (this.step.result && this.step.result.childrenInfoSurvey && this.step.result.childrenInfoSurvey.data) {            
+            const childData = this.step.result.childrenInfoSurvey.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {

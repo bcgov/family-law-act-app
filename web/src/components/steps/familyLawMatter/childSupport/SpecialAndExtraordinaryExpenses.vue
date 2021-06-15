@@ -148,8 +148,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
 
         //console.log(this.survey.data.childrenSupportExpenseItem)
 
-        if (this.step.result && this.step.result.childData) {
-                this.childData = this.step.result.childData.data;                           
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+                this.childData = this.step.result.childrenInfoSurvey.data;                           
                 //console.log(childData)                 
                 for (const childInx in this.childData){
                     const child = this.childData[childInx];

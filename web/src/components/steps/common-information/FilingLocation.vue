@@ -178,9 +178,9 @@ export default class FilingLocation extends Vue {
                 const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
                 let pageNO = this.stPgNo.PO.About
                 if( stepPO.result && 
-                    stepPO.result.selectedPOOrder &&
-                    stepPO.result.selectedPOOrder.data &&
-                    stepPO.result.selectedPOOrder.data.orderType == 'needPO')
+                    stepPO.result.poQuestionnaireSurvey &&
+                    stepPO.result.poQuestionnaireSurvey.data &&
+                    stepPO.result.poQuestionnaireSurvey.data.orderType == 'needPO')
                         pageNO = this.stPgNo.PO.PoFilingLocation              
 
                 this.$store.commit("Application/setCurrentStep", this.stPgNo.PO._StepNo);
@@ -274,9 +274,9 @@ export default class FilingLocation extends Vue {
             if( stepPO.result && 
                 stepPO.result.poFilingLocationSurvey && 
                 stepPO.result.poFilingLocationSurvey.data &&
-                stepPO.result.selectedPOOrder &&
-                stepPO.result.selectedPOOrder.data &&
-                stepPO.result.selectedPOOrder.data.orderType == 'needPO')
+                stepPO.result.poQuestionnaireSurvey &&
+                stepPO.result.poQuestionnaireSurvey.data &&
+                stepPO.result.poQuestionnaireSurvey.data.orderType == 'needPO')
             {
                 // console.log('case1')
                 // console.log(stepPO.result.poFilingLocationSurvey.data.ExistingCourt)
@@ -287,15 +287,15 @@ export default class FilingLocation extends Vue {
 
             }
             else if( stepPO.result &&
-                stepPO.result.aboutPOSurvey &&
-                stepPO.result.aboutPOSurvey.data &&
-                stepPO.result.selectedPOOrder &&
-                stepPO.result.selectedPOOrder.data &&
-                (stepPO.result.selectedPOOrder.data.orderType == 'changePO'||stepPO.result.selectedPOOrder.data.orderType == 'terminatePO'))
+                stepPO.result.aboutSurvey &&
+                stepPO.result.aboutSurvey.data &&
+                stepPO.result.poQuestionnaireSurvey &&
+                stepPO.result.poQuestionnaireSurvey.data &&
+                (stepPO.result.poQuestionnaireSurvey.data.orderType == 'changePO'||stepPO.result.poQuestionnaireSurvey.data.orderType == 'terminatePO'))
             {//console.log('case2')
                 this.survey.setValue('ExistingFamilyCase','y');
-                this.survey.setValue('ExistingCourt',     stepPO.result.aboutPOSurvey.data.ExistingCourt);
-                this.survey.setValue('ExistingFileNumber',stepPO.result.aboutPOSurvey.data.ExistingFileNumber);
+                this.survey.setValue('ExistingCourt',     stepPO.result.aboutSurvey.data.ExistingCourt);
+                this.survey.setValue('ExistingFileNumber',stepPO.result.aboutSurvey.data.ExistingFileNumber);
             }
 
             this.messageForLocation();

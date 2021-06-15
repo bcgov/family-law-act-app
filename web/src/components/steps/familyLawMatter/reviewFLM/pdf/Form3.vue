@@ -171,7 +171,7 @@ export default class Form3 extends Vue {
     public getSchedulesInfo(){       
 
         let schedules: string[] = [];
-        const selectedFLMs = this.result.flmSelectedForm;
+        const selectedFLMs = this.result.flmQuestionnaireSurvey;
         const flmBackgroundInfo = this.result.flmBackgroundSurvey;
 
         if (flmBackgroundInfo.ExistingOrdersFLM == 'n') {
@@ -227,15 +227,15 @@ export default class Form3 extends Vue {
         }
 
         if (selectedFLMs.includes("guardianOfChild")){
-            if (this.result.GuardianOfChildSurvey){
-                if (this.result.GuardianOfChildSurvey && 
-                    this.result.GuardianOfChildSurvey.applicationType && 
-                    this.result.GuardianOfChildSurvey.applicationType.includes('becomeGuardian')){
+            if (this.result.guardianOfChildSurvey){
+                if (this.result.guardianOfChildSurvey && 
+                    this.result.guardianOfChildSurvey.applicationType && 
+                    this.result.guardianOfChildSurvey.applicationType.includes('becomeGuardian')){
                     schedules.push("schedule7")
                 }
-                if (this.result.GuardianOfChildSurvey && 
-                    this.result.GuardianOfChildSurvey.applicationType && 
-                    this.result.GuardianOfChildSurvey.applicationType.includes('cancelGuardian')){
+                if (this.result.guardianOfChildSurvey && 
+                    this.result.guardianOfChildSurvey.applicationType && 
+                    this.result.guardianOfChildSurvey.applicationType.includes('cancelGuardian')){
                     schedules.push("schedule8")
                 }
             }            

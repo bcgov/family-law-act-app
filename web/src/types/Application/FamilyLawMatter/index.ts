@@ -1,6 +1,6 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation";
 
-export interface flmSelectedFormInfoType {
+export interface flmQuestionnaireSurveyInfoType {
     data: string[];
     questions: questionInfoType[];
     pageName: string;
@@ -57,7 +57,7 @@ export interface flmAdditionalDocsDataInfoType {
     criminalChecked: string;
 }
 
-export interface flmAdditionalDocsSurveyInfoType {
+export interface flmAdditionalDocumentsSurveyInfoType {
     data: flmAdditionalDocsDataInfoType;
     questions: questionInfoType[];
     pageName: string;

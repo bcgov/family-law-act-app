@@ -278,7 +278,8 @@ import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
-import { yourInformationInfoDataInfoType, childDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+
 
 @Component({
     components:{
@@ -346,7 +347,7 @@ export default class CommonSection extends Vue {
             this.selectedSchedules.includes('schedule7') || 
             this.selectedSchedules.includes('schedule8')
         )
-        if (childRelatedApplication && this.result.childData && this.result.childData.length > 0){
+        if (childRelatedApplication && this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
@@ -402,9 +403,9 @@ export default class CommonSection extends Vue {
 
     public getChildrenInfo(){
 
-        const childrenInfo: childDataInfoType[] = [];
-        let childInfo = {} as childDataInfoType;
-        const childData = this.result.childData;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
+        const childData = this.result.childrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
