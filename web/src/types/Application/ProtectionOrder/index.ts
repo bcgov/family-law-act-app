@@ -7,15 +7,23 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         fileNumber: string;
     }
 
-    export interface poQuestionnaireSurveyInfoType {
+    export interface poQuestionnaireSurveyDataInfoType {
         orderType: string;
         explanationQualifying?: boolean;
         unsafe?: string;
         familyUnsafe?: string;
         PORConfirmed?: string[];
+    }
+
+    export interface poQuestionnaireSurveyInfoType {
+        data: poQuestionnaireSurveyDataInfoType;
+        questions: questionInfoType[];
+        pageName: string;
+        currentStep: number;
+        currentPage: number;
     }    
 
-    export interface yourInformationSurveyPODataInfoType {
+    export interface yourinformationPOSurveyDataInfoType {
         ApplicantName: nameInfoType;
         ApplicantDOB: string;
         Lawyer: string;
@@ -28,8 +36,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         ApplicantOccupation?: string;
     }
 
-    export interface yourInformationSurveyPOInfoType {
-        data: yourInformationSurveyPODataInfoType;
+    export interface yourinformationPOSurveyInfoType {
+        data: yourinformationPOSurveyDataInfoType;
         questions: questionInfoType[];
         pageName: string;
         currentStep: number;
@@ -63,7 +71,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         anotherAdultSharingResiRelation?: string;
     }
 
-    export interface protectionWhomSurveyDataInfoType {
+    export interface protectionFromWhomSurveyDataInfoType {
         allchildren?: allchildrenInfoType[];
         allAnotherAdultsSharingResi?: allAnotherAdultsSharingResiInfoType[];
         RespondentName: nameInfoType;
@@ -80,8 +88,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         anotherAdultSharingResi?: string;
     }   
 
-    export interface protectionWhomSurveyInfoType {
-        data: protectionWhomSurveyDataInfoType;
+    export interface protectionFromWhomSurveyInfoType {
+        data: protectionFromWhomSurveyDataInfoType;
         questions: questionInfoType[];
         pageName: string;
         currentStep: number;
@@ -103,14 +111,14 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         currentPage: number;
     }
 
-    export interface removeSurveyDataInfoType {
+    export interface removePersonSurveyDataInfoType {
         RespondentLiveTogether: string;
         needPolice: string[];
         needPoliceComment?: string;
     }    
 
-    export interface removeSurveyInfoType {
-        data: removeSurveyDataInfoType;
+    export interface removePersonSurveyInfoType {
+        data: removePersonSurveyDataInfoType;
         questions: questionInfoType[];
         pageName: string;
         currentStep: number;
@@ -131,7 +139,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         currentPage: number;
     }
 
-    export interface weaponsSurveyDataInfoType {
+    export interface weaponsFirearmsSurveyDataInfoType {
         RespondentFirearms: string;
         firearmsReason?: string;
         RespondentFirearmsYes: string;
@@ -143,8 +151,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         RespondentNoWeapons?: string[];
     }  
 
-    export interface weaponsSurveyInfoType {
-        data: weaponsSurveyDataInfoType;
+    export interface weaponsFirearmsSurveyInfoType {
+        data: weaponsFirearmsSurveyDataInfoType;
         questions: questionInfoType[];
         pageName: string;
         currentStep: number;
@@ -194,7 +202,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         currentPage: number;
     }
 
-    export interface yourStoryDataInfoType {
+    export interface yourStorySurveyDataInfoType {
         isFamilyViolence: string;
         whatViolence?: string;
         isNoneExplainedConcerns: string;
@@ -203,8 +211,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         recentIncidentWithChild?: string;
     }    
 
-    export interface yourStoryInfoType {
-        data: yourStoryDataInfoType;
+    export interface yourStorySurveyInfoType {
+        data: yourStorySurveyDataInfoType;
         questions: questionInfoType[];
         pageName: string;
         currentStep: number;
@@ -225,7 +233,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         currentPage: number;
     }    
 
-    export interface filingOptionsInfoType {
+    export interface filingOptionsSurveyInfoType {
         selectedFilingType: string;
     }
 
@@ -253,7 +261,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
     }
 
     export interface selectedPOOrderInfoType {
-        data: poQuestionnaireSurveyInfoType;
+        data: poQuestionnaireSurveyDataInfoType;
         questions: questionInfoType[] | null;
         pageName: string;
         currentStep: number;

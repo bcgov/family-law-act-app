@@ -150,7 +150,7 @@ export default class Form1 extends Vue {
         // console.log(this.result)
 
         let pathways: string[] = [];
-        const selectedFLMs = this.result.flmSelectedForm; 
+        const selectedFLMs = this.result.flmQuestionnaireSurvey; 
             
         if (selectedFLMs.includes("parentingArrangements")){
             pathways.push("parentingArrangements")

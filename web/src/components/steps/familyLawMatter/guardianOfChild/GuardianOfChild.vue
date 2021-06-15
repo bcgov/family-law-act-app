@@ -204,8 +204,8 @@ export default class GuardianOfChild extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
         this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"]=[];        
 
-        if (this.step.result && this.step.result.childData) {
-            const childData = this.step.result.childData.data; 
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            const childData = this.step.result.childrenInfoSurvey.data; 
             this.childrenNames = [];       
             for (const child of childData){
                 const childName = Vue.filter('getFullName')(child.name);
@@ -292,8 +292,8 @@ export default class GuardianOfChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.GuardianOfChildSurvey) {
-            this.survey.data = this.step.result.GuardianOfChildSurvey.data;
+        if (this.step.result && this.step.result.guardianOfChildSurvey) {
+            this.survey.data = this.step.result.guardianOfChildSurvey.data;
 
             this.applicationType = this.survey.data.applicationType
 
@@ -366,7 +366,7 @@ export default class GuardianOfChild extends Vue {
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
 
         const tableQuestion = this.showTable? {name:'cancelChildGuardianship', value: this.guardianOfChildItem, title:'Please complete the following information for each child you are applying for a person to no longer be a guardian of', inputType:''}: ''
-        this.UpdateStepResultData({step:this.step, data: {GuardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, tableQuestion)}})
+        this.UpdateStepResultData({step:this.step, data: {guardianOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, tableQuestion)}})
     }
 }
 </script>

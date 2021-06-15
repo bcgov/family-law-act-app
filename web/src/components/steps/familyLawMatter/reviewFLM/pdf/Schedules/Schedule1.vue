@@ -123,7 +123,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { childDataInfoType, schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { childrenInfoSurveyInfoType, schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -138,7 +138,7 @@ export default class Schedule1 extends Vue {
     result!: any;
 
     dataReady = false; 
-    childrenInfo: childDataInfoType[] = [];
+    childrenInfo: childrenInfoSurveyInfoType[] = [];
     parentArrInfo = {} as schedule1DataInfoType;   
    
     mounted(){
@@ -148,7 +148,7 @@ export default class Schedule1 extends Vue {
     } 
 
     public extractInfo(){        
-        if (this.result.childData && this.result.childData.length > 0){            
+        if (this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){            
             this.childrenInfo = this.getChildrenInfo();                      
         } else {            
             this.childrenInfo = [];            
@@ -158,9 +158,9 @@ export default class Schedule1 extends Vue {
     
     public getChildrenInfo(){
 
-        const childrenInfo: childDataInfoType[] = [];
-        let childInfo = {} as childDataInfoType;
-        const childData = this.result.childData;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
+        const childData = this.result.childrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
@@ -222,8 +222,8 @@ export default class Schedule1 extends Vue {
             }     
         }
 
-        if (this.result.parentalArrangementsSurvey && this.result.parentalArrangementsSurvey.parentalArrangements == 'y'){
-            const parentalArrangements = this.result.parentalArrangementsSurvey
+        if (this.result.otherParentingArrangementsSurvey && this.result.otherParentingArrangementsSurvey.parentalArrangements == 'y'){
+            const parentalArrangements = this.result.otherParentingArrangementsSurvey
             parentingArrangements.parentalArr = {
                 applying: true,
                 desc: parentalArrangements.parentalArrangementsDescription                
@@ -235,9 +235,9 @@ export default class Schedule1 extends Vue {
             }
         }
         
-        if (this.result.bestInterestOfChildSurvey 
-            && this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
-                parentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription
+        if (this.result.bestInterestsOfChildSurvey 
+            && this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
+                parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
 
         } else {
             // console.log('here')

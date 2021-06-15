@@ -9,7 +9,7 @@ export interface locationInfoDataInfoType {
     none: boolean;
 }
 
-export interface childDataInfoType {
+export interface childrenInfoSurveyInfoType {
     fullName: string; 
     dob: string;
     myRelationship: string;

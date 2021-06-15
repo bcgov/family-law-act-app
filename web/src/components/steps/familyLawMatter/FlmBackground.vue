@@ -161,8 +161,8 @@ export default class FlmBackground extends Vue {
             this.survey.setVariable("multipleOP", false);
         }       
 
-        if (this.step.result && this.step.result.flmSelectedForm){
-            this.selectedForms = this.step.result.flmSelectedForm.data
+        if (this.step.result && this.step.result.flmQuestionnaireSurvey){
+            this.selectedForms = this.step.result.flmQuestionnaireSurvey.data
         }
         
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){
@@ -170,7 +170,7 @@ export default class FlmBackground extends Vue {
         }
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        //console.log(this.step.result.flmSelectedForm.data)
+        //console.log(this.step.result.flmQuestionnaireSurvey.data)
         
     }
 

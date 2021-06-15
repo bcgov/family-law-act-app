@@ -81,8 +81,16 @@ export interface filingLocationSurveyInfoType {
   currentPage: number;
 }
 
-export interface safetySurveyInfoType {
+export interface safetyCheckSurveyDataInfoType {
   unsafe: string;
+}
+
+export interface safetyCheckSurveyInfoType {
+  data: safetyCheckSurveyDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
 }
 
 export interface yourInformationDataInfoType {
