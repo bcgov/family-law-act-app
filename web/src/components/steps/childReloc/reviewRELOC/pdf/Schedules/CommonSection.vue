@@ -6,11 +6,11 @@
         <div  class="form-header-reloc">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Application About</b></div>
-                <div style="font-size:11pt;"><b>Priority Parenting Matter</b></div>
-                <div style="font-size:9pt;"><b>FORM 15</b></div>
+                <div style="font-size:11pt;"><b>Application for Order</b></div>
+                <div style="font-size:11pt;"><b>Prohibiting the Relocation of a Child</b></div>
+                <div style="font-size:9pt;"><b>FORM 16</b></div>
                 <div style="font-size:8pt;">Provincial Court Family Rules</div>
-                <div style="font-size:8pt;">Rule 76</div>
+                <div style="font-size:8pt;">Rule 80</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -64,36 +64,10 @@
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
                 :check="true?'yes':''" 
-                text="I understand I must give notice of this application to all parents and guardians of the child(ren) this
-                    application is about. They are the other party/parties. To give notice, they must be served with the
-                    application and supporting documents at least 7 days before the date set for the court appearance
-                    unless the court allows the application to be made without notice or with less than 7 days’ notice."/>
-                    <i style="margin:0 0 0 1.6rem;display:inline;">Select only one of the options below</i>
-            <div style="margin:0 0 0 1.75rem;">
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I am giving at least 7 days’ notice to the other party"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11
-                    requesting to waive the requirement for notice of this application"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11
-                    requesting to modify the requirement for at least 7 days’ notice to the other party"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I have a court order that allows the application to be made without notice or with less than 7 days’
-                    notice"/>
-            </div>                         
+                text="I understand I must give notice of this application to the relocating guardian(s). The relocating guardian
+                    is the other party. To give notice, they must be served with the application and supporting documents at
+                    least 7 days before the date set for the court appearance unless the court allows the application to be
+                    made without notice or with less than 7 days’ notice."/>                              
         </section>
 
         
@@ -215,79 +189,36 @@
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
             <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div> The court must be satisfied that:
+                <ol class='resetcounteralpha'>
+                    <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
+                    <li class='bracketalpha'>the relocating guardian has proposed reasonable and workable arrangements to preserve the
+                                            relationship between the child and the child’s other guardians, persons who are entitled to contact with
+                                            the child, and other persons who have a significant role in the child’s life, and</li>
+                    <li class='bracketalpha'>the relocation is in the best interests of the child.</li>
+                </ol>
+            </div>
         </div>
 
         <div class="print-block mt-5"></div>
 
-        <div style="text-align:left;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
+        <div style="text-align:left;"><b>ABOUT THE ORDER</b></div>
             
 <!-- <4> -->
-            <section>
+        <section>
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
                 :check="true?'yes':''" 
-                text="I am applying for an order about the following priority parenting matter(s):"/>
-                    <i style="margin:0 0 0 1.25rem;display:block;">Select all options that apply</i>
-            <div style="margin:0 0 0 1.75rem;">
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related
-                        treatments for a child, because delay will result in risk to the child’s health"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child,
-                        because delay will result in risk of harm to the child’s physical, psychological or emotional safety,
-                        security or well-being"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="applying, by a guardian, for travel with a child or participation by a child in an activity because
-                        consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a
-                        child’s residence because no written agreement or order respecting parenting arrangements applies
-                        in respect of the child, and the change of residence can reasonably be expected to have a significant
-                        impact on the child’s relationship with another guardian"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to the return of a child alleged to have been wrongfully removed or retained under the
-                    Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25,
-                    1980"/>               
-            </div>                         
+                text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
         </section>
 
         <!-- <5> -->
 
         <div class="print-block">
             <section>
-                <div style="display:inline; margin-left:0.25rem">This application is about the following child(ren):</div>          
+                <div style="display:inline; margin-left:0.25rem">This application is about the following child(ren) that I am a guardian of:</div>          
                 
                 <b-table
                     :items="childrenInfo"
@@ -305,7 +236,31 @@
             </section>
         </div>   
 
-        <!-- <6> -->        
+        <!-- <6> -->  
+
+        <section>
+            <check-box 
+                inline="inline" 
+                boxMargin="0" 
+                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                :check="true?'yes':''" 
+                text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
+        </section>       
+
+        
+
+        <!-- <7> --> 
+
+        <section>
+            <check-box 
+                inline="inline" 
+                boxMargin="0" 
+                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                :check="true?'yes':''" 
+                text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
+        </section>
+
+        <!-- <8> -->      
 
         <div class="print-block">            
             <section>
@@ -318,40 +273,13 @@
                     </div>
                 </b-row>
                 <div><i style="margin:0 0 0 1rem; display: block;">If yes, attach a copy of the agreement(s) and/or order(s) to your application</i></div>            
+                
+                <div v-if="relocInfo.facts" 
+                    class="answerbox">{{relocInfo.facts}}</div>
+                <div v-else style="margin-bottom:3rem;"></div> 
+                
             </section>
         </div>   
-
-        <!-- <7> --> 
-
-        <div class="print-block">            
-            <section>
-                I know the following information about any court proceeding that is pending or that has been initiated
-                about parenting arrangements, contact with a child or guardianship of a child who is the subject of this
-                application:
-                <i style="margin:0 0 0 1rem; display: block;">If there is no pending or ongoing court proceeding, that you know of, in this court or another court or
-                jurisdiction, you may leave this section blank</i>
-                
-                <div v-if="relocInfo.existingProceeding && relocInfo.proceedingInfo" 
-                    class="answerbox">{{relocInfo.proceedingInfo}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-            
-            </section>
-        </div> 
-
-        <!-- <8> -->      
-
-        <div class="print-block">
-            
-            <section>
-                The details of the order I am applying for are as follows:
-                <i style="margin:0 0 0 1rem; display: block;">Tell the court and the other party the details of the order you are asking for</i>
-                
-                <div v-if="relocInfo.orderdesc" 
-                    class="answerbox">{{relocInfo.orderdesc}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-            
-            </section>
-        </div>  
 
         <!-- <9> -->
 
@@ -425,8 +353,7 @@ export default class CommonSection extends Vue {
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
     public extractInfo(){
@@ -457,8 +384,7 @@ export default class CommonSection extends Vue {
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
             childInfo.fullName = Vue.filter('getFullName')(child.name);
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
-            childInfo.myRelationship = child.relation;
-            childInfo.otherPartyRelationship = child.opRelation;
+            childInfo.currentSituation = child.currentLiving;           
             childrenInfo.push(childInfo)
         }        
 

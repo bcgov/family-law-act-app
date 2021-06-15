@@ -4,7 +4,6 @@
     <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <common-section v-bind:result="result"/>
-
     </b-card>
 </div>
 </template>
@@ -12,13 +11,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import CommonSection from "./Schedules/CommonSection.vue"
-
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
@@ -29,7 +26,6 @@ import { nameInfoType } from "@/types/Application/CommonInformation";
         CommonSection
     }
 })
-
 export default class Form16 extends Vue {
 
     @applicationState.State
@@ -42,8 +38,7 @@ export default class Form16 extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
-    dataReady = false; 
-    selectedSchedules: string[] = [];
+    dataReady = false;     
    
     mounted(){
         this.dataReady = false;
@@ -59,7 +54,7 @@ export default class Form16 extends Vue {
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" "`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=AXP&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-for-order-prohibiting-the-relocation-of-a-child&pdf_type=APRC&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         const body = {
@@ -87,7 +82,7 @@ export default class Form16 extends Vue {
 
     public onPrintSave(){        
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=AXP'
+        const url = '/survey-print/'+applicationId+'/?pdf_type=APRC'
         const options = {
             responseType: "blob",
             headers: {
@@ -100,14 +95,13 @@ export default class Form16 extends Vue {
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             document.body.appendChild(link);
-            link.download = "Form15.pdf";
+            link.download = "Form16.pdf";
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
         },err => {
             console.error(err);
         });
     }
-
  
     public getRELOCResultData() {         
         

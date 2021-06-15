@@ -83,14 +83,16 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     public reloadPageInformation() {
         //console.log(this.step.result)
         if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
-            this.survey.data = this.step.result.relocQuestionnaireSurvey.data;                
-            this.setPages();
+            this.survey.data = this.step.result.relocQuestionnaireSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
+            this.setPages();
+        }
     }
 
     public setPages() {
@@ -98,14 +100,14 @@ export default class RelocationOfChildQuestionnaire extends Vue {
         const p = this.stPgNo.RELOC;
         const relocationOfChildPagesAll = [p.RelocChildrenInfo, p.RelocChildBestInterestInfo, p.ReviewYourAnswersRELOC, p.PreviewFormsRELOC ]
 
-        if (this.survey.data.ExistingParentingArrangements == 'n') {
+        if (this.survey.data.ExistingParentingArrangements == 'n' || 
+            (this.survey.data.ExistingParentingArrangements == 'y' && this.survey.data.impactOnChild == 'n')) {
             this.togglePages(relocationOfChildPagesAll, false);
             this.disableNextButton = true;
         } else {
             this.togglePages(relocationOfChildPagesAll, true);
             this.disableNextButton = false;
         }
-
     }
 
     public onPrev() {

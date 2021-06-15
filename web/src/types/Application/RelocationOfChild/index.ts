@@ -1,18 +1,17 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation"; 
 
-export interface childDataRELOCInfoType {
-    data: childDataRELOCDataInfoType[];
+export interface RelocChildrenInfoSurveyInfoType {
+    data: relocChildrenInfoCDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;
     currentPage: number;
 }
 
-export interface childDataRELOCDataInfoType {
-    name:nameInfoType;
+export interface relocChildrenInfoCDataInfoType {
+    name: nameInfoType;
     dob: string;
-    relation:string;
-    opRelation:string;
+    currentLiving:string;
     id:number;
 }
 
@@ -25,7 +24,11 @@ export interface relocQuestionnaireSurveyInfoType {
 }
 
 export interface relocQuestionnaireSurveyDataInfoType {
-
+    ExistingParentingArrangements: string;
+    orderDate: string;
+    impactOnChild: string;
+    receiveNotice: string;
+    noticeDate: string;
 }
 
 export interface relocChildBestInterestSurveyInfoType {
@@ -37,5 +40,6 @@ export interface relocChildBestInterestSurveyInfoType {
 }
 
 export interface relocChildBestInterestSurveyDataInfoType {
-    
+    childBestInterestAcknowledgement: string;
+    childBestInterestDescription: string;   
 }

@@ -413,7 +413,7 @@ export default class CommonSection extends Vue {
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = (child.currentLiving == 'other')? child.currentLivingComment:child.currentLiving;
+            childInfo.currentSituation = child.currentLiving;
             childrenInfo.push(childInfo)
         }        
 
