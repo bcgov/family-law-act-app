@@ -51,7 +51,7 @@ export interface parentalArrangementsDataInfoType {
     parentalArrangementsDescription: string;
 }
 
-export interface parentalArrangementsSurveyInfoType {
+export interface otherParentingArrangementsSurveyInfoType {
     data: parentalArrangementsDataInfoType;
     questions: questionInfoType[];
     pageName: string;
@@ -112,7 +112,7 @@ export interface parentingArrangementsbestInterestOfChildDataInfoType {
     existingParentingArrangementsChildBestInterestDescription?: string;
 }
 
-export interface parentingArrangementsbestInterestOfChildSurveyInfoType {
+export interface parentingArrangementsbestInterestsOfChildSurveyInfoType {
     data: parentingArrangementsbestInterestOfChildDataInfoType;
     questions: questionInfoType[];
     pageName: string;

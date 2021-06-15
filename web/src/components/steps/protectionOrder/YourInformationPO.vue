@@ -96,8 +96,8 @@ export default class YourInformationPo extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
 
-        if (this.step.result && this.step.result.questionnaireSurvey && this.step.result.questionnaireSurvey.orderType) {
-            const orderType = this.step.result.questionnaireSurvey.orderType
+        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data) {
+            const orderType = this.step.result.poQuestionnaireSurvey.data.orderType
             if (orderType == 'changePO' || orderType == 'terminatePO') {
                 this.survey.setVariable("newApp", false);
 
@@ -106,8 +106,8 @@ export default class YourInformationPo extends Vue {
             }        
         }
 
-        if (this.step.result && this.step.result.yourInformationSurveyPO) {
-            this.survey.data = this.step.result.yourInformationSurveyPO.data;
+        if (this.step.result && this.step.result.yourinformationPOSurvey) {
+            this.survey.data = this.step.result.yourinformationPOSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
        
@@ -135,7 +135,7 @@ export default class YourInformationPo extends Vue {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {yourInformationSurveyPO: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {yourinformationPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
        
         const step = this.steps[this.stPgNo.COMMON._StepNo]
 

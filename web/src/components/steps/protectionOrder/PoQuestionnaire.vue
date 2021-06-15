@@ -74,7 +74,7 @@ export default class PoQuestionnaire extends Vue {
 
     created() {
         this.disableNextButton = false; 
-        if (this.step.result && this.step.result.questionnaireSurvey) {            
+        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data) {            
             this.determinePeaceBondAndBlock();
         }
     }
@@ -119,40 +119,19 @@ export default class PoQuestionnaire extends Vue {
 
                 this.removePages();
                 this.resetProgress(this.commonPages); 
-                const applicationTypes = this.types;
-                if (!applicationTypes.includes(this.getApplicationType(selectedOrder))){
 
-                    if (applicationTypes.indexOf("Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("Protection Order"), 1);
-                    }
-                    if (applicationTypes.indexOf("New Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("New Protection Order"), 1);
-                    }
-                    if (applicationTypes.indexOf("Change Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("Change Protection Order"), 1);
-                    }
-                    if (applicationTypes.indexOf("Terminate Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("Terminate Protection Order"), 1);
-                    }
-
-                    applicationTypes.push(this.getApplicationType(selectedOrder))
-                    this.UpdateApplicationType(Array.from(new Set(applicationTypes)))
-                }
+                this.updateApplicantType(selectedOrder)
                 
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: this.currentStep, currentPage:0}}})
 
                 if (selectedOrder == "none") {
                     this.disableNextButton = true;
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-                    
-
 
                 } else if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
                     this.disableNextButton = false;
-                    this.togglePages(this.changeTerminatePages, true);
-                    //this.resetProgress(this.commonPages)
-                    // console.log(this.step.result)//['aboutPOSurvey'])
-                    this.setConditionalProgress('aboutPOSurvey', this.stPgNo.PO.About)
+                    this.togglePages(this.changeTerminatePages, true);                    
+                    this.setConditionalProgress('aboutSurvey', this.stPgNo.PO.About)
                     this.resetProgress(this.stPgNo.PO.Urgency)
                    
                 } else if (selectedOrder == "needPO") {
@@ -166,8 +145,7 @@ export default class PoQuestionnaire extends Vue {
                             this.togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true);
                         }
                     }
-                }              
-                
+                }
                 
             }           
 
@@ -194,8 +172,8 @@ export default class PoQuestionnaire extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         //console.log(this.step.result)
-        if (this.step.result && this.step.result.questionnaireSurvey){
-            this.survey.data = this.step.result.questionnaireSurvey;
+        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data){
+            this.survey.data = this.step.result.poQuestionnaireSurvey.data;
             if (this.survey.data.orderType == "none"){
                 this.disableNextButton = true;
                 Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
@@ -221,6 +199,28 @@ export default class PoQuestionnaire extends Vue {
             currentStep: step,
             active: active
         });
+    }
+
+    public updateApplicantType(selectedOrder){
+        const applicationTypes = this.types;
+        if (!applicationTypes.includes(this.getApplicationType(selectedOrder))){
+
+            if (applicationTypes.indexOf("Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("Protection Order"), 1);
+            }
+            if (applicationTypes.indexOf("New Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("New Protection Order"), 1);
+            }
+            if (applicationTypes.indexOf("Change Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("Change Protection Order"), 1);
+            }
+            if (applicationTypes.indexOf("Terminate Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("Terminate Protection Order"), 1);
+            }
+
+            applicationTypes.push(this.getApplicationType(selectedOrder))
+            this.UpdateApplicationType(Array.from(new Set(applicationTypes)))
+        }
     }
 
     public setConditionalProgress(pagename, pagenumber: number){
@@ -280,16 +280,16 @@ export default class PoQuestionnaire extends Vue {
 
     // public determineNoContactPage(enablePage){
     
-    //     if(enablePage && this.step.result && this.step.result.protectionWhomSurvey'] && this.step.result.protectionWhomSurvey'].data['ApplicantNeedsProtection']=='y')
+    //     if(enablePage && this.step.result && this.step.result.protectionFromWhomSurvey'] && this.step.result.protectionFromWhomSurvey'].data['ApplicantNeedsProtection']=='y')
     //         this.togglePages(this.noContantPage, true);
     //     else
     //         this.togglePages(this.noContantPage, false);
-    //         //console.log(this.step.result.protectionWhomSurvey'].data['ApplicantNeedsProtection'])                    
+    //         //console.log(this.step.result.protectionFromWhomSurvey'].data['ApplicantNeedsProtection'])                    
     // } 
 
     public isSurveyAnsweredCorectly(){
-        //console.log(this.step.result.protectionWhomSurvey'].data)
-        if(this.step.result && this.step.result.protectionWhomSurvey && this.step.result.protectionWhomSurvey.data.ApplicantNeedsProtection== 'n' && this.step.result.protectionWhomSurvey.data.anotherAdultPO == 'n' && this.step.result.protectionWhomSurvey.data.childPO == 'n'){
+        //console.log(this.step.result.protectionFromWhomSurvey'].data)
+        if(this.step.result && this.step.result.protectionFromWhomSurvey && this.step.result.protectionFromWhomSurvey.data.ApplicantNeedsProtection== 'n' && this.step.result.protectionFromWhomSurvey.data.anotherAdultPO == 'n' && this.step.result.protectionFromWhomSurvey.data.childPO == 'n'){
             return false;
         }
         else return true;
@@ -297,8 +297,10 @@ export default class PoQuestionnaire extends Vue {
 
     beforeDestroy() {
         if(!this.disableNextButton) Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
-        //this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        //this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: this.survey.data}});
+        
+
+        this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 };

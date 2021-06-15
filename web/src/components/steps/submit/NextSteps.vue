@@ -145,8 +145,9 @@
                 stepGETSTART.result.selectedForms &&
                 stepGETSTART.result.selectedForms.includes('protectionOrder') &&
                 stepPO.result &&
-                stepPO.result.questionnaireSurvey &&
-                stepPO.result.questionnaireSurvey.orderType == 'needPO'
+                stepPO.result.poQuestionnaireSurvey &&
+                stepPO.result.poQuestionnaireSurvey.data &&
+                stepPO.result.poQuestionnaireSurvey.data.orderType == 'needPO'
             )  this.hasNeedPOselected =  true;
         }
 

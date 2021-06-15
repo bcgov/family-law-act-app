@@ -260,9 +260,9 @@ export default class Schedule2 extends Vue {
                 }
         }         
         
-        if (this.result.bestInterestOfChildSurvey 
-            && this.result.bestInterestOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
-                existingParentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
+        if (this.result.bestInterestsOfChildSurvey 
+            && this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
+                existingParentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
         } else {            
             existingParentingArrangements.childBestInterest = '';
         }

@@ -138,8 +138,8 @@ export default class FlmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.flmSelectedForm) {
-            this.selectedForm = this.step.result.flmSelectedForm.data;
+        if (this.step.result && this.step.result.flmQuestionnaireSurvey) {
+            this.selectedForm = this.step.result.flmQuestionnaireSurvey.data;
             this.determineSteps();
         }
         
@@ -318,7 +318,7 @@ export default class FlmQuestionnaire extends Vue {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>
