@@ -76,66 +76,36 @@ export default class RelocationOfChildQuestionnaire extends Vue {
             Vue.filter('surveyChanged')('childReloc')
             //console.log(this.survey.data);
             // console.log(options)
-           // this.setPages()
+            this.setPages();
         })
-    }    
-            
-    public setPages(){ 
-
-        const p = this.stPgNo.FLM
-        const pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
-        const pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
-
-
-        this.togglePages([p.ReviewYourAnswersFLM], true);           
-        if (this.survey.data.existingType == 'ExistingOrder') {
-            this.disableNextButton = false;
-            if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages(pgPages, true);
-
-            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
-                this.togglePages([p.AboutContactWithChildOrder], false);
-            }
-        } else if (this.survey.data.existingType == 'ExistingAgreement') {
-            this.disableNextButton = false;
-            if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages(pgPages, true);
-                
-            } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
-                this.togglePages([p.AboutContactWithChildOrder], false);
-            }
-        } else if (this.survey.data.existingType == 'Neither') {
-            
-            this.togglePages(pgPagesAll, false);
-            this.disableNextButton = true;            
-        }
     }
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result.relocationOfChildQuestionnaireSurvey && this.step.result.relocationOfChildQuestionnaireSurvey.data) {
-            this.survey.data = this.step.result.relocationOfChildQuestionnaireSurvey.data;
-            if (this.survey.data.existingType == 'Neither') {
-                this.disableNextButton = true;
-            }      
+        if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
+            this.survey.data = this.step.result.relocQuestionnaireSurvey.data;                
+            this.setPages();
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
-
-        if (this.step.result && this.step.result.childData && this.step.result.childData.data) {            
-            const childData = this.step.result.childData.data;            
-            if (childData.length>1){
-                this.survey.setVariable("childWording", "children");                    
-            } else {
-                this.survey.setVariable("childWording", "child");
-            }
-        }       
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        //this.setPages()
+    }
+
+    public setPages() {
+
+        const p = this.stPgNo.RELOC;
+        const relocationOfChildPagesAll = [p.RelocChildrenInfo, p.RelocChildBestInterestInfo, p.ReviewYourAnswersRELOC, p.PreviewFormsRELOC ]
+
+        if (this.survey.data.ExistingParentingArrangements == 'n') {
+            this.togglePages(relocationOfChildPagesAll, false);
+            this.disableNextButton = true;
+        } else {
+            this.togglePages(relocationOfChildPagesAll, true);
+            this.disableNextButton = false;
+        }
+
     }
 
     public onPrev() {
@@ -159,10 +129,8 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     }
     
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-        
-        this.UpdateStepResultData({step:this.step, data: {relocationOfChildQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.UpdateStepResultData({step:this.step, data: {relocQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});
     }
 }
 </script>

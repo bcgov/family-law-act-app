@@ -2,14 +2,14 @@
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
             <!-- <form3 v-if="requiredForm == 3" @enableNext="EnableNext"/> -->
-            <form15 v-if="requiredForm == 15" @enableNext="EnableNext"/>
+            <form16 v-if="requiredForm == 16" @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import Form15 from  "./pdf/Form15.vue"
+import Form16 from  "./pdf/Form16.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -19,11 +19,11 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{       
-        Form15,
+        Form16,
         PageBase
     }
 })
-export default class PreviewFormsRELOC extends Vue {
+export default class PreviewFormsReloc extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -39,7 +39,7 @@ export default class PreviewFormsRELOC extends Vue {
     currentPage = 0;
     disableNext = true;
     dataReady = false;
-    requiredForm = 15;
+    requiredForm = 16;
     
 
     mounted(){
@@ -74,7 +74,7 @@ export default class PreviewFormsRELOC extends Vue {
         //     }
         
         // } else {
-            this.requiredForm = 15;
+            this.requiredForm = 16;
         // }
 
                

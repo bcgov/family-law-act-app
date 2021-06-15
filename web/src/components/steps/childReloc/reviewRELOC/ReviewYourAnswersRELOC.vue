@@ -57,7 +57,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
     }
 })
 
-export default class ReviewYourAnswersRELOC extends Vue {
+export default class ReviewYourAnswersReloc extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -213,8 +213,8 @@ export default class ReviewYourAnswersRELOC extends Vue {
     public getChildrenNames(selectedChildren){
         // console.log('_________')
         let result = ''
-        if (this.step.result && this.step.result.childDataRELOC) {
-            const childData = this.step.result.childDataRELOC.data;
+        if (this.step.result && this.step.result.relocChildrenInfoSurvey) {
+            const childData = this.step.result.relocChildrenInfoSurvey.data;
             for(const selectedChild of selectedChildren ){
                 if(!isNaN(Number(selectedChild.substring(6,7)))){
                     const child = childData[Number(selectedChild.substring(6,7))]

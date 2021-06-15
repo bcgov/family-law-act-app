@@ -5,7 +5,7 @@
                 <div class="col-md-12"> <!-- v-if="showTable" -->
                     <h1>Children Details</h1>
                    
-                    <p>Add each child who is the subject of your priority parenting matter application. 
+                    <p>Add each child who is the subject of your application. 
                         To add a child, click the "Add Child" button. If you are done entering all the 
                         children, click the "Next" button.
                     </p>
@@ -16,8 +16,7 @@
                                     <tr>
                                     <th scope="col">Child's name</th>
                                     <th scope="col">Child's date of birth</th>
-                                    <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Other party's relationship to the child</th>                                   
+                                    <th scope="col">Child is currently living with</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -26,8 +25,7 @@
                                     <tr v-for="child in childData" :key="child.id">
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
                                     <td>{{child.dob | beautify-date}}</td>
-                                    <td>{{child.relation}}</td>
-                                    <td>{{child.opRelation}}</td>                                   
+                                    <td >{{child.currentLiving}}</td>                                                                    
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -141,8 +139,8 @@ export default class RelocChildrenInfo extends Vue {
 
     created() {
         //console.log(this.step)
-        if (this.step.result && this.step.result.childDataRELOC) {
-            this.childData = this.step.result.childDataRELOC.data;
+        if (this.step.result && this.step.result.relocChildrenInfoSurvey) {
+            this.childData = this.step.result.relocChildrenInfoSurvey.data;
         }        
     }
 
@@ -161,8 +159,7 @@ export default class RelocChildrenInfo extends Vue {
     beforeDestroy() {
         const progress = this.childData.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
-        this.UpdateStepResultData({step:this.step, data: {childDataRELOC: this.getChildrenResults()}})       
+        this.UpdateStepResultData({step:this.step, data: {relocChildrenInfoSurvey: this.getChildrenResults()}})       
     }
 
     public getChildrenResults(){
@@ -180,9 +177,8 @@ export default class RelocChildrenInfo extends Vue {
 
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
-        resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
-        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)       
-        
+        resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
+       
         return resultString
     }
 };

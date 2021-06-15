@@ -18,13 +18,13 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo.json";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts"
+import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component
 export default class ChildrenSurvey extends Vue {
@@ -117,16 +117,8 @@ export default class ChildrenSurvey extends Vue {
     public populateChildModel(childData) {
         //console.log(childData)
         this.child.name = childData.childName;
-        // this.child.name.middle = childData.childName.middle;
-        // this.child.name.last = childData.childName.last;
         this.child.dob = childData.childDateOfBirth;
-        this.child.relation = childData.relationToChild;
-        this.child.opRelation = childData.childRelationToOtherParty;
-        // this.child.currentLiving = childData.childCurrentlyLivingWith;
-        // this.child.currentLivingComment = (childData.childCurrentlyLivingWith == 'other')?(childData.childCurrentlyLivingWithComment):"";        
-        // this.child.ack = childData.childInfoAckknowledge;
-        // this.child.additionalInfo = childData.childAdditionalInfo;
-        // this.child.additionalInfoDetails = childData.additionInfoDetails;
+        this.child.currentLiving = childData.childCurrentlyLivingWith;
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -134,8 +126,7 @@ export default class ChildrenSurvey extends Vue {
             childName: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
         };
         survey.setValue("childDateOfBirth", editRowProp.dob);
-        survey.setValue("relationToChild", editRowProp.relation);
-        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
+        survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
         survey.setVariable("id", editRowProp.id);
     }
 

@@ -156,9 +156,9 @@ export interface stepInfoType {
     aboutPriorityParentingMatterOrderSurvey?: aboutPriorityParentingMatterOrderSurveyInfoType;
 
     //__Step 6 RELOCATION OF CHILD
-    relocationOfChildQuestionnaireSurvey?: any;
-    childDataRELOC?: childDataRELOCInfoType;
-    relocBestInterestOfChildSurvey?: any;
+    relocQuestionnaireSurvey?: any;
+    relocChildrenInfoSurvey?: childDataRELOCInfoType;
+    RelocChildBestInterestInfoSurvey?: any;
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: any;

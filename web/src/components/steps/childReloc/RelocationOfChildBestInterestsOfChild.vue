@@ -78,24 +78,13 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result.relocBestInterestOfChildSurvey) {
-            this.survey.data = this.step.result.relocBestInterestOfChildSurvey.data;
+        if (this.step.result && this.step.result.RelocChildBestInterestInfoSurvey) {
+            this.survey.data = this.step.result.RelocChildBestInterestInfoSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }        
+        }       
 
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
-            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Contact with a Child")){
-                    this.survey.setVariable("existing", true);                    
-            } else {
-                this.survey.setVariable("existing", false);
-            }
-        }
-
-        if (this.step.result && this.step.result.childData) {
-            const childData = this.step.result.childData.data;            
+        if (this.step.result && this.step.result.relocChildrenInfoSurvey) {
+            const childData = this.step.result.relocChildrenInfoSurvey.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
@@ -120,7 +109,7 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {relocBestInterestOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {RelocChildBestInterestInfoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

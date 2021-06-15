@@ -10,13 +10,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 
 import RelocChildrenInfo from "./childInfo/RelocChildrenInfo.vue";
 import RelocationOfChildBestInterestsOfChild from "./RelocationOfChildBestInterestsOfChild.vue";
-import RelocationOfChildQuestionnaire from "./RelocationOfChildQuestionnaire.vue"
+import RelocationOfChildQuestionnaire from "./RelocationOfChildQuestionnaire.vue";
+import ReviewYourAnswersReloc from "./reviewRELOC/ReviewYourAnswersRELOC.vue";
+import PreviewFormsReloc from "./reviewRELOC/PreviewFormsRELOC.vue";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
@@ -28,7 +30,9 @@ const applicationState = namespace("Application");
       StepBase,
       RelocationOfChildQuestionnaire,
       RelocationOfChildBestInterestsOfChild,
-      RelocChildrenInfo
+      RelocChildrenInfo,
+      ReviewYourAnswersReloc,
+      PreviewFormsReloc
     }
 })
 export default class ChildRelocationStep extends Vue {
