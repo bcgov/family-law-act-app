@@ -114,8 +114,12 @@ export interface PPMstPgTypes{
 
 export interface RELOCstPgTypes{
     _StepNo: number;
-
-    RelocationOfChildForm: number;
+    RelocQuestionnaire: number;
+    RelocChildrenInfo: number;
+    RelocChildBestInterestInfo: number;
+    // RelocationOfChildForm: number;
+    ReviewYourAnswersRELOC: number;
+    PreviewFormsRELOC: number;
 }
 
 export interface ENFRCstPgTypes{

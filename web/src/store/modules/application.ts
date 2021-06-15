@@ -729,11 +729,52 @@ class Application extends VuexModule {
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
+        // p = {} as pageInfoType;
+        // p.key = "0";
+        // p.name = "RelocationOfChildForm";
+        // p.label = "Relocation of a child Form";
+        // p.active = true;
+        // p.progress = 0;    
+        // s.pages.push(p);
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "RelocationOfChildForm";
-        p.label = "Relocation of a child Form";
+        p.name = "RelocQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "RelocChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "RelocChildBestInterestInfo";
+        p.label = "Best Interests of the Child";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "ReviewYourAnswersRELOC";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "PreviewFormsRELOC";
+        p.label = "Preview Forms";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 

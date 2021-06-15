@@ -143,6 +143,21 @@
             </template>            
         </b-modal>
 
+        <b-modal size="xl" v-model="relocInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">
+               
+                <p>I understand the relocating guardian(s) must be given notice of my application to prohibit the relocation of a child.</p>
+              
+                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.</p>
+                <p>They are the other party/parties I added in this case.</p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="relocInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closeRelocInfo">I agree</b-button>
+            </template>            
+        </b-modal>
+
     </page-base>
 </template>
 
@@ -199,6 +214,7 @@ export default class OtherPartyCommon extends Vue {
     showTable = true;
     flmInfo = false;
     ppmInfo = false;
+    relocInfo = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
@@ -211,7 +227,8 @@ export default class OtherPartyCommon extends Vue {
 
     mounted(){    
         this.flmInfo = false;  
-        this.ppmInfo = false;  
+        this.ppmInfo = false; 
+        this.relocInfo = false; 
         const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -267,12 +284,15 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public onNext() {
-        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter")){
+        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter") || this.types.includes("Relocation of a Child")){
             if (this.types.includes("Family Law Matter")){
                 this.flmInfo = true;
             }
             if (this.types.includes("Priority Parenting Matter")){
                 this.ppmInfo = true;
+            }
+            if (this.types.includes("Relocation of a Child")){
+                this.relocInfo = true;
             }
         } else {
             this.UpdateGotoNextStepPage();
@@ -281,14 +301,21 @@ export default class OtherPartyCommon extends Vue {
 
     public closeFlmInfo(){
         this.flmInfo = false;
-        if (!this.ppmInfo){
+        if (!this.ppmInfo && !this.relocInfo){
             this.UpdateGotoNextStepPage();
         }        
     }
 
     public closePpmInfo(){
         this.ppmInfo = false;
-        if (!this.flmInfo){
+        if (!this.flmInfo && !this.relocInfo){
+            this.UpdateGotoNextStepPage();
+        }        
+    }
+
+    public closeRelocInfo(){
+        this.relocInfo = false;
+        if (!this.flmInfo && !this.ppmInfo){
             this.UpdateGotoNextStepPage();
         }        
     }

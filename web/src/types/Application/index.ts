@@ -8,6 +8,7 @@ import { aboutParentingArrangementsSurveyInfoType, parentalArrangementsSurveyInf
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, childDataPPMInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionWhomSurveyInfoType, removeSurveyInfoType, selectedPOOrderInfoType, urgencySurveyInfoType, weaponsSurveyInfoType, yourInformationSurveyPOInfoType, yourStoryInfoType } from "./ProtectionOrder";
+import { childDataRELOCInfoType } from "./RelocationOfChild";
 
 
 //This is what our database saves.
@@ -152,6 +153,11 @@ export interface stepInfoType {
     childDataPPM?: childDataPPMInfoType;
     ppmBackgroundSurvey?: ppmBackgroundDataSurveyInfoType;
     aboutPriorityParentingMatterOrderSurvey?: aboutPriorityParentingMatterOrderSurveyInfoType;
+
+    //__Step 6 RELOCATION OF CHILD
+    relocationOfChildQuestionnaireSurvey?: any;
+    childDataRELOC?: childDataRELOCInfoType;
+    relocBestInterestOfChildSurvey?: any;
 
     //__Step 8 SUBMIT
     filingOptions?: any;

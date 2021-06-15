@@ -414,6 +414,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	const stepPO = store.state.Application.stPgNo.PO
 	const stepFLM = store.state.Application.stPgNo.FLM
 	const stepPPM = store.state.Application.stPgNo.PPM
+	const stepRELOC = store.state.Application.stPgNo.RELOC
 	let step = stepPO._StepNo; 
 	let reviewPage = stepPO.ReviewYourAnswers; 
 	let previewPage = stepPO.PreviewForms;
@@ -432,6 +433,11 @@ Vue.filter('surveyChanged', function(type: string) {
 		step = stepPPM._StepNo; 
 		reviewPage = stepPPM.ReviewYourAnswersPPM; 
 		previewPage = stepPPM.PreviewFormsPPM;	
+	}
+	else if(type == 'childReloc'){
+		step = stepRELOC._StepNo; 
+		reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
+		previewPage = stepRELOC.PreviewFormsRELOC;	
 	}
 
 	const steps = store.state.Application.steps

@@ -1,6 +1,11 @@
 <template>
   <step-base v-bind:step="step">
-    <relocation-form v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocationOfChildForm" />
+    <relocation-of-child-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocQuestionnaire"/>
+    <reloc-children-info v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildrenInfo"/>
+    <relocation-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildBestInterestInfo"/> 
+    <review-your-answers-reloc  v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.ReviewYourAnswersRELOC"/>
+    <preview-forms-reloc        v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.PreviewFormsRELOC"/>
+     
   </step-base>
 </template>
 
@@ -9,7 +14,9 @@ import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 
-import  RelocationForm  from "./RelocationForm.vue";
+import RelocChildrenInfo from "./childInfo/RelocChildrenInfo.vue";
+import RelocationOfChildBestInterestsOfChild from "./RelocationOfChildBestInterestsOfChild.vue";
+import RelocationOfChildQuestionnaire from "./RelocationOfChildQuestionnaire.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
@@ -19,7 +26,9 @@ const applicationState = namespace("Application");
 @Component({
     components:{
       StepBase,
-      RelocationForm
+      RelocationOfChildQuestionnaire,
+      RelocationOfChildBestInterestsOfChild,
+      RelocChildrenInfo
     }
 })
 export default class ChildRelocationStep extends Vue {
