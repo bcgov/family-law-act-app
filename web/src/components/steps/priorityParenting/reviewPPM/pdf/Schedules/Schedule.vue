@@ -123,7 +123,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
-import { childDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{
@@ -138,7 +138,7 @@ export default class Schedule extends Vue {
     result!: any;
 
     dataReady = false; 
-    childrenInfo: childDataInfoType[] = [];
+    childrenInfo: childrenInfoSurveyInfoType[] = [];
     parentArrInfo = {} as schedule1DataInfoType;   
    
     mounted(){
@@ -158,8 +158,8 @@ export default class Schedule extends Vue {
     
     public getChildrenInfo(){
 
-        const childrenInfo: childDataInfoType[] = [];
-        let childInfo = {} as childDataInfoType;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
         const childData = this.result.childData;
        
         for (const child of childData){            

@@ -384,7 +384,7 @@ import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType, childDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 
 @Component({
@@ -449,8 +449,8 @@ export default class CommonSection extends Vue {
     
     public getChildrenInfo(){
 
-        const childrenInfo: childDataInfoType[] = [];
-        let childInfo = {} as childDataInfoType;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
         const childData = this.result.childDataPPM;
        
         for (const child of childData){            
