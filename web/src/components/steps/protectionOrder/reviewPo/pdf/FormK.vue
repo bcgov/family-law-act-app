@@ -7,13 +7,13 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div class="form-header"> 
+        <div class="form-header-po"> 
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">               
-                <div style="font-size:13pt;"><b>Application About a Protection Order</b></div>
-                <div style="font-size:10pt;"><b>FORM 12</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 67, 68 and 172</div>
+                <div class="margintopminus" style="font-size:11pt;"><b>Application About a Protection Order</b></div>
+                <div style="font-size:9pt;"><b>FORM 12</b></div>
+                <div style="font-size:8pt;">Provincial Court Family Rules</div>
+                <div style="font-size:8pt;">Rules 67, 68 and 172</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -67,8 +67,8 @@
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select only one of the options below</i>
                 <check-box style="" :check="result.urgencySurvey.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
-                <check-box v-if="result.urgencySurvey.PORNoNotice == 'y'" style="" :check="result.urgencySurvey.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i> Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:11pt;\'>'+result.urgencySurvey.PORWhyNoNotice+'</div>'"/>
-                <check-box v-else style="" :check="result.urgencySurvey.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i> Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
+                <check-box v-if="result.urgencySurvey.PORNoNotice == 'y'" style="" :check="result.urgencySurvey.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:10pt;line-height:1rem;\'>'+result.urgencySurvey.PORWhyNoNotice+'</div>'"/>
+                <check-box v-else style="" :check="result.urgencySurvey.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
             </div>
         </section>
 
@@ -112,14 +112,14 @@
 
 <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:1rem;"><i>For registry use only</i></div>
+            <div style="margin-top:0.5rem;"><i>For registry use only</i></div>
             <div style="width:99%; border:1px solid; text-weight:bold; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin-top:1rem; font-family:BCSans"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
         </div>
 
 
@@ -896,7 +896,7 @@ export default class FormK extends Vue {
             liveTogetherDate = Vue.filter('beautify-date')(this.result.backgroundSurvey.liveTogetherPODate)
         }
 
-        if(this.result.backgroundSurvey.werePOPartiesMarried == 'y'){
+        if(this.result.backgroundSurvey.werePOPartiesMarried == 'y' && this.result.backgroundSurvey.dateOfMarriagePO){
             marriageDate = Vue.filter('beautify-date')(this.result.backgroundSurvey.dateOfMarriagePO)
         }
 
@@ -929,7 +929,7 @@ export default class FormK extends Vue {
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form K";`;
+        const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form 12";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
@@ -959,7 +959,7 @@ export default class FormK extends Vue {
 
     public onPrintSave(){        
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=FPO'
+        const url = '/survey-print/'+applicationId+'/?pdf_type=AAP'
         const options = {
             responseType: "blob",
             headers: {
