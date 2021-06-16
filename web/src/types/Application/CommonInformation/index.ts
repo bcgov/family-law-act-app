@@ -1,3 +1,5 @@
+import { aboutPOSurveydataInfoType } from "../ProtectionOrder";
+
 export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
@@ -61,7 +63,7 @@ export interface questionInfoType {
   inputType?: string;
 }
 
-export interface filingLocationDataInfoType {
+export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   ExistingFamilyCase?: string;
   ExplanationCourtLocation?: boolean;
   ExistingCourt: string;

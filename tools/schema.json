@@ -645,6 +645,10 @@
             "$ref": "#/definitions/stepInfoType"
           },
           "type": "array"
+        },
+        "types_version": {
+          "const": "1.0",
+          "type": "string"
         }
       },
       "required": [
@@ -1600,6 +1604,15 @@
         "MetEarlyResolutionRequirements": {
           "type": "string"
         },
+        "changePOattachment": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dateOfPO": {
+          "type": "string"
+        },
         "earlyResolutionRegistry": {
           "type": "boolean"
         },
@@ -1609,13 +1622,45 @@
         "familyJusticeRegistry": {
           "type": "boolean"
         },
+        "inCourtForPO": {
+          "type": "string"
+        },
+        "kindofPartyIbPO": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "registryLocationReason": {
+          "type": "string"
+        },
+        "terminateDateOfPO": {
+          "type": "string"
+        },
+        "terminatePOattachment": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "whatChangesNeeded": {
+          "type": "string"
+        },
+        "whyChangesNeeded": {
+          "type": "string"
+        },
+        "whyNotInCourt": {
+          "type": "string"
+        },
+        "whyTerminatePO": {
           "type": "string"
         }
       },
       "required": [
         "ExistingCourt",
-        "ExistingFileNumber"
+        "ExistingFileNumber",
+        "inCourtForPO",
+        "kindofPartyIbPO"
       ],
       "type": "object"
     },

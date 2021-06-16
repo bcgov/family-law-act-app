@@ -12,6 +12,7 @@ import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, E
 //This is what our database saves.
 export interface applicationStepOnlyInfoType {
   steps: stepInfoType[];
+  types_version?: "1.0";
 }
 
 export interface applicationInfoType extends applicationStepOnlyInfoType {   
@@ -29,7 +30,7 @@ export interface applicationInfoType extends applicationStepOnlyInfoType {
     protectedPartyName: string;
     protectedChildName: string;
     applicationLocation: string;
-    version: "1.0";
+    version: string;
 }
 
 export interface stepInfoType {
