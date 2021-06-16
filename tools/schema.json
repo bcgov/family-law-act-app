@@ -227,7 +227,7 @@
       ],
       "type": "object"
     },
-    "aboutContactWithChildOrderSurveyInfoType": {
+    "aboutContactWithChildSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -1017,7 +1017,7 @@
       ],
       "type": "object"
     },
-    "childSupportCurrentArrangementsSurveyInfoType": {
+    "childSupportCurrentArrangementSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -1112,6 +1112,37 @@
       "required": [
         "knowIncome",
         "knowFacts"
+      ],
+      "type": "object"
+    },
+    "childSupportIncomeEarningSurveyInfoType": {
+      "additionalProperties": false,
+      "properties": {
+        "currentPage": {
+          "type": "number"
+        },
+        "currentStep": {
+          "type": "number"
+        },
+        "data": {
+          "$ref": "#/definitions/childSupportIncomeEarningDataInfoType"
+        },
+        "pageName": {
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/definitions/questionInfoType"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data",
+        "questions",
+        "pageName",
+        "currentStep",
+        "currentPage"
       ],
       "type": "object"
     },
@@ -1280,6 +1311,37 @@
       ],
       "type": "object"
     },
+    "contactOrderSurveyInfoType": {
+      "additionalProperties": false,
+      "properties": {
+        "currentPage": {
+          "type": "number"
+        },
+        "currentStep": {
+          "type": "number"
+        },
+        "data": {
+          "$ref": "#/definitions/contactOrderDataInfoType"
+        },
+        "pageName": {
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/definitions/questionInfoType"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data",
+        "questions",
+        "pageName",
+        "currentStep",
+        "currentPage"
+      ],
+      "type": "object"
+    },
     "contactWithChildBestInterestOfChildDataInfoType": {
       "additionalProperties": false,
       "properties": {
@@ -1292,7 +1354,7 @@
       },
       "type": "object"
     },
-    "contactWithChildBestInterestsOfChildSurveyInfoType": {
+    "contactWithChildBestInterestOfChildSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -1332,37 +1394,6 @@
       },
       "required": [
         "parentGuardianApplicant"
-      ],
-      "type": "object"
-    },
-    "contactWithChildOrderSurveyInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "currentPage": {
-          "type": "number"
-        },
-        "currentStep": {
-          "type": "number"
-        },
-        "data": {
-          "$ref": "#/definitions/contactOrderDataInfoType"
-        },
-        "pageName": {
-          "type": "string"
-        },
-        "questions": {
-          "items": {
-            "$ref": "#/definitions/questionInfoType"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "questions",
-        "pageName",
-        "currentStep",
-        "currentPage"
       ],
       "type": "object"
     },
@@ -1635,7 +1666,7 @@
       ],
       "type": "object"
     },
-    "flmAdditionalDocumentsSurveyInfoType": {
+    "flmAdditionalDocsSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -1755,7 +1786,7 @@
       ],
       "type": "object"
     },
-    "flmQuestionnaireSurveyInfoType": {
+    "flmSelectedFormInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -1801,7 +1832,7 @@
       ],
       "type": "object"
     },
-    "guardianOfChildBestInterestsOfChildSurveyInfoType": {
+    "guardianOfChildBestInterestOfChildSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -1914,37 +1945,6 @@
       },
       "required": [
         "selected"
-      ],
-      "type": "object"
-    },
-    "incomeAndEarningPotentialSurveyInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "currentPage": {
-          "type": "number"
-        },
-        "currentStep": {
-          "type": "number"
-        },
-        "data": {
-          "$ref": "#/definitions/childSupportIncomeEarningDataInfoType"
-        },
-        "pageName": {
-          "type": "string"
-        },
-        "questions": {
-          "items": {
-            "$ref": "#/definitions/questionInfoType"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "questions",
-        "pageName",
-        "currentStep",
-        "currentPage"
       ],
       "type": "object"
     },
@@ -2159,37 +2159,6 @@
       ],
       "type": "object"
     },
-    "otherParentingArrangementsSurveyInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "currentPage": {
-          "type": "number"
-        },
-        "currentStep": {
-          "type": "number"
-        },
-        "data": {
-          "$ref": "#/definitions/parentalArrangementsDataInfoType"
-        },
-        "pageName": {
-          "type": "string"
-        },
-        "questions": {
-          "items": {
-            "$ref": "#/definitions/questionInfoType"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "questions",
-        "pageName",
-        "currentStep",
-        "currentPage"
-      ],
-      "type": "object"
-    },
     "otherPartyCommonSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
@@ -2334,6 +2303,37 @@
       "required": [
         "parentalArrangements",
         "parentalArrangementsDescription"
+      ],
+      "type": "object"
+    },
+    "parentalArrangementsSurveyInfoType": {
+      "additionalProperties": false,
+      "properties": {
+        "currentPage": {
+          "type": "number"
+        },
+        "currentStep": {
+          "type": "number"
+        },
+        "data": {
+          "$ref": "#/definitions/parentalArrangementsDataInfoType"
+        },
+        "pageName": {
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/definitions/questionInfoType"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data",
+        "questions",
+        "pageName",
+        "currentStep",
+        "currentPage"
       ],
       "type": "object"
     },
@@ -2506,7 +2506,7 @@
       },
       "type": "object"
     },
-    "parentingArrangementsbestInterestsOfChildSurveyInfoType": {
+    "parentingArrangementsbestInterestOfChildSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -2768,7 +2768,7 @@
       ],
       "type": "object"
     },
-    "poQuestionnaireSurveyDataInfoType": {
+    "poQuestionnaireSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "PORConfirmed": {
@@ -2795,38 +2795,7 @@
       ],
       "type": "object"
     },
-    "poQuestionnaireSurveyInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "currentPage": {
-          "type": "number"
-        },
-        "currentStep": {
-          "type": "number"
-        },
-        "data": {
-          "$ref": "#/definitions/poQuestionnaireSurveyDataInfoType"
-        },
-        "pageName": {
-          "type": "string"
-        },
-        "questions": {
-          "items": {
-            "$ref": "#/definitions/questionInfoType"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "questions",
-        "pageName",
-        "currentStep",
-        "currentPage"
-      ],
-      "type": "object"
-    },
-    "protectionFromWhomSurveyDataInfoType": {
+    "protectionWhomSurveyDataInfoType": {
       "additionalProperties": false,
       "properties": {
         "ApplicantNeedsProtection": {
@@ -2888,7 +2857,7 @@
       ],
       "type": "object"
     },
-    "protectionFromWhomSurveyInfoType": {
+    "protectionWhomSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -2898,7 +2867,7 @@
           "type": "number"
         },
         "data": {
-          "$ref": "#/definitions/protectionFromWhomSurveyDataInfoType"
+          "$ref": "#/definitions/protectionWhomSurveyDataInfoType"
         },
         "pageName": {
           "type": "string"
@@ -2961,7 +2930,7 @@
       ],
       "type": "object"
     },
-    "removePersonSurveyDataInfoType": {
+    "removeSurveyDataInfoType": {
       "additionalProperties": false,
       "properties": {
         "RespondentLiveTogether": {
@@ -2983,7 +2952,7 @@
       ],
       "type": "object"
     },
-    "removePersonSurveyInfoType": {
+    "removeSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -2993,7 +2962,7 @@
           "type": "number"
         },
         "data": {
-          "$ref": "#/definitions/removePersonSurveyDataInfoType"
+          "$ref": "#/definitions/removeSurveyDataInfoType"
         },
         "pageName": {
           "type": "string"
@@ -3063,14 +3032,20 @@
     "resultInfoType": {
       "additionalProperties": false,
       "properties": {
+        "GuardianOfChildBestInterestOfChildSurvey": {
+          "$ref": "#/definitions/guardianOfChildBestInterestOfChildSurveyInfoType"
+        },
+        "GuardianOfChildSurvey": {
+          "$ref": "#/definitions/guardianOfChildSurveyInfoType"
+        },
         "aboutChildSupportChangesSurvey": {
           "$ref": "#/definitions/aboutChildSupportChangesSurveyInfoType"
         },
         "aboutChildSupportOrderSurvey": {
           "$ref": "#/definitions/aboutChildSupportOrderSurveyInfoType"
         },
-        "aboutContactWithChildOrderSurvey": {
-          "$ref": "#/definitions/aboutContactWithChildOrderSurveyInfoType"
+        "aboutContactWithChildSurvey": {
+          "$ref": "#/definitions/aboutContactWithChildSurveyInfoType"
         },
         "aboutExistingChildSupportSurvey": {
           "$ref": "#/definitions/aboutExistingChildSupportSurveyInfoType"
@@ -3078,14 +3053,14 @@
         "aboutExistingSpousalSupportOrderSurvey": {
           "$ref": "#/definitions/aboutExistingSpousalSupportOrderSurveyInfoType"
         },
+        "aboutPOSurvey": {
+          "$ref": "#/definitions/aboutPOSurveyInfoType"
+        },
         "aboutParentingArrangementsSurvey": {
           "$ref": "#/definitions/aboutParentingArrangementsSurveyInfoType"
         },
         "aboutSpousalSupportOrderSurvey": {
           "$ref": "#/definitions/aboutSpousalSupportOrderSurveyInfoType"
-        },
-        "aboutSurvey": {
-          "$ref": "#/definitions/aboutPOSurveyInfoType"
         },
         "applicantName": {
           "$ref": "#/definitions/nameInfoType"
@@ -3093,8 +3068,8 @@
         "backgroundSurvey": {
           "$ref": "#/definitions/backgroundSurveyInfoType"
         },
-        "bestInterestsOfChildSurvey": {
-          "$ref": "#/definitions/parentingArrangementsbestInterestsOfChildSurveyInfoType"
+        "bestInterestOfChildSurvey": {
+          "$ref": "#/definitions/parentingArrangementsbestInterestOfChildSurveyInfoType"
         },
         "calculatingChildSupportSurvey": {
           "$ref": "#/definitions/calculatingChildSupportSurveyInfoType"
@@ -3105,8 +3080,14 @@
         "childBestInterestAcknowledgement": {
           "type": "boolean"
         },
-        "childSupportCurrentArrangementsSurvey": {
-          "$ref": "#/definitions/childSupportCurrentArrangementsSurveyInfoType"
+        "childData": {
+          "$ref": "#/definitions/childDetailsSurveyInfoType"
+        },
+        "childSupportCurrentArrangementSurvey": {
+          "$ref": "#/definitions/childSupportCurrentArrangementSurveyInfoType"
+        },
+        "childSupportIncomeEarningSurvey": {
+          "$ref": "#/definitions/childSupportIncomeEarningSurveyInfoType"
         },
         "childSupportOrderAgreementSurvey": {
           "$ref": "#/definitions/childSupportOrderAgreementSurveyInfoType"
@@ -3114,14 +3095,11 @@
         "childSupportSurvey": {
           "$ref": "#/definitions/childSupportSurveyInfoType"
         },
-        "childrenInfoSurvey": {
-          "$ref": "#/definitions/childDetailsSurveyInfoType"
+        "contactOrderSurvey": {
+          "$ref": "#/definitions/contactOrderSurveyInfoType"
         },
-        "contactWithChildBestInterestsOfChildSurvey": {
-          "$ref": "#/definitions/contactWithChildBestInterestsOfChildSurveyInfoType"
-        },
-        "contactWithChildOrderSurvey": {
-          "$ref": "#/definitions/contactWithChildOrderSurveyInfoType"
+        "contactWithChildBestInterestOfChildSurvey": {
+          "$ref": "#/definitions/contactWithChildBestInterestOfChildSurveyInfoType"
         },
         "contactWithChildSurvey": {
           "$ref": "#/definitions/contactWithChildSurveyInfoType"
@@ -3144,25 +3122,16 @@
         "filingLocationSurvey": {
           "$ref": "#/definitions/filingLocationSurveyInfoType"
         },
-        "filingOptionsSurvey": {
+        "filingOptions": {
         },
-        "flmAdditionalDocumentsSurvey": {
-          "$ref": "#/definitions/flmAdditionalDocumentsSurveyInfoType"
+        "flmAdditionalDocsSurvey": {
+          "$ref": "#/definitions/flmAdditionalDocsSurveyInfoType"
         },
         "flmBackgroundSurvey": {
           "$ref": "#/definitions/flmBackgroundSurveyInfoType"
         },
-        "flmQuestionnaireSurvey": {
-          "$ref": "#/definitions/flmQuestionnaireSurveyInfoType"
-        },
-        "guardianOfChildBestInterestsOfChildSurvey": {
-          "$ref": "#/definitions/guardianOfChildBestInterestsOfChildSurveyInfoType"
-        },
-        "guardianOfChildSurvey": {
-          "$ref": "#/definitions/guardianOfChildSurveyInfoType"
-        },
-        "incomeAndEarningPotentialSurvey": {
-          "$ref": "#/definitions/incomeAndEarningPotentialSurveyInfoType"
+        "flmSelectedForm": {
+          "$ref": "#/definitions/flmSelectedFormInfoType"
         },
         "indigenousAncestryOfChildSurvey": {
           "$ref": "#/definitions/indigenousAncestryOfChildSurveyInfoType"
@@ -3173,14 +3142,14 @@
         "noGoSurvey": {
           "$ref": "#/definitions/noGoSurveyInfoType"
         },
-        "otherParentingArrangementsSurvey": {
-          "$ref": "#/definitions/otherParentingArrangementsSurveyInfoType"
-        },
         "otherPartyCommonSurvey": {
           "$ref": "#/definitions/otherPartyCommonSurveyInfoType"
         },
         "otherPartySurvey": {
           "$ref": "#/definitions/otherPartyCommonSurveyInfoType"
+        },
+        "parentalArrangementsSurvey": {
+          "$ref": "#/definitions/parentalArrangementsSurveyInfoType"
         },
         "parentalResponsibilitiesSurvey": {
           "$ref": "#/definitions/parentalResponsibilitiesSurveyInfoType"
@@ -3203,9 +3172,6 @@
         "poFilingLocationSurvey": {
           "$ref": "#/definitions/poFilingLocationSurveyInfoType"
         },
-        "poQuestionnaireSurvey": {
-          "$ref": "#/definitions/poQuestionnaireSurveyInfoType"
-        },
         "protectedChildName": {
           "items": {
             "$ref": "#/definitions/allchildrenInfoType"
@@ -3215,11 +3181,14 @@
         "protectedPartyName": {
           "$ref": "#/definitions/nameInfoType"
         },
-        "protectionFromWhomSurvey": {
-          "$ref": "#/definitions/protectionFromWhomSurveyInfoType"
+        "protectionWhomSurvey": {
+          "$ref": "#/definitions/protectionWhomSurveyInfoType"
         },
-        "removePersonSurvey": {
-          "$ref": "#/definitions/removePersonSurveyInfoType"
+        "questionnaireSurvey": {
+          "$ref": "#/definitions/poQuestionnaireSurveyInfoType"
+        },
+        "removeSurvey": {
+          "$ref": "#/definitions/removeSurveyInfoType"
         },
         "requiredDocuments": {
           "$ref": "#/definitions/requiredDocumentsInfoType"
@@ -3242,8 +3211,8 @@
           },
           "type": "array"
         },
-        "safetyCheckSurvey": {
-          "$ref": "#/definitions/safetyCheckSurveyInfoType"
+        "safetySurvey": {
+          "$ref": "#/definitions/safetySurveyInfoType"
         },
         "selectedForms": {
           "items": {
@@ -3281,22 +3250,22 @@
         "urgencySurvey": {
           "$ref": "#/definitions/urgencySurveyInfoType"
         },
-        "weaponsFirearmsSurvey": {
-          "$ref": "#/definitions/weaponsFirearmsSurveyInfoType"
+        "weaponsSurvey": {
+          "$ref": "#/definitions/weaponsSurveyInfoType"
         },
         "yourInformationSurvey": {
           "$ref": "#/definitions/yourInformationSurveyInfoType"
         },
-        "yourStorySurvey": {
-          "$ref": "#/definitions/yourStorySurveyInfoType"
+        "yourInformationSurveyPO": {
+          "$ref": "#/definitions/yourInformationSurveyPOInfoType"
         },
-        "yourinformationPOSurvey": {
-          "$ref": "#/definitions/yourinformationPOSurveyInfoType"
+        "yourStory": {
+          "$ref": "#/definitions/yourStoryInfoType"
         }
       },
       "type": "object"
     },
-    "safetyCheckSurveyDataInfoType": {
+    "safetySurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "unsafe": {
@@ -3305,37 +3274,6 @@
       },
       "required": [
         "unsafe"
-      ],
-      "type": "object"
-    },
-    "safetyCheckSurveyInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "currentPage": {
-          "type": "number"
-        },
-        "currentStep": {
-          "type": "number"
-        },
-        "data": {
-          "$ref": "#/definitions/safetyCheckSurveyDataInfoType"
-        },
-        "pageName": {
-          "type": "string"
-        },
-        "questions": {
-          "items": {
-            "$ref": "#/definitions/questionInfoType"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "questions",
-        "pageName",
-        "currentStep",
-        "currentPage"
       ],
       "type": "object"
     },
@@ -3349,7 +3287,7 @@
           "type": "number"
         },
         "data": {
-          "$ref": "#/definitions/poQuestionnaireSurveyDataInfoType"
+          "$ref": "#/definitions/poQuestionnaireSurveyInfoType"
         },
         "pageName": {
           "type": "string"
@@ -3868,7 +3806,7 @@
       ],
       "type": "object"
     },
-    "weaponsFirearmsSurveyDataInfoType": {
+    "weaponsSurveyDataInfoType": {
       "additionalProperties": false,
       "properties": {
         "RespondentFirearms": {
@@ -3910,7 +3848,7 @@
       ],
       "type": "object"
     },
-    "weaponsFirearmsSurveyInfoType": {
+    "weaponsSurveyInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -3920,7 +3858,7 @@
           "type": "number"
         },
         "data": {
-          "$ref": "#/definitions/weaponsFirearmsSurveyDataInfoType"
+          "$ref": "#/definitions/weaponsSurveyDataInfoType"
         },
         "pageName": {
           "type": "string"
@@ -4019,67 +3957,7 @@
       ],
       "type": "object"
     },
-    "yourStorySurveyDataInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "isFamilyViolence": {
-          "type": "string"
-        },
-        "isNoneExplainedConcerns": {
-          "type": "string"
-        },
-        "noneExplainedConcerns": {
-          "type": "string"
-        },
-        "recentIncidentWithChild": {
-          "type": "string"
-        },
-        "recentIncidents": {
-          "type": "string"
-        },
-        "whatViolence": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "isFamilyViolence",
-        "isNoneExplainedConcerns",
-        "recentIncidents"
-      ],
-      "type": "object"
-    },
-    "yourStorySurveyInfoType": {
-      "additionalProperties": false,
-      "properties": {
-        "currentPage": {
-          "type": "number"
-        },
-        "currentStep": {
-          "type": "number"
-        },
-        "data": {
-          "$ref": "#/definitions/yourStorySurveyDataInfoType"
-        },
-        "pageName": {
-          "type": "string"
-        },
-        "questions": {
-          "items": {
-            "$ref": "#/definitions/questionInfoType"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "data",
-        "questions",
-        "pageName",
-        "currentStep",
-        "currentPage"
-      ],
-      "type": "object"
-    },
-    "yourinformationPOSurveyDataInfoType": {
+    "yourInformationSurveyPODataInfoType": {
       "additionalProperties": false,
       "properties": {
         "ApplicantAddress": {
@@ -4120,7 +3998,7 @@
       ],
       "type": "object"
     },
-    "yourinformationPOSurveyInfoType": {
+    "yourInformationSurveyPOInfoType": {
       "additionalProperties": false,
       "properties": {
         "currentPage": {
@@ -4130,7 +4008,67 @@
           "type": "number"
         },
         "data": {
-          "$ref": "#/definitions/yourinformationPOSurveyDataInfoType"
+          "$ref": "#/definitions/yourInformationSurveyPODataInfoType"
+        },
+        "pageName": {
+          "type": "string"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/definitions/questionInfoType"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "data",
+        "questions",
+        "pageName",
+        "currentStep",
+        "currentPage"
+      ],
+      "type": "object"
+    },
+    "yourStoryDataInfoType": {
+      "additionalProperties": false,
+      "properties": {
+        "isFamilyViolence": {
+          "type": "string"
+        },
+        "isNoneExplainedConcerns": {
+          "type": "string"
+        },
+        "noneExplainedConcerns": {
+          "type": "string"
+        },
+        "recentIncidentWithChild": {
+          "type": "string"
+        },
+        "recentIncidents": {
+          "type": "string"
+        },
+        "whatViolence": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "isFamilyViolence",
+        "isNoneExplainedConcerns",
+        "recentIncidents"
+      ],
+      "type": "object"
+    },
+    "yourStoryInfoType": {
+      "additionalProperties": false,
+      "properties": {
+        "currentPage": {
+          "type": "number"
+        },
+        "currentStep": {
+          "type": "number"
+        },
+        "data": {
+          "$ref": "#/definitions/yourStoryDataInfoType"
         },
         "pageName": {
           "type": "string"
