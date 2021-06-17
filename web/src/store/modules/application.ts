@@ -833,21 +833,7 @@ class Application extends VuexModule {
     public UpdateInit(newVersion: string) {
         this.context.commit("init");
         this.context.commit("setVersion", newVersion)
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
-        //console.log(this.$store.state.Application)
-        const steps = this.steps
-        for(const step of steps){
-            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
-            // console.error(step.name)
-            // console.warn(stepsAndPagesNumber[step.name].StepNo)
-            for(const page of step.pages){
-                // console.log(page.key+' ' +page.name)
-                stepsAndPagesNumber[step.name][page.name] = Number(page.key)
-            }
-        }
-        //console.log(stepsAndPagesNumber)
-        //this.UpdateStPgNo(stepsAndPagesNumber)
-        this.context.commit("setStPgNo", stepsAndPagesNumber);
+        this.context.dispatch("UpdateStPgNo");
     }
 
     @Mutation
@@ -1215,7 +1201,21 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        this.context.commit("setStPgNo", newStPgNo);
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        //console.log(this.$store.state.Application)
+        const steps = this.steps
+        for(const step of steps){
+            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
+            // console.error(step.name)
+            // console.warn(stepsAndPagesNumber[step.name].StepNo)
+            for(const page of step.pages){
+                // console.log(page.key+' ' +page.name)
+                stepsAndPagesNumber[step.name][page.name] = Number(page.key)
+            }
+        }
+        //console.log(stepsAndPagesNumber)
+        //this.UpdateStPgNo(stepsAndPagesNumber)
+        this.context.commit("setStPgNo", stepsAndPagesNumber);
     }
 
     @Mutation
