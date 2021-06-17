@@ -49,7 +49,7 @@ export class migrateStore{
 
         store.commit("Application/setCurrentApplication", this.currentApplication);
         store.commit("Common/setExistingApplication", true);
-
+        store.dispatch("Application/UpdateStPgNo");
         return this.currentApplication
 
     }
