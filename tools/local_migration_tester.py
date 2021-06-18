@@ -8,7 +8,7 @@ from jsonschema import validate, ValidationError
 # Unfortunately can't easily use Typescript for this, because we need Python to interface with Django.
 # The plus side is we validate which should catch any typos.
 
-def migrate_1_0_to_1_1(data):
+def migrate(data):
     steps = data['steps']
     for step in steps:
         result = step.get('result')
@@ -111,8 +111,8 @@ f = open(f'schema_{new_version}.json',)
 schema = json.load(f)
 f.close()
 max_runs = 20
-for run in range(1,max_runs):   
-    print(f'Generating fake data, migrating and validating migration {run} of {max_runs}')
+for run in range(0,max_runs):   
+    print(f'Generating fake data, migrating and validating migration {run+1} of {max_runs}')
     if os.name == 'nt':
         #This may require admin on windows.
         subprocess.run(['C:\\Program Files\\Git\\git-bash.exe', '-l', 'generate_fake_data', old_version])
@@ -121,5 +121,5 @@ for run in range(1,max_runs):
     f = open('fake_data.json',)
     fake_data = json.load(f)
     f.close()
-    migrated_data = migrate_1_0_to_1_1(fake_data)
+    migrated_data = migrate(fake_data)
     validate_by_schema(migrated_data)
