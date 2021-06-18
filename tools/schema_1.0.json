@@ -2895,7 +2895,6 @@
 			"required": [
 				"RespondentName",
 				"RespondentDOBExact",
-				"RespondentContact",
 				"ApplicantNeedsProtection",
 				"childPO"
 			],
