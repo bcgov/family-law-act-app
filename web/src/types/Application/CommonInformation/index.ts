@@ -58,7 +58,7 @@ export interface addressInfoType {
 
 export interface questionInfoType {
   name: string;
-  value: object | string;
+  value: any;
   title: string;
   inputType?: string;
 }

@@ -24,6 +24,7 @@ class Command(BaseCommand):
                     application.key_id, application.steps
                 ).decode("utf-8")
             )
+            #print(json.dumps(steps_json, indent=4).replace('\r\n',''))
             print(f'Validating steps schema for application Id: {application.id}')
             validate(instance= {"steps" : steps_json}, schema=schema)
             print(f'Validation successful for application Id: {application.id}')
