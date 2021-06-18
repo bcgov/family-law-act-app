@@ -2976,16 +2976,7 @@
 				"title": {
 					"type": "string"
 				},
-				"value": {
-					"anyOf": [
-						{
-							"type": "object"
-						},
-						{
-							"type": "string"
-						}
-					]
-				}
+				"value": {}
 			},
 			"required": [
 				"name",
