@@ -2895,7 +2895,6 @@
 			"required": [
 				"RespondentName",
 				"RespondentDOBExact",
-				"RespondentAddress",
 				"RespondentContact",
 				"ApplicantNeedsProtection",
 				"childPO"
@@ -3076,6 +3075,9 @@
 		"resultInfoType": {
 			"additionalProperties": false,
 			"properties": {
+				"applicationLocation": {
+					"type": "string"
+				},
 				"GuardianOfChildBestInterestOfChildSurvey": {
 					"$ref": "#/definitions/guardianOfChildBestInterestOfChildSurveyInfoType"
 				},
