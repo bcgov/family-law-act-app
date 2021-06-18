@@ -8,10 +8,14 @@ from api.models import Application
 from django.core.management.base import BaseCommand, CommandError
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument('file_path')
+        
     def handle(self, *args, **options):
-        print(f'Ensure generate_schema was recently ran, so schema.json is up to date.')
-        print(f'Reading from ../tools/schema.json')
-        f = open('../tools/schema.json',)
+        file_path =  options['file_path']
+        print(f'Ensure generate_schema was recently ran, so your schema is up to date.')
+        print(f'Reading schema from {file_path}')
+        f = open(file_path,)
         schema = json.load(f)
         f.close()
         for application in Application.objects.all():
