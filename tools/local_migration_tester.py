@@ -20,10 +20,11 @@ def migrate(data):
         result.pop('questionnaireSurvey', None)     
 
         if result.get('poQuestionnaireSurvey') is not None:
+            # Use existing data or use defaults.
             result['poQuestionnaireSurvey']['questions'] = result['poQuestionnaireSurvey'].get('questions', [])
             result['poQuestionnaireSurvey']['pageName'] = result['poQuestionnaireSurvey'].get('pageName', '')
-            result['poQuestionnaireSurvey']['currentStep'] = result['poQuestionnaireSurvey'].get('currentStep', 1)
-            result['poQuestionnaireSurvey']['currentPage'] = result['poQuestionnaireSurvey'].get('currentPage', 1)
+            result['poQuestionnaireSurvey']['currentStep'] = result['poQuestionnaireSurvey'].get('currentStep', 0)
+            result['poQuestionnaireSurvey']['currentPage'] = result['poQuestionnaireSurvey'].get('currentPage', 0)
             if result['poQuestionnaireSurvey'].get('data') is None:
                 result['poQuestionnaireSurvey']['data'] = {}
                 result['poQuestionnaireSurvey']['data']['orderType'] = result['poQuestionnaireSurvey'].get('orderType')
