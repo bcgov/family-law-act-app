@@ -98,8 +98,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
     }
 
     export interface poFilingLocationSurveyDataInfoType {
-        CourtLocationFAQ1?: string;
-        CourtLocationFAQ2?: string;
+        CourtLocationFAQ1?: boolean | string;
+        CourtLocationFAQ2?: boolean | string;
         ExistingFamilyCase: string;
         ExplanationCourtLocation?: boolean;
         ExistingCourt?: string;
@@ -267,7 +267,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
 
     export interface selectedPOOrderInfoType {
         data: poQuestionnaireSurveyDataInfoType;
-        questions: questionInfoType[] | null;
+        questions?: questionInfoType[];
         pageName: string;
         currentStep: number;
         currentPage: number;

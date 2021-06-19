@@ -73,6 +73,7 @@ export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;
+  CourtLocationFAQ1?: boolean | string;
 }
 
 export interface filingLocationSurveyInfoType {

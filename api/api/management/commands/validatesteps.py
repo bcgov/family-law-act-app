@@ -114,6 +114,14 @@ class Command(BaseCommand):
             result.pop('GuardianOfChildBestInterestOfChildSurvey', None)
             result['filingOptionsSurvey'] = result.get('filingOptions')
             result.pop('filingOptions', None)
+
+            # fix priotityParenting -> priorityParenting
+            if result.get('pathwayCompleted') is not None and result['pathwayCompleted'].get('priotityParenting') is not None:
+                print (result['pathwayCompleted'])
+                result['pathwayCompleted']['priorityParenting'] = result['pathwayCompleted']['priotityParenting']
+                result.get('pathwayCompleted').pop('priotityParenting', None)
+                print (result['pathwayCompleted'])
+
         return clean_nones(data)
 
     def handle(self, *args, **options):
