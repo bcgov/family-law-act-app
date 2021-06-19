@@ -76,12 +76,23 @@ def migrate(data):
         result.pop('childSupportCurrentArrangementSurvey', None)
         result['incomeAndEarningPotentialSurvey'] = result.get('childSupportIncomeEarningSurvey')
         result.pop('childSupportIncomeEarningSurvey', None)
+
         result['aboutContactWithChildOrderSurvey'] = result.get('aboutContactWithChildSurvey')
+        if result.get('aboutContactWithChildOrderSurvey') is not None and result['aboutContactWithChildOrderSurvey'].get('data') is None:
+            result['aboutContactWithChildSurvey']['data'] = {}
+            result['aboutContactWithChildSurvey']['data']['childrenRequireContactChoices'] = result['aboutContactWithChildOrderSurvey'].get('childrenRequireContactChoices')
+            result['aboutContactWithChildSurvey']['data']['lastContactDate'] = result['aboutContactWithChildOrderSurvey'].get('lastContactDate')
+            result['aboutContactWithChildSurvey']['data']['contactTypeChoices'] = result['aboutContactWithChildOrderSurvey'].get('contactTypeChoices')
+            result['aboutContactWithChildSurvey']['data']['contactTypeChoicesComment'] = result['aboutContactWithChildOrderSurvey'].get('contactTypeChoicesComment')
+            result['aboutContactWithChildSurvey']['data']['placeConditions'] = result['aboutContactWithChildOrderSurvey'].get('placeConditions')
+            result['aboutContactWithChildSurvey']['data']['conditionsDescription'] = result['aboutContactWithChildOrderSurvey'].get('conditionsDescription')
         result.pop('aboutContactWithChildSurvey', None)
+
         result['contactWithChildBestInterestsOfChildSurvey'] = result.get('contactWithChildBestInterestOfChildSurvey')
         result.pop('contactWithChildBestInterestOfChildSurvey', None)
         result['contactWithChildOrderSurvey'] = result.get('contactOrderSurvey')
         result.pop('contactOrderSurvey', None)
+      
         result['guardianOfChildSurvey'] = result.get('GuardianOfChildSurvey')
         result.pop('GuardianOfChildSurvey', None)
         result['guardianOfChildBestInterestsOfChildSurvey'] = result.get('GuardianOfChildBestInterestOfChildSurvey')

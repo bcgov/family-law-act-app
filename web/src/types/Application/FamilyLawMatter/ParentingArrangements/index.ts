@@ -1,8 +1,8 @@
 import { questionInfoType } from "../../CommonInformation";
 
 export interface parentingArrangementsDataInfoType {
-    guardianApplicant: string;
-    applyingGuardianApplicant: string;
+    guardianApplicant?: string;
+    applyingGuardianApplicant?: string;
 }
 
 export interface parentingArrangementsSurveyInfoType {
@@ -60,8 +60,8 @@ export interface otherParentingArrangementsSurveyInfoType {
 }
 
 export interface parentingOrderAgreementDataInfoType {
-    guardianApplicant: string;
-    applyingGuardianApplicant: string;
+    guardianApplicant?: string;
+    applyingGuardianApplicant?: string;
 }
 
 export interface parentingOrderAgreementSurveyInfoType {

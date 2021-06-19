@@ -10,17 +10,17 @@ export interface flmQuestionnaireSurveyInfoType {
 
 export interface flmBackgroundSurveyDataInfoType {
     ExistingOrdersFLM: string;
-    existingOrdersListFLM: string[];
+    existingOrdersListFLM?: string[];
     existingPOOrders: string;
     howPartiesRelated: string;
-    werePOPartiesMarried: string;
+    werePOPartiesMarried?: string;
     listOfSpouses?: string;
-    liveTogetherPODate: string;
-    dateOfMarriagePO: string;
-    isSeperated: string;
-    separationDate: string;
+    liveTogetherPODate?: string;
+    dateOfMarriagePO?: string;
+    isSeperated?: string;
+    separationDate?: string;
     likeToAddCulturalExplanation: string;
-    culturalExplain: string;
+    culturalExplain?: string;
 }
 
 export interface flmBackgroundSurveyInfoType {

@@ -14,11 +14,11 @@ export interface contactWithChildSurveyInfoType {
 
 export interface aboutContactWithChildDataInfoType {
     childrenRequireContactChoices?: string[];
-    lastContactDate: string;
+    lastContactDate?: string;
     contactTypeChoices?: string[];
     contactTypeChoicesComment?: string;
     inPersonDetails?: string;
-    placeConditions: string;
+    placeConditions?: string;
     conditionsDescription?: string;
 }
 

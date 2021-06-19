@@ -33,6 +33,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         LawyerName?: nameInfoType;
         LawyerAddress?: addressInfoType;
         LawyerContact?: contactInfoType;
+        FAQLawyer1?: boolean;
         ApplicantOccupation?: string;
     }
 
@@ -77,8 +78,8 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         RespondentName: nameInfoType;
         RespondentDOBExact: string;
         RespondentDOB?: string;
-        RespondentAddress: addressInfoType;
-        RespondentContact: contactInfoType;
+        RespondentAddress?: addressInfoType;
+        RespondentContact?: contactInfoType;
         ApplicantNeedsProtection: string;
         anotherAdultPO?: string;
         anotherAdultName?: string;
@@ -97,9 +98,13 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
     }
 
     export interface poFilingLocationSurveyDataInfoType {
+        CourtLocationFAQ1?: string;
+        CourtLocationFAQ2?: string;
         ExistingFamilyCase: string;
-        ExplanationCourtLocation: boolean;
+        ExplanationCourtLocation?: boolean;
         ExistingCourt?: string;
+        ExistingFamilyCaseFAQ1?: boolean;
+        ExistingFamilyCaseFAQ2?: boolean;
         ExistingFileNumber?: string;        
     }   
 
@@ -113,7 +118,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
 
     export interface removePersonSurveyDataInfoType {
         RespondentLiveTogether: string;
-        needPolice: string[];
+        needPolice?: string[];
         needPoliceComment?: string;
     }    
 
@@ -142,11 +147,11 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
     export interface weaponsFirearmsSurveyDataInfoType {
         RespondentFirearms: string;
         firearmsReason?: string;
-        RespondentFirearmsYes: string;
+        RespondentFirearmsYes?: string;
         firearmsYesReason?: string;
         RespondentWeapons: string;
         weaponsReasons?: string;
-        RespondentWeaponsYes: string;
+        RespondentWeaponsYes?: string;
         weaponsYesReason?: string;
         RespondentNoWeapons?: string[];
     }  
@@ -160,11 +165,11 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
     }
 
     export interface allOtherChilderenInfoType {
-        childName: nameInfoType;
-        childDOB: string;
-        childRelationshipWithProtected: string;
-        childRelationshipWithOther: string;
-        childLivingWith: string;
+        childName?: nameInfoType;
+        childDOB?: string;
+        childRelationshipWithProtected?: string;
+        childRelationshipWithOther?: string;
+        childLivingWith?: string;
     }
 
     export interface backgroundSurveyDataInfoType {
@@ -239,11 +244,11 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
 
     export interface aboutPOSurveydataInfoType {
         dateOfPO?: string;
-        ExistingCourt: string;
-        ExistingFileNumber: string;
-        inCourtForPO: string;
+        ExistingCourt?: string;
+        ExistingFileNumber?: string;
+        inCourtForPO?: string;
         whyNotInCourt?: string;
-        kindofPartyIbPO: string[];
+        kindofPartyIbPO?: string[];
         whatChangesNeeded?: string;
         whyChangesNeeded?: string;
         changePOattachment?: string[];

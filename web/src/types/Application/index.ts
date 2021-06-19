@@ -147,17 +147,15 @@ export interface stepInfoType {
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: any;
-    
-
   }
 
   export interface pathwayCompletedInfoType { 
-    protectionOrder: boolean; 
-    familyLawMatter: boolean;
-    caseMgmt: boolean; 
-    priorityParenting: boolean; 
-    childReloc: boolean;
-    agreementEnfrc: boolean;
+    protectionOrder?: boolean; 
+    familyLawMatter?: boolean;
+    caseMgmt?: boolean; 
+    priorityParenting?: boolean; 
+    childReloc?: boolean;
+    agreementEnfrc?: boolean;
   } 
 
 

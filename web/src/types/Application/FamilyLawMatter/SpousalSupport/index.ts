@@ -50,7 +50,7 @@ export interface valueInfoType {
     monthlyEndDate: string;
     lumpsumAmount: string;
     selected: string;
-    otherComment: string;
+    otherComment?: string;
 }
 
 export interface aboutSpousalSupportOrderSurveyInfoType {
@@ -90,11 +90,11 @@ export interface existingSpousalSupportOrderAgreementSurveyInfoType {
 }
 
 export interface spousalChangesSinceOrderListInfoType {
-    myEmploymentChangedComment: string;
-    partyEmploymentChangedComment: string;
-    myHouseholdChangedComment: string;
-    newInformationComment: string;
-    otherComment: string;
+    myEmploymentChangedComment?: string;
+    partyEmploymentChangedComment?: string;
+    myHouseholdChangedComment?: string;
+    newInformationComment?: string;
+    otherComment?: string;
     checked: string[];
 }
 

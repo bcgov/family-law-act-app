@@ -33,7 +33,7 @@ export interface relationshipBetweenPartiesInfoType {
     spouses: boolean;
     startDate: string; 
     marriageDate: string; 
-    separationDate: string; 
+    separationDate?: string; 
     nameOfSpouse: string; 
 };
 
@@ -316,7 +316,7 @@ export interface ancestryGuardianshipInfoType {
 
 export interface cancelGuardianshipDetailsInfoType {
     guardianName: string;
-    childName: string;
+    childName?: string;
     guardianSince: string;
     relationship?: string;
 }

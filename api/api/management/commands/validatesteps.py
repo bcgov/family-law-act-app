@@ -1,5 +1,6 @@
 import json
 import subprocess
+import jsonschema
 
 from django.conf import settings
 from django.db import migrations
@@ -26,6 +27,11 @@ class Command(BaseCommand):
             )
             #print(json.dumps(steps_json, indent=4).replace('\r\n',''))
             print(f'Validating steps schema for application Id: {application.id}')
-            validate(instance= {"steps" : steps_json}, schema=schema)
-            print(f'Validation successful for application Id: {application.id}')
+            validator = jsonschema.Draft7Validator(schema)
+
+            errors = validator.iter_errors({"steps" : steps_json}) 
+
+            for error in errors:
+                print(error)
+                print('------')
         
