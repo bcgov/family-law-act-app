@@ -87,6 +87,7 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         anotherAdultReasonForPO?: string;
         childPO: string;
         anotherAdultSharingResi?: string;
+        sharingResidenceFAQ?: boolean;
     }   
 
     export interface protectionFromWhomSurveyInfoType {

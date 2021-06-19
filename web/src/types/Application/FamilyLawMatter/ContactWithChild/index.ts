@@ -2,6 +2,7 @@ import { questionInfoType } from "../../CommonInformation";
 
 export interface contactWithChildDataInfoType {
     parentGuardianApplicant: string;
+    FAQParentGuardian?: boolean;
 }
 
 export interface contactWithChildSurveyInfoType {

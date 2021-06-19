@@ -21,6 +21,7 @@ export interface flmBackgroundSurveyDataInfoType {
     separationDate?: string;
     likeToAddCulturalExplanation: string;
     culturalExplain?: string;
+    spouseFAQ?: boolean;
 }
 
 export interface flmBackgroundSurveyInfoType {
@@ -56,6 +57,7 @@ export interface flmAdditionalDocsDataInfoType {
     isFilingAdditionalDocs: string;
     criminalChecked?: string;
     unableFileForms?: string[];
+    fileApplicationFAQ?: boolean;
 }
 
 export interface flmAdditionalDocumentsSurveyInfoType {

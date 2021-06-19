@@ -50,7 +50,7 @@ export interface parentingTimeSurveyInfoType {
 
 export interface parentalArrangementsDataInfoType {
     parentalArrangements: string;
-    parentalArrangementsDescription: string;
+    parentalArrangementsDescription?: string;
 }
 
 export interface otherParentingArrangementsSurveyInfoType {

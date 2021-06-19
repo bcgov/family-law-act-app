@@ -72,7 +72,7 @@ export interface paymentRequestStartingDateInfoType {
 export interface aboutChildSupportOrderDataInfoType {
     numberOf19yrsChild: number;
     listOfSupportPayors: string[];
-    over19Details: over19DetailsInfoType[];
+    over19Details?: over19DetailsInfoType[];
     payorEarnsHigh: string;
     listOfChildren: string[];
     supportChildOver19: string;
@@ -88,6 +88,7 @@ export interface aboutChildSupportOrderDataInfoType {
     'whyOlderChildNeedSupport[10]'?: string;
     paymentRequestStartingDate: paymentRequestStartingDateInfoType;
     paymentRequestStartingDateWhy: string;
+    FAQpayingparent?: boolean;
 }
 
 export interface aboutChildSupportOrderSurveyInfoType {
@@ -113,7 +114,7 @@ export interface calculatingChildSupportSurveyInfoType {
 
 export interface undueHardshipDataInfoType {
     changeAmount: string;
-    hardshipReasons: string[];
+    hardshipReasons?: string[];
     hardshipReasonsComment?: string;
 }
 

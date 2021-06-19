@@ -83,6 +83,9 @@
     "aboutChildSupportOrderDataInfoType": {
       "additionalProperties": false,
       "properties": {
+        "FAQpayingparent": {
+          "type": "boolean"
+        },
         "listOfChildren": {
           "items": {
             "type": "string"
@@ -150,7 +153,6 @@
       "required": [
         "numberOf19yrsChild",
         "listOfSupportPayors",
-        "over19Details",
         "payorEarnsHigh",
         "listOfChildren",
         "supportChildOver19",
@@ -1316,6 +1318,9 @@
     "contactWithChildDataInfoType": {
       "additionalProperties": false,
       "properties": {
+        "FAQParentGuardian": {
+          "type": "boolean"
+        },
         "parentGuardianApplicant": {
           "type": "string"
         }
@@ -1665,6 +1670,9 @@
         "criminalChecked": {
           "type": "string"
         },
+        "fileApplicationFAQ": {
+          "type": "boolean"
+        },
         "isFilingAdditionalDocs": {
           "type": "string"
         },
@@ -1749,6 +1757,9 @@
         },
         "separationDate": {
           "type": "string"
+        },
+        "spouseFAQ": {
+          "type": "boolean"
         },
         "werePOPartiesMarried": {
           "type": "string"
@@ -2367,8 +2378,7 @@
         }
       },
       "required": [
-        "parentalArrangements",
-        "parentalArrangementsDescription"
+        "parentalArrangements"
       ],
       "type": "object"
     },
@@ -2918,6 +2928,9 @@
         },
         "childPO": {
           "type": "string"
+        },
+        "sharingResidenceFAQ": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -3688,8 +3701,7 @@
         }
       },
       "required": [
-        "changeAmount",
-        "hardshipReasons"
+        "changeAmount"
       ],
       "type": "object"
     },
@@ -3976,6 +3988,12 @@
           "type": "string"
         },
         "ExplanationServiceAddress": {
+          "type": "boolean"
+        },
+        "FAQLawyer1": {
+          "type": "boolean"
+        },
+        "FAQLawyer2": {
           "type": "boolean"
         },
         "Lawyer": {

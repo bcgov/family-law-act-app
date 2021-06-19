@@ -113,6 +113,8 @@ export interface yourInformationDataInfoType {
   LawyerContact?: contactInfoType;
   LawyerFillingOut?: string;
   lawyerStatement?: lawyerStatementInfoType;
+  FAQLawyer1?: boolean;
+  FAQLawyer2?: boolean;
 }
 
 export interface lawyerStatementInfoType {
