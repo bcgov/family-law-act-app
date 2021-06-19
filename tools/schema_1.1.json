@@ -1542,7 +1542,10 @@
       "additionalProperties": false,
       "properties": {
         "CourtLocationFAQ1": {
-          "type": "string"
+          "type": [
+            "boolean",
+            "string"
+          ]
         },
         "ExistingCourt": {
           "type": "string"
@@ -2724,10 +2727,16 @@
       "additionalProperties": false,
       "properties": {
         "CourtLocationFAQ1": {
-          "type": "string"
+          "type": [
+            "boolean",
+            "string"
+          ]
         },
         "CourtLocationFAQ2": {
-          "type": "string"
+          "type": [
+            "boolean",
+            "string"
+          ]
         },
         "ExistingCourt": {
           "type": "string"
