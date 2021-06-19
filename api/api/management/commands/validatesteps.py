@@ -1,4 +1,5 @@
 import json
+import datetime
 import subprocess
 import jsonschema
 
@@ -113,10 +114,8 @@ class Command(BaseCommand):
 
             # fix applicantionType -> applicationType
             if result.get('guardianOfChildSurvey') and result.get('guardianOfChildSurvey').get('data') and result.get('guardianOfChildSurvey').get('data').get('applicantionType') is not None:
-                print (result['guardianOfChildSurvey']['data'])
                 result['guardianOfChildSurvey']['data']['applicationType'] = result['guardianOfChildSurvey']['data']['applicantionType']
                 result['guardianOfChildSurvey']['data'].pop('applicantionType', None)
-                print (result['guardianOfChildSurvey']['data'])
 
             result['guardianOfChildBestInterestsOfChildSurvey'] = result.get('GuardianOfChildBestInterestOfChildSurvey')
             result.pop('GuardianOfChildBestInterestOfChildSurvey', None)
@@ -128,11 +127,6 @@ class Command(BaseCommand):
                 result['pathwayCompleted']['priorityParenting'] = result['pathwayCompleted']['priotityParenting']
                 result.get('pathwayCompleted').pop('priotityParenting', None)
 
-            # fix
-
-         
-
-
         return clean_nones(data)
 
     def handle(self, *args, **options):
@@ -142,7 +136,7 @@ class Command(BaseCommand):
         f = open(file_path,)
         schema = json.load(f)
         f.close()
-        for application in Application.objects.all():
+        for application in Application.objects.filter(last_updated__gte=datetime.date(2021, 6, 14)):
             steps_json = json.loads(
                 settings.ENCRYPTOR.decrypt(
                     application.key_id, application.steps
