@@ -5,6 +5,19 @@ import os
 from jsf import JSF
 from jsonschema import validate, ValidationError
 
+
+def clean_nones(value):
+    if isinstance(value, list):
+        return [clean_nones(x) for x in value if x is not None]
+    elif isinstance(value, dict):
+        return {
+            key: clean_nones(val)
+            for key, val in value.items()
+            if val is not None
+        }
+    else:
+        return value
+
 # Unfortunately can't easily use Typescript for this, because we need Python to interface with Django.
 # The plus side is we validate which should catch any typos.
 
@@ -92,14 +105,26 @@ def migrate(data):
         result.pop('contactWithChildBestInterestOfChildSurvey', None)
         result['contactWithChildOrderSurvey'] = result.get('contactOrderSurvey')
         result.pop('contactOrderSurvey', None)
-      
+    
         result['guardianOfChildSurvey'] = result.get('GuardianOfChildSurvey')
         result.pop('GuardianOfChildSurvey', None)
+
+        # fix applicantionType -> applicationType
+        if result.get('guardianOfChildSurvey') and result.get('guardianOfChildSurvey').get('data') and result.get('guardianOfChildSurvey').get('data').get('applicantionType') is not None:
+            result['guardianOfChildSurvey']['data']['applicationType'] = result['guardianOfChildSurvey']['data']['applicantionType']
+            result['guardianOfChildSurvey']['data'].pop('applicantionType', None)
+
         result['guardianOfChildBestInterestsOfChildSurvey'] = result.get('GuardianOfChildBestInterestOfChildSurvey')
         result.pop('GuardianOfChildBestInterestOfChildSurvey', None)
         result['filingOptionsSurvey'] = result.get('filingOptions')
         result.pop('filingOptions', None)
-    return steps
+
+        # fix priotityParenting -> priorityParenting
+        if result.get('pathwayCompleted') is not None and result['pathwayCompleted'].get('priotityParenting') is not None:
+            result['pathwayCompleted']['priorityParenting'] = result['pathwayCompleted']['priotityParenting']
+            result.get('pathwayCompleted').pop('priotityParenting', None)
+        
+    return clean_nones(steps)
 
 
 def validate_by_schema(migrated_data):
