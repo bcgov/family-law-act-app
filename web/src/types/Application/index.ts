@@ -18,7 +18,7 @@ export interface applicationStepOnlyInfoType {
 export interface applicationInfoType extends applicationStepOnlyInfoType {   
     id?: string;
     types: string[];
-    lastUpdate: Date | null;
+    lastUpdate?: Date;
     currentStep: number;
     allCompleted: boolean;
     lastPrinted: Date;
@@ -44,7 +44,7 @@ export interface stepInfoType {
     pages?: pageInfoType[];
     currentPage: number;
     active: boolean;
-    lastUpdate: Date | null;
+    lastUpdate?: Date;
   }
 
   export interface pageInfoType {

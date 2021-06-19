@@ -3622,15 +3622,8 @@
           "type": "string"
         },
         "lastUpdate": {
-          "anyOf": [
-            {
-              "format": "date-time",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "format": "date-time",
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -3653,8 +3646,7 @@
         "label",
         "icon",
         "currentPage",
-        "active",
-        "lastUpdate"
+        "active"
       ],
       "type": "object"
     },

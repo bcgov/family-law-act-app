@@ -8,6 +8,18 @@ from jsonschema import validate
 from api.models import Application
 from django.core.management.base import BaseCommand, CommandError
 
+def clean_nones(value):
+    if isinstance(value, list):
+        return [clean_nones(x) for x in value if x is not None]
+    elif isinstance(value, dict):
+        return {
+            key: clean_nones(val)
+            for key, val in value.items()
+            if val is not None
+        }
+    else:
+        return value
+
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('file_path')
@@ -102,7 +114,7 @@ class Command(BaseCommand):
             result.pop('GuardianOfChildBestInterestOfChildSurvey', None)
             result['filingOptionsSurvey'] = result.get('filingOptions')
             result.pop('filingOptions', None)
-        return json.loads(json.dumps(data))
+        return clean_nones(data)
 
     def handle(self, *args, **options):
         file_path = options['file_path']
