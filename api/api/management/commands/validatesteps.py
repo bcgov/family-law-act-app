@@ -102,10 +102,10 @@ class Command(BaseCommand):
             result.pop('GuardianOfChildBestInterestOfChildSurvey', None)
             result['filingOptionsSurvey'] = result.get('filingOptions')
             result.pop('filingOptions', None)
-        return data 
+        return json.loads(json.dumps(data))
 
     def handle(self, *args, **options):
-        file_path =  options['file_path']
+        file_path = options['file_path']
         print(f'Ensure generate_schema was recently ran, so your schema is up to date.')
         print(f'Reading schema from {file_path}')
         f = open(file_path,)
