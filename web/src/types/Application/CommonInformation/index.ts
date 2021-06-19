@@ -64,16 +64,20 @@ export interface questionInfoType {
 }
 
 export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
+  CourtLocation?: string;
   ExistingFamilyCase?: string;
   ExplanationCourtLocation?: boolean;
-  ExistingCourt: string;
+  ExistingCourt?: string;
   ExistingFileNumber?: string;
   MetEarlyResolutionRequirements?:string;
   registryLocationReason?: string;
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;
-  CourtLocationFAQ1?: boolean | string;
+  CourtLocationFAQ1?: boolean;
+  CourtLocationFAQ2?: boolean;
+  ExistingFamilyCaseFAQ1?: boolean;
+  ExistingFamilyCaseFAQ2?: boolean;
 }
 
 export interface filingLocationSurveyInfoType {

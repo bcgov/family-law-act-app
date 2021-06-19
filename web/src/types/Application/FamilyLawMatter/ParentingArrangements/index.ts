@@ -3,6 +3,8 @@ import { questionInfoType } from "../../CommonInformation";
 export interface parentingArrangementsDataInfoType {
     guardianApplicant?: string;
     applyingGuardianApplicant?: string;
+    FAQApplyingGuardian?: boolean;
+    FAQGuardian?: boolean;
 }
 
 export interface parentingArrangementsSurveyInfoType {

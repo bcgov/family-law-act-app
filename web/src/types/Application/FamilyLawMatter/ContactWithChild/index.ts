@@ -33,6 +33,7 @@ export interface aboutContactWithChildOrderSurveyInfoType {
 export interface contactWithChildBestInterestOfChildDataInfoType {
     newChildBestInterestDescription?: string;
     existingChildBestInterestDescription?: string;
+    newParentingArrangementsChildBestInterestDescription?: string;
 }
 
 export interface contactWithChildBestInterestsOfChildSurveyInfoType {

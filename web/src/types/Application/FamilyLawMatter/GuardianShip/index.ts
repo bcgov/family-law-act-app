@@ -34,7 +34,7 @@ export interface guardianOfChildBestInterestsOfChildSurveyInfoType {
 }
 
 export interface indigenousAncestryOfChildDataInfoType {
-    indigenousChild: string;
+    indigenousChild?: string;
     indigenousAncestry?: string[];
     ServeAcknowledgement?: string;
 }

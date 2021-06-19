@@ -111,7 +111,7 @@ class Command(BaseCommand):
             result['guardianOfChildSurvey'] = result.get('GuardianOfChildSurvey')
             result.pop('GuardianOfChildSurvey', None)
 
-            # fix applicantionType 
+            # fix applicantionType -> applicationType
             if result.get('guardianOfChildSurvey') and result.get('guardianOfChildSurvey').get('data') and result.get('guardianOfChildSurvey').get('data').get('applicantionType') is not None:
                 print (result['guardianOfChildSurvey']['data'])
                 result['guardianOfChildSurvey']['data']['applicationType'] = result['guardianOfChildSurvey']['data']['applicantionType']
@@ -127,6 +127,8 @@ class Command(BaseCommand):
             if result.get('pathwayCompleted') is not None and result['pathwayCompleted'].get('priotityParenting') is not None:
                 result['pathwayCompleted']['priorityParenting'] = result['pathwayCompleted']['priotityParenting']
                 result.get('pathwayCompleted').pop('priotityParenting', None)
+
+            # fix
 
          
 

@@ -1275,6 +1275,9 @@
         },
         "newChildBestInterestDescription": {
           "type": "string"
+        },
+        "newParentingArrangementsChildBestInterestDescription": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -1541,17 +1544,26 @@
     "filingLocationDataInfoType": {
       "additionalProperties": false,
       "properties": {
+        "CourtLocation": {
+          "type": "string"
+        },
         "CourtLocationFAQ1": {
-          "type": [
-            "boolean",
-            "string"
-          ]
+          "type": "boolean"
+        },
+        "CourtLocationFAQ2": {
+          "type": "boolean"
         },
         "ExistingCourt": {
           "type": "string"
         },
         "ExistingFamilyCase": {
           "type": "string"
+        },
+        "ExistingFamilyCaseFAQ1": {
+          "type": "boolean"
+        },
+        "ExistingFamilyCaseFAQ2": {
+          "type": "boolean"
         },
         "ExistingFileNumber": {
           "type": "string"
@@ -1614,9 +1626,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "ExistingCourt"
-      ],
       "type": "object"
     },
     "filingLocationSurveyInfoType": {
@@ -1658,11 +1667,13 @@
         },
         "isFilingAdditionalDocs": {
           "type": "string"
+        },
+        "unableFileForms": {
+          "type": "string"
         }
       },
       "required": [
-        "isFilingAdditionalDocs",
-        "criminalChecked"
+        "isFilingAdditionalDocs"
       ],
       "type": "object"
     },
@@ -1988,9 +1999,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "indigenousChild"
-      ],
       "type": "object"
     },
     "indigenousAncestryOfChildSurveyInfoType": {
@@ -2474,6 +2482,12 @@
     "parentingArrangementsDataInfoType": {
       "additionalProperties": false,
       "properties": {
+        "FAQApplyingGuardian": {
+          "type": "boolean"
+        },
+        "FAQGuardian": {
+          "type": "boolean"
+        },
         "applyingGuardianApplicant": {
           "type": "string"
         },
