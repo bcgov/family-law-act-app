@@ -1541,6 +1541,9 @@
     "filingLocationDataInfoType": {
       "additionalProperties": false,
       "properties": {
+        "CourtLocationFAQ1": {
+          "type": "string"
+        },
         "ExistingCourt": {
           "type": "string"
         },
@@ -3365,22 +3368,14 @@
           "type": "string"
         },
         "questions": {
-          "anyOf": [
-            {
-              "items": {
-                "$ref": "#/definitions/questionInfoType"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ]
+          "items": {
+            "$ref": "#/definitions/questionInfoType"
+          },
+          "type": "array"
         }
       },
       "required": [
         "data",
-        "questions",
         "pageName",
         "currentStep",
         "currentPage"
