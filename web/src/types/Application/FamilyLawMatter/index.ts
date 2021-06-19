@@ -55,7 +55,7 @@ export interface childDetailsSurveyInfoType {
 export interface flmAdditionalDocsDataInfoType {
     isFilingAdditionalDocs: string;
     criminalChecked?: string;
-    unableFileForms?: string;
+    unableFileForms?: string[];
 }
 
 export interface flmAdditionalDocumentsSurveyInfoType {

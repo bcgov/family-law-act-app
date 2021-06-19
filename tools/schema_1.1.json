@@ -1669,7 +1669,10 @@
           "type": "string"
         },
         "unableFileForms": {
-          "type": "string"
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         }
       },
       "required": [
