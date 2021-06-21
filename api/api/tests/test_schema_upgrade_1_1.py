@@ -37,6 +37,7 @@ class SchemaTest(TestCase):
 
     # Uses real generated data.
     def test_schema_migration(self):
+        write_to_file = False # testing
         print('Using real application generated data for a test.')
         # load test_schema_data_1.1.json
         data_file_path = "./api/tests/data/test_schema_data_1.0.json"
@@ -45,7 +46,22 @@ class SchemaTest(TestCase):
         data = json.load(f, strict=False)
         f.close()
 
+        if write_to_file:
+            f = open(f"before-unsorted.txt", "w")
+            json.dump(data, fp=f, sort_keys=False, indent=4)
+            f.close()
+
+        if write_to_file:
+            f = open(f"before.txt", "w")
+            json.dump(data, fp=f, sort_keys=True, indent=4)
+            f.close()
+
         migrated_steps = Migration_1_0_to_1_1().migrate(data)
+
+        if write_to_file:
+            f = open(f"after.txt", "w")
+            json.dump(migrated_steps, fp=f, sort_keys=True, indent=4)
+            f.close()
 
         self._validate_data(migrated_steps)
 
