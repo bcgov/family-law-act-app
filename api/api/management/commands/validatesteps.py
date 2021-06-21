@@ -28,8 +28,8 @@ class Command(BaseCommand):
         schema = json.load(f)
         f.close()
         for application in Application.objects.filter(
-            last_updated__gte=datetime.datetime(2021, 6, 14).astimezone()
-        ):
+            last_updated__gte=datetime.datetime(2021, 6, 14).astimezone(),
+        ).exclude(version='1.1'):
             steps_json = json.loads(
                 settings.ENCRYPTOR.decrypt(
                     application.key_id, application.steps
