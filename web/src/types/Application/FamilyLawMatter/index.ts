@@ -1,15 +1,16 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation";
+import { allOtherChilderenInfoType } from "../ProtectionOrder";
 
 export interface flmQuestionnaireSurveyInfoType {
     data: string[];
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface flmBackgroundSurveyDataInfoType {
-    ExistingOrdersFLM: string;
+    ExistingOrdersFLM?: string;
     existingOrdersListFLM?: string[];
     existingPOOrders: string;
     howPartiesRelated: string;
@@ -32,16 +33,20 @@ export interface flmBackgroundSurveyDataInfoType {
     PartiesHasOtherChilderen?: string;
     describeCirumstancesPO?: string;
     mentalHealthConcernPO?: string;
-    allOtherChilderen?: string;
+    allOtherChilderen?: allOtherChilderenInfoType[];
     describeDisobeyOrder?: string;
+    explainReasonsPO?: string;
+    ExistingOrders?: string;
+    desrcibeSWAction?: string;
+    describeActionsByPolice?: string;
 }
 
 export interface flmBackgroundSurveyInfoType {
     data: flmBackgroundSurveyDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface childDetailsDataInfoType {
@@ -59,14 +64,14 @@ export interface childDetailsDataInfoType {
   
 export interface childDetailsSurveyInfoType {
     data: childDetailsDataInfoType[];
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface flmAdditionalDocsDataInfoType {
-    isFilingAdditionalDocs: string;
+    isFilingAdditionalDocs?: string;
     criminalChecked?: string;
     unableFileForms?: string[];
     fileApplicationFAQ?: boolean;
@@ -74,8 +79,8 @@ export interface flmAdditionalDocsDataInfoType {
 
 export interface flmAdditionalDocumentsSurveyInfoType {
     data: flmAdditionalDocsDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }

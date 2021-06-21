@@ -7,10 +7,10 @@ export interface contactWithChildDataInfoType {
 
 export interface contactWithChildSurveyInfoType {
     data: contactWithChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface aboutContactWithChildDataInfoType {
@@ -25,10 +25,10 @@ export interface aboutContactWithChildDataInfoType {
 
 export interface aboutContactWithChildOrderSurveyInfoType {
     data: aboutContactWithChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface contactWithChildBestInterestOfChildDataInfoType {
@@ -39,15 +39,15 @@ export interface contactWithChildBestInterestOfChildDataInfoType {
 
 export interface contactWithChildBestInterestsOfChildSurveyInfoType {
     data: contactWithChildBestInterestOfChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface contactOrderDataInfoType {
-    roleType: string;
-    existingType: string;
+    roleType?: string;
+    existingType?: string;
     orderDate?: string;
     changesSinceOrder?: string;
     orderDifferenceType?: string;
@@ -58,8 +58,8 @@ export interface contactOrderDataInfoType {
 
 export interface contactWithChildOrderSurveyInfoType {
     data: contactOrderDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }

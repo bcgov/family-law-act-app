@@ -9,10 +9,10 @@ export interface spousalSupportDataInfoType {
 
 export interface spousalSupportSurveyInfoType {
     data: spousalSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface spousalSupportIncomeAndEarningPotentialDataInfoType {
@@ -25,10 +25,10 @@ export interface spousalSupportIncomeAndEarningPotentialDataInfoType {
 
 export interface spousalSupportIncomeAndEarningPotentialSurveyInfoType {
     data: spousalSupportIncomeAndEarningPotentialDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface howToPaySpousalSupportInfoType {
@@ -55,10 +55,10 @@ export interface valueInfoType {
 
 export interface aboutSpousalSupportOrderSurveyInfoType {
     data: aboutSpousalSupportOrderDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface calculatingSpousalSupportDataInfoType {
@@ -68,10 +68,10 @@ export interface calculatingSpousalSupportDataInfoType {
 
 export interface calculatingSpousalSupportSurveyInfoType {
     data: calculatingSpousalSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface existingSpousalSupportOrderAgreementDataInfoType {
@@ -83,10 +83,10 @@ export interface existingSpousalSupportOrderAgreementDataInfoType {
 
 export interface existingSpousalSupportOrderAgreementSurveyInfoType {
     data: existingSpousalSupportOrderAgreementDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface spousalChangesSinceOrderListInfoType {
@@ -106,10 +106,10 @@ export interface existingSpousalSupportFinalOrderDataInfoType {
 
 export interface existingSpousalSupportFinalOrderSurveyInfoType {
     data: existingSpousalSupportFinalOrderDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface aboutExistingSpousalSupportOrderDataInfoType {
@@ -118,10 +118,10 @@ export interface aboutExistingSpousalSupportOrderDataInfoType {
 
 export interface aboutExistingSpousalSupportOrderSurveyInfoType {
     data: aboutExistingSpousalSupportOrderDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 export interface spousalPaymentScheduleInfoType {
     monthlyAmount?: string;
@@ -130,7 +130,7 @@ export interface spousalPaymentScheduleInfoType {
 }
 
 export interface unpaidSpousalSupportDataInfoType {
-    unpaid: string;
+    unpaid?: string;
     unPaidAmount?: string;
     applyToReduce?: string;
     reduceAmount?: string;
@@ -140,23 +140,23 @@ export interface unpaidSpousalSupportDataInfoType {
 
 export interface unpaidSpousalSupportSurveyInfoType {
     data: unpaidSpousalSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface existingSpousalSupportAgreementDataInfoType {
-    agreementDate: string;
-    changesReasoning: string;
-    agreementDifferenceType: string;
+    agreementDate?: string;
+    changesReasoning?: string;
+    agreementDifferenceType?: string;
 }
 
 export interface existingSpousalSupportAgreementSurveyInfoType {
     data: existingSpousalSupportAgreementDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 

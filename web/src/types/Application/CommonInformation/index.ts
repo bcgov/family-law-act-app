@@ -18,22 +18,22 @@ export interface otherPartyInfoType {
 
 export interface otherPartyCommonSurveyInfoType {
   data: otherPartyInfoType[];
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
 
 export interface childInfoType {
-  name: nameInfoType;
-  dob: string;
-  relation: string;
-  opRelation: string;
-  currentLiving: string;
+  name?: nameInfoType;
+  dob?: string;
+  relation?: string;
+  opRelation?: string;
+  currentLiving?: string;
   currentLivingComment?: string;
-  ack: string;
-  additionalInfo: string;
-  additionalInfoDetails: string;
+  ack?: string;
+  additionalInfo?: string;
+  additionalInfoDetails?: string;
 }
 
 export interface nameInfoType {
@@ -82,28 +82,28 @@ export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
 
 export interface filingLocationSurveyInfoType {
   data: filingLocationDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
 
 export interface safetyCheckSurveyDataInfoType {
-  unsafe: string;
+  unsafe?: string;
 }
 
 export interface safetyCheckSurveyInfoType {
   data: safetyCheckSurveyDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
 
 export interface yourInformationDataInfoType {
-  ApplicantName: nameInfoType;
-  ApplicantDOB: string;
-  Lawyer: string;
+  ApplicantName?: nameInfoType;
+  ApplicantDOB?: string;
+  Lawyer?: string;
   ExplanationServiceAddress?: boolean;
   ApplicantAddress?: addressInfoType;
   ApplicantContact?: contactInfoType;
@@ -118,14 +118,14 @@ export interface yourInformationDataInfoType {
 }
 
 export interface lawyerStatementInfoType {
-  lawyerName: string;
-  clientName: string;
+  lawyerName?: string;
+  clientName?: string;
 }
 
 export interface yourInformationSurveyInfoType {
   data: yourInformationDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
