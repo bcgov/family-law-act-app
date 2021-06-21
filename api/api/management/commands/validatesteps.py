@@ -19,7 +19,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         file_path = options["file_path"]
-        write_to_file = False # for testing.
+        write_to_file = False  # for testing.
         print(f"Ensure generate_schema was recently ran, so your schema is up to date.")
         print(f"Reading schema from {file_path}")
         f = open(
@@ -35,8 +35,8 @@ class Command(BaseCommand):
                     application.key_id, application.steps
                 ).decode("utf-8")
             )
-            print('Before: ')
-            #print(json.dumps(steps_json, indent=4).replace('\r\n',''))
+            # print('Before: ')
+            # print(json.dumps(steps_json, indent=4).replace('\r\n',''))
             if write_to_file:
                 f = open(f"before-{application.id}.txt", "w")
                 json.dump(steps_json, skipkeys=False, fp=f, sort_keys=True, indent=4)
@@ -44,8 +44,8 @@ class Command(BaseCommand):
 
             print(f"Validating steps schema for application Id: {application.id}")
             steps_json = Migration_1_0_to_1_1().migrate(steps_json)
-            print('After: ')
-            #print(json.dumps(steps_json, indent=4).replace('\r\n',''))
+            # print('After: ')
+            # print(json.dumps(steps_json, indent=4).replace('\r\n',''))
             if write_to_file:
                 f = open(f"after-{application.id}.txt", "w")
                 json.dump(steps_json, fp=f, skipkeys=False, sort_keys=True, indent=4)
