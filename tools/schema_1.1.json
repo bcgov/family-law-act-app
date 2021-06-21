@@ -1725,10 +1725,25 @@
         "ExistingOrdersFLM": {
           "type": "string"
         },
+        "PartiesHasOtherChilderen": {
+          "type": "string"
+        },
+        "allOtherChilderen": {
+          "type": "string"
+        },
+        "concernForNotObeying": {
+          "type": "string"
+        },
         "culturalExplain": {
           "type": "string"
         },
         "dateOfMarriagePO": {
+          "type": "string"
+        },
+        "describeCirumstancesPO": {
+          "type": "string"
+        },
+        "describeDisobeyOrder": {
           "type": "string"
         },
         "existingOrdersListFLM": {
@@ -1740,10 +1755,16 @@
         "existingPOOrders": {
           "type": "string"
         },
+        "explainReasonsForConcern": {
+          "type": "string"
+        },
         "howPartiesRelated": {
           "type": "string"
         },
         "isSeperated": {
+          "type": "string"
+        },
+        "isSeperatedPO": {
           "type": "string"
         },
         "likeToAddCulturalExplanation": {
@@ -1753,6 +1774,21 @@
           "type": "string"
         },
         "liveTogetherPODate": {
+          "type": "string"
+        },
+        "mentalHealthConcernPO": {
+          "type": "string"
+        },
+        "otherPartyDisobeyOrder": {
+          "type": "string"
+        },
+        "reportedConcernsToPolice": {
+          "type": "string"
+        },
+        "reportedConcernsToSW": {
+          "type": "string"
+        },
+        "riskOfViolencePO": {
           "type": "string"
         },
         "separationDate": {

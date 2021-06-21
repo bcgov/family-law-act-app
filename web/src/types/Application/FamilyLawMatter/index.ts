@@ -22,6 +22,18 @@ export interface flmBackgroundSurveyDataInfoType {
     likeToAddCulturalExplanation: string;
     culturalExplain?: string;
     spouseFAQ?: boolean;
+    isSeperatedPO?: string;
+    concernForNotObeying?: string;
+    reportedConcernsToPolice?: string;
+    reportedConcernsToSW?: string;
+    riskOfViolencePO?: string; 
+    otherPartyDisobeyOrder?: string;
+    explainReasonsForConcern?: string;
+    PartiesHasOtherChilderen?: string;
+    describeCirumstancesPO?: string;
+    mentalHealthConcernPO?: string;
+    allOtherChilderen?: string;
+    describeDisobeyOrder?: string;
 }
 
 export interface flmBackgroundSurveyInfoType {
