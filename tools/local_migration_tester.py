@@ -25,6 +25,7 @@ def validate_by_schema(migrated_data):
             validate_state = 'failed.'
         print(f'Validation {validate_state}')
 
+write_to_file = True
 old_version = '1.0'
 new_version = '1.1'
 print('This application reads the old schema, generates data, does the migration and validates using the new schema.')
@@ -47,5 +48,17 @@ for run in range(0,max_runs):
     f = open('fake_data.json',)
     fake_data = json.load(f)
     f.close()
+
+    if write_to_file:
+        f = open(f"before-{run}.txt", "w")
+        json.dump(fake_data, skipkeys=False, fp=f, sort_keys=True, indent=4)
+        f.close()
+
     migrated_data = Migration_1_0_to_1_1().migrate(fake_data['steps'])
+
+    if write_to_file:
+        f = open(f"after-{run}.txt", "w")
+        json.dump({"steps":migrated_data}, skipkeys=False, fp=f, sort_keys=True, indent=4)
+        f.close()
+
     validate_by_schema(migrated_data)
