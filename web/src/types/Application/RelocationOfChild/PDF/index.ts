@@ -14,7 +14,7 @@ export interface relocationOfChildInformationDataInfoType {
     childBestInterestReason?: string;
 }
 
-export interface relocationOfChildotherPartyDataInfoType {
+export interface relocationOfChildOtherPartyDataInfoType {
     name: nameInfoType;
     dob?: string;   
     address: addressInfoType;

@@ -309,7 +309,7 @@ import CheckBox from "./components/CheckBox.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { relocationOfChildInformationDataInfoType, relocationOfChildotherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
+import { relocationOfChildInformationDataInfoType, relocationOfChildOtherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
 
 @Component({
     components:{
@@ -409,13 +409,13 @@ export default class Form16Layout extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation: relocationOfChildotherPartyDataInfoType[] = [];        
+        let OpInformation: relocationOfChildOtherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
             OpInformation = []; 
            
             for(const party of this.result.otherPartyCommonSurvey){ 
-                let otherParty = {} as relocationOfChildotherPartyDataInfoType               
+                let otherParty = {} as relocationOfChildOtherPartyDataInfoType               
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
                     otherParty.dob = party['dob']
