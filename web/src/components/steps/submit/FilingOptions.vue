@@ -87,8 +87,8 @@ export default class FilingOptions extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         //console.log(this.step.result)
-        if (this.step.result && this.step.result.filingOptions){
-            this.survey.data = this.step.result.filingOptions;
+        if (this.step.result && this.step.result.filingOptionsSurvey){
+            this.survey.data = this.step.result.filingOptionsSurvey;
         }
        
        this.allowEfiling();
@@ -123,11 +123,11 @@ export default class FilingOptions extends Vue {
         
         if (!this.$store.state.Common.efilingEnabled || 
            (stepFLM.result &&
-            stepFLM.result.flmAdditionalDocsSurvey &&
-            stepFLM.result.flmAdditionalDocsSurvey.data &&
-             (stepFLM.result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs == "n"
+            stepFLM.result.flmAdditionalDocumentsSurvey &&
+            stepFLM.result.flmAdditionalDocumentsSurvey.data &&
+             (stepFLM.result.flmAdditionalDocumentsSurvey.data.isFilingAdditionalDocs == "n"
              ||            
-             stepFLM.result.flmAdditionalDocsSurvey.data.criminalChecked == "n")
+             stepFLM.result.flmAdditionalDocumentsSurvey.data.criminalChecked == "n")
            )
         )
         this.survey.setVariable('efilingAllowed','n')
@@ -188,7 +188,7 @@ export default class FilingOptions extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
+        this.UpdateStepResultData({step:this.step, data: {filingOptionsSurvey: this.survey.data}})
     }
 }
 </script>

@@ -17,65 +17,65 @@ export interface childSupportDataInfoType {
 
 export interface childSupportSurveyInfoType {
     data: childSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface childSupportCurrentArrangementDataInfoType {
-    applicantTimeWithChildExplanation: string;
-    applicantTimeType: string;
-    currentArrangmentExplanation: string;
+    applicantTimeWithChildExplanation?: string;
+    applicantTimeType?: string;
+    currentArrangmentExplanation?: string;
 }
 
-export interface childSupportCurrentArrangementSurveyInfoType {
+export interface childSupportCurrentArrangementsSurveyInfoType {
     data: childSupportCurrentArrangementDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface childSupportIncomeEarningDataInfoType {
-    knowIncome: string;
+    knowIncome?: string;
     otherPartyIncome?: string;
-    knowFacts: string;
+    knowFacts?: string;
     factsExplanation?: string;
 }
 
-export interface childSupportIncomeEarningSurveyInfoType {
+export interface incomeAndEarningPotentialSurveyInfoType {
     data: childSupportIncomeEarningDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface reasonForSupportInfoType {
-    illness: boolean;
-    disability: boolean;
-    student: boolean;
+    illness?: boolean;
+    disability?: boolean;
+    student?: boolean;
 }
 
 export interface over19DetailsInfoType {
-    name: string;
-    reasonForSupport: reasonForSupportInfoType;
+    name?: string;
+    reasonForSupport?: reasonForSupportInfoType;
 }
 
 export interface paymentRequestStartingDateInfoType {
-    startingDate: string;
-    selected: string;
+    startingDate?: string;
+    selected?: string;
     otherComment?: string;
 }
 
 export interface aboutChildSupportOrderDataInfoType {
-    numberOf19yrsChild: number;
-    listOfSupportPayors: string[];
-    over19Details: over19DetailsInfoType[];
-    payorEarnsHigh: string;
-    listOfChildren: string[];
-    supportChildOver19: string;
+    numberOf19yrsChild?: number;
+    listOfSupportPayors?: string[];
+    over19Details?: over19DetailsInfoType[];
+    payorEarnsHigh?: string;
+    listOfChildren?: string[];
+    supportChildOver19?: string;
     'whyOlderChildNeedSupport[1]'?: string;
     'whyOlderChildNeedSupport[2]'?: string;
     'whyOlderChildNeedSupport[3]'?: string;
@@ -86,43 +86,44 @@ export interface aboutChildSupportOrderDataInfoType {
     'whyOlderChildNeedSupport[8]'?: string;
     'whyOlderChildNeedSupport[9]'?: string;
     'whyOlderChildNeedSupport[10]'?: string;
-    paymentRequestStartingDate: paymentRequestStartingDateInfoType;
-    paymentRequestStartingDateWhy: string;
+    paymentRequestStartingDate?: paymentRequestStartingDateInfoType;
+    paymentRequestStartingDateWhy?: string;
+    FAQpayingparent?: boolean;
 }
 
 export interface aboutChildSupportOrderSurveyInfoType {
     data: aboutChildSupportOrderDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface calculatingChildSupportDataInfoType {
-    attachingCalculations: string;
+    attachingCalculations?: string;
     whyNotAttachingCalculations?: string;
 }
 
 export interface calculatingChildSupportSurveyInfoType {
     data: calculatingChildSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface undueHardshipDataInfoType {
-    changeAmount: string;
-    hardshipReasons: string[];
+    changeAmount?: string;
+    hardshipReasons?: string[];
     hardshipReasonsComment?: string;
 }
 
 export interface undueHardshipSurveyInfoType {
     data: undueHardshipDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface childrenSupportExpenseFieldInfoType {
@@ -134,21 +135,21 @@ export interface childrenSupportExpenseFieldInfoType {
 }
 
 export interface specialAndExtraordinaryExpensesDataInfoType {
-    applyForExtraordinaryExpenses: string;
+    applyForExtraordinaryExpenses?: string;
     childrenSupportExpenseItem?: any[];
     childrenSupportExpenseFields?: childrenSupportExpenseFieldInfoType[];
 }
 
 export interface specialAndExtraordinaryExpensesSurveyInfoType {
     data: specialAndExtraordinaryExpensesDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface childSupportOrderAgreementDataInfoType {
-    existingType: string;
+    existingType?: string;
     existingResponsibilityType?: string;
     existingResponsibilityTypeComment?: string;
     filedWithDirector?: string;
@@ -156,10 +157,10 @@ export interface childSupportOrderAgreementDataInfoType {
 
 export interface childSupportOrderAgreementSurveyInfoType {
     data: childSupportOrderAgreementDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface changesSinceOrderListInfoType {
@@ -167,7 +168,7 @@ export interface changesSinceOrderListInfoType {
     arrangementsChangedComment?: string;
     newInformationComment?: string;
     otherComment?: string;
-    checked: string[];
+    checked?: string[];
 }
 
 export interface aboutExistingChildSupportDataInfoType {
@@ -181,15 +182,15 @@ export interface aboutExistingChildSupportDataInfoType {
 
 export interface aboutExistingChildSupportSurveyInfoType {
     data: aboutExistingChildSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface orderStartingDateInfoType {
-    startingDate: string;
-    selected: string;
+    startingDate?: string;
+    selected?: string;
     otherComment?: string;
 }
 
@@ -202,20 +203,20 @@ export interface aboutChildSupportChangesDataInfoType {
 
 export interface aboutChildSupportChangesSurveyInfoType {
     data: aboutChildSupportChangesDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface paymentScheduleInfoType {
-    monthlyAmount: string;
-    selected: string;
+    monthlyAmount?: string;
+    selected?: string;
     otherComment?: string;
 }
 
 export interface unpaidChildSupportDataInfoType {
-    unpaid: string;
+    unpaid?: string;
     unPaidAmount?: string;
     applyToReduce?: string;
     reduceAmount?: string;
@@ -225,8 +226,8 @@ export interface unpaidChildSupportDataInfoType {
 
 export interface unpaidChildSupportSurveyInfoType {
     data: unpaidChildSupportDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }

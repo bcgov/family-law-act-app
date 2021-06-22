@@ -59,7 +59,6 @@ export default class About extends Vue {
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
-    selectedPOOrder = null;
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     currentStep =0;
@@ -118,15 +117,14 @@ export default class About extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.aboutPOSurvey){
-            this.survey.data = this.step.result.aboutPOSurvey.data;
+        if (this.step.result && this.step.result.aboutSurvey){
+            this.survey.data = this.step.result.aboutSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
         // console.log(this.$store.state.Application.steps)
-
-        const order = this.$store.state.Application.steps[this.currentStep].result.questionnaireSurvey;
-        if(order) {
+        if(this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey && this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey.data) {
+            const order = this.$store.state.Application.steps[this.currentStep].result.poQuestionnaireSurvey.data;        
             this.survey.setVariable("userPreferredService", order.orderType);
         }       
         
@@ -168,7 +166,7 @@ export default class About extends Vue {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
 
-        this.UpdateStepResultData({step:this.step, data: {aboutPOSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
         const step = this.steps[this.stPgNo.COMMON._StepNo]
 
@@ -180,7 +178,7 @@ export default class About extends Vue {
             // console.log(step.result.filingLocationSurvey)
             this.UpdateStepResultData({step:step, data: {filingLocationSurvey: filingLocationSurveyCommon }})
         } else {
-            this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 3)}});
+            this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.COMMON._StepNo, this.stPgNo.COMMON.FilingLocation)}});
         }
     }
 };

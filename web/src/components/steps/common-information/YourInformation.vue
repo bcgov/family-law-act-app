@@ -121,10 +121,10 @@ export default class YourInformation extends Vue {
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
 
         if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
-            if(stepPO.result && stepPO.result.yourInformationSurveyPO && stepPO.result.yourInformationSurveyPO.data)
+            if(stepPO.result && stepPO.result.yourinformationPOSurvey && stepPO.result.yourinformationPOSurvey.data)
             {
-                this.survey.setValue('ApplicantDOB',stepPO.result.yourInformationSurveyPO.data.ApplicantDOB);
-                this.survey.setValue('ApplicantName',stepPO.result.yourInformationSurveyPO.data.ApplicantName);
+                this.survey.setValue('ApplicantDOB',stepPO.result.yourinformationPOSurvey.data.ApplicantDOB);
+                this.survey.setValue('ApplicantName',stepPO.result.yourinformationPOSurvey.data.ApplicantName);
             }
         }
         

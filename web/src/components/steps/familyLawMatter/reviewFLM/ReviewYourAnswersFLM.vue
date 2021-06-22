@@ -218,8 +218,8 @@ export default class ReviewYourAnswersFlm extends Vue {
     public getChildrenNames(selectedChildren){
         //console.log('_________')
         let result = ''
-        if (this.step.result && this.step.result.childData) {
-            const childData = this.step.result.childData.data;
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            const childData = this.step.result.childrenInfoSurvey.data;
             for(const selectedChild of selectedChildren ){
                 if(!isNaN(Number(selectedChild.substring(6,7)))){
                     const child = childData[Number(selectedChild.substring(6,7))]
@@ -459,7 +459,7 @@ export default class ReviewYourAnswersFlm extends Vue {
         // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
         // if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
 
-        //this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
+        //this.UpdateStepResultData({step:this.step, data: {filingOptionsSurvey: this.survey.data}})
     }
 }
 </script>

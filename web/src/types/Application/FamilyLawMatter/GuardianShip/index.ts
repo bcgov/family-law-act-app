@@ -15,34 +15,34 @@ export interface guardianOfChildDataInfoType {
 
 export interface guardianOfChildSurveyInfoType {
     data: guardianOfChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface guardianOfChildBestInterestOfChildDataInfoType {
-    cancelGuradianChildBestInterest: string;
+    cancelGuradianChildBestInterest?: string;
 }
 
-export interface guardianOfChildBestInterestOfChildSurveyInfoType {
+export interface guardianOfChildBestInterestsOfChildSurveyInfoType {
     data: guardianOfChildBestInterestOfChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface indigenousAncestryOfChildDataInfoType {
-    indigenousChild: string;
+    indigenousChild?: string;
     indigenousAncestry?: string[];
     ServeAcknowledgement?: string;
 }
 
 export interface indigenousAncestryOfChildSurveyInfoType {
     data: indigenousAncestryOfChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }

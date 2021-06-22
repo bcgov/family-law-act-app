@@ -167,8 +167,8 @@ export default class ChildrenInfo extends Vue {
 
     created() {
         //console.log(this.step)
-        if (this.step.result && this.step.result.childData) {
-            this.childData = this.step.result.childData.data;
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            this.childData = this.step.result.childrenInfoSurvey.data;
         }
         if (this.step.result && this.step.result.childBestInterestAcknowledgement) {
             this.childBestInterestUnderstanding = this.step.result.childBestInterestAcknowledgement;
@@ -194,8 +194,8 @@ export default class ChildrenInfo extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
 
-        //this.UpdateStepResultData({step:this.step, data: {childData: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
-        this.UpdateStepResultData({step:this.step, data: {childData: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
+        //this.UpdateStepResultData({step:this.step, data: {childrenInfoSurvey: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
+        this.UpdateStepResultData({step:this.step, data: {childrenInfoSurvey: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
     }
 
     public getChildrenResults(){

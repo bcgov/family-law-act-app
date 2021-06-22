@@ -24,7 +24,7 @@
                 
                 <div style="margin:0 0 1rem 1rem;">
                     <i>List the name of each child you want to have contact with</i>
-                    <ul style="margin-left:-1rem" v-if="result.aboutContactWithChildSurvey">
+                    <ul style="margin-left:-1rem" v-if="result.aboutContactWithChildOrderSurvey">
                         <li v-for="(child,inx) of chContInfo.abt.conChList" :key="inx"><span class="answer mx-3">{{child}}</span></li>
                     </ul>
                 </div>
@@ -51,7 +51,7 @@
                     <div style="margin:0 3rem 1rem 1rem;">
                         <i>Complete only if applicable. You may leave this section blank.</i>
                         <div>I am willing to have the following conditions placed on my contact with the child(ren):</div>
-                        <div v-if="result.aboutContactWithChildSurvey && result.aboutContactWithChildSurvey.placeConditions == 'y'" 
+                        <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
                             class="answerbox">{{chContInfo.abt.cond}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -118,10 +118,10 @@ export default class Schedule5 extends Vue {
             newChildContactInfo.guardian = this.result.contactWithChildSurvey.parentGuardianApplicant == 'y';
         }
 
-        if (this.result.aboutContactWithChildSurvey){
-            const contactChoices = this.result.aboutContactWithChildSurvey.contactTypeChoices?this.result.aboutContactWithChildSurvey.contactTypeChoices:[];
+        if (this.result.aboutContactWithChildOrderSurvey){
+            const contactChoices = this.result.aboutContactWithChildOrderSurvey.contactTypeChoices?this.result.aboutContactWithChildOrderSurvey.contactTypeChoices:[];
             newChildContactInfo.abt = {
-                conChList: this.result.aboutContactWithChildSurvey.childrenRequireContactChoices,
+                conChList: this.result.aboutContactWithChildOrderSurvey.childrenRequireContactChoices,
                 conType: {
                     inPerson: contactChoices.includes('In person'),
                     tel: contactChoices.includes('Telephone communication'),
@@ -129,15 +129,15 @@ export default class Schedule5 extends Vue {
                     written:contactChoices.includes('Written communication'),
                     other: contactChoices.includes('other')
                 },
-                inPrsn: (contactChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'',
-                otherComm: (contactChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'',
-                cond: (this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:'',
-                lastCont: (this.result.aboutContactWithChildSurvey.lastContactDate)?Vue.filter('beautify-date')(this.result.aboutContactWithChildSurvey.lastContactDate):''
+                inPrsn: (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'',
+                otherComm: (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'',
+                cond: (this.result.aboutContactWithChildOrderSurvey.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'',
+                lastCont: (this.result.aboutContactWithChildOrderSurvey.lastContactDate)?Vue.filter('beautify-date')(this.result.aboutContactWithChildOrderSurvey.lastContactDate):''
             }
         }
 
-        if (this.result.contactWithChildBestInterestOfChildSurvey){
-            newChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestOfChildSurvey.newChildBestInterestDescription;
+        if (this.result.contactWithChildBestInterestsOfChildSurvey){
+            newChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestsOfChildSurvey.newChildBestInterestDescription;
         }
 
         return newChildContactInfo;

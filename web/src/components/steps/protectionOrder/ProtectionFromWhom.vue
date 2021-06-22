@@ -116,8 +116,8 @@ export default class ProtectionFromWhom extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.protectionWhomSurvey){
-            this.survey.data = this.step.result.protectionWhomSurvey.data;
+        if (this.step.result && this.step.result.protectionFromWhomSurvey){
+            this.survey.data = this.step.result.protectionFromWhomSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
             this.checkAnswersforContinue()
         }
@@ -278,7 +278,7 @@ export default class ProtectionFromWhom extends Vue {
         else
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
 
-        this.UpdateStepResultData({step:this.step, data: {protectionWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {protectionFromWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 };

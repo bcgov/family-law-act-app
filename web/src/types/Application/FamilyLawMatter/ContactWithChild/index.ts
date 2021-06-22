@@ -2,50 +2,52 @@ import { questionInfoType } from "../../CommonInformation";
 
 export interface contactWithChildDataInfoType {
     parentGuardianApplicant: string;
+    FAQParentGuardian?: boolean;
 }
 
 export interface contactWithChildSurveyInfoType {
     data: contactWithChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface aboutContactWithChildDataInfoType {
     childrenRequireContactChoices?: string[];
-    lastContactDate: string;
+    lastContactDate?: string;
     contactTypeChoices?: string[];
     contactTypeChoicesComment?: string;
     inPersonDetails?: string;
-    placeConditions: string;
+    placeConditions?: string;
     conditionsDescription?: string;
 }
 
-export interface aboutContactWithChildSurveyInfoType {
+export interface aboutContactWithChildOrderSurveyInfoType {
     data: aboutContactWithChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface contactWithChildBestInterestOfChildDataInfoType {
     newChildBestInterestDescription?: string;
     existingChildBestInterestDescription?: string;
+    newParentingArrangementsChildBestInterestDescription?: string;
 }
 
-export interface contactWithChildBestInterestOfChildSurveyInfoType {
+export interface contactWithChildBestInterestsOfChildSurveyInfoType {
     data: contactWithChildBestInterestOfChildDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
 
 export interface contactOrderDataInfoType {
-    roleType: string;
-    existingType: string;
+    roleType?: string;
+    existingType?: string;
     orderDate?: string;
     changesSinceOrder?: string;
     orderDifferenceType?: string;
@@ -54,10 +56,10 @@ export interface contactOrderDataInfoType {
     agreementDifferenceType?: string;
 }
 
-export interface contactOrderSurveyInfoType {
+export interface contactWithChildOrderSurveyInfoType {
     data: contactOrderDataInfoType;
-    questions: questionInfoType[];
-    pageName: string;
-    currentStep: number;
-    currentPage: number;
+    questions?: questionInfoType[];
+    pageName?: string;
+    currentStep?: number;
+    currentPage?: number;
 }
