@@ -1,0 +1,7 @@
+{
+	"type": "commonjs",
+	"dependencies": {
+		"json-schema-faker": "seeker25/json-schema-faker#d664487",
+		"ts-json-schema-generator": "^0.93.0"
+	}
+}
