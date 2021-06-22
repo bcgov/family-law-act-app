@@ -20,7 +20,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class CheckBoxII extends Vue {
+export default class CheckBox extends Vue {
    
    @Prop({required: true})
     text!: string;
@@ -37,7 +37,9 @@ export default class CheckBoxII extends Vue {
     @Prop({default: ''})
     inline!: string;
 
-    @Prop({default: '-1rem'})
+
+
+    @Prop({default: '-10rem'})
     boxMargin!: string;
 
     @Prop({default: 'checkbox'})

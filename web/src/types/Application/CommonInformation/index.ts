@@ -129,3 +129,15 @@ export interface yourInformationSurveyInfoType {
   currentStep?: number;
   currentPage?: number;
 }
+
+export interface noticeSurveyDataInfoType {
+  noticeType: string;
+}
+
+export interface noticeSurveyInfoType {
+  data: noticeSurveyDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
+}

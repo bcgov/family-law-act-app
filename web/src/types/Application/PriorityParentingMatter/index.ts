@@ -13,15 +13,15 @@ export interface aboutPriorityParentingMatterOrderSurveyDataInfoType {
     applicationFacts: string;
 }
 
-export interface childDataPPMInfoType {
-    data: childDataPPMDataInfoType[];
+export interface ppmChildrenInfoSurveyInfoType {
+    data: ppmChildrenInfoSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;
     currentPage: number;
 }
 
-export interface childDataPPMDataInfoType {
+export interface ppmChildrenInfoSurveyDataInfoType {
     name:nameInfoType;
     dob: string;
     relation:string;
@@ -51,15 +51,15 @@ export interface ppmQuestionnaireSurveyInfoType {
     currentPage: number;
 }
 
-export interface priorityParentingOrderSurveyInfoType {
-    data: priorityParentingOrderSurveyDataInfoType;
+export interface priorityParentingMatterOrderSurveyInfoType {
+    data: priorityParentingMatterOrderSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;
     currentPage: number;
 }
 
-export interface priorityParentingOrderSurveyDataInfoType {
+export interface priorityParentingMatterOrderSurveyDataInfoType {
     delayMedicalRisk?: string;
     confirmMedicalRisk?: string[];
     delayPassportRisk?: string;

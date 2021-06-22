@@ -83,8 +83,8 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result.priorityParentingOrderSurvey && this.step.result.priorityParentingOrderSurvey.data){
-            this.listOfIssuesDescription = this.getDescription(this.step.result.priorityParentingOrderSurvey.data);
+        if (this.step.result && this.step.result.priorityParentingMatterOrderSurvey && this.step.result.priorityParentingMatterOrderSurvey.data){
+            this.listOfIssuesDescription = this.getDescription(this.step.result.priorityParentingMatterOrderSurvey.data);
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
         }
         
