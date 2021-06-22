@@ -1,3 +1,5 @@
+import { aboutPOSurveydataInfoType } from "../ProtectionOrder";
+
 export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
@@ -16,22 +18,22 @@ export interface otherPartyInfoType {
 
 export interface otherPartyCommonSurveyInfoType {
   data: otherPartyInfoType[];
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
 
 export interface childInfoType {
-  name: nameInfoType;
-  dob: string;
-  relation: string;
-  opRelation: string;
-  currentLiving: string;
+  name?: nameInfoType;
+  dob?: string;
+  relation?: string;
+  opRelation?: string;
+  currentLiving?: string;
   currentLivingComment?: string;
-  ack: string;
-  additionalInfo: string;
-  additionalInfoDetails: string;
+  ack?: string;
+  additionalInfo?: string;
+  additionalInfoDetails?: string;
 }
 
 export interface nameInfoType {
@@ -61,42 +63,47 @@ export interface questionInfoType {
   inputType?: string;
 }
 
-export interface filingLocationDataInfoType {
+export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
+  CourtLocation?: string;
   ExistingFamilyCase?: string;
   ExplanationCourtLocation?: boolean;
-  ExistingCourt: string;
-  ExistingFileNumber: string;
+  ExistingCourt?: string;
+  ExistingFileNumber?: string;
   MetEarlyResolutionRequirements?:string;
   registryLocationReason?: string;
   earlyResolutionRegistry?: boolean;
   familyJusticeRegistry?: boolean;
   familyEducationProgram?: boolean;
+  CourtLocationFAQ1?: boolean;
+  CourtLocationFAQ2?: boolean;
+  ExistingFamilyCaseFAQ1?: boolean;
+  ExistingFamilyCaseFAQ2?: boolean;
 }
 
 export interface filingLocationSurveyInfoType {
   data: filingLocationDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
 
 export interface safetyCheckSurveyDataInfoType {
-  unsafe: string;
+  unsafe?: string;
 }
 
 export interface safetyCheckSurveyInfoType {
   data: safetyCheckSurveyDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }
 
 export interface yourInformationDataInfoType {
-  ApplicantName: nameInfoType;
-  ApplicantDOB: string;
-  Lawyer: string;
+  ApplicantName?: nameInfoType;
+  ApplicantDOB?: string;
+  Lawyer?: string;
   ExplanationServiceAddress?: boolean;
   ApplicantAddress?: addressInfoType;
   ApplicantContact?: contactInfoType;
@@ -106,17 +113,19 @@ export interface yourInformationDataInfoType {
   LawyerContact?: contactInfoType;
   LawyerFillingOut?: string;
   lawyerStatement?: lawyerStatementInfoType;
+  FAQLawyer1?: boolean;
+  FAQLawyer2?: boolean;
 }
 
 export interface lawyerStatementInfoType {
-  lawyerName: string;
-  clientName: string;
+  lawyerName?: string;
+  clientName?: string;
 }
 
 export interface yourInformationSurveyInfoType {
   data: yourInformationDataInfoType;
-  questions: questionInfoType[];
-  pageName: string;
-  currentStep: number;
-  currentPage: number;
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
 }

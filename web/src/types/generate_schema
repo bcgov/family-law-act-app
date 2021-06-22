@@ -1,1 +1,0 @@
-../../node_modules/.bin/ts-json-schema-generator --path '**/*.ts' --type 'applicationStepOnlyInfoType' > schema.json

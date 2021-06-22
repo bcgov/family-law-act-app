@@ -344,10 +344,10 @@ export default class FilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
-        
         const fileTypeI  = 'FLC'
         const fileTypeII = 'NTRF'
         const fileType = this.form1Enabled? fileTypeII : fileTypeI
+
         const existingOrders = this.$store.state.Application.steps[0].result?this.$store.state.Application.steps[0].result.existingOrders:''
        
         const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"

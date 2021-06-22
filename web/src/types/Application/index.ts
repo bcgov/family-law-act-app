@@ -14,13 +14,14 @@ import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, E
 //This is what our database saves.
 export interface applicationStepOnlyInfoType {
   steps: stepInfoType[];
+  types_version?: "1.1";
 }
 
 export interface applicationInfoType extends applicationStepOnlyInfoType {   
     id?: string;
     types: string[];
-    lastUpdate: Date | null;
-    currentStep: number;
+    lastUpdate?: Date | null;
+    currentStep?: number;
     allCompleted: boolean;
     lastPrinted: Date;
     userType: string;
@@ -43,9 +44,9 @@ export interface stepInfoType {
     result?: resultInfoType;
     //metadata?: object;
     pages?: pageInfoType[];
-    currentPage: number;
+    currentPage?: number;
     active: boolean;
-    lastUpdate: Date | null;
+    lastUpdate?: Date | null;
   }
 
   export interface pageInfoType {
@@ -162,17 +163,15 @@ export interface stepInfoType {
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: any;
-    
-
   }
 
   export interface pathwayCompletedInfoType { 
-    protectionOrder: boolean; 
-    familyLawMatter: boolean;
-    caseMgmt: boolean; 
-    priorityParenting: boolean; 
-    childReloc: boolean;
-    agreementEnfrc: boolean;
+    protectionOrder?: boolean; 
+    familyLawMatter?: boolean;
+    caseMgmt?: boolean; 
+    priorityParenting?: boolean; 
+    childReloc?: boolean;
+    agreementEnfrc?: boolean;
   } 
 
 
