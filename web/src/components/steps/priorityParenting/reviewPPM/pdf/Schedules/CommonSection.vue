@@ -32,9 +32,9 @@
 <!-- <1> -->
         <section>
             <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:5px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
-            <table class="fullsize" style="margin-top:0.5 !important; font-size: 9pt;">
+            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="9rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+            <div style="text-indent:1px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
+            <table class="compactfullsize" style="margin-top:0 !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -53,49 +53,32 @@
                     <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
-        </section>
-
-       
+        </section>    
 
 <!-- <2> -->
         <section>
-            <check-box 
-                inline="inline" 
-                boxMargin="0" 
+            <check-box
+                inline="inline"
+                boxMargin="0rem" 
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
                 :check="true?'yes':''" 
                 text="I understand I must give notice of this application to all parents and guardians of the child(ren) this
-                    application is about. They are the other party/parties. To give notice, they must be served with the
-                    application and supporting documents at least 7 days before the date set for the court appearance
-                    unless the court allows the application to be made without notice or with less than 7 days’ notice."/>
-                    <i style="margin:0 0 0 1.6rem;display:inline;">Select only one of the options below</i>
-            <div style="margin:0 0 0 1.75rem;">
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I am giving at least 7 days’ notice to the other party"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11
-                    requesting to waive the requirement for notice of this application"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11
-                    requesting to modify the requirement for at least 7 days’ notice to the other party"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="I have a court order that allows the application to be made without notice or with less than 7 days’
-                    notice"/>
-            </div>                         
-        </section>
+                    application "/>
 
+            <div style="margin:0 0 0 1.9rem; text-indent:0; display:block; font-size: 9pt;" >
+                is about. They are the other party/parties. To give notice, they must be served with the
+                application and supporting documents at least 7 days before the date set for the court appearance
+                unless the court allows the application to be made without notice or with less than 7 days’ notice.
+            </div>
+
+            <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
+                <i>Select only one of the options below</i>
+                <check-box style="" :check="true?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
+                <check-box style="" :check="true?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
+                <check-box style="" :check="true?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
+                <check-box style="" :check="true?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
+            </div>
+        </section>
         
 
 <!-- <3> -->
@@ -104,7 +87,7 @@
                 <div style="display:inline; font-size: 9pt;">
                     <underline-form 
                         style="text-indent:2px;display:inline-block;" 
-                        textwidth="14.5rem" 
+                        textwidth="14rem" 
                         beforetext="The other party is" 
                         hint="full name of the other party" 
                         :italicHint="false" 
@@ -117,7 +100,7 @@
                         :italicHint="false" 
                         :text="firstOtherParty.dob | beautify-date"/>
                     <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
-                    <table class="fullsize">
+                    <table class="compactfullsize">
                         <tr style="border:1px solid #313132" >                        
                             <td colspan="3">Lawyer (if applicable): </td>
                         </tr>
@@ -136,13 +119,13 @@
                         </tr>
                     </table>
                 </div>
-                <div style="text-indent:5px;display:inline;"><i>Additional party (Complete only if applicable. You may leave this section blank.)</i></div>
+                <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank.)</i></div>
                         
                 <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
-                        <table class="fullsize">
+                        <table class="compactfullsize">
                             <tr style="border:1px solid #313132">
                                 <td>Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>
                                 <td style="padding-left:50px"></td>
@@ -174,7 +157,7 @@
 
                     <div style="display:inline; font-size: 9pt;">
                     
-                        <table class="fullsize">
+                        <table class="compactfullsize">
                             <tr style="border:1px solid #313132">
                                 <td>Full name: <div class="answer"></div> </td>
                                 <td style="padding-left:50px"></td>
@@ -207,7 +190,7 @@
 
         <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:2rem; font-size: 9pt;"><i>For registry use only</i></div>
+            <div style="margin-top:0rem; font-size: 9pt;"><i>For registry use only</i></div>
             <div style="width:99%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
@@ -220,7 +203,8 @@
         <div class="print-block mt-5"></div>
 
         <div style="text-align:left;"><b>ABOUT THE PRIORITY PARENTING MATTER</b></div>
-            
+
+
 <!-- <4> -->
             <section>
             <check-box 
@@ -229,65 +213,25 @@
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
                 :check="true?'yes':''" 
                 text="I am applying for an order about the following priority parenting matter(s):"/>
-                    <i style="margin:0 0 0 1.25rem;display:block;">Select all options that apply</i>
-            <div style="margin:0 0 0 1.75rem;">
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related
-                        treatments for a child, because delay will result in risk to the child’s health"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child,
-                        because delay will result in risk of harm to the child’s physical, psychological or emotional safety,
-                        security or well-being"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="applying, by a guardian, for travel with a child or participation by a child in an activity because
-                        consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a
-                        child’s residence because no written agreement or order respecting parenting arrangements applies
-                        in respect of the child, and the change of residence can reasonably be expected to have a significant
-                        impact on the child’s relationship with another guardian"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
-                <check-box
-                    boxMargin="0" 
-                    style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                    :check="true?'yes':''" 
-                    text="relating to the return of a child alleged to have been wrongfully removed or retained under the
-                    Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25,
-                    1980"/>               
-            </div>                         
+
+            <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
+                <i>Select all options that apply</i>
+                <check-box style="" :check="true?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
+                <check-box style="" :check="true?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
+                <check-box style="" :check="true?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
+                <check-box style="" :check="true?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
+                <check-box style="" :check="true?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
+                <check-box style="" :check="true?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
+                <check-box style="" :check="true?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                <check-box style="" :check="true?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
+            </div>                  
         </section>
 
-        <!-- <5> -->
 
+<!-- <5> -->
         <div class="print-block">
             <section>
-                <div style="display:inline; margin-left:0.25rem">This application is about the following child(ren):</div>          
+                <div style="display:inline; margin-left:0.25rem;font-size: 9pt; ">This application is about the following child(ren):</div>          
                 
                 <b-table
                     :items="childrenInfo"
@@ -305,30 +249,28 @@
             </section>
         </div>   
 
-        <!-- <6> -->        
 
+<!-- <6> --> 
         <div class="print-block">            
-            <section>
-                <b-row style="margin:0 0 0 0.4rem; display: inline;">
-                    <div style="display: inline;">There is an existing written agreement or court order about the child(ren) concerning parenting
-                    arrangements, child support, contact with a child, or guardianship:</div>
-                    <div style="display: inline;">
-                        <check-box :check="ppmInfo.ExistingCase?'yes':''" text="yes"/>
-                        <check-box :check="!ppmInfo.ExistingCase?'yes':''" text="no"/> 
-                    </div>
-                </b-row>
-                <div><i style="margin:0 0 0 1rem; display: block;">If yes, attach a copy of the agreement(s) and/or order(s) to your application</i></div>            
+            <section>               
+                <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">There is an existing written agreement or court order about the child(ren) concerning parenting arrangements, child support, contact with a child, or guardianship:
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="ppmInfo.ExistingCase?'yes':''"  text="Yes"/>                        
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="!ppmInfo.ExistingCase?'yes':''" text="No"/> 
+                </div>               
+                <div><i style="margin:0 0 0 1rem; display: block;font-size: 9pt;">If yes, attach a copy of the agreement(s) and/or order(s) to your application</i></div>            
             </section>
         </div>   
 
-        <!-- <7> --> 
 
+<!-- <7> --> 
         <div class="print-block">            
             <section>
-                I know the following information about any court proceeding that is pending or that has been initiated
-                about parenting arrangements, contact with a child or guardianship of a child who is the subject of this
-                application:
-                <i style="margin:0 0 0 1rem; display: block;">If there is no pending or ongoing court proceeding, that you know of, in this court or another court or
+                <div style="display:inline; margin-left:0.1rem;font-size: 9pt;">
+                    I know the following information about any court proceeding that is pending or that has been initiated
+                    about parenting arrangements, contact with a child or guardianship of a child who is the subject of this
+                    application:
+                </div>
+                <i style="text-indent:0; margin:0 0 0 0rem; display: block;font-size: 9pt;">If there is no pending or ongoing court proceeding, that you know of, in this court or another court or
                 jurisdiction, you may leave this section blank</i>
                 
                 <div v-if="ppmInfo.existingProceeding && ppmInfo.proceedingInfo" 
@@ -338,28 +280,30 @@
             </section>
         </div> 
 
-        <!-- <8> -->      
 
-        <div class="print-block">
-            
+<!-- <8> -->      
+        <div class="print-block">            
             <section>
-                The details of the order I am applying for are as follows:
-                <i style="margin:0 0 0 1rem; display: block;">Tell the court and the other party the details of the order you are asking for</i>
+                <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">
+                    The details of the order I am applying for are as follows:
+                </div>
+                <i style="margin:0 0 0 1rem; display: block;font-size: 9pt;">Tell the court and the other party the details of the order you are asking for</i>
                 
                 <div v-if="ppmInfo.orderdesc" 
                     class="answerbox">{{ppmInfo.orderdesc}}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
             
             </section>
-        </div>  
+        </div> 
 
-        <!-- <9> -->
 
-        <div class="print-block">
-            
+<!-- <9> -->
+        <div class="print-block">            
             <section>
-                The facts on which this application is based are as follows:  
-                <i style="margin:0 0 0 1rem; display: block;">Provide the facts you want the court to consider. Include why you need the court to make the order and how
+                <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">
+                    The facts on which this application is based are as follows:  
+                </div>
+                <i style="text-indent:0; margin:0 0 0 0rem; display: block;font-size: 9pt;">Provide the facts you want the court to consider. Include why you need the court to make the order and how
                 your situation is a priority parenting matter.</i>             
                 
                 <div v-if="ppmInfo.facts" 
@@ -382,6 +326,7 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
+import CheckBoxII from "./components/CheckBoxII.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
@@ -390,7 +335,8 @@ import { priorityParentingInformationDataInfoType } from '@/types/Application/Pr
 @Component({
     components:{
         UnderlineForm,
-        CheckBox,
+        CheckBox, 
+        CheckBoxII,
         OrderedCheckBox        
     }
 })
@@ -414,7 +360,7 @@ export default class CommonSection extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     ppmInfo = {} as priorityParentingInformationDataInfoType;
 
-    childrenInfo = [];    
+    childrenInfo = [{fullName:'', dob:'', myRelationship:'', otherPartyRelationship:''}];    
    
     mounted(){
         this.dataReady = false;
@@ -439,7 +385,7 @@ export default class CommonSection extends Vue {
             this.additionalOtherParties = this.otherPartyInfo;
         }
 
-        if (this.result.childDataPPM && this.result.childDataPPM.length > 0){          
+        if (this.result.ppmChildrenInfoSurvey && this.result.ppmChildrenInfoSurvey.length > 0){          
             this.childrenInfo = this.getChildrenInfo();
         }
         
@@ -451,7 +397,7 @@ export default class CommonSection extends Vue {
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.childDataPPM;
+        const childData = this.result.ppmChildrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};

@@ -151,16 +151,16 @@ export default class PpmQuestionnaire extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
     
     selectedPriorityParentingMatter = [];
-    //returningUser = false
+
     showLegalAssistance = false
-    // preparationInfo = false
+
     currentStep = 0;
     currentPage = 0;
 
     allPages = []; 
 
     mounted(){
-        this.allPages = _.range(this.stPgNo.PPM.PpmBackground, Object.keys(this.stPgNo.PPM).length-1) 
+        this.allPages = _.range(this.stPgNo.PPM.PriorityParentingMatterOrder, Object.keys(this.stPgNo.PPM).length-1) 
         this.reloadPageInformation();
     }
 
@@ -170,15 +170,18 @@ export default class PpmQuestionnaire extends Vue {
         
         if (this.step.result && this.step.result.ppmQuestionnaireSurvey) {
             this.selectedPriorityParentingMatter = this.step.result.ppmQuestionnaireSurvey.data;
-            this.determineSteps();
         }
         
         const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
-  
+
+
     public onChange(selectedPriorityParentingMatter) {
-        this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false})
+
+        this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false});
+        this.togglePages([this.stPgNo.PPM.PreviewFormsPPM], false);
+        
         if(this.checkErrorOnPages())        
             this.setSteps(selectedPriorityParentingMatter);
         else{ 
@@ -186,21 +189,20 @@ export default class PpmQuestionnaire extends Vue {
             //this.togglePages(this.allPages, false); 
         }
         Vue.filter('surveyChanged')('priorityParenting')        
-       // console.log(selectedPriorityParentingMatter)
     }
 
     public setSteps(selectedPriorityParentingMatter) {
         // console.log(selectedPriorityParentingMatter)
         const p = this.stPgNo.PPM
         if (selectedPriorityParentingMatter) {
+
             this.togglePages(this.allPages, false); 
             const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-
             if (selectedPriorityParentingMatter.length > 0){
 
-                this.determineSteps(); 
+                this.togglePages([p.PriorityParentingMatterOrder], true);                
                 
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.PriorityParentingMatterOrder].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.PriorityParentingMatterOrder, 50, false);
@@ -220,49 +222,8 @@ export default class PpmQuestionnaire extends Vue {
             }   
 
         }
-    }
-
-    public determineSteps(){
-        // let formOneRequired = false;
-        const p = this.stPgNo.PPM
-        //const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
-
-        // if( stepCOM.result &&
-        //     stepCOM.result.filingLocationSurvey &&
-        //     stepCOM.result.filingLocationSurvey.data){
-        //         const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-        //         formOneRequired = this.determineRequiredForm(filingLocationData);
-        // }
-
-        // if (!formOneRequired){
-            this.togglePages([p.PriorityParentingMatterOrder], true);
-            this.togglePages([p.ReviewYourAnswersPPM], true);
-            this.togglePages([p.PreviewFormsPPM], false);
-            this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false})
-            if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersPPM].progress==100)
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersPPM, 50, false);
-
-        // } else {
-        //     this.togglePages([p.PriorityParentingMatterOrder], false);
-        //     this.togglePages([p.ReviewYourAnswersPPM], true);
-        // }   
-    }
-
-    // public determineRequiredForm(filingLocationData){
-
-    //     // const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-    //     // let location = ''
-
-    //     // location = filingLocationData.ExistingCourt;                
-        
-    //     // if(courtsC.includes(location) && 
-    //     //     filingLocationData.MetEarlyResolutionRequirements == 'n'){
-    //     //     return true;
-    //     // } else {
-    //         return false;
-    //     // }
-
-    // }
+    } 
+  
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
@@ -273,13 +234,6 @@ export default class PpmQuestionnaire extends Vue {
                 active: activeIndicator
             });
         }
-    }
-
-    public toggleSteps(stepId, activeIndicator) {       
-        this.$store.commit("Application/setStepActive", {
-            currentStep: stepId,
-            active: activeIndicator
-        });
     }
 
     public checkErrorOnPages(){
@@ -312,14 +266,14 @@ export default class PpmQuestionnaire extends Vue {
     public getSelectedPriorityParentingMatterNames(){
         let result = ''       
         for(const form of this.selectedPriorityParentingMatter){
-            if(form=='medical')   result+='Medical, dental or other health-related treatments for a child'+'\n';
-            if(form=='passport')  result+='Application for a passport, license or other thing for a child'+'\n';
-            if(form=='travel')    result+='Travel or participation in an activity for the child'+'\n';
-            if(form=='locationChange')         result+='Change in location of a child’s residence'+'\n';
-            if(form=='preventRemoval')          result+='Preventing the removal of a child'+'\n';
-            if(form=='interjurisdictional')    result+='Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
-            if(form=='wrongfulRemoval')         result+=' Wrongful removal of a child in BC'+'\n';
-            if(form=='returnOfChild')          result+='Preventing the removal of a child'+'\n';
+            if(form=='medical')   result+='-Medical, dental or other health-related treatments for a child'+'\n';
+            if(form=='passport')  result+='-Application for a passport, license or other thing for a child'+'\n';
+            if(form=='travel')    result+='-Travel or participation in an activity for the child'+'\n';
+            if(form=='locationChange')         result+='-Change in location of a child’s residence'+'\n';
+            if(form=='preventRemoval')          result+='-Preventing the removal of a child'+'\n';
+            if(form=='interjurisdictional')    result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
+            if(form=='wrongfulRemoval')         result+='-Wrongful removal of a child in BC'+'\n';
+            if(form=='returnOfChild')          result+='-Preventing the removal of a child'+'\n';
         }
         return result;
     }

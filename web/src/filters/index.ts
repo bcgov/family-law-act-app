@@ -55,7 +55,8 @@ Vue.filter('getFullName',function(nameObject){
 })
 
 Vue.filter('getFullAddress',function(nameObject){
-	if (nameObject) {
+
+	if (nameObject && Object.keys(nameObject).length) {
 		return 	(nameObject.street?(nameObject.street +", "):'') +
 				(nameObject.city?(nameObject.city +", "):'') +
 				(nameObject.state?(nameObject.state +", "):'') +
@@ -69,13 +70,13 @@ Vue.filter('getFullAddress',function(nameObject){
 Vue.filter('getFullContactInfo',function(nameObject){
 	const pre = "<div style='display:inline; color:#10669c'>"
 	const post = "</div>"
-	if (nameObject) {
+	if (nameObject && Object.keys(nameObject).length) {
 		return pre+"Phone: "+post+
-			nameObject.phone +
+			(nameObject.phone? nameObject.phone:' - ') +
 			" "+pre+"Email: "+post+
-			nameObject.email +
+			(nameObject.email? nameObject.email:' - ') +
 			" "+pre+"Fax: "+post+
-			nameObject.fax;
+			(nameObject.fax? nameObject.fax:' - ');
 	} else{
 		return " "
 	}
@@ -370,6 +371,12 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		// if(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y") 
 		// 	reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 	}
+
+	if(type == 'priorityParenting'){
+		console.log(questions)	
+		if(questions.ppmBackgroundSurvey && questions.ppmBackgroundSurvey.ExistingOrdersFLM == "y")
+			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+	}
 	
 	
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments ,reminder:reminderDocuments} });	
@@ -514,11 +521,15 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`table.fullsize tr{border:1px solid #313132;}`+
 			`table.fullsize td{padding:0 0 0 .5rem; color: #313132;}`+
 
+			`table.compactfullsize {table-layout: fixed; width: 100%; margin-top:0rem;}`+
+			`table.compactfullsize tr{border:1px solid #313132;}`+
+			`table.compactfullsize td{padding:0 0 0 .5rem; color: #313132;}`+
+
 			`.answer{color: #000; display:inline; font-size:11pt;}`+
 			`.answerbox{color: #000; font-size:11pt; display:block; text-indent:0px; margin:0.5rem 0 0.5rem 0 !important;}`+
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
-			`.form-header-ppm{display:block; margin:0 0 3.25rem 0;}`+
+			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+

@@ -16,6 +16,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -29,6 +30,9 @@ export default class Notice extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -37,6 +41,9 @@ export default class Notice extends Vue {
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
+
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
@@ -64,32 +71,19 @@ export default class Notice extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            console.log(this.survey.data);            
-            this.determineRequiredApplications();
+            //console.log(this.survey.data);                       
         })   
     }
 
     public reloadPageInformation() {
         //console.log(this.step.result)
         if (this.step.result && this.step.result.noticeSurvey){
-            this.survey.data = this.step.result.noticeSurvey;
+            this.survey.data = this.step.result.noticeSurvey.data;
         }
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
-    }
-
-    public determineRequiredApplications() {
-
-        if (this.survey.data && this.survey.data.noticeType) {
-            const noticeType = this.survey.data.noticeType;
-            if (noticeType == '' || noticeType == '') {
-                console.log('turn on case management')
-            }
-            //TODO: handle turning CM on if hasn't been turned on yet
-        }
-
     }
 
     public onPrev() {
@@ -102,9 +96,33 @@ export default class Notice extends Vue {
         }
     }
 
+    public determineCaseMgntNeeded(){
+        if (this.survey.data && this.survey.data.noticeType) {
+            const noticeType = this.survey.data.noticeType;
+            if (noticeType == 'askingForWithoutNotice' || noticeType == 'askingForUnder 7 DaysNotice') {
+                //console.log('turn on case management')
+                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
+                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+                //console.log(selectedForms)
+                if(selectedForms && !selectedForms.includes('caseMgmt')){
+                    selectedForms.push('caseMgmt')
+                }
+                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+            }
+        }
+    }
+
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
+    }
+
     beforeDestroy() {
+        this.determineCaseMgntNeeded();
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {noticeSurvey: this.survey.data}});
+        this.UpdateStepResultData({step:this.step, data: {noticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>

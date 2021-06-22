@@ -73,7 +73,7 @@ export default class PpmBackground extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('priorityParenting')
             //console.log(options)
-            //console.log(this.survey.data)
+            console.log(this.survey.data)
            
         })
     }   
