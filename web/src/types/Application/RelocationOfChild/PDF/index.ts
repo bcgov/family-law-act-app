@@ -1,7 +1,22 @@
+import { nameInfoType, addressInfoType, contactInfoType } from "../../CommonInformation";
+
 export interface relocationOfChildInformationDataInfoType {
-    ExistingCase: boolean;
-    existingProceeding: boolean;
-    proceedingInfo: string;
-    facts: string;
-    orderdesc: string;
+    existingOrder: boolean;
+    existingOrderDate: string;
+    receivedNotice: boolean;
+    noticeDate?: string;
+    foundOutDate?: string;
+    foundOutDescription?: string;
+    impactOnChild: boolean;
+    presumedRelocationDate?: string;
+    presumedLocation?: string;
+    childBestInterestAcknowledgement?:boolean;
+    childBestInterestReason?: string;
+}
+
+export interface relocationOfChildotherPartyDataInfoType {
+    name: nameInfoType;
+    dob?: string;   
+    address: addressInfoType;
+    contactInfo: contactInfoType;
 }

@@ -1,14 +1,14 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation"; 
 
-export interface RelocChildrenInfoSurveyInfoType {
-    data: relocChildrenInfoCDataInfoType[];
+export interface relocChildrenInfoSurveyInfoType {
+    data: relocChildrenInfoDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;
     currentPage: number;
 }
 
-export interface relocChildrenInfoCDataInfoType {
+export interface relocChildrenInfoDataInfoType {
     name: nameInfoType;
     dob: string;
     currentLiving:string;

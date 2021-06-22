@@ -31,12 +31,12 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
             <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
             <table class="fullsize" style="margin-top:0.5 !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
-                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
+                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
                 </tr>
                 <tr style="border:1px solid #414142">          
@@ -104,9 +104,9 @@
                             <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
+                            <td>Email: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.email:''}}</div> </td>
                             <td style="padding-left:50px"></td>
-                            <td>Telephone: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.phone:''}}</div> </td>
+                            <td>Telephone: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.phone:''}}</div> </td>
                         </tr>
                     </table>
                 </div>
@@ -137,9 +137,9 @@
                                 <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                             </tr>
                             <tr style="border:1px solid #313132">
-                                <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
+                                <td>Email: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.email:''}}</div> </td>
                                 <td style="padding-left:50px"></td>
-                                <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
+                                <td>Telephone: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.phone:''}}</div> </td>
                             </tr>
                         </table>                    
                     </div>
@@ -243,11 +243,10 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                :check="true?'yes':''" 
-                text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
-        </section>       
-
-        
+                :check="relocInfo.childBestInterestAcknowledgement?'yes':''" 
+                text="I understand that I must consider the child(ren)’s best interests with respect to each order I am asking
+                the court to make."/>                                 
+        </section> 
 
         <!-- <7> --> 
 
@@ -256,8 +255,10 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
-                :check="true?'yes':''" 
-                text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
+                :check="relocInfo.existingOrder?'yes':''" 
+                :text="'I am attaching a copy of the written agreement or order respecting parenting arrangements referred to '
+                + 'in section 65 of the Family Law Act made on ' + relocInfo.existingOrderDate + ' that applies to the child(ren) that are the '
+                + 'subject of this application.'"/>                                 
         </section>
 
         <!-- <8> -->      
@@ -265,35 +266,30 @@
         <div class="print-block">            
             <section>
                 <b-row style="margin:0 0 0 0.4rem; display: inline;">
-                    <div style="display: inline;">There is an existing written agreement or court order about the child(ren) concerning parenting
-                    arrangements, child support, contact with a child, or guardianship:</div>
-                    <div style="display: inline;">
-                        <check-box :check="relocInfo.ExistingCase?'yes':''" text="yes"/>
-                        <check-box :check="!relocInfo.ExistingCase?'yes':''" text="no"/> 
+                    <div style="display: inline;">Select only one of the options below and complete the required information</div>
+                    <div style="margin:0 0 0 1.4rem; display: inline;">
+                        <check-box :check="relocInfo.receivedNotice?'yes':''" :text="'I am attaching a copy of the notice of relocation given to me on ' + relocInfo.noticeDate"/>
+                        <check-box :check="!relocInfo.receivedNotice?'yes':''" :text="'I did not receive written notice of relocation but became aware of the planned relocation on '
+                        + relocInfo.foundOutDate + '. I understand the date of the relocation of the child(ren) to be ' + relocInfo.presumedRelocationDate + ' to ' + 
+                        relocInfo.presumedLocation + '. I learned about the planned relocation:'"/> 
                     </div>
                 </b-row>
-                <div><i style="margin:0 0 0 1rem; display: block;">If yes, attach a copy of the agreement(s) and/or order(s) to your application</i></div>            
+                <div><i style="margin:0 0 0 1.6rem; display: block;">Briefly explain how you found out about the planned relocation if you did not receive written notice</i></div>            
                 
-                <div v-if="relocInfo.facts" 
-                    class="answerbox">{{relocInfo.facts}}</div>
+                <div v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription" 
+                    class="answerbox">{{relocInfo.foundOutDescription}}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
-                
             </section>
         </div>   
 
         <!-- <9> -->
 
-        <div class="print-block">
-            
+        <div class="print-block">            
             <section>
-                The facts on which this application is based are as follows:  
-                <i style="margin:0 0 0 1rem; display: block;">Provide the facts you want the court to consider. Include why you need the court to make the order and how
-                your situation is a priority parenting matter.</i>             
-                
-                <div v-if="relocInfo.facts" 
-                    class="answerbox">{{relocInfo.facts}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
-            
+                I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:                 
+                <div v-if="relocInfo.childBestInterestReason" 
+                    class="answerbox">{{relocInfo.childBestInterestReason}}</div>
+                <div v-else style="margin-bottom:3rem;"></div>             
             </section>
         </div>
 
@@ -311,9 +307,9 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { priorityParentingInformationDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
+import { relocationOfChildInformationDataInfoType, relocationOfChildotherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
 
 @Component({
     components:{
@@ -323,7 +319,7 @@ import { priorityParentingInformationDataInfoType } from '@/types/Application/Pr
     }
 })
 
-export default class CommonSection extends Vue {
+export default class Form16Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    
@@ -340,7 +336,7 @@ export default class CommonSection extends Vue {
     additionalOtherParties = [];
     firstOtherParty = {} as any;
     yourInfo = {} as yourInformationInfoDataInfoType;
-    relocInfo = {} as priorityParentingInformationDataInfoType;
+    relocInfo = {} as relocationOfChildInformationDataInfoType;
 
     childrenInfo = [];    
    
@@ -399,11 +395,11 @@ export default class CommonSection extends Vue {
             const applicantInfo = this.result.yourInformationSurvey;            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
+                name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
                 lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
+                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?Vue.filter('getFullName')(applicantInfo.LawyerName):'',
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:{} as addressInfoType),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact: {} as contactInfoType),
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
             }                     
@@ -413,25 +409,13 @@ export default class CommonSection extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation = [
-            {            
-                dob: 'unknown',
-                name: {'first': '','middle': '', 'last': ''},
-                address: '',
-                contactInfo: ''
-            }               
-        ];        
+        let OpInformation: relocationOfChildotherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
             OpInformation = []; 
            
             for(const party of this.result.otherPartyCommonSurvey){ 
-                let otherParty = {            
-                    dob: '',
-                    name: {'first': '','middle': '', 'last': ''},
-                    address: '',
-                    contactInfo: ''
-                }                
+                let otherParty = {} as relocationOfChildotherPartyDataInfoType               
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
                     otherParty.dob = party['dob']
@@ -454,23 +438,32 @@ export default class CommonSection extends Vue {
     
     public getRelocInfo(){
 
-        let relocInformation = {} as priorityParentingInformationDataInfoType;
+        let relocInformation = {} as relocationOfChildInformationDataInfoType;
 
-        if (this.result.relocBackgroundSurvey) {
-            relocInformation.ExistingCase = (this.result.relocBackgroundSurvey.ExistingOrdersFLM == 'y');
-            relocInformation.existingProceeding = (this.result.relocBackgroundSurvey.existingCourtProceeding == 'y');
-            relocInformation.proceedingInfo = (this.result.relocBackgroundSurvey.existingCourtProceeding == 'y' && 
-                                                this.result.relocBackgroundSurvey.existingCourtProceedingDetails)? this.result.relocBackgroundSurvey.existingCourtProceedingDetails:'';
+        if (this.result.relocQuestionnaireSurvey) {
+
+            relocInformation.existingOrder = (this.result.relocQuestionnaireSurvey.ExistingParentingArrangements == 'y');
+            relocInformation.existingOrderDate = (this.result.relocQuestionnaireSurvey.ExistingParentingArrangements == 'y' &&
+                                                    this.result.relocQuestionnaireSurvey.orderDate)?this.result.relocQuestionnaireSurvey.orderDate:'[mmm/dd/yyyy]';
+            relocInformation.receivedNotice = (this.result.relocQuestionnaireSurvey.receiveNotice == 'y');
+            relocInformation.noticeDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'y' &&
+                                            this.result.relocQuestionnaireSurvey.noticeDate)?this.result.relocQuestionnaireSurvey.noticeDate:'[mmm/dd/yyyy]';
+            relocInformation.foundOutDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
+                                            this.result.relocQuestionnaireSurvey.foundOutDate)?this.result.relocQuestionnaireSurvey.foundOutDate:'[mmm/dd/yyyy]'; 
+            relocInformation.foundOutDescription = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
+                                            this.result.relocQuestionnaireSurvey.foundOutAboutRelocationDescription)?this.result.relocQuestionnaireSurvey.foundOutAboutRelocationDescription:''; 
+            relocInformation.impactOnChild = (this.result.relocQuestionnaireSurvey.impactOnChild == 'y');
+            relocInformation.presumedRelocationDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
+                                            this.result.relocQuestionnaireSurvey.relocationDate)?this.result.relocQuestionnaireSurvey.relocationDate:'[mmm/dd/yyyy]'; 
+            relocInformation.presumedLocation = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
+                                            this.result.relocQuestionnaireSurvey.childProposedLocation)?this.result.relocQuestionnaireSurvey.childProposedLocation:''; 
+            
         }
 
-        if (this.result.aboutPriorityParentingMatterOrderSurvey) {
-            relocInformation.facts = this.result.aboutPriorityParentingMatterOrderSurvey.applicationFacts;
-            relocInformation.orderdesc = this.result.aboutPriorityParentingMatterOrderSurvey.orderDescription;
+        if (this.result.RelocChildBestInterestInfoSurvey) {
+            relocInformation.childBestInterestAcknowledgement = this.result.RelocChildBestInterestInfoSurvey.childBestInterestAcknowledgement == 'I understand';
+            relocInformation.childBestInterestReason = this.result.RelocChildBestInterestInfoSurvey.childBestInterestDescription;
         }
-
-
-
-
 
         return relocInformation;
     }

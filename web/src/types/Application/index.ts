@@ -7,7 +7,7 @@ import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurve
 import { aboutParentingArrangementsSurveyInfoType, otherParentingArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestsOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, childDataPPMInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingOrderSurveyInfoType } from "./PriorityParentingMatter";
-import { RelocChildrenInfoSurveyInfoType, relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType } from "./RelocationOfChild";
+import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, selectedPOOrderInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
 
 
@@ -158,7 +158,7 @@ export interface stepInfoType {
 
     //__Step 6 RELOCATION OF CHILD
     relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
-    relocChildrenInfoSurvey?: RelocChildrenInfoSurveyInfoType;
+    relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
     RelocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
 
     //__Step 8 SUBMIT

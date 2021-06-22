@@ -3,7 +3,7 @@
     <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
     <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <common-section v-bind:result="result"/>
+        <form-1-layout v-bind:result="result"/>
     </b-card>
 </div>
 </template>
@@ -15,7 +15,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import CommonSection from "./Schedules/CommonSection.vue"
+import Form16Layout from "./Form16Layout.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
@@ -23,7 +23,7 @@ import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{        
-        CommonSection
+        Form16Layout
     }
 })
 export default class Form16 extends Vue {
