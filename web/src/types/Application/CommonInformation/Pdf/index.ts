@@ -1,6 +1,6 @@
 import { addressInfoType, contactInfoType, lawyerStatementInfoType } from "..";
 
-export interface childDataInfoType {
+export interface childrenInfoSurveyInfoType {
     fullName: string; 
     dob: string;
     myRelationship: string;

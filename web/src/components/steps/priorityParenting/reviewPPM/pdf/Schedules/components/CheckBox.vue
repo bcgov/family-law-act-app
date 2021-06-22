@@ -20,7 +20,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class CheckBox extends Vue {
+export default class CheckBoxII extends Vue {
    
    @Prop({required: true})
     text!: string;

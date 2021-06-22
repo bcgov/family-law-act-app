@@ -325,20 +325,20 @@ export default class Schedule3 extends Vue {
             }
         }
 
-        if (this.result.childSupportCurrentArrangementSurvey){
+        if (this.result.childSupportCurrentArrangementsSurvey){
             newChildSupportInfo.currCond = {
-                splitShared: (this.result.childSupportCurrentArrangementSurvey.applicantTimeType == 'y'),                
-                timeDesc: (this.result.childSupportCurrentArrangementSurvey.applicantTimeWithChildExplanation)? this.result.childSupportCurrentArrangementSurvey.applicantTimeWithChildExplanation: '',
-                supArr: (this.result.childSupportCurrentArrangementSurvey.currentArrangmentExplanation)? this.result.childSupportCurrentArrangementSurvey.currentArrangmentExplanation: ''
+                splitShared: (this.result.childSupportCurrentArrangementsSurvey.applicantTimeType == 'y'),                
+                timeDesc: (this.result.childSupportCurrentArrangementsSurvey.applicantTimeWithChildExplanation)? this.result.childSupportCurrentArrangementsSurvey.applicantTimeWithChildExplanation: '',
+                supArr: (this.result.childSupportCurrentArrangementsSurvey.currentArrangmentExplanation)? this.result.childSupportCurrentArrangementsSurvey.currentArrangmentExplanation: ''
             }
         }
 
-        if (this.result.childSupportIncomeEarningSurvey){
+        if (this.result.incomeAndEarningPotentialSurvey){
             newChildSupportInfo.opInfo = {  
-                facts: this.result.childSupportIncomeEarningSurvey.knowFacts == 'y',
-                income: this.result.childSupportIncomeEarningSurvey.knowIncome == 'y',              
-                factsDesc: (this.result.childSupportIncomeEarningSurvey.knowFacts == 'y' && this.result.childSupportIncomeEarningSurvey.factsExplanation)? this.result.childSupportIncomeEarningSurvey.factsExplanation: '',
-                incomeAmt: (this.result.childSupportIncomeEarningSurvey.knowIncome == 'y' && this.result.childSupportIncomeEarningSurvey.otherPartyIncome)? this.result.childSupportIncomeEarningSurvey.otherPartyIncome: ''
+                facts: this.result.incomeAndEarningPotentialSurvey.knowFacts == 'y',
+                income: this.result.incomeAndEarningPotentialSurvey.knowIncome == 'y',              
+                factsDesc: (this.result.incomeAndEarningPotentialSurvey.knowFacts == 'y' && this.result.incomeAndEarningPotentialSurvey.factsExplanation)? this.result.incomeAndEarningPotentialSurvey.factsExplanation: '',
+                incomeAmt: (this.result.incomeAndEarningPotentialSurvey.knowIncome == 'y' && this.result.incomeAndEarningPotentialSurvey.otherPartyIncome)? this.result.incomeAndEarningPotentialSurvey.otherPartyIncome: ''
             }
         }
 
@@ -413,15 +413,15 @@ export default class Schedule3 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
                 }
             }   
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
+        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
            newChildSupportInfo.applyForCaseManagement = true
             newChildSupportInfo.finStmnt = {
                 required: false

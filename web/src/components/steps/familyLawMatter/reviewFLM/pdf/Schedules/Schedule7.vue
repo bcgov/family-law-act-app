@@ -148,8 +148,8 @@ export default class Schedule7 extends Vue {
             guardianshipInfo.abtGuardian = {
                 children: []
             }
-            if (this.result.GuardianOfChildSurvey){
-                guardianshipInfo.abtGuardian.children = this.result.GuardianOfChildSurvey.childrenList?this.result.GuardianOfChildSurvey.childrenList:[];               
+            if (this.result.guardianOfChildSurvey){
+                guardianshipInfo.abtGuardian.children = this.result.guardianOfChildSurvey.childrenList?this.result.guardianOfChildSurvey.childrenList:[];               
             }
         }
 
@@ -165,15 +165,15 @@ export default class Schedule7 extends Vue {
                 ]
             }
 
-            if (this.result.GuardianOfChildBestInterestOfChildSurvey){
-                const bestInterestInfo = this.result.GuardianOfChildBestInterestOfChildSurvey;
+            if (this.result.guardianOfChildBestInterestsOfChildSurvey){
+                const bestInterestInfo = this.result.guardianOfChildBestInterestsOfChildSurvey;
                 guardianshipInfo.abtCancel.bestInterest = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
             }
-            if (this.result.GuardianOfChildSurvey && this.result.GuardianOfChildSurvey.cancelGuardianDetails){
-                if (this.result.GuardianOfChildSurvey.cancelGuardianDetails.length > 0){
+            if (this.result.guardianOfChildSurvey && this.result.guardianOfChildSurvey.cancelGuardianDetails){
+                if (this.result.guardianOfChildSurvey.cancelGuardianDetails.length > 0){
                     guardianshipInfo.abtCancel.cancelDetails = [];
                 }
-                for (const detail of this.result.GuardianOfChildSurvey.cancelGuardianDetails){
+                for (const detail of this.result.guardianOfChildSurvey.cancelGuardianDetails){
                     guardianshipInfo.abtCancel.cancelDetails.push({
                         guardianName: detail.nameOther, 
                         childName: detail.name,
@@ -224,14 +224,14 @@ export default class Schedule7 extends Vue {
             } 
         }
 
-        if( this.result.GuardianOfChildSurvey && 
-            this.result.GuardianOfChildSurvey.applicationType &&
-            this.result.GuardianOfChildSurvey.applicationType.includes('becomeGuardian')){
+        if( this.result.guardianOfChildSurvey && 
+            this.result.guardianOfChildSurvey.applicationType &&
+            this.result.guardianOfChildSurvey.applicationType.includes('becomeGuardian')){
                 guardianshipInfo.becomeGuardian = true;
 
         }else guardianshipInfo.becomeGuardian = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.criminalChecked =='y' ){
+        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.criminalChecked =='y' ){
             guardianshipInfo.criminalCheck = true;
         }else {
             guardianshipInfo.criminalCheck = false;
@@ -239,19 +239,19 @@ export default class Schedule7 extends Vue {
 
         let form5unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Form 5")||form.includes("registry search")){
                     form5unable = true;
                 }
             }   
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
+        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='y' )){
             guardianshipInfo.applyForCaseManagement = 'n'
-        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form5unable){
+        }else if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form5unable){
             guardianshipInfo.applyForCaseManagement = 'y'
-        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && !form5unable){
+        }else if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && !form5unable){
             guardianshipInfo.applyForCaseManagement = 'n'
         }else{
             guardianshipInfo.applyForCaseManagement = ''

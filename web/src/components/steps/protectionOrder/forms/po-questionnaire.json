@@ -58,10 +58,11 @@
                      "name": "explanationQualifying",
                      "title": "This service will help you apply for a Provincial Court `Family Law Act Protection Order`. \n<br>\n<br>\nThere is more than one kind of `order` that can protect you and your family. The following questions will help you decide if a `protection order` under the Family Law Act of British Columbia is right for you.\n",
                      "isRequired": true,
+                     "visibleIf": "{orderType} = 'needPO'",
                      "titleLocation": "hidden"
                   }
                ],
-               "visibleIf": "{orderType} = \"needPO\""
+               "visibleIf": "{orderType} = 'needPO'"
             },
             {
                "type": "panel",
@@ -71,11 +72,13 @@
                      "type": "yesno",
                      "name": "unsafe",
                      "title": "Is someone making you or someone you know feel `unsafe`?",
-                     "isRequired": true
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{explanationQualifying} > 0 and {orderType} = 'needPO'"
                   },
                   {
                      "type": "infotext",
-                     "visibleIf": "{unsafe} = \"y\"",
+                     "visibleIf": "{unsafe} = 'y' and {orderType} = 'needPO'",
                      "name": "EmergencyInstructions",
                      "title": "Call 9-1-1 if you, your children and/or someone you know are in immediate danger.<br/><br/>If you are not in immediate danger but are still afraid for your safety, <a href=\"https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190\" target=\"_blank\">VictimLinkBC</a>  can help.<br/><br/><a href=\"https://www2.gov.bc.ca/gov/content?id=18AD0E75BD1C4B0AB99F9C806C734190\" target=\"_blank\">VictimLinkBC</a> is a confidential, multilingual telephone service available 24 hours a day, 7 days a week. Victim service workers can provide crisis support, information and referrals to supports including safety planning, victim services, transition houses and counselling services. Even with a protection order in place, it is a good idea to have a personal safety plan.<br/><br/>Call: 1-800-563-0808 | TTY: 604-875-0885 | Text: 604-863-6381 | Email: <a href='mailto:VictimLinkBC@bc211.ca' target='_blank'>VictimLinkBC@bc211.ca</a><br/><br/><b>To exit this service quickly</b><br/><br/>To exit immediately, click the <div style='border-radius:2rem;padding:.6rem 1rem;display:inline-block;background-color:#003366;color:#ffc107;'>Quick Exit</div> button at the top right corner of the screen and delete it from your browser history. When you exit, it will take you to a Google search page.\n",
                      "titleLocation": "hidden",
@@ -84,7 +87,7 @@
                   {
                      "type": "yesno",
                      "name": "familyUnsafe",
-                     "visibleIf": "{unsafe} = \"y\"",
+                     "visibleIf": "{unsafe} = 'y' and {orderType} = 'needPO'",
                      "isRequired": true,
                      "title": "Is the individual that needs protecting a `family member` of the person making them feel unsafe?"
                   },
@@ -92,7 +95,7 @@
                      "type": "infotext",
                      "name": "explanationUnsafe",
                      "visible": false,
-                     "visibleIf": "{unsafe} = 'n'",
+                     "visibleIf": "{unsafe} = 'n' and {orderType} = 'needPO'",
                      "title": "It seems you do not need this service. ",
                      "titleLocation": "hidden",
                      "messageStyle": "error"
@@ -107,7 +110,7 @@
                   }
                ],
                "visible": false,
-               "visibleIf": "{explanationQualifying} > 0 and {orderType} = \"needPO\""
+               "visibleIf": "{explanationQualifying} > 0 and {orderType} = 'needPO'"
             },
             {
                "type": "panel",
@@ -119,6 +122,8 @@
                      "title": "You appear to meet the requirements to apply for a Provincial Court `Family Law Act Protection Order`. Confirm that this is what you want to do.",
                      "description": "You can also apply for a `Peace Bond`. A Peace Bond is another kind of `Protection Order` that covers more situations.\n<br>\n<br>\n<table>\n  <tr>\n    <th style='border:1px solid; padding:1rem;'>Family Law Act Protection Order</th>\n    <th style='border:1px solid; padding:1rem;'>Peace Bond</th> \n  </tr>\n  <tr>\n    <td style='border:1px solid; padding:1rem;'>A Family Law Act Protection Order protects a family member from another family member.<br><br>To apply for a Family Law Act Protection Order, you will need to tell your story directly to a judge. You can apply on your own or you can hire a lawyer to help.  Usually both you, and the person you need protection from, will be in court together. The judge can allow you to make your application without your (ex-)partner in court under special circumstances.\n\t</td>\n    <td style='border:1px solid; padding:1rem;'>A Peace Bond protects a person from another person.<br><br>To get a Peace Bond, you will need to tell your story to the police, who may then get Crown Counsel to help. Crown counsel apply to the court if they believe a judge is likely to make your order. You can also apply for a Peace Bond without the police or Crown counsel. Your (ex-)partner will have an opportunity to tell their story. You may be called as witness.</td>\n  </tr>\n</table>\n<br>\n<br>\n<a href=\"http://www.lss.bc.ca/resources/pdfs/pubs/For-Your-Protection-eng.pdf\" target=\"_blank\">Click here for more information about the differences between a Peace Bond and a Provincial Court Family Law Act Protection Order.</a> (This link will open in a new tab.)",
                      "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{familyUnsafe} = 'y' and {unsafe} = 'y' and {orderType} = 'needPO'",
                      "choices": [
                         {
                            "value": "confirmed",
@@ -128,7 +133,7 @@
                   }
                ],
                "visible": false,
-               "visibleIf": "{familyUnsafe} = 'y' and {unsafe} = 'y' and {orderType} = \"needPO\""
+               "visibleIf": "{familyUnsafe} = 'y' and {unsafe} = 'y' and {orderType} = 'needPO'"
             }
          ],
          "title": "This service will help you apply, change or terminate a Provincial Court Family Law Act Protection Order"

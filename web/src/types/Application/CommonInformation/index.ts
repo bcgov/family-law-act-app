@@ -1,3 +1,5 @@
+import { aboutPOSurveydataInfoType } from "../ProtectionOrder";
+
 export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
@@ -61,7 +63,7 @@ export interface questionInfoType {
   inputType?: string;
 }
 
-export interface filingLocationDataInfoType {
+export interface filingLocationDataInfoType extends aboutPOSurveydataInfoType {
   ExistingFamilyCase?: string;
   ExplanationCourtLocation?: boolean;
   ExistingCourt: string;
@@ -81,8 +83,16 @@ export interface filingLocationSurveyInfoType {
   currentPage: number;
 }
 
-export interface safetySurveyInfoType {
+export interface safetyCheckSurveyDataInfoType {
   unsafe: string;
+}
+
+export interface safetyCheckSurveyInfoType {
+  data: safetyCheckSurveyDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
 }
 
 export interface yourInformationDataInfoType {
@@ -107,6 +117,18 @@ export interface lawyerStatementInfoType {
 
 export interface yourInformationSurveyInfoType {
   data: yourInformationDataInfoType;
+  questions: questionInfoType[];
+  pageName: string;
+  currentStep: number;
+  currentPage: number;
+}
+
+export interface noticeSurveyDataInfoType {
+  noticeType: string;
+}
+
+export interface noticeSurveyInfoType {
+  data: noticeSurveyDataInfoType;
   questions: questionInfoType[];
   pageName: string;
   currentStep: number;

@@ -141,8 +141,8 @@ export default class PpmChildrenInfo extends Vue {
 
     created() {
         //console.log(this.step)
-        if (this.step.result && this.step.result.childDataPPM) {
-            this.childData = this.step.result.childDataPPM.data;
+        if (this.step.result && this.step.result.ppmChildrenInfoSurvey) {
+            this.childData = this.step.result.ppmChildrenInfoSurvey.data;
         }        
     }
 
@@ -162,7 +162,7 @@ export default class PpmChildrenInfo extends Vue {
         const progress = this.childData.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        this.UpdateStepResultData({step:this.step, data: {childDataPPM: this.getChildrenResults()}})       
+        this.UpdateStepResultData({step:this.step, data: {ppmChildrenInfoSurvey: this.getChildrenResults()}})       
     }
 
     public getChildrenResults(){

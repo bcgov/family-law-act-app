@@ -14,19 +14,19 @@
                      "title": "What type of `notice` will you be providing to the other party?",
                      "choices": [
                         {
-                        "value": "over7Days",
+                        "value": "givingOver 7 DaysNotice",
                         "text": "I am giving at least 7 days’ notice to the other party."
                         },
                         {
-                        "value": "without",
+                        "value": "askingForWithoutNotice",
                         "text": "I am asking to make my application without notice to the other party."
                         },
                         {
-                        "value": "askingUnder7Days",
+                        "value": "askingForUnder 7 DaysNotice",
                         "text": "I am asking to make my application with less than 7 days’ notice to the other party."
                         },
                         {
-                        "value": "haveUnder7Days",
+                        "value": "haveOrderForWithoutOrUnder 7 DaysNotice",
                         "text": "I have a court order that allows me to make my application without notice or with less than 7 days’ notice"
                         }
                      ],

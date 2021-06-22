@@ -20,6 +20,7 @@ class Application extends VuexModule {
     public userType = ""
     public userName = ""
     public userId = ""
+    public version: string = "";
     public applicantName = {} as nameInfoType;
     public respondentName = {} as nameInfoType;
     public protectedPartyName = {} as nameInfoType;
@@ -102,7 +103,7 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "1";
         p.name = "YourinformationPO";
-        p.label = "Your information";
+        p.label = "Your Information";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
@@ -829,8 +830,19 @@ class Application extends VuexModule {
         
     }
     @Action
-    public UpdateInit() {
+    public UpdateInit(newVersion: string) {
         this.context.commit("init");
+        this.context.commit("setVersion", newVersion)
+        this.context.dispatch("UpdateStPgNo");
+    }
+
+    @Mutation
+    public setVersion(version: string): void {
+        this.version = version;
+    }
+    @Action
+    public UpdateVersion(newVersion: string) {
+        this.context.commit("setVersion", newVersion);
     }
 
     @Mutation
@@ -1189,7 +1201,21 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        this.context.commit("setStPgNo", newStPgNo);
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        //console.log(this.$store.state.Application)
+        const steps = this.steps
+        for(const step of steps){
+            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
+            // console.error(step.name)
+            // console.warn(stepsAndPagesNumber[step.name].StepNo)
+            for(const page of step.pages){
+                // console.log(page.key+' ' +page.name)
+                stepsAndPagesNumber[step.name][page.name] = Number(page.key)
+            }
+        }
+        //console.log(stepsAndPagesNumber)
+        //this.UpdateStPgNo(stepsAndPagesNumber)
+        this.context.commit("setStPgNo", stepsAndPagesNumber);
     }
 
     @Mutation
@@ -1235,6 +1261,7 @@ class Application extends VuexModule {
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
         this.lastFiled = application.lastFiled;
+        this.version = application.version;
     }
     @Action
     public UpdateCurrentApplication(newApplication) {

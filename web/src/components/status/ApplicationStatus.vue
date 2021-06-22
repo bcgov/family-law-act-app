@@ -179,6 +179,10 @@ import "@/store/modules/application";
 import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
+import {restoreCommonStep} from './restoreCommonStep'
+import {migrateStore} from './migrateStore'
+
+
 @Component
 export default class ApplicationStatus extends Vue {
 
@@ -189,19 +193,7 @@ export default class ApplicationStatus extends Vue {
     public UpdateLocationsInfo!: (newLocationsInfo) => void
 
     @applicationState.Action
-    public UpdatePathwayCompletedFull!: (newPathwayCompleted) => void
-
-    @applicationState.Action
-    public UpdateRequiredDocuments!: (newRequiredDocuments) => void
-
-    @applicationState.Action
-    public UpdateSupportingDocumentForm4!: (newSupportingDocumentForm4) => void
-
-    @applicationState.Action
     public checkAllCompleted! :() => void
-
-    @applicationState.Action
-    public UpdateStPgNo!: (newStPgNo) => void
 
     dataLoaded = false;
     showDisclaimer = false;
@@ -224,6 +216,14 @@ export default class ApplicationStatus extends Vue {
     deleteErrorMsgDesc = ''
     deleteError = false  
 
+    
+
+    //___________________________
+    //___________________________
+    //___________________________NEW VERSION goes here _________________
+    CURRENT_VERSION: string = "1.1";
+    //__________________________
+
     mounted() { 
         this.showDisclaimer = false;       
         this.loadDocumentTypes();
@@ -240,7 +240,7 @@ export default class ApplicationStatus extends Vue {
     //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
-            //console.log(response)
+            console.log(response)
             for (const appJson of response.data) {                
                 const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -272,7 +272,7 @@ export default class ApplicationStatus extends Vue {
 
     public beginApplication() {   
 
-        this.$store.commit("Application/init");
+        this.$store.dispatch("Application/UpdateInit", this.CURRENT_VERSION);
         const userId = store.state.Common.userId;
         store.commit("Application/setUserId", userId);
 
@@ -284,7 +284,7 @@ export default class ApplicationStatus extends Vue {
 
         const application = store.state.Application;
         application.type = store.state.Application.types.toString();
-        //console.log(application)
+        // console.log(application)
         const url = "/app/";
         const header = {
             responseType: "json",
@@ -298,7 +298,7 @@ export default class ApplicationStatus extends Vue {
             this.applicationId = res.data.app_id;  
             store.commit("Application/setApplicationId", this.applicationId);
             this.error = "";
-            this.loadStepsAndPagesNames();
+            //this.loadStepsAndPagesNames();
             this.$router.push({name: "flapp-surveys" }) 
         }, err => {
             console.error(err);
@@ -316,44 +316,21 @@ export default class ApplicationStatus extends Vue {
     
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
-            const applicationData = response.data
 
-            // console.log(applicationData)
+            const applicationData = response.data   
+            const applicationType = (applicationData.type && applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
-            this.currentApplication.id = applicationId;
-            this.currentApplication.currentStep = applicationData.currentStep;
-            this.currentApplication.lastUpdate = applicationData.lastUpdated;
-            this.currentApplication.lastPrinted = applicationData.lastPrinted;
-            this.currentApplication.applicationLocation = applicationData.applicationLocation;                        
-            this.currentApplication.types = (applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];
-            this.currentApplication.userId = applicationData.userId;
-            this.currentApplication.userName = applicationData.userName;
-            this.currentApplication.userType = applicationData.userType;        
-            this.currentApplication.steps = applicationData.steps;
+            const storeMigrationFn = new migrateStore()           
+            this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
 
-            if(this.currentApplication.steps[0].result){
-                this.currentApplication.applicantName =  Vue.filter('getFullName')(this.currentApplication.steps[0].result.applicantName);
-                this.currentApplication.respondentName = this.currentApplication.steps[0].result.respondentsPO? Vue.filter('getFullName')(this.currentApplication.steps[0].result.respondentsPO[0]):'';//applicationData.respondentName;
-                this.currentApplication.protectedPartyName =  Vue.filter('getFullName')(this.currentApplication.steps[0].result.protectedPartyName);//applicationData.protectedPartyName;
-                this.currentApplication.protectedChildName =  Vue.filter('getFullName')(this.currentApplication.steps[0].result.protectedChildName);//applicationData.protectedChildName;                
-            }
-
-            // console.log(this.currentApplication.types)
-            this.$store.commit("Application/setCurrentApplication", this.currentApplication);
-            this.$store.commit("Common/setExistingApplication", true);
-
-            if(this.currentApplication.steps[0].result && this.currentApplication.steps[0].result.requiredDocuments)
-                this.UpdateRequiredDocuments(this.currentApplication.steps[0].result.requiredDocuments)
- 
-            if(this.currentApplication.steps[0].result && this.currentApplication.steps[0].result.supportingDocumentForm4)
-                this.UpdateSupportingDocumentForm4(this.currentApplication.steps[0].result.supportingDocumentForm4)
-
-            if(this.currentApplication.steps[0].result && this.currentApplication.steps[0].result.pathwayCompleted)
-                this.UpdatePathwayCompletedFull(this.currentApplication.steps[0].result.pathwayCompleted)           
-
+            // console.log(this.currentApplication)
+            const comStepFn = new restoreCommonStep()
+            comStepFn.restore(this.currentApplication)
+           
             this.checkAllCompleted();
-            this.loadStepsAndPagesNames();
-            this.$router.push({name: "flapp-surveys" })        
+           
+            this.$router.push({name: "flapp-surveys" }) 
+
         }, err => {
             //console.log(err)
             this.error = err;        
@@ -500,23 +477,6 @@ export default class ApplicationStatus extends Vue {
         
         },(err) => console.log(err));
         
-    }
-
-    public loadStepsAndPagesNames(){
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
-        console.log(this.$store.state.Application)
-        const steps = this.$store.state.Application.steps
-        for(const step of steps){
-            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
-            console.error(step.name)
-            //console.warn(stepsAndPagesNumber[step.name].StepNo)
-            for(const page of step.pages){
-                console.log(page.key+' ' +page.name)
-                stepsAndPagesNumber[step.name][page.name] = Number(page.key)
-            }
-        }
-        console.log(stepsAndPagesNumber)
-        this.UpdateStPgNo(stepsAndPagesNumber)
     }
 
     beforeCreate() {

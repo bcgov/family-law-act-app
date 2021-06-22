@@ -213,8 +213,8 @@ export default class ReviewYourAnswersPpm extends Vue {
     public getChildrenNames(selectedChildren){
         // console.log('_________')
         let result = ''
-        if (this.step.result && this.step.result.childDataPPM) {
-            const childData = this.step.result.childDataPPM.data;
+        if (this.step.result && this.step.result.ppmChildrenInfoSurvey) {
+            const childData = this.step.result.ppmChildrenInfoSurvey.data;
             for(const selectedChild of selectedChildren ){
                 if(!isNaN(Number(selectedChild.substring(6,7)))){
                     const child = childData[Number(selectedChild.substring(6,7))]

@@ -29,7 +29,7 @@ export interface childSupportCurrentArrangementDataInfoType {
     currentArrangmentExplanation: string;
 }
 
-export interface childSupportCurrentArrangementSurveyInfoType {
+export interface childSupportCurrentArrangementsSurveyInfoType {
     data: childSupportCurrentArrangementDataInfoType;
     questions: questionInfoType[];
     pageName: string;
@@ -44,7 +44,7 @@ export interface childSupportIncomeEarningDataInfoType {
     factsExplanation?: string;
 }
 
-export interface childSupportIncomeEarningSurveyInfoType {
+export interface incomeAndEarningPotentialSurveyInfoType {
     data: childSupportIncomeEarningDataInfoType;
     questions: questionInfoType[];
     pageName: string;

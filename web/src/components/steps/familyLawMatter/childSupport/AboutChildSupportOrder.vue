@@ -92,8 +92,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.over19Index = [];
         
 
-        if (this.step.result && this.step.result.childData) {
-            this.childData = this.step.result.childData.data;           
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            this.childData = this.step.result.childrenInfoSurvey.data;           
             const _19yearsBefore = moment().add(-19,'years')           
             const whysupport19childTemplate = JSON.parse(JSON.stringify(this.surveyJsonCopy.pages[0].elements[0].elements[8]))
             this.surveyJsonCopy.pages[0].elements[0].elements.splice(8,1)

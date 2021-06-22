@@ -116,8 +116,8 @@ export default class FlmAdditionalDocuments extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.flmAdditionalDocsSurvey && this.step.result.flmAdditionalDocsSurvey.data){
-            this.survey.data = this.step.result.flmAdditionalDocsSurvey.data;
+        if (this.step.result && this.step.result.flmAdditionalDocumentsSurvey && this.step.result.flmAdditionalDocumentsSurvey.data){
+            this.survey.data = this.step.result.flmAdditionalDocumentsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
@@ -181,7 +181,7 @@ export default class FlmAdditionalDocuments extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
-        this.UpdateStepResultData({step:this.step, data: {flmAdditionalDocsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {flmAdditionalDocumentsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

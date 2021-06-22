@@ -22,7 +22,7 @@ export interface aboutContactWithChildDataInfoType {
     conditionsDescription?: string;
 }
 
-export interface aboutContactWithChildSurveyInfoType {
+export interface aboutContactWithChildOrderSurveyInfoType {
     data: aboutContactWithChildDataInfoType;
     questions: questionInfoType[];
     pageName: string;
@@ -35,7 +35,7 @@ export interface contactWithChildBestInterestOfChildDataInfoType {
     existingChildBestInterestDescription?: string;
 }
 
-export interface contactWithChildBestInterestOfChildSurveyInfoType {
+export interface contactWithChildBestInterestsOfChildSurveyInfoType {
     data: contactWithChildBestInterestOfChildDataInfoType;
     questions: questionInfoType[];
     pageName: string;
@@ -54,7 +54,7 @@ export interface contactOrderDataInfoType {
     agreementDifferenceType?: string;
 }
 
-export interface contactOrderSurveyInfoType {
+export interface contactWithChildOrderSurveyInfoType {
     data: contactOrderDataInfoType;
     questions: questionInfoType[];
     pageName: string;

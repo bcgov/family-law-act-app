@@ -18,8 +18,8 @@ def update_survey_data(apps, schema_editor):
         for step in steps_json:
             if step['type'] != 'stepPO':
                 continue
-            step['result']['yourInformationSurveyPO']['data']['ApplicantDOB'] = '1900-01-01'
-            for question in step['result']['yourInformationSurveyPO']['questions']:
+            step['result']['yourinformationPOSurvey']['data']['ApplicantDOB'] = '1900-01-01'
+            for question in step['result']['yourinformationPOSurvey']['questions']:
                 if question['name'] != 'ApplicantName':
                     continue
                 question['value'] = {

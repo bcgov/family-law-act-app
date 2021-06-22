@@ -119,8 +119,8 @@ export default class ParentingArrangements extends Vue {
                 }
         }
 
-        if (this.step.result && this.step.result.childData) {
-            const childData = this.step.result.childData.data;            
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            const childData = this.step.result.childrenInfoSurvey.data;            
             if (childData.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
