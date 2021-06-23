@@ -1,1 +1,1 @@
-node generate_fake_data.js
+node generate_fake_data.js $1
