@@ -1,6 +1,5 @@
 <template>
-  <step-base v-bind:step="step">
-    <!-- <priority-form v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterForm" /> -->
+  <step-base v-bind:step="step">    
     <ppm-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmQuestionnaire"/>
     <priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
     <ppm-children-info     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
@@ -35,13 +34,11 @@ const applicationState = namespace("Application");
 @Component({
     components:{
       StepBase,
-
       PpmQuestionnaire,
       PriorityParentingMatterOrder,
       PpmBackground, 
       PpmChildrenInfo,
-      AboutPriorityParentingMatterOrder,
-      
+      AboutPriorityParentingMatterOrder,      
       ReviewYourAnswersPpm,
       PreviewFormsPpm
     }

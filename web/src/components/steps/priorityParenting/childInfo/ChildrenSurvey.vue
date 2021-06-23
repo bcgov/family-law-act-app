@@ -94,20 +94,7 @@ export default class ChildrenSurvey extends Vue {
     
     public saveChild() {
         const p = this.stPgNo.PPM
-        const pages = [
-            // p.ParentingArrangements,
-            // p.ParentalResponsibilities,
-            // p.ParentingTime,
-            // p.ParentingOrderAgreement,
-            // p.BestInterestsOfChild,
-            // p.ChildSupportCurrentArrangements,
-            // p.AboutChildSupportOrder,
-            // p.SpecialAndExtraordinaryExpenses,
-            // p.ContactWithChild,
-            // p.ContactWithChildOrder,
-            // p.AboutContactWithChildOrder,
-            // p.ContactWithChildBestInterestsOfChild,
-            // p.GuardianOfChild,
+        const pages = [            
             p.ReviewYourAnswersPPM
         ]
         Vue.filter('setProgressForPages')(this.currentStep, pages,50)
@@ -116,17 +103,10 @@ export default class ChildrenSurvey extends Vue {
 
     public populateChildModel(childData) {
         //console.log(childData)
-        this.child.name = childData.childName;
-        // this.child.name.middle = childData.childName.middle;
-        // this.child.name.last = childData.childName.last;
+        this.child.name = childData.childName;       
         this.child.dob = childData.childDateOfBirth;
         this.child.relation = childData.relationToChild;
-        this.child.opRelation = childData.childRelationToOtherParty;
-        // this.child.currentLiving = childData.childCurrentlyLivingWith;
-        // this.child.currentLivingComment = (childData.childCurrentlyLivingWith == 'other')?(childData.childCurrentlyLivingWithComment):"";        
-        // this.child.ack = childData.childInfoAckknowledge;
-        // this.child.additionalInfo = childData.childAdditionalInfo;
-        // this.child.additionalInfoDetails = childData.additionInfoDetails;
+        this.child.opRelation = childData.childRelationToOtherParty;       
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -135,12 +115,7 @@ export default class ChildrenSurvey extends Vue {
         };
         survey.setValue("childDateOfBirth", editRowProp.dob);
         survey.setValue("relationToChild", editRowProp.relation);
-        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);
-        // survey.setValue("childCurrentlyLivingWith", editRowProp.currentLiving);
-        // survey.setValue("childCurrentlyLivingWithComment", editRowProp.currentLivingComment?editRowProp.currentLivingComment:'');
-        // survey.setValue("childInfoAckknowledge", editRowProp.ack);
-        // survey.setValue("childAdditionalInfo", editRowProp.additionalInfo);
-        // survey.setValue("additionInfoDetails", editRowProp.additionalInfoDetails);
+        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);       
         survey.setVariable("id", editRowProp.id);
     }
 

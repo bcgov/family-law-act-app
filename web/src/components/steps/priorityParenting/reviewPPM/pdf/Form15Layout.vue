@@ -328,10 +328,10 @@ import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import CheckBoxII from "./components/CheckBoxII.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, otherPartyCommonSurveyInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
-import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
+import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 
 @Component({
     components:{
@@ -361,7 +361,7 @@ export default class Form15Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     ppmInfo = {} as priorityParentingInformationDataInfoType;
 
-    childrenInfo = [{fullName:'', dob:'', myRelationship:'', otherPartyRelationship:''}];    
+    childrenInfo: childrenInfoSurveyInfoType[] = [];
    
     mounted(){
         this.dataReady = false;
@@ -377,7 +377,7 @@ export default class Form15Layout extends Vue {
     ]   
 
     public extractInfo(){
-        console.log(this.result)     
+        // console.log(this.result)     
         
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
@@ -437,22 +437,23 @@ export default class Form15Layout extends Vue {
         let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
-            OpInformation = []; 
+            OpInformation = [];
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
-            for(const party of this.result.otherPartyCommonSurvey){ 
+            for(const party of otherPartyData){ 
                 let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
 
-                if (party['knowDob'] == 'y' &&  party['dob'])
-                    otherParty.dob = party['dob']
+                if (party.knowDob == 'y' &&  party.dob)
+                    otherParty.dob = party.dob
 
-                if (party['name'])
-                    otherParty.name = party['name']
+                if (party.name)
+                    otherParty.name = party.name;
                 
-                if (party['address'])
-                    otherParty.address = party['address']
+                if (party.address)
+                    otherParty.address = party.address;
                 
-                if (party['contactInfo'])
-                    otherParty.contactInfo = party['contactInfo']
+                if (party.contactInfo)
+                    otherParty.contactInfo = party.contactInfo;
                 
                 OpInformation.push(otherParty)
             }
@@ -466,19 +467,22 @@ export default class Form15Layout extends Vue {
         let ppmInformation = {} as priorityParentingInformationDataInfoType;
 
         if (this.result.ppmBackgroundSurvey) {
-            ppmInformation.ExistingCase = (this.result.ppmBackgroundSurvey.ExistingOrdersFLM == 'y');
-            ppmInformation.existingProceeding = (this.result.ppmBackgroundSurvey.existingCourtProceeding == 'y');
-            ppmInformation.proceedingInfo = (this.result.ppmBackgroundSurvey.existingCourtProceeding == 'y' && 
-                                                this.result.ppmBackgroundSurvey.existingCourtProceedingDetails)? this.result.ppmBackgroundSurvey.existingCourtProceedingDetails:'';
+            const ppmBackgroundData: ppmBackgroundDataSurveyDataInfoType = this.result.ppmBackgroundSurvey;
+            ppmInformation.ExistingCase = (ppmBackgroundData.ExistingOrdersFLM == 'y');
+            ppmInformation.existingProceeding = (ppmBackgroundData.existingCourtProceeding == 'y');
+            ppmInformation.proceedingInfo = (ppmBackgroundData.existingCourtProceeding == 'y' && 
+                                                ppmBackgroundData.existingCourtProceedingDetails)? ppmBackgroundData.existingCourtProceedingDetails:'';
         }
 
         if (this.result.aboutPriorityParentingMatterOrderSurvey) {
-            ppmInformation.facts = this.result.aboutPriorityParentingMatterOrderSurvey.applicationFacts;
-            ppmInformation.orderdesc = this.result.aboutPriorityParentingMatterOrderSurvey.orderDescription;
+            const aboutPpmOrderData: aboutPriorityParentingMatterOrderSurveyDataInfoType = this.result.aboutPriorityParentingMatterOrderSurvey;
+            ppmInformation.facts = aboutPpmOrderData.applicationFacts;
+            ppmInformation.orderdesc = aboutPpmOrderData.orderDescription;
         }
 
         if (this.result.noticeSurvey) {
-            ppmInformation.noticeType = this.result.noticeSurvey.noticeType;
+            const noticeData: noticeSurveyDataInfoType = this.result.noticeSurvey;
+            ppmInformation.noticeType = noticeData.noticeType;
         }
 
         if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
