@@ -94,6 +94,9 @@ export default class FilingLocation extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
+    @applicationState.State
+    public types!: string[];
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -332,7 +335,7 @@ export default class FilingLocation extends Vue {
     public saveApplicationLocation(location){       
         this.$store.commit("Application/setApplicationLocation", location);
         this.survey.setVariable("registryLocation", location);
-        if(this.courtsC.includes(location)){
+        if(this.courtsC.includes(location) && this.types.includes('Family Law Matter')){
             this.survey.setVariable("victoriaSurrey", true);
             this.survey.setValue("familyJusticeRegistry", false);
             this.survey.setValue("familyEducationProgram", false);

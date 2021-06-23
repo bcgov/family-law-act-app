@@ -1,9 +1,9 @@
 <template>
 <div v-if="dataReady">    
-    <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
+    <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button>  -->
     <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <common-section v-bind:result="result"/>
+        <form-15-layout v-bind:result="result"/>
 
     </b-card>
 </div>
@@ -12,12 +12,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import CommonSection from "./Schedules/CommonSection.vue"
+import Form15Layout from "./Form15Layout.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -26,7 +25,7 @@ import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{        
-        CommonSection
+        Form15Layout
     }
 })
 
