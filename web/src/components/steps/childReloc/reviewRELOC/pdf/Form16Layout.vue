@@ -383,7 +383,7 @@ export default class Form16Layout extends Vue {
     ]   
 
     public extractInfo(){
-        console.log(this.result)     
+        //console.log(this.result)     
         
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];

@@ -94,20 +94,7 @@ export default class ChildrenSurvey extends Vue {
     
     public saveChild() {
         const p = this.stPgNo.PPM
-        const pages = [
-            // p.ParentingArrangements,
-            // p.ParentalResponsibilities,
-            // p.ParentingTime,
-            // p.ParentingOrderAgreement,
-            // p.BestInterestsOfChild,
-            // p.ChildSupportCurrentArrangements,
-            // p.AboutChildSupportOrder,
-            // p.SpecialAndExtraordinaryExpenses,
-            // p.ContactWithChild,
-            // p.ContactWithChildOrder,
-            // p.AboutContactWithChildOrder,
-            // p.ContactWithChildBestInterestsOfChild,
-            // p.GuardianOfChild,
+        const pages = [            
             p.ReviewYourAnswersPPM
         ]
         Vue.filter('setProgressForPages')(this.currentStep, pages,50)
@@ -116,10 +103,10 @@ export default class ChildrenSurvey extends Vue {
 
     public populateChildModel(childData) {
         //console.log(childData)
-        this.child.name = childData.childName;        
+        this.child.name = childData.childName;       
         this.child.dob = childData.childDateOfBirth;
         this.child.relation = childData.relationToChild;
-        this.child.opRelation = childData.childRelationToOtherParty;        
+        this.child.opRelation = childData.childRelationToOtherParty;       
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -128,7 +115,7 @@ export default class ChildrenSurvey extends Vue {
         };
         survey.setValue("childDateOfBirth", editRowProp.dob);
         survey.setValue("relationToChild", editRowProp.relation);
-        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);      
+        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);       
         survey.setVariable("id", editRowProp.id);
     }
 

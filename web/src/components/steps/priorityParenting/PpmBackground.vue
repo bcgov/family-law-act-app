@@ -20,8 +20,6 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
 @Component({
     components:{
         PageBase
