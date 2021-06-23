@@ -21,6 +21,14 @@ Vue.filter('beautify-date', function(date){
 		return 'unknown'
 })
 
+Vue.filter('beautify-date-blank', function(date){
+	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
+	if(date)
+		return MonthList[Number(date.substr(5,2))] + ' ' +date.substr(8,2) + ' ' +  date.substr(0,4);
+	else
+		return ' '
+})
+
 Vue.filter('beautify-date-weekday', function(date){
 	if(date)
 		return	moment(date).format('ddd MMM DD, YYYY HH:mm');
@@ -373,8 +381,14 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	}
 
 	if(type == 'priorityParenting'){
-		console.log(questions)	
+		//console.log(questions)	
 		if(questions.ppmBackgroundSurvey && questions.ppmBackgroundSurvey.ExistingOrdersFLM == "y")
+			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+	}
+
+	if(type == 'childReloc'){
+		//console.log(questions)	
+		if(questions.relocQuestionnaireSurvey && questions.relocQuestionnaireSurvey.ExistingParentingArrangements == "y" )
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 	}
 	
@@ -536,6 +550,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
     		`.uline{text-decoration: underline; display: inline;}`+
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+
+			`.form-header-reloc{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
@@ -553,8 +568,9 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`ol.resetlist {list-style: none;counter-reset: list-counter;}`+
 			`ol li.listnumber{text-indent: -25px;text-align: justify;text-justify: inter-word;margin:1rem 0;counter-increment: list-counter;}`+
 			`ol li.listnumber:before {content:counter(list-counter) ". ";font-weight: bold;}`+
-			`ol li.bracketalpha{text-indent: -20px;margin:0.75rem 0;counter-increment: alpha;}`+
-			`ol li.bracketalpha:before {content:"(" counter(alpha, lower-alpha)") ";}`+			
+			`ol.resetcounteralpha {list-style: none;counter-reset: alpha-counter;}`+
+			`ol li.bracketalpha{text-indent: -20px;margin:0.075rem 0;counter-increment: alpha;}`+
+			`ol li.bracketalpha:before {content:counter(alpha, lower-alpha)") ";}`+			
 			
 			`
 			body{				

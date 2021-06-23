@@ -150,7 +150,7 @@ export class migrateStore{
                 // console.log(this.stPgNo[newStep.name]._StepNo)
                 // console.log(this.stPgNo[newStep.name][fieldName])
                 // console.log(value)
-                if((value['currentStep'] || value['currentStep']==0) && (this.stPgNo[newStep.name][fieldName] || this.stPgNo[newStep.name][fieldName]==0)){
+                if(value && (value['currentStep'] || value['currentStep']==0) && (this.stPgNo[newStep.name][fieldName] || this.stPgNo[newStep.name][fieldName]==0)){
                     // console.log(value['currentStep'])
                     // console.log(value['currentPage'])
                     value['currentStep'] = this.stPgNo[newStep.name]._StepNo

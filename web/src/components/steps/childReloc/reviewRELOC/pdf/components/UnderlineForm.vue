@@ -9,6 +9,7 @@
                <span v-else > {{hint}} </span> 
             </div>
         </div>
+        <div v-if="aftertext" style="display:inline-block; margin-left:.1rem;" v-html="aftertext"> {{aftertext}} </div>
     </div>
 </template>
 
@@ -19,6 +20,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class UnderlineForm extends Vue {
     @Prop({required: true})
     beforetext!: string;
+    @Prop({required: false, default:''})
+    aftertext!: string;
     @Prop({required: true})
     text!: string;
     @Prop({required: true})

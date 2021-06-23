@@ -3,7 +3,7 @@
     <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
     <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <form-1-layout v-bind:result="result"/>
+        <form-16-layout v-bind:result="result"/>
     </b-card>
 </div>
 </template>

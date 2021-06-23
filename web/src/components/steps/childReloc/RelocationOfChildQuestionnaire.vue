@@ -74,22 +74,25 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('childReloc')
-            //console.log(this.survey.data);
+            // console.log(this.survey.data);
             // console.log(options)
             this.setPages();
         })
     }
     
     public reloadPageInformation() {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         //console.log(this.step.result)
         if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
             this.survey.data = this.step.result.relocQuestionnaireSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
-        }
+        }        
 
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.determineProgress();
+
         if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
             this.setPages();
         }
@@ -98,15 +101,26 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     public setPages() {
 
         const p = this.stPgNo.RELOC;
-        const relocationOfChildPagesAll = [p.RelocChildrenInfo, p.RelocChildBestInterestInfo, p.ReviewYourAnswersRELOC, p.PreviewFormsRELOC ]
+        const relocationOfChildPagesAll = [p.RelocChildrenInfo, p.RelocChildBestInterestInfo, p.ReviewYourAnswersRELOC ]
 
         if (this.survey.data.ExistingParentingArrangements == 'n' || 
             (this.survey.data.ExistingParentingArrangements == 'y' && this.survey.data.impactOnChild == 'n')) {
             this.togglePages(relocationOfChildPagesAll, false);
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
             this.disableNextButton = true;
         } else {
             this.togglePages(relocationOfChildPagesAll, true);
             this.disableNextButton = false;
+        }
+    }
+
+    public determineProgress(){
+        if (this.survey.data && (this.survey.data.ExistingParentingArrangements == 'n' || 
+            (this.survey.data.ExistingParentingArrangements == 'y' && this.survey.data.impactOnChild == 'n'))) {            
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+            
+        } else {
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         }
     }
 
@@ -131,7 +145,7 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     }
     
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
+        this.determineProgress();
         this.UpdateStepResultData({step:this.step, data: {relocQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}});
     }
 }

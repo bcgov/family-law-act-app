@@ -31,10 +31,10 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
-            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
+            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="8rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
-            <table class="fullsize" style="margin-top:0.5 !important; font-size: 9pt;">
+            <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -62,12 +62,14 @@
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
-                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
                 :check="true?'yes':''" 
-                text="I understand I must give notice of this application to the relocating guardian(s). The relocating guardian
-                    is the other party. To give notice, they must be served with the application and supporting documents at
-                    least 7 days before the date set for the court appearance unless the court allows the application to be
-                    made without notice or with less than 7 days’ notice."/>                              
+                text="I understand I must give notice of this application to the relocating guardian(s). The relocating guardian is the"/>
+            <div style="text-indent:0; margin:0 0 0 1.85rem;display:block; font-size: 9pt;" >
+                other party. To give notice, they must be served with the application and supporting documents at
+                least 7 days before the date set for the court appearance unless the court allows the application to be
+                made without notice or with less than 7 days’ notice."
+            </div>                              
         </section>
 
         
@@ -78,20 +80,20 @@
                 <div style="display:inline; font-size: 9pt;">
                     <underline-form 
                         style="text-indent:2px;display:inline-block;" 
-                        textwidth="14.5rem" 
+                        textwidth="16.5rem" 
                         beforetext="The other party is" 
                         hint="full name of the other party" 
                         :italicHint="false" 
                         :text="firstOtherParty.name | getFullName"/>
                     <underline-form 
                         style="display:inline;text-indent:2px;" 
-                        textwidth="7rem" 
+                        textwidth="7.5rem" 
                         beforetext=". Their date of birth is" 
                         hint="date of birth (mmm/dd/yyyy)" 
                         :italicHint="false" 
                         :text="firstOtherParty.dob | beautify-date"/>
                     <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
-                    <table class="fullsize">
+                    <table class="compactfullsize">
                         <tr style="border:1px solid #313132" >                        
                             <td colspan="3">Lawyer (if applicable): </td>
                         </tr>
@@ -110,13 +112,13 @@
                         </tr>
                     </table>
                 </div>
-                <div style="text-indent:5px;display:inline;"><i>Additional party (Complete only if applicable. You may leave this section blank.)</i></div>
+                <div style="text-indent:5px;"><i>Additional party (Complete only if applicable.)</i></div>
                         
                 <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
-                        <table class="fullsize">
+                        <table class="compactfullsize">
                             <tr style="border:1px solid #313132">
                                 <td>Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>
                                 <td style="padding-left:50px"></td>
@@ -148,7 +150,7 @@
 
                     <div style="display:inline; font-size: 9pt;">
                     
-                        <table class="fullsize">
+                        <table class="compactfullsize">
                             <tr style="border:1px solid #313132">
                                 <td>Full name: <div class="answer"></div> </td>
                                 <td style="padding-left:50px"></td>
@@ -179,17 +181,17 @@
             </section>
         </div> 
 
-        <!-- <For registery> -->
+<!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:2rem; font-size: 9pt;"><i>For registry use only</i></div>
+            <div style="margin-top:0rem; font-size: 9pt;"><i>For registry use only</i></div>
             <div style="width:99%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
-            <div> The court must be satisfied that:
+            <div style="margin-top:0.5rem; font-family:BCSans; font-size: 9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="font-size: 9pt;"> The court must be satisfied that:
                 <ol class='resetcounteralpha'>
                     <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
                     <li class='bracketalpha'>the relocating guardian has proposed reasonable and workable arrangements to preserve the
@@ -203,7 +205,8 @@
         <div class="print-block mt-5"></div>
 
         <div style="text-align:left;"><b>ABOUT THE ORDER</b></div>
-            
+
+
 <!-- <4> -->
         <section>
             <check-box 
@@ -214,11 +217,11 @@
                 text="I am applying for an order to prohibit the relocation of a child or children."/>                                 
         </section>
 
-        <!-- <5> -->
 
+<!-- <5> -->
         <div class="print-block">
             <section>
-                <div style="display:inline; margin-left:0.25rem">This application is about the following child(ren) that I am a guardian of:</div>          
+                <div style="display:inline; margin-left:0.25rem; font-size: 9pt;">This application is about the following child(ren) that I am a guardian of:</div>          
                 
                 <b-table
                     :items="childrenInfo"
@@ -236,57 +239,84 @@
             </section>
         </div>   
 
-        <!-- <6> -->  
 
+<!-- <6> -->
         <section>
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
-                style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
+                style="margin:0 0 0 0.5rem; display:inline; font-size: 9pt;" 
                 :check="relocInfo.childBestInterestAcknowledgement?'yes':''" 
-                text="I understand that I must consider the child(ren)’s best interests with respect to each order I am asking
-                the court to make."/>                                 
+                text="I understand that I must consider the child(ren)’s best interests with respect to each order I am asking the 
+                "/>
+            <div style="text-indent:0; margin:0 0 0 1.75rem; font-size: 9pt;">court to make.</div>                                 
         </section> 
 
-        <!-- <7> --> 
 
+<!-- <7> --> 
         <section>
             <check-box 
                 inline="inline" 
-                boxMargin="0" 
+                boxMargin="0"                 
                 style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;" 
                 :check="relocInfo.existingOrder?'yes':''" 
-                :text="'I am attaching a copy of the written agreement or order respecting parenting arrangements referred to '
-                + 'in section 65 of the Family Law Act made on ' + relocInfo.existingOrderDate + ' that applies to the child(ren) that are the '
-                + 'subject of this application.'"/>                                 
+                :text="'I am attaching a copy of the written agreement or order respecting parenting arrangements referred to in'"/>
+                <div style="text-indent:0; margin:0 0.25rem 0 1.75rem; font-size: 9pt;display:inline-block;">
+                    section 65 of the Family Law Act made on
+                </div>
+                <underline-form 
+                    style="text-indent:2px;display:inline" 
+                    textwidth="8rem" 
+                    beforetext="" 
+                    hint="mmm/dd/yyyy" 
+                    :italicHint="false" 
+                    :text="relocInfo.existingOrderDate | beautify-date-blank"/>
+                <div style="text-indent:0; margin:0 0 0 0.25rem; font-size: 9pt;display:inline">
+                    that applies to the child(ren) that are the
+                </div>
+                <div style="text-indent:0; margin:0 0 0 1.75rem; font-size: 9pt;">
+                    the subject of this application.
+                </div>                                 
         </section>
 
-        <!-- <8> -->      
 
+<!-- <8> -->
         <div class="print-block">            
             <section>
-                <b-row style="margin:0 0 0 0.4rem; display: inline;">
-                    <div style="display: inline;">Select only one of the options below and complete the required information</div>
-                    <div style="margin:0 0 0 1.4rem; display: inline;">
-                        <check-box :check="relocInfo.receivedNotice?'yes':''" :text="'I am attaching a copy of the notice of relocation given to me on ' + relocInfo.noticeDate"/>
-                        <check-box :check="!relocInfo.receivedNotice?'yes':''" :text="'I did not receive written notice of relocation but became aware of the planned relocation on '
-                        + relocInfo.foundOutDate + '. I understand the date of the relocation of the child(ren) to be ' + relocInfo.presumedRelocationDate + ' to ' + 
-                        relocInfo.presumedLocation + '. I learned about the planned relocation:'"/> 
+               
+                <div style="margin:0 0 0 0.5rem; display: inline; font-size: 9pt;"><i>Select only one of the options below and complete the required information</i></div>
+
+                <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
+                    <check-box  style="display:inline;" boxMargin="0" inline="inline" :check="relocInfo.receivedNotice?'yes':''" text="I am attaching a copy of the notice of relocation given to me on"/>
+                    <underline-form  style="margin:0 0 0.5rem 0rem;text-indent:2px;display:inline-block" textwidth="8rem" beforetext="" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.noticeDate | beautify-date-blank"/>
+                </div>
+
+                <div style="margin:0.25rem 0 0 1.25rem;  font-size: 9pt;">
+                    <check-box style="display:inline;margin:0;" boxMargin="0" inline="inline" :check="!relocInfo.receivedNotice?'yes':''" text="" />
+                    <underline-form  style="margin-left:0rem; text-indent:0px; display:inline" textwidth="5.7rem" beforetext="I did not receive written notice of relocation but became aware of the planned relocation on" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.foundOutDate | beautify-date-blank"/>
+                    <div style="margin:0.5rem 0 0 1.05rem;  font-size: 9pt;">                   
+                        <underline-form  style="margin-left:0.35rem; text-indent:5px;display:inline" textwidth="6rem" beforetext="I understand the date of the relocation of the child(ren) to be" hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.presumedRelocationDate | beautify-date-blank"/>
+                        <underline-form  style="margin-left:0.35rem; text-indent:5px;display:inline" textwidth="9rem" beforetext="to" aftertext="." hint="proposed location" :italicHint="false" :text="relocInfo.presumedLocation"/> 
                     </div>
-                </b-row>
-                <div><i style="margin:0 0 0 1.6rem; display: block;">Briefly explain how you found out about the planned relocation if you did not receive written notice</i></div>            
+                    <div style="text-indent:0; margin:0.25rem 0 0 0.65rem; font-size: 9pt;"> 
+                        I learned about the planned relocation:
+                    </div>
+                    <i style="text-indent:0;margin:0.25rem 0 0 0.65rem; display: block; font-size: 9pt;">Briefly explain how you found out about the planned relocation if you did not receive written notice</i>
                 
-                <div v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription" 
-                    class="answerbox">{{relocInfo.foundOutDescription}}</div>
-                <div v-else style="margin-bottom:3rem;"></div> 
+                    <div v-if="!relocInfo.receivedNotice && relocInfo.foundOutDescription" 
+                        class="answerbox">{{relocInfo.foundOutDescription}}</div>
+                    <div v-else style="margin-bottom:3rem;"></div>
+                </div> 
             </section>
         </div>   
 
-        <!-- <9> -->
 
+<!-- <9> -->
         <div class="print-block">            
-            <section>
-                I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:                 
+            <section> 
+                <div style="margin:0 0 0 0.4rem; display: inline; font-size: 9pt;">
+                    I believe it is in the child(ren)’s best interests to prohibit the proposed relocation because:                 
+                </div>
                 <div v-if="relocInfo.childBestInterestReason" 
                     class="answerbox">{{relocInfo.childBestInterestReason}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>             
@@ -338,7 +368,7 @@ export default class Form16Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     relocInfo = {} as relocationOfChildInformationDataInfoType;
 
-    childrenInfo = [];    
+    childrenInfo = [{fullName:'', dob:'', currentSituation:'' }];    
    
     mounted(){
         this.dataReady = false;
@@ -348,7 +378,7 @@ export default class Form16Layout extends Vue {
    
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:18%;"},
         {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
@@ -444,17 +474,17 @@ export default class Form16Layout extends Vue {
 
             relocInformation.existingOrder = (this.result.relocQuestionnaireSurvey.ExistingParentingArrangements == 'y');
             relocInformation.existingOrderDate = (this.result.relocQuestionnaireSurvey.ExistingParentingArrangements == 'y' &&
-                                                    this.result.relocQuestionnaireSurvey.orderDate)?this.result.relocQuestionnaireSurvey.orderDate:'[mmm/dd/yyyy]';
+                                                    this.result.relocQuestionnaireSurvey.orderDate)?this.result.relocQuestionnaireSurvey.orderDate:']';
             relocInformation.receivedNotice = (this.result.relocQuestionnaireSurvey.receiveNotice == 'y');
             relocInformation.noticeDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'y' &&
-                                            this.result.relocQuestionnaireSurvey.noticeDate)?this.result.relocQuestionnaireSurvey.noticeDate:'[mmm/dd/yyyy]';
+                                            this.result.relocQuestionnaireSurvey.noticeDate)?this.result.relocQuestionnaireSurvey.noticeDate:'';
             relocInformation.foundOutDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
-                                            this.result.relocQuestionnaireSurvey.foundOutDate)?this.result.relocQuestionnaireSurvey.foundOutDate:'[mmm/dd/yyyy]'; 
+                                            this.result.relocQuestionnaireSurvey.foundOutDate)?this.result.relocQuestionnaireSurvey.foundOutDate:''; 
             relocInformation.foundOutDescription = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
                                             this.result.relocQuestionnaireSurvey.foundOutAboutRelocationDescription)?this.result.relocQuestionnaireSurvey.foundOutAboutRelocationDescription:''; 
             relocInformation.impactOnChild = (this.result.relocQuestionnaireSurvey.impactOnChild == 'y');
             relocInformation.presumedRelocationDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
-                                            this.result.relocQuestionnaireSurvey.relocationDate)?this.result.relocQuestionnaireSurvey.relocationDate:'[mmm/dd/yyyy]'; 
+                                            this.result.relocQuestionnaireSurvey.relocationDate)?this.result.relocQuestionnaireSurvey.relocationDate:''; 
             relocInformation.presumedLocation = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
                                             this.result.relocQuestionnaireSurvey.childProposedLocation)?this.result.relocQuestionnaireSurvey.childProposedLocation:''; 
             
@@ -471,5 +501,26 @@ export default class Form16Layout extends Vue {
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
+.container {
+  display: inline;
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+ 
+ 
+ 
+}
 
+/* Create a custom checkbox */
+.container .checkmark {
+    display: inline;
+  position: absolute;
+  border: 1px solid #000!important;
+  padding: 1rem;
+  top: 0;
+  left: 0;
+  height: 1em;
+  width: 1em;
+  background-color: #eee;
+}
 </style>

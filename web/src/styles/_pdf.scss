@@ -24,6 +24,7 @@ table.compactfullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 .form-header-po{display:block; margin:0 0 4rem 0;}
 .form-header-ppm{display:block; margin:0 0 5.25rem 0;}
 .form-one-header{display:block; margin:0 0 4rem 0;}
+.form-header-reloc{display:block; margin:0 0 5.25rem 0;}
 
 section{
     counter-increment: question-counter;         
@@ -64,17 +65,17 @@ ol li.bracketnumber:before {
 ol.resetcounteralpha {
     list-style: none;
     counter-reset: alpha-counter;
-  }
+}
   
-  ol li.bracketalpha {
+ol li.bracketalpha {
     text-indent: -20px;
     margin:0.25rem 0;
     counter-increment: alpha;
-  }
-  
-  ol li.bracketalpha:before {
+}
+
+ol li.bracketalpha:before {
     content:counter(alpha, lower-alpha)") ";
-  }
+}
 
 ol.resetlist {
     list-style: none;

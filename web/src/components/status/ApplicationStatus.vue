@@ -221,7 +221,7 @@ export default class ApplicationStatus extends Vue {
     //___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    CURRENT_VERSION: string = "1.1";
+    CURRENT_VERSION: string = "1.2";
     //__________________________
 
     mounted() { 
