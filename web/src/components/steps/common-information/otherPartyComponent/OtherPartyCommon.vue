@@ -288,7 +288,7 @@ export default class OtherPartyCommon extends Vue {
             if (this.types.includes("Family Law Matter")){
                 this.flmInfo = true;
             }
-            if (this.types.includes("Priority Parenting Matter")){
+            if (!this.types.includes("Family Law Matter") && this.types.includes("Priority Parenting Matter")){
                 this.ppmInfo = true;
             }
             if (this.types.includes("Relocation of a Child")){

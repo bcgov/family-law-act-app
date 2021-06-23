@@ -73,10 +73,10 @@
 
             <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
                 <i>Select only one of the options below</i>
-                <check-box style="" :check="true?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
-                <check-box style="" :check="true?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
-                <check-box style="" :check="true?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
-                <check-box style="" :check="true?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
+                <check-box style="" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
+                <check-box style="" :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
+                <check-box style="" :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
+                <check-box style="" :check="ppmInfo.noticeType == 'haveOrderForWithoutOrUnder 7 DaysNotice'?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
             </div>
         </section>
         
@@ -113,9 +113,9 @@
                             <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
+                            <td>Email: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.email:''}}</div> </td>
                             <td style="padding-left:50px"></td>
-                            <td>Telephone: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.phone:''}}</div> </td>
+                            <td>Telephone: <div class="answer">{{firstOtherParty.contactInfo?firstOtherParty.contactInfo.phone:''}}</div> </td>
                         </tr>
                     </table>
                 </div>
@@ -146,9 +146,9 @@
                                 <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                             </tr>
                             <tr style="border:1px solid #313132">
-                                <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
+                                <td>Email: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.email:''}}</div> </td>
                                 <td style="padding-left:50px"></td>
-                                <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
+                                <td>Telephone: <div class="answer">{{otherParty.contactInfo?otherParty.contactInfo.phone:''}}</div> </td>
                             </tr>
                         </table>                    
                     </div>
@@ -216,14 +216,14 @@
 
             <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
                 <i>Select all options that apply</i>
-                <check-box style="" :check="true?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
-                <check-box style="" :check="true?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
-                <check-box style="" :check="true?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
-                <check-box style="" :check="true?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
-                <check-box style="" :check="true?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                <check-box style="" :check="true?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                <check-box style="" :check="true?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
-                <check-box style="" :check="true?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                <check-box style="" :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
             </div>                  
         </section>
 
@@ -330,7 +330,8 @@ import CheckBoxII from "./components/CheckBoxII.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { priorityParentingInformationDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
+import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
+import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 
 @Component({
     components:{
@@ -341,7 +342,7 @@ import { priorityParentingInformationDataInfoType } from '@/types/Application/Pr
     }
 })
 
-export default class CommonSection extends Vue {
+export default class Form15Layout extends Vue {
 
     @Prop({required:true})
     result!: any;    
@@ -353,10 +354,10 @@ export default class CommonSection extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     dataReady = false;   
-
-    otherPartyInfo=[];
-    additionalOtherParties = [];
-    firstOtherParty = {} as any;
+    
+    otherPartyInfo: priorityParentingOtherPartyDataInfoType[] = [];
+    additionalOtherParties: priorityParentingOtherPartyDataInfoType[] = [];
+    firstOtherParty = {} as priorityParentingOtherPartyDataInfoType;
     yourInfo = {} as yourInformationInfoDataInfoType;
     ppmInfo = {} as priorityParentingInformationDataInfoType;
 
@@ -368,7 +369,7 @@ export default class CommonSection extends Vue {
         this.dataReady = true;
     }
    
-    childrenFields=[
+    childrenFields = [
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
         {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
@@ -393,13 +394,13 @@ export default class CommonSection extends Vue {
         this.ppmInfo = this.getPpmInfo();
     }   
     
-    public getChildrenInfo(){
+    public getChildrenInfo() {
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
         const childData = this.result.ppmChildrenInfoSurvey;
        
-        for (const child of childData){            
+        for (const child of childData) {            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
             childInfo.fullName = Vue.filter('getFullName')(child.name);
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
@@ -433,25 +434,13 @@ export default class CommonSection extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation = [
-            {            
-                dob: 'unknown',
-                name: {'first': '','middle': '', 'last': ''},
-                address: '',
-                contactInfo: ''
-            }               
-        ];        
+        let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
             OpInformation = []; 
            
             for(const party of this.result.otherPartyCommonSurvey){ 
-                let otherParty = {            
-                    dob: '',
-                    name: {'first': '','middle': '', 'last': ''},
-                    address: '',
-                    contactInfo: ''
-                }                
+                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
                     otherParty.dob = party['dob']
@@ -472,7 +461,7 @@ export default class CommonSection extends Vue {
         return OpInformation
     }  
     
-    public getPpmInfo(){
+    public getPpmInfo() {
 
         let ppmInformation = {} as priorityParentingInformationDataInfoType;
 
@@ -488,15 +477,58 @@ export default class CommonSection extends Vue {
             ppmInformation.orderdesc = this.result.aboutPriorityParentingMatterOrderSurvey.orderDescription;
         }
 
+        if (this.result.noticeSurvey) {
+            ppmInformation.noticeType = this.result.noticeSurvey.noticeType;
+        }
 
-
-
+        if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
+            const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
+            const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
+            ppmInformation.ppmList = [];
+                 
+            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk && ppmOrderData.delayMedicalRisk == 'y') && 
+                (ppmOrderData.confirmMedicalRisk && ppmOrderData.confirmMedicalRisk.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('medical');
+                }
+            if ((ppmType.includes('passport')) && (ppmOrderData.delayPassportRisk && ppmOrderData.delayPassportRisk == 'y') && 
+                (ppmOrderData.confirmDelayPassportRisk && ppmOrderData.confirmDelayPassportRisk.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('passport');
+                }
+            if ((ppmType.includes('travel')) && (ppmOrderData.delayTravelRisk && ppmOrderData.delayTravelRisk == 'y') && 
+                (ppmOrderData.travelWrongfullyDenied && ppmOrderData.travelWrongfullyDenied == 'y') && 
+                (ppmOrderData.confirmTravelWrongfullyDenied && ppmOrderData.confirmTravelWrongfullyDenied.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('travel');
+                }
+            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements && ppmOrderData.existingParentingArrangements == 'n') &&
+                (ppmOrderData.impactOnRelationship && ppmOrderData.impactOnRelationship == 'y') && 
+                (ppmOrderData.confirmImpactOnRelationship && ppmOrderData.confirmImpactOnRelationship.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('locationChange');   
+                }
+            if ((ppmType.includes('preventRemoval')) && (ppmOrderData.noReturnRisk && ppmOrderData.noReturnRisk == 'y') && 
+                (ppmOrderData.confirmNoReturnRisk && ppmOrderData.confirmNoReturnRisk.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('preventRemoval');   
+                }
+            if ((ppmType.includes('interjurisdictional')) && (ppmOrderData.childInBC && ppmOrderData.childInBC == 'y') && 
+                (ppmOrderData.harm && ppmOrderData.harm == 'y') && (ppmOrderData.confirmHarm && ppmOrderData.confirmHarm.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('interjurisdictional');      
+                }
+            if ((ppmType.includes('wrongfulRemoval')) && (ppmOrderData.wrongfulInBC && ppmOrderData.wrongfulInBC == 'y') && 
+                (ppmOrderData.confirmWrongfulInBC && ppmOrderData.confirmWrongfulInBC.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('wrongfulRemoval');   
+                }
+            if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn && ppmOrderData.wrongfulReturn == 'y') && 
+                (ppmOrderData.confirmWrongfulReturn && ppmOrderData.confirmWrongfulReturn.includes('applyPPM'))){
+                    ppmInformation.ppmList.push('returnOfChild');
+                }
+        }
 
         return ppmInformation;
     }
  
 }
+
 </script>
+
 <style scoped lang="scss" src="@/styles/_pdf.scss">
 
 </style>
