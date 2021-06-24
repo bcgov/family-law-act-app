@@ -14,7 +14,7 @@ export interface relationshipBetweenPartiesInfoType {
     spouses: boolean;
     startDate: string; 
     marriageDate: string; 
-    separationDate: string; 
+    separationDate?: string; 
     nameOfSpouse: string; 
 };
 
@@ -296,46 +296,46 @@ export interface ancestryGuardianshipInfoType {
 }
 
 export interface cancelGuardianshipDetailsInfoType {
-    guardianName: string;
-    childName: string;
+    guardianName?: string;
+    childName?: string;
     guardianSince: string;
     relationship?: string;
 }
 
 export interface schedule9DataInfoType {
-    current: currentSpousalSupportInfoType;
-    incomeInfo: incomeInfoDataInfoType;
-    payDetails: payDetailsInfoType;
-    calc: calculationsInfoType;
-    applyForCaseManagement: boolean;
+    current?: currentSpousalSupportInfoType;
+    incomeInfo?: incomeInfoDataInfoType;
+    payDetails?: payDetailsInfoType;
+    calc?: calculationsInfoType;
+    applyForCaseManagement?: boolean;
 }
 
 export interface currentSpousalSupportInfoType {
-    adv: boolean;
-    share: boolean;
-    hardship: boolean;
-    bcmIndpndnt: boolean;
-    crntArrngmnt: string;
-    payors: string[];
+    adv?: boolean;
+    share?: boolean;
+    hardship?: boolean;
+    bcmIndpndnt?: boolean;
+    crntArrngmnt?: string;
+    payors?: string[];
 }
 
 export interface incomeInfoDataInfoType {
-    myIncome: string;
-    knowOpIncome: boolean;
-    opIncome: string;
-    knowFacts: boolean;
-    facts: string;
+    myIncome?: string;
+    knowOpIncome?: boolean;
+    opIncome?: string;
+    knowFacts?: boolean;
+    facts?: string;
 }
 
 export interface payDetailsInfoType {
-    monthly: boolean;
-    start: string;
-    end: string;
-    rate: string;
-    lumpSum: boolean;
-    lumpSumAmount: string;
-    other: boolean;
-    otherComm: string;
+    monthly?: boolean;
+    start?: string;
+    end?: string;
+    rate?: string;
+    lumpSum?: boolean;
+    lumpSumAmount?: string;
+    other?: boolean;
+    otherComm?: string;
 }
 
 export interface schedule10DataInfoType {

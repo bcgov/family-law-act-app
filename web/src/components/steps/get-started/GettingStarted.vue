@@ -271,12 +271,15 @@ export default class GettingStarted extends Vue {
 
             this.toggleSteps(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
             
-            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting"));//Common Your Information
+            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc"));//Common Your Information
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.SafetyCheck], !this.poIncluded);//Safety Check
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"));//Notice
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (this.poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
+        
+            //this.togglePages(this.stPgNo.RELOC._StepNo, [this.stPgNo.RELOC.RelocQuestionnaire], selectedForms.includes("childReloc"));
+        
         }
     }
 
@@ -301,7 +304,8 @@ export default class GettingStarted extends Vue {
             else 
                 this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.SafetyCheck });               
 
-            for(const page of step.pages){               
+            for(const page of step.pages){ 
+                //console.log(step.id)              
                this.$store.commit("Application/setPageProgress", { currentStep: step.id, currentPage:page.key, progress:0 });
             }
         }

@@ -1,0 +1,162 @@
+{
+   "title": "Provincial Court Family Law Act Protection Order",
+   "pages": [
+      {
+         "name": "Questionnaire",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "QuestionnairePanel",
+               "elements": [
+                  {
+                     "type": "infotext",
+                     "name": "childRelocationInfoPartOne",
+                     "title": "When one guardian wants to move, and that move will have a significant impact on the child’s relationship with the other guardian, it is called <b>relocation</b>.</br>Part 4 <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#division_d2e5455' target='blank'>Division 6 of the Family Law Act</a> sets out the law in BC about the relocation of a child.</br>If a guardian doesn’t agree with the move, they may file an application with the court to prohibit the relocation of the child. ",
+                     "titleLocation": "hidden",
+                     "messageStyle": "inline"
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "FAQLegalAdvice",
+                     "title": "I am the child’s parent, does that mean I’m their guardian?",
+                     "titleLocation": "hidden",
+                     "body": "A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with a child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of the child, or under a will if the other parent dies.</br></br>A person who is not a parent can become a guardian of a child by court order or under a will.</br></br>If you are not sure if you are a guardian of the child, you may want to get some legal advice to confirm.</br></br>Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "childRelocationInfoPartTwo",
+                     "title": "If you go to court, the court must be satisfied that:<ol class='resetcounteralpha'><li class='bracketalpha'>The proposed relocation is being made in good faith,</li><li class='bracketalpha'>The relocating guardian has proposed reasonable and workable arrangements to preserve the relationship between the child and the child’s other guardians, persons who are entitled to contact with the child, and other persons who have a significant role in the child’s life, and</li><li class='bracketalpha'>The relocation is in the best interests of the child.</li></ol>There are some criteria that must be met to be allowed to apply to prohibit the relocation of a child under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section69' target='blank'>s. 69 of the Family Law Act</a>.",
+                     "titleLocation": "hidden",
+                     "messageStyle": "inline"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "ExistingParentingArrangements",
+                     "title": "Is there an existing written agreement or order about parenting arrangements for the child or children the application is about?",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingOrders",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y'",
+                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "noExistingOrdersInfo",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'n'",
+                     "title": "<a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section69' target='blank'>Section 69 of the Family Law Act</a> applies if:<ul><li>a guardian wants to change the location of their residence or a child’s residence that can reasonably be expected to have a significant impact on the child’s relationship with another guardian or person having a significant role in the child’s life; and</li><li><b>there is an existing written agreement or court order about parenting arrangements for the child.</b></li></ul>You cannot apply for an order prohibiting the relocation of a child under s. 69 of the Family Law Act.</br>You still have options. You may apply:<ul><li>under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section46' target='blank'>s. 46 of the Family Law Act</a> as a <b>Priority Parenting Matter</b> if the change in location of the child’s residence can reasonably be expected to have a significant impact on the child’s relationship with you, or</li><li>as a <b>Family Law Matter</b> to determine the parenting arrangements for the child including the location of the child’s residence.</ul>Go back to Step 1 to select Priority Parenting Matter or Family Law Matter. Remember to de-select Relocation of a Child. ",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "text",
+                     "name": "orderDate",
+                     "title": "Please provide the date the written agreement or court order was made.",
+                     "description": "For a written agreement, provide the date the written agreement was signed. For an order, the date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+                     "isRequired": true,
+                     "inputType": "date",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y'"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "impactOnChild",
+                     "title": "Can the change to the location of the child’s residence reasonably be expected to have a significant impact on the child’s relationship with you?",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y'",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "noExistingOrdersInfo",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'n'",
+                     "title": "<a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section69' target='blank'>Section 69 of the Family Law Act</a> applies if:<ul><li>a guardian wants to change the location of their residence or a child’s residence that can <b>reasonably be expected to have a significant impact on the child’s relationship with another guardian</b> or person having a significant role in the child’s life; and</li><li>there is an existing written agreement or court order about parenting arrangements for the child.</li></ul>You cannot apply for an order prohibiting the relocation of a child under s. 69 of the Family Law Act.</br>You may apply for an application about a <b>Family Law Matter</b> to determine the parenting arrangements for the child including the location of the child’s residence.</br></br>Go back to Step 1 to select Family Law Matter. Remember to de-select Relocation of a Child. ",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "receiveNotice",
+                     "title": "Did you receive written notice of relocation?",
+                     "description": "Usually a guardian who wants to relocate must give 60 days written notice to the other guardians. Only a court can make an exception to the relocation notice:<ul><li>Where providing notice could create a risk of family violence, or</li><li>If there is no ongoing relationship between the child and the other guardian or person who has an agreement or court order for contact with the child</li></ul>",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y'",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfNotice",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'y'",
+                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "text",
+                     "name": "noticeDate",
+                     "title": "Please provide the date the written notice of relocation was provided to you.",
+                     "description": "An application prohibiting the relocation of a child under s. 69 of the Family Law Act must be filed within 30 days after receiving written notice that the guardian plans to relocate the child [s. 68 of the Family Law Act].",
+                     "isRequired": true,
+                     "inputType": "date",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'y'"
+                  },
+                  {
+                     "type": "helptext",
+                     "name": "FAQNoticeLegalAdvice",
+                     "title": "What if it has been more than 30 days since I received written notice?",
+                     "titleLocation": "hidden",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'y'",
+                     "body": "<a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section69' target='blank'>Section 69 of the Family Law Act</a> allows a move to occur unless an application is filed to prohibit the move within 30 days after notice is given. This time allows for a guardian to raise their concerns and provides some time to resolve the issue before the planned move. It also balances the needs of the other guardian to make plans for the move. If it has already been more than 30 days since you received written notice, you should get legal advice about your options.</br></br>Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+                  },
+                  {
+                     "type": "text",
+                     "name": "foundOutDate",
+                     "title": "Please provide the date you found out about the planned relocation.",
+                     "isRequired": true,
+                     "inputType": "date",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'n'"
+                  },
+                  {
+                     "type": "text",
+                     "name": "relocationDate",
+                     "title": "What is the date of the planned relocation?",
+                     "description": "Select the date you understand the relocation of the child is planned to occur on or around. It is okay if you do not know the exact date.",
+                     "isRequired": true,
+                     "inputType": "date",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'n'"
+                  },
+
+                  {
+                     "type": "comment",
+                     "name": "childProposedLocation",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'n'",
+                     "title": "What is the proposed location the child will be moving to?",
+                     "description": "Provide the name of the city, province/territory. If the move is to a country outside of Canada, include the country.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "foundOutAboutRelocationDescription",
+                     "visible": false,
+                     "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'n'",
+                     "title": "Briefly explain how you found out about the planned relocation if you did not receive written notice.",
+                     "description": "You do not need to use any special wording. The key is to be clear about what information you know.",
+                     "isRequired": true
+                  }
+               ]
+            }
+         ],
+         "title": "Questionnaire"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

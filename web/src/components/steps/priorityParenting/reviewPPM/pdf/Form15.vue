@@ -51,13 +51,14 @@ export default class Form15 extends Vue {
     }   
            
     public onPrint() { 
-               
+        const pdf_type = Vue.filter('getPathwayPdfType')("priorityParenting")
+        const pdf_name = "application-about-priority-parenting-matter"
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" "`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=AXP&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         const body = {
@@ -83,9 +84,12 @@ export default class Form15 extends Vue {
         });
     }
 
-    public onPrintSave(){        
+    public onPrintSave(){
+
+        const pdf_type = Vue.filter('getPathwayPdfType')("priorityParenting")
+        
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=AXP'
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
         const options = {
             responseType: "blob",
             headers: {

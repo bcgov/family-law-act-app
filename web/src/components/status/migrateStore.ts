@@ -89,7 +89,6 @@ export class migrateStore{
     }
 
 
-
     public migratePages(newPages: pageInfoType[] , oldPages: pageInfoType[]): pageInfoType[]{
         
         for(const newPageIndex in newPages){
@@ -105,7 +104,6 @@ export class migrateStore{
         }
         return newPages
     }
-
 
 
     public migrateResult(newStep, correspondingStep){
@@ -150,7 +148,7 @@ export class migrateStore{
                 // console.log(this.stPgNo[newStep.name]._StepNo)
                 // console.log(this.stPgNo[newStep.name][fieldName])
                 // console.log(value)
-                if((value['currentStep'] || value['currentStep']==0) && (this.stPgNo[newStep.name][fieldName] || this.stPgNo[newStep.name][fieldName]==0)){
+                if(value && (value['currentStep'] || value['currentStep']==0) && (this.stPgNo[newStep.name][fieldName] || this.stPgNo[newStep.name][fieldName]==0)){
                     // console.log(value['currentStep'])
                     // console.log(value['currentPage'])
                     value['currentStep'] = this.stPgNo[newStep.name]._StepNo
@@ -175,6 +173,11 @@ export class migrateStore{
         pathwayCompleted.agreementEnfrc = false;
         
         return pathwayCompleted;        
+    }
+
+    public applyResetPathway(){
+        const newPathwayCompleted = this.resetPathwayCompleted();
+		store.commit("setPathwayCompletedFull",newPathwayCompleted);
     }
 
 }

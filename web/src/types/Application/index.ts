@@ -6,6 +6,7 @@ import { aboutContactWithChildOrderSurveyInfoType, contactWithChildOrderSurveyIn
 import { guardianOfChildBestInterestsOfChildSurveyInfoType, guardianOfChildSurveyInfoType, indigenousAncestryOfChildSurveyInfoType } from "./FamilyLawMatter/GuardianShip";
 import { aboutParentingArrangementsSurveyInfoType, otherParentingArrangementsSurveyInfoType, parentalResponsibilitiesSurveyInfoType, parentingArrangementChangesSurveyInfoType, parentingArrangementsbestInterestsOfChildSurveyInfoType, parentingArrangementsSurveyInfoType, parentingOrderAgreementSurveyInfoType, parentingTimeSurveyInfoType } from "./FamilyLawMatter/ParentingArrangements";
 import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrderSurveyInfoType, calculatingSpousalSupportSurveyInfoType, existingSpousalSupportAgreementSurveyInfoType, existingSpousalSupportFinalOrderSurveyInfoType, existingSpousalSupportOrderAgreementSurveyInfoType, spousalSupportIncomeAndEarningPotentialSurveyInfoType, spousalSupportSurveyInfoType, unpaidSpousalSupportSurveyInfoType } from "./FamilyLawMatter/SpousalSupport";
+import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, selectedPOOrderInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
 
@@ -19,8 +20,8 @@ export interface applicationStepOnlyInfoType {
 export interface applicationInfoType extends applicationStepOnlyInfoType {   
     id?: string;
     types: string[];
-    lastUpdate: Date | null;
-    currentStep: number;
+    lastUpdate?: Date | null;
+    currentStep?: number;
     allCompleted: boolean;
     lastPrinted: Date;
     userType: string;
@@ -43,9 +44,9 @@ export interface stepInfoType {
     result?: resultInfoType;
     //metadata?: object;
     pages?: pageInfoType[];
-    currentPage: number;
+    currentPage?: number;
     active: boolean;
-    lastUpdate: Date | null;
+    lastUpdate?: Date | null;
   }
 
   export interface pageInfoType {
@@ -155,19 +156,22 @@ export interface stepInfoType {
     ppmBackgroundSurvey?: ppmBackgroundDataSurveyInfoType;
     aboutPriorityParentingMatterOrderSurvey?: aboutPriorityParentingMatterOrderSurveyInfoType;
 
+    //__Step 6 RELOCATION OF CHILD
+    relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
+    relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
+    RelocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
+
     //__Step 8 SUBMIT
     filingOptionsSurvey?: any;
-    
-
   }
 
   export interface pathwayCompletedInfoType { 
-    protectionOrder: boolean; 
-    familyLawMatter: boolean;
-    caseMgmt: boolean; 
-    priorityParenting: boolean; 
-    childReloc: boolean;
-    agreementEnfrc: boolean;
+    protectionOrder?: boolean; 
+    familyLawMatter?: boolean;
+    caseMgmt?: boolean; 
+    priorityParenting?: boolean; 
+    childReloc?: boolean;
+    agreementEnfrc?: boolean;
   } 
 
 

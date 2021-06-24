@@ -408,3 +408,18 @@ a.util-nav {
   color: orange;
 
 }
+
+ol.resetcounteralpha {
+  list-style: none;
+  counter-reset: alpha-counter;
+}
+
+ol li.bracketalpha {
+  text-indent: -20px;
+  margin:0.25rem 0;
+  counter-increment: alpha;
+}
+
+ol li.bracketalpha:before {
+  content:counter(alpha, lower-alpha)") ";
+}		

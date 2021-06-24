@@ -221,7 +221,7 @@ export default class ApplicationStatus extends Vue {
     //___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    CURRENT_VERSION: string = "1.1";
+    CURRENT_VERSION: string = "1.2";
     //__________________________
 
     mounted() { 
@@ -344,26 +344,26 @@ export default class ApplicationStatus extends Vue {
 
         for (const applicationType of applicationTypes){
             if (applicationType.includes("FPO")){
-                types.push(applicationType.replace("FPO", "Protection Order"));            
+                types.push(applicationType.replace("FPO", " Protection Order"));            
             }
-            if (applicationType.includes("FLC")){
-                types.push("Family Law Matter");
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("familyLawMatter"))){
+                types.push(" Family Law Matter");
             }
-            if (applicationType.includes("ACMO")){
-                types.push("Case Management");
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("caseMgmt"))){
+                types.push(" Case Management");
             }
-            if (applicationType.includes("AXP")){
-                types.push("Priority Parenting Matter");
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("priorityParenting"))){
+                types.push(" Priority Parenting Matter");
             }
-            if (applicationType.includes("APRC")){
-                types.push("Relocation of a Child");
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("childReloc"))){
+                types.push(" Relocation of a Child");
             }
-            if (applicationType.includes("AFET")){
-                types.push("Enforcement of Agreements and Court Orders");
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("agreementEnfrc"))){
+                types.push(" Enforcement of Agreements and Court Orders");
             }
 
-            if (applicationType.includes("AAP")){
-                types.push("Protection Order"); 
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("protectionOrder"))){
+                types.push(" Protection Order"); 
                 //types.push("Enforcement of Agreements and Court Orders");            
             }
         }

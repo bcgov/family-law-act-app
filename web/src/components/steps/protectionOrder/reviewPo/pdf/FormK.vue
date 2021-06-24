@@ -925,13 +925,14 @@ export default class FormK extends Vue {
 
 
     public onPrint() { 
-        const pdf_type = 'AAP'    
+        const pdf_type = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'  
+        const pdf_name = "application-about-a-protection-order";  
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form 12";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
         
         const body = {
@@ -957,9 +958,10 @@ export default class FormK extends Vue {
         });
     }
 
-    public onPrintSave(){        
+    public onPrintSave(){ 
+        const pdf_type = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=AAP'
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type;
         const options = {
             responseType: "blob",
             headers: {

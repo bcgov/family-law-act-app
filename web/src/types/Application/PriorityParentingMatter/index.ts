@@ -1,4 +1,4 @@
-import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from "../CommonInformation"; 
+import { nameInfoType, questionInfoType } from "../CommonInformation"; 
   
 export interface aboutPriorityParentingMatterOrderSurveyInfoType {
     data: aboutPriorityParentingMatterOrderSurveyDataInfoType[];

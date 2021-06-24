@@ -174,7 +174,7 @@ export default class FilingLocation extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('allExPO')
             // console.log(options)            
             
             if(options.name == 'editLocation'){  
@@ -347,36 +347,26 @@ export default class FilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
-        const fileTypeI  = 'FLC'
-        const fileTypeII = 'NTRF'
-        const fileType = this.form1Enabled? fileTypeII : fileTypeI
+        let newExistingOrders = [];
+        const selectedForms = this.$store.state.Application.steps[0].result? this.$store.state.Application.steps[0].result.selectedForms: []
+        // console.log(selectedForms)
+        for(const selectedForm of selectedForms){
+        // console.log(Vue.filter('getPathwayPdfType')(selectedForm))
+        // console.log(this.survey.data.ExistingFileNumber)
+        // console.log(this.survey.data.ExistingCourt)
 
-        const existingOrders = this.$store.state.Application.steps[0].result?this.$store.state.Application.steps[0].result.existingOrders:''
-       
-        const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
+            let fileType = Vue.filter('getPathwayPdfType')(selectedForm)
 
-        if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == fileTypeI || order.type == fileTypeII)})
-            if(index >= 0 ){
-                if(existingOrdersCondition)
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
-                else
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''}                                 
-            }else{
-                if(existingOrdersCondition)
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
-                else
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''});                     
-            }
-            
-            this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
-
-        }else{
-            if(existingOrdersCondition)
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
-            else
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: '' }]}});    
+            const fileTypeFLM  = Vue.filter('getPathwayPdfType')('familyLawMatter')
+            const fileTypeFLMform1 = Vue.filter('getPathwayPdfType')('familyLawMatterForm1')
+            if((fileType == fileTypeFLM) && this.form1Enabled ) fileType = fileTypeFLMform1
+        
+            const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
+            const fileNumber = existingOrdersCondition? this.survey.data.ExistingFileNumber: ''
+            newExistingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
         }
+        
+        this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
     }
 
     public togglePages(pageArr, activeIndicator) {        
