@@ -94,20 +94,7 @@ export default class ChildrenSurvey extends Vue {
     
     public saveChild() {
         const p = this.stPgNo.RELOC
-        const pages = [
-            // p.ParentingArrangements,
-            // p.ParentalResponsibilities,
-            // p.ParentingTime,
-            // p.ParentingOrderAgreement,
-            // p.BestInterestsOfChild,
-            // p.ChildSupportCurrentArrangements,
-            // p.AboutChildSupportOrder,
-            // p.SpecialAndExtraordinaryExpenses,
-            // p.ContactWithChild,
-            // p.ContactWithChildOrder,
-            // p.AboutContactWithChildOrder,
-            // p.ContactWithChildBestInterestsOfChild,
-            // p.GuardianOfChild,
+        const pages = [           
             p.ReviewYourAnswersRELOC
         ]
         Vue.filter('setProgressForPages')(this.currentStep, pages,50)

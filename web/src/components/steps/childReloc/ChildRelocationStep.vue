@@ -4,8 +4,7 @@
     <reloc-children-info v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildrenInfo"/>
     <relocation-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildBestInterestInfo"/> 
     <review-your-answers-reloc  v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.ReviewYourAnswersRELOC"/>
-    <preview-forms-reloc        v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.PreviewFormsRELOC"/>
-     
+    <preview-forms-reloc        v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.PreviewFormsRELOC"/>     
   </step-base>
 </template>
 

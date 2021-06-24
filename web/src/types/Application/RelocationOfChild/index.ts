@@ -29,6 +29,10 @@ export interface relocQuestionnaireSurveyDataInfoType {
     impactOnChild: string;
     receiveNotice: string;
     noticeDate: string;
+    foundOutDate: string;
+    foundOutAboutRelocationDescription: string;
+    relocationDate: string;
+    childProposedLocation: string;
 }
 
 export interface relocChildBestInterestSurveyInfoType {

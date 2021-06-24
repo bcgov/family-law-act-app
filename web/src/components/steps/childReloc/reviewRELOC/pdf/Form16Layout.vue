@@ -337,9 +337,11 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, addressInfoType, contactInfoType, yourInformationDataInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { relocationOfChildInformationDataInfoType, relocationOfChildOtherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
+import { relocChildrenInfoDataInfoType, relocQuestionnaireSurveyDataInfoType, relocChildBestInterestSurveyDataInfoType } from '@/types/Application/RelocationOfChild';
+import { priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 
 @Component({
     components:{
@@ -362,9 +364,9 @@ export default class Form16Layout extends Vue {
 
     dataReady = false;   
 
-    otherPartyInfo=[];
-    additionalOtherParties = [];
-    firstOtherParty = {} as any;
+    otherPartyInfo: relocationOfChildOtherPartyDataInfoType[] = [];
+    additionalOtherParties: relocationOfChildOtherPartyDataInfoType[] = [];
+    firstOtherParty = {} as relocationOfChildOtherPartyDataInfoType;
     yourInfo = {} as yourInformationInfoDataInfoType;
     relocInfo = {} as relocationOfChildInformationDataInfoType;
 
@@ -383,7 +385,7 @@ export default class Form16Layout extends Vue {
     ]   
 
     public extractInfo(){
-        //console.log(this.result)     
+        //console.log(this.result)    
         
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
@@ -404,10 +406,10 @@ export default class Form16Layout extends Vue {
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.relocChildrenInfoSurvey;
+        const childData: relocChildrenInfoDataInfoType[] = this.result.relocChildrenInfoSurvey;
        
         for (const child of childData){            
-            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+            childInfo = {} as childrenInfoSurveyInfoType;
             childInfo.fullName = Vue.filter('getFullName')(child.name);
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.currentSituation = child.currentLiving;           
@@ -422,7 +424,7 @@ export default class Form16Layout extends Vue {
         let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;            
+            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey;            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
@@ -444,20 +446,22 @@ export default class Form16Layout extends Vue {
         if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
             OpInformation = []; 
            
-            for(const party of this.result.otherPartyCommonSurvey){ 
-                let otherParty = {} as relocationOfChildOtherPartyDataInfoType               
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
+           
+            for(const party of otherPartyData){ 
+                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
 
-                if (party['knowDob'] == 'y' &&  party['dob'])
-                    otherParty.dob = party['dob']
+                if (party.knowDob == 'y' &&  party.dob)
+                    otherParty.dob = party.dob
 
-                if (party['name'])
-                    otherParty.name = party['name']
+                if (party.name)
+                    otherParty.name = party.name;
                 
-                if (party['address'])
-                    otherParty.address = party['address']
+                if (party.address)
+                    otherParty.address = party.address;
                 
-                if (party['contactInfo'])
-                    otherParty.contactInfo = party['contactInfo']
+                if (party.contactInfo)
+                    otherParty.contactInfo = party.contactInfo;
                 
                 OpInformation.push(otherParty)
             }
@@ -472,27 +476,31 @@ export default class Form16Layout extends Vue {
 
         if (this.result.relocQuestionnaireSurvey) {
 
-            relocInformation.existingOrder = (this.result.relocQuestionnaireSurvey.ExistingParentingArrangements == 'y');
-            relocInformation.existingOrderDate = (this.result.relocQuestionnaireSurvey.ExistingParentingArrangements == 'y' &&
-                                                    this.result.relocQuestionnaireSurvey.orderDate)?this.result.relocQuestionnaireSurvey.orderDate:']';
-            relocInformation.receivedNotice = (this.result.relocQuestionnaireSurvey.receiveNotice == 'y');
-            relocInformation.noticeDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'y' &&
-                                            this.result.relocQuestionnaireSurvey.noticeDate)?this.result.relocQuestionnaireSurvey.noticeDate:'';
-            relocInformation.foundOutDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
-                                            this.result.relocQuestionnaireSurvey.foundOutDate)?this.result.relocQuestionnaireSurvey.foundOutDate:''; 
-            relocInformation.foundOutDescription = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
-                                            this.result.relocQuestionnaireSurvey.foundOutAboutRelocationDescription)?this.result.relocQuestionnaireSurvey.foundOutAboutRelocationDescription:''; 
-            relocInformation.impactOnChild = (this.result.relocQuestionnaireSurvey.impactOnChild == 'y');
-            relocInformation.presumedRelocationDate = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
-                                            this.result.relocQuestionnaireSurvey.relocationDate)?this.result.relocQuestionnaireSurvey.relocationDate:''; 
-            relocInformation.presumedLocation = (this.result.relocQuestionnaireSurvey.receiveNotice == 'n' &&
-                                            this.result.relocQuestionnaireSurvey.childProposedLocation)?this.result.relocQuestionnaireSurvey.childProposedLocation:''; 
+            const relocationQuestionnaireData: relocQuestionnaireSurveyDataInfoType = this.result.relocQuestionnaireSurvey;
+
+            relocInformation.existingOrder = (relocationQuestionnaireData.ExistingParentingArrangements == 'y');
+            relocInformation.existingOrderDate = (relocationQuestionnaireData.ExistingParentingArrangements == 'y' &&
+                                                    relocationQuestionnaireData.orderDate)?relocationQuestionnaireData.orderDate:']';
+            relocInformation.receivedNotice = (relocationQuestionnaireData.receiveNotice == 'y');
+            relocInformation.noticeDate = (relocationQuestionnaireData.receiveNotice == 'y' &&
+                                            relocationQuestionnaireData.noticeDate)?relocationQuestionnaireData.noticeDate:'';
+            relocInformation.foundOutDate = (relocationQuestionnaireData.receiveNotice == 'n' &&
+                                            relocationQuestionnaireData.foundOutDate)?relocationQuestionnaireData.foundOutDate:''; 
+            relocInformation.foundOutDescription = (relocationQuestionnaireData.receiveNotice == 'n' &&
+                                            relocationQuestionnaireData.foundOutAboutRelocationDescription)?relocationQuestionnaireData.foundOutAboutRelocationDescription:''; 
+            relocInformation.impactOnChild = (relocationQuestionnaireData.impactOnChild == 'y');
+            relocInformation.presumedRelocationDate = (relocationQuestionnaireData.receiveNotice == 'n' &&
+                                            relocationQuestionnaireData.relocationDate)?relocationQuestionnaireData.relocationDate:''; 
+            relocInformation.presumedLocation = (relocationQuestionnaireData.receiveNotice == 'n' &&
+                                            relocationQuestionnaireData.childProposedLocation)?relocationQuestionnaireData.childProposedLocation:''; 
             
         }
 
         if (this.result.RelocChildBestInterestInfoSurvey) {
-            relocInformation.childBestInterestAcknowledgement = this.result.RelocChildBestInterestInfoSurvey.childBestInterestAcknowledgement == 'I understand';
-            relocInformation.childBestInterestReason = this.result.RelocChildBestInterestInfoSurvey.childBestInterestDescription;
+
+            const relocChildBestInterest: relocChildBestInterestSurveyDataInfoType = this.result.RelocChildBestInterestInfoSurvey;
+            relocInformation.childBestInterestAcknowledgement = relocChildBestInterest.childBestInterestAcknowledgement == 'I understand';
+            relocInformation.childBestInterestReason = relocChildBestInterest.childBestInterestDescription;
         }
 
         return relocInformation;
