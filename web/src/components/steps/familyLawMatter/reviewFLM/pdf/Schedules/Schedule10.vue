@@ -186,9 +186,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
-
-    </b-card>
+        </div>    
 </div>
 </template>
 
@@ -197,6 +195,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import moment from 'moment';
+import { schedule10DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -210,7 +209,7 @@ export default class Form3 extends Vue {
     result!: any; 
   
     dataReady = false;    
-    exSpsSupInfo = {}
+    exSpsSupInfo = {} as schedule10DataInfoType;
    
     mounted(){
         this.dataReady = false;       
@@ -224,63 +223,7 @@ export default class Form3 extends Vue {
 
     public getExistingSpousalSupportInfo(){        
 
-        let existingSpousalSupportInfo = {
-            current: {                
-                date: '',
-                order: false,
-                agreement: false,
-                directors: false,
-                reviewable: false,
-                fillForm: false,
-                description: ''
-            },
-            orderInfo: {
-                changes: {
-                    myfin: false,
-                    opfin: false,
-                    myEmp: false,
-                    opEmp: false,
-                    houseHold: false,
-                    newInfo: false,
-                    other: false
-                },
-                myEmp: '',
-                opEmp: '',
-                houseHold: '',
-                newInfo: '',
-                otherChange: '',
-                change: false,
-                cancel: false
-            },
-            agreementInfo: {                
-                replace: false,
-                setAside: false,
-                reason: ''
-            },
-            payDetails:{
-                currentDate:'',
-                unpaid: false,
-                unPaidAmount: '',
-                reduce: false,
-                reduceAmount: '',
-                reduceReason: '',
-                monthly: false,                
-                rate: '',
-                lumpSum: false,                
-                other: false,
-                otherComm: ''
-            },
-            calc: {
-                attaching: false,
-                reason: ''
-            },
-            about:{
-                chSinceOrder:''
-            },
-            applyForCaseManagement: false
-        }
-
-        //console.log(this.result)
+        let existingSpousalSupportInfo = {} as schedule10DataInfoType
 
         if (this.result.existingSpousalSupportOrderAgreementSurvey){
             existingSpousalSupportInfo.current = {
@@ -315,6 +258,12 @@ export default class Form3 extends Vue {
                 setAside: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'setAsideAgreement',
                 reason: this.result.existingSpousalSupportAgreementSurvey.changesReasoning
             }
+        } else {
+            existingSpousalSupportInfo.agreementInfo = {                
+                replace: false,
+                setAside: false,
+                reason: ''
+            }
         }
 
         if (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
@@ -322,7 +271,7 @@ export default class Form3 extends Vue {
             const orderChangeList = (changesSinceOrderList && changesSinceOrderList.checked && changesSinceOrderList.checked.length>0)? changesSinceOrderList.checked:[];
             // const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
             
-            existingSpousalSupportInfo.orderInfo ={
+            existingSpousalSupportInfo.orderInfo = {
 
                 changes: {
                     myfin: orderChangeList.includes('myFinancialChanged'),
@@ -371,8 +320,12 @@ export default class Form3 extends Vue {
             const changeOrReplaceCondition = ((this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'     && this.result.existingSpousalSupportFinalOrderSurvey && this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder') ||
                                               (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey  && this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement'));
                
-            existingSpousalSupportInfo.about ={
+            existingSpousalSupportInfo.about = {
                 chSinceOrder: changeOrReplaceCondition? this.result.aboutExistingSpousalSupportOrderSurvey.changesSinceOrder:''
+            }
+        } else {
+            existingSpousalSupportInfo.about = {
+                chSinceOrder: ''
             }
         }       
 
@@ -419,24 +372,20 @@ export default class Form3 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
                 }
             }   
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
             existingSpousalSupportInfo.applyForCaseManagement = true           
-        }
-
-        
+        }       
 
         return existingSpousalSupportInfo;
     }   
-
-
 }
 </script>
 

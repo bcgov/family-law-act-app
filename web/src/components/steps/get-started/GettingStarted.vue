@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
     <div v-if="dataReady" class="row">
       <div class="col-md-12 order-heading">
         <div v-if="returningUser">
@@ -17,7 +17,7 @@
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
             <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
+                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
             </div>
         </div>
         <div>
@@ -141,11 +141,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import Tooltip from "@/components/survey/Tooltip.vue";
 
@@ -161,7 +163,10 @@ export default class GettingStarted extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public types!: string[]
@@ -180,10 +185,10 @@ export default class GettingStarted extends Vue {
 
     
     @applicationState.State
-    public pathwayCompleted!: any
+    public pathwayCompleted!: pathwayCompletedInfoType;
     
     @applicationState.Action
-    public UpdatePathwayCompletedFull!: (changedpathway) => void
+    public UpdatePathwayCompletedFull!: (changedpathway: pathwayCompletedInfoType) => void
     
     @applicationState.Action
     public checkAllCompleted!: () => void
@@ -194,22 +199,23 @@ export default class GettingStarted extends Vue {
     preparationInfo = false
     poOnly = false;
     poIncluded = false;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     dataReady = false;
 
     mounted(){ 
         this.dataReady = false;
         this.preparationInfo = false;
         this.reloadPageInformation()
+        // console.log(this.stPgNo.PO._StepNo)
     }
 
     public reloadPageInformation(){               
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[0].result && this.steps[0].result['selectedForms']) {
-            this.selected = this.steps[0].result['selectedForms'];
+        if (this.steps[0].result && this.steps[0].result.selectedForms) {
+            this.selected = this.steps[0].result.selectedForms;
         }
 
         this.returningUser = (this.$store.state.Application.userType == 'returning');        
@@ -240,10 +246,10 @@ export default class GettingStarted extends Vue {
     }
 
     public getApplicationType(selectedOrder){
-        
+        const step = this.steps[this.stPgNo.PO._StepNo]
         let orgFPOType = ''
-        if (this.steps[1].result && this.steps[1].result.questionnaireSurvey && this.steps[1].result.questionnaireSurvey.orderType){
-            orgFPOType = this.steps[1].result.questionnaireSurvey.orderType;
+        if (step.result && step.result.poQuestionnaireSurvey && step.result.poQuestionnaireSurvey.data && step.result.poQuestionnaireSurvey.data.orderType){
+            orgFPOType = step.result.poQuestionnaireSurvey.data.orderType;
         } 
 
         return Vue.filter('getFullOrderName')(selectedOrder, orgFPOType);
@@ -256,50 +262,44 @@ export default class GettingStarted extends Vue {
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             this.poIncluded = selectedForms.includes("protectionOrder");           
 
-            //this.toggleCommonSteps(selectedForms.length>0);
-            this.toggleSteps(1, selectedForms.includes("protectionOrder"));
-            this.toggleSteps(3, selectedForms.includes("familyLawMatter"));
-            this.toggleSteps(4, selectedForms.includes("caseMgmt"));
-            this.toggleSteps(5, selectedForms.includes("priorityParenting"));
-            this.toggleSteps(6, selectedForms.includes("childReloc"));
-            this.toggleSteps(7, selectedForms.includes("agreementEnfrc"));
+            this.toggleSteps(this.stPgNo.PO._StepNo,    selectedForms.includes("protectionOrder"));
+            this.toggleSteps(this.stPgNo.FLM._StepNo,   selectedForms.includes("familyLawMatter"));
+            this.toggleSteps(this.stPgNo.CM._StepNo,    selectedForms.includes("caseMgmt"));
+            this.toggleSteps(this.stPgNo.PPM._StepNo,   selectedForms.includes("priorityParenting"));
+            this.toggleSteps(this.stPgNo.RELOC._StepNo, selectedForms.includes("childReloc"));
+            this.toggleSteps(this.stPgNo.ENFRC._StepNo, selectedForms.includes("agreementEnfrc"));
 
-            this.toggleSteps(8, selectedForms.length>0);//Review And Submit
+            this.toggleSteps(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
             
-            this.toggleSteps(2, selectedForms.includes("familyLawMatter"));//Common Your Information
-            this.togglePages(2, [0], !this.poIncluded);//Safety Check
-            this.$store.commit("Application/setCurrentStepPage", {currentStep: 2, currentPage: (this.poIncluded?1:0) });//correct Safety Check page in sidebar
-            this.togglePages(2, [1,2,3], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
+            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting"));//Common Your Information
+            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.SafetyCheck], !this.poIncluded);//Safety Check
+            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"));//Notice
+            
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (this.poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
+            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         }
     }
 
     public resetSelectedFormsCompeleted(selectedForms){
         const pathwayCompleted = this.pathwayCompleted
-        //if(!selectedForms.includes("protectionOrder"))  {Vue.filter('setSurveyProgress')(null, 1, 13, 0, false);}
-        pathwayCompleted["protectionOrder"] = false;
-        //if(!selectedForms.includes("familyLawMatter"))   
-        pathwayCompleted["familyLawMatter"] = false;
-        //if(!selectedForms.includes("caseMgmt"))          
-        pathwayCompleted["caseMgmt"] = false;
-        //if(!selectedForms.includes("priorityParenting")) 
-        pathwayCompleted["priorityParenting"] = false;
-        //if(!selectedForms.includes("childReloc"))        
-        pathwayCompleted["childReloc"] = false;
-        //if(!selectedForms.includes("agreementEnfrc"))    
-        pathwayCompleted["agreementEnfrc"] = false;
+        
+        pathwayCompleted.protectionOrder = false;        
+        pathwayCompleted.familyLawMatter = false;        
+        pathwayCompleted.caseMgmt = false;       
+        pathwayCompleted.priorityParenting = false;       
+        pathwayCompleted.childReloc = false;       
+        pathwayCompleted.agreementEnfrc = false;
         this.UpdatePathwayCompletedFull(pathwayCompleted);
         this.checkAllCompleted();
-        //this.$store.commit("Application/setAllCompleted", false)
-
     }
 
     public resetProgressOfAllPages(selectedForms){
 
         for(const step of this.$store.state.Application.steps){
-            if(step.id == 2 && selectedForms.includes("protectionOrder"))
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: 1 });   
+            if(step.id == this.stPgNo.COMMON._StepNo && selectedForms.includes("protectionOrder"))
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.YourInformation });   
             else 
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: 0 });               
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.SafetyCheck });               
 
             for(const page of step.pages){               
                this.$store.commit("Application/setPageProgress", { currentStep: step.id, currentPage:page.key, progress:0 });

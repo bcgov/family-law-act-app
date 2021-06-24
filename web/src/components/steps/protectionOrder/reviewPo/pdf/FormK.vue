@@ -34,12 +34,12 @@
 
 <!-- <1> -->
         <section>
-                <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="result.yourInformationSurveyPO.ApplicantName | getFullName"/>
-                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="result.yourInformationSurveyPO.ApplicantDOB | beautify-date"/>
+                <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="result.yourinformationPOSurvey.ApplicantName | getFullName"/>
+                <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="result.yourinformationPOSurvey.ApplicantDOB | beautify-date"/>
                 <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents by the other party and the court are:</div>
                 <table class="fullsize">
                     <tr>
-                        <td v-if="result.yourInformationSurveyPO.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{result.yourInformationSurveyPO.LawyerName | getFullName}}</div></td>
+                        <td v-if="result.yourinformationPOSurvey.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{result.yourinformationPOSurvey.LawyerName | getFullName}}</div></td>
                         <td v-else  colspan="3">Lawyer (if applicable): </td>
                     </tr>
                     <tr>          
@@ -104,9 +104,9 @@
             I am applying for the following order:           
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select only one of the options below and complete the required schedule</i>
-                <check-box style="" :check="result.selectedPOOrder.orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
-                <check-box style="" :check="result.selectedPOOrder.orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
-                <check-box style="" :check="result.selectedPOOrder.orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
+                <check-box style="" :check="result.poQuestionnaireSurvey.orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
+                <check-box style="" :check="result.poQuestionnaireSurvey.orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
+                <check-box style="" :check="result.poQuestionnaireSurvey.orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
             </div>
         </section>
 
@@ -126,7 +126,7 @@
 <!----------------------------------------------------------------  <NEED PO>   -------------------------------------------------------->
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div v-if="result.selectedPOOrder.orderType == 'needPO'">
+    <div v-if="result.poQuestionnaireSurvey.orderType == 'needPO'">
         <div class="new-page" />
 
         <div style="text-align:center;font-family:BCSans"><b> SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</b></div>
@@ -141,8 +141,8 @@
         </div>
 
         <div>
-            <underline-form style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="result.yourInformationSurveyPO.ApplicantName | getFullName"/>
-            <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hint="occupation" :text="result.yourInformationSurveyPO.ApplicantOccupation"/>
+            <underline-form style="display:inline-block;" textwidth="13rem" beforetext="I," hint="full name of party" :text="result.yourinformationPOSurvey.ApplicantName | getFullName"/>
+            <underline-form style="text-indent:1px;display:inline-block;" textwidth="6rem" beforetext="," hint="occupation" :text="result.yourinformationPOSurvey.ApplicantOccupation"/>
             <underline-form style="text-indent:1px;display:inline-block;" textwidth="20rem" beforetext="of" hint="address of party, city, province" :text="serviceAddress | getFullAddress"/>
             <div style="text-indent:1px;display:inline;"> ,</div>
         </div>
@@ -160,8 +160,8 @@
             I am applying for a protection order for the following person(s) to be protected:           
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select and complete only those options that apply to your situation. You may select more than one.</i>
-                <check-box style="" :check="result.protectionWhomSurvey.ApplicantNeedsProtection == 'y'?'yes':''" text="me"/>
-                <check-box style="" :check="result.protectionWhomSurvey.ApplicantNeedsProtection == 'y' && result.protectionWhomSurvey.childPO == 'y'?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
+                <check-box style="" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'y'?'yes':''" text="me"/>
+                <check-box style="" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'y' && result.protectionFromWhomSurvey.childPO == 'y'?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
             </div>
 
             <b-table
@@ -180,7 +180,7 @@
             </b-table> 
 
             <div style="margin:0.25rem 0 0 2rem;" >
-                <check-box style="" :check="result.protectionWhomSurvey.ApplicantNeedsProtection == 'y' && result.protectionWhomSurvey.anotherAdultSharingResi == 'y'?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
+                <check-box style="" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'y' && result.protectionFromWhomSurvey.anotherAdultSharingResi == 'y'?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
             </div>
 
             <b-table
@@ -199,11 +199,11 @@
             </b-table>
 
             <div  style="margin:0.25rem 0 0 2rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="result.protectionWhomSurvey.ApplicantNeedsProtection == 'n' && result.protectionWhomSurvey.anotherAdultPO == 'y'?'yes':''" text=" Other <i>(specify):</i>"/>               
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="full name of other person to be protected" :text="result.protectionWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.nameFull ):''"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="11rem" beforetext="," hint="date of birth of other person (mmm/dd/yyyy)" :text="result.protectionWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ):'' "/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n' && result.protectionFromWhomSurvey.anotherAdultPO == 'y'?'yes':''" text=" Other <i>(specify):</i>"/>               
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="full name of other person to be protected" :text="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.nameFull ):''"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="11rem" beforetext="," hint="date of birth of other person (mmm/dd/yyyy)" :text="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ):'' "/>
                 <div style="text-indent:-18px;display:block;margin-top:0.5rem;"> Explain why you are applying for the other person:</div>
-                <div v-if="result.protectionWhomSurvey.ApplicantNeedsProtection == 'n'" class="answerbox"> {{result.protectionWhomSurvey.anotherAdultReasonForPO}}</div>
+                <div v-if="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n'" class="answerbox"> {{result.protectionFromWhomSurvey.anotherAdultReasonForPO}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
             </div>
 
@@ -258,10 +258,10 @@
 <!-- <5> -->
         <section>
             I have concerns the other party would cause harm with or threaten to use guns, explosives or another kind of firearm
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearms == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearms == 'n'?'yes':''" text="No"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentFirearms == 'y'?'yes':''" text="Yes"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentFirearms == 'n'?'yes':''" text="No"/>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your concerns</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentFirearms == 'y'">{{result.weaponsSurvey.firearmsReason}}</div>
+            <div class="answerbox" v-if="result.weaponsFirearmsSurvey.RespondentFirearms == 'y'">{{result.weaponsFirearmsSurvey.firearmsReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -270,11 +270,11 @@
         <section>
             I believe the other party owns or has access to guns, explosives or another kind of firearm
             <div style="display:block; margin-left:0.5rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearmsYes == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentFirearmsYes == 'n'?'yes':''" text="No"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentFirearmsYes == 'y'?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentFirearmsYes == 'n'?'yes':''" text="No"/>
             </div>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentFirearmsYes == 'y'">{{result.weaponsSurvey.firearmsYesReason}}</div>
+            <div class="answerbox" v-if="result.weaponsFirearmsSurvey.RespondentFirearmsYes == 'y'">{{result.weaponsFirearmsSurvey.firearmsYesReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -282,10 +282,10 @@
 <!-- <7> -->
         <section>
             I have concerns the other party would cause harm with or threaten to use a weapon that is not a gun or explosive            
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeapons == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeapons == 'n'?'yes':''" text="No"/>        
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentWeapons == 'y'?'yes':''" text="Yes"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentWeapons == 'n'?'yes':''" text="No"/>        
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your concerns</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentWeapons == 'y'">{{result.weaponsSurvey.weaponsReasons}}</div>
+            <div class="answerbox" v-if="result.weaponsFirearmsSurvey.RespondentWeapons == 'y'">{{result.weaponsFirearmsSurvey.weaponsReasons}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>       
        
@@ -293,11 +293,11 @@
 <!-- <8> -->
         <section>
             I believe the other party owns a weapon that is not a gun or explosive            
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeaponsYes == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsSurvey.RespondentWeaponsYes == 'n'?'yes':''" text="No"/>            
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentWeaponsYes == 'y'?'yes':''" text="Yes"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.weaponsFirearmsSurvey.RespondentWeaponsYes == 'n'?'yes':''" text="No"/>            
             <i style="display:block; margin-left:1rem;">Examples of weapons someone may own include swords, hunting knives, and nunchucks.</i>
             <i style="display:block; margin-left:1rem;">If yes, explain the reason(s) for your belief</i>
-            <div class="answerbox" v-if="result.weaponsSurvey.RespondentWeaponsYes == 'y'">{{result.weaponsSurvey.weaponsYesReason}}</div>
+            <div class="answerbox" v-if="result.weaponsFirearmsSurvey.RespondentWeaponsYes == 'y'">{{result.weaponsFirearmsSurvey.weaponsYesReason}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -305,8 +305,8 @@
 <!-- <9> -->
         <section>
             The protected party currently shares a residence with the other party
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.removeSurvey.RespondentLiveTogether == 'y'?'yes':''" text="Yes"/>
-            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.removeSurvey.RespondentLiveTogether == 'n'?'yes':''" text="No"/>                       
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.removePersonSurvey.RespondentLiveTogether == 'y'?'yes':''" text="Yes"/>
+            <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.removePersonSurvey.RespondentLiveTogether == 'n'?'yes':''" text="No"/>                       
         </section>
 
         <div style="margin-top:1rem;"></div>
@@ -316,12 +316,12 @@
             <div style="margin-left:1rem;"> I believe police assistance may be required for the following purpose(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
-                <check-box style="" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removeSurvey.needPolice && result.removeSurvey.needPolice.includes('other')?result.removeSurvey.needPoliceComment:'' "/>
+                <check-box style="" :check="result.removePersonSurvey.needPolice && result.removePersonSurvey.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
+                <check-box style="" :check="result.removePersonSurvey.needPolice && result.removePersonSurvey.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
+                <check-box style="" :check="result.removePersonSurvey.needPolice && result.removePersonSurvey.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
+                <check-box style="" :check="result.removePersonSurvey.needPolice && result.removePersonSurvey.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="result.removePersonSurvey.needPolice && result.removePersonSurvey.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="result.removePersonSurvey.needPolice && result.removePersonSurvey.needPolice.includes('other')?result.removePersonSurvey.needPoliceComment:'' "/>
             </div>
         </section>
 
@@ -502,12 +502,12 @@
         <section>            
             <div style="display:inline; margin-left:.5rem;">
                 <div style="display:inline;">Is there any family violence you fear is likely to happen that you have not already described in this affidavit?</div>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStory.isFamilyViolence == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStory.isFamilyViolence == 'n'?'yes':''" text="No"/>                       
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStorySurvey.isFamilyViolence == 'y'?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStorySurvey.isFamilyViolence == 'n'?'yes':''" text="No"/>                       
             </div>
 
             <i style="text-indent:0rem;display:block;margin-left:0rem;">If yes, explain what type of family violence and the reason for your fear</i>
-            <div v-if="result.yourStory.isFamilyViolence == 'y'" class="answerbox"> {{result.yourStory.whatViolence}}</div>
+            <div v-if="result.yourStorySurvey.isFamilyViolence == 'y'" class="answerbox"> {{result.yourStorySurvey.whatViolence}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -516,12 +516,12 @@
         <section>            
             <div style="display:inline; margin-left:.5rem;">
                 <div style="display:inline;">Do you have any concerns for the safety of the protected party/parties that you have not already described in this affidavit?</div>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStory.isNoneExplainedConcerns == 'y'?'yes':''" text="Yes"/>
-                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStory.isNoneExplainedConcerns == 'n'?'yes':''" text="No"/>                       
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStorySurvey.isNoneExplainedConcerns == 'y'?'yes':''" text="Yes"/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="result.yourStorySurvey.isNoneExplainedConcerns == 'n'?'yes':''" text="No"/>                       
             </div>
 
             <i style="text-indent:0rem;display:block;margin-left:0rem;">If yes, explain the concerns and the reason for your concerns</i>
-            <div v-if="result.yourStory.isNoneExplainedConcerns == 'y'" class="answerbox"> {{result.yourStory.noneExplainedConcerns}}</div>
+            <div v-if="result.yourStorySurvey.isNoneExplainedConcerns == 'y'" class="answerbox"> {{result.yourStorySurvey.noneExplainedConcerns}}</div>
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
@@ -542,7 +542,7 @@
                     <li>Any injuries or trauma from the incident</li>
                     <li>Any doctor’s notes, police reports or photos (you must refer to them here as exhibits and make copies of them for the court)</li>
                 </ul>
-                <div v-if="result.yourStory.recentIncidents" class="answerbox"> {{result.yourStory.recentIncidents}}</div>
+                <div v-if="result.yourStorySurvey.recentIncidents" class="answerbox"> {{result.yourStorySurvey.recentIncidents}}</div>
                 <div v-else style="margin-bottom:2rem;"></div>
             </div>
         </section>
@@ -574,7 +574,7 @@
 <!----------------------------------------------------------------  <CHANGE PO>   -------------------------------------------------------->  
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div v-if="result.selectedPOOrder.orderType == 'changePO'">
+    <div v-if="result.poQuestionnaireSurvey.orderType == 'changePO'">
         <div class="new-page" />
 
 
@@ -589,7 +589,7 @@
 <!-- <1> -->
         <section class="resetquestion">
             <check-box inline="inline" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
-            <underline-form style="text-indent:0px;display:inline-block;" textwidth="8rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="result.aboutPOSurvey.dateOfPO | beautify-date"/>
+            <underline-form style="text-indent:0px;display:inline-block;" textwidth="8rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="result.aboutSurvey.dateOfPO | beautify-date"/>
         </section>
 
         <div style="margin-top:1rem;"></div>
@@ -597,13 +597,13 @@
         <section>  
             <i style="margin-left:.25rem;">Select only one of the options below</i>
             <div style="margin:0rem 0 0 1rem;" >                
-                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
-                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
+                <check-box style="" :check="result.aboutSurvey.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
+                <check-box style="" :check="result.aboutSurvey.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
             </div>
             <div style="margin-left:1rem;">
                 <i>Explain why you were not in court when the protection order was made</i>
             </div>
-            <div v-if="result.aboutPOSurvey.inCourtForPO == 'n'" class="answerbox"> {{result.aboutPOSurvey.whyNotInCourt}}</div>
+            <div v-if="result.aboutSurvey.inCourtForPO == 'n'" class="answerbox"> {{result.aboutSurvey.whyNotInCourt}}</div>
             <div v-else style="margin-bottom:2rem;"></div>
         </section>
 
@@ -613,9 +613,9 @@
             I am the:
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+                <check-box style="" :check="result.aboutSurvey.kindofPartyIbPO && result.aboutSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box style="" :check="result.aboutSurvey.kindofPartyIbPO && result.aboutSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box style="" :check="result.aboutSurvey.kindofPartyIbPO && result.aboutSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>
 
@@ -623,7 +623,7 @@
 <!-- <4> -->
         <section>  
             I am applying for the existing protection order to be changed as follows:
-            <div v-if="result.aboutPOSurvey.whatChangesNeeded" class="answerbox"> {{result.aboutPOSurvey.whatChangesNeeded}}</div>
+            <div v-if="result.aboutSurvey.whatChangesNeeded" class="answerbox"> {{result.aboutSurvey.whatChangesNeeded}}</div>
             <div v-else style="margin-bottom:2rem;"></div>
         </section>
 
@@ -632,7 +632,7 @@
         <section>  
             The facts on which this application is based are as follows:
             <i style="display:block; margin:0.25rem 0 0 1rem;">Explain why the order needs to be changed and the facts you want the court to consider</i>
-            <div v-if="result.aboutPOSurvey.whyChangesNeeded" class="answerbox"> {{result.aboutPOSurvey.whyChangesNeeded}}</div>
+            <div v-if="result.aboutSurvey.whyChangesNeeded" class="answerbox"> {{result.aboutSurvey.whyChangesNeeded}}</div>
             <div v-else style="margin-bottom:2rem;"></div>
         </section>
     </div>
@@ -642,7 +642,7 @@
 <!----------------------------------------------------------------  <TERMINATE PO>   -------------------------------------------------------->
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div v-if="result.selectedPOOrder.orderType == 'terminatePO'">
+    <div v-if="result.poQuestionnaireSurvey.orderType == 'terminatePO'">
         <div class="new-page" />
 
 
@@ -657,7 +657,7 @@
 <!-- <1> -->
         <section class="resetquestion">
             <check-box inline="inline" boxMargin="0" checkbox="" style="display:inline; margin-left:0.5rem;" :check="true?'yes':''" text=""/>
-            <underline-form style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="result.aboutPOSurvey.terminateDateOfPO | beautify-date"/>
+            <underline-form style="text-indent:0px;display:inline-block;" textwidth="6.5rem" beforetext="I am attaching a copy of the existing protection order made on" hint="date (mmm/dd/yyyy)" :text="result.aboutSurvey.terminateDateOfPO | beautify-date"/>
             <div style="display:inline; margin-left:0.5rem;">that I am applying to have terminated.</div>
         </section>
 
@@ -666,13 +666,13 @@
         <section>  
             <i style="margin-left:.25rem;">Select only one of the options below</i>
             <div style="margin:0rem 0 0 1rem;" >                
-                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
-                <check-box style="" :check="result.aboutPOSurvey.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
+                <check-box style="" :check="result.aboutSurvey.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
+                <check-box style="" :check="result.aboutSurvey.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
             </div>
             <div style="margin-left:1rem;">
                 <i>Explain why you were not in court when the protection order was made</i>
             </div>
-            <div v-if="result.aboutPOSurvey.inCourtForPO == 'n'" class="answerbox"> {{result.aboutPOSurvey.whyNotInCourt}}</div>
+            <div v-if="result.aboutSurvey.inCourtForPO == 'n'" class="answerbox"> {{result.aboutSurvey.whyNotInCourt}}</div>
             <div v-else style="margin-bottom:2rem;"></div>
         </section>
 
@@ -682,9 +682,9 @@
             I am the:
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
-                <check-box style="" :check="result.aboutPOSurvey.kindofPartyIbPO && result.aboutPOSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+                <check-box style="" :check="result.aboutSurvey.kindofPartyIbPO && result.aboutSurvey.kindofPartyIbPO.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box style="" :check="result.aboutSurvey.kindofPartyIbPO && result.aboutSurvey.kindofPartyIbPO.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box style="" :check="result.aboutSurvey.kindofPartyIbPO && result.aboutSurvey.kindofPartyIbPO.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>
 
@@ -693,7 +693,7 @@
         <section>  
             The facts on which this application is based are as follows:
             <i style="display:block; margin:0.25rem 0 0 1rem;">Describe why the order should be terminated and the facts you want the court to consider</i>
-            <div v-if="result.aboutPOSurvey.whyTerminatePO" class="answerbox"> {{result.aboutPOSurvey.whyTerminatePO}}</div>
+            <div v-if="result.aboutSurvey.whyTerminatePO" class="answerbox"> {{result.aboutSurvey.whyTerminatePO}}</div>
             <div v-else style="margin-bottom:2rem;"></div>
         </section>
     </div>
@@ -710,6 +710,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import moment from 'moment';
@@ -725,6 +727,9 @@ export default class FormK extends Vue {
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     result;
     dataReady = false;
@@ -776,27 +781,27 @@ export default class FormK extends Vue {
         this.getServiceInfo()
         this.getProtectingPeople()
         this.getOtherPartyInfo()
-        if(this.result.selectedPOOrder && this.result.selectedPOOrder.orderType == "needPO"){
+        if(this.result.poQuestionnaireSurvey && this.result.poQuestionnaireSurvey.orderType == "needPO"){
             this.getBackgroundSurvey()
             this.getOtherChildrenInfo()
         }
     }
 
     public getServiceInfo(){
-        if(this.result.yourInformationSurveyPO.Lawyer=='y'){
-            this.serviceAddress = this.result.yourInformationSurveyPO.LawyerAddress
-            this.serviceContact = this.result.yourInformationSurveyPO.LawyerContact
+        if(this.result.yourinformationPOSurvey.Lawyer=='y'){
+            this.serviceAddress = this.result.yourinformationPOSurvey.LawyerAddress
+            this.serviceContact = this.result.yourinformationPOSurvey.LawyerContact
         }else{
-            this.serviceAddress = this.result.yourInformationSurveyPO.ApplicantAddress
-            this.serviceContact = this.result.yourInformationSurveyPO.ApplicantContact
+            this.serviceAddress = this.result.yourinformationPOSurvey.ApplicantAddress
+            this.serviceContact = this.result.yourinformationPOSurvey.ApplicantContact
         }
     }
 
     public getProtectingPeople(){
-        if(this.result.protectionWhomSurvey && this.result.protectionWhomSurvey.ApplicantNeedsProtection== "y"){
-            if(this.result.protectionWhomSurvey.childPO=='y'){
+        if(this.result.protectionFromWhomSurvey && this.result.protectionFromWhomSurvey.ApplicantNeedsProtection== "y"){
+            if(this.result.protectionFromWhomSurvey.childPO=='y'){
                 this.childrenItem = [];
-                for(const child of this.result.protectionWhomSurvey.allchildren){
+                for(const child of this.result.protectionFromWhomSurvey.allchildren){
                     this.childrenItem.push({
                         name:Vue.filter('getFullName')(child.childName), 
                         dob:Vue.filter('beautify-date')(child.childDOB), 
@@ -805,9 +810,9 @@ export default class FormK extends Vue {
                     })
                 }
             }
-            if(this.result.protectionWhomSurvey.anotherAdultSharingResi=='y'){
+            if(this.result.protectionFromWhomSurvey.anotherAdultSharingResi=='y'){
                 this.sharingAdultItem = [];
-                for(const sharingAdult of this.result.protectionWhomSurvey.allAnotherAdultsSharingResi){
+                for(const sharingAdult of this.result.protectionFromWhomSurvey.allAnotherAdultsSharingResi){
                     this.sharingAdultItem.push({
                         name:Vue.filter('getFullName')(sharingAdult.anotherAdultSharingResiName), 
                         dob:Vue.filter('beautify-date')(sharingAdult.anotheradultSharingResiDOB), 
@@ -816,9 +821,9 @@ export default class FormK extends Vue {
                 }
             }
         }
-        else if(this.result.protectionWhomSurvey && this.result.protectionWhomSurvey.ApplicantNeedsProtection == "n"){
-            if(this.result.protectionWhomSurvey.anotherAdultPO=='y'){
-                this.anotherAdult = {nameFull:Vue.filter('getFullName')(this.result.protectionWhomSurvey.anotherAdultName),dobBeauty:Vue.filter('beautify-date')(this.result.protectionWhomSurvey.anotherAdultDOB)}
+        else if(this.result.protectionFromWhomSurvey && this.result.protectionFromWhomSurvey.ApplicantNeedsProtection == "n"){
+            if(this.result.protectionFromWhomSurvey.anotherAdultPO=='y'){
+                this.anotherAdult = {nameFull:Vue.filter('getFullName')(this.result.protectionFromWhomSurvey.anotherAdultName),dobBeauty:Vue.filter('beautify-date')(this.result.protectionFromWhomSurvey.anotherAdultDOB)}
             }
         }
     }
@@ -831,23 +836,23 @@ export default class FormK extends Vue {
         let address = ''
         let contactInfo = ''
 
-        if(this.result.selectedPOOrder && this.result.selectedPOOrder.orderType == 'needPO' && this.result.protectionWhomSurvey){            
+        if(this.result.poQuestionnaireSurvey && this.result.poQuestionnaireSurvey.orderType == 'needPO' && this.result.protectionFromWhomSurvey){            
 
-            if(this.result.protectionWhomSurvey['RespondentDOBExact'] == 'y' &&   this.result.protectionWhomSurvey['RespondentDOB'])
-                dob = this.result.protectionWhomSurvey['RespondentDOB']
+            if(this.result.protectionFromWhomSurvey.RespondentDOBExact == 'y' &&   this.result.protectionFromWhomSurvey.RespondentDOB)
+                dob = this.result.protectionFromWhomSurvey.RespondentDOB
             
-            if(this.result.protectionWhomSurvey['RespondentName'])
-                name = this.result.protectionWhomSurvey['RespondentName']
+            if(this.result.protectionFromWhomSurvey.RespondentName)
+                name = this.result.protectionFromWhomSurvey.RespondentName
             
-            if(this.result.protectionWhomSurvey['RespondentAddress'])
-                address = this.result.protectionWhomSurvey['RespondentAddress']
+            if(this.result.protectionFromWhomSurvey.RespondentAddress)
+                address = this.result.protectionFromWhomSurvey.RespondentAddress
             
-            if(this.result.protectionWhomSurvey['RespondentContact'])
-                contactInfo = this.result.protectionWhomSurvey['RespondentContact']
+            if(this.result.protectionFromWhomSurvey.RespondentContact)
+                contactInfo = this.result.protectionFromWhomSurvey.RespondentContact
                 
             info = [{'name':name, 'dob': dob , 'address': address ,'contact': contactInfo}]
         }
-        else if(this.result.selectedPOOrder && (this.result.selectedPOOrder.orderType == 'changePO' || this.result.selectedPOOrder.orderType == 'terminatePO')){    
+        else if(this.result.poQuestionnaireSurvey && (this.result.poQuestionnaireSurvey.orderType == 'changePO' || this.result.poQuestionnaireSurvey.orderType == 'terminatePO')){    
             for(const party of this.result.otherPartySurvey){
                 dob = ''
                 name = ''
@@ -982,28 +987,23 @@ export default class FormK extends Vue {
     public getFPOResultData() {  
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=1;i<2; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
+        for(const stepIndex of [this.stPgNo.PO._StepNo]){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResult in stepResults){
                 //console.log(stepResults[stepResult])
                 //console.log(stepResults[stepResult].data)
                 result[stepResult]=stepResults[stepResult].data; 
             }
         }
-    //     const protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-    //     Object.assign(result, result, protectedPartyName);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
-        //const userLocation = this.$store.state.Common.userLocation;
-        // console.log(applicationLocation)
-        //console.log(userLocation)
         
         Object.assign(result, result,{applicationLocation: applicationLocation}); 
        
-        // console.log(result)
-        if (result.selectedPOOrder && result.selectedPOOrder.orderType){
+        console.log(result)
+        if (result.poQuestionnaireSurvey && result.poQuestionnaireSurvey.orderType){
 
-            const orderType = result.selectedPOOrder.orderType;
+            const orderType = result.poQuestionnaireSurvey.orderType;
             if (orderType == 'needPO'){
 
                 if (result.poFilingLocationSurvey && 
@@ -1017,26 +1017,24 @@ export default class FormK extends Vue {
 
             } else if (orderType == 'changePO'){
 
-                if (result.aboutPOSurvey &&                    
-                    result.aboutPOSurvey.ExistingFileNumber){
-                        this.existingFileNumber = result.aboutPOSurvey.ExistingFileNumber;
+                if (result.aboutSurvey &&                    
+                    result.aboutSurvey.ExistingFileNumber){
+                        this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
                     } else {
                         this.existingFileNumber = '';
                     }
 
             } else if (orderType == 'terminatePO'){
 
-                if (result.aboutPOSurvey &&                    
-                    result.aboutPOSurvey.ExistingFileNumber){
-                        this.existingFileNumber = result.aboutPOSurvey.ExistingFileNumber;
+                if (result.aboutSurvey &&                    
+                    result.aboutSurvey.ExistingFileNumber){
+                        this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
                     } else {
                         this.existingFileNumber = '';
                     }
             }
 
         }        
-
-        // if ()
 
         Vue.filter('extractRequiredDocuments')(result, 'protectionOrder')
 

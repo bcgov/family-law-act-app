@@ -1,6 +1,9 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
-import { stepInfoType, pageInfoType, nameInfoType } from "@/types/Application";
+import { stepInfoType, pageInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 import { supportingDocumentInfoType, requiredDocumentsInfoType } from "@/types/Common";
+
+import { stepsAndPagesNumberInfoType } from "@/types/Application/StepsAndPages";
 
 @Module({
   namespaced: true
@@ -17,6 +20,7 @@ class Application extends VuexModule {
     public userType = ""
     public userName = ""
     public userId = ""
+    public version: string = "";
     public applicantName = {} as nameInfoType;
     public respondentName = {} as nameInfoType;
     public protectedPartyName = {} as nameInfoType;
@@ -36,6 +40,7 @@ class Application extends VuexModule {
     public allCompleted = false;
     public pathwayCompleted = { protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false} //{Protection Order, Family Law Matters, Case management, Priority parenting, Relocation of a child, Enforcement of agreements}
 
+    public stPgNo = {} as stepsAndPagesNumberInfoType;
 
     @Mutation
     public init(): void {
@@ -56,6 +61,7 @@ class Application extends VuexModule {
     
         s.active = true;
         s.id = "0";
+        s.name = "GETSTART";
         s.label = "Get Started";
         s.icon = "fa-users";
         s.lastUpdate = null;    
@@ -65,6 +71,7 @@ class Application extends VuexModule {
     
         let p = {} as pageInfoType;
         p.key = "0";
+        p.name = "GettingStarted";
         p.label = "Getting Started";
         p.active = true;
         p.progress = 0;    
@@ -77,6 +84,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "1";
+        s.name = "PO";
         s.label = "Protection Order";
         s.icon = "fa-child";
         s.lastUpdate = null;
@@ -86,6 +94,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "PoQuestionnaire";
         p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
@@ -93,13 +102,15 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "1";
-        p.label = "Your information";
+        p.name = "YourinformationPO";
+        p.label = "Your Information";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
     
         p = {} as pageInfoType;
         p.key = "2";
+        p.name = "ProtectionFromWhom";
         p.label = "Protection From Whom?";
         p.active = false;
         p.progress = 0;    
@@ -107,6 +118,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "3";
+        p.name = "PoFilingLocation";
         p.label = "Filing Location";
         p.active = false;
         p.progress = 0;    
@@ -114,6 +126,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "RemovePerson";
         p.label = "Remove person or belongings";
         p.active = false;
         p.progress = 0;    
@@ -121,6 +134,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "5";
+        p.name = "NoGo";
         p.label = "No Go";
         p.active = false;
         p.progress = 0;    
@@ -128,6 +142,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "6";
+        p.name = "NoContact";
         p.label = "No Contact";
         p.active = false;
         p.progress = 0;    
@@ -135,6 +150,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "7";
+        p.name = "WeaponsFirearms";
         p.label = "Weapons and Firearms";
         p.active = false;
         p.progress = 0;    
@@ -142,6 +158,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "8";
+        p.name = "Background";
         p.label = "Background";
         p.active = false;
         p.progress = 0;    
@@ -149,6 +166,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "9";
+        p.name = "YourStory";
         p.label = "Your Story";
         p.active = false;
         p.progress = 0;    
@@ -156,6 +174,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "10";
+        p.name = "OtherParty";
         p.label = "Other Party";
         p.active = false;
         p.progress = 0;    
@@ -163,6 +182,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "11";
+        p.name = "About";
         p.label = "About Protection Order";
         p.active = false;
         p.progress = 0;    
@@ -170,6 +190,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "12";
+        p.name = "Urgency";
         p.label = "Urgency";
         p.active = false;
         p.progress = 0;    
@@ -177,6 +198,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "13";
+        p.name = "ReviewYourAnswers";
         p.label = "Review Your Answers";
         p.active = false;
         p.progress = 0;    
@@ -184,6 +206,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "14";
+        p.name = "PreviewForms";
         p.label = "Preview Forms";
         p.active = false;
         p.progress = 0;    
@@ -196,6 +219,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "2";
+        s.name = "COMMON";
         s.label = "Your Information";
         s.icon = "fa-users";
         s.lastUpdate = null;
@@ -205,6 +229,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "SafetyCheck";
         p.label = "Safety Check";
         p.active = false;
         p.progress = 0;    
@@ -212,6 +237,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "1";
+        p.name = "YourInformation";
         p.label = "Your information";
         p.active = false;
         p.progress = 0;    
@@ -219,6 +245,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "2";
+        p.name = "OtherPartyCommon";
         p.label = "Other Party";
         p.active = false;
         p.progress = 0;    
@@ -226,6 +253,15 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "3";
+        p.name = "Notice";
+        p.label = "Notice";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "FilingLocation";
         p.label = "Filing Location";
         p.active = false;
         p.progress = 0;    
@@ -239,6 +275,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "3";
+        s.name = "FLM";
         s.label = "Family Law Matter";
         s.icon = "fa-child";
         s.lastUpdate = null;
@@ -248,6 +285,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "FlmQuestionnaire";
         p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
@@ -255,6 +293,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "1";
+        p.name = "FlmBackground";
         p.label = "Background";
         p.active = false;
         p.progress = 0;    
@@ -262,6 +301,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "2";
+        p.name = "ChildrenInfo";
         p.label = "Children Info";
         p.active = false;
         p.progress = 0;    
@@ -271,6 +311,7 @@ class Application extends VuexModule {
 //____________Parenting Arrangements_________
         p = {} as pageInfoType;
         p.key = "3";
+        p.name = "ParentingArrangements";
         p.label = "Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
@@ -278,6 +319,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "ParentalResponsibilities";
         p.label = "Parental Responsibilities";
         p.active = false;
         p.progress = 0;    
@@ -285,6 +327,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "5";
+        p.name = "ParentingTime";
         p.label = "Parenting Time";
         p.active = false;
         p.progress = 0;    
@@ -292,6 +335,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "6";
+        p.name = "OtherParentingArrangements";
         p.label = "Other Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
@@ -299,6 +343,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "7";
+        p.name = "ParentingOrderAgreement";
         p.label = "Parenting Order/Agreement";
         p.active = false;
         p.progress = 0;    
@@ -306,6 +351,7 @@ class Application extends VuexModule {
         
         p = {} as pageInfoType;
         p.key = "8";
+        p.name = "AboutParentingArrangements";
         p.label = "About Parenting Arrangements";
         p.active = false;
         p.progress = 0;    
@@ -313,6 +359,7 @@ class Application extends VuexModule {
         
         p = {} as pageInfoType;
         p.key = "9";
+        p.name = "ParentingArrangementChanges";
         p.label = "Parenting Arrangement Changes";
         p.active = false;
         p.progress = 0;    
@@ -320,6 +367,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "10";
+        p.name = "BestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
         p.progress = 0;    
@@ -329,6 +377,7 @@ class Application extends VuexModule {
 //____________Child Support__________
         p = {} as pageInfoType;
         p.key = "11";
+        p.name = "ChildSupport";
         p.label = "Child Support";
         p.active = false;
         p.progress = 0;    
@@ -336,6 +385,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "12";
+        p.name = "ChildSupportCurrentArrangements";
         p.label = "Current Arrangements";
         p.active = false;
         p.progress = 0;    
@@ -343,6 +393,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "13";
+        p.name = "IncomeAndEarningPotential";
         p.label = "Income and Earning Potential";
         p.active = false;
         p.progress = 0;    
@@ -350,6 +401,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "14";
+        p.name = "AboutChildSupportOrder";
         p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
@@ -357,6 +409,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "15";
+        p.name = "ChildSupportOrderAgreement";
         p.label = "Child Support Order/Agreement";
         p.active = false;
         p.progress = 0;    
@@ -364,6 +417,7 @@ class Application extends VuexModule {
         
         p = {} as pageInfoType;
         p.key = "16";
+        p.name = "AboutExistingChildSupport";
         p.label = "About Existing Child Support";
         p.active = false;
         p.progress = 0;    
@@ -371,6 +425,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "17";
+        p.name = "CalculatingChildSupport";
         p.label = "Calculating Child Support";
         p.active = false;
         p.progress = 0;    
@@ -378,6 +433,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "18";
+        p.name = "UndueHardship";
         p.label = "Undue Hardship";
         p.active = false;
         p.progress = 0;    
@@ -385,6 +441,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "19";
+        p.name = "SpecialAndExtraordinaryExpenses";
         p.label = "Special and Extraordinary Expenses";
         p.active = false;
         p.progress = 0;    
@@ -392,6 +449,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "20";
+        p.name = "AboutChildSupportChanges";
         p.label = "About Child Support Changes";
         p.active = false;
         p.progress = 0;    
@@ -399,6 +457,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "21";
+        p.name = "UnpaidChildSupport";
         p.label = "Unpaid Child Support";
         p.active = false;
         p.progress = 0;    
@@ -409,6 +468,7 @@ class Application extends VuexModule {
 //____________Contact with a Child
         p = {} as pageInfoType;
         p.key = "22";
+        p.name = "ContactWithChild";
         p.label = "Contact with a Child";
         p.active = false;
         p.progress = 0;    
@@ -416,6 +476,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "23";
+        p.name = "ContactWithChildOrder";
         p.label = "Contact Order/Agreement";
         p.active = false;
         p.progress = 0;    
@@ -423,6 +484,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "24";
+        p.name = "AboutContactWithChildOrder";
         p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
@@ -430,6 +492,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "25";
+        p.name = "ContactWithChildBestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
         p.progress = 0;    
@@ -438,6 +501,7 @@ class Application extends VuexModule {
 //____________Guardianship of a Child
         p = {} as pageInfoType;
         p.key = "26";
+        p.name = "GuardianOfChild";
         p.label = "Guardianship of a Child";
         p.active = false;
         p.progress = 0;    
@@ -445,6 +509,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "27";
+        p.name = "GuardianOfChildBestInterestsOfChild";
         p.label = "Best Interests of the Child";
         p.active = false;
         p.progress = 0;    
@@ -452,6 +517,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "28";
+        p.name = "IndigenousAncestryOfChild";
         p.label = "Indigenous Ancestry of Child";
         p.active = false;
         p.progress = 0;    
@@ -460,6 +526,7 @@ class Application extends VuexModule {
 //____________Spousal Support
         p = {} as pageInfoType;
         p.key = "29";
+        p.name = "SpousalSupport";
         p.label = "Spousal Support";
         p.active = false;
         p.progress = 0;    
@@ -467,6 +534,7 @@ class Application extends VuexModule {
         
         p = {} as pageInfoType;
         p.key = "30";
+        p.name = "SpousalSupportIncomeAndEarningPotential";
         p.label = "Income and Earning Potential";
         p.active = false;
         p.progress = 0;    
@@ -474,6 +542,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "31";
+        p.name = "AboutSpousalSupportOrder";
         p.label = "About the Order";
         p.active = false;
         p.progress = 0;    
@@ -481,20 +550,15 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "32";
+        p.name = "ExistingSpousalSupportOrderAgreement";
         p.label = "Spousal Support Order/Agreement";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
-        // p = {} as pageInfoType;
-        // p.key = "33";
-        // p.label = "About the Order/Agreement";
-        // p.active = false;
-        // p.progress = 0;    
-        // s.pages.push(p);
-
         p = {} as pageInfoType;
         p.key = "33";
+        p.name = "ExistingSpousalSupportFinalOrder";
         p.label = "Existing final order";
         p.active = false;
         p.progress = 0;    
@@ -502,6 +566,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "34";
+        p.name = "ExistingSpousalSupportAgreement";
         p.label = "Existing written agreement";
         p.active = false;
         p.progress = 0;    
@@ -509,6 +574,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "35";
+        p.name = "CalculatingSpousalSupport";
         p.label = "Calculating Spousal Support";
         p.active = false;
         p.progress = 0;    
@@ -516,6 +582,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "36";
+        p.name = "AboutExistingSpousalSupportOrder";
         p.label = "About the order";
         p.active = false;
         p.progress = 0;    
@@ -523,6 +590,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "37";
+        p.name = "UnpaidSpousalSupport";
         p.label = "Unpaid Spousal Support";
         p.active = false;
         p.progress = 0;    
@@ -531,6 +599,7 @@ class Application extends VuexModule {
 //______ Additional Documents
         p = {} as pageInfoType;
         p.key = "38";
+        p.name = "FlmAdditionalDocuments";
         p.label = "Additional Documents";
         p.active = true;
         p.progress = 0;    
@@ -539,6 +608,7 @@ class Application extends VuexModule {
 //____________Review
         p = {} as pageInfoType;
         p.key = "39";
+        p.name = "ReviewYourAnswersFLM";
         p.label = "Review Your Answers";
         p.active = false;
         p.progress = 0;    
@@ -546,6 +616,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "40";
+        p.name = "PreviewFormsFLM";
         p.label = "Preview Forms";
         p.active = false;
         p.progress = 0;    
@@ -558,6 +629,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "4";
+        s.name = "CM";
         s.label = "Case Management";
         s.icon = "fa-child";
         s.lastUpdate = null;
@@ -567,6 +639,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "CaseManagementForm";
         p.label = "Case Management Form";
         p.active = true;
         p.progress = 0;
@@ -578,6 +651,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "5";
+        s.name = "PPM";
         s.label = "Priority parenting matter";
         s.icon = "fa-child";
         s.lastUpdate = null;
@@ -587,11 +661,60 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
-        p.label = "Priority Parenting Matter Form";
+        p.name = "PpmQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "PriorityParentingMatterOrder";
+        p.label = "Priority Parenting Matter";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PpmChildrenInfo";
+        p.label = "Children Info";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "PpmBackground";
+        p.label = "Background";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "AboutPriorityParentingMatterOrder";
+        p.label = "About the Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);        
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "ReviewYourAnswersPPM";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewFormsPPM";
+        p.label = "Preview Forms";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
         this.steps.push(s);
 
         //Priority parenting matter STOP
@@ -599,6 +722,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "6";
+        s.name = "RELOC";
         s.label = "Relocation of a child";
         s.icon = "fa-child";
         s.lastUpdate = null;
@@ -608,6 +732,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "RelocationOfChildForm";
         p.label = "Relocation of a child Form";
         p.active = true;
         p.progress = 0;    
@@ -620,6 +745,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;    
         s.active = false;
         s.id = "7";
+        s.name = "ENFRC";
         s.label = "Enforcement of agreements and court orders";
         s.icon = "fa-child";
         s.lastUpdate = null;
@@ -629,6 +755,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "EnforcementForms";
         p.label = "Agreement and Court Orders Forms";
         p.active = true;
         p.progress = 0;
@@ -643,6 +770,7 @@ class Application extends VuexModule {
 
         s.active = false;
         s.id = "8";
+        s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa-paper-plane";
         s.lastUpdate = null;
@@ -652,6 +780,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "0";
+        p.name = "FilingOptions";
         p.label = "Filing Options";
         p.active = true;
         p.progress = 0;
@@ -660,6 +789,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "1";
+        p.name = "ReviewAndPrint";
         p.label = "Review and Print";
         p.active = false;
         p.progress = 0;
@@ -668,6 +798,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "2";
+        p.name = "ReviewAndSave";
         p.label = "Review and Save";
         p.active = false;
         p.progress = 0;
@@ -676,6 +807,7 @@ class Application extends VuexModule {
         
         p = {} as pageInfoType;
         p.key = "3";
+        p.name = "ReviewAndSubmit";
         p.label = "Review and Submit";
         p.active = false;
         p.progress = 0;
@@ -684,6 +816,7 @@ class Application extends VuexModule {
     
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "NextSteps";
         p.label = "Next Steps";
         p.active = false;
         p.progress = 0;
@@ -697,8 +830,19 @@ class Application extends VuexModule {
         
     }
     @Action
-    public UpdateInit() {
+    public UpdateInit(newVersion: string) {
         this.context.commit("init");
+        this.context.commit("setVersion", newVersion)
+        this.context.dispatch("UpdateStPgNo");
+    }
+
+    @Mutation
+    public setVersion(version: string): void {
+        this.version = version;
+    }
+    @Action
+    public UpdateVersion(newVersion: string) {
+        this.context.commit("setVersion", newVersion);
     }
 
     @Mutation
@@ -876,9 +1020,7 @@ class Application extends VuexModule {
     @Action
     public UpdateCommonStepResults({ data }) {
         this.context.commit("setCommonStepResults", { data });
-    } 
-    
-   
+    }   
 
     @Mutation
     public setPathwayCompletedFull(newPathwayCompleted): void {
@@ -897,8 +1039,8 @@ class Application extends VuexModule {
     public checkAllCompleted() {
         let newAllCompleted = false;
         if(this.steps[0].result){
-            //console.log(this.steps[0].result['selectedForms'])
-            for(const selectedform of this.steps[0].result['selectedForms']){
+            //console.log(this.steps[0].result.selectedForms)
+            for(const selectedform of this.steps[0].result.selectedForms){
                 //console.log(selectedform)
                 if(this.pathwayCompleted[selectedform]) 
                     newAllCompleted = true;
@@ -1054,6 +1196,29 @@ class Application extends VuexModule {
     }
 
     @Mutation
+    public setStPgNo(stPgNo): void {
+        this.stPgNo = stPgNo;
+    }
+    @Action
+    public UpdateStPgNo(newStPgNo) {
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        //console.log(this.$store.state.Application)
+        const steps = this.steps
+        for(const step of steps){
+            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
+            // console.error(step.name)
+            // console.warn(stepsAndPagesNumber[step.name].StepNo)
+            for(const page of step.pages){
+                // console.log(page.key+' ' +page.name)
+                stepsAndPagesNumber[step.name][page.name] = Number(page.key)
+            }
+        }
+        //console.log(stepsAndPagesNumber)
+        //this.UpdateStPgNo(stepsAndPagesNumber)
+        this.context.commit("setStPgNo", stepsAndPagesNumber);
+    }
+
+    @Mutation
     public setSurveyChangedPO(surveyChangedPO: boolean): void {
         this.surveyChangedPO = surveyChangedPO;
     }
@@ -1067,7 +1232,7 @@ class Application extends VuexModule {
             this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:reviewPagePO, progress:50 });
             this.context.commit("setPageActive", { currentStep: stepPO, currentPage: previewPagePO, active: false });
         
-            if(this.steps[stepPO].pages[previewPagePO].progress ==100)this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:previewPagePO, progress:50 });
+            if(this.steps[stepPO].pages[previewPagePO].progress ==100) this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:previewPagePO, progress:50 });
         }  
         
         
@@ -1096,6 +1261,7 @@ class Application extends VuexModule {
         this.protectedChildName = application.protectedChildName;
         this.applicationLocation = application.applicationLocation;  
         this.lastFiled = application.lastFiled;
+        this.version = application.version;
     }
     @Action
     public UpdateCurrentApplication(newApplication) {

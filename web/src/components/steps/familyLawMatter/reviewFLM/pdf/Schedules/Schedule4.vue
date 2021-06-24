@@ -231,6 +231,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import moment from 'moment';
+import { schedule4DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -245,7 +246,7 @@ export default class Schedule4 extends Vue {
     result!: any;
 
     dataReady = false;   
-    exChSupInfo = {}
+    exChSupInfo = {} as schedule4DataInfoType;
    
     mounted(){
         this.dataReady = false;      
@@ -258,58 +259,7 @@ export default class Schedule4 extends Vue {
     }
 
     public getExistingChildSupportInfo(){
-        let existingChildSupportInfo = {
-            abtEx: {
-                payor: false,
-                payee: false,
-                other: false,
-                otherComm: '',
-                orderDate: '',
-                exstngOrdr: false,
-                fldDrctr: false,
-                cancelOrdr: false,
-                changeOrdr: false,
-                changeList: [],
-                changes:{
-                    myfin: false,
-                    opfin: false,
-                    spcl: false,
-                    lvng: false,
-                    newInfo: false,
-                    other: false
-                },
-                newInfo: '',
-                expChangeInfo: '',
-                lvngChangeInfo:'',
-                otherInfo: '',
-                exstngAgrmnt: false,
-                setAsideAgrmnt: false,
-                replaceAgrmnt: false,
-                changesSinceAgrmnt: ''  
-            }, 
-            abtOrg: {
-                newOrderDesc: '',
-                startDate: '',
-                startReason: '',
-                situationList: [],
-                situation: {
-                    payor: false,
-                    split: false,
-                    over19: false,
-                    partyParentOfOther: false,
-                    payorEarnsHigh: false,
-                    specialClaim: false,
-                    undueHardship: false,
-                    none:false
-                }
-            }, 
-            unpdChSup: {}, 
-            calc:{}, 
-            strtPy:{}, 
-            finStmnt:{},
-            applyForCaseManagement:false
-        };
-
+        let existingChildSupportInfo = {} as schedule4DataInfoType;
         // console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey && this.result.childSupportOrderAgreementSurvey){
@@ -394,7 +344,7 @@ export default class Schedule4 extends Vue {
                 whyReduceAmount: '',
                 paySchd: '',
                 monthlyAmount: '',
-                amnt: '0', 
+                amnt: 0, 
                 otherComm:''  
             }
         }
@@ -422,17 +372,19 @@ export default class Schedule4 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
                 }
             }   
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
             existingChildSupportInfo.applyForCaseManagement = true
-            existingChildSupportInfo.finStmnt['required'] = false
+            existingChildSupportInfo.finStmnt = {
+                required: false
+            }
         }
 
         return existingChildSupportInfo;

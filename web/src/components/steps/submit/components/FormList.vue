@@ -24,7 +24,9 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import moment from 'moment-timezone';
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+//import moment from 'moment-timezone';
+import { pathwayCompletedInfoType } from '@/types/Application';
 
 @Component({
     components:{
@@ -40,10 +42,13 @@ export default class FormList extends Vue {
     currentPage!: number;
 
     @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
     public generatedForms!: string[];
 
     @applicationState.State
-    public pathwayCompleted!: any
+    public pathwayCompleted!: pathwayCompletedInfoType;
 
     @applicationState.Action
     public UpdateGeneratedForms!: (newGeneratedForms) => void
@@ -54,15 +59,20 @@ export default class FormList extends Vue {
     showPDFformName = '';
     showPDFpreview = false;
 
-    formsListTemplate =[                
-        { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM 12)"},
-        { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
-        { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[2,3], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
-    ]
+    formsListTemplate =[]
 
     formsList=[];
 
     mounted(){
+
+        this.formsListTemplate =[                
+            { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[this.stPgNo.PO._StepNo],   color:"danger", title:"Application About a Protection Order (FORM 12)"},
+            { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+            { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'P15', appName:'priorityParenting', pdfType:'AXP', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo], color:"danger", title:"Application About Priority Parenting Matter (Form 15)"}        
+        
+        ]
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
         Vue.nextTick(()=> this.setProgress());
@@ -89,7 +99,7 @@ export default class FormList extends Vue {
 
     public isForm1(){
         const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-        const locationSurvey = this.$store.state.Application.steps[2].result
+        const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
         if(locationSurvey && locationSurvey.filingLocationSurvey && locationSurvey.filingLocationSurvey.data){
             //console.log(locationSurvey.filingLocationSurvey.data)
@@ -103,22 +113,6 @@ export default class FormList extends Vue {
     }
     
     public onDownload(formName, inx) {
-        // console.log("downloading"+inx)
-        // console.log(this.formsList[inx])
-        // console.log(formName)
-
-        
-        // this.showPDFformName = formName;
-        // this.showPDFpreview = true;
-
-        // if(!this.generatedForms.includes(formName))
-        // {
-        //     const forms= this.generatedForms;
-        //     forms.push(formName)
-        //     this.UpdateGeneratedForms(forms);
-        // }
-
-        // this.setProgress()
 
         if(this.checkErrorOnPages(this.formsList[inx].chkSteps)){             
             this.savePdf(this.formsList[inx].pdfType, inx);            

@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,6 +18,10 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import * as _ from 'underscore';
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -30,7 +34,10 @@ export default class PoQuestionnaire extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public types!: string[]
@@ -55,13 +62,10 @@ export default class PoQuestionnaire extends Vue {
     currentStep=0;
     currentPage=0;
     
-    allPageIndex = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12,13, 14];
-    needPoPages =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13];
-    changeTerminatePages = [ 1, 10, 11, 12, 13];
-    commonPages = [12, 13, 14]
-    noContantPage = [6];
-    aboutPage = 11;
-    urgencyPage = [12];
+    allPageIndex = [];
+    needPoPages =  [];
+    changeTerminatePages = [ ];
+    commonPages = []
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -70,15 +74,28 @@ export default class PoQuestionnaire extends Vue {
 
     created() {
         this.disableNextButton = false; 
-        if (this.step.result && this.step.result['questionnaireSurvey']) {            
+        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data) {            
             this.determinePeaceBondAndBlock();
         }
     }
 
     mounted(){
+        this.initPageNumbers()
+        // console.log(this.changeTerminatePages)
+        
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
+    }
+
+    public initPageNumbers(){
+        const p = this.stPgNo.PO
+        //console.log( _.range(1,Object.keys(p).length-1))
+        this.allPageIndex = _.range(p.YourinformationPO, Object.keys(this.stPgNo.PO).length-1) 
+
+        this.needPoPages =  [p.YourinformationPO, p.ProtectionFromWhom, p.PoFilingLocation, p.RemovePerson, p.NoGo, p.NoContact, p.WeaponsFirearms, p.Background, p.YourStory, p.Urgency, p.ReviewYourAnswers];
+        this.changeTerminatePages = [ p.YourinformationPO, p.OtherParty, p.About, p.Urgency, p.ReviewYourAnswers];
+        this.commonPages = [p.Urgency, p.ReviewYourAnswers, p.PreviewForms]
     }
 
     public initializeSurvey(){
@@ -102,53 +119,33 @@ export default class PoQuestionnaire extends Vue {
 
                 this.removePages();
                 this.resetProgress(this.commonPages); 
-                const applicationTypes = this.types;
-                if (!applicationTypes.includes(this.getApplicationType(selectedOrder))){
 
-                    if (applicationTypes.indexOf("Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("Protection Order"), 1);
-                    }
-                    if (applicationTypes.indexOf("New Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("New Protection Order"), 1);
-                    }
-                    if (applicationTypes.indexOf("Change Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("Change Protection Order"), 1);
-                    }
-                    if (applicationTypes.indexOf("Terminate Protection Order") != -1){
-                        applicationTypes.splice(applicationTypes.indexOf("Terminate Protection Order"), 1);
-                    }
-
-                    applicationTypes.push(this.getApplicationType(selectedOrder))
-                    this.UpdateApplicationType(Array.from(new Set(applicationTypes)))
-                }
+                this.updateApplicantType(selectedOrder)
                 
                 this.UpdateStepResultData({step:this.step, data: {selectedPOOrder: {data: this.survey.data, questions:null, pageName:'', currentStep: this.currentStep, currentPage:0}}})
 
                 if (selectedOrder == "none") {
                     this.disableNextButton = true;
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
 
                 } else if (selectedOrder == "changePO" || selectedOrder == "terminatePO") {
                     this.disableNextButton = false;
-                    this.togglePages(this.changeTerminatePages, true);
-                    //this.resetProgress(this.commonPages)
-                    // console.log(this.step.result)//['aboutPOSurvey'])
-                    this.setConditionalProgress('aboutPOSurvey', this.aboutPage, 8)
-                    this.resetProgress(this.urgencyPage)
-                    //this.setConditionalProgress('urgencySurvey', this.urgencyPage, this.aboutPage);
+                    this.togglePages(this.changeTerminatePages, true);                    
+                    this.setConditionalProgress('aboutSurvey', this.stPgNo.PO.About)
+                    this.resetProgress(this.stPgNo.PO.Urgency)
+                   
                 } else if (selectedOrder == "needPO") {
                     this.disableNextButton = false;
                     if (sender.data.PORConfirmed) {  
                         if(this.isSurveyAnsweredCorectly()){          
                             this.togglePages(this.needPoPages, true);
-                            //this.determineNoContactPage(true);
-                            //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
-                            this.resetProgress(this.urgencyPage)
+                            //this.determineNoContactPage(true);                            
+                            this.resetProgress(this.stPgNo.PO.Urgency)
                         }else{
-                            this.togglePages([1,2], true);
+                            this.togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true);
                         }
                     }
-                }              
-                
+                }
                 
             }           
 
@@ -157,8 +154,8 @@ export default class PoQuestionnaire extends Vue {
                 if (options.value.length !== 0) {
                     this.togglePages(this.needPoPages, true);
                     //this.determineNoContactPage(true);
-                    //this.setConditionalProgress('urgencySurvey', this.urgencyPage, 7);
-                    this.resetProgress(this.urgencyPage)
+                   
+                    this.resetProgress(this.stPgNo.PO.Urgency)
                 } else {
                     this.togglePages(this.needPoPages, false);
                     //this.determineNoContactPage(false);
@@ -175,10 +172,11 @@ export default class PoQuestionnaire extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["questionnaireSurvey"]){
-            this.survey.data = this.step.result["questionnaireSurvey"];
+        if (this.step.result && this.step.result.poQuestionnaireSurvey && this.step.result.poQuestionnaireSurvey.data){
+            this.survey.data = this.step.result.poQuestionnaireSurvey.data;
             if (this.survey.data.orderType == "none"){
                 this.disableNextButton = true;
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
             }
         }       
         
@@ -203,9 +201,30 @@ export default class PoQuestionnaire extends Vue {
         });
     }
 
-    public setConditionalProgress(pagename, pagenumber: number, previouspagenumber: number){
-        
-        // console.log(this.steps[this.currentStep].pages[previouspagenumber].progress)
+    public updateApplicantType(selectedOrder){
+        const applicationTypes = this.types;
+        if (!applicationTypes.includes(this.getApplicationType(selectedOrder))){
+
+            if (applicationTypes.indexOf("Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("Protection Order"), 1);
+            }
+            if (applicationTypes.indexOf("New Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("New Protection Order"), 1);
+            }
+            if (applicationTypes.indexOf("Change Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("Change Protection Order"), 1);
+            }
+            if (applicationTypes.indexOf("Terminate Protection Order") != -1){
+                applicationTypes.splice(applicationTypes.indexOf("Terminate Protection Order"), 1);
+            }
+
+            applicationTypes.push(this.getApplicationType(selectedOrder))
+            this.UpdateApplicationType(Array.from(new Set(applicationTypes)))
+        }
+    }
+
+    public setConditionalProgress(pagename, pagenumber: number){
+
         let progress = 0;
         if(this.steps[this.currentStep].pages[pagenumber-1].progress >0 && this.step.result && this.step.result[pagename]) progress = 50;
             this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: pagenumber, progress:progress });
@@ -241,43 +260,47 @@ export default class PoQuestionnaire extends Vue {
     public determinePeaceBondAndBlock(){
         if(this.survey &&((this.survey.data.familyUnsafe == 'n' && this.survey.data.orderType == 'needPO')||(this.survey.data.unsafe == 'n' && this.survey.data.orderType == 'needPO'))){ 
             this.togglePages(this.needPoPages, false);
-            this.disableNextButton = true;            
+            this.disableNextButton = true;  
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);          
         }else{
             this.disableNextButton = false;                
             if (this.survey.data.PORConfirmed && this.survey.data.orderType == 'needPO') {
                 if (this.isSurveyAnsweredCorectly())
                     this.togglePages(this.needPoPages, true);
                 else 
-                    this.togglePages([1,2], true);
+                    this.togglePages([this.stPgNo.PO.YourinformationPO, this.stPgNo.PO.ProtectionFromWhom], true);
             }      
         }
 
         if (this.survey.data.orderType == 'none'){
             this.disableNextButton = true;
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         }
     }
 
     // public determineNoContactPage(enablePage){
     
-    //     if(enablePage && this.step.result && this.step.result['protectionWhomSurvey'] && this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection']=='y')
+    //     if(enablePage && this.step.result && this.step.result.protectionFromWhomSurvey'] && this.step.result.protectionFromWhomSurvey'].data['ApplicantNeedsProtection']=='y')
     //         this.togglePages(this.noContantPage, true);
     //     else
     //         this.togglePages(this.noContantPage, false);
-    //         //console.log(this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection'])                    
+    //         //console.log(this.step.result.protectionFromWhomSurvey'].data['ApplicantNeedsProtection'])                    
     // } 
 
     public isSurveyAnsweredCorectly(){
-        //console.log(this.step.result['protectionWhomSurvey'].data)
-        if(this.step.result && this.step.result['protectionWhomSurvey'] && this.step.result['protectionWhomSurvey'].data['ApplicantNeedsProtection']== 'n' && this.step.result['protectionWhomSurvey'].data['anotherAdultPO'] == 'n' && this.step.result['protectionWhomSurvey'].data['childPO'] == 'n'){
+        //console.log(this.step.result.protectionFromWhomSurvey'].data)
+        if(this.step.result && this.step.result.protectionFromWhomSurvey && this.step.result.protectionFromWhomSurvey.data.ApplicantNeedsProtection== 'n' && this.step.result.protectionFromWhomSurvey.data.anotherAdultPO == 'n' && this.step.result.protectionFromWhomSurvey.data.childPO == 'n'){
             return false;
         }
         else return true;
     }
 
     beforeDestroy() {
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: this.survey.data}});
-        //this.UpdateStepResultData({step:this.step, data: {questionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        if(!this.disableNextButton) Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
+        //this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: this.survey.data}});
+        
+
+        this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 };

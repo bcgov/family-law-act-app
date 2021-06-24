@@ -1,21 +1,23 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12"> <!-- v-if="showTable" -->
                     <h1>Children Details</h1>
-                    <p>Add each child who is the subject of your family law matter application. To add a child, click the "Add Child" button. If you are done entering all the children, click the "Next" button.</p>
+                   
+                    <p>Add each child who is the subject of your priority parenting matter application. 
+                        To add a child, click the "Add Child" button. If you are done entering all the 
+                        children, click the "Next" button.
+                    </p>
                     <div class="childSection" v-if="showTable">
                         <div class="childAlign">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                     <th scope="col">Child's name</th>
-                                    <th scope="col">Birthdate</th>
+                                    <th scope="col">Child's date of birth</th>
                                     <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Child's relationship to the other party</th>
-                                    <th scope="col">Child currently living with</th>
-                                    <th scope="col">Additional Information</th>
+                                    <th scope="col">Other party's relationship to the child</th>                                   
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -23,17 +25,15 @@
                                     <div></div>
                                     <tr v-for="child in childData" :key="child.id">
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
-                                    <td>{{child.dob}}</td>
+                                    <td>{{child.dob | beautify-date}}</td>
                                     <td>{{child.relation}}</td>
-                                    <td>{{child.opRelation}}</td>
-                                    <td>{{child.currentLiving}}</td>
-                                    <td>{{child.additionalInfoDetails}}</td>
+                                    <td>{{child.opRelation}}</td>                                   
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     <tr class="clickableRow" @click="openForm()">
                                     <td colspan = "7">
-                                        <a
+                                        <a :class="isDisableNext()?'text-danger h4 my-2':'h4 my-2'" style="cursor: pointer;"
                                         >+Add Child</a>
                                     </td>
                                     </tr>
@@ -43,21 +43,19 @@
                     </div>
                 </div>
 
-                <div class="col-md-12" v-if="!showTable">
+                <div class="col-md-12" v-if="!showTable" id="child-info-survey">
                     <Children-Survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
+               
             </div>
-        </div>
+        </div>       
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import { Question } from "survey-vue";
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import * as SurveyVue from "survey-vue";
-import surveyJson from "../forms/survey-information.json";
 import PageBase from "../../PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -70,7 +68,7 @@ const applicationState = namespace("Application");
       PageBase
     }
 })
-export default class ChildrenInfoCommon extends Vue {
+export default class PpmChildrenInfo extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType
@@ -84,13 +82,20 @@ export default class ChildrenInfoCommon extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
+    currentStep=0;
+    currentPage=0;
     showTable = true;
     childData = [];
     anyRowToBeEdited = null;
-    editId = null;
+    editId = null;    
     
-    public openForm(anyRowToBeEdited) {
+    public openForm(anyRowToBeEdited?) {
         this.showTable = false;
+         Vue.nextTick(()=>{
+            const el = document.getElementById('child-info-survey')
+            //console.log(el)
+            if(el) el.scrollIntoView();
+        })
         if(anyRowToBeEdited) {
             this.editId = anyRowToBeEdited.id;
             this.anyRowToBeEdited = anyRowToBeEdited;
@@ -127,28 +132,58 @@ export default class ChildrenInfoCommon extends Vue {
     }
 
     public onPrev() {
-        // this.$store.dispatch("application/gotoPrevStepPage");
-        this.UpdateGotoPrevStepPage();
+       this.UpdateGotoPrevStepPage();
     }
 
     public onNext() {
-        //this.$store.dispatch("application/gotoNextStepPage");
         this.UpdateGotoNextStepPage();
     }
 
     created() {
-        if (this.step.result && this.step.result["childData"]) {
-            this.childData = this.step.result["childData"];
-        }
+        //console.log(this.step)
+        if (this.step.result && this.step.result.ppmChildrenInfoSurvey) {
+            this.childData = this.step.result.ppmChildrenInfoSurvey.data;
+        }        
+    }
+
+    mounted(){
+        const progress = this.childData.length>0? 100 : 50;            
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+    }
+
+    public isDisableNext() {
+        // demo
+        return (this.childData.length <= 0);
     }
 
     beforeDestroy() {
-        this.UpdateStepResultData({step:this.step, data: {childData: this.childData}})
+        const progress = this.childData.length>0? 100 : 50;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        // this.$store.dispatch("application/updateStepResultData", {
-        //   step: this.step,
-        //   data: {childData: this.childData}
-        // });
+        this.UpdateStepResultData({step:this.step, data: {ppmChildrenInfoSurvey: this.getChildrenResults()}})       
+    }
+
+    public getChildrenResults(){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        for(const child of this.childData)
+        {
+            questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
+        }
+        //console.log(questionResults)
+        return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
+    }
+
+    public getChildInfo(child){
+        const resultString = [];
+
+        resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
+        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
+        resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
+        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)       
+        
+        return resultString
     }
 };
 </script>

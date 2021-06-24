@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -20,6 +20,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -31,7 +33,10 @@ export default class FlmBackground extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -49,25 +54,25 @@ export default class FlmBackground extends Vue {
     currentPage =0;
 
     selectedForms = [];
-    allPages = _.range(3,41)    
+    allPages = []    
     
     //additional documents page && review-answers page
-    commonPages = [39];
+    commonPages = [];
 
-    parentingArrangementsNewPages = [2, 3, 4, 5, 6, 10]; 
-    parentingArrangementsExistingPages = [2, 7, 8];    
+    parentingArrangementsNewPages = []; 
+    parentingArrangementsExistingPages = [];    
 
-    childSupportNewPages = [2, 11, 12, 13, 14, 17, 18, 19];
-    childSupportExistingPages = [2, 15, 16, 17, 20, 21];
+    childSupportNewPages = [];
+    childSupportExistingPages = [];
 
-    contactWithChildNewPages = [2, 22, 24, 25]
-    contactWithChildExistingPages = [2, 23, 24, 25]
+    contactWithChildNewPages = []
+    contactWithChildExistingPages = []
 
-    guardianOfChildNewPages = [2, 26, 28]
-    guardianOfChildExistingPages = [2]
+    guardianOfChildNewPages = []
+    guardianOfChildExistingPages = []
 
-    spousalSupportNewPages = [29, 30, 31, 35]
-    spousalSupportExistingPages = [32, 35, 37]
+    spousalSupportNewPages = []
+    spousalSupportExistingPages = []
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -75,10 +80,34 @@ export default class FlmBackground extends Vue {
     }
 
     mounted(){
+        this.initPageNumbers()
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
         //console.log(this.allPages)
+    }
+
+    public initPageNumbers(){
+        const p = this.stPgNo.FLM        
+        this.allPages = _.range(p.ParentingArrangements, Object.keys(this.stPgNo.PO).length-1) 
+
+        this.commonPages = [p.ReviewYourAnswersFLM];
+
+        this.parentingArrangementsNewPages = [p.ChildrenInfo, p.ParentingArrangements, p.ParentalResponsibilities, p.ParentingTime, p.OtherParentingArrangements,  p.BestInterestsOfChild]; 
+        this.parentingArrangementsExistingPages = [p.ChildrenInfo, p.ParentingOrderAgreement, p.AboutParentingArrangements];    
+
+        this.childSupportNewPages = [p.ChildrenInfo, p.ChildSupport, p.ChildSupportCurrentArrangements, p.IncomeAndEarningPotential, p.AboutChildSupportOrder, p.CalculatingChildSupport, p.UndueHardship, p.SpecialAndExtraordinaryExpenses];
+        this.childSupportExistingPages = [p.ChildrenInfo, p.ChildSupportOrderAgreement, p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport];
+
+        this.contactWithChildNewPages = [p.ChildrenInfo, p.ContactWithChild, p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild]
+        this.contactWithChildExistingPages = [p.ChildrenInfo, p.ContactWithChildOrder, p.AboutContactWithChildOrder, p.ContactWithChildBestInterestsOfChild]
+
+        this.guardianOfChildNewPages = [p.ChildrenInfo, p.GuardianOfChild, p.IndigenousAncestryOfChild]
+        this.guardianOfChildExistingPages = [p.ChildrenInfo]
+
+        this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
+        this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
+       
     }
 
     public initializeSurvey(){
@@ -101,11 +130,13 @@ export default class FlmBackground extends Vue {
 
     public adjustSurveyForOtherParties(){  
         
-        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));       
+        this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
+        
+        const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
        
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
+        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
             
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                 this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push(Vue.filter('getFullName')(otherParty.name));
                 this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name));
@@ -118,8 +149,8 @@ export default class FlmBackground extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            this.survey.data = this.step.result['flmBackgroundSurvey'].data;
+        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+            this.survey.data = this.step.result.flmBackgroundSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
@@ -130,8 +161,8 @@ export default class FlmBackground extends Vue {
             this.survey.setVariable("multipleOP", false);
         }       
 
-        if (this.step.result && this.step.result['flmSelectedForm']){
-            this.selectedForms = this.step.result['flmSelectedForm'].data
+        if (this.step.result && this.step.result.flmQuestionnaireSurvey){
+            this.selectedForms = this.step.result.flmQuestionnaireSurvey.data
         }
         
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){
@@ -139,7 +170,7 @@ export default class FlmBackground extends Vue {
         }
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        //console.log(this.step.result['flmSelectedForm'].data)
+        //console.log(this.step.result.flmQuestionnaireSurvey.data)
         
     }
 

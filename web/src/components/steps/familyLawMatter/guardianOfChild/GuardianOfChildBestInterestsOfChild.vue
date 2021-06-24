@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -29,7 +29,7 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
     
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -79,8 +79,8 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['GuardianOfChildBestInterestOfChildSurvey']) {
-            this.survey.data = this.step.result['GuardianOfChildBestInterestOfChildSurvey'].data;
+        if (this.step.result && this.step.result.guardianOfChildBestInterestsOfChildSurvey) {
+            this.survey.data = this.step.result.guardianOfChildBestInterestsOfChildSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
@@ -99,12 +99,12 @@ export default class GuardianOfChildBestInterestOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {GuardianOfChildBestInterestOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {guardianOfChildBestInterestsOfChildSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

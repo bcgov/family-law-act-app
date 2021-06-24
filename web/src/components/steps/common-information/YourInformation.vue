@@ -1,18 +1,20 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">   
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >   
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/survey-information.json";
+import surveyJson from "./forms/your-information.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -24,13 +26,16 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class Information extends Vue {
+export default class YourInformation extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public types!: string[]
@@ -49,10 +54,9 @@ export default class Information extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
-    yourInformationPOpage = 1
     editButton = false
 
     lawyerName = '';
@@ -85,8 +89,8 @@ export default class Information extends Vue {
             // console.log(options)
 
             if(options.name == 'editName'){ 
-                this.$store.commit("Application/setCurrentStep", 1);
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: 1, currentPage: this.yourInformationPOpage }); 
+                this.$store.commit("Application/setCurrentStep", this.stPgNo.PO._StepNo);
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PO._StepNo, currentPage: this.stPgNo.PO.YourinformationPO}); 
             }
 
             if(options.name == "ApplicantName") {
@@ -101,8 +105,8 @@ export default class Information extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
 
-        if (this.step.result && this.step.result['yourInformationSurvey']) {
-            this.survey.data = this.step.result['yourInformationSurvey'].data;
+        if (this.step.result && this.step.result.yourInformationSurvey) {
+            this.survey.data = this.step.result.yourInformationSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -114,11 +118,13 @@ export default class Information extends Vue {
             this.survey.setVariable("includesFlm", false);
         }
 
-        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
-            if(this.steps[1].result && this.steps[1].result['yourInformationSurveyPO'] && this.steps[1].result['yourInformationSurveyPO'].data)
+        const stepPO = this.steps[this.stPgNo.PO._StepNo]
+
+        if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
+            if(stepPO.result && stepPO.result.yourinformationPOSurvey && stepPO.result.yourinformationPOSurvey.data)
             {
-                this.survey.setValue('ApplicantDOB',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantDOB);
-                this.survey.setValue('ApplicantName',this.steps[1].result['yourInformationSurveyPO'].data.ApplicantName);
+                this.survey.setValue('ApplicantDOB',stepPO.result.yourinformationPOSurvey.data.ApplicantDOB);
+                this.survey.setValue('ApplicantName',stepPO.result.yourinformationPOSurvey.data.ApplicantName);
             }
         }
         
@@ -129,9 +135,8 @@ export default class Information extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
 
        //console.log(this.surveyJsonCopy.pages[0].elements[0].elements[0])
-       //console.log(this.steps[1].result['yourInformationSurveyPO'].data)
-       // console.log(this.steps[0].result['selectedForms'])
-        if(this.steps[0].result && this.steps[0].result['selectedForms'].includes("protectionOrder")){
+       // console.log(this.steps[0].result.selectedForms)
+        if(this.steps[0].result && this.steps[0].result.selectedForms.includes("protectionOrder")){
             this.surveyJsonCopy.pages[0].elements[0].elements[0].readOnly = true;
             this.surveyJsonCopy.pages[0].elements[0].elements[1].readOnly = true;
             this.editButton = true;
@@ -166,5 +171,5 @@ export default class Information extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../styles/survey";
+@import "src/styles/survey";
 </style>

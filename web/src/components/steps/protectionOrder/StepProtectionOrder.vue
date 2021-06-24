@@ -1,20 +1,20 @@
 <template>
     <step-base v-bind:step="step">
-        <po-questionnaire v-bind:step="step" v-if="step.currentPage == 0"></po-questionnaire>
-        <your-information-po v-bind:step="step" v-if="step.currentPage == 1" />
-        <protection-fromWhom v-bind:step="step" v-if="step.currentPage == 2"></protection-fromWhom>
-        <po-filing-location v-bind:step="step" v-if="step.currentPage == 3"></po-filing-location>
-        <remove-person v-bind:step="step" v-if="step.currentPage == 4"></remove-person>
-        <no-go v-bind:step="step" v-if="step.currentPage == 5"></no-go>
-        <no-contact v-bind:step="step" v-if="step.currentPage == 6"></no-contact>
-        <weapons-firearms v-bind:step="step" v-if="step.currentPage == 7"></weapons-firearms>
-        <background v-bind:step="step" v-if="step.currentPage == 8"></background>
-        <your-story v-bind:step="step" v-if="step.currentPage == 9"></your-story>
-        <other-party v-bind:step="step" v-if="step.currentPage == 10"></other-party>
-        <about v-bind:step="step" v-if="step.currentPage == 11"></about>
-        <urgency v-bind:step="step" v-if="step.currentPage == 12"></urgency>
-        <review-your-answers v-bind:step="step" v-if="step.currentPage == 13"/>
-        <preview-forms v-bind:step="step" v-if="step.currentPage == 14"/>      
+        <po-questionnaire v-bind:step="step"     v-if="step.currentPage == stPgNo.PO.PoQuestionnaire" />
+        <your-information-po v-bind:step="step"  v-if="step.currentPage == stPgNo.PO.YourinformationPO" />
+        <protection-from-whom v-bind:step="step" v-if="step.currentPage == stPgNo.PO.ProtectionFromWhom" />
+        <po-filing-location v-bind:step="step"   v-if="step.currentPage == stPgNo.PO.PoFilingLocation" />
+        <remove-person v-bind:step="step"        v-if="step.currentPage == stPgNo.PO.RemovePerson" />
+        <no-go v-bind:step="step"                v-if="step.currentPage == stPgNo.PO.NoGo" />
+        <no-contact v-bind:step="step"           v-if="step.currentPage == stPgNo.PO.NoContact" />
+        <weapons-firearms v-bind:step="step"     v-if="step.currentPage == stPgNo.PO.WeaponsFirearms" />
+        <background v-bind:step="step"           v-if="step.currentPage == stPgNo.PO.Background" />
+        <your-story v-bind:step="step"           v-if="step.currentPage == stPgNo.PO.YourStory" />
+        <other-party v-bind:step="step"          v-if="step.currentPage == stPgNo.PO.OtherParty" />
+        <about v-bind:step="step"                v-if="step.currentPage == stPgNo.PO.About" />
+        <urgency v-bind:step="step"              v-if="step.currentPage == stPgNo.PO.Urgency" />
+        <review-your-answers v-bind:step="step"  v-if="step.currentPage == stPgNo.PO.ReviewYourAnswers" />
+        <preview-forms v-bind:step="step"        v-if="step.currentPage == stPgNo.PO.PreviewForms" />      
     </step-base>
 </template>
 
@@ -42,6 +42,12 @@ import Urgency from "./Urgency.vue";
 
 import ReviewYourAnswers from "./reviewPo/ReviewYourAnswers.vue"
 import PreviewForms from "./reviewPo/PreviewForms.vue"
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -71,6 +77,10 @@ export default class ProtectionOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
 
 };
 </script>

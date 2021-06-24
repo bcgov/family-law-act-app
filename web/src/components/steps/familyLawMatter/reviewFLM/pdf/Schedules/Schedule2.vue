@@ -139,6 +139,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
+import { schedule2DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -153,7 +154,7 @@ export default class Schedule2 extends Vue {
     result!: any;
 
     dataReady = false;
-    exParentArrInfo = {}   
+    exParentArrInfo = {} as schedule2DataInfoType; 
    
     mounted(){
         this.dataReady = false;        
@@ -163,12 +164,10 @@ export default class Schedule2 extends Vue {
 
     public extractInfo(){        
         this.exParentArrInfo = this.getExistingParentingArrangementsInfo();
-        console.log(this.exParentArrInfo)
-        console.log(this.result)
     }
 
     public getExistingParentingArrangementsInfo(){
-        let existingParentingArrangements = {type:'', subType:'', existingDate:'', changesSince:'', parentResp: {}, parentTime: {}, parentCond:{}, parentalArr: {}, childBestInterest: ''};
+        let existingParentingArrangements = {} as schedule2DataInfoType;
 
         const generalCondition = (( this.result.aboutParentingArrangementsSurvey && 
                                     this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' &&                                    
@@ -200,9 +199,7 @@ export default class Schedule2 extends Vue {
             } else if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement'){
                 existingParentingArrangements.subType = 'setAsideAgreement'
             }
-        }
-        
-        
+        }        
         
         if (generalCondition && this.result.parentingArrangementChangesSurvey && 
             this.result.parentingArrangementChangesSurvey.orderChangeList &&  
@@ -214,7 +211,8 @@ export default class Schedule2 extends Vue {
 
         } else {
             existingParentingArrangements.parentResp = {
-                applying: false
+                applying: false,
+                desc: ''
             }
         }
 
@@ -228,7 +226,8 @@ export default class Schedule2 extends Vue {
 
         } else {
             existingParentingArrangements.parentTime = {
-                applying: false
+                applying: false,
+                desc: ''
             }
         }
 
@@ -242,8 +241,9 @@ export default class Schedule2 extends Vue {
 
         } else {
             existingParentingArrangements.parentCond = {
-                applying: false
-            }
+                applying: false,
+                desc: ''
+            }           
         }
 
         if (generalCondition && this.result.parentingArrangementChangesSurvey && 
@@ -253,20 +253,20 @@ export default class Schedule2 extends Vue {
                     applying: true,
                     desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
                 }
-
         } else {
             existingParentingArrangements.parentalArr = {
-                applying: false
-            }
+                    applying: false,
+                    desc: ''
+                }
         }         
         
-        if (this.result.bestInterestOfChildSurvey 
-            && this.result.bestInterestOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
-                existingParentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
+        if (this.result.bestInterestsOfChildSurvey 
+            && this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
+                existingParentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
         } else {            
             existingParentingArrangements.childBestInterest = '';
         }
-        //console.log(parentingArrangements)
+        
         return existingParentingArrangements;
     }
 }

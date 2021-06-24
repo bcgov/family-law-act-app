@@ -270,16 +270,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import moment from 'moment';
-import { nameInfoType } from '@/types/Application';
-import Schedule1 from './Schedule1.vue';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+import { nameInfoType } from "@/types/Application/CommonInformation";
+import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+
 
 @Component({
     components:{
@@ -287,7 +287,6 @@ import Schedule1 from './Schedule1.vue';
         CheckBox
     }
 })
-
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
@@ -301,20 +300,20 @@ export default class CommonSection extends Vue {
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
-
     
     dataReady = false;
     aboutChildren = false;
 
-    locationInfo = {};
+    locationInfo = {} as locationInfoDataInfoType;
 
     otherPartyInfo=[];
-    yourInfo;
+    yourInfo = {} as yourInformationInfoDataInfoType;
 
     applicantList = []
     
-    existingOrders = {}
-    relationshipBetweenParties = {}
+    existingOrders = {} as existingOrdersInfoType;
+    
+    relationshipBetweenParties = {} as relationshipBetweenPartiesInfoType;
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';  
@@ -348,7 +347,7 @@ export default class CommonSection extends Vue {
             this.selectedSchedules.includes('schedule7') || 
             this.selectedSchedules.includes('schedule8')
         )
-        if (childRelatedApplication && this.result.childData && this.result.childData.length > 0){
+        if (childRelatedApplication && this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
@@ -370,14 +369,7 @@ export default class CommonSection extends Vue {
 
     public getLocationInfo(){
 
-        let locationInformation = {
-            courtLocation: '',
-            existingFileNumber: '', 
-            educationRegistry: false,
-            familyJusticeRegistry: false,
-            earlyResolutionRegistry: false,
-            none: false
-        };
+        let locationInformation = {} as locationInfoDataInfoType;
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
@@ -391,14 +383,13 @@ export default class CommonSection extends Vue {
                                         || locationInformation.familyJusticeRegistry
                                         || locationInformation.earlyResolutionRegistry);
         }
-
-        // console.log(locationInformation)
+        
         return locationInformation;
     }
 
     public getRelationshipBetweenPartiesInfo(){
 
-        let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: '', nameOfSpouse: ''};
+        let relationshipInfo = {} as relationshipBetweenPartiesInfoType;
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
@@ -412,9 +403,9 @@ export default class CommonSection extends Vue {
 
     public getChildrenInfo(){
 
-        const childrenInfo = [];
-        let childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        const childData = this.result.childData;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
+        const childData = this.result.childrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
@@ -440,16 +431,7 @@ export default class CommonSection extends Vue {
 
     public getYourInfo(){
 
-        let yourInformation = {
-            dob: '',
-            name: '',
-            lawyer: false,
-            lawyerName: '',
-            address: {street:'', city: '', country: '', postcode: '', state: ''},
-            contact: {email:'',fax:'',phone:''},
-            lawyerFiling: false,
-            lawyerStatement: {lawyerName: '', clientName: ''}
-        }        
+        let yourInformation = {} as yourInformationInfoDataInfoType;       
 
         // console.log(this.result.filingLocationSurvey)
 

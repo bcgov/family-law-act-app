@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -87,8 +87,8 @@ export default class ParentalResponsibilities extends Vue {
         this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"]=[];
         this.childData = [];        
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            const childData = this.step.result.childrenInfoSurvey.data;            
             for (const child of childData){                
                 this.childData.push(child);                
                 this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"].push(Vue.filter('getFullName')(child.name));
@@ -98,8 +98,8 @@ export default class ParentalResponsibilities extends Vue {
     
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result['parentalResponsibilitiesSurvey']) {
-            this.survey.data = this.step.result['parentalResponsibilitiesSurvey'].data;            
+        if (this.step.result && this.step.result.parentalResponsibilitiesSurvey) {
+            this.survey.data = this.step.result.parentalResponsibilitiesSurvey.data;            
 
             if (this.survey.data.allResponsibilitiesOrder == 'y'
                 && this.survey.data.childrenRequestedResponsibilities
@@ -112,8 +112,8 @@ export default class ParentalResponsibilities extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }       
 
-        if (this.step.result && this.step.result['flmBackgroundSurvey'] && this.step.result['flmBackgroundSurvey'].data){
-            const backgroundSurveyData = this.step.result['flmBackgroundSurvey'].data;
+        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
             if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
                 && backgroundSurveyData.existingOrdersListFLM.length > 0 
                 && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){

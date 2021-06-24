@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>        
     </page-base>
 </template>
@@ -12,12 +12,15 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/about-child-support-order.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 import moment from 'moment';
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -31,7 +34,10 @@ export default class AboutChildSupportOrder extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -48,9 +54,9 @@ export default class AboutChildSupportOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     childData = [];
-    currentStep =0;
-    currentPage =0;
-    applicantFullName ='';
+    currentStep = 0;
+    currentPage = 0;
+    applicantFullName = '';
     over19Index = [];
     childSupportStartType = '';
     startDate = '';
@@ -86,8 +92,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.over19Index = [];
         
 
-        if (this.step.result && this.step.result['childData']) {
-            this.childData = this.step.result['childData'].data;           
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+            this.childData = this.step.result.childrenInfoSurvey.data;           
             const _19yearsBefore = moment().add(-19,'years')           
             const whysupport19childTemplate = JSON.parse(JSON.stringify(this.surveyJsonCopy.pages[0].elements[0].elements[8]))
             this.surveyJsonCopy.pages[0].elements[0].elements.splice(8,1)
@@ -99,7 +105,7 @@ export default class AboutChildSupportOrder extends Vue {
                 const childName = Vue.filter('getFullName')(child.name)
                 //console.log(child)
                 // this.childData.push(child);
-                //this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child['+childInx+']',text:childName});
+                //this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push({value:'child.+childInx+',text:childName});
                 this.surveyJsonCopy.pages[0].elements[0].elements[6]["choices"].push(childName);
 
                 if ((moment(child.dob).isBefore(_19yearsBefore))){
@@ -121,11 +127,13 @@ export default class AboutChildSupportOrder extends Vue {
     }
 
     public adjustSurveyForOtherParties(){        
-             
+        
+        const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
+
         this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
 
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data;            
+        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
             }
@@ -136,7 +144,7 @@ export default class AboutChildSupportOrder extends Vue {
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
             //console.log(options)
-            // console.log(this.survey.data['paymentRequestStartingDate'])
+            // console.log(this.survey.data.paymentRequestStartingDate'])
 
             if (options.name == 'listOfChildren'){
                 this.setSelectedChildNames(options.value);
@@ -153,8 +161,8 @@ export default class AboutChildSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutChildSupportOrderSurvey']) {
-            this.survey.data = this.step.result['aboutChildSupportOrderSurvey'].data;
+        if (this.step.result && this.step.result.aboutChildSupportOrderSurvey) {
+            this.survey.data = this.step.result.aboutChildSupportOrderSurvey.data;
 
             this.survey.setVariable("listOfSupportPayorsLength",this.survey.data.listOfSupportPayors?this.survey.data.listOfSupportPayors.length:0)
 
@@ -212,7 +220,7 @@ export default class AboutChildSupportOrder extends Vue {
     public setOver19Info(){
         const over19Details = []
         for (const index of this.over19Index){
-            //console.log(this.survey.data['whyOlderChildNeedSupport['+ index + ']'])
+            //console.log(this.survey.data.whyOlderChildNeedSupport['+ index + ']'])
             const detail = {
                 name:Vue.filter('getFullName')(this.childData[index].name), 
                 reasonForSupport:{

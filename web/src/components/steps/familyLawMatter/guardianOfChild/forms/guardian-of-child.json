@@ -10,7 +10,7 @@
           "name": "FAQLegalAdvice",
           "title": "Where can I get legal assistance?",
           "titleLocation": "hidden",
-          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+          "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
         },
         {
           "type": "panel",
@@ -19,7 +19,7 @@
           "elements": [
             {
               "type": "checkbox",
-              "name": "applicantionType",
+              "name": "applicationType",
               "title": "Select each correct statement below:",
               "choices": [
                 {
@@ -38,14 +38,14 @@
           "type": "panel",
           "name": "becomeGuardianPanel",
           "visible": false,
-          "visibleIf": "{applicantionType} contains 'becomeGuardian'",
+          "visibleIf": "{applicationType} contains 'becomeGuardian'",
           "elements": [
             {
               "type": "checkbox",
               "name": "childrenList",
               "title": "Select each child from the list below that you want to be appointed as a guardian of.",
               "visible": false,
-              "visibleIf": "{applicantionType} contains 'becomeGuardian'",
+              "visibleIf": "{applicationType} contains 'becomeGuardian'",
               "isRequired": true,
               "choices": "{childNames}"
             }            
@@ -57,7 +57,7 @@
           "title": "Please complete the following information for each child you are applying for a person to no longer be a guardian of.",
           "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>Please complete the following information for each child you are applying for a person to no longer be a guardian of.</div>The child and the guardian whose guardianship you are applying to cancel both need to be added in the Children and Other Party steps in this application. If you have not added them already, please return to that step first.<br><br>To add a child, click the “<b-badge class='bg-success text-white' style='padding:0.06rem 0.1rem; font-size:12px ;border-radius:5px;' ><b> + </b></b-badge>” button. If you are done entering information for all the children, click the “Next” button.</div>",          
           "visible": false,
-          "visibleIf": "{applicantionType} contains 'cancelGuardian'"
+          "visibleIf": "{applicationType} contains 'cancelGuardian'"
         }
       ],
       "title": "Guardianship of a child"

@@ -6,6 +6,10 @@ table.fullsize {table-layout: fixed; width: 100%; margin-top:1rem;}
 table.fullsize >>> tr{border:1px solid #313132;}
 table.fullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 
+table.compactfullsize {table-layout: fixed; width: 100%; margin-top:0rem;}
+table.compactfullsize >>> tr{border:1px solid #313132;}
+table.compactfullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
+
 .new-page{margin-top:7rem;}
 .marginleft{margin-left:-1rem;}
 .marginleft1vue{margin-left:1rem !important;}
@@ -18,6 +22,7 @@ table.fullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 .uline{text-decoration: underline; display: inline;}
 .form-header{display:block; margin:0 0 4rem 0;}
 .form-header-po{display:block; margin:0 0 4rem 0;}
+.form-header-ppm{display:block; margin:0 0 5.25rem 0;}
 .form-one-header{display:block; margin:0 0 4rem 0;}
 
 section{

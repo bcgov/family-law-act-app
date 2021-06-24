@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -31,7 +31,7 @@ export default class UnpaidChildSupport extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
    
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -78,8 +78,8 @@ export default class UnpaidChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['unpaidChildSupportSurvey']) {
-            this.survey.data = this.step.result['unpaidChildSupportSurvey'].data;
+        if (this.step.result && this.step.result.unpaidChildSupportSurvey) {
+            this.survey.data = this.step.result.unpaidChildSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         

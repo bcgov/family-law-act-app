@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -10,10 +10,11 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/po-filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
-import moment from 'moment-timezone';
+//import moment from 'moment-timezone';
 
 import PageBase from "../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";
 
@@ -21,7 +22,10 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import "@/store/modules/common";
+import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -32,10 +36,13 @@ const commonState = namespace("Common");
 export default class PoFilingLocation extends Vue {
         
     @Prop({required: true})
-    step!: stepInfoType;   
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @commonState.State
-    public locationsInfo!: any[];
+    public locationsInfo!: locationsInfoType[];
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -44,7 +51,7 @@ export default class PoFilingLocation extends Vue {
     public respondentName!: nameInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -93,7 +100,7 @@ export default class PoFilingLocation extends Vue {
 
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: 3, currentPage: 0 });
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
             }
         })   
     }   
@@ -119,8 +126,8 @@ export default class PoFilingLocation extends Vue {
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result["poFilingLocationSurvey"]){
-            this.survey.data = this.step.result["poFilingLocationSurvey"].data;
+        if (this.step.result && this.step.result.poFilingLocationSurvey){
+            this.survey.data = this.step.result.poFilingLocationSurvey.data;
            
             if (this.survey.data.ExistingCourt){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
@@ -141,8 +148,7 @@ export default class PoFilingLocation extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {           
-            this.UpdateGotoNextStepPage();
-                    
+            this.UpdateGotoNextStepPage();                    
         }
     }
 
@@ -187,16 +193,18 @@ export default class PoFilingLocation extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {poFilingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
-        if (this.steps[2].result && this.steps[2].result.filingLocationSurvey && this.steps[2].result.filingLocationSurvey.data) {
-            const filingLocationSurveyCommon = this.steps[2].result.filingLocationSurvey
+        const step = this.steps[this.stPgNo.COMMON._StepNo]
+
+        if (step.result && step.result.filingLocationSurvey && step.result.filingLocationSurvey.data) {
+            const filingLocationSurveyCommon = step.result.filingLocationSurvey
             filingLocationSurveyCommon.data.ExistingCourt = this.survey.data["ExistingCourt"]
             filingLocationSurveyCommon.data.ExistingFileNumber = this.survey.data["ExistingFileNumber"]
             filingLocationSurveyCommon.data.ExistingFamilyCase = this.survey.data["ExistingFamilyCase"]
             // console.log("common information already exists");
-            // console.log(this.steps[2].result.filingLocationSurvey)
-            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: filingLocationSurveyCommon }})
+            // console.log(step.result.filingLocationSurvey)
+            this.UpdateStepResultData({step:step, data: {filingLocationSurvey: filingLocationSurveyCommon }})
         } else {
-            this.UpdateStepResultData({step:this.steps[2], data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, 2, 3)}});
+            this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.COMMON._StepNo, this.stPgNo.COMMON.FilingLocation )}});
         }
     }
 };

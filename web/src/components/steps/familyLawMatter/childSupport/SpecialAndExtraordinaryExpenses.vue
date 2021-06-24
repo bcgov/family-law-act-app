@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
         <div v-if="showTable" :key="tableKey">
             <b-table
@@ -41,7 +41,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/special-and-extraordinary-expenses.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -59,7 +60,7 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -131,8 +132,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['specialAndExtraordinaryExpensesSurvey']) {
-            this.survey.data = this.step.result['specialAndExtraordinaryExpensesSurvey'].data;           
+        if (this.step.result && this.step.result.specialAndExtraordinaryExpensesSurvey) {
+            this.survey.data = this.step.result.specialAndExtraordinaryExpensesSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -147,8 +148,8 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
 
         //console.log(this.survey.data.childrenSupportExpenseItem)
 
-        if (this.step.result && this.step.result['childData']) {
-                this.childData = this.step.result['childData'].data;                           
+        if (this.step.result && this.step.result.childrenInfoSurvey) {
+                this.childData = this.step.result.childrenInfoSurvey.data;                           
                 //console.log(childData)                 
                 for (const childInx in this.childData){
                     const child = this.childData[childInx];

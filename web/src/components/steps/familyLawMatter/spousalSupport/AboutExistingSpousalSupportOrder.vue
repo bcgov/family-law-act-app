@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -75,8 +75,8 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutExistingSpousalSupportOrderSurvey']) {
-            this.survey.data = this.step.result['aboutExistingSpousalSupportOrderSurvey'].data;            
+        if (this.step.result && this.step.result.aboutExistingSpousalSupportOrderSurvey) {
+            this.survey.data = this.step.result.aboutExistingSpousalSupportOrderSurvey.data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
        
@@ -103,5 +103,5 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-@import "../../../../styles/survey";
+@import "src/styles/survey";
 </style>

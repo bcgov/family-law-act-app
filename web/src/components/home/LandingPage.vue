@@ -153,20 +153,21 @@ import { SessionManager } from "@/components/utils/utils";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
+import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
 @Component
 export default class LandingPage extends Vue {
 
     @commonState.Action
-    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson: documentTypesJsonInfoType[]) => void
     
     @commonState.Action
-    public UpdateLocationsInfo!: (newLocationsInfo) => void
+    public UpdateLocationsInfo!: (newLocationsInfo: locationsInfoType[]) => void
 
-    isLoggedIn= false
-    pageReady = false
-    safetyInst = false
+    isLoggedIn = false;
+    pageReady = false;
+    safetyInst = false;
       
     async mounted() {
         this.pageReady = false;

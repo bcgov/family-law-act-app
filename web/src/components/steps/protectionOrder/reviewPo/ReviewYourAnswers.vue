@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <h2 class="mt-4">Review Your Answers</h2>
         <b-card
             v-for="section in questionResults"
@@ -42,12 +42,14 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 import * as _ from 'underscore';
 
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType} from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -59,6 +61,9 @@ export default class ReviewYourAnswers extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -82,11 +87,9 @@ export default class ReviewYourAnswers extends Vue {
     ]
 
     questionResults = [];
-    currentStep=0;
-    currentPage=0;
-    pageHasError = false;
-
-    previewFormsPage = 14;
+    currentStep =0;
+    currentPage =0;
+    pageHasError = false;    
 
     errorQuestionNames = [];
 
@@ -94,9 +97,9 @@ export default class ReviewYourAnswers extends Vue {
     nextPageChange(newVal) 
     {
         // console.log(newVal)
-        this.togglePages([this.previewFormsPage], !this.pageHasError);
+        this.togglePages([this.stPgNo.PO.PreviewForms], !this.pageHasError);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"protectionOrder", isCompleted:false})
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.previewFormsPage,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PO.PreviewForms,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
@@ -214,7 +217,7 @@ export default class ReviewYourAnswers extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         this.pageHasError = false;
-        for(const stepIndex of [1]){ //search answers through these step numbers
+        for(const stepIndex of [this.stPgNo.PO._StepNo]){ //search answers through these step numbers
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
             //console.log(step)
@@ -247,14 +250,9 @@ export default class ReviewYourAnswers extends Vue {
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
         // console.log(this.questionResults)
        
-        //let progress = 100;
-        // if(Object.keys(this.survey.data).length)
-        //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        //this.togglePages([0,1], true);
-        this.togglePages([this.previewFormsPage], !this.pageHasError); 
+       
+        this.togglePages([this.stPgNo.PO.PreviewForms], !this.pageHasError); 
     }
 
     public determineHiddenErrors(){        
@@ -323,13 +321,7 @@ export default class ReviewYourAnswers extends Vue {
     }
 
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, true);
-        // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        // if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
-
-        //this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
     }
 }
 </script>

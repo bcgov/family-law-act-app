@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -14,6 +14,49 @@
                         <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
                         <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
                     </ul>
+                    
+                    <div>
+                        <div class="m-4 text-primary" @click="showServeNoticeInfo= !showServeNoticeInfo" style="border-bottom:1px solid; width:19rem;">
+                            <span style='font-size:1.2rem;' class="fa fa-question-circle" /> How do I serve the other party? 
+                            <span v-if="showServeNoticeInfo" class='ml-2 fa fa-chevron-up'/>
+                            <span v-if="!showServeNoticeInfo" class='ml-2 fa fa-chevron-down'/>
+                        </div>
+                        <div v-if="showServeNoticeInfo" class="mx-4 mb-5 mt-3">
+                            <p>
+                                There are two types of service – personal service and ordinary service.
+                            </p>
+                            <p>
+                                Personal service means an adult person who is at least 19, other than you, must hand-deliver the documents directly 
+                                to the person being served. A party cannot personally serve a document on the other party.
+                            </p>
+                            <p>
+                                Some documents must be personally served, like the Application About a Family Law Matter and the Application About 
+                                a Protection Order.
+                            </p>
+                            <p>
+                                Ordinary service means that a party must be served to their address for service in one of the following ways:
+                                <ul>
+                                    <li>by leaving the documents at the party’s address for service</li>
+                                    <li>by mailing the documents by ordinary mail to the party’s address for service</li>
+                                    <li>by mailing the documents by registered mail to the party’s address for service</li>
+                                    <li>if the party’s address for service includes an email address, by emailing the documents to that email address</li>
+                                    <li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li>
+                                </ul>
+                            </p>
+                            <p>
+                                A party’s address for service is the address they have provided to the court. A party who does not have an address 
+                                for service must be served by personal service.
+                            </p>
+                            <p>
+                                The rules about service are found in Part 12 Division 4 of the Provincial Court Family Rules.
+                            </p>
+                            <p>Depending on how the documents are served, what day of the week they are served on, and even what time of day they 
+                                are served, it might change how you count the notice period. Be sure to review the rules about service before 
+                                serving the other party to make sure you give them proper notice.
+                  
+                            </p>
+                        </div>
+                    </div>
                     <p>Please add the details of the other party in the fields below. </p>
                     <p>If you are done entering all the parties, click the ‘Next’ button.</p>
                    
@@ -85,6 +128,21 @@
             </template>            
         </b-modal>
 
+        <b-modal size="xl" v-model="ppmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">
+               
+                <p>I understand all parents and guardians of the child(ren) this application is about must be given notice of my application about a priority parenting matter.</p>
+              
+                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application to be made without notice or with less than 7 days’ notice.</p>
+                <p>They are the other party/parties I added in this case.</p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="primary" @click="ppmInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closePpmInfo">I agree</b-button>
+            </template>            
+        </b-modal>
+
     </page-base>
 </template>
 
@@ -137,27 +195,30 @@ export default class OtherPartyCommon extends Vue {
 
     currentStep=0;
     currentPage=0;
+    showServeNoticeInfo = false
     showTable = true;
     flmInfo = false;
+    ppmInfo = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
  
     created() {
-        if (this.step.result && this.step.result["otherPartyCommonSurvey"]) {
-            this.otherPartyData = this.step.result["otherPartyCommonSurvey"].data;
+        if (this.step.result && this.step.result.otherPartyCommonSurvey) {
+            this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
         }
     }
 
     mounted(){    
-        this.flmInfo = false;    
+        this.flmInfo = false;  
+        this.ppmInfo = false;  
         const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
-    public openForm(anyRowToBeEdited) {
+    public openForm(anyRowToBeEdited?) {
 
         this.showTable = false;
         Vue.nextTick(()=>{
@@ -182,7 +243,8 @@ export default class OtherPartyCommon extends Vue {
             this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
-        this.otherPartyData = [...this.otherPartyData, newParty];
+
+        this.otherPartyData = this.otherPartyData?[...this.otherPartyData, newParty]:[newParty];
 
         this.showTable = true; 
     }
@@ -205,8 +267,13 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public onNext() {
-        if (this.types.includes("Family Law Matter")){
-            this.flmInfo = true;
+        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter")){
+            if (this.types.includes("Family Law Matter")){
+                this.flmInfo = true;
+            }
+            if (!this.types.includes("Family Law Matter") && this.types.includes("Priority Parenting Matter")){
+                this.ppmInfo = true;
+            }
         } else {
             this.UpdateGotoNextStepPage();
         }        
@@ -214,7 +281,16 @@ export default class OtherPartyCommon extends Vue {
 
     public closeFlmInfo(){
         this.flmInfo = false;
-        this.UpdateGotoNextStepPage();
+        if (!this.ppmInfo){
+            this.UpdateGotoNextStepPage();
+        }        
+    }
+
+    public closePpmInfo(){
+        this.ppmInfo = false;
+        if (!this.flmInfo){
+            this.UpdateGotoNextStepPage();
+        }        
     }
 
     public isDisableNext() {

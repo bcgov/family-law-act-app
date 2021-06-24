@@ -139,8 +139,8 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                     <div style="margin:0 0 0 1.5rem;">
-                        <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.calc.attch?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
-                        <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.calc.attch?'yes':''" text="I am not attaching calculations because:"/>
+                        <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much child support I believe should be paid according to the child support guidelines"/>
+                        <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
                     </div>
                     <div v-if="chSupInfo.calc.reason" 
                         class="answerbox">{{chSupInfo.calc.reason}}</div>
@@ -248,7 +248,8 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
+import { schedule3DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -256,7 +257,6 @@ import { nameInfoType } from '@/types/Application';
         CheckBox
     }
 })
-
 export default class Schedule3 extends Vue {
 
     @Prop({required:true})
@@ -266,7 +266,7 @@ export default class Schedule3 extends Vue {
     public applicantName!: nameInfoType;
    
     dataReady = false;   
-    chSupInfo = {}
+    chSupInfo = {} as schedule3DataInfoType;
    
     mounted(){
         this.dataReady = false;
@@ -304,8 +304,8 @@ export default class Schedule3 extends Vue {
     }
 
     public getNewChildSupportInfo(){
-        // console.log(this.result)
-        let newChildSupportInfo = {appType: {}, opType: {}, currCond:{}, opInfo: {}, desiredSup: {}, calc:{}, ndHard:{}, specExp: {}, finStmnt:{}, applyForCaseManagement: false};
+       
+        let newChildSupportInfo = {} as schedule3DataInfoType;
 
         if (this.result.childSupportSurvey && this.result.childSupportSurvey.applicantGuardianType){
             newChildSupportInfo.appType = {
@@ -325,20 +325,20 @@ export default class Schedule3 extends Vue {
             }
         }
 
-        if (this.result.childSupportCurrentArrangementSurvey){
+        if (this.result.childSupportCurrentArrangementsSurvey){
             newChildSupportInfo.currCond = {
-                splitShared: (this.result.childSupportCurrentArrangementSurvey.applicantTimeType == 'y'),                
-                timeDesc: (this.result.childSupportCurrentArrangementSurvey.applicantTimeWithChildExplanation)? this.result.childSupportCurrentArrangementSurvey.applicantTimeWithChildExplanation: '',
-                supArr: (this.result.childSupportCurrentArrangementSurvey.currentArrangmentExplanation)? this.result.childSupportCurrentArrangementSurvey.currentArrangmentExplanation: ''
+                splitShared: (this.result.childSupportCurrentArrangementsSurvey.applicantTimeType == 'y'),                
+                timeDesc: (this.result.childSupportCurrentArrangementsSurvey.applicantTimeWithChildExplanation)? this.result.childSupportCurrentArrangementsSurvey.applicantTimeWithChildExplanation: '',
+                supArr: (this.result.childSupportCurrentArrangementsSurvey.currentArrangmentExplanation)? this.result.childSupportCurrentArrangementsSurvey.currentArrangmentExplanation: ''
             }
         }
 
-        if (this.result.childSupportIncomeEarningSurvey){
+        if (this.result.incomeAndEarningPotentialSurvey){
             newChildSupportInfo.opInfo = {  
-                facts: this.result.childSupportIncomeEarningSurvey.knowFacts == 'y',
-                income: this.result.childSupportIncomeEarningSurvey.knowIncome == 'y',              
-                factsDesc: (this.result.childSupportIncomeEarningSurvey.knowFacts == 'y' && this.result.childSupportIncomeEarningSurvey.factsExplanation)? this.result.childSupportIncomeEarningSurvey.factsExplanation: '',
-                incomeAmt: (this.result.childSupportIncomeEarningSurvey.knowIncome == 'y' && this.result.childSupportIncomeEarningSurvey.otherPartyIncome)? this.result.childSupportIncomeEarningSurvey.otherPartyIncome: ''
+                facts: this.result.incomeAndEarningPotentialSurvey.knowFacts == 'y',
+                income: this.result.incomeAndEarningPotentialSurvey.knowIncome == 'y',              
+                factsDesc: (this.result.incomeAndEarningPotentialSurvey.knowFacts == 'y' && this.result.incomeAndEarningPotentialSurvey.factsExplanation)? this.result.incomeAndEarningPotentialSurvey.factsExplanation: '',
+                incomeAmt: (this.result.incomeAndEarningPotentialSurvey.knowIncome == 'y' && this.result.incomeAndEarningPotentialSurvey.otherPartyIncome)? this.result.incomeAndEarningPotentialSurvey.otherPartyIncome: ''
             }
         }
 
@@ -346,7 +346,7 @@ export default class Schedule3 extends Vue {
             const aboutChildSupport = this.result.aboutChildSupportOrderSurvey;
             newChildSupportInfo.desiredSup = {  
                 payor: aboutChildSupport.listOfSupportPayors.toString(),
-                applicantPayor: (aboutChildSupport.listOfSupportPayors)?aboutChildSupport.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):'',
+                applicantPayor: (aboutChildSupport.listOfSupportPayors)?aboutChildSupport.listOfSupportPayors.includes(Vue.filter('getFullName')(this.applicantName)):false,
                 payees: aboutChildSupport.listOfChildren,              
                 over19: (aboutChildSupport.numberOf19yrsChild>0 && aboutChildSupport.supportChildOver19 == 'y'),
                 payorErnsHigh:(aboutChildSupport.payorEarnsHigh == 'yes'),
@@ -358,7 +358,7 @@ export default class Schedule3 extends Vue {
 
         if (this.result.calculatingChildSupportSurvey){
             newChildSupportInfo.calc = {                
-                attch: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'y'),
+                attaching: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'y'),
                 reason: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'n' && this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations: ''
             }
         }
@@ -402,31 +402,30 @@ export default class Schedule3 extends Vue {
         }
 
         newChildSupportInfo.finStmnt = {
-            required: (newChildSupportInfo.desiredSup['applicantPayor'] ||
-                    newChildSupportInfo.desiredSup['over19'] ||
-                    newChildSupportInfo.desiredSup['payorErnsHigh'] ||
-                    newChildSupportInfo.currCond['splitShared'] ||
-                    newChildSupportInfo.specExp['applying'] ||
-                    newChildSupportInfo.opType['standing']|
-                    newChildSupportInfo.ndHard['change'])
-
-        }
-
-        //console.log(this.result.flmAdditionalDocsSurvey)
+            required: (newChildSupportInfo.desiredSup.applicantPayor ||
+                    newChildSupportInfo.desiredSup.over19 ||
+                    newChildSupportInfo.desiredSup.payorErnsHigh ||
+                    newChildSupportInfo.currCond.splitShared ||
+                    newChildSupportInfo.specExp.applying ||
+                    newChildSupportInfo.opType.standing ||
+                    newChildSupportInfo.ndHard.change)
+        };
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
                 }
             }   
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
+        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
            newChildSupportInfo.applyForCaseManagement = true
-            newChildSupportInfo.finStmnt['required'] = false
+            newChildSupportInfo.finStmnt = {
+                required: false
+            }
         }
 
         return newChildSupportInfo;

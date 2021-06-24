@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -12,11 +12,13 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 import surveyJson from "./forms/about-existing-child-support.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -30,7 +32,10 @@ export default class AboutExistingChildSupport extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -46,8 +51,8 @@ export default class AboutExistingChildSupport extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);  
     
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existingType = "";
 
     beforeCreate() {
@@ -81,22 +86,24 @@ export default class AboutExistingChildSupport extends Vue {
 
     public setPages(){            
             
+        const AboutCS = this.stPgNo.FLM.AboutChildSupportChanges
+
         if (this.existingType == 'ExistingOrder') {                
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([20], true);
+                this.togglePages([AboutCS], true);
                 
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
                 
-                this.togglePages([20], false);
+                this.togglePages([AboutCS], false);
             }
         } else if (this.existingType == 'ExistingAgreement') {
             
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([20], true);
+                this.togglePages([AboutCS], true);
                 
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
                 
-                this.togglePages([20], false);
+                this.togglePages([AboutCS], false);
             }
         }    
 
@@ -117,15 +124,15 @@ export default class AboutExistingChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['childSupportOrderAgreementSurvey']) {
-            const existingTypeData = this.step.result['childSupportOrderAgreementSurvey'].data;
+        if (this.step.result && this.step.result.childSupportOrderAgreementSurvey) {
+            const existingTypeData = this.step.result.childSupportOrderAgreementSurvey.data;
             // console.log(existingTypeData)
             this.survey.setVariable("existingType", existingTypeData.existingType)
             this.existingType = existingTypeData.existingType;
         }
 
-        if (this.step.result && this.step.result['aboutExistingChildSupportSurvey']) {
-            this.survey.data = this.step.result['aboutExistingChildSupportSurvey'].data;           
+        if (this.step.result && this.step.result.aboutExistingChildSupportSurvey) {
+            this.survey.data = this.step.result.aboutExistingChildSupportSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
