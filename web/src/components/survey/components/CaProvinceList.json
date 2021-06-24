@@ -1,0 +1,56 @@
+{
+    "provinces": [
+        {
+          "value": "AB",
+          "text": "Alberta"
+        },
+        {
+          "value": "BC",
+          "text": "British Columbia"
+        },
+        {
+          "value": "MB",
+          "text": "Manitoba"
+        },
+        {
+          "value": "NB",
+          "text": "New Brunswick"
+        },
+        {
+          "value": "NF",
+          "text": "Newfoundland and Labrador"
+        },
+        {
+          "value": "NT",
+          "text": "Northwest Territories"
+        },
+        {
+          "value": "NS",
+          "text": "Nova Scotia"
+        },
+        {
+          "value": "NU",
+          "text": "Nunavut"
+        },
+        {
+          "value": "ON",
+          "text": "Ontario"
+        },
+        {
+          "value": "PE",
+          "text": "Prince Edward Island"
+        },
+        {
+          "value": "QC",
+          "text": "Quebec"
+        },
+        {
+          "value": "SK",
+          "text": "Saskatchewan"
+        },
+        {
+          "value": "YT",
+          "text": "Yukon"
+        }
+    ]
+}
