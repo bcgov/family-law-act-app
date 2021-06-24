@@ -191,15 +191,16 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
 })
 
-Vue.filter('getPathwayABRV',function(name){	
+Vue.filter('getPathwayPdfType',function(name){	
 	//protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false
 
-	if (name == 'protectionOrder') return "AAP";
-	if (name == 'familyLawMatter') return "FLC";
-	if (name == 'caseMgmt') return "ACMO";
-	if (name == 'priorityParenting') return "AXP";
-	if (name == 'childReloc') return "APRC";
-	if (name == 'agreementEnfrc') return "AFET";
+	if (name == 'protectionOrder')        	return "AAP";
+	if (name == 'familyLawMatterForm1') 	return "NTRF";
+	if (name == 'familyLawMatter')   		return "FLC";
+	if (name == 'caseMgmt')          		return "ACMO";
+	if (name == 'priorityParenting') 		return "AXP";
+	if (name == 'childReloc')        		return "APRC";
+	if (name == 'agreementEnfrc')    		return "AFET";
 	
 })
 

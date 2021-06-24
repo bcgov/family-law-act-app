@@ -142,7 +142,7 @@ export default class About extends Vue {
     }
 
     public setExistingFileNumber(){
-        const fileType = 'AAP'
+        const fileType = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
 
         if(existingOrders){
@@ -151,6 +151,11 @@ export default class About extends Vue {
                 existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                                                                    
             }else{                
                 existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
+            }
+
+            for(const inx in existingOrders){
+                existingOrders[inx].filingLocation = this.survey.data.ExistingCourt
+                existingOrders[inx].fileNumber = this.survey.data.ExistingFileNumber
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});

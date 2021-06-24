@@ -236,42 +236,13 @@ export default class ProtectionFromWhom extends Vue {
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
 
-    public setExistingFileNumber(){
-        const fileType = 'AAP'
-        const existingOrders = this.$store.state.Application.steps[0]['result']['existingOrders']
-        const currentLocation = this.$store.state.Application.applicationLocation
-        const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || (this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'y'))
-
-        if(existingOrders){
-            const index = existingOrders.findIndex(order=>{return(order.type == fileType)})
-            if(index >= 0 ){
-                if(existingOrdersCondition)
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
-                else
-                    existingOrders[index]={type: fileType, filingLocation: currentLocation, fileNumber: ''}                                 
-            }else{
-                if(existingOrdersCondition)
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
-                else
-                    existingOrders.push({type: fileType, filingLocation: currentLocation, fileNumber: ''});                     
-            }
-            
-            this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
-
-        }else{
-            if(existingOrdersCondition)
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
-            else
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: currentLocation, fileNumber: '' }]}});    
-        }
-    }
+   
   
     beforeDestroy() {
         
         //console.log(this.survey.data)
 
         this.setRelatedNames();
-        this.setExistingFileNumber();
 
         if(this.checkAnswersforContinue())
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);

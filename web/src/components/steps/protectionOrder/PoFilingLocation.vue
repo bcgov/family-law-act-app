@@ -158,32 +158,30 @@ export default class PoFilingLocation extends Vue {
     }  
 
     public setExistingFileNumber(){
-        const fileType = 'AAP'
+        const fileType = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const existingOrders = this.$store.state.Application.steps[0]['result']?this.$store.state.Application.steps[0]['result']['existingOrders']:''
         
         const existingOrdersCondition = this.survey.data && this.survey.data.ExistingFamilyCase == "y"
-
+        const fileNumber = existingOrdersCondition? this.survey.data.ExistingFileNumber: ''
+        
         if(existingOrders){
+            
             const index = existingOrders.findIndex(order=>{return(order.type == fileType)})
-            if(index >= 0 ){
-                if(existingOrdersCondition)
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}                   
-                else
-                    existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''}                                 
+            if(index >= 0 ){                
+                existingOrders[index]={type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber}
             }else{
-                if(existingOrdersCondition)
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber});
-                else
-                    existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: ''});                     
+                existingOrders.push({type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber});                     
+            }
+
+            for(const inx in existingOrders){
+                existingOrders[inx].filingLocation = this.survey.data.ExistingCourt;
+                existingOrders[inx].fileNumber = fileNumber;
             }
             
             this.UpdateCommonStepResults({data:{'existingOrders':existingOrders}});
 
-        }else{
-            if(existingOrdersCondition)
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: this.survey.data.ExistingFileNumber}]}});
-            else
-                this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: '' }]}});    
+        }else{            
+            this.UpdateCommonStepResults({data:{'existingOrders':[{type: fileType, filingLocation: this.survey.data.ExistingCourt, fileNumber: fileNumber }]}});    
         }
     }
 

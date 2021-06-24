@@ -925,7 +925,7 @@ export default class FormK extends Vue {
 
 
     public onPrint() { 
-        const pdf_type = 'AAP'    
+        const pdf_type = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'    
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
@@ -957,9 +957,10 @@ export default class FormK extends Vue {
         });
     }
 
-    public onPrintSave(){        
+    public onPrintSave(){ 
+        const pdf_type = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=AAP'
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type;
         const options = {
             responseType: "blob",
             headers: {

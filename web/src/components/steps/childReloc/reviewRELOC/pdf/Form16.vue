@@ -48,13 +48,15 @@ export default class Form16 extends Vue {
     }   
            
     public onPrint() { 
+
+        const pdf_type = Vue.filter('getPathwayPdfType')("childReloc")
                
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" "`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-for-order-prohibiting-the-relocation-of-a-child&pdf_type=APRC&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=application-for-order-prohibiting-the-relocation-of-a-child&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         const body = {
@@ -80,9 +82,12 @@ export default class Form16 extends Vue {
         });
     }
 
-    public onPrintSave(){        
+    public onPrintSave(){ 
+        
+        const pdf_type = Vue.filter('getPathwayPdfType')("childReloc")
+
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=APRC'
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
         const options = {
             responseType: "blob",
             headers: {

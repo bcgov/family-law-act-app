@@ -66,13 +66,15 @@ export default class FormList extends Vue {
     mounted(){
 
         this.formsListTemplate =[                
-            { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[this.stPgNo.PO._StepNo],   color:"danger", title:"Application About a Protection Order (FORM 12)"},
-            { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
-            { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
-            { name:'P15', appName:'priorityParenting', pdfType:'AXP', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo], color:"danger", title:"Application About Priority Parenting Matter (Form 15)"},        
-            { name:'P16', appName:'childReloc', pdfType:'APRC', chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RELOC._StepNo], color:"danger", title:"Application for Order Prohibiting the Relocation of a Child (Form 16)"}        
+            { name:'PK',  appName:'protectionOrder',   pdfType: Vue.filter('getPathwayPdfType')("protectionOrder"),      chkSteps:[this.stPgNo.PO._StepNo],                               color:"danger", title:"Application About a Protection Order (FORM 12)"},
+            { name:'P3',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatter"),      chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],   color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+            { name:'P1',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatterForm1"), chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],   color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'P15', appName:'priorityParenting', pdfType: Vue.filter('getPathwayPdfType')("priorityParenting"),    chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo],   color:"danger", title:"Application About Priority Parenting Matter (Form 15)"},        
+            { name:'P16', appName:'childReloc',        pdfType: Vue.filter('getPathwayPdfType')("childReloc"),           chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RELOC._StepNo], color:"danger", title:"Application for Order Prohibiting the Relocation of a Child (Form 16)"}        
         
         ]
+
+        //console.log(this.formsListTemplate)
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
