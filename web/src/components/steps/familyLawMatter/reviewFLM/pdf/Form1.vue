@@ -57,13 +57,13 @@ export default class Form1 extends Vue {
     public onPrint() { 
         
         const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatterForm1")
-        
+        const pdf_name = "notice-to-resolve-a-family-law-matter"
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" ";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         // const body = new FormData();
