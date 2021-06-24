@@ -87,13 +87,13 @@ export default class Form3 extends Vue {
     public onPrint() { 
 
         const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatter") 
-             
+        const pdf_name = "application-about-a-family-law-matter";    
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 712   `+moment().format("MMMM D, YYYY")+` \\a           Form 3";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type='+pdf_type+'version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         const body = {

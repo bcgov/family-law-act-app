@@ -50,13 +50,13 @@ export default class Form16 extends Vue {
     public onPrint() { 
 
         const pdf_type = Vue.filter('getPathwayPdfType')("childReloc")
-               
+        const pdf_name = "application-for-order-prohibiting-the-relocation-of-a-child"       
         const el= document.getElementById("print");
         //console.log(el)
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" "`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-for-order-prohibiting-the-relocation-of-a-child&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
 
         const body = {
