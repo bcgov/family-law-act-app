@@ -1,8 +1,7 @@
 <template>
     <div v-if="dataReady" >
-        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
-            <!-- <form3 v-if="requiredForm == 3" @enableNext="EnableNext"/> -->
-            <form16 v-if="requiredForm == 16" @enableNext="EnableNext"/>
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
+            <form16 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -34,51 +33,19 @@ export default class PreviewFormsReloc extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
-
     currentStep = 0;
     currentPage = 0;
     disableNext = true;
-    dataReady = false;
-    requiredForm = 16;
-    
+    dataReady = false;    
 
     mounted(){
         this.dataReady = false;
         this.disableNext = true;        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-        this.determineRequiredForm();
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);       
         if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.RELOC._StepNo])) this.dataReady = true;
-    }
-
-    public determineRequiredForm(){        
-
-        const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
-
-        // if( stepCOM && 
-        //     stepCOM.result &&
-        //     stepCOM.result.filingLocationSurvey &&
-        //     stepCOM.result.filingLocationSurvey.data){
-        //     const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-        //     const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-    
-        //     const location = filingLocationData.ExistingCourt;                            
-
-        //     if(courtsC.includes(location) && 
-        //         filingLocationData.MetEarlyResolutionRequirements == 'n'){
-        //             this.requiredForm = 1;
-                
-        //     } else {
-        //         this.requiredForm = 3;
-        //     }
-        
-        // } else {
-            this.requiredForm = 16;
-        // }
-
-               
-    }
+    }   
 
     public EnableNext(){
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
