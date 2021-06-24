@@ -89,7 +89,6 @@ export class migrateStore{
     }
 
 
-
     public migratePages(newPages: pageInfoType[] , oldPages: pageInfoType[]): pageInfoType[]{
         
         for(const newPageIndex in newPages){
@@ -105,7 +104,6 @@ export class migrateStore{
         }
         return newPages
     }
-
 
 
     public migrateResult(newStep, correspondingStep){
@@ -175,6 +173,11 @@ export class migrateStore{
         pathwayCompleted.agreementEnfrc = false;
         
         return pathwayCompleted;        
+    }
+
+    public applyResetPathway(){
+        const newPathwayCompleted = this.resetPathwayCompleted();
+		store.commit("setPathwayCompletedFull",newPathwayCompleted);
     }
 
 }

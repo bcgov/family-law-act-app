@@ -14,7 +14,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value: existingFileNumber}]"
                     :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
@@ -370,12 +370,13 @@ export default class Form16Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
     relocInfo = {} as relocationOfChildInformationDataInfoType;
 
+    existingFileNumber = ''
     childrenInfo = [{fullName:'', dob:'', currentSituation:'' }];    
    
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
-        this.dataReady = true;
+        this.dataReady = true;        
     }
    
     childrenFields=[
@@ -400,7 +401,15 @@ export default class Form16Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.relocInfo = this.getRelocInfo();
-    }   
+        this.getLocationInfo()
+    } 
+    
+    public getLocationInfo(){        
+        if (this.result.filingLocationSurvey){
+            const locationData = this.result.filingLocationSurvey;           
+            this.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+        }
+    }
     
     public getChildrenInfo(){
 

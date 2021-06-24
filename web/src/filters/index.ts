@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import store from '@/store';
 
 import {customCss} from './bootstrapCSS'
+import { pathwayCompletedInfoType } from '@/types/Application';
 
 
 Vue.filter('beautify-date-', function(date){
@@ -435,10 +436,18 @@ Vue.filter('replaceRequiredDocuments', function(){
 })
 
 Vue.filter('surveyChanged', function(type: string) {
+	
+	const steps = store.state.Application.steps
+
 	const stepPO = store.state.Application.stPgNo.PO
 	const stepFLM = store.state.Application.stPgNo.FLM
 	const stepPPM = store.state.Application.stPgNo.PPM
 	const stepRELOC = store.state.Application.stPgNo.RELOC
+
+	const noPOsteps        = [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo]   
+	const noPOreviewPages  = [stepFLM.ReviewYourAnswersFLM, stepPPM.ReviewYourAnswersPPM, stepRELOC.ReviewYourAnswersRELOC];
+	const noPOpreviewPages = [stepFLM.PreviewFormsFLM,      stepPPM.PreviewFormsPPM,      stepRELOC.PreviewFormsRELOC];
+
 	let step = stepPO._StepNo; 
 	let reviewPage = stepPO.ReviewYourAnswers; 
 	let previewPage = stepPO.PreviewForms;
@@ -464,16 +473,51 @@ Vue.filter('surveyChanged', function(type: string) {
 		previewPage = stepRELOC.PreviewFormsRELOC;	
 	}
 
-	const steps = store.state.Application.steps
+	if(type == 'allExPO'){
 
-	store.dispatch("Application/UpdatePathwayCompleted", {pathway: type, isCompleted: false})
-	
-	if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
-		store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
-		store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
-	
-		if(steps[step].pages[previewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
-	}  	
+		// console.log('allExPO')
+		// console.log(noPOsteps)
+		// console.log(noPOpreviewPages)
+		// console.log(noPOreviewPages)
+        
+		let pathwayCompleted = {} as pathwayCompletedInfoType;
+		pathwayCompleted = store.state.Application.pathwayCompleted			        
+		pathwayCompleted.familyLawMatter = false;        
+		pathwayCompleted.caseMgmt = false;       
+		pathwayCompleted.priorityParenting = false;       
+		pathwayCompleted.childReloc = false;       
+		pathwayCompleted.agreementEnfrc = false;		
+		store.commit("Application/setPathwayCompletedFull",pathwayCompleted);
+		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
+        store.dispatch("Application/checkAllCompleted")
+
+		for(const inx in noPOsteps){
+			const noPOstep = noPOsteps[inx]
+			const noPOreviewPage =  noPOreviewPages[inx]
+			const noPOpreviewPage = noPOpreviewPages[inx]
+			if(steps[noPOstep].pages[noPOreviewPage].progress ==100 ){//if changes, make review page incompelete
+				store.commit("Application/setPageProgress", { currentStep: noPOstep, currentPage: noPOreviewPage,  progress: 50 });
+				store.commit("Application/setPageActive",   { currentStep: noPOstep, currentPage: noPOpreviewPage, active: false });
+			
+				if(steps[noPOstep].pages[noPOpreviewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: noPOstep, currentPage:noPOpreviewPage, progress:50 });
+			}
+		}
+
+		
+
+	}else{
+		store.dispatch("Application/UpdatePathwayCompleted", {pathway: type, isCompleted: false})
+		
+		
+		
+		if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
+			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
+			store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
+		
+			if(steps[step].pages[previewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
+		}
+	}
+
 	const submitStep       = store.state.Application.stPgNo.SUBMIT._StepNo
 	const submitTotalPages = (Object.keys(store.state.Application.stPgNo.SUBMIT).length -1)
 	store.commit("Application/resetStep", submitStep);

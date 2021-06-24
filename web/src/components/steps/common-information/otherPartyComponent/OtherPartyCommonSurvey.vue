@@ -68,7 +68,7 @@ export default class OtherPartyCommonSurvey extends Vue {
     
     public addSurveyListener(){
         this.survey.onComplete.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('allExPO')
 
             //console.log(this.survey)
             this.populateOpModel(sender.data);

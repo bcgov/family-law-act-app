@@ -14,7 +14,7 @@
             </div>
             <div style="float:right;">
                 <b-table
-                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:''}]"
+                    :items="[{name:'REGISTRY LOCATION:', value:result.applicationLocation},{name:'COURT FILE NUMBER:', value:existingFileNumber}]"
                     :fields="[{key:'name',tdClass:'border-dark text-center align-middle'},{key:'value',tdClass:'border-dark text-center align-middle'}]"
                     small
                     bordered
@@ -360,7 +360,9 @@ export default class Form15Layout extends Vue {
     firstOtherParty = {} as priorityParentingOtherPartyDataInfoType;
     yourInfo = {} as yourInformationInfoDataInfoType;
     ppmInfo = {} as priorityParentingInformationDataInfoType;
-
+    
+    existingFileNumber = ''
+    
     childrenInfo: childrenInfoSurveyInfoType[] = [];
    
     mounted(){
@@ -392,6 +394,14 @@ export default class Form15Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.ppmInfo = this.getPpmInfo();
+        this.getLocationInfo()
+    } 
+    
+    public getLocationInfo(){        
+        if (this.result.filingLocationSurvey){
+            const locationData = this.result.filingLocationSurvey;           
+            this.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+        }
     }   
     
     public getChildrenInfo() {

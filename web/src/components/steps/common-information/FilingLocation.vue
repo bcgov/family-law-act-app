@@ -174,7 +174,7 @@ export default class FilingLocation extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('allExPO')
             // console.log(options)            
             
             if(options.name == 'editLocation'){  

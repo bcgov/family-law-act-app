@@ -84,7 +84,8 @@ export default class YourInformation extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            //Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('allExPO')
             //console.log(this.survey.data);
             // console.log(options)
 
