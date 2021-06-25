@@ -1,14 +1,12 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         
         <h2 class="mt-4">Review and Print</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             
             <div class="ml-2">
                 You have indicated that you will file at the following court registry: 
-                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>
-                <!-- <p class="my-0 ml-2 " style="display:block"> {{applicantLocation.address}} </p>
-                <p class="my-0 ml-2" style="display:block"> {{applicantLocation.postalcode}} </p> -->
+                <p class="h4 mt-3 ml-2 mb-1" style="display:block"> {{applicantLocation.name}} </p>                
             </div>
 
             <div class="info-section mt-4 mb-5" style="background: #f6e4e6; border-color: #e6d0c9; color: #5a5555; border-radius:10px;">
@@ -129,13 +127,12 @@ export default class ReviewAndPrint extends Vue {
     error= "";
     currentStep=0;
     currentPage=0;
-
-    formsList = [];
+   
     includesPO = false;    
 
     showGetHelpForPDF = false;
-    applicantLocation = {}
-    filingLocation = {}      
+    applicantLocation = {} as locationsInfoType;
+    filingLocation = {} as locationsInfoType;      
 
     mounted(){
 
@@ -160,11 +157,6 @@ export default class ReviewAndPrint extends Vue {
         } else {
             this.filingLocation = this.applicantLocation;
         }
-        // if(location == 'Victoria'){
-        //     this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-        // }else if(location == 'Surrey'){
-        //     this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-        // }  
 
     }  
     
