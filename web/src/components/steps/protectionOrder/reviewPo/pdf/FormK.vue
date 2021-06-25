@@ -1002,7 +1002,7 @@ export default class FormK extends Vue {
         
         Object.assign(result, result,{applicationLocation: applicationLocation}); 
        
-        console.log(result)
+        //console.log(result)
         if (result.poQuestionnaireSurvey && result.poQuestionnaireSurvey.orderType){
 
             const orderType = result.poQuestionnaireSurvey.orderType;

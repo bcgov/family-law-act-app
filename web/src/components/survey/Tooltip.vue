@@ -39,8 +39,6 @@
         mounted()
         {
             this.description = glossaryJson[this.title.toLowerCase()]
-            //console.log(glossaryJson)
-            //console.log(this.description)
         }
 
    
@@ -80,9 +78,5 @@
         /* font-family: BCSans, "Noto Sans", Verdana, Arial, sans serif; */
 
     } 
-
-    
-    
-
 
 </style>

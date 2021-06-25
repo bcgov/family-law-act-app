@@ -947,15 +947,13 @@ class Application extends VuexModule {
     @Action
     public UpdateRequiredDocumentsByType({typeOfRequiredDocuments, requiredDocuments }) {
         this.context.commit("setRequiredDocumentsByType", {typeOfRequiredDocuments, requiredDocuments });
-        //console.log(this.requiredDocuments)
         this.context.commit("setCommonStepResults",{data:{'requiredDocuments':this.requiredDocuments}});
     }
 
     @Mutation
     public setPackageNumber(packageNumber): void {
         this.packageNumber = packageNumber;
-    }
-    
+    }    
     @Action
     public UpdatePackageNumber(newPackageNumber) {
         this.context.commit("setPackageNumber", newPackageNumber);
@@ -964,8 +962,7 @@ class Application extends VuexModule {
     @Mutation
     public setEFilingHubLink(eFilingHubLink): void {
         this.eFilingHubLink = eFilingHubLink;
-    }
-    
+    }    
     @Action
     public UpdateEFilingHubLink(newEFilingHubLink) {
         this.context.commit("setEFilingHubLink", newEFilingHubLink);
@@ -1080,9 +1077,8 @@ class Application extends VuexModule {
     public checkAllCompleted() {
         let newAllCompleted = false;
         if(this.steps[0].result){
-            //console.log(this.steps[0].result.selectedForms)
             for(const selectedform of this.steps[0].result.selectedForms){
-                //console.log(selectedform)
+
                 if(this.pathwayCompleted[selectedform]) 
                     newAllCompleted = true;
                 else{
@@ -1091,8 +1087,7 @@ class Application extends VuexModule {
                 }
             }            
         }
-        //console.log(newAllCompleted)
-        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:8, currentPage:0 });
+        if(!newAllCompleted)this.context.commit("setCurrentStepPage", { currentStep:this.stPgNo.SUBMIT._StepNo, currentPage:0 });
         this.context.commit("setAllCompleted", newAllCompleted)
     }
 
@@ -1101,15 +1096,12 @@ class Application extends VuexModule {
         this.pathwayCompleted[pathway] = isCompleted;        
     }
     @Action
-    public UpdatePathwayCompleted({pathway, isCompleted}) {
-        //console.log(pathway,isCompleted)   
+    public UpdatePathwayCompleted({pathway, isCompleted}) { 
         this.context.commit("setPathwayCompleted", {pathway, isCompleted}); 
         this.context.commit("setCommonStepResults",{data:{'pathwayCompleted':this.pathwayCompleted}});            
-        //console.log(this.pathwayCompleted)
         this.context.dispatch("checkAllCompleted")
     }    
-    
-    
+        
     @Mutation
     public setApplicantName(applicantName): void {
         this.applicantName = applicantName;
@@ -1243,19 +1235,13 @@ class Application extends VuexModule {
     @Action
     public UpdateStPgNo(newStPgNo) {
         const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
-        //console.log(this.$store.state.Application)
         const steps = this.steps
         for(const step of steps){
-            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)
-            // console.error(step.name)
-            // console.warn(stepsAndPagesNumber[step.name].StepNo)
+            stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           
             for(const page of step.pages){
-                // console.log(page.key+' ' +page.name)
                 stepsAndPagesNumber[step.name][page.name] = Number(page.key)
             }
         }
-        //console.log(stepsAndPagesNumber)
-        //this.UpdateStPgNo(stepsAndPagesNumber)
         this.context.commit("setStPgNo", stepsAndPagesNumber);
     }
 
@@ -1265,9 +1251,9 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateSurveyChangedPO(newSurveyChangedPO: boolean) {
-        const stepPO = 1
-        const reviewPagePO = 12
-        const previewPagePO = 13
+        const stepPO = this.stPgNo.PO._StepNo
+        const reviewPagePO = this.stPgNo.PO.ReviewYourAnswers
+        const previewPagePO = this.stPgNo.PO.PreviewForms
         this.context.commit("setSurveyChangedPO", newSurveyChangedPO);
         if(newSurveyChangedPO && this.steps[stepPO].pages[reviewPagePO].progress ==100 ){//if changes, make review page incompelete
             this.context.commit("setPageProgress", { currentStep: stepPO, currentPage:reviewPagePO, progress:50 });
@@ -1277,10 +1263,11 @@ class Application extends VuexModule {
         }  
         
         
-        this.context.commit("resetStep", 8);
-        for (let i=1; i<5; i++) {
-            this.context.commit("setPageActive", { currentStep: 8, currentPage: i, active: false });
-            this.context.commit("setPageProgress", { currentStep: 8, currentPage:i, progress:0 });
+        this.context.commit("resetStep", this.stPgNo.SUBMIT._StepNo);
+        const submitTotalPages = (Object.keys(this.stPgNo.SUBMIT).length -1)
+        for (let i=1; i<submitTotalPages; i++) {
+            this.context.commit("setPageActive",   { currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: i, active: false });
+            this.context.commit("setPageProgress", { currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: i, progress:0 });
         }
         
     }
@@ -1317,34 +1304,30 @@ class Application extends VuexModule {
         let pIndex = Number(this.steps[sIndex].currentPage) - 1;
     
         while (prevStepPage == null && sIndex >= 0) {
-          const s = this.steps[sIndex];
-    
-          if (s.active) {
-            while (prevStepPage == null && pIndex >= 0) {
-              if (s.pages[pIndex].active) {
-                prevStepPage = { prevStep: sIndex, prevPage: pIndex };
-              } else {
-                pIndex--;
-              }
+            const s = this.steps[sIndex];
+        
+            if (s.active) {
+                while (prevStepPage == null && pIndex >= 0) {
+                    if (s.pages[pIndex].active) {
+                        prevStepPage = { prevStep: sIndex, prevPage: pIndex };
+                    } else {
+                        pIndex--;
+                    }
+                }
             }
-          }
-    
-          // go to previous step
-          sIndex--;
-    
-          if (sIndex >= 0) {
-            pIndex = this.steps[sIndex].pages.length - 1;
-          }
+        
+            // go to previous step
+            sIndex--;
+        
+            if (sIndex >= 0) {
+                pIndex = this.steps[sIndex].pages.length - 1;
+            }
         }
     
         return prevStepPage;
     }
 
-
-
     get getNextStepPage(): { nextStep: number; nextPage: number } {
-
-        //console.log("nextStep")
 
         let nextStepPage: { nextStep: number; nextPage: number };    
         let sIndex = Number(this.currentStep);       
@@ -1370,7 +1353,7 @@ class Application extends VuexModule {
                 pIndex = 0;
             }
         }
-        //console.log(nextStepPage)
+
         return nextStepPage;
     }
 

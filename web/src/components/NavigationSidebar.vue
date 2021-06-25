@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch} from 'vue-property-decorator';
+import { Component, Vue} from 'vue-property-decorator';
 import moment from 'moment-timezone';
 
 import { namespace } from "vuex-class";   
@@ -78,9 +78,7 @@ export default class NavigationSidebar extends Vue {
     error = "";
     updateSidebar = 0;
 
-   
-
-    public  onSelectStep(event) {
+    public onSelectStep(event) {
     
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
@@ -111,12 +109,12 @@ export default class NavigationSidebar extends Vue {
 
     public getStepDisplayNumber(stepIndex) {
         const steps = this.getNavigation();
-        let stepDisplayNumber = stepIndex + 1;  // convert 0-based index number to 1-based display number
+        let stepDisplayNumber = Number(stepIndex) + 1;  // convert 0-based index number to 1-based display number
 
         for (let i = stepIndex - 1; i >= 0; i--) {
             if (!steps[i].active) {
             // adjust display number
-            stepDisplayNumber--;
+                stepDisplayNumber--;
             }
         }
 
@@ -159,7 +157,6 @@ export default class NavigationSidebar extends Vue {
 
         this.$http.put("/app/"+ applicationId + "/", application, header)
         .then(res => {
-            //console.log(res.data); 
             this.error = "";
         }, err => {
             console.error(err);
@@ -170,7 +167,6 @@ export default class NavigationSidebar extends Vue {
     public isStepTouched(nextStepIndex){
         const selectedStep = this.$store.state.Application.steps[nextStepIndex];
         for(const page of selectedStep.pages){
-            //console.log(page.progress)
             if(page.progress > 0) return true;
         }
         return false

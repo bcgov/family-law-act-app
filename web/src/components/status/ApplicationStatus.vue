@@ -156,8 +156,6 @@
             </template>
         </b-modal>
 
-
-
     </b-card>
 </template>
 
@@ -170,7 +168,6 @@ import store from "@/store";
 
 import moment from 'moment-timezone';
 import {applicationInfoType} from "@/types/Application"
-import {stepsAndPagesNumberInfoType} from "../../types/Application/StepsAndPages"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/common";
@@ -217,12 +214,13 @@ export default class ApplicationStatus extends Vue {
     deleteError = false  
 
     
-
     //___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
     CURRENT_VERSION: string = "1.2";
     //__________________________
+    //___________________________
+    //___________________________
 
     mounted() { 
         this.showDisclaimer = false;       
@@ -232,7 +230,7 @@ export default class ApplicationStatus extends Vue {
     }
 
     public openTerms() {
-    this.$router.push({name: "terms"})
+        this.$router.push({name: "terms"})
     }
 
     public loadApplications () {
@@ -256,15 +254,13 @@ export default class ApplicationStatus extends Vue {
                 }
                 this.previousApplications.push(app);
             }
-            // console.log(this.previousApplications)
             if (this.previousApplications.length == 0){
                 this.showDisclaimer = true;
             } else {
                 this.showDisclaimer = false;
             }
             this.dataLoaded = true;       
-        },(err) => {            
-            //console.log(err)
+        },(err) => {
             this.dataLoaded = true;
             this.error = err;        
         });
@@ -284,7 +280,7 @@ export default class ApplicationStatus extends Vue {
 
         const application = store.state.Application;
         application.type = store.state.Application.types.toString();
-        // console.log(application)
+
         const url = "/app/";
         const header = {
             responseType: "json",
@@ -298,7 +294,7 @@ export default class ApplicationStatus extends Vue {
             this.applicationId = res.data.app_id;  
             store.commit("Application/setApplicationId", this.applicationId);
             this.error = "";
-            //this.loadStepsAndPagesNames();
+  
             this.$router.push({name: "flapp-surveys" }) 
         }, err => {
             console.error(err);
@@ -307,8 +303,6 @@ export default class ApplicationStatus extends Vue {
     }
 
     public navigateToEFilingHub(packageInfo) {
-        //console.log(packageInfo)        
-        //console.log("going to hub")
         location.replace(packageInfo.package_url)
     }
 
@@ -318,12 +312,11 @@ export default class ApplicationStatus extends Vue {
         .then((response) => {
 
             const applicationData = response.data   
-            const applicationType = (applicationData.type && applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
+            const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
             const storeMigrationFn = new migrateStore()           
             this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
 
-            // console.log(this.currentApplication)
             const comStepFn = new restoreCommonStep()
             comStepFn.restore(this.currentApplication)
            
@@ -332,39 +325,36 @@ export default class ApplicationStatus extends Vue {
             this.$router.push({name: "flapp-surveys" }) 
 
         }, err => {
-            //console.log(err)
             this.error = err;        
         });
     }   
 
     public extractTypes(applicationTypes: string[]) {
 
-
         let types = [];
 
         for (const applicationType of applicationTypes){
             if (applicationType.includes("FPO")){
-                types.push(applicationType.replace("FPO", " Protection Order"));            
+                types.push(applicationType.replace("FPO", "Protection Order"));            
             }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("familyLawMatter"))){
-                types.push(" Family Law Matter");
+                types.push("Family Law Matter");
             }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("caseMgmt"))){
-                types.push(" Case Management");
+                types.push("Case Management");
             }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("priorityParenting"))){
-                types.push(" Priority Parenting Matter");
+                types.push("Priority Parenting Matter");
             }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("childReloc"))){
-                types.push(" Relocation of a Child");
+                types.push("Relocation of a Child");
             }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("agreementEnfrc"))){
-                types.push(" Enforcement of Agreements and Court Orders");
+                types.push("Enforcement of Agreements and Court Orders");
             }
 
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("protectionOrder"))){
-                types.push(" Protection Order"); 
-                //types.push("Enforcement of Agreements and Court Orders");            
+                types.push("Protection Order");     
             }
         }
         return types;
@@ -382,14 +372,11 @@ export default class ApplicationStatus extends Vue {
     public confirmRemoveApplication() {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
-            //console.log(response.data)
-            
             var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
             if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
             
         },err => {
             const errMsg = err.response.data.error;
-                    //console.log(err.response)
             this.deleteErrorMsg = errMsg.slice(0,60) + (errMsg.length>60?' ...':'');
             this.deleteErrorMsgDesc = errMsg;
             this.deleteError = true;            
@@ -401,8 +388,6 @@ export default class ApplicationStatus extends Vue {
     printingListOfPdfs: string[] = [];
     showSelectFileForPrint =  false;
     public viewApplicationPdf(applicationId, listOfPdfs) {
-        // console.log(applicationId)
-        // console.log(listOfPdfs)
         this.printingApplicationId = applicationId;
         this.printingListOfPdfs = listOfPdfs;
         this.showSelectFileForPrint =  true;
@@ -433,30 +418,23 @@ export default class ApplicationStatus extends Vue {
     }
 
     public loadDocumentTypes() {
-        // const documentTypesJson = require("../home/forms/documentTypes.json");
-        // //console.log(documentTypesJson)
-        // this.UpdateDocumentTypesJson(documentTypesJson);
         this.$http.get('/efiling/document-types/')
         .then((response) => { 
-            if(response.data && response.data.length>0){
-                //console.log(response.data) 
+            if(response.data && response.data.length>0){                
                 this.UpdateDocumentTypesJson(response.data);
             }
         },(err) => {            
             console.log(err)
-            //this.error = err;        
         });
     }
 
     public extractFilingLocations() {
         this.$http.get('/efiling/locations/')
         .then((response) => {
-            // console.log(Object.keys(response.data))
             const locationsInfo = response.data 
             const locationNames = Object.keys(response.data);
             const locations = []
             for (const location of locationNames){
-                 // console.log(locationsInfo[location])
                 const locationInfo = locationsInfo[location];              
                 
                 const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
@@ -466,13 +444,12 @@ export default class ApplicationStatus extends Vue {
                                 (locationInfo.city?(locationInfo.city):'') +
                                 (locationInfo.province?(', ' + locationInfo.province):'');
                 const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-               // locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:''})
+               
                 const email = (locationInfo.email?(locationInfo.email):'');
                 const filingLocation = (locationInfo.in_person_filing_location_code?(locationInfo.in_person_filing_location_code):'');
                 locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:email, filingLocation: filingLocation});
             }
-            // console.log(locations)
-            //locations.push({id: 1, name: 'location', address: 'address'})
+
             this.UpdateLocationsInfo(locations); 
         
         },(err) => console.log(err));
@@ -495,26 +472,7 @@ export default class ApplicationStatus extends Vue {
     max-width: 950px;
     color: black;
 }
-hr.section {
-    border: 0.5px solid $gov-mid-blue;
-    margin-bottom: 1.5rem;
-}
-.section-heading {
-    color: $gov-mid-blue;
-    font-weight: 500;
-    padding: 0rem 2rem 0rem 2rem;
-}
-.intro {
-    font-size: 24px;
-    line-height: 1.6;
-    margin: 0.5rem auto 0.5rem;
-    p {
-        margin-bottom: 0.5rem;
-    }
-}
-.loginInfo-section {
-    margin-top: 2.5rem;
-}
+
 .register-button {
     color: $gov-white !important;
     border: 2px solid rgba($gov-mid-blue, 0.3);
@@ -523,17 +481,6 @@ hr.section {
     &:active {
         border: 2px solid rgba($gov-white, 0.8);
     }
-}
-.wrapper {
-    position: relative;
-    padding-left: 8rem;
-    width: 30px;
-    height: 200px;
-    margin: 10px;
-}
-
-.application-button {
-    margin-right: 2rem;
 }
 
 .terms{

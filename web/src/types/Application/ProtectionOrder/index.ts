@@ -261,11 +261,3 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         currentStep?: number;
         currentPage?: number;
     }
-
-    export interface selectedPOOrderInfoType {
-        data: poQuestionnaireSurveyDataInfoType;
-        questions?: questionInfoType[];
-        pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
-    }

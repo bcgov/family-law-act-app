@@ -80,6 +80,7 @@
                     :id="question.inputId + '-postcode'"
                     data-test-id="postcode"
                     v-model="pendingValue['postcode']"
+                    :placeholder="postcodePlaceholder"
                     @change="updateValue"/>
             </div>
         </div>
@@ -103,6 +104,7 @@ export default class AddressInfo extends Vue {
     provinceOptions = [];
     USAregionOptions = [];
     CAregionOptions = [];
+    postcodePlaceholder='A1A 1A1'
 
     countryOptions = [
 
@@ -145,8 +147,10 @@ export default class AddressInfo extends Vue {
 
         if (this.value && this.value.country == "USA") {
             this.provinceOptions = this.USAregionOptions;
+            this.postcodePlaceholder = '12345 or 12345-1234'
         } else {
             this.provinceOptions = this.CAregionOptions;
+            this.postcodePlaceholder = 'A1A 1A1'
         }
 
         this.questionValidator();
@@ -154,20 +158,29 @@ export default class AddressInfo extends Vue {
 
     public questionValidator(){
         this.question.validateValueCallback = () => {
-            // console.log('validate')
+            
             let error = null 
             const address =  Object.assign({}, this.pendingValue);    
-            // console.log(address.country);
-            // console.log(address.state);
+            
             if(address.country =='USA'){
                 const index = this.USAregionOptions.findIndex(state=>{return(state.value == address.state)});
                 if(index<0)
                     error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
+                
+                if(address.postcode){
+                    const postcodeFormat = /(^[0-9]{5}?$)|(^[0-9]{5}\-[0-9]{4}?$)/;                                
+                    if(!postcodeFormat.test(address.postcode)) error = new SurveyVue.SurveyError("Postal Code is invalid!")
+                }
             }
-            if(address.country =='CAN'){
+            else if(address.country =='CAN'){
                 const index = this.CAregionOptions.findIndex(state=>{return(state.value == address.state)});
                 if(index<0)
                     error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
+                
+                if(address.postcode){
+                    const postcodeFormat = /^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]?$/;                              
+                    if(!postcodeFormat.test(address.postcode)) error = new SurveyVue.SurveyError("Postal Code is invalid!")
+                }
             }
 
             return error
@@ -216,12 +229,13 @@ export default class AddressInfo extends Vue {
     public UpdateRegion() {
         if (this.pendingValue.country == "USA") {
             this.provinceOptions = this.USAregionOptions;
+            this.postcodePlaceholder = '12345 or 12345-1234'
         } else {
             this.provinceOptions = this.CAregionOptions;
+            this.postcodePlaceholder = 'A1A 1A1'
         }
     }
-
-  //updateValue(_evt) {
+    
     public updateValue() {
 
         this.UpdateRegion();

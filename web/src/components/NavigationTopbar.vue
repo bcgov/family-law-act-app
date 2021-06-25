@@ -139,7 +139,6 @@ export default class NavigationTopbar extends Vue {
       };
       this.$http.put("/app/" + applicationId + "/", application, header).then(
         (res) => {
-          //console.log(res.data);
           this.error = "";
         },
         (err) => {
