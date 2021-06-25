@@ -141,3 +141,15 @@ export interface noticeSurveyInfoType {
   currentStep: number;
   currentPage: number;
 }
+
+export interface filingOptionsInfoType {
+  selectedFilingType: string;
+}
+
+export interface filingOptionsSurveyInfoType {
+  data: filingOptionsInfoType[];
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
+}

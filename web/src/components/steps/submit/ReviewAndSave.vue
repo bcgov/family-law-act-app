@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
         <h2 class="mt-4">Review and Save</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
@@ -83,8 +83,6 @@
             </template>
         </b-modal>
 
-        
-
     </page-base>
 </template>
 
@@ -93,10 +91,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
-
-import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
-
-
+import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
 import FormList from "./components/FormList.vue"
 import RequiredDocument from "./components/RequiredDocument.vue"
 import ReminderNotes from "./components/ReminderNotes.vue"
@@ -116,7 +111,6 @@ const commonState = namespace("Common");
         FormList,
         RequiredDocument,
         ReminderNotes
-
     }
 })    
 export default class ReviewAndSave extends Vue {
@@ -139,7 +133,7 @@ export default class ReviewAndSave extends Vue {
     hasPOselected =  false;
 
     showGetHelpForPDF = false;    
-    applicantLocation = {}
+    applicantLocation = {} as locationsInfoType;
 
     mounted(){
         this.hasPOselected =  false;
@@ -159,13 +153,6 @@ export default class ReviewAndSave extends Vue {
             this.$store.state.Application.steps[0].result.selectedForms.includes('protectionOrder') 
         )  this.hasPOselected =  true;
             
-        //console.log(location)
-
-        // if(location == 'Victoria'){
-        //     this.applicationLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-        // }else if(location == 'Surrey'){
-        //     this.applicationLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-        // }  
 
     } 
 

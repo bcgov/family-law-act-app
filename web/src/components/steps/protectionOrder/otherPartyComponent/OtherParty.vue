@@ -219,7 +219,7 @@ export default class OtherParty extends Vue {
 
     public getOtherPartyResults(){
         //console.log(this.otherPartyData)
-        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        const questionResults: {name:string; value: string[]; title:string; inputType:string}[] =[];
         if(this.otherPartyData)
             for(const otherParty of this.otherPartyData)
             {
@@ -230,7 +230,8 @@ export default class OtherParty extends Vue {
     }
 
     public getOtherPartyInfo(otherParty){
-        const resultString = [];
+        
+        const resultString: string[] = [];
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
         resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
