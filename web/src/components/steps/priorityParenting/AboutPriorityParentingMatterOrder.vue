@@ -16,6 +16,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 const applicationState = namespace("Application");
 
 @Component({
@@ -78,12 +79,12 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.aboutPriorityParentingMatterOrderSurvey) {
+        if (this.step.result?.aboutPriorityParentingMatterOrderSurvey) {
             this.survey.data = this.step.result.aboutPriorityParentingMatterOrderSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result.priorityParentingMatterOrderSurvey && this.step.result.priorityParentingMatterOrderSurvey.data){
+        if (this.step.result?.priorityParentingMatterOrderSurvey?.data){
             this.listOfIssuesDescription = this.getDescription(this.step.result.priorityParentingMatterOrderSurvey.data);
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
         }
@@ -91,19 +92,23 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
-    public getDescription(data) {
+    public getDescription(data: priorityParentingMatterOrderSurveyDataInfoType) {
         let description = '';
         const firstDescriptionSection = 'You indicated you are applying for an order about a priority parenting matter '
        
+        let ppmType = []
+        if(this.step.result?.ppmQuestionnaireSurvey?.data )
+            ppmType = this.step.result.ppmQuestionnaireSurvey.data
+
         let listOfIssues = [];
-        const medical = (data.delayMedicalRisk && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
-        const passport = (data.delayPassportRisk && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
-        const travel = (data.delayTravelRisk && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied && data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
-        const locationChange = (data.existingParentingArrangements && data.existingParentingArrangements == 'n') && (data.impactOnRelationship && data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
-        const preventRemoval = (data.noReturnRisk && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
-        const interjurisdictional = (data.childInBC && data.childInBC == 'y') && (data.harm && data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
-        const wrongfulRemoval = (data.wrongfulInBC && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
-        const returnOfChild = (data.wrongfulReturn && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
+        const medical = (ppmType.includes('medical') && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
+        const passport = (ppmType.includes('passport') && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
+        const travel = (ppmType.includes('travel') && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
+        const locationChange = (ppmType.includes('locationChange') && data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
+        const preventRemoval = (ppmType.includes('preventRemoval') && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
+        const interjurisdictional = (ppmType.includes('interjurisdictional') && data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
+        const wrongfulRemoval = (ppmType.includes('wrongfulRemoval') && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
+        const returnOfChild = (ppmType.includes('returnOfChild') && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
 
         if (medical) {
             listOfIssues.push('<li>because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health</li>');
