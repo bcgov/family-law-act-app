@@ -207,14 +207,13 @@ export default class GettingStarted extends Vue {
         this.dataReady = false;
         this.preparationInfo = false;
         this.reloadPageInformation();
-        // console.log(this.stPgNo.PO._StepNo)
     }
 
     public reloadPageInformation(){               
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.steps[0].result && this.steps[0].result.selectedForms) {
+        if (this.steps[0].result?.selectedForms) {
             this.selected = this.steps[0].result.selectedForms;
         }
 
@@ -222,33 +221,28 @@ export default class GettingStarted extends Vue {
 
         const progress = this.selected.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
-        
-        //console.log(this.selected)
 
         this.dataReady = true;
     }
   
     public onChange(selectedForms) {
-        //console.log(selectedForms)
         
         const applicationTypes = [];       
             
         for (const form of selectedForms){                    
             applicationTypes.push(this.getApplicationType(form));
         }
-        // console.log(applicationTypes)
-        // console.log(Array.from(new Set(applicationTypes)));
-        this.UpdateApplicationType(Array.from(new Set(applicationTypes)));
-        
+      
+        this.UpdateApplicationType(Array.from(new Set(applicationTypes)));        
         this.setSteps(selectedForms);
-        this.resetSelectedFormsCompeleted(selectedForms);
+        this.resetSelectedFormsCompeleted();
         this.resetProgressOfAllPages(selectedForms);
     }
 
     public getApplicationType(selectedOrder){
         const step = this.steps[this.stPgNo.PO._StepNo]
         let orgFPOType = ''
-        if (step.result && step.result.poQuestionnaireSurvey && step.result.poQuestionnaireSurvey.data && step.result.poQuestionnaireSurvey.data.orderType){
+        if (step.result?.poQuestionnaireSurvey?.data?.orderType){
             orgFPOType = step.result.poQuestionnaireSurvey.data.orderType;
         } 
 
@@ -256,9 +250,9 @@ export default class GettingStarted extends Vue {
     }
 
     public setSteps(selectedForms) {
-        //console.log("GETTING STARTED")
+
         if (selectedForms !== undefined) {            
-            //console.log(selectedForms)
+        
             this.poOnly = (selectedForms.length == 1 && selectedForms.includes("protectionOrder"));
             this.poIncluded = selectedForms.includes("protectionOrder");           
 
@@ -278,12 +272,11 @@ export default class GettingStarted extends Vue {
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (this.poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
         
-            //this.togglePages(this.stPgNo.RELOC._StepNo, [this.stPgNo.RELOC.RelocQuestionnaire], selectedForms.includes("childReloc"));
-        
         }
     }
 
-    public resetSelectedFormsCompeleted(selectedForms){
+    public resetSelectedFormsCompeleted(){
+
         const pathwayCompleted = this.pathwayCompleted
         
         pathwayCompleted.protectionOrder = false;        
@@ -304,12 +297,10 @@ export default class GettingStarted extends Vue {
             else 
                 this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.SafetyCheck });               
 
-            for(const page of step.pages){ 
-                //console.log(step.id)              
+            for(const page of step.pages){           
                this.$store.commit("Application/setPageProgress", { currentStep: step.id, currentPage:page.key, progress:0 });
             }
         }
-
     }
 
     public toggleSteps(stepId, activeIndicator) {       

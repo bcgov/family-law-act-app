@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue} from 'vue-property-decorator';
 import FormK from  "./pdf/FormK.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
@@ -24,17 +24,6 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
     }
 })
 export default class PreviewForms extends Vue {
-    
-    // @Prop({required: true})
-    // type!: string;
-
-    // @Prop({required: true})
-    // currentPage!: number;
-
-    // @applicationState.State
-    // public generatedForms!: string[];
-    // @applicationState.Action
-    // public UpdateGeneratedForms!: (newGeneratedForms) => void
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;

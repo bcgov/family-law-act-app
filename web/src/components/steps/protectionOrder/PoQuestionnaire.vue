@@ -281,7 +281,3 @@ export default class PoQuestionnaire extends Vue {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
