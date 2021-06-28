@@ -148,6 +148,10 @@ export interface stepInfoType {
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
 
+    //__Step 4 CASE MANAGEMENT
+
+
+
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
     priorityParentingMatterOrderSurvey?: priorityParentingMatterOrderSurveyInfoType;

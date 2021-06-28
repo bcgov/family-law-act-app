@@ -206,7 +206,7 @@ export default class GettingStarted extends Vue {
     mounted(){ 
         this.dataReady = false;
         this.preparationInfo = false;
-        this.reloadPageInformation()
+        this.reloadPageInformation();
         // console.log(this.stPgNo.PO._StepNo)
     }
 
@@ -271,7 +271,7 @@ export default class GettingStarted extends Vue {
 
             this.toggleSteps(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
             
-            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc"));//Common Your Information
+            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt"));//Common Your Information
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.SafetyCheck], !this.poIncluded);//Safety Check
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"));//Notice
             
