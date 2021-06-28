@@ -49,7 +49,8 @@ export default class PriorityParentingMatterOrder extends Vue {
     survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
     currentPage =0;
-    PPMpages = []
+    PPMpages = [];
+    PPMList = [];
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -128,17 +129,44 @@ export default class PriorityParentingMatterOrder extends Vue {
 
         if (this.survey.data) {  
 
-           const data = this.survey.data;          
-           const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
-           const passport = (ppmType.includes('passport')) && (data.delayPassportRisk && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
-           const travel = (ppmType.includes('travel')) && (data.delayTravelRisk && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied && data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
-           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements && data.existingParentingArrangements == 'n') && (data.impactOnRelationship && data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
-           const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
-           const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC && data.childInBC == 'y') && (data.harm && data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
-           const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
-           const returnOfChild = (ppmType.includes('returnOfChild')) && (data.wrongfulReturn && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
+           const data = this.survey.data;
+                  
+           const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
+           const passport = (ppmType.includes('passport')) && (data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
+           const travel = (ppmType.includes('travel')) && (data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
+           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
+           const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
+           const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
+           const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
+           const returnOfChild = (ppmType.includes('returnOfChild')) && (data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
 
-           isChildDetailsRequired = medical || passport || travel || locationChange || preventRemoval || interjurisdictional || wrongfulRemoval || returnOfChild
+           isChildDetailsRequired = medical || passport || travel || locationChange || preventRemoval || interjurisdictional || wrongfulRemoval || returnOfChild;
+           
+           this.PPMList = [];
+           if (medical){
+               this.PPMList.push('medical');
+           }
+           if (passport){
+               this.PPMList.push('passport');
+           }
+           if (travel){
+               this.PPMList.push('travel');
+           }
+           if (locationChange){
+               this.PPMList.push('locationChange');
+           }
+           if (preventRemoval){
+               this.PPMList.push('preventRemoval');
+           }
+           if(interjurisdictional){
+               this.PPMList.push('interjurisdictional');
+           }
+           if (wrongfulRemoval){
+               this.PPMList.push('wrongfulRemoval');
+           }
+           if (returnOfChild){
+               this.PPMList.push('returnOfChild');
+           }
         }
 
         const progress = isChildDetailsRequired? 100: 50        
@@ -155,9 +183,26 @@ export default class PriorityParentingMatterOrder extends Vue {
             this.UpdateGotoNextStepPage()
         }
     } 
+
+    public getPriorityParentingMatterNames(){
+        let result = ''       
+        for(const form of this.PPMList){
+            if(form=='medical')   result+='-Medical, dental or other health-related treatments for a child'+'\n';
+            if(form=='passport')  result+='-Application for a passport, license or other thing for a child'+'\n';
+            if(form=='travel')    result+='-Travel or participation in an activity for the child'+'\n';
+            if(form=='locationChange')         result+='-Change in location of a child’s residence'+'\n';
+            if(form=='preventRemoval')          result+='-Preventing the removal of a child'+'\n';
+            if(form=='interjurisdictional')    result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
+            if(form=='wrongfulRemoval')         result+='-Wrongful removal of a child in BC'+'\n';
+            if(form=='returnOfChild')          result+='-Preventing the removal of a child'+'\n';
+        }
+        return result;
+    }
     
     beforeDestroy() {
-      
+
+        const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getPriorityParentingMatterNames()}]        
+        this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.PPMList, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.stPgNo.PPM.PpmQuestionnaire}}});      
         this.UpdateStepResultData({step:this.step, data: {priorityParentingMatterOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }

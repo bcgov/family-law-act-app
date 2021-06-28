@@ -321,12 +321,15 @@ export default class FilingLocation extends Vue {
     public messageForLocation(){
         const location = this.survey.data.ExistingCourt
 
-        if (this.courtsA.includes(location)){
-            this.messageA = true;
-            this.locationInfo = true;
-        } else if (this.courtsB.includes(location)) {
-            this.messageB = true;
-            this.locationInfo = true;                
+        if (this.types.includes('Family Law Matter')){
+
+            if (this.courtsA.includes(location)){
+                this.messageA = true;
+                this.locationInfo = true;
+            } else if (this.courtsB.includes(location)) {
+                this.messageB = true;
+                this.locationInfo = true;                
+            }
         } else {            
             this.locationInfo = false; 
         }

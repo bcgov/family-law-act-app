@@ -81,7 +81,7 @@ export default class PpmBackground extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.ppmBackgroundSurvey && this.step.result.ppmBackgroundSurvey.data){
+        if (this.step.result?.ppmBackgroundSurvey?.data){
             this.survey.data = this.step.result.ppmBackgroundSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }  
