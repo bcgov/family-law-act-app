@@ -62,8 +62,8 @@ export default class ProtectionFromWhom extends Vue {
 
     survey = new SurveyVue.Model(surveyJson); 
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {        
         const Survey = SurveyVue;
@@ -87,8 +87,6 @@ export default class ProtectionFromWhom extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);
-            //  console.log(options)
 
             Vue.filter('surveyChanged')('protectionOrder')
 
@@ -100,15 +98,21 @@ export default class ProtectionFromWhom extends Vue {
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt)
             }
-              
-            //this.determineNoContactPage()
+
+            if(options.name == "childPO") {
+                const step = this.stPgNo.PO._StepNo
+                const page = this.stPgNo.PO.Background
+                if(this.$store.state.Application.steps[step].pages[page].progress == 100){            
+                    Vue.filter('setSurveyProgress')(null, step, page,  50, false);
+                }
+            }              
+            
             this.checkAnswersforContinue()
         })
     }
 
     public saveApplicationLocation(location){       
-        this.$store.commit("Application/setApplicationLocation", location);        
-       
+        this.$store.commit("Application/setApplicationLocation", location); 
     }    
 
     public reloadPageInformation() {
@@ -116,7 +120,7 @@ export default class ProtectionFromWhom extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.protectionFromWhomSurvey){
+        if (this.step.result?.protectionFromWhomSurvey){
             this.survey.data = this.step.result.protectionFromWhomSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
             this.checkAnswersforContinue()
@@ -125,33 +129,14 @@ export default class ProtectionFromWhom extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
-        
     }
-
-    // public determineNoContactPage(){       
-    //     const noContantPage = 6;
-
-    //     if (this.survey.data.ApplicantNeedsProtection == "y") {// Enable No Contact
-    //         this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: true});
-            
-    //         if(!this.$store.state.Application.steps[this.currentStep].result.noContactSurvey){
-    //             //console.log("NoContact")
-    //             //console.log(this.step)
-    //             const noContactSurvey = {data:{}, questions:[{inputType:'',name:'no', title:'Some Information missing', value:''}], pageName:'No Contact', currentStep: this.currentStep, currentPage:noContantPage}
-    //             this.UpdateStepResultData({step:this.step, data: {noContactSurvey: noContactSurvey}})
-    //         }
-
-    //     } else {// Disable No Contact
-    //         this.$store.commit("Application/setPageActive", {currentStep: this.currentStep, currentPage: noContantPage, active: false});
-    //     }            
-    // }
 
     public checkAnswersforContinue(){
         const p = this.stPgNo.PO
         const needPoPages = [p.PoFilingLocation, p.RemovePerson, p.NoGo, p.NoContact, p.WeaponsFirearms, p.Background, p.YourStory,  p.Urgency, p.ReviewYourAnswers];
         const PoAllPages = _.range(p.PoFilingLocation, Object.keys(this.stPgNo.PO).length-1) 
 
-        if(this.survey.data.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
+        if(this.survey.data?.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
             this.togglePages(PoAllPages, false);
             this.disableNextButton = true;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
@@ -159,7 +144,6 @@ export default class ProtectionFromWhom extends Vue {
         } else {
             this.togglePages(needPoPages, true);   
             this.disableNextButton = false;         
-            //this.determineNoContactPage()
             return true
         }
     }
@@ -185,13 +169,13 @@ export default class ProtectionFromWhom extends Vue {
     }
 
     public setRelatedNames(){
-        if(this.survey.data &&  this.survey.data["RespondentName"]) {        
+        if(this.survey.data?.["RespondentName"]) {        
             this.$store.commit("Application/setRespondentName", this.survey.data["RespondentName"]);
             this.UpdateCommonStepResults({data:{'respondentsPO':[this.survey.data["RespondentName"]]}});
         }
         this.mergeRespondants();
 
-        if (this.survey.data && this.survey.data.ApplicantNeedsProtection == "n" && this.survey.data.anotherAdultPO == "y") {
+        if (this.survey.data?.ApplicantNeedsProtection == "n" && this.survey.data?.anotherAdultPO == "y") {
             this.$store.commit("Application/setProtectedPartyName", this.survey.data.anotherAdultName);
             this.UpdateCommonStepResults({data:{'protectedPartyName':this.survey.data.anotherAdultName}})
         }else{
@@ -200,29 +184,27 @@ export default class ProtectionFromWhom extends Vue {
             this.UpdateCommonStepResults({data:{'protectedPartyName':applicantname}})
         }        
         
-        if(this.survey.data && this.survey.data.childPO== "y" && (this.survey.data.ApplicantNeedsProtection == 'y' || this.survey.data.anotherAdultPO == 'n')) {
+        if(this.survey.data?.childPO== "y" && (this.survey.data?.ApplicantNeedsProtection == 'y' || this.survey.data?.anotherAdultPO == 'n')) {
             this.$store.commit("Application/setProtectedChildName",this.survey.data.allchildren);
             this.UpdateCommonStepResults({data:{'protectedChildName':this.survey.data.allchildren}});           
         }else{ 
             this.$store.commit("Application/setProtectedChildName",[]);
             this.UpdateCommonStepResults({data:{'protectedChildName':[]}});
         }
-
-
     }
 
     public mergeRespondants(){
+
         const respondentName =[]
-        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsPO){
+        if(this.$store.state.Application.steps[0].result?.respondentsPO){
             const respondentPO = this.$store.state.Application.steps[0].result.respondentsPO        
             respondentName.push(...respondentPO)
         }
-        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsCommon){
+        if(this.$store.state.Application.steps[0].result?.respondentsCommon){
             const respondentCommon = this.$store.state.Application.steps[0].result.respondentsCommon
             respondentName.push(...respondentCommon)
         }
 
-        //console.log(respondentName)
         const fullNamesArray =[];
         for(const name of respondentName ){
             fullNamesArray.push(Vue.filter('getFullName')(name))
@@ -232,15 +214,11 @@ export default class ProtectionFromWhom extends Vue {
             const fullName = Vue.filter('getFullName')(item)
             return fullNamesArray.indexOf(fullName) == index;
         })
-        //console.log(uniqueArray);
+
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
-
-   
   
     beforeDestroy() {
-        
-        //console.log(this.survey.data)
 
         this.setRelatedNames();
 
@@ -254,8 +232,3 @@ export default class ProtectionFromWhom extends Vue {
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

@@ -2,7 +2,7 @@
     <div>        
         <div class="row">
             <div
-                class="col-sm-4"
+                class="col-sm-6"
                 :class="{ 'pb-1': !field.desc }"
                 v-for="field of fields"
                 :key="field.name"
@@ -92,12 +92,12 @@ export default class ContactInfo extends Vue {
                 id: q.inputId + "-email",
                 desc: q.descEmail
             },
-            {
-                name: "fax",
-                label: q.labelFax || "Fax",
-                id: q.inputId + "-fax",
-                desc: q.descFax
-            }            
+            // {
+            //     name: "fax",
+            //     label: q.labelFax || "Fax",
+            //     id: q.inputId + "-fax",
+            //     desc: q.descFax
+            // }            
         ];
         return fields;
     }
@@ -119,10 +119,14 @@ export default class ContactInfo extends Vue {
     }
 
     public acceptNumber() {
-    	var x = this.pendingValue['phone'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
-        this.pendingValue['phone'] = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        var x = this.pendingValue['fax'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
-        this.pendingValue['fax'] = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        if(this.pendingValue['phone']){
+            var dgt = this.pendingValue['phone'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
+            this.pendingValue['phone'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
+        }
+        if(this.pendingValue['fax']){
+            var dgt = this.pendingValue['fax'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
+            this.pendingValue['fax'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
+        }
     }
 };
 </script>

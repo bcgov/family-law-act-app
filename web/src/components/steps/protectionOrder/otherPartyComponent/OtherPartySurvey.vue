@@ -64,7 +64,6 @@ export default class OtherPartySurvey extends Vue {
 
             Vue.filter('surveyChanged')('protectionOrder')
 
-            //console.log(this.survey.data)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
             if (id == null || id == undefined) {
@@ -80,7 +79,7 @@ export default class OtherPartySurvey extends Vue {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        //console.log(this.step.result)
+
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
         }
@@ -101,8 +100,7 @@ export default class OtherPartySurvey extends Vue {
     }
 
     public populateOpModel(opData) {
-        //console.log(opData)
-        //console.log(this.op)
+       
         this.op.name = opData.OtherPartyName;
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
@@ -127,7 +125,6 @@ export default class OtherPartySurvey extends Vue {
         }
         else
             this.op.contactInfo = {} as contactInfoType
-
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -161,8 +158,7 @@ export default class OtherPartySurvey extends Vue {
     beforeDestroy() {
 
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })    
-    
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
   
 };

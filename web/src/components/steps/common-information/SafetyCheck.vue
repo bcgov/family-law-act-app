@@ -48,7 +48,6 @@ export default class SafetyCheck extends Vue {
         surveyEnv.setCss(Survey);
     }
 
-
     mounted(){
         this.initializeSurvey();
         this.addSurveyListener();
@@ -70,8 +69,8 @@ export default class SafetyCheck extends Vue {
     }
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.safetyCheckSurvey){
+
+        if (this.step.result?.safetyCheckSurvey){
             this.survey.data = this.step.result.safetyCheckSurvey.data;
         }
         
@@ -92,14 +91,8 @@ export default class SafetyCheck extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        //this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: this.survey.data}});
+        
         this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

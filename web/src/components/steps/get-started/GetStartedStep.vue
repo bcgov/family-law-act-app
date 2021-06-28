@@ -32,16 +32,7 @@ export default class GetStarted extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    // mounted(){
-    //     console.log(this.stPgNo.GETSTART.GettingStarted)
-    // }
-
     forms = []
     selectedForms = []
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

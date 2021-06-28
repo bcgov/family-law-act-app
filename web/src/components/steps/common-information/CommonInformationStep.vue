@@ -1,11 +1,11 @@
 <template>
-  <step-base v-bind:step="step">
-    <safety-check v-bind:step="step"       v-if="step.currentPage == stPgNo.COMMON.SafetyCheck" />
-    <your-information v-bind:step="step"   v-if="step.currentPage == stPgNo.COMMON.YourInformation" /> 
-    <other-party-common v-bind:step="step" v-if="step.currentPage == stPgNo.COMMON.OtherPartyCommon" />
-    <notice v-bind:step="step" v-if="step.currentPage == stPgNo.COMMON.Notice" />
-    <filing-location v-bind:step="step"    v-if="step.currentPage == stPgNo.COMMON.FilingLocation" />    
-  </step-base>
+    <step-base v-bind:step="step">
+        <safety-check v-bind:step="step"       v-if="step.currentPage == stPgNo.COMMON.SafetyCheck" />
+        <your-information v-bind:step="step"   v-if="step.currentPage == stPgNo.COMMON.YourInformation" /> 
+        <other-party-common v-bind:step="step" v-if="step.currentPage == stPgNo.COMMON.OtherPartyCommon" />
+        <notice v-bind:step="step"             v-if="step.currentPage == stPgNo.COMMON.Notice" />
+        <filing-location v-bind:step="step"    v-if="step.currentPage == stPgNo.COMMON.FilingLocation" />    
+    </step-base>
 </template>
 
 <script lang="ts">
@@ -27,26 +27,21 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-      StepBase,
-      SafetyCheck,
-      YourInformation,
-      OtherPartyCommon,
-      Notice,
-      FilingLocation
+        StepBase,
+        SafetyCheck,
+        YourInformation,
+        OtherPartyCommon,
+        Notice,
+        FilingLocation
     }
 })
 export default class CommonInformationStep extends Vue {
   
-  @Prop({required: true})
-  step!: stepInfoType
+    @Prop({required: true})
+    step!: stepInfoType
 
-  @applicationState.State
-  public stPgNo!: stepsAndPagesNumberInfoType;
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

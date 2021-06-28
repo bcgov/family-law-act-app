@@ -75,7 +75,7 @@ export default class WeaponsFirearms extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.weaponsFirearmsSurvey){
+        if (this.step.result?.weaponsFirearmsSurvey){
             this.survey.data = this.step.result.weaponsFirearmsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         } 
@@ -84,8 +84,7 @@ export default class WeaponsFirearms extends Vue {
        
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.$store.state.Application.applicantName));
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
-    }
-  
+    }  
     
     public onPrev() {
         this.UpdateGotoPrevStepPage()
@@ -102,12 +101,6 @@ export default class WeaponsFirearms extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
        
         this.UpdateStepResultData({step:this.step, data: {weaponsFirearmsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/common";
-</style>

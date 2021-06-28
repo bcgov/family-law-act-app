@@ -104,7 +104,7 @@ export default class AddressInfo extends Vue {
     provinceOptions = [];
     USAregionOptions = [];
     CAregionOptions = [];
-    postcodePlaceholder='A1A 1A1'
+    postcodePlaceholder = 'A1A 1A1'
 
     countryOptions = [
 
@@ -112,11 +112,10 @@ export default class AddressInfo extends Vue {
             value: "CAN",
             text: "Canada"
         },
-        {
-            value: "USA",
-            text: "USA"
-        }
-        
+        // {
+        //     value: "USA",
+        //     text: "USA"
+        // }        
     ];
 
     selOptions = [];
@@ -253,11 +252,11 @@ export default class AddressInfo extends Vue {
     public loadValue(val) {
         val = val || {};
         const pending = {
-        street: val.street || "",
-        city: val.city || "",
-        state: val.state || "BC",
-        country: val.country || "CAN",
-        postcode: val.postcode || ""
+            street: val.street || "",
+            city: val.city || "",
+            state: val.state || "BC",
+            country: val.country || "CAN",
+            postcode: val.postcode || ""
         };
         return pending;
     }
