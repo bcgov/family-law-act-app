@@ -66,9 +66,9 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Other Party Name</th>
-                                    <th scope="col">Birthdate</th>
-                                    <th scope="col">Address Information</th>
-                                    <th scope="col">Contact Information</th>
+                                    <th v-if="!cmOnly" scope="col">Birthdate</th>
+                                    <th v-if="!cmOnly" scope="col">Address Information</th>
+                                    <th v-if="!cmOnly" scope="col">Contact Information</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -76,9 +76,9 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td>{{op.dob | beautify-date}}</td>
-                                    <td>{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
-                                    <td>{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
+                                    <td v-if="!cmOnly">{{op.dob | beautify-date}}</td>
+                                    <td v-if="!cmOnly">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
+                                    <td v-if="!cmOnly">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
                                     <td><a class="btn btn-light" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -173,9 +173,9 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-        OtherPartyCommonSurvey,
-        PageBase,
-        Tooltip
+      OtherPartyCommonSurvey,
+      PageBase,
+      Tooltip
     }
 })
 export default class OtherPartyCommon extends Vue {
@@ -205,19 +205,20 @@ export default class OtherPartyCommon extends Vue {
         this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
     }
 
-    currentStep =0;
-    currentPage =0;
+    currentStep=0;
+    currentPage=0;
     showServeNoticeInfo = false
     showTable = true;
     flmInfo = false;
     ppmInfo = false;
     relocInfo = false;
+    cmOnly = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
  
     created() {
-        if (this.step.result?.otherPartyCommonSurvey) {
+        if (this.step.result && this.step.result.otherPartyCommonSurvey) {
             this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
         }
     }
@@ -226,9 +227,10 @@ export default class OtherPartyCommon extends Vue {
         this.flmInfo = false;  
         this.ppmInfo = false; 
         this.relocInfo = false; 
-        const progress = this.otherPartyData?.length==0? 50 : 100;            
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.cmOnly = (this.types.length == 1 && this.types.includes("Case Management"));
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
@@ -237,6 +239,7 @@ export default class OtherPartyCommon extends Vue {
         this.showTable = false;
         Vue.nextTick(()=>{
             const el = document.getElementById('other-party-common-survey')
+            // console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -253,7 +256,7 @@ export default class OtherPartyCommon extends Vue {
 
     public populateSurveyData(opValue) {
         const currentIndexValue =
-            this.otherPartyData?.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
+            this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
 
@@ -264,7 +267,7 @@ export default class OtherPartyCommon extends Vue {
 
     public deleteRow(rowToBeDeleted) {
         this.otherPartyData = this.otherPartyData.filter(data => {
-            return data.id !== rowToBeDeleted;
+        return data.id !== rowToBeDeleted;
         });
     }
 
@@ -280,7 +283,7 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public onNext() {
-        if (this.types?.includes("Family Law Matter") || this.types?.includes("Priority Parenting Matter") || this.types?.includes("Relocation of a Child")){
+        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter") || this.types.includes("Relocation of a Child")){
             if (this.types.includes("Family Law Matter")){
                 this.flmInfo = true;
             }
@@ -316,24 +319,26 @@ export default class OtherPartyCommon extends Vue {
         }        
     }
 
-    public isDisableNext() {       
-        return !(this.otherPartyData?.length > 0)
+    public isDisableNext() {
+        // demo
+        return this.otherPartyData? (this.otherPartyData.length <= 0): true;
     }
 
     public getDisableNextText() {
+        // demo
         return "You will need to add at least one other party to continue";
     }
 
     beforeDestroy() {
 
-        if(this.otherPartyData?.length>0){
+        if(this.otherPartyData && this.otherPartyData.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
             this.UpdateCommonStepResults({data:{'respondentsCommon':respondentName}})
         }  
         this.mergeRespondants()     
         
-        const progress = this.otherPartyData?.length==0? 50 : 100;
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
@@ -341,15 +346,16 @@ export default class OtherPartyCommon extends Vue {
 
     public mergeRespondants(){
         const respondentName =[]
-        if(this.$store.state.Application.steps[0].result?.respondentsPO){
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsPO){
             const respondentPO = this.$store.state.Application.steps[0].result.respondentsPO        
             respondentName.push(...respondentPO)
         }
-        if(this.$store.state.Application.steps[0].result?.respondentsCommon){
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsCommon){
             const respondentCommon = this.$store.state.Application.steps[0].result.respondentsCommon
             respondentName.push(...respondentCommon)
         }
         
+        //console.log(respondentName)
         const fullNamesArray =[];
         for(const name of respondentName ){
             fullNamesArray.push(Vue.filter('getFullName')(name))
@@ -359,9 +365,10 @@ export default class OtherPartyCommon extends Vue {
             const fullName = Vue.filter('getFullName')(item)
             return fullNamesArray.indexOf(fullName) == index;
         })
-        
+        //console.log(uniqueArray);
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
+
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
@@ -370,7 +377,7 @@ export default class OtherPartyCommon extends Vue {
             {
                 questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
-        
+        //console.log(questionResults)
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
@@ -380,7 +387,7 @@ export default class OtherPartyCommon extends Vue {
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
         resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
         resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
-        
+        //console.log(resultString)
         return resultString
     }
 

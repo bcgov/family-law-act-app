@@ -19,7 +19,7 @@ const applicationState = namespace("Application");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
-import Form10Layout from "./Form1Layout.vue";
+import Form10Layout from "./Form10Layout.vue";
 
 import moment from 'moment';
 import { nameInfoType } from "@/types/Application/CommonInformation";

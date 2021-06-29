@@ -98,9 +98,9 @@ export default class ReviewYourAnswersCm extends Vue {
     nextPageChange(newVal) 
     {
         //console.log(newVal)
-        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError);
+        this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewFormsCM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
@@ -270,16 +270,12 @@ export default class ReviewYourAnswersCm extends Vue {
 
     public getAdvancedRadioGroupResults(questionValue){        
         const selected = questionValue['selected']
-        //console.log(selected)
         let keyBeauty = selected.charAt(0).toUpperCase() + selected.slice(1);
         keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2') 
         let resultString = Vue.filter('styleTitle')("Selected: ")+keyBeauty+"\n";
 
         for (const [key, value] of Object.entries(questionValue))
-        {
-            // console.error("____________")
-            // console.log(key)
-            // console.log(value) 
+        {            
             if(key.startsWith(selected)){
                 if(value){                
                     keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
@@ -337,23 +333,17 @@ export default class ReviewYourAnswersCm extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
-           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewFormsCM,  50, false);
         }
 
         this.pageHasError = false;
-        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo]){
             const step = this.$store.state.Application.steps[stepIndex]
             const stepResult = step.result
-            // console.log(step)
-            //console.log(stepResult);
+           
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
-                {
-                    // console.error("____________")
-                    // console.log(value['currentPage'])
-                    // console.log(step.pages[value['currentPage']]?step.pages[value['currentPage']].active:'undefined')
-                    // console.log(key)
-                    //  console.log(value)
+                {                   
                     if(value && value['data'] && value['data'].length == 0){
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
                         value['questions'][0]= {name: "require", value: "", title: value['pageName'], inputType: ""}                 
@@ -363,27 +353,18 @@ export default class ReviewYourAnswersCm extends Vue {
                     }
                     else if(value && (value['currentPage'] || value['currentPage']==0)){ 
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
-                        //console.log(isPageActive)
-                        //value['sortOrder']=  (value['currentStep']*100+value['currentPage']);                   
+                                        
                         if(value['questions'] && isPageActive){
                             this.questionResults.push(value);
                         }
                     }
                 }
-        }
-        //console.log(this.questionResults )
+        }       
 
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
-        //console.log(this.questionResults)
-       
-        //let progress = 100;
-        // if(Object.keys(this.survey.data).length)
-        //     progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        //this.togglePages([0,1], true);
-        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError); 
+       
+        this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError); 
         
     }
 
@@ -407,10 +388,7 @@ export default class ReviewYourAnswersCm extends Vue {
                             {
                                 for(const question of questionResult.questions){
                                     if(question.name == question2 && question.title.trim()==title2.trim())
-                                    {
-                                        // console.log(question.title)
-                                        // console.log(title2)
-                                        // console.log(question.title.trim()==title2.trim())
+                                    {                                        
                                         return response
                                     }
                                 }
@@ -453,13 +431,7 @@ export default class ReviewYourAnswersCm extends Vue {
     }
 
     beforeDestroy() {
-
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, true);
-        // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        // if(currPage) currPage.style.color=this.survey.isCurrentPageHasErrors?"red":"";
-
-        //this.UpdateStepResultData({step:this.step, data: {filingOptionsSurvey: this.survey.data}})
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, true);        
     }
 }
 </script>

@@ -61,7 +61,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public addSurveyListener(){
-        Vue.filter('surveyChanged')('priorityParenting')        
+        Vue.filter('surveyChanged')('caseMgmt')        
         this.survey.onComplete.add((sender, options) => {
             this.populateChildModel(sender.data);
             let id = sender.getVariable("id");

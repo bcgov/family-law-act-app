@@ -68,7 +68,7 @@ export default class AboutCaseManagementOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('priorityParenting')            
+            Vue.filter('surveyChanged')('caseMgmt')            
             // console.log(options)              
 
         })
@@ -79,8 +79,8 @@ export default class AboutCaseManagementOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.aboutPriorityParentingMatterOrderSurvey) {
-            this.survey.data = this.step.result.aboutPriorityParentingMatterOrderSurvey.data; 
+        if (this.step.result?.aboutCaseManagementOrderSurvey) {
+            this.survey.data = this.step.result.aboutCaseManagementOrderSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
@@ -165,7 +165,7 @@ export default class AboutCaseManagementOrder extends Vue {
     beforeDestroy() {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {aboutPriorityParentingMatterOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {aboutCaseManagementOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
 }

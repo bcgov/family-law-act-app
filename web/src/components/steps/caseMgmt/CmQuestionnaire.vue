@@ -5,89 +5,176 @@
         <div>
             <h1>Questionnaire</h1>
             <p>
-                <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child that require the agreement of each of the child's 
-                guardians or an order from the court and it is priority to get the order before or separately from any 
-                family law matter order.
+                Case management orders are procedural or administrative orders. A judge can make a case management order at any time 
+                to manage a case. A judge can also make a case management order on application by a party. Some case management orders 
+                can be made without notice to the other party, and without a court appearance. Other case management orders must be made 
+                with notice to the other party but may not need a court appearance if each party gives written consent for the order to 
+                be made. This service will help you complete the right form for the case management order you need.
             </p>
-            <p>
-                The Family Law Act s. 39 sets out that unless an agreement or order allocates <tooltip title="parental responsibilities" :index="0"/>
-                differently, each child’s guardian may exercise all parental responsibilities with respect to a child in consultation with the child’s 
-                other guardians, unless consultation would be unreasonable or inappropriate in the circumstances.  A child’s guardian must exercise 
-                their parental responsibilities in the best interests of the child.
-            </p>  
+           
         </div>
         <div>
-            <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">I need help with the following priority parenting matter:</h2>
-            <p style="font-size: 1.25rem;">Select all that apply.</p>
+            <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">What are you asking for (orders)?</h2>
+            <p style="font-size: 1.25rem;">Select all options that apply.</p>
         </div>
         <div v class="checkbox-border">
             <b-form-group>
                 <b-form-checkbox-group
-                v-model="selectedPriorityParentingMatter"
+                v-model="selectedCaseManagement"
                 v-on:change="onChange($event)"
                 name="orders"
                 stacked
                 >                
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="medical">
+                        <b-form-checkbox class="checkbox-choices" value="changeServiceRequirement">
                             <div>
-                            Medical, dental or other health-related treatments for a child
+                                Changing or cancelling the requirement for service or notice to a person, including allowing another 
+                                method for the service of a document
                             </div>                                      
                         </b-form-checkbox>
                     </div>
 
-                    <div >
-                        <b-form-checkbox class="checkbox-choices" value="passport">
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="changeRequirement">
                             <div>
-                                Application for a passport, license or other thing for a child
+                                Changing or cancelling <tooltip title="any other requirement" :index="0"/> under the rules, including a time limit
                             </div>                        
                         </b-form-checkbox>
                     </div>
 
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="travel">
+                        <b-form-checkbox class="checkbox-choices" value="remoteAttendance">
                             <div>
-                                Travel or participation in an activity for the child
+                                Attending at a court appearance by telephone, video or other electronic means
                             </div>                        
                         </b-form-checkbox>
                     </div>
 
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="locationChange">
+                        <b-form-checkbox class="checkbox-choices" value="adjourningAppearance">
                             <div>
-                                Change in location of a child’s residence
+                                Adjourning a court appearance    
                             </div>                        
                         </b-form-checkbox>
                     </div>
 
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="preventRemoval">
+                        <b-form-checkbox class="checkbox-choices" value="fileTransfer">
                             <div>
-                                Preventing the removal of a child
+                                Transferring a court file to another registry    
                             </div>                        
                         </b-form-checkbox>
                     </div>
 
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="interjurisdictional">
+                        <b-form-checkbox class="checkbox-choices" value="settingTime">
                             <div>
-                                Determining matters relating to <tooltip title="interjurisdictional issues" :index="0"/> under <tooltip title="section 74(2)(c)" :index="0"/> of the Family Law Act                            
+                                Setting a specified time to file and exchange information or evidence, including a financial statement in Form 4      
                             </div>                        
                         </b-form-checkbox>
                     </div>
 
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="wrongfulRemoval">
+                        <b-form-checkbox class="checkbox-choices" value="nonPartyDisclosure">
                             <div>
-                                Wrongful removal of a child in BC
+                                Disclosing of information by a person who is not a party           
                             </div>                        
                         </b-form-checkbox>
                     </div>
 
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="returnOfChild">
+                        <b-form-checkbox class="checkbox-choices" value="rule112">
                             <div>
-                                Return of a child under the <tooltip title="1980 Hague Convention" :index="0"/>                    
+                                About the conduct of a party or management of a case, including pre-trial and trial process and evidence 
+                                disclosure set out in Rule 112(1)
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="orderOfAbsenceChange">
+                            <div>
+                                Changing, suspending or cancelling an <tooltip title="order made in my absence" :index="0"/>           
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="section211">
+                            <div>
+                                Relating to a report under section 211, including requiring a person who prepared a report to attend trial as a witness       
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="fileAccess">
+                            <div>
+                                Management of a court record, file or document including access to a court file           
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="fileCorrection">
+                            <div>
+                                Correcting or changing a filed document, including correcting a name or date of birth              
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="orderSettlement">
+                            <div>
+                                Settling or correcting the terms of an order          
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="section204">
+                            <div>
+                                Adding or removing a party to a case, including leave to intervene under section 204 (2) of the Family Law Act       
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="lawyerAppointment">
+                            <div>
+                                Respecting the appointment of a lawyer to represent the interests of a child or a party       
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="otherProvinceOrder">
+                            <div>
+                                Recognizing a court order from another province or territory          
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="subpoenaCancelation">
+                            <div>
+                                Cancelling a subpoena       
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="section33">
+                            <div>
+                                Requiring that a parentage test be taken under section 33 of the Family Law Act           
+                            </div>                        
+                        </b-form-checkbox>
+                    </div>
+
+                    <div>
+                        <b-form-checkbox class="checkbox-choices" value="section242">
+                            <div>
+                                Requiring access to information in accordance with section 242 of the Family Law Act           
                             </div>                        
                         </b-form-checkbox>
                     </div>
@@ -130,7 +217,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
         Tooltip
     }
 })
-export default class PpmQuestionnaire extends Vue {
+export default class CmQuestionnaire extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -150,7 +237,7 @@ export default class PpmQuestionnaire extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
     
-    selectedPriorityParentingMatter = [];
+    selectedCaseManagement = [];
 
     showLegalAssistance = false
 
@@ -160,7 +247,7 @@ export default class PpmQuestionnaire extends Vue {
     allPages = []; 
 
     mounted(){
-        this.allPages = _.range(this.stPgNo.PPM.PriorityParentingMatterOrder, Object.keys(this.stPgNo.PPM).length-1) 
+        this.allPages = _.range(this.stPgNo.CM.OtherPersons, Object.keys(this.stPgNo.CM).length-1) 
         this.reloadPageInformation();
     }
 
@@ -168,66 +255,74 @@ export default class PpmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.ppmQuestionnaireSurvey) {
-            this.selectedPriorityParentingMatter = this.step.result.ppmQuestionnaireSurvey.data;
+        if (this.step.result && this.step.result.cmQuestionnaireSurvey) {
+            this.selectedCaseManagement = this.step.result.cmQuestionnaireSurvey.data;
         }
         
-        const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;        
+        const progress = this.selectedCaseManagement.length==0? 50 : 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
 
-    public onChange(selectedPriorityParentingMatter) {
+    public onChange(selectedCaseManagement) {
 
-        this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false});
-        this.togglePages([this.stPgNo.PPM.PreviewFormsPPM], false);
+        this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:false});
+        this.togglePages([this.stPgNo.CM.PreviewFormsCM], false);
         
         if(this.checkErrorOnPages())        
-            this.setSteps(selectedPriorityParentingMatter);
+            this.setSteps(selectedCaseManagement);
         else{ 
-            this.selectedPriorityParentingMatter = [];            
-            //this.togglePages(this.allPages, false); 
+            this.selectedCaseManagement = [];            
+            this.togglePages(this.allPages, false); 
         }
-        Vue.filter('surveyChanged')('priorityParenting')        
+        Vue.filter('surveyChanged')('caseMgmt')        
     }
 
-    public setSteps(selectedPriorityParentingMatter) {
-        // console.log(selectedPriorityParentingMatter)
-        const p = this.stPgNo.PPM
-        if (selectedPriorityParentingMatter) {
+    public setSteps(selectedCaseManagement) {
+       
+        const p = this.stPgNo.CM
+        if (selectedCaseManagement) {
 
             this.togglePages(this.allPages, false); 
-            const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
+            const progress = this.selectedCaseManagement.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-            if (selectedPriorityParentingMatter.length > 0){
+            if (selectedCaseManagement.length > 0){
 
-                this.togglePages([p.PriorityParentingMatterOrder], true);                
+                this.togglePages([p.OtherPersons], true);
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.PriorityParentingMatterOrder].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PriorityParentingMatterOrder, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherPersons].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherPersons, 50, false);
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmChildrenInfo].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmChildrenInfo, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.WithoutNoticeOrAttendance].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.WithoutNoticeOrAttendance, 50, false);
+                
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ByConsent].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ByConsent, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmBackground].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmBackground, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.CmNotice].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmNotice, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutPriorityParentingMatterOrder].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutPriorityParentingMatterOrder, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.Scheduling].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 50, false);
 
-            
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersPPM, 0, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutCaseManagementOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.CmChildrenInfo]?.progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 50, false);
+
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AttendanceUsingElectronicCommunication].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 50, false);
+
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
                 
             }   
-
         }
-    } 
-  
+    }   
 
     public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
+        for (let i = 0; i < pageArr.length; i++) {            
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
                 currentPage: pageArr[i],
@@ -263,26 +358,81 @@ export default class PpmQuestionnaire extends Vue {
         this.UpdateGotoNextStepPage();       
     }   
 
-    public getSelectedPriorityParentingMatterNames(){
-        let result = ''       
-        for(const form of this.selectedPriorityParentingMatter){
-            if(form=='medical')   result+='-Medical, dental or other health-related treatments for a child'+'\n';
-            if(form=='passport')  result+='-Application for a passport, license or other thing for a child'+'\n';
-            if(form=='travel')    result+='-Travel or participation in an activity for the child'+'\n';
-            if(form=='locationChange')         result+='-Change in location of a child’s residence'+'\n';
-            if(form=='preventRemoval')          result+='-Preventing the removal of a child'+'\n';
-            if(form=='interjurisdictional')    result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
-            if(form=='wrongfulRemoval')         result+='-Wrongful removal of a child in BC'+'\n';
-            if(form=='returnOfChild')          result+='-Preventing the removal of a child'+'\n';
+    public getSelectedCaseManagementItems(){
+        let result = ''
+        this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], false);       
+        for(const form of this.selectedCaseManagement){
+            if(form=='changeServiceRequirement') {
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                result+='-Changing or cancelling the requirement for service or notice to a person, including allowing another method for the service of a document'+'\n';
+            }   
+            if(form=='changeRequirement') {
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                result+='-Changing or cancelling any other requirement under the rules, including a time limit'+'\n';
+            }
+            if(form=='remoteAttendance') {
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                result+='-Attending at a court appearance by telephone, video or other electronic means'+'\n';
+            }
+            if(form=='adjourningAppearance') {
+                result+='-Adjourning a court appearance'+'\n';
+            }
+            if(form=='fileTransfer') {
+                result+='-Transferring a court file to another registry'+'\n';
+            }
+            if(form=='settingTime') {
+                result+='-Setting a specified time to file and exchange information or evidence, including a financial statement in Form 4'+'\n';
+            }
+            if(form=='nonPartyDisclosure') {
+                result+='-Disclosing of information by a person who is not a party'+'\n';
+            }
+            if(form=='rule112') {
+                result+='-About the conduct of a party or management of a case, including pre-trial and trial process and evidence disclosure set out in Rule 112(1)'+'\n';
+            }
+            if(form=='orderOfAbsenceChange') {
+                result+='-Changing, suspending or cancelling an order made in my absence'+'\n';
+            }
+            if(form=='section211') {
+                result+='-Relating to a report under section 211, including requiring a person who prepared a report to attend trial as a witness'+'\n';
+            }
+            if(form=='fileAccess') {
+                result+='-Management of a court record, file or document including access to a court file'+'\n';
+            }
+            if(form=='fileCorrection') {
+                result+='-Correcting or changing a filed document, including correcting a name or date of birth'+'\n';
+            }
+            if(form=='orderSettlement') {
+                result+='-Settling or correcting the terms of an order'+'\n';
+            }
+            if(form=='section204') {
+                result+='-Adding or removing a party to a case, including leave to intervene under section 204 (2) of the Family Law Act'+'\n';
+            }
+            if(form=='lawyerAppointment') {
+                result+='-Respecting the appointment of a lawyer to represent the interests of a child or a party'+'\n';
+            }
+            if(form=='otherProvinceOrder') {
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                result+='-Recognizing a court order from another province or territory'+'\n';
+            }
+            if(form=='subpoenaCancelation') {
+                result+='-Cancelling a subpoena'+'\n';
+            }
+            if(form=='section33') {
+                result+='-Requiring that a parentage test be taken under section 33 of the Family Law Act'+'\n';
+            }
+            if(form=='section242') {
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                result+='-Requiring access to information in accordance with section 242 of the Family Law Act'+'\n';
+            }           
         }
         return result;
     }
   
     beforeDestroy() {
-        const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
+        const progress = this.selectedCaseManagement.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getSelectedPriorityParentingMatterNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.selectedPriorityParentingMatter, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        const questions = [{name:'CmQuestionnaire',title:'What are you asking for (orders)?',value:this.getSelectedCaseManagementItems()}]        
+        this.UpdateStepResultData({step:this.step, data: {cmQuestionnaireSurvey: {data: this.selectedCaseManagement, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>

@@ -711,7 +711,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "1";
+        p.key = "9";
         p.name = "ReviewYourAnswersCM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -719,7 +719,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "2";
+        p.key = "10";
         p.name = "PreviewFormsCM";
         p.label = "Preview Forms";
         p.active = false;

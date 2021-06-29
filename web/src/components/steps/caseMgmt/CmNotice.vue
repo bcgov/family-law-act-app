@@ -77,8 +77,8 @@ export default class CmNotice extends Vue {
 
     public reloadPageInformation() {
         //console.log(this.step.result)
-        if (this.step.result && this.step.result.noticeSurvey){
-            this.survey.data = this.step.result.noticeSurvey.data;
+        if (this.step.result && this.step.result.cmNoticeSurvey){
+            this.survey.data = this.step.result.cmNoticeSurvey.data;
         }
         
         this.currentStep = this.$store.state.Application.currentStep;
@@ -122,7 +122,7 @@ export default class CmNotice extends Vue {
     beforeDestroy() {
         this.determineCaseMgntNeeded();
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {noticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>

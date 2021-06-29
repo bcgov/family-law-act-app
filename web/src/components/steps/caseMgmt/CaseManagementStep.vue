@@ -1,7 +1,6 @@
 <template>
   <step-base v-bind:step="step">
     <cm-questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.CM.CmQuestionnaire" />
-
     <other-persons v-bind:step="step" v-if="step.currentPage == stPgNo.CM.OtherPersons" />
     <without-notice-or-attendance v-bind:step="step" v-if="step.currentPage == stPgNo.CM.WithoutNoticeOrAttendance" />
     <by-consent v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ByConsent" />
@@ -11,13 +10,12 @@
     <cm-children-info v-bind:step="step" v-if="step.currentPage == stPgNo.CM.CmChildrenInfo" />
     <attendance-using-electronic-communication v-bind:step="step" v-if="step.currentPage == stPgNo.CM.AttendanceUsingElectronicCommunication" />
     <review-your-answers-cm v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ReviewYourAnswersCM" />
-    <preview-forms-cm v-bind:step="step" v-if="step.currentPage == stPgNo.CM.PreviewFormsCM" />
-  
+    <preview-forms-cm v-bind:step="step" v-if="step.currentPage == stPgNo.CM.PreviewFormsCM" />  
   </step-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 
@@ -30,8 +28,8 @@ import OtherPersons from "./OtherPersons.vue";
 import Scheduling from "./Scheduling.vue";
 import WithoutNoticeOrAttendance from "./WithoutNoticeOrAttendance.vue";
 import CmChildrenInfo from "./childInfo/CmChildrenInfo.vue";
-import ReviewYourAnswersCM from "./reviewCM/ReviewYourAnswersCM.vue";
-import PreviewFormsCM from "./reviewCM/PreviewFormsCM.vue";
+import ReviewYourAnswersCm from "./reviewCM/ReviewYourAnswersCM.vue";
+import PreviewFormsCm from "./reviewCM/PreviewFormsCM.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -50,7 +48,9 @@ const applicationState = namespace("Application");
       OtherPersons,
       Scheduling,
       WithoutNoticeOrAttendance,
-      CmChildrenInfo
+      CmChildrenInfo,
+      ReviewYourAnswersCm,
+      PreviewFormsCm
     }
 })
 export default class CaseManagementStep extends Vue {

@@ -150,7 +150,15 @@ export interface stepInfoType {
 
     //__Step 4 CASE MANAGEMENT
 
-
+    cmQuestionnaireSurvey?: any;
+    otherPersonsSurvey?: any;
+    withoutNoticeOrAttendanceSurvey?: any;
+    byConsentSurvey?: any;
+    cmNoticeSurvey?: any;
+    schedulingSurvey?: any;
+    aboutCaseManagementOrderSurvey?: any;
+    cmChildrenInfoSurvey?: any;
+    attendanceUsingElectronicCommunicationSurvey?: any;
 
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
