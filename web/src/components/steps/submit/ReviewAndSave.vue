@@ -127,8 +127,8 @@ export default class ReviewAndSave extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     error = ""
     hasPOselected =  false;
 
@@ -136,6 +136,7 @@ export default class ReviewAndSave extends Vue {
     applicantLocation = {} as locationsInfoType;
 
     mounted(){
+
         this.hasPOselected =  false;
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -148,12 +149,8 @@ export default class ReviewAndSave extends Vue {
 
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
 
-        if( this.$store.state.Application.steps[0].result && 
-            this.$store.state.Application.steps[0].result.selectedForms &&
-            this.$store.state.Application.steps[0].result.selectedForms.includes('protectionOrder') 
-        )  this.hasPOselected =  true;
-            
-
+        if(this.$store.state.Application.steps[0].result?.selectedForms?.includes('protectionOrder'))  
+            this.hasPOselected =  true;
     } 
 
     public downloaded(){
@@ -170,14 +167,7 @@ export default class ReviewAndSave extends Vue {
 
     public navigateToGuide(){
         Vue.filter('scrollToLocation')("pdf-guide");
-    }  
-
-    // beforeDestroy() {
-    //     const progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
-    //     const progress = this.pdfFileOpened? 100:50;
-    //     console.log(progress)
-    //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-    // }
+    }
 
 }
 </script>

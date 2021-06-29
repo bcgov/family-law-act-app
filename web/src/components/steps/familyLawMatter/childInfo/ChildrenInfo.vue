@@ -20,7 +20,6 @@
                                     <th scope="col">Your relationship to the child</th>
                                     <th scope="col">Other party's relationship to the child</th>
                                     <th scope="col">Child is currently living with</th>
-                                    <!-- <th scope="col">Additional Information</th> -->
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -33,7 +32,6 @@
                                     <td>{{child.opRelation}}</td>
                                     <td v-if="child.currentLiving != 'other'">{{child.currentLiving}}</td>
                                     <td v-else>{{child.currentLivingComment}}</td>
-                                    <!-- <td>{{child.additionalInfoDetails}}</td> -->
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -55,7 +53,7 @@
                
             </div>
         </div>
-        <b-card v-if="childData.length > 0" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
+        <b-card v-if="childData && childData.length > 0" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
             <p>
                 The <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests" target="_blank"
             >best interests of the child</a> is a test that the court uses to make decisions about children.  
@@ -107,8 +105,8 @@ export default class ChildrenInfo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     showTable = true;
     childBestInterestUnderstanding = false;
     childData = [];
@@ -119,7 +117,6 @@ export default class ChildrenInfo extends Vue {
         this.showTable = false;
          Vue.nextTick(()=>{
             const el = document.getElementById('child-info-survey')
-            //console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -135,8 +132,7 @@ export default class ChildrenInfo extends Vue {
     }
 
     public populateSurveyData(childValue) {
-        const currentIndexValue =
-            this.childData.length > 0 ? this.childData[this.childData.length - 1].id : 0;
+        const currentIndexValue = this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newChild = { ...childValue, id };
         this.childData = [...this.childData, newChild];
@@ -166,35 +162,31 @@ export default class ChildrenInfo extends Vue {
     }
 
     created() {
-        //console.log(this.step)
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+
+        if (this.step.result?.childrenInfoSurvey) {
             this.childData = this.step.result.childrenInfoSurvey.data;
         }
-        if (this.step.result && this.step.result.childBestInterestAcknowledgement) {
+        if (this.step.result?.childBestInterestAcknowledgement) {
             this.childBestInterestUnderstanding = this.step.result.childBestInterestAcknowledgement;
         }
     }
 
     mounted(){
-        //console.log(this.childBestInterestUnderstanding)
-
-        const progress = this.childData.length>0 && this.childBestInterestUnderstanding? 100 : 50;            
+        
+        const progress = this.childData?.length>0 && this.childBestInterestUnderstanding? 100 : 50;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
     public isDisableNext() {
-        // demo
-        return (this.childData.length <= 0 || !this.childBestInterestUnderstanding);
+        return (this.childData?.length <= 0 || !this.childBestInterestUnderstanding);
     }
 
     beforeDestroy() {
-        const progress = this.childData.length>0 && this.childBestInterestUnderstanding? 100 : 50;
+        const progress = this.childData?.length>0 && this.childBestInterestUnderstanding? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-
-        //this.UpdateStepResultData({step:this.step, data: {childrenInfoSurvey: this.childData, childBestInterestAcknowledgement:this.childBestInterestUnderstanding}});        
         this.UpdateStepResultData({step:this.step, data: {childrenInfoSurvey: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
     }
 
@@ -204,7 +196,7 @@ export default class ChildrenInfo extends Vue {
         {
             questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
         }
-        //console.log(questionResults)
+        
         return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
@@ -216,7 +208,6 @@ export default class ChildrenInfo extends Vue {
         resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
         resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)
         if (child.currentLiving == 'other'){
-            // console.log(child)
             resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)
         } else {
             resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)

@@ -88,7 +88,7 @@ export default class OtherParty extends Vue {
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.otherPartyData}})
+        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.getOtherPartyResults()}})  
     }
 
     currentStep =0;

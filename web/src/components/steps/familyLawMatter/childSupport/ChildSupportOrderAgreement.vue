@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
@@ -76,7 +76,6 @@ export default class ChildSupportOrderAgreement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
             this.setPages();
         })
     }
@@ -86,7 +85,7 @@ export default class ChildSupportOrderAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.childSupportOrderAgreementSurvey) {
+        if (this.step.result?.childSupportOrderAgreementSurvey) {
             this.survey.data = this.step.result.childSupportOrderAgreementSurvey.data; 
             if (this.survey.data.existingType == 'Neither') {
                 this.disableNextButton = true;
@@ -105,14 +104,14 @@ export default class ChildSupportOrderAgreement extends Vue {
         const existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM]
         const existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
 
-        if (this.survey.data.existingType == 'ExistingOrder') {
+        if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             this.togglePages(existingOrderAgreementPages, true);
             
-        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+        } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             this.togglePages(existingOrderAgreementPages, true);                
-        } else if (this.survey.data.existingType == "Neither") {
+        } else if (this.survey.data?.existingType == "Neither") {
             this.togglePages(existingOrderAgreementPagesAll, false);
             this.disableNextButton = true;
         }
@@ -144,8 +143,3 @@ export default class ChildSupportOrderAgreement extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

@@ -378,16 +378,13 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
             
             const bodyFormData = new FormData();
             const docType = []
-
-            // console.log(this.supportingDocuments[this.supportingDocuments.length-1])
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
-            
-            // console.log(lastFileTypes)
+          
             let fileIndex = 0;
             for(const filetype of lastFileTypes){
-                // console.log(filetype)
+            
                 const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.documentType==filetype)})
-                // console.log(tempSupportingDocs)
+            
                 if(tempSupportingDocs.length>0){
                     const filesIndices = [];
                     const filesRotation = [];
@@ -419,13 +416,12 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
             
             this.$http.post(url, bodyFormData, header)
             .then(res => {
-                // console.log(res)
-                if(res.data.message=="success")
+
+                if(res?.data?.message=="success")
                 {
                     this.generateUrl(res.data.redirectUrl)                   
                 }
             }, err => {
-                // console.error(err);
                 this.error = err.response.data.message;
                 this.submissionInProgress = false;
             });           
@@ -434,8 +430,7 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
         public generateUrl(eFilingUrl) {            
             // redirect user to the generated url
             location.replace(eFilingUrl);        
-        }
-      
+        }      
 
         public removeDocument(index) {
             this.supportingDocuments.splice(index, 1);
@@ -453,7 +448,6 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
                 let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
                 if(!typeIndex.includes(this.fileType))
                     typeIndex.push(this.fileType)
-                // console.log(typeIndex)
                 
                 for(const supportingfile of this.supportingFile){
                
@@ -473,7 +467,6 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
                 this.fileType = "";
                 Vue.nextTick(()=>{
                     const el = document.getElementById('drop-area');
-                    // console.log(el)
                     if(el) el.scrollIntoView();
                 })
             }
@@ -512,7 +505,5 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
     #drop-area.highlight {
     border-color: purple;
     }
-   
-
 
 </style>

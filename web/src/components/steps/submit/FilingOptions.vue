@@ -58,8 +58,7 @@ export default class FilingOptions extends Vue {
 
     @Watch('allCompleted')
     statusChanged(newVal) 
-    {
-        //console.log(newVal)        
+    {       
         this.determineSelectedFilingType()       
     }
 
@@ -71,8 +70,7 @@ export default class FilingOptions extends Vue {
     mounted(){
         this.initializeSurvey();
         this.addSurveyListener();
-        this.reloadPageInformation()
-        //console.log(this.step)
+        this.reloadPageInformation();
     }
 
     public initializeSurvey(){
@@ -86,8 +84,8 @@ export default class FilingOptions extends Vue {
     public reloadPageInformation() {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.filingOptionsSurvey){
+
+        if (this.step.result?.filingOptionsSurvey){
             this.survey.data = this.step.result.filingOptionsSurvey;
         }
        
@@ -95,14 +93,11 @@ export default class FilingOptions extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
-        this.determineSelectedFilingType()
-        
+        this.determineSelectedFilingType();        
     }
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);
-            // console.log(options)
             this.resetReviewSteps()
             this.determineSelectedFilingType()
         })
@@ -122,16 +117,12 @@ export default class FilingOptions extends Vue {
         const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
         
         if (!this.$store.state.Common.efilingEnabled || 
-           (stepFLM.result &&
-            stepFLM.result.flmAdditionalDocumentsSurvey &&
-            stepFLM.result.flmAdditionalDocumentsSurvey.data &&
-             (stepFLM.result.flmAdditionalDocumentsSurvey.data.isFilingAdditionalDocs == "n"
-             ||            
-             stepFLM.result.flmAdditionalDocumentsSurvey.data.criminalChecked == "n")
-           )
-        )
-        this.survey.setVariable('efilingAllowed','n')
-        else this.survey.setVariable('efilingAllowed','y')
+            stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n" ||            
+            stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n")
+
+                this.survey.setVariable('efilingAllowed','n')
+        else 
+                this.survey.setVariable('efilingAllowed','y')
     }
 
     public determineSelectedFilingType(){

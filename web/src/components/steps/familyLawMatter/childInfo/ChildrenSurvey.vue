@@ -25,7 +25,6 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-//import { addQuestionTypes } from "@/components/survey/question-types.ts";
 
 @Component
 export default class ChildrenSurvey extends Vue {
@@ -116,17 +115,16 @@ export default class ChildrenSurvey extends Vue {
     }
 
     public populateChildModel(childData) {
-        //console.log(childData)
-        this.child.name = childData.childName;
-        // this.child.name.middle = childData.childName.middle;
-        // this.child.name.last = childData.childName.last;
-        this.child.dob = childData.childDateOfBirth;
-        this.child.relation = childData.relationToChild;
-        this.child.opRelation = childData.childRelationToOtherParty;
-        this.child.currentLiving = childData.childCurrentlyLivingWith;
-        this.child.ack = childData.childInfoAckknowledge;
-        this.child.additionalInfo = childData.childAdditionalInfo;
-        this.child.additionalInfoDetails = childData.additionInfoDetails;
+        if(childData){
+            this.child.name = childData.childName;       
+            this.child.dob = childData.childDateOfBirth;
+            this.child.relation = childData.relationToChild;
+            this.child.opRelation = childData.childRelationToOtherParty;
+            this.child.currentLiving = childData.childCurrentlyLivingWith;
+            this.child.ack = childData.childInfoAckknowledge;
+            this.child.additionalInfo = childData.childAdditionalInfo;
+            this.child.additionalInfoDetails = childData.additionInfoDetails;
+        }
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
