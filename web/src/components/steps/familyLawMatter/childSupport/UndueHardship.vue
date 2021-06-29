@@ -67,8 +67,7 @@ export default class UndueHardship extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)         
+            Vue.filter('surveyChanged')('familyLawMatter')   
         })
     }
     
@@ -76,7 +75,7 @@ export default class UndueHardship extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;       
         
-        if (this.step.result && this.step.result.undueHardshipSurvey) {
+        if (this.step.result?.undueHardshipSurvey) {
             this.survey.data = this.step.result.undueHardshipSurvey.data;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
@@ -102,8 +101,3 @@ export default class UndueHardship extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

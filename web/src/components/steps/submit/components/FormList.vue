@@ -25,7 +25,6 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-//import moment from 'moment-timezone';
 import { pathwayCompletedInfoType } from '@/types/Application';
 
 @Component({
@@ -74,16 +73,13 @@ export default class FormList extends Vue {
         
         ]
 
-        //console.log(this.formsListTemplate)
-
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
-        Vue.nextTick(()=> this.setProgress());
-        //this.$emit('formsList',this.formsList)
+        Vue.nextTick(()=> this.setProgress());        
     } 
     
     public initFormsTitle(){
-        // console.log(this.pathwayCompleted)
+
         for(const form of this.formsListTemplate)        
         {
             if(this.pathwayCompleted[form.appName]){
@@ -92,7 +88,7 @@ export default class FormList extends Vue {
 
                 if(form.name=='P3' && this.isForm1()) continue
 
-                if(this.generatedForms.includes(form.name))
+                if(this.generatedForms?.includes(form.name))
                     form.color = "success"
 
                 this.formsList.push(form);
@@ -104,10 +100,10 @@ export default class FormList extends Vue {
         const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
-        if(locationSurvey && locationSurvey.filingLocationSurvey && locationSurvey.filingLocationSurvey.data){
-            //console.log(locationSurvey.filingLocationSurvey.data)
+        if(locationSurvey?.filingLocationSurvey?.data){
+            
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if(courtsC.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+            if(courtsC?.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
                 return true
             else 
                 return false
@@ -121,7 +117,6 @@ export default class FormList extends Vue {
             this.savePdf(this.formsList[inx].pdfType, inx);            
         }
     }
-
      
     public checkErrorOnPages(checkingSteps){
 
@@ -142,17 +137,13 @@ export default class FormList extends Vue {
     }
 
     public setProgress(){
-        // console.warn('Set Progress')
-        // console.log(this.currentStep)
-        // console.log(this.currentPage)
         if(this.currentPage <0) return
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.isFormReviewed()?100:50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.isFormReviewed()? 100 : 50, false);
     }
 
     public isFormReviewed(){
         for(const form of this.formsList)
-            if(!this.generatedForms.includes(form.name)){
-                // console.log(form)
+            if(!this.generatedForms?.includes(form.name)){
                 return false
             }
         return true
@@ -183,6 +174,5 @@ export default class FormList extends Vue {
             console.error(err);
         });
     }
-
 }
 </script>

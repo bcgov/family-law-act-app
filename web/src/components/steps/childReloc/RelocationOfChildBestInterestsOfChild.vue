@@ -38,15 +38,9 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existing = false;
-   
-    
-    pageIndexChange(newVal) 
-    {
-        this.survey.currentPageNo = newVal;        
-    }
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -70,30 +64,28 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('childReloc')
-            //console.log(this.survey.data);
-            // console.log(options)
-            
         })
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.RelocChildBestInterestInfoSurvey) {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.RelocChildBestInterestInfoSurvey) {
             this.survey.data = this.step.result.RelocChildBestInterestInfoSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }       
 
-        if (this.step.result && this.step.result.relocChildrenInfoSurvey) {
+        if (this.step.result?.relocChildrenInfoSurvey) {
             const childData = this.step.result.relocChildrenInfoSurvey.data;            
-            if (childData.length>1){
+            if (childData?.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
                 this.survey.setVariable("childWording", "child");
             }
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

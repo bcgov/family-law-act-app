@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
@@ -74,8 +74,7 @@ export default class ContactWithChildOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data);
-            // console.log(options)
+        
             this.setPages()
         })
     }    
@@ -88,7 +87,7 @@ export default class ContactWithChildOrder extends Vue {
 
 
         this.togglePages([p.ReviewYourAnswersFLM], true);           
-        if (this.survey.data.existingType == 'ExistingOrder') {
+        if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
                 this.togglePages(pgPages, true);
@@ -97,7 +96,7 @@ export default class ContactWithChildOrder extends Vue {
                 this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
                 this.togglePages([p.AboutContactWithChildOrder], false);
             }
-        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+        } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
                 this.togglePages(pgPages, true);
@@ -106,7 +105,7 @@ export default class ContactWithChildOrder extends Vue {
                 this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
                 this.togglePages([p.AboutContactWithChildOrder], false);
             }
-        } else if (this.survey.data.existingType == 'Neither') {
+        } else if (this.survey.data?.existingType == 'Neither') {
             
             this.togglePages(pgPagesAll, false);
             this.disableNextButton = true;            
@@ -114,26 +113,27 @@ export default class ContactWithChildOrder extends Vue {
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.contactWithChildOrderSurvey && this.step.result.contactWithChildOrderSurvey.data) {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.contactWithChildOrderSurvey?.data) {
             this.survey.data = this.step.result.contactWithChildOrderSurvey.data;
-            if (this.survey.data.existingType == 'Neither') {
+            if (this.survey.data?.existingType == 'Neither') {
                 this.disableNextButton = true;
             }      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
-        if (this.step.result && this.step.result.childrenInfoSurvey && this.step.result.childrenInfoSurvey.data) {            
+        if (this.step.result?.childrenInfoSurvey?.data) {            
             const childData = this.step.result.childrenInfoSurvey.data;            
-            if (childData.length>1){
+            if (childData?.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
                 this.survey.setVariable("childWording", "child");
             }
         }       
 
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.setPages()
     }
@@ -162,12 +162,6 @@ export default class ContactWithChildOrder extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {contactWithChildOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

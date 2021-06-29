@@ -76,13 +76,14 @@ export default class Notice extends Vue {
     }
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.noticeSurvey){
-            this.survey.data = this.step.result.noticeSurvey.data;
-        }
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.noticeSurvey){
+            this.survey.data = this.step.result.noticeSurvey.data;
+        }
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 
@@ -97,13 +98,13 @@ export default class Notice extends Vue {
     }
 
     public determineCaseMgntNeeded(){
-        if (this.survey.data && this.survey.data.noticeType) {
+        if (this.survey.data?.noticeType) {
             const noticeType = this.survey.data.noticeType;
             if (noticeType == 'askingForWithoutNotice' || noticeType == 'askingForUnder 7 DaysNotice') {
-                //console.log('turn on case management')
+                
                 this.toggleSteps(this.stPgNo.CM._StepNo,  true);
                 const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
-                //console.log(selectedForms)
+               
                 if(selectedForms && !selectedForms.includes('caseMgmt')){
                     selectedForms.push('caseMgmt')
                 }
@@ -126,8 +127,3 @@ export default class Notice extends Vue {
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

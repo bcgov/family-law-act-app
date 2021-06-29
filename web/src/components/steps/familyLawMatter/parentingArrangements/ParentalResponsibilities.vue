@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
@@ -41,8 +41,8 @@ export default class ParentalResponsibilities extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
     childData = [];
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existing = false;
 
     beforeCreate() {
@@ -68,16 +68,14 @@ export default class ParentalResponsibilities extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            // console.log(this.survey.data);
-            // console.log(options)
+  
             if (options.name == "childrenRequestedResponsibilities"){
-                if (options.question.choices.length == options.value.length){
+                if (options.question?.choices?.length == options.value.length){
                     this.survey.setVariable("allChildrenSelected", true);
                 } else {
                     this.survey.setVariable("allChildrenSelected", false);
                 }
-            }
-            
+            }            
         })
     }
 
@@ -87,7 +85,7 @@ export default class ParentalResponsibilities extends Vue {
         this.surveyJsonCopy.pages[0].elements[2].elements[1]["choices"]=[];
         this.childData = [];        
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
             for (const child of childData){                
                 this.childData.push(child);                
@@ -97,14 +95,17 @@ export default class ParentalResponsibilities extends Vue {
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.parentalResponsibilitiesSurvey) {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.parentalResponsibilitiesSurvey) {
             this.survey.data = this.step.result.parentalResponsibilitiesSurvey.data;            
 
-            if (this.survey.data.allResponsibilitiesOrder == 'y'
-                && this.survey.data.childrenRequestedResponsibilities
-                && this.survey.data.childrenRequestedResponsibilities.length == this.childData.length){
-                    this.survey.setVariable("allChildrenSelected", true);                    
+            if (this.survey.data?.allResponsibilitiesOrder == 'y'                
+                && this.survey.data?.childrenRequestedResponsibilities?.length == this.childData?.length)
+            {
+                this.survey.setVariable("allChildrenSelected", true);                    
             } else {
                 this.survey.setVariable("allChildrenSelected", false);
             }
@@ -112,24 +113,22 @@ export default class ParentalResponsibilities extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }       
 
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+        if (this.step.result?.flmBackgroundSurvey?.data){
             const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+            if (backgroundSurveyData?.ExistingOrdersFLM == 'y' 
+                && backgroundSurveyData?.existingOrdersListFLM?.length > 0 
+                && backgroundSurveyData?.existingOrdersListFLM?.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                     this.survey.setVariable("existing", true);                    
                 } else {
                     this.survey.setVariable("existing", false);
                 }
         }
         
-        if (this.childData.length == 1){
+        if (this.childData?.length == 1){
             this.survey.setValue("childrenRequestedResponsibilities", [Vue.filter('getFullName')(this.childData[0].name)]);
             this.survey.setVariable("allChildrenSelected", true);  
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

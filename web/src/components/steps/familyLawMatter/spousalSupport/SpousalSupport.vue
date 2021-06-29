@@ -53,8 +53,8 @@ export default class SpousalSupport extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;  
     otherPartyNames = [];  
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     applicantFullName ='';
 
     beforeCreate() {
@@ -87,7 +87,7 @@ export default class SpousalSupport extends Vue {
 
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]        
 
-        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[1].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
@@ -99,16 +99,14 @@ export default class SpousalSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data);
-            // console.log(options)
-            if (this.survey.data && this.survey.data.listOfSupportPayors && this.survey.data.listOfSupportPayors.length > 0 && this.otherPartyNames.length > 0){
+
+            if (this.survey.data?.listOfSupportPayors?.length > 0 && this.otherPartyNames?.length > 0){
                 for (const otherPartyName of this.otherPartyNames) {
                     if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
                         this.survey.setVariable("Payee", otherPartyName);
                     }
                 }
-            }
-            
+            }            
         })
     }
     
@@ -117,12 +115,12 @@ export default class SpousalSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.spousalSupportSurvey) {
+        if (this.step.result?.spousalSupportSurvey) {
             this.survey.data = this.step.result.spousalSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.survey.data && this.survey.data.listOfSupportPayors && this.survey.data.listOfSupportPayors.length > 0 && this.otherPartyNames.length > 0){
+        if (this.survey.data?.listOfSupportPayors?.length > 0 && this.otherPartyNames?.length > 0){
             for (const otherPartyName of this.otherPartyNames) {
                 if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
                     this.survey.setVariable("Payee", otherPartyName);
@@ -151,8 +149,3 @@ export default class SpousalSupport extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

@@ -102,7 +102,7 @@ export default class ChildrenSurvey extends Vue {
     }
 
     public populateChildModel(childData) {
-        //console.log(childData)
+  
         this.child.name = childData.childName;
         this.child.dob = childData.childDateOfBirth;
         this.child.currentLiving = childData.childCurrentlyLivingWith;

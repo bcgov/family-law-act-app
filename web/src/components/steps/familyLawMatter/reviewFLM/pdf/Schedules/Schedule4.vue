@@ -172,7 +172,7 @@
                 <section>
                     <i style="display:inline; margin-left:0.35rem">Child support payments may start or end on a past (retroactive), present or future date or event, such as the date of separation, the date this application is made or the start date of a new job</i>
                     <div style="margin:0 0 3rem 1.1rem;">
-                        <underline-form style="display:inline; text-indent:0px;" textwidth="18.5rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate"/>
+                        <underline-form style="display:inline; text-indent:0px;" textwidth="18.5rem" beforetext="The order about child support should start on" hint="mmm/dd/yyyy" :text="exChSupInfo.abtOrg.startDate | beautify-date-blank"/>
                         <div style="display:inline; margin:0 0 0 0.5rem;">because:</div>
                         <div v-if="exChSupInfo.abtOrg.startReason" 
                             class="answerbox">{{exChSupInfo.abtOrg.startReason}}</div>
@@ -260,7 +260,6 @@ export default class Schedule4 extends Vue {
 
     public getExistingChildSupportInfo(){
         let existingChildSupportInfo = {} as schedule4DataInfoType;
-        // console.log(this.result)
 
         if (this.result.aboutExistingChildSupportSurvey && this.result.childSupportOrderAgreementSurvey){
             const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];
@@ -290,25 +289,25 @@ export default class Schedule4 extends Vue {
                     newInfo: orderChangeList.includes('newInformation'),
                     other: orderChangeList.includes('other')
                 },
-                newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&        orderChangeList.includes('newInformation')     && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment)?      this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment:'',
-                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('expensesChanged')    && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment)?     this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment:'',
-                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('arrangementsChanged') && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment)?this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment:'',
-                otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&      orderChangeList.includes('other')              && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment)?               this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment:'',
-                exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
-                setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
-                replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
-                changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
+                newInfo:       (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('newInformation')      && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.newInformationComment)?      this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment:'',
+                expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('expensesChanged')     && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.expensesChangedComment)?     this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment:'',
+                lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('arrangementsChanged') && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.arrangementsChangedComment)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment:'',
+                otherInfo:     (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList?.includes('other')               && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList?.otherComment)?               this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment:'',
+                exstngAgrmnt:       (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
+                setAsideAgrmnt:     (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
+                replaceAgrmnt:      (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
+                changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)? this.result.aboutExistingChildSupportSurvey.changesSinceAgreement : ''
             }
         }
 
         if (this.result.aboutChildSupportChangesSurvey){
             const aboutChildSupportChanges = this.result.aboutChildSupportChangesSurvey;
-            const changeCondition =   existingChildSupportInfo.abtEx && (existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr'])
-            const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)?aboutChildSupportChanges.listOfSituations:[]
+            const changeCondition =  (existingChildSupportInfo?.abtEx?.['replaceAgrmnt'] || existingChildSupportInfo?.abtEx?.['changeOrdr'])
+            const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)? aboutChildSupportChanges.listOfSituations:[]
             existingChildSupportInfo.abtOrg = {                
-                newOrderDesc: changeCondition? aboutChildSupportChanges.orderDescription:'',
-                startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)?(aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment):'',
-                startReason: (changeCondition && aboutChildSupportChanges.orderStartDateReason)?aboutChildSupportChanges.orderStartDateReason:'',
+                newOrderDesc: changeCondition ?  aboutChildSupportChanges.orderDescription:'',
+                startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)? (aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment):'',
+                startReason: (changeCondition && aboutChildSupportChanges.orderStartDateReason)? aboutChildSupportChanges.orderStartDateReason:'',
                 situationList: orgSituationList,                    
                 situation: {
                     payor: orgSituationList.includes('I am required to pay child support'),
@@ -328,14 +327,14 @@ export default class Schedule4 extends Vue {
             existingChildSupportInfo.unpdChSup = unpaidChildSupport.unpaid == 'y'?
             {
                 crntDate: moment().format("MMM DD, yyyy"),   
-                unpaid: unpaidChildSupport.unpaid == 'y',
-                reduce: unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y',
-                reduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.reduceAmount:'',
-                whyReduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.whyReduceAmount:'',
-                paySchd: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule)?unpaidChildSupport.paymentSchedule.selected:'',
-                monthlyAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule && unpaidChildSupport.paymentSchedule.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount:'',
-                amnt: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.unPaidAmount:0, 
-                otherComm: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule) && (unpaidChildSupport.paymentSchedule.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment:''       
+                unpaid:           unpaidChildSupport.unpaid == 'y',
+                reduce:          (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y'),
+                reduceAmount:    (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')? unpaidChildSupport.reduceAmount : '',
+                whyReduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')? unpaidChildSupport.whyReduceAmount : '',
+                paySchd:         (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule)?      unpaidChildSupport.paymentSchedule.selected : '',
+                monthlyAmount:   (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule?.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount : '',
+                amnt:            (unpaidChildSupport.unpaid == 'y')?  unpaidChildSupport.unPaidAmount : 0, 
+                otherComm:       (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule?.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment : ''       
             }:{
                 crntDate: moment().format("MMM DD, yyyy"),   
                 unpaid: false,
@@ -356,23 +355,19 @@ export default class Schedule4 extends Vue {
             }
         }
 
-        // console.log('____')
-        // console.log(existingChildSupportInfo.abtOrg.situation)
-
-
         existingChildSupportInfo.finStmnt = {
-            required: (existingChildSupportInfo.abtOrg.situation.payor ||
-                    existingChildSupportInfo.abtOrg.situation.over19 ||
-                    existingChildSupportInfo.abtOrg.situation.split  ||
-                    existingChildSupportInfo.abtOrg.situation.partyParentOfOther  ||
-                    existingChildSupportInfo.abtOrg.situation.payorEarnsHigh ||
-                    existingChildSupportInfo.abtOrg.situation.specialClaim ||
-                    existingChildSupportInfo.abtOrg.situation.undueHardship )
+            required: (existingChildSupportInfo.abtOrg?.situation?.payor ||
+                       existingChildSupportInfo.abtOrg?.situation?.over19 ||
+                       existingChildSupportInfo.abtOrg?.situation?.split  ||
+                       existingChildSupportInfo.abtOrg?.situation?.partyParentOfOther  ||
+                       existingChildSupportInfo.abtOrg?.situation?.payorEarnsHigh ||
+                       existingChildSupportInfo.abtOrg?.situation?.specialClaim ||
+                       existingChildSupportInfo.abtOrg?.situation?.undueHardship )
         }
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
@@ -380,7 +375,7 @@ export default class Schedule4 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form4unable){
             existingChildSupportInfo.applyForCaseManagement = true
             existingChildSupportInfo.finStmnt = {
                 required: false

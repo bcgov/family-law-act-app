@@ -221,7 +221,7 @@
               "type": "yesno",
               "name": "impactOnRelationship",
               "visible": false,
-              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n')",
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'y')",
               "isRequired": true,
               "title": "Can the change of residence reasonably be expected to have a significant impact on the child’s relationship with a guardian?"
             },
@@ -231,14 +231,14 @@
               "title": "I’m not sure. Where can I get legal assistance?",
               "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{existingParentingArrangements} = 'n'",
+              "visibleIf": "{existingParentingArrangements} = 'y'",
               "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
             },
             {
               "type": "checkbox",
               "name": "confirmImpactOnRelationship",
               "visible": false,
-              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n') and ({impactOnRelationship} = 'y')",
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'y') and ({impactOnRelationship} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter because a change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian.",
               "isRequired": true,
               "choices": [
@@ -252,7 +252,7 @@
               "type": "infotext",
               "name": "yesImpactOnRelationshipInfo",
               "visible": false,
-              "visibleIf": "(({existingParentingArrangements} = 'n') and ({impactOnRelationship} = 'y')",
+              "visibleIf": "(({existingParentingArrangements} = 'y') and ({impactOnRelationship} = 'y')",
               "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
               "titleLocation": "hidden",
               "messageStyle": "info"
@@ -477,7 +477,7 @@
               "visibleIf": "({returnOfChild})",
               "isRequired": true,
               "title": "Do you believe that a child has been wrongfully removed to or retained in a <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/fr_hague' target='blank'>member country</a> under the `1980 Hague Convention`, either to BC or from BC?",
-              "description": "<a href='http://www.bclaws.ca/civix/document/LOC/complete/statreg/--%20F%20--/Family%20Law%20Act%20%5BSBC%202011%5D%20c.%2025/00_Act/11025_04.xml#section80' target='blank'>Section 80 of the Family Law Act</a> provides that the 1980 Hague <a href='http://www.hcch.net/index_en.php?act=conventions.text&cid=24' target='blank'>Convention on the Civil Aspects of International Child Abduction</a> has the force of law in B.C. The Hague Convention is an international treaty in force among some <a href='http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/fr_hague' target='blank'>90 countries</a>. Its goal is to help with the court process to return a child wrongfully removed or retained from their place of habitual residence.</br></br>The Convention applies to children under the age of 16. In most Convention cases, children are abducted by one of their parents."
+              "description": "<a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section80' target='blank'>Section 80 of the Family Law Act</a> provides that the 1980 Hague <a href='http://www.hcch.net/index_en.php?act=conventions.text&cid=24' target='blank'>Convention on the Civil Aspects of International Child Abduction</a> has the force of law in B.C. The Hague Convention is an international treaty in force among some <a href='http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/fr_hague' target='blank'>90 countries</a>. Its goal is to help with the court process to return a child wrongfully removed or retained from their place of habitual residence.</br></br>The Convention applies to children under the age of 16. In most Convention cases, children are abducted by one of their parents."
             },
             {
               "type": "helptext",

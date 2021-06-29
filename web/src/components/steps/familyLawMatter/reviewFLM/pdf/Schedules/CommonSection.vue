@@ -338,16 +338,16 @@ export default class CommonSection extends Vue {
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
         const childRelatedApplication = ( 
-            this.selectedSchedules.includes('schedule1') ||
-            this.selectedSchedules.includes('schedule2') || 
-            this.selectedSchedules.includes('schedule3') ||
-            this.selectedSchedules.includes('schedule4') ||
-            this.selectedSchedules.includes('schedule5') || 
-            this.selectedSchedules.includes('schedule6') ||
-            this.selectedSchedules.includes('schedule7') || 
-            this.selectedSchedules.includes('schedule8')
+            this.selectedSchedules?.includes('schedule1') ||
+            this.selectedSchedules?.includes('schedule2') || 
+            this.selectedSchedules?.includes('schedule3') ||
+            this.selectedSchedules?.includes('schedule4') ||
+            this.selectedSchedules?.includes('schedule5') || 
+            this.selectedSchedules?.includes('schedule6') ||
+            this.selectedSchedules?.includes('schedule7') || 
+            this.selectedSchedules?.includes('schedule8')
         )
-        if (childRelatedApplication && this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){
+        if (childRelatedApplication && this.result.childrenInfoSurvey?.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
@@ -357,14 +357,13 @@ export default class CommonSection extends Vue {
             this.childBestInterestAcknowledmentCheck = false;
         }
 
-        if (this.result.flmBackgroundSurvey.culturalExplain) {
+        if (this.result.flmBackgroundSurvey?.culturalExplain) {
             this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
         }       
         
-        this.otherPartyInfo=this.getOtherPartyInfo()
+        this.otherPartyInfo = this.getOtherPartyInfo()
         this.yourInfo = this.getYourInfo()     
         this.locationInfo = this.getLocationInfo();  
-
     }
 
     public getLocationInfo(){
@@ -373,8 +372,8 @@ export default class CommonSection extends Vue {
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
+            locationInformation.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData?.ExistingCourt? locationData.ExistingCourt:'';
 
             locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
             locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
@@ -423,8 +422,8 @@ export default class CommonSection extends Vue {
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
-        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
+        existing.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
 
         return existing;
     }
@@ -432,8 +431,6 @@ export default class CommonSection extends Vue {
     public getYourInfo(){
 
         let yourInformation = {} as yourInformationInfoDataInfoType;       
-
-        // console.log(this.result.filingLocationSurvey)
 
         if(this.result.yourInformationSurvey){
 
@@ -468,7 +465,7 @@ export default class CommonSection extends Vue {
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            

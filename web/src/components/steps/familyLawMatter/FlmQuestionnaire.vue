@@ -121,9 +121,9 @@ export default class FlmQuestionnaire extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
     
     selectedForm = [];
-    //returningUser = false
+
     showLegalAssistance = false
-    // preparationInfo = false
+
     currentStep = 0;
     currentPage = 0;
 
@@ -138,7 +138,7 @@ export default class FlmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.flmQuestionnaireSurvey) {
+        if (this.step.result?.flmQuestionnaireSurvey) {
             this.selectedForm = this.step.result.flmQuestionnaireSurvey.data;
             this.determineSteps();
         }
@@ -152,21 +152,18 @@ export default class FlmQuestionnaire extends Vue {
         if(this.checkErrorOnPages())        
             this.setSteps(selectedForm);
         else{ 
-            this.selectedForm = [];            
-            //this.togglePages(this.allPages, false); 
+            this.selectedForm = [];                        
         }
-        Vue.filter('surveyChanged')('familyLawMatter')        
-       // console.log(selectedForm)
+        Vue.filter('surveyChanged')('familyLawMatter')               
     }
 
     public setSteps(selectedForm) {
-        // console.log(selectedForm)
+
         const p = this.stPgNo.FLM
         if (selectedForm) {
             this.togglePages(this.allPages, false); 
             const progress = this.selectedForm.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
 
             if (selectedForm.length > 0){
 
@@ -180,8 +177,7 @@ export default class FlmQuestionnaire extends Vue {
             
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutParentingArrangements].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutParentingArrangements, 50, false);
-            
-                //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
+                            
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmAdditionalDocuments, 0, false);
 
@@ -209,8 +205,7 @@ export default class FlmQuestionnaire extends Vue {
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportAgreement].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportAgreement, 50, false);
    
-            }   
-
+            }
         }
     }
 
@@ -219,16 +214,13 @@ export default class FlmQuestionnaire extends Vue {
         const p = this.stPgNo.FLM
         const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
 
-        if( stepCOM.result &&
-            stepCOM.result.filingLocationSurvey &&
-            stepCOM.result.filingLocationSurvey.data){
-                const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-                formOneRequired = this.determineRequiredForm(filingLocationData);
+        if( stepCOM.result?.filingLocationSurvey?.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
+            formOneRequired = this.determineRequiredForm(filingLocationData);
         }
 
         if (!formOneRequired){
             this.togglePages([p.FlmBackground], true);
-            // this.togglePages(this.commonPages, false);
             this.togglePages([p.PreviewFormsFLM], false);
             this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
             if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersFLM].progress==100)
@@ -244,21 +236,17 @@ export default class FlmQuestionnaire extends Vue {
 
         const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         let location = ''
-
-        location = filingLocationData.ExistingCourt;                
+        location = filingLocationData?.ExistingCourt;                
         
-        if(courtsC.includes(location) && 
-            filingLocationData.MetEarlyResolutionRequirements == 'n'){
+        if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
             return true;
         } else {
             return false;
         }
-
     }
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
-            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
                 currentPage: pageArr[i],
@@ -303,7 +291,6 @@ export default class FlmQuestionnaire extends Vue {
 
     public getSelectedFormsNames(){
         let result = ''
-        // console.log(this.selectedForm)
         for(const form of this.selectedForm){
             if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
             if(form=='childSupport')            result+='Child Support'+'\n';

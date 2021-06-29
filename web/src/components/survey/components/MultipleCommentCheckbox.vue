@@ -1,34 +1,34 @@
 <template>
     <div v-if="dataReady" class="survey-personname"> 
             
-                <div  v-for="(choice,inx) in choices" :key="inx" style="padding-left: 0.5em;">
-                    <label class="m-0 p-0">
-                        <input 
-                            type="checkbox" 
-                            :id="fields[inx].id" 
-                            style="display:inline;" 
-                            @change="inputChanged"
-                            v-model="checked[inx]"/> 
+        <div  v-for="(choice,inx) in choices" :key="inx" style="padding-left: 0.5em;">
+            <label class="m-0 p-0">
+                <input 
+                    type="checkbox" 
+                    :id="fields[inx].id" 
+                    style="display:inline;" 
+                    @change="inputChanged"
+                    v-model="checked[inx]"/> 
 
-                        <div    
-                            v-for="txt,index in choice.text"
-                            :key="index"
-                            style="cursor:pointer; display:inline; padding-left: .75em; font-size: 110%; font-weight: normal; transform: translate(0,-2px) " 
-                            >
-                            <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tootlip" :title="txt.text" :index="index" placement="top"/>
-                            <div style="display:inline;" v-else >{{txt.text}}</div>
-                        </div>                         
-                    </label>
-                    <textarea 
-                        v-if="checked[inx] && choice.comment"
-                        class="form-control"
-                        :style="{display:'block', margin:'0.5rem'}" 
-                        type="text" 
-                        :disabled="readOnly"
-                        @change="inputChanged"
-                        v-model="pendingValue[fields[inx].name]"              
-                        />
-                </div>
+                <div    
+                    v-for="txt,index in choice.text"
+                    :key="index"
+                    style="cursor:pointer; display:inline; padding-left: .75em; font-size: 110%; font-weight: normal; transform: translate(0,-2px) " 
+                    >
+                    <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tootlip" :title="txt.text" :index="index" placement="top"/>
+                    <div style="display:inline;" v-else >{{txt.text}}</div>
+                </div>                         
+            </label>
+            <textarea 
+                v-if="checked[inx] && choice.comment"
+                class="form-control"
+                :style="{display:'block', margin:'0.5rem'}" 
+                type="text" 
+                :disabled="readOnly"
+                @change="inputChanged"
+                v-model="pendingValue[fields[inx].name]"              
+                />
+        </div>
             
     </div>
 </template>
@@ -72,34 +72,17 @@ export default class MultipleCommentCheckbox extends Vue {
         this.pendingValue = Object.assign({}, this.question.value)
         this.fields = this.makeFields();
        
-        //this.title = this.question.title;
-         
-        // this.value = this.question.value
-        // const q = this.question;
-        //     q.valueChangedCallback = () => {
-        //     this.pendingValue = Object.assign({}, q.value);
-        //     this.value = q.value;
-        // };
-
-        
-        // console.log(this.question.choices)
         this.questionValidator();
-        //console.log(this.pendingValue)
         this.dataReady = true;
     }
 
     public questionValidator(){
         this.question.validateValueCallback = () => {
-            //console.log('validate')
+          
             let error = null      
             for (const field of this.fields) {
                 const newValue = (this.pendingValue[field.name] || "");
-                // console.error('__')
-                // console.log(field.name)
-                // console.log(field.value)
-                // console.log(newValue)
-                // console.log(field.hasComment)
-                // console.log(this.pendingValue['checked'].includes(field.value))
+               
                 if (!newValue.length && field.hasComment && this.pendingValue['checked'] && this.pendingValue['checked'].includes(field.value)){
                     error = new SurveyVue.SurveyError("Please enter all fields")
                     break;
@@ -117,7 +100,6 @@ export default class MultipleCommentCheckbox extends Vue {
             }
         }
         this.pendingValue['checked'] = checkedChoices;
-        // console.log(this.pendingValue)
 
         const currentVal = this.question.value || {};
         let updatedVal = {};
@@ -132,15 +114,12 @@ export default class MultipleCommentCheckbox extends Vue {
                 newValue = this.pendingValue[field.name];
                 emptyField = false;
             }                          
-            //console.log(newValue)
             
             if ((currentVal[field.name] || "") !== newValue) valueChanged = true;            
             
         }
         if (valueChanged) this.question.value = emptyField ? null : updatedVal;
-        // const err = new SurveyVue.SurveyError("Please enter all fields")
-        // this.question.addError(err);
-        //this.question.removeError(err);
+
     }
 
     public makeFields() {
@@ -149,9 +128,7 @@ export default class MultipleCommentCheckbox extends Vue {
         for(const choiceInx in this.choices){
             const choice = this.choices[choiceInx]
            
-            //if(choice.text.indexOf('`')>=0) 
             this.addTooltip(choiceInx)            
-            //this.choices[choiceInx].text = [{text:choice.text, tootlip:false}]
 
             fields.push(
             {                
@@ -170,16 +147,14 @@ export default class MultipleCommentCheckbox extends Vue {
             value: 'checked',
             id: this.question.inputId +"-checked"
         })   
-        //console.log(fields)
+
         return fields;
     }
 
     public addTooltip(choiceInx){
-        // console.log(this.choices[choiceInx])
+
         const text = this.choices[choiceInx].text
         const splitedText = text.split('`')
-        // console.log(text)
-        // console.log(text.split('`'))
         const allTexts = []
         for(const part in splitedText){            
             if(Number(part)%2 == 1)
@@ -187,10 +162,7 @@ export default class MultipleCommentCheckbox extends Vue {
             else
                 allTexts.push({text:splitedText[part], tootlip:false})
         }
-        // console.log(allTexts)
         this.choices[choiceInx].text = allTexts
-        //this.choices[choiceInx].text = text.replace(/`.*`/, '<tooltip title="spouse" :index="0"/>')
-        //<tooltip title="spouse" :index="0"/>
     }
     /*
         {

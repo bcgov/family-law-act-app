@@ -4,16 +4,12 @@ import {applicationInfoType, stepInfoType, pageInfoType, resultInfoType, pathway
 import { stepsAndPagesNumberInfoType } from "@/types/Application/StepsAndPages";
 
 export class migrateStore{
-
-   
-
+ 
     currentApplication = {} as applicationInfoType;
 
     stPgNo = {} as stepsAndPagesNumberInfoType;
 
     public migrate(applicationData, applicationType, currentVersion: string): applicationInfoType{
-        
-        // console.log(applicationData)
         
         this.currentApplication.id = applicationData.id;
        
@@ -59,18 +55,11 @@ export class migrateStore{
         const newSteps = store.state.Application.steps;
         this.stPgNo = store.state.Application.stPgNo;
 
-        // console.log(oldSteps)
-
-
         for(const newStepIndex in newSteps){
-            const newStep = newSteps[newStepIndex]
-            // console.error('___'+newStep.name+'___')
-            // console.log(newStep.name)
+            const newStep = newSteps[newStepIndex]         
             const correspondingStep = oldSteps.filter(oldstep=>oldstep.name == newStep.name)[0]
             
-            if(correspondingStep){
-                // console.log(newStep)
-                // console.log(correspondingStep)
+            if(correspondingStep){                
                 newSteps[newStepIndex].active = correspondingStep.active
                 
                 //if step COMMON then Page 0 might not be active
@@ -84,27 +73,20 @@ export class migrateStore{
                 
             }
         }
-
         return newSteps
     }
-
 
     public migratePages(newPages: pageInfoType[] , oldPages: pageInfoType[]): pageInfoType[]{
         
         for(const newPageIndex in newPages){
             const newPage = newPages[newPageIndex]
-            // console.warn('__')
-            // console.log(newPage.name)
             const correspondingPage = oldPages.filter(oldpage=>oldpage.name == newPage.name)[0]
             if(correspondingPage){
-                // console.log(newPage)
-                // console.log(correspondingPage)
                 newPages[newPageIndex].active = correspondingPage.active
             }
         }
         return newPages
     }
-
 
     public migrateResult(newStep, correspondingStep){
         
@@ -122,35 +104,22 @@ export class migrateStore{
             if(correspondingStep.result.protectedPartyName) result.protectedPartyName = correspondingStep.result.protectedPartyName;
             if(correspondingStep.result.protectedChildName) result.protectedChildName = correspondingStep.result.protectedChildName;
 
-            // console.log('____--_____')
-            
             result.selectedForms = [];
             const pathwayCompleted = this.resetPathwayCompleted();
             result.pathwayCompleted = pathwayCompleted;
 
             for(const selectedform of correspondingStep.result.selectedForms){                
-                if(pathwayCompleted[selectedform] == false){
-                    //console.log(selectedform)
+                if(pathwayCompleted[selectedform] == false){                    
                     result.selectedForms.push(selectedform)
                 }
             }
-
-            // console.log(result)    
-            //requiredDocuments?: requiredDocumentsInfoType;         
-            //supportingDocumentForm4?: number[];            
         }
         else{
             //other steps
             for (const [key, value] of Object.entries(correspondingStep.result)){
                 
                 const fieldName = key.charAt(0).toUpperCase() + key.slice(1,-6);
-                // console.warn(fieldName)
-                // console.log(this.stPgNo[newStep.name]._StepNo)
-                // console.log(this.stPgNo[newStep.name][fieldName])
-                // console.log(value)
                 if(value && (value['currentStep'] || value['currentStep']==0) && (this.stPgNo[newStep.name][fieldName] || this.stPgNo[newStep.name][fieldName]==0)){
-                    // console.log(value['currentStep'])
-                    // console.log(value['currentPage'])
                     value['currentStep'] = this.stPgNo[newStep.name]._StepNo
                     value['currentPage'] = this.stPgNo[newStep.name][fieldName]
                     result[key] = value;

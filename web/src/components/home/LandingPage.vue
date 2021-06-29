@@ -176,7 +176,6 @@ export default class LandingPage extends Vue {
         if(this.$store.state.Common.userId !== ""){
             this.isLoggedIn = true
             this.$router.push({ name: "applicant-status" });
-            // this.determineUserType()
         }else{
             this.isLoggedIn = false;
             this.pageReady = true;

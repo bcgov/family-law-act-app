@@ -69,15 +69,11 @@ export default class PageBase extends Vue {
     }
 
     public hasPrevStepPage() {
-        //console.log("has previous")
         return this.$store.getters["Application/getPrevStepPage"] != null;
     }
 
     public hasNextStepPage() {
-        
-        //console.log("has next")
-        return this.$store.getters["Application/getNextStepPage"] != null;
-       
+        return this.$store.getters["Application/getNextStepPage"] != null;       
     }
 
     public isDisableNext() {
@@ -100,7 +96,6 @@ export default class PageBase extends Vue {
 
         this.$http.put("/app/"+ applicationId + "/", application, header)
         .then(res => {
-            //console.log(res.data);
             this.error = "";
         }, err => {
             console.error(err);

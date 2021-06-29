@@ -108,8 +108,6 @@ export default class ResultPage extends Vue {
         this.mountedData = false;
         this.error = "";
 
-    // console.log(this.$route)
-
         const result = this.$route.params.result;
         const ApplicationId = this.$route.params.id;        
         
@@ -119,18 +117,17 @@ export default class ResultPage extends Vue {
             this.headerColor="text-success";
             
             const packageRef = this.$route.query.packageRef
-            //console.log(packageRef)
+
             this.packageUrl = atob(String(packageRef))
-            // console.log(this.packageUrl)
+
             const urlParams = new URLSearchParams(this.packageUrl.split('?')[1]);
-            // console.log(urlParams.get('packageNo'))
-            this.packageNumber = urlParams.get('packageNo')//this.packageUrl.substring(this.packageUrl.lastIndexOf('/')+1)
-            //console.log(packageNumber)
+
+            this.packageNumber = urlParams.get('packageNo')
+
             this.saveApplication(ApplicationId, this.packageNumber, this.packageUrl);
 
         } else if (result == "error") {
             const packageMessage = String(this.$route.query.message)
-            //console.log(packageRef)
             this.message = packageMessage? packageMessage: "An error occured while submitting your application, ...."
             this.headerText = "Failed";
             this.headerColor="text-danger";

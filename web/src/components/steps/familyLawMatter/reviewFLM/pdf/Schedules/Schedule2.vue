@@ -169,20 +169,19 @@ export default class Schedule2 extends Vue {
     public getExistingParentingArrangementsInfo(){
         let existingParentingArrangements = {} as schedule2DataInfoType;
 
-        const generalCondition = (( this.result.aboutParentingArrangementsSurvey && 
-                                    this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' &&                                    
-                                    this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder')
+        const generalCondition = (( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingOrder' &&                                    
+                                    this.result.aboutParentingArrangementsSurvey?.orderDifferenceType == 'changeOrder')
                                  || 
-                                  ( this.result.aboutParentingArrangementsSurvey && 
-                                    this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'&& 
-                                    this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'))
+                                  ( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingAgreement'&& 
+                                    this.result.aboutParentingArrangementsSurvey?.agreementDifferenceType == 'replacedAgreement'))
 
-        
-        
-        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' ){
+
+        if(this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingOrder' ){
+            
             existingParentingArrangements.type = 'ExistingOrder'
             existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.orderDate
             existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceOrder
+            
             if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder'){
                 existingParentingArrangements.subType = 'changeOrder'                
             } else if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'cancelOrder'){
@@ -190,10 +189,12 @@ export default class Schedule2 extends Vue {
             }
         }
         
-        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' ){
+        if( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingAgreement' ){
+            
             existingParentingArrangements.type = 'ExistingAgreement'
             existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.agreementDate
             existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceAgreement
+            
             if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'){
                 existingParentingArrangements.subType = 'replacedAgreement'                
             } else if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement'){
@@ -201,13 +202,11 @@ export default class Schedule2 extends Vue {
             }
         }        
         
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentalResponsibilities")){
-                existingParentingArrangements.parentResp = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("parentalResponsibilities")){
+            existingParentingArrangements.parentResp = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription:''
+            }
 
         } else {
             existingParentingArrangements.parentResp = {
@@ -216,13 +215,11 @@ export default class Schedule2 extends Vue {
             }
         }
 
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentingTime")){
-                existingParentingArrangements.parentTime = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("parentingTime")){
+            existingParentingArrangements.parentTime = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription:''
+            }
 
         } else {
             existingParentingArrangements.parentTime = {
@@ -231,13 +228,11 @@ export default class Schedule2 extends Vue {
             }
         }
 
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("conditionsOnParentingTime")){
-                existingParentingArrangements.parentCond = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("conditionsOnParentingTime")){
+            existingParentingArrangements.parentCond = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
+            }
 
         } else {
             existingParentingArrangements.parentCond = {
@@ -246,13 +241,11 @@ export default class Schedule2 extends Vue {
             }           
         }
 
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("otherTermsAboutParentingArrangements")){
-                existingParentingArrangements.parentalArr = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
-                }
+        if (generalCondition && this.result.parentingArrangementChangesSurvey?.orderChangeList?.includes("otherTermsAboutParentingArrangements")){
+            existingParentingArrangements.parentalArr = {
+                applying: true,
+                desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
+            }
         } else {
             existingParentingArrangements.parentalArr = {
                     applying: false,
@@ -260,8 +253,7 @@ export default class Schedule2 extends Vue {
                 }
         }         
         
-        if (this.result.bestInterestsOfChildSurvey 
-            && this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
+        if (this.result.bestInterestsOfChildSurvey?.existingParentingArrangementsChildBestInterestDescription){
                 existingParentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
         } else {            
             existingParentingArrangements.childBestInterest = '';

@@ -75,6 +75,10 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public reloadPageInformation() {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
         }
@@ -82,9 +86,7 @@ export default class ChildrenSurvey extends Vue {
         let progress = 50;
         if(Object.keys(this.survey.data).length)
             progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-            
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
   
@@ -102,7 +104,6 @@ export default class ChildrenSurvey extends Vue {
     }
 
     public populateChildModel(childData) {
-        //console.log(childData)
         this.child.name = childData.childName;       
         this.child.dob = childData.childDateOfBirth;
         this.child.relation = childData.relationToChild;

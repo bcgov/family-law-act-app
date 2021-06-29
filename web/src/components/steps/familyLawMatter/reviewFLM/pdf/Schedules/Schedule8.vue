@@ -106,12 +106,6 @@ export default class Form3 extends Vue {
    
     dataReady = false;
     guardInfo = {} as schedule7DataInfoType;    
-   
-    mounted(){
-        this.dataReady = false;       
-        this.extractInfo();       
-        this.dataReady = true;      
-    }   
     
     childrenGuardianshipFields = [
         {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:30%;"},
@@ -119,16 +113,22 @@ export default class Form3 extends Vue {
         {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:25%;"},
     ]
 
+   
+    mounted(){
+        this.dataReady = false;       
+        this.extractInfo();       
+        this.dataReady = true;      
+    }  
+
     public extractInfo(){   
 
-        if (this.selectedSchedules.includes('schedule7') || this.selectedSchedules.includes('schedule8')){
+        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
             this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
         }
     }   
 
     public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
         let guardianshipInfo = {} as schedule7DataInfoType;
-        // console.log(this.result)
 
         if (guardian){
             guardianshipInfo.abtGuardian = {
@@ -136,7 +136,7 @@ export default class Form3 extends Vue {
             }
             if (this.result.guardianOfChildSurvey){
                 guardianshipInfo.abtGuardian = {
-                    children:this.result.guardianOfChildSurvey.childrenList?this.result.guardianOfChildSurvey.childrenList:[]  
+                    children:this.result.guardianOfChildSurvey.childrenList? this.result.guardianOfChildSurvey.childrenList:[]  
                 }            
             }
         }
@@ -156,10 +156,11 @@ export default class Form3 extends Vue {
 
             if (this.result.guardianOfChildBestInterestsOfChildSurvey){
                 const bestInterestInfo = this.result.guardianOfChildBestInterestsOfChildSurvey;
-                guardianshipInfo.abtCancel.bestInterest = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
+                guardianshipInfo.abtCancel.bestInterest = bestInterestInfo?.cancelGuradianChildBestInterest? bestInterestInfo.cancelGuradianChildBestInterest:''
             }
-            if (this.result.guardianOfChildSurvey && this.result.guardianOfChildSurvey.cancelGuardianDetails){
-                if (this.result.guardianOfChildSurvey.cancelGuardianDetails.length > 0){
+
+            if (this.result.guardianOfChildSurvey?.cancelGuardianDetails){
+                if (this.result.guardianOfChildSurvey.cancelGuardianDetails?.length > 0){
                     guardianshipInfo.abtCancel.cancelDetails = [];
                 }
                 for (const detail of this.result.guardianOfChildSurvey.cancelGuardianDetails){

@@ -27,7 +27,7 @@
                      "type": "yesno",
                      "name": "existingCourtProceeding",
                      "title": "Is there any other court proceeding that is pending or that has been initiated about parenting arrangements, contact with a child or guardianship of a child who is the subject of this application?",
-                     "description": "This includes:<ul><li>any court proceeding from the Provincial Court of BC including another from another court registry, child protection proceedings or criminal proceedings</li><li>any court proceeding from BC Supreme Court or BC Court of Appeal</li><li>any court proceeding from another province or territory in Canada</li><li>any court proceeding from another country</li></ul>",
+                     "description": "This includes:<ul><li>any court proceeding from the Provincial Court of BC including one from another court registry, child protection proceedings or criminal proceedings</li><li>any court proceeding from BC Supreme Court or BC Court of Appeal</li><li>any court proceeding from another province or territory in Canada</li><li>any court proceeding from another country</li></ul>",
                      "isRequired": true
                   },
                   {

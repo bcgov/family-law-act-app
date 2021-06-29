@@ -39,8 +39,8 @@ export default class ParentingTime extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existing = false;
 
     beforeCreate() {
@@ -65,40 +65,39 @@ export default class ParentingTime extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data);
-            //console.log(options)            
         })
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.parentingTimeSurvey) {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.parentingTimeSurvey) {
             this.survey.data = this.step.result.parentingTimeSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+        if (this.step.result?.flmBackgroundSurvey?.data){
             const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
+            if (backgroundSurveyData?.ExistingOrdersFLM == 'y' 
+                && backgroundSurveyData?.existingOrdersListFLM?.length > 0 
+                && backgroundSurveyData?.existingOrdersListFLM?.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
                     this.survey.setVariable("existing", true);                    
                 } else {
                     this.survey.setVariable("existing", false);
                 }
         }
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
-            if (childData.length>1){
+            if (childData?.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
                 this.survey.setVariable("childWording", "child");
             }
         }
-
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 

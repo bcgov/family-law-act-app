@@ -236,23 +236,19 @@ export default class Form3 extends Vue {
                 description: ''
             }
 
-            if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'
-                && this.result.existingSpousalSupportFinalOrderSurvey
-                && this.result.existingSpousalSupportFinalOrderSurvey.orderDate){
-
+            if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'                
+                && this.result.existingSpousalSupportFinalOrderSurvey?.orderDate){
                     existingSpousalSupportInfo.current.date = Vue.filter('beautify-date')(this.result.existingSpousalSupportFinalOrderSurvey.orderDate);
             }
 
-            if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'
-                && this.result.existingSpousalSupportAgreementSurvey
-                && this.result.existingSpousalSupportAgreementSurvey.agreementDate){
-                    
+            if (this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'               
+                && this.result.existingSpousalSupportAgreementSurvey?.agreementDate){                    
                     existingSpousalSupportInfo.current.date = Vue.filter('beautify-date')(this.result.existingSpousalSupportAgreementSurvey.agreementDate);
             }
 
         }
 
-        if ( this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey){
+        if ( this.result.existingSpousalSupportOrderAgreementSurvey?.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey){
             existingSpousalSupportInfo.agreementInfo = {                
                 replace: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement',
                 setAside: this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'setAsideAgreement',
@@ -266,10 +262,9 @@ export default class Form3 extends Vue {
             }
         }
 
-        if (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
+        if (this.result.existingSpousalSupportOrderAgreementSurvey?.existingType == 'ExistingOrder' && this.result.existingSpousalSupportFinalOrderSurvey){
             const changesSinceOrderList = this.result.existingSpousalSupportFinalOrderSurvey.changesSinceOrderList
-            const orderChangeList = (changesSinceOrderList && changesSinceOrderList.checked && changesSinceOrderList.checked.length>0)? changesSinceOrderList.checked:[];
-            // const changeCondition = (this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder')              
+            const orderChangeList = (changesSinceOrderList?.checked?.length>0)? changesSinceOrderList.checked:[];
             
             existingSpousalSupportInfo.orderInfo = {
 
@@ -293,32 +288,11 @@ export default class Form3 extends Vue {
                 cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
                 
             }
-            // :{
-            //     changes: {
-            //         myfin: false,
-            //         opfin: false,
-            //         myEmp: false,
-            //         opEmp: false,
-            //         houseHold: false,
-            //         newInfo: false,
-            //         other: false
-            //     },
-
-            //     newInfo: '',    
-            //     houseHold:'',
-            //     myEmp: '',     
-            //     opEmp: '',     
-            //     otherChange:'',
-                
-            //     change: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder',
-            //     cancel: this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType != 'changeOrder'             
-                
-            // }
         }
 
         if (this.result.aboutExistingSpousalSupportOrderSurvey){
-            const changeOrReplaceCondition = ((this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingOrder'     && this.result.existingSpousalSupportFinalOrderSurvey && this.result.existingSpousalSupportFinalOrderSurvey.orderDifferenceType == 'changeOrder') ||
-                                              (this.result.existingSpousalSupportOrderAgreementSurvey && this.result.existingSpousalSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey  && this.result.existingSpousalSupportAgreementSurvey.agreementDifferenceType == 'replacedAgreement'));
+            const changeOrReplaceCondition = ((this.result.existingSpousalSupportOrderAgreementSurvey?.existingType == 'ExistingOrder'     && this.result.existingSpousalSupportFinalOrderSurvey?.orderDifferenceType == 'changeOrder') ||
+                                              (this.result.existingSpousalSupportOrderAgreementSurvey?.existingType == 'ExistingAgreement' && this.result.existingSpousalSupportAgreementSurvey?.agreementDifferenceType == 'replacedAgreement'));
                
             existingSpousalSupportInfo.about = {
                 chSinceOrder: changeOrReplaceCondition? this.result.aboutExistingSpousalSupportOrderSurvey.changesSinceOrder:''
@@ -337,13 +311,13 @@ export default class Form3 extends Vue {
                 currentDate: moment().format("MMM DD, yyyy"),
                 unpaid:true ,
                 unPaidAmount: this.result.unpaidSpousalSupportSurvey.unPaidAmount,
-                reduce: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? true : false,
+                reduce:       this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? true : false,
                 reduceAmount: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.reduceAmount:'',
                 reduceReason: this.result.unpaidSpousalSupportSurvey.applyToReduce =="y"? this.result.unpaidSpousalSupportSurvey.whyReduceAmount:'',
-                monthly: paymentSchedule?   paymentSchedule.selected == 'monthly':false,                
-                rate:    (paymentSchedule && paymentSchedule.selected == 'monthly')? paymentSchedule.monthlyAmount:'',
-                lumpSum: paymentSchedule?   paymentSchedule.selected == 'Lump Sum':false,                
-                other:   paymentSchedule?   paymentSchedule.selected == 'other':false,
+                monthly:   paymentSchedule? paymentSchedule.selected == 'monthly':false,                
+                rate:      paymentSchedule?.selected == 'monthly'? paymentSchedule.monthlyAmount:'',
+                lumpSum:   paymentSchedule? paymentSchedule.selected == 'Lump Sum':false,                
+                other:     paymentSchedule? paymentSchedule.selected == 'other':false,
                 otherComm: paymentSchedule? paymentSchedule.otherComment: ''
             }:{
                 currentDate:moment().format("MMM DD, yyyy"),
@@ -362,17 +336,15 @@ export default class Form3 extends Vue {
 
         if (this.result.calculatingSpousalSupportSurvey){
             existingSpousalSupportInfo.calc = {
-                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
-                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
-                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
-                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
-                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
+                attaching: this.result.calculatingSpousalSupportSurvey?.attachingCalculations == 'y',
+                reason: ( this.result.calculatingSpousalSupportSurvey?.attachingCalculations == 'n'
+                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
             }
         }
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
@@ -380,7 +352,7 @@ export default class Form3 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form4unable){
             existingSpousalSupportInfo.applyForCaseManagement = true           
         }       
 

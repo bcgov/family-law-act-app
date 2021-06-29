@@ -59,16 +59,12 @@ export default class Form1 extends Vue {
         const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatterForm1")
         const pdf_name = "notice-to-resolve-a-family-law-matter"
         const el= document.getElementById("print");
-        //console.log(el)
+  
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" ";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
-
-        // const body = new FormData();
-        // body.append('html',pdfhtml)
-        // body.append('json_data',null)
 
         const body = {
             'html':pdfhtml,
@@ -81,7 +77,7 @@ export default class Form1 extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -118,16 +114,16 @@ export default class Form1 extends Vue {
             console.error(err);
         });
     }
-
  
     public getFLMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
+
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){         
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){         
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }     
 
@@ -136,15 +132,12 @@ export default class Form1 extends Vue {
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
-        //console.log(applicationLocation)
-        //console.log(userLocation)
+        
         if(applicationLocation)
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
         
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
 
@@ -152,28 +145,26 @@ export default class Form1 extends Vue {
     }
 
     public getPathwayInfo(){
-        // console.log(this.result)
-
+        
         let pathways: string[] = [];
         const selectedFLMs = this.result.flmQuestionnaireSurvey; 
             
-        if (selectedFLMs.includes("parentingArrangements")){
+        if (selectedFLMs?.includes("parentingArrangements")){
             pathways.push("parentingArrangements")
         }
-        if (selectedFLMs.includes("childSupport")){
+        if (selectedFLMs?.includes("childSupport")){
             pathways.push("childSupport")
         }
-        if (selectedFLMs.includes("contactWithChild")){
+        if (selectedFLMs?.includes("contactWithChild")){
             pathways.push("contactWithChild")
         } 
-        if (selectedFLMs.includes("guardianOfChild")){
+        if (selectedFLMs?.includes("guardianOfChild")){
             pathways.push("guardianOfChild")
         }
                     
-        if (selectedFLMs.includes("spousalSupport")){
+        if (selectedFLMs?.includes("spousalSupport")){
             pathways.push("spousalSupport")
-        }
-        
+        }        
         
         return pathways;
     }
@@ -181,5 +172,4 @@ export default class Form1 extends Vue {
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
-
 </style>

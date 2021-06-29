@@ -139,16 +139,9 @@
             const stepGETSTART = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo]
             const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
 
-            //console.log(this.currentPage)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
-            if( stepGETSTART.result && 
-                stepGETSTART.result.selectedForms &&
-                stepGETSTART.result.selectedForms.includes('protectionOrder') &&
-                stepPO.result &&
-                stepPO.result.poQuestionnaireSurvey &&
-                stepPO.result.poQuestionnaireSurvey.data &&
-                stepPO.result.poQuestionnaireSurvey.data.orderType == 'needPO'
-            )  this.hasNeedPOselected =  true;
+            if( stepGETSTART.result?.selectedForms?.includes('protectionOrder') && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')  
+                this.hasNeedPOselected =  true;
         }
 
         public onPrev() {

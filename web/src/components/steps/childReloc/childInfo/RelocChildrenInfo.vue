@@ -80,8 +80,8 @@ export default class RelocChildrenInfo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     showTable = true;
     childData = [];
     anyRowToBeEdited = null;
@@ -91,7 +91,7 @@ export default class RelocChildrenInfo extends Vue {
         this.showTable = false;
          Vue.nextTick(()=>{
             const el = document.getElementById('child-info-survey')
-            //console.log(el)
+
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -108,7 +108,7 @@ export default class RelocChildrenInfo extends Vue {
 
     public populateSurveyData(childValue) {
         const currentIndexValue =
-            this.childData.length > 0 ? this.childData[this.childData.length - 1].id : 0;
+            this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newChild = { ...childValue, id };
         this.childData = [...this.childData, newChild];
@@ -138,8 +138,7 @@ export default class RelocChildrenInfo extends Vue {
     }
 
     created() {
-        //console.log(this.step)
-        if (this.step.result && this.step.result.relocChildrenInfoSurvey) {
+        if (this.step.result?.relocChildrenInfoSurvey) {
             this.childData = this.step.result.relocChildrenInfoSurvey.data;
         }        
     }
@@ -152,7 +151,6 @@ export default class RelocChildrenInfo extends Vue {
     }
 
     public isDisableNext() {
-        // demo
         return (this.childData.length <= 0);
     }
 
@@ -168,7 +166,7 @@ export default class RelocChildrenInfo extends Vue {
         {
             questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
         }
-        //console.log(questionResults)
+
         return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 

@@ -54,7 +54,7 @@ export default class Form15 extends Vue {
         const pdf_type = Vue.filter('getPathwayPdfType')("priorityParenting")
         const pdf_name = "application-about-priority-parenting-matter"
         const el= document.getElementById("print");
-        //console.log(el)
+
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" "`;
         const bottomRightText = `" "`
@@ -72,7 +72,7 @@ export default class Form15 extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -109,16 +109,15 @@ export default class Form15 extends Vue {
             console.error(err);
         });
     }
-
  
     public getPPMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.PPM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }        
         
@@ -133,8 +132,7 @@ export default class Form15 extends Vue {
         Vue.filter('extractRequiredDocuments')(result, 'priorityParenting')
 
         return result;
-    } 
-
+    }
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">

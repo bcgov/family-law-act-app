@@ -67,7 +67,6 @@ export default class ChildSupportCurrentArrangement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
         })
     }
     
@@ -75,14 +74,14 @@ export default class ChildSupportCurrentArrangement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.childSupportCurrentArrangementsSurvey) {
+        if (this.step.result?.childSupportCurrentArrangementsSurvey) {
             this.survey.data = this.step.result.childSupportCurrentArrangementsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
-            if (childData.length>1){
+            if (childData?.length>1){
                 this.survey.setVariable("childWordingSpend", "children spend");                    
             } else {
                 this.survey.setVariable("childWordingSpend", "child spends");
@@ -109,8 +108,3 @@ export default class ChildSupportCurrentArrangement extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

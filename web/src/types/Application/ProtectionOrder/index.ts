@@ -237,10 +237,6 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
         pageName?: string;
         currentStep?: number;
         currentPage?: number;
-    }    
-
-    export interface filingOptionsSurveyInfoType {
-        selectedFilingType: string;
     }
 
     export interface aboutPOSurveydataInfoType {
@@ -260,14 +256,6 @@ import { nameInfoType, addressInfoType, contactInfoType, questionInfoType } from
 
     export interface aboutPOSurveyInfoType {
         data: aboutPOSurveydataInfoType;
-        questions?: questionInfoType[];
-        pageName?: string;
-        currentStep?: number;
-        currentPage?: number;
-    }
-
-    export interface selectedPOOrderInfoType {
-        data: poQuestionnaireSurveyDataInfoType;
         questions?: questionInfoType[];
         pageName?: string;
         currentStep?: number;

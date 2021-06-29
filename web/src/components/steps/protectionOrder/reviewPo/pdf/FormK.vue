@@ -781,14 +781,14 @@ export default class FormK extends Vue {
         this.getServiceInfo()
         this.getProtectingPeople()
         this.getOtherPartyInfo()
-        if(this.result.poQuestionnaireSurvey && this.result.poQuestionnaireSurvey.orderType == "needPO"){
+        if(this.result.poQuestionnaireSurvey?.orderType == "needPO"){
             this.getBackgroundSurvey()
             this.getOtherChildrenInfo()
         }
     }
 
     public getServiceInfo(){
-        if(this.result.yourinformationPOSurvey.Lawyer=='y'){
+        if(this.result.yourinformationPOSurvey?.Lawyer == 'y'){
             this.serviceAddress = this.result.yourinformationPOSurvey.LawyerAddress
             this.serviceContact = this.result.yourinformationPOSurvey.LawyerContact
         }else{
@@ -798,7 +798,7 @@ export default class FormK extends Vue {
     }
 
     public getProtectingPeople(){
-        if(this.result.protectionFromWhomSurvey && this.result.protectionFromWhomSurvey.ApplicantNeedsProtection== "y"){
+        if(this.result.protectionFromWhomSurvey?.ApplicantNeedsProtection== "y"){
             if(this.result.protectionFromWhomSurvey.childPO=='y'){
                 this.childrenItem = [];
                 for(const child of this.result.protectionFromWhomSurvey.allchildren){
@@ -810,7 +810,7 @@ export default class FormK extends Vue {
                     })
                 }
             }
-            if(this.result.protectionFromWhomSurvey.anotherAdultSharingResi=='y'){
+            if(this.result.protectionFromWhomSurvey?.anotherAdultSharingResi=='y'){
                 this.sharingAdultItem = [];
                 for(const sharingAdult of this.result.protectionFromWhomSurvey.allAnotherAdultsSharingResi){
                     this.sharingAdultItem.push({
@@ -821,7 +821,7 @@ export default class FormK extends Vue {
                 }
             }
         }
-        else if(this.result.protectionFromWhomSurvey && this.result.protectionFromWhomSurvey.ApplicantNeedsProtection == "n"){
+        else if(this.result.protectionFromWhomSurvey?.ApplicantNeedsProtection == "n"){
             if(this.result.protectionFromWhomSurvey.anotherAdultPO=='y'){
                 this.anotherAdult = {nameFull:Vue.filter('getFullName')(this.result.protectionFromWhomSurvey.anotherAdultName),dobBeauty:Vue.filter('beautify-date')(this.result.protectionFromWhomSurvey.anotherAdultDOB)}
             }
@@ -836,23 +836,23 @@ export default class FormK extends Vue {
         let address = ''
         let contactInfo = ''
 
-        if(this.result.poQuestionnaireSurvey && this.result.poQuestionnaireSurvey.orderType == 'needPO' && this.result.protectionFromWhomSurvey){            
+        if(this.result.poQuestionnaireSurvey?.orderType == 'needPO'){            
 
-            if(this.result.protectionFromWhomSurvey.RespondentDOBExact == 'y' &&   this.result.protectionFromWhomSurvey.RespondentDOB)
+            if(this.result.protectionFromWhomSurvey?.RespondentDOBExact == 'y' &&   this.result.protectionFromWhomSurvey?.RespondentDOB)
                 dob = this.result.protectionFromWhomSurvey.RespondentDOB
             
-            if(this.result.protectionFromWhomSurvey.RespondentName)
+            if(this.result.protectionFromWhomSurvey?.RespondentName)
                 name = this.result.protectionFromWhomSurvey.RespondentName
             
-            if(this.result.protectionFromWhomSurvey.RespondentAddress)
+            if(this.result.protectionFromWhomSurvey?.RespondentAddress)
                 address = this.result.protectionFromWhomSurvey.RespondentAddress
             
-            if(this.result.protectionFromWhomSurvey.RespondentContact)
+            if(this.result.protectionFromWhomSurvey?.RespondentContact)
                 contactInfo = this.result.protectionFromWhomSurvey.RespondentContact
                 
             info = [{'name':name, 'dob': dob , 'address': address ,'contact': contactInfo}]
         }
-        else if(this.result.poQuestionnaireSurvey && (this.result.poQuestionnaireSurvey.orderType == 'changePO' || this.result.poQuestionnaireSurvey.orderType == 'terminatePO')){    
+        else if(this.result.poQuestionnaireSurvey?.orderType == 'changePO' || this.result.poQuestionnaireSurvey?.orderType == 'terminatePO'){    
             for(const party of this.result.otherPartySurvey){
                 dob = ''
                 name = ''
@@ -878,7 +878,6 @@ export default class FormK extends Vue {
             info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': ''}]
 
         this.otherPartyInfo = info
-        // console.log(info)
     }
 
     public getBackgroundSurvey(){
@@ -887,20 +886,19 @@ export default class FormK extends Vue {
         let separationDate = '';
         let liveTogetherDate = '';
 
-        //TODO may need to be redefined
-        if(this.result.backgroundSurvey.werePOPartiesMarried == 'y'){
+        if(this.result.backgroundSurvey?.werePOPartiesMarried == 'y'){
             protectedSpouse = Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName)
         }
 
-        if(this.result.backgroundSurvey.werePOPartiesMarried == 'y'){
+        if(this.result.backgroundSurvey?.werePOPartiesMarried == 'y'){
             liveTogetherDate = Vue.filter('beautify-date')(this.result.backgroundSurvey.liveTogetherPODate)
         }
 
-        if(this.result.backgroundSurvey.werePOPartiesMarried == 'y' && this.result.backgroundSurvey.dateOfMarriagePO){
+        if(this.result.backgroundSurvey?.werePOPartiesMarried == 'y' && this.result.backgroundSurvey?.dateOfMarriagePO){
             marriageDate = Vue.filter('beautify-date')(this.result.backgroundSurvey.dateOfMarriagePO)
         }
 
-        if(this.result.backgroundSurvey.isSeperatedPO == 'Yes'){
+        if(this.result.backgroundSurvey?.isSeperatedPO == 'Yes'){
             separationDate = Vue.filter('beautify-date')(this.result.backgroundSurvey.separationDate)
         }
 
@@ -908,8 +906,8 @@ export default class FormK extends Vue {
     }
 
     public getOtherChildrenInfo(){
-        //this.otherChildrenItem = [];//{name:'', dob:'', protectedRelation:'', otherRelation:'', livingWith:''}
-        if(this.result.backgroundSurvey.PartiesHasOtherChilderen=='y'){
+       
+        if(this.result.backgroundSurvey?.PartiesHasOtherChilderen=='y'){
             this.otherChildrenItem = [];
             for(const child of this.result.backgroundSurvey.allOtherChilderen){
                 this.otherChildrenItem.push({
@@ -928,7 +926,7 @@ export default class FormK extends Vue {
         const pdf_type = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'  
         const pdf_name = "application-about-a-protection-order";  
         const el= document.getElementById("print");
-        //console.log(el)
+
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 720   `+moment().format("MMMM D, YYYY")+` \\a           Form 12";`;
         const bottomRightText = `" "`
@@ -946,7 +944,7 @@ export default class FormK extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -991,9 +989,7 @@ export default class FormK extends Vue {
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.PO._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){
-                //console.log(stepResults[stepResult])
-                //console.log(stepResults[stepResult].data)
+            for(const stepResult in stepResults){              
                 result[stepResult]=stepResults[stepResult].data; 
             }
         }
@@ -1002,40 +998,33 @@ export default class FormK extends Vue {
         
         Object.assign(result, result,{applicationLocation: applicationLocation}); 
        
-        console.log(result)
-        if (result.poQuestionnaireSurvey && result.poQuestionnaireSurvey.orderType){
+        if (result.poQuestionnaireSurvey?.orderType){
 
             const orderType = result.poQuestionnaireSurvey.orderType;
             if (orderType == 'needPO'){
 
-                if (result.poFilingLocationSurvey && 
-                    result.poFilingLocationSurvey.ExistingFamilyCase && 
-                    result.poFilingLocationSurvey.ExistingFamilyCase == 'y' &&
-                    result.poFilingLocationSurvey.ExistingFileNumber){
-                        this.existingFileNumber = result.poFilingLocationSurvey.ExistingFileNumber;
-                    } else {
-                        this.existingFileNumber = '';
-                    }
+                if(result.poFilingLocationSurvey?.ExistingFamilyCase == 'y' && result.poFilingLocationSurvey?.ExistingFileNumber){
+                    this.existingFileNumber = result.poFilingLocationSurvey.ExistingFileNumber;
+                } else {
+                    this.existingFileNumber = '';
+                }
 
             } else if (orderType == 'changePO'){
 
-                if (result.aboutSurvey &&                    
-                    result.aboutSurvey.ExistingFileNumber){
-                        this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
-                    } else {
-                        this.existingFileNumber = '';
-                    }
+                if(result.aboutSurvey?.ExistingFileNumber){
+                    this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
+                } else {
+                    this.existingFileNumber = '';
+                }
 
             } else if (orderType == 'terminatePO'){
 
-                if (result.aboutSurvey &&                    
-                    result.aboutSurvey.ExistingFileNumber){
-                        this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
-                    } else {
-                        this.existingFileNumber = '';
-                    }
+                if (result.aboutSurvey?.ExistingFileNumber){
+                    this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
+                } else {
+                    this.existingFileNumber = '';
+                }
             }
-
         }        
 
         Vue.filter('extractRequiredDocuments')(result, 'protectionOrder')

@@ -85,12 +85,11 @@ export default class Background extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.backgroundSurvey){
+        if (this.step.result?.backgroundSurvey){
             this.survey.data = this.step.result.backgroundSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-        //console.log(this.survey.currentPage.questions)        
-        
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
        
         this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.$store.state.Application.respondentName));
@@ -122,9 +121,9 @@ export default class Background extends Vue {
 
         const step = this.steps[this.stPgNo.FLM._StepNo]
 
-        if (this.types.length > 1 && this.types.includes("Family Law Matter")) {
-            if (step.result && step.result.flmBackgroundSurvey) {
-                // console.log("flm background information already exists");
+        if (this.types?.length > 1 && this.types.includes("Family Law Matter")) {
+            if (step.result?.flmBackgroundSurvey) {
+                //console.log('') 
             } else {
                 this.UpdateStepResultData({step:step, data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.FLM._StepNo, this.stPgNo.FLM.FlmBackground)}});
             }
@@ -132,8 +131,3 @@ export default class Background extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
