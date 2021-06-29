@@ -82,8 +82,8 @@ export default class PpmChildrenInfo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     showTable = true;
     childData = [];
     anyRowToBeEdited = null;
@@ -93,7 +93,6 @@ export default class PpmChildrenInfo extends Vue {
         this.showTable = false;
          Vue.nextTick(()=>{
             const el = document.getElementById('child-info-survey')
-            //console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -110,7 +109,7 @@ export default class PpmChildrenInfo extends Vue {
 
     public populateSurveyData(childValue) {
         const currentIndexValue =
-            this.childData.length > 0 ? this.childData[this.childData.length - 1].id : 0;
+            this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newChild = { ...childValue, id };
         this.childData = [...this.childData, newChild];
@@ -140,26 +139,24 @@ export default class PpmChildrenInfo extends Vue {
     }
 
     created() {
-        //console.log(this.step)
-        if (this.step.result && this.step.result.ppmChildrenInfoSurvey) {
+        if (this.step.result?.ppmChildrenInfoSurvey) {
             this.childData = this.step.result.ppmChildrenInfoSurvey.data;
         }        
     }
 
     mounted(){
-        const progress = this.childData.length>0? 100 : 50;            
+        const progress = this.childData?.length>0? 100 : 50;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
     public isDisableNext() {
-        // demo
-        return (this.childData.length <= 0);
+        return (this.childData?.length <= 0);
     }
 
     beforeDestroy() {
-        const progress = this.childData.length>0? 100 : 50;
+        const progress = this.childData?.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data: {ppmChildrenInfoSurvey: this.getChildrenResults()}})       
@@ -171,7 +168,7 @@ export default class PpmChildrenInfo extends Vue {
         {
             questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
         }
-        //console.log(questionResults)
+
         return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 

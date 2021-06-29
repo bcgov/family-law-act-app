@@ -74,8 +74,7 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('childReloc')
-            // console.log(this.survey.data);
-            // console.log(options)
+
             this.setPages();
         })
     }
@@ -85,17 +84,13 @@ export default class RelocationOfChildQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
+        if (this.step.result?.relocQuestionnaireSurvey?.data) {
             this.survey.data = this.step.result.relocQuestionnaireSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName); 
+            this.setPages();                 
         }        
 
         this.determineProgress();
-
-        if (this.step.result && this.step.result.relocQuestionnaireSurvey && this.step.result.relocQuestionnaireSurvey.data) {
-            this.setPages();
-        }
     }
 
     public setPages() {
@@ -103,11 +98,11 @@ export default class RelocationOfChildQuestionnaire extends Vue {
         const p = this.stPgNo.RELOC;
         const relocationOfChildPagesAll = [p.RelocChildrenInfo, p.RelocChildBestInterestInfo, p.ReviewYourAnswersRELOC ]
 
-        if (this.survey.data.ExistingParentingArrangements == 'n' || 
-            (this.survey.data.ExistingParentingArrangements == 'y' && this.survey.data.impactOnChild == 'n')) {
-            this.togglePages(relocationOfChildPagesAll, false);
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-            this.disableNextButton = true;
+        if (this.survey.data?.ExistingParentingArrangements == 'n' || 
+           (this.survey.data?.ExistingParentingArrangements == 'y' && this.survey.data?.impactOnChild == 'n')) {
+                this.togglePages(relocationOfChildPagesAll, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
+                this.disableNextButton = true;
         } else {
             this.togglePages(relocationOfChildPagesAll, true);
             this.disableNextButton = false;
@@ -115,8 +110,8 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     }
 
     public determineProgress(){
-        if (this.survey.data && (this.survey.data.ExistingParentingArrangements == 'n' || 
-            (this.survey.data.ExistingParentingArrangements == 'y' && this.survey.data.impactOnChild == 'n'))) {            
+        if (this.survey.data?.ExistingParentingArrangements == 'n' || 
+            (this.survey.data?.ExistingParentingArrangements == 'y' && this.survey.data?.impactOnChild == 'n')) {            
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
             
         } else {
@@ -150,8 +145,3 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

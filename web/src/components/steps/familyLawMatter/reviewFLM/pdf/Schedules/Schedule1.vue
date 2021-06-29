@@ -149,7 +149,7 @@ export default class Schedule1 extends Vue {
     } 
 
     public extractInfo(){        
-        if (this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){            
+        if (this.result.childrenInfoSurvey?.length > 0){            
             this.childrenInfo = this.getChildrenInfo();                      
         } else {            
             this.childrenInfo = [];            
@@ -179,7 +179,7 @@ export default class Schedule1 extends Vue {
     public getParentingArrangementsInfo(){
         let parentingArrangements = {} as schedule1DataInfoType;       
 
-        if (this.result.parentalResponsibilitiesSurvey && this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
+        if (this.result.parentalResponsibilitiesSurvey?.parentalResponsibilitiesOrder == 'y'){
             const allResponsibilities = this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y' && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities;
             parentingArrangements.parentResp = {
                 applying: true,
@@ -199,7 +199,7 @@ export default class Schedule1 extends Vue {
             }
         }
 
-        if (this.result.parentingTimeSurvey && this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
+        if (this.result.parentingTimeSurvey?.parentingTimeOrder == 'y'){
             const parentingTime = this.result.parentingTimeSurvey
             parentingArrangements.parentTime = {
                 applying: true,
@@ -223,7 +223,7 @@ export default class Schedule1 extends Vue {
             }     
         }
 
-        if (this.result.otherParentingArrangementsSurvey && this.result.otherParentingArrangementsSurvey.parentalArrangements == 'y'){
+        if (this.result.otherParentingArrangementsSurvey?.parentalArrangements == 'y'){
             const parentalArrangements = this.result.otherParentingArrangementsSurvey
             parentingArrangements.parentalArr = {
                 applying: true,
@@ -236,15 +236,13 @@ export default class Schedule1 extends Vue {
             }
         }
         
-        if (this.result.bestInterestsOfChildSurvey 
-            && this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
-                parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
+        if (this.result.bestInterestsOfChildSurvey?.newParentingArrangementsChildBestInterestDescription){
+            parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
 
-        } else {
-            // console.log('here')
+        } else {            
             parentingArrangements.childBestInterest = '';
         }
-        //console.log(parentingArrangements)
+        
         return parentingArrangements;
     }
 }

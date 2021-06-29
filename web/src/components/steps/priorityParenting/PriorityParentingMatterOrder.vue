@@ -85,18 +85,17 @@ export default class PriorityParentingMatterOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
            
-        if (this.step.result && this.step.result.priorityParentingMatterOrderSurvey && this.step.result.priorityParentingMatterOrderSurvey.data) {
+        if (this.step.result?.priorityParentingMatterOrderSurvey?.data) {
             this.survey.data = this.step.result.priorityParentingMatterOrderSurvey.data; 
             this.togglePages(this.stPgNo.PPM._StepNo, this.PPMpages, this.isChildDetailsRequired());
         
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);        
         }
 
-        if (this.step.result && this.step.result.ppmQuestionnaireSurvey && this.step.result.ppmQuestionnaireSurvey.data) {
+        if (this.step.result?.ppmQuestionnaireSurvey?.data) {
             const selectedPriorityParentingMatters = this.step.result.ppmQuestionnaireSurvey.data;
             this.determineIssues(selectedPriorityParentingMatters);            
-        }
-                
+        }                
     }
 
     public determineIssues(selectedPriorityParentingMatters){
@@ -124,21 +123,21 @@ export default class PriorityParentingMatterOrder extends Vue {
     public isChildDetailsRequired() {
         let isChildDetailsRequired = false;
         let ppmType = []
-        if(this.step.result && this.step.result.ppmQuestionnaireSurvey && this.step.result.ppmQuestionnaireSurvey.data )
+        if(this.step.result?.ppmQuestionnaireSurvey?.data )
             ppmType = this.step.result.ppmQuestionnaireSurvey.data
 
         if (this.survey.data) {  
 
            const data = this.survey.data;
                   
-           const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
-           const passport = (ppmType.includes('passport')) && (data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
-           const travel = (ppmType.includes('travel')) && (data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
-           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
-           const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
-           const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
-           const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
-           const returnOfChild = (ppmType.includes('returnOfChild')) && (data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
+           const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk?.includes('applyPPM'));
+           const passport = (ppmType.includes('passport')) && (data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk?.includes('applyPPM'));
+           const travel = (ppmType.includes('travel')) && (data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied?.includes('applyPPM'));
+           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
+           const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk == 'y') && (data.confirmNoReturnRisk?.includes('applyPPM')); 
+           const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
+           const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
+           const returnOfChild = (ppmType.includes('returnOfChild')) && (data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn?.includes('applyPPM'));
 
            isChildDetailsRequired = medical || passport || travel || locationChange || preventRemoval || interjurisdictional || wrongfulRemoval || returnOfChild;
            
@@ -187,29 +186,22 @@ export default class PriorityParentingMatterOrder extends Vue {
     public getPriorityParentingMatterNames(){
         let result = ''       
         for(const form of this.PPMList){
-            if(form=='medical')   result+='-Medical, dental or other health-related treatments for a child'+'\n';
-            if(form=='passport')  result+='-Application for a passport, license or other thing for a child'+'\n';
-            if(form=='travel')    result+='-Travel or participation in an activity for the child'+'\n';
-            if(form=='locationChange')         result+='-Change in location of a child’s residence'+'\n';
-            if(form=='preventRemoval')          result+='-Preventing the removal of a child'+'\n';
-            if(form=='interjurisdictional')    result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
-            if(form=='wrongfulRemoval')         result+='-Wrongful removal of a child in BC'+'\n';
-            if(form=='returnOfChild')          result+='-Preventing the removal of a child'+'\n';
+            if(form=='medical')             result+='-Medical, dental or other health-related treatments for a child'+'\n';
+            if(form=='passport')            result+='-Application for a passport, license or other thing for a child'+'\n';
+            if(form=='travel')              result+='-Travel or participation in an activity for the child'+'\n';
+            if(form=='locationChange')      result+='-Change in location of a child’s residence'+'\n';
+            if(form=='preventRemoval')      result+='-Preventing the removal of a child'+'\n';
+            if(form=='interjurisdictional') result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
+            if(form=='wrongfulRemoval')     result+='-Wrongful removal of a child in BC'+'\n';
+            if(form=='returnOfChild')       result+='-Preventing the removal of a child'+'\n';
         }
         return result;
     }
     
     beforeDestroy() {
-
         const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getPriorityParentingMatterNames()}]        
         this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.PPMList, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.stPgNo.PPM.PpmQuestionnaire}}});      
         this.UpdateStepResultData({step:this.step, data: {priorityParentingMatterOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

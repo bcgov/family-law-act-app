@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -78,14 +78,15 @@ export default class ParentingOrderAgreement extends Vue {
     public setPages(){
 
         const p = this.stPgNo.FLM
-        
-        if (this.survey.data.applyingGuardianApplicant && this.survey.data.guardianApplicant) {
-            if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
-                this.togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false);
-            } else {
-                this.togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true);
-            }
-        }   
+
+        if (this.survey.data?.applyingGuardianApplicant == 'n' && this.survey.data?.guardianApplicant == 'n') {
+            this.togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false);
+            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
+        } else {
+            this.togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true);
+            Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        }
+ 
     }
 
     public reloadPageInformation() { 
@@ -93,15 +94,14 @@ export default class ParentingOrderAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.parentingOrderAgreementSurvey){
+        if (this.step.result?.parentingOrderAgreementSurvey){
             this.survey.data = this.step.result.parentingOrderAgreementSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
-        // console.log(this.step.result)
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
-            if (childData.length>1){
+            if (childData?.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
                 this.survey.setVariable("childWording", "child");
@@ -109,7 +109,6 @@ export default class ParentingOrderAgreement extends Vue {
         }
 
         this.setPages()
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
     
     public onPrev() {
@@ -133,15 +132,7 @@ export default class ParentingOrderAgreement extends Vue {
     }
   
     beforeDestroy() {
-
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
-
         this.UpdateStepResultData({step:this.step, data: {parentingOrderAgreementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

@@ -93,15 +93,9 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
-import moment from 'moment';
-import { nameInfoType } from "@/types/Application/CommonInformation";
+
 import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
@@ -121,35 +115,34 @@ export default class Schedule7 extends Vue {
    
     dataReady = false; 
     guardInfo = {} as schedule7DataInfoType;    
-   
-    mounted(){
-        this.dataReady = false;       
-        this.extractInfo();       
-        this.dataReady = true;
-    }
-  
+     
     childrenGuardianshipFields = [
         {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
         {key:"childName",     label:"Name of child(ren)",                                   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
         {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:25%;"},
     ]
 
+    mounted(){
+        this.dataReady = false;       
+        this.extractInfo();       
+        this.dataReady = true;
+    }
+
     public extractInfo(){
-        if (this.selectedSchedules.includes('schedule7') || this.selectedSchedules.includes('schedule8')){
+        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
             this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
         }        
     }
 
     public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
         let guardianshipInfo = {} as schedule7DataInfoType;
-        // console.log(this.result)
 
         if (guardian){
             guardianshipInfo.abtGuardian = {
                 children: []
             }
             if (this.result.guardianOfChildSurvey){
-                guardianshipInfo.abtGuardian.children = this.result.guardianOfChildSurvey.childrenList?this.result.guardianOfChildSurvey.childrenList:[];               
+                guardianshipInfo.abtGuardian.children = this.result.guardianOfChildSurvey.childrenList? this.result.guardianOfChildSurvey.childrenList:[];               
             }
         }
 
@@ -167,10 +160,10 @@ export default class Schedule7 extends Vue {
 
             if (this.result.guardianOfChildBestInterestsOfChildSurvey){
                 const bestInterestInfo = this.result.guardianOfChildBestInterestsOfChildSurvey;
-                guardianshipInfo.abtCancel.bestInterest = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
+                guardianshipInfo.abtCancel.bestInterest = bestInterestInfo?.cancelGuradianChildBestInterest? bestInterestInfo.cancelGuradianChildBestInterest:''
             }
-            if (this.result.guardianOfChildSurvey && this.result.guardianOfChildSurvey.cancelGuardianDetails){
-                if (this.result.guardianOfChildSurvey.cancelGuardianDetails.length > 0){
+            if (this.result.guardianOfChildSurvey?.cancelGuardianDetails){
+                if (this.result.guardianOfChildSurvey.cancelGuardianDetails?.length > 0){
                     guardianshipInfo.abtCancel.cancelDetails = [];
                 }
                 for (const detail of this.result.guardianOfChildSurvey.cancelGuardianDetails){
@@ -224,14 +217,12 @@ export default class Schedule7 extends Vue {
             } 
         }
 
-        if( this.result.guardianOfChildSurvey && 
-            this.result.guardianOfChildSurvey.applicationType &&
-            this.result.guardianOfChildSurvey.applicationType.includes('becomeGuardian')){
-                guardianshipInfo.becomeGuardian = true;
+        if(this.result.guardianOfChildSurvey?.applicationType?.includes('becomeGuardian')){
+            guardianshipInfo.becomeGuardian = true;
+        }else 
+            guardianshipInfo.becomeGuardian = false;
 
-        }else guardianshipInfo.becomeGuardian = false;
-
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.criminalChecked =='y' ){
+        if(this.result.flmAdditionalDocumentsSurvey?.criminalChecked =='y' ){
             guardianshipInfo.criminalCheck = true;
         }else {
             guardianshipInfo.criminalCheck = false;
@@ -239,7 +230,7 @@ export default class Schedule7 extends Vue {
 
         let form5unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Form 5")||form.includes("registry search")){
                     form5unable = true;
@@ -247,11 +238,11 @@ export default class Schedule7 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='y' )){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='y' ){
             guardianshipInfo.applyForCaseManagement = 'n'
-        }else if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form5unable){
+        }else if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form5unable){
             guardianshipInfo.applyForCaseManagement = 'y'
-        }else if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && !form5unable){
+        }else if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && !form5unable){
             guardianshipInfo.applyForCaseManagement = 'n'
         }else{
             guardianshipInfo.applyForCaseManagement = ''

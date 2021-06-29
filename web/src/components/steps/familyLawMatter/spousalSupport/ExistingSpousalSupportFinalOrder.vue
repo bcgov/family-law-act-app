@@ -68,16 +68,16 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => { 
             Vue.filter('surveyChanged')('familyLawMatter')          
-           // console.log(this.survey.data)
+          
             this.setPages()
         })
     }
 
     public setPages(){
-        if(this.survey.data.orderDifferenceType == 'changeOrder'){
+        if(this.survey.data?.orderDifferenceType == 'changeOrder'){
             this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true);
             
-        } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+        } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
             
             this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
         }
@@ -98,7 +98,7 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.existingSpousalSupportFinalOrderSurvey) {
+        if (this.step.result?.existingSpousalSupportFinalOrderSurvey) {
             this.survey.data = this.step.result.existingSpousalSupportFinalOrderSurvey.data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -125,8 +125,3 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

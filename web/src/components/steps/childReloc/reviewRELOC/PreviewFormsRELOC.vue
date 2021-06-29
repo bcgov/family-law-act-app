@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue} from 'vue-property-decorator';
 import Form16 from  "./pdf/Form16.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
@@ -82,6 +82,5 @@ export default class PreviewFormsReloc extends Vue {
         const progress = this.dataReady? 100: 50
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
-
 }
 </script>

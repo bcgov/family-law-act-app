@@ -328,7 +328,7 @@ import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
 import CheckBoxII from "./components/CheckBoxII.vue"
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType, otherPartyCommonSurveyInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
@@ -364,31 +364,30 @@ export default class Form15Layout extends Vue {
     existingFileNumber = ''
     
     childrenInfo: childrenInfoSurveyInfoType[] = [];
-   
+
+    childrenFields = [
+        {key:"fullName",               label:"Child's full name",                          tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"myRelationship",         label:"My relationship to the child",               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
+        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
+    ]   
+
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
         this.dataReady = true;
     }
    
-    childrenFields = [
-        {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
-    ]   
-
     public extractInfo(){
-        // console.log(this.result)     
-        
+               
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo.length > 1) {
+        if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
         }
 
-        if (this.result.ppmChildrenInfoSurvey && this.result.ppmChildrenInfoSurvey.length > 0){          
+        if (this.result.ppmChildrenInfoSurvey?.length > 0){          
             this.childrenInfo = this.getChildrenInfo();
         }
         
@@ -397,11 +396,9 @@ export default class Form15Layout extends Vue {
         this.getLocationInfo()
     } 
     
-    public getLocationInfo(){        
-        if (this.result.filingLocationSurvey){
-            const locationData = this.result.filingLocationSurvey;           
-            this.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-        }
+    public getLocationInfo(){                
+        const locationData = this.result.filingLocationSurvey;           
+        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }   
     
     public getChildrenInfo() {
@@ -446,7 +443,7 @@ export default class Form15Layout extends Vue {
 
         let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
@@ -481,7 +478,7 @@ export default class Form15Layout extends Vue {
             ppmInformation.ExistingCase = (ppmBackgroundData.ExistingOrdersFLM == 'y');
             ppmInformation.existingProceeding = (ppmBackgroundData.existingCourtProceeding == 'y');
             ppmInformation.proceedingInfo = (ppmBackgroundData.existingCourtProceeding == 'y' && 
-                                                ppmBackgroundData.existingCourtProceedingDetails)? ppmBackgroundData.existingCourtProceedingDetails:'';
+                                             ppmBackgroundData.existingCourtProceedingDetails)? ppmBackgroundData.existingCourtProceedingDetails:'';
         }
 
         if (this.result.aboutPriorityParentingMatterOrderSurvey) {
@@ -500,42 +497,41 @@ export default class Form15Layout extends Vue {
             const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
             ppmInformation.ppmList = [];
                  
-            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk && ppmOrderData.delayMedicalRisk == 'y') && 
-                (ppmOrderData.confirmMedicalRisk && ppmOrderData.confirmMedicalRisk.includes('applyPPM'))){
+            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
+                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('medical');
                 }
-            if ((ppmType.includes('passport')) && (ppmOrderData.delayPassportRisk && ppmOrderData.delayPassportRisk == 'y') && 
-                (ppmOrderData.confirmDelayPassportRisk && ppmOrderData.confirmDelayPassportRisk.includes('applyPPM'))){
+            if ((ppmType.includes('passport')) && (ppmOrderData.delayPassportRisk == 'y') && 
+                (ppmOrderData.confirmDelayPassportRisk?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('passport');
                 }
-            if ((ppmType.includes('travel')) && (ppmOrderData.delayTravelRisk && ppmOrderData.delayTravelRisk == 'y') && 
-                (ppmOrderData.travelWrongfullyDenied && ppmOrderData.travelWrongfullyDenied == 'y') && 
-                (ppmOrderData.confirmTravelWrongfullyDenied && ppmOrderData.confirmTravelWrongfullyDenied.includes('applyPPM'))){
+            if ((ppmType.includes('travel')) && (ppmOrderData.delayTravelRisk == 'y') && 
+                (ppmOrderData.travelWrongfullyDenied == 'y') && 
+                (ppmOrderData.confirmTravelWrongfullyDenied?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('travel');
                 }
-            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements && ppmOrderData.existingParentingArrangements == 'y') &&
-                (ppmOrderData.impactOnRelationship && ppmOrderData.impactOnRelationship == 'y') && 
-                (ppmOrderData.confirmImpactOnRelationship && ppmOrderData.confirmImpactOnRelationship.includes('applyPPM'))){
+            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements == 'y') &&
+                (ppmOrderData.impactOnRelationship == 'y') && 
+                (ppmOrderData.confirmImpactOnRelationship?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('locationChange');   
                 }
-            if ((ppmType.includes('preventRemoval')) && (ppmOrderData.noReturnRisk && ppmOrderData.noReturnRisk == 'y') && 
-                (ppmOrderData.confirmNoReturnRisk && ppmOrderData.confirmNoReturnRisk.includes('applyPPM'))){
+            if ((ppmType.includes('preventRemoval')) && (ppmOrderData.noReturnRisk == 'y') && 
+                (ppmOrderData.confirmNoReturnRisk?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('preventRemoval');   
                 }
-            if ((ppmType.includes('interjurisdictional')) && (ppmOrderData.childInBC && ppmOrderData.childInBC == 'y') && 
-                (ppmOrderData.harm && ppmOrderData.harm == 'y') && (ppmOrderData.confirmHarm && ppmOrderData.confirmHarm.includes('applyPPM'))){
+            if ((ppmType.includes('interjurisdictional')) && (ppmOrderData.childInBC == 'y') && 
+                (ppmOrderData.harm == 'y') && (ppmOrderData.confirmHarm?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('interjurisdictional');      
                 }
-            if ((ppmType.includes('wrongfulRemoval')) && (ppmOrderData.wrongfulInBC && ppmOrderData.wrongfulInBC == 'y') && 
-                (ppmOrderData.confirmWrongfulInBC && ppmOrderData.confirmWrongfulInBC.includes('applyPPM'))){
+            if ((ppmType.includes('wrongfulRemoval')) && (ppmOrderData.wrongfulInBC == 'y') && 
+                (ppmOrderData.confirmWrongfulInBC?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('wrongfulRemoval');   
                 }
-            if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn && ppmOrderData.wrongfulReturn == 'y') && 
-                (ppmOrderData.confirmWrongfulReturn && ppmOrderData.confirmWrongfulReturn.includes('applyPPM'))){
+            if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn == 'y') && 
+                (ppmOrderData.confirmWrongfulReturn?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('returnOfChild');
                 }
         }
-
         return ppmInformation;
     }
  

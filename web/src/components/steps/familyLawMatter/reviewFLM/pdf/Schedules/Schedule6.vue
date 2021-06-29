@@ -140,16 +140,13 @@ export default class Schedule6 extends Vue {
         this.dataReady = true;        
     }    
 
-    public extractInfo(){       
-       
+    public extractInfo(){ 
         this.exChContInfo = this.getExistingChildContactInfo(); 
-
     }
 
     public getExistingChildContactInfo(){
 
         let existingChildContactInfo = {} as schedule6DataInfoType;
-        // console.log(this.result)
 
         if (this.result.contactWithChildOrderSurvey){
             existingChildContactInfo.guardian = this.result.contactWithChildOrderSurvey.roleType != 'allowedContact';
@@ -180,8 +177,8 @@ export default class Schedule6 extends Vue {
 
         if (this.result.aboutContactWithChildOrderSurvey){
             const contactChoices = this.result.aboutContactWithChildOrderSurvey.contactTypeChoices?this.result.aboutContactWithChildOrderSurvey.contactTypeChoices:[];
-            const changeOrReplaceCondition = ((this.result.contactWithChildOrderSurvey && this.result.contactWithChildOrderSurvey.existingType =='ExistingOrder' && this.result.contactWithChildOrderSurvey.orderDifferenceType == 'changeOrder') ||
-                                             ( this.result.contactWithChildOrderSurvey && this.result.contactWithChildOrderSurvey.existingType =='ExistingAgreement' && this.result.contactWithChildOrderSurvey.agreementDifferenceType == 'replacedAgreement'));
+            const changeOrReplaceCondition = ((this.result.contactWithChildOrderSurvey?.existingType =='ExistingOrder'     && this.result.contactWithChildOrderSurvey?.orderDifferenceType == 'changeOrder') ||
+                                             ( this.result.contactWithChildOrderSurvey?.existingType =='ExistingAgreement' && this.result.contactWithChildOrderSurvey?.agreementDifferenceType == 'replacedAgreement'));
                
             existingChildContactInfo.abt = {
                 conChList: this.result.aboutContactWithChildOrderSurvey.childrenRequireContactChoices,
@@ -203,7 +200,7 @@ export default class Schedule6 extends Vue {
                 },
                 inPrsn: changeOrReplaceCondition? (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'':'',
                 otherComm: changeOrReplaceCondition? (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'':'',
-                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildOrderSurvey && this.result.aboutContactWithChildOrderSurvey.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'':''
+                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildOrderSurvey?.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'':''
             }
         }
 
@@ -212,7 +209,6 @@ export default class Schedule6 extends Vue {
         }
 
         return existingChildContactInfo;
-
     }  
 
 }

@@ -1,14 +1,14 @@
 <template>
-  <step-base v-bind:step="step">    
-    <ppm-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmQuestionnaire"/>
-    <priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
-    <ppm-children-info     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
-    <ppm-background    v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
-    <about-priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.AboutPriorityParentingMatterOrder"/>
-    <review-your-answers-ppm  v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.ReviewYourAnswersPPM"/>
-    <preview-forms-ppm        v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PreviewFormsPPM"/>
-        
-  </step-base>
+    <step-base v-bind:step="step">    
+        <ppm-Questionnaire                     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmQuestionnaire"/>
+        <priority-parenting-matter-order       v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PriorityParentingMatterOrder"/>
+        <ppm-children-info                     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmChildrenInfo"/>  
+        <ppm-background                        v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PpmBackground"/>  
+        <about-priority-parenting-matter-order v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.AboutPriorityParentingMatterOrder"/>
+        <review-your-answers-ppm               v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.ReviewYourAnswersPPM"/>
+        <preview-forms-ppm                     v-bind:step="step" v-if="step.currentPage == stPgNo.PPM.PreviewFormsPPM"/>
+            
+    </step-base>
 </template>
 
 <script lang="ts">
@@ -33,29 +33,24 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-      StepBase,
-      PpmQuestionnaire,
-      PriorityParentingMatterOrder,
-      PpmBackground, 
-      PpmChildrenInfo,
-      AboutPriorityParentingMatterOrder,      
-      ReviewYourAnswersPpm,
-      PreviewFormsPpm
+        StepBase,
+        PpmQuestionnaire,
+        PriorityParentingMatterOrder,
+        PpmBackground, 
+        PpmChildrenInfo,
+        AboutPriorityParentingMatterOrder,      
+        ReviewYourAnswersPpm,
+        PreviewFormsPpm
     }
 })
 export default class ParentingPriorityStep extends Vue {
   
-  @Prop({required: true})
-  step!: stepInfoType;
+    @Prop({required: true})
+    step!: stepInfoType;
 
-  @applicationState.State
-  public stPgNo!: stepsAndPagesNumberInfoType;
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
 };
 
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

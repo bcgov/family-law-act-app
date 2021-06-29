@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import Form3 from  "./pdf/Form3.vue"
 import Form1 from  "./pdf/Form1.vue"
 import PageBase from "@/components/steps/PageBase.vue";
@@ -58,28 +58,21 @@ export default class PreviewFormsFlm extends Vue {
 
         const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
 
-        if( stepCOM && 
-            stepCOM.result &&
-            stepCOM.result.filingLocationSurvey &&
-            stepCOM.result.filingLocationSurvey.data){
+        if( stepCOM.result?.filingLocationSurvey?.data){
             const filingLocationData = stepCOM.result.filingLocationSurvey.data;
             const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
     
             const location = filingLocationData.ExistingCourt;                            
 
-            if(courtsC.includes(location) && 
-                filingLocationData.MetEarlyResolutionRequirements == 'n'){
-                    this.requiredForm = 1;
-                
+            if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+                this.requiredForm = 1;                
             } else {
                 this.requiredForm = 3;
             }
         
         } else {
             this.requiredForm = 3;
-        }
-
-               
+        }               
     }
 
     public EnableNext(){

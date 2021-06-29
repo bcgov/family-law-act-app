@@ -164,11 +164,12 @@ export default class PpmQuestionnaire extends Vue {
         this.reloadPageInformation();
     }
 
-    public reloadPageInformation() {   
+    public reloadPageInformation() {
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.ppmQuestionnaireSurvey) {
+        if (this.step.result?.ppmQuestionnaireSurvey) {
             this.selectedPriorityParentingMatter = this.step.result.ppmQuestionnaireSurvey.data;
         }
         
@@ -185,14 +186,13 @@ export default class PpmQuestionnaire extends Vue {
         if(this.checkErrorOnPages())        
             this.setSteps(selectedPriorityParentingMatter);
         else{ 
-            this.selectedPriorityParentingMatter = [];            
-            //this.togglePages(this.allPages, false); 
+            this.selectedPriorityParentingMatter = [];             
         }
         Vue.filter('surveyChanged')('priorityParenting')        
     }
 
     public setSteps(selectedPriorityParentingMatter) {
-        // console.log(selectedPriorityParentingMatter)
+
         const p = this.stPgNo.PPM
         if (selectedPriorityParentingMatter) {
 
@@ -227,7 +227,6 @@ export default class PpmQuestionnaire extends Vue {
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
-            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
                 currentPage: pageArr[i],

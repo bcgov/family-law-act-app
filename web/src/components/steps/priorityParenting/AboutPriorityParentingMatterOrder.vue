@@ -43,8 +43,8 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     listOfIssuesDescription = '';
 
     beforeCreate() {
@@ -69,8 +69,6 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('priorityParenting')            
-            // console.log(options)              
-
         })
     }
     
@@ -101,14 +99,14 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
             ppmType = this.step.result.ppmQuestionnaireSurvey.data
 
         let listOfIssues = [];
-        const medical = (ppmType.includes('medical') && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
-        const passport = (ppmType.includes('passport') && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
-        const travel = (ppmType.includes('travel') && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
-        const locationChange = (ppmType.includes('locationChange') && data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
-        const preventRemoval = (ppmType.includes('preventRemoval') && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
-        const interjurisdictional = (ppmType.includes('interjurisdictional') && data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
-        const wrongfulRemoval = (ppmType.includes('wrongfulRemoval') && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
-        const returnOfChild = (ppmType.includes('returnOfChild') && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
+        const medical = (ppmType.includes('medical') && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk?.includes('applyPPM'));
+        const passport = (ppmType.includes('passport') && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk?.includes('applyPPM'));
+        const travel = (ppmType.includes('travel') && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied?.includes('applyPPM'));
+        const locationChange = (ppmType.includes('locationChange') && data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
+        const preventRemoval = (ppmType.includes('preventRemoval') && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk?.includes('applyPPM')); 
+        const interjurisdictional = (ppmType.includes('interjurisdictional') && data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
+        const wrongfulRemoval = (ppmType.includes('wrongfulRemoval') && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
+        const returnOfChild = (ppmType.includes('returnOfChild') && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn?.includes('applyPPM'));
 
         if (medical) {
             listOfIssues.push('<li>because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health</li>');
@@ -142,7 +140,7 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
             listOfIssues.push('<li>relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention</li>')
         }
        
-        if (listOfIssues.length == 1){            
+        if (listOfIssues?.length == 1){            
             description = firstDescriptionSection + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
         } else {           
             const initialList = listOfIssues.toString()            
@@ -163,15 +161,8 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     } 
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {aboutPriorityParentingMatterOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
