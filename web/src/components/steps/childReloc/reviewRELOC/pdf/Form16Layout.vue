@@ -371,7 +371,13 @@ export default class Form16Layout extends Vue {
     relocInfo = {} as relocationOfChildInformationDataInfoType;
 
     existingFileNumber = ''
-    childrenInfo = [{fullName:'', dob:'', currentSituation:'' }];    
+    childrenInfo = [{fullName:'', dob:'', currentSituation:'' }];  
+    
+    childrenFields=[
+        {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:18%;"},
+        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
+    ] 
    
     mounted(){
         this.dataReady = false;
@@ -379,23 +385,16 @@ export default class Form16Layout extends Vue {
         this.dataReady = true;        
     }
    
-    childrenFields=[
-        {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:18%;"},
-        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
-    ]   
-
     public extractInfo(){
-        //console.log(this.result)    
-        
-        this.otherPartyInfo=this.getOtherPartyInfo()        
+           
+        this.otherPartyInfo = this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo.length > 1) {
+        if (this,this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
         }
 
-        if (this.result.relocChildrenInfoSurvey && this.result.relocChildrenInfoSurvey.length > 0){          
+        if (this.result.relocChildrenInfoSurvey?.length > 0){          
             this.childrenInfo = this.getChildrenInfo();
         }
         
@@ -404,11 +403,9 @@ export default class Form16Layout extends Vue {
         this.getLocationInfo()
     } 
     
-    public getLocationInfo(){        
-        if (this.result.filingLocationSurvey){
-            const locationData = this.result.filingLocationSurvey;           
-            this.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-        }
+    public getLocationInfo(){                
+        const locationData = this.result.filingLocationSurvey;           
+        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }
     
     public getChildrenInfo(){
@@ -452,7 +449,7 @@ export default class Form16Layout extends Vue {
 
         let OpInformation: relocationOfChildOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = []; 
            
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
@@ -518,26 +515,26 @@ export default class Form16Layout extends Vue {
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">
-.container {
-  display: inline;
-  position: relative;
-  padding: 0px;
-  margin: 0px;
- 
- 
- 
-}
+    .container {
+        display: inline;
+        position: relative;
+        padding: 0px;
+        margin: 0px;
+    
+    
+    
+    }
 
-/* Create a custom checkbox */
-.container .checkmark {
-    display: inline;
-  position: absolute;
-  border: 1px solid #000!important;
-  padding: 1rem;
-  top: 0;
-  left: 0;
-  height: 1em;
-  width: 1em;
-  background-color: #eee;
-}
+    /* Create a custom checkbox */
+    .container .checkmark {
+        display: inline;
+        position: absolute;
+        border: 1px solid #000!important;
+        padding: 1rem;
+        top: 0;
+        left: 0;
+        height: 1em;
+        width: 1em;
+        background-color: #eee;
+    }
 </style>

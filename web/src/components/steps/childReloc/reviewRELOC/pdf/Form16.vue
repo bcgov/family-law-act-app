@@ -52,7 +52,7 @@ export default class Form16 extends Vue {
         const pdf_type = Vue.filter('getPathwayPdfType')("childReloc")
         const pdf_name = "application-for-order-prohibiting-the-relocation-of-a-child"       
         const el= document.getElementById("print");
-        //console.log(el)
+
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" "`;
         const bottomRightText = `" "`
@@ -70,7 +70,7 @@ export default class Form16 extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -113,9 +113,9 @@ export default class Form16 extends Vue {
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.RELOC._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }        
         

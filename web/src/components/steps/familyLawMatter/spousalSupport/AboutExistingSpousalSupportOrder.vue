@@ -65,9 +65,7 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data)            
-            
-        })
+         })
     }
     
     public reloadPageInformation() {   
@@ -75,7 +73,7 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.aboutExistingSpousalSupportOrderSurvey) {
+        if (this.step.result?.aboutExistingSpousalSupportOrderSurvey) {
             this.survey.data = this.step.result.aboutExistingSpousalSupportOrderSurvey.data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -100,8 +98,3 @@ export default class AboutExistingSpousalSupportOrder extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

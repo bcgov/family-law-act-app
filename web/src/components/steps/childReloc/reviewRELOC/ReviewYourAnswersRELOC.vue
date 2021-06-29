@@ -87,8 +87,8 @@ export default class ReviewYourAnswersReloc extends Vue {
     ]
 
     questionResults = [];
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     pageHasError = false;
 
     errorQuestionNames = [];
@@ -149,8 +149,8 @@ export default class ReviewYourAnswersReloc extends Vue {
         else if(Array.isArray(value))
         {            
             if(value[0] && value[0] instanceof String && value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
-            if(value[0].childName)return this.getChildInfo(value) 
-            if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
+            if(value[0]?.childName)return this.getChildInfo(value) 
+            if(value[0]?.anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
             if(typeof value[0] === 'string' || value[0] instanceof String)
                 return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
             else{

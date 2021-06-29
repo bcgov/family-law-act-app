@@ -307,7 +307,7 @@ export default class Schedule3 extends Vue {
        
         let newChildSupportInfo = {} as schedule3DataInfoType;
 
-        if (this.result.childSupportSurvey && this.result.childSupportSurvey.applicantGuardianType){
+        if (this.result.childSupportSurvey?.applicantGuardianType){
             newChildSupportInfo.appType = {
                 guardian: this.result.childSupportSurvey.applicantGuardianType == 'parentGuardian',
                 standing: this.result.childSupportSurvey.applicantGuardianType == 'appointedGuardian',
@@ -316,7 +316,7 @@ export default class Schedule3 extends Vue {
             }
         }
 
-        if (this.result.childSupportSurvey && this.result.childSupportSurvey['otherParty[0]GuardianType']){
+        if (this.result.childSupportSurvey?.['otherParty[0]GuardianType']){
             newChildSupportInfo.opType = {
                 guardian: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'parentGuardian',
                 standing: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'appointedGuardian',
@@ -393,11 +393,6 @@ export default class Schedule3 extends Vue {
                     for(let i=1; i<tableFields.length; i++)
                         this.childrenSupportExpenseFields.push({key:tableFields[i].key, label:tableFields[i].label,  tdClass:"border-dark align-middle text-center",  thClass:"border-dark align-middle text-center",   thStyle:"width:17%;"},)
 
-        //         for(const item of this.childrenSupportExpenseItem)
-        // {key:"child0", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child1", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child2", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},
-        // {key:"child3", label:"",               tdClass:"border-dark align-middle",  thClass:"border-dark align-middle",   thStyle:"width:17%;"},  
             }            
         }
 
@@ -413,7 +408,7 @@ export default class Schedule3 extends Vue {
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
             for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
@@ -421,7 +416,7 @@ export default class Schedule3 extends Vue {
             }   
         }
 
-        if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n') && form4unable ){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form4unable ){
            newChildSupportInfo.applyForCaseManagement = true
             newChildSupportInfo.finStmnt = {
                 required: false
@@ -430,7 +425,6 @@ export default class Schedule3 extends Vue {
 
         return newChildSupportInfo;
     } 
-
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">

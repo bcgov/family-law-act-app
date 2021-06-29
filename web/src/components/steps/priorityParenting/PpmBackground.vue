@@ -56,7 +56,6 @@ export default class PpmBackground extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
-        //console.log(this.allPages)
     } 
 
     public initializeSurvey(){        
@@ -69,10 +68,7 @@ export default class PpmBackground extends Vue {
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('priorityParenting')
-            //console.log(options)
-            console.log(this.survey.data)
-           
+            Vue.filter('surveyChanged')('priorityParenting')          
         })
     }   
 
@@ -86,8 +82,7 @@ export default class PpmBackground extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }  
 
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);     
     }
 
     public togglePages(pageArr, activeIndicator) {        
@@ -110,15 +105,9 @@ export default class PpmBackground extends Vue {
         }
     }
   
-    beforeDestroy() {
-       
+    beforeDestroy() {       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         this.UpdateStepResultData({step:this.step, data: {ppmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

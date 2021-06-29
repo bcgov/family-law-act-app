@@ -67,18 +67,16 @@ export default class SpousalSupportIncomeAndEarningPotential extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')         
-            //console.log(options)
-            //console.log(this.survey.data)
-            
+            Vue.filter('surveyChanged')('familyLawMatter')          
         })
     }
     
     public reloadPageInformation() { 
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.spousalSupportIncomeAndEarningPotentialSurvey) {
+        if (this.step.result?.spousalSupportIncomeAndEarningPotentialSurvey) {
             this.survey.data = this.step.result.spousalSupportIncomeAndEarningPotentialSurvey.data;
 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
@@ -101,12 +99,6 @@ export default class SpousalSupportIncomeAndEarningPotential extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {spousalSupportIncomeAndEarningPotentialSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

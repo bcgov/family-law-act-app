@@ -70,25 +70,25 @@ export default class CalculatingSpousalSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {            
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data)
         })
     }
     
     public reloadPageInformation() {
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.calculatingSpousalSupportSurvey) {
+        if (this.step.result?.calculatingSpousalSupportSurvey) {
             this.survey.data = this.step.result.calculatingSpousalSupportSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
 
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+        if (this.step.result?.flmBackgroundSurvey?.data){
             
             const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Spousal Support")){
+            if ( backgroundSurveyData?.ExistingOrdersFLM == 'y' 
+                && backgroundSurveyData?.existingOrdersListFLM?.length > 0 
+                && backgroundSurveyData?.existingOrdersListFLM?.includes("Spousal Support")){
                     this.survey.setVariable("existing", true);                    
             } else {
                 this.survey.setVariable("existing", false);
@@ -115,8 +115,3 @@ export default class CalculatingSpousalSupport extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

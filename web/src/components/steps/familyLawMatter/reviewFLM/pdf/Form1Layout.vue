@@ -352,13 +352,13 @@ export default class Form1Layout extends Vue {
 
     public extractInfo(){        
         
-        if (this.result.filingLocationSurvey && this.result.filingLocationSurvey.registryLocationReason) {
+        if (this.result.filingLocationSurvey?.registryLocationReason) {
             this.filingLocationReason = this.result.filingLocationSurvey.registryLocationReason;
         }
         
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo.length > 1) {
+        if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
         }        
@@ -400,9 +400,9 @@ export default class Form1Layout extends Vue {
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];  
-            // console.log(this.result.otherPartyCommonSurvey)  
+ 
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
                     dob: '',

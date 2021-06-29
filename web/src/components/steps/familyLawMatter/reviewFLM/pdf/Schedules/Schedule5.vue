@@ -112,8 +112,6 @@ export default class Schedule5 extends Vue {
 
         let newChildContactInfo = {} as schedule5DataInfoType;
 
-        // console.log(this.result)
-
         if (this.result.contactWithChildSurvey){
             newChildContactInfo.guardian = this.result.contactWithChildSurvey.parentGuardianApplicant == 'y';
         }
@@ -132,7 +130,7 @@ export default class Schedule5 extends Vue {
                 inPrsn: (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'',
                 otherComm: (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'',
                 cond: (this.result.aboutContactWithChildOrderSurvey.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'',
-                lastCont: (this.result.aboutContactWithChildOrderSurvey.lastContactDate)?Vue.filter('beautify-date')(this.result.aboutContactWithChildOrderSurvey.lastContactDate):''
+                lastCont: (this.result.aboutContactWithChildOrderSurvey.lastContactDate)? Vue.filter('beautify-date')(this.result.aboutContactWithChildOrderSurvey.lastContactDate):''
             }
         }
 

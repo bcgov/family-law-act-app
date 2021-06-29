@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
@@ -40,8 +40,8 @@ export default class AboutContactWithChildOrder extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy;
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -66,18 +66,14 @@ export default class AboutContactWithChildOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data);
-            // console.log(options)
             if (options.name == "contactTypeChoices"){
-
                 if(options.value.includes('No contact of any type')){
-                    //console.log('clear')
+                    
                     Vue.nextTick(()=>
                         this.survey.setValue('contactTypeChoices',['No contact of any type'])
                     )
                     this.survey.setVariable("InPerson", false);
-                } else if(options.value.includes("In person")){
-                    // console.log('has person');
+                } else if(options.value.includes("In person")){                    
                     this.survey.setVariable("InPerson", true);
                 } else {
                     this.survey.setVariable("InPerson", false);
@@ -99,7 +95,7 @@ export default class AboutContactWithChildOrder extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));                
         this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"]=[];        
 
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;            
             for (const child of childData){
                 this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(Vue.filter('getFullName')(child.name));
@@ -108,51 +104,53 @@ export default class AboutContactWithChildOrder extends Vue {
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.aboutContactWithChildOrderSurvey && this.step.result.aboutContactWithChildOrderSurvey.data) {
-            this.survey.data = this.step.result.aboutContactWithChildOrderSurvey.data;
-            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
 
-            if (this.survey.data.childrenRequireContactChoices){
-                if (this.survey.data.childrenRequireContactChoiceslength>1){
-                    this.survey.setVariable("selectedChildWording", "children");                    
-                } else {
-                    this.survey.setVariable("selectedChildWording", "child");
-                }
-            }
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-            if (this.survey.data.contactTypeChoices && this.survey.data.contactTypeChoices.includes("In person")){                    
-                    this.survey.setVariable("InPerson", true);
-                } else {
-                    this.survey.setVariable("InPerson", false);
-            }            
-        }
-
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
-            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
-            if (backgroundSurveyData.ExistingOrdersFLM == 'y' && backgroundSurveyData.existingOrdersListFLM 
-                && backgroundSurveyData.existingOrdersListFLM.length > 0 
-                && backgroundSurveyData.existingOrdersListFLM.includes("Contact with a Child")){
-                    this.survey.setVariable("existing", true);                    
-            } else {
-                this.survey.setVariable("existing", false);
-            }
-        }
-        this.survey.setVariable("selectedChildWording", "child");
-
-        if (this.step.result && this.step.result.childrenInfoSurvey && this.step.result.childrenInfoSurvey.data) { 
+        if (this.step.result?.childrenInfoSurvey?.data) { 
             const childData = this.step.result.childrenInfoSurvey.data;            
-            if (childData.length>1){
-                this.survey.setVariable("childWording", "children");                    
+            if (childData?.length>1){
+                this.survey.setVariable("childWording", "children");
+                this.survey.setVariable("selectedChildWording", "children");         
             } else {
                 this.survey.setVariable("childWording", "child");
                 this.survey.setValue("childrenRequireContactChoices", [Vue.filter('getFullName')(childData[0].name)]);
                 this.survey.setVariable("selectedChildWording", "child");
             }
-        }       
+        }  
 
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        if (this.step.result?.aboutContactWithChildOrderSurvey?.data) {
+            
+            this.survey.data = this.step.result.aboutContactWithChildOrderSurvey.data;
+            Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
+
+            if (this.survey.data?.childrenRequireContactChoices){
+                if (this.survey.data.childrenRequireContactChoices?.length>1){
+                    this.survey.setVariable("selectedChildWording", "children");                    
+                } else {                    
+                    this.survey.setVariable("selectedChildWording", "child");
+                }
+            }
+
+            if (this.survey.data?.contactTypeChoices?.includes("In person")){                    
+                this.survey.setVariable("InPerson", true);
+            } else {
+                this.survey.setVariable("InPerson", false);
+            }            
+        }
+
+        if (this.step.result?.flmBackgroundSurvey?.data){
+            const backgroundSurveyData = this.step.result.flmBackgroundSurvey.data;
+            if ( backgroundSurveyData?.ExistingOrdersFLM == 'y' 
+                && backgroundSurveyData?.existingOrdersListFLM?.length > 0 
+                && backgroundSurveyData?.existingOrdersListFLM?.includes("Contact with a Child")){
+                    this.survey.setVariable("existing", true);                    
+            } else {
+                this.survey.setVariable("existing", false);
+            }
+        }
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
@@ -170,12 +168,6 @@ export default class AboutContactWithChildOrder extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {aboutContactWithChildOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

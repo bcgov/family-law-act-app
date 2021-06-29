@@ -1,11 +1,11 @@
 <template>
-  <step-base v-bind:step="step">
-    <relocation-of-child-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocQuestionnaire"/>
-    <reloc-children-info v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildrenInfo"/>
-    <relocation-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildBestInterestInfo"/> 
-    <review-your-answers-reloc  v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.ReviewYourAnswersRELOC"/>
-    <preview-forms-reloc        v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.PreviewFormsRELOC"/>     
-  </step-base>
+    <step-base v-bind:step="step">
+        <relocation-of-child-Questionnaire           v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocQuestionnaire"/>
+        <reloc-children-info                         v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildrenInfo"/>
+        <relocation-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.RelocChildBestInterestInfo"/> 
+        <review-your-answers-reloc                   v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.ReviewYourAnswersRELOC"/>
+        <preview-forms-reloc                         v-bind:step="step" v-if="step.currentPage == stPgNo.RELOC.PreviewFormsRELOC"/>     
+    </step-base>
 </template>
 
 <script lang="ts">
@@ -26,12 +26,12 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-      StepBase,
-      RelocationOfChildQuestionnaire,
-      RelocationOfChildBestInterestsOfChild,
-      RelocChildrenInfo,
-      ReviewYourAnswersReloc,
-      PreviewFormsReloc
+        StepBase,
+        RelocationOfChildQuestionnaire,
+        RelocationOfChildBestInterestsOfChild,
+        RelocChildrenInfo,
+        ReviewYourAnswersReloc,
+        PreviewFormsReloc
     }
 })
 export default class ChildRelocationStep extends Vue {
@@ -45,8 +45,3 @@ export default class ChildRelocationStep extends Vue {
   
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

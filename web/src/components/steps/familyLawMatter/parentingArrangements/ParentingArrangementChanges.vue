@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts"
@@ -64,7 +64,6 @@ export default class ParentingArrangementChanges extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)            
         })
     }
 
@@ -73,12 +72,12 @@ export default class ParentingArrangementChanges extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.parentingArrangementChangesSurvey){
+        if (this.step.result?.parentingArrangementChangesSurvey){
             this.survey.data = this.step.result.parentingArrangementChangesSurvey.data;            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
-        if (this.step.result && this.step.result.aboutParentingArrangementsSurvey){
+        if (this.step.result?.aboutParentingArrangementsSurvey){
             const aboutPA = this.step.result.aboutParentingArrangementsSurvey.data;            
             this.survey.setVariable("existingType", aboutPA.existingType);            
         }
@@ -104,8 +103,3 @@ export default class ParentingArrangementChanges extends Vue {
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>
