@@ -3,8 +3,7 @@
 
         <span class="text-primary" style='font-size:1.4rem;'>{{title}}</span> 
         
-        <ul class="mt-3">
-            <!-- <li class="mb-2">Collect any existing orders or agreements, existing protection orders and any exhibits referenced in your application</li> -->
+        <ul class="mt-3">            
             <div class="mb-2" v-if="type=='Print'">Print or make copies of all documents, including your application and any supporting documents: one set for you, one set for the court and one set for each other party</div>
             <div v-if="type!='Print'" class="my-3 text-primary" @click="showGetHelpScanning = true" style="cursor: pointer;border-bottom:1px solid; width:15.7rem;">
                 <div style='font-size:1.2rem;' class="fa fa-question-circle" /> Get help scanning documents 
@@ -84,16 +83,12 @@ export default class RequiredDocument extends Vue {
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
         for (const [key, value] of Object.entries(this.requiredDocuments)){
-            //  console.log(key)
-            //  console.log(value)
-            if(this.$store.state.Application.steps[0].result && 
-               this.$store.state.Application.steps[0].result.selectedForms &&
-               this.$store.state.Application.steps[0].result.selectedForms.includes(key)){
-                    this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})
-                    if(value['required'].length>0) this.isRequiredDocument = true;
+           
+            if(key && value &&  this.$store.state.Application.steps[0].result?.selectedForms?.includes(key)){
+                this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})
+                if(value['required']?.length>0) this.isRequiredDocument = true;
             }
         }
-        // console.log(this.requiredDocumentLists)
     }
 }
 </script>

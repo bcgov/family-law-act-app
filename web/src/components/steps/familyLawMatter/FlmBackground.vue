@@ -56,7 +56,6 @@ export default class FlmBackground extends Vue {
     selectedForms = [];
     allPages = []    
     
-    //additional documents page && review-answers page
     commonPages = [];
 
     parentingArrangementsNewPages = []; 
@@ -84,7 +83,6 @@ export default class FlmBackground extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
-        //console.log(this.allPages)
     }
 
     public initPageNumbers(){
@@ -107,7 +105,6 @@ export default class FlmBackground extends Vue {
 
         this.spousalSupportNewPages = [p.SpousalSupport, p.SpousalSupportIncomeAndEarningPotential, p.AboutSpousalSupportOrder, p.CalculatingSpousalSupport]
         this.spousalSupportExistingPages = [p.ExistingSpousalSupportOrderAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport]
-       
     }
 
     public initializeSurvey(){
@@ -122,8 +119,6 @@ export default class FlmBackground extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
-            //console.log(this.survey.data)
             this.setPages()
         })
     }
@@ -134,7 +129,7 @@ export default class FlmBackground extends Vue {
         
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
        
-        if (stepCOM.result && stepCOM.result.otherPartyCommonSurvey && stepCOM.result.otherPartyCommonSurvey.data) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             
             const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
@@ -149,19 +144,18 @@ export default class FlmBackground extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.flmBackgroundSurvey && this.step.result.flmBackgroundSurvey.data){
+        if (this.step.result?.flmBackgroundSurvey?.data){
             this.survey.data = this.step.result.flmBackgroundSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
         
-        if (this.otherPartyNames.length > 1){
-            this.survey.setVariable("multipleOP", true); 
-            // console.log("show")               
+        if (this.otherPartyNames?.length > 1){
+            this.survey.setVariable("multipleOP", true);              
         } else {
             this.survey.setVariable("multipleOP", false);
         }       
 
-        if (this.step.result && this.step.result.flmQuestionnaireSurvey){
+        if (this.step.result?.flmQuestionnaireSurvey){
             this.selectedForms = this.step.result.flmQuestionnaireSurvey.data
         }
         
@@ -170,13 +164,10 @@ export default class FlmBackground extends Vue {
         }
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-        //console.log(this.step.result.flmQuestionnaireSurvey.data)
-        
     }
 
     public setPages() {
-        
-        // console.log(selectedForm)
+
         if (this.selectedForms) {
                         
             this.togglePages(this.allPages, false);
@@ -186,38 +177,39 @@ export default class FlmBackground extends Vue {
             }
 
             if (this.selectedForms.includes("parentingArrangements")){                
-                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Parenting Arrangements including `parental responsibilities` and `parenting time`'))
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Parenting Arrangements including `parental responsibilities` and `parenting time`'))
                     this.togglePages(this.parentingArrangementsExistingPages, true);
                 else    
                     this.togglePages(this.parentingArrangementsNewPages, true);               
             } 
 
             if (this.selectedForms.includes("childSupport")) {
-                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Child Support'))
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Child Support'))
                     this.togglePages(this.childSupportExistingPages, true);
                 else
                     this.togglePages(this.childSupportNewPages, true);
-            } 
+            }
+
             if (this.selectedForms.includes("contactWithChild")) {
-                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Contact with a Child')){
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Contact with a Child')){
                     this.togglePages(this.contactWithChildNewPages, false);
                     this.togglePages(this.contactWithChildExistingPages, true);
                 } else {
                     this.togglePages(this.contactWithChildExistingPages, false);
                     this.togglePages(this.contactWithChildNewPages, true);
-                }
-                    
-            } 
+                }                    
+            }
+
             if (this.selectedForms.includes("guardianOfChild")) {                
                 this.togglePages(this.guardianOfChildNewPages, true);
-            } 
+            }
+
             if (this.selectedForms.includes("spousalSupport")) {
-                if(this.survey.data.ExistingOrdersFLM == 'y' && this.survey.data.existingOrdersListFLM && this.survey.data.existingOrdersListFLM.includes('Spousal Support'))
+                if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Spousal Support'))
                     this.togglePages(this.spousalSupportExistingPages, true);
                 else
                     this.togglePages(this.spousalSupportNewPages, true);
-            }     
-
+            }
         }
     }
 
@@ -241,16 +233,10 @@ export default class FlmBackground extends Vue {
         }
     }
   
-    beforeDestroy() {
-       
+    beforeDestroy() {       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
         this.UpdateStepResultData({step:this.step, data: {flmBackgroundSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

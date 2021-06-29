@@ -72,7 +72,6 @@ export default class FlmAdditionalDocuments extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
-        //console.log(this.allPages)
     }
 
     public initializeSurvey(){
@@ -87,8 +86,6 @@ export default class FlmAdditionalDocuments extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
-            // console.log(this.survey.data)
         })
     }
 
@@ -98,8 +95,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
         let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<br><br><ul>";
         for (const doc of this.requiredDocumentLists){
-            //console.log(doc)
-            //console.log(doc.includes('Form 5'))
+    
             if(doc.includes('Form 5'))
                 this.appointedAsGuardian = true;
             if(doc.includes('form') || doc.includes('Form')){
@@ -116,7 +112,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result.flmAdditionalDocumentsSurvey && this.step.result.flmAdditionalDocumentsSurvey.data){
+        if (this.step.result?.flmAdditionalDocumentsSurvey?.data){
             this.survey.data = this.step.result.flmAdditionalDocumentsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
@@ -128,12 +124,10 @@ export default class FlmAdditionalDocuments extends Vue {
 
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
-        if(this.requiredDocuments.familyLawMatter && this.requiredDocuments.familyLawMatter.required){
+        if(this.requiredDocuments?.familyLawMatter?.required){
             this.requiredDocumentLists = this.requiredDocuments.familyLawMatter.required
             this.isRequiredDocument = true
-        }
-       // console.log(this.requiredDocuments.familyLawMatter)
-       // console.log(this.requiredDocumentLists)
+        }       
     }
 
     public getFLMResultData() {         
@@ -142,9 +136,9 @@ export default class FlmAdditionalDocuments extends Vue {
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of steps){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }
 
@@ -160,12 +154,8 @@ export default class FlmAdditionalDocuments extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
         
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
-
-        //return result;
     }    
 
     public onPrev() {
@@ -185,8 +175,3 @@ export default class FlmAdditionalDocuments extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

@@ -125,8 +125,8 @@ export default class ReviewAndPrint extends Vue {
     public UpdateGotoNextStepPage!: () => void
 
     error= "";
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
    
     includesPO = false;    
 
@@ -141,19 +141,17 @@ export default class ReviewAndPrint extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         let progress = this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress
+        
         if(progress==0) progress=50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
 
         let location = this.$store.state.Application.applicationLocation
         if(!location) location = this.$store.state.Common.userLocation
-        //console.log(location)
-
+        
         this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
-        //console.log(this.applicantLocation) 
            
         if (this.applicantLocation["filingLocation"]){
             this.filingLocation = this.locationsInfo.filter(loc => {if (loc.id == this.applicantLocation["filingLocation"]) return true})[0]
-            // console.log(this.applicantLocation)
         } else {
             this.filingLocation = this.applicantLocation;
         }
@@ -175,10 +173,6 @@ export default class ReviewAndPrint extends Vue {
     public navigateToGuide(){
         Vue.filter('scrollToLocation')("pdf-guide");
     }  
-
-    // beforeDestroy() {
-    //     Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, true);
-    // }
 
 }
 </script>
