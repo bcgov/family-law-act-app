@@ -1,6 +1,21 @@
 <template>
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
+
+        <b-modal size="xl" v-model="consentInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">               
+                <p>The following series of questions are about the application for case management 
+                    order that cannot be made without notice to the other party. After we complete 
+                    these questions, you will be presented with questions about the without notice 
+                    order.
+                </p>
+            </div>
+            <template v-slot:modal-footer>
+                <b-button variant="success" @click="closeConsentInfo">Continue</b-button>
+            </template>            
+        </b-modal>
+
     </page-base>
 </template>
 
@@ -48,7 +63,9 @@ export default class WithoutNoticeOrAttendance extends Vue {
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
     currentStep =0;
-    currentPage =0;   
+    currentPage =0;  
+    
+    consentInfo = false;
 
     listOfIssuesDescription = '';
 
@@ -58,6 +75,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     mounted(){
+        this.consentInfo = false;
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
@@ -99,11 +117,20 @@ export default class WithoutNoticeOrAttendance extends Vue {
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            if (this.survey.data?.needWithoutNotice == 'y' && this.needConsent()) {            
+                this.consentInfo = true;
+            } else {
+                this.UpdateGotoNextStepPage();
+            }                        
         }
     }
 
-     public getDescription(data) {
+    public closeConsentInfo(){
+        this.consentInfo = false;
+        this.UpdateGotoNextStepPage();            
+    }
+
+    public getDescription(data) {
         let description = '';
         let listOfIssues = [];
         const firstDescriptionSection = 'Usually, an application for an order must be made with notice to all other parties so ' +
@@ -149,31 +176,56 @@ export default class WithoutNoticeOrAttendance extends Vue {
         return description;
     }
 
-    public determineCaseMgntNeeded(){
-        if (this.survey.data && this.survey.data.noticeType) {
-            const noticeType = this.survey.data.noticeType;
-            if (noticeType == 'askingForWithoutNotice' || noticeType == 'askingForUnder 7 DaysNotice') {
-                //console.log('turn on case management')
-                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
-                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
-                //console.log(selectedForms)
-                if(selectedForms && !selectedForms.includes('caseMgmt')){
-                    selectedForms.push('caseMgmt')
-                }
-                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+    public needConsent(){
+        let needConsent = false;
+        if (this.step.result?.cmQuestionnaireSurvey?.data){
+            const selectedCaseManagementItems = this.step.result?.cmQuestionnaireSurvey?.data;
+            const byConsentRequiredList = [
+                "adjourningAppearance",
+                "fileTransfer",
+                "settingTime",
+                "nonPartyDisclosure",
+                "rule112",
+                "orderOfAbsenceChange",
+                "section211",
+                "fileAccess",
+                "fileCorrection",
+                "orderSettlement",
+                "section204",
+                "lawyerAppointment",
+                "subpoenaCancelation",
+                "section33"
+            ]
+
+            needConsent = byConsentRequiredList.some(i => selectedCaseManagementItems.includes(i));
+        }
+
+        return needConsent;
+    }
+
+    public determineByConsentNeeded(){
+        if (this.survey.data?.needWithoutNotice) {
+            const needWithoutNotice = this.survey.data.needWithoutNotice;
+            if (needWithoutNotice == 'n') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true); 
+            } else if (needWithoutNotice == 'y' && !this.needConsent()) {
+                this.togglePages([this.stPgNo.CM.ByConsent], false);  
             }
         }
     }
 
-    public toggleSteps(stepId, activeIndicator) {       
-        this.$store.commit("Application/setStepActive", {
-            currentStep: stepId,
-            active: activeIndicator
-        });
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {            
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
     }
 
     beforeDestroy() {
-        this.determineCaseMgntNeeded();
+        this.determineByConsentNeeded();
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {withoutNoticeOrAttendanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

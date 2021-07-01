@@ -222,8 +222,7 @@ export default class PpmQuestionnaire extends Vue {
             }   
 
         }
-    } 
-  
+    }  
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {

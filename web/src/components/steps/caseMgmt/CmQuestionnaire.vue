@@ -360,7 +360,7 @@ export default class CmQuestionnaire extends Vue {
 
     public getSelectedCaseManagementItems(){
         let result = ''
-        this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], false);       
+        this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance, this.stPgNo.CM.ByConsent], false);       
         for(const form of this.selectedCaseManagement){
             if(form=='changeServiceRequirement') {
                 this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
@@ -375,39 +375,51 @@ export default class CmQuestionnaire extends Vue {
                 result+='-Attending at a court appearance by telephone, video or other electronic means'+'\n';
             }
             if(form=='adjourningAppearance') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Adjourning a court appearance'+'\n';
             }
             if(form=='fileTransfer') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Transferring a court file to another registry'+'\n';
             }
             if(form=='settingTime') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Setting a specified time to file and exchange information or evidence, including a financial statement in Form 4'+'\n';
             }
             if(form=='nonPartyDisclosure') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Disclosing of information by a person who is not a party'+'\n';
             }
             if(form=='rule112') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-About the conduct of a party or management of a case, including pre-trial and trial process and evidence disclosure set out in Rule 112(1)'+'\n';
             }
             if(form=='orderOfAbsenceChange') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Changing, suspending or cancelling an order made in my absence'+'\n';
             }
             if(form=='section211') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Relating to a report under section 211, including requiring a person who prepared a report to attend trial as a witness'+'\n';
             }
             if(form=='fileAccess') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Management of a court record, file or document including access to a court file'+'\n';
             }
             if(form=='fileCorrection') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Correcting or changing a filed document, including correcting a name or date of birth'+'\n';
             }
             if(form=='orderSettlement') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Settling or correcting the terms of an order'+'\n';
             }
             if(form=='section204') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Adding or removing a party to a case, including leave to intervene under section 204 (2) of the Family Law Act'+'\n';
             }
             if(form=='lawyerAppointment') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Respecting the appointment of a lawyer to represent the interests of a child or a party'+'\n';
             }
             if(form=='otherProvinceOrder') {
@@ -415,9 +427,11 @@ export default class CmQuestionnaire extends Vue {
                 result+='-Recognizing a court order from another province or territory'+'\n';
             }
             if(form=='subpoenaCancelation') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Cancelling a subpoena'+'\n';
             }
             if(form=='section33') {
+                this.togglePages([this.stPgNo.CM.ByConsent], true);
                 result+='-Requiring that a parentage test be taken under section 33 of the Family Law Act'+'\n';
             }
             if(form=='section242') {
