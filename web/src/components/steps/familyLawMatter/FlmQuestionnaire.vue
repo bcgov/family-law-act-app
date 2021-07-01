@@ -305,7 +305,7 @@ export default class FlmQuestionnaire extends Vue {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>
