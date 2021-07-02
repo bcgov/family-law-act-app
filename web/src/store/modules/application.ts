@@ -695,7 +695,7 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "7";
-        p.name = "CmChildren";
+        p.name = "CmChildrenInfo";
         p.label = "Children";
         p.active = true;
         p.progress = 0;    

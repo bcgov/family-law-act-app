@@ -7,7 +7,7 @@
       "elements": [
         {
           "type": "panel",
-          "name": "aboutPriorityParentingMatterPanel",
+          "name": "otherPersonsPanel",
           "elements": [
             {
               "type": "yesno",

@@ -16,6 +16,7 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -28,6 +29,9 @@ export default class ByConsent extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];    
@@ -81,9 +85,39 @@ export default class ByConsent extends Vue {
             this.survey.data = this.step.result.byConsentSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
+        if (this.step.result?.otherPersonsSurvey){
+            if (this.step.result.otherPersonsSurvey.data?.otherPersonsExist == 'y'){
+                this.survey.setVariable("firstQuestionText", "and each other person who may be directly affected by the order");
+            } else {
+                this.survey.setVariable("firstQuestionText", "");
+            }
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-    }   
+    } 
+    
+    public determineSchedulingNeeded(){
+        if (this.survey.data?.givenConsent && this.survey.data?.giveConsentDirection) {
+            const givenConsent = this.survey.data.givenConsent;
+            const direction = this.survey.data.giveConsentDirection;
+            if (givenConsent == 'n' || (givenConsent == 'y' && direction == 'scheduleAppearance')) {
+                this.togglePages([this.stPgNo.CM.Scheduling], true); 
+            } else {
+                this.togglePages([this.stPgNo.CM.Scheduling], false);  
+            }
+        }
+    }
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {            
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
+    }
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()
@@ -96,6 +130,7 @@ export default class ByConsent extends Vue {
     } 
     
     beforeDestroy() {
+        this.determineSchedulingNeeded();
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {byConsentSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

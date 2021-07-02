@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -16,7 +16,6 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -30,9 +29,6 @@ export default class CmNotice extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
-
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -42,11 +38,7 @@ export default class CmNotice extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.Action
-    public UpdateCommonStepResults!: (newCommonStepResults) => void
-
     survey = new SurveyVue.Model(surveyJson);
-    disableNextButton = false;
     currentStep =0;
     currentPage =0;   
 
@@ -96,22 +88,6 @@ export default class CmNotice extends Vue {
         }
     }
 
-    public determineCaseMgntNeeded(){
-        if (this.survey.data && this.survey.data.noticeType) {
-            const noticeType = this.survey.data.noticeType;
-            if (noticeType == 'askingForWithoutNotice' || noticeType == 'askingForUnder 7 DaysNotice') {
-                //console.log('turn on case management')
-                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
-                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
-                //console.log(selectedForms)
-                if(selectedForms && !selectedForms.includes('caseMgmt')){
-                    selectedForms.push('caseMgmt')
-                }
-                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
-            }
-        }
-    }
-
     public toggleSteps(stepId, activeIndicator) {       
         this.$store.commit("Application/setStepActive", {
             currentStep: stepId,
@@ -119,8 +95,7 @@ export default class CmNotice extends Vue {
         });
     }
 
-    beforeDestroy() {
-        this.determineCaseMgntNeeded();
+    beforeDestroy() {        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

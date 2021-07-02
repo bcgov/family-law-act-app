@@ -3,33 +3,42 @@
   "pages": [
     {
       "name": "Scheduling",
-      "description": "{listOfIssuesDescription}",
+      "description": "The court prefers to schedule court appearances for a date that works for everyone. Check with the other party or person to see if there are dates that may work better for all of you. It is usually better for you if the court appearance is scheduled for a date when everyone can be there.   Try to pick a few dates that may work for you and the other party or person, the registry or Judicial Case Manager will work with you to schedule the date based on the court’s availability too. Remember that you must give each party or person at least 7 days’ notice of the date and time of the court appearance.",
       "elements": [
         {
           "type": "panel",
-          "name": "aboutPriorityParentingMatterPanel",
+          "name": "schedulingPanel",
           "elements": [
             {
-              "type": "comment",
-              "name": "orderDescription",
+              "type": "yesno",
+              "name": "informedOtherParties",
               "isRequired": true,
-              "title": "Please provide the details of the order you are asking the court to make:",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
+              "title": "Have you contacted each other party to discuss available dates and times for the court appearance?"
             },
             {
               "type": "helptext",
               "name": "FAQLegalAdvice",
-              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "title": "How do I know when the court schedules these applications?",
               "titleLocation": "hidden",
-              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+              "body": "Each court registry has different scheduling practices. You can contact the court registry where you will be filing your application to find out if there are set days or times when these applications are scheduled. They might also be able to tell you which days have available times to book.<br><br>Courthouse locations and contact information can be found on the <a target='blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>BC Government website</a>. <br><br>You can also check the <a target='blank' href='https://www.provincialcourt.bc.ca/locations-contacts'>Provincial Court’s website</a> for contact details and hours of courtroom operation, including family remand dates. "
             },
             {
-              "type": "comment",
-              "name": "applicationFacts",
-              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include why you need the court to make the order and how your situation is a priority parenting matter.",
+              "type": "yesno",
+              "name": "agreeOnSchedule",
               "isRequired": true,
-              "title": "The `facts` on which this application is based are as follows:"
-            }
+              "visible": false,
+              "visibleIf": "{informedOtherParties} = 'y'",
+              "title": "Did you agree to a date and time for the court appearance?",
+              "description": "Try to pick a few dates that may work for you and the other party or person, the registry or Judicial Case Manager will work with you to schedule the date based on the court’s availability too."
+            },
+            {
+              "type": "infotext",
+              "name": "agreeOnScheduleDescription",
+              "title": "Make sure you let the court registry know which date and time you have agreed on when you are filing your application. The registry will fill in the actual date on the form.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{informedOtherParties} = 'y' and {agreeOnSchedule} = 'y'"
+            }            
           ]
         }
       ],

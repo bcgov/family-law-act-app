@@ -18,20 +18,6 @@
                     "title": "What is the child's date of birth?",
                     "isRequired": true,
                     "inputType": "date"
-                },
-                {
-                    "type": "comment",
-                    "name": "relationToChild",
-                    "title": "What is your relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true
-                },
-                {
-                    "type": "comment",
-                    "name": "childRelationToOtherParty",
-                    "title": "What is the other party's relationship to the child?",
-                    "description": "Use whatever wording best describes it, for example, father, step-mother, grandparent, etc.",
-                    "isRequired": true
                 }
             ]
         }

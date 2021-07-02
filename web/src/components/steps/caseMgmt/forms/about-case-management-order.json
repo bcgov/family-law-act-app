@@ -7,7 +7,7 @@
       "elements": [
         {
           "type": "panel",
-          "name": "aboutPriorityParentingMatterPanel",
+          "name": "aboutCaseManagementPanel",
           "elements": [
             {
               "type": "comment",
@@ -26,7 +26,7 @@
             {
               "type": "comment",
               "name": "applicationFacts",
-              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include why you need the court to make the order and how your situation is a priority parenting matter.",
+              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. If you are applying to change, suspend or cancel an order made in your absence, you must explain why you did not file a reply or attend court when required, why the order should be made and the reasons for any delay in making this application.",
               "isRequired": true,
               "title": "The `facts` on which this application is based are as follows:"
             }
