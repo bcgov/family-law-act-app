@@ -96,10 +96,8 @@ export default class OtherPersons extends Vue {
     } 
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {otherPersonsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>

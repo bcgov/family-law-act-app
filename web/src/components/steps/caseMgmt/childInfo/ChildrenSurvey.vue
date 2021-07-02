@@ -93,29 +93,24 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
-        const p = this.stPgNo.PPM
+        const p = this.stPgNo.CM
         const pages = [            
-            p.ReviewYourAnswersPPM
+            p.ReviewYourAnswersCM
         ]
         Vue.filter('setProgressForPages')(this.currentStep, pages,50)
         this.survey.completeLastPage();
     }
 
-    public populateChildModel(childData) {
-        //console.log(childData)
+    public populateChildModel(childData) {       
         this.child.name = childData.childName;       
-        this.child.dob = childData.childDateOfBirth;
-        this.child.relation = childData.relationToChild;
-        this.child.opRelation = childData.childRelationToOtherParty;       
+        this.child.dob = childData.childDateOfBirth;             
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
         survey.data = {
             childName: { first: editRowProp.name.first, middle: editRowProp.name.middle, last: editRowProp.name.last }
         };
-        survey.setValue("childDateOfBirth", editRowProp.dob);
-        survey.setValue("relationToChild", editRowProp.relation);
-        survey.setValue("childRelationToOtherParty", editRowProp.opRelation);       
+        survey.setValue("childDateOfBirth", editRowProp.dob);        
         survey.setVariable("id", editRowProp.id);
     }
 

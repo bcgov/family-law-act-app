@@ -16,7 +16,6 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { priorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
 const applicationState = namespace("Application");
 
 @Component({
@@ -84,63 +83,102 @@ export default class AboutCaseManagementOrder extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result?.priorityParentingMatterOrderSurvey?.data){
-            this.listOfIssuesDescription = this.getDescription(this.step.result.priorityParentingMatterOrderSurvey.data);
+        if (this.step.result?.cmQuestionnaireSurvey?.data){
+            this.listOfIssuesDescription = this.getDescription();
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
-    public getDescription(data: priorityParentingMatterOrderSurveyDataInfoType) {
+     public getDescription() {
         let description = '';
-        const firstDescriptionSection = 'You indicated you are applying for an order about a priority parenting matter '
-       
-        let ppmType = []
-        if(this.step.result?.ppmQuestionnaireSurvey?.data )
-            ppmType = this.step.result.ppmQuestionnaireSurvey.data
-
         let listOfIssues = [];
-        const medical = (ppmType.includes('medical') && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk && data.confirmMedicalRisk.includes('applyPPM'));
-        const passport = (ppmType.includes('passport') && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk && data.confirmDelayPassportRisk.includes('applyPPM'));
-        const travel = (ppmType.includes('travel') && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied && data.confirmTravelWrongfullyDenied.includes('applyPPM'));
-        const locationChange = (ppmType.includes('locationChange') && data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship && data.confirmImpactOnRelationship.includes('applyPPM'));
-        const preventRemoval = (ppmType.includes('preventRemoval') && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk && data.confirmNoReturnRisk.includes('applyPPM')); 
-        const interjurisdictional = (ppmType.includes('interjurisdictional') && data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm && data.confirmHarm.includes('applyPPM'));
-        const wrongfulRemoval = (ppmType.includes('wrongfulRemoval') && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC && data.confirmWrongfulInBC.includes('applyPPM'));
-        const returnOfChild = (ppmType.includes('returnOfChild') && data.wrongfulReturn == 'y') && (data.confirmWrongfulReturn && data.confirmWrongfulReturn.includes('applyPPM'));
+        const firstDescriptionSection = 'You indicated you are applying for a case management order about:  '
+       
+        let cmType = []
+        if(this.step.result?.cmQuestionnaireSurvey?.data )
+            cmType = this.step.result.cmQuestionnaireSurvey.data
 
-        if (medical) {
-            listOfIssues.push('<li>because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health</li>');
+        let withoutNotice = true;
+        if (this.step.result.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice == 'n')
+            withoutNotice = false;
+        
+        if (cmType.includes('changeServiceRequirement') && !withoutNotice) {
+            listOfIssues.push('<li>Changing or cancelling the requirement for service or notice to a person, including allowing another method for the service of a document</li>');
         }
 
-        if (passport) {
-            listOfIssues.push('<li>because a guardian needs to apply for a passport, licence, permit, benefit, privilege or other thing for a child and a delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being</li>');
+        if (cmType.includes('changeRequirement') && !withoutNotice) {
+            listOfIssues.push('<li>Changing or cancelling any other requirement under the rules, including a time limit</li>');
         }
 
-        if (travel) {
-            listOfIssues.push('<li>because a guardian wrongfully denied consent for travel with a child or participation by a child in an activity</li>')
+        if (cmType.includes('remoteAttendance') && !withoutNotice) {
+            listOfIssues.push('<li>Attending at a court appearance by telephone, video or other electronic means</li>');
         }
 
-        if (locationChange) {
-            listOfIssues.push('<li>because a change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian</li>')
+        if (cmType.includes('adjourningAppearance')) {
+            listOfIssues.push('<li>Adjourning a court appearance</li>')
         }
 
-        if (preventRemoval) {
-            listOfIssues.push('<li>to prevent the removal of a child under section 64 of the Family Law Act </li>')
+        if (cmType.includes('fileTransfer')) {
+            listOfIssues.push('<li>Transferring a court file to another registry</li>')
         }
 
-        if (interjurisdictional) {
-            listOfIssues.push('<li>to determine matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act because you believe the child, currently in BC, would suffer serious harm if they were to remain with, or be returned to, the child’s guardian or be removed from BC</li>')
+        if (cmType.includes('settingTime')) {
+            listOfIssues.push('<li>Setting a specified time to file and exchange information or evidence, including a financial statement in Form 4</li>')
         }
 
-        if (wrongfulRemoval) {
-            listOfIssues.push('<li>under section 77(2) of the Family Law Act because you believe a child has been wrongfully brought to or kept in BC</li>')
+        if (cmType.includes('nonPartyDisclosure')) {
+            listOfIssues.push('<li>Disclosing of information by a person who is not a party</li>')
         }
 
-        if (returnOfChild) {
-            listOfIssues.push('<li>relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention</li>')
+        if (cmType.includes('rule112')) {
+            listOfIssues.push('<li>About the conduct of a party or management of a case, including pre-trial and trial process and evidence disclosure set out in Rule 112(1)</li>')
         }
+
+        if (cmType.includes('orderOfAbsenceChange')) {
+            listOfIssues.push('<li>Changing, suspending or cancelling an order made in my absence</li>')
+        }
+
+        if (cmType.includes('section211')) {
+            listOfIssues.push('<li>Relating to a report under section 211, including requiring a person who prepared a report to attend trial as a witness</li>')
+        }
+
+        if (cmType.includes('fileAccess')) {
+            listOfIssues.push('<li>Management of a court record, file or document including access to a court file</li>')
+        }
+
+        if (cmType.includes('fileCorrection')) {
+            listOfIssues.push('<li>Correcting or changing a filed document, including correcting a name or date of birth</li>')
+        }
+
+        if (cmType.includes('orderSettlement')) {
+            listOfIssues.push('<li>Settling or correcting the terms of an order</li>')
+        }
+
+        if (cmType.includes('section204')) {
+            listOfIssues.push('<li>Adding or removing a party to a case, including leave to intervene under section 204 (2) of the Family Law Act</li>')
+        }
+
+        if (cmType.includes('lawyerAppointment')) {
+            listOfIssues.push('<li>Respecting the appointment of a lawyer to represent the interests of a child or a party</li>')
+        }
+
+        if (cmType.includes('subpoenaCancelation')) {
+            listOfIssues.push('<li>Cancelling a subpoena</li>')
+        }
+
+        if (cmType.includes('section33')) {
+            listOfIssues.push('<li>Requiring that a parentage test be taken under section 33 of the Family Law Act</li>')
+        }           
+
+        if (cmType.includes('otherProvinceOrder') && !withoutNotice) {
+            listOfIssues.push('<li>Recognizing a court order from another province or territory</li>');
+        }
+
+        if (cmType.includes('section242') && !withoutNotice) {
+            listOfIssues.push('<li>Requiring access to information in accordance with section 242 of the Family Law Act</li>');
+        }         
        
         if (listOfIssues.length == 1){            
             description = firstDescriptionSection + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
@@ -151,6 +189,7 @@ export default class AboutCaseManagementOrder extends Vue {
 
         return description;
     }
+
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

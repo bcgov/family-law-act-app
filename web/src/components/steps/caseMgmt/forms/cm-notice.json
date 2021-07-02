@@ -2,35 +2,31 @@
    "pages": [
       {
          "name": "Notice",
-         "description": "Normally, you need to give notice to the other party that you are applying for a court order. You give notice to the other party by having a copy of the application and supporting documents served on them at least 7 days before the date set for the court appearance unless the court allows the application to be made without notice or with less than 7 days' notice.</br></br>A judge can decide to review your application without the other party being given notice if:<ul><li>it is unreasonable because of special circumstances, or</li><li>providing notice in advance would probably have serious consequences.</li></ul>A judge can also decide to change the amount of notice you give the other party. A judge may order that you can give the other party less than 7 days’ notice if they believe your situation requires a court order sooner than 7 days.  If this happens, remember that notice must still be given to the other party before a judge will hear the application.</br></br>You must ask a judge for permission to apply without notice to the other party or with less than 7 days’ notice.",
+         "description": "I understand each other party, and any other person who may be directly affected by the order, must be given notice of my application about a case management order.<br>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.",
          "elements": [
             {
                "type": "panel",
                "name": "noticePanel",
                "elements": [
                   {
-                     "type": "radiogroup",
-                     "name": "noticeType",
-                     "title": "What type of `notice` will you be providing to the other party?",
+                     "type": "checkbox",
+                     "name": "acknowledgement",
+                     "title": "I understand",
+                     "titleLocation": "hidden",
                      "choices": [
                         {
-                           "value": "givingOver 7 DaysNotice",
-                           "text": "I am giving at least 7 days’ notice to the other party."
-                        },
-                        {
-                           "value": "askingForWithoutNotice",
-                           "text": "I am asking to make my application without notice to the other party."
-                        },
-                        {
-                           "value": "askingForUnder 7 DaysNotice",
-                           "text": "I am asking to make my application with less than 7 days’ notice to the other party."
-                        },
-                        {
-                           "value": "haveOrderForWithoutOrUnder 7 DaysNotice",
-                           "text": "I have a court order that allows me to make my application without notice or with less than 7 days’ notice"
+                           "value": "Understood",
+                           "text": "<b>I understand</b>"
                         }
                      ],
                      "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "noticeDescription",
+                     "title": "Note: If you are preparing and filing a consent order with your application, the other party will probably want to see a copy of your application before they sign the consent order. The application is made without a court appearance so the 7 days notice does not apply but they still need notice.",
+                     "titleLocation": "hidden",                     
+                     "messageStyle": "inline"
                   },
                   {
                      "type": "helptext",
@@ -38,14 +34,6 @@
                      "title": "How do I serve the other party?",
                      "titleLocation": "hidden",
                      "body": "There are two types of service – personal service and ordinary service.</br></br>Personal service means an adult person who is at least 19, other than you, must hand-deliver the documents directly to the person being served. A party cannot personally serve a document on the other party.</br></br>Some documents must be personally served, like the Application About a Family Law Matter and the Application About a Protection Order.</br></br>Ordinary service means that a party must be served to their address for service in one of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>A party’s address for service is the address they have provided to the court. A party who does not have an address for service must be served by personal service.</br></br>The rules about service are found in Part 12 <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e12125' target='blank'>Division 4</a> of the Provincial Court Family Rules.</br></br>Depending on how the documents are served, what day of the week they are served on, and even what time of day they are served, it might change how you count the notice period. Be sure to review the rules about service before serving the other party to make sure you give them proper notice."
-                  },
-                  {
-                     "type": "infotext",
-                     "name": "ExplanationNotice",
-                     "visible": false,
-                     "visibleIf": "({noticeType} = 'askingForUnder 7 DaysNotice') or ({noticeType} = 'askingForWithoutNotice')",
-                     "title": "You will need to complete an Application for Case Management Order Without Notice or Attendance to ask for an order changing or cancelling the requirement for service or notice to a person so this application can be made without notice or with less than 7 days’ notice. This service will help you complete the application so you can file it too.",
-                     "titleLocation": "hidden"
                   }
                ]
             }

@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
 
         <b-modal size="xl" v-model="consentInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
@@ -60,14 +60,13 @@ export default class WithoutNoticeOrAttendance extends Vue {
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
-    survey = new SurveyVue.Model(surveyJson);
-    disableNextButton = false;
+    survey = new SurveyVue.Model(surveyJson);    
     currentStep =0;
     currentPage =0;  
     
     consentInfo = false;
-
     listOfIssuesDescription = '';
+    cmType: string[] = [];
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -102,7 +101,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
         }
 
         if (this.step.result?.cmQuestionnaireSurvey?.data){
-            this.listOfIssuesDescription = this.getDescription(this.step.result.cmQuestionnaireSurvey.data);
+            this.listOfIssuesDescription = this.getDescription();
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
         }
         
@@ -130,7 +129,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
         this.UpdateGotoNextStepPage();            
     }
 
-    public getDescription(data) {
+    public getDescription() {
         let description = '';
         let listOfIssues = [];
         const firstDescriptionSection = 'Usually, an application for an order must be made with notice to all other parties so ' +
@@ -141,28 +140,28 @@ export default class WithoutNoticeOrAttendance extends Vue {
         'your attendance in court is needed, the registry staff will let you know.\n' + 
         'You can apply without notice or attendance for your order about:  '
        
-        let cmType = []
+        this.cmType = []
         if(this.step.result?.cmQuestionnaireSurvey?.data )
-            cmType = this.step.result.cmQuestionnaireSurvey.data
+            this.cmType = this.step.result.cmQuestionnaireSurvey.data
 
         
-        if (cmType.includes('changeServiceRequirement')) {
+        if (this.cmType.includes('changeServiceRequirement')) {
             listOfIssues.push('<li>Changing or cancelling the requirement for service or notice to a person, including allowing another method for the service of a document</li>');
         }
 
-        if (cmType.includes('changeRequirement')) {
+        if (this.cmType.includes('changeRequirement')) {
             listOfIssues.push('<li>Changing or cancelling any other requirement under the rules, including a time limit</li>');
         }
 
-        if (cmType.includes('remoteAttendance')) {
+        if (this.cmType.includes('remoteAttendance')) {
             listOfIssues.push('<li>Attending at a court appearance by telephone, video or other electronic means</li>');
         }
 
-        if (cmType.includes('otherProvinceOrder')) {
+        if (this.cmType.includes('otherProvinceOrder')) {
             listOfIssues.push('<li>Recognizing a court order from another province or territory</li>');
         }
 
-        if (cmType.includes('section242')) {
+        if (this.cmType.includes('section242')) {
             listOfIssues.push('<li>Requiring access to information in accordance with section 242 of the Family Law Act</li>');
         }         
        
@@ -203,13 +202,19 @@ export default class WithoutNoticeOrAttendance extends Vue {
         return needConsent;
     }
 
-    public determineByConsentNeeded(){
+    public determinePages(){
         if (this.survey.data?.needWithoutNotice) {
             const needWithoutNotice = this.survey.data.needWithoutNotice;
             if (needWithoutNotice == 'n') {
                 this.togglePages([this.stPgNo.CM.ByConsent], true); 
-            } else if (needWithoutNotice == 'y' && !this.needConsent()) {
-                this.togglePages([this.stPgNo.CM.ByConsent], false);  
+            } else if (needWithoutNotice == 'y'){
+
+                //schedule 1
+                this.togglePages([this.stPgNo.CM.AttendanceUsingElectronicCommunication], this.cmType.includes('remoteAttendance'));
+
+                if (!this.needConsent()) {
+                    this.togglePages([this.stPgNo.CM.ByConsent], false);  
+                }
             }
         }
     }
@@ -225,7 +230,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     beforeDestroy() {
-        this.determineByConsentNeeded();
+        this.determinePages();
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {withoutNoticeOrAttendanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

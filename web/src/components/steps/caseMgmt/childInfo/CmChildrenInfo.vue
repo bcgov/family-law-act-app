@@ -1,23 +1,63 @@
 <template>
     <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
+        
         <div class="home-content">
             <div class="row">
-                <div class="col-md-12"> <!-- v-if="showTable" -->
-                    <h1>Children Details</h1>
-                   
-                    <p>Add each child who is the subject of your priority parenting matter application. 
-                        To add a child, click the "Add Child" button. If you are done entering all the 
-                        children, click the "Next" button.
+                <div class="col-md-12">
+                    <h1>Children</h1>
+                    <p style="font-size: 1.25rem;">It is helpful for the court when they are considering making a case management 
+                        order to know if the case involves a child-related issue and, if so, some information about the children.
                     </p>
-                    <div class="childSection" v-if="showTable">
+                    <div>
+                        <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">Select the option that applies to your situation.</h2>                        
+                    </div>
+
+                    <div v class="radio-border">
+                        <b-form-group>
+                            <b-form-radio-group
+                            v-model="selectedChildrenRelated"
+                            name="childrenRelated"
+                            stacked>                
+                                <div>
+                                    <b-form-radio class="radio-choices" value="notParty">
+                                        <div>
+                                            I am not a party to the case
+                                        </div>                                      
+                                    </b-form-radio>
+                                </div>
+
+                                <div>
+                                    <b-form-radio class="radio-choices" value="nonChildRelatedCase">
+                                        <div>
+                                            I am a party to the case and the case does not involve a child-related issue
+                                        </div>                                      
+                                    </b-form-radio>
+                                </div>
+
+                                <div>
+                                    <b-form-radio class="radio-choices" value="childRelatedCase">
+                                        <div>
+                                            I am a party to the case and the case involves a child-related issue
+                                        </div>                                      
+                                    </b-form-radio>
+                                </div>
+
+                            </b-form-radio-group>
+                        </b-form-group>
+                    </div>
+                   
+                    <p class="my-4 ml-4" v-if="selectedChildrenRelated == 'childRelatedCase'">
+                        Add each child who is involved in your case. To add a child, click the "Add Child" button. 
+                        If you are done entering all the children, click the "Next" button.
+                    </p>
+                    <div class="childSection" v-if="(selectedChildrenRelated == 'childRelatedCase') && showTable">
+                        
                         <div class="childAlign">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                     <th scope="col">Child's name</th>
-                                    <th scope="col">Child's date of birth</th>
-                                    <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Other party's relationship to the child</th>                                   
+                                    <th scope="col">Child's date of birth</th>                                                                  
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -25,9 +65,7 @@
                                     <div></div>
                                     <tr v-for="child in childData" :key="child.id">
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
-                                    <td>{{child.dob | beautify-date}}</td>
-                                    <td>{{child.relation}}</td>
-                                    <td>{{child.opRelation}}</td>                                   
+                                    <td>{{child.dob | beautify-date}}</td>                                                                  
                                     <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -43,12 +81,13 @@
                     </div>
                 </div>
 
-                <div class="col-md-12" v-if="!showTable" id="child-info-survey">
+                <div class="col-md-12" v-if="(selectedChildrenRelated == 'childRelatedCase') && !showTable" id="child-info-survey">
                     <Children-Survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
                
             </div>
-        </div>       
+        </div> 
+              
     </page-base>
 </template>
 
@@ -87,13 +126,14 @@ export default class CmChildrenInfo extends Vue {
     showTable = true;
     childData = [];
     anyRowToBeEdited = null;
-    editId = null;    
+    editId = null;  
+    
+    selectedChildrenRelated = '';
     
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
          Vue.nextTick(()=>{
-            const el = document.getElementById('child-info-survey')
-            //console.log(el)
+            const el = document.getElementById('child-info-survey')            
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -141,8 +181,8 @@ export default class CmChildrenInfo extends Vue {
 
     created() {
         //console.log(this.step)
-        if (this.step.result && this.step.result.ppmChildrenInfoSurvey) {
-            this.childData = this.step.result.ppmChildrenInfoSurvey.data;
+        if (this.step.result?.cmChildrenInfoSurvey?.data) {
+            this.childData = this.step.result.cmChildrenInfoSurvey.data;
         }        
     }
 
@@ -151,6 +191,10 @@ export default class CmChildrenInfo extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+
+        if (this.step.result?.childRelatedTypeSurvey){
+            this.selectedChildrenRelated = this.step.result?.childRelatedTypeSurvey;
+        }
     }
 
     public isDisableNext() {
@@ -162,7 +206,7 @@ export default class CmChildrenInfo extends Vue {
         const progress = this.childData.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        this.UpdateStepResultData({step:this.step, data: {ppmChildrenInfoSurvey: this.getChildrenResults()}})       
+        this.UpdateStepResultData({step:this.step, data: {cmChildrenInfoSurvey: this.getChildrenResults(), childRelatedTypeSurvey: this.selectedChildrenRelated}})       
     }
 
     public getChildrenResults(){
@@ -170,8 +214,7 @@ export default class CmChildrenInfo extends Vue {
         for(const child of this.childData)
         {
             questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
-        }
-        //console.log(questionResults)
+        }       
         return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
@@ -179,9 +222,7 @@ export default class CmChildrenInfo extends Vue {
         const resultString = [];
 
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
-        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
-        resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
-        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)       
+        resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))          
         
         return resultString
     }
@@ -213,5 +254,19 @@ export default class CmChildrenInfo extends Vue {
     td a {
         display: block;
     }
+}
+
+.radio-border {
+  border: 1px solid rgba($gov-mid-blue, 0.3);
+  border-radius: 15px;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+.form-group .radio-choices{
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-weight: normal;
+  font-size: 17px;
 }
 </style>
