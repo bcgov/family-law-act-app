@@ -1,14 +1,14 @@
 <template>
 <div v-if="dataReady">    
-    <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button>  -->
-    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
+    <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
+    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>      
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"/>
-        <schedule-1 v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
-        <schedule-2 v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
-        <schedule-3 v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
-        <schedule-4 v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
-        <schedule-5 v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />        
+        <schedule-1     v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
+        <schedule-2     v-bind:result="result"  v-if="selectedSchedules.includes('schedule2')" />
+        <schedule-3     v-bind:result="result"  v-if="selectedSchedules.includes('schedule3')" />
+        <schedule-4     v-bind:result="result"  v-if="selectedSchedules.includes('schedule4')" />
+        <schedule-5     v-bind:result="result"  v-if="selectedSchedules.includes('schedule5')" />        
 
     </b-card>
 </div>
@@ -72,11 +72,11 @@ export default class Form11 extends Vue {
     public onPrint() { 
 
         const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmt") 
-        const pdf_name = "application-about-a-family-law-matter";    
+        const pdf_name = "application-for-case-management-order-without-notice-or-attendanceabout";    
         const el= document.getElementById("print");
-        //console.log(el)
+
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA 712   `+moment().format("MMMM D, YYYY")+` \\a           Form 3";`;
+        const bottomLeftText = `"PFA    `+moment().format("MMMM D, YYYY")+` \\a           Form 11";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
@@ -92,7 +92,7 @@ export default class Form11 extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -122,29 +122,25 @@ export default class Form11 extends Vue {
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             document.body.appendChild(link);
-            link.download = "Form3.pdf";
+            link.download = "Form11.pdf";
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
         },err => {
             console.error(err);
         });
     }
-
  
     public getFLMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }
 
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.FLM._StepNo].result.childBestInterestAcknowledgement};
-        Object.assign(result, result, childBestInterestAck);
-        
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
        
@@ -164,72 +160,25 @@ export default class Form11 extends Vue {
         const selectedFLMs = this.result.flmQuestionnaireSurvey;
         const flmBackgroundInfo = this.result.flmBackgroundSurvey;
 
-        if (flmBackgroundInfo.ExistingOrdersFLM == 'n') {
+        // if (flmBackgroundInfo.ExistingOrdersFLM == 'n') {
             
-            if (selectedFLMs.includes("parentingArrangements")){
+        //     if (selectedFLMs.includes("parentingArrangements")){
                 schedules.push("schedule1")
-            }
-            if (selectedFLMs.includes("childSupport")){
+        //     }
+        //     if (selectedFLMs.includes("childSupport")){
+                schedules.push("schedule2")
+        //     }
+        //     if (selectedFLMs.includes("contactWithChild")){
                 schedules.push("schedule3")
-            }
-            if (selectedFLMs.includes("contactWithChild")){
+        //     }            
+        //     if (selectedFLMs.includes("spousalSupport")){
+                schedules.push("schedule4")
+        //     }
+         //     if (selectedFLMs.includes("spousalSupport")){
                 schedules.push("schedule5")
-            }            
-            if (selectedFLMs.includes("spousalSupport")){
-                schedules.push("schedule9")
-            }
+        //     }
 
-        } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
-
-            if (selectedFLMs.includes("parentingArrangements")) {
-
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                    
-                    schedules.push("schedule2");
-                } else {
-                    schedules.push("schedule1");
-                }
-            }
-
-            if (selectedFLMs.includes("childSupport")){
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
-                    schedules.push("schedule4");
-                } else {
-                    schedules.push("schedule3")
-                }
-            }
-
-            if (selectedFLMs.includes("contactWithChild")){
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a Child")){
-                    schedules.push("schedule6")
-                } else {
-                    schedules.push("schedule5")
-                }
-            }
-
-            if (selectedFLMs.includes("spousalSupport")){
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
-                    schedules.push("schedule10")
-                } else {
-                    schedules.push("schedule9");
-                }
-            } 
-        }
-
-        if (selectedFLMs.includes("guardianOfChild")){
-            if (this.result.guardianOfChildSurvey){
-                if (this.result.guardianOfChildSurvey && 
-                    this.result.guardianOfChildSurvey.applicationType && 
-                    this.result.guardianOfChildSurvey.applicationType.includes('becomeGuardian')){
-                    schedules.push("schedule7")
-                }
-                if (this.result.guardianOfChildSurvey && 
-                    this.result.guardianOfChildSurvey.applicationType && 
-                    this.result.guardianOfChildSurvey.applicationType.includes('cancelGuardian')){
-                    schedules.push("schedule8")
-                }
-            }            
-        }        
+       
         // console.log(schedules)
         return schedules;
     }

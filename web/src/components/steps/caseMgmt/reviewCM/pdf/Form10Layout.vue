@@ -3,7 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-one-header">
+        <div  class="form-header">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
                 <div style="font-size:11pt;"><b>Application for Case Management Order</b></div>
@@ -53,53 +53,56 @@
                 </tr>
             </table>
         </section>
-<!-- <2> -->
         
+<!-- <2> -->        
         <section>
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
-                style="margin:0 0 0 0.5rem;display:inline;" 
+                style="margin:0 0 0 0.5rem; display:inline;" 
                 :check="true?'yes':''" 
-                text="I understand I must give notice of this application to other party, including any other person who may be directly 
-                affected by the order. To give notice, they must be served with the application and supporting documents at least 7 days 
-                before the date of the court appearance unless the court allows the application to be made without notice or with less 
-                than 7 days' notice."/>
+                marginLeft="1.5rem"
+                text="I understand I must give notice of this application to other party, including any other person who"/>
+            <div style=" text-indent:0; margin:0 0 -0.25rem 1.65rem;"> 
+                may be directly affected by the order. To give notice, they must be served with the application and
+                supporting documents at least 7 days before the date of the court appearance unless the court 
+                allows the application to be made without notice or with less than 7 days' notice."
+            </div>
         </section>
 
 <!-- <3> -->
         <div class="print-block">
-            <section> 
-                <div style="display:inline;">
+            <section>  
+                <div v-if="otherPartyInfo.length>1" style="margin-left:0.2rem; display:inline">The other parties are</div>
+                <div v-else style="margin-left:0.2rem; display:inline">The other party is</div>
+                <div v-for="otherparty,inx in otherPartyInfo" :key="inx" style="display:inline;">
                     <underline-form 
-                        style="text-indent:2px;display:inline-block;" 
-                        textwidth="14.5rem" 
-                        beforetext="The other party is" 
+                        style="margin-top:0.5rem; text-indent:2px;display:inline-block;" 
+                        textwidth="15.9rem" 
+                        :beforetext="inx>0? ',' : '' " 
                         hint="full name of the other party/parties" 
                         :italicHint="false" 
-                        :text="firstOtherParty.name | getFullName"/> 
+                        :text="otherparty.name | getFullName"/> 
                 </div>                
             </section>
         </div> 
 
 <!-- <4> -->
-        <div class="print-block mt-0">            
-
+        <div class="print-block mt-0">
             <section>
                 <div style="display:inline; margin:0 0 0 0.25rem">
                     <i>Complete only if applicable. You may leave this section blank.</i>
-                    <span>The following other person(s) who may be directly affected by the order is/are:</span>
                 </div>
-
-                <div v-if="true" 
-                        class="answerbox"></div>
-                    <div v-else style="margin-bottom:3rem;">(full name of other person(s))</div>                
+                <div style="text-indent:0;">The following other person(s) who may be directly affected by the order is/are:</div>
+                
+                <div v-if="false" class="answerbox"></div>
+                <div v-else style="margin-bottom:3rem;">                    
+                </div>                
             </section>
         </div>
 
 <!-- <5> -->
-        <div class="print-block mt-0">            
-
+        <div class="print-block mt-0">
             <section>
                 <div style="display:inline; margin:0 0 0 0.25rem">
                     <i>Complete only if everyone consents to the order you are asking for. You may leave this section blank.</i>
@@ -108,11 +111,10 @@
                  <div style="margin-left:1rem;">                   
                     <check-box style="" 
                         :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
-                        text="Each party, including any person directly affected by the order, has consented to the case management order and:"/>          
-                                       
+                        text="Each party, including any person directly affected by the order, has consented to the case management order and:"/>
                 </div>
                     
-                <div style="margin-left:2rem;">
+                <div style="margin-left:2.75rem;">
                     <i>Select only one of the following options</i>
                     <check-box style="" 
                         :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
@@ -128,14 +130,18 @@
 <!-- <6> -->
         <div class="print-block">            
             <section>               
-                <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">I have contacted the other party to discuss available dates and times for the court appearance
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; font-size: 9.45pt;">
+                    I have contacted the other party to discuss available dates and times for the court appearance
+                </div>
+                <div style="display:inline-block;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
+                </div>
+                              
+                <div style=" margin-left:1.0rem;">
+                    <i>If yes, have they have agreed to a date and time for the court appearance?</i>                
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="true?'yes':''"  text="Yes"/>                        
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="!true?'yes':''" text="No"/> 
-                </div>               
-                <div style="display:inline; margin-left:0.25rem;font-size: 9pt;">
-                    <i>If yes, have they have agreed to a date and time for the court appearance?</i>
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="true?'yes':''"  text="Yes"/>                        
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="!true?'yes':''" text="No"/> 
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="!true?'yes':''" text="No"/> 
                 </div>            
             </section>
         </div>   
@@ -155,18 +161,16 @@
 <!-- <7> -->
         <div class="print-block"> 
             <section>
-                
-
-                <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
-                    <i>I am applying for the following case management order(s):</i>
+                <div style="display:inline; margin-left:0.25rem;"> I am applying for the following case management order(s): </div>
+                <div style="margin:0.25rem 0 0 2rem;font-size: 10pt;" >                    
                     <check-box style="" :check="true?'yes':''" text="transferring the court file to another registry for all purposes or specific purposes"/>
                     <check-box style="" :check="true?'yes':''" text="relating to the management of a court record, file or document, including access to a court file"/>
                     <check-box style="" :check="true?'yes':''" text="correcting or amending a filed document, including the correction of a name or date of birth"/>
                     <check-box style="" :check="true?'yes':''" text="setting a specified period for the filing and exchanging of information or evidence, including a financial statement in Form 4
-                                                                    [Financial Statement]"/>
+                                                                    <i>[Financial Statement]</i>"/>
                     <check-box style="" :check="true?'yes':''" text="specifying or requiring information that must be disclosed by a person who is not a party to the case"/>
-                    <check-box style="" :check="true?'yes':''" text="requiring that a parentage test be taken under section 33 [parentage tests] of the Family Law Act"/>
-                    <check-box style="" :check="true?'yes':''" text="requiring access to information in accordance with section 242 [orders respecting searchable information] of the Family Law Act"/>
+                    <check-box style="" :check="true?'yes':''" text="requiring that a parentage test be taken under section 33 <i>[parentage tests]</i> of the Family Law Act"/>
+                    <check-box style="" :check="true?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the Family Law Act"/>
                     <check-box style="" :check="true?'yes':''" text="recognizing an extraprovincial order other than a support order"/>
                     <check-box style="" :check="true?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for
                                                                     the service of a document"/>
@@ -175,11 +179,12 @@
                     <check-box style="" :check="true?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video"/>
                     <check-box style="" :check="true?'yes':''" text="adjourning a court appearance"/>
                     <check-box style="" :check="true?'yes':''" text="respecting the conduct of a party or management of a case"/>
-                    <check-box style="" :check="true?'yes':''" text="relating to a report under section 211 [orders respecting reports] of the Family Law Act, including requiring that a person who
+                    <check-box style="" :check="true?'yes':''" text="relating to a report under section 211 <i>[orders respecting reports]</i> of the Family Law Act, including requiring that a person who
                                                                     prepared the report attend a trial as a witness"/>
-                    <check-box style="" :check="true?'yes':''" text="adding or removing a party to the case, including leave to intervene under section 204(2) [intervention by Attorney General or
-                                                                    other person] of the Family Law Act"/>
-                    <check-box style="" :check="true?'yes':''" text="respecting the appointment of a lawyer to represent <ul><li>the interests of a child or,</li><li>a party</li></ul>"/>
+                    <check-box style="" :check="true?'yes':''" text="adding or removing a party to the case, including leave to intervene under section 204(2) <i>[intervention by Attorney General or
+                                                                    other person]</i> of the Family Law Act"/>
+                    <check-box style="" :check="true?'yes':''" text="respecting the appointment of a lawyer to represent" />
+                    <ol style="margin:0 0 0 -0.5rem" class='resetcounterroman' > <li class='bracketroman'> the interests of a child or,</li><li class='bracketroman'>a party</li></ol>
                     <check-box style="" :check="true?'yes':''" text="settling or correcting the terms of an order made under the rules"/>
                     <check-box style="" :check="true?'yes':''" text="cancelling a subpoena"/>
                     <check-box style="" :check="true?'yes':''" text="changing, suspending or cancelling an order made in my absence"/>                  
@@ -188,28 +193,28 @@
         </div>
 
 <!-- <8> -->
-        <div class="print-block mt-0">            
-
+        <div class="print-block mt-0">
             <section>
-                <div style="display:inline; margin:0 0 0 0.25rem">                    
-                    <span>The details of the order(s) I am applying for are as follows:</span>
-                    <i>Tell the court and the other party the details of the order(s) you are asking for.</i>
+                <div style="display:inline; margin:0 0 0 0.05rem">                    
+                    The details of the order(s) I am applying for are as follows:
+                </div>
+                <div style="text-indent:0; margin:0 0 0 0.25rem">
+                    <i>Tell the court and the other party the details of the order(s) you are asking for</i>
                 </div>
 
-                <div v-if="true" 
-                        class="answerbox"></div>
-                    <div v-else style="margin-bottom:3rem;"></div>                
+                <div v-if="false" class="answerbox"></div>
+                <div v-else style="margin-bottom:3rem;"></div>                
             </section>
         </div>
 
 <!-- <9> -->
         <div class="print-block">
             <section>
-                <div style="display:inline; margin-left:0.25rem;font-size: 9pt; "><i>Select only one of the options below and complete the required information:</i></div>          
-                 <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >                    
-                    <check-box style="" :check="true?'yes':''" text="I am not a party to the case"/>
-                    <check-box style="" :check="true?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box style="" :check="true?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
+                <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
+                 <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
+                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am not a party to the case"/>
+                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
+                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
                  </div>
                 <b-table
                     :items="childrenInfo"
@@ -231,16 +236,17 @@
         <div class="print-block mt-0">            
 
             <section>
-                <div style="display:inline; margin:0 0 0 0.25rem">                    
-                    <span>The facts on which this application is based are as follows:</span>
+                <div style="display:inline; margin:0 0 0 0.05rem">                    
+                    The facts on which this application is based are as follows:
+                </div>
+                <div style="text-indent:0; margin-left:0.6rem">
                     <i>Provide the facts you want the court to consider. If you are applying to change, suspend or cancel an order made in your absence,
                         you must explain why you did not file a reply or attend court when required, why the order should be made and the reasons(s) for
                         any delay in making this application.</i>
                 </div>
 
-                <div v-if="true" 
-                        class="answerbox"></div>
-                    <div v-else style="margin-bottom:3rem;"></div>                
+                <div v-if="true" class="answerbox"></div>
+                <div v-else style="margin-bottom:3rem;"></div>                
             </section>
         </div>   
 
@@ -293,7 +299,7 @@ export default class Form10Layout extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;
 
     locationInfo = {} as locationInfoDataInfoType;
-    childrenInfo: childrenInfoSurveyInfoType[] = [];
+    childrenInfo: childrenInfoSurveyInfoType[] = [{fullName:'', dob:'', myRelationship:'', otherPartyRelationship:'', currentSituation:''}];
 
     applicantList = []
     
@@ -320,12 +326,8 @@ export default class Form10Layout extends Vue {
             this.childrenInfo = this.getChildrenInfo();
         }
         
-        this.otherPartyInfo=this.getOtherPartyInfo()        
-        this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo.length > 1) {
-            this.otherPartyInfo.splice(0,1)
-            this.additionalOtherParties = this.otherPartyInfo;
-        }        
+        this.otherPartyInfo = this.getOtherPartyInfo()        
+    
         this.yourInfo = this.getYourInfo();
          this.locationInfo = this.getLocationInfo(); 
     }  

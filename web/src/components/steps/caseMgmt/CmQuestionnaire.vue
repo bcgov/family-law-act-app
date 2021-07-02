@@ -289,7 +289,7 @@ export default class CmQuestionnaire extends Vue {
 
             if (selectedCaseManagement.length > 0){
 
-                this.togglePages([p.OtherPersons], true);
+                this.togglePages([p.OtherPersons,p.PreviewFormsCM], true);
                 
                 if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherPersons].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherPersons, 50, false);

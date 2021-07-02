@@ -72,11 +72,11 @@ export default class PreviewFormsCm extends Vue {
                     this.requiredForm = 1;
                 
             } else {
-                this.requiredForm = 3;
+                //this.requiredForm = 3;
             }
         
         } else {
-            this.requiredForm = 3;
+            //this.requiredForm = 3;
         }
 
                

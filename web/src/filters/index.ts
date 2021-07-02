@@ -507,6 +507,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.form-header-po{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+
+			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
 			`.form-header-reloc{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
@@ -527,8 +528,11 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`ol li.listnumber:before {content:counter(list-counter) ". ";font-weight: bold;}`+
 			`ol.resetcounteralpha {list-style: none;counter-reset: alpha-counter;}`+
 			`ol li.bracketalpha{text-indent: -20px;margin:0.075rem 0;counter-increment: alpha;}`+
-			`ol li.bracketalpha:before {content:counter(alpha, lower-alpha)") ";}`+			
-			
+			`ol li.bracketalpha:before {content:counter(alpha, lower-alpha)") ";}`+				
+			`ol.resetcounterroman {list-style: none;counter-reset: roman-counter;}`+			  
+			`ol li.bracketroman {text-indent: -20px;margin:0.25rem 0;counter-increment: roman;}`+
+			`ol li.bracketroman:before {content:counter(roman, lower-roman)") ";}`+
+						
 			`
 			body{				
 				font-family: BCSans;

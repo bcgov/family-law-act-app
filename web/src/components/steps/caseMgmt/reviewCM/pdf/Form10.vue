@@ -1,7 +1,7 @@
 <template>
 <div v-if="dataReady">    
-    <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button>  -->
-    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
+    <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
+    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>      
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <form-10-layout v-bind:result="result" v-bind:selectedPathways="selectedPathways"/>       
 
@@ -56,19 +56,15 @@ export default class Form10 extends Vue {
            
     public onPrint() { 
         
-        const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatterForm1")
-        const pdf_name = "notice-to-resolve-a-family-law-matter"
+        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmt")
+        const pdf_name = "application-for-case-management"
         const el= document.getElementById("print");
-        //console.log(el)
+
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `" ";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
-
-        // const body = new FormData();
-        // body.append('html',pdfhtml)
-        // body.append('json_data',null)
 
         const body = {
             'html':pdfhtml,
@@ -81,7 +77,7 @@ export default class Form10 extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -95,7 +91,7 @@ export default class Form10 extends Vue {
 
     public onPrintSave(){ 
         
-        const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatterForm1")
+        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmt")
         
         const applicationId = this.$store.state.Application.id;
         const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
@@ -111,7 +107,7 @@ export default class Form10 extends Vue {
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
             document.body.appendChild(link);
-            link.download = "Form1.pdf";
+            link.download = "Form10.pdf";
             link.click();
             setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
         },err => {
@@ -125,9 +121,9 @@ export default class Form10 extends Vue {
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
         for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResult in stepResults){         
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+            for(const stepResultInx in stepResults){         
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }     
 
@@ -136,15 +132,11 @@ export default class Form10 extends Vue {
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
-        //console.log(applicationLocation)
-        //console.log(userLocation)
+
         if(applicationLocation)
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
-        
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'caseMgmt')
 
@@ -152,29 +144,27 @@ export default class Form10 extends Vue {
     }
 
     public getPathwayInfo(){
-        // console.log(this.result)
 
         let pathways: string[] = [];
         const selectedCMs = this.result.flmQuestionnaireSurvey; 
             
-        if (selectedCMs.includes("parentingArrangements")){
+        if (selectedCMs?.includes("parentingArrangements")){
             pathways.push("parentingArrangements")
         }
-        if (selectedCMs.includes("childSupport")){
+        if (selectedCMs?.includes("childSupport")){
             pathways.push("childSupport")
         }
-        if (selectedCMs.includes("contactWithChild")){
+        if (selectedCMs?.includes("contactWithChild")){
             pathways.push("contactWithChild")
         } 
-        if (selectedCMs.includes("guardianOfChild")){
+        if (selectedCMs?.includes("guardianOfChild")){
             pathways.push("guardianOfChild")
         }
                     
-        if (selectedCMs.includes("spousalSupport")){
+        if (selectedCMs?.includes("spousalSupport")){
             pathways.push("spousalSupport")
         }
-        
-        
+                
         return pathways;
     }
 

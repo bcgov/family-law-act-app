@@ -3,118 +3,114 @@
 <!-- <Header> -->
         <div v-if="dataReady">
             <div class="new-page" />
-            <div style="text-align:center;"><b> SCHEDULE 1 – PARENTING ARRANGEMENTS – NEW</b></div>
-            <div style="text-align:center;"><b> This is Schedule 1 to the Application About a Family Law Matter</b></div>
+            <div style="text-align:center;"><b> SCHEDULE 1 – ATTENDANCE USING ELECTRONIC COMMUNICATION</b></div>
+            <div style="text-align:center;"><b> This is Schedule 1 to the Application for Case Management Order Without Notice or Attendance</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are a guardian of a child or, are applying to be appointed as a guardian of a child, making a new application about parenting arrangements for a child or children identified in section 11 of this application. 
-                Parenting arrangements include how each guardian of a child will parent their child(ren) together, including each guardian’s responsibilities for decision making about a child, and the time each guardian spends with a child.</i>
+                <i>This schedule must be completed only if you are applying for an order allowing a person to attend a conference or
+                    hearing using electronic communication, including by telephone or video.</i>
             </div>
+
+
 <!-- <1> -->
-            <section class="resetquestion"> 
-                I am:
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren) <br/> <i>A child’s parents are most often the child’s guardians, but other people can be guardians too. A parent who has never lived with their child is a guardian if they have regularly taken care of the child, there is an agreement or court order that says they are a guardian of a child, or under a will if the other parent dies. A person who is not a parent can become a guardian of a child by a court order or under a will.</i>"/>
-                <check-box style="margin:0 0 0 1rem;" :check="result.parentingArrangementsSurvey && result.parentingArrangementsSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
-            </section>
-
-            <div class="print-block">
-                <div style="margin-top:1rem;"><b>Parental responsibilities</b></div>
-                <div><i>Parental responsibilities can be set up so that they can be exercised by <div class="uline">one or more guardians</div> only, or by <div class="uline">each guardian</div> acting separately, or by <div class="uline">all guardians</div> acting together.</i></div>
-<!-- <2> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
-                    <div style="margin-left:1rem">
-                        <check-box style="" :check="(parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp)?'yes':''" text="I am applying for an order that gives me all parental responsibilities for the following child(ren):<br/><i>List the name of each child you are requesting all parental responsibilities for</i>"/>
-                        <div class="answer">
-                            <ul v-if="parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp">
-                                <li v-for="(child,inx) of parentArrInfo.parentResp.children" :key="inx"><span class="mx-3">{{child}}</span></li>
-                            </ul>
-                        </div>                    
-                        <check-box style="margin-top:1rem;" :check="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
-                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)?'yes':''" text="I am applying for an order for the parental responsibilities to be exercised by the guardians as follows:"/>                    
-                        <div v-if="(parentArrInfo.parentResp.applying && !parentArrInfo.parentResp.allResp) 
-                            || (parentArrInfo.parentResp.applying && parentArrInfo.parentResp.allResp && !parentArrInfo.parentResp.allKids)" class="answerbox">{{parentArrInfo.parentResp.expl}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>
-                    </div>            
-                </section>
+        <section>
+            <div style="display:inline; margin-left:0.15rem;"> I am applying for an order to allow: </div>
+            <div style="margin-left:1.1rem;"><i>Select all options that apply</i></div>
+            <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
+                <check-box style="" :check="true?'yes':''" text="me"/>                                
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="my lawyer, "/>
+                <underline-form style="margin-left:0.25rem; text-indent:3px;display:inline-block;" textwidth="16rem" beforetext="" hint="full name of lawyer" text=""/>
             </div>
+                
+            <div style="margin:0.5rem 0 0 1.1rem;">to attend at the:</div>
+            <div style="margin-left:1.1rem;"><i>Select only one of the options below</i></div>
 
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Parenting time</b></div>
-                <div><i>During parenting time, a guardian has the parental responsibility of making day-to-day decisions affecting the child and having day-to-day care, control, and supervision of the child. Complete section 3 below only if you are applying for an order about parenting time. You may leave this section blank.</i></div>
-<!-- <3> -->
-                <section>
-                    I am applying for an order about the allocation of parenting time as follows:
-                    <i style="display:block; margin-left:1rem">Select all options that apply and complete the required information. You may leave a section blank.</i>
-                    <check-box style="margin:0 0 0 1rem;" 
-                            :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired?'yes':''" 
-                            text="I am asking for the child(ren) to spend time with me as follows:"/> 
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.desired)" 
-                        class="answerbox">{{parentArrInfo.parentTime.desired}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
+            <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
+                <check-box style="" :check="true?'yes':''" text="family management conference"/>
+                <check-box style="" :check="true?'yes':''" text="family settlement conference"/>
+                <check-box style="" :check="true?'yes':''" text="trial preparation conference"/>
+                <check-box style="" :check="true?'yes':''" text="hearing"/>
+                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" text=""/>                
+            </div>   
 
-
-                    <check-box 
-                        style="margin:1rem 0 0 1rem;" 
-                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe?'yes':''" 
-                        text="I am willing to have the following conditions placed on my time with the child(ren):"/>
-                    
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionMe)" 
-                        class="answerbox">{{parentArrInfo.parentTime.myConditions}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>                    
-                    
-                    
-                    <check-box 
-                        style="margin:1rem 0 0rem 1rem;" 
-                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired?'yes':''" 
-                        text="I am asking for the child(ren) to spend time with the other guardian(s) as follows:"/>
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.opDesired)" 
-                        class="answerbox">{{parentArrInfo.parentTime.opDesired}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>
-                    
-                    
-                    <check-box 
-                        style="margin:1rem 0 0rem 1rem;" 
-                        :check="parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp?'yes':''" 
-                        text="I am asking to have the following conditions placed on the other guardian’s time with the child(ren):"/>
-                    <div v-if="(parentArrInfo.parentTime.applying && parentArrInfo.parentTime.conditionOp)" 
-                        class="answerbox">{{parentArrInfo.parentTime.opConditions}}</div>
-                    <div v-else style="margin-bottom:3rem;"></div>       
-               
-                </section>
+            <div style="margin:1rem 0 0.5rem 1.0rem;">
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="9rem" beforetext="Scheduled for" hint="mmm/dd/yyyy" text=""/>                
+                <underline-form style="text-indent:3px;display:inline-block;" textwidth="5rem" beforetext="at" hint="HH:MM" text=""/> 
             </div>
-
-            <div class="print-block">
-                <div style="margin-top:3rem;"><b>Parenting arrangements</b></div>
-<!-- <4> -->
-                <section>
-                    <i style="display:inline; margin-left:0.25rem">Complete only if there are additional order terms you want. You may leave this section blank.</i>
+            
+            <div style="margin:1.25rem 0 0 1.1rem;">By electronic communication as follows:</div>
+            <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
+                <div></div>
+                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="telephone at "/>
+                <underline-form style="text-indent:5px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="phone number" text=""/>
+  
+                 <div style=" margin:0.25rem 0 0.5rem 1.75rem;;">
+                    Is this a direct phone line? 
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="true?'yes':''"  text="Yes"/>                        
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="!true?'yes':''" text="No"/> 
                     <div>
-                        <check-box  
-                            inline="inline" 
-                            boxMargin="0" 
-                            style="display:inline; margin:0 0 0 1rem;" 
-                            :check="parentArrInfo.parentalArr.applying?'yes':''" text=""/>
-                        <div style="display:inline;">I am applying for the following other order term(s) about parenting arrangements:</div>
-                        <div v-if="(parentArrInfo.parentalArr.applying && parentArrInfo.parentalArr.desc)" 
-                        class="answerbox">{{parentArrInfo.parentalArr.desc}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>  
-                    
-                    
-                    </div>                
-                </section> 
-            </div>
+                        <i>If no, the person answering the phone must know the call will be coming and put it through immediately</i>
+                    </div>
+                </div>    
 
-            <div class="print-block">
-                <div style="margin-top:3rem; display:block;"><b>Best interests of child</b></div>
-<!-- <5> -->
-                <section>
-                    I believe the order about parenting arrangements I am applying for, including parental responsibilities and parenting time, is in the child(ren)’s best interests because:
-                    <div v-if="parentArrInfo.childBestInterest" 
-                        class="answerbox">{{parentArrInfo.childBestInterest}}</div>
-                        <div v-else style="margin-bottom:3rem;"></div>  
-                </section>
-            </div>
+                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other electronic communication method <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="" text=""/>                
+            </div>  
+
+        </section>
+
+<!-- <2> -->
+        <div class="print-block">            
+            <section>               
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem;">
+                    I understand the following requirements and I will comply with them
+                </div>
+                <div style="display:inline-block;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="!true?'yes':''" text="No"/> 
+                </div>
+                
+                <ul style="text-indent: 0px;">
+                    <li>a speaker phone must not be used</li>
+                    <li>I must remain near the phone at all times prior to the call from the Clerk of the Court</li>
+                    <li>the call must be taken in a quiet and private location</li>
+                    <li>no other person may be in the room during the appearance</li>
+                    <li>I may speak only when the Judge or Family Justice Manager indicates I may speak</li>
+                    <li>recording of the call is strictly prohibited</li>
+                </ul>
+            
+            </section>
+        </div>  
+
+<!-- <3> -->
+        <div class="print-block">            
+            <section>               
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; ">
+                    The documents I may want to refer to in court have been submitted to the court registry and received by the other party
+                </div>
+                <div style="display:inline-block;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
+                </div>                             
+          
+            </section>
+        </div>   
+
+<!-- <4> -->
+        <div class="print-block">            
+            <section>               
+                <div style="display:inline; text-indent:0; margin:0 0.5rem 0 0rem; ">
+                    I (and/or my lawyer) am unable to attend in person because:
+                </div>
+
+                <div v-if="false" class="answerbox"></div>
+                <div v-else style="margin-bottom:3rem;"></div>        
+          
+            </section>
+        </div>   
+
+  
         </div>
 </template>
 
