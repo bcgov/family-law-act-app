@@ -31,7 +31,7 @@
 
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
             <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
             <table class="fullsize">
@@ -93,9 +93,9 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
                  <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
-                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am not a party to the case"/>
-                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'notParty'?'yes':''" text="I am not a party to the case"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'nonChildRelatedCase'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'childRelatedCase'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
                  </div>
                 <b-table
                     :items="childrenInfo"
@@ -120,12 +120,12 @@
                 <div style="display:inline; margin-left:0.15rem;"> I am applying for the following case management order(s): </div>
                 <div style="margin-left:1.1rem;"><i>Select all that apply and complete the required schedule(s)</i></div>
                 <div style="margin:0.25rem 0 0 1.7rem;font-size: 10pt;" >                    
-                    <check-box style="" :check="true?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video <i>[complete and attach Schedule 1]</i>"/>
-                    <check-box style="" :check="true?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for the service of a document <i>[complete and attach Schedule 2]</i>"/>
-                    <check-box style="" :check="true?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
-                    <check-box style="" :check="true?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
+                    <check-box style="" :check="selectedSchedules.includes('schedule1')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video <i>[complete and attach Schedule 1]</i>"/>
+                    <check-box style="" :check="selectedSchedules.includes('schedule2')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for the service of a document <i>[complete and attach Schedule 2]</i>"/>
+                    <check-box style="" :check="selectedSchedules.includes('schedule3')?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
+                    <check-box style="" :check="selectedSchedules.includes('schedule4')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
                     
-                    <check-box style="" :check="true?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/>
+                    <check-box style="" :check="selectedSchedules.includes('schedule5')?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/>
                     
                 </div>                  
             </section>
@@ -143,9 +143,10 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
-import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { nameInfoType, childInfoType, otherPartyInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { cmChildrenInfoSurveyDataInfoType } from '@/types/Application/CaseManagement';
+import { caseManagementOtherPartyDataInfoType, cmLocationInfoDataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 
 @Component({
@@ -168,23 +169,15 @@ export default class CommonSection extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
     
-    dataReady = false;
-    aboutChildren = false;
+    dataReady = false;   
 
-    locationInfo = {} as locationInfoDataInfoType;
+    locationInfo = {} as cmLocationInfoDataInfoType;
 
     otherPartyInfo=[];
-    yourInfo = {} as yourInformationInfoDataInfoType;
-
-    applicantList = []
+    yourInfo = {} as yourInformationInfoDataInfoType;   
     
-    existingOrders = {} as existingOrdersInfoType;
-    
-    relationshipBetweenParties = {} as relationshipBetweenPartiesInfoType;
-    childrenInfo: childrenInfoSurveyInfoType[] = [{fullName:'', dob:'', myRelationship:'', otherPartyRelationship:'', currentSituation:''}];
-    childBestInterestAcknowledmentCheck = false;
-    culturalInfo = '';  
-    
+    childRelatedType: string = '';   
+    childrenInfo: childrenInfoSurveyInfoType[] = [];       
    
     mounted(){
         this.dataReady = false;
@@ -192,82 +185,44 @@ export default class CommonSection extends Vue {
         this.dataReady = true;
     }
    
-    childrenFields=[
+    childrenFields = [
         {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",           tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"Other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"},
-        {key:"currentSituation",       label:"Child is currently living with",         tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:16%;"},
     ]   
 
-    public extractInfo(){ 
-        
-       
-        const childRelatedApplication = ( 
-            this.selectedSchedules.includes('schedule1') ||
-            this.selectedSchedules.includes('schedule2') || 
-            this.selectedSchedules.includes('schedule3') ||
-            this.selectedSchedules.includes('schedule4') ||
-            this.selectedSchedules.includes('schedule5') || 
-            this.selectedSchedules.includes('schedule6') ||
-            this.selectedSchedules.includes('schedule7') || 
-            this.selectedSchedules.includes('schedule8')
-        )
-        // if (childRelatedApplication && this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){
-        //     this.aboutChildren = true;
-        //     this.childrenInfo = this.getChildrenInfo();
-        //     this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
-        // } else {
-        //     this.aboutChildren = false;
-        //     this.childrenInfo = [{fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''}];
-        //     this.childBestInterestAcknowledmentCheck = false;
-        // }
-
-        // if (this.result.flmBackgroundSurvey.culturalExplain) {
-        //     this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
-        // }       
-        
-        this.otherPartyInfo = this.getOtherPartyInfo()
-        this.yourInfo = this.getYourInfo()     
-        // this.locationInfo = this.getLocationInfo();  
-
+    public extractInfo(){
+        this.yourInfo = this.getYourInfo();  
+        this.otherPartyInfo = this.getOtherPartyInfo();  
+        this.childrenInfo = this.getChildrenInfo(); 
+        this.locationInfo = this.getLocationInfo();
     }
 
     public getLocationInfo(){
 
-        let locationInformation = {} as locationInfoDataInfoType;
-        // if (this.result.filingLocationSurvey){
-        //     const locationData = this.result.filingLocationSurvey;
-           
-        //     locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-        //     locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
-
-        //     locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
-        //     locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
-        //     locationInformation.educationRegistry = locationData.familyEducationProgram;  
-        //     locationInformation.none = !(locationInformation.educationRegistry
-        //                                 || locationInformation.familyJusticeRegistry
-        //                                 || locationInformation.earlyResolutionRegistry);
-        // }
+        let locationInformation = {} as cmLocationInfoDataInfoType;
+        if (this.result.filingLocationSurvey){
+            const locationData = this.result.filingLocationSurvey;           
+            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
+        }
         
         return locationInformation;
     }
 
     public getChildrenInfo(){
 
+        this.childRelatedType = this.result.childRelatedTypeSurvey;
+
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.childrenInfoSurvey;
-       
-        // for (const child of childData){            
-        //     childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        //     childInfo.fullName = Vue.filter('getFullName')(child.name);
-        //     childInfo.dob = Vue.filter('beautify-date')(child.dob);
-        //     childInfo.myRelationship = child.relation;
-        //     childInfo.otherPartyRelationship = child.opRelation;
-        //     childInfo.currentSituation = child.currentLiving;
-        //     childrenInfo.push(childInfo)
-        // }        
+        const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey;
+        
+        for (const child of childData){            
+            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+            childInfo.fullName = Vue.filter('getFullName')(child.name);
+            childInfo.dob = Vue.filter('beautify-date')(child.dob);            
+            childrenInfo.push(childInfo)
+        }        
 
         return childrenInfo;
     }
@@ -278,21 +233,18 @@ export default class CommonSection extends Vue {
 
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;
+            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey; 
             
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
+                name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
                 lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
-                lawyerStatement: (applicantInfo.Lawyer == 'y' && 
-                                applicantInfo.LawyerFillingOut == 'y' && 
-                                applicantInfo.lawyerStatement)?{lawyerName: applicantInfo.lawyerStatement.lawyerName, clientName: applicantInfo.lawyerStatement.clientName}:{lawyerName: '', clientName: ''}
-            }
+                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?Vue.filter('getFullName')(applicantInfo.LawyerName):'',
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:{} as addressInfoType),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact: {} as contactInfoType),
+                lawyerFiling: false,
+                lawyerStatement: {lawyerName: '', clientName: ''}
+            }        
                      
         }
         return yourInformation;
@@ -300,43 +252,25 @@ export default class CommonSection extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation = [
-            {            
-                dob: 'unknown',
-                name: {'first': '','middle': '', 'last': ''},
-                address: '',
-                contactInfo: ''
-            }               
-        ];        
+        let OpInformation: caseManagementOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
-            OpInformation = [];    
-            for(const party of this.result.otherPartyCommonSurvey){
-                let otherParty = {            
-                    dob: '',
-                    name: {'first': '','middle': '', 'last': ''},
-                    address: '',
-                    contactInfo: ''
-                }                
+        if (this.result.otherPartyCommonSurvey?.length > 0){
+            
+            OpInformation = [];
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
+           
+            for(const party of otherPartyData){ 
+                let otherParty = {} as caseManagementOtherPartyDataInfoType;
 
-                if (party['knowDob'] == 'y' &&  party['dob'])
-                    otherParty.dob = party['dob']
-
-                if (party['name'])
-                    otherParty.name = party['name']
-                
-                if (party['address'])
-                    otherParty.address = party['address']
-                
-                if (party['contactInfo'])
-                    otherParty.contactInfo = party['contactInfo']
+                if (party.name)
+                    otherParty.name = party.name;
                 
                 OpInformation.push(otherParty)
             }
         } 
 
         return OpInformation
-    }    
+    }
  
 }
 </script>

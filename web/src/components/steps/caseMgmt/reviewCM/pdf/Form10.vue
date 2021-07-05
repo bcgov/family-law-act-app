@@ -125,10 +125,11 @@ export default class Form10 extends Vue {
                 if(stepResults[stepResultInx])
                     result[stepResultInx]=stepResults[stepResultInx].data; 
             }
-        }     
+        }
 
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.CM._StepNo].result.childBestInterestAcknowledgement};
-        Object.assign(result, result, childBestInterestAck);
+        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
+        const childRelatedType = {childRelatedTypeSurvey: stepCM.result.childRelatedTypeSurvey};
+        Object.assign(result, result, childRelatedType);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;

@@ -1,18 +1,38 @@
 import { addressInfoType, contactInfoType, nameInfoType } from "../../CommonInformation";
 
-export interface caseManagementInformationDataInfoType {
-    // ExistingCase: boolean;
-    // existingProceeding: boolean;
-    // proceedingInfo: string;
-    // facts: string;
-    // orderdesc: string;
-    // noticeType: string;
-    // ppmList: string[];
+export interface caseManagementOtherPartyDataInfoType {
+    name: nameInfoType;    
 }
 
-export interface caseManagementOtherPartyDataInfoType {
-    name: nameInfoType;
-    dob?: string;   
-    address: addressInfoType;
-    contactInfo: contactInfoType;
+export interface cmLocationInfoDataInfoType {
+    courtLocation: string;
+    existingFileNumber: string;
+   
+}
+
+export interface schedule1DataInfoType {
+    attendees: string[];
+    lawyerName?: string;
+    eventType: string;
+    eventTypeComment?:string;
+    eventDate: string; 
+    eventTime: string;
+    attendanceType: string;
+    attendanceTypeComment?: string;
+    phoneNumber?: string;
+    directLine?: boolean;
+    understandPhoneRequirements?: boolean;
+    documentsSubmitted?: boolean;
+    virtualAttendanceReason?: string;
+}
+
+export interface form10DataInfoType {
+    otherPersonsList?: string;
+    givenConsent?: boolean;
+    consentDirection?:string;
+    contactedOP?:boolean;
+    oPAgreed?:boolean;
+    caseList: string[];
+    orderDetails: string;
+    orderFacts: string;
 }
