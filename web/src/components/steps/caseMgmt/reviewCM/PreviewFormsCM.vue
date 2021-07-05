@@ -1,8 +1,8 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
-            <form-11 v-if="requiredForm == 11" @enableNext="EnableNext"/>
-            <form-10 v-if="requiredForm == 10" @enableNext="EnableNext"/>
+            <form-11 v-if="requiredForm.includes('11')" @enableNext="EnableNext"/>
+            <form-10 v-if="requiredForm.includes('10')" @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -41,7 +41,7 @@ export default class PreviewFormsCm extends Vue {
     currentPage = 0;
     disableNext = true;
     dataReady = false;
-    requiredForm = 10;    
+    requiredForm = [];    
 
     mounted(){
         this.dataReady = false;
@@ -54,19 +54,37 @@ export default class PreviewFormsCm extends Vue {
     }
 
     public determineRequiredForm(){        
-
+        this.requiredForm = [];
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]   
 
-        if(stepCM?.result?.withoutNoticeOrAttendanceSurvey?.data){
+        if(stepCM?.result?.withoutNoticeOrAttendanceSurvey?.data && stepCM?.result?.cmQuestionnaireSurvey?.data){
             const withoutNoticeOrAttendanceData = stepCM.result.withoutNoticeOrAttendanceSurvey.data;
-            if(withoutNoticeOrAttendanceData.needWithoutNotice == 'y'){
-                    this.requiredForm = 11;                
+            if(withoutNoticeOrAttendanceData.needWithoutNotice == 'y' && this.needNotice(stepCM.result)){
+                    this.requiredForm.push('11');                
             } else {
-                this.requiredForm = 10;
+                this.requiredForm.push('10');
             }        
         } else {
-            this.requiredForm = 10;
+            this.requiredForm.push('10');
         }               
+    }
+
+    public needNotice(results){
+
+        let needNotice = false;
+        
+        const selectedCaseManagementItems = results.cmQuestionnaireSurvey?.data;
+        const needNoticeList = [
+            'changeServiceRequirement',
+            'changeRequirement',
+            'remoteAttendance',
+            'otherProvinceOrder',
+            'section242'
+        ]
+
+        needNotice = needNoticeList.some(i => selectedCaseManagementItems.includes(i));        
+
+        return needNotice;
     }
 
     public EnableNext(){
