@@ -61,6 +61,12 @@
               "body": "You should have received notice of the court appearance either as a court date on an application filed with the court or as a separate document.<br><br>If it is a court date on an application, you can select hearing or other and specify “court appearance”. If it is your first appearance on the application, it will be up to the judge to decide if there is time to have a hearing on the first appearance or if a hearing will need to be scheduled. You can still choose hearing.<br><br>If you received a separate notice document, it should say “Notice of” and give you the type of appearance. Select that option from the list or use other to specify the type of appearance if it isn’t listed."
             },
             {
+              "type": "customdatetime",
+              "name": "appearanceSchedule",
+              "title":"What date and time is the appearance scheduled for?",
+              "description":"This information can be found on the filed application or the notice from the court."
+            },
+            {
               "type": "radiogroup",
               "name": "attendanceType",
               "isRequired": true,

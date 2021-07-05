@@ -69,7 +69,7 @@ export default class AttendanceUsingElectronicCommunication extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('caseMgmt')            
-            // console.log(options)              
+            console.log(options)              
 
         })
     }

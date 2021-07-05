@@ -179,32 +179,35 @@ export default class CmChildrenInfo extends Vue {
         this.UpdateGotoNextStepPage();
     }
 
-    created() {
-        //console.log(this.step)
+    created() {        
         if (this.step.result?.cmChildrenInfoSurvey?.data) {
             this.childData = this.step.result.cmChildrenInfoSurvey.data;
         }        
     }
 
     mounted(){
-        const progress = this.childData.length>0? 100 : 50;            
+                    
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
-
+        
         if (this.step.result?.childRelatedTypeSurvey){
             this.selectedChildrenRelated = this.step.result?.childRelatedTypeSurvey;
         }
+        
+        // const progress = this.isDisableNext()? 50: 100;
+        // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
     public isDisableNext() {
-        // demo
-        return (this.childData.length <= 0);
+        const disableNext = (!this.selectedChildrenRelated) || (this.selectedChildrenRelated=='childRelatedCase' && this.childData.length <= 0);
+        const progress = disableNext? 50: 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);  
+        return disableNext
     }
 
     beforeDestroy() {
-        const progress = this.childData.length>0? 100 : 50;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        // const progress = this.isDisableNext()? 50 : 100;
+        // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data: {cmChildrenInfoSurvey: this.getChildrenResults(), childRelatedTypeSurvey: this.selectedChildrenRelated}})       
     }
