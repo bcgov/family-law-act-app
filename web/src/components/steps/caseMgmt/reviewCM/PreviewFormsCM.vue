@@ -41,8 +41,7 @@ export default class PreviewFormsCm extends Vue {
     currentPage = 0;
     disableNext = true;
     dataReady = false;
-    requiredForm = 11;
-    
+    requiredForm = 10;    
 
     mounted(){
         this.dataReady = false;
@@ -56,30 +55,18 @@ export default class PreviewFormsCm extends Vue {
 
     public determineRequiredForm(){        
 
-        const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
+        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]   
 
-        if( stepCOM && 
-            stepCOM.result &&
-            stepCOM.result.filingLocationSurvey &&
-            stepCOM.result.filingLocationSurvey.data){
-            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-            const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-    
-            const location = filingLocationData.ExistingCourt;                            
-
-            if(courtsC.includes(location) && 
-                filingLocationData.MetEarlyResolutionRequirements == 'n'){
-                    this.requiredForm = 1;
-                
+        if(stepCM?.result?.withoutNoticeOrAttendanceSurvey?.data){
+            const withoutNoticeOrAttendanceData = stepCM.result.withoutNoticeOrAttendanceSurvey.data;
+            if(withoutNoticeOrAttendanceData.needWithoutNotice == 'y'){
+                    this.requiredForm = 11;                
             } else {
-                //this.requiredForm = 3;
-            }
-        
+                this.requiredForm = 10;
+            }        
         } else {
-            //this.requiredForm = 3;
-        }
-
-               
+            this.requiredForm = 10;
+        }               
     }
 
     public EnableNext(){

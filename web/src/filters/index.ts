@@ -364,6 +364,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	const stepFLM = store.state.Application.stPgNo.FLM
 	const stepPPM = store.state.Application.stPgNo.PPM
 	const stepRELOC = store.state.Application.stPgNo.RELOC
+	const stepCM = store.state.Application.stPgNo.CM
 
 	const noPOsteps        = [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo]   
 	const noPOreviewPages  = [stepFLM.ReviewYourAnswersFLM, stepPPM.ReviewYourAnswersPPM, stepRELOC.ReviewYourAnswersRELOC];
@@ -392,6 +393,11 @@ Vue.filter('surveyChanged', function(type: string) {
 		step = stepRELOC._StepNo; 
 		reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
 		previewPage = stepRELOC.PreviewFormsRELOC;	
+	}
+	else if(type == 'caseMgmt'){
+		step = stepCM._StepNo; 
+		reviewPage = stepCM.ReviewYourAnswersCM; 
+		previewPage = stepCM.PreviewFormsCM;	
 	}
 
 	if(type == 'allExPO'){

@@ -63,7 +63,7 @@ export default class Form11 extends Vue {
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getFLMResultData();
+        this.result = this.getCMResultData();
         this.selectedSchedules = this.getSchedulesInfo();
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
@@ -130,16 +130,20 @@ export default class Form11 extends Vue {
         });
     }
  
-    public getFLMResultData() {         
+    public getCMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo]){
             const stepResults = this.$store.state.Application.steps[stepIndex].result
             for(const stepResultInx in stepResults){
                 if(stepResults[stepResultInx])
                     result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }
+        
+        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
+        const childRelatedType = {childRelatedTypeSurvey: stepCM.result.childRelatedTypeSurvey};
+        Object.assign(result, result, childRelatedType);
 
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
@@ -155,29 +159,29 @@ export default class Form11 extends Vue {
     }
 
     public getSchedulesInfo(){       
-
+        
         let schedules: string[] = [];
-        const selectedFLMs = this.result.flmQuestionnaireSurvey;
-        const flmBackgroundInfo = this.result.flmBackgroundSurvey;
-
-        // if (flmBackgroundInfo.ExistingOrdersFLM == 'n') {
+        const selectedCMs = this.result.cmQuestionnaireSurvey;              
             
-        //     if (selectedFLMs.includes("parentingArrangements")){
-                schedules.push("schedule1")
-        //     }
-        //     if (selectedFLMs.includes("childSupport")){
-                schedules.push("schedule2")
-        //     }
-        //     if (selectedFLMs.includes("contactWithChild")){
-                schedules.push("schedule3")
-        //     }            
-        //     if (selectedFLMs.includes("spousalSupport")){
-                schedules.push("schedule4")
-        //     }
-         //     if (selectedFLMs.includes("spousalSupport")){
-                schedules.push("schedule5")
-        //     }
+        if (selectedCMs.includes("remoteAttendance")){
+            schedules.push("schedule1")
+        }
 
+        if (selectedCMs.includes("changeServiceRequirement")){
+            schedules.push("schedule2")
+        }
+
+        if (selectedCMs.includes("changeRequirement")){
+            schedules.push("schedule3")
+        }   
+
+        if (selectedCMs.includes("section242")){
+            schedules.push("schedule4")
+        }
+
+        if (selectedCMs.includes("otherProvinceOrder")){
+            schedules.push("schedule5")
+        }
        
         // console.log(schedules)
         return schedules;

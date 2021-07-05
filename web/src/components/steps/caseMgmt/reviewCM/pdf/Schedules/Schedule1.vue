@@ -26,12 +26,12 @@
             <div style="margin-left:1.1rem;"><i>Select only one of the options below</i></div>
 
             <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
-                <check-box style="" :check="true?'yes':''" text="family management conference"/>
-                <check-box style="" :check="true?'yes':''" text="family settlement conference"/>
-                <check-box style="" :check="true?'yes':''" text="trial preparation conference"/>
-                <check-box style="" :check="true?'yes':''" text="hearing"/>
-                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="Other <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" text=""/>                
+                <check-box style="" :check="scheduleInfo.eventType == 'familyManagementConference'?'yes':''" text="family management conference"/>
+                <check-box style="" :check="scheduleInfo.eventType == 'familySettlementConference'?'yes':''" text="family settlement conference"/>
+                <check-box style="" :check="scheduleInfo.eventType == 'trialPreparationConference'?'yes':''" text="trial preparation conference"/>
+                <check-box style="" :check="scheduleInfo.eventType == 'hearing'?'yes':''" text="hearing"/>
+                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.eventType == 'other'?'yes':''" text="Other <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="scheduleInfo.eventTypeComment"/>                
             </div>   
 
             <div style="margin:1rem 0 0.5rem 1.0rem;">
@@ -42,20 +42,20 @@
             <div style="margin:1.25rem 0 0 1.1rem;">By electronic communication as follows:</div>
             <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
                 <div></div>
-                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="telephone at "/>
-                <underline-form style="text-indent:5px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="phone number" text=""/>
+                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="telephone at "/>
+                <underline-form style="text-indent:5px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="phone number" :text="scheduleInfo.phoneNumber"/>
   
                  <div style=" margin:0.25rem 0 0.5rem 1.75rem;;">
                     Is this a direct phone line? 
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="true?'yes':''"  text="Yes"/>                        
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="!true?'yes':''" text="No"/> 
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="scheduleInfo.attendanceType == 'byTelephone' && scheduleInfo.directLine?'yes':''"  text="Yes"/>                        
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="scheduleInfo.attendanceType == 'byTelephone' && !scheduleInfo.directLine?'yes':''" text="No"/> 
                     <div>
                         <i>If no, the person answering the phone must know the call will be coming and put it through immediately</i>
                     </div>
                 </div>    
 
-                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="other electronic communication method <i>(specify):</i>"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="" text=""/>                
+                <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.attendanceType == 'other'?'yes':''" text="other electronic communication method <i>(specify):</i>"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="" :text="(scheduleInfo.attendanceType == 'other')?scheduleInfo.attendanceTypeComment:''"/>                
             </div>  
 
         </section>
@@ -67,8 +67,8 @@
                     I understand the following requirements and I will comply with them
                 </div>
                 <div style="display:inline-block;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="!true?'yes':''" text="No"/> 
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="scheduleInfo.understandPhoneRequirements?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="!scheduleInfo.understandPhoneRequirements?'yes':''" text="No"/> 
                 </div>
                 
                 <ul style="text-indent: 0px;">
@@ -90,8 +90,8 @@
                     The documents I may want to refer to in court have been submitted to the court registry and received by the other party
                 </div>
                 <div style="display:inline-block;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="true?'yes':''"  text="Yes"/>                                  
-                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="!true?'yes':''" text="No"/> 
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10"  marginLeft="1.75rem" :check="scheduleInfo.documentsSubmitted?'yes':''"  text="Yes"/>                                  
+                    <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-8" marginLeft="0.5rem" :check="!scheduleInfo.documentsSubmitted?'yes':''" text="No"/> 
                 </div>                             
           
             </section>
@@ -104,14 +104,14 @@
                     I (and/or my lawyer) am unable to attend in person because:
                 </div>
 
-                <div v-if="false" class="answerbox"></div>
+                <div v-if="scheduleInfo.virtualAttendanceReason" class="answerbox">{{scheduleInfo.virtualAttendanceReason}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>        
           
             </section>
         </div>   
 
   
-        </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -119,8 +119,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
-import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { schedule1DataInfoType } from '@/types/Application/CaseManagement/PDF';
+import { attendanceUsingElectronicCommunicationSurveyDataInfoType } from '@/types/Application/CaseManagement';
 
 @Component({
     components:{
@@ -134,9 +134,8 @@ export default class Schedule1 extends Vue {
     @Prop({required:true})
     result!: any;
 
-    dataReady = false; 
-    childrenInfo: childrenInfoSurveyInfoType[] = [];
-    parentArrInfo = {} as schedule1DataInfoType;   
+    dataReady = false;
+    scheduleInfo = {} as schedule1DataInfoType;   
    
     mounted(){
         this.dataReady = false;
@@ -144,104 +143,38 @@ export default class Schedule1 extends Vue {
         this.dataReady = true;
     } 
 
-    public extractInfo(){        
-        if (this.result.childrenInfoSurvey && this.result.childrenInfoSurvey.length > 0){            
-            this.childrenInfo = this.getChildrenInfo();                      
-        } else {            
-            this.childrenInfo = [];            
-        }        
-        this.parentArrInfo = this.getParentingArrangementsInfo();
-    } 
-    
-    public getChildrenInfo(){
-
-        const childrenInfo: childrenInfoSurveyInfoType[] = [];
-        let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.childrenInfoSurvey;
-       
-        for (const child of childData){            
-            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-            childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
-            childInfo.myRelationship = child.relation;
-            childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = child.currentLiving;
-            childrenInfo.push(childInfo)
-        }       
-
-        return childrenInfo;
+    public extractInfo(){
+        this.scheduleInfo = this.getElectronicAttendanceInfo();
     }
 
-    public getParentingArrangementsInfo(){
-        let parentingArrangements = {} as schedule1DataInfoType;       
+    public getElectronicAttendanceInfo() {
 
-        if (this.result.parentalResponsibilitiesSurvey && this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
-            const allResponsibilities = this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y' && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities;
-            parentingArrangements.parentResp = {
-                applying: true,
-                allResp: this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y',
-                children: allResponsibilities?this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities:[],
-                allKids: allResponsibilities && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities.length == this.childrenInfo.length,
-                expl: this.result.parentalResponsibilitiesSurvey.ExplainResponsibilities? this.result.parentalResponsibilitiesSurvey.ExplainResponsibilities:''
-            }
+        let virtualAttendanceInfo = {} as schedule1DataInfoType;      
 
-        } else {
-            parentingArrangements.parentResp= {
-                applying: false,
-                allResp: false,
-                children: [],
-                allKids: false,
-                expl: ''
+        if (this.result.attendanceUsingElectronicCommunicationSurvey){
+            const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
+            
+            virtualAttendanceInfo.attendees = virtualAttendanceData.attendessList['checked'];
+            virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList['checked'].includes('lawyer:')?(virtualAttendanceData['lawyer:Comment']): '';
+            virtualAttendanceInfo.eventType = virtualAttendanceData.appearanceType;
+            virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
+            virtualAttendanceInfo.eventDate = virtualAttendanceData.appearanceDate;
+            virtualAttendanceInfo.eventTime = virtualAttendanceData.appearanceTime;
+            virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
+            if (virtualAttendanceData.attendanceType == 'byTelephone'){
+                virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
+                virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
+                virtualAttendanceInfo.attendanceTypeComment = '';
+            } else {
+                virtualAttendanceInfo.phoneNumber = '';
+                virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
             }
+            virtualAttendanceInfo.understandPhoneRequirements = virtualAttendanceData.understandRequirements == 'y';
+            virtualAttendanceInfo.documentsSubmitted = virtualAttendanceData.submittedDocuments == 'y';
+            virtualAttendanceInfo.virtualAttendanceReason = virtualAttendanceData.attendanceTypeReason;
         }
-
-        if (this.result.parentingTimeSurvey && this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
-            const parentingTime = this.result.parentingTimeSurvey
-            parentingArrangements.parentTime = {
-                applying: true,
-                desired: parentingTime.applicantDesiredParentingTime,
-                conditionMe: parentingTime.conditionedApplicantParentingTime == 'y',
-                myConditions: (parentingTime.conditionedApplicantParentingTime == 'y')? parentingTime.ApplicantParentingTimeConditions:'',
-                conditionOp: parentingTime.conditionedRespondentParentingTime == 'y',
-                opConditions: (parentingTime.conditionedRespondentParentingTime == 'y')?parentingTime.RespondentParentingTimeConditions:'',
-                opDesired: parentingTime.respondentDesiredParentingTime
-            }
-
-        } else {
-            parentingArrangements.parentTime = {
-                applying: false,
-                desired: '',
-                conditionMe: false,
-                myConditions: '',
-                conditionOp: false,
-                opConditions: '',
-                opDesired: ''    
-            }     
-        }
-
-        if (this.result.otherParentingArrangementsSurvey && this.result.otherParentingArrangementsSurvey.parentalArrangements == 'y'){
-            const parentalArrangements = this.result.otherParentingArrangementsSurvey
-            parentingArrangements.parentalArr = {
-                applying: true,
-                desc: parentalArrangements.parentalArrangementsDescription                
-            }
-        } else {
-            parentingArrangements.parentalArr = {
-                applying: false,
-                desc: ''                
-            }
-        }
-        
-        if (this.result.bestInterestsOfChildSurvey 
-            && this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
-                parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
-
-        } else {
-            // console.log('here')
-            parentingArrangements.childBestInterest = '';
-        }
-        //console.log(parentingArrangements)
-        return parentingArrangements;
+      
+        return virtualAttendanceInfo;
     }
 }
 </script>

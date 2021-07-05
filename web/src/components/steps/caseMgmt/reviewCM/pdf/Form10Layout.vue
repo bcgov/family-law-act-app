@@ -30,7 +30,7 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
             <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
             <table class="fullsize" style="margin-top:0.5 !important">
@@ -110,18 +110,18 @@
 
                  <div style="margin-left:1rem;">                   
                     <check-box style="" 
-                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        :check="true?'yes':''" 
                         text="Each party, including any person directly affected by the order, has consented to the case management order and:"/>
                 </div>
                     
                 <div style="margin-left:2.75rem;">
                     <i>Select only one of the following options</i>
                     <check-box style="" 
-                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        :check="true?'yes':''" 
                         text="a <b>draft Consent Order</b> in Form 18 signed by each party, and any other person directly affected by the order, or their
                         lawyer, is submitted with this application and supporting documents for review without attending before the court"/>          
                     <check-box style="" 
-                        :check="(filingLocationReason == 'It is the court location closest to where I live, because my case does not involve a child-related issue')?'yes':''" 
+                        :check="true?'yes':''" 
                         text="a court appearance is requested"/>                                   
                 </div>
             </section>
@@ -211,11 +211,11 @@
         <div class="print-block">
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
-                 <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
-                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am not a party to the case"/>
-                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box marginLeft="1.5rem" style="" :check="true?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
-                 </div>
+                <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'notParty'?'yes':''" text="I am not a party to the case"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'nonChildRelatedCase'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'childRelatedCase'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
+                </div>
                 <b-table
                     :items="childrenInfo"
                     :fields="childrenFields"
@@ -265,9 +265,11 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
 import CheckBox from "./Schedules/components/CheckBox.vue"
 import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
-import { nameInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { locationInfoDataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
+import { cmChildrenInfoSurveyDataInfoType, byConsentSurveyDataInfoType, otherPersonsSurveyDataInfoType } from '@/types/Application/CaseManagement';
 
 @Component({
     components:{
@@ -293,20 +295,17 @@ export default class Form10Layout extends Vue {
 
     dataReady = false;   
 
+    locationInfo = {} as cmLocationInfoDataInfoType;
     otherPartyInfo=[];
-    additionalOtherParties = [];
-    firstOtherParty = {} as any;
-    yourInfo = {} as yourInformationInfoDataInfoType;
-
-    locationInfo = {} as locationInfoDataInfoType;
-    childrenInfo: childrenInfoSurveyInfoType[] = [{fullName:'', dob:'', myRelationship:'', otherPartyRelationship:'', currentSituation:''}];
-
-    applicantList = []
+    yourInfo = {} as yourInformationInfoDataInfoType;   
     
-    filingLocationReason = '';   
+    childRelatedType: string = '';   
+    childrenInfo: childrenInfoSurveyInfoType[] = []; 
+    form10Info = {} as form10DataInfoType;  
    
     mounted(){
         this.dataReady = false;
+        console.log(this.result)
         this.extractInfo();       
         this.dataReady = true;
     }
@@ -316,29 +315,35 @@ export default class Form10Layout extends Vue {
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
     ]   
 
-    public extractInfo(){        
-        
-        if (this.result.filingLocationSurvey && this.result.filingLocationSurvey.registryLocationReason) {
-            this.filingLocationReason = this.result.filingLocationSurvey.registryLocationReason;
-        }
-
-        if (this.result.ppmChildrenInfoSurvey && this.result.ppmChildrenInfoSurvey.length > 0){          
-            this.childrenInfo = this.getChildrenInfo();
-        }
-        
-        this.otherPartyInfo = this.getOtherPartyInfo()        
+    public extractInfo(){
+        this.yourInfo = this.getYourInfo();  
+        this.otherPartyInfo = this.getOtherPartyInfo();  
+        this.childrenInfo = this.getChildrenInfo(); 
+        this.locationInfo = this.getLocationInfo();
+        this.form10Info = this.getForm10Info();
+    } 
     
-        this.yourInfo = this.getYourInfo();
-         this.locationInfo = this.getLocationInfo(); 
-    }  
+    public getLocationInfo(){
 
-    public getChildrenInfo() {
+        let locationInformation = {} as cmLocationInfoDataInfoType;
+        if (this.result.filingLocationSurvey){
+            const locationData = this.result.filingLocationSurvey;           
+            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
+        }
+        
+        return locationInformation;
+    }
+
+    public getChildrenInfo(){
+
+        this.childRelatedType = this.result.childRelatedTypeSurvey;
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.cmChildrenInfoSurvey;
-       
-        for (const child of childData) {            
+        const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey;
+        
+        for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
             childInfo.fullName = Vue.filter('getFullName')(child.name);
             childInfo.dob = Vue.filter('beautify-date')(child.dob);            
@@ -347,46 +352,25 @@ export default class Form10Layout extends Vue {
 
         return childrenInfo;
     }
-    
-    public getLocationInfo(){
-
-        let locationInformation = {} as locationInfoDataInfoType;
-        if (this.result.filingLocationSurvey){
-            const locationData = this.result.filingLocationSurvey;
-           
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
-
-            // locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
-            // locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
-            // locationInformation.educationRegistry = locationData.familyEducationProgram;  
-            // locationInformation.none = !(locationInformation.educationRegistry
-            //                             || locationInformation.familyJusticeRegistry
-            //                             || locationInformation.earlyResolutionRegistry);
-        }
-        
-        return locationInformation;
-    }
 
     public getYourInfo(){
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
+        let yourInformation = {} as yourInformationInfoDataInfoType;       
+
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;            
+            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey; 
+            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
+                name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
                 lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
-                lawyerStatement: (applicantInfo.Lawyer == 'y' && 
-                                applicantInfo.LawyerFillingOut == 'y' && 
-                                applicantInfo.lawyerStatement)?{lawyerName: applicantInfo.lawyerStatement.lawyerName, clientName: applicantInfo.lawyerStatement.clientName}:{lawyerName: '', clientName: ''}
-            }
+                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?Vue.filter('getFullName')(applicantInfo.LawyerName):'',
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:{} as addressInfoType),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact: {} as contactInfoType),
+                lawyerFiling: false,
+                lawyerStatement: {lawyerName: '', clientName: ''}
+            }        
                      
         }
         return yourInformation;
@@ -394,44 +378,50 @@ export default class Form10Layout extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation = [
-            {            
-                dob: 'unknown',
-                name: {'first': '','middle': '', 'last': ''},
-                address: '',
-                contactInfo: ''
-            }               
-        ];        
+        let OpInformation: caseManagementOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
-            OpInformation = [];  
-            // console.log(this.result.otherPartyCommonSurvey)  
-            for(const party of this.result.otherPartyCommonSurvey){
-                let otherParty = {            
-                    dob: '',
-                    name: {'first': '','middle': '', 'last': ''},
-                    address: '',
-                    contactInfo: ''
-                }                
+        if (this.result.otherPartyCommonSurvey?.length > 0){
+            
+            OpInformation = [];
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
+           
+            for(const party of otherPartyData){ 
+                let otherParty = {} as caseManagementOtherPartyDataInfoType;
 
-                if (party['knowDob'] == 'y' &&  party['dob'])
-                    otherParty.dob = party['dob']
-
-                if (party['name'])
-                    otherParty.name = party['name']
-                
-                if (party['address'])
-                    otherParty.address = party['address']
-                
-                if (party['contactInfo'])
-                    otherParty.contactInfo = party['contactInfo']
+                if (party.name)
+                    otherParty.name = party.name;
                 
                 OpInformation.push(otherParty)
             }
         } 
 
         return OpInformation
-    }    
+    }
+
+    public getForm10Info() {
+
+        let form10Info = {} as form10DataInfoType;      
+
+        if (this.result.byConsentSurvey){
+            const consentData: byConsentSurveyDataInfoType = this.result.byConsentSurvey;
+            form10Info.givenConsent = consentData.givenConsent == 'y';
+            form10Info.consentDirection = consentData.giveConsentDirection; 
+        }
+
+        if (this.result.otherPersonsSurvey){
+            const otherPersonData: otherPersonsSurveyDataInfoType = this.result.otherPersonsSurvey;
+            form10Info.otherPersonsList = (otherPersonData.otherPersonsExist == 'y')?(otherPersonData.otherPersonsList):''            
+        }
+
+        
+      
+        return form10Info;
+    }
+
+
+
+
+  
  
 }
 </script>
