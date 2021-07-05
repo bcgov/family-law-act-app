@@ -79,7 +79,7 @@
                 inline="inline" 
                 boxMargin="0" 
                 style="margin:0 0 0 0.5rem; display:inline;" 
-                :check="true?'yes':''" 
+                :check="understandNotice?'yes':''" 
                 marginLeft="1.5rem"
                 text="I am applying for a case management order without notice to any other party and I understand that"/>
             <div style=" text-indent:0; margin:0 0 -0.25rem 1.65rem;"> 
@@ -145,7 +145,7 @@ import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { nameInfoType, childInfoType, otherPartyInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { cmChildrenInfoSurveyDataInfoType } from '@/types/Application/CaseManagement';
+import { cmChildrenInfoSurveyDataInfoType, cmNoticeSurveyDataInfoType } from '@/types/Application/CaseManagement';
 import { caseManagementOtherPartyDataInfoType, cmLocationInfoDataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 
@@ -177,7 +177,9 @@ export default class CommonSection extends Vue {
     yourInfo = {} as yourInformationInfoDataInfoType;   
     
     childRelatedType: string = '';   
-    childrenInfo: childrenInfoSurveyInfoType[] = [];       
+    childrenInfo: childrenInfoSurveyInfoType[] = [];  
+    
+    understandNotice = false;
    
     mounted(){
         this.dataReady = false;
@@ -195,6 +197,14 @@ export default class CommonSection extends Vue {
         this.otherPartyInfo = this.getOtherPartyInfo();  
         this.childrenInfo = this.getChildrenInfo(); 
         this.locationInfo = this.getLocationInfo();
+
+        if (this.result.cmNoticeSurvey){
+            const noticeData: cmNoticeSurveyDataInfoType = this.result.cmNoticeSurvey;
+            this.understandNotice = noticeData.acknowledgement.includes('Understood');
+        } else {
+            this.understandNotice = false;
+        }
+      
     }
 
     public getLocationInfo(){

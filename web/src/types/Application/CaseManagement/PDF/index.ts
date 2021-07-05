@@ -30,6 +30,7 @@ export interface form10DataInfoType {
     otherPersonsList?: string;
     givenConsent?: boolean;
     consentDirection?:string;
+    understandNotice?:boolean;
     contactedOP?:boolean;
     oPAgreed?:boolean;
     caseList: string[];
