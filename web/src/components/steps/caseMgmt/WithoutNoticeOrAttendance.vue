@@ -90,7 +90,9 @@ export default class WithoutNoticeOrAttendance extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt');                       
+            Vue.filter('surveyChanged')('caseMgmt'); 
+            
+            this.determinePages();
         })   
     }
 
@@ -107,7 +109,9 @@ export default class WithoutNoticeOrAttendance extends Vue {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false); 
+        
+        this.determinePages();
     }
 
     public onPrev() {
@@ -134,11 +138,11 @@ export default class WithoutNoticeOrAttendance extends Vue {
         let listOfIssues = [];
         const firstDescriptionSection = 'Usually, an application for an order must be made with notice to all other parties so ' +
         'that they can decide if they want to participate in the application. There are circumstances when the court may make an ' + 
-        'order without you having to tell the other party about the application and without you having to attend a court appearance.\n' + 
+        'order without you having to tell the other party about the application and without you having to attend a court appearance.<br><br>\n' + 
         'When you make an application without notice or attendance, it is up to the judge to decide if the order can be made without ' + 
         'notice or attendance at a court appearance. After reviewing your application, if the judge thinks notice to another party or ' + 
-        'your attendance in court is needed, the registry staff will let you know.\n' + 
-        'You can apply without notice or attendance for your order about:  '
+        'your attendance in court is needed, the registry staff will let you know.<br><br>' + 
+        'You can apply without notice or attendance for your order about:<br>'
        
         this.cmType = []
         if(this.step.result?.cmQuestionnaireSurvey?.data )
@@ -165,12 +169,10 @@ export default class WithoutNoticeOrAttendance extends Vue {
             listOfIssues.push('<li>Requiring access to information in accordance with section 242 of the Family Law Act</li>');
         }         
        
-        if (listOfIssues.length == 1){            
-            description = firstDescriptionSection + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
-        } else {           
-            const initialList = listOfIssues.toString()            
-            description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
-        }
+                 
+        const initialList = listOfIssues.toString()            
+        description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
+    
 
         return description;
     }
@@ -203,12 +205,15 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     public determinePages(){
+        
         if (this.survey.data?.needWithoutNotice) {
             const needWithoutNotice = this.survey.data.needWithoutNotice;
+            
             if (needWithoutNotice == 'n') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true); 
+                this.togglePages([this.stPgNo.CM.ByConsent, this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], true); 
             } else if (needWithoutNotice == 'y'){
-
+                
+                this.togglePages([this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], false); 
                 //schedule 1
                 this.togglePages([this.stPgNo.CM.AttendanceUsingElectronicCommunication], this.cmType.includes('remoteAttendance'));
 
@@ -236,8 +241,3 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

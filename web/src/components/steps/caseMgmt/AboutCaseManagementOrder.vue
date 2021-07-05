@@ -179,14 +179,10 @@ export default class AboutCaseManagementOrder extends Vue {
         if (cmType.includes('section242') && !withoutNotice) {
             listOfIssues.push('<li>Requiring access to information in accordance with section 242 of the Family Law Act</li>');
         }         
+                          
+        const initialList = listOfIssues.toString()            
+        description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
        
-        if (listOfIssues.length == 1){            
-            description = firstDescriptionSection + listOfIssues.toString().replace('<li>', '').replace('</li>', '')
-        } else {           
-            const initialList = listOfIssues.toString()            
-            description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
-        }
-
         return description;
     }
 

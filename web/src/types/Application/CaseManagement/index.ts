@@ -86,7 +86,7 @@ export interface aboutCaseManagementOrderSurveyDataInfoType {
 }
 
 export interface cmChildrenInfoSurveyInfoType {
-    data: cmChildrenInfoSurveyDataInfoType[];
+    data: {childData:cmChildrenInfoSurveyDataInfoType[], childRelatedType:string };
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;

@@ -1,7 +1,7 @@
 <template>
     <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         
-        <div class="home-content">
+        <div v-if="dataReady" class="home-content">
             <div class="row">
                 <div class="col-md-12">
                     <h1>Children</h1>
@@ -19,7 +19,7 @@
                             name="childrenRelated"
                             stacked>                
                                 <div>
-                                    <b-form-radio class="radio-choices" value="notParty">
+                                    <b-form-radio class="radio-choices" value="Not a party to the case">
                                         <div>
                                             I am not a party to the case
                                         </div>                                      
@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div>
-                                    <b-form-radio class="radio-choices" value="nonChildRelatedCase">
+                                    <b-form-radio class="radio-choices" value="A party to the case and the case does not involve a child-related issue">
                                         <div>
                                             I am a party to the case and the case does not involve a child-related issue
                                         </div>                                      
@@ -35,7 +35,7 @@
                                 </div>
 
                                 <div>
-                                    <b-form-radio class="radio-choices" value="childRelatedCase">
+                                    <b-form-radio class="radio-choices" value="A party to the case and the case involves a child-related issue">
                                         <div>
                                             I am a party to the case and the case involves a child-related issue
                                         </div>                                      
@@ -46,11 +46,11 @@
                         </b-form-group>
                     </div>
                    
-                    <p class="my-4 ml-4" v-if="selectedChildrenRelated == 'childRelatedCase'">
+                    <p class="my-4 ml-4" v-if="selectedChildrenRelated == 'A party to the case and the case involves a child-related issue'">
                         Add each child who is involved in your case. To add a child, click the "Add Child" button. 
                         If you are done entering all the children, click the "Next" button.
                     </p>
-                    <div class="childSection" v-if="(selectedChildrenRelated == 'childRelatedCase') && showTable">
+                    <div class="childSection" v-if="(selectedChildrenRelated == 'A party to the case and the case involves a child-related issue') && showTable">
                         
                         <div class="childAlign">
                             <table class="table table-hover">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12" v-if="(selectedChildrenRelated == 'childRelatedCase') && !showTable" id="child-info-survey">
+                <div class="col-md-12" v-if="(selectedChildrenRelated == 'A party to the case and the case involves a child-related issue') && !showTable" id="child-info-survey">
                     <Children-Survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
                 </div>
                
@@ -126,7 +126,8 @@ export default class CmChildrenInfo extends Vue {
     showTable = true;
     childData = [];
     anyRowToBeEdited = null;
-    editId = null;  
+    editId = null; 
+    dataReady = false; 
     
     selectedChildrenRelated = '';
     
@@ -179,27 +180,24 @@ export default class CmChildrenInfo extends Vue {
         this.UpdateGotoNextStepPage();
     }
 
-    created() {        
-        if (this.step.result?.cmChildrenInfoSurvey?.data) {
-            this.childData = this.step.result.cmChildrenInfoSurvey.data;
-        }        
-    }
-
     mounted(){
-                    
+        this.dataReady = false;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result?.childRelatedTypeSurvey){
-            this.selectedChildrenRelated = this.step.result?.childRelatedTypeSurvey;
+        if (this.step.result?.cmChildrenInfoSurvey?.data){
+            this.childData = this.step.result.cmChildrenInfoSurvey.data.childData;
+            this.selectedChildrenRelated = this.step.result.cmChildrenInfoSurvey.data.childRelatedType
         }
-        
+        this.dataReady = true;
+        //console.log(this.childData)
+
         // const progress = this.isDisableNext()? 50: 100;
         // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
     public isDisableNext() {
-        const disableNext = (!this.selectedChildrenRelated) || (this.selectedChildrenRelated=='childRelatedCase' && this.childData.length <= 0);
+        const disableNext = (!this.selectedChildrenRelated) || (this.selectedChildrenRelated=='A party to the case and the case involves a child-related issue' && this.childData.length <= 0);
         const progress = disableNext? 50: 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);  
         return disableNext
@@ -209,16 +207,22 @@ export default class CmChildrenInfo extends Vue {
         // const progress = this.isDisableNext()? 50 : 100;
         // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        this.UpdateStepResultData({step:this.step, data: {cmChildrenInfoSurvey: this.getChildrenResults(), childRelatedTypeSurvey: this.selectedChildrenRelated}})       
+        this.UpdateStepResultData({step:this.step, data: {cmChildrenInfoSurvey: this.getChildrenResults()}})       
     }
 
     public getChildrenResults(){
+        
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-        for(const child of this.childData)
-        {
-            questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
-        }       
-        return {data: this.childData, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
+        
+        questionResults.push({name:'childRelatedType', value: this.selectedChildrenRelated, title:'Select the option that applies to your situation', inputType:''})
+        
+        if(this.selectedChildrenRelated=='A party to the case and the case involves a child-related issue')
+            for(const child of this.childData)
+            {
+                questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
+            }
+
+        return {data: {childData:this.childData, childRelatedType: this.selectedChildrenRelated}, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public getChildInfo(child){
