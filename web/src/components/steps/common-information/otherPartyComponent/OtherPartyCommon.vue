@@ -101,9 +101,9 @@
             </div>
         </div>
 
-        <b-modal size="xl" v-model="flmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
             
-            <div class="m-3">
+            <div class="m-3" v-if="flmInfo">
                
                 <p>I understand the following people must be given notice of my application about a family law matter:</p>
                 <ul>
@@ -120,41 +120,30 @@
                 <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
                 <p>They are the other party/parties I added in this case.</p>
             </div>
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="flmInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closeFlmInfo">I agree</b-button>
-            </template>            
-        </b-modal>
 
-        <b-modal size="xl" v-model="ppmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
-            
-            <div class="m-3">
+            <div class="m-3" v-if="ppmInfo">
                
                 <p>I understand all parents and guardians of the child(ren) this application is about must be given notice of my application about a priority parenting matter.</p>
               
                 <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application to be made without notice or with less than 7 days’ notice.</p>
                 <p>They are the other party/parties I added in this case.</p>
-            </div>
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="ppmInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closePpmInfo">I agree</b-button>
-            </template>            
-        </b-modal>
 
-        <b-modal size="xl" v-model="relocInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
-            
-            <div class="m-3">
+            </div>
+
+            <div class="m-3" v-if="relocInfo">
                
                 <p>I understand the relocating guardian(s) must be given notice of my application to prohibit the relocation of a child.</p>
               
                 <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.</p>
                 <p>They are the other party/parties I added in this case.</p>
             </div>
+
+
             <template v-slot:modal-footer>
-                <b-button variant="primary" @click="relocInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closeRelocInfo">I agree</b-button>
+                <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closePopInfo">I agree</b-button>
             </template>            
-        </b-modal>
+        </b-modal>         
 
     </page-base>
 </template>
@@ -209,6 +198,7 @@ export default class OtherPartyCommon extends Vue {
     currentPage=0;
     showServeNoticeInfo = false
     showTable = true;
+    popInfo = false;
     flmInfo = false;
     ppmInfo = false;
     relocInfo = false;
@@ -223,7 +213,8 @@ export default class OtherPartyCommon extends Vue {
         }
     }
 
-    mounted(){    
+    mounted(){
+        this.popInfo = false;    
         this.flmInfo = false;  
         this.ppmInfo = false; 
         this.relocInfo = false; 
@@ -284,39 +275,47 @@ export default class OtherPartyCommon extends Vue {
 
     public onNext() {
         if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter") || this.types.includes("Relocation of a Child")){
+            
             if (this.types.includes("Family Law Matter")){
-                this.flmInfo = true;
+
+                // flm and ppm
+                if (!this.types.includes("Relocation of a Child")){
+                    this.flmInfo = true;
+                } 
+                // flm and reloc
+                else {
+                    // this.ppmInfo = true;
+                }
+
+            } else {
+                // reloc only
+                if (this.types.includes("Relocation of a Child") && !this.types.includes("Priority Parenting Matter")){
+                    this.relocInfo = true;
+                }
+
+                // ppm and reloc
+                else if (this.types.includes("Priority Parenting Matter") && this.types.includes("Relocation of a Child")){
+                    // this.ppmInfo = true;
+                }
+
+                // ppm only
+                else if (this.types.includes("Priority Parenting Matter") && !this.types.includes("Relocation of a Child")){
+                    this.ppmInfo = true;
+                }
+
             }
-            if (!this.types.includes("Family Law Matter") && this.types.includes("Priority Parenting Matter")){
-                this.ppmInfo = true;
-            }
-            if (this.types.includes("Relocation of a Child")){
-                this.relocInfo = true;
-            }
+            this.popInfo = true;
+            
         } else {
+            this.popInfo = false;
             this.UpdateGotoNextStepPage();
         }        
     }
 
-    public closeFlmInfo(){
-        this.flmInfo = false;
-        if (!this.ppmInfo && !this.relocInfo){
-            this.UpdateGotoNextStepPage();
-        }        
-    }
-
-    public closePpmInfo(){
-        this.ppmInfo = false;
-        if (!this.flmInfo && !this.relocInfo){
-            this.UpdateGotoNextStepPage();
-        }        
-    }
-
-    public closeRelocInfo(){
-        this.relocInfo = false;
-        if (!this.flmInfo && !this.ppmInfo){
-            this.UpdateGotoNextStepPage();
-        }        
+    public closePopInfo(){
+        this.popInfo = false;       
+        this.UpdateGotoNextStepPage();
+             
     }
 
     public isDisableNext() {
@@ -386,8 +385,7 @@ export default class OtherPartyCommon extends Vue {
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
         resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
-        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
-        //console.log(resultString)
+        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo))
         return resultString
     }
 
