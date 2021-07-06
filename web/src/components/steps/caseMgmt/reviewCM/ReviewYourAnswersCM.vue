@@ -26,7 +26,7 @@
                             <b v-html="beautifyQuestion(data.value)" >{{beautifyQuestion(data.value)}}</b>
                         </template>
                         <template v-slot:cell(value)="data" >
-                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''" v-html="beautifyResponse(data.value, data.item)">{{beautifyResponse(data.value, data.item)}}</div>
+                            <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item, section.data) == 'string' && beautifyResponse(data.value, data.item, section.data).includes('REQUIRED')?'bg-danger text-white px-2':''" v-html="beautifyResponse(data.value, data.item, section.data)">{{beautifyResponse(data.value, data.item, section.data)}}</div>
                         </template>
                         <template v-slot:cell(edit)="data" > 
                             <b-button style="border:white;" size="sm" variant="transparent" v-b-tooltip.hover.noninteractive title="Edit"  @click="edit(section,data)"><b-icon icon="pencil-square" font-scale="1.25" variant="primary"/></b-button>
@@ -126,9 +126,9 @@ export default class ReviewYourAnswersCm extends Vue {
         return adjQuestion
     }
 
-    public beautifyResponse(value, dataItem){
-        const inputType = dataItem?dataItem['inputType']:""
-        const inputName = dataItem?dataItem['name']:""
+    public beautifyResponse(value, dataItem, sectionData){
+        const inputType = dataItem? dataItem['inputType']:""
+        const inputName = dataItem? dataItem['name']:""
 
         if(!value){
             this.pageHasError = true;
@@ -186,6 +186,10 @@ export default class ReviewYourAnswersCm extends Vue {
             return this.getMultipleTextInputResults(value)
         }
         else if(typeof value ==='string' && value !== ''){
+            
+            if(value == 'other' && sectionData[dataItem.name+'Comment']){                
+                return Vue.filter('styleTitle')("Selected: ")+value+"\n"+Vue.filter('styleTitle')("Comment: ")+sectionData[dataItem.name+'Comment']
+            }
 
             const m = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{2}):(\d{2}):(\d{2})$/);
             if(m) return ""+m[4]+":"+m[5]+"<b> on </b>"+ Vue.filter('beautify-date')(value) 

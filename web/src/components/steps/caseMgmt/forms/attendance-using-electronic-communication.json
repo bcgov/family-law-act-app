@@ -64,6 +64,7 @@
               "type": "customdatetime",
               "name": "appearanceSchedule",
               "title":"What date and time is the appearance scheduled for?",
+              "isRequired":true,
               "description":"This information can be found on the filed application or the notice from the court."
             },
             {

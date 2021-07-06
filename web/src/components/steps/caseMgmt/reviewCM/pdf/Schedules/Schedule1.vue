@@ -17,9 +17,9 @@
             <div style="display:inline; margin-left:0.15rem;"> I am applying for an order to allow: </div>
             <div style="margin-left:1.1rem;"><i>Select all options that apply</i></div>
             <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
-                <check-box style="" :check="true?'yes':''" text="me"/>                                
-                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="my lawyer, "/>
-                <underline-form style="margin-left:0.25rem; text-indent:3px;display:inline-block;" textwidth="16rem" beforetext="" hint="full name of lawyer" text=""/>
+                <check-box style="" :check="scheduleInfo.attendees.includes('me')?'yes':''" text="me"/>                                
+                <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.attendees.includes('lawyer')?'yes':''" text="my lawyer, "/>
+                <underline-form style="margin-left:0.25rem; text-indent:3px;display:inline-block;" textwidth="16rem" beforetext="" hint="full name of lawyer" :text="scheduleInfo.lawyerName"/>
             </div>
                 
             <div style="margin:0.5rem 0 0 1.1rem;">to attend at the:</div>
@@ -35,8 +35,8 @@
             </div>   
 
             <div style="margin:1rem 0 0.5rem 1.0rem;">
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="9rem" beforetext="Scheduled for" hint="mmm/dd/yyyy" text=""/>                
-                <underline-form style="text-indent:3px;display:inline-block;" textwidth="5rem" beforetext="at" hint="HH:MM" text=""/> 
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="9rem" beforetext="Scheduled for" hint="mmm/dd/yyyy" :text="scheduleInfo.eventDate"/>                
+                <underline-form style="text-indent:3px;display:inline-block;" textwidth="5rem" beforetext="at" hint="HH:MM" :text="scheduleInfo.eventTime"/> 
             </div>
             
             <div style="margin:1.25rem 0 0 1.1rem;">By electronic communication as follows:</div>
@@ -153,19 +153,23 @@ export default class Schedule1 extends Vue {
 
         if (this.result.attendanceUsingElectronicCommunicationSurvey){
             const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
-            
             virtualAttendanceInfo.attendees =  virtualAttendanceData.attendessList?.['checked'];
-            virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList?.['checked']?.includes('lawyer')? (virtualAttendanceData['lawyerComment']): '';
+            virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList?.['checked']?.includes('lawyer')? (virtualAttendanceData.attendessList['lawyerComment']): '';
             virtualAttendanceInfo.eventType =  virtualAttendanceData.appearanceType;
             virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
-            virtualAttendanceInfo.eventDate = virtualAttendanceData.appearanceDate;
-            virtualAttendanceInfo.eventTime = virtualAttendanceData.appearanceTime;
+            virtualAttendanceInfo.eventDate = Vue.filter('beautify-date-blank')(virtualAttendanceData.appearanceSchedule);
+            virtualAttendanceInfo.eventTime = Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule);
             virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
             if (virtualAttendanceData.attendanceType == 'byTelephone'){
                 virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
                 virtualAttendanceInfo.directLine = virtualAttendanceData.directPhone == 'y'; 
                 virtualAttendanceInfo.attendanceTypeComment = '';
-            } else {
+            }else if(virtualAttendanceData.attendanceType == 'byVideo'){
+                virtualAttendanceInfo.phoneNumber = '';
+                virtualAttendanceInfo.attendanceTypeComment ='By video using MS Teams'; 
+                virtualAttendanceInfo.attendanceType = 'other'; 
+            } 
+            else {
                 virtualAttendanceInfo.phoneNumber = '';
                 virtualAttendanceInfo.attendanceTypeComment = (virtualAttendanceData.attendanceType == 'other')?virtualAttendanceData.attendanceTypeComment:'';                
             }

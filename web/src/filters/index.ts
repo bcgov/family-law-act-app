@@ -22,6 +22,13 @@ Vue.filter('beautify-date', function(date){
 		return 'unknown'
 })
 
+Vue.filter('beautify-time', function(time){	
+	if(time)
+		return time.substr(11,2) + ':' +  time.substr(14,2);
+	else
+		return ''
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
@@ -246,8 +253,8 @@ Vue.filter('FLMform4Required', function(){
 Vue.filter('FLMform5Required', function(){
 	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
 	const results = store.state.Application.steps[stepFLMnum].result
-	if( results.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
-		results.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') ){
+	if( results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
+		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') ){
 			return true
 		}
 	else  return false

@@ -14,9 +14,10 @@
 
                     <div v class="radio-border">
                         <b-form-group>
-                            <b-form-radio-group
+                            <b-form-radio-group                            
                             v-model="selectedChildrenRelated"
                             name="childrenRelated"
+                            @change="situationChanged"
                             stacked>                
                                 <div>
                                     <b-form-radio class="radio-choices" value="Not a party to the case">
@@ -192,6 +193,10 @@ export default class CmChildrenInfo extends Vue {
         }
 
         this.dataReady = true;
+    }
+
+    public situationChanged(){
+        Vue.filter('surveyChanged')('caseMgmt');
     }
 
     public isDisableNext() {
