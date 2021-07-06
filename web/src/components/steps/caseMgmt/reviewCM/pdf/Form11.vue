@@ -163,27 +163,26 @@ export default class Form11 extends Vue {
         let schedules: string[] = [];
         const selectedCMs = this.result.cmQuestionnaireSurvey;              
             
-        if (selectedCMs.includes("remoteAttendance")){
+        if (selectedCMs?.includes("remoteAttendance")){
             schedules.push("schedule1")
         }
 
-        if (selectedCMs.includes("changeServiceRequirement")){
+        if (selectedCMs?.includes("changeServiceRequirement")){
             schedules.push("schedule2")
         }
 
-        if (selectedCMs.includes("changeRequirement")){
+        if (selectedCMs?.includes("changeRequirement")){
             schedules.push("schedule3")
         }   
 
-        if (selectedCMs.includes("section242")){
+        if (selectedCMs?.includes("section242")){
             schedules.push("schedule4")
         }
 
-        if (selectedCMs.includes("otherProvinceOrder")){
+        if (selectedCMs?.includes("otherProvinceOrder")){
             schedules.push("schedule5")
         }
-       
-        // console.log(schedules)
+
         return schedules;
     }
 

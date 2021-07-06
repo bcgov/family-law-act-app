@@ -154,9 +154,9 @@ export default class Schedule1 extends Vue {
         if (this.result.attendanceUsingElectronicCommunicationSurvey){
             const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
             
-            virtualAttendanceInfo.attendees = virtualAttendanceData.attendessList['checked'];
-            virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList['checked'].includes('lawyer:')?(virtualAttendanceData['lawyer:Comment']): '';
-            virtualAttendanceInfo.eventType = virtualAttendanceData.appearanceType;
+            virtualAttendanceInfo.attendees =  virtualAttendanceData.attendessList?.['checked'];
+            virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList?.['checked']?.includes('lawyer')? (virtualAttendanceData['lawyerComment']): '';
+            virtualAttendanceInfo.eventType =  virtualAttendanceData.appearanceType;
             virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
             virtualAttendanceInfo.eventDate = virtualAttendanceData.appearanceDate;
             virtualAttendanceInfo.eventTime = virtualAttendanceData.appearanceTime;

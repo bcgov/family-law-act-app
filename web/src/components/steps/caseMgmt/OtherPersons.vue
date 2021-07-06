@@ -42,8 +42,8 @@ export default class OtherPersons extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;    
+    currentStep =0;
+    currentPage =0;    
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -67,8 +67,6 @@ export default class OtherPersons extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('caseMgmt')            
-            // console.log(options)              
-
         })
     }
     
@@ -101,8 +99,3 @@ export default class OtherPersons extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

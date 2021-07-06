@@ -8,6 +8,7 @@
                "type": "checkbox",
                "name": "acknowledgement",
                "title": "I understand",
+               "otherText":"I understand each other party, and any other person who may be directly affected by the order, must be given notice of my application about a case management order.",
                "titleLocation": "hidden",
                "choices": [
                   {

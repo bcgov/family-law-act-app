@@ -222,13 +222,11 @@ export default class Schedule2 extends Vue {
     public getExistingParentingArrangementsInfo(){
         let existingParentingArrangements = {} as schedule2DataInfoType;
 
-        const generalCondition = (( this.result.aboutParentingArrangementsSurvey && 
-                                    this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' &&                                    
-                                    this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder')
+        const generalCondition = (( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingOrder' &&                                    
+                                    this.result.aboutParentingArrangementsSurvey?.orderDifferenceType == 'changeOrder')
                                  || 
-                                  ( this.result.aboutParentingArrangementsSurvey && 
-                                    this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement'&& 
-                                    this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'))
+                                  ( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingAgreement'&& 
+                                    this.result.aboutParentingArrangementsSurvey?.agreementDifferenceType == 'replacedAgreement'))
 
         
         

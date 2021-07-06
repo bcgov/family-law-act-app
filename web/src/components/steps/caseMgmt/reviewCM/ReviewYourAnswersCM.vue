@@ -87,8 +87,8 @@ export default class ReviewYourAnswersCm extends Vue {
     ]
 
     questionResults = [];
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     pageHasError = false;
 
     errorQuestionNames = [];
@@ -97,7 +97,6 @@ export default class ReviewYourAnswersCm extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        //console.log(newVal)
         this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewFormsCM,  50, false);
@@ -106,9 +105,7 @@ export default class ReviewYourAnswersCm extends Vue {
 
     mounted(){
         this.currentDate = moment().format('MMM DD YYYY');
-        this.reloadPageInformation();
-        this.determineHiddenErrors();
-        //console.log(this.step)
+        this.reloadPageInformation();     
     }
 
     public beautifyQuestion(question){
@@ -130,8 +127,6 @@ export default class ReviewYourAnswersCm extends Vue {
     }
 
     public beautifyResponse(value, dataItem){
-        //console.log(value)
-        //console.log(dataItem)
         const inputType = dataItem?dataItem['inputType']:""
         const inputName = dataItem?dataItem['name']:""
 
@@ -145,18 +140,17 @@ export default class ReviewYourAnswersCm extends Vue {
             return "REQUIRED";
         }
         else if(value['selected']){
-            return this.getAdvancedRadioGroupResults(value)
+           return this.getAdvancedRadioGroupResults(value)
         }
         else if(value['checked']){
            return this.getMultipleCommentCheckboxResults(value)
         }    
         else if(Array.isArray(value))
         {
-            //console.log(value)
-            if(value[0].date && value[0].name && value[0].nameOther && value[0].relationship) return this.getGuardianOfChildTable(value)
+            if(value[0]?.date && value[0].name && value[0].nameOther && value[0].relationship) return this.getGuardianOfChildTable(value)
             if(value[0] && value[0] instanceof String && value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
-            if(value[0].childName)return this.getChildInfo(value) 
-            if(value[0].anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
+            if(value[0]?.childName)return this.getChildInfo(value) 
+            if(value[0]?.anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
             if(typeof value[0] === 'string' || value[0] instanceof String)
                 return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
             else{
@@ -190,8 +184,12 @@ export default class ReviewYourAnswersCm extends Vue {
             return Vue.filter('beautify-date')(value) 
         else if(typeof value ==='object' && value !== null){
             return this.getMultipleTextInputResults(value)
-        }         
+        }
         else if(typeof value ==='string' && value !== ''){
+
+            const m = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{2}):(\d{2}):(\d{2})$/);
+            if(m) return ""+m[4]+":"+m[5]+"<b> on </b>"+ Vue.filter('beautify-date')(value) 
+
             let keyBeauty = value.charAt(0).toUpperCase() + value.slice(1);
             keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')  
             return keyBeauty;    
@@ -216,9 +214,9 @@ export default class ReviewYourAnswersCm extends Vue {
     }
 
     public getChildrenNames(selectedChildren){
-        //console.log('_________')
+
         let result = ''
-        if (this.step.result && this.step.result.childrenInfoSurvey) {
+        if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data;
             for(const selectedChild of selectedChildren ){
                 if(!isNaN(Number(selectedChild.substring(6,7)))){
@@ -250,10 +248,7 @@ export default class ReviewYourAnswersCm extends Vue {
         
         for (const [key, value] of Object.entries(questionValue))
         {
-            //  console.error("____________")
-            //  console.log(key)
-            //  console.log(value)
-            if(questionValue['checked'].includes(key.slice(0,-7))){
+            if(key && questionValue['checked']?.includes(key.slice(0,-7))){
                 if(value){ 
                     let keyBeauty = ''
                     keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
@@ -276,7 +271,7 @@ export default class ReviewYourAnswersCm extends Vue {
 
         for (const [key, value] of Object.entries(questionValue))
         {            
-            if(key.startsWith(selected)){
+            if(key?.startsWith(selected)){
                 if(value){                
                     keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
                     keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
@@ -294,7 +289,7 @@ export default class ReviewYourAnswersCm extends Vue {
         let resultString = "";
         for (const [key, value] of Object.entries(argValue))
         {
-            if(value){                
+            if(key && value){                
                 let keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
                 keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
                 resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
@@ -307,7 +302,7 @@ export default class ReviewYourAnswersCm extends Vue {
     }  
 
     public getGuardianOfChildTable(tableValue){
-        //console.log(tableValue)
+       
         let resultString = "";
         for(const item of tableValue){
             resultString +=Vue.filter('styleTitle')("Child Name: ") + item['name'] +"\n";
@@ -319,8 +314,7 @@ export default class ReviewYourAnswersCm extends Vue {
     }
 
     public edit(section, data){
-        // console.log(data)
-        // console.log(section)
+        
         this.$store.commit("Application/setScrollToLocationName",data.item.name);
         this.$store.commit("Application/setCurrentStep", section.currentStep);
         this.$store.commit("Application/setCurrentStepPage", {currentStep: section.currentStep, currentPage: section.currentPage });
@@ -332,6 +326,7 @@ export default class ReviewYourAnswersCm extends Vue {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
            Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewFormsCM,  50, false);
         }
@@ -344,14 +339,14 @@ export default class ReviewYourAnswersCm extends Vue {
             if(stepResult)
                 for (const [key, value] of Object.entries(stepResult))
                 {                   
-                    if(value && value['data'] && value['data'].length == 0){
+                    if(value?.['data']?.length == 0){
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
                         value['questions'][0]= {name: "require", value: "", title: value['pageName'], inputType: ""}                 
                         if(isPageActive){
                             this.questionResults.push(value);
                         }
                     }
-                    else if(value && (value['currentPage'] || value['currentPage']==0)){ 
+                    else if((value?.['currentPage'] || value?.['currentPage']==0)){ 
                         const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
                                         
                         if(value['questions'] && isPageActive){
@@ -364,43 +359,7 @@ export default class ReviewYourAnswersCm extends Vue {
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
        
-        this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError); 
-        
-    }
-
-    public determineHiddenErrors(){        
-        this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","y",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child:", "PartiesHasOtherChilderen"));
-        this.errorQuestionNames.push(this.coOccurrence("Protection from whom?","childPO","n",  "Background","PartiesHasOtherChilderen","Are {ProtectedPartyName} and {RespondentName} a parent, step-parent or guardian to a child that is not already identified in the list", "PartiesHasOtherChilderen"));        
-    }
-
-    public coOccurrence(pageName1,question1,value1,  pageName2,question2,title2:string, response){
-        for(const questionResult of this.questionResults)
-        {
-            if(questionResult.pageName == pageName1)
-            {
-                for(const question of questionResult.questions)
-                {
-                    if(question.name == question1 && question.value == value1)
-                    {
-                        for(const questionResult of this.questionResults)
-                        {
-                            if(questionResult.pageName == pageName2)
-                            {
-                                for(const question of questionResult.questions){
-                                    if(question.name == question2 && question.title.trim()==title2.trim())
-                                    {                                        
-                                        return response
-                                    }
-                                }
-                            }
-                        }
-                        break
-                    }
-                }
-                break;
-            }
-        }
-        return ""
+        this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError);        
     }
 
     public togglePages(pageArr, activeIndicator) {
@@ -418,7 +377,6 @@ export default class ReviewYourAnswersCm extends Vue {
     }
 
     public onNext() {
-       //console.log(this.pageHasError)
         this.UpdateGotoNextStepPage()       
     }
 

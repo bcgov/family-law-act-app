@@ -649,7 +649,7 @@ class Application extends VuexModule {
         p.key = "1";
         p.name = "OtherPersons";
         p.label = "Other Persons";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -657,7 +657,7 @@ class Application extends VuexModule {
         p.key = "2";
         p.name = "WithoutNoticeOrAttendance";
         p.label = "Without Notice or Attendance";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -665,7 +665,7 @@ class Application extends VuexModule {
         p.key = "3";
         p.name = "ByConsent";
         p.label = "By Consent";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -673,7 +673,7 @@ class Application extends VuexModule {
         p.key = "4";
         p.name = "CmNotice";
         p.label = "Notice";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -681,7 +681,7 @@ class Application extends VuexModule {
         p.key = "5";
         p.name = "Scheduling";
         p.label = "Scheduling";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -689,7 +689,7 @@ class Application extends VuexModule {
         p.key = "6";
         p.name = "AboutCaseManagementOrder";
         p.label = "About the order";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -697,7 +697,7 @@ class Application extends VuexModule {
         p.key = "7";
         p.name = "CmChildrenInfo";
         p.label = "Children";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -705,7 +705,7 @@ class Application extends VuexModule {
         p.key = "8";
         p.name = "AttendanceUsingElectronicCommunication";
         p.label = "Attendance Using Electronic Communication";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -725,9 +725,6 @@ class Application extends VuexModule {
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
-
-
-
 
 
         this.steps.push(s);

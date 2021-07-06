@@ -29,6 +29,7 @@
               "name": "orderWithoutNoticeAcknowledgement",
               "title": "I understand",
               "titleLocation": "hidden",
+              "otherText":"I understand that I will be required to serve a copy of any order I receive on each other party along with a copy of this application and any supporting documents.",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{needWithoutNotice} = 'y'",

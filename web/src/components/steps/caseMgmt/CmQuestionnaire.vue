@@ -255,7 +255,7 @@ export default class CmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result.cmQuestionnaireSurvey) {
+        if (this.step.result?.cmQuestionnaireSurvey) {
             this.selectedCaseManagement = this.step.result.cmQuestionnaireSurvey.data;
         }
         
@@ -281,6 +281,7 @@ export default class CmQuestionnaire extends Vue {
     public setSteps(selectedCaseManagement) {
        
         const p = this.stPgNo.CM
+        
         if (selectedCaseManagement) {
 
             this.togglePages(this.allPages, false); 
@@ -290,33 +291,17 @@ export default class CmQuestionnaire extends Vue {
             if (selectedCaseManagement.length > 0){
 
                 this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true);               
+                this.getSelectedCaseManagementItems();
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.OtherPersons].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherPersons, 50, false);
-                
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.WithoutNoticeOrAttendance].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.WithoutNoticeOrAttendance, 50, false);
-                
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.ByConsent].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ByConsent, 50, false);
-
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.CmNotice].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmNotice, 50, false);
-
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.Scheduling].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 50, false);
-
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutCaseManagementOrder].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 50, false);
-
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.CmChildrenInfo]?.progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 50, false);
-
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.AttendanceUsingElectronicCommunication].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 50, false);
-
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
-                
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherPersons, 0, false);                
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.WithoutNoticeOrAttendance, 0, false);                
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ByConsent, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmNotice, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);                
             }   
         }
     }   
@@ -359,8 +344,10 @@ export default class CmQuestionnaire extends Vue {
     }   
 
     public getSelectedCaseManagementItems(){
+        
         let result = ''
         this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance, this.stPgNo.CM.ByConsent], false);       
+        
         for(const form of this.selectedCaseManagement){
             if(form=='changeServiceRequirement') {
                 this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
@@ -445,6 +432,7 @@ export default class CmQuestionnaire extends Vue {
     beforeDestroy() {
         const progress = this.selectedCaseManagement.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        
         const questions = [{name:'CmQuestionnaire',title:'What are you asking for (orders)?',value:this.getSelectedCaseManagementItems()}]        
         this.UpdateStepResultData({step:this.step, data: {cmQuestionnaireSurvey: {data: this.selectedCaseManagement, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }

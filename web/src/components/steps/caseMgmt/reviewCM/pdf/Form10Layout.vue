@@ -282,9 +282,6 @@ export default class Form10Layout extends Vue {
 
     @Prop({required:true})
     result!: any;
-
-    @Prop({required:true})
-    selectedPathways!: string[];
     
     @applicationState.State
     public applicantName!: nameInfoType;
@@ -301,19 +298,18 @@ export default class Form10Layout extends Vue {
     childRelatedType: string = '';   
     childrenInfo: childrenInfoSurveyInfoType[] = []; 
     form10Info = {} as form10DataInfoType;  
-   
-    mounted(){
-        this.dataReady = false;
-        console.log(this.result)
-        this.extractInfo();       
-        this.dataReady = true;
-    }
-   
+    
     childrenFields=[
         {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
     ]   
-
+   
+    mounted(){
+        this.dataReady = false;
+        this.extractInfo();       
+        this.dataReady = true;
+    }
+   
     public extractInfo(){
         this.yourInfo = this.getYourInfo();  
         this.otherPartyInfo = this.getOtherPartyInfo();  
@@ -342,13 +338,14 @@ export default class Form10Layout extends Vue {
         let childInfo = {} as childrenInfoSurveyInfoType;
         const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey.childData;
         
-        if(this.childRelatedType=='A party to the case and the case involves a child-related issue')
+        if(this.childRelatedType=='A party to the case and the case involves a child-related issue'){
             for (const child of childData){            
                 childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
                 childInfo.fullName = Vue.filter('getFullName')(child.name);
                 childInfo.dob = Vue.filter('beautify-date')(child.dob);            
                 childrenInfo.push(childInfo)
             }        
+        }
         else
             childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
           
@@ -438,12 +435,7 @@ export default class Form10Layout extends Vue {
         }
       
         return form10Info;
-    }
-
-
-
-
-  
+    } 
  
 }
 </script>

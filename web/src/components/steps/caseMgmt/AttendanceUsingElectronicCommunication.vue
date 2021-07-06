@@ -43,8 +43,8 @@ export default class AttendanceUsingElectronicCommunication extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     listOfIssuesDescription = '';
 
     beforeCreate() {
@@ -69,8 +69,6 @@ export default class AttendanceUsingElectronicCommunication extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('caseMgmt')            
-            console.log(options)              
-
         })
     }
     
@@ -93,6 +91,7 @@ export default class AttendanceUsingElectronicCommunication extends Vue {
     }
 
     public getDescription(data: priorityParentingMatterOrderSurveyDataInfoType) {
+        
         let description = '';
         const firstDescriptionSection = 'You indicated you are applying for an order about a priority parenting matter '
        

@@ -97,18 +97,19 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.withoutNoticeOrAttendanceSurvey){
+ 
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.withoutNoticeOrAttendanceSurvey){
             this.survey.data = this.step.result.withoutNoticeOrAttendanceSurvey.data;
         }
 
         if (this.step.result?.cmQuestionnaireSurvey?.data){
             this.listOfIssuesDescription = this.getDescription();
             this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
-        }
+        }        
         
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false); 
         
         this.determinePages();
@@ -167,20 +168,19 @@ export default class WithoutNoticeOrAttendance extends Vue {
 
         if (this.cmType.includes('section242')) {
             listOfIssues.push('<li>Requiring access to information in accordance with section 242 of the Family Law Act</li>');
-        }         
-       
-                 
+        }       
+                        
         const initialList = listOfIssues.toString()            
         description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
     
-
         return description;
     }
 
     public needConsent(){
+        
         let needConsent = false;
         if (this.step.result?.cmQuestionnaireSurvey?.data){
-            const selectedCaseManagementItems = this.step.result?.cmQuestionnaireSurvey?.data;
+            const selectedCaseManagementItems = this.step.result.cmQuestionnaireSurvey.data;
             const byConsentRequiredList = [
                 "adjourningAppearance",
                 "fileTransfer",

@@ -57,7 +57,7 @@ export default class PreviewFormsCm extends Vue {
         this.requiredForm = [];
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]   
 
-        if(stepCM?.result?.withoutNoticeOrAttendanceSurvey?.data && stepCM?.result?.cmQuestionnaireSurvey?.data){
+        if(stepCM.result?.withoutNoticeOrAttendanceSurvey?.data && stepCM.result?.cmQuestionnaireSurvey?.data){
             const withoutNoticeOrAttendanceData = stepCM.result.withoutNoticeOrAttendanceSurvey.data;
             if(withoutNoticeOrAttendanceData.needWithoutNotice == 'y' && this.needNotice(stepCM.result)){
                     this.requiredForm.push('11');                
@@ -73,7 +73,7 @@ export default class PreviewFormsCm extends Vue {
 
         let needNotice = false;
         
-        const selectedCaseManagementItems = results.cmQuestionnaireSurvey?.data;
+        const selectedCaseManagementItems = results.cmQuestionnaireSurvey.data;
         const needNoticeList = [
             'changeServiceRequirement',
             'changeRequirement',
@@ -122,6 +122,5 @@ export default class PreviewFormsCm extends Vue {
         const progress = this.dataReady? 100: 50
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
     }
-
 }
 </script>

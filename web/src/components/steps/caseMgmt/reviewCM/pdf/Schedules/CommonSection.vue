@@ -143,9 +143,9 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { nameInfoType, childInfoType, otherPartyInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, otherPartyInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { cmChildrenInfoSurveyDataInfoType, cmNoticeSurveyDataInfoType, withoutNoticeOrAttendanceSurveyDataInfoType } from '@/types/Application/CaseManagement';
+import { cmChildrenInfoSurveyDataInfoType, withoutNoticeOrAttendanceSurveyDataInfoType } from '@/types/Application/CaseManagement';
 import { caseManagementOtherPartyDataInfoType, cmLocationInfoDataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 
@@ -181,16 +181,16 @@ export default class CommonSection extends Vue {
     
     understandWithoutNotice = false;
    
+    childrenFields = [
+        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+    ]
+    
     mounted(){
         this.dataReady = false;
         this.extractInfo();       
         this.dataReady = true;
-    }
-   
-    childrenFields = [
-        {key:"fullName",               label:"Child's full legal name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-    ]   
+    }   
 
     public extractInfo(){
         this.yourInfo = this.getYourInfo();  
@@ -203,8 +203,7 @@ export default class CommonSection extends Vue {
             this.understandWithoutNotice = withoutNoticeData.needWithoutNotice == 'y' && withoutNoticeData.orderWithoutNoticeAcknowledgement == 'I understand';
         } else {
             this.understandWithoutNotice = false;
-        }
-      
+        }      
     }
 
     public getLocationInfo(){
@@ -227,13 +226,14 @@ export default class CommonSection extends Vue {
         let childInfo = {} as childrenInfoSurveyInfoType;
         const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey.childData;
         
-        if(this.childRelatedType=='A party to the case and the case involves a child-related issue')
+        if(this.childRelatedType=='A party to the case and the case involves a child-related issue'){
             for (const child of childData){            
                 childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
                 childInfo.fullName = Vue.filter('getFullName')(child.name);
                 childInfo.dob = Vue.filter('beautify-date')(child.dob);            
                 childrenInfo.push(childInfo)
             } 
+        }
         else
             childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
                      

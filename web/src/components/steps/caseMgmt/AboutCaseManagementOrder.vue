@@ -42,8 +42,8 @@ export default class AboutCaseManagementOrder extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     listOfIssuesDescription = '';
 
     beforeCreate() {
@@ -67,9 +67,7 @@ export default class AboutCaseManagementOrder extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt')            
-            // console.log(options)              
-
+            Vue.filter('surveyChanged')('caseMgmt')
         })
     }
     
@@ -91,7 +89,8 @@ export default class AboutCaseManagementOrder extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
 
-     public getDescription() {
+    public getDescription() {
+
         let description = '';
         let listOfIssues = [];
         const firstDescriptionSection = 'You indicated you are applying for a case management order about:  '
@@ -101,7 +100,7 @@ export default class AboutCaseManagementOrder extends Vue {
             cmType = this.step.result.cmQuestionnaireSurvey.data
 
         let withoutNotice = true;
-        if (this.step.result.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice == 'n')
+        if (this.step.result?.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice == 'n')
             withoutNotice = false;
         
         if (cmType.includes('changeServiceRequirement') && !withoutNotice) {
@@ -186,7 +185,6 @@ export default class AboutCaseManagementOrder extends Vue {
         return description;
     }
 
-
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
@@ -198,15 +196,8 @@ export default class AboutCaseManagementOrder extends Vue {
     } 
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {aboutCaseManagementOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

@@ -182,6 +182,7 @@ export default class CmChildrenInfo extends Vue {
 
     mounted(){
         this.dataReady = false;            
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
@@ -189,11 +190,8 @@ export default class CmChildrenInfo extends Vue {
             this.childData = this.step.result.cmChildrenInfoSurvey.data.childData;
             this.selectedChildrenRelated = this.step.result.cmChildrenInfoSurvey.data.childRelatedType
         }
-        this.dataReady = true;
-        //console.log(this.childData)
 
-        // const progress = this.isDisableNext()? 50: 100;
-        // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.dataReady = true;
     }
 
     public isDisableNext() {
@@ -203,10 +201,7 @@ export default class CmChildrenInfo extends Vue {
         return disableNext
     }
 
-    beforeDestroy() {
-        // const progress = this.isDisableNext()? 50 : 100;
-        // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
+    beforeDestroy() {       
         this.UpdateStepResultData({step:this.step, data: {cmChildrenInfoSurvey: this.getChildrenResults()}})       
     }
 
@@ -216,11 +211,12 @@ export default class CmChildrenInfo extends Vue {
         
         questionResults.push({name:'childRelatedType', value: this.selectedChildrenRelated, title:'Select the option that applies to your situation', inputType:''})
         
-        if(this.selectedChildrenRelated=='A party to the case and the case involves a child-related issue')
+        if(this.selectedChildrenRelated=='A party to the case and the case involves a child-related issue'){
             for(const child of this.childData)
             {
                 questionResults.push({name:'childInfoSurvey', value: this.getChildInfo(child), title:'Child '+child.id +' Information', inputType:''})
             }
+        }
 
         return {data: {childData:this.childData, childRelatedType: this.selectedChildrenRelated}, questions:questionResults, pageName:'Children Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }

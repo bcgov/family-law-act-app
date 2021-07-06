@@ -68,13 +68,14 @@ export default class CmNotice extends Vue {
     }
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result.cmNoticeSurvey){
-            this.survey.data = this.step.result.cmNoticeSurvey.data;
-        }
-        
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.cmNoticeSurvey){
+            this.survey.data = this.step.result.cmNoticeSurvey.data;
+        }       
+       
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 
@@ -97,11 +98,7 @@ export default class CmNotice extends Vue {
 
     beforeDestroy() {        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
-        
-        const questionResults = [{name:'cmNotice', value: this.survey.data?.acknowledgement?.[0], title:'I understand each other party, and any other person who may be directly affected by the order, must be given notice of my application about a case management order.', inputType:''}]
-        const cmNotice = {data: this.survey.data, questions: questionResults, pageName:'Notice', currentStep: this.currentStep, currentPage:this.currentPage}
-        
-        this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey:  cmNotice}})
+        this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>

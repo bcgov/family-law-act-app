@@ -3,7 +3,8 @@
     <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
     <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>      
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
-        <form-10-layout v-bind:result="result" v-bind:selectedPathways="selectedPathways"/>       
+        
+        <form-10-layout v-bind:result="result" />       
 
     </b-card>
 </div>
@@ -43,13 +44,11 @@ export default class Form10 extends Vue {
 
     result;
     dataReady = false; 
-    selectedPathways: string[] = [];
-
+    
    
     mounted(){
         this.dataReady = false;
         this.result = this.getCMResultData();
-        this.selectedPathways = this.getPathwayInfo();
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
@@ -142,31 +141,6 @@ export default class Form10 extends Vue {
         Vue.filter('extractRequiredDocuments')(result, 'caseMgmt')
 
         return result;
-    }
-
-    public getPathwayInfo(){
-
-        let pathways: string[] = [];
-        const selectedCMs = this.result.flmQuestionnaireSurvey; 
-            
-        if (selectedCMs?.includes("parentingArrangements")){
-            pathways.push("parentingArrangements")
-        }
-        if (selectedCMs?.includes("childSupport")){
-            pathways.push("childSupport")
-        }
-        if (selectedCMs?.includes("contactWithChild")){
-            pathways.push("contactWithChild")
-        } 
-        if (selectedCMs?.includes("guardianOfChild")){
-            pathways.push("guardianOfChild")
-        }
-                    
-        if (selectedCMs?.includes("spousalSupport")){
-            pathways.push("spousalSupport")
-        }
-                
-        return pathways;
     }
 
 }

@@ -46,8 +46,8 @@ export default class ByConsent extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -70,10 +70,8 @@ export default class ByConsent extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt')            
-            // console.log(options) 
-            this.determineSchedulingNeeded()             
-
+            Vue.filter('surveyChanged')('caseMgmt')
+            this.determineSchedulingNeeded();
         })
     }
     
@@ -86,14 +84,12 @@ export default class ByConsent extends Vue {
             this.survey.data = this.step.result.byConsentSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        if (this.step.result?.otherPersonsSurvey){
-            if (this.step.result.otherPersonsSurvey.data?.otherPersonsExist == 'y'){
-                this.survey.setVariable("firstQuestionText", "and each other person who may be directly affected by the order");
-            } else {
-                this.survey.setVariable("firstQuestionText", "");
-            }
-        }
+        
+        if (this.step.result?.otherPersonsSurvey?.data?.otherPersonsExist == 'y'){
+            this.survey.setVariable("firstQuestionText", "and each other person who may be directly affected by the order");
+        } else {
+            this.survey.setVariable("firstQuestionText", "");
+        }      
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
@@ -139,8 +135,3 @@ export default class ByConsent extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>
