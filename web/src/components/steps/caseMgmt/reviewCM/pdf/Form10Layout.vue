@@ -430,7 +430,7 @@ export default class Form10Layout extends Vue {
         
         if (this.result.cmNoticeSurvey){
             const noticeData: cmNoticeSurveyDataInfoType = this.result.cmNoticeSurvey;
-            form10Info.understandNotice = noticeData.acknowledgement.includes('Understood')
+            form10Info.understandNotice = noticeData.acknowledgement.includes('I understand')
         }
       
         return form10Info;
