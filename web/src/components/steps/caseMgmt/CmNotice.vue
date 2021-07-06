@@ -96,13 +96,12 @@ export default class CmNotice extends Vue {
     }
 
     beforeDestroy() {        
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
+        
+        const questionResults = [{name:'cmNotice', value: this.survey.data?.acknowledgement?.[0], title:'I understand each other party, and any other person who may be directly affected by the order, must be given notice of my application about a case management order.', inputType:''}]
+        const cmNotice = {data: this.survey.data, questions: questionResults, pageName:'Notice', currentStep: this.currentStep, currentPage:this.currentPage}
+        
+        this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey:  cmNotice}})
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "src/styles/survey";
-</style>

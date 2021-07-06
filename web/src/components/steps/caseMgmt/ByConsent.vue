@@ -71,7 +71,8 @@ export default class ByConsent extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('caseMgmt')            
-            // console.log(options)              
+            // console.log(options) 
+            this.determineSchedulingNeeded()             
 
         })
     }
@@ -95,6 +96,8 @@ export default class ByConsent extends Vue {
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        
+        this.determineSchedulingNeeded()
     } 
     
     public determineSchedulingNeeded(){

@@ -212,9 +212,9 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
                 <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'notParty'?'yes':''" text="I am not a party to the case"/>
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'nonChildRelatedCase'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'childRelatedCase'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'Not a party to the case'?'yes':''" text="I am not a party to the case"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'A party to the case and the case does not involve a child-related issue'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
+                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
                 </div>
                 <b-table
                     :items="childrenInfo"
@@ -336,18 +336,22 @@ export default class Form10Layout extends Vue {
 
     public getChildrenInfo(){
 
-        this.childRelatedType = this.result.childRelatedTypeSurvey;
+        this.childRelatedType = this.result.cmChildrenInfoSurvey.childRelatedType;
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey;
+        const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey.childData;
         
-        for (const child of childData){            
-            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-            childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);            
-            childrenInfo.push(childInfo)
-        }        
+        if(this.childRelatedType=='A party to the case and the case involves a child-related issue')
+            for (const child of childData){            
+                childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
+                childInfo.fullName = Vue.filter('getFullName')(child.name);
+                childInfo.dob = Vue.filter('beautify-date')(child.dob);            
+                childrenInfo.push(childInfo)
+            }        
+        else
+            childrenInfo.push({fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''});
+          
 
         return childrenInfo;
     }

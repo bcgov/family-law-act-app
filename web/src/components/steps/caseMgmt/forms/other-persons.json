@@ -20,7 +20,7 @@
               "name": "otherPersonsList",
               "visible": false,
               "visibleIf": "{otherPersonsExist} = 'y'",
-              "description": "If there is more than one other person who may be directly affected by the order, include the names of each person in the field below. Separate the names with a comma.",
+              "description": "If there is more than one other person who may be directly affected by the order, include the names of each person in the field below. Separate the names with a comma.<br><br><div style='font-weight:bold; margin-bottom:-1.5rem;'>Other person(s):</div>",
               "isRequired": true,
               "title": "Provide the full name of each other person who may be directly affected by the order."
             }

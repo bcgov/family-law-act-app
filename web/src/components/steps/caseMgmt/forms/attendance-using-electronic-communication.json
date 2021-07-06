@@ -114,29 +114,35 @@
           ]
         },
         {
-          "type": "html",
-          "name": "requirementDescription",
-          "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.75em;' class='sv_main sv_q_title'>The court has the following requirements about attending a conference or hearing using electronic communication:</div><ul style='color: #556077; font-size: 1.5em; line-height: 1.2;'><li>a speaker phone must not be used</li><li>you must remain near the phone at all times prior to the call from the Clerk of the Court</li><li>the call must be taken in a quiet and private location</li><li>no other person may be in the room during the appearance</li><li>you may speak only when the Judge or Family Justice Manager indicates you may speak</li><li>recording of the call is strictly prohibited</li></ul>"
-        },
-        {
-          "type": "yesno",
-          "name": "understandRequirements",
-          "title": "Do you understand the requirements and agree to comply with them?",
-          "isRequired": true
-        },
-        {
-          "type": "yesno",
-          "name": "submittedDocuments",
-          "description": "Because you won’t be at the court appearance in person, the court wants to know if you have given whatever documents you may plan to use or reference during the court appearance to the other party. You should also make sure the court has a copy of those same documents.",
-          "title": "Have any documents you may want to refer to in court been submitted to the court registry and received by the other party?",
-          "isRequired": true
-        },
-        {
-          "type": "comment",
-          "name": "attendanceTypeReason",
-          "description": "Normally, everyone attends in person at a court appearance. It is usually easier to communicate and exchange information when everyone is together in one place. Explain why you and/or your lawyer is not able to be in court in person for the court appearance. You do not need to use any special wording. The key is to be clear about why you want the court to give permission to attend using electronic communication.",
-          "title": "Why are you, or your lawyer, not able to attend court in person?",
-          "isRequired": true
+          "type": "panel",
+          "name": "electronicRequirementsPanel",          
+          "elements": [
+            {
+              "type": "html",
+              "name": "requirementDescription",
+              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>The court has the following requirements about attending a conference or hearing using electronic communication:</div><ul style='color: #556077; font-size: 1.05em; line-height: 1.8em;'><li>a speaker phone must not be used</li><li>you must remain near the phone at all times prior to the call from the Clerk of the Court</li><li>the call must be taken in a quiet and private location</li><li>no other person may be in the room during the appearance</li><li>you may speak only when the Judge or Family Justice Manager indicates you may speak</li><li>recording of the call is strictly prohibited</li></ul>"
+            },
+            {
+              "type": "yesno",
+              "name": "understandRequirements",
+              "title": "Do you understand the requirements and agree to comply with them?",
+              "isRequired": true
+            },
+            {
+              "type": "yesno",
+              "name": "submittedDocuments",
+              "description": "Because you won’t be at the court appearance in person, the court wants to know if you have given whatever documents you may plan to use or reference during the court appearance to the other party. You should also make sure the court has a copy of those same documents.",
+              "title": "Have any documents you may want to refer to in court been submitted to the court registry and received by the other party?",
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "name": "attendanceTypeReason",
+              "description": "Normally, everyone attends in person at a court appearance. It is usually easier to communicate and exchange information when everyone is together in one place. Explain why you and/or your lawyer is not able to be in court in person for the court appearance. You do not need to use any special wording. The key is to be clear about why you want the court to give permission to attend using electronic communication.",
+              "title": "Why are you, or your lawyer, not able to attend court in person?",
+              "isRequired": true
+            }
+          ]
         }
       ],
       "title": "Attendance Using Electronic Communication"
