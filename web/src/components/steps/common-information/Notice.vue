@@ -13,6 +13,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary.ts"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import * as _ from 'underscore';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -45,6 +46,9 @@ export default class Notice extends Vue {
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
     currentStep =0;
@@ -71,7 +75,8 @@ export default class Notice extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            //console.log(this.survey.data);                       
+            
+            this.determineCaseMgntNeeded();                       
         })   
     }
 
@@ -109,6 +114,27 @@ export default class Notice extends Vue {
                     selectedForms.push('caseMgmt')
                 }
                 this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+
+                
+                //Case Management Pre Select    
+                let selectedCaseManagement = [];
+                const stepNO = this.stPgNo.CM._StepNo;
+                const pageNO = this.stPgNo.CM.CmQuestionnaire;
+                const step = this.$store.state.Application.steps[stepNO];
+
+                if (step.result?.cmQuestionnaireSurvey?.data) {
+                   selectedCaseManagement = step.result.cmQuestionnaireSurvey.data;
+                }
+                if(!selectedCaseManagement.includes('changeServiceRequirement')){
+                    selectedCaseManagement.push('changeServiceRequirement')
+                }
+                const allPages = _.range(pageNO, Object.keys(this.stPgNo.CM).length-1)
+                for(const page of allPages)
+                    Vue.filter('setSurveyProgress')(null, stepNO, page, 0, false);
+                
+                this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:false});
+                this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNO, currentPage: pageNO }); 
+                this.UpdateStepResultData({step:step, data: {cmQuestionnaireSurvey: {data: selectedCaseManagement, questions: [], pageName:"Questionnaire", currentStep:stepNO, currentPage:pageNO}}});
             }
         }
     }
@@ -120,8 +146,7 @@ export default class Notice extends Vue {
         });
     }
 
-    beforeDestroy() {
-        this.determineCaseMgntNeeded();
+    beforeDestroy() {        
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {noticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

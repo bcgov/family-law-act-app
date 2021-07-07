@@ -188,6 +188,7 @@ Vue.filter('getPathwayPdfType',function(name){
 	if (name == 'familyLawMatterForm1') 	return "NTRF";
 	if (name == 'familyLawMatter')   		return "FLC";
 	if (name == 'caseMgmt')          		return "ACMO";
+	if (name == 'caseMgmtForm11')          	return "ACMW";
 	if (name == 'priorityParenting') 		return "AXP";
 	if (name == 'childReloc')        		return "APRC";
 	if (name == 'agreementEnfrc')    		return "AFET";
