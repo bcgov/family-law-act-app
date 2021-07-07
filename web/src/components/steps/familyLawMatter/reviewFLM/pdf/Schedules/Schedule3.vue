@@ -309,19 +309,19 @@ export default class Schedule3 extends Vue {
 
         if (this.result.childSupportSurvey?.applicantGuardianType){
             newChildSupportInfo.appType = {
-                guardian: this.result.childSupportSurvey.applicantGuardianType == 'parentGuardian',
-                standing: this.result.childSupportSurvey.applicantGuardianType == 'appointedGuardian',
-                other: this.result.childSupportSurvey.applicantGuardianType == 'other',
-                otherCom: (this.result.childSupportSurvey.applicantGuardianType == 'other' && this.result.childSupportSurvey.applicantGuardianTypeComment)? this.result.childSupportSurvey.applicantGuardianTypeComment: ''
+                guardian: this.result.childSupportSurvey.applicantGuardianType.includes('parentGuardian'),
+                standing: this.result.childSupportSurvey.applicantGuardianType.includes('appointedGuardian'),
+                other: this.result.childSupportSurvey.applicantGuardianType.includes('other'),
+                otherCom: (this.result.childSupportSurvey.applicantGuardianType.includes('other') && this.result.childSupportSurvey.applicantGuardianTypeComment)? this.result.childSupportSurvey.applicantGuardianTypeComment: ''
             }
         }
 
         if (this.result.childSupportSurvey?.['otherParty[0]GuardianType']){
             newChildSupportInfo.opType = {
-                guardian: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'parentGuardian',
-                standing: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'appointedGuardian',
-                other: this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'other',
-                otherCom: (this.result.childSupportSurvey['otherParty[0]GuardianType'] == 'other' && this.result.childSupportSurvey['otherParty[0]GuardianTypeComment'])? this.result.childSupportSurvey['otherParty[0]GuardianTypeComment']: ''
+                guardian: this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('parentGuardian'),
+                standing: this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('appointedGuardian'),
+                other: this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('other'),
+                otherCom: (this.result.childSupportSurvey['otherParty[0]GuardianType'].includes('other') && this.result.childSupportSurvey['otherParty[0]GuardianTypeComment'])? this.result.childSupportSurvey['otherParty[0]GuardianTypeComment']: ''
             }
         }
 

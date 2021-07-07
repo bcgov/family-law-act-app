@@ -13,6 +13,7 @@
               "type": "yesno",
               "name": "knowIncome",
               "title": "Do you know the income of the other party?",
+              "description": "In most cases, the amount of child support payable is calculated using the payor's gross (before tax) yearly income at the time the order is made. Income can come from many sources including employment or self-employment, rental income, stocks and dividends, Workers Compensation benefits, disability payments, pension and other government benefits. A good place to start is the total income amount from a person’s tax return. If you think you know the other party’s income, include the gross (before tax) amount.",
               "isRequired": true
             },
             {
