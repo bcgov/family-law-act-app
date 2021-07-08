@@ -44,6 +44,6 @@ export interface relocChildBestInterestSurveyInfoType {
 }
 
 export interface relocChildBestInterestSurveyDataInfoType {
-    childBestInterestAcknowledgement: string;
+    childBestInterestAcknowledgement: string[];
     childBestInterestDescription: string;   
 }

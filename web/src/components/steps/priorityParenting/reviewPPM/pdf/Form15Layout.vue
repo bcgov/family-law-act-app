@@ -510,7 +510,7 @@ export default class Form15Layout extends Vue {
                 (ppmOrderData.confirmTravelWrongfullyDenied?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('travel');
                 }
-            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements == 'y') &&
+            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements == 'n') &&
                 (ppmOrderData.impactOnRelationship == 'y') && 
                 (ppmOrderData.confirmImpactOnRelationship?.includes('applyPPM'))){
                     ppmInformation.ppmList.push('locationChange');   

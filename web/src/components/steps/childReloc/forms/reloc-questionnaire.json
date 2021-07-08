@@ -91,7 +91,7 @@
                      "name": "attachCopyOfNotice",
                      "visible": false,
                      "visibleIf": "{ExistingParentingArrangements} = 'y' and {impactOnChild} = 'y' and {receiveNotice} = 'y'",
-                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+                     "title": "You will need to include a copy of the written notice of relocation when you file your documents. You will be reminded to include a copy at the end of the service.",
                      "titleLocation": "hidden"
                   },
                   {

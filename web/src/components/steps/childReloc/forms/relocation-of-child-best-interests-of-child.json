@@ -10,7 +10,7 @@
           "name": "ChildBestInterestPanel",
           "elements": [
             {
-              "type": "radiogroup",
+              "type": "checkbox",
               "name": "childBestInterestAcknowledgement",
               "title": "I understand that I must consider the child(ren)'s best interests with respect to each order about the child I am asking the court to make.",
               "titleLocation": "hidden",

@@ -101,7 +101,7 @@
               "name": "yesDelayPassportRiskInfo",
               "visible": false,
               "visibleIf": "{delayPassportRisk} = 'y'",
-              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including the allocation of parental responsibilities by selecting family law matter on the first step in this service. The court can allocate parental responsibilities including that one guardian be able to make these decisions about a child.",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including the allocation of parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter. The court can allocate parental responsibilities including that one guardian be able to make these decisions about a child.",
               "titleLocation": "hidden",
               "messageStyle": "info"
             },
@@ -221,7 +221,7 @@
               "type": "yesno",
               "name": "impactOnRelationship",
               "visible": false,
-              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'y')",
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n')",
               "isRequired": true,
               "title": "Can the change of residence reasonably be expected to have a significant impact on the child’s relationship with a guardian?"
             },
@@ -231,14 +231,14 @@
               "title": "I’m not sure. Where can I get legal assistance?",
               "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{existingParentingArrangements} = 'y'",
+              "visibleIf": "{existingParentingArrangements} = 'n'",
               "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
             },
             {
               "type": "checkbox",
               "name": "confirmImpactOnRelationship",
               "visible": false,
-              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'y') and ({impactOnRelationship} = 'y')",
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n') and ({impactOnRelationship} = 'y')",
               "title": "Please confirm you are applying for an order about a priority parenting matter because a change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian.",
               "isRequired": true,
               "choices": [
@@ -420,8 +420,8 @@
               "visible": false,
               "visibleIf": "({wrongfulRemoval})",
               "isRequired": true,
-              "title": "Do you believe that the child has been wrongfully brought to, or is being wrongfully kept in, BC?",
-              "description": "If the court is satisfied that a child has been wrongfully removed to, or is being wrongfully retained in BC, the court may make an order under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section77' target='blank' >section 77(2) of the Family Law Act</a>."
+              "title": "Do you believe that the child has been wrongfully brought to BC or is being wrongfully kept in BC?",
+              "description": "If the court is satisfied that a child has been wrongfully removed to BC, or is being wrongfully retained in BC, the court may make an order under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section77' target='blank' >section 77(2) of the Family Law Act</a>."
             },
             {
               "type": "helptext",
@@ -458,7 +458,7 @@
               "name": "noWrongfulInBCInfo",
               "visible": false,
               "visibleIf": "{wrongfulInBC} = 'n'",
-              "title": "This is a priority parenting matter only if you can satisfy the court that a child has been wrongfully removed to, or is being wrongfully retained in, BC. If you require an order about a family law matter including parenting arrangements, you can apply by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "title": "This is a priority parenting matter only if you can satisfy the court that a child has been wrongfully removed to BC or is being wrongfully retained in BC. If you require an order about a family law matter including parenting arrangements, you can apply by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
               "titleLocation": "hidden",
               "messageStyle": "info"
             }
