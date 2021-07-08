@@ -1,7 +1,7 @@
 <template>
 <div v-if="dataReady">    
-    <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
-    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>      
+    <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button> 
+    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>       -->
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"/>
         <schedule-1     v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />

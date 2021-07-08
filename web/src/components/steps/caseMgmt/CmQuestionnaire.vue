@@ -257,6 +257,9 @@ export default class CmQuestionnaire extends Vue {
         
         if (this.step.result?.cmQuestionnaireSurvey) {
             this.selectedCaseManagement = this.step.result.cmQuestionnaireSurvey.data;
+            
+            if(this.selectedCaseManagement.length>0)
+                this.setSteps(this.selectedCaseManagement,false);
         }
         
         const progress = this.selectedCaseManagement.length==0? 50 : 100;        
@@ -270,7 +273,7 @@ export default class CmQuestionnaire extends Vue {
         this.togglePages([this.stPgNo.CM.PreviewFormsCM], false);
         
         if(this.checkErrorOnPages())        
-            this.setSteps(selectedCaseManagement);
+            this.setSteps(selectedCaseManagement, true);
         else{ 
             this.selectedCaseManagement = [];            
             this.togglePages(this.allPages, false); 
@@ -278,7 +281,7 @@ export default class CmQuestionnaire extends Vue {
         Vue.filter('surveyChanged')('caseMgmt')        
     }
 
-    public setSteps(selectedCaseManagement) {
+    public setSteps(selectedCaseManagement, resetPagesProgress) {
        
         const p = this.stPgNo.CM
         
@@ -293,15 +296,20 @@ export default class CmQuestionnaire extends Vue {
                 this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true);               
                 this.getSelectedCaseManagementItems();
                 
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherPersons, 0, false);                
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.WithoutNoticeOrAttendance, 0, false);                
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ByConsent, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmNotice, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);                
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
+
+                if(resetPagesProgress){
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.OtherPersons, 0, false);                
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.WithoutNoticeOrAttendance, 0, false);                
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ByConsent, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmNotice, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);                                    
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
+                }
+                
             }   
         }
     }   
