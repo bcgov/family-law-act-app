@@ -1,0 +1,58 @@
+{
+  "title": "Without Notice or Attendance",
+  "pages": [
+    {
+      "name": "Without Notice or Attendance",
+      "description": "{listOfIssuesDescription}",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "withoutNoticeOrAttendancePanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "needWithoutNotice",
+              "isRequired": true,
+              "title": "Do you want to apply for your order without notice to the other party and without needing to attend a court appearance?"
+            },
+            {
+              "type": "infotext",
+              "name": "AcknowledgementDescription",
+              "title": "I am applying for a case management order without notice to any other party and I understand that I will be required to serve a copy of any order I receive on each other party along with a copy of this application and any supporting documents.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{needWithoutNotice} = 'y'",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "radiogroup",
+              "name": "orderWithoutNoticeAcknowledgement",
+              "title": "I understand",
+              "titleLocation": "hidden",
+              "otherText":"I understand that I will be required to serve a copy of any order I receive on each other party along with a copy of this application and any supporting documents.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{needWithoutNotice} = 'y'",
+              "choices": [
+                {
+                  "value": "I understand",
+                  "text": "<b>I understand</b>"
+                }
+              ]
+            },
+            {
+              "type": "helptext",
+              "name": "FAQServeOtherParty",
+              "title": "How do I serve the other party?",              
+              "titleLocation": "hidden",
+              "body": "There are two types of service – personal service and ordinary service.<br><br>Personal service means an adult person who is at least 19, other than you, must hand-deliver the documents directly to the person being served. A party cannot personally serve a document on the other party.<br><br>Some documents must be personally served, like the Application About a Family Law Matter and the Application About a Protection Order.<br><br>Ordinary service means that a party must be served to their address for service in one of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>A party’s address for service is the address they have provided to the court. A party who does not have an address for service must be served by personal service.<br><br>The rules about service are found in Part 12 <a target='blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e12125'>Division 4</a> of the Provincial Court Family Rules."
+            }
+          ]
+        }
+      ],
+      "title": "Without Notice or Attendance"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

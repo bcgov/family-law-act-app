@@ -66,9 +66,9 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Other Party Name</th>
-                                    <th scope="col">Birthdate</th>
-                                    <th scope="col">Address Information</th>
-                                    <th scope="col">Contact Information</th>
+                                    <th v-if="!cmOnly" scope="col">Birthdate</th>
+                                    <th v-if="!cmOnly" scope="col">Address Information</th>
+                                    <th v-if="!cmOnly" scope="col">Contact Information</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -76,9 +76,9 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td>{{op.dob | beautify-date}}</td>
-                                    <td>{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
-                                    <td>{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
+                                    <td v-if="!cmOnly">{{op.dob | beautify-date}}</td>
+                                    <td v-if="!cmOnly">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
+                                    <td v-if="!cmOnly">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
                                     <td><a class="btn btn-light" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -101,9 +101,9 @@
             </div>
         </div>
 
-        <b-modal size="xl" v-model="flmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
             
-            <div class="m-3">
+            <div class="m-3" v-if="flmInfo">
                
                 <p>I understand the following people must be given notice of my application about a family law matter:</p>
                 <ul>
@@ -120,41 +120,30 @@
                 <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
                 <p>They are the other party/parties I added in this case.</p>
             </div>
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="flmInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closeFlmInfo">I agree</b-button>
-            </template>            
-        </b-modal>
 
-        <b-modal size="xl" v-model="ppmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
-            
-            <div class="m-3">
+            <div class="m-3" v-if="ppmInfo">
                
                 <p>I understand all parents and guardians of the child(ren) this application is about must be given notice of my application about a priority parenting matter.</p>
               
                 <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application to be made without notice or with less than 7 days’ notice.</p>
                 <p>They are the other party/parties I added in this case.</p>
-            </div>
-            <template v-slot:modal-footer>
-                <b-button variant="primary" @click="ppmInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closePpmInfo">I agree</b-button>
-            </template>            
-        </b-modal>
 
-        <b-modal size="xl" v-model="relocInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
-            
-            <div class="m-3">
+            </div>
+
+            <div class="m-3" v-if="relocInfo">
                
                 <p>I understand the relocating guardian(s) must be given notice of my application to prohibit the relocation of a child.</p>
               
                 <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.</p>
                 <p>They are the other party/parties I added in this case.</p>
             </div>
+
+
             <template v-slot:modal-footer>
-                <b-button variant="primary" @click="relocInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closeRelocInfo">I agree</b-button>
+                <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closePopInfo">I agree</b-button>
             </template>            
-        </b-modal>
+        </b-modal>         
 
     </page-base>
 </template>
@@ -173,9 +162,9 @@ const applicationState = namespace("Application");
 
 @Component({
     components:{
-        OtherPartyCommonSurvey,
-        PageBase,
-        Tooltip
+      OtherPartyCommonSurvey,
+      PageBase,
+      Tooltip
     }
 })
 export default class OtherPartyCommon extends Vue {
@@ -205,30 +194,34 @@ export default class OtherPartyCommon extends Vue {
         this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
     }
 
-    currentStep =0;
-    currentPage =0;
+    currentStep=0;
+    currentPage=0;
     showServeNoticeInfo = false
     showTable = true;
+    popInfo = false;
     flmInfo = false;
     ppmInfo = false;
     relocInfo = false;
+    cmOnly = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
  
     created() {
-        if (this.step.result?.otherPartyCommonSurvey) {
+        if (this.step.result && this.step.result.otherPartyCommonSurvey) {
             this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
         }
     }
 
-    mounted(){    
+    mounted(){
+        this.popInfo = false;    
         this.flmInfo = false;  
         this.ppmInfo = false; 
         this.relocInfo = false; 
-        const progress = this.otherPartyData?.length==0? 50 : 100;            
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.cmOnly = (this.types.length == 1 && this.types.includes("Case Management"));
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
@@ -237,6 +230,7 @@ export default class OtherPartyCommon extends Vue {
         this.showTable = false;
         Vue.nextTick(()=>{
             const el = document.getElementById('other-party-common-survey')
+            // console.log(el)
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -253,7 +247,7 @@ export default class OtherPartyCommon extends Vue {
 
     public populateSurveyData(opValue) {
         const currentIndexValue =
-            this.otherPartyData?.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
+            this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
 
@@ -264,7 +258,7 @@ export default class OtherPartyCommon extends Vue {
 
     public deleteRow(rowToBeDeleted) {
         this.otherPartyData = this.otherPartyData.filter(data => {
-            return data.id !== rowToBeDeleted;
+        return data.id !== rowToBeDeleted;
         });
     }
 
@@ -280,60 +274,70 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public onNext() {
-        if (this.types?.includes("Family Law Matter") || this.types?.includes("Priority Parenting Matter") || this.types?.includes("Relocation of a Child")){
+        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter") || this.types.includes("Relocation of a Child")){
+            
             if (this.types.includes("Family Law Matter")){
-                this.flmInfo = true;
+
+                // flm and ppm
+                if (!this.types.includes("Relocation of a Child")){
+                    this.flmInfo = true;
+                } 
+                // flm and reloc
+                else {
+                    // this.ppmInfo = true;
+                }
+
+            } else {
+                // reloc only
+                if (this.types.includes("Relocation of a Child") && !this.types.includes("Priority Parenting Matter")){
+                    this.relocInfo = true;
+                }
+
+                // ppm and reloc
+                else if (this.types.includes("Priority Parenting Matter") && this.types.includes("Relocation of a Child")){
+                    // this.ppmInfo = true;
+                }
+
+                // ppm only
+                else if (this.types.includes("Priority Parenting Matter") && !this.types.includes("Relocation of a Child")){
+                    this.ppmInfo = true;
+                }
+
             }
-            if (!this.types.includes("Family Law Matter") && this.types.includes("Priority Parenting Matter")){
-                this.ppmInfo = true;
-            }
-            if (this.types.includes("Relocation of a Child")){
-                this.relocInfo = true;
-            }
+            this.popInfo = true;
+            
         } else {
+            this.popInfo = false;
             this.UpdateGotoNextStepPage();
         }        
     }
 
-    public closeFlmInfo(){
-        this.flmInfo = false;
-        if (!this.ppmInfo && !this.relocInfo){
-            this.UpdateGotoNextStepPage();
-        }        
+    public closePopInfo(){
+        this.popInfo = false;       
+        this.UpdateGotoNextStepPage();
+             
     }
 
-    public closePpmInfo(){
-        this.ppmInfo = false;
-        if (!this.flmInfo && !this.relocInfo){
-            this.UpdateGotoNextStepPage();
-        }        
-    }
-
-    public closeRelocInfo(){
-        this.relocInfo = false;
-        if (!this.flmInfo && !this.ppmInfo){
-            this.UpdateGotoNextStepPage();
-        }        
-    }
-
-    public isDisableNext() {       
-        return !(this.otherPartyData?.length > 0)
+    public isDisableNext() {
+        // demo
+        return this.otherPartyData? (this.otherPartyData.length <= 0): true;
     }
 
     public getDisableNextText() {
+        // demo
         return "You will need to add at least one other party to continue";
     }
 
     beforeDestroy() {
 
-        if(this.otherPartyData?.length>0){
+        if(this.otherPartyData && this.otherPartyData.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
             this.UpdateCommonStepResults({data:{'respondentsCommon':respondentName}})
         }  
         this.mergeRespondants()     
         
-        const progress = this.otherPartyData?.length==0? 50 : 100;
+        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
@@ -341,15 +345,16 @@ export default class OtherPartyCommon extends Vue {
 
     public mergeRespondants(){
         const respondentName =[]
-        if(this.$store.state.Application.steps[0].result?.respondentsPO){
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsPO){
             const respondentPO = this.$store.state.Application.steps[0].result.respondentsPO        
             respondentName.push(...respondentPO)
         }
-        if(this.$store.state.Application.steps[0].result?.respondentsCommon){
+        if(this.$store.state.Application.steps[0].result && this.$store.state.Application.steps[0].result.respondentsCommon){
             const respondentCommon = this.$store.state.Application.steps[0].result.respondentsCommon
             respondentName.push(...respondentCommon)
         }
         
+        //console.log(respondentName)
         const fullNamesArray =[];
         for(const name of respondentName ){
             fullNamesArray.push(Vue.filter('getFullName')(name))
@@ -359,9 +364,10 @@ export default class OtherPartyCommon extends Vue {
             const fullName = Vue.filter('getFullName')(item)
             return fullNamesArray.indexOf(fullName) == index;
         })
-        
+        //console.log(uniqueArray);
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
+
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
@@ -370,7 +376,7 @@ export default class OtherPartyCommon extends Vue {
             {
                 questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
-        
+        //console.log(questionResults)
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
@@ -379,8 +385,7 @@ export default class OtherPartyCommon extends Vue {
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
         resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
-        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
-        
+        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo))
         return resultString
     }
 

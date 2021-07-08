@@ -96,8 +96,17 @@ export interface FLMstPgTypes{
 export interface CMstPgTypes{
     _StepNo: number;
 
-    CaseManagementForm: number; 
-    
+    CmQuestionnaire: number;
+    OtherPersons: number;
+    WithoutNoticeOrAttendance: number;
+    ByConsent: number;
+    CmNotice: number;
+    Scheduling: number;
+    AboutCaseManagementOrder: number;
+    CmChildrenInfo: number;
+    AttendanceUsingElectronicCommunication: number;
+    ReviewYourAnswersCM: number;
+    PreviewFormsCM: number;
 }
 
 export interface PPMstPgTypes{

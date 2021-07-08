@@ -341,7 +341,6 @@ import { nameInfoType, addressInfoType, contactInfoType, yourInformationDataInfo
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { relocationOfChildInformationDataInfoType, relocationOfChildOtherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
 import { relocChildrenInfoDataInfoType, relocQuestionnaireSurveyDataInfoType, relocChildBestInterestSurveyDataInfoType } from '@/types/Application/RelocationOfChild';
-import { priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 
 @Component({
     components:{
@@ -389,7 +388,7 @@ export default class Form16Layout extends Vue {
            
         this.otherPartyInfo = this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo?.length > 1) {
+        if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
         }
@@ -455,7 +454,7 @@ export default class Form16Layout extends Vue {
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
+                let otherParty = {} as relocationOfChildOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob

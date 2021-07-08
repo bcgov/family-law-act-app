@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12 order-heading">
         <div>
-            <h1>Questionnaire</h1>
+            <h1>Priority Parenting Matters Questionnaire</h1>
             <p>
                 <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child that require the agreement of each of the child's 
                 guardians or an order from the court and it is priority to get the order before or separately from any 
@@ -222,8 +222,7 @@ export default class PpmQuestionnaire extends Vue {
             }   
 
         }
-    } 
-  
+    }  
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
@@ -281,7 +280,7 @@ export default class PpmQuestionnaire extends Vue {
         const progress = this.selectedPriorityParentingMatter.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getSelectedPriorityParentingMatterNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.selectedPriorityParentingMatter, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.selectedPriorityParentingMatter, questions: questions, pageName:"Priority Parenting Matters Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>

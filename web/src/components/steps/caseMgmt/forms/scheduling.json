@@ -1,0 +1,50 @@
+{
+  "title": "Scheduling",
+  "pages": [
+    {
+      "name": "Scheduling",
+      "description": "The court prefers to schedule court appearances for a date that works for everyone. Check with the other party or person to see if there are dates that may work better for all of you. It is usually better for you if the court appearance is scheduled for a date when everyone can be there.   Try to pick a few dates that may work for you and the other party or person, the registry or Judicial Case Manager will work with you to schedule the date based on the court’s availability too. Remember that you must give each party or person at least 7 days’ notice of the date and time of the court appearance.",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "schedulingPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "informedOtherParties",
+              "isRequired": true,
+              "title": "Have you contacted each other party to discuss available dates and times for the court appearance?"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "How do I know when the court schedules these applications?",
+              "titleLocation": "hidden",
+              "body": "Each court registry has different scheduling practices. You can contact the court registry where you will be filing your application to find out if there are set days or times when these applications are scheduled. They might also be able to tell you which days have available times to book.<br><br>Courthouse locations and contact information can be found on the <a target='blank' href='https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96'>BC Government website</a>. <br><br>You can also check the <a target='blank' href='https://www.provincialcourt.bc.ca/locations-contacts'>Provincial Court’s website</a> for contact details and hours of courtroom operation, including family remand dates. "
+            },
+            {
+              "type": "yesno",
+              "name": "agreeOnSchedule",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{informedOtherParties} = 'y'",
+              "title": "Did you agree to a date and time for the court appearance?",
+              "description": "Try to pick a few dates that may work for you and the other party or person, the registry or Judicial Case Manager will work with you to schedule the date based on the court’s availability too."
+            },
+            {
+              "type": "infotext",
+              "name": "agreeOnScheduleDescription",
+              "title": "Make sure you let the court registry know which date and time you have agreed on when you are filing your application. The registry will fill in the actual date on the form.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{informedOtherParties} = 'y' and {agreeOnSchedule} = 'y'"
+            }            
+          ]
+        }
+      ],
+      "title": "Scheduling"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

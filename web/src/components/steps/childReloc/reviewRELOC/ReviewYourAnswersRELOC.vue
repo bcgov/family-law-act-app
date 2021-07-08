@@ -338,7 +338,10 @@ export default class ReviewYourAnswersReloc extends Vue {
         }
 
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
-        
+
+        if(this.currentStep != this.stPgNo.PPM._StepNo)
+            this.questionResults = this.questionResults.filter(questionResult=>{if(questionResult.pageName !='Notice')return true})
+
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
         this.togglePages([this.stPgNo.RELOC.PreviewFormsRELOC], !this.pageHasError); 
         

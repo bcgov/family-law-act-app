@@ -1,0 +1,41 @@
+{
+   "pages": [
+      {
+         "name": "Notice",
+         "description": "I understand each other party, and any other person who may be directly affected by the order, must be given notice of my application about a case management order.<br><br>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.",
+         "elements": [
+            {
+               "type": "checkbox",
+               "name": "acknowledgement",
+               "title": "I understand",
+               "otherText":"I understand each other party, and any other person who may be directly affected by the order, must be given notice of my application about a case management order.",
+               "titleLocation": "hidden",
+               "choices": [
+                  {
+                     "value": "I understand",
+                     "text": "<b>I understand</b>"
+                  }
+               ],
+               "isRequired": true
+            },
+            {
+               "type": "infotext",
+               "name": "noticeDescription",
+               "title": "Note: If you are preparing and filing a consent order with your application, the other party will probably want to see a copy of your application before they sign the consent order. The application is made without a court appearance so the 7 days notice does not apply but they still need notice.",
+               "titleLocation": "hidden",
+               "messageStyle": "inline"
+            },
+            {
+               "type": "helptext",
+               "name": "FAQNotice1",
+               "title": "How do I serve the other party?",
+               "titleLocation": "hidden",
+               "body": "There are two types of service – personal service and ordinary service.</br></br>Personal service means an adult person who is at least 19, other than you, must hand-deliver the documents directly to the person being served. A party cannot personally serve a document on the other party.</br></br>Some documents must be personally served, like the Application About a Family Law Matter and the Application About a Protection Order.</br></br>Ordinary service means that a party must be served to their address for service in one of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>A party’s address for service is the address they have provided to the court. A party who does not have an address for service must be served by personal service.<br><br>A person who is not a party can be served by leaving the documents with the person or by mailing them to the other person by ordinary mail to the person’s postal address. A document served by ordinary mail is considered served on the 14<sup>th</sup> day after it is mailed. This means you need at least 21 days to your court appearance to make sure they are served properly if you serve them by ordinary mail. </br></br>The rules about service are found in Part 12 <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e12125' target='blank'>Division 4</a> of the Provincial Court Family Rules.</br></br>"
+            }
+         ],
+         "title": "Notice"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}

@@ -9,6 +9,7 @@ import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrde
 import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
+import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, otherPersonsSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 
 
 //This is what our database saves.
@@ -147,6 +148,19 @@ export interface stepInfoType {
     spousalSupportSurvey?: spousalSupportSurveyInfoType;
     spousalSupportIncomeAndEarningPotentialSurvey?: spousalSupportIncomeAndEarningPotentialSurveyInfoType;
     unpaidSpousalSupportSurvey?: unpaidSpousalSupportSurveyInfoType;
+
+    //__Step 4 CASE MANAGEMENT
+
+    cmQuestionnaireSurvey?: cmQuestionnaireSurveyInfoType;
+    otherPersonsSurvey?: otherPersonsSurveyInfoType;
+    withoutNoticeOrAttendanceSurvey?: withoutNoticeOrAttendanceSurveyInfoType;
+    byConsentSurvey?: byConsentSurveyInfoType;
+    cmNoticeSurvey?: cmNoticeSurveyInfoType;
+    schedulingSurvey?: schedulingSurveyInfoType;
+    aboutCaseManagementOrderSurvey?: aboutCaseManagementOrderSurveyInfoType;
+    cmChildrenInfoSurvey?: cmChildrenInfoSurveyInfoType;
+    childRelatedTypeSurvey?:string;
+    attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
 
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;

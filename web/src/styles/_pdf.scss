@@ -23,6 +23,7 @@ table.compactfullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 .form-header{display:block; margin:0 0 4rem 0;}
 .form-header-po{display:block; margin:0 0 4rem 0;}
 .form-header-ppm{display:block; margin:0 0 5.25rem 0;}
+.form-header-cm{display:block; margin:0 0 7rem 0;}
 .form-one-header{display:block; margin:0 0 4rem 0;}
 .form-header-reloc{display:block; margin:0 0 5.25rem 0;}
 
@@ -75,6 +76,21 @@ ol li.bracketalpha {
 
 ol li.bracketalpha:before {
     content:counter(alpha, lower-alpha)") ";
+}
+
+ol.resetcounterroman {
+    list-style: none;
+    counter-reset: roman-counter;
+}
+  
+ol li.bracketroman {
+    text-indent: -20px;
+    margin:0.25rem 0;
+    counter-increment: roman;
+}
+
+ol li.bracketroman:before {
+    content:counter(roman, lower-roman)") ";
 }
 
 ol.resetlist {

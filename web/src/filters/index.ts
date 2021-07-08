@@ -22,6 +22,13 @@ Vue.filter('beautify-date', function(date){
 		return 'unknown'
 })
 
+Vue.filter('beautify-time', function(time){	
+	if(time)
+		return time.substr(11,2) + ':' +  time.substr(14,2);
+	else
+		return ''
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
@@ -116,23 +123,42 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
 	for(const question of survey.currentPage.questions){
 		
-		if(question.isVisible && question.name.startsWith("parentFileForm4Info")){		
+		//console.log(question)
+
+		if(question.isVisible && question.name?.startsWith("parentFileForm4Info")){		
 			flagForm4 = true
 		}
 			
+		// if(question.isVisible && question.questionValue!=true){			
+		// 	if(survey.data[question.name]){			
+		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
+		// 	} else if(question.isRequired ){				
+		// 		questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})
+				
+		// 	}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
+		// 		questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.title, inputType:question.inputType})
+		// 	}	
+		// }
+		// //__specialities
+		// else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
+		// 	questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
+		
 		if(question.isVisible && question.questionValue!=true){			
-			if(survey.data[question.name]){			
-				questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
+			if(question.processedTitle == 'I understand'){
+				questionResults.push({name:question.name, value: question.questionValue, title:question.otherText, inputType:question.inputType})
+			}
+			else if(survey.data[question.name]){			
+				questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
 			} else if(question.isRequired ){				
-				questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})
+				questionResults.push({name:question.name, value: "", title:question.processedTitle, inputType:question.inputType})
 				
 			}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
-				questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.title, inputType:question.inputType})
+				questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.processedTitle, inputType:question.inputType})
 			}	
 		}
 		//__specialities
 		else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
-			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
+			questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
 		
 	}
 
@@ -162,6 +188,7 @@ Vue.filter('getPathwayPdfType',function(name){
 	if (name == 'familyLawMatterForm1') 	return "NTRF";
 	if (name == 'familyLawMatter')   		return "FLC";
 	if (name == 'caseMgmt')          		return "ACMO";
+	if (name == 'caseMgmtForm11')          	return "ACMW";
 	if (name == 'priorityParenting') 		return "AXP";
 	if (name == 'childReloc')        		return "APRC";
 	if (name == 'agreementEnfrc')    		return "AFET";
@@ -213,7 +240,7 @@ Vue.filter('FLMform4Required', function(){
 	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
 
 	const form4Pages = store.state.Application.supportingDocumentForm4
-	if(store.state.Application.supportingDocumentForm4.length>0){
+	if(store.state.Application.supportingDocumentForm4?.length>0){
 		for(const page of form4Pages){
 			if(store.state.Application.steps[stepFLMnum].pages[page].active)
 			{
@@ -227,14 +254,8 @@ Vue.filter('FLMform4Required', function(){
 Vue.filter('FLMform5Required', function(){
 	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
 	const results = store.state.Application.steps[stepFLMnum].result
-	if( results &&
-		results.flmQuestionnaireSurvey &&
-		results.flmQuestionnaireSurvey.data &&
-		results.flmQuestionnaireSurvey.data.includes("guardianOfChild") && 
-		results.guardianOfChildSurvey && 
-		results.guardianOfChildSurvey.data && 
-		results.guardianOfChildSurvey.data.applicationType && 
-		results.guardianOfChildSurvey.data.applicationType.includes('becomeGuardian') ){
+	if( results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
+		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') ){
 			return true
 		}
 	else  return false
@@ -257,45 +278,39 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	if(type == 'protectionOrder'){		
 	
-		if(questions.poQuestionnaireSurvey && questions.poQuestionnaireSurvey.orderType == "changePO"){
+		if(questions.poQuestionnaireSurvey?.orderType == "changePO"){
 			
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)")
 		
-		}else if(questions.poQuestionnaireSurvey && questions.poQuestionnaireSurvey.orderType == "terminatePO"){
+		}else if(questions.poQuestionnaireSurvey?.orderType == "terminatePO"){
 		
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)")
 		
-		}else if(questions.poQuestionnaireSurvey && questions.poQuestionnaireSurvey.orderType == "needPO"){
+		}else if(questions.poQuestionnaireSurvey?.orderType == "needPO"){
 			
 			requiredDocuments.push("Any exhibits referenced in your application");
 			
-			if( (questions.poFilingLocationSurvey && questions.poFilingLocationSurvey.ExistingFamilyCase =="y") ||
-			    (questions.backgroundSurvey &&
-				 (questions.backgroundSurvey.existingPOOrders=="y" ||
-				  questions.backgroundSurvey.ExistingOrders=="y"))
+			if( questions.poFilingLocationSurvey?.ExistingFamilyCase =="y" ||
+			    questions.backgroundSurvey?.existingPOOrders=="y" ||
+				questions.backgroundSurvey?.ExistingOrders=="y" 
 			){
-					requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			}
 		}
 	}
 
 	if(type == 'familyLawMatter'){	
 
-		if(questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.existingPOOrders == "y"|| questions.flmBackgroundSurvey && questions.flmBackgroundSurvey.ExistingOrdersFLM == "y")
+		if(questions.flmBackgroundSurvey?.existingPOOrders == "y"|| questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
 		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 			
 		if(Vue.filter('FLMform4Required')())		
 			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
 
-		if((questions.calculatingChildSupportSurvey && 
-			questions.calculatingChildSupportSurvey.attachingCalculations == 'y' &&
-			questions.flmQuestionnaireSurvey &&
-			questions.flmQuestionnaireSurvey.includes("childSupport"))
-		|| (questions.calculatingSpousalSupportSurvey && 
-			questions.calculatingSpousalSupportSurvey.attachingCalculations== 'y' &&
-			questions.flmQuestionnaireSurvey &&
-			questions.flmQuestionnaireSurvey.includes("spousalSupport")))
-				requiredDocuments.push("Support calculation");
+		if( (questions.calculatingChildSupportSurvey?.attachingCalculations == 'y'  &&  questions.flmQuestionnaireSurvey?.includes("childSupport") )
+		|| ( questions.calculatingSpousalSupportSurvey?.attachingCalculations== 'y' &&  questions.flmQuestionnaireSurvey?.includes("spousalSupport"))
+		)
+			requiredDocuments.push("Support calculation");
 
 		if(Vue.filter('FLMform5Required')()){		
 			requiredDocuments.push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/supreme-family/s-51-consent-child-protection-record-check.pdf?forcedownload=true' target='_blank' > Consent for Child Protection Record Check Form 5 </a> <i> Family Law Act Regulation </i>");
@@ -304,23 +319,29 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	
 		//REMINDERS 
 	
-		if( (questions.flmQuestionnaireSurvey && ( questions.flmQuestionnaireSurvey.includes("childSupport")||questions.flmQuestionnaireSurvey.includes("spousalSupport") )) &&
-			(questions.aboutExistingChildSupportSurvey && questions.aboutExistingChildSupportSurvey.filedWithDirector == "y")||(questions.existingSpousalSupportOrderAgreementSurvey && questions.existingSpousalSupportOrderAgreementSurvey.filedWithDirector == "y"))
+		if( ( questions.flmQuestionnaireSurvey?.includes("childSupport")   && questions.aboutExistingChildSupportSurvey?.filedWithDirector == "y" )
+		  ||( questions.flmQuestionnaireSurvey?.includes("spousalSupport") && questions.existingSpousalSupportOrderAgreementSurvey?.filedWithDirector == "y" )
+		  )
 			reminderDocuments.push("You must serve a copy of the application on the director of Maintenance Enforcement.")
 		
-		if( (questions.flmQuestionnaireSurvey && questions.flmQuestionnaireSurvey.includes("guardianOfChild")) &&
-			(questions.indigenousAncestryOfChildSurvey && questions.indigenousAncestryOfChildSurvey.indigenousAncestry && (questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey.indigenousAncestry.includes("Treaty First Nation"))) )
-			reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
+		if( questions.flmQuestionnaireSurvey?.includes("guardianOfChild") &&
+			(questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Nisg̲a’a") || questions.indigenousAncestryOfChildSurvey?.indigenousAncestry?.includes("Treaty First Nation") )  )
+				reminderDocuments.push("You must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the Family Law Act.")
 	}
 
 	if(type == 'priorityParenting'){
-		if(questions.ppmBackgroundSurvey && questions.ppmBackgroundSurvey.ExistingOrdersFLM == "y")
+		if(questions.ppmBackgroundSurvey?.ExistingOrdersFLM == "y")
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
 	}
 
 	if(type == 'childReloc'){
-		if(questions.relocQuestionnaireSurvey && questions.relocQuestionnaireSurvey.ExistingParentingArrangements == "y" )
+		if(questions.relocQuestionnaireSurvey?.ExistingParentingArrangements == "y" )
 			requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+	}
+
+	if(type == 'caseMgmt'){
+		if(questions.byConsentSurvey?.giveConsentDirection == "fileForm18")
+			requiredDocuments.push("Completed <a target='blank' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa739.pdf?forcedownload=true'>Consent Order Form 18</a> form");
 	}
 		
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments ,reminder:reminderDocuments} });	
@@ -337,12 +358,8 @@ Vue.filter('replaceRequiredDocuments', function(){
 		requireDocs['familyLawMatter']['required'] = []		
 		let caseManagementDocPushed = false
 		for(const doc of store.state.Application.requiredDocuments['familyLawMatter'].required){
-			if( store.state.Application.steps[stepFLMnum].result &&
-				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocumentsSurvey &&
-				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocumentsSurvey.data &&
-				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocumentsSurvey.data.isFilingAdditionalDocs =='n' &&
-				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocumentsSurvey.data.unableFileForms && 
-				store.state.Application.steps[stepFLMnum].result.flmAdditionalDocumentsSurvey.data.unableFileForms.includes(doc)){
+			if( store.state.Application.steps[stepFLMnum].result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs =='n' &&				
+				store.state.Application.steps[stepFLMnum].result?.flmAdditionalDocumentsSurvey?.data?.unableFileForms?.includes(doc)){
 					if(!caseManagementDocPushed){
 						requireDocs['familyLawMatter']['required'].push("Completed  <a class='mr-1' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa718.pdf?forcedownload=true' target='_blank'> Application for Case Management Order Without Notice or Attendance </a> Form 11")
 						caseManagementDocPushed = true;
@@ -364,6 +381,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	const stepFLM = store.state.Application.stPgNo.FLM
 	const stepPPM = store.state.Application.stPgNo.PPM
 	const stepRELOC = store.state.Application.stPgNo.RELOC
+	const stepCM = store.state.Application.stPgNo.CM
 
 	const noPOsteps        = [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo]   
 	const noPOreviewPages  = [stepFLM.ReviewYourAnswersFLM, stepPPM.ReviewYourAnswersPPM, stepRELOC.ReviewYourAnswersRELOC];
@@ -392,6 +410,11 @@ Vue.filter('surveyChanged', function(type: string) {
 		step = stepRELOC._StepNo; 
 		reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
 		previewPage = stepRELOC.PreviewFormsRELOC;	
+	}
+	else if(type == 'caseMgmt'){
+		step = stepCM._StepNo; 
+		reviewPage = stepCM.ReviewYourAnswersCM; 
+		previewPage = stepCM.PreviewFormsCM;	
 	}
 
 	if(type == 'allExPO'){
@@ -507,6 +530,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-header{display:block; margin:0 0 5rem 0;}`+
 			`.form-header-po{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ppm{display:block; margin:0 0 5.25rem 0;}`+
+			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
 			`.form-header-reloc{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
@@ -527,8 +551,11 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`ol li.listnumber:before {content:counter(list-counter) ". ";font-weight: bold;}`+
 			`ol.resetcounteralpha {list-style: none;counter-reset: alpha-counter;}`+
 			`ol li.bracketalpha{text-indent: -20px;margin:0.075rem 0;counter-increment: alpha;}`+
-			`ol li.bracketalpha:before {content:counter(alpha, lower-alpha)") ";}`+			
-			
+			`ol li.bracketalpha:before {content:counter(alpha, lower-alpha)") ";}`+				
+			`ol.resetcounterroman {list-style: none;counter-reset: roman-counter;}`+			  
+			`ol li.bracketroman {text-indent: -20px;margin:0.25rem 0;counter-increment: roman;}`+
+			`ol li.bracketroman:before {content:counter(roman, lower-roman)") ";}`+
+						
 			`
 			body{				
 				font-family: BCSans;
