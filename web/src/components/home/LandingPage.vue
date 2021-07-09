@@ -75,19 +75,18 @@
 
                         <div v-if="!isLoggedIn">
                             <div class="row justify-content-center">
-                                <a class="btn btn-success btn-lg survey-button" @click="navigate('new')">
-                                    <strong>New User</strong> - Let’s get started
+                                <a class="btn btn-primary text-white btn-lg survey-button" @click="navigate('new')">
+                                    Register for a <strong>BCeID</strong>
                                 </a>
                             </div>
 
                             <div class="row justify-content-center">
                                 <a
-                                    class="btn btn-default btn-md login-button"
+                                    class="btn btn-default btn-lg bg-warning login-button"
                                     @click="navigate('returning')"
                                     >
                                     <div>
-                                        <strong>Returning User?</strong>
-                                        <br />Log in with BCeID
+                                        Login with my <strong>BCeID</strong>                                       
                                     </div>
                                 </a>
                             </div>

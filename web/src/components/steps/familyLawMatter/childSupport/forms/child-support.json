@@ -12,10 +12,10 @@
             {
               "type": "html",
               "name": "GuardianTypeSelectionHelp",
-              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.6em;' class='sv_main sv_q_title'>Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.</div>If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option.</div>"
+              "html": "<div style='margin-bottom:-0.75rem'><div style='font-weight: bold;font-size: 1.6em;' class='sv_main sv_q_title'>Select the option that best describes the relationship you and the other party have to the child or children the application for child support is about.</div>If there is more than one child the application is about, and the relationship to each child is different, you can select more than one option. If there is more than one other party, and the relationship to each other party is different, you can select more than one option or use the 'other' field to specify the relationship to each other party. For example, Alex is a parent and Taylor is standing in the place of a parent.</div>"
             },
             {
-              "type": "radiogroup",
+              "type": "checkbox",
               "name": "applicantGuardianType",
               "title": "I am:",
               "isRequired": true,
@@ -33,7 +33,7 @@
               "choicesOrder": "asc"
             },
             {
-              "type": "radiogroup",
+              "type": "checkbox",
               "name": "otherParty[0]GuardianType",
               "title": "Other Party is:",
               "isRequired": true,
