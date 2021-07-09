@@ -255,7 +255,12 @@ export default class ReviewYourAnswersCm extends Vue {
             if(key && questionValue['checked']?.includes(key.slice(0,-7))){
                 if(value){ 
                     let keyBeauty = ''
-                    keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
+                    
+                    if(key=='lawyerComment')
+                        keyBeauty = 'Lawyer Name'
+                    else
+                        keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
+
                     keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
                     resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
                 }else{
@@ -292,7 +297,7 @@ export default class ReviewYourAnswersCm extends Vue {
     public getMultipleTextInputResults(argValue){
         let resultString = "";
         for (const [key, value] of Object.entries(argValue))
-        {
+        {   
             if(key && value){                
                 let keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
                 keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   

@@ -1,8 +1,8 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
-            <form-11 v-if="requiredForm.includes('11')" @enableNext="EnableNext"/>
-            <form-10 v-if="requiredForm.includes('10')" @enableNext="EnableNext"/>
+            <form-11 v-if="requiredForm.includes('P11')" @enableNext="EnableNext"/>
+            <form-10 v-if="requiredForm.includes('P10')" @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -12,6 +12,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import Form10 from  "./pdf/Form10.vue"
 import Form11 from  "./pdf/Form11.vue"
 import PageBase from "@/components/steps/PageBase.vue";
+
+import {whichCaseMgmtForm} from "./RequiredForm";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -49,42 +51,10 @@ export default class PreviewFormsCm extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-        this.determineRequiredForm();
-        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo])) this.dataReady = true;
-    }
-
-    public determineRequiredForm(){        
-        this.requiredForm = [];
-        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]   
-
-        if(stepCM.result?.withoutNoticeOrAttendanceSurvey?.data && stepCM.result?.cmQuestionnaireSurvey?.data){
-            const withoutNoticeOrAttendanceData = stepCM.result.withoutNoticeOrAttendanceSurvey.data;
-            if(withoutNoticeOrAttendanceData.needWithoutNotice == 'y' && this.needNotice(stepCM.result)){
-                    this.requiredForm.push('11');                
-            } else {
-                this.requiredForm.push('10');
-            }        
-        } else {
-            this.requiredForm.push('10');
-        }               
-    }
-
-    public needNotice(results){
-
-        let needNotice = false;
         
-        const selectedCaseManagementItems = results.cmQuestionnaireSurvey.data;
-        const needNoticeList = [
-            'changeServiceRequirement',
-            'changeRequirement',
-            'remoteAttendance',
-            'otherProvinceOrder',
-            'section242'
-        ]
+        this.requiredForm = whichCaseMgmtForm();
 
-        needNotice = needNoticeList.some(i => selectedCaseManagementItems.includes(i));        
-
-        return needNotice;
+        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo])) this.dataReady = true;
     }
 
     public EnableNext(){

@@ -64,6 +64,7 @@ import moment from 'moment-timezone';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component
@@ -75,6 +76,9 @@ export default class NavigationSidebar extends Vue {
     @applicationState.State
     public allCompleted!: boolean
 
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
     error = "";
     updateSidebar = 0;
 
@@ -83,8 +87,8 @@ export default class NavigationSidebar extends Vue {
         const next = event.currentTarget;
         const nextIndex = parseInt(next.getAttribute("index"));
         
-        if(nextIndex == 8 && !this.allCompleted){
-            this.$store.commit("Application/setCurrentStepPage", {currentStep: 8, currentPage: 0 });
+        if(nextIndex == this.stPgNo.SUBMIT._StepNo && !this.allCompleted){
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.SUBMIT._StepNo, currentPage: this.stPgNo.SUBMIT.FilingOptions });
         }
         
         this.$store.commit("Application/setCurrentStep", nextIndex);
