@@ -1,0 +1,145 @@
+{
+  "title": "Changing Or Cancelling A Service Or Notice Requirement Including Allowing Another Method Of Service",
+  "pages": [
+    {
+      "name": "Changing Or Cancelling A Service Or Notice Requirement Including Allowing Another Method Of Service",      
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ChangingOrCancellingAServicePanel",
+          "elements": [            
+            { 
+              "type":"infotexttitle",
+              "name":"ChangingOrCancellingAServiceDescription1",
+              "title":"description1",
+              "body": "You normally need to give notice to the other party that you are applying for a court order. You give notice by having the application documents served on the other party. The time between the day that a party is served and the day that the application is heard is called the “notice period” or “notice”. Normally, the other party must be served with at least 7 days’ notice of the court appearance.<br><br> Under special circumstances, the court can allow an application to be made with less than 7 days’ notice or without notice to the other party. ",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQServeOtherParty",
+              "title": "How do I serve the other party?",              
+              "titleLocation": "hidden",
+              "body": "There are two types of service – personal service and ordinary service.<br><br>Personal service means an adult person who is at least 19, other than you, must hand-deliver the documents directly to the person being served. A party cannot personally serve a document on the other party.<br><br>Some documents must be personally served, like the Application About a Family Law Matter and the Application About a Protection Order.<br><br>Ordinary service means that a party must be served to their address for service in one of the following ways:<ul><li>by leaving the documents at the party’s address for service</li><li>by mailing the documents by ordinary mail to the party’s address for service</li><li>by mailing the documents by registered mail to the party’s address for service</li><li>if the party’s address for service includes an email address, by emailing the documents to that email address</li><li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li></ul>A party’s address for service is the address they have provided to the court. A party who does not have an address for service must be served by personal service.<br><br>The rules about service are found in Part 12 <a target='blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e12125'>Division 4</a> of the Provincial Court Family Rules.<br><br>Depending on how the documents are served, what day of the week they are served on, and even what time of day they are served, it might change how you count the notice period. Be sure to review the rules about service before serving the other party to make sure you give them proper notice. "
+            },
+            { 
+              "type":"infotexttitle",
+              "name":"ChangingOrCancellingAServiceDescription2",
+              "title":"description2",
+              "body": "If you are having trouble serving the other party, the court can allow you to serve the documents using another method. For example, if you were required to personally serve the documents (hand-deliver them to the other party) but you can’t find them, the court can allow you to serve them in some other way.",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
+            {
+              "type": "yesno",
+              "name": "changeOrCancelRequirementForService",
+              "isRequired": true,
+              "title": "Do you want to apply for an order to change or cancel a requirement for service or giving notice to a person under the rules?",
+              "description": "This includes an order that allows your application to proceed to court without the other party being served or allows your application to proceed to court with less than the required amount of notice."
+            },            
+            {
+              "type": "checkbox",
+              "name": "acknowledgement",
+              "title": "Please select each document from the list below that you would like to apply for an order to change or cancel the requirement for service or notice.",
+              "description": "Note: You must have already filed the document or be prepared to file the document with this application. <br><br> Select all options that apply.",
+              "otherText":"Other<i>(specify)</i>:",
+              "hasOther": true,
+              "visible": false,
+              "visibleIf": "{changeOrCancelRequirementForService} = 'y'",
+              "choices": [
+                {
+                  "value": "Application About Priority Parenting Matter",
+                  "text": "Application About Priority Parenting Matter"
+                },
+                {
+                  "value": "Application About a Family Law Matter",
+                  "text": "Application About a Family Law Matter"
+                },
+                {
+                  "value": "Subpoena",
+                  "text": "Subpoena"
+                },
+                {
+                  "value": "Order",
+                  "text": "Order"
+                }
+              ],
+              "isRequired": true
+            },
+            {
+              "type": "comment",
+              "title": "Please provide the details of the order you are asking the court to make:",
+              "name": "orderChangesDetail",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. Tell the court the specifics of the order you are applying for. Include if you want the court to waive (cancel) the requirement or tmodify (change) the requirement for service or giving notice. If you are applying to modify the requirement, specify how you want the requirement changed, for example 3 days’ notice instead of 7 days. <br><br> The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'> Family Law Act Picklist </a> includes commonly used order terms that might be helpful. ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{changeOrCancelRequirementForService} = 'y'"              
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community",
+              "visible": false,
+              "visibleIf": "{changeOrCancelRequirementForService} = 'y'"
+            },
+            {
+              "type": "comment",
+              "title": "The facts on which this application is based are as follows:",
+              "name": "applicationFacts",
+              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. Try to include: <ul><li>why the other party should not be served or given notice of the application or other document before you attend court or why the service or notice requirement should be modified (changed)</li><li>why the application or your situation is urgent or what special circumstances exist</li><li>if applicable, what you believe will happen if the other party is served or given notice of your application or other document and a chance to attend court so that you can both be heard at the same time</li></ul>",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{changeOrCancelRequirementForService} = 'y'"              
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "applyForAnotherMethodPanel",
+          "elements": [            
+            {
+              "type": "yesno",
+              "name": "anotherMethodOfService",
+              "isRequired": true,
+              "title": "Do you want to apply for an order that allows a document to be served using another method of service?",
+              "description": "Part 12 <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e12125' target='_blank'>Division 4</a> of the Provincial Court Family Rules sets out the rules about service. Sometimes it can be hard to find a person so that they can be served with court documents or they may be trying to avoid being served. If this happens, you can ask the court for permission to allow the documents to be served in another way. What the other way is will depend on the circumstances."   
+            },
+            {
+              "type": "comment",
+              "title": "Who needs to be served?",
+              "name":"namesOfNeedToBeServed",
+              "description": "Give the full name of the party or person who must be served. If there is more than one person, separate the names with a comma or semi-colon.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            },
+            {
+              "type": "comment",
+              "title": "List each document you need a court order to serve using an alternative method.",
+              "name":"documentListForAltMethod",
+              "description": "You do not need to include each attachment to a document, they form part of that document. You do need to list each separate form or document that you need included in the court order. For example, the Application About a Family Law Matter and Financial Statement.<br><br>Tip: List each document on a new line or separate the documents using a comma or semi-colon.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            },
+            {
+              "type": "comment",
+              "title": "Explain the alternative method of service you want to use.",
+              "name":"altMethods",
+              "description": "Be specific. You need to tell the court how you believe the documents should be served so that they will come to the attention of the person who must be served. Try to include as much detail as possible about how you want the documents served including the name of any other person who might deliver the document, the mailing address, email or other information that would be required to serve the documents. You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.<br><br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'> Family Law Act Picklist </a> includes commonly used order terms that might be helpful. ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            }
+          ]
+        }
+      ],
+      "title": "Changing Or Cancelling A Service Or Notice Requirement Including Allowing Another Method Of Service"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

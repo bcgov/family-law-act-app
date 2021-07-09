@@ -293,7 +293,7 @@ export default class CmQuestionnaire extends Vue {
 
             if (selectedCaseManagement.length > 0){
 
-                this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true);               
+                this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ChangingOrCancellingAServiceOrNotice,   p.ReviewYourAnswersCM], true);               
                 this.getSelectedCaseManagementItems();
                 
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);

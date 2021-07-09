@@ -9,13 +9,14 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
-import surveyJson from "./forms/relocation-of-child-best-interests-of-child.json";
+import surveyJson from "./forms/by-consent.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -23,10 +24,17 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class RelocationOfChildBestInterestsOfChild extends Vue {
+
+export default class ChangingOrCancellingAnyOtherRequirement extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;    
+    step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -37,10 +45,9 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    survey = new SurveyVue.Model(surveyJson);
+    survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
     currentPage =0;
-    existing = false;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -53,40 +60,43 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
         this.reloadPageInformation();
     }
 
-    public initializeSurvey(){
+    public initializeSurvey(){       
         this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }
+    }    
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('childReloc')
+            Vue.filter('surveyChanged')('caseMgmt')
+            
         })
     }
     
-    public reloadPageInformation() {
-
+    public reloadPageInformation() { 
+        
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.relocChildBestInterestInfoSurvey) {
-            this.survey.data = this.step.result.relocChildBestInterestInfoSurvey.data;
+        if (this.step.result?.changingOrCancellingAnyOtherRequirementSurvey) {
+            this.survey.data = this.step.result.changingOrCancellingAnyOtherRequirementSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }       
-
-        if (this.step.result?.relocChildrenInfoSurvey) {
-            const childData = this.step.result.relocChildrenInfoSurvey.data;            
-            if (childData?.length>1){
-                this.survey.setVariable("childWording", "children");                    
-            } else {
-                this.survey.setVariable("childWording", "child");
-            }
-        }
+        }     
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+    } 
+
+
+    public togglePages(pageArr, activeIndicator) {        
+        for (let i = 0; i < pageArr.length; i++) {            
+            this.$store.commit("Application/setPageActive", {
+                currentStep: this.currentStep,
+                currentPage: pageArr[i],
+                active: activeIndicator
+            });
+        }
     }
 
     public onPrev() {
@@ -97,13 +107,12 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
-    }  
+    } 
     
     beforeDestroy() {
+
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {relocChildBestInterestInfoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {changingOrCancellingAnyOtherRequirementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
-
-

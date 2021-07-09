@@ -89,7 +89,8 @@ export default class Notice extends Vue {
             this.survey.data = this.step.result.noticeSurvey.data;
         }
 
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.determineCaseMgntNeeded();        
     }
 
     public onPrev() {
@@ -113,6 +114,7 @@ export default class Notice extends Vue {
                 if(selectedForms && !selectedForms.includes('caseMgmt')){
                     selectedForms.push('caseMgmt')
                 }
+
                 this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
 
                 
@@ -126,15 +128,16 @@ export default class Notice extends Vue {
                    selectedCaseManagement = step.result.cmQuestionnaireSurvey.data;
                 }
                 if(!selectedCaseManagement.includes('changeServiceRequirement')){
-                    selectedCaseManagement.push('changeServiceRequirement')
-                }
-                const allPages = _.range(pageNO, Object.keys(this.stPgNo.CM).length-1)
-                for(const page of allPages)
-                    Vue.filter('setSurveyProgress')(null, stepNO, page, 0, false);
+                    selectedCaseManagement.push('changeServiceRequirement')                
+                    const allPages = _.range(pageNO, Object.keys(this.stPgNo.CM).length-1)
+                    for(const page of allPages)
+                        Vue.filter('setSurveyProgress')(null, stepNO, page, 0, false);
                 
-                this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:false});
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNO, currentPage: pageNO }); 
-                this.UpdateStepResultData({step:step, data: {cmQuestionnaireSurvey: {data: selectedCaseManagement, questions: [], pageName:"Questionnaire", currentStep:stepNO, currentPage:pageNO}}});
+                
+                    this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:false});
+                    this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNO, currentPage: pageNO }); 
+                    this.UpdateStepResultData({step:step, data: {cmQuestionnaireSurvey: {data: selectedCaseManagement, questions: [], pageName:"Questionnaire", currentStep:stepNO, currentPage:pageNO}}});
+                }
             }
         }
     }

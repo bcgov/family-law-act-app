@@ -709,9 +709,41 @@ class Application extends VuexModule {
         p.progress = 0;    
         s.pages.push(p);
 
-        //____________Review
         p = {} as pageInfoType;
         p.key = "9";
+        p.name = "ChangingOrCancellingAServiceOrNotice";
+        p.label = "Changing or Cancelling a Service or Notice";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "10";
+        p.name = "ChangingOrCancellingAnyOtherRequirement";
+        p.label = "Changing or Cancelling Any Other Requirement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "11";
+        p.name = "RequiringAccessToInformation";
+        p.label = "Requiring Access to Information";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "12";
+        p.name = "RecognizingAnOrderFromOutsideBc";
+        p.label = "Recognizing an Order from Outside BC";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "13";
         p.name = "ReviewYourAnswersCM";
         p.label = "Review Your Answers";
         p.active = false;
@@ -719,7 +751,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "10";
+        p.key = "14";
         p.name = "PreviewFormsCM";
         p.label = "Preview Forms";
         p.active = false;
