@@ -68,7 +68,7 @@
             <div style="text-indent:0; margin:0 0 0 1.85rem;display:block; font-size: 9pt;" >
                 other party. To give notice, they must be served with the application and supporting documents at
                 least 7 days before the date set for the court appearance unless the court allows the application to be
-                made without notice or with less than 7 days’ notice."
+                made without notice or with less than 7 days’ notice.
             </div>                              
         </section>
 
@@ -504,7 +504,7 @@ export default class Form16Layout extends Vue {
         if (this.result.RelocChildBestInterestInfoSurvey) {
 
             const relocChildBestInterest: relocChildBestInterestSurveyDataInfoType = this.result.RelocChildBestInterestInfoSurvey;
-            relocInformation.childBestInterestAcknowledgement = relocChildBestInterest.childBestInterestAcknowledgement == 'I understand';
+            relocInformation.childBestInterestAcknowledgement = relocChildBestInterest.childBestInterestAcknowledgement.includes('I understand');
             relocInformation.childBestInterestReason = relocChildBestInterest.childBestInterestDescription;
         }
 

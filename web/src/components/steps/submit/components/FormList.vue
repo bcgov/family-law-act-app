@@ -2,8 +2,8 @@
     <div>
 
         <b-card v-for="(form,inx) in formsList" :key="inx" style="margin:1rem 0;border-radius:10px; border:2px solid #DDEEFF;">
-            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" > 
-                {{form.title}}
+            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" v-html="form.title" > 
+                
             </div>
             <b-button 
                 style="float:right; margin: 0.25rem 1rem;"                  
@@ -23,6 +23,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {whichCaseMgmtForm} from "../../caseMgmt/reviewCM/RequiredForm"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 import { pathwayCompletedInfoType } from '@/types/Application';
@@ -65,13 +67,13 @@ export default class FormList extends Vue {
     mounted(){
 
         this.formsListTemplate =[                
-            { name:'PK',  appName:'protectionOrder',   pdfType: Vue.filter('getPathwayPdfType')("protectionOrder"),      chkSteps:[this.stPgNo.PO._StepNo],                               color:"danger", title:"Application About a Protection Order (FORM 12)"},
-            { name:'P3',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatter"),      chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],   color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
-            { name:'P1',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatterForm1"), chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],   color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
-            { name:'P15', appName:'priorityParenting', pdfType: Vue.filter('getPathwayPdfType')("priorityParenting"),    chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo],   color:"danger", title:"Application About Priority Parenting Matter (Form 15)"},        
-            { name:'P16', appName:'childReloc',        pdfType: Vue.filter('getPathwayPdfType')("childReloc"),           chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RELOC._StepNo], color:"danger", title:"Application for Order Prohibiting the Relocation of a Child (Form 16)"},
-            { name:'P10', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmt"),             chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],    color:"danger", title:"Application for Case Management Order (Form 10)"},
-            { name:'P11', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmt"),             chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],    color:"danger", title:"Application for Case Management Order Without Notice or Attendance (Form 11)"}            
+            { name:'PK',  appName:'protectionOrder',   pdfType: Vue.filter('getPathwayPdfType')("protectionOrder"),      chkSteps:[this.stPgNo.PO._StepNo],                                     color:"danger", title:"Application About a Protection Order (FORM 12)"},
+            { name:'P3',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatter"),      chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],         color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+            { name:'P1',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatterForm1"), chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],         color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'P15', appName:'priorityParenting', pdfType: Vue.filter('getPathwayPdfType')("priorityParenting"),    chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo],         color:"danger", title:"Application About Priority Parenting Matter (Form 15)"},        
+            { name:'P16', appName:'childReloc',        pdfType: Vue.filter('getPathwayPdfType')("childReloc"),           chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RELOC._StepNo],       color:"danger", title:"Application for Order Prohibiting the Relocation of a Child (Form 16)"},
+            { name:'P10', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmt"),             chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],          color:"danger", title:"Application for Case Management Order (Form 10)"},
+            { name:'P11', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmtForm11"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],          color:"danger", title:"Application for Case Management Order  Without Notice or Attendance (Form 11)"}            
         ]
 
         this.currentStep = this.$store.state.Application.currentStep;
@@ -88,6 +90,10 @@ export default class FormList extends Vue {
                 if(form.name=='P1' && !this.isForm1()) continue
 
                 if(form.name=='P3' && this.isForm1()) continue
+
+                if(form.name=='P10' && !whichCaseMgmtForm().includes("P10")) continue
+                if(form.name=='P11' && !whichCaseMgmtForm().includes("P11")) continue
+
 
                 if(this.generatedForms?.includes(form.name))
                     form.color = "success"

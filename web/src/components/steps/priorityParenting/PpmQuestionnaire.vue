@@ -6,7 +6,7 @@
             <h1>Priority Parenting Matters Questionnaire</h1>
             <p>
                 <tooltip title="Priority parenting matters" :index="0"/> are decisions about a child that require the agreement of each of the child's 
-                guardians or an order from the court and it is priority to get the order before or separately from any 
+                guardians or an order from the court and it is a priority to get the order before or separately from any 
                 family law matter order.
             </p>
             <p>

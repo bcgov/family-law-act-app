@@ -3,12 +3,19 @@
   "pages": [
     {
       "name": "About the order",
-      "description": "{listOfIssuesDescription}",
+      
       "elements": [
         {
           "type": "panel",
           "name": "aboutPriorityParentingMatterPanel",
           "elements": [
+            { 
+              "type":"infotexttitle",
+              "title":"About the Order",
+              "body": "{listOfIssuesDescription}",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
             {
               "type": "comment",
               "name": "orderDescription",

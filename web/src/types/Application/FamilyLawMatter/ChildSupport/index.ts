@@ -1,18 +1,18 @@
 import { questionInfoType } from "../../CommonInformation";
 
 export interface childSupportDataInfoType {
-    applicantGuardianType: string;
-    'otherParty[0]GuardianType'?: string;
-    'otherParty[1]GuardianType'?: string;
-    'otherParty[2]GuardianType'?: string;
-    'otherParty[3]GuardianType'?: string;
-    'otherParty[4]GuardianType'?: string;
-    'otherParty[5]GuardianType'?: string;
-    'otherParty[6]GuardianType'?: string;
-    'otherParty[7]GuardianType'?: string;
-    'otherParty[8]GuardianType'?: string;
-    'otherParty[9]GuardianType'?: string;
-    'otherParty[10]GuardianType'?: string;
+    applicantGuardianType: string[];
+    'otherParty[0]GuardianType'?: string[];
+    'otherParty[1]GuardianType'?: string[];
+    'otherParty[2]GuardianType'?: string[];
+    'otherParty[3]GuardianType'?: string[];
+    'otherParty[4]GuardianType'?: string[];
+    'otherParty[5]GuardianType'?: string[];
+    'otherParty[6]GuardianType'?: string[];
+    'otherParty[7]GuardianType'?: string[];
+    'otherParty[8]GuardianType'?: string[];
+    'otherParty[9]GuardianType'?: string[];
+    'otherParty[10]GuardianType'?: string[];
 }
 
 export interface childSupportSurveyInfoType {

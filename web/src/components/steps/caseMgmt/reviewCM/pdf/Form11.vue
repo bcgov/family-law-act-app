@@ -71,7 +71,7 @@ export default class Form11 extends Vue {
            
     public onPrint() { 
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmt") 
+        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmtForm11") 
         const pdf_name = "application-for-case-management-order-without-notice-or-attendanceabout";    
         const el= document.getElementById("print");
 
@@ -106,7 +106,7 @@ export default class Form11 extends Vue {
 
     public onPrintSave(){  
         
-        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmt") 
+        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmtForm11") 
              
         const applicationId = this.$store.state.Application.id;
         const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type

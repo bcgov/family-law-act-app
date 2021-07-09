@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" :disableNext="PPMList.length<1">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -11,6 +11,7 @@ import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary.ts";
 
 import surveyJson from "./forms/priority-parenting-matter-order.json";
+import * as _ from 'underscore';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -133,7 +134,7 @@ export default class PriorityParentingMatterOrder extends Vue {
            const medical = (ppmType.includes('medical')) && (data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk?.includes('applyPPM'));
            const passport = (ppmType.includes('passport')) && (data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk?.includes('applyPPM'));
            const travel = (ppmType.includes('travel')) && (data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied?.includes('applyPPM'));
-           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
+           const locationChange = (ppmType.includes('locationChange')) && (data.existingParentingArrangements == 'n') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
            const preventRemoval = (ppmType.includes('preventRemoval')) && (data.noReturnRisk == 'y') && (data.confirmNoReturnRisk?.includes('applyPPM')); 
            const interjurisdictional = (ppmType.includes('interjurisdictional')) && (data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
            const wrongfulRemoval = (ppmType.includes('wrongfulRemoval')) && (data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
@@ -196,11 +197,24 @@ export default class PriorityParentingMatterOrder extends Vue {
             if(form=='returnOfChild')       result+='-Preventing the removal of a child'+'\n';
         }
         return result;
-    }
-    
-    beforeDestroy() {
+    }     
+
+    public modifyPpmQuestionnaire(){
+
+        const allPages = _.range(this.stPgNo.PPM.PriorityParentingMatterOrder, Object.keys(this.stPgNo.PPM).length-1)
+
+        if(this.PPMList.length<1){
+            this.togglePages(this.stPgNo.PPM._StepNo, allPages, false); 
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PPM._StepNo, currentPage: this.stPgNo.PPM.PpmQuestionnaire });        
+            Vue.filter('setSurveyProgress')(null, this.stPgNo.PPM._StepNo, this.stPgNo.PPM.PpmQuestionnaire, 50, true);
+        }
+
         const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getPriorityParentingMatterNames()}]        
         this.UpdateStepResultData({step:this.step, data: {ppmQuestionnaireSurvey: {data: this.PPMList, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.stPgNo.PPM.PpmQuestionnaire}}});      
+    }
+    
+    beforeDestroy() {        
+        this.modifyPpmQuestionnaire();
         this.UpdateStepResultData({step:this.step, data: {priorityParentingMatterOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

@@ -102,7 +102,7 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
         const medical = (ppmType.includes('medical') && data.delayMedicalRisk == 'y') && (data.confirmMedicalRisk?.includes('applyPPM'));
         const passport = (ppmType.includes('passport') && data.delayPassportRisk == 'y') && (data.confirmDelayPassportRisk?.includes('applyPPM'));
         const travel = (ppmType.includes('travel') && data.delayTravelRisk == 'y') && (data.travelWrongfullyDenied == 'y') && (data.confirmTravelWrongfullyDenied?.includes('applyPPM'));
-        const locationChange = (ppmType.includes('locationChange') && data.existingParentingArrangements == 'y') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
+        const locationChange = (ppmType.includes('locationChange') && data.existingParentingArrangements == 'n') && (data.impactOnRelationship == 'y') && (data.confirmImpactOnRelationship?.includes('applyPPM'));
         const preventRemoval = (ppmType.includes('preventRemoval') && data.noReturnRisk == 'y') && (data.confirmNoReturnRisk?.includes('applyPPM')); 
         const interjurisdictional = (ppmType.includes('interjurisdictional') && data.childInBC == 'y') && (data.harm == 'y') && (data.confirmHarm?.includes('applyPPM'));
         const wrongfulRemoval = (ppmType.includes('wrongfulRemoval') && data.wrongfulInBC == 'y') && (data.confirmWrongfulInBC?.includes('applyPPM'));
