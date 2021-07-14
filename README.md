@@ -1,4 +1,4 @@
-[![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)]
+![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
 
 # Family-Protection-Order
 Family Law Act Form
