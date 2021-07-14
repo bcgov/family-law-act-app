@@ -30,3 +30,7 @@ jobs:
         # uses: SonarSource/sonarqube-scan-action@069e3332cbefb8659c02d77b21a04719d3ef7c9b
         uses: SonarSource/sonarqube-scan-action@v1.0.0
         with:
+          # Additional arguments to the sonar-scanner
+          #args: # optional
+          # Set the sonar.projectBaseDir analysis property
+          projectBaseDir: .
