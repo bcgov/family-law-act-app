@@ -1,4 +1,4 @@
-![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)
+[![Lifecycle:Stable](https://img.shields.io/badge/Lifecycle-Stable-97ca00)](https://github.com/bcgov/family-law-act-app/)
 
 # Family-Protection-Order
 Family Law Act Form
