@@ -35,7 +35,7 @@ class EFilingParsing:
                 [
                     {
                         "partyType": "IND",
-                        "roleType": "APP",
+                        "roleType": "PAR",
                         "firstName": applicant["first"],
                         "middleName": applicant["middle"],
                         "lastName": applicant["last"],
@@ -43,7 +43,7 @@ class EFilingParsing:
                     [
                         {
                             "partyType": "IND",
-                            "roleType": "RES",
+                            "roleType": "OPAR",
                             "firstName": respondent["first"],
                             "middleName": respondent["middle"],
                             "lastName": respondent["last"],

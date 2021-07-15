@@ -164,7 +164,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";  
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import store from "@/store";
 
