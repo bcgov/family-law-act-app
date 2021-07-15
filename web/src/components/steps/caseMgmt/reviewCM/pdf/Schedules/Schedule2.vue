@@ -22,8 +22,8 @@
                 </div>
 
                 <div style="margin-left:1.0rem;">
-                    <check-box style="" :check="true?'yes':''" text="waive or modify a requirement related to service or giving notice <i>(complete Part 1 of this schedule)</i>"/>
-                    <check-box style="" :check="true?'yes':''" text="allow service of a document using an alternative method <i>(complete Part 2 of this schedule)</i>"/>
+                    <check-box style="" :check="modReqInfo.isWaiveOrModify?'yes':''" text="waive or modify a requirement related to service or giving notice <i>(complete Part 1 of this schedule)</i>"/>
+                    <check-box style="" :check="modReqInfo.isAltMethodService?'yes':''" text="allow service of a document using an alternative method <i>(complete Part 2 of this schedule)</i>"/>
                 </div>
             </section>
 
@@ -53,12 +53,12 @@
                     </div>
 
                     <div style="margin-left:1.0rem;">
-                        <check-box style="" :check="true?'yes':''" text="Application About Priority Parenting Matter"/>
-                        <check-box style="" :check="true?'yes':''" text="Application About a Family Law Matter"/>
-                        <check-box style="" :check="true?'yes':''" text="Subpoena"/>
-                        <check-box style="" :check="true?'yes':''" text="Order"/>
-                        <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="Other <i>(specify):</i>"/>
-                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" text=""/>                     
+                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
+                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Application About a Family Law Matter')?'yes':''" text="Application About a Family Law Matter"/>
+                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Subpoena')?'yes':''" text="Subpoena"/>
+                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Order')?'yes':''" text="Order"/>
+                        <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="modReqInfo.waiveChangeRequirementList.includes('other')?'yes':''" text="other <i>(specify):</i>"/>
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="modReqInfo.waiveChangeRequirementComment"/>                     
                     </div>
                 </section>
             </div>
@@ -80,8 +80,8 @@
                         </i>
                     </div>
                     
-                    <div v-if="false" 
-                    class="answerbox"></div>
+                    <div v-if="modReqInfo.orderChangesDetail" 
+                    class="answerbox">{{modReqInfo.orderChangesDetail}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
                              
                 </section>
@@ -106,8 +106,8 @@
                         <li>if applicable, what you believe will happen if the other party is served or given notice of your application or other document and a chance to attend court so that you can both be heard at the same time</li>
                     </ul>
                     
-                    <div v-if="false" 
-                    class="answerbox"></div>
+                    <div v-if="modReqInfo.applicationFacts" 
+                    class="answerbox">{{modReqInfo.applicationFacts}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
                              
                 </section>
@@ -125,9 +125,12 @@
                     </i>
                 </div>
 <!-- <1> -->
-                <section class="resetquestion"> 
-                    <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="I need to serve" hint="name of person who must be served" :italicHint="false" text=""/>
-                                         <div style="display:inline; margin-left:0.15rem">
+                <section class="resetquestion">
+                    <div style="display:inline; margin:0 0.3rem">I need to serve</div>
+                    <div v-for="name,inx in modReqInfo.nameOfPersonToBeServed" :key="inx" style="display:inline;">
+                        <underline-form v-if="name"  style="text-transform:capitalize;margin-bottom:0.5rem;text-indent:2px;" textwidth="16.5rem" :beforetext="inx==0?'':',' " hint="name of person who must be served" :italicHint="false" :text="name"/>
+                    </div>
+                    <div style="display:inline; margin-left:0.15rem">
                          with the following document(s):
                     </div>
                         
@@ -135,8 +138,8 @@
                         <i style="margin-left:1.0rem">List each document you need an order from the court to serve using an alternative method</i>
                     </div>
 
-                    <div v-if="false" 
-                    class="answerbox"></div>
+                    <div v-if="modReqInfo.altMethodDocList" 
+                    class="answerbox" v-html="modReqInfo.altMethodDocList" >{{modReqInfo.altMethodDocList}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
                 </section>
            
@@ -154,8 +157,8 @@
                         </i>
                     </div>
                     
-                    <div v-if="false" 
-                    class="answerbox"></div>
+                    <div v-if="modReqInfo.altMethodServingDetails" 
+                    class="answerbox">{{modReqInfo.altMethodServingDetails}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
                              
                 </section>
@@ -177,8 +180,8 @@
                         <li>why you believe the method of service you outlined above will bring the documents to the attention of the party to be served</li>
                     </ul>
                     
-                    <div v-if="false" 
-                    class="answerbox"></div>
+                    <div v-if="modReqInfo.altMethodApplicationFacts" 
+                    class="answerbox">{{modReqInfo.altMethodApplicationFacts}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
                              
                 </section>
@@ -192,7 +195,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
-import { schedule2DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule2DataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 @Component({
     components:{
@@ -207,7 +210,7 @@ export default class Schedule2 extends Vue {
     result!: any;
 
     dataReady = false;
-    exParentArrInfo = {} as schedule2DataInfoType; 
+    modReqInfo = {} as schedule2DataInfoType; 
    
     mounted(){
         this.dataReady = false;        
@@ -216,109 +219,37 @@ export default class Schedule2 extends Vue {
     }
 
     public extractInfo(){        
-        this.exParentArrInfo = this.getExistingParentingArrangementsInfo();
+        this.modReqInfo = this.getWaiveModifyRequirementsInfo();
     }
 
-    public getExistingParentingArrangementsInfo(){
-        let existingParentingArrangements = {} as schedule2DataInfoType;
-
-        const generalCondition = (( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingOrder' &&                                    
-                                    this.result.aboutParentingArrangementsSurvey?.orderDifferenceType == 'changeOrder')
-                                 || 
-                                  ( this.result.aboutParentingArrangementsSurvey?.existingType == 'ExistingAgreement'&& 
-                                    this.result.aboutParentingArrangementsSurvey?.agreementDifferenceType == 'replacedAgreement'))
-
+    public getWaiveModifyRequirementsInfo(){
+        let waiveModifyRequirementsInfo = {} as schedule2DataInfoType;
         
-        
-        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingOrder' ){
-            existingParentingArrangements.type = 'ExistingOrder'
-            existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.orderDate
-            existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceOrder
-            if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'changeOrder'){
-                existingParentingArrangements.subType = 'changeOrder'                
-            } else if(this.result.aboutParentingArrangementsSurvey.orderDifferenceType == 'cancelOrder'){
-                existingParentingArrangements.subType = 'cancelOrder'
-            }
+        if(this.result?.changingOrCancellingAServiceOrNoticeSurvey){
+            const chgSurvey = this.result.changingOrCancellingAServiceOrNoticeSurvey;
+
+            waiveModifyRequirementsInfo.isWaiveOrModify =  (chgSurvey.changeOrCancelRequirementForService =='y');
+            waiveModifyRequirementsInfo.isAltMethodService = (chgSurvey.anotherMethodOfService == 'y');
+            
+            waiveModifyRequirementsInfo.orderChangesDetail = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.orderChangesDetail: '';            
+            waiveModifyRequirementsInfo.waiveChangeRequirementList = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.documentList: [];
+            waiveModifyRequirementsInfo.waiveChangeRequirementComment = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.documentListComment:'';
+            waiveModifyRequirementsInfo.applicationFacts = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.applicationFacts:'';
+
+            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.namesOfNeedToBeServed.split(/[;,]+/).map(item => {return item.trim();}):[];
+            waiveModifyRequirementsInfo.altMethodApplicationFacts = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.applicationFactsAltMethod:'';
+            waiveModifyRequirementsInfo.altMethodServingDetails = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.altMethodServingDetails:''
+            
+            let altMetList = chgSurvey.documentListForAltMethod;
+            altMetList = altMetList.replace(/\n/g,'<br>');
+            altMetList = altMetList.replace(/;/g, '<br>');
+            altMetList = altMetList.replace(/,/g, '<br>');
+            waiveModifyRequirementsInfo.altMethodDocList  = waiveModifyRequirementsInfo.isAltMethodService? altMetList:'';
+            
         }
         
-        if( this.result.aboutParentingArrangementsSurvey && this.result.aboutParentingArrangementsSurvey.existingType == 'ExistingAgreement' ){
-            existingParentingArrangements.type = 'ExistingAgreement'
-            existingParentingArrangements.existingDate = this.result.aboutParentingArrangementsSurvey.agreementDate
-            existingParentingArrangements.changesSince = this.result.aboutParentingArrangementsSurvey.changesSinceAgreement
-            if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'replacedAgreement'){
-                existingParentingArrangements.subType = 'replacedAgreement'                
-            } else if(this.result.aboutParentingArrangementsSurvey.agreementDifferenceType == 'setAsideAgreement'){
-                existingParentingArrangements.subType = 'setAsideAgreement'
-            }
-        }        
         
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentalResponsibilities")){
-                existingParentingArrangements.parentResp = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentalResponsibilitiesDescription:''
-                }
-
-        } else {
-            existingParentingArrangements.parentResp = {
-                applying: false,
-                desc: ''
-            }
-        }
-
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("parentingTime")){
-                existingParentingArrangements.parentTime = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeDescription:''
-                }
-
-        } else {
-            existingParentingArrangements.parentTime = {
-                applying: false,
-                desc: ''
-            }
-        }
-
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("conditionsOnParentingTime")){
-                existingParentingArrangements.parentCond = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeParentingTimeConditionsDescription:''
-                }
-
-        } else {
-            existingParentingArrangements.parentCond = {
-                applying: false,
-                desc: ''
-            }           
-        }
-
-        if (generalCondition && this.result.parentingArrangementChangesSurvey && 
-            this.result.parentingArrangementChangesSurvey.orderChangeList &&  
-            this.result.parentingArrangementChangesSurvey.orderChangeList.includes("otherTermsAboutParentingArrangements")){
-                existingParentingArrangements.parentalArr = {
-                    applying: true,
-                    desc: this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription? this.result.parentingArrangementChangesSurvey.existingOrderChangeOtherTermsDescription:''
-                }
-        } else {
-            existingParentingArrangements.parentalArr = {
-                    applying: false,
-                    desc: ''
-                }
-        }         
-        
-        if (this.result.bestInterestsOfChildSurvey 
-            && this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription){
-                existingParentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.existingParentingArrangementsChildBestInterestDescription;
-        } else {            
-            existingParentingArrangements.childBestInterest = '';
-        }
-        
-        return existingParentingArrangements;
+        return waiveModifyRequirementsInfo;
     }
 }
 </script>

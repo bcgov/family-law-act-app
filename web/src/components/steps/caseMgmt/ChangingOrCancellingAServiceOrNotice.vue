@@ -70,8 +70,7 @@ export default class ChangingOrCancellingAServiceOrNotice extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt')
-            console.log(this.survey.data)
+            Vue.filter('surveyChanged')('caseMgmt')            
         })
     }
     

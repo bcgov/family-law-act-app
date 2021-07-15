@@ -293,7 +293,7 @@ export default class CmQuestionnaire extends Vue {
 
             if (selectedCaseManagement.length > 0){
 
-                this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ChangingOrCancellingAServiceOrNotice,   p.ReviewYourAnswersCM], true);               
+                this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true);               
                 this.getSelectedCaseManagementItems();
                 
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
@@ -358,11 +358,11 @@ export default class CmQuestionnaire extends Vue {
         
         for(const form of this.selectedCaseManagement){
             if(form=='changeServiceRequirement') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance, this.stPgNo.CM.ChangingOrCancellingAServiceOrNotice], true);
                 result+='-Changing or cancelling the requirement for service or notice to a person, including allowing another method for the service of a document'+'\n';
             }   
             if(form=='changeRequirement') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance, this.stPgNo.CM.ChangingOrCancellingAnyOtherRequirement], true);
                 result+='-Changing or cancelling any other requirement under the rules, including a time limit'+'\n';
             }
             if(form=='remoteAttendance') {
@@ -430,7 +430,7 @@ export default class CmQuestionnaire extends Vue {
                 result+='-Requiring that a parentage test be taken under section 33 of the Family Law Act'+'\n';
             }
             if(form=='section242') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
+                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance, this.stPgNo.CM.RequiringAccessToInformation], true);
                 result+='-Requiring access to information in accordance with section 242 of the Family Law Act'+'\n';
             }           
         }

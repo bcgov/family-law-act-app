@@ -40,10 +40,10 @@
             },            
             {
               "type": "checkbox",
-              "name": "acknowledgement",
+              "name": "documentList",
               "title": "Please select each document from the list below that you would like to apply for an order to change or cancel the requirement for service or notice.",
               "description": "Note: You must have already filed the document or be prepared to file the document with this application. <br><br> Select all options that apply.",
-              "otherText":"Other<i>(specify)</i>:",
+              "otherText":"other<i> (specify)</i>:",
               "hasOther": true,
               "visible": false,
               "visibleIf": "{changeOrCancelRequirementForService} = 'y'",
@@ -71,7 +71,7 @@
               "type": "comment",
               "title": "Please provide the details of the order you are asking the court to make:",
               "name": "orderChangesDetail",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. Tell the court the specifics of the order you are applying for. Include if you want the court to waive (cancel) the requirement or tmodify (change) the requirement for service or giving notice. If you are applying to modify the requirement, specify how you want the requirement changed, for example 3 days’ notice instead of 7 days. <br><br> The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'> Family Law Act Picklist </a> includes commonly used order terms that might be helpful. ",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. Tell the court the specifics of the order you are applying for. Include if you want the court to waive (cancel) the requirement or modify (change) the requirement for service or giving notice. If you are applying to modify the requirement, specify how you want the requirement changed, for example 3 days’ notice instead of 7 days. <br><br> The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'> Family Law Act Picklist </a> includes commonly used order terms that might be helpful. ",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{changeOrCancelRequirementForService} = 'y'"              
@@ -87,7 +87,7 @@
             },
             {
               "type": "comment",
-              "title": "The facts on which this application is based are as follows:",
+              "title": "The `facts` on which this application is based are as follows:",
               "name": "applicationFacts",
               "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. Try to include: <ul><li>why the other party should not be served or given notice of the application or other document before you attend court or why the service or notice requirement should be modified (changed)</li><li>why the application or your situation is urgent or what special circumstances exist</li><li>if applicable, what you believe will happen if the other party is served or given notice of your application or other document and a chance to attend court so that you can both be heard at the same time</li></ul>",
               "isRequired": true,
@@ -128,8 +128,35 @@
             {
               "type": "comment",
               "title": "Explain the alternative method of service you want to use.",
-              "name":"altMethods",
+              "name":"altMethodServingDetails",
               "description": "Be specific. You need to tell the court how you believe the documents should be served so that they will come to the attention of the person who must be served. Try to include as much detail as possible about how you want the documents served including the name of any other person who might deliver the document, the mailing address, email or other information that would be required to serve the documents. You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.<br><br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'> Family Law Act Picklist </a> includes commonly used order terms that might be helpful. ",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQServingCourtDocs",
+              "title": "What are some options for serving court documents?",
+              "titleLocation": "hidden",
+              "body": "It is up to you to tell the court what order you want the court to make about how the documents can be served. <br><br> Some options the court might allow, if appropriate in the circumstances, include: <ul><li>posting the documents on the door of the other party’s residence</li><li>leaving the documents with a relative or roommate of the other party</li><li>mailing the documents by registered or regular mail</li><li>sending the documents to the other party’s email</li><li>leaving the documents at the other party’s last known address, or</li><li>posting an advertisement in a newspaper</li></ul>Think about what you know about where to find the person and what the best option might be. You will need to tell the court why you think serving the person in that way is the best option.",
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdviceII",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community",
+              "visible": false,
+              "visibleIf": "{anotherMethodOfService} = 'y'"
+            },
+            {
+              "type": "comment",              
+              "name":"applicationFactsAltMethod",
+              "title": "The `facts` on which this application is based are as follows:",              
+              "description": "Give a short summary of the facts. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order.<br><br>Try to include: <ul><li>What has already been done to try to serve the person (for example, who tried to serve them, when did they try, how many times, where did they try). Be specific.</li><li>If you don’t know where the person is, what has been done to try to find them (for example, you talked to family and friends or searched online)</li><li>If the court gives you your order, why do think the person will get the documents if they are given in the way you asked – what did you learn when you tried to find the person that makes you believe the method you are asking for would get the documents to their attention.</li></ul>",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{anotherMethodOfService} = 'y'"

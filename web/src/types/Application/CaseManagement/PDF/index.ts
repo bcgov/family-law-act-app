@@ -26,6 +26,34 @@ export interface schedule1DataInfoType {
     virtualAttendanceReason?: string;
 }
 
+export interface schedule2DataInfoType {
+    isWaiveOrModify: boolean;
+    isAltMethodService: boolean;
+    waiveChangeRequirementList: string[];
+    waiveChangeRequirementComment: string;
+    orderChangesDetail: string;
+    applicationFacts: string;
+    nameOfPersonToBeServed: string[];
+    altMethodDocList: string;
+    altMethodApplicationFacts: string;
+    altMethodServingDetails: string;    
+}
+
+export interface schedule3DataInfoType {
+    appliedRequirementsList: string[];
+    appliedRequirementsListComment: string
+    orderDetail : string;
+    applicationFacts: string;
+    dateOfOrder: string;
+    judgeName : string;
+}
+
+export interface schedule4DataInfoType {
+}
+
+export interface schedule5DataInfoType {
+}
+
 export interface form10DataInfoType {
     otherPersonsList?: string;
     givenConsent?: boolean;

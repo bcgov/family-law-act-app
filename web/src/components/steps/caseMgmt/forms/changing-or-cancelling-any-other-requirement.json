@@ -1,0 +1,118 @@
+{
+  "title": "Changing Or Cancelling Any Other Requirement",
+  "pages": [
+    {
+      "name": "Changing Or Cancelling Any Other Requirement",      
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ChangingOrCancellingAnyOtherRequirement",
+          "elements": [            
+            { 
+              "type":"infotexttitle",
+              "name":"ChangingOrCancellingAnyOtherRequirementDescription1",
+              "title":"description1",
+              "body": "Sometimes you might be unable to meet a requirement under the rules. This may include:<ul><li>filing at the court registry that applies under Rule 7</li><li>meeting the early resolution, family justice or parenting education program registry requirements</li><li>filing a document with all the required attachments or information</li><li>meeting a timeline for filing or exchanging documents, like a reply</li></ul>You can ask the court for permission to change or cancel a requirement under the rules. This may include asking:<ul><li>to be allowed to file your application at another registry</li><li>for permission to be exempt from completing a needs assessment, parenting education program, or consensual dispute resolution or delaying completion of any early resolution, family justice or parenting education program registry requirements</li><li>to be allowed to file an application without the required additional documents or without the additional documents being complete</li><li>to change the time to file a reply or other document</li><li>to change or cancel a time limit set by an order or direction of a judge</li></ul>",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
+            {
+              "type": "checkbox",
+              "name": "appliedRequirementsList",
+              "title": "What requirement under the rules do you want to apply to change or cancel?",
+              "description": "Choose from the list below. Select all options that apply. There may be more than one.",
+              "otherText": "Other<i> (specify)</i>:",
+              "hasOther": true,
+             
+              "choices": [
+                {
+                  "value": "Filing at a court registry other than the court registry required by Rule 7",
+                  "text": "Filing at a court registry other than the court registry required by <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#section7' target='_blank'>Rule 7</a>"
+                },
+                {
+                  "value": "Attending a needs assessment",
+                  "text": "Attending a needs assessment"
+                },
+                {
+                  "value": "Completing a parenting education program",
+                  "text": "Completing a parenting education program"
+                },
+                {
+                  "value": "Participating in consensual dispute resolution",
+                  "text": "Participating in consensual dispute resolution"
+                },
+                {
+                  "value": "Filing a completed financial statement with my application or reply",
+                  "text": "Filing a completed financial statement with my application or reply"
+                },
+                {
+                  "value": "Filing the required documents for an application about guardianship of a child",
+                  "text": "Filing the required documents for an application about guardianship of a child"
+                },
+                {
+                  "value": "Time to file a reply, including permission to file a reply after the time to reply has passed",
+                  "text": "Time to file a reply, including permission to file a reply after the time to reply has passed"
+                },
+                {
+                  "value": "Time to provide/exchange document(s)",
+                  "text": "Time to provide/exchange document(s)"
+                },
+                {
+                  "value": "Time limit set by an order or direction of a judge",
+                  "text": "Time limit set by an order or direction of a judge"
+                }
+              ],
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "dateOfOrder",              
+              "title": "Please provide the date the order was made and the name of the judge who made the order.",
+              "description": "The date and name of the judge should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+              "isRequired": true,
+              "inputType": "date",
+              "visible": false,
+              "visibleIf":"{appliedRequirementsList} contains 'Time limit set by an order or direction of a judge'"
+            },
+            {
+              "type": "comment",
+              "title": "Judge",
+              "name": "judgeName",
+              "rows": 1,
+              "description" : "Copy the last name of the judge from the order. You may include an initial if one is included on the order.",              
+              "isRequired": true,  
+              "visible": false,
+              "visibleIf":"{appliedRequirementsList} contains 'Time limit set by an order or direction of a judge'"
+                                      
+            },
+            {
+              "type": "comment",
+              "title": "Please provide the details of the order you are asking the court to make:",
+              "name": "orderDetail",
+              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order. Tell the court the specifics of the order you are applying for. Include:<ul><li>If you want the requirement changed (modified) or cancelled (waived)</li><li>If you applying to change the requirement, what you want it changed to </li></ul>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='_blank'>Family Law Act Picklist </a> includes commonly used order terms that might be helpful.",
+              "isRequired": true                           
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
+            },
+            {
+              "type": "comment",
+              "title": "The `facts` on which this application is based are as follows:",
+              "name": "applicationFacts",
+              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. Try to include:<ul><li>Why you think the court should grant you permission</li><li>Why you want a requirement changed or cancelled</li><li>How you plan to make sure the case can continue if the requirement is changed or cancelled</li></ul>",
+              "isRequired": true
+                          
+            }
+          ]
+        }
+      ],
+      "title": "Changing or Cancelling Any Other Requirement"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
