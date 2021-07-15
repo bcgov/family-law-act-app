@@ -84,6 +84,8 @@ http {
         listen       8080;
         server_name  localhost;
 
+        client_max_body_size 200M;
+
         # add in most common security headers
         add_header Content-Security-Policy "default-src * data: blob: filesystem: 'unsafe-inline' 'unsafe-eval'";
         add_header Strict-Transport-Security "max-age=86400; includeSubDomains";
