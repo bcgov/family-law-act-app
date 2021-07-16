@@ -165,7 +165,8 @@ export interface stepInfoType {
     changingOrCancellingAServiceOrNoticeSurvey?: any;
     changingOrCancellingAnyOtherRequirementSurvey?: any;
     requiringAccessToInformationSurvey?: any;
-    recognizingAnOrderFromOutsideBcSurvey?: any;   
+    recognizingAnOrderFromOutsideBcSurvey?: any;
+    contactInformationOtherPartySurvey?: any;   
 
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;

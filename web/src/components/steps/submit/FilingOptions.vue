@@ -115,11 +115,13 @@ export default class FilingOptions extends Vue {
 
     public allowEfiling(){
         const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
+        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
         
         if (!this.$store.state.Common.efilingEnabled || 
             stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n" ||            
-            stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n")
-
+            stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n" ||
+            (stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y')
+        )
                 this.survey.setVariable('efilingAllowed','n')
         else 
                 this.survey.setVariable('efilingAllowed','y')

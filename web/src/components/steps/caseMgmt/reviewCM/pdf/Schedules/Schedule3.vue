@@ -139,7 +139,7 @@ export default class Schedule3 extends Vue {
     public getWaiveModifyAnyOtherRequirementsInfo(){
         
         let waiveModifyAnyOtherRequirementsInfo = {} as schedule3DataInfoType;
-        console.log(this.result)
+        
         if(this.result?.changingOrCancellingAnyOtherRequirementSurvey){
 
             const chgSurvey = this.result.changingOrCancellingAnyOtherRequirementSurvey;

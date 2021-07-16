@@ -2,13 +2,20 @@
   "title": "Other Persons",
   "pages": [
     {
-      "name": "Other Persons",
-      "description": "It is important that each other party, and any other person who may be directly affected by the order, know that you are making this application to the court and are given a chance to talk to the court.",
+      "name": "Other Persons",      
       "elements": [
         {
           "type": "panel",
           "name": "otherPersonsPanel",
           "elements": [
+            { 
+              "type":"infotexttitle",
+              "name":"otherPersonDescription1",
+              "title":"description1",
+              "body": "It is important that each other party, and any other person who may be directly affected by the order, know that you are making this application to the court and are given a chance to talk to the court.",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
             {
               "type": "yesno",
               "name": "otherPersonsExist",

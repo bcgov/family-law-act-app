@@ -13,6 +13,7 @@
         <changing-or-cancelling-any-other-requirement   v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ChangingOrCancellingAnyOtherRequirement" />
         <requiring-access-to-information                v-bind:step="step" v-if="step.currentPage == stPgNo.CM.RequiringAccessToInformation" />
         <recognizing-an-order-from-outside-bc           v-bind:step="step" v-if="step.currentPage == stPgNo.CM.RecognizingAnOrderFromOutsideBc" />
+        <contact-information-other-party                   v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ContactInformationOtherParty" />
         <review-your-answers-cm                         v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ReviewYourAnswersCM" />
         <preview-forms-cm                               v-bind:step="step" v-if="step.currentPage == stPgNo.CM.PreviewFormsCM" />  
     </step-base>
@@ -36,6 +37,7 @@ import ChangingOrCancellingAServiceOrNotice from "./ChangingOrCancellingAService
 import ChangingOrCancellingAnyOtherRequirement from "./ChangingOrCancellingAnyOtherRequirement.vue";
 import RequiringAccessToInformation from "./RequiringAccessToInformation.vue";
 import RecognizingAnOrderFromOutsideBc from "./RecognizingAnOrderFromOutsideBc.vue"
+import ContactInformationOtherParty from "./ContactInformationOtherParty.vue"
 
 import ReviewYourAnswersCm from "./reviewCM/ReviewYourAnswersCM.vue";
 import PreviewFormsCm from "./reviewCM/PreviewFormsCM.vue";
@@ -63,6 +65,7 @@ const applicationState = namespace("Application");
         ChangingOrCancellingAnyOtherRequirement,
         RequiringAccessToInformation,
         RecognizingAnOrderFromOutsideBc,
+        ContactInformationOtherParty,
 
         ReviewYourAnswersCm,
         PreviewFormsCm

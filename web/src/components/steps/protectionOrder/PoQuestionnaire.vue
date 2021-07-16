@@ -276,7 +276,7 @@ export default class PoQuestionnaire extends Vue {
     beforeDestroy() {
         if(!this.disableNextButton) Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         
-        this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, {pageName:" Protection Order Questionnaire"})}})
     }
 };
 </script>

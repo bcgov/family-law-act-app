@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()"  :disableNext="selectedPriorityParentingMatter.length==0">
     <div class="row">
       <div class="col-md-12 order-heading">
         <div>

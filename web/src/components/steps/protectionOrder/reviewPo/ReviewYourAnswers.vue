@@ -23,7 +23,7 @@
                             <col style="width:2.5rem">                       
                         </template>
                         <template v-slot:cell(title)="data" > 
-                            <b>{{beautifyQuestion(data.value)}}</b>
+                            <b v-html="beautifyQuestion(data.value)">{{beautifyQuestion(data.value)}}</b>
                         </template>
                         <template v-slot:cell(value)="data" >
                             <div style="white-space: pre-line;" :class="typeof beautifyResponse(data.value, data.item) == 'string' && beautifyResponse(data.value, data.item).includes('REQUIRED')?'bg-danger text-white px-2':''" v-html="beautifyResponse(data.value, data.item)">{{beautifyResponse(data.value, data.item)}}</div>

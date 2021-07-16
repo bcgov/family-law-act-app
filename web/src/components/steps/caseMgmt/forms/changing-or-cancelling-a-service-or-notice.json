@@ -113,6 +113,7 @@
               "name":"namesOfNeedToBeServed",
               "description": "Give the full name of the party or person who must be served. If there is more than one person, separate the names with a comma or semi-colon.",
               "isRequired": true,
+              "rows" : 3,
               "visible": false,
               "visibleIf": "{anotherMethodOfService} = 'y'"
             },

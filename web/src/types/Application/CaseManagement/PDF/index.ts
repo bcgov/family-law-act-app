@@ -49,6 +49,9 @@ export interface schedule3DataInfoType {
 }
 
 export interface schedule4DataInfoType {
+    officerSearch : string;
+    orderDetail : string;
+    applicationFacts : string; 
 }
 
 export interface schedule5DataInfoType {

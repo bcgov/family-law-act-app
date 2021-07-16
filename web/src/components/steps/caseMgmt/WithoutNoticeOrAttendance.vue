@@ -2,7 +2,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
 
-        <b-modal size="xl" v-model="consentInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-modal size="xl" v-model="consentInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
             <div class="m-3">               
                 <p>The following series of questions are about the application for case management 
@@ -28,6 +28,8 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+
+import {getOrderTypeCM} from './orderTypesCM'
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -145,30 +147,14 @@ export default class WithoutNoticeOrAttendance extends Vue {
         'your attendance in court is needed, the registry staff will let you know.<br><br>' + 
         'You can apply without notice or attendance for your order about:<br>'
        
-        this.cmType = []
-        if(this.step.result?.cmQuestionnaireSurvey?.data )
-            this.cmType = this.step.result.cmQuestionnaireSurvey.data
-
-        
-        if (this.cmType.includes('changeServiceRequirement')) {
-            listOfIssues.push('<li>Changing or cancelling the requirement for service or notice to a person, including allowing another method for the service of a document</li>');
+        if(this.step.result?.cmQuestionnaireSurvey?.data ){
+            for(const cmType of this.step.result.cmQuestionnaireSurvey.data){
+                const order = getOrderTypeCM(cmType)
+                if(order?.turquoise){
+                    listOfIssues.push('<li>'+order.text+'</li>')
+                }
+            }     
         }
-
-        if (this.cmType.includes('changeRequirement')) {
-            listOfIssues.push('<li>Changing or cancelling any other requirement under the rules, including a time limit</li>');
-        }
-
-        if (this.cmType.includes('remoteAttendance')) {
-            listOfIssues.push('<li>Attending at a court appearance by telephone, video or other electronic means</li>');
-        }
-
-        if (this.cmType.includes('otherProvinceOrder')) {
-            listOfIssues.push('<li>Recognizing a court order from another province or territory</li>');
-        }
-
-        if (this.cmType.includes('section242')) {
-            listOfIssues.push('<li>Requiring access to information in accordance with section 242 of the Family Law Act</li>');
-        }       
                         
         const initialList = listOfIssues.toString()            
         description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
@@ -180,25 +166,8 @@ export default class WithoutNoticeOrAttendance extends Vue {
         
         let needConsent = false;
         if (this.step.result?.cmQuestionnaireSurvey?.data){
-            const selectedCaseManagementItems = this.step.result.cmQuestionnaireSurvey.data;
-            const byConsentRequiredList = [
-                "adjourningAppearance",
-                "fileTransfer",
-                "settingTime",
-                "nonPartyDisclosure",
-                "rule112",
-                "orderOfAbsenceChange",
-                "section211",
-                "fileAccess",
-                "fileCorrection",
-                "orderSettlement",
-                "section204",
-                "lawyerAppointment",
-                "subpoenaCancelation",
-                "section33"
-            ]
-
-            needConsent = byConsentRequiredList.some(i => selectedCaseManagementItems.includes(i));
+            const selectedCaseManagementItems = this.step.result.cmQuestionnaireSurvey.data;            
+            needConsent = selectedCaseManagementItems.filter(cmType => {return (getOrderTypeCM(cmType).turquoise == false)}).length>0;
         }
 
         return needConsent;
@@ -207,20 +176,19 @@ export default class WithoutNoticeOrAttendance extends Vue {
     public determinePages(){
         
         if (this.survey.data?.needWithoutNotice) {
+
             const needWithoutNotice = this.survey.data.needWithoutNotice;
-            
+
             if (needWithoutNotice == 'n') {
                 this.togglePages([this.stPgNo.CM.ByConsent, this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], true); 
-            } else if (needWithoutNotice == 'y'){
-                
-                this.togglePages([this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], false); 
-                //schedule 1
-                this.togglePages([this.stPgNo.CM.AttendanceUsingElectronicCommunication], this.cmType.includes('remoteAttendance'));
-
-                if (!this.needConsent()) {
-                    this.togglePages([this.stPgNo.CM.ByConsent], false);  
-                }
+            } else{                              
+                this.togglePages([this.stPgNo.CM.ByConsent,this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], this.needConsent()); 
             }
+            
+            //schedule 1..5
+            if(this.step.result?.cmQuestionnaireSurvey?.data )
+                for(const cmType of this.step.result.cmQuestionnaireSurvey.data)
+                    getOrderTypeCM(cmType, true, (needWithoutNotice == 'y'));
         }
     }
 

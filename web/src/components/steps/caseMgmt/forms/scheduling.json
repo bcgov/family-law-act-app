@@ -2,13 +2,20 @@
   "title": "Scheduling",
   "pages": [
     {
-      "name": "Scheduling",
-      "description": "The court prefers to schedule court appearances for a date that works for everyone. Check with the other party or person to see if there are dates that may work better for all of you. It is usually better for you if the court appearance is scheduled for a date when everyone can be there.   Try to pick a few dates that may work for you and the other party or person, the registry or Judicial Case Manager will work with you to schedule the date based on the court’s availability too. Remember that you must give each party or person at least 7 days’ notice of the date and time of the court appearance.",
+      "name": "Scheduling",      
       "elements": [
         {
           "type": "panel",
           "name": "schedulingPanel",
           "elements": [
+            { 
+              "type":"infotexttitle",
+              "name":"schedulingDescription1",
+              "title":"description1",
+              "body": "The court prefers to schedule court appearances for a date that works for everyone. Check with the other party or person to see if there are dates that may work better for all of you. It is usually better for you if the court appearance is scheduled for a date when everyone can be there.   Try to pick a few dates that may work for you and the other party or person, the registry or Judicial Case Manager will work with you to schedule the date based on the court’s availability too. Remember that you must give each party or person at least 7 days’ notice of the date and time of the court appearance.",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
             {
               "type": "yesno",
               "name": "informedOtherParties",

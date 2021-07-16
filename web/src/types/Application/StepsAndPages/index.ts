@@ -108,7 +108,8 @@ export interface CMstPgTypes{
     ChangingOrCancellingAServiceOrNotice: number;
     ChangingOrCancellingAnyOtherRequirement: number;
     RequiringAccessToInformation: number;
-    RecognizingAnOrderFromOutsideBc: number;    
+    RecognizingAnOrderFromOutsideBc: number; 
+    ContactInformationOtherParty: number;   
     ReviewYourAnswersCM: number;
     PreviewFormsCM: number;
 }

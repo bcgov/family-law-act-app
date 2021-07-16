@@ -25,7 +25,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class ChangingOrCancellingAnyOtherRequirement extends Vue {
+export default class ContactInformationOtherParty extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
@@ -79,24 +79,13 @@ export default class ChangingOrCancellingAnyOtherRequirement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.changingOrCancellingAnyOtherRequirementSurvey) {
-            this.survey.data = this.step.result.changingOrCancellingAnyOtherRequirementSurvey.data; 
+        if (this.step.result?.contactInformationOtherPartySurvey) {
+            this.survey.data = this.step.result.contactInformationOtherPartySurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }     
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     } 
-
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {            
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()
@@ -111,7 +100,7 @@ export default class ChangingOrCancellingAnyOtherRequirement extends Vue {
     beforeDestroy() {
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {changingOrCancellingAnyOtherRequirementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {contactInformationOtherPartySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

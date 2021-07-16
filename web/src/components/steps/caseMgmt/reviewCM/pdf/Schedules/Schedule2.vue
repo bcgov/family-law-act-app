@@ -236,14 +236,16 @@ export default class Schedule2 extends Vue {
             waiveModifyRequirementsInfo.waiveChangeRequirementComment = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.documentListComment:'';
             waiveModifyRequirementsInfo.applicationFacts = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.applicationFacts:'';
 
-            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.namesOfNeedToBeServed.split(/[;,]+/).map(item => {return item.trim();}):[];
+            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.namesOfNeedToBeServed? chgSurvey.namesOfNeedToBeServed?.split(/[;,]+/).map(item => {return item.trim();}):[]:[];
             waiveModifyRequirementsInfo.altMethodApplicationFacts = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.applicationFactsAltMethod:'';
             waiveModifyRequirementsInfo.altMethodServingDetails = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.altMethodServingDetails:''
             
             let altMetList = chgSurvey.documentListForAltMethod;
-            altMetList = altMetList.replace(/\n/g,'<br>');
-            altMetList = altMetList.replace(/;/g, '<br>');
-            altMetList = altMetList.replace(/,/g, '<br>');
+            if(altMetList){
+                altMetList = altMetList.replace(/\n/g,'<br>');
+                altMetList = altMetList.replace(/;/g, '<br>');
+                altMetList = altMetList.replace(/,/g, '<br>');
+            }
             waiveModifyRequirementsInfo.altMethodDocList  = waiveModifyRequirementsInfo.isAltMethodService? altMetList:'';
             
         }
