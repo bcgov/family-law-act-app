@@ -15,8 +15,8 @@
                     :key="index"
                     style="cursor:pointer; display:inline; padding-left: .75em; font-size: 110%; font-weight: normal; transform: translate(0,-2px) " 
                     >
-                    <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tootlip" :title="txt.text" :index="index" placement="top"/>
-                    <div style="display:inline;" v-else >{{txt.text}}</div>
+                    <tooltip style="display:inline; margin:0 -0.65rem;" v-if="txt.tooltip" :title="txt.text" :index="index" placement="top"/>
+                    <div style="display:inline;" v-else v-html="txt.text">{{txt.text}}</div>
                 </div>                         
             </label>
             <textarea 
@@ -158,9 +158,9 @@ export default class MultipleCommentCheckbox extends Vue {
         const allTexts = []
         for(const part in splitedText){            
             if(Number(part)%2 == 1)
-                allTexts.push({text:splitedText[part], tootlip:true})
+                allTexts.push({text:splitedText[part], tooltip:true})
             else
-                allTexts.push({text:splitedText[part], tootlip:false})
+                allTexts.push({text:splitedText[part], tooltip:false})
         }
         this.choices[choiceInx].text = allTexts
     }

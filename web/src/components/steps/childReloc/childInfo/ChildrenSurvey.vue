@@ -18,7 +18,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo.json";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";

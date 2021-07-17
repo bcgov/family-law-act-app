@@ -501,9 +501,9 @@ export default class Form16Layout extends Vue {
             
         }
 
-        if (this.result.RelocChildBestInterestInfoSurvey) {
+        if (this.result.relocChildBestInterestInfoSurvey) {
 
-            const relocChildBestInterest: relocChildBestInterestSurveyDataInfoType = this.result.RelocChildBestInterestInfoSurvey;
+            const relocChildBestInterest: relocChildBestInterestSurveyDataInfoType = this.result.relocChildBestInterestInfoSurvey;
             relocInformation.childBestInterestAcknowledgement = relocChildBestInterest.childBestInterestAcknowledgement.includes('I understand');
             relocInformation.childBestInterestReason = relocChildBestInterest.childBestInterestDescription;
         }

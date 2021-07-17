@@ -3,12 +3,19 @@
   "pages": [
     {
       "name": "Without Notice or Attendance",
-      "description": "{listOfIssuesDescription}",
       "elements": [
         {
           "type": "panel",
           "name": "withoutNoticeOrAttendancePanel",
           "elements": [
+            { 
+              "type":"infotexttitle",
+              "name":"withoutNoticeDescription1",
+              "title":"description1",
+              "body": "{listOfIssuesDescription}",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
             {
               "type": "yesno",
               "name": "needWithoutNotice",
@@ -36,7 +43,7 @@
               "choices": [
                 {
                   "value": "I understand",
-                  "text": "<b>I understand</b>"
+                  "text": "<b >I understand</b>"
                 }
               ]
             },

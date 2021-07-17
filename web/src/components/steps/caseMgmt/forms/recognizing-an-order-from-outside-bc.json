@@ -1,0 +1,95 @@
+{
+  "title": "Recognizing an Order from Outside BC",
+  "pages": [
+    {
+      "name": "Recognizing an Order from Outside BC",      
+      "elements": [
+        {
+          "type": "panel",
+          "name": "RecognizingAnOrderFromOutsideBcPanel",
+          "elements": [            
+            { 
+              "type":"infotexttitle",
+              "name":"RecognizingAnOrderFromOutsideBcDescription1",
+              "title":"description1",
+              "body": "An order may have been made outside BC about parenting arrangements, contact with a child or guardianship. These orders are called extraprovincial orders.<br><br>Dealing with extraprovincial orders in BC can be tricky and it is important to get advice from a lawyer. ",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "Where can I get legal assistance?",
+              "titleLocation": "hidden",              
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"             
+            },
+            { 
+              "type":"infotexttitle",
+              "name":"RecognizingAnOrderFromOutsideBcDescription2",
+              "title":"description2",
+              "body": "Extraprovincial orders made under the <a href='https://laws-lois.justice.gc.ca/eng/acts/d-3.4/page-1.html' target='_blank' >Divorce Act </a> or laws of another province or territory can be registered in Provincial Court in British Columbia under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section75' target='_blank' > section 75 </a> the Family Law Act. Section 75 sets out the rules about recognition of extraprovincial orders. When an extraprovincial order is recognized by the Provincial Court the order is filed and can be enforced as if it was an order of a British Columbia court under the Family Law Act.<br><br>You can apply on your own to ask the court to recognize an extraprovincial order.",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
+            {
+              "type": "yesno",
+              "title": "Do you have an order from outside British Columbia about parenting arrangements, contact with a child or guardianship?",
+              "name": "outsideBcOrder",
+              "description" : "To register an extraprovincial order under section 75 of the Family Law Act it must an order by a court or tribunal outside BC that is like an order about parenting arrangements, contact with a child or guardianship under the Family Law Act. The order may use different wording to describe it, for example custody or access.",              
+              "isRequired": true                           
+            },
+            {
+              "type": "helptext",
+              "name": "FAQSupportOrderFromOutsideBC",
+              "title": "What if I have a support order from outside British Columbia?",
+              "titleLocation": "hidden",              
+              "body": "If you have a support order from outside British Columbia, you can register the order under the <a href = 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01' target='_blank'> Interjurisdictional Support Orders Act </a>or enforcement in BC by contacting the designated authority:<br><br>Interjurisdictional Support Services<br><a href='http://www.isoforms.bc.ca' target='_blank'> www.isoforms.bc.ca </a> <br>Vancouver Main Office Boxes<br>P.O. Box 2074<br>Vancouver, BC V6B 3S3<br>Phone: 604-660-2528<br>Toll-free: 1-866-660-2684"             
+            },
+            { 
+              "type":"infotext",
+              "name":"RecognizingAnOrderFromOutsideBcInfo",
+              "title":"You have indicated you do not have an order from outside BC about parenting arrangements, contact with a child or guardianship. It does not seem you have an order that can be recognized in BC using this option. You may want to get advice from a lawyer to help you understand what you need. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community",              
+              "titleLocation":"hidden",
+              "visible": false,
+              "visibleIf" : "{outsideBcOrder} = 'n'",
+              "messageStyle":"info"
+            }, 
+            {
+              "type": "text",
+              "name": "dateOfOrder",              
+              "title": "Please provide the date the order was made.",
+              "description": "The date will usually be the day of the court appearance. It may not match a court stamp on the document. If you aren’t sure what date the order was made, check with the location that made the order.",
+              "isRequired": true,
+              "inputType": "date",
+              "visible": false,
+              "visibleIf":"{outsideBcOrder} = 'y'"
+            },            
+            {
+              "type": "comment",
+              "title": "Where was the order made?",
+              "name": "orderPlace",
+              "description": "Provide the name of the court location, city and province/territory. If the order was made outside of Canada, include the country.",
+              "isRequired": true ,
+              "visible": false,
+              "rows": 2,
+              "visibleIf" : "{outsideBcOrder} = 'y'"                          
+            },
+           
+            {
+              "type": "comment",
+              "title": "The `facts` on which this application is based are as follows:",
+              "name": "applicationFacts",
+              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order.",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{officerSearch} = 'y'"              
+            }
+          ]
+        }
+      ],
+      "title": "Recognizing an Order from Outside BC"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

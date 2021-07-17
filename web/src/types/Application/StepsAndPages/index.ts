@@ -105,6 +105,11 @@ export interface CMstPgTypes{
     AboutCaseManagementOrder: number;
     CmChildrenInfo: number;
     AttendanceUsingElectronicCommunication: number;
+    ChangingOrCancellingAServiceOrNotice: number;
+    ChangingOrCancellingAnyOtherRequirement: number;
+    RequiringAccessToInformation: number;
+    RecognizingAnOrderFromOutsideBc: number; 
+    ContactInformationOtherParty: number;   
     ReviewYourAnswersCM: number;
     PreviewFormsCM: number;
 }

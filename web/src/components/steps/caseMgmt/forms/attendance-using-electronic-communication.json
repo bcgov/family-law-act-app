@@ -24,7 +24,7 @@
                 {
                   "value": "lawyer",
                   "comment": true,
-                  "text": "My lawyer:"
+                  "text": "My lawyer <i>(full name of lawyer)</i>:"
                 }
               ]
             },
@@ -101,7 +101,7 @@
               "isRequired": true,
               "visible": false,
               "visibleIf": "{attendanceType} = 'byTelephone'",
-              "title": "What telephone number would you like to be contact at for the court appearance?"
+              "title": "What telephone number would you like to be contacted at for the court appearance?"
             },
             {
               "type": "yesno",

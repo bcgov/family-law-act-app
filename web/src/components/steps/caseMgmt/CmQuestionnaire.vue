@@ -1,6 +1,6 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
-    <div class="row">
+    <div v-if="dataReady" class="row">
       <div class="col-md-12 order-heading">
         <div>
             <h1>Questionnaire</h1>
@@ -24,161 +24,20 @@
                 v-on:change="onChange($event)"
                 name="orders"
                 stacked
-                >                
+                >       
                     <div>
-                        <b-form-checkbox class="checkbox-choices" value="changeServiceRequirement">
-                            <div>
-                                Changing or cancelling the requirement for service or notice to a person, including allowing another 
-                                method for the service of a document
-                            </div>                                      
+                        <b-form-checkbox v-for="order,inx in orderItems " :key="inx" class="checkbox-choices" :value="order.value">
+                            <div class="d-inline" >
+                                {{processTooltip(order.text)[0]}}
+                            </div>
+                            <div v-if="processTooltip(order.text)[1]" class="d-inline">
+                                <tooltip :index="0" :title="processTooltip(order.text)[1]" />
+                            </div>
+                            <div v-if="processTooltip(order.text)[2]" class="d-inline">
+                                {{processTooltip(order.text)[2]}}
+                            </div>                                
                         </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="changeRequirement">
-                            <div>
-                                Changing or cancelling <tooltip title="any other requirement" :index="0"/> under the rules, including a time limit
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="remoteAttendance">
-                            <div>
-                                Attending at a court appearance by telephone, video or other electronic means
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="adjourningAppearance">
-                            <div>
-                                Adjourning a court appearance    
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="fileTransfer">
-                            <div>
-                                Transferring a court file to another registry    
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="settingTime">
-                            <div>
-                                Setting a specified time to file and exchange information or evidence, including a financial statement in Form 4      
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="nonPartyDisclosure">
-                            <div>
-                                Disclosing of information by a person who is not a party           
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="rule112">
-                            <div>
-                                About the conduct of a party or management of a case, including pre-trial and trial process and evidence 
-                                disclosure set out in Rule 112(1)
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="orderOfAbsenceChange">
-                            <div>
-                                Changing, suspending or cancelling an <tooltip title="order made in my absence" :index="0"/>           
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="section211">
-                            <div>
-                                Relating to a report under section 211, including requiring a person who prepared a report to attend trial as a witness       
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="fileAccess">
-                            <div>
-                                Management of a court record, file or document including access to a court file           
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="fileCorrection">
-                            <div>
-                                Correcting or changing a filed document, including correcting a name or date of birth              
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="orderSettlement">
-                            <div>
-                                Settling or correcting the terms of an order          
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="section204">
-                            <div>
-                                Adding or removing a party to a case, including leave to intervene under section 204 (2) of the Family Law Act       
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="lawyerAppointment">
-                            <div>
-                                Respecting the appointment of a lawyer to represent the interests of a child or a party       
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="otherProvinceOrder">
-                            <div>
-                                Recognizing a court order from another province or territory          
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="subpoenaCancelation">
-                            <div>
-                                Cancelling a subpoena       
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="section33">
-                            <div>
-                                Requiring that a parentage test be taken under section 33 of the Family Law Act           
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-
-                    <div>
-                        <b-form-checkbox class="checkbox-choices" value="section242">
-                            <div>
-                                Requiring access to information in accordance with section 242 of the Family Law Act           
-                            </div>                        
-                        </b-form-checkbox>
-                    </div>
-               
+                    </div>               
                 </b-form-checkbox-group>
             </b-form-group>
         </div>
@@ -207,6 +66,8 @@ import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+
+import {getOrderTypeCM} from './orderTypesCM'
 
 import Tooltip from "@/components/survey/Tooltip.vue";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
@@ -243,12 +104,25 @@ export default class CmQuestionnaire extends Vue {
 
     currentStep = 0;
     currentPage = 0;
+    orderItems = [];
+    dataReady = false
 
     allPages = []; 
 
     mounted(){
+        this.dataReady = false;
+        this.loadOrders()
         this.allPages = _.range(this.stPgNo.CM.OtherPersons, Object.keys(this.stPgNo.CM).length-1) 
         this.reloadPageInformation();
+        this.dataReady = true
+    }
+
+    public loadOrders(){
+        const orders = getOrderTypeCM('')
+        this.orderItems = []
+        for(const [key, value] of Object.entries(orders)){
+            this.orderItems.push({value:key, text:value['text']})
+        }
     }
 
     public reloadPageInformation() {   
@@ -293,9 +167,11 @@ export default class CmQuestionnaire extends Vue {
 
             if (selectedCaseManagement.length > 0){
 
-                this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true);               
-                this.getSelectedCaseManagementItems();
+                this.togglePages([p.OtherPersons, p.CmChildrenInfo, p.ReviewYourAnswersCM], true);                              
                 
+                for(const form of this.selectedCaseManagement)
+                    getOrderTypeCM(form,true);           
+        
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
 
                 if(resetPagesProgress){
@@ -306,13 +182,38 @@ export default class CmQuestionnaire extends Vue {
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 0, false);
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);                                    
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAServiceOrNotice, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAnyOtherRequirement, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.RequiringAccessToInformation, 0, false);
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.RecognizingAnOrderFromOutsideBc, 0, false);                                                       
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
+                }
+
+                if (this.step.result?.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice) {
+                    const needWithoutNotice = this.step.result.withoutNoticeOrAttendanceSurvey.data.needWithoutNotice
+                    if (needWithoutNotice == 'n') {
+                        this.togglePages([p.ByConsent, p.CmNotice, p.AboutCaseManagementOrder], true); 
+                    } else{                              
+                        this.togglePages([p.ByConsent, p.CmNotice, p.AboutCaseManagementOrder], this.needConsent()); 
+                    }                    
+                    //schedule 1..5                    
+                    for(const cmType of this.selectedCaseManagement)
+                        getOrderTypeCM(cmType, true, (needWithoutNotice == 'y'));
                 }
                 
             }   
         }
-    }   
+    }  
+    
+    public needConsent(){        
+        let needConsent = false;
+        if (this.selectedCaseManagement.length>0){
+            const selectedCaseManagementItems = this.selectedCaseManagement;            
+            needConsent = selectedCaseManagementItems.filter(cmType => {return (getOrderTypeCM(cmType).turquoise == false)}).length>0;
+        }
+        return needConsent;
+    }
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) { 
@@ -349,92 +250,26 @@ export default class CmQuestionnaire extends Vue {
 
     public onNext() {
         this.UpdateGotoNextStepPage();       
-    }   
+    }
 
     public getSelectedCaseManagementItems(){
         
-        let result = ''
-        this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance, this.stPgNo.CM.ByConsent], false);       
+        let result = ''             
         
-        for(const form of this.selectedCaseManagement){
-            if(form=='changeServiceRequirement') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
-                result+='-Changing or cancelling the requirement for service or notice to a person, including allowing another method for the service of a document'+'\n';
-            }   
-            if(form=='changeRequirement') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
-                result+='-Changing or cancelling any other requirement under the rules, including a time limit'+'\n';
-            }
-            if(form=='remoteAttendance') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
-                result+='-Attending at a court appearance by telephone, video or other electronic means'+'\n';
-            }
-            if(form=='adjourningAppearance') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Adjourning a court appearance'+'\n';
-            }
-            if(form=='fileTransfer') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Transferring a court file to another registry'+'\n';
-            }
-            if(form=='settingTime') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Setting a specified time to file and exchange information or evidence, including a financial statement in Form 4'+'\n';
-            }
-            if(form=='nonPartyDisclosure') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Disclosing of information by a person who is not a party'+'\n';
-            }
-            if(form=='rule112') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-About the conduct of a party or management of a case, including pre-trial and trial process and evidence disclosure set out in Rule 112(1)'+'\n';
-            }
-            if(form=='orderOfAbsenceChange') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Changing, suspending or cancelling an order made in my absence'+'\n';
-            }
-            if(form=='section211') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Relating to a report under section 211, including requiring a person who prepared a report to attend trial as a witness'+'\n';
-            }
-            if(form=='fileAccess') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Management of a court record, file or document including access to a court file'+'\n';
-            }
-            if(form=='fileCorrection') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Correcting or changing a filed document, including correcting a name or date of birth'+'\n';
-            }
-            if(form=='orderSettlement') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Settling or correcting the terms of an order'+'\n';
-            }
-            if(form=='section204') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Adding or removing a party to a case, including leave to intervene under section 204 (2) of the Family Law Act'+'\n';
-            }
-            if(form=='lawyerAppointment') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Respecting the appointment of a lawyer to represent the interests of a child or a party'+'\n';
-            }
-            if(form=='otherProvinceOrder') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
-                result+='-Recognizing a court order from another province or territory'+'\n';
-            }
-            if(form=='subpoenaCancelation') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Cancelling a subpoena'+'\n';
-            }
-            if(form=='section33') {
-                this.togglePages([this.stPgNo.CM.ByConsent], true);
-                result+='-Requiring that a parentage test be taken under section 33 of the Family Law Act'+'\n';
-            }
-            if(form=='section242') {
-                this.togglePages([this.stPgNo.CM.WithoutNoticeOrAttendance], true);
-                result+='-Requiring access to information in accordance with section 242 of the Family Law Act'+'\n';
-            }           
+        for(const form of this.selectedCaseManagement){            
+            result+='-'+getOrderTypeCM(form).text  +'\n';           
         }
         return result;
+    }
+
+    public processTooltip(text){
+        
+        let result = [text];
+        const match: string = text.match(/`(.*)`/g)
+        if(match)         
+            result =text.split('`')        
+
+        return result
     }
   
     beforeDestroy() {

@@ -8,7 +8,7 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/relocation-of-child-best-interests-of-child.json";
 
 import PageBase from "../PageBase.vue";
@@ -72,8 +72,8 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.RelocChildBestInterestInfoSurvey) {
-            this.survey.data = this.step.result.RelocChildBestInterestInfoSurvey.data;
+        if (this.step.result?.relocChildBestInterestInfoSurvey) {
+            this.survey.data = this.step.result.relocChildBestInterestInfoSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }       
 
@@ -101,7 +101,7 @@ export default class RelocationOfChildBestInterestsOfChild extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {RelocChildBestInterestInfoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {relocChildBestInterestInfoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>

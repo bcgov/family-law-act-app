@@ -179,7 +179,13 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	Vue.nextTick(()=>{
 		Vue.filter('FLMformsRequired')();
 	});
-	return {data: survey.data, questions:questionResults, pageName:survey.currentPage.title, currentStep: currentStep, currentPage:currentPage}
+
+	let pageName = survey.currentPage.title;
+	if(optionalArg && optionalArg.pageName){
+		pageName = optionalArg.pageName
+	}
+	
+	return {data: survey.data, questions:questionResults, pageName:pageName, currentStep: currentStep, currentPage:currentPage}
 })
 
 Vue.filter('getPathwayPdfType',function(name){	
@@ -340,8 +346,16 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	}
 
 	if(type == 'caseMgmt'){
-		if(questions.byConsentSurvey?.giveConsentDirection == "fileForm18")
+
+		const stPgCM = store.state.Application.stPgNo.CM
+		const stepCM = store.state.Application.steps[stPgCM._StepNo]
+        		
+		if(stepCM.pages[stPgCM.ByConsent].active && questions.byConsentSurvey?.giveConsentDirection == "fileForm18")
 			requiredDocuments.push("Completed <a target='blank' href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa739.pdf?forcedownload=true'>Consent Order Form 18</a> form");
+		
+		
+		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
+			requiredDocuments.push("Certified copy of the order from outside BC")
 	}
 		
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments ,reminder:reminderDocuments} });	

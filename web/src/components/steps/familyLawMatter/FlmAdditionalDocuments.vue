@@ -10,7 +10,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as _ from 'underscore';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary.ts";
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/flm-additional-documents.json";
 
 import PageBase from "../PageBase.vue";

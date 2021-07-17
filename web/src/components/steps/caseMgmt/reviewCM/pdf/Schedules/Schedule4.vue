@@ -24,8 +24,8 @@
                     </i>
                 </div>
                 
-                <div v-if="false" 
-                class="answerbox"></div>
+                <div v-if="accessInfo.orderDetail" 
+                class="answerbox">{{accessInfo.orderDetail}}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
                             
             </section>
@@ -42,8 +42,8 @@
                     </i>
                 </div>
                 
-                <div v-if="false" 
-                class="answerbox"></div>
+                <div v-if="accessInfo.applicationFacts" 
+                class="answerbox">{{accessInfo.applicationFacts}}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
                             
             </section>
@@ -58,8 +58,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
-import moment from 'moment';
-import { schedule4DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule4DataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 @Component({
     components:{
@@ -74,7 +73,7 @@ export default class Schedule4 extends Vue {
     result!: any;
 
     dataReady = false;   
-    exChSupInfo = {} as schedule4DataInfoType;
+    accessInfo = {} as schedule4DataInfoType;
    
     mounted(){
         this.dataReady = false;      
@@ -83,139 +82,21 @@ export default class Schedule4 extends Vue {
     }
 
     public extractInfo(){         
-        this.exChSupInfo = this.getExistingChildSupportInfo();
+        this.accessInfo = this.getAccessToInformation();
     }
 
-    public getExistingChildSupportInfo(){
-        let existingChildSupportInfo = {} as schedule4DataInfoType;
-        // // console.log(this.result)
+    public getAccessToInformation(){
+        let accessToInformation = {} as schedule4DataInfoType;
+              
+        if(this.result?.requiringAccessToInformationSurvey){
+            const chgSurvey = this.result.requiringAccessToInformationSurvey;
+            accessToInformation.officerSearch = chgSurvey.officerSearch
+            accessToInformation.orderDetail = chgSurvey.officerSearch == 'y'? chgSurvey.orderDetail : ''
+            accessToInformation.applicationFacts = chgSurvey.officerSearch == 'y'? chgSurvey.applicationFacts : ''
+        }
+    
 
-        // if (this.result.aboutExistingChildSupportSurvey && this.result.childSupportOrderAgreementSurvey){
-        //     const orderChangeList = (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked.length>0)? this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.checked:[];
-        //     const existingType = this.result.childSupportOrderAgreementSurvey.existingType;  
-        //     let date = '';
-        //     if (existingType == 'ExistingOrder'){
-        //         date = Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.orderDate);
-        //     } else if (existingType == 'ExistingAgreement'){
-        //         date = Vue.filter('beautify-date')(this.result.aboutExistingChildSupportSurvey.agreementDate);
-        //     }
-        //     existingChildSupportInfo.abtEx = {                
-        //         payor: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payor'),
-        //         payee: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'payee'),
-        //         other: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other'),
-        //         otherComm: (this.result.childSupportOrderAgreementSurvey.existingResponsibilityType == 'other' && this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment)? this.result.childSupportOrderAgreementSurvey.existingResponsibilityTypeComment:'',
-        //         orderDate: date,
-        //         exstngOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder'),
-        //         fldDrctr: (this.result.childSupportOrderAgreementSurvey.filedWithDirector == 'y'),
-        //         cancelOrdr:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'cancelOrder'),
-        //         changeOrdr: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' && this.result.aboutExistingChildSupportSurvey.orderDifferenceType == 'changeOrder'),
-        //         changeList: orderChangeList,
-        //         changes:{
-        //             myfin: orderChangeList.includes('myFinancialChanged'),
-        //             opfin: orderChangeList.includes('partyFinancialChanged'),
-        //             spcl: orderChangeList.includes('expensesChanged'),
-        //             lvng: orderChangeList.includes('arrangementsChanged'),
-        //             newInfo: orderChangeList.includes('newInformation'),
-        //             other: orderChangeList.includes('other')
-        //         },
-        //         newInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&        orderChangeList.includes('newInformation')     && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment)?      this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.newInformationComment:'',
-        //         expChangeInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('expensesChanged')    && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment)?     this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.expensesChangedComment:'',
-        //         lvngChangeInfo:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&  orderChangeList.includes('arrangementsChanged') && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment)?this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.arrangementsChangedComment:'',
-        //         otherInfo: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingOrder' &&      orderChangeList.includes('other')              && this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment)?               this.result.aboutExistingChildSupportSurvey.changesSinceOrderList.otherComment:'',
-        //         exstngAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement'),
-        //         setAsideAgrmnt:(this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'setAsideAgreement'),
-        //         replaceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.agreementDifferenceType == 'replacedAgreement'),
-        //         changesSinceAgrmnt: (this.result.childSupportOrderAgreementSurvey.existingType == 'ExistingAgreement' && this.result.aboutExistingChildSupportSurvey.changesSinceAgreement)?this.result.aboutExistingChildSupportSurvey.changesSinceAgreement:''
-        //     }
-        // }
-
-        // if (this.result.aboutChildSupportChangesSurvey){
-        //     const aboutChildSupportChanges = this.result.aboutChildSupportChangesSurvey;
-        //     const changeCondition =   existingChildSupportInfo.abtEx && (existingChildSupportInfo.abtEx['replaceAgrmnt'] || existingChildSupportInfo.abtEx['changeOrdr'])
-        //     const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)?aboutChildSupportChanges.listOfSituations:[]
-        //     existingChildSupportInfo.abtOrg = {                
-        //         newOrderDesc: changeCondition? aboutChildSupportChanges.orderDescription:'',
-        //         startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)?(aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment):'',
-        //         startReason: (changeCondition && aboutChildSupportChanges.orderStartDateReason)?aboutChildSupportChanges.orderStartDateReason:'',
-        //         situationList: orgSituationList,                    
-        //         situation: {
-        //             payor: orgSituationList.includes('I am required to pay child support'),
-        //             split: orgSituationList.includes('There is `split` or `shared` parenting time'),
-        //             over19: orgSituationList.includes('There is a child 19 years or older for who support is for'),
-        //             partyParentOfOther: orgSituationList.includes('A party has been acting as a parent to a child of the other party, for example a step-parent'),
-        //             payorEarnsHigh: orgSituationList.includes('The paying parent earns more than $150,000 per year'),
-        //             specialClaim: orgSituationList.includes('There is a claim for `special and extraordinary expenses` for a child'),
-        //             undueHardship: orgSituationList.includes('I am claiming `undue hardship`'),
-        //             none: orgSituationList.includes('None of the above apply to my situation')
-        //         }
-        //     }
-        // }
-
-        // if (this.result.unpaidChildSupportSurvey){
-        //     const unpaidChildSupport = this.result.unpaidChildSupportSurvey;
-        //     existingChildSupportInfo.unpdChSup = unpaidChildSupport.unpaid == 'y'?
-        //     {
-        //         crntDate: moment().format("MMM DD, yyyy"),   
-        //         unpaid: unpaidChildSupport.unpaid == 'y',
-        //         reduce: unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y',
-        //         reduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.reduceAmount:'',
-        //         whyReduceAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.applyToReduce == 'y')?unpaidChildSupport.whyReduceAmount:'',
-        //         paySchd: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule)?unpaidChildSupport.paymentSchedule.selected:'',
-        //         monthlyAmount: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule && unpaidChildSupport.paymentSchedule.selected == 'monthly')? unpaidChildSupport.paymentSchedule.monthlyAmount:'',
-        //         amnt: (unpaidChildSupport.unpaid == 'y')?unpaidChildSupport.unPaidAmount:0, 
-        //         otherComm: (unpaidChildSupport.unpaid == 'y' && unpaidChildSupport.paymentSchedule) && (unpaidChildSupport.paymentSchedule.selected == 'other')? unpaidChildSupport.paymentSchedule.otherComment:''       
-        //     }:{
-        //         crntDate: moment().format("MMM DD, yyyy"),   
-        //         unpaid: false,
-        //         reduce: false,
-        //         reduceAmount: '',
-        //         whyReduceAmount: '',
-        //         paySchd: '',
-        //         monthlyAmount: '',
-        //         amnt: 0, 
-        //         otherComm:''  
-        //     }
-        // }
-
-        // if (this.result.calculatingChildSupportSurvey){
-        //     existingChildSupportInfo.calc = {   
-        //         attaching: this.result.calculatingChildSupportSurvey.attachingCalculations == 'y',
-        //         reason: (this.result.calculatingChildSupportSurvey.attachingCalculations == 'n' && this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingChildSupportSurvey.whyNotAttachingCalculations: ''
-        //     }
-        // }
-
-        // // console.log('____')
-        // // console.log(existingChildSupportInfo.abtOrg.situation)
-
-
-        // existingChildSupportInfo.finStmnt = {
-        //     required: (existingChildSupportInfo.abtOrg.situation.payor ||
-        //             existingChildSupportInfo.abtOrg.situation.over19 ||
-        //             existingChildSupportInfo.abtOrg.situation.split  ||
-        //             existingChildSupportInfo.abtOrg.situation.partyParentOfOther  ||
-        //             existingChildSupportInfo.abtOrg.situation.payorEarnsHigh ||
-        //             existingChildSupportInfo.abtOrg.situation.specialClaim ||
-        //             existingChildSupportInfo.abtOrg.situation.undueHardship )
-        // }
-
-        // let form4unable = false;
-
-        // if(this.result.flmAdditionalDocumentsSurvey && this.result.flmAdditionalDocumentsSurvey.unableFileForms){
-        //     for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
-        //         if(form.includes("Financial Statement Form 4")){
-        //             form4unable = true;
-        //         }
-        //     }   
-        // }
-
-        // if(this.result.flmAdditionalDocumentsSurvey && (this.result.flmAdditionalDocumentsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
-        //     existingChildSupportInfo.applyForCaseManagement = true
-        //     existingChildSupportInfo.finStmnt = {
-        //         required: false
-        //     }
-        // }
-
-        return existingChildSupportInfo;
+        return accessToInformation;
     } 
 }
 </script>

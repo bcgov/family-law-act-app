@@ -162,6 +162,12 @@ export interface stepInfoType {
     childRelatedTypeSurvey?:string;
     attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
 
+    changingOrCancellingAServiceOrNoticeSurvey?: any;
+    changingOrCancellingAnyOtherRequirementSurvey?: any;
+    requiringAccessToInformationSurvey?: any;
+    recognizingAnOrderFromOutsideBcSurvey?: any;
+    contactInformationOtherPartySurvey?: any;   
+
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
     priorityParentingMatterOrderSurvey?: priorityParentingMatterOrderSurveyInfoType;
@@ -172,7 +178,7 @@ export interface stepInfoType {
     //__Step 6 RELOCATION OF CHILD
     relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
     relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
-    RelocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
+    relocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
