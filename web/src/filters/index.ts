@@ -89,9 +89,10 @@ Vue.filter('getFullContactInfo',function(nameObject){
 		return pre+"Phone: "+post+
 			(nameObject.phone? nameObject.phone:' - ') +
 			" "+pre+"Email: "+post+
-			(nameObject.email? nameObject.email:' - ') +
-			" "+pre+"Fax: "+post+
-			(nameObject.fax? nameObject.fax:' - ');
+			(nameObject.email? nameObject.email:' - ');
+			//  +
+			// " "+pre+"Fax: "+post+
+			// (nameObject.fax? nameObject.fax:' - ');
 	} else{
 		return " "
 	}

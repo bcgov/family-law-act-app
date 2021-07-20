@@ -295,7 +295,7 @@ export default class OtherPartyCommon extends Vue {
         const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.cmOnly = (this.types.length == 1 && this.types.includes("Case Management"));
+        this.cmOnly = (this.types?.length == 1 && this.types.includes("Case Management"));
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
     
@@ -464,7 +464,8 @@ export default class OtherPartyCommon extends Vue {
         const resultString = [];
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
-        resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
+        resultString.push(Vue.filter('styleTitle')("Lawyer: ")+(otherParty.lawyer?otherParty.lawyer:''));
+        resultString.push(Vue.filter('styleTitle')("Address: ")+(otherParty.address?Vue.filter('getFullAddress')(otherParty.address):''))
         resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo))
         return resultString
     }

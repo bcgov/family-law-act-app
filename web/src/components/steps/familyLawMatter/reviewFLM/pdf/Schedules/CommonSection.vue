@@ -60,8 +60,7 @@
                     <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td>Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td style="padding-left:50px"></td>
+                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
                     <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
@@ -96,8 +95,7 @@
                         <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
-                        <td style="padding-left:50px"></td>
+                        <td colspan="2">Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
                         <td>Telephone: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.phone:''}}</div> </td>
                     </tr>
                 </table>
