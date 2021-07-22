@@ -13,8 +13,8 @@
 
 <!-- <1> -->
             <section class="resetquestion">                
-                <underline-form style="text-indent:3px; display:inline-block;" textwidth="13rem" beforetext="I am applying for recognition of an extraprovincial order made on" hint="mmm/dd/yyyy" :italicHint="false" text=""/>
-                <underline-form style="display:inline;margin-left:0.5rem; text-indent:1px;" textwidth="22rem" beforetext=" at " hint="court location, city, province" :italicHint="false" text="800 hornby st, Vancouver, BC"/>
+                <underline-form style="text-indent:3px; display:inline-block;" textwidth="13rem" beforetext="I am applying for recognition of an extraprovincial order made on" hint="mmm/dd/yyyy" :italicHint="false" :text="outsideBCinfo.orderDate"/>
+                <underline-form style="display:inline;margin-left:0.5rem; text-indent:1px;" textwidth="22rem" beforetext=" at " hint="court location, city, province" :italicHint="false" :text="outsideBCinfo.orderPlace"/>
                 <div style="line-height:2rem; text-indent:5px; display:inline;"> about parenting arrangements, contact with a child, guardianship, or an order that is similar in nature</div>                
             </section>
 
@@ -35,25 +35,23 @@
                   
                     <table class="fullsize">
                         <tr style="border:1px solid #313132">
-                            <td>Full name of party: <div class="answer"></div> </td>
-                            <td style="padding-left:50px"></td>
-                            <td>Date of birth: <div class="answer"></div> </td>
+                            <td colspan="2">Full name of party: <div class="answer">{{otherParty.name}}</div> </td>
+                            <td>Date of birth: <div class="answer">{{otherParty.dob}}</div> </td>
                         </tr>                    
                         <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">Lawyer (if applicable): </td>
+                            <td colspan="3">Lawyer (if applicable): <div class="answer">{{otherParty.lawyer}}</div></td>
                         </tr>
                         <tr style="border:1px solid #313132">          
-                            <td colspan="3">Address: <div class="answer">  </div> </td>
+                            <td colspan="3">Address: <div class="answer">{{otherParty.address.street}}</div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td  >City: <div class="answer"></div> </td>
-                        <td style="padding-left:50px">Province: <div class="answer"></div> </td>
-                            <td>Postal Code: <div class="answer"></div> </td>
+                            <td  >City: <div class="answer">{{otherParty.address.city}}</div> </td>
+                        <td style="padding-left:50px">Province: <div class="answer">{{otherParty.address.state}}</div> </td>
+                            <td>Postal Code: <div class="answer">{{otherParty.address.postcode}}</div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer"></div> </td>
-                            <td style="padding-left:50px"></td>
-                            <td>Telephone: <div class="answer"></div> </td>
+                            <td colspan="2">Email: <div class="answer">{{otherParty.contact.email}}</div> </td>                            
+                            <td>Telephone: <div class="answer">{{otherParty.contact.phone}}</div> </td>
                         </tr>
                     </table> 
                 </div>
@@ -68,7 +66,12 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { schedule5DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { schedule5DataInfoType, schedule5outsideBcInfoType } from '@/types/Application/CaseManagement/PDF';
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
+const applicationState = namespace("Application");
 
 @Component({
     components:{
@@ -80,54 +83,63 @@ export default class Schedule5 extends Vue {
 
     @Prop({required:true})
     result!: any;
-    
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
     dataReady = false;
-    chContInfo = {} as schedule5DataInfoType;   
-    otherParties = [{},{}]
+       
+    otherParties: schedule5DataInfoType[]= []
+    outsideBCinfo = {} as schedule5outsideBcInfoType;
 
     mounted(){
         this.dataReady = false;   
-        this.extractInfo();       
+        this.outsideBCinfo = this.getOtherPartyContactInfo();       
         this.dataReady = true;        
-    }
-
-    public extractInfo(){ 
-        this.chContInfo = this.getNewChildContactInfo();
     }   
 
-    public getNewChildContactInfo(){
+    public getOtherPartyContactInfo(){
+        const emptyParty = {
+            name:'',
+            lawyer:'',
+            dob: '',
+            address:{city: "",country: "",postcode: "",state: "", street: ""},
+            contact:{email: "", phone:''}
+        } as schedule5DataInfoType;
 
-        let newChildContactInfo = {} as schedule5DataInfoType;
+        this.otherParties = []
 
-        // console.log(this.result)
+        let otherpartySurvey = []
+        if(this.result?.contactInformationOtherPartySurvey?.otherPartyInfo && this.$store.state.Application.steps[this.stPgNo.CM._StepNo].pages[this.stPgNo.CM.ContactInformationOtherParty].active){
+            otherpartySurvey = this.result.contactInformationOtherPartySurvey.otherPartyInfo
+        }
+        else if(this.result?.otherPartyCommonSurvey)
+        {
+            otherpartySurvey = this.result.otherPartyCommonSurvey
+        }
+        else {
+            this.otherParties.push(emptyParty, emptyParty)
+        }
 
-        // if (this.result.contactWithChildSurvey){
-        //     newChildContactInfo.guardian = this.result.contactWithChildSurvey.parentGuardianApplicant == 'y';
-        // }
+        for(const chgSurvey of otherpartySurvey){
+            let otherPartyContactInfo = {} as schedule5DataInfoType;
+            otherPartyContactInfo.name = Vue.filter('getFullName')(chgSurvey.name);
+            otherPartyContactInfo.address = chgSurvey.address? chgSurvey.address:emptyParty.address;
+            otherPartyContactInfo.contact = chgSurvey.contactInfo? chgSurvey.contactInfo: emptyParty.contact; 
+            otherPartyContactInfo.lawyer = chgSurvey.lawyer
+            otherPartyContactInfo.dob = Vue.filter('beautify-date')(chgSurvey.dob)
 
-        // if (this.result.aboutContactWithChildOrderSurvey){
-        //     const contactChoices = this.result.aboutContactWithChildOrderSurvey.contactTypeChoices?this.result.aboutContactWithChildOrderSurvey.contactTypeChoices:[];
-        //     newChildContactInfo.abt = {
-        //         conChList: this.result.aboutContactWithChildOrderSurvey.childrenRequireContactChoices,
-        //         conType: {
-        //             inPerson: contactChoices.includes('In person'),
-        //             tel: contactChoices.includes('Telephone communication'),
-        //             video: contactChoices.includes('Video communication'),
-        //             written:contactChoices.includes('Written communication'),
-        //             other: contactChoices.includes('other')
-        //         },
-        //         inPrsn: (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'',
-        //         otherComm: (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'',
-        //         cond: (this.result.aboutContactWithChildOrderSurvey.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'',
-        //         lastCont: (this.result.aboutContactWithChildOrderSurvey.lastContactDate)?Vue.filter('beautify-date')(this.result.aboutContactWithChildOrderSurvey.lastContactDate):''
-        //     }
-        // }
+            this.otherParties.push(otherPartyContactInfo)
+        }            
+        
 
-        // if (this.result.contactWithChildBestInterestsOfChildSurvey){
-        //     newChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestsOfChildSurvey.newChildBestInterestDescription;
-        // }
-
-        return newChildContactInfo;
+        let outsideBcInfo = {} as schedule5outsideBcInfoType;              
+        if(this.result?.recognizingAnOrderFromOutsideBcSurvey){
+            const chgSurvey = this.result.recognizingAnOrderFromOutsideBcSurvey;
+            outsideBcInfo.orderDate = Vue.filter('beautify-date-blank')(chgSurvey.dateOfOrder)
+            outsideBcInfo.orderPlace = chgSurvey.orderPlace
+        }
+        return outsideBcInfo;
     }  
 
 }

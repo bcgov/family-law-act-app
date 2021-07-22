@@ -28,8 +28,8 @@
                                     <td>{{child.dob | beautify-date}}</td>
                                     <td>{{child.relation}}</td>
                                     <td>{{child.opRelation}}</td>                                   
-                                    <td><a class="btn btn-light" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
-                                    <a class="btn btn-light" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
+                                    <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
+                                    <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     <tr class="clickableRow" @click="openForm()">
                                     <td colspan = "7">

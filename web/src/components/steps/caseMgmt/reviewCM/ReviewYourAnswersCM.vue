@@ -130,6 +130,7 @@ export default class ReviewYourAnswersCm extends Vue {
         const inputType = dataItem? dataItem['inputType']:""
         const inputName = dataItem? dataItem['name']:""
 
+        
         if(!value){
             this.pageHasError = true;
             return "REQUIRED";
@@ -151,8 +152,12 @@ export default class ReviewYourAnswersCm extends Vue {
             if(value[0] && value[0] instanceof String && value[0].substring(0,5)=='child') return this.getChildrenNames(value)  
             if(value[0]?.childName)return this.getChildInfo(value) 
             if(value[0]?.anotherAdultSharingResiName)return this.getAnotherAdultInfo(value)
-            if(typeof value[0] === 'string' || value[0] instanceof String)
-                return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+            if(typeof value[0] === 'string' || value[0] instanceof String){
+                if(value[0].includes('Name:'))
+                    return value.join(" \n ")
+                else
+                    return value.join(" \n ").replace(/([a-z0-9])([A-Z])/g, '$1 $2');
+            }
             else{
                 this.pageHasError = true;
                 return "REQUIRED";

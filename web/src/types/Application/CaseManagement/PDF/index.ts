@@ -55,6 +55,16 @@ export interface schedule4DataInfoType {
 }
 
 export interface schedule5DataInfoType {
+    name: string;
+    address: addressInfoType;
+    contact: contactInfoType;
+    lawyer: string;
+    dob: string;
+}
+
+export interface schedule5outsideBcInfoType{
+    orderDate: string;
+    orderPlace: string;
 }
 
 export interface form10DataInfoType {

@@ -113,7 +113,7 @@ export default class OtherPartyCommonSurvey extends Vue {
 
     public populateOpModel(opData) {
         this.op.name = opData.OtherPartyName;       
-
+        this.op.lawyer = opData.otherPartyLawyer;
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
         this.op.opRelation = opData.relationWithOtherParty;
@@ -155,6 +155,8 @@ export default class OtherPartyCommonSurvey extends Vue {
                 email: editRowProp.contactInfo.email
             }
         };
+        survey.setValue("otherPartyLawyer", editRowProp.lawyer);
+        
         survey.setValue("doYouKnowDOB", editRowProp.knowDob);
         survey.setValue("otherPartyDOB", editRowProp.dob);
         survey.setValue("relationWithOtherParty", editRowProp.opRelation);

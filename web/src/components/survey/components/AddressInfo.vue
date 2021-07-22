@@ -161,7 +161,7 @@ export default class AddressInfo extends Vue {
             let error = null 
             const address =  Object.assign({}, this.pendingValue);    
             
-            if(address.country =='USA'){
+            if(address?.country =='USA'){
                 const index = this.USAregionOptions.findIndex(state=>{return(state.value == address.state)});
                 if(index<0)
                     error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
@@ -171,7 +171,7 @@ export default class AddressInfo extends Vue {
                     if(!postcodeFormat.test(address.postcode)) error = new SurveyVue.SurveyError("Postal Code is invalid!")
                 }
             }
-            else if(address.country =='CAN'){
+            else if(address?.country =='CAN'){
                 const index = this.CAregionOptions.findIndex(state=>{return(state.value == address.state)});
                 if(index<0)
                     error = new SurveyVue.SurveyError("Please select a 'Province / State / Region'")
@@ -179,6 +179,9 @@ export default class AddressInfo extends Vue {
                 if(address.postcode){
                     const postcodeFormat = /^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]?$/;                              
                     if(!postcodeFormat.test(address.postcode)) error = new SurveyVue.SurveyError("Postal Code is invalid!")
+                    if(address.postcode?.substring(0,3) == 'A1A' && address.state != 'NL') error = new SurveyVue.SurveyError("Postal Code is invalid for the Province!")
+                    if(address.postcode.length != 7 ) error = new SurveyVue.SurveyError("Postal Code is invalid!")
+                    
                 }
             }
 

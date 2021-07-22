@@ -3,6 +3,7 @@ import { aboutPOSurveydataInfoType } from "../ProtectionOrder";
 export interface otherPartyInfoType {
   name: nameInfoType;
   knowDob: string;
+  lawyer?: string;
   dob?: string;
   opRelation?: string;
   livedTogether?: string;
