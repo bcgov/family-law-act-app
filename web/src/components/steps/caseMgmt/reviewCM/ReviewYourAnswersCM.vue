@@ -123,6 +123,7 @@ export default class ReviewYourAnswersCm extends Vue {
         adjQuestion = adjQuestion.replace(/{childWording}/g,'child(ren)');
         adjQuestion = adjQuestion.replace(/{childWordingSpend}/g,'child(ren) spend(s)');
         adjQuestion = adjQuestion.replace(/{selectedChildWording}/g,'child(ren)');
+        adjQuestion = adjQuestion.replace(/{firstQuestionText}/g,'');
         return adjQuestion
     }
 
@@ -197,7 +198,9 @@ export default class ReviewYourAnswersCm extends Vue {
             }
 
             const m = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{2}):(\d{2}):(\d{2})$/);
-            if(m) return ""+m[4]+":"+m[5]+"<b> on </b>"+ Vue.filter('beautify-date')(value) 
+            if(m) {                
+                return ""+Vue.filter('convert-time24to12')(m[4]+":"+m[5])+"<b> on </b>"+ Vue.filter('beautify-date')(value) 
+            }
 
             let keyBeauty = value.charAt(0).toUpperCase() + value.slice(1);
             keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')  

@@ -158,7 +158,7 @@ export default class Schedule1 extends Vue {
             virtualAttendanceInfo.eventType =  virtualAttendanceData.appearanceType;
             virtualAttendanceInfo.eventTypeComment = (virtualAttendanceData.appearanceType == 'other')? virtualAttendanceData.appearanceTypeComment:'';
             virtualAttendanceInfo.eventDate = Vue.filter('beautify-date-blank')(virtualAttendanceData.appearanceSchedule);
-            virtualAttendanceInfo.eventTime = Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule);
+            virtualAttendanceInfo.eventTime = Vue.filter('convert-time24to12')(Vue.filter('beautify-time')(virtualAttendanceData.appearanceSchedule));
             virtualAttendanceInfo.attendanceType = virtualAttendanceData.attendanceType;
             if (virtualAttendanceData.attendanceType == 'byTelephone'){
                 virtualAttendanceInfo.phoneNumber = virtualAttendanceData.telephoneNumber;
