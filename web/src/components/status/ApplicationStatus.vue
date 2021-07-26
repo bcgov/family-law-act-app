@@ -227,6 +227,7 @@ export default class ApplicationStatus extends Vue {
         this.loadDocumentTypes();
         this.extractFilingLocations();
         this.loadApplications();
+        console.log(new URL(location.href))
     }
 
     public openTerms() {
