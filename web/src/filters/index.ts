@@ -419,6 +419,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	let step = stepPO._StepNo; 
 	let reviewPage = stepPO.ReviewYourAnswers; 
 	let previewPage = stepPO.PreviewForms;
+	let previewPageII = null
 	
 	if(type == 'protectionOrder'){
 		step = stepPO._StepNo; 
@@ -443,7 +444,8 @@ Vue.filter('surveyChanged', function(type: string) {
 	else if(type == 'caseMgmt'){
 		step = stepCM._StepNo; 
 		reviewPage = stepCM.ReviewYourAnswersCM; 
-		previewPage = stepCM.PreviewFormsCM;	
+		previewPage = stepCM.PreviewForm10CM;
+		previewPageII = stepCM.PreviewForm11CM;
 	}
 
 	if(type == 'allExPO'){
@@ -478,7 +480,14 @@ Vue.filter('surveyChanged', function(type: string) {
 			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
 			store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
 		
-			if(steps[step].pages[previewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
+			if(steps[step].pages[previewPage].progress ==100) 
+				store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
+
+			if(previewPageII){
+				store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPageII, active: false });		
+				if(steps[step].pages[previewPageII].progress ==100) 
+					store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPageII, progress:50 });
+			}
 		}
 	}
 

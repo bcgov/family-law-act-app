@@ -1,8 +1,7 @@
 <template>
     <div v-if="dataReady" >
-        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
-            <form-11 v-if="requiredForm.includes('P11')" @enableNext="EnableNext"/>
-            <form-10 v-if="requiredForm.includes('P10')" @enableNext="EnableNext"/>
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">            
+            <form-10 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -10,10 +9,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Form10 from  "./pdf/Form10.vue"
-import Form11 from  "./pdf/Form11.vue"
 import PageBase from "@/components/steps/PageBase.vue";
-
-import {whichCaseMgmtForm} from "./RequiredForm";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -23,11 +19,10 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 @Component({
     components:{
         Form10,
-        Form11,
         PageBase
     }
 })
-export default class PreviewFormsCm extends Vue {
+export default class PreviewForm10Cm extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -42,8 +37,7 @@ export default class PreviewFormsCm extends Vue {
     currentStep = 0;
     currentPage = 0;
     disableNext = true;
-    dataReady = false;
-    requiredForm = [];    
+    dataReady = false; 
 
     mounted(){
         this.dataReady = false;
@@ -51,10 +45,11 @@ export default class PreviewFormsCm extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-        
-        this.requiredForm = whichCaseMgmtForm();
 
-        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo])) 
+            this.dataReady = true;
+
+        window.scrollTo(0, 0);  
     }
 
     public EnableNext(){
@@ -72,7 +67,7 @@ export default class PreviewFormsCm extends Vue {
 
     public checkErrorOnPages(steps){
 
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms"]
+        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms", "Preview Form 10","Preview Form 11"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){

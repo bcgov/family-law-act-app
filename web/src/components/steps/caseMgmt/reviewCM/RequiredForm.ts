@@ -9,7 +9,11 @@ export function whichCaseMgmtForm() {
 
     if(stepCM.result?.withoutNoticeOrAttendanceSurvey?.data && stepCM.result?.cmQuestionnaireSurvey?.data){
         const withoutNoticeOrAttendanceData = stepCM.result.withoutNoticeOrAttendanceSurvey.data;
-        if(withoutNoticeOrAttendanceData.needWithoutNotice == 'y' && needNotice(stepCM.result)){
+        const determinedItemType = determineNoticeTurquoise(stepCM.result)
+        if(withoutNoticeOrAttendanceData?.needWithoutNotice == 'y' && determinedItemType.needNotice && determinedItemType.nonTurquoise){
+            requiredForm.push('P10','P11');                
+        }
+        else if(withoutNoticeOrAttendanceData?.needWithoutNotice == 'y' && determinedItemType.needNotice && !determinedItemType.nonTurquoise){
             requiredForm.push('P11');                
         } else {
             requiredForm.push('P10');
@@ -20,10 +24,8 @@ export function whichCaseMgmtForm() {
     return requiredForm;          
 }
 
-function needNotice(results){
+function determineNoticeTurquoise(results){
 
-    let needNotice = false;
-    
     const selectedCaseManagementItems = results.cmQuestionnaireSurvey.data;
     const needNoticeList = [
         'changeServiceRequirement',
@@ -33,7 +35,7 @@ function needNotice(results){
         'section242'
     ]
 
-    needNotice = needNoticeList.some(i => selectedCaseManagementItems.includes(i));        
-
-    return needNotice;
+    const needNotice = needNoticeList.some(turquoise => selectedCaseManagementItems.includes(turquoise)); 
+    const nonTurquoise = selectedCaseManagementItems.some(selectedItem => !needNoticeList.includes(selectedItem))
+    return {needNotice:needNotice, nonTurquoise:nonTurquoise};
 }

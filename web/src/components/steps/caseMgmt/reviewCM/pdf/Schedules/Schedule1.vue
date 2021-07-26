@@ -151,7 +151,7 @@ export default class Schedule1 extends Vue {
 
         let virtualAttendanceInfo = {} as schedule1DataInfoType;      
 
-        if (this.result.attendanceUsingElectronicCommunicationSurvey){
+        if (this.result?.attendanceUsingElectronicCommunicationSurvey){
             const virtualAttendanceData: attendanceUsingElectronicCommunicationSurveyDataInfoType = this.result.attendanceUsingElectronicCommunicationSurvey;
             virtualAttendanceInfo.attendees =  virtualAttendanceData.attendessList?.['checked'];
             virtualAttendanceInfo.lawyerName = virtualAttendanceData.attendessList?.['checked']?.includes('lawyer')? (virtualAttendanceData.attendessList['lawyerComment']): '';

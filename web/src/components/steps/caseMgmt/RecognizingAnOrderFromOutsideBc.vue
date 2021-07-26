@@ -102,8 +102,7 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt')
-            
+            Vue.filter('surveyChanged')('caseMgmt')            
         })
     }
     
@@ -118,8 +117,7 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
         }     
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-    } 
-
+    }
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {            
@@ -151,7 +149,6 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
     }
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {recognizingAnOrderFromOutsideBcSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
