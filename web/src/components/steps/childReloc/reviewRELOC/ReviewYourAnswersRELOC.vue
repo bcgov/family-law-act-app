@@ -106,6 +106,7 @@ export default class ReviewYourAnswersReloc extends Vue {
     mounted(){
         this.currentDate = moment().format('MMM DD YYYY');
         this.reloadPageInformation();
+        window.scrollTo(0, 0);
     }
 
     public beautifyQuestion(question){

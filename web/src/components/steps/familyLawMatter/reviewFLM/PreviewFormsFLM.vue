@@ -52,6 +52,7 @@ export default class PreviewFormsFlm extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         this.determineRequiredForm();
         if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo])) this.dataReady = true;
+        window.scrollTo(0, 0);
     }
 
     public determineRequiredForm(){        

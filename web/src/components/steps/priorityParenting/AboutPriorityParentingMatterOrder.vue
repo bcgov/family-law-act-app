@@ -166,3 +166,8 @@ export default class AboutPriorityParentingMatterOrder extends Vue {
     }
 }
 </script>
+
+
+<style scoped>
+@import "~font-awesome/css/font-awesome.min.css";
+</style>

@@ -111,3 +111,7 @@ export default class PpmBackground extends Vue {
     }
 }
 </script>
+
+<style scoped>
+@import "~font-awesome/css/font-awesome.min.css";
+</style>

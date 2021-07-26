@@ -11,9 +11,8 @@
             { 
               "type":"infotexttitle",
               "name":"withoutNoticeDescription1",
-              "title":"description1",
-              "body": "{listOfIssuesDescription}",
-              "titleLocation":"hidden",
+              "title":"<div class='sv_main sv_q_description_font'>{listOfIssuesDescription}",
+              "body": "",              
               "messageStyle":"inline"
             },
             {
@@ -32,7 +31,7 @@
               "messageStyle": "inline"
             },
             {
-              "type": "radiogroup",
+              "type": "checkbox",
               "name": "orderWithoutNoticeAcknowledgement",
               "title": "I understand",
               "titleLocation": "hidden",

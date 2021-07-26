@@ -12,7 +12,7 @@
               "type":"infotexttitle",
               "name":"RecognizingAnOrderFromOutsideBcDescription1",
               "title":"description1",
-              "body": "An order may have been made outside BC about parenting arrangements, contact with a child or guardianship. These orders are called extraprovincial orders.<br><br>Dealing with extraprovincial orders in BC can be tricky and it is important to get advice from a lawyer. ",
+              "body": "An order may have been made outside BC about parenting arrangements, contact with a child or guardianship. These orders are called extraprovincial orders.<br><br> Dealing with extraprovincial orders in BC can be tricky and it is important to get advice from a lawyer. You may want to get advice from a lawyer to help you understand your options.",
               "titleLocation":"hidden",
               "messageStyle":"inline"
             },
@@ -43,7 +43,7 @@
               "name": "FAQSupportOrderFromOutsideBC",
               "title": "What if I have a support order from outside British Columbia?",
               "titleLocation": "hidden",              
-              "body": "If you have a support order from outside British Columbia, you can register the order under the <a href = 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01' target='_blank'> Interjurisdictional Support Orders Act </a>or enforcement in BC by contacting the designated authority:<br><br>Interjurisdictional Support Services<br><a href='http://www.isoforms.bc.ca' target='_blank'> www.isoforms.bc.ca </a> <br>Vancouver Main Office Boxes<br>P.O. Box 2074<br>Vancouver, BC V6B 3S3<br>Phone: 604-660-2528<br>Toll-free: 1-866-660-2684"             
+              "body": "If you have a support order from outside British Columbia, you can register the order under the <a class='mr-1' href = 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01' target='_blank'> Interjurisdictional Support Orders Act </a> for enforcement in BC by contacting the designated authority:<br><br>Interjurisdictional Support Services<br><a href='http://www.isoforms.bc.ca' target='_blank'> www.isoforms.bc.ca </a> <br>Vancouver Main Office Boxes<br>P.O. Box 2074<br>Vancouver, BC V6B 3S3<br>Phone: 604-660-2528<br>Toll-free: 1-866-660-2684"             
             },
             { 
               "type":"infotext",

@@ -48,6 +48,7 @@ export default class PreviewForms extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
 
         if(this.checkErrorOnPages([this.stPgNo.PO._StepNo])) this.dataReady = true;
+        window.scrollTo(0, 0);
 
     } 
 

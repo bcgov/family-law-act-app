@@ -111,7 +111,8 @@ export interface CMstPgTypes{
     RecognizingAnOrderFromOutsideBc: number; 
     ContactInformationOtherParty: number;   
     ReviewYourAnswersCM: number;
-    PreviewFormsCM: number;
+    PreviewForm10CM: number;
+    PreviewForm11CM: number;
 }
 
 export interface PPMstPgTypes{

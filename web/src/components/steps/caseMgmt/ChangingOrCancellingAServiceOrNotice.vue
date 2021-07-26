@@ -87,7 +87,6 @@ export default class ChangingOrCancellingAServiceOrNotice extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     } 
 
-
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {            
             this.$store.commit("Application/setPageActive", {
@@ -109,7 +108,6 @@ export default class ChangingOrCancellingAServiceOrNotice extends Vue {
     } 
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {changingOrCancellingAServiceOrNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }

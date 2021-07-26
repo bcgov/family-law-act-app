@@ -94,7 +94,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('caseMgmt'); 
             
-            this.determinePages();
+            this.determinePages(true);
         })   
     }
 
@@ -114,7 +114,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false); 
         
-        this.determinePages();
+        this.determinePages(false);
     }
 
     public onPrev() {
@@ -173,7 +173,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
         return needConsent;
     }
 
-    public determinePages(){
+    public determinePages(surveyChanged: boolean){
         
         if (this.survey.data?.needWithoutNotice) {
 
@@ -183,6 +183,23 @@ export default class WithoutNoticeOrAttendance extends Vue {
                 this.togglePages([this.stPgNo.CM.ByConsent, this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], true); 
             } else{                              
                 this.togglePages([this.stPgNo.CM.ByConsent,this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], this.needConsent()); 
+            }
+
+            if(surveyChanged){
+                const p = this.stPgNo.CM
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ByConsent, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmNotice, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.Scheduling, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutCaseManagementOrder, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.CmChildrenInfo, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.AttendanceUsingElectronicCommunication, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAServiceOrNotice, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAnyOtherRequirement, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.RequiringAccessToInformation, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.RecognizingAnOrderFromOutsideBc, 0, false);                                                       
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactInformationOtherParty, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
+                this.togglePages([p.Scheduling], false); 
             }
             
             //schedule 1..5
@@ -203,7 +220,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     beforeDestroy() {
-        this.determinePages();
+        this.determinePages(false);
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {withoutNoticeOrAttendanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
