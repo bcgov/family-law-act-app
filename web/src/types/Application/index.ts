@@ -180,6 +180,8 @@ export interface stepInfoType {
     relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
     relocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
 
+    //__Step 7 AGREEMENT ENFORCEMENT
+
     //__Step 8 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;
   }

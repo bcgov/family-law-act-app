@@ -925,6 +925,23 @@ class Application extends VuexModule {
     
         s.pages.push(p);
 
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReviewYourAnswersENFRC";
+        p.label = "Review Your Answers";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "PreviewFormsENFRC";
+        p.label = "Preview Forms";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);        
+
         this.steps.push(s);
 
         //Enforcement STOP

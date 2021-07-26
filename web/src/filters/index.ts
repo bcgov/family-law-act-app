@@ -392,11 +392,12 @@ Vue.filter('surveyChanged', function(type: string) {
 	
 	const steps = store.state.Application.steps
 
-	const stepPO = store.state.Application.stPgNo.PO
-	const stepFLM = store.state.Application.stPgNo.FLM
-	const stepPPM = store.state.Application.stPgNo.PPM
-	const stepRELOC = store.state.Application.stPgNo.RELOC
-	const stepCM = store.state.Application.stPgNo.CM
+	const stepPO = store.state.Application.stPgNo.PO;
+	const stepFLM = store.state.Application.stPgNo.FLM;
+	const stepPPM = store.state.Application.stPgNo.PPM;
+	const stepRELOC = store.state.Application.stPgNo.RELOC;
+	const stepCM = store.state.Application.stPgNo.CM;
+	const stepENFRC = store.state.Application.stPgNo.ENFRC;
 
 	const noPOsteps        = [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo]   
 	const noPOreviewPages  = [stepFLM.ReviewYourAnswersFLM, stepPPM.ReviewYourAnswersPPM, stepRELOC.ReviewYourAnswersRELOC];
@@ -430,6 +431,11 @@ Vue.filter('surveyChanged', function(type: string) {
 		step = stepCM._StepNo; 
 		reviewPage = stepCM.ReviewYourAnswersCM; 
 		previewPage = stepCM.PreviewFormsCM;	
+	}
+	else if(type == 'agreementEnfrc'){
+		step = stepENFRC._StepNo; 
+		reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
+		previewPage = stepENFRC.PreviewFormsENFRC;	
 	}
 
 	if(type == 'allExPO'){
