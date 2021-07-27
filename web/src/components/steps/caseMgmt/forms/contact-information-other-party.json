@@ -27,7 +27,7 @@
               },                  
               {
                 "type": "yesno",
-                "name": "doYouKnowDOB",                
+                "name": "knowDob",                
                 "title": "Do you know {panel.name}'s exact date of birth?",
                 "isRequired": true                
               },              
@@ -35,7 +35,7 @@
                 "type": "text",
                 "name": "dob",
                 "visible": false,
-                "visibleIf": "{panel.doYouKnowDOB} = 'y' ",
+                "visibleIf": "{panel.knowDob} = 'y' ",
                 "title": "Date of Birth",
                 "inputType": "date",
                 "isRequired": true
