@@ -1,7 +1,8 @@
 <template>
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
-            <form29 @enableNext="EnableNext"/>
+            <!-- <form29 @enableNext="EnableNext"/> -->
+            <form28 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -9,6 +10,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Form29 from  "./pdf/Form29.vue";
+import Form28 from  "./pdf/Form28.vue";
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -19,6 +21,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 @Component({
     components:{       
         Form29,
+        Form28,
         PageBase
     }
 })
