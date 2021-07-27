@@ -29,6 +29,16 @@ Vue.filter('beautify-time', function(time){
 		return ''
 })
 
+Vue.filter('convert-time24to12', function(time) {
+    const time12 = (Number(time.substr(0,2)) % 12 || 12 ) + time.substr(2,3)
+    
+    if (Number(time.substr(0,2))<12) {
+      return time12 +' AM'
+    } else {
+      return time12 +' PM'
+    }  
+})
+
 Vue.filter('beautify-date-blank', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
 	if(date)
@@ -130,36 +140,40 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 			flagForm4 = true
 		}
 			
-		// if(question.isVisible && question.questionValue!=true){			
-		// 	if(survey.data[question.name]){			
-		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
-		// 	} else if(question.isRequired ){				
-		// 		questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})
-				
-		// 	}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
-		// 		questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.title, inputType:question.inputType})
-		// 	}	
-		// }
-		// //__specialities
-		// else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
-		// 	questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
-		
-		if(question.isVisible && question.questionValue!=true){			
-			if(question.processedTitle == 'I understand'){
+		if(question.isVisible && question.questionValue!=true){	
+			if(question.title == 'I understand'){
 				questionResults.push({name:question.name, value: question.questionValue, title:question.otherText, inputType:question.inputType})
-			}
+			} 
 			else if(survey.data[question.name]){			
-				questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
-			} else if(question.isRequired ){				
-				questionResults.push({name:question.name, value: "", title:question.processedTitle, inputType:question.inputType})
-				
-			}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
-				questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.processedTitle, inputType:question.inputType})
+				questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
+			} 
+			else if(question.isRequired ){				
+				questionResults.push({name:question.name, value: "", title:question.title, inputType:question.inputType})	
+			}
+			else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
+				questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.title, inputType:question.inputType})
 			}	
 		}
 		//__specialities
 		else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
-			questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
+			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
+		
+		// if(question.isVisible && question.questionValue!=true){			
+		// 	if(question.processedTitle == 'I understand'){
+		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.otherText, inputType:question.inputType})
+		// 	}
+		// 	else if(survey.data[question.name]){			
+		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
+		// 	} else if(question.isRequired ){				
+		// 		questionResults.push({name:question.name, value: "", title:question.processedTitle, inputType:question.inputType})
+				
+		// 	}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
+		// 		questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.processedTitle, inputType:question.inputType})
+		// 	}	
+		// }
+		// //__specialities
+		// else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
+		// 	questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
 		
 	}
 
@@ -406,6 +420,7 @@ Vue.filter('surveyChanged', function(type: string) {
 	let step = stepPO._StepNo; 
 	let reviewPage = stepPO.ReviewYourAnswers; 
 	let previewPage = stepPO.PreviewForms;
+	let previewPageII = null
 	
 	if(type == 'protectionOrder'){
 		step = stepPO._StepNo; 
@@ -430,7 +445,8 @@ Vue.filter('surveyChanged', function(type: string) {
 	else if(type == 'caseMgmt'){
 		step = stepCM._StepNo; 
 		reviewPage = stepCM.ReviewYourAnswersCM; 
-		previewPage = stepCM.PreviewFormsCM;	
+		previewPage = stepCM.PreviewForm10CM;
+		previewPageII = stepCM.PreviewForm11CM;
 	}
 	else if(type == 'agreementEnfrc'){
 		step = stepENFRC._StepNo; 
@@ -470,7 +486,14 @@ Vue.filter('surveyChanged', function(type: string) {
 			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
 			store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
 		
-			if(steps[step].pages[previewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
+			if(steps[step].pages[previewPage].progress ==100) 
+				store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
+
+			if(previewPageII){
+				store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPageII, active: false });		
+				if(steps[step].pages[previewPageII].progress ==100) 
+					store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPageII, progress:50 });
+			}
 		}
 	}
 

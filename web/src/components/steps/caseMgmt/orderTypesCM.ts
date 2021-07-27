@@ -32,7 +32,7 @@ export function getOrderTypeCM(form: string, toggle = false, toggleNext = false)
         if(order && toggle)
             if(form == 'otherProvinceOrder'){
                 const types = store.state.Application.types
-                const cmOnly = (types?.length == 1 && types.includes("Case Management"));
+                const cmOnly = (types?.length == 1 && types?.includes("Case Management"));
                 togglePages([order.pages[2]], toggleNext && cmOnly )
                 togglePages([order.pages[1]], toggleNext )
                 togglePages([order.pages[0]], true)

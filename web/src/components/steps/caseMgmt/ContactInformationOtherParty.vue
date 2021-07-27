@@ -70,8 +70,7 @@ export default class ContactInformationOtherParty extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt')
-            console.log(this.survey.data)  
+            Vue.filter('surveyChanged')('caseMgmt') 
         })
     }
     
@@ -93,7 +92,6 @@ export default class ContactInformationOtherParty extends Vue {
             for(const otherparty of otherPartyNames){
                 otherPartyInfo.push({name: otherparty.name})
             }
-            console.log(otherPartyInfo)
             this.survey.setValue('otherPartyInfo',otherPartyInfo)        
         }
 
@@ -110,7 +108,6 @@ export default class ContactInformationOtherParty extends Vue {
         }
     } 
 
-
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
         if(this.survey.data.otherPartyInfo)
@@ -125,7 +122,7 @@ export default class ContactInformationOtherParty extends Vue {
         const resultString = [];
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob));
-        resultString.push(Vue.filter('styleTitle')("Lawyer: ")+(otherParty.lawyer?otherParty.lawyer:''));
+        resultString.push(Vue.filter('styleTitle')("Lawyer: ")+(otherParty.lawyer? otherParty.lawyer:''));
         resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
         resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo))
         

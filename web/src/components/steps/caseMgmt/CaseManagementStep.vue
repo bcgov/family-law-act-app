@@ -13,9 +13,10 @@
         <changing-or-cancelling-any-other-requirement   v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ChangingOrCancellingAnyOtherRequirement" />
         <requiring-access-to-information                v-bind:step="step" v-if="step.currentPage == stPgNo.CM.RequiringAccessToInformation" />
         <recognizing-an-order-from-outside-bc           v-bind:step="step" v-if="step.currentPage == stPgNo.CM.RecognizingAnOrderFromOutsideBc" />
-        <contact-information-other-party                   v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ContactInformationOtherParty" />
+        <contact-information-other-party                v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ContactInformationOtherParty" />
         <review-your-answers-cm                         v-bind:step="step" v-if="step.currentPage == stPgNo.CM.ReviewYourAnswersCM" />
-        <preview-forms-cm                               v-bind:step="step" v-if="step.currentPage == stPgNo.CM.PreviewFormsCM" />  
+        <preview-form-10-cm                             v-bind:step="step" v-if="step.currentPage == stPgNo.CM.PreviewForm10CM" /> 
+        <preview-form-11-cm                             v-bind:step="step" v-if="step.currentPage == stPgNo.CM.PreviewForm11CM" />
     </step-base>
 </template>
 
@@ -40,7 +41,8 @@ import RecognizingAnOrderFromOutsideBc from "./RecognizingAnOrderFromOutsideBc.v
 import ContactInformationOtherParty from "./ContactInformationOtherParty.vue"
 
 import ReviewYourAnswersCm from "./reviewCM/ReviewYourAnswersCM.vue";
-import PreviewFormsCm from "./reviewCM/PreviewFormsCM.vue";
+import PreviewForm10Cm from "./reviewCM/PreviewForm10CM.vue";
+import PreviewForm11Cm from "./reviewCM/PreviewForm11CM.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -68,7 +70,8 @@ const applicationState = namespace("Application");
         ContactInformationOtherParty,
 
         ReviewYourAnswersCm,
-        PreviewFormsCm
+        PreviewForm10Cm,
+        PreviewForm11Cm
     }
 })
 export default class CaseManagementStep extends Vue {

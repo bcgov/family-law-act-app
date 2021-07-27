@@ -182,6 +182,7 @@ export default class LandingPage extends Vue {
     }
   
     public navigate(userType) {
+        console.log(new URL(location.href))
         this.$store.commit("Application/setUserType", userType); 
         this.$router.push({ name: "applicant-status" });       
     }

@@ -81,7 +81,10 @@ export default class Form10 extends Vue {
         .then(res => {
             const currentDate = moment().format();
             this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:true})
+            
+            if(this.$store.state.Application.steps[this.stPgNo.CM._StepNo].pages[this.stPgNo.CM.PreviewForm11CM].active == false)
+               this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:true})
+            
             this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        
@@ -113,7 +116,6 @@ export default class Form10 extends Vue {
             console.error(err);
         });
     }
-
  
     public getCMResultData() {         
         

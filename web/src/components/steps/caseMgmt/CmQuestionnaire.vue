@@ -142,17 +142,15 @@ export default class CmQuestionnaire extends Vue {
 
 
     public onChange(selectedCaseManagement) {
-
-        this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:false});
-        this.togglePages([this.stPgNo.CM.PreviewFormsCM], false);
+        
+        Vue.filter('surveyChanged')('caseMgmt');
         
         if(this.checkErrorOnPages())        
             this.setSteps(selectedCaseManagement, true);
         else{ 
             this.selectedCaseManagement = [];            
             this.togglePages(this.allPages, false); 
-        }
-        Vue.filter('surveyChanged')('caseMgmt')        
+        }                
     }
 
     public setSteps(selectedCaseManagement, resetPagesProgress) {
@@ -160,7 +158,8 @@ export default class CmQuestionnaire extends Vue {
         const p = this.stPgNo.CM
         
         if (selectedCaseManagement) {
-
+            
+            Vue.filter('surveyChanged')('caseMgmt')
             this.togglePages(this.allPages, false); 
             const progress = this.selectedCaseManagement.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
@@ -187,6 +186,7 @@ export default class CmQuestionnaire extends Vue {
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ChangingOrCancellingAnyOtherRequirement, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.RequiringAccessToInformation, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.RecognizingAnOrderFromOutsideBc, 0, false);                                                       
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactInformationOtherParty, 0, false);
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
                 }
 

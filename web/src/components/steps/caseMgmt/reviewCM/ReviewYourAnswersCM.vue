@@ -42,6 +42,8 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import moment from 'moment-timezone';
 import * as _ from 'underscore';
 
+import {whichCaseMgmtForm} from "./RequiredForm";
+
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
 
@@ -91,21 +93,32 @@ export default class ReviewYourAnswersCm extends Vue {
     currentPage =0;
     pageHasError = false;
 
+    form10 = false;
+    form11 = false;
+
     errorQuestionNames = [];
     currentDate = ''
 
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError);
+        this.togglePages([this.stPgNo.CM.PreviewForm10CM], !this.pageHasError && this.form10);
+        this.togglePages([this.stPgNo.CM.PreviewForm11CM], !this.pageHasError && this.form11);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewFormsCM,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewForm10CM,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewForm11CM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
     mounted(){
+        
+        const requiredForm = whichCaseMgmtForm();
+        this.form10 = requiredForm.includes('P10');
+        this.form11 = requiredForm.includes('P11');
+
         this.currentDate = moment().format('MMM DD YYYY');
-        this.reloadPageInformation();     
+        this.reloadPageInformation(); 
+        window.scrollTo(0, 0);
     }
 
     public beautifyQuestion(question){
@@ -123,6 +136,7 @@ export default class ReviewYourAnswersCm extends Vue {
         adjQuestion = adjQuestion.replace(/{childWording}/g,'child(ren)');
         adjQuestion = adjQuestion.replace(/{childWordingSpend}/g,'child(ren) spend(s)');
         adjQuestion = adjQuestion.replace(/{selectedChildWording}/g,'child(ren)');
+        adjQuestion = adjQuestion.replace(/{firstQuestionText}/g,'');
         return adjQuestion
     }
 
@@ -197,7 +211,9 @@ export default class ReviewYourAnswersCm extends Vue {
             }
 
             const m = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{2}):(\d{2}):(\d{2})$/);
-            if(m) return ""+m[4]+":"+m[5]+"<b> on </b>"+ Vue.filter('beautify-date')(value) 
+            if(m) {                
+                return ""+Vue.filter('convert-time24to12')(m[4]+":"+m[5])+"<b> on </b>"+ Vue.filter('beautify-date')(value) 
+            }
 
             let keyBeauty = value.charAt(0).toUpperCase() + value.slice(1);
             keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')  
@@ -342,7 +358,8 @@ export default class ReviewYourAnswersCm extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
-           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewFormsCM,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewForm10CM,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewForm11CM,  50, false);
         }
 
         this.pageHasError = false;
@@ -373,7 +390,8 @@ export default class ReviewYourAnswersCm extends Vue {
         this.questionResults = _.sortBy(this.questionResults,function(questionResult){ return (Number(questionResult['currentStep'])*100+Number(questionResult['currentPage'])); });
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
        
-        this.togglePages([this.stPgNo.CM.PreviewFormsCM], !this.pageHasError);        
+        this.togglePages([this.stPgNo.CM.PreviewForm10CM], !this.pageHasError && this.form10);
+        this.togglePages([this.stPgNo.CM.PreviewForm11CM], !this.pageHasError && this.form11);
     }
 
     public togglePages(pageArr, activeIndicator) {

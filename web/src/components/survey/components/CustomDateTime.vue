@@ -61,7 +61,7 @@
                         <option value="">(Hour)</option>
                         <option v-for="hour of hourOptions " :key="hour" :value="hour">
                             {{hour}}
-                        </option>
+                        </option>                        
                 </select>
                 <div class="text-primary h4 d-inline mr-1">:</div>
                 <select
@@ -78,6 +78,19 @@
                             {{minute}}
                         </option>
                 </select>
+                <select
+                    ref="ampm"                    
+                    class="form-control date-select-ampm m-0 mx-1"
+                    :disabled="readOnly"
+                    :id="question.inputId + '-ampm'"
+                    data-test-id="ampm"
+                    v-model="pendingValue['ampm']"
+                    @change="update('ampm')"
+                    >                        
+                        <option v-for="ampm of ampmOptions " :key="ampm" :value="ampm">
+                            {{ampm}}
+                        </option>                        
+                </select>                
 
             </div>
         </div>
@@ -97,7 +110,7 @@ export default class CustomDateTime extends Vue {
     readOnly = false; 
     dataReady = false;
 
-    pendingValue = {year:'', month:'', day:'', hour:'', min:''};
+    pendingValue = {year:'', month:'', day:'', hour:'', min:'', ampm:'AM'};
 	value;
 	monthOptions = [
             "January",
@@ -122,11 +135,14 @@ export default class CustomDateTime extends Vue {
         "AST"
     ]
 
+    ampmOptions = [
+        "AM","PM"
+    ]
+
     hourOptions: string[] = []
     minuteOptions: string[] = []
 
 	mounted(){ 
-
         
         this.dataReady = false ;               
         this.value = this.question.value;        
@@ -143,7 +159,7 @@ export default class CustomDateTime extends Vue {
             this.value = pending;
         };
         
-        this.hourOptions = this.getNumbers(24)
+        this.hourOptions = this.getNumbers(13).splice(1)
         this.minuteOptions = this.getNumbers(60)
         this.dataReady = true;
     }
@@ -157,8 +173,8 @@ export default class CustomDateTime extends Vue {
     }
 
     public parseValue(val) {
-		const pending = { year: "", month: "", day: "", hour: "", min: "" };
-        
+		const pending = { year: "", month: "", day: "", hour: "", min: "", ampm:"AM" };
+        //console.log(val)
 		if (val) {
 			const m = ("" + val).match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{2}):(\d{2}):(\d{2})$/);
 
@@ -166,11 +182,14 @@ export default class CustomDateTime extends Vue {
 			if (dt) {
                 pending.year = "" + dt.getFullYear();
                 pending.month = "" + (dt.getMonth() + 1);
-                pending.day = "" + dt.getDate();
-                pending.hour = m[4];
+                pending.day = "" + dt.getDate();                
+                pending.hour = this.convertTimeToAMPM(m[4]).hour;
                 pending.min =  m[5];
+                pending.ampm = this.convertTimeToAMPM(m[4]).ampm
+                               
 			}
 		}
+        //console.log(pending)
 		return pending;
     }
 
@@ -182,7 +201,14 @@ export default class CustomDateTime extends Vue {
             let dt = "" + p.year + "-";
             dt += (p.month.length < 2 ? "0" : "") + p.month;
             dt += "-" + (p.day.length < 2 ? "0" : "") + p.day;
-            dt += "T" + (p.hour)+":"+p.min+":00"
+
+            const hour = (p.hour == '12')? '00':p.hour
+            if(p.ampm=='PM')
+                dt += "T" + (Number(hour)+12)+":"+p.min+":00"
+            else    
+                dt += "T" + (hour)+":"+p.min+":00"
+
+            //console.log(dt)
             this.question.value = dt;
         } else {
             this.question.value = null;
@@ -192,6 +218,18 @@ export default class CustomDateTime extends Vue {
             else if (field === "hour") (this.$refs.minute as HTMLElement).focus();
         }
 
+    }
+
+    public convertTimeToAMPM(time){
+        let hour12 = String(Number(time.substr(0,2)) % 12 || 12 )
+        
+        if(hour12.length<2) hour12 = '0'+hour12;
+
+        if (Number(time.substr(0,2))<12) {
+            return {hour:hour12, ampm:'AM'}
+        } else {
+            return {hour:hour12, ampm:'PM'}
+        }  
     }
 
   

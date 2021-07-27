@@ -291,7 +291,7 @@ export default class Form10Layout extends Vue {
     dataReady = false;   
 
     locationInfo = {} as cmLocationInfoDataInfoType;
-    otherPartyInfo=[];
+    otherPartyInfo = [];
     yourInfo = {} as yourInformationInfoDataInfoType;   
     
     childRelatedType: string = '';   
@@ -320,7 +320,7 @@ export default class Form10Layout extends Vue {
     public getLocationInfo(){
 
         let locationInformation = {} as cmLocationInfoDataInfoType;
-        if (this.result.filingLocationSurvey){
+        if (this.result?.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;           
             locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
             locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
@@ -331,13 +331,13 @@ export default class Form10Layout extends Vue {
 
     public getChildrenInfo(){
 
-        this.childRelatedType = this.result.cmChildrenInfoSurvey.childRelatedType;
+        this.childRelatedType = this.result?.cmChildrenInfoSurvey?.childRelatedType? this.result.cmChildrenInfoSurvey.childRelatedType :'';
 
         const childrenInfo: childrenInfoSurveyInfoType[] = [];
         let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData: cmChildrenInfoSurveyDataInfoType[] = this.result.cmChildrenInfoSurvey.childData;
+        const childData: cmChildrenInfoSurveyDataInfoType[] = this.result?.cmChildrenInfoSurvey?.childData? this.result.cmChildrenInfoSurvey.childData: [];
         
-        if(this.childRelatedType=='A party to the case and the case involves a child-related issue'){
+        if(this.childRelatedType == 'A party to the case and the case involves a child-related issue'){
             for (const child of childData){            
                 childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
                 childInfo.fullName = Vue.filter('getFullName')(child.name);
@@ -356,21 +356,20 @@ export default class Form10Layout extends Vue {
 
         let yourInformation = {} as yourInformationInfoDataInfoType;       
 
-        if(this.result.yourInformationSurvey){
+        if(this.result?.yourInformationSurvey){
 
             const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey; 
             
             yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
+                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB :'',
+                name: applicantInfo.ApplicantName? Vue.filter('getFullName')(applicantInfo.ApplicantName) :'',
                 lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?Vue.filter('getFullName')(applicantInfo.LawyerName):'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:{} as addressInfoType),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact: {} as contactInfoType),
+                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)? Vue.filter('getFullName')(applicantInfo.LawyerName) :'',
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)? applicantInfo.LawyerAddress : ((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)? applicantInfo.ApplicantAddress :{} as addressInfoType),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)? applicantInfo.LawyerContact : ((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)? applicantInfo.ApplicantContact : {} as contactInfoType),
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
             }        
-                     
         }
         return yourInformation;
     }
@@ -379,7 +378,7 @@ export default class Form10Layout extends Vue {
 
         let OpInformation: caseManagementOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey?.length > 0){
+        if (this.result?.otherPartyCommonSurvey?.length > 0){
             
             OpInformation = [];
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
@@ -401,34 +400,34 @@ export default class Form10Layout extends Vue {
 
         let form10Info = {} as form10DataInfoType;      
 
-        if (this.result.byConsentSurvey){
+        if (this.result?.byConsentSurvey){
             const consentData: byConsentSurveyDataInfoType = this.result.byConsentSurvey;
             form10Info.givenConsent = consentData.givenConsent == 'y';
             form10Info.consentDirection = consentData.giveConsentDirection; 
         }
 
-        if (this.result.otherPersonsSurvey){
+        if (this.result?.otherPersonsSurvey){
             const otherPersonData: otherPersonsSurveyDataInfoType = this.result.otherPersonsSurvey;
             form10Info.otherPersonsList = (otherPersonData.otherPersonsExist == 'y')?(otherPersonData.otherPersonsList):''            
         }
 
-        if (this.result.schedulingSurvey){
+        if (this.result?.schedulingSurvey){
             const schedulingData: schedulingSurveyDataInfoType = this.result.schedulingSurvey;
             form10Info.contactedOP = schedulingData.informedOtherParties == 'y';
             form10Info.oPAgreed = schedulingData.agreeOnSchedule == 'y';         
         }
 
-        if (this.result.cmQuestionnaireSurvey){
+        if (this.result?.cmQuestionnaireSurvey){
             form10Info.caseList = this.result.cmQuestionnaireSurvey
         }
 
-        if (this.result.aboutCaseManagementOrderSurvey){
+        if (this.result?.aboutCaseManagementOrderSurvey){
             const aboutOrderData: aboutCaseManagementOrderSurveyDataInfoType = this.result.aboutCaseManagementOrderSurvey;
             form10Info.orderDetails = aboutOrderData.orderDescription;
             form10Info.orderFacts = aboutOrderData.applicationFacts;
         }  
         
-        if (this.result.cmNoticeSurvey){
+        if (this.result?.cmNoticeSurvey){
             const noticeData: cmNoticeSurveyDataInfoType = this.result.cmNoticeSurvey;
             form10Info.understandNotice = noticeData.acknowledgement.includes('I understand')
         }

@@ -99,6 +99,7 @@ export default class ReviewYourAnswers extends Vue {
     mounted(){
         this.reloadPageInformation();
         this.determineHiddenErrors();
+        window.scrollTo(0, 0);
     }
 
     public beautifyQuestion(question){

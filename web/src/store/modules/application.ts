@@ -760,8 +760,16 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "15";
-        p.name = "PreviewFormsCM";
-        p.label = "Preview Forms";
+        p.name = "PreviewForm10CM";
+        p.label = "Preview Form 10";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "16";
+        p.name = "PreviewForm11CM";
+        p.label = "Preview Form 11";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
