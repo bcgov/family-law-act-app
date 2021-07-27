@@ -188,9 +188,13 @@ export interface recognizingAnOrderFromOutsideBcSurveyDataInfoType{
 }
 
 export interface contactInformationOtherPartySurveyInfoType{
-    data: otherPartyInfoType[];
+    data: contactInformationOtherPartySurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;
     currentPage: number;
+}
+
+export interface contactInformationOtherPartySurveyDataInfoType{
+    otherPartyInfo: otherPartyInfoType[];
 }
