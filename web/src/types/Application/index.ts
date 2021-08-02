@@ -181,6 +181,8 @@ export interface stepInfoType {
     relocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
 
     //__Step 7 AGREEMENT ENFORCEMENT
+    enfrcQuestionnaireSurvey?: any;
+    enforceAgreementOrOrderSurvey?: any;
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

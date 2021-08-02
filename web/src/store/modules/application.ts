@@ -924,29 +924,61 @@ class Application extends VuexModule {
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
+        // p = {} as pageInfoType;
+        // p.key = "0";
+        // p.name = "EnforcementForms";
+        // p.label = "Agreement and Court Orders Forms";
+        // p.active = true;
+        // p.progress = 0;
+    
+        // s.pages.push(p);
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "EnforcementForms";
-        p.label = "Agreement and Court Orders Forms";
-        p.active = true;
-        p.progress = 0;
-    
-        s.pages.push(p);
-
-        //____________Review
-        p = {} as pageInfoType;
-        p.key = "1";
-        p.name = "ReviewYourAnswersENFRC";
-        p.label = "Review Your Answers";
+        p.name = "EnfrcQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "EnforceAgreementOrOrder";
+        p.label = "Enforce Agreement or Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
         p.key = "2";
+        p.name = "EnforceChangeOrSetAsideDetermination";
+        p.label = "Enforce, Change or Set Aside Determination";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "AboutTheOrderEnforcement";
+        p.label = "About the Order - Enforcement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersENFRC";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
         p.name = "PreviewFormsENFRC";
         p.label = "Preview Forms";
-        p.active = true;
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);        
 
