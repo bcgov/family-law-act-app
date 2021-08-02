@@ -1,4 +1,4 @@
-import { nameInfoType, questionInfoType } from "../CommonInformation";
+import { nameInfoType, otherPartyInfoType, questionInfoType } from "../CommonInformation";
 
 export interface cmQuestionnaireSurveyInfoType {
     data: string[];
@@ -121,4 +121,80 @@ export interface attendanceUsingElectronicCommunicationSurveyDataInfoType {
     attendanceTypeReason?: string;
 }
 
+export interface changingOrCancellingAServiceOrNoticeSurveyInfoType {
+    data: changingOrCancellingAServiceOrNoticeSurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
 
+export interface changingOrCancellingAServiceOrNoticeSurveyDataInfoType{
+    changeOrCancelRequirementForService: string;
+    documentList: string[];
+    orderChangesDetail: string;
+    applicationFacts: string;
+    anotherMethodOfService: string;
+    namesOfNeedToBeServed: string;
+    documentListForAltMethod: string;
+    altMethodServingDetails: string;
+    applicationFactsAltMethod: string;
+}
+
+export interface changingOrCancellingAnyOtherRequirementSurveyInfoType{
+    data: changingOrCancellingAnyOtherRequirementSurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
+export interface changingOrCancellingAnyOtherRequirementSurveyDataInfoType{
+    appliedRequirementsList: string[];
+    appliedRequirementsListComment: string;
+    dateOfOrder: string;
+    judgeName: string;
+    orderDetail: string;
+    applicationFacts: string;
+}
+
+export interface requiringAccessToInformationSurveyInfoType{
+    data: requiringAccessToInformationSurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
+export interface requiringAccessToInformationSurveyDataInfoType{
+    officerSearch: string;
+    orderDetail: string;
+    applicationFacts: string;
+}
+
+export interface recognizingAnOrderFromOutsideBcSurveyInfoType{
+    data: recognizingAnOrderFromOutsideBcSurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
+export interface recognizingAnOrderFromOutsideBcSurveyDataInfoType{
+    outsideBcOrder: string;
+    dateOfOrder: string;
+    orderPlace: string;
+    applicationFacts: string;
+}
+
+export interface contactInformationOtherPartySurveyInfoType{
+    data: contactInformationOtherPartySurveyDataInfoType;
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
+export interface contactInformationOtherPartySurveyDataInfoType{
+    otherPartyInfo: otherPartyInfoType[];
+}
