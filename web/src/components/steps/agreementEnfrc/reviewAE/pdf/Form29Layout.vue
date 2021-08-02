@@ -3,7 +3,7 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-ppm">
+        <div  class="form-header-enf">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
                 <div style="font-size:11pt;"><b>Application About Enforcement</b></div>                
@@ -30,10 +30,10 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="margin-left:0.1rem;text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="20rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="9rem" beforetext=". My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:1px;display:inline; font-size: 9pt;">.</div>
-            <div style="margin-top:7px; font-size: 9pt;">My contact information and address for service of court documents are:</div>
+            <div style="text-indent:0; margin-top:7px; font-size: 9pt;">My contact information and address for service of court documents are:</div>
             <table class="compactfullsize" style="margin-top:0 !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
@@ -56,12 +56,14 @@
 
 <!-- <2> -->
         <section> 
-            <div style="margin:0.25rem 0 0 1rem;font-size: 9pt;" >
+            <div style="display:inline; margin:0.25rem 0 0 0.35rem;font-size: 9pt;" >
                 <i>Select whichever option is correct</i>
+            </div>
+            <div style="margin:0rem 0 0 1.0rem;font-size: 9pt;" >
                 <check-box style="" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="This application is about enforcement under Rule 135. I understand I must give notice of this application to each other party. To
                     give notice, they must be served with the application and supporting documents at least 7 days before the date set for the court
                     appearance unless the court allows the application to be made without notice or with less than 7 days' notice."/>
-                <check-box style="" :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="This application is to set aside the registration of a foreign support order under the Interjurisdictional Support Orders Act. I
+                <check-box style="" :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
                     understand I must give notice of this application to the designated authority. To give notice, the designated authority must be
                     served with the application and supporting documents by registered mail at least 30 days before the application is to be heard
                     by the court." />
@@ -70,12 +72,12 @@
         
 
 <!-- <3> -->
-        <div class="print-block">
+        <div class="print-block" style="margin-top:1rem;">
             <section> 
                 <div style="display:inline; font-size: 9pt;">
                     <underline-form 
                         style="text-indent:2px;display:inline-block;" 
-                        textwidth="14rem" 
+                        textwidth="19rem" 
                         beforetext="The other party is" 
                         hint="full name of the other party" 
                         :italicHint="false" 
@@ -88,7 +90,7 @@
                         :italicHint="false" 
                         :text="firstOtherParty.dob | beautify-date"/>
                     <div style="text-indent:5px;display:inline;"> .</div>
-                    <div style="text-indent:1px;"> Their contact information, as I know it, is:</div>
+                    <div style="text-indent:1px; margin-top:0.25rem;"> Their contact information, as I know it, is:</div>
                     <table class="compactfullsize">
                         <tr style="border:1px solid #313132" >                        
                             <td colspan="3">Lawyer (if applicable): </td>
@@ -174,14 +176,14 @@
 
         <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:0rem; font-size: 9pt;"><i>For registry use only</i></div>
-            <div style="width:99%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
+            <div style="margin-left:1rem; width:96.37%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="(date)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="(time)" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
         </div>
 
         <div class="print-block mt-5"></div>
@@ -193,40 +195,45 @@
             <section>
             <div style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;">I am applying for an order:</div>
 
-            <div style="margin:0.25rem 0 0 1rem;font-size: 9pt;" >
+            <div style="margin:0 0 0 1rem;font-size: 9pt;" >
                 <i>Select all options that apply</i>
-                <div  style="margin:0.25rem 0 0 0rem;">
+                <div  style="margin:0.0rem 0 0 0rem;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="to enforce the order or filed written agreement made on"/>               
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="10rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem; display:inline-block;" textwidth="10rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
                 </div>
 
-                <div  style="margin:0.25rem 0 0 0rem;">
+                <div  style="margin:0.2rem 0 0 0rem;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="to enforce, change or set aside the filed determination of a parenting coordinator dated"/>               
-                    <underline-form style="text-indent:1px;display:inline-block;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;display:inline-block;" textwidth="7rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
                 </div>
-                
-                <check-box style="" :check="true?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the Family Law Act:"/>
-                <check-box style="margin:0 0 0 1.5rem;" :check="true?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
-                <check-box style="margin:0 0 0 1.5rem;" :check="true?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
-                <check-box style="margin:0 0 0 1.5rem;" :check="true?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
-                <check-box style="margin:0 0 0 1.5rem;" :check="true?'yes':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
-                <check-box style="margin:0 0 0 1.5rem;" :check="true?'yes':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
-                <check-box style="margin:0 0 0 1.5rem;" :check="true?'yes':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
-                <div  style="margin:0.25rem 0 0 0rem;">
+
+                <div  style="margin:0.2rem 0 0 0rem;">
+                    <check-box style="" :check="true?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
+                </div>
+
+                <div  style="margin:0.5rem 0 0 0rem;">
                     <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="to determine whether arrears are owing under the support order or agreement dated"/>               
-                    <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <underline-form class="marginleft0p25vue" style="text-indent:0px; margin-left:-0.5rem; display:inline;" textwidth="8rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
                     <div style="text-indent:10px;display:inline-block;">make under the <i>Family Law Act</i>, and if so, the amount of arrears (unpaid support)</div>
                 </div>
-                <check-box style="" :check="true?'yes':''" text="to set aside the registration of a foreign order under section 19(3) of the <i>Interjurisdictional Support Orders Act</i>"/>
+                <div  style="margin:0.2rem 0 0 0rem;">
+                    <check-box style="" :check="true?'yes':''" text="to set aside the registration of a foreign order under section 19(3) of the <i>Interjurisdictional Support Orders Act</i>"/>
+                </div>
                 
             </div>                  
         </section>
 
 
 <!-- <5> -->
-        <div class="print-block">
+        <div class="print-block" style="margin:2rem 0;">
             <section>               
-                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;" :check="true?'yes':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
+                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="true?'yes':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
             </section>
         </div>   
 
@@ -238,10 +245,13 @@
                     The details of the order I am applying for are as follows:                   
                 </div>               
                 <div>
-                    <i style="margin:0 0 0 1rem; display: block;font-size: 9pt;">
+                    <i style="margin:0 0 0 0.1rem;text-indent:0; display: block;font-size: 9pt;">
                         Tell the court and the other party the specifics of the order you are applying for. Include how you want to see the order or
                         agreement enforced or the remedy you are applying for.
                     </i>
+                    <div v-if="false" 
+                        class="answerbox"></div>
+                    <div v-else style="margin-bottom:3rem;"></div> 
                 </div>            
             </section>
         </div>   
@@ -257,7 +267,7 @@
                    Provide the facts you want the court to consider. Include how the other party has failed to follow the order or agreement,
                     if applicable, and why the court should make the order you are applying for.
                 </i>                
-                <div v-if="true" 
+                <div v-if="false" 
                     class="answerbox"></div>
                 <div v-else style="margin-bottom:3rem;"></div> 
             

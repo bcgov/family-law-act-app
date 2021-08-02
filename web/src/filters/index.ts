@@ -577,6 +577,8 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
 			`.form-header-reloc{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
+			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
+			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

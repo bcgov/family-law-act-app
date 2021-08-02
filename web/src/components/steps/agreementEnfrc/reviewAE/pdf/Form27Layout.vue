@@ -3,15 +3,14 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-ppm">
+        <div  class="form-header-ea">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Request to File a</b></div>    
-                <div style="font-size:11pt;"><b>Determination</b></div>  
-                <div style="font-size:11pt;"><b>of Parenting Coordinator</b></div>             
-                <div style="font-size:9pt;"><b>FORM 27</b></div>
-                <div style="font-size:8pt;">Provincial Court Family Rules</div>
-                <div style="font-size:8pt;">Rules 133</div>
+                <div style="font-size:12pt;"><b>Request to File a Determination</b></div>     
+                <div style="font-size:12pt;"><b>of Parenting Coordinator</b></div>             
+                <div style="font-size:10pt;"><b>FORM 27</b></div>
+                <div style="font-size:9pt;">Provincial Court Family Rules</div>
+                <div style="font-size:9pt;">Rules 133</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -32,11 +31,11 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>
-            <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="9rem" beforetext=". My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
-            <div style="text-indent:1px;display:inline; font-size: 9pt;">.</div>
-            <div style="margin-top:7px; text-indent:0px; font-size: 9pt;">My contact information and address for service of court documents are:</div>
-            <table class="compactfullsize" style="margin-top:0 !important; font-size: 9pt;">
+            <underline-form style="text-indent:2px;display:inline-block;  " textwidth="18.75rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="display:inline;text-indent:2px;  " textwidth="9rem" beforetext=". My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
+            <div style="text-indent:1px;display:inline;  ">.</div>
+            <div style="margin-top:0.25rem; text-indent:0px;  ">My contact information and address for service of court documents are:</div>
+            <table class="fullsize" style="margin-top:0 !important;  ">
                 <tr style="border:1px solid #414142" >
                     <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -57,27 +56,29 @@
         </section>         
 
 <!-- <2> -->
-        <div class="print-block" style="margin-top: 2rem;">
+        <div class="print-block" style="margin-top: 0rem;">
             <section> 
-                <div style="display:inline; font-size: 9pt;">
+                <div style="display:inline;  ">
                     <underline-form 
-                        style="text-indent:2px;display:inline-block; margin-top: 1rem;" 
+                        style="text-indent:2px;display:inline-block; margin-top: 0.6rem;" 
                         textwidth="15rem" 
                         beforetext="The other party, who is the subject of this determination, is" 
                         hint="      (full name of other party)" 
                         :italicHint="false" 
                         :text="firstOtherParty.name | getFullName"/>
                     <div style="display:inline;">.</div>
-                    <underline-form 
-                        style="display:inline;text-indent:0px; margin-top: 1rem;" 
-                        textwidth="7rem" 
-                        beforetext="Their date of birth is" 
-                        hint="(mmm/dd/yyyy)" 
-                        :italicHint="false" 
-                        :text="firstOtherParty.dob | beautify-date"/>
-                    <div style="text-indent:5px;display:inline;"> .</div>
-                    <div style="text-indent:1px; margin-top: 1rem;display:inline;"> Their contact information, as I know it, is:</div>
-                    <table class="compactfullsize">
+                    <div style="margin:0.25rem 0 0.05rem 1rem;">
+                        <underline-form 
+                            style="display:inline;text-indent:0px; margin-top: 1rem;" 
+                            textwidth="7rem" 
+                            beforetext="Their date of birth is" 
+                            hint="(mmm/dd/yyyy)" 
+                            :italicHint="false" 
+                            :text="firstOtherParty.dob | beautify-date"/>
+                        <div style="text-indent:5px;display:inline;"> .</div>                    
+                        <div style="text-indent:1px; margin-top: 1rem;display:inline;"> Their contact information, as I know it, is:</div>
+                    </div>
+                    <table class="fullsize">
                         <tr style="border:1px solid #313132" >                        
                             <td colspan="3">Lawyer (if applicable): </td>
                         </tr>
@@ -97,7 +98,7 @@
                 </div>
                 <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
                         
-                <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
+                <div v-if="additionalOtherParties.length>0" style=" ">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
@@ -129,7 +130,7 @@
                 </div>
                 <div v-else>
 
-                    <div style="display:inline; font-size: 9pt;">
+                    <div style="display:inline;  ">
                     
                         <table class="compactfullsize">
                             <tr style="border:1px solid #313132">
@@ -162,18 +163,20 @@
 
     <!-- <3> -->
 
-        <div class="print-block">
+        <div class="print-block" style="margin-top: 1rem;">
             <section> 
-                <div style="margin:0rem 0 0 0rem;">
+                <div style="display:inline; margin:0rem 0 0 0.35rem;">
                     <check-box 
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline; margin:0 0.5rem 0 0;" 
                         :check="true?'yes':''" 
-                        text="I request the determination by a parenting coordinator referred to in section 18 
-                        <i>[determinations by parenting coordinators]</i> of the <i>Family Law Act</i> dated"/>               
-                    <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
-                    <div style="text-indent:10px;display:inline;">between the above parties be filed in the Provincial Court</div>
+                        text="I request the determination by a parenting coordinator referred to in section 18 <i>[determinations by</i>"/>
+                    <div style="text-indent:0px; margin:0rem 0 0 1.75rem; " >
+                        <i>parenting coordinators]</i> of the <i>Family Law Act</i> dated               
+                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                        <div style="text-indent:0px; display:inline;"> between the above parties be filed in the Provincial Court</div>
+                    </div>
                 </div>              
             </section>
         </div> 
@@ -181,12 +184,12 @@
     <!-- <4> -->
         <div class="print-block">
             <section>
-                <div style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;">The parenting coordinator made the determination under:</div>
+                <div style="margin:0 0 0 0.25rem;display:inline;  ">The parenting coordinator made the determination under:</div>
 
-                <div style="margin:0.25rem 0 0 1rem;font-size: 9pt;" >
+                <div style="margin:0rem 0 0 1rem; " >
                     <i>Select only one of the options below and complete the required information.</i> 
 
-                    <div style="margin:0rem 0 0 0rem;">
+                    <div style="margin:0.5rem 0 0 0rem;">
                         <check-box 
                             inline="inline" 
                             boxMargin="0" 
@@ -195,8 +198,9 @@
                             text="an agreement made on"/>               
                         <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
                         <div style="text-indent:10px;display:inline;"> between </div>
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="16.75rem" beforetext="" hint="[parties to the agreement]" text=""/>
-                        <div style="text-indent:10px;display:inline;">, which is filed in the Provincial Court </div>
+                        <underline-form style="text-indent:1px;display:inline;" textwidth="16.75rem" beforetext="" hint="(parties to the agreement)" text=""/>
+                        <div style="display:inline;"> , </div>
+                        <div style="text-indent:0px; line-height:1.5rem; margin:0.25rem 0 0 0.72rem;"> which is filed in the Provincial Court </div>
                     </div>
 
                     <div style="margin:0rem 0 0 0rem;">
@@ -208,11 +212,7 @@
                             text="a court order made on"/>               
                         <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
                         
-                    </div>                          
-                    
-                    <!-- <check-box style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="section 18 <i>[registration of extraprovincial or foreign order]</i> of the <i>Interjurisdictional Support Orders Act</i>"/>
-                    <check-box style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="section 195 <i>[Provincial Court enforcement of Supreme Court orders]</i> of the <i>Family Law Act</i>"/> -->
-                    
+                    </div>                            
                 </div>                  
             </section>
         </div>

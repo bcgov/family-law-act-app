@@ -917,7 +917,7 @@ class Application extends VuexModule {
         s.active = false;
         s.id = "7";
         s.name = "ENFRC";
-        s.label = "Enforcement of agreements and court orders";
+        s.label = "Enforcement of Agreements and Court Orders";
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepEnfrc";
