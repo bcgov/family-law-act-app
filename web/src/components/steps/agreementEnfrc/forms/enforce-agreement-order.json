@@ -1,0 +1,125 @@
+{
+  "title": "Enforce Agreement or Order",
+  "pages": [
+    {
+      "name": "Enforce Agreement or Order",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "enforceAgreementOrOrderPanel",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "enforceOrder",
+              "isRequired": true,
+              "title": "Do you want to enforce a Provincial Court family order made in BC?",
+              "description": "Your order was probably made in Provincial Court in BC but you can also enforce a written agreement, order from outside BC, or an order from BC Supreme Court in Provincial Court. This service will help you apply to enforce those too, there are just some extra questions we need to ask you about those."
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments1",
+              "title": "You will need to include a copy of your court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'y'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "yesno",
+              "name": "filedOrder",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n'",
+              "title": "Is your written agreement or court order already filed in a Provincial Court registry in BC?",
+              "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your document to see if it has a registry stamp and court file number on it."
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments2",
+              "title": "You will need to include a copy of your filed written agreement or court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'y'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "radiogroup",
+              "name": "existingType",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n'",
+              "choices": [
+                {
+                  "value": "writtenAgreement",
+                  "text": "Written Agreement"
+                },
+                {
+                  "value": "courtOrder",
+                  "text": "Court Order"
+                }
+              ],
+              "title": "Which do you have?",
+              "description": "Select the correct option."
+            },
+            {
+              "type": "panel",
+              "name": "writtenAgreementPanel",
+              "visible": false,
+              "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
+              "elements": [
+                {
+                  "type": "checkbox",
+                  "name": "agreementType",
+                  "title": "Select each option that applies to the agreement you’re trying to enforce.",
+                  "description": "A written agreement can be filed in Provincial Court under one or more sections of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00' target='_blank'>Family Law Act</a>. When it is filed under the Family Law Act, it is enforceable under the Act as if it were an order of the Provincial Court.</br></br>Look at the terms in the written agreement to see what it is about. You can select more than one option below if your agreement is about different issues. ",
+                  "visible": false,
+                  "visibleIf": "{enforceOrder} = 'n' and {filedOrder} = 'n' and {existingType} = 'writtenAgreement'",
+                  "choices": [
+                    {
+                      "value": "section15",
+                      "text": "<a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_02#section15' target='_blank'>Section 15</a> <b>[when parenting coordinators may assist]</b></br>A written agreement about when parenting coordinators may assist will include terms about having a parenting coordinator help you resolve parenting issues. It may include what issues they will help with, when they may help, how long they can help and how parenting coordination ends. Before you and the other party can involve a parenting coordinator in helping you with parenting issues, you must have an agreement or a court order in place."
+                    },
+                    {
+                      "value": "section44",
+                      "text": "<a href='' target='_blank'>Section 44(3)</a> <b>[agreements respecting parenting arrangements]</b></br>"
+                    },
+                    {
+                      "value": "section58",
+                      "text": "<a href='' target='_blank'>  </a> <b></b></br>"
+                    },
+                    {
+                      "value": "section148",
+                      "text": "<a href='' target='_blank'>  </a> <b></b></br>"
+                    },
+                    {
+                      "value": "section163",
+                      "text": "<a href='' target='_blank'>   </a> <b></b></br>"
+                    }
+                  ],
+                  "isRequired": true
+                }
+              ]
+            },
+            {
+              "type": "helptext",
+              "name": "FAQLegalAdvice",
+              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "comment",
+              "name": "applicationFacts",
+              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. If you are applying to change, suspend or cancel an order made in your absence, you must explain why you did not file a reply or attend court when required, why the order should be made and the reasons for any delay in making this application.",
+              "isRequired": true,
+              "title": "The `facts` on which this application is based are as follows:"
+            }
+          ]
+        }
+      ],
+      "title": "Enforce Agreement or Order"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

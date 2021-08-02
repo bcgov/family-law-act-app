@@ -10,6 +10,7 @@
                           they will need to be served with a copy of the application. 
                     </p>
                     <ul>
+                        <li>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</li>
                         <li>Add each parent and/or current guardian as a party if your case involves a child</li>
                         <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
                         <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
@@ -138,6 +139,15 @@
                 <p>They are the other party/parties I added in this case.</p>
             </div>
 
+            <div class="m-3" v-if="enfrcInfo">
+               
+                <p>I understand each other party must be given notice of my application about enforcement.</p>
+
+                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.</p>
+              
+                <p>They are the other party/parties I added in this case.</p>
+            </div>            
+
             <div class="m-3" v-if="relocPpmInfo">
                
                 <p>
@@ -211,7 +221,8 @@
 
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closePopInfo">I agree</b-button>
+                <b-button v-if="enfrcInfo" variant="success" @click="closePopInfo">I understand</b-button>
+                <b-button v-else variant="success" @click="closePopInfo">I agree</b-button>
             </template>            
         </b-modal>         
 
@@ -271,6 +282,7 @@ export default class OtherPartyCommon extends Vue {
     popInfo = false;
     flmInfo = false;
     ppmInfo = false;
+    enfrcInfo = false;
     relocPpmInfo = false;
     relocFlmInfo = false;
     relocInfo = false;
@@ -289,6 +301,7 @@ export default class OtherPartyCommon extends Vue {
         this.popInfo = false;    
         this.flmInfo = false;  
         this.ppmInfo = false; 
+        this.enfrcInfo = false;
         this.relocPpmInfo = false;
         this.relocFlmInfo = false;
         this.relocInfo = false; 
@@ -351,11 +364,15 @@ export default class OtherPartyCommon extends Vue {
 
         this.flmInfo = false;
         this.ppmInfo = false;
+        this.enfrcInfo = false;
         this.relocPpmInfo = false;
         this.relocFlmInfo = false;
         this.relocInfo = false;
 
-        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter") || this.types.includes("Relocation of a Child")){
+        if (this.types.includes("Family Law Matter") || 
+            this.types.includes("Priority Parenting Matter") || 
+            this.types.includes("Relocation of a Child") || 
+            this.types.includes("Enforcement of Agreements and Court Orders")){
             
             if (this.types.includes("Family Law Matter")){
 
@@ -381,6 +398,10 @@ export default class OtherPartyCommon extends Vue {
                 // ppm only
                 else if (this.types.includes("Priority Parenting Matter") && !this.types.includes("Relocation of a Child")){
                     this.ppmInfo = true;
+                }
+                // enfrc only
+                else if (this.types.includes("Enforcement of Agreements and Court Orders") && !this.types.includes("Relocation of a Child") && !this.types.includes("Priority Parenting Matter")){
+                    this.enfrcInfo = true;
                 }
 
             }
