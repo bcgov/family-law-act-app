@@ -2,7 +2,9 @@
     <div v-if="dataReady" >
         <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
             <!-- <form29 @enableNext="EnableNext"/> -->
-            <form28 @enableNext="EnableNext"/>
+            <!-- <form28 @enableNext="EnableNext"/> -->
+            <!-- <form27 @enableNext="EnableNext"/> -->
+            <form26 @enableNext="EnableNext"/>
         </page-base>
     </div>
 </template>
@@ -11,6 +13,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Form29 from  "./pdf/Form29.vue";
 import Form28 from  "./pdf/Form28.vue";
+import Form27 from  "./pdf/Form27.vue";
+import Form26 from  "./pdf/Form26.vue";
 import PageBase from "@/components/steps/PageBase.vue";
 
 import { namespace } from "vuex-class";   
@@ -22,6 +26,8 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
     components:{       
         Form29,
         Form28,
+        Form27,
+        Form26,
         PageBase
     }
 })
