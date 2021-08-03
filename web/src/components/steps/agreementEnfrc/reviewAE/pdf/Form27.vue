@@ -76,8 +76,7 @@ export default class Form27 extends Vue {
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
-            this.$store.commit("Application/setLastPrinted", currentDate); 
-            this.UpdatePathwayCompleted({pathway:"agreementEnfrc", isCompleted:true})
+            this.$store.commit("Application/setLastPrinted", currentDate);             
             this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        

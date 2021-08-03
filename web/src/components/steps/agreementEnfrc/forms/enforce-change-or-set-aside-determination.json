@@ -11,9 +11,9 @@
             {
               "type": "infotexttitle",
               "name": "enforceChangeSetAsideDeterminationDescription1",
-              "title": "",
-              "body": "<p>A parenting coordinator helps parents carry out their parenting agreement or order. They try to help parents solve disagreements about parenting arrangements. If you cannot agree, a parenting coordinator can make a decision for you. This is called a determination of a parenting coordinator. The parenting coordinator’s determination is binding and you both must follow it.</p><p>A determination of a parenting coordinator that is filed in Provincial Court is enforceable under the Family Law Act as if it were on order of the court.</p><p>On application of a party, the court may change or set aside the determination of a parenting coordinator if the court is satisfied that the parenting coordinator:<ul><li>Acted outside their `authority`, or</li><li>Made an error of law or of mixed law and fact.</li></ul></p>",
-              "titleLocation": "hidden",
+              "title": " ",
+              "body": "A parenting coordinator helps parents carry out their parenting agreement or order. They try to help parents solve disagreements about parenting arrangements. If you cannot agree, a parenting coordinator can make a decision for you. This is called a determination of a parenting coordinator. The parenting coordinator’s determination is binding and you both must follow it.</p><p>A determination of a parenting coordinator that is filed in Provincial Court is enforceable under the Family Law Act as if it were on order of the court.</p><p>On application of a party, the court may change or set aside the determination of a parenting coordinator if the court is satisfied that the parenting coordinator:<ul><li>Acted outside their `authority`, or</li><li>Made an error of law or of mixed law and fact.</li></ul>",
+              "titleLocation":"hidden",
               "messageStyle": "inline"
             },
             {
@@ -42,28 +42,48 @@
               "titleLocation": "hidden",
               "messageStyle": "inline"
             },
+
+            {
+              "type": "advancedradiogroup",
+              "name": "appointedDetermination",              
+              "title": "How was your parenting coordinator that made the determination appointed?",
+              "description" : "Select the option that applies and complete the date the agreement or court order was made.",
+              "radioOutputValues":"{writtenAgreement},{courtOrder}",
+              "inputNames":"{agreementDate};{courtOrderDate}",
+              "inputTypes":"{date};{date}",
+              "inputWidths":"{12rem};{12rem}",                  
+              "textBeforeInputs":"{An agreement made on},{};{A court order made on},{}",
+              "textClass": "sv_q_description font-weight-normal ",
+              "radioMargins":"0 0 1rem 0",
+              "radioTextMargins":"-0.6rem 0 0 0",
+              "hasOther": false,
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{filedOrder} = 'n'"
+            },
+
             {
               "type": "infotext",
               "name": "RequiredDocuments2",
               "title": "You will need to include a copy of your determination when you file your documents. You will be reminded to include a copy at the end of the service.",
               "titleLocation": "hidden",
               "visible": false,
-              "visibleIf": "{existingType} = 'courtOrder'",
+              "visibleIf": "{appointedDetermination.selected} = 'courtOrder'",
               "messageStyle": "info"
             },
             {
               "type": "panel",
               "name": "writtenAgreementPanel",
               "visible": false,
-              "visibleIf": "{existingType} = 'writtenAgreement'",
+              "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
               "elements": [
                 {
                   "type": "infotexttitle",
                   "name": "enforceChangeSetAsideDeterminationDescription3",
                   "visible": false,
-                  "visibleIf": "{existingType} = 'writtenAgreement'",
-                  "title": "",
-                  "body": "<p>To file a determination of a parenting coordinator, the agreement to appoint the parenting coordinator must also be filed.</p>",
+                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
+                  "title": " ",
+                  "body": "To file a determination of a parenting coordinator, the agreement to appoint the parenting coordinator must also be filed.",
                   "titleLocation": "hidden",
                   "messageStyle": "inline"
                 },
@@ -72,7 +92,7 @@
                   "name": "filedAgreement",
                   "isRequired": true,
                   "visible": false,
-                  "visibleIf": "{existingType} = 'writtenAgreement'",
+                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
                   "title": "Has the agreement to appoint a parenting coordinator been filed in a Provincial Court registry in BC?",
                   "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your agreement to see if it has a registry stamp and court file number on it."
                 },
@@ -82,7 +102,7 @@
                   "title": "You will need to include a copy of your determination when you file your documents. The agreement has already been filed. You will be reminded to include a copy of the determination at the end of the service.",  
                   "titleLocation": "hidden",
                   "visible": false,
-                  "visibleIf": "{existingType} = 'writtenAgreement' and {filedAgreement} = 'y'",
+                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement' and {filedAgreement} = 'y'",
                   "messageStyle": "info"
                 },
                 {
@@ -91,7 +111,7 @@
                   "title": "You will need to include a copy of your agreement to appoint a parenting coordinator and your determination of a parenting coordinator when you file your documents. You will be reminded to include a copy of the determination at the end of the service.",
                   "titleLocation": "hidden",
                   "visible": false,
-                  "visibleIf": "{existingType} = 'writtenAgreement' and {filedAgreement} = 'n'",
+                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement' and {filedAgreement} = 'n'",
                   "messageStyle": "info"
                 }
               ]

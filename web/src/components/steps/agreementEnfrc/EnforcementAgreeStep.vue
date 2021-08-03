@@ -2,7 +2,7 @@
   <step-base v-bind:step="step">    
     <enfrc-questionnaire                           v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnfrcQuestionnaire" />
     <enforce-agreement-order                       v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnforceAgreementOrOrder" />
-    <enforce-change-or-set-aside-determination     v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnforceChangeOrSetAsideDetermination" />
+    <enforce-change-set-aside-determination        v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnforceChangeOrSetAsideDetermination" />
     <about-the-order-enforcement                   v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.AboutTheOrderEnforcement" />
     <review-your-answers-enfrc                     v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.ReviewYourAnswersENFRC"/>
     <preview-form-26-enfrc                         v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.PreviewForm26ENFRC"/>

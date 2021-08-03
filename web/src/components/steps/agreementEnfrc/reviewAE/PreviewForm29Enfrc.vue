@@ -44,7 +44,34 @@ export default class PreviewForm29Enfrc extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.ENFRC._StepNo])) this.dataReady = true;
+        
+
+        const pageForms =[
+            this.stPgNo.ENFRC.PreviewForm26ENFRC,            
+            this.stPgNo.ENFRC.PreviewForm27ENFRC,
+            this.stPgNo.ENFRC.PreviewForm28ENFRC
+        ]
+        
+        let nonCompleteForm = false
+        let nonCompleteFormPage = 0;
+
+        for(const  page of pageForms){
+            const pageForm = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo].pages[page]
+            if(pageForm.active && pageForm.progress !=100){
+                nonCompleteForm = true;
+                nonCompleteFormPage = page
+                break;
+            }
+        }
+
+
+        if(nonCompleteForm){
+            this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.ENFRC._StepNo, currentPage: nonCompleteFormPage});
+        }
+        else if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.ENFRC._StepNo])) 
+            this.dataReady = true;
+
+        window.scrollTo(0, 0);
     }   
 
     public EnableNext(){

@@ -45,7 +45,10 @@ export default class PreviewForm28Enfrc extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
-        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.ENFRC._StepNo])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.ENFRC._StepNo])) 
+            this.dataReady = true;
+        
+        window.scrollTo(0, 0);
     }   
 
     public EnableNext(){
