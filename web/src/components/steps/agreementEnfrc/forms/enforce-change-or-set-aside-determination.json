@@ -1,46 +1,112 @@
 {
-  "title": "About the order",
+  "title": "Enforce, Change or Set Aside Determination",
   "pages": [
     {
-      "name": "About the order",
+      "name": "Enforce, Change or Set Aside Determination",
       "elements": [
         {
           "type": "panel",
-          "name": "aboutCaseManagementPanel",
+          "name": "enforceChangeSetAsideDeterminationPanel",
           "elements": [
-            { 
-              "type":"infotexttitle",
-              "name":"aboutCaseMgmtDescription1",
-              "title":"description1",
-              "body": "{listOfIssuesDescription}",
-              "titleLocation":"hidden",
-              "messageStyle":"inline"
-            },
             {
-              "type": "comment",
-              "name": "orderDescription",
-              "isRequired": true,
-              "title": "Please provide the details of the order you are asking the court to make:",
-              "description": "You do not need to use any special wording. The key is to be clear about what you mean and what you are asking the court to order.</br></br>The Provincial Court’s <a href='https://www.provincialcourt.bc.ca/downloads/family/Standard%20Wording%20of%20Family%20Law%20Orders%202021.pdf' target='blank'>Family Law Act Picklist</a> includes commonly used order terms that might be helpful. "
-            },
-            {
-              "type": "helptext",
-              "name": "FAQLegalAdvice",
-              "title": "I’m not sure what order I need. Where can I get legal assistance?",
+              "type": "infotexttitle",
+              "name": "enforceChangeSetAsideDeterminationDescription1",
+              "title": "",
+              "body": "<p>A parenting coordinator helps parents carry out their parenting agreement or order. They try to help parents solve disagreements about parenting arrangements. If you cannot agree, a parenting coordinator can make a decision for you. This is called a determination of a parenting coordinator. The parenting coordinator’s determination is binding and you both must follow it.</p><p>A determination of a parenting coordinator that is filed in Provincial Court is enforceable under the Family Law Act as if it were on order of the court.</p><p>On application of a party, the court may change or set aside the determination of a parenting coordinator if the court is satisfied that the parenting coordinator:<ul><li>Acted outside their `authority`, or</li><li>Made an error of law or of mixed law and fact.</li></ul></p>",
               "titleLocation": "hidden",
-              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+              "messageStyle": "inline"
             },
             {
-              "type": "comment",
-              "name": "applicationFacts",
-              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. If you are applying to change, suspend or cancel an order made in your absence, you must explain why you did not file a reply or attend court when required, why the order should be made and the reasons for any delay in making this application.",
+              "type": "yesno",
+              "name": "filedOrder",
               "isRequired": true,
-              "title": "The `facts` on which this application is based are as follows:"
+              "title": "Has your determination of a parenting coordinator already been filed in a Provincial Court registry in BC?",
+              "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your document to see if it has a registry stamp and court file number on it."
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments1",
+              "title": "You will need to include a copy of your filed written agreement or court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{filedOrder} = 'y'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotexttitle",
+              "name": "enforceChangeSetAsideDeterminationDescription2",
+              "visible": false,
+              "visibleIf": "{filedOrder} = 'n'",
+              "title": "",
+              "body": "<p>There are two ways to get a parenting coordinator to help you:<ul><li>You can agree yourselves to appoint a parenting coordinator (sometimes as part of an agreement about parenting arrangements), or</li><li>a judge can order that a parenting coordinator be appointed.</li></ul></p>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments2",
+              "title": "You will need to include a copy of your determination when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{existingType} = 'courtOrder'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "panel",
+              "name": "writtenAgreementPanel",
+              "visible": false,
+              "visibleIf": "{existingType} = 'writtenAgreement'",
+              "elements": [
+                {
+                  "type": "infotexttitle",
+                  "name": "enforceChangeSetAsideDeterminationDescription3",
+                  "visible": false,
+                  "visibleIf": "{existingType} = 'writtenAgreement'",
+                  "title": "",
+                  "body": "<p>To file a determination of a parenting coordinator, the agreement to appoint the parenting coordinator must also be filed.</p>",
+                  "titleLocation": "hidden",
+                  "messageStyle": "inline"
+                },
+                {
+                  "type": "yesno",
+                  "name": "filedAgreement",
+                  "isRequired": true,
+                  "visible": false,
+                  "visibleIf": "{existingType} = 'writtenAgreement'",
+                  "title": "Has the agreement to appoint a parenting coordinator been filed in a Provincial Court registry in BC?",
+                  "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your agreement to see if it has a registry stamp and court file number on it."
+                },
+                {
+                  "type": "infotext",
+                  "name": "RequiredDocuments3",
+                  "title": "You will need to include a copy of your determination when you file your documents. The agreement has already been filed. You will be reminded to include a copy of the determination at the end of the service.",  
+                  "titleLocation": "hidden",
+                  "visible": false,
+                  "visibleIf": "{existingType} = 'writtenAgreement' and {filedAgreement} = 'y'",
+                  "messageStyle": "info"
+                },
+                {
+                  "type": "infotext",
+                  "name": "RequiredDocuments4",
+                  "title": "You will need to include a copy of your agreement to appoint a parenting coordinator and your determination of a parenting coordinator when you file your documents. You will be reminded to include a copy of the determination at the end of the service.",
+                  "titleLocation": "hidden",
+                  "visible": false,
+                  "visibleIf": "{existingType} = 'writtenAgreement' and {filedAgreement} = 'n'",
+                  "messageStyle": "info"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "name": "existingDate",
+              "title": "Please provide the date of the determination of the parenting coordinator.",
+              "inputType": "date",
+              "isRequired": true
             }
           ]
         }
       ],
-      "title": "About the Order"
+      "title": "Enforce, Change or Set Aside Determination"
     }
   ],
   "showQuestionNumbers": "off",

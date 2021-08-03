@@ -183,6 +183,8 @@ export interface stepInfoType {
     //__Step 7 AGREEMENT ENFORCEMENT
     enfrcQuestionnaireSurvey?: any;
     enforceAgreementOrOrderSurvey?: any;
+    enforceChangeSetAsideDeterminationSurvey?: any;
+    aboutTheOrderEnforcementSurvey?: any;
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

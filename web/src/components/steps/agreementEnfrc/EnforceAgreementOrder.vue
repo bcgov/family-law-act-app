@@ -80,45 +80,9 @@ export default class EnforceAgreementOrder extends Vue {
             this.survey.data = this.step.result.enforceAgreementOrOrderSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
-
-        // if (this.step.result?.cmQuestionnaireSurvey?.data){
-        //     // this.listOfIssuesDescription = this.getDescription();
-        //     this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
-        // }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
-    }
-
-    // public getDescription() {
-
-    //     let description = '';
-    //     let listOfIssues = [];
-    //     const firstDescriptionSection = 'You indicated you are applying for a case management order about:  '
-       
-       
-    //     let withoutNotice = true;
-    //     if (this.step.result?.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice == 'n')
-    //         withoutNotice = false;
-
-    //     if(this.step.result?.cmQuestionnaireSurvey?.data ){
-    //         for(const cmType of this.step.result.cmQuestionnaireSurvey.data){
-                
-    //             const order = getOrderTypeCM(cmType)
-                
-    //             if(order?.turquoise && !withoutNotice){
-    //                 listOfIssues.push('<li>'+order.text+'</li>')
-    //             } 
-    //             else if(order?.turquoise == false){
-    //                 listOfIssues.push('<li>'+order.text+'</li>')
-    //             }
-    //         }     
-    //     } 
-                          
-    //     const initialList = listOfIssues.toString()            
-    //     description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
-       
-    //     return description;
-    // }
+    }  
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()

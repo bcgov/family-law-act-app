@@ -1,20 +1,20 @@
 {
-  "title": "About the order",
+  "title": "About the Order - Enforcement",
   "pages": [
     {
-      "name": "About the order",
+      "name": "About the Order - Enforcement",
       "elements": [
         {
           "type": "panel",
-          "name": "aboutCaseManagementPanel",
+          "name": "aboutOrderPanel",
           "elements": [
-            { 
-              "type":"infotexttitle",
-              "name":"aboutCaseMgmtDescription1",
-              "title":"description1",
-              "body": "{listOfIssuesDescription}",
-              "titleLocation":"hidden",
-              "messageStyle":"inline"
+            {
+              "type": "infotexttitle",
+              "name": "aboutOrderDescription1",
+              "title": "",
+              "body": "You need to tell the court and the other party what order you want the court to make.</br></br>If you are not sure about what enforcement options are available to you or what order the court can make, you may want to talk to a lawyer or <a href='https://www2.gov.bc.ca/gov/content?id=E12512BAACDF45979AEF905033BE4CEA' target='_blank'>family justice counsellor</a>, or check out the following resources:</br></br></ul><li>the <a href='http://www.leg.bc.ca/39th4th/1st_read/gov16-1.htm#section41' target='_blank'>Family Law Act</a><ul><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section61' target='_blank'>section 61</a> [denial of parenting time or contact]</li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section63' target='_blank'>section 63</a> [failure to exercise parenting time or contact]</li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section213' target='_blank'>section 213</a> [enforcing orders respecting disclosure]</li><li><a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section228'>section 228</a> [enforcing orders respecting conduct]</li><li>section 230 [enforcing orders generally]</li><li><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section231' target='_blank'>section 231</a> [extraordinary remedies]</li></ul></li><li>Legal Aid BC’s family <a target='_blank' href='https://family.legalaid.bc.ca/bc-legal-system/court-orders/enforce-order-or-agreement-made-bc'>website</a></li><li><a target='_blank' href='https://wiki.clicklaw.bc.ca/index.php/Enforcing_Orders_in_Family_Matters'>Clicklaw</a></li></ul>",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
             },
             {
               "type": "comment",
@@ -32,15 +32,30 @@
             },
             {
               "type": "comment",
-              "name": "applicationFacts",
-              "description": "Give a short summary of the facts you want the court to consider. You do not need to use any special wording. The key is to be clear about what you mean and why you are asking the court to make the order. If you are applying to change, suspend or cancel an order made in your absence, you must explain why you did not file a reply or attend court when required, why the order should be made and the reasons for any delay in making this application.",
+              "name": "applicationFacts1",
+              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include:<ul><li>why you are making this application</li><li>how the other party has failed to follow the order or agreement, if applicable</li><li>why the court should make the order you are applying for.</li></ul>",
               "isRequired": true,
               "title": "The `facts` on which this application is based are as follows:"
+            },
+            {
+              "type": "comment",
+              "name": "applicationFacts2",
+              "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include:<ul><li>why you are making this application</li><li>how the other party has failed to follow the order or agreement, if applicable</li><li>why the court should make the order you are applying for.</li></ul></br>If you are applying to set aside the registration of a foreign order under the Interjurisdiction Support Orders Act, the British Columbia court may set aside the registration if it determines under <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01#section19'>section 19</a> of the Act that:<ul><li>a party to the foreign order did not have proper notice or a reasonable opportunity to be heard in the proceeding in which the foreign order was made,</li><li>the foreign order is contrary to the public policy of British Columbia, or</li><li>the court or administrative body that made the foreign order did not have the jurisdiction to make the order.</li></ul></br>Please include the reason why you believe the court should set aside the registration of the foreign order and the facts that support it.",
+              "isRequired": true,
+              "title": "The `facts` on which this application is based are as follows:"
+            },
+            {
+              "type": "infotexttitle",
+              "name": "aboutOrderDescription2",
+              "title": "",
+              "body": "Note: A judge can make decisions based only on the information presented by the parties as evidence. Evidence is presented in writing in an affidavit or as spoken evidence provided in court.</br></br>If you choose to, you can prepare an <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa762.pdf?forcedownload=true' target='_blank'>Affidavit – General Form 45</a>. If you do not wish to prepare an affidavit, be prepared to give evidence in court. The facts you set out in your application can help guide your evidence in court and a judge may ask you to swear or affirm that the facts set out in this application are true.",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
             }
           ]
         }
       ],
-      "title": "About the Order"
+      "title": "About the Order - Enforcement"
     }
   ],
   "showQuestionNumbers": "off",

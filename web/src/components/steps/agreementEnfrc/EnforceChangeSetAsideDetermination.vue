@@ -43,8 +43,7 @@ export default class EnforceChangeSetAsideDetermination extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
-    currentPage =0;
-    listOfIssuesDescription = '';
+    currentPage =0;    
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -67,7 +66,7 @@ export default class EnforceChangeSetAsideDetermination extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            Vue.filter('surveyChanged')('caseMgmt')
+            Vue.filter('surveyChanged')('agreementEnfrc')
         })
     }
     
@@ -76,49 +75,13 @@ export default class EnforceChangeSetAsideDetermination extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result?.aboutCaseManagementOrderSurvey) {
-            this.survey.data = this.step.result.aboutCaseManagementOrderSurvey.data; 
+        if (this.step.result?.enforceChangeSetAsideDeterminationSurvey) {
+            this.survey.data = this.step.result.enforceChangeSetAsideDeterminationSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }
-
-        if (this.step.result?.cmQuestionnaireSurvey?.data){
-            // this.listOfIssuesDescription = this.getDescription();
-            this.survey.setVariable('listOfIssuesDescription', this.listOfIssuesDescription);
-        }
+        }        
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }
-
-    // public getDescription() {
-
-    //     let description = '';
-    //     let listOfIssues = [];
-    //     const firstDescriptionSection = 'You indicated you are applying for a case management order about:  '
-       
-       
-    //     let withoutNotice = true;
-    //     if (this.step.result?.withoutNoticeOrAttendanceSurvey?.data?.needWithoutNotice == 'n')
-    //         withoutNotice = false;
-
-    //     if(this.step.result?.cmQuestionnaireSurvey?.data ){
-    //         for(const cmType of this.step.result.cmQuestionnaireSurvey.data){
-                
-    //             const order = getOrderTypeCM(cmType)
-                
-    //             if(order?.turquoise && !withoutNotice){
-    //                 listOfIssues.push('<li>'+order.text+'</li>')
-    //             } 
-    //             else if(order?.turquoise == false){
-    //                 listOfIssues.push('<li>'+order.text+'</li>')
-    //             }
-    //         }     
-    //     } 
-                          
-    //     const initialList = listOfIssues.toString()            
-    //     description = firstDescriptionSection + '<ul>' + initialList.replace(/>,</g, '><') + '</ul>';
-       
-    //     return description;
-    // }
 
     public onPrev() {
         this.UpdateGotoPrevStepPage()
@@ -132,7 +95,7 @@ export default class EnforceChangeSetAsideDetermination extends Vue {
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
-        this.UpdateStepResultData({step:this.step, data: {aboutCaseManagementOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {enforceChangeSetAsideDeterminationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
