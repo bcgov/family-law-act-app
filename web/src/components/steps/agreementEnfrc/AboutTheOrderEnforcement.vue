@@ -44,7 +44,6 @@ export default class AboutTheOrderEnforcement extends Vue {
     survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
     currentPage =0;
-    listOfIssuesDescription = '';
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -79,7 +78,12 @@ export default class AboutTheOrderEnforcement extends Vue {
         if (this.step.result?.aboutTheOrderEnforcementSurvey) {
             this.survey.data = this.step.result.aboutTheOrderEnforcementSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
-        }        
+        }   
+        
+        if (this.step.result?.enfrcQuestionnaireSurvey?.data) {
+           
+            this.survey.setVariable('includesForeign', this.step.result.enfrcQuestionnaireSurvey.data.includes('foreignSupport'))
+        }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     }

@@ -177,6 +177,46 @@
       </div>
     </div>
 
+      <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+            
+            <div class="m-3">
+               
+                <p>
+                    An application to set aside the registration of a foreign order under the Interjurisdictional 
+                    Support Orders Act must be <b>served on the designated authority at least 30 days</b> before the date 
+                    referred to in the application for the court appearance. You <b>do not need to serve the other party.</b> 
+                    The designated registry will do that for you.
+                </p>
+                
+                <p>
+                    To serve the designated registry, you must send the application and a copy of the foreign order by registered mail to:
+                </p>
+
+                <p class="mb-0">Interjurisdictional Support Services</p>
+                <p class="my-0">Vancouver Main Office Boxes</p>
+                <p class="my-0">P.O. Box 2074</p>
+                <p>Vancouver, BC V6B 3S3</p>
+
+                <b-form-checkbox 
+                    class="mt-4"
+                    v-model="popInfoUnderstand"               
+                    value="understand"
+                    unchecked-value="">
+                    <h4 style="margin: 0.26rem 0.5rem;">
+                        I understand
+                    </h4>
+                </b-form-checkbox>
+
+
+            </div>   
+
+            <template v-slot:modal-footer>
+                <b-button :disabled="popInfoUnderstand != 'understand'" variant="success" @click="closePopupConfirm();">Continue</b-button>
+            </template>        
+
+                    
+        </b-modal>   
+
     </page-base>
 </template>
 
@@ -222,6 +262,8 @@ export default class EnfrcQuestionnaire extends Vue {
 
     showLegalAssistance = false;
     showEnforceOrder = false;
+    popInfo = false;
+    popInfoUnderstand = '';
 
     currentStep = 0;
     currentPage = 0;
@@ -327,8 +369,17 @@ export default class EnfrcQuestionnaire extends Vue {
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage();       
+        if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
+            this.popInfo = true;
+        } else {
+            this.UpdateGotoNextStepPage();
+        }              
     }   
+
+    public closePopupConfirm(){
+        this.popInfo = false;
+        this.UpdateGotoNextStepPage();            
+    }
 
     public getselectedEnforcementQuestionnaireNames(){
         let result = ''       
