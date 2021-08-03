@@ -51,7 +51,7 @@ export default class Form28 extends Vue {
     }   
            
     public onPrint() { 
-        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc")
+        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc28")
         const pdf_name = "request-to-file-an-order"
         const el= document.getElementById("print");
 
@@ -86,7 +86,7 @@ export default class Form28 extends Vue {
 
     public onPrintSave(){
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc")
+        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc28")
         
         const applicationId = this.$store.state.Application.id;
         const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12 order-heading">
         <div>
-            <h1>Enforcement Questionnaire</h1>
+            <h2>Enforcement Questionnaire</h2>
 
             <p>
                 The Provincial Court Family Rules include a range of enforcement options. In most cases, it is up to each person to let the 
@@ -83,8 +83,8 @@
         </div>
 
         <div>
-            <h2 style="color: #556077; font-size: 1.5em; line-height: 1.2;">I want to apply to:</h2>
-            <p style="font-size: 1.25rem;">
+            <h2 style="color: #556077; font-size: 1.35em; line-height: 1.2;">I want to apply to:</h2>
+            <p style="font-size: 1.1rem;">
                 Please select each option you want to ask the court for an order about. You will be asked to give more details later.
             </p>
         </div>
@@ -241,6 +241,8 @@ export default class EnfrcQuestionnaire extends Vue {
         if (this.step.result?.enfrcQuestionnaireSurvey) {
             this.selectedEnforcementQuestionnaire = this.step.result.enfrcQuestionnaireSurvey.data;
         }
+
+        this.setSteps(this.selectedEnforcementQuestionnaire, false);
         
         const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
@@ -248,46 +250,44 @@ export default class EnfrcQuestionnaire extends Vue {
 
 
     public onChange(selectedEnforcementQuestionnaire) {
-
+        const p = this.stPgNo.ENFRC
         this.UpdatePathwayCompleted({pathway:"agreementEnfrc", isCompleted:false});
-        this.togglePages([this.stPgNo.ENFRC.PreviewFormsENFRC], false);
+        this.togglePages([p.PreviewForm26ENFRC, p.PreviewForm27ENFRC, p.PreviewForm28ENFRC, p.PreviewForm29ENFRC], false);
         
         if(this.checkErrorOnPages())        
-            this.setSteps(selectedEnforcementQuestionnaire);
+            this.setSteps(selectedEnforcementQuestionnaire, true);
         else{ 
             this.selectedEnforcementQuestionnaire = [];             
         }
         Vue.filter('surveyChanged')('agreementEnfrc')        
     }
 
-    public setSteps(selectedEnforcementQuestionnaire) {
+    public setSteps(selectedEnforcementQuestionnaire, surveyChanged) {
 
         const p = this.stPgNo.ENFRC
         if (selectedEnforcementQuestionnaire) {
 
-            this.togglePages(this.allPages, false); 
+            
             const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
             if (selectedEnforcementQuestionnaire.length > 0){
-
-                this.togglePages([p.EnforceAgreementOrOrder], this.selectedEnforcementQuestionnaire.includes("writtenAgreementOrder"));                
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[p.EnforceAgreementOrOrder].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceAgreementOrOrder, 50, false);
+                this.togglePages([p.AboutTheOrderEnforcement, p.ReviewYourAnswersENFRC],true)
+                this.togglePages([p.EnforceAgreementOrOrder], this.selectedEnforcementQuestionnaire.includes("writtenAgreementOrder"));
+                this.togglePages([p.EnforceChangeOrSetAsideDetermination], this.selectedEnforcementQuestionnaire.includes("parentingCoordinatorDetermination"));    
                 
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmChildrenInfo].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmChildrenInfo, 50, false);
-
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.PpmBackground].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.PpmBackground, 50, false);
-
-                // if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutPriorityParentingMatterOrder].progress==100)
-                //     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutPriorityParentingMatterOrder, 50, false);
-
-            
-                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersENFRC, 0, false);
+                if(surveyChanged){
+                    if(this.$store.state.Application.steps[this.currentStep].pages[p.EnforceAgreementOrOrder].progress==100)
+                        Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceAgreementOrOrder, 50, false);
+                                    
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceChangeOrSetAsideDetermination, 0, false);                                    
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutTheOrderEnforcement, 0, false);                            
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersENFRC, 0, false);
+                }
                 
+            }else{
+                this.togglePages(this.allPages, false); 
             }   
 
         }
@@ -333,14 +333,12 @@ export default class EnfrcQuestionnaire extends Vue {
     public getselectedEnforcementQuestionnaireNames(){
         let result = ''       
         for(const form of this.selectedEnforcementQuestionnaire){
-            if(form=='medical')   result+='-Medical, dental or other health-related treatments for a child'+'\n';
-            if(form=='passport')  result+='-Application for a passport, license or other thing for a child'+'\n';
-            if(form=='travel')    result+='-Travel or participation in an activity for the child'+'\n';
-            if(form=='locationChange')         result+='-Change in location of a child’s residence'+'\n';
-            if(form=='preventRemoval')          result+='-Preventing the removal of a child'+'\n';
-            if(form=='interjurisdictional')    result+='-Determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act'+'\n';
-            if(form=='wrongfulRemoval')         result+='-Wrongful removal of a child in BC'+'\n';
-            if(form=='returnOfChild')          result+='-Preventing the removal of a child'+'\n';
+            if(form=='writtenAgreementOrder')   result+='-Enforce a written agreement or order'+'\n';
+            if(form=='parentingCoordinatorDetermination')  result+='-Enforce, Change or Set Aside a Determination of a Parenting Coordinator'+'\n';
+            if(form=='expenses')    result+='-Set an amount of money owing for expenses for failure to comply'+'\n';
+            if(form=='arrears')         result+='-Determine if arrears are owing from a support order or agreement made under the Family Law Act and, if so, the amount of the arrears'+'\n';
+            if(form=='foreignSupport')          result+='-Set aside the registration of a foreign support order'+'\n';
+            
         }
         return result;
     }
@@ -348,8 +346,8 @@ export default class EnfrcQuestionnaire extends Vue {
     beforeDestroy() {
         const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-        const questions = [{name:'PpmQuestionnaire',title:'I need help with the following priority parenting matter:',value:this.getselectedEnforcementQuestionnaireNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: this.selectedEnforcementQuestionnaire, questions: questions, pageName:"Priority Parenting Matters Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        const questions = [{name:'EnfrcQuestionnaire',title:'I want to apply for the following Enforcement options:',value:this.getselectedEnforcementQuestionnaireNames()}]        
+        this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: this.selectedEnforcementQuestionnaire, questions: questions, pageName:"Enforcement Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>

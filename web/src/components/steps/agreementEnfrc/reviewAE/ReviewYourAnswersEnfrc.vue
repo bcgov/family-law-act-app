@@ -42,6 +42,8 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import moment from 'moment-timezone';
 import * as _ from 'underscore';
 
+import {whichAgreementEnfrcForm} from './RequiredFormEnfrc'
+
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
 
@@ -91,19 +93,38 @@ export default class ReviewYourAnswersEnfrc extends Vue {
     currentPage =0;
     pageHasError = false;
 
+    form26 = false;
+    form27 = false;
+    form28 = false;
+    form29 = false;
+
     errorQuestionNames = [];
     currentDate = ''
 
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        this.togglePages([this.stPgNo.ENFRC.PreviewFormsENFRC], !this.pageHasError);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm26ENFRC], !this.pageHasError && this.form26);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm27ENFRC], !this.pageHasError && this.form27);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm28ENFRC], !this.pageHasError && this.form28);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm29ENFRC], !this.pageHasError && this.form29);
+        
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"agreementEnfrc", isCompleted:false});
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewFormsENFRC,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm26ENFRC,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm27ENFRC,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm28ENFRC,  50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm29ENFRC,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
     }
 
     mounted(){
+
+        const requiredForm = whichAgreementEnfrcForm();
+        this.form26 = requiredForm.includes('P26');
+        this.form27 = requiredForm.includes('P27');
+        this.form28 = requiredForm.includes('P28');
+        this.form29 = requiredForm.includes('P29');
+
         this.currentDate = moment().format('MMM DD YYYY');
         this.reloadPageInformation();
     }
@@ -310,7 +331,10 @@ export default class ReviewYourAnswersEnfrc extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         if(this.$store.state.Application.steps[this.currentStep].pages[this.currentPage].progress<100){            
-           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewFormsENFRC,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm26ENFRC,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm27ENFRC,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm28ENFRC,  50, false);
+           Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm29ENFRC,  50, false);
         }
 
         this.pageHasError = false;
@@ -344,7 +368,11 @@ export default class ReviewYourAnswersEnfrc extends Vue {
             this.questionResults = this.questionResults.filter(questionResult=>{if(questionResult.pageName !='Notice')return true})
 
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        this.togglePages([this.stPgNo.ENFRC.PreviewFormsENFRC], !this.pageHasError); 
+        
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm26ENFRC], !this.pageHasError && this.form26);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm27ENFRC], !this.pageHasError && this.form27);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm28ENFRC], !this.pageHasError && this.form28);
+        this.togglePages([this.stPgNo.ENFRC.PreviewForm29ENFRC], !this.pageHasError && this.form29);   
         
     }
 

@@ -146,7 +146,10 @@ export interface ENFRCstPgTypes{
     EnforceChangeOrSetAsideDetermination: number;
     AboutTheOrderEnforcement: number;
     ReviewYourAnswersENFRC: number;
-    PreviewFormsENFRC: number;    
+    PreviewForm26ENFRC: number;
+    PreviewForm27ENFRC: number;
+    PreviewForm28ENFRC: number;
+    PreviewForm29ENFRC : number;   
 }
 
 export interface SUBMITstPgTypes{

@@ -213,7 +213,9 @@ Vue.filter('getPathwayPdfType',function(name){
 	if (name == 'priorityParenting') 		return "AXP";
 	if (name == 'childReloc')        		return "APRC";
 	if (name == 'agreementEnfrc')    		return "AFET";
-	
+	if (name == 'agreementEnfrc26')    		return "AFET26";
+	if (name == 'agreementEnfrc27')    		return "AFET27";
+	if (name == 'agreementEnfrc28')    		return "AFET28";
 })
 
 Vue.filter('getFullOrderName',function(orderName, specific){
@@ -419,39 +421,38 @@ Vue.filter('surveyChanged', function(type: string) {
 
 	let step = stepPO._StepNo; 
 	let reviewPage = stepPO.ReviewYourAnswers; 
-	let previewPage = stepPO.PreviewForms;
-	let previewPageII = null
+	let previewPages = [];
+	
 	
 	if(type == 'protectionOrder'){
 		step = stepPO._StepNo; 
 		reviewPage = stepPO.ReviewYourAnswers; 
-		previewPage = stepPO.PreviewForms;
+		previewPages = [stepPO.PreviewForms];
 	}
 	else if(type == 'familyLawMatter'){
 		step = stepFLM._StepNo; 
 		reviewPage = stepFLM.ReviewYourAnswersFLM; 
-		previewPage = stepFLM.PreviewFormsFLM;	
+		previewPages = [stepFLM.PreviewFormsFLM];	
 	}
 	else if(type == 'priorityParenting'){
 		step = stepPPM._StepNo; 
 		reviewPage = stepPPM.ReviewYourAnswersPPM; 
-		previewPage = stepPPM.PreviewFormsPPM;	
+		previewPages = [stepPPM.PreviewFormsPPM];	
 	}
 	else if(type == 'childReloc'){
 		step = stepRELOC._StepNo; 
 		reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
-		previewPage = stepRELOC.PreviewFormsRELOC;	
+		previewPages = [stepRELOC.PreviewFormsRELOC];	
 	}
 	else if(type == 'caseMgmt'){
 		step = stepCM._StepNo; 
 		reviewPage = stepCM.ReviewYourAnswersCM; 
-		previewPage = stepCM.PreviewForm10CM;
-		previewPageII = stepCM.PreviewForm11CM;
+		previewPages = [stepCM.PreviewForm10CM, stepCM.PreviewForm11CM];
 	}
 	else if(type == 'agreementEnfrc'){
 		step = stepENFRC._StepNo; 
 		reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
-		previewPage = stepENFRC.PreviewFormsENFRC;	
+		previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
 	}
 
 	if(type == 'allExPO'){
@@ -483,16 +484,12 @@ Vue.filter('surveyChanged', function(type: string) {
 		store.dispatch("Application/UpdatePathwayCompleted", {pathway: type, isCompleted: false})
 		
 		if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
-			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
-			store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
+			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });			
 		
-			if(steps[step].pages[previewPage].progress ==100) 
-				store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
-
-			if(previewPageII){
-				store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPageII, active: false });		
-				if(steps[step].pages[previewPageII].progress ==100) 
-					store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPageII, progress:50 });
+			for(const previewPage of previewPages){
+				store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
+				if(steps[step].pages[previewPage].progress ==100) 
+					store.commit("Application/setPageProgress", { currentStep: step, currentPage: previewPage, progress:50 });
 			}
 		}
 	}
