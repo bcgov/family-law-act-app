@@ -3,10 +3,10 @@
 
 <!-- <Page 1> -->
 <!-- <HEADER> -->
-        <div  class="form-header-ppm">
+        <div  class="form-header-po">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Application About Enforcement</b></div>                
+                <div style="font-size:11pt;"><b>Request to File an Order</b></div>                
                 <div style="font-size:9pt;"><b>FORM 28</b></div>
                 <div style="font-size:8pt;">Provincial Court Family Rules</div>
                 <div style="font-size:8pt;">Rules 134</div>
@@ -30,7 +30,7 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="16rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>
+            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="20rem" beforetext="My name is" hint="(full name of party)" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="9rem" beforetext=". My date of birth is" hint="(mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:1px;display:inline; font-size: 9pt;">.</div>
             <div style="margin-top:7px; text-indent:0px; font-size: 9pt;">My contact information and address for service of court documents are:</div>
@@ -55,26 +55,26 @@
         </section>         
 
 <!-- <2> -->
-        <div class="print-block" style="margin-top: 2rem;">
+        <div class="print-block" style="margin-top: 0rem;">
             <section> 
                 <div style="display:inline; font-size: 9pt;">
                     <underline-form 
-                        style="text-indent:2px;display:inline-block; margin-top: 1rem;" 
-                        textwidth="20rem" 
+                        style="text-indent:2px;display:inline-block; margin-top: 0.25rem;" 
+                        textwidth="15.5rem" 
                         beforetext="The other party to this order is" 
                         hint="      (full name of other party)" 
                         :italicHint="false" 
                         :text="firstOtherParty.name | getFullName"/>
                     <div style="display:inline;">.</div>
                     <underline-form 
-                        style="display:inline;text-indent:0px; margin-top: 1rem;" 
-                        textwidth="7rem" 
+                        style="display:inline;text-indent:0px; margin-top: 0.25rem;" 
+                        textwidth="6.5rem" 
                         beforetext="Their date of birth is" 
                         hint="(mmm/dd/yyyy)" 
                         :italicHint="false" 
                         :text="firstOtherParty.dob | beautify-date"/>
                     <div style="text-indent:5px;display:inline;"> .</div>
-                    <div style="text-indent:1px; margin-top: 1rem;"> Their contact information, as I know it, is:</div>
+                    <div style="text-indent:1px; margin-top: 0.25rem;"> Their contact information, as I know it, is:</div>
                     <table class="compactfullsize">
                         <tr style="border:1px solid #313132" >                        
                             <td colspan="3">Lawyer (if applicable): </td>
@@ -93,7 +93,7 @@
                         </tr>
                     </table>
                 </div>
-                <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
+                <div style="text-indent:5px; margin:0; font-size: 9pt;"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
                         
                 <div v-if="additionalOtherParties.length>0" style="font-size: 9pt;">
 
@@ -162,10 +162,10 @@
 
         <div class="print-block">
             <section> 
-                <div style="margin:0rem 0 0 0rem;">
+                <div style="margin:0rem 0 0 0.3rem; display:inline;font-size: 9pt;">
                     <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0.5rem 0 0;" :check="true?'yes':''" text="I request the copy of the order, certified by the court that made the order, dated"/>               
-                    <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
-                    <div style="text-indent:10px;display:inline-block;">between the above parties be filed in the Provincial Court</div>
+                    <underline-form style="text-indent:1px;display:inline;" textwidth="9rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <div style="text-indent:0px; margin-left:1.7rem;">between the above parties be filed in the Provincial Court</div>
                 </div>              
             </section>
         </div> 
@@ -175,12 +175,12 @@
             <section>
                 <div style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;">I request to file the order for the purpose(s) described in the following provision(s):</div>
 
-                <div style="margin:0.25rem 0 0 1rem;font-size: 9pt;" >
+                <div style="margin:0rem 0 0 1rem;font-size: 9pt;" >
                     <i>Select all options that apply</i>                   
                     
-                    <check-box style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="section 18 <i>[registration of extraprovincial or foreign order]</i> of the <i>Interjurisdictional Support Orders Act</i>"/>
-                    <check-box style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="section 195 <i>[Provincial Court enforcement of Supreme Court orders]</i> of the <i>Family Law Act</i>"/>
-                    <check-box style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="section 15-3 (6) <i>[enforcement in Provincial Court]</i> of the <i>Supreme Court Family Rules</i>"/>
+                    <check-box style="margin:0.05rem 0 0 0rem;" :check="true?'yes':''" text="section 18 <i>[registration of extraprovincial or foreign order]</i> of the <i>Interjurisdictional Support Orders Act</i>"/>
+                    <check-box style="margin:0.05rem 0 0 0rem;" :check="true?'yes':''" text="section 195 <i>[Provincial Court enforcement of Supreme Court orders]</i> of the <i>Family Law Act</i>"/>
+                    <check-box style="margin:0.05rem 0 0 0rem;" :check="true?'yes':''" text="section 15-3 (6) <i>[enforcement in Provincial Court]</i> of the <i>Supreme Court Family Rules</i>"/>
                    
                 </div>                  
             </section>
@@ -189,26 +189,26 @@
 
         <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:0rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support Services staff only</i></div>
-            <div style="width:99%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support</i></div>
+            <div style="margin-left:0.85rem; width:96%; ;font-size: 9pt; border:1px solid;">
 
-                <check-box style="margin:0.25rem 0 0 1rem;" :check="true?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
-                   
-                <div style="display:inline; margin-left:0.5rem;font-size: 9pt;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="true?'yes':''"  text="Family Maintenance Enforcement Program"/>                        
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="true?'yes':''" text="Interjurisdictional Support Services"/> 
-                </div> 
+                <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
+                <div></div>   
+                <div style="display:inline-block; margin:0.25rem 0 0 1.5rem;font-size: 9pt;">
+                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="true?'yes':''"  text="Family Maintenance Enforcement Program"/>                        
+                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="true?'yes':''" text="Interjurisdictional Support Services"/> 
+                </div>
 
-                <div style="margin-top: 1rem;font-size: 9pt;">
+                <div style="margin:0.25rem 0 0 .75rem;" >
                     Notes:
                 </div>
                 
-                <div v-if="true" 
+                <div v-if="false" 
                     class="answerbox"></div>
                 <div v-else style="margin-bottom:3rem;"></div>
                
             </div>
-            <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.25rem 0 0 1rem;; font-size:9pt;"><i>Services staff only</i></div>
         </div>
 
         <div class="print-block mt-5"></div> 

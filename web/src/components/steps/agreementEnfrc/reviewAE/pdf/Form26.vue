@@ -1,7 +1,7 @@
 <template>
 <div v-if="dataReady">    
     <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button>  -->
-    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
+    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>      
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <form-26-layout v-bind:result="result"/>
     </b-card>
@@ -51,12 +51,12 @@ export default class Form26 extends Vue {
     }   
            
     public onPrint() { 
-        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc")
+        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc26")
         const pdf_name = "request-to-file-an-order"
         const el= document.getElementById("print");
 
         const applicationId = this.$store.state.Application.id;
-        const bottomLeftText = `"PFA736    `+moment().format("MMMM D, YYYY")+` \\a           Form 28";`;
+        const bottomLeftText = `"PFA736    `+moment().format("MMMM D, YYYY")+` \\a           Form 26";`;
         const bottomRightText = `" "`
         const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
@@ -86,7 +86,7 @@ export default class Form26 extends Vue {
 
     public onPrintSave(){
 
-        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc")
+        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc26")
         
         const applicationId = this.$store.state.Application.id;
         const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type

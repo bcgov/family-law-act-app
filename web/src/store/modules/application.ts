@@ -917,7 +917,7 @@ class Application extends VuexModule {
         s.active = false;
         s.id = "7";
         s.name = "ENFRC";
-        s.label = "Enforcement of agreements and court orders";
+        s.label = "Enforcement of Agreements and Court Orders";
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepEnfrc";
@@ -976,11 +976,35 @@ class Application extends VuexModule {
 
         p = {} as pageInfoType;
         p.key = "5";
-        p.name = "PreviewFormsENFRC";
-        p.label = "Preview Forms";
+        p.name = "PreviewForm26ENFRC";
+        p.label = "Preview Form 26";
         p.active = false;
         p.progress = 0;    
-        s.pages.push(p);        
+        s.pages.push(p); 
+        
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewForm27ENFRC";
+        p.label = "Preview Form 27";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewForm28ENFRC";
+        p.label = "Preview Form 28";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "PreviewForm29ENFRC";
+        p.label = "Preview Form 29";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
 
         this.steps.push(s);
 

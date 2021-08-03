@@ -1,9 +1,6 @@
 <template>
     <div v-if="dataReady" >
-        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">           
-            <!-- <form29 @enableNext="EnableNext"/> -->
-            <!-- <form28 @enableNext="EnableNext"/> -->
-            <!-- <form27 @enableNext="EnableNext"/> -->
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">                       
             <form26 @enableNext="EnableNext"/>
         </page-base>
     </div>
@@ -11,9 +8,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Form29 from  "./pdf/Form29.vue";
-import Form28 from  "./pdf/Form28.vue";
-import Form27 from  "./pdf/Form27.vue";
 import Form26 from  "./pdf/Form26.vue";
 import PageBase from "@/components/steps/PageBase.vue";
 
@@ -24,14 +18,11 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{       
-        Form29,
-        Form28,
-        Form27,
         Form26,
         PageBase
     }
 })
-export default class PreviewFormsEnfrc extends Vue {
+export default class PreviewForm26Enfrc extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
@@ -71,7 +62,7 @@ export default class PreviewFormsEnfrc extends Vue {
 
     public checkErrorOnPages(steps){
 
-        const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit","Preview Forms"]
+        const optionalLabels = ["Preview Form 26","Preview Form 27","Preview Form 28","Preview Form 29"]
         for(const stepIndex of steps){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
