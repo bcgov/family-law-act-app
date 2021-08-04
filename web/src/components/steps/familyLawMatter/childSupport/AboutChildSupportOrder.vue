@@ -123,8 +123,8 @@ export default class AboutChildSupportOrder extends Vue {
 
         this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"]=[Vue.filter('getFullName')(this.applicantName)];
 
-        if (stepCOM.result?.otherPartyCommonSurvey?.data?.otherPartyCommonData) {
-            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data.otherPartyCommonData;            
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                this.surveyJsonCopy.pages[0].elements[0].elements[0]["choices"].push(Vue.filter('getFullName')(otherParty.name));
             }

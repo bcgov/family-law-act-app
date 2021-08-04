@@ -12,7 +12,7 @@ export function whichAgreementEnfrcForm() {
     if( stepENFRC.result?.enforceAgreementOrOrderSurvey?.data &&  stepENFRC.result?.enfrcQuestionnaireSurvey?.data){
         
         const enfrcAgreeOrderData =  stepENFRC.result.enforceAgreementOrOrderSurvey.data;
-        const selectedEnfrc = stepENFRC.result.enfrcQuestionnaireSurvey.data.selected;
+        const selectedEnfrc = stepENFRC.result.enfrcQuestionnaireSurvey.data
         
         if(selectedEnfrc.includes('writtenAgreementOrder') && enfrcAgreeOrderData.enforceOrder =="n" && enfrcAgreeOrderData.filedOrder == "n"){
             if(enfrcAgreeOrderData.existingType == "courtOrder")

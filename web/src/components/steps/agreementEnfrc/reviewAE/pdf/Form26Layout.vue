@@ -216,14 +216,13 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import CheckBoxII from "./components/CheckBoxII.vue";
-import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import UnderlineForm from "./components/UnderlineForm.vue"
+import CheckBox from "./components/CheckBox.vue"
+import CheckBoxII from "./components/CheckBoxII.vue"
+import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form26InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
-import { enforceAgreementOrOrderSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 
 @Component({
     components:{
@@ -305,9 +304,9 @@ export default class Form26Layout extends Vue {
 
         let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey?.otherPartyCommonData?.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
-            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey.otherPartyCommonData;
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
                 let otherParty = {} as enfrcOtherPartyDataInfoType;               
@@ -334,12 +333,10 @@ export default class Form26Layout extends Vue {
     public getForm26Info() {
 
         let form26Information = {} as form26InformationDataInfoType;
-
-        if (this.result.enforceAgreementOrOrderSurvey) {   
-            const enfrcAgrOrdr: enforceAgreementOrOrderSurveyDataInfoType = this.result.enforceAgreementOrOrderSurvey;        
-            form26Information.agreementDate = (enfrcAgrOrdr.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcAgrOrdr.existingDate):'';
-            form26Information.agreementList = (enfrcAgrOrdr.filedOrder == 'n')?enfrcAgrOrdr.agreementType:[];
-            form26Information.filed = enfrcAgrOrdr.filedOrder == 'n';
+        if (this.result.enforceAgreementOrOrderSurvey) {           
+            form26Information.agreementDate = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate):'';
+            form26Information.agreementList = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?this.result.enforceAgreementOrOrderSurvey.agreementType:[];
+            form26Information.filed = this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n';
         }
       
         return form26Information;

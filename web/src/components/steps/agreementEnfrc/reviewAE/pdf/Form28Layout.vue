@@ -231,7 +231,6 @@ import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form28InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
-import { enforceAgreementOrOrderSurveyDataInfoType, enfrcQuestionnaireSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 
 @Component({
     components:{
@@ -312,9 +311,9 @@ export default class Form28Layout extends Vue {
 
         let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey?.otherPartyCommonData?.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
-            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey.otherPartyCommonData;
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
                 let otherParty = {} as enfrcOtherPartyDataInfoType;               
@@ -343,24 +342,20 @@ export default class Form28Layout extends Vue {
         let form28Information = {} as form28InformationDataInfoType;
         form28Information.orderList = [];
 
-        if (this.result.enforceAgreementOrOrderSurvey) {  
-            const enfrcAgrOrdr: enforceAgreementOrOrderSurveyDataInfoType = this.result.enforceAgreementOrOrderSurvey;          
-            form28Information.orderDate = (enfrcAgrOrdr.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcAgrOrdr.existingDate):'';
-            if (enfrcAgrOrdr.filedOrder == 'n'){
-                form28Information.orderList = enfrcAgrOrdr.orderType;
+        if (this.result.enforceAgreementOrOrderSurvey) {           
+            form28Information.orderDate = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate):'';
+            if (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
+                form28Information.orderList = this.result.enforceAgreementOrOrderSurvey.orderType;
             } else {
                 form28Information.orderList = [];
             }
-            form28Information.filed = enfrcAgrOrdr.filedOrder == 'n';
+            form28Information.filed = this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n';
         }
         
         
-        if (this.result.enfrcQuestionnaireSurvey) {
+        if (this.result.enfrcQuestionnaireSurvey) {   
 
-            const enfrcQuest: enfrcQuestionnaireSurveyDataInfoType = this.result.enfrcQuestionnaireSurvey; 
-            const enfrcAgrOrdr: enforceAgreementOrOrderSurveyDataInfoType = this.result.enforceAgreementOrOrderSurvey;  
-
-            if (enfrcQuest.selected.includes('foreignSupport') && enfrcAgrOrdr.filedOrder == 'n'){
+            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport') && this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
                 
                 form28Information.orderList.push('foreignSupport');
 

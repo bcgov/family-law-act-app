@@ -18,16 +18,11 @@ export interface otherPartyInfoType {
 }
 
 export interface otherPartyCommonSurveyInfoType {
-  data: otherPartyCommonSurveyDataInfoType;
+  data: otherPartyInfoType[];
   questions?: questionInfoType[];
   pageName?: string;
   currentStep?: number;
   currentPage?: number;
-}
-
-export interface otherPartyCommonSurveyDataInfoType {
-  otherPartyCommonData: otherPartyInfoType[];
-  acknowledgement?: boolean;  
 }
 
 export interface childInfoType {

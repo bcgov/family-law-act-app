@@ -129,9 +129,9 @@ export default class FlmBackground extends Vue {
         
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
        
-        if (stepCOM.result?.otherPartyCommonSurvey?.data?.otherPartyCommonData) {
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
             
-            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data.otherPartyCommonData;            
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;            
             for (const otherParty of otherPartyData){
                 this.surveyJsonCopy.pages[0].elements[0].elements[8]["choices"].push(Vue.filter('getFullName')(otherParty.name));
                 this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name));

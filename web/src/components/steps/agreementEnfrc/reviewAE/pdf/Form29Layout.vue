@@ -63,7 +63,7 @@
                 <check-box style="" :check="form29Info.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="This application is about enforcement under Rule 135. I understand I must give notice of this application to each other party. To
                     give notice, they must be served with the application and supporting documents at least 7 days before the date set for the court
                     appearance unless the court allows the application to be made without notice or with less than 7 days' notice."/>
-                <check-box style="" :check="form29Info.foreignNotice?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
+                <check-box style="" :check="form29Info.noticeType == 'askingForWithoutNotice'?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
                     understand I must give notice of this application to the designated authority. To give notice, the designated authority must be
                     served with the application and supporting documents by registered mail at least 30 days before the application is to be heard
                     by the court." />
@@ -292,7 +292,6 @@ import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
-import { aboutTheOrderEnforcementSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 
 @Component({
     components:{
@@ -373,9 +372,9 @@ export default class Form29Layout extends Vue {
 
         let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey?.otherPartyCommonData?.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
-            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey.otherPartyCommonData;
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
                 let otherParty = {} as enfrcOtherPartyDataInfoType;               
@@ -404,49 +403,42 @@ export default class Form29Layout extends Vue {
         let form29Information = {} as form29InformationDataInfoType;
         form29Information.orderList = [];
         form29Information.arrearsDate = '';
-        form29Information.foreignNotice = false;
 
         if (this.result.enfrcQuestionnaireSurvey) {
 
-            const enfrcQuest: string[] = this.result.enfrcQuestionnaireSurvey.selected;
-
-            if (enfrcQuest.includes('parentingCoordinatorDetermination')){
+            if (this.result.enfrcQuestionnaireSurvey.includes('parentingCoordinatorDetermination')){
                 form29Information.orderList.push('determination')
                 if (this.result.enforceChangeSetAsideDeterminationSurvey){
                     form29Information.determinationDate = Vue.filter('beautify-date')(this.result.enforceChangeSetAsideDeterminationSurvey.existingDate);
                 }               
             }
 
-            if (enfrcQuest.includes('writtenAgreementOrder') && this.result.enforceAgreementOrOrderSurvey) {
+            if (this.result.enfrcQuestionnaireSurvey.includes('writtenAgreementOrder') && this.result.enforceAgreementOrOrderSurvey) {
                 form29Information.orderList.push('writtenAgreementOrder');
                 form29Information.writtenAgreementOrderDate = Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate);
             }
 
 
-            if (enfrcQuest.includes('arrears')){
+            if (this.result.enfrcQuestionnaireSurvey.includes('arrears')){
                 form29Information.orderList.push('arrears');
                 form29Information.arrearsDate = '';
             }
 
-            if (enfrcQuest.includes('foreignSupport')){
+            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport')){
                 form29Information.orderList.push('foreignSupport')
-                form29Information.foreignNotice = this.result.enfrcQuestionnaireSurvey.acknowledgement;
             }            
         }
 
         if (this.result.aboutTheOrderEnforcementSurvey) {
-
-            const enfrcQuest: string[] = this.result.enfrcQuestionnaireSurvey.selected;
-            const abtOrdrEnfrc: aboutTheOrderEnforcementSurveyDataInfoType = this.result.aboutTheOrderEnforcementSurvey;
-
-            if (enfrcQuest.includes('foreignSupport')) {
-                form29Information.facts = abtOrdrEnfrc.applicationFacts2;
+            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport')) {
+                form29Information.facts = this.result.aboutTheOrderEnforcementSurvey.applicationFacts2;
             } else {
-                form29Information.facts = abtOrdrEnfrc.applicationFacts1;    
+                form29Information.facts = this.result.aboutTheOrderEnforcementSurvey.applicationFacts1;    
             }
+            form29Information.orderdesc = this.result.aboutTheOrderEnforcementSurvey.orderDescription;
+        }
 
-            form29Information.orderdesc = abtOrdrEnfrc.orderDescription;
-        }        
+        
        
         return form29Information;
     }

@@ -272,13 +272,12 @@ export default class OtherPartyCommon extends Vue {
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {        
-        this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: {otherPartyCommonData: this.getOtherPartyResults(), acknowledgement: this.acknowledgeNotice}}})
+        this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
     }
 
     currentStep=0;
     currentPage=0;
-    showServeNoticeInfo = false;
-    acknowledgeNotice = false;
+    showServeNoticeInfo = false
     showTable = true;
     popInfo = false;
     flmInfo = false;
@@ -293,13 +292,12 @@ export default class OtherPartyCommon extends Vue {
     editId = null;
  
     created() {
-        if (this.step.result?.otherPartyCommonSurvey?.data?.otherPartyCommonData) {
-            this.otherPartyData = this.step.result.otherPartyCommonSurvey.data.otherPartyCommonData;
+        if (this.step.result && this.step.result.otherPartyCommonSurvey) {
+            this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
         }
     }
 
     mounted(){
-        this.acknowledgeNotice = false;
         this.popInfo = false;    
         this.flmInfo = false;  
         this.ppmInfo = false; 
@@ -416,7 +414,6 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public closePopInfo(){
-        this.acknowledgeNotice = true;
         this.popInfo = false;       
         this.UpdateGotoNextStepPage();
              
@@ -444,7 +441,7 @@ export default class OtherPartyCommon extends Vue {
         const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: {otherPartyCommonData:this.getOtherPartyResults(), acknowledgement: this.acknowledgeNotice}}})       
+        this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
     }
 
     public mergeRespondants(){

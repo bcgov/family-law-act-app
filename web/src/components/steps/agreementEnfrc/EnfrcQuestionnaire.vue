@@ -177,7 +177,7 @@
       </div>
     </div>
 
-      <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close >
+      <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
             
             <div class="m-3">
                
@@ -281,7 +281,7 @@ export default class EnfrcQuestionnaire extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
         if (this.step.result?.enfrcQuestionnaireSurvey) {
-            this.selectedEnforcementQuestionnaire = this.step.result.enfrcQuestionnaireSurvey.data.selected;
+            this.selectedEnforcementQuestionnaire = this.step.result.enfrcQuestionnaireSurvey.data;
         }
 
         this.setSteps(this.selectedEnforcementQuestionnaire, false);
@@ -398,7 +398,7 @@ export default class EnfrcQuestionnaire extends Vue {
         const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'EnfrcQuestionnaire',title:'I want to apply for the following Enforcement options:',value:this.getselectedEnforcementQuestionnaireNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: {selected: this.selectedEnforcementQuestionnaire, acknowledgement: this.popInfoUnderstand}, questions: questions, pageName:"Enforcement Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: this.selectedEnforcementQuestionnaire, questions: questions, pageName:"Enforcement Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>

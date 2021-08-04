@@ -82,7 +82,7 @@ export default class AboutTheOrderEnforcement extends Vue {
         
         if (this.step.result?.enfrcQuestionnaireSurvey?.data) {
            
-            this.survey.setVariable('includesForeign', this.step.result.enfrcQuestionnaireSurvey.data.selected.includes('foreignSupport'))
+            this.survey.setVariable('includesForeign', this.step.result.enfrcQuestionnaireSurvey.data.includes('foreignSupport'))
         }
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);

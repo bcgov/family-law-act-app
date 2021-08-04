@@ -80,8 +80,8 @@ export default class ContactInformationOtherParty extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
         let otherPartyNames = []
-        if(this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result?.otherPartyCommonSurvey?.data?.otherPartyCommonData){
-            otherPartyNames = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result.otherPartyCommonSurvey.data.otherPartyCommonData
+        if(this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result?.otherPartyCommonSurvey?.data){
+            otherPartyNames = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result?.otherPartyCommonSurvey?.data
         }
 
         if (this.step.result?.contactInformationOtherPartySurvey?.data?.otherPartyInfo?.length == otherPartyNames.length) {

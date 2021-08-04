@@ -852,7 +852,7 @@ export default class FormK extends Vue {
             info = [{'name':name, 'dob': dob , 'address': address ,'contact': contactInfo}]
         }
         else if(this.result.poQuestionnaireSurvey?.orderType == 'changePO' || this.result.poQuestionnaireSurvey?.orderType == 'terminatePO'){    
-            for(const party of this.result.otherPartySurvey.otherPartyCommonData){
+            for(const party of this.result.otherPartySurvey){
                 dob = ''
                 name = ''
                 address = ''

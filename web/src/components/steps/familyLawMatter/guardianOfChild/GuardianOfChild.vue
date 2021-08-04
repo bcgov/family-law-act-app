@@ -218,8 +218,8 @@ export default class GuardianOfChild extends Vue {
     public adjustSurveyForOtherParties(){
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (stepCOM.result?.otherPartyCommonSurvey?.data?.otherPartyCommonData) {
-            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data.otherPartyCommonData;
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data;
             this.otherPartyNames = [];            
             for (const otherParty of otherPartyData){
                 this.otherPartyNames.push(Vue.filter('getFullName')(otherParty.name))                

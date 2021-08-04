@@ -267,10 +267,10 @@ export default class CommonSection extends Vue {
 
         let OpInformation: caseManagementOtherPartyDataInfoType[] = [];        
 
-        if (this.result?.otherPartyCommonSurvey?.otherPartyCommonData?.length > 0){
+        if (this.result?.otherPartyCommonSurvey?.length > 0){
             
             OpInformation = [];
-            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey.otherPartyCommonData;
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
                 let otherParty = {} as caseManagementOtherPartyDataInfoType;
