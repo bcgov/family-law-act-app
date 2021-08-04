@@ -342,20 +342,22 @@ export default class Form28Layout extends Vue {
         let form28Information = {} as form28InformationDataInfoType;
         form28Information.orderList = [];
 
-        if (this.result.enforceAgreementOrOrderSurvey) {           
-            form28Information.orderDate = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate):'';
-            if (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
-                form28Information.orderList = this.result.enforceAgreementOrOrderSurvey.orderType;
+        if (this.result.enforceAgreementOrOrderSurvey) { 
+            
+            const enfrcAgrmntOrdr = this.result.enforceAgreementOrOrderSurvey;
+            form28Information.orderDate = (enfrcAgrmntOrdr.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcAgrmntOrdr.existingDate):'';
+            if (enfrcAgrmntOrdr.filedOrder == 'n'){
+                form28Information.orderList = enfrcAgrmntOrdr.orderType;
             } else {
                 form28Information.orderList = [];
             }
-            form28Information.filed = this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n';
-        }
-        
+            form28Information.filed = enfrcAgrmntOrdr.filedOrder == 'n';
+        }        
         
         if (this.result.enfrcQuestionnaireSurvey) {   
 
-            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport') && this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
+            const enfrcQuest: string[] = this.result.enfrcQuestionnaireSurvey;
+            if (enfrcQuest.includes('foreignSupport') && this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
                 
                 form28Information.orderList.push('foreignSupport');
 

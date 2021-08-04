@@ -238,6 +238,7 @@ import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
+import { enforceChangeSetAsideDeterminationSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 
 @Component({
     components:{
@@ -346,15 +347,16 @@ export default class Form27Layout extends Vue {
     
     public getForm27Info() {
 
-        let form27Information = {} as form27InformationDataInfoType;        
+        let form27Information = {} as form27InformationDataInfoType;
 
-        if (this.result.enforceChangeSetAsideDeterminationSurvey) {           
-            form27Information.existingDate = (this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceChangeSetAsideDeterminationSurvey.existingDate):'';
-            form27Information.type = (this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n')?this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.selected:'';
-            form27Information.filed = this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n';
-            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.agreementDate:'';
-            form27Information.orderDate = (form27Information.type == 'courtOrder')? this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.courtOrderDate:'';
-       
+        if (this.result.enforceChangeSetAsideDeterminationSurvey) {  
+
+            const enfrcChngdDet: enforceChangeSetAsideDeterminationSurveyDataInfoType = this.result.enforceChangeSetAsideDeterminationSurvey;         
+            form27Information.existingDate = (enfrcChngdDet.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcChngdDet.existingDate):'';
+            form27Information.type = (enfrcChngdDet.filedOrder == 'n')?enfrcChngdDet.appointedDetermination.selected:'';
+            form27Information.filed = enfrcChngdDet.filedOrder == 'n';
+            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? enfrcChngdDet.appointedDetermination.agreementDate:'';
+            form27Information.orderDate = (form27Information.type == 'courtOrder')? enfrcChngdDet.appointedDetermination.courtOrderDate:'';       
         }
       
         return form27Information;
