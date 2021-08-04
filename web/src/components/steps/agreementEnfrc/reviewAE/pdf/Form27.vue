@@ -41,7 +41,6 @@ export default class Form27 extends Vue {
 
     result;
     dataReady = false; 
-    selectedSchedules: string[] = [];
    
     mounted(){
         this.dataReady = false;

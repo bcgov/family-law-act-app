@@ -40,8 +40,7 @@ export default class Form28 extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
-    dataReady = false; 
-    selectedSchedules: string[] = [];
+    dataReady = false;
    
     mounted(){
         this.dataReady = false;

@@ -60,10 +60,10 @@
                 <i>Select whichever option is correct</i>
             </div>
             <div style="margin:0rem 0 0 1.0rem;font-size: 9pt;" >
-                <check-box style="" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="This application is about enforcement under Rule 135. I understand I must give notice of this application to each other party. To
+                <check-box style="" :check="form29Info.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="This application is about enforcement under Rule 135. I understand I must give notice of this application to each other party. To
                     give notice, they must be served with the application and supporting documents at least 7 days before the date set for the court
                     appearance unless the court allows the application to be made without notice or with less than 7 days' notice."/>
-                <check-box style="" :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
+                <check-box style="" :check="form29Info.noticeType == 'askingForWithoutNotice'?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
                     understand I must give notice of this application to the designated authority. To give notice, the designated authority must be
                     served with the application and supporting documents by registered mail at least 30 days before the application is to be heard
                     by the court." />
@@ -198,32 +198,32 @@
             <div style="margin:0 0 0 1rem;font-size: 9pt;" >
                 <i>Select all options that apply</i>
                 <div  style="margin:0.0rem 0 0 0rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="to enforce the order or filed written agreement made on"/>               
-                    <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem; display:inline-block;" textwidth="10rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" :check="form29Info.orderList.includes('writtenAgreementOrder')?'yes':''" text="to enforce the order or filed written agreement made on"/>               
+                    <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem; display:inline-block;" textwidth="10rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form29Info.writtenAgreementOrderDate"/>
                 </div>
 
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="to enforce, change or set aside the filed determination of a parenting coordinator dated"/>               
-                    <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;display:inline-block;" textwidth="7rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" :check="form29Info.orderList.includes('determination')?'yes':''" text="to enforce, change or set aside the filed determination of a parenting coordinator dated"/>               
+                    <underline-form class="marginleft0p25vue" style="text-indent:0px;margin-left:-0.5rem;display:inline-block;" textwidth="7rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form29Info.determinationDate"/>
                 </div>
 
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box style="" :check="true?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'yes':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
+                    <check-box style="" :check="false?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
                 </div>
 
-                <div  style="margin:0.5rem 0 0 0rem;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline;" :check="true?'yes':''" text="to determine whether arrears are owing under the support order or agreement dated"/>               
-                    <underline-form class="marginleft0p25vue" style="text-indent:0px; margin-left:-0.5rem; display:inline;" textwidth="8rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                <div style="margin:0.5rem 0 0 0rem;">
+                    <check-box inline="inline" boxMargin="0" style="display:inline;" :check="form29Info.orderList.includes('arrears')?'yes':''" text="to determine whether arrears are owing under the support order or agreement dated"/>               
+                    <underline-form class="marginleft0p25vue" style="text-indent:0px; margin-left:-0.5rem; display:inline;" textwidth="8rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form29Info.arrearsDate"/>
                     <div style="text-indent:10px;display:inline-block;">make under the <i>Family Law Act</i>, and if so, the amount of arrears (unpaid support)</div>
                 </div>
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box style="" :check="true?'yes':''" text="to set aside the registration of a foreign order under section 19(3) of the <i>Interjurisdictional Support Orders Act</i>"/>
+                    <check-box style="" :check="form29Info.orderList.includes('foreignSupport')?'yes':''" text="to set aside the registration of a foreign order under section 19(3) of the <i>Interjurisdictional Support Orders Act</i>"/>
                 </div>
                 
             </div>                  
@@ -233,7 +233,7 @@
 <!-- <5> -->
         <div class="print-block" style="margin:2rem 0;">
             <section>               
-                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="true?'yes':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
+                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="false?'yes':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
             </section>
         </div>   
 
@@ -249,8 +249,8 @@
                         Tell the court and the other party the specifics of the order you are applying for. Include how you want to see the order or
                         agreement enforced or the remedy you are applying for.
                     </i>
-                    <div v-if="false" 
-                        class="answerbox"></div>
+                    <div v-if="form29Info.orderdesc" 
+                        class="answerbox">{{form29Info.orderdesc}}</div>
                     <div v-else style="margin-bottom:3rem;"></div> 
                 </div>            
             </section>
@@ -267,8 +267,8 @@
                    Provide the facts you want the court to consider. Include how the other party has failed to follow the order or agreement,
                     if applicable, and why the court should make the order you are applying for.
                 </i>                
-                <div v-if="false" 
-                    class="answerbox"></div>
+                <div v-if="form29Info.facts" 
+                    class="answerbox">{{form29Info.facts}}</div>
                 <div v-else style="margin-bottom:3rem;"></div> 
             
             </section>
@@ -285,14 +285,13 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import CheckBoxII from "./components/CheckBoxII.vue"
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
-import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+import CheckBoxII from "./components/CheckBoxII.vue";
+import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
+import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 
 @Component({
     components:{
@@ -316,22 +315,13 @@ export default class Form29Layout extends Vue {
 
     dataReady = false;   
     
-    otherPartyInfo: priorityParentingOtherPartyDataInfoType[] = [];
-    additionalOtherParties: priorityParentingOtherPartyDataInfoType[] = [];
-    firstOtherParty = {} as priorityParentingOtherPartyDataInfoType;
+    otherPartyInfo: enfrcOtherPartyDataInfoType[] = [];
+    additionalOtherParties: enfrcOtherPartyDataInfoType[] = [];
+    firstOtherParty = {} as enfrcOtherPartyDataInfoType;
     yourInfo = {} as yourInformationInfoDataInfoType;
-    ppmInfo = {} as priorityParentingInformationDataInfoType;
+    form29Info = {} as form29InformationDataInfoType;
     
-    existingFileNumber = ''
-    
-    childrenInfo: childrenInfoSurveyInfoType[] = [];
-
-    childrenFields = [
-        {key:"fullName",               label:"Child's full name",                          tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
-    ]   
+    existingFileNumber = ''; 
 
     mounted(){
         this.dataReady = false;
@@ -346,14 +336,10 @@ export default class Form29Layout extends Vue {
         if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
-        }
-
-        if (this.result.ppmChildrenInfoSurvey?.length > 0){          
-            this.childrenInfo = this.getChildrenInfo();
-        }
+        }        
         
         this.yourInfo = this.getYourInfo();
-        this.ppmInfo = this.getPpmInfo();
+        this.form29Info = this.getForm29Info();
         this.getLocationInfo()
     } 
     
@@ -361,24 +347,6 @@ export default class Form29Layout extends Vue {
         const locationData = this.result.filingLocationSurvey;           
         this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }   
-    
-    public getChildrenInfo() {
-
-        const childrenInfo: childrenInfoSurveyInfoType[] = [];
-        let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.ppmChildrenInfoSurvey;
-       
-        for (const child of childData) {            
-            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-            childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
-            childInfo.myRelationship = child.relation;
-            childInfo.otherPartyRelationship = child.opRelation;
-            childrenInfo.push(childInfo)
-        }        
-
-        return childrenInfo;
-    }
 
     public getYourInfo(){
 
@@ -402,14 +370,14 @@ export default class Form29Layout extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
+        let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
+                let otherParty = {} as enfrcOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob
@@ -430,70 +398,49 @@ export default class Form29Layout extends Vue {
         return OpInformation
     }  
     
-    public getPpmInfo() {
+    public getForm29Info() {
 
-        let ppmInformation = {} as priorityParentingInformationDataInfoType;
+        let form29Information = {} as form29InformationDataInfoType;
+        form29Information.orderList = [];
+        form29Information.arrearsDate = '';
 
-        if (this.result.ppmBackgroundSurvey) {
-            const ppmBackgroundData: ppmBackgroundDataSurveyDataInfoType = this.result.ppmBackgroundSurvey;
-            ppmInformation.ExistingCase = (ppmBackgroundData.ExistingOrdersFLM == 'y');
-            ppmInformation.existingProceeding = (ppmBackgroundData.existingCourtProceeding == 'y');
-            ppmInformation.proceedingInfo = (ppmBackgroundData.existingCourtProceeding == 'y' && 
-                                             ppmBackgroundData.existingCourtProceedingDetails)? ppmBackgroundData.existingCourtProceedingDetails:'';
+        if (this.result.enfrcQuestionnaireSurvey) {
+
+            if (this.result.enfrcQuestionnaireSurvey.includes('parentingCoordinatorDetermination')){
+                form29Information.orderList.push('determination')
+                if (this.result.enforceChangeSetAsideDeterminationSurvey){
+                    form29Information.determinationDate = Vue.filter('beautify-date')(this.result.enforceChangeSetAsideDeterminationSurvey.existingDate);
+                }               
+            }
+
+            if (this.result.enfrcQuestionnaireSurvey.includes('writtenAgreementOrder') && this.result.enforceAgreementOrOrderSurvey) {
+                form29Information.orderList.push('writtenAgreementOrder');
+                form29Information.writtenAgreementOrderDate = Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate);
+            }
+
+
+            if (this.result.enfrcQuestionnaireSurvey.includes('arrears')){
+                form29Information.orderList.push('arrears');
+                form29Information.arrearsDate = '';
+            }
+
+            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport')){
+                form29Information.orderList.push('foreignSupport')
+            }            
         }
 
-        if (this.result.aboutPriorityParentingMatterOrderSurvey) {
-            const aboutPpmOrderData: aboutPriorityParentingMatterOrderSurveyDataInfoType = this.result.aboutPriorityParentingMatterOrderSurvey;
-            ppmInformation.facts = aboutPpmOrderData.applicationFacts;
-            ppmInformation.orderdesc = aboutPpmOrderData.orderDescription;
+        if (this.result.aboutTheOrderEnforcementSurvey) {
+            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport')) {
+                form29Information.facts = this.result.aboutTheOrderEnforcementSurvey.applicationFacts2;
+            } else {
+                form29Information.facts = this.result.aboutTheOrderEnforcementSurvey.applicationFacts1;    
+            }
+            form29Information.orderdesc = this.result.aboutTheOrderEnforcementSurvey.orderDescription;
         }
 
-        if (this.result.noticeSurvey) {
-            const noticeData: noticeSurveyDataInfoType = this.result.noticeSurvey;
-            ppmInformation.noticeType = noticeData.noticeType;
-        }
-
-        if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
-            const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
-            const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
-            ppmInformation.ppmList = [];
-                 
-            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
-                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('medical');
-                }
-            if ((ppmType.includes('passport')) && (ppmOrderData.delayPassportRisk == 'y') && 
-                (ppmOrderData.confirmDelayPassportRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('passport');
-                }
-            if ((ppmType.includes('travel')) && (ppmOrderData.delayTravelRisk == 'y') && 
-                (ppmOrderData.travelWrongfullyDenied == 'y') && 
-                (ppmOrderData.confirmTravelWrongfullyDenied?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('travel');
-                }
-            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements == 'n') &&
-                (ppmOrderData.impactOnRelationship == 'y') && 
-                (ppmOrderData.confirmImpactOnRelationship?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('locationChange');   
-                }
-            if ((ppmType.includes('preventRemoval')) && (ppmOrderData.noReturnRisk == 'y') && 
-                (ppmOrderData.confirmNoReturnRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('preventRemoval');   
-                }
-            if ((ppmType.includes('interjurisdictional')) && (ppmOrderData.childInBC == 'y') && 
-                (ppmOrderData.harm == 'y') && (ppmOrderData.confirmHarm?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('interjurisdictional');      
-                }
-            if ((ppmType.includes('wrongfulRemoval')) && (ppmOrderData.wrongfulInBC == 'y') && 
-                (ppmOrderData.confirmWrongfulInBC?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('wrongfulRemoval');   
-                }
-            if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn == 'y') && 
-                (ppmOrderData.confirmWrongfulReturn?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('returnOfChild');
-                }
-        }
-        return ppmInformation;
+        
+       
+        return form29Information;
     }
  
 }

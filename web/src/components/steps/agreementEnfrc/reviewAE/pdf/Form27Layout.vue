@@ -170,11 +170,11 @@
                         inline="inline" 
                         boxMargin="0" 
                         style="display:inline; margin:0 0.5rem 0 0;" 
-                        :check="true?'yes':''" 
+                        :check="form27Info.filed?'yes':''" 
                         text="I request the determination by a parenting coordinator referred to in section 18 <i>[determinations by</i>"/>
                     <div style="text-indent:0px; margin:0rem 0 0 1.75rem; " >
                         <i>parenting coordinators]</i> of the <i>Family Law Act</i> dated               
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.existingDate"/>
                         <div style="text-indent:0px; display:inline;"> between the above parties be filed in the Provincial Court</div>
                     </div>
                 </div>              
@@ -194,9 +194,9 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline; margin:0 0.5rem 0 0;" 
-                            :check="true?'yes':''" 
+                            :check="form27Info.type == 'writtenAgreement'?'yes':''" 
                             text="an agreement made on"/>               
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.agreementDate"/>
                         <div style="text-indent:10px;display:inline;"> between </div>
                         <underline-form style="text-indent:1px;display:inline;" textwidth="16.75rem" beforetext="" hint="(parties to the agreement)" text=""/>
                         <div style="display:inline;"> , </div>
@@ -208,9 +208,9 @@
                             inline="inline" 
                             boxMargin="0" 
                             style="display:inline; margin:0 0.5rem 0 0;" 
-                            :check="true?'yes':''" 
+                            :check="form27Info.type == 'courtOrder'?'yes':''" 
                             text="a court order made on"/>               
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                        <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.orderDate"/>
                         
                     </div>                            
                 </div>                  
@@ -227,19 +227,17 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import CheckBoxII from "./components/CheckBoxII.vue"
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
-import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+import CheckBoxII from "./components/CheckBoxII.vue";
+import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
+import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 
 @Component({
     components:{
@@ -263,22 +261,13 @@ export default class Form27Layout extends Vue {
 
     dataReady = false;   
     
-    otherPartyInfo: priorityParentingOtherPartyDataInfoType[] = [];
-    additionalOtherParties: priorityParentingOtherPartyDataInfoType[] = [];
-    firstOtherParty = {} as priorityParentingOtherPartyDataInfoType;
+    otherPartyInfo: enfrcOtherPartyDataInfoType[] = [];
+    additionalOtherParties: enfrcOtherPartyDataInfoType[] = [];
+    firstOtherParty = {} as enfrcOtherPartyDataInfoType;
     yourInfo = {} as yourInformationInfoDataInfoType;
-    ppmInfo = {} as priorityParentingInformationDataInfoType;
+    form27Info = {} as form27InformationDataInfoType;
     
-    existingFileNumber = ''
-    
-    childrenInfo: childrenInfoSurveyInfoType[] = [];
-
-    childrenFields = [
-        {key:"fullName",               label:"Child's full name",                          tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
-    ]   
+    existingFileNumber = ''; 
 
     mounted(){
         this.dataReady = false;
@@ -293,38 +282,16 @@ export default class Form27Layout extends Vue {
         if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
-        }
-
-        if (this.result.ppmChildrenInfoSurvey?.length > 0){          
-            this.childrenInfo = this.getChildrenInfo();
-        }
+        }        
         
         this.yourInfo = this.getYourInfo();
-        this.ppmInfo = this.getPpmInfo();
+        this.form27Info = this.getForm27Info();
         this.getLocationInfo()
     } 
     
     public getLocationInfo(){                
         const locationData = this.result.filingLocationSurvey;           
         this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }   
-    
-    public getChildrenInfo() {
-
-        const childrenInfo: childrenInfoSurveyInfoType[] = [];
-        let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.ppmChildrenInfoSurvey;
-       
-        for (const child of childData) {            
-            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-            childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
-            childInfo.myRelationship = child.relation;
-            childInfo.otherPartyRelationship = child.opRelation;
-            childrenInfo.push(childInfo)
-        }        
-
-        return childrenInfo;
     }
 
     public getYourInfo(){
@@ -349,14 +316,14 @@ export default class Form27Layout extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
+        let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
+                let otherParty = {} as enfrcOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob
@@ -377,70 +344,20 @@ export default class Form27Layout extends Vue {
         return OpInformation
     }  
     
-    public getPpmInfo() {
+    public getForm27Info() {
 
-        let ppmInformation = {} as priorityParentingInformationDataInfoType;
+        let form27Information = {} as form27InformationDataInfoType;        
 
-        if (this.result.ppmBackgroundSurvey) {
-            const ppmBackgroundData: ppmBackgroundDataSurveyDataInfoType = this.result.ppmBackgroundSurvey;
-            ppmInformation.ExistingCase = (ppmBackgroundData.ExistingOrdersFLM == 'y');
-            ppmInformation.existingProceeding = (ppmBackgroundData.existingCourtProceeding == 'y');
-            ppmInformation.proceedingInfo = (ppmBackgroundData.existingCourtProceeding == 'y' && 
-                                             ppmBackgroundData.existingCourtProceedingDetails)? ppmBackgroundData.existingCourtProceedingDetails:'';
+        if (this.result.enforceChangeSetAsideDeterminationSurvey) {           
+            form27Information.existingDate = (this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceChangeSetAsideDeterminationSurvey.existingDate):'';
+            form27Information.type = (this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n')?this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.selected:'';
+            form27Information.filed = this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n';
+            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.agreementDate:'';
+            form27Information.orderDate = (form27Information.type == 'courtOrder')? this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.courtOrderDate:'';
+       
         }
-
-        if (this.result.aboutPriorityParentingMatterOrderSurvey) {
-            const aboutPpmOrderData: aboutPriorityParentingMatterOrderSurveyDataInfoType = this.result.aboutPriorityParentingMatterOrderSurvey;
-            ppmInformation.facts = aboutPpmOrderData.applicationFacts;
-            ppmInformation.orderdesc = aboutPpmOrderData.orderDescription;
-        }
-
-        if (this.result.noticeSurvey) {
-            const noticeData: noticeSurveyDataInfoType = this.result.noticeSurvey;
-            ppmInformation.noticeType = noticeData.noticeType;
-        }
-
-        if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
-            const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
-            const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
-            ppmInformation.ppmList = [];
-                 
-            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
-                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('medical');
-                }
-            if ((ppmType.includes('passport')) && (ppmOrderData.delayPassportRisk == 'y') && 
-                (ppmOrderData.confirmDelayPassportRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('passport');
-                }
-            if ((ppmType.includes('travel')) && (ppmOrderData.delayTravelRisk == 'y') && 
-                (ppmOrderData.travelWrongfullyDenied == 'y') && 
-                (ppmOrderData.confirmTravelWrongfullyDenied?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('travel');
-                }
-            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements == 'n') &&
-                (ppmOrderData.impactOnRelationship == 'y') && 
-                (ppmOrderData.confirmImpactOnRelationship?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('locationChange');   
-                }
-            if ((ppmType.includes('preventRemoval')) && (ppmOrderData.noReturnRisk == 'y') && 
-                (ppmOrderData.confirmNoReturnRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('preventRemoval');   
-                }
-            if ((ppmType.includes('interjurisdictional')) && (ppmOrderData.childInBC == 'y') && 
-                (ppmOrderData.harm == 'y') && (ppmOrderData.confirmHarm?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('interjurisdictional');      
-                }
-            if ((ppmType.includes('wrongfulRemoval')) && (ppmOrderData.wrongfulInBC == 'y') && 
-                (ppmOrderData.confirmWrongfulInBC?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('wrongfulRemoval');   
-                }
-            if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn == 'y') && 
-                (ppmOrderData.confirmWrongfulReturn?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('returnOfChild');
-                }
-        }
-        return ppmInformation;
+      
+        return form27Information;
     }
  
 }

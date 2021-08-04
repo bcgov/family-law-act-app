@@ -40,12 +40,11 @@ export default class Form29 extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
-    dataReady = false; 
-    selectedSchedules: string[] = [];
+    dataReady = false;
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getEnfrcResultData();       
+        this.result = this.getEnfrcResultData();
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   

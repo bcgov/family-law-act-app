@@ -213,9 +213,9 @@ Vue.filter('getPathwayPdfType',function(name){
 	if (name == 'priorityParenting') 		return "AXP";
 	if (name == 'childReloc')        		return "APRC";
 	if (name == 'agreementEnfrc')    		return "AFET";
-	if (name == 'agreementEnfrc26')    		return "AFET26";
-	if (name == 'agreementEnfrc27')    		return "AFET27";
-	if (name == 'agreementEnfrc28')    		return "AFET28";
+	if (name == 'agreementEnfrc26')    		return "RFA";
+	if (name == 'agreementEnfrc27')    		return "RDET";
+	if (name == 'agreementEnfrc28')    		return "RORD";
 })
 
 Vue.filter('getFullOrderName',function(orderName, specific){

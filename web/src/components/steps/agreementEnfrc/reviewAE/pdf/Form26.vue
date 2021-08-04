@@ -10,16 +10,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
 import { namespace } from "vuex-class";   
+import moment from 'moment';
+
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Form26Layout from "./Form26Layout.vue";
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
-import moment from 'moment';
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
@@ -40,12 +38,12 @@ export default class Form26 extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
-    dataReady = false; 
-    selectedSchedules: string[] = [];
+    dataReady = false;
    
     mounted(){
         this.dataReady = false;
-        this.result = this.getEnfrcResultData();       
+        this.result = this.getEnfrcResultData();   
+        console.log(this.result)    
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   

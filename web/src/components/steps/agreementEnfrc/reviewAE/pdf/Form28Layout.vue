@@ -163,8 +163,8 @@
         <div class="print-block">
             <section> 
                 <div style="margin:0rem 0 0 0.3rem; display:inline;font-size: 9pt;">
-                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0.5rem 0 0;" :check="true?'yes':''" text="I request the copy of the order, certified by the court that made the order, dated"/>               
-                    <underline-form style="text-indent:1px;display:inline;" textwidth="9rem" beforetext="" hint="(mmm/dd/yyyy)" text=""/>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0.5rem 0 0;" :check="form28Info.filed?'yes':''" text="I request the copy of the order, certified by the court that made the order, dated"/>               
+                    <underline-form style="text-indent:1px;display:inline;" textwidth="9rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form28Info.orderDate"/>
                     <div style="text-indent:0px; margin-left:1.7rem;">between the above parties be filed in the Provincial Court</div>
                 </div>              
             </section>
@@ -178,9 +178,9 @@
                 <div style="margin:0rem 0 0 1rem;font-size: 9pt;" >
                     <i>Select all options that apply</i>                   
                     
-                    <check-box style="margin:0.05rem 0 0 0rem;" :check="true?'yes':''" text="section 18 <i>[registration of extraprovincial or foreign order]</i> of the <i>Interjurisdictional Support Orders Act</i>"/>
-                    <check-box style="margin:0.05rem 0 0 0rem;" :check="true?'yes':''" text="section 195 <i>[Provincial Court enforcement of Supreme Court orders]</i> of the <i>Family Law Act</i>"/>
-                    <check-box style="margin:0.05rem 0 0 0rem;" :check="true?'yes':''" text="section 15-3 (6) <i>[enforcement in Provincial Court]</i> of the <i>Supreme Court Family Rules</i>"/>
+                    <check-box style="margin:0.05rem 0 0 0rem;" :check="form28Info.orderList.includes('foreignSupport')?'yes':''" text="section 18 <i>[registration of extraprovincial or foreign order]</i> of the <i>Interjurisdictional Support Orders Act</i>"/>
+                    <check-box style="margin:0.05rem 0 0 0rem;" :check="form28Info.orderList.includes('section195')?'yes':''" text="section 195 <i>[Provincial Court enforcement of Supreme Court orders]</i> of the <i>Family Law Act</i>"/>
+                    <check-box style="margin:0.05rem 0 0 0rem;" :check="form28Info.orderList.includes('section15-3')?'yes':''" text="section 15-3 (6) <i>[enforcement in Provincial Court]</i> of the <i>Supreme Court Family Rules</i>"/>
                    
                 </div>                  
             </section>
@@ -224,14 +224,13 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import CheckBoxII from "./components/CheckBoxII.vue"
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
-import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
-import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+import CheckBoxII from "./components/CheckBoxII.vue";
+import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
+import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import { form28InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 
 @Component({
     components:{
@@ -255,22 +254,13 @@ export default class Form28Layout extends Vue {
 
     dataReady = false;   
     
-    otherPartyInfo: priorityParentingOtherPartyDataInfoType[] = [];
-    additionalOtherParties: priorityParentingOtherPartyDataInfoType[] = [];
-    firstOtherParty = {} as priorityParentingOtherPartyDataInfoType;
+    otherPartyInfo: enfrcOtherPartyDataInfoType[] = [];
+    additionalOtherParties: enfrcOtherPartyDataInfoType[] = [];
+    firstOtherParty = {} as enfrcOtherPartyDataInfoType;
     yourInfo = {} as yourInformationInfoDataInfoType;
-    ppmInfo = {} as priorityParentingInformationDataInfoType;
+    form28Info = {} as form28InformationDataInfoType;
     
-    existingFileNumber = ''
-    
-    childrenInfo: childrenInfoSurveyInfoType[] = [];
-
-    childrenFields = [
-        {key:"fullName",               label:"Child's full name",                          tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",        tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
-        {key:"myRelationship",         label:"My relationship to the child",               tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},        
-        {key:"otherPartyRelationship", label:"The other party's relationship to the child",tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:21%;"}
-    ]   
+    existingFileNumber = ''; 
 
     mounted(){
         this.dataReady = false;
@@ -285,14 +275,10 @@ export default class Form28Layout extends Vue {
         if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
-        }
-
-        if (this.result.ppmChildrenInfoSurvey?.length > 0){          
-            this.childrenInfo = this.getChildrenInfo();
-        }
+        }        
         
         this.yourInfo = this.getYourInfo();
-        this.ppmInfo = this.getPpmInfo();
+         this.form28Info = this.getForm28Info();
         this.getLocationInfo()
     } 
     
@@ -300,24 +286,6 @@ export default class Form28Layout extends Vue {
         const locationData = this.result.filingLocationSurvey;           
         this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }   
-    
-    public getChildrenInfo() {
-
-        const childrenInfo: childrenInfoSurveyInfoType[] = [];
-        let childInfo = {} as childrenInfoSurveyInfoType;
-        const childData = this.result.ppmChildrenInfoSurvey;
-       
-        for (const child of childData) {            
-            childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-            childInfo.fullName = Vue.filter('getFullName')(child.name);
-            childInfo.dob = Vue.filter('beautify-date')(child.dob);
-            childInfo.myRelationship = child.relation;
-            childInfo.otherPartyRelationship = child.opRelation;
-            childrenInfo.push(childInfo)
-        }        
-
-        return childrenInfo;
-    }
 
     public getYourInfo(){
 
@@ -341,14 +309,14 @@ export default class Form28Layout extends Vue {
 
     public getOtherPartyInfo(){
 
-        let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
+        let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
         if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];
             const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
            
             for(const party of otherPartyData){ 
-                let otherParty = {} as priorityParentingOtherPartyDataInfoType;               
+                let otherParty = {} as enfrcOtherPartyDataInfoType;               
 
                 if (party.knowDob == 'y' &&  party.dob)
                     otherParty.dob = party.dob
@@ -369,70 +337,39 @@ export default class Form28Layout extends Vue {
         return OpInformation
     }  
     
-    public getPpmInfo() {
+    public getForm28Info() {     
 
-        let ppmInformation = {} as priorityParentingInformationDataInfoType;
+        let form28Information = {} as form28InformationDataInfoType;
+        form28Information.orderList = [];
 
-        if (this.result.ppmBackgroundSurvey) {
-            const ppmBackgroundData: ppmBackgroundDataSurveyDataInfoType = this.result.ppmBackgroundSurvey;
-            ppmInformation.ExistingCase = (ppmBackgroundData.ExistingOrdersFLM == 'y');
-            ppmInformation.existingProceeding = (ppmBackgroundData.existingCourtProceeding == 'y');
-            ppmInformation.proceedingInfo = (ppmBackgroundData.existingCourtProceeding == 'y' && 
-                                             ppmBackgroundData.existingCourtProceedingDetails)? ppmBackgroundData.existingCourtProceedingDetails:'';
+        if (this.result.enforceAgreementOrOrderSurvey) {           
+            form28Information.orderDate = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate):'';
+            if (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
+                form28Information.orderList = this.result.enforceAgreementOrOrderSurvey.orderType;
+            } else {
+                form28Information.orderList = [];
+            }
+            form28Information.filed = this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n';
         }
+        
+        
+        if (this.result.enfrcQuestionnaireSurvey) {   
 
-        if (this.result.aboutPriorityParentingMatterOrderSurvey) {
-            const aboutPpmOrderData: aboutPriorityParentingMatterOrderSurveyDataInfoType = this.result.aboutPriorityParentingMatterOrderSurvey;
-            ppmInformation.facts = aboutPpmOrderData.applicationFacts;
-            ppmInformation.orderdesc = aboutPpmOrderData.orderDescription;
-        }
+            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport') && this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
+                
+                form28Information.orderList.push('foreignSupport');
 
-        if (this.result.noticeSurvey) {
-            const noticeData: noticeSurveyDataInfoType = this.result.noticeSurvey;
-            ppmInformation.noticeType = noticeData.noticeType;
-        }
+            } else {
 
-        if(this.result.ppmQuestionnaireSurvey && this.result.priorityParentingMatterOrderSurvey) {
-            const ppmType: string[] = this.result.ppmQuestionnaireSurvey;
-            const ppmOrderData: priorityParentingMatterOrderSurveyDataInfoType = this.result.priorityParentingMatterOrderSurvey;
-            ppmInformation.ppmList = [];
-                 
-            if ((ppmType.includes('medical')) && (ppmOrderData.delayMedicalRisk == 'y') && 
-                (ppmOrderData.confirmMedicalRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('medical');
+                const foreignIndex = form28Information.orderList.indexOf('foreignSupport')
+                if (foreignIndex != -1){
+                    form28Information.orderList.splice(foreignIndex);
                 }
-            if ((ppmType.includes('passport')) && (ppmOrderData.delayPassportRisk == 'y') && 
-                (ppmOrderData.confirmDelayPassportRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('passport');
-                }
-            if ((ppmType.includes('travel')) && (ppmOrderData.delayTravelRisk == 'y') && 
-                (ppmOrderData.travelWrongfullyDenied == 'y') && 
-                (ppmOrderData.confirmTravelWrongfullyDenied?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('travel');
-                }
-            if ((ppmType.includes('locationChange')) && (ppmOrderData.existingParentingArrangements == 'n') &&
-                (ppmOrderData.impactOnRelationship == 'y') && 
-                (ppmOrderData.confirmImpactOnRelationship?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('locationChange');   
-                }
-            if ((ppmType.includes('preventRemoval')) && (ppmOrderData.noReturnRisk == 'y') && 
-                (ppmOrderData.confirmNoReturnRisk?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('preventRemoval');   
-                }
-            if ((ppmType.includes('interjurisdictional')) && (ppmOrderData.childInBC == 'y') && 
-                (ppmOrderData.harm == 'y') && (ppmOrderData.confirmHarm?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('interjurisdictional');      
-                }
-            if ((ppmType.includes('wrongfulRemoval')) && (ppmOrderData.wrongfulInBC == 'y') && 
-                (ppmOrderData.confirmWrongfulInBC?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('wrongfulRemoval');   
-                }
-            if ((ppmType.includes('returnOfChild')) && (ppmOrderData.wrongfulReturn == 'y') && 
-                (ppmOrderData.confirmWrongfulReturn?.includes('applyPPM'))){
-                    ppmInformation.ppmList.push('returnOfChild');
-                }
-        }
-        return ppmInformation;
+
+            }
+        }       
+       
+        return form28Information;
     }
  
 }
