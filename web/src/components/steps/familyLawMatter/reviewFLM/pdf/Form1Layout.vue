@@ -394,10 +394,10 @@ export default class Form1Layout extends Vue {
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey?.length > 0){
+        if (this.result.otherPartyCommonSurvey?.otherPartyCommonData?.length > 0){
             OpInformation = [];  
  
-            for(const party of this.result.otherPartyCommonSurvey){
+            for(const party of this.result.otherPartyCommonSurvey.otherPartyCommonData){
                 let otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},

@@ -437,9 +437,9 @@ export default class Form15Layout extends Vue {
 
         let OpInformation: priorityParentingOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey?.length > 0){
+        if (this.result.otherPartyCommonSurvey?.otherPartyCommonData?.length > 0){
             OpInformation = [];
-            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey.otherPartyCommonData;
            
             for(const party of otherPartyData){ 
                 let otherParty = {} as priorityParentingOtherPartyDataInfoType;               

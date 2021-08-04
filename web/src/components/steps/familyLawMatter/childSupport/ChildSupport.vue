@@ -80,8 +80,8 @@ export default class ChildSupport extends Vue {
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
         const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
-            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data; 
+        if (stepCOM.result?.otherPartyCommonSurvey?.data?.otherPartyCommonData) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data.otherPartyCommonData; 
             this.numberOfOtherParties = otherPartyData.length;           
         
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];

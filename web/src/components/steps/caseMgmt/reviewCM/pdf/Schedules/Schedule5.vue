@@ -113,9 +113,9 @@ export default class Schedule5 extends Vue {
         if(this.result?.contactInformationOtherPartySurvey?.otherPartyInfo && this.$store.state.Application.steps[this.stPgNo.CM._StepNo].pages[this.stPgNo.CM.ContactInformationOtherParty].active){
             otherpartySurvey = this.result.contactInformationOtherPartySurvey.otherPartyInfo
         }
-        else if(this.result?.otherPartyCommonSurvey)
+        else if(this.result?.otherPartyCommonSurvey?.otherPartyCommonData)
         {
-            otherpartySurvey = this.result.otherPartyCommonSurvey
+            otherpartySurvey = this.result.otherPartyCommonSurvey.otherPartyCommonData
         }
         else {
             this.otherParties.push(emptyParty, emptyParty)

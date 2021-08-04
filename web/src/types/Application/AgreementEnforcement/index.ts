@@ -1,11 +1,16 @@
 import { nameInfoType, questionInfoType } from "../CommonInformation"; 
   
 export interface enfrcQuestionnaireSurveySurveyInfoType {
-    data: string[];
+    data: enfrcQuestionnaireSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
     currentStep: number;
     currentPage: number;
+}
+
+export interface enfrcQuestionnaireSurveyDataInfoType {
+    selected: string[];
+    acknowledgement: boolean;
 }
 
 export interface aboutTheOrderEnforcementSurveyInfoType {

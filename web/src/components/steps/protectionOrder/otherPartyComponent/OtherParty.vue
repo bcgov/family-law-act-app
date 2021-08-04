@@ -88,7 +88,7 @@ export default class OtherParty extends Vue {
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {
-        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: this.getOtherPartyResults()}})  
+        this.UpdateStepResultData({step:this.step, data: {otherPartySurvey: {otherPartyCommonData: this.getOtherPartyResults()}}})  
     }
 
     currentStep =0;
@@ -99,8 +99,8 @@ export default class OtherParty extends Vue {
     editId = null;
  
     created() {
-        if (this.step.result?.otherPartySurvey) {
-            this.otherPartyData = this.step.result.otherPartySurvey.data;
+        if (this.step.result?.otherPartySurvey?.data?.otherPartyCommonData) {
+            this.otherPartyData = this.step.result.otherPartySurvey.data.otherPartyCommonData;
         }
     }
 
@@ -181,7 +181,7 @@ export default class OtherParty extends Vue {
         const progress = this.otherPartyData?.length>0? 100 : 50;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-        this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: this.getOtherPartyResults()}})       
+        this.UpdateStepResultData({step:this.step, data:{otherPartySurvey: {otherPartyCommonData: this.getOtherPartyResults()}}})       
     }
 
     public mergeRespondants(){
@@ -217,7 +217,7 @@ export default class OtherParty extends Vue {
                 questionResults.push({name:'otherPartySurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
 
-        return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
+        return {data: {otherPartyCommonData: this.otherPartyData}, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public getOtherPartyInfo(otherParty){

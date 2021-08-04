@@ -238,6 +238,7 @@ import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
+import { enforceChangeSetAsideDeterminationSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 
 @Component({
     components:{
@@ -318,9 +319,9 @@ export default class Form27Layout extends Vue {
 
         let OpInformation: enfrcOtherPartyDataInfoType[] = [];        
 
-        if (this.result.otherPartyCommonSurvey?.length > 0){
+        if (this.result.otherPartyCommonSurvey?.otherPartyCommonData.length > 0){
             OpInformation = [];
-            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey;
+            const otherPartyData: otherPartyInfoType[] =  this.result.otherPartyCommonSurvey.otherPartyCommonData;
            
             for(const party of otherPartyData){ 
                 let otherParty = {} as enfrcOtherPartyDataInfoType;               
@@ -348,12 +349,13 @@ export default class Form27Layout extends Vue {
 
         let form27Information = {} as form27InformationDataInfoType;        
 
-        if (this.result.enforceChangeSetAsideDeterminationSurvey) {           
-            form27Information.existingDate = (this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceChangeSetAsideDeterminationSurvey.existingDate):'';
-            form27Information.type = (this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n')?this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.selected:'';
-            form27Information.filed = this.result.enforceChangeSetAsideDeterminationSurvey.filedOrder == 'n';
-            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.agreementDate:'';
-            form27Information.orderDate = (form27Information.type == 'courtOrder')? this.result.enforceChangeSetAsideDeterminationSurvey.appointedDetermination.courtOrderDate:'';
+        if (this.result.enforceChangeSetAsideDeterminationSurvey) {
+            const enfrcChngDet: enforceChangeSetAsideDeterminationSurveyDataInfoType = this.result.enforceChangeSetAsideDeterminationSurvey;           
+            form27Information.existingDate = (enfrcChngDet.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcChngDet.existingDate):'';
+            form27Information.type = (enfrcChngDet.filedOrder == 'n')?enfrcChngDet.appointedDetermination.selected:'';
+            form27Information.filed = enfrcChngDet.filedOrder == 'n';
+            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? enfrcChngDet.appointedDetermination.agreementDate:'';
+            form27Information.orderDate = (form27Information.type == 'courtOrder')? enfrcChngDet.appointedDetermination.courtOrderDate:'';
        
         }
       
