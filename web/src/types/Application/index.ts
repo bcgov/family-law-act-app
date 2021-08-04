@@ -102,6 +102,8 @@ export interface stepInfoType {
     safetyCheckSurvey?: safetyCheckSurveyInfoType;
     noticeSurvey?: noticeSurveyInfoType;
     
+    otherPartyCommonConfirmationSurvey? : any;
+    
 
     //__Step 3 FLM
     flmQuestionnaireSurvey?: flmQuestionnaireSurveyInfoType;

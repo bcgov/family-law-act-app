@@ -177,7 +177,7 @@
       </div>
     </div>
 
-      <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+      <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
             <div class="m-3">
                
