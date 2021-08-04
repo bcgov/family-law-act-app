@@ -9,7 +9,7 @@ import { aboutExistingSpousalSupportOrderSurveyInfoType, aboutSpousalSupportOrde
 import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType, relocChildrenInfoSurveyInfoType } from "./RelocationOfChild";
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
-import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, otherPersonsSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
+import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
 
 
 //This is what our database saves.
@@ -162,11 +162,11 @@ export interface stepInfoType {
     childRelatedTypeSurvey?:string;
     attendanceUsingElectronicCommunicationSurvey?: attendanceUsingElectronicCommunicationSurveyInfoType;
 
-    changingOrCancellingAServiceOrNoticeSurvey?: any;
-    changingOrCancellingAnyOtherRequirementSurvey?: any;
-    requiringAccessToInformationSurvey?: any;
-    recognizingAnOrderFromOutsideBcSurvey?: any;
-    contactInformationOtherPartySurvey?: any;   
+    changingOrCancellingAServiceOrNoticeSurvey?: changingOrCancellingAServiceOrNoticeSurveyInfoType;
+    changingOrCancellingAnyOtherRequirementSurvey?: changingOrCancellingAnyOtherRequirementSurveyInfoType;
+    requiringAccessToInformationSurvey?: requiringAccessToInformationSurveyInfoType;
+    recognizingAnOrderFromOutsideBcSurvey?: recognizingAnOrderFromOutsideBcSurveyInfoType;
+    contactInformationOtherPartySurvey?: contactInformationOtherPartySurveyInfoType;   
 
     //__Step 5 PRIORITY PARENTING
     ppmQuestionnaireSurvey?: ppmQuestionnaireSurveyInfoType;
