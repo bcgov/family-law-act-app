@@ -8,6 +8,8 @@ export interface form29InformationDataInfoType {
     arrearsDate: string;
     orderList: string[];
     expenseList: string[];
+    foreignNotice?: boolean;
+    otherPartyNotice?: boolean;
 }
 
 export interface form26InformationDataInfoType {

@@ -16,8 +16,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Form28Layout from "./Form28Layout.vue";
-
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 import moment from 'moment';
 import { nameInfoType } from "@/types/Application/CommonInformation";

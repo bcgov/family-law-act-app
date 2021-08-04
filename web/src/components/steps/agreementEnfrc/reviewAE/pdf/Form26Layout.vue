@@ -216,13 +216,14 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import CheckBoxII from "./components/CheckBoxII.vue"
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+import CheckBoxII from "./components/CheckBoxII.vue";
+import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form26InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
+import { enforceAgreementOrOrderSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
 
 @Component({
     components:{
@@ -330,13 +331,14 @@ export default class Form26Layout extends Vue {
         return OpInformation
     }  
     
-    public getForm26Info() {
+    public getForm26Info() {        
 
         let form26Information = {} as form26InformationDataInfoType;
-        if (this.result.enforceAgreementOrOrderSurvey) {           
-            form26Information.agreementDate = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate):'';
-            form26Information.agreementList = (this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n')?this.result.enforceAgreementOrOrderSurvey.agreementType:[];
-            form26Information.filed = this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n';
+        if (this.result.enforceAgreementOrOrderSurvey) {   
+            const enfrcAgrmntOrdr: enforceAgreementOrOrderSurveyDataInfoType = this.result.enforceAgreementOrOrderSurvey;        
+            form26Information.agreementDate = (enfrcAgrmntOrdr.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcAgrmntOrdr.existingDate):'';
+            form26Information.agreementList = (enfrcAgrmntOrdr.filedOrder == 'n')?enfrcAgrmntOrdr.agreementType:[];
+            form26Information.filed = enfrcAgrmntOrdr.filedOrder == 'n';
         }
       
         return form26Information;
