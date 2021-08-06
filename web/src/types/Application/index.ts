@@ -10,6 +10,7 @@ import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType,
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
 import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
+import { aboutTheOrderEnforcementSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
 
 
 //This is what our database saves.
@@ -101,6 +102,8 @@ export interface stepInfoType {
     safetyCheckSurvey?: safetyCheckSurveyInfoType;
     noticeSurvey?: noticeSurveyInfoType;
     
+    otherPartyCommonConfirmationSurvey? : any;
+    
 
     //__Step 3 FLM
     flmQuestionnaireSurvey?: flmQuestionnaireSurveyInfoType;
@@ -179,6 +182,12 @@ export interface stepInfoType {
     relocQuestionnaireSurvey?: relocQuestionnaireSurveyInfoType;
     relocChildrenInfoSurvey?: relocChildrenInfoSurveyInfoType;
     relocChildBestInterestInfoSurvey?: relocChildBestInterestSurveyInfoType;
+
+    //__Step 7 AGREEMENT ENFORCEMENT
+    enfrcQuestionnaireSurvey?: enfrcQuestionnaireSurveySurveyInfoType;
+    enforceAgreementOrOrderSurvey?: enforceAgreementOrOrderSurveyInfoType;
+    enforceChangeSetAsideDeterminationSurvey?: enforceChangeSetAsideDeterminationSurveyInfoType;
+    aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
 
     //__Step 8 SUBMIT
     filingOptionsSurvey?: filingOptionsSurveyInfoType;

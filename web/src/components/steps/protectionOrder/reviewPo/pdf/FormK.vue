@@ -36,8 +36,8 @@
         <section>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="result.yourinformationPOSurvey.ApplicantName | getFullName"/>
                 <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="result.yourinformationPOSurvey.ApplicantDOB | beautify-date"/>
-                <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents by the other party and the court are:</div>
-                <table class="fullsize">
+                <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . My contact information and address for service of court documents by the other party and the court are:</div>
+                <table class="fullsize" style="margin-top:0.2rem !important;">
                     <tr>
                         <td v-if="result.yourinformationPOSurvey.Lawyer=='y'" colspan="3">Lawyer (if applicable): <div class="answer"> {{result.yourinformationPOSurvey.LawyerName | getFullName}}</div></td>
                         <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -77,8 +77,8 @@
             <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party's name is" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
                 <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
-                <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
-                <table class="fullsize">
+                <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . Their contact information, as I know it, is:</div>
+                <table class="fullsize" style="margin-top:0.2rem !important;">
                     <tr>                        
                         <td  colspan="3">Lawyer (if applicable): </td>
                     </tr>
@@ -111,14 +111,14 @@
 
 <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:0.5rem;"><i>For registry use only</i></div>
-            <div style="width:99%; border:1px solid; text-weight:bold; padding:0.5rem;font-family:BCSans">
+            <div style="margin:0.5rem 0 0 1rem;"><i>For registry use only</i></div>
+            <div style="margin-left:1rem; width:96.37%; border:1px solid; text-weight:bold; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin-top:0.5rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem;; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
         </div>
 
 

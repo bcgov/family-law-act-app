@@ -86,7 +86,7 @@ Vue.filter('getFullAddress',function(nameObject){
 				(nameObject.city?(nameObject.city +", "):'') +
 				(nameObject.state?(nameObject.state +", "):'') +
 				(nameObject.country?(nameObject.country +", "):'') +
-				(nameObject.postcode);
+				(nameObject.postcode?(nameObject.postcode ):' ');
 	} else{
 		return " "
 	}
@@ -213,7 +213,9 @@ Vue.filter('getPathwayPdfType',function(name){
 	if (name == 'priorityParenting') 		return "AXP";
 	if (name == 'childReloc')        		return "APRC";
 	if (name == 'agreementEnfrc')    		return "AFET";
-	
+	if (name == 'agreementEnfrc26')    		return "RFA";
+	if (name == 'agreementEnfrc27')    		return "RDET";
+	if (name == 'agreementEnfrc28')    		return "RORD";
 })
 
 Vue.filter('getFullOrderName',function(orderName, specific){
@@ -406,48 +408,72 @@ Vue.filter('surveyChanged', function(type: string) {
 	
 	const steps = store.state.Application.steps
 
-	const stepPO = store.state.Application.stPgNo.PO
-	const stepFLM = store.state.Application.stPgNo.FLM
-	const stepPPM = store.state.Application.stPgNo.PPM
-	const stepRELOC = store.state.Application.stPgNo.RELOC
-	const stepCM = store.state.Application.stPgNo.CM
-
-	const noPOsteps        = [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo]   
-	const noPOreviewPages  = [stepFLM.ReviewYourAnswersFLM, stepPPM.ReviewYourAnswersPPM, stepRELOC.ReviewYourAnswersRELOC];
-	const noPOpreviewPages = [stepFLM.PreviewFormsFLM,      stepPPM.PreviewFormsPPM,      stepRELOC.PreviewFormsRELOC];
-
-	let step = stepPO._StepNo; 
-	let reviewPage = stepPO.ReviewYourAnswers; 
-	let previewPage = stepPO.PreviewForms;
-	let previewPageII = null
+	function getStepDetails(type){	
 	
-	if(type == 'protectionOrder'){
-		step = stepPO._StepNo; 
-		reviewPage = stepPO.ReviewYourAnswers; 
-		previewPage = stepPO.PreviewForms;
-	}
-	else if(type == 'familyLawMatter'){
-		step = stepFLM._StepNo; 
-		reviewPage = stepFLM.ReviewYourAnswersFLM; 
-		previewPage = stepFLM.PreviewFormsFLM;	
-	}
-	else if(type == 'priorityParenting'){
-		step = stepPPM._StepNo; 
-		reviewPage = stepPPM.ReviewYourAnswersPPM; 
-		previewPage = stepPPM.PreviewFormsPPM;	
-	}
-	else if(type == 'childReloc'){
-		step = stepRELOC._StepNo; 
-		reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
-		previewPage = stepRELOC.PreviewFormsRELOC;	
-	}
-	else if(type == 'caseMgmt'){
-		step = stepCM._StepNo; 
-		reviewPage = stepCM.ReviewYourAnswersCM; 
-		previewPage = stepCM.PreviewForm10CM;
-		previewPageII = stepCM.PreviewForm11CM;
+		const stepPO = store.state.Application.stPgNo.PO;
+		const stepFLM = store.state.Application.stPgNo.FLM;
+		const stepPPM = store.state.Application.stPgNo.PPM;
+		const stepRELOC = store.state.Application.stPgNo.RELOC;
+		const stepCM = store.state.Application.stPgNo.CM;
+		const stepENFRC = store.state.Application.stPgNo.ENFRC;
+		
+		let step = stepPO._StepNo; 
+		let reviewPage = stepPO.ReviewYourAnswers; 
+		let previewPages = [];
+		
+		if(type == 'protectionOrder'){
+			step = stepPO._StepNo; 
+			reviewPage = stepPO.ReviewYourAnswers; 
+			previewPages = [stepPO.PreviewForms];
+		}
+		else if(type == 'familyLawMatter'){
+			step = stepFLM._StepNo; 
+			reviewPage = stepFLM.ReviewYourAnswersFLM; 
+			previewPages = [stepFLM.PreviewFormsFLM];	
+		}
+		else if(type == 'priorityParenting'){
+			step = stepPPM._StepNo; 
+			reviewPage = stepPPM.ReviewYourAnswersPPM; 
+			previewPages = [stepPPM.PreviewFormsPPM];	
+		}
+		else if(type == 'childReloc'){
+			step = stepRELOC._StepNo; 
+			reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
+			previewPages = [stepRELOC.PreviewFormsRELOC];	
+		}
+		else if(type == 'caseMgmt'){
+			step = stepCM._StepNo; 
+			reviewPage = stepCM.ReviewYourAnswersCM; 
+			previewPages = [stepCM.PreviewForm10CM, stepCM.PreviewForm11CM];
+		}
+		else if(type == 'agreementEnfrc'){
+			step = stepENFRC._StepNo; 
+			reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
+			previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
+		}
+
+		return({step:step, reviewPage:reviewPage, previewPages:previewPages})
 	}
 
+	function setReviewPreviewPage(stepType){
+		const stepDetails = getStepDetails(stepType);
+		const step = stepDetails.step;
+		const reviewPage = stepDetails.reviewPage;
+		const previewPages = stepDetails.previewPages;
+
+		if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
+			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });			
+		
+			for(const previewPage of previewPages){
+				store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
+				if(steps[step].pages[previewPage].progress ==100) 
+					store.commit("Application/setPageProgress", { currentStep: step, currentPage: previewPage, progress:50 });
+			}
+		}
+	}
+	
+	const noPOstepsTypes = ['familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc'] // [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo,                stepCM._StepNo,                    stepENFRC];
+	
 	if(type == 'allExPO'){
         
 		let pathwayCompleted = {} as pathwayCompletedInfoType;
@@ -461,34 +487,13 @@ Vue.filter('surveyChanged', function(type: string) {
 		store.commit("Application/setCommonStepResults",{data:{'pathwayCompleted':pathwayCompleted}});            
         store.dispatch("Application/checkAllCompleted")
 
-		for(const inx in noPOsteps){
-			const noPOstep = noPOsteps[inx]
-			const noPOreviewPage =  noPOreviewPages[inx]
-			const noPOpreviewPage = noPOpreviewPages[inx]
-			if(steps[noPOstep].pages[noPOreviewPage].progress ==100 ){//if changes, make review page incompelete
-				store.commit("Application/setPageProgress", { currentStep: noPOstep, currentPage: noPOreviewPage,  progress: 50 });
-				store.commit("Application/setPageActive",   { currentStep: noPOstep, currentPage: noPOpreviewPage, active: false });
-			
-				if(steps[noPOstep].pages[noPOpreviewPage].progress ==100)store.commit("Application/setPageProgress", { currentStep: noPOstep, currentPage:noPOpreviewPage, progress:50 });
-			}
+		for(const stepType of noPOstepsTypes){
+			setReviewPreviewPage(stepType)			
 		}
 
 	}else{
-		store.dispatch("Application/UpdatePathwayCompleted", {pathway: type, isCompleted: false})
-		
-		if(steps[step].pages[reviewPage].progress ==100 ){//if changes, make review page incompelete
-			store.commit("Application/setPageProgress", { currentStep: step, currentPage:reviewPage, progress:50 });
-			store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPage, active: false });
-		
-			if(steps[step].pages[previewPage].progress ==100) 
-				store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPage, progress:50 });
-
-			if(previewPageII){
-				store.commit("Application/setPageActive", { currentStep: step, currentPage: previewPageII, active: false });		
-				if(steps[step].pages[previewPageII].progress ==100) 
-					store.commit("Application/setPageProgress", { currentStep: step, currentPage:previewPageII, progress:50 });
-			}
-		}
+		store.dispatch("Application/UpdatePathwayCompleted", {pathway: type, isCompleted: false})		
+		setReviewPreviewPage(type)
 	}
 
 	const submitStep       = store.state.Application.stPgNo.SUBMIT._StepNo
@@ -571,6 +576,8 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-header-cm{display:block; margin:0 0 7rem 0;}`+
 			`.form-header-reloc{display:block; margin:0 0 5.25rem 0;}`+
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
+			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
+			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

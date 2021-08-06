@@ -10,6 +10,7 @@
                           they will need to be served with a copy of the application. 
                     </p>
                     <ul>
+                        <li>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</li>
                         <li>Add each parent and/or current guardian as a party if your case involves a child</li>
                         <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
                         <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
@@ -101,7 +102,9 @@
             </div>
         </div>
 
-        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-card v-if="confirmedError"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
+
+        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
             <div class="m-3" v-if="flmInfo">
                
@@ -137,6 +140,15 @@
                 <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application be made without notice or with less than 7 days’ notice.</p>
                 <p>They are the other party/parties I added in this case.</p>
             </div>
+
+            <div class="m-3" v-if="enfrcInfo">
+               
+                <p>I understand each other party must be given notice of my application about enforcement.</p>
+
+                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.</p>
+              
+                <p>They are the other party/parties I added in this case.</p>
+            </div>            
 
             <div class="m-3" v-if="relocPpmInfo">
                
@@ -211,7 +223,7 @@
 
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closePopInfo">I agree</b-button>
+                <b-button variant="success" @click="closePopInfo">I understand</b-button>                
             </template>            
         </b-modal>         
 
@@ -220,7 +232,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-
 import OtherPartyCommonSurvey from "./OtherPartyCommonSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
@@ -260,9 +271,14 @@ export default class OtherPartyCommon extends Vue {
 
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
-    {        
-        this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
+    {   if(this.dataReady){
+            this.confirmed = false;
+            //console.log('CHNAGE')           
+            this.determineConfirmError();
+            this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
+        }
     }
+
 
     currentStep=0;
     currentPage=0;
@@ -271,6 +287,7 @@ export default class OtherPartyCommon extends Vue {
     popInfo = false;
     flmInfo = false;
     ppmInfo = false;
+    enfrcInfo = false;
     relocPpmInfo = false;
     relocFlmInfo = false;
     relocInfo = false;
@@ -278,25 +295,54 @@ export default class OtherPartyCommon extends Vue {
     otherPartyData = [];
     anyRowToBeEdited = null;
     editId = null;
+
+    dataReady = false;
+
+    confirmed = false;
+    confirmedError = false
  
     created() {
-        if (this.step.result && this.step.result.otherPartyCommonSurvey) {
+        if (this.step.result?.otherPartyCommonSurvey) {
             this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
         }
     }
 
     mounted(){
+        this.dataReady = false;
+        this.confirmed = false;
         this.popInfo = false;    
         this.flmInfo = false;  
         this.ppmInfo = false; 
+        this.enfrcInfo = false;
         this.relocPpmInfo = false;
         this.relocFlmInfo = false;
         this.relocInfo = false; 
-        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
+                
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.cmOnly = (this.types?.length == 1 && this.types.includes("Case Management"));
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+
+        this.cmOnly = (this.types?.length == 1 && this.types.includes("Case Management")); 
+
+        if(this.step.result?.otherPartyCommonConfirmationSurvey?.data?.confirmation == 'Confirmed'){
+            this.confirmed = true
+        }
+                 
+        this.determineConfirmError();
+
+        Vue.nextTick(()=>this.dataReady = true);
+    }
+
+    public determineConfirmError(){
+
+        this.confirmedError = this.needConfirmation() && !this.confirmed && this.otherPartyData?.length>0;
+        
+        const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+
+        if(this.needConfirmation())
+            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')}})
+        else
+            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: null}})
     }
     
     public openForm(anyRowToBeEdited?) {
@@ -313,7 +359,7 @@ export default class OtherPartyCommon extends Vue {
         } else {
             this.anyRowToBeEdited = null;
         }
-    }
+    }    
 
     public childComponentData(value) {
         this.showTable = value;
@@ -347,15 +393,19 @@ export default class OtherPartyCommon extends Vue {
         this.UpdateGotoPrevStepPage()
     }
 
-    public onNext() {
-
+    
+    public needConfirmation(){
         this.flmInfo = false;
         this.ppmInfo = false;
+        this.enfrcInfo = false;
         this.relocPpmInfo = false;
         this.relocFlmInfo = false;
         this.relocInfo = false;
 
-        if (this.types.includes("Family Law Matter") || this.types.includes("Priority Parenting Matter") || this.types.includes("Relocation of a Child")){
+        if (this.types.includes("Family Law Matter") || 
+            this.types.includes("Priority Parenting Matter") || 
+            this.types.includes("Relocation of a Child") || 
+            this.types.includes("Enforcement of Agreements and Court Orders")){
             
             if (this.types.includes("Family Law Matter")){
 
@@ -382,10 +432,21 @@ export default class OtherPartyCommon extends Vue {
                 else if (this.types.includes("Priority Parenting Matter") && !this.types.includes("Relocation of a Child")){
                     this.ppmInfo = true;
                 }
+                // enfrc only
+                else if (this.types.includes("Enforcement of Agreements and Court Orders") && !this.types.includes("Relocation of a Child") && !this.types.includes("Priority Parenting Matter")){
+                    this.enfrcInfo = true;
+                }
 
             }
+            return true
+        }
+        else
+            return false
+    }
+
+    public onNext() {
+        if(this.needConfirmation()){      
             this.popInfo = true;
-            
         } else {
             this.popInfo = false;
             this.UpdateGotoNextStepPage();
@@ -393,34 +454,39 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public closePopInfo(){
-        this.popInfo = false;       
-        this.UpdateGotoNextStepPage();
-             
+        this.popInfo = false; 
+        this.confirmed = true;
+        this.UpdateGotoNextStepPage();        
     }
 
+
+
     public isDisableNext() {
-        // demo
         return this.otherPartyData? (this.otherPartyData.length <= 0): true;
     }
 
     public getDisableNextText() {
-        // demo
         return "You will need to add at least one other party to continue";
     }
 
     beforeDestroy() {
-
+        
         if(this.otherPartyData && this.otherPartyData.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
             this.UpdateCommonStepResults({data:{'respondentsCommon':respondentName}})
         }  
-        this.mergeRespondants()     
-        
-        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        this.mergeRespondants()    
 
+        this.determineConfirmError();
+       
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
+    }
+
+    public getConfirmationResults( confirmation){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        questionResults.push({name:'otherPartyCommonSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
+        return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public mergeRespondants(){
@@ -447,7 +513,6 @@ export default class OtherPartyCommon extends Vue {
         //console.log(uniqueArray);
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
-
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];

@@ -917,20 +917,93 @@ class Application extends VuexModule {
         s.active = false;
         s.id = "7";
         s.name = "ENFRC";
-        s.label = "Enforcement of agreements and court orders";
+        s.label = "Enforcement of Agreements and Court Orders";
         s.icon = "fa-child";
         s.lastUpdate = null;
         s.type = "stepEnfrc";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
     
+        // p = {} as pageInfoType;
+        // p.key = "0";
+        // p.name = "EnforcementForms";
+        // p.label = "Agreement and Court Orders Forms";
+        // p.active = true;
+        // p.progress = 0;
+    
+        // s.pages.push(p);
+
         p = {} as pageInfoType;
         p.key = "0";
-        p.name = "EnforcementForms";
-        p.label = "Agreement and Court Orders Forms";
+        p.name = "EnfrcQuestionnaire";
+        p.label = "Questionnaire";
         p.active = true;
-        p.progress = 0;
-    
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "EnforceAgreementOrOrder";
+        p.label = "Enforce Agreement or Order";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "EnforceChangeOrSetAsideDetermination";
+        p.label = "Enforce, Change or Set Aside Determination";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "3";
+        p.name = "AboutTheOrderEnforcement";
+        p.label = "About the Order - Enforcement";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        //____________Review
+        p = {} as pageInfoType;
+        p.key = "4";
+        p.name = "ReviewYourAnswersENFRC";
+        p.label = "Review Your Answers";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
+        p.name = "PreviewForm26ENFRC";
+        p.label = "Preview Form 26";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p); 
+        
+        p = {} as pageInfoType;
+        p.key = "6";
+        p.name = "PreviewForm27ENFRC";
+        p.label = "Preview Form 27";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "7";
+        p.name = "PreviewForm28ENFRC";
+        p.label = "Preview Form 28";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "8";
+        p.name = "PreviewForm29ENFRC";
+        p.label = "Preview Form 29";
+        p.active = false;
+        p.progress = 0;    
         s.pages.push(p);
 
         this.steps.push(s);

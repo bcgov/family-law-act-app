@@ -94,7 +94,13 @@
                 <div class="checkbox-border">
                     <b-form-checkbox value="agreementEnfrc">
                     <div class="checkbox-choices">Enforcement of agreements and court orders</div>
-                    <p>If you have a written agreement or court order that the other party is not following, you can ask the court to help enforce it.</p>
+                    <p>
+                        The Provincial Court Family Rules include a range of enforcement options. 
+                        If you have a written agreement, <tooltip title="determination of a parenting coordinator" :index="0"/>, 
+                        or court order that the other party is not following, you can ask the court to help enforce it. 
+                        Orders about enforcement also include setting <tooltip title="expenses" :index="0"/>, determining 
+                        <tooltip title="arrears" :index="0"/> and applying to set aside the registration of a foreign support order.
+                    </p>
                     </b-form-checkbox>
                 </div>
                 </b-form-checkbox-group>
@@ -265,7 +271,7 @@ export default class GettingStarted extends Vue {
 
             this.toggleSteps(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
             
-            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt"));//Common Your Information
+            this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt") || selectedForms.includes("agreementEnfrc"));//Common Your Information
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.SafetyCheck], !this.poIncluded);//Safety Check
             this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"));//Notice
             
