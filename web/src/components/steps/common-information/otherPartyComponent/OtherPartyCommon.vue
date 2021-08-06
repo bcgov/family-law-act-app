@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <b-card v-if="confirmedError" class="bg-danger text-white my-3 h4">You need to click the 'Next' button</b-card>
+        <b-card v-if="confirmedError"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
 
         <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
@@ -232,7 +232,6 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-
 import OtherPartyCommonSurvey from "./OtherPartyCommonSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
@@ -272,9 +271,14 @@ export default class OtherPartyCommon extends Vue {
 
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
-    {        
-        this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
+    {   if(this.dataReady){
+            this.confirmed = false;
+            //console.log('CHNAGE')           
+            this.determineConfirmError();
+            this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
+        }
     }
+
 
     currentStep=0;
     currentPage=0;
@@ -292,6 +296,8 @@ export default class OtherPartyCommon extends Vue {
     anyRowToBeEdited = null;
     editId = null;
 
+    dataReady = false;
+
     confirmed = false;
     confirmedError = false
  
@@ -302,7 +308,7 @@ export default class OtherPartyCommon extends Vue {
     }
 
     mounted(){
-        
+        this.dataReady = false;
         this.confirmed = false;
         this.popInfo = false;    
         this.flmInfo = false;  
@@ -321,10 +327,22 @@ export default class OtherPartyCommon extends Vue {
             this.confirmed = true
         }
                  
-        const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;   
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.determineConfirmError();
 
-        this.confirmedError = this.needConfirmation() && !this.confirmed && this.otherPartyData?.length>0
+        Vue.nextTick(()=>this.dataReady = true);
+    }
+
+    public determineConfirmError(){
+
+        this.confirmedError = this.needConfirmation() && !this.confirmed && this.otherPartyData?.length>0;
+        
+        const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+
+        if(this.needConfirmation())
+            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')}})
+        else
+            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: null}})
     }
     
     public openForm(anyRowToBeEdited?) {
@@ -341,7 +359,7 @@ export default class OtherPartyCommon extends Vue {
         } else {
             this.anyRowToBeEdited = null;
         }
-    }
+    }    
 
     public childComponentData(value) {
         this.showTable = value;
@@ -441,13 +459,6 @@ export default class OtherPartyCommon extends Vue {
         this.UpdateGotoNextStepPage();        
     }
 
-    public getConfirmationResults( confirmation){
-        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-        questionResults.push({name:'otherPartyCommonSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
-        
-        //console.log(questionResults)
-        return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
-    }
 
 
     public isDisableNext() {
@@ -467,13 +478,15 @@ export default class OtherPartyCommon extends Vue {
         }  
         this.mergeRespondants()    
 
-        if(this.needConfirmation())
-            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')}})
-
-        const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
+        this.determineConfirmError();
+       
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
+    }
+
+    public getConfirmationResults( confirmation){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        questionResults.push({name:'otherPartyCommonSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
+        return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public mergeRespondants(){
@@ -500,7 +513,6 @@ export default class OtherPartyCommon extends Vue {
         //console.log(uniqueArray);
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
-
 
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];

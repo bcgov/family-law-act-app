@@ -100,7 +100,7 @@ export default class OtherPartyCommonSurvey extends Vue {
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
+        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
  
     public goBack() {
@@ -170,8 +170,8 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
         
     beforeDestroy() {
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
+       // const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+       // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
     }
   
 };

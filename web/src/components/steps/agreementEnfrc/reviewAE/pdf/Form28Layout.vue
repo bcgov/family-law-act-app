@@ -55,7 +55,7 @@
         </section>         
 
 <!-- <2> -->
-        <div class="print-block" style="margin-top: 0rem;">
+        <div class="print-block" style="margin-top: 1.0rem;">
             <section> 
                 <div style="display:inline; font-size: 9pt;">
                     <underline-form 
@@ -160,7 +160,7 @@
 
     <!-- <3> -->
 
-        <div class="print-block">
+        <div class="print-block" style="margin-top: 1.0rem;">
             <section> 
                 <div style="margin:0rem 0 0 0.3rem; display:inline;font-size: 9pt;">
                     <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0.5rem 0 0;" :check="form28Info.filed?'yes':''" text="I request the copy of the order, certified by the court that made the order, dated"/>               
@@ -171,7 +171,7 @@
         </div> 
 
     <!-- <4> -->
-        <div class="print-block">
+        <div class="print-block margintop1vue" style="margin-top: -1rem;" >
             <section>
                 <div style="margin:0 0 0 0.5rem;display:inline; font-size: 9pt;">I request to file the order for the purpose(s) described in the following provision(s):</div>
 
@@ -188,15 +188,15 @@
 
 
         <!-- <For registery> -->
-        <div class="print-block">
+        <div class="print-block" style="margin-top: 1.25rem;">
             <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support</i></div>
             <div style="margin-left:0.85rem; width:96%; ;font-size: 9pt; border:1px solid;">
 
-                <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="true?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
+                <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="false?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
                 <div></div>   
                 <div style="display:inline-block; margin:0.25rem 0 0 1.5rem;font-size: 9pt;">
-                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="true?'yes':''"  text="Family Maintenance Enforcement Program"/>                        
-                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="true?'yes':''" text="Interjurisdictional Support Services"/> 
+                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="false?'yes':''"  text="Family Maintenance Enforcement Program"/>                        
+                    <check-box inline="inline" style="display:inline" :shift="10" :shiftmark="1" boxMargin="0" :check="false?'yes':''" text="Interjurisdictional Support Services"/> 
                 </div>
 
                 <div style="margin:0.25rem 0 0 .75rem;" >
@@ -205,7 +205,7 @@
                 
                 <div v-if="false" 
                     class="answerbox"></div>
-                <div v-else style="margin-bottom:3rem;"></div>
+                <div v-else style="margin-bottom:4rem;"></div>
                
             </div>
             <div style="margin:0.25rem 0 0 1rem;; font-size:9pt;"><i>Services staff only</i></div>
@@ -339,13 +339,16 @@ export default class Form28Layout extends Vue {
     
     public getForm28Info() {     
 
-        let form28Information = {} as form28InformationDataInfoType;
+        const form28Information = {} as form28InformationDataInfoType;
+
         form28Information.orderList = [];
 
-        if (this.result.enforceAgreementOrOrderSurvey) { 
+        if (this.result?.enforceAgreementOrOrderSurvey) { 
             
-            const enfrcAgrmntOrdr = this.result.enforceAgreementOrOrderSurvey;
+            const enfrcAgrmntOrdr = JSON.parse(JSON.stringify(this.result.enforceAgreementOrOrderSurvey));
+
             form28Information.orderDate = (enfrcAgrmntOrdr.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcAgrmntOrdr.existingDate):'';
+
             if (enfrcAgrmntOrdr.filedOrder == 'n'){
                 form28Information.orderList = enfrcAgrmntOrdr.orderType;
             } else {
@@ -357,17 +360,8 @@ export default class Form28Layout extends Vue {
         if (this.result.enfrcQuestionnaireSurvey) {   
 
             const enfrcQuest: string[] = this.result.enfrcQuestionnaireSurvey;
-            if (enfrcQuest.includes('foreignSupport') && this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){
-                
+            if (enfrcQuest.includes('foreignSupport') && this.result.enforceAgreementOrOrderSurvey.filedOrder == 'n'){                
                 form28Information.orderList.push('foreignSupport');
-
-            } else {
-
-                const foreignIndex = form28Information.orderList.indexOf('foreignSupport')
-                if (foreignIndex != -1){
-                    form28Information.orderList.splice(foreignIndex);
-                }
-
             }
         }       
        
