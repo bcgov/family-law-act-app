@@ -32,9 +32,6 @@ export default class Form29 extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void

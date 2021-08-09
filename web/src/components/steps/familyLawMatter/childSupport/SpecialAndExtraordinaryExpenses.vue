@@ -62,9 +62,6 @@ export default class SpecialAndExtraordinaryExpenses extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.State
-    public applicantName!: nameInfoType;
-
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 

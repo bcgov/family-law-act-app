@@ -58,7 +58,6 @@ export default class ProtectionFromWhom extends Vue {
     @applicationState.Action
     public UpdateCommonStepResults!: (newCommonStepResults) => void
 
-    applicantName = ""
 
     survey = new SurveyVue.Model(surveyJson); 
     disableNextButton = false;

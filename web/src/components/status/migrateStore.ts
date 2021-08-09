@@ -37,10 +37,10 @@ export class migrateStore{
         }
        
         if(applicationData.steps[0].result){
-            this.currentApplication.applicantName =  Vue.filter('getFullName')(applicationData.steps[0].result.applicantName);
-            this.currentApplication.respondentName = applicationData.steps[0].result.respondentsPO? Vue.filter('getFullName')(applicationData.steps[0].result.respondentsPO[0]):'';//applicationData.respondentName;
-            this.currentApplication.protectedPartyName =  Vue.filter('getFullName')(applicationData.steps[0].result.protectedPartyName);//applicationData.protectedPartyName;
-            this.currentApplication.protectedChildName =  Vue.filter('getFullName')(applicationData.steps[0].result.protectedChildName);//applicationData.protectedChildName;                
+            this.currentApplication.applicantName = applicationData.steps[0].result.applicantName;                                                       // Vue.filter('getFullName')(applicationData.steps[0].result.applicantName);
+            this.currentApplication.respondentName = applicationData.steps[0].result.respondentsPO? applicationData.steps[0].result.respondentsPO[0]:''; //Vue.filter('getFullName')(applicationData.steps[0].result.respondentsPO[0]):'';//applicationData.respondentName;
+            this.currentApplication.protectedPartyName = applicationData.steps[0].result.protectedPartyName;                                             // Vue.filter('getFullName')(applicationData.steps[0].result.protectedPartyName);//applicationData.protectedPartyName;
+            this.currentApplication.protectedChildName = applicationData.steps[0].result.protectedChildName;                                             // Vue.filter('getFullName')(applicationData.steps[0].result.protectedChildName);//applicationData.protectedChildName;                
         }
 
         store.commit("Application/setCurrentApplication", this.currentApplication);

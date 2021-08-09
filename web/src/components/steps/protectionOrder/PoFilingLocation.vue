@@ -44,12 +44,6 @@ export default class PoFilingLocation extends Vue {
     public locationsInfo!: locationsInfoType[];
 
     @applicationState.State
-    public applicantName!: nameInfoType;
-
-    @applicationState.State
-    public respondentName!: nameInfoType;
-
-    @applicationState.State
     public steps!: stepInfoType[];
 
     @applicationState.Action
@@ -129,9 +123,6 @@ export default class PoFilingLocation extends Vue {
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);                
             }
         }
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.steps[this.currentStep].currentPage;

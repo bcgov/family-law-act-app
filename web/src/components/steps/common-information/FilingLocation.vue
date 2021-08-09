@@ -2,7 +2,7 @@
     <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
 
-        <b-modal size="xl" v-model="locationInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-modal size="xl" v-model="locationInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
             <div v-if="messageA" class="m-3">
                
@@ -83,12 +83,6 @@ export default class FilingLocation extends Vue {
 
     @commonState.State
     public locationsInfo!: locationsInfoType[];
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
-
-    @applicationState.State
-    public respondentName!: nameInfoType;
 
     @applicationState.State
     public steps!: stepInfoType[];
@@ -255,10 +249,7 @@ export default class FilingLocation extends Vue {
             }
         }
 
-        this.survey.setVariable("editButton",this.editButton);
-
-        this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
-        this.survey.setVariable("RespondentName", Vue.filter('getFullName')(this.respondentName));
+        this.survey.setVariable("editButton",this.editButton);       
         
         const stepPO = this.steps[this.stPgNo.PO._StepNo]
 

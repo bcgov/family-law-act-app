@@ -31,8 +31,8 @@ export interface applicationInfoType extends applicationStepOnlyInfoType {
     userId: string;
     applicantName: string;
     respondentName: string;
-    protectedPartyName: string;
-    protectedChildName: string;
+    protectedPartyName: nameInfoType;
+    protectedChildName: allchildrenInfoType[];
     applicationLocation: string;
     version: string;
 }
