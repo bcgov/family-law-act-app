@@ -10,6 +10,7 @@ export interface form29InformationDataInfoType {
     expenseList: string[];
     foreignNotice?: boolean;
     otherPartyNotice?: boolean;
+    attachRequiredDocuments?: boolean;
 }
 
 export interface form26InformationDataInfoType {
@@ -24,6 +25,7 @@ export interface form27InformationDataInfoType {
     agreementDate?: string;
     orderDate?: string; 
     filed: boolean;
+    partiesToAgreement: string[];
 }
 
 export interface form28InformationDataInfoType {

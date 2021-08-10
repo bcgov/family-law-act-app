@@ -177,15 +177,15 @@
 
 <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin-top:0rem; font-size: 9pt;"><i>For registry use only</i></div>
-            <div style="width:99%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
+            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For registry use only</i></div>
+            <div style="margin-left:1rem; width:96.37%; border:1px solid; text-weight:bold; font-size: 9pt; padding:0.5rem;font-family:BCSans">
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="21rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin-top:0.5rem; font-family:BCSans; font-size: 9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
-            <div style="font-size: 9pt;"> The court must be satisfied that:
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.2rem 0 0 1rem; font-size: 9pt;"> The court must be satisfied that:
                 <ol class='resetcounteralpha'>
                     <li class='bracketalpha'>the proposed relocation is being made in good faith,</li>
                     <li class='bracketalpha'>the relocating guardian has proposed reasonable and workable arrangements to preserve the
@@ -290,8 +290,8 @@
                     <underline-form  style="margin-left:0rem; text-indent:0px; display:inline" textwidth="5.7rem" beforetext="I did not receive written notice of relocation but became aware of the planned relocation on" aftertext="." hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.foundOutDate | beautify-date-blank"/>
                     <div style="margin:0.5rem 0 0 1.05rem;  font-size: 9pt;">                   
                         <underline-form  style="margin-left:0.35rem; text-indent:5px;display:inline" textwidth="6rem" beforetext="I understand the date of the relocation of the child(ren) to be" hint="mmm/dd/yyyy" :italicHint="false" :text="relocInfo.presumedRelocationDate | beautify-date-blank"/>
-                        <underline-form  style="margin-left:0.35rem; text-indent:5px;display:inline" textwidth="9rem" beforetext="to" aftertext="." hint="proposed location" :italicHint="false" :text="relocInfo.presumedLocation"/> 
-                    </div>
+                        <underline-form  style="margin:0 0 0 0.35rem; text-indent:5px;display:inline" :textwidth="relocInfo.presumedLocation.length<22 ?'9rem':'22rem'" beforetext="to" aftertext="." hint="proposed location" :italicHint="false" :text="relocInfo.presumedLocation"/> 
+                    </div>                    
                     <div style="text-indent:0; margin:0.25rem 0 0 0.65rem; font-size: 9pt;"> 
                         I learned about the planned relocation:
                     </div>

@@ -270,12 +270,15 @@ export default class ReviewYourAnswersPage extends Vue {
         let resultString = Vue.filter('styleTitle')("Selected: ")+keyBeauty+"\n";
 
         for (const [key, value] of Object.entries(questionValue))
-        {            
+        {   
             if(key?.startsWith(selected)){
                 if(value){                
                     keyBeauty =  key.charAt(0).toUpperCase() + key.slice(1);
                     keyBeauty =  keyBeauty.replace(/([a-z0-9])([A-Z])/g, '$1 $2')   
-                    resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
+                    if(key.includes('Date'))
+                        resultString += Vue.filter('styleTitle')(keyBeauty+': ')+Vue.filter('beautify-date')(value) +'\n'
+                    else
+                        resultString += Vue.filter('styleTitle')(keyBeauty+': ')+value +'\n'
                 }else{
                     this.pageHasError = true;
                     return "REQUIRED";

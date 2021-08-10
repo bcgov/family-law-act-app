@@ -198,9 +198,11 @@
                             text="an agreement made on"/>               
                         <underline-form style="text-indent:1px;display:inline;" textwidth="7.25rem" beforetext="" hint="(mmm/dd/yyyy)" :text="form27Info.agreementDate"/>
                         <div style="text-indent:10px;display:inline;"> between </div>
-                        <underline-form style="text-indent:1px;display:inline;" textwidth="16.75rem" beforetext="" hint="(parties to the agreement)" text=""/>
-                        <div style="display:inline;"> , </div>
-                        <div style="text-indent:0px; line-height:1.5rem; margin:0.25rem 0 0 0.72rem;"> which is filed in the Provincial Court </div>
+                        <div v-for="party,inx in form27Info.partiesToAgreement" :key="inx" style="text-indent:10px;display:inline;">
+                            <underline-form style="text-indent:1px;display:inline;" textwidth="16.75rem" beforetext="" hint="(parties to the agreement)" :text="party"/>
+                            <div v-if="inx != (form27Info.partiesToAgreement.length-1)" style="display:inline;"> , </div>
+                        </div>
+                        <div style="display:inline; text-indent:0px; line-height:1.5rem; margin:0.25rem 0 0 0.72rem;"> which is filed in the Provincial Court </div>
                     </div>
 
                     <div style="margin:0rem 0 0 0rem;">
@@ -349,14 +351,15 @@ export default class Form27Layout extends Vue {
 
         let form27Information = {} as form27InformationDataInfoType;
 
-        if (this.result.enforceChangeSetAsideDeterminationSurvey) {  
+        if (this.result?.enforceChangeSetAsideDeterminationSurvey) {  
 
             const enfrcChngdDet: enforceChangeSetAsideDeterminationSurveyDataInfoType = this.result.enforceChangeSetAsideDeterminationSurvey;         
             form27Information.existingDate = (enfrcChngdDet.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcChngdDet.existingDate):'';
             form27Information.type = (enfrcChngdDet.filedOrder == 'n')?enfrcChngdDet.appointedDetermination.selected:'';
             form27Information.filed = enfrcChngdDet.filedOrder == 'n';
-            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? enfrcChngdDet.appointedDetermination.agreementDate:'';
-            form27Information.orderDate = (form27Information.type == 'courtOrder')? enfrcChngdDet.appointedDetermination.courtOrderDate:'';       
+            form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? Vue.filter('beautify-date')(enfrcChngdDet.appointedDetermination.writtenAgreementDate):'';
+            form27Information.orderDate = (form27Information.type == 'courtOrder')? Vue.filter('beautify-date')(enfrcChngdDet.appointedDetermination.courtOrderDate):'';       
+            form27Information.partiesToAgreement = (form27Information.type == 'writtenAgreement')? ['?'] : [' ?']
         }
       
         return form27Information;

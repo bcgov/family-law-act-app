@@ -374,6 +374,31 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(stepCM.pages[stPgCM.RecognizingAnOrderFromOutsideBc].active && questions.recognizingAnOrderFromOutsideBcSurvey?.outsideBcOrder == 'y')
 			requiredDocuments.push("Certified copy of the order from outside BC")
 	}
+
+	if(type == 'agreementEnfrc'){
+		const stPgENFRC = store.state.Application.stPgNo.ENFRC
+		const stepENFRC = store.state.Application.steps[stPgENFRC._StepNo]
+
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "y")
+			requiredDocuments.push("Copy of court order for enforcement")
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "y")
+			requiredDocuments.push("Copy of filed written agreement or court order for enforcement")			
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "writtenAgreement")
+			requiredDocuments.push("Copy of written agreement for enforcement")		
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "courtOrder")
+			requiredDocuments.push("Copy of order for enforcement")
+
+
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "y")
+			requiredDocuments.push("Copy of filed determination of a parenting coordinator")
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "courtOrder")
+			requiredDocuments.push("Copy of determination of parenting coordinator")
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "y")
+			requiredDocuments.push("Copy of determination of parenting coordinator")
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "n")
+			requiredDocuments.push("Copy of determination of parenting coordinator","Copy of written agreement to appoint a parenting coordinator")		
+
+	}
 		
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments ,reminder:reminderDocuments} });	
 	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});

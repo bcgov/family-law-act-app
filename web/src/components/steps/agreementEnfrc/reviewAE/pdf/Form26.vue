@@ -40,7 +40,6 @@ export default class Form26 extends Vue {
     mounted(){
         this.dataReady = false;
         this.result = this.getEnfrcResultData();   
-        console.log(this.result)    
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   
