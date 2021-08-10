@@ -39,11 +39,11 @@ The project can also be run locally using Docker and Docker Compose.  Refer to [
 
 ## Code of Conduct
 
-Please refer to the [Code of Conduct](./CODE_OF_CONDUCT.md) 
+Please refer to the [Code of Conduct](./CODE_OF_CONDUCT.md)
 
 ## Contributing
 
-For information on how to contribute, refer to [Contributing](CONTRIBUTING.md)
+For information on how to contribute, refer to [Contributing](CONTRIBUTING.md).
 
 ## License
 
