@@ -154,3 +154,11 @@ export interface filingOptionsSurveyInfoType {
   currentStep?: number;
   currentPage?: number;
 }
+
+export interface otherPartyCommonConfirmationSurveyInfoType {
+  data: {confirmation: string};
+  questions?: questionInfoType[];
+  pageName?: string;
+  currentStep?: number;
+  currentPage?: number;
+}

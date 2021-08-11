@@ -1,5 +1,5 @@
 import { requiredDocumentsInfoType } from "../Common";
-import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetyCheckSurveyInfoType, yourInformationSurveyInfoType, noticeSurveyInfoType, filingOptionsSurveyInfoType } from "./CommonInformation";
+import { nameInfoType, filingLocationSurveyInfoType, otherPartyCommonSurveyInfoType, safetyCheckSurveyInfoType, yourInformationSurveyInfoType, noticeSurveyInfoType, filingOptionsSurveyInfoType, otherPartyCommonConfirmationSurveyInfoType } from "./CommonInformation";
 import { childDetailsSurveyInfoType, flmAdditionalDocumentsSurveyInfoType, flmBackgroundSurveyInfoType, flmQuestionnaireSurveyInfoType } from "./FamilyLawMatter";
 import { aboutChildSupportChangesSurveyInfoType, aboutChildSupportOrderSurveyInfoType, aboutExistingChildSupportSurveyInfoType, calculatingChildSupportSurveyInfoType, childSupportCurrentArrangementsSurveyInfoType, incomeAndEarningPotentialSurveyInfoType, childSupportOrderAgreementSurveyInfoType, childSupportSurveyInfoType, specialAndExtraordinaryExpensesSurveyInfoType, undueHardshipSurveyInfoType, unpaidChildSupportSurveyInfoType } from "./FamilyLawMatter/ChildSupport";
 import { aboutContactWithChildOrderSurveyInfoType, contactWithChildOrderSurveyInfoType, contactWithChildBestInterestsOfChildSurveyInfoType, contactWithChildSurveyInfoType } from "./FamilyLawMatter/ContactWithChild";
@@ -43,8 +43,7 @@ export interface stepInfoType {
     type: string;
     label: string;
     icon: string;
-    result?: resultInfoType;
-    //metadata?: object;
+    result?: resultInfoType;    
     pages?: pageInfoType[];
     currentPage?: number;
     active: boolean;
@@ -102,7 +101,7 @@ export interface stepInfoType {
     safetyCheckSurvey?: safetyCheckSurveyInfoType;
     noticeSurvey?: noticeSurveyInfoType;
     
-    otherPartyCommonConfirmationSurvey? : any;
+    otherPartyCommonConfirmationSurvey? : otherPartyCommonConfirmationSurveyInfoType;
     
 
     //__Step 3 FLM
