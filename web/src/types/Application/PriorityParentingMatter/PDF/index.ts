@@ -15,4 +15,5 @@ export interface priorityParentingOtherPartyDataInfoType {
     dob?: string;   
     address: addressInfoType;
     contactInfo: contactInfoType;
+    lawyer: string;
 }

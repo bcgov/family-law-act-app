@@ -39,4 +39,5 @@ export interface enfrcOtherPartyDataInfoType {
     dob?: string;   
     address: addressInfoType;
     contactInfo: contactInfoType;
+    lawyer?: string;
 }

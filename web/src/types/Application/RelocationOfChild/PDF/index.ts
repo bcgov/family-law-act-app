@@ -19,4 +19,5 @@ export interface relocationOfChildOtherPartyDataInfoType {
     dob?: string;   
     address: addressInfoType;
     contactInfo: contactInfoType;
+    lawyer: string;
 }
