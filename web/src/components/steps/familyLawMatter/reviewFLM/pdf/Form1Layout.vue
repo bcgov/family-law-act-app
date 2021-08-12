@@ -103,7 +103,12 @@
                     <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
                     <table class="fullsize">
                         <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">Lawyer (if applicable): </td>
+                            <td colspan="3">
+                                Lawyer (if applicable): 
+                                <div class="answer">
+                                    {{firstOtherParty.lawyer}}
+                                </div>
+                            </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
                             <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
@@ -134,7 +139,12 @@
                                 <td colspan="3">Contact information</td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
+                                <td colspan="3">
+                                    Lawyer (if applicable): 
+                                    <div class="answer">
+                                        {{otherParty.lawyer}}
+                                    </div>
+                                </td>
                             </tr>
                             <tr style="border:1px solid #313132">          
                                 <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -391,6 +401,7 @@ export default class Form1Layout extends Vue {
                 name: {'first': '','middle': '', 'last': ''},
                 address: '',
                 contactInfo: ''
+                
             }               
         ];        
 
@@ -402,7 +413,8 @@ export default class Form1Layout extends Vue {
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
-                    contactInfo: ''
+                    contactInfo: '',
+                    lawyer:''
                 }                
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
@@ -416,6 +428,9 @@ export default class Form1Layout extends Vue {
                 
                 if (party['contactInfo'])
                     otherParty.contactInfo = party['contactInfo']
+                
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
                 
                 OpInformation.push(otherParty)
             }

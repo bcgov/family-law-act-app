@@ -79,8 +79,13 @@
                 <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
                 <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . Their contact information, as I know it, is:</div>
                 <table class="fullsize" style="margin-top:0.2rem !important;">
-                    <tr>                        
-                        <td  colspan="3">Lawyer (if applicable): </td>
+                    <tr>
+                        <td colspan="3">
+                            Lawyer (if applicable): 
+                            <div class="answer">
+                                {{otherParty.lawyer}}
+                            </div>
+                        </td>                                                
                     </tr>
                     <tr>          
                         <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -834,6 +839,7 @@ export default class FormK extends Vue {
         let name = ''
         let address = ''
         let contactInfo = ''
+        let lawyer = ''
 
         if(this.result.poQuestionnaireSurvey?.orderType == 'needPO'){            
 
@@ -849,7 +855,7 @@ export default class FormK extends Vue {
             if(this.result.protectionFromWhomSurvey?.RespondentContact)
                 contactInfo = this.result.protectionFromWhomSurvey.RespondentContact
                 
-            info = [{'name':name, 'dob': dob , 'address': address ,'contact': contactInfo}]
+            info = [{'name':name, 'dob': dob , 'address': address ,'contact': contactInfo, 'lawyer':''}]
         }
         else if(this.result.poQuestionnaireSurvey?.orderType == 'changePO' || this.result.poQuestionnaireSurvey?.orderType == 'terminatePO'){    
             for(const party of this.result.otherPartySurvey){
@@ -869,12 +875,15 @@ export default class FormK extends Vue {
                 
                 if (party['contactInfo'])
                     contactInfo = party['contactInfo']
+
+                if (party['lawyer'])
+                    lawyer = party['lawyer']
                 
-                info.push({'name':name, 'dob': dob , 'address': address ,'contact': contactInfo})
+                info.push({'name':name, 'dob': dob , 'address': address ,'contact': contactInfo, 'lawyer':lawyer})
             }
         }
         else
-            info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': ''}]
+            info = [{'name':{'first': '','middle': '', 'last': ''}, 'address': '' ,'contact': '', 'lawyer':''}]
 
         this.otherPartyInfo = info
     }

@@ -100,7 +100,7 @@ export default class EnforceAgreementOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('agreementEnfrc')
-            console.log(options)
+            //console.log(options)
             if(options.name == "existingType" && options.value =="courtOrder" ){
                 this.popInfo = true;
             }
