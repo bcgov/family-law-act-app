@@ -1,5 +1,19 @@
 <template>
     <div>
+    <!-- <b-form-group>
+        <b-form-checkbox-group
+            v-model="types"
+            @change="needConfirmation"
+        >
+            <b-form-checkbox value="Protection Order">PO</b-form-checkbox>
+            <b-form-checkbox value="Family Law Matter">FLM</b-form-checkbox>
+            <b-form-checkbox value="Case Management">CM</b-form-checkbox>
+            <b-form-checkbox value="Priority Parenting Matter">PPM</b-form-checkbox>
+            <b-form-checkbox value="Relocation of a Child">RELOC</b-form-checkbox>
+            <b-form-checkbox value="Enforcement of Agreements and Court Orders">ENFRC</b-form-checkbox>
+        </b-form-checkbox-group>
+    </b-form-group> -->
+    
         <div class="m-3">
 
         <!-- family law matter understanding -->
@@ -33,7 +47,7 @@
                 I also understand all parents and guardians of the child(ren) must be given notice of my 
                 application about a priority parenting matter.
             </p>
-            <p v-else-if="allInfo || ppmInfo || ppmEnfrcInfo || relocFlmPpmInfo || ppmFlmEnfrcInfo">                        
+            <p v-else-if="allInfo || ppmInfo || ppmEnfrcInfo || relocFlmPpmInfo || ppmFlmEnfrcInfo|| relocPpmInfo || ppmRelocEnfrcInfo">                        
                 <span v-if="allInfo || relocFlmPpmInfo || ppmFlmEnfrcInfo" >I also </span>
                 <span v-else>I </span> 
                 understand all parents and guardians of the child(ren) the application about a priority parenting matter is 
@@ -41,18 +55,18 @@
             </p>        
             
         <!-- relocation of a child understanding -->
-            <p v-if="allInfo || relocFlmInfo || relocFlmPpmInfo || relocFlmEnfrcInfo || relocInfo || relocPpmInfo || relocEnfrcInfo">                        
-                <span v-if="relocFlmInfo || relocFlmEnfrcInfo">I also </span>
+            <p v-if="allInfo || relocFlmInfo || relocFlmPpmInfo || relocFlmEnfrcInfo || relocInfo || relocPpmInfo || relocEnfrcInfo || ppmRelocEnfrcInfo">                        
+                <span v-if="relocFlmInfo || relocFlmEnfrcInfo || relocPpmInfo || ppmRelocEnfrcInfo">I also </span>
                 <span v-else-if="relocFlmPpmInfo">And I </span>
                 <span v-else>I </span>
                 understand the relocating guardian(s) must be given notice of my application to prohibit the relocation of a child.
             </p>
 
         <!-- enforcement understanding -->
-            <p v-if="allInfo || ppmEnfrcInfo || relocEnfrcInfo || enfrcInfo || flmEnfrcInfo || ppmFlmEnfrcInfo || relocFlmEnfrcInfo">
+            <p v-if="allInfo || ppmEnfrcInfo || relocEnfrcInfo || enfrcInfo || flmEnfrcInfo || ppmFlmEnfrcInfo || relocFlmEnfrcInfo || ppmRelocEnfrcInfo">
                 <span v-if="ppmEnfrcInfo || flmEnfrcInfo || relocEnfrcInfo">I also</span>
                 <span v-else-if="enfrcInfo">I </span>
-                <span v-else-if="allInfo || ppmFlmEnfrcInfo || relocFlmEnfrcInfo">And I </span>
+                <span v-else-if="allInfo || ppmFlmEnfrcInfo || relocFlmEnfrcInfo || ppmRelocEnfrcInfo">And I </span>
                     understand each other party must be given notice of my application about enforcement.
             </p>
 
@@ -81,7 +95,6 @@ export default class OtherPartyPopup extends Vue {
     @applicationState.State
     public types!: string[]
     
-       
     flmInfo = false;  
     ppmInfo = false;    
     relocInfo = false;

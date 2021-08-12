@@ -24,9 +24,12 @@ export function whichAgreementEnfrcForm() {
         }
 
         if(selectedEnfrc.includes('parentingCoordinatorDetermination')){
-            
-            requiredForm.push('P27');        
+                                
             const detData  = stepENFRC.result?.enforceChangeSetAsideDeterminationSurvey?.data
+            
+            if(detData?.filedOrder == "n")
+                requiredForm.push('P27');
+
             if(detData?.filedOrder == "n" && detData?.appointedDetermination?.selected == "writtenAgreement" && detData?.filedAgreement == "n")
                 requiredForm.push('P26');
         }
