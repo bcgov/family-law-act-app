@@ -1,6 +1,35 @@
 <template>
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
+
+        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
+            
+            <div class="m-3"> 
+                <p>
+                    You will need to attach a certified copy of the order to your request for filing. A certified copy is a copy of the original order from the other court, usually a photocopy, that has been endorsed using a stamp or certificate by the court to say that it is a true copy of the original.
+                </p>
+                <p>
+                    If you do not have a certified copy of the order, you will need to contact the original court location to get a certified copy from them.
+                </p>
+                <p>
+                    You cannot file a certified copy of an order through efiling. You will be required to file Request to File an Order in person or by mail.
+                </p>
+                <b-form-checkbox 
+                    class="mt-4"
+                    v-model="popInfoUnderstand"               
+                    value="understand"
+                    unchecked-value="">
+                    <h4 style="margin: 0.26rem 0.5rem;">
+                        I understand
+                    </h4>
+                </b-form-checkbox>            
+            </div>   
+
+            <template v-slot:modal-footer>
+                <b-button :disabled="popInfoUnderstand != 'understand'" variant="success" @click="popInfo=false;">Continue</b-button>
+            </template>
+                    
+        </b-modal>  
     </page-base>
 </template>
 
@@ -44,7 +73,10 @@ export default class EnforceAgreementOrder extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);   
     currentStep =0;
-    currentPage =0;    
+    currentPage =0; 
+    
+    popInfo = false;
+    popInfoUnderstand = ''
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -68,6 +100,10 @@ export default class EnforceAgreementOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('agreementEnfrc')
+            console.log(options)
+            if(options.name == "existingType" && options.value =="courtOrder" ){
+                this.popInfo = true;
+            }
         })
     }
     

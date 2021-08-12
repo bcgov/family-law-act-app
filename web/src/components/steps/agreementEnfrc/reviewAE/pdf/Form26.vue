@@ -1,7 +1,7 @@
 <template>
 <div v-if="dataReady">    
     <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button>  -->
-    <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>      
+    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>       -->
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <form-26-layout v-bind:result="result"/>
     </b-card>
@@ -18,7 +18,6 @@ const applicationState = namespace("Application");
 
 import Form26Layout from "./Form26Layout.vue";
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{        
@@ -30,9 +29,6 @@ export default class Form26 extends Vue {
 
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
-
-    @applicationState.State
-    public applicantName!: nameInfoType;
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
@@ -43,7 +39,6 @@ export default class Form26 extends Vue {
     mounted(){
         this.dataReady = false;
         this.result = this.getEnfrcResultData();   
-        console.log(this.result)    
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
     }   

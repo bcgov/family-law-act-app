@@ -49,7 +49,7 @@
               "title": "How was your parenting coordinator that made the determination appointed?",
               "description" : "Select the option that applies and complete the date the agreement or court order was made.",
               "radioOutputValues":"{writtenAgreement},{courtOrder}",
-              "inputNames":"{agreementDate};{courtOrderDate}",
+              "inputNames":"{writtenAgreementDate};{courtOrderDate}",
               "inputTypes":"{date};{date}",
               "inputWidths":"{12rem};{12rem}",                  
               "textBeforeInputs":"{An agreement made on},{};{A court order made on},{}",
@@ -61,7 +61,6 @@
               "visible": false,
               "visibleIf": "{filedOrder} = 'n'"
             },
-
             {
               "type": "infotext",
               "name": "RequiredDocuments2",
@@ -70,51 +69,43 @@
               "visible": false,
               "visibleIf": "{appointedDetermination.selected} = 'courtOrder'",
               "messageStyle": "info"
-            },
+            },           
             {
-              "type": "panel",
-              "name": "writtenAgreementPanel",
+              "type": "infotexttitle",
+              "name": "enforceChangeSetAsideDeterminationDescription3",
               "visible": false,
               "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
-              "elements": [
-                {
-                  "type": "infotexttitle",
-                  "name": "enforceChangeSetAsideDeterminationDescription3",
-                  "visible": false,
-                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
-                  "title": " ",
-                  "body": "To file a determination of a parenting coordinator, the agreement to appoint the parenting coordinator must also be filed.",
-                  "titleLocation": "hidden",
-                  "messageStyle": "inline"
-                },
-                {
-                  "type": "yesno",
-                  "name": "filedAgreement",
-                  "isRequired": true,
-                  "visible": false,
-                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
-                  "title": "Has the agreement to appoint a parenting coordinator been filed in a Provincial Court registry in BC?",
-                  "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your agreement to see if it has a registry stamp and court file number on it."
-                },
-                {
-                  "type": "infotext",
-                  "name": "RequiredDocuments3",
-                  "title": "You will need to include a copy of your determination when you file your documents. The agreement has already been filed. You will be reminded to include a copy of the determination at the end of the service.",  
-                  "titleLocation": "hidden",
-                  "visible": false,
-                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement' and {filedAgreement} = 'y'",
-                  "messageStyle": "info"
-                },
-                {
-                  "type": "infotext",
-                  "name": "RequiredDocuments4",
-                  "title": "You will need to include a copy of your agreement to appoint a parenting coordinator and your determination of a parenting coordinator when you file your documents. You will be reminded to include a copy of the determination at the end of the service.",
-                  "titleLocation": "hidden",
-                  "visible": false,
-                  "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement' and {filedAgreement} = 'n'",
-                  "messageStyle": "info"
-                }
-              ]
+              "title": "",
+              "body": "<div style='margin-top:0rem;'>To file a determination of a parenting coordinator, the agreement to appoint the parenting coordinator must also be filed.",
+              "titleLocation": "hidden",
+              "messageStyle": "inline"
+            },
+            {
+              "type": "yesno",
+              "name": "filedAgreement",
+              "isRequired": true,
+              "visible": false,
+              "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement'",
+              "title": "Has the agreement to appoint a parenting coordinator been filed in a Provincial Court registry in BC?",
+              "description": "A document is filed in a Provincial Court registry when it is accepted for filing, a registry stamp is applied to the document, and it is put on a court file. Check your agreement to see if it has a registry stamp and court file number on it."
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments3",
+              "title": "You will need to include a copy of your determination when you file your documents. The agreement has already been filed. You will be reminded to include a copy of the determination at the end of the service.",  
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement' and {filedAgreement} = 'y'",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocuments4",
+              "title": "You will need to include a copy of your agreement to appoint a parenting coordinator and your determination of a parenting coordinator when you file your documents. You will be reminded to include a copy of the determination at the end of the service.",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{appointedDetermination.selected} = 'writtenAgreement' and {filedAgreement} = 'n'",
+              "messageStyle": "info"               
             },
             {
               "type": "text",

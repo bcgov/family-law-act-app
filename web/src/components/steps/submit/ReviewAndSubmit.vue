@@ -247,9 +247,6 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
         public applicationLocation!: string;
 
         @applicationState.State
-        public protectedPartyName!: string;
-
-        @applicationState.State
         public currentStep!: number;
 
         @commonState.State

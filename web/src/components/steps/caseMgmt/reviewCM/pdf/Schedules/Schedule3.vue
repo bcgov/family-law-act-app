@@ -118,9 +118,6 @@ export default class Schedule3 extends Vue {
 
     @Prop({required:true})
     result!: any;
-    
-    @applicationState.State
-    public applicantName!: nameInfoType;
    
     dataReady = false;   
     modReqInfo = {} as schedule3DataInfoType;

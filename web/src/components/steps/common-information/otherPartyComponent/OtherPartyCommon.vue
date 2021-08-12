@@ -106,120 +106,7 @@
 
         <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
-            <div class="m-3" v-if="flmInfo">
-               
-                <p>I understand the following people must be given notice of my application about a family law matter:</p>
-                <ul>
-                    <li>
-                        all parents and current guardians of each child who is the subject of the family law matter
-                    </li>
-                    <li>
-                        my spouse, if I am applying for spousal support
-                    </li>
-                    <li>
-                        each other adult who the application about a family law matter is about                       
-                    </li>                    
-                </ul>
-                <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
-                <p>They are the other party/parties I added in this case.</p>
-            </div>
-
-            <div class="m-3" v-if="ppmInfo">
-               
-                <p>I understand all parents and guardians of the child(ren) this application is about must be given notice of my application about a priority parenting matter.</p>
-              
-                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application to be made without notice or with less than 7 days’ notice.</p>
-                <p>They are the other party/parties I added in this case.</p>
-
-            </div>
-
-            <div class="m-3" v-if="relocInfo">
-               
-                <p>I understand the relocating guardian(s) must be given notice of my application to prohibit the relocation of a child.</p>
-              
-                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application be made without notice or with less than 7 days’ notice.</p>
-                <p>They are the other party/parties I added in this case.</p>
-            </div>
-
-            <div class="m-3" v-if="enfrcInfo">
-               
-                <p>I understand each other party must be given notice of my application about enforcement.</p>
-
-                <p>To give notice, they must each be served with a copy of the application and any supporting documents at least 7 days before the date set for the court appearance unless the court allows the application the court allows the application to be made without notice or with less than 7 days’ notice.</p>
-              
-                <p>They are the other party/parties I added in this case.</p>
-            </div>            
-
-            <div class="m-3" v-if="relocPpmInfo">
-               
-                <p>
-                    You have selected that you are applying for an order about a priority parenting matter and an order to 
-                    prohibit the relocation of a child.
-                </p>
-
-                <b>Please acknowledge that you understand the following:</b>
-
-                <p>
-                    I understand all parents and guardians of the child(ren) this application is about must be given notice 
-                    of my application about a priority parenting matter.
-                </p>
-
-                <p>
-                    I also understand the relocating guardian(s) must be given notice of my application to prohibit the 
-                    relocation of a child.
-                </p>
-
-                <p>
-                    To give notice, they must each be served with a copy of the application and any supporting documents 
-                    at least 7 days before the date set for the court appearance unless the court allows the application 
-                    to be made without notice or with less than 7 days’ notice.    
-                </p>
-
-                <p>
-                    They are the other party/parties I added in this case.    
-                </p>
-
-            </div>
-
-            <div class="m-3" v-if="relocFlmInfo">
-               
-                <p>
-                   You have selected that you are applying for an 
-                   order about a family law matter and an order to prohibit the relocation of a child. 
-                </p>
-
-                <b>Please acknowledge that you understand the following:</b>
-
-                <p>
-                    I understand the following people must be given notice of my application about a family law matter:                
-                </p>
-                <ul>
-                    <li>
-                        all parents and current guardians of each child who is the subject of the family law matter
-                    </li>
-                    <li>
-                        my spouse, if I am applying for spousal support
-                    </li>
-                    <li>
-                        each other adult who the application about a family law matter is about                       
-                    </li>                    
-                </ul>
-                <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
-
-                <p>
-                    I also understand the relocating guardian(s) must be given notice of my application to prohibit 
-                    the relocation of a child.            
-                </p>
-
-                <p>
-                    To give notice, they must each be served with a copy of the application and any supporting documents 
-                    at least 7 days before the date set for the court appearance unless the court allows the application 
-                    to be made without notice or with less than 7 days’ notice.
-                </p>
-
-                <p>They are the other party/parties I added in this case.</p>
-
-            </div>
+            <other-party-popup />            
 
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
@@ -237,6 +124,8 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 import Tooltip from "@/components/survey/Tooltip.vue";
 
+import OtherPartyPopup from "./OtherPartyPopup.vue"
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -245,7 +134,8 @@ const applicationState = namespace("Application");
     components:{
       OtherPartyCommonSurvey,
       PageBase,
-      Tooltip
+      Tooltip,
+      OtherPartyPopup
     }
 })
 export default class OtherPartyCommon extends Vue {
@@ -272,8 +162,7 @@ export default class OtherPartyCommon extends Vue {
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
     {   if(this.dataReady){
-            this.confirmed = false;
-            //console.log('CHNAGE')           
+            this.confirmed = false;          
             this.determineConfirmError();
             this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
         }
@@ -282,15 +171,10 @@ export default class OtherPartyCommon extends Vue {
 
     currentStep=0;
     currentPage=0;
-    showServeNoticeInfo = false
+    showServeNoticeInfo = false;
     showTable = true;
     popInfo = false;
-    flmInfo = false;
-    ppmInfo = false;
-    enfrcInfo = false;
-    relocPpmInfo = false;
-    relocFlmInfo = false;
-    relocInfo = false;
+
     cmOnly = false;
     otherPartyData = [];
     anyRowToBeEdited = null;
@@ -299,7 +183,7 @@ export default class OtherPartyCommon extends Vue {
     dataReady = false;
 
     confirmed = false;
-    confirmedError = false
+    confirmedError = false;
  
     created() {
         if (this.step.result?.otherPartyCommonSurvey) {
@@ -310,13 +194,6 @@ export default class OtherPartyCommon extends Vue {
     mounted(){
         this.dataReady = false;
         this.confirmed = false;
-        this.popInfo = false;    
-        this.flmInfo = false;  
-        this.ppmInfo = false; 
-        this.enfrcInfo = false;
-        this.relocPpmInfo = false;
-        this.relocFlmInfo = false;
-        this.relocInfo = false; 
                 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -392,52 +269,14 @@ export default class OtherPartyCommon extends Vue {
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
-
     
     public needConfirmation(){
-        this.flmInfo = false;
-        this.ppmInfo = false;
-        this.enfrcInfo = false;
-        this.relocPpmInfo = false;
-        this.relocFlmInfo = false;
-        this.relocInfo = false;
 
         if (this.types.includes("Family Law Matter") || 
             this.types.includes("Priority Parenting Matter") || 
             this.types.includes("Relocation of a Child") || 
-            this.types.includes("Enforcement of Agreements and Court Orders")){
+            this.types.includes("Enforcement of Agreements and Court Orders")){          
             
-            if (this.types.includes("Family Law Matter")){
-
-                // flm and ppm
-                if (!this.types.includes("Relocation of a Child")){
-                    this.flmInfo = true;
-                } 
-                // flm and reloc
-                else {
-                    this.relocFlmInfo = true;
-                }
-
-            } else {
-
-                // reloc only
-                if (this.types.includes("Relocation of a Child") && !this.types.includes("Priority Parenting Matter")){
-                    this.relocInfo = true;
-                }
-                // ppm and reloc
-                else if (this.types.includes("Priority Parenting Matter") && this.types.includes("Relocation of a Child")){
-                    this.relocPpmInfo = true;                    
-                }
-                // ppm only
-                else if (this.types.includes("Priority Parenting Matter") && !this.types.includes("Relocation of a Child")){
-                    this.ppmInfo = true;
-                }
-                // enfrc only
-                else if (this.types.includes("Enforcement of Agreements and Court Orders") && !this.types.includes("Relocation of a Child") && !this.types.includes("Priority Parenting Matter")){
-                    this.enfrcInfo = true;
-                }
-
-            }
             return true
         }
         else
@@ -453,13 +292,11 @@ export default class OtherPartyCommon extends Vue {
         }        
     }
 
-    public closePopInfo(){
+    public closePopInfo() {
         this.popInfo = false; 
         this.confirmed = true;
         this.UpdateGotoNextStepPage();        
     }
-
-
 
     public isDisableNext() {
         return this.otherPartyData? (this.otherPartyData.length <= 0): true;

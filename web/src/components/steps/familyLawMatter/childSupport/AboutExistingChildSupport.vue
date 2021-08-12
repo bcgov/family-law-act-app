@@ -37,9 +37,6 @@ export default class AboutExistingChildSupport extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.State
-    public applicantName!: nameInfoType;
-
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 

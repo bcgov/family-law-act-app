@@ -62,7 +62,7 @@
 
 
 
-        <b-modal size="xl" v-model="showPopup" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-modal size="xl" v-model="showPopup" header-class="bg-white" no-close-on-backdrop hide-header>
             
             <div class="m-3">
                
@@ -202,7 +202,7 @@ export default class GuardianOfChild extends Vue {
     public adjustSurveyForChildren(){
 
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));         
-        this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"]=[];        
+        this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"]=[];        
 
         if (this.step.result?.childrenInfoSurvey) {
             const childData = this.step.result.childrenInfoSurvey.data; 
@@ -210,7 +210,7 @@ export default class GuardianOfChild extends Vue {
             for (const child of childData){
                 const childName = Vue.filter('getFullName')(child.name);
                 this.childrenNames.push(childName)
-                this.surveyJsonCopy.pages[0].elements[2].elements[0]["choices"].push(childName);                
+                this.surveyJsonCopy.pages[0].elements[3].elements[0]["choices"].push(childName);                
             }
         }
     }

@@ -284,7 +284,7 @@ export default class Form26Layout extends Vue {
     public getYourInfo(){
 
         let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
+        if(this.result?.yourInformationSurvey){
 
             const applicantInfo = this.result.yourInformationSurvey;            
             yourInformation = {
@@ -334,13 +334,34 @@ export default class Form26Layout extends Vue {
     public getForm26Info() {        
 
         let form26Information = {} as form26InformationDataInfoType;
-        if (this.result.enforceAgreementOrOrderSurvey) {   
-            const enfrcAgrmntOrdr: enforceAgreementOrOrderSurveyDataInfoType = this.result.enforceAgreementOrOrderSurvey;        
-            form26Information.agreementDate = (enfrcAgrmntOrdr.filedOrder == 'n')?Vue.filter('beautify-date')(enfrcAgrmntOrdr.existingDate):'';
-            form26Information.agreementList = (enfrcAgrmntOrdr.filedOrder == 'n')?enfrcAgrmntOrdr.agreementType:[];
-            form26Information.filed = enfrcAgrmntOrdr.filedOrder == 'n';
+        form26Information.agreementList = [];
+        form26Information.agreementDate = '';
+        
+        if (this.result?.enfrcQuestionnaireSurvey?.includes('writtenAgreementOrder') && this.result?.enforceAgreementOrOrderSurvey) { 
+
+            const enfrcAgrmntOrdr: enforceAgreementOrOrderSurveyDataInfoType = JSON.parse(JSON.stringify(this.result.enforceAgreementOrOrderSurvey));
+
+            const form26Conditions = (enfrcAgrmntOrdr.enforceOrder == "n") && (enfrcAgrmntOrdr.filedOrder == 'n') && (enfrcAgrmntOrdr.existingType == "writtenAgreement")
+
+            form26Information.agreementDate = (form26Conditions)?Vue.filter('beautify-date')(enfrcAgrmntOrdr.existingDate):'';
+            form26Information.agreementList = (form26Conditions)?enfrcAgrmntOrdr.agreementType:[];
+            form26Information.filed = form26Conditions;
+        }
+        
+        if(this.result?.enfrcQuestionnaireSurvey?.includes('parentingCoordinatorDetermination')){
+            const detData  = this.result?.enforceChangeSetAsideDeterminationSurvey
+            if(detData?.filedOrder == "n" && detData?.appointedDetermination?.selected == "writtenAgreement" && detData?.filedAgreement == "n"){
+                form26Information.agreementList.push("section15");
+                if(form26Information.agreementDate == ''){
+                    form26Information.filed = true;
+                    form26Information.agreementDate =Vue.filter('beautify-date-blank')(detData.existingDate);
+                }            
+            }
+       
         }
       
+        console.log(form26Information)
+
         return form26Information;
     }
  

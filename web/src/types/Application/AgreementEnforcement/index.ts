@@ -55,7 +55,7 @@ export interface enforceChangeSetAsideDeterminationSurveyDataInfoType {
 }
 
 export interface appointedDeterminationDataInfoType {
-    agreementDate?: string;
+    writtenAgreementDate?: string;
     courtOrderDate?: string;
     selected: string;
 }

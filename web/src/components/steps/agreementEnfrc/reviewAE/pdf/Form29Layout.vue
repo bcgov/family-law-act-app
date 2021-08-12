@@ -208,13 +208,13 @@
                 </div>
 
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box style="" :check="false?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="false?'yes':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
+                    <check-box style="" :check="true?'?':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
                 </div>
 
                 <div style="margin:0.5rem 0 0 0rem;">
@@ -233,7 +233,7 @@
 <!-- <5> -->
         <div class="print-block" style="margin:2rem 0;">
             <section>               
-                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="false?'yes':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
+                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="true?'?':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
             </section>
         </div>   
 
@@ -291,6 +291,7 @@ import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
+import { requiredDocumentsInfoType } from '@/types/Common';
 
 @Component({
     components:{
@@ -309,6 +310,9 @@ export default class Form29Layout extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;
     
+    @applicationState.State
+    public requiredDocuments!: requiredDocumentsInfoType;
+
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
@@ -350,7 +354,7 @@ export default class Form29Layout extends Vue {
     public getYourInfo(){
 
         let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
+        if(this.result?.yourInformationSurvey){
 
             const applicantInfo = this.result.yourInformationSurvey;            
             yourInformation = {
@@ -401,11 +405,12 @@ export default class Form29Layout extends Vue {
 
         let form29Information = {} as form29InformationDataInfoType;
         form29Information.orderList = [];
-        form29Information.arrearsDate = '';
+        form29Information.arrearsDate = '?';
         form29Information.foreignNotice = false;
         form29Information.otherPartyNotice = false;
+        form29Information.attachRequiredDocuments = false;
 
-        if (this.result.enfrcQuestionnaireSurvey) {
+        if (this.result?.enfrcQuestionnaireSurvey) {
             const enfrcQuest = this.result.enfrcQuestionnaireSurvey;
             if (enfrcQuest.includes('parentingCoordinatorDetermination')){
 
@@ -423,13 +428,15 @@ export default class Form29Layout extends Vue {
 
             if (enfrcQuest.includes('arrears')){
                 form29Information.orderList.push('arrears');
-                form29Information.arrearsDate = '';
+                form29Information.arrearsDate = '?';
             }
 
             if (enfrcQuest.includes('foreignSupport')){
                 form29Information.orderList.push('foreignSupport');
                 form29Information.foreignNotice = true;
-            }            
+            }else {
+                form29Information.otherPartyNotice = true;
+            }         
         }
 
         if (this.result.aboutTheOrderEnforcementSurvey) {
@@ -442,7 +449,11 @@ export default class Form29Layout extends Vue {
                 form29Information.facts = abtOrdrEnfrc.applicationFacts1;    
             }
             form29Information.orderdesc = abtOrdrEnfrc.orderDescription;
-        }        
+        } 
+        
+        if(this.requiredDocuments.agreementEnfrc?.required?.length>0 ){
+            form29Information.attachRequiredDocuments = true;
+        }
        
         return form29Information;
     }

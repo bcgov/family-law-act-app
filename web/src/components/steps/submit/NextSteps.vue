@@ -42,6 +42,25 @@
             <p>
                 Once your application is reviewed, the registry staff will stamp the document, assign a court file number (if there is no existing court file number), schedule the court appearance, and return a copy of the application to you.
             </p>
+
+            <div class="my-4" v-if="regForeignSupportOrder">
+                <div class="mb-2">
+                    To serve the designated registry, you must send the application and a copy of the foreign order by registered mail to:
+                </div>
+                <div>
+                    Interjurisdictional Support Services
+                </div>
+                <div>                
+                    Vancouver Main Office Boxes
+                </div>
+                <div>
+                    P.O. Box 2074
+                </div>
+                <div>
+                    Vancouver, BC V6B 3S3
+                </div>
+            </div>
+
             <p>
                 The registry will give you information about your next steps.
             </p>
@@ -130,6 +149,8 @@
         currentPage =0;
         hasNeedPOselected = false
         showServeOtherParty = false
+        
+        regForeignSupportOrder = false;
 
         mounted(){ 
             this.hasNeedPOselected = false
@@ -139,9 +160,20 @@
             const stepGETSTART = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo]
             const stepPO = this.$store.state.Application.steps[this.stPgNo.PO._StepNo]
 
+            this.regForeignSupportOrder = this.getRegForeignSupportOrderStatus()
+
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 100, false);
             if( stepGETSTART.result?.selectedForms?.includes('protectionOrder') && stepPO.result?.poQuestionnaireSurvey?.data?.orderType == 'needPO')  
                 this.hasNeedPOselected =  true;
+        }
+
+        public getRegForeignSupportOrderStatus(){
+            const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
+            
+            if(stepENFRC.active && stepENFRC.result?.enfrcQuestionnaireSurvey?.data?.includes('foreignSupport') )
+                return true
+            else
+                return false
         }
 
         public onPrev() {
