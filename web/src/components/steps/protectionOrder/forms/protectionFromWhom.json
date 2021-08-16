@@ -157,7 +157,7 @@
                   {
                      "type": "helptext",
                      "name": "notMyChildFAQ",
-                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"n\") or {ApplicantNeedsProtection} = \"y\" and  {childPO} = \"n\"",
+                     "visibleIf": "{ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n'",
                      "title": "Do you need Protection Order for the child of the person you are applying for?",
                      "titleLocation": "hidden",
                      "body": "If it's not your child but child of the person you are applying for please contact <a href=\"https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children\" target='_blank'>Child Protection Services</a>"
@@ -165,14 +165,14 @@
                   {
                      "type": "yesno",
                      "name": "anotherAdultSharingResi",
-                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                     "visibleIf": "({ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n') or {ApplicantNeedsProtection} = 'y'",
                      "title": "Is there another adult `family member` sharing a residence with the protected person that needs to be protected from {RespondentName}, on this Protection Order?",
                      "isRequired": true
                   },
                   {
                      "type": "helptext",
                      "name": "sharingResidenceFAQ",
-                     "visibleIf": "({ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\" and {childPO} = \"y\" and {anotherAdultSharingResi} != \"y\") or {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\" and {anotherAdultSharingResi} = \"n\"",
+                     "visibleIf": "({ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n') or {ApplicantNeedsProtection} = 'y'",
                      "title": "Does this include a roommate?",
                      "titleLocation": "hidden",
                      "body": "No, a family law protection order can be made \nonly to protect an at-risk family member from another family member. An adult person, who lives with an at-risk family member, and is a relative of the at-risk person \n(even if they are not related to the person they need protection from) is included in the Family Law Act definition of a `family member`. This usually would \ninclude grandparents, parents, siblings, or other relatives of the at-risk family member. If you have a roommate that needs protection, \nthey should apply for a `Peace Bond`."
@@ -180,14 +180,14 @@
                   {
                      "type": "paneldynamic",
                      "name": "allAnotherAdultsSharingResi",
-                     "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                     "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = 'n' and {anotherAdultPO} = 'n' ) or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = 'y')",
                      "title": "Information of other adult(s) that need(s) to be protected:",
                      "isRequired": true,
                      "templateElements": [
                         {
                            "type": "personname",
                            "name": "anotherAdultSharingResiName",
-                           "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                           "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\"",
                            "title": "What is the name of the adult sharing the residence with you?",
                            "defaultSubstitution": "{anotherAdultSharingResiName}",
                            "isRequired": true
@@ -195,7 +195,7 @@
                         {
                            "type": "text",
                            "name": "anotheradultSharingResiDOB",
-                           "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\")",
+                           "visibleIf": "({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\")",
                            "title": "What is the date of birth of the adult sharing the residence with you? ",
                            "inputType": "date",
                            "isRequired": true
@@ -203,7 +203,7 @@
                         {
                            "type": "text",
                            "name": "anotherAdultSharingResiRelation",
-                           "visibleIf": "({panel.anotherAdultSharingResiName} notempty) and (({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\"  and {childPO} = \"y\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\" and {childPO} = \"y\"))",
+                           "visibleIf": "({panel.anotherAdultSharingResiName} notempty) and (({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"n\" and {anotherAdultPO} = \"n\") or ({anotherAdultSharingResi} = 'y' and {ApplicantNeedsProtection} = \"y\")",
                            "title": "What is {panel.anotherAdultSharingResiName}'s relationship to the protected person(s)?",
                            "isRequired": true
                         }
