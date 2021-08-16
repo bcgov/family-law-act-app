@@ -3,7 +3,7 @@
     <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
         
         <h2 class="mt-4">Next Steps</h2>
-        <b-card style="borde:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+        <b-card style="border:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
             <h3>What happens at the Court Registry? </h3>
             <p>The court registry staff will check your documents to make sure they are complete.</p>
             <p>If you are not sure whether you’ve completed your application properly, you may want to get some legal advice before you file your documents.</p>
