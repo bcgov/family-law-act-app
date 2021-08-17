@@ -218,13 +218,13 @@
                 </div>
 
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box style="" :check="true?'?':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
-                    <check-box style="margin:0 0 0 1.75rem;" :check="true?'?':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
+                    <check-box style="" :check="form29Info.orderList.includes('expenses')?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section61')?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section63')?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section212')?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section213')?'yes':''" text="section 213 <i>[enforcing orders respecting disclosure]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section228')?'yes':''" text="section 228 <i>[enforcing orders respecting conduct]</i>"/>
+                    <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section230')?'yes':''" text="section 230 <i>[enforcing orders generally]</i>"/>                
                 </div>
 
                 <div style="margin:0.5rem 0 0 0rem;">
@@ -242,8 +242,8 @@
 
 <!-- <5> -->
         <div class="print-block" style="margin:2rem 0;">
-            <section>               
-                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="true?'?':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
+            <section>         
+                <check-box inline="inline" boxMargin="0" style="display:inline;margin:0 0 0 0.35rem;font-size: 9pt;" :check="form29Info.attachRequiredDocuments?'yes':''" text="I am attaching a copy of the order, written agreement or determination this application is about."/>                      
             </section>
         </div>   
 
@@ -418,6 +418,7 @@ export default class Form29Layout extends Vue {
 
         let form29Information = {} as form29InformationDataInfoType;
         form29Information.orderList = [];
+        form29Information.expenseList = [];
         form29Information.arrearsDate = '?';
         form29Information.foreignNotice = false;
         form29Information.otherPartyNotice = false;
@@ -444,10 +445,26 @@ export default class Form29Layout extends Vue {
                 form29Information.arrearsDate = '?';
             }
 
-            if (enfrcQuest.includes('foreignSupport')){
-                form29Information.orderList.push('foreignSupport');
+            if (enfrcQuest.includes('expenses') && this.result?.determineAnAmountOwingForExpensesSurvey?.amountOwingActionType){
+                form29Information.orderList.push('expenses');
+                //console.log(this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType)
+                form29Information.expenseList = this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType;
+            }
+
+            if (enfrcQuest.includes('foreignSupport') || this.requiredDocuments?.agreementEnfrc?.required?.length>0){
+                form29Information.attachRequiredDocuments = true;
+            }
+            // console.log(this.requiredDocuments?.agreementEnfrc?.required)
+            // if (enfrcQuest.includes('foreignSupport')){
+            //     form29Information.orderList.push('foreignSupport');
+            //     form29Information.foreignNotice = true;
+            // }
+
+            if(enfrcQuest.includes('foreignSupport') && enfrcQuest.length==1){
+                form29Information.otherPartyNotice = false;
                 form29Information.foreignNotice = true;
-            }else {
+            }else if(this.result?.otherPartyCommonConfirmationSurvey?.confirmation == "Confirmed")
+            {
                 form29Information.otherPartyNotice = true;
             }         
         }
@@ -455,18 +472,14 @@ export default class Form29Layout extends Vue {
         if (this.result.aboutTheOrderEnforcementSurvey) {
 
             const abtOrdrEnfrc = this.result.aboutTheOrderEnforcementSurvey;
-
-            if (this.result.enfrcQuestionnaireSurvey.includes('foreignSupport')) {
-                form29Information.facts = abtOrdrEnfrc.applicationFacts2;
-            } else {
-                form29Information.facts = abtOrdrEnfrc.applicationFacts1;    
-            }
+            
+            form29Information.facts = abtOrdrEnfrc.applicationFacts;            
             form29Information.orderdesc = abtOrdrEnfrc.orderDescription;
         } 
+       
+       
+            
         
-        if(this.requiredDocuments.agreementEnfrc?.required?.length>0 ){
-            form29Information.attachRequiredDocuments = true;
-        }
        
         return form29Information;
     }

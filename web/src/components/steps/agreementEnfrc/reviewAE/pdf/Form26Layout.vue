@@ -349,6 +349,9 @@ export default class Form26Layout extends Vue {
         let form26Information = {} as form26InformationDataInfoType;
         form26Information.agreementList = [];
         form26Information.agreementDate = '';
+
+        //console.log('FORM26')
+        //console.log(this.result)
         
         if (this.result?.enfrcQuestionnaireSurvey?.includes('writtenAgreementOrder') && this.result?.enforceAgreementOrOrderSurvey) { 
 
@@ -360,14 +363,14 @@ export default class Form26Layout extends Vue {
             form26Information.agreementList = (form26Conditions)?enfrcAgrmntOrdr.agreementType:[];
             form26Information.filed = form26Conditions;
         }
-        
+        //console.log(form26Information)
         if(this.result?.enfrcQuestionnaireSurvey?.includes('parentingCoordinatorDetermination')){
             const detData  = this.result?.enforceChangeSetAsideDeterminationSurvey
             if(detData?.filedOrder == "n" && detData?.appointedDetermination?.selected == "writtenAgreement" && detData?.filedAgreement == "n"){
                 form26Information.agreementList.push("section15");
                 if(form26Information.agreementDate == ''){
                     form26Information.filed = true;
-                    form26Information.agreementDate =Vue.filter('beautify-date-blank')(detData.existingDate);
+                    form26Information.agreementDate = Vue.filter('beautify-date-blank')(detData?.appointedDetermination?.writtenAgreementDate);
                 }            
             }
        

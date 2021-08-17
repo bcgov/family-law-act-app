@@ -215,7 +215,7 @@
                         <div style="display:inline; text-indent:0px; line-height:1.5rem; margin:0.25rem 0 0 0.72rem;"> which is filed in the Provincial Court </div>
                     </div>
 
-                    <div style="margin:0rem 0 0 0rem;">
+                    <div style="margin:0.75rem 0 0 0rem;">
                         <check-box 
                             inline="inline" 
                             boxMargin="0" 
@@ -364,6 +364,13 @@ export default class Form27Layout extends Vue {
 
         let form27Information = {} as form27InformationDataInfoType;
 
+        function splitNames(names: string): string[]{
+            const splitNames = names.split(',').map(item => {
+                return item.trim();
+            });
+            return splitNames.filter(item=>{return(item)})
+        }
+
         if (this.result?.enforceChangeSetAsideDeterminationSurvey) {  
 
             const enfrcChngdDet: enforceChangeSetAsideDeterminationSurveyDataInfoType = this.result.enforceChangeSetAsideDeterminationSurvey;         
@@ -372,9 +379,9 @@ export default class Form27Layout extends Vue {
             form27Information.filed = enfrcChngdDet.filedOrder == 'n';
             form27Information.agreementDate = (form27Information.type == 'writtenAgreement')? Vue.filter('beautify-date')(enfrcChngdDet.appointedDetermination.writtenAgreementDate):'';
             form27Information.orderDate = (form27Information.type == 'courtOrder')? Vue.filter('beautify-date')(enfrcChngdDet.appointedDetermination.courtOrderDate):'';       
-            form27Information.partiesToAgreement = (form27Information.type == 'writtenAgreement')? ['?'] : [' ?']
+            form27Information.partiesToAgreement = (enfrcChngdDet.agreementParties && enfrcChngdDet.filedOrder == 'n' && form27Information.type == 'writtenAgreement')? splitNames(enfrcChngdDet.agreementParties) : [' ']
         }
-      
+  
         return form27Information;
     }
  

@@ -10,7 +10,7 @@
             <b-form-checkbox value="Case Management">CM</b-form-checkbox>
             <b-form-checkbox value="Priority Parenting Matter">PPM</b-form-checkbox>
             <b-form-checkbox value="Relocation of a Child">RELOC</b-form-checkbox>
-            <b-form-checkbox value="Enforcement of Agreements and Court Orders">ENFRC</b-form-checkbox>
+            <b-form-checkbox value="Enforcement">ENFRC</b-form-checkbox>
         </b-form-checkbox-group>
     </b-form-group> -->
     
@@ -144,13 +144,13 @@ export default class OtherPartyPopup extends Vue {
         if (this.types.includes("Family Law Matter") || 
             this.types.includes("Priority Parenting Matter") || 
             this.types.includes("Relocation of a Child") || 
-            this.types.includes("Enforcement of Agreements and Court Orders")){
+            this.types.includes("Enforcement")){
                 
                 // flm only
             if (this.types.includes("Family Law Matter") && 
                 !this.types.includes("Relocation of a Child") && 
                 !this.types.includes('Priority Parenting Matter') && 
-                !this.types.includes('Enforcement of Agreements and Court Orders') &&
+                !this.types.includes('Enforcement') &&
                 !this.types.includes('Case Management')){
                     this.flmInfo = true;
 
@@ -158,25 +158,25 @@ export default class OtherPartyPopup extends Vue {
             } else if (this.types.includes('Priority Parenting Matter') && 
                 !this.types.includes("Family Law Matter") && 
                 !this.types.includes("Relocation of a Child") &&
-                !this.types.includes('Enforcement of Agreements and Court Orders')) {                    
+                !this.types.includes('Enforcement')) {                    
                     this.ppmInfo = true;
 
                 // reloc only
             } else if(this.types.includes('Relocation of a Child') && 
                 !this.types.includes("Family Law Matter") && 
                 !this.types.includes("Priority Parenting Matter") &&
-                !this.types.includes('Enforcement of Agreements and Court Orders')){
+                !this.types.includes('Enforcement')){
                     this.relocInfo = true;
 
                 // enforc only    
-            } else if (this.types.includes('Enforcement of Agreements and Court Orders') && 
+            } else if (this.types.includes('Enforcement') && 
                 !this.types.includes("Family Law Matter") && 
                 !this.types.includes("Priority Parenting Matter") &&
                 !this.types.includes('Relocation of a Child')){
                     this.enfrcInfo = true;
 
                 // flm and caseManagement only
-            } else if (!this.types.includes('Enforcement of Agreements and Court Orders') && 
+            } else if (!this.types.includes('Enforcement') && 
                 this.types.includes("Family Law Matter") && 
                 !this.types.includes("Priority Parenting Matter") &&
                 !this.types.includes('Relocation of a Child') &&
@@ -184,7 +184,7 @@ export default class OtherPartyPopup extends Vue {
                     this.flmCaseMngmntInfo = true;
 
                 // flm and ppm only
-            } else if (!this.types.includes('Enforcement of Agreements and Court Orders') && 
+            } else if (!this.types.includes('Enforcement') && 
                 this.types.includes("Family Law Matter") && 
                 this.types.includes("Priority Parenting Matter") &&
                 !this.types.includes('Relocation of a Child') &&
@@ -192,7 +192,7 @@ export default class OtherPartyPopup extends Vue {
                     this.flmPpmInfo = true;
 
                 // flm and reloc only
-            } else if (!this.types.includes('Enforcement of Agreements and Court Orders') && 
+            } else if (!this.types.includes('Enforcement') && 
                 this.types.includes("Family Law Matter") && 
                 !this.types.includes("Priority Parenting Matter") &&
                 this.types.includes('Relocation of a Child') &&
@@ -200,7 +200,7 @@ export default class OtherPartyPopup extends Vue {
                     this.relocFlmInfo = true;
 
                 // flm and enfrc only
-            } else if (this.types.includes('Enforcement of Agreements and Court Orders') && 
+            } else if (this.types.includes('Enforcement') && 
                 this.types.includes("Family Law Matter") && 
                 !this.types.includes("Priority Parenting Matter") &&
                 !this.types.includes('Relocation of a Child') &&
@@ -209,48 +209,48 @@ export default class OtherPartyPopup extends Vue {
                     
                 // ppm and reloc
             } else if (!this.types.includes("Family Law Matter") && 
-                !this.types.includes('Enforcement of Agreements and Court Orders') &&
+                !this.types.includes('Enforcement') &&
                 this.types.includes("Priority Parenting Matter") &&
                 this.types.includes('Relocation of a Child')){
                     this.relocPpmInfo = true;
 
                 // ppm and enfrc
             } else if (!this.types.includes("Family Law Matter") &&
-                this.types.includes('Enforcement of Agreements and Court Orders') &&
+                this.types.includes('Enforcement') &&
                 this.types.includes("Priority Parenting Matter") &&
                 !this.types.includes('Relocation of a Child')){
                     this.ppmEnfrcInfo = true;
 
                 // reloc and enfrc
             } else if (!this.types.includes("Family Law Matter") &&
-                this.types.includes('Enforcement of Agreements and Court Orders') &&
+                this.types.includes('Enforcement') &&
                 !this.types.includes("Priority Parenting Matter") &&
                 this.types.includes('Relocation of a Child')){
                     this.relocEnfrcInfo = true;
 
                 // reloc and flm and ppm
             } else if (this.types.includes("Family Law Matter") &&
-                !this.types.includes('Enforcement of Agreements and Court Orders') &&
+                !this.types.includes('Enforcement') &&
                 this.types.includes("Priority Parenting Matter") &&
                 this.types.includes('Relocation of a Child')){
                     this.relocFlmPpmInfo = true;
 
                 // enfrc and flm and ppm
             } else if (this.types.includes("Family Law Matter") &&
-                this.types.includes('Enforcement of Agreements and Court Orders') &&
+                this.types.includes('Enforcement') &&
                 this.types.includes("Priority Parenting Matter") &&
                 !this.types.includes('Relocation of a Child')){
                     this.ppmFlmEnfrcInfo = true;
 
                 // enfrc and flm and reloc
             } else if (this.types.includes("Family Law Matter") &&
-                this.types.includes('Enforcement of Agreements and Court Orders') &&
+                this.types.includes('Enforcement') &&
                 !this.types.includes("Priority Parenting Matter") &&
                 this.types.includes('Relocation of a Child')){
                     this.relocFlmEnfrcInfo = true;                
                  // enfrc and flm and reloc
             } else if (!this.types.includes("Family Law Matter") &&
-                this.types.includes('Enforcement of Agreements and Court Orders') &&
+                this.types.includes('Enforcement') &&
                 this.types.includes("Priority Parenting Matter") &&
                 this.types.includes('Relocation of a Child')){
                     this.ppmRelocEnfrcInfo = true;

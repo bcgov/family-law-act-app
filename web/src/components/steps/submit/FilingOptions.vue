@@ -116,11 +116,15 @@ export default class FilingOptions extends Vue {
     public allowEfiling(){
         const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
-        
-        if (!this.$store.state.Common.efilingEnabled || 
-            stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n" ||            
-            stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n" ||
-            (stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y')
+        const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
+
+
+        if (
+            !this.$store.state.Common.efilingEnabled || 
+            (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
+            (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
+            (stepCM.active    && stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y') ||
+            (stepENFRC.active && stepENFRC.pages[this.stPgNo.ENFRC.EnforceAgreementOrOrder].active && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.enforceOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.filedOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.existingType == "courtOrder")
         )
                 this.survey.setVariable('efilingAllowed','n')
         else 

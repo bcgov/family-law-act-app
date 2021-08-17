@@ -10,7 +10,7 @@ import { relocQuestionnaireSurveyInfoType, relocChildBestInterestSurveyInfoType,
 import { aboutPriorityParentingMatterOrderSurveyInfoType, ppmChildrenInfoSurveyInfoType, ppmBackgroundDataSurveyInfoType, ppmQuestionnaireSurveyInfoType, priorityParentingMatterOrderSurveyInfoType } from "./PriorityParentingMatter";
 import { aboutPOSurveyInfoType, allchildrenInfoType, backgroundSurveyInfoType, ExistingOrderInfoType, noContactSurveyInfoType, noGoSurveyInfoType, poFilingLocationSurveyInfoType, poQuestionnaireSurveyInfoType, protectionFromWhomSurveyInfoType, removePersonSurveyInfoType, urgencySurveyInfoType, weaponsFirearmsSurveyInfoType, yourinformationPOSurveyInfoType, yourStorySurveyInfoType } from "./ProtectionOrder";
 import { aboutCaseManagementOrderSurveyInfoType, attendanceUsingElectronicCommunicationSurveyInfoType, byConsentSurveyInfoType, changingOrCancellingAnyOtherRequirementSurveyInfoType, changingOrCancellingAServiceOrNoticeSurveyInfoType, cmChildrenInfoSurveyInfoType, cmNoticeSurveyInfoType, cmQuestionnaireSurveyInfoType, contactInformationOtherPartySurveyInfoType, otherPersonsSurveyInfoType, recognizingAnOrderFromOutsideBcSurveyInfoType, requiringAccessToInformationSurveyInfoType, schedulingSurveyInfoType, withoutNoticeOrAttendanceSurveyInfoType } from "./CaseManagement";
-import { aboutTheOrderEnforcementSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
+import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpensesSurveyInfoType, enforceAgreementOrOrderSurveyInfoType, enforceChangeSetAsideDeterminationSurveyInfoType, enfrcQuestionnaireSurveySurveyInfoType } from "./AgreementEnforcement";
 
 
 //This is what our database saves.
@@ -184,6 +184,7 @@ export interface stepInfoType {
 
     //__Step 7 AGREEMENT ENFORCEMENT
     enfrcQuestionnaireSurvey?: enfrcQuestionnaireSurveySurveyInfoType;
+    determineAnAmountOwingForExpensesSurvey?: determineAnAmountOwingForExpensesSurveyInfoType;
     enforceAgreementOrOrderSurvey?: enforceAgreementOrOrderSurveyInfoType;
     enforceChangeSetAsideDeterminationSurvey?: enforceChangeSetAsideDeterminationSurveyInfoType;
     aboutTheOrderEnforcementSurvey?: aboutTheOrderEnforcementSurveyInfoType;
