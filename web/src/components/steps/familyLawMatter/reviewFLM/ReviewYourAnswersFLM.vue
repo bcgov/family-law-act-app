@@ -59,12 +59,25 @@ export default class ReviewYourAnswersFlm extends Vue {
 
     mounted(){
         this.pageHasError = false;
-        this.reloadPageInformation();        
+        this.reloadPageInformation();  
+        this.checkStepHasError()      
     }
 
     public handlePageHasError(event){
         this.pageHasError = event
-    }    
+    }  
+    
+    public checkStepHasError(){
+
+        const optionalLabels = ["Preview Forms"]        
+        const step = this.$store.state.Application.steps[this.currentStep]            
+        for(const page of step.pages){
+            if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                this.pageHasError = true;
+                break;
+            }
+        }
+    }
 
     public reloadPageInformation() {
         

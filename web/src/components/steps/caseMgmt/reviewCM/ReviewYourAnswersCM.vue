@@ -72,11 +72,24 @@ export default class ReviewYourAnswersCm extends Vue {
         this.form11 = requiredForm.includes('P11');
 
         this.reloadPageInformation();
+        this.checkStepHasError();
     }
 
     public handlePageHasError(event){
         this.pageHasError = event
-    }    
+    } 
+    
+    public checkStepHasError(){
+
+        const optionalLabels = ["Preview Form 10","Preview Form 11"]        
+        const step = this.$store.state.Application.steps[this.currentStep]            
+        for(const page of step.pages){
+            if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                this.pageHasError = true;
+                break;
+            }
+        }
+    }
 
     public reloadPageInformation() {
         

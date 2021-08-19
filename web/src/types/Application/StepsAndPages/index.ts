@@ -140,8 +140,8 @@ export interface RELOCstPgTypes{
 export interface ENFRCstPgTypes{
     _StepNo: number;
     
-    // EnforcementForms: number;
     EnfrcQuestionnaire: number;
+    DetermineAnAmountOwingForExpenses: number;
     EnforceAgreementOrOrder: number;
     EnforceChangeOrSetAsideDetermination: number;
     AboutTheOrderEnforcement: number;

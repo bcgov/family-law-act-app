@@ -1,2 +1,2 @@
 #!/bin/sh
-./node_modules/.bin/ts-json-schema-generator --path '../web/src/types/**/*.ts' --type 'applicationStepOnlyInfoType' > schema_1.1.json
+./node_modules/.bin/ts-json-schema-generator --path '../web/src/types/**/*.ts' --type 'applicationStepOnlyInfoType' > schema_1.2.json

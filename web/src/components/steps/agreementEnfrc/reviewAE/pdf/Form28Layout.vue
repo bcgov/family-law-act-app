@@ -76,8 +76,13 @@
                     <div style="text-indent:5px;display:inline;"> .</div>
                     <div style="text-indent:1px; margin-top: 0.25rem;"> Their contact information, as I know it, is:</div>
                     <table class="compactfullsize">
-                        <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">Lawyer (if applicable): </td>
+                        <tr style="border:1px solid #313132" >                                                    
+                            <td colspan="3">
+                                Lawyer (if applicable): 
+                                <div class="answer">
+                                    {{firstOtherParty.lawyer}}
+                                </div>
+                            </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
                             <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
@@ -108,7 +113,12 @@
                                 <td colspan="3">Contact information</td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
+                                <td colspan="3">
+                                    Lawyer (if applicable): 
+                                    <div class="answer">
+                                        {{otherParty.lawyer}}
+                                    </div>
+                                </td>
                             </tr>
                             <tr style="border:1px solid #313132">          
                                 <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -189,7 +199,7 @@
 
         <!-- <For registery> -->
         <div class="print-block" style="margin-top: 1.25rem;">
-            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support</i></div>
+            <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support Services staff only</i></div>
             <div style="margin-left:0.85rem; width:96%; ;font-size: 9pt; border:1px solid;">
 
                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="false?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
@@ -207,8 +217,7 @@
                     class="answerbox"></div>
                 <div v-else style="margin-bottom:4rem;"></div>
                
-            </div>
-            <div style="margin:0.25rem 0 0 1rem;; font-size:9pt;"><i>Services staff only</i></div>
+            </div>            
         </div>
 
         <div class="print-block mt-5"></div> 
@@ -329,7 +338,10 @@ export default class Form28Layout extends Vue {
                 
                 if (party.contactInfo)
                     otherParty.contactInfo = party.contactInfo;
-                
+
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
+
                 OpInformation.push(otherParty)
             }
         } 

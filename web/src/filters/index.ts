@@ -2,6 +2,8 @@ import Vue from 'vue'
 import moment from 'moment-timezone';
 import store from '@/store';
 
+import * as _ from 'underscore';
+
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
 
@@ -227,7 +229,7 @@ Vue.filter('getFullOrderName',function(orderName, specific){
 	else if (orderName == "caseMgmt") return "Case Management";
 	else if (orderName == "priorityParenting") return "Priority Parenting Matter";
 	else if (orderName == "childReloc") return "Relocation of a Child";
-	else if (orderName == "agreementEnfrc") return "Enforcement of Agreements and Court Orders";
+	else if (orderName == "agreementEnfrc") return "Enforcement";
 	else return "";
 })
 
@@ -251,7 +253,7 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 		if (applicationType.includes("Relocation of a Child")){
 			types.push("APRC");
 		}
-		if (applicationType.includes("Enforcement of Agreements and Court Orders")){
+		if (applicationType.includes("Enforcement")){
 			types.push("AFET");
 		}
 	}
@@ -379,15 +381,22 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		const stPgENFRC = store.state.Application.stPgNo.ENFRC
 		const stepENFRC = store.state.Application.steps[stPgENFRC._StepNo]
 
-		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "y")
+		if(questions.enfrcQuestionnaireSurvey?.includes('arrears')){
+			requiredDocuments.push("Copy of support order or agreement")
+		}
+
+		if(questions.enfrcQuestionnaireSurvey?.includes('expenses'))
 			requiredDocuments.push("Copy of court order for enforcement")
+		
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "y")
+			requiredDocuments.push("Copy of court order for enforcement")			
 		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "y")
 			requiredDocuments.push("Copy of filed written agreement or court order for enforcement")			
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "courtOrder")
+			requiredDocuments.push("Certified copy of order to your request for filing from the other court","Copy of court order for enforcement")		
 		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "writtenAgreement")
 			requiredDocuments.push("Copy of written agreement for enforcement")		
-		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "courtOrder")
-			requiredDocuments.push("Copy of order for enforcement")
-
+		
 
 		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "y")
 			requiredDocuments.push("Copy of filed determination of a parenting coordinator")
@@ -399,8 +408,8 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			requiredDocuments.push("Copy of determination of parenting coordinator","Copy of written agreement to appoint a parenting coordinator")		
 
 	}
-		
-	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments ,reminder:reminderDocuments} });	
+
+	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:_.uniq(requiredDocuments), reminder:reminderDocuments} });	
 	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});
 	
 	return requiredDocuments;

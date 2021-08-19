@@ -29,7 +29,7 @@
                                 <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="removeApplication(row.item, row.index)"
                                     v-b-tooltip.hover.noninteractive
-                                    title="Remove Application">
+                                    title="Delete Application">
                                     <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                                 </b-button>
 
@@ -351,7 +351,7 @@ export default class ApplicationStatus extends Vue {
                 types.push("Relocation of a Child");
             }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("agreementEnfrc"))){
-                types.push("Enforcement of Agreements and Court Orders");
+                types.push("Enforcement");
             }
 
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("protectionOrder"))){

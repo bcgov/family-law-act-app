@@ -1,7 +1,8 @@
 <template>
   <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()"  :disableNext="selectedEnforcementQuestionnaire.length==0">
+    
     <div class="row">
-      <div class="col-md-12 order-heading">
+    <div class="col-md-12 order-heading">
         <div>
             <h2>Enforcement Questionnaire</h2>
 
@@ -168,54 +169,73 @@
                             </div>                        
                         </b-form-checkbox>
                     </div>                   
-               
+            
                 </b-form-checkbox-group>
             </b-form-group>
         </div>
 
         
-      </div>
+    </div>
     </div>
 
-      <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
-            
-            <div class="m-3">
-               
-                <p>
-                    An application to set aside the registration of a foreign order under the Interjurisdictional 
-                    Support Orders Act must be <b>served on the designated authority at least 30 days</b> before the date 
-                    referred to in the application for the court appearance. You <b>do not need to serve the other party.</b> 
-                    The designated registry will do that for you.
-                </p>
-                
-                <p>
-                    To serve the designated registry, you must send the application and a copy of the foreign order by registered mail to:
-                </p>
+    <b-card v-if="confirmedError" name="next-error" class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
 
-                <p class="mb-0">Interjurisdictional Support Services</p>
-                <p class="my-0">Vancouver Main Office Boxes</p>
-                <p class="my-0">P.O. Box 2074</p>
-                <p>Vancouver, BC V6B 3S3</p>
+    <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
+        
+        <div class="m-3">               
+            <p>
+                An application to set aside the registration of a foreign order under the Interjurisdictional 
+                Support Orders Act must be <b>served on the designated authority at least 30 days</b> before the date 
+                referred to in the application for the court appearance. You <b>do not need to serve the other party.</b> 
+                The designated registry will do that for you.
+            </p>                
+            <p>
+                To serve the designated registry, you must send the application and a copy of the foreign order by registered mail to:
+            </p>
+            <p class="mb-0">Interjurisdictional Support Services</p>
+            <p class="my-0">Vancouver Main Office Boxes</p>
+            <p class="my-0">P.O. Box 2074</p>
+            <p>Vancouver, BC V6B 3S3</p>
+            <p>
+                You must also include a copy of the foreign order when you file your documents. You will be reminded to include a copy at the end of the service.
+            </p>
+            <b-form-checkbox 
+                class="mt-4"
+                v-model="popInfoUnderstand"               
+                value="understand"
+                unchecked-value="">
+                <h4 style="margin: 0.26rem 0.5rem;">
+                    I understand
+                </h4>
+            </b-form-checkbox>
+        </div>   
 
-                <b-form-checkbox 
-                    class="mt-4"
-                    v-model="popInfoUnderstand"               
-                    value="understand"
-                    unchecked-value="">
-                    <h4 style="margin: 0.26rem 0.5rem;">
-                        I understand
-                    </h4>
-                </b-form-checkbox>
+        <template v-slot:modal-footer>
+            <b-button :disabled="popInfoUnderstand != 'understand'" variant="success" @click="closePopupConfirm();">Continue</b-button>
+        </template>
+    </b-modal>
 
+    <b-modal size="xl" v-model="arrearsPopInfo" header-class="bg-white" no-close-on-backdrop hide-header>
+        
+        <div class="m-3">               
+            <p>
+                You will need to include a copy of your support order or agreement when you file your documents. You will be reminded to include a copy at the end of the service.                    
+            </p>                
+            <b-form-checkbox 
+                class="mt-4"
+                v-model="arrearsPopInfoUnderstand"               
+                value="understand"
+                unchecked-value="">
+                <h4 style="margin: 0.26rem 0.5rem;">
+                    I understand
+                </h4>
+            </b-form-checkbox>
+        </div>   
 
-            </div>   
-
-            <template v-slot:modal-footer>
-                <b-button :disabled="popInfoUnderstand != 'understand'" variant="success" @click="closePopupConfirm();">Continue</b-button>
-            </template>        
-
-                    
-        </b-modal>   
+        <template v-slot:modal-footer>
+            <b-button :disabled="arrearsPopInfoUnderstand != 'understand'" variant="success" @click="closeArrearsPopupConfirm();">Continue</b-button>
+        </template>
+    </b-modal>
 
     </page-base>
 </template>
@@ -265,12 +285,18 @@ export default class EnfrcQuestionnaire extends Vue {
     popInfo = false;
     popInfoUnderstand = '';
 
+    arrearsPopInfo = false;
+    arrearsPopInfoUnderstand = '';
+
+    confirmedError = false
+
     currentStep = 0;
     currentPage = 0;
 
     allPages = []; 
 
     mounted(){
+        this.confirmedError = false
         this.allPages = _.range(this.stPgNo.ENFRC.EnforceAgreementOrOrder, Object.keys(this.stPgNo.ENFRC).length-1) 
         this.reloadPageInformation();
     }
@@ -286,8 +312,7 @@ export default class EnfrcQuestionnaire extends Vue {
 
         this.setSteps(this.selectedEnforcementQuestionnaire, false);
         
-        const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;        
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.setProgress(false)
     }
 
 
@@ -310,12 +335,14 @@ export default class EnfrcQuestionnaire extends Vue {
         if (selectedEnforcementQuestionnaire) {
 
             
-            const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
-            Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+            // const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
+            // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+            this.setProgress(surveyChanged)
 
             if (selectedEnforcementQuestionnaire.length > 0){
                 
                 this.togglePages([p.AboutTheOrderEnforcement, p.ReviewYourAnswersENFRC],true)
+                this.togglePages([p.DetermineAnAmountOwingForExpenses], this.selectedEnforcementQuestionnaire.includes("expenses"));
                 this.togglePages([p.EnforceAgreementOrOrder], this.selectedEnforcementQuestionnaire.includes("writtenAgreementOrder"));
                 this.togglePages([p.EnforceChangeOrSetAsideDetermination], this.selectedEnforcementQuestionnaire.includes("parentingCoordinatorDetermination"));    
                 
@@ -323,13 +350,15 @@ export default class EnfrcQuestionnaire extends Vue {
                     if(this.$store.state.Application.steps[this.currentStep].pages[p.EnforceAgreementOrOrder].progress==100)
                         Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceAgreementOrOrder, 50, false);
                                     
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceChangeOrSetAsideDetermination, 0, false);                                    
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceChangeOrSetAsideDetermination, 0, false); 
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.DetermineAnAmountOwingForExpenses, 0, false);           
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutTheOrderEnforcement, 0, false);                            
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersENFRC, 0, false);
                 }
                 
             }else{
-                this.togglePages(this.allPages, false); 
+                this.togglePages(this.allPages, false);  
+                this.confirmedError = false
             }   
 
         }
@@ -369,6 +398,18 @@ export default class EnfrcQuestionnaire extends Vue {
     }
 
     public onNext() {
+        if (this.selectedEnforcementQuestionnaire.includes('arrears')) { 
+            this.arrearsPopInfo = true;
+        }
+        else if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
+            this.popInfo = true;
+        } else {
+            this.UpdateGotoNextStepPage();
+        }
+    }
+
+    public closeArrearsPopupConfirm(){
+        this.arrearsPopInfo = false;
         if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
             this.popInfo = true;
         } else {
@@ -393,10 +434,37 @@ export default class EnfrcQuestionnaire extends Vue {
         }
         return result;
     }
+
+    public setProgress(surveyChanged){
+        
+        const initProgress = this.step.pages[this.currentPage].progress
+        
+        let progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
+  
+        if(surveyChanged || initProgress != 100){
+            if (this.selectedEnforcementQuestionnaire?.includes('arrears') && this.arrearsPopInfoUnderstand != 'understand'){
+                Vue.filter('surveyChanged')('agreementEnfrc')
+                progress = 50
+            }
+                
+            if (this.selectedEnforcementQuestionnaire?.includes('foreignSupport') && this.popInfoUnderstand != 'understand'){
+                Vue.filter('surveyChanged')('agreementEnfrc')
+                progress = 50
+            }
+        }
+
+        if(progress == 50 && this.selectedEnforcementQuestionnaire.length>0){ 
+            this.confirmedError = true
+            Vue.filter('scrollToLocation')('next-error')
+        }
+        else
+            this.confirmedError = false
+
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+    }
   
     beforeDestroy() {
-        const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        this.setProgress(false)
         const questions = [{name:'EnfrcQuestionnaire',title:'I want to apply for the following Enforcement options:',value:this.getselectedEnforcementQuestionnaireNames()}]        
         this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: this.selectedEnforcementQuestionnaire, questions: questions, pageName:"Enforcement Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }

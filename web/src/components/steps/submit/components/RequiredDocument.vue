@@ -15,7 +15,11 @@
             <ul>
                 <li><b class="text-danger"> The following additional documents are required as part of your filing:</b> </li>                   
                 <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
-                    <li v-if="requiredDocument.required.length>0"  class="mb-2"> For the Application About a {{requiredDocument.name}} :
+                    <li v-if="requiredDocument.required.length>0"  class="mb-2"> 
+                        For the Application About 
+                        <span v-if="requiredDocument.name[0]=='E'"> an </span>
+                        <span v-else> a </span> 
+                        {{requiredDocument.name}} :
                         <ul class="mt-3" v-for="requiredDoc,inx in requiredDocument.required" :key="inx">
                             <li class="mb-2 font-weight-normal" v-html="requiredDoc" >{{requiredDoc}}</li>
                         </ul>

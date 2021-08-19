@@ -78,7 +78,12 @@
                     </div>
                     <table class="fullsize">
                         <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">Lawyer (if applicable): </td>
+                            <td colspan="3">
+                                Lawyer (if applicable): 
+                                <div class="answer">
+                                    {{firstOtherParty.lawyer}}
+                                </div>
+                            </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
                             <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
@@ -109,7 +114,12 @@
                                 <td colspan="3">Contact information</td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
+                                <td colspan="3">
+                                    Lawyer (if applicable): 
+                                    <div class="answer">
+                                        {{otherParty.lawyer}}
+                                    </div>
+                                </td>
                             </tr>
                             <tr style="border:1px solid #313132">          
                                 <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -323,7 +333,10 @@ export default class Form26Layout extends Vue {
                 
                 if (party.contactInfo)
                     otherParty.contactInfo = party.contactInfo;
-                
+
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
+                                
                 OpInformation.push(otherParty)
             }
         } 
@@ -336,6 +349,9 @@ export default class Form26Layout extends Vue {
         let form26Information = {} as form26InformationDataInfoType;
         form26Information.agreementList = [];
         form26Information.agreementDate = '';
+
+        //console.log('FORM26')
+        //console.log(this.result)
         
         if (this.result?.enfrcQuestionnaireSurvey?.includes('writtenAgreementOrder') && this.result?.enforceAgreementOrOrderSurvey) { 
 
@@ -347,20 +363,18 @@ export default class Form26Layout extends Vue {
             form26Information.agreementList = (form26Conditions)?enfrcAgrmntOrdr.agreementType:[];
             form26Information.filed = form26Conditions;
         }
-        
+        //console.log(form26Information)
         if(this.result?.enfrcQuestionnaireSurvey?.includes('parentingCoordinatorDetermination')){
             const detData  = this.result?.enforceChangeSetAsideDeterminationSurvey
             if(detData?.filedOrder == "n" && detData?.appointedDetermination?.selected == "writtenAgreement" && detData?.filedAgreement == "n"){
                 form26Information.agreementList.push("section15");
                 if(form26Information.agreementDate == ''){
                     form26Information.filed = true;
-                    form26Information.agreementDate =Vue.filter('beautify-date-blank')(detData.existingDate);
+                    form26Information.agreementDate = Vue.filter('beautify-date-blank')(detData?.appointedDetermination?.writtenAgreementDate);
                 }            
             }
        
         }
-      
-        console.log(form26Information)
 
         return form26Information;
     }

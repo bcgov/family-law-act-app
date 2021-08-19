@@ -93,7 +93,7 @@
 
                 <div class="checkbox-border">
                     <b-form-checkbox value="agreementEnfrc">
-                    <div class="checkbox-choices">Enforcement of agreements and court orders</div>
+                    <div class="checkbox-choices">Enforcement</div>
                     <p>
                         The Provincial Court Family Rules include a range of enforcement options. 
                         If you have a written agreement, <tooltip title="determination of a parenting coordinator" :index="0"/>, 

@@ -8,6 +8,14 @@ export interface enfrcQuestionnaireSurveySurveyInfoType {
     currentPage: number;
 }
 
+export interface determineAnAmountOwingForExpensesSurveyInfoType{
+    data: string[];
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
 export interface aboutTheOrderEnforcementSurveyInfoType {
     data: aboutTheOrderEnforcementSurveyDataInfoType[];
     questions: questionInfoType[];
@@ -18,8 +26,7 @@ export interface aboutTheOrderEnforcementSurveyInfoType {
 
 export interface aboutTheOrderEnforcementSurveyDataInfoType {
     orderDescription: string;
-    applicationFacts1?: string;
-    applicationFacts2?: string;
+    applicationFacts?: string;    
 }
 
 export interface enforceAgreementOrOrderSurveyInfoType {
@@ -52,6 +59,7 @@ export interface enforceChangeSetAsideDeterminationSurveyDataInfoType {
     appointedDetermination: appointedDeterminationDataInfoType;
     filedAgreement?: string;    
     existingDate?: string;
+    agreementParties?: string;
 }
 
 export interface appointedDeterminationDataInfoType {

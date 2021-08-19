@@ -32,7 +32,7 @@
             },
             {
               "type": "comment",
-              "name": "applicationFacts1",
+              "name": "applicationFacts",
               "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include:<ul><li>why you are making this application</li><li>how the other party has failed to follow the order or agreement, if applicable</li><li>why the court should make the order you are applying for.</li></ul>",
               "isRequired": true,
               "visible": false,
@@ -41,7 +41,7 @@
             },
             {
               "type": "comment",
-              "name": "applicationFacts2",
+              "name": "applicationFacts",
               "description": "Provide the facts you want the court to consider. You do not need to use any special wording. Include:<ul><li>why you are making this application</li><li>how the other party has failed to follow the order or agreement, if applicable</li><li>why the court should make the order you are applying for.</li></ul></br>If you are applying to set aside the registration of a foreign order under the Interjurisdiction Support Orders Act, the British Columbia court may set aside the registration if it determines under <a target='_blank' href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/02029_01#section19'>section 19</a> of the Act that:<ul><li>a party to the foreign order did not have proper notice or a reasonable opportunity to be heard in the proceeding in which the foreign order was made,</li><li>the foreign order is contrary to the public policy of British Columbia, or</li><li>the court or administrative body that made the foreign order did not have the jurisdiction to make the order.</li></ul></br>Please include the reason why you believe the court should set aside the registration of the foreign order and the facts that support it.",
               "isRequired": true,
               "visible": false,

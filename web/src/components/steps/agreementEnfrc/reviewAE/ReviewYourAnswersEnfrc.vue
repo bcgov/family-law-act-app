@@ -72,6 +72,7 @@ export default class ReviewYourAnswersEnfrc extends Vue {
         this.form28 = requiredForm.includes('P28');
         this.form29 = requiredForm.includes('P29');        
         this.reloadPageInformation();
+        this.checkStepHasError();
     }
 
     public setFormsProgress(){
@@ -81,6 +82,18 @@ export default class ReviewYourAnswersEnfrc extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.ENFRC.PreviewForm29ENFRC,  50, false);
         
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
+    }
+
+    public checkStepHasError(){
+
+        const optionalLabels = ["Preview Form 26","Preview Form 27","Preview Form 28","Preview Form 29"]        
+        const step = this.$store.state.Application.steps[this.currentStep]            
+        for(const page of step.pages){
+            if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
+                this.pageHasError = true;
+                break;
+            }
+        }
     }
 
     public toggleFormPages(){

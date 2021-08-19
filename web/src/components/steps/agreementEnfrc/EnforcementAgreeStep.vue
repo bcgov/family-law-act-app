@@ -1,6 +1,7 @@
 <template>
   <step-base v-bind:step="step">    
     <enfrc-questionnaire                           v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnfrcQuestionnaire" />
+    <determine-an-amount-owing-for-expenses        v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.DetermineAnAmountOwingForExpenses" />
     <enforce-agreement-order                       v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnforceAgreementOrOrder" />
     <enforce-change-set-aside-determination        v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.EnforceChangeOrSetAsideDetermination" />
     <about-the-order-enforcement                   v-bind:step="step" v-if="step.currentPage == stPgNo.ENFRC.AboutTheOrderEnforcement" />
@@ -18,6 +19,7 @@ import StepBase from "../StepBase.vue";
 import { stepInfoType } from "@/types/Application";
 
 import EnfrcQuestionnaire from "./EnfrcQuestionnaire.vue"
+import DetermineAnAmountOwingForExpenses from "./DetermineAnAmountOwingForExpenses.vue"
 import AboutTheOrderEnforcement from "./AboutTheOrderEnforcement.vue";
 import EnforceAgreementOrder from "./EnforceAgreementOrder.vue";
 import EnforceChangeSetAsideDetermination from "./EnforceChangeSetAsideDetermination.vue";
@@ -36,6 +38,7 @@ const applicationState = namespace("Application");
     components:{
       StepBase,
       EnfrcQuestionnaire,
+      DetermineAnAmountOwingForExpenses,
       AboutTheOrderEnforcement,
       EnforceAgreementOrder,
       EnforceChangeSetAsideDetermination,
