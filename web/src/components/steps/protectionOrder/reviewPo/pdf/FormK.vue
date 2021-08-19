@@ -164,8 +164,8 @@
             I am applying for a protection order for the following person(s) to be protected:           
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select and complete only those options that apply to your situation. You may select more than one.</i>
-                <check-box style="" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'y'?'yes':''" text="me"/>
-                <check-box style="" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'y' && result.protectionFromWhomSurvey.childPO == 'y'?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
+                <check-box style="" :check="result.protectionWhomSurvey.ApplicantNeedsProtection == 'y'?'yes':''" text="me"/>
+                <check-box style="" :check="hasChildren?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
             </div>
 
             <b-table
@@ -184,7 +184,7 @@
             </b-table> 
 
             <div style="margin:0.25rem 0 0 2rem;" >
-                <check-box style="" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'y' && result.protectionFromWhomSurvey.anotherAdultSharingResi == 'y'?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
+                <check-box style="" :check="hasSharingAdult?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
             </div>
 
             <b-table
@@ -203,9 +203,9 @@
             </b-table>
 
             <div  style="margin:0.25rem 0 0 2rem;">
-                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n' && result.protectionFromWhomSurvey.anotherAdultPO == 'y'?'yes':''" text=" Other <i>(specify):</i>"/>               
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="full name of other person to be protected" :text="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.nameFull ):''"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="11rem" beforetext="," hint="date of birth of other person (mmm/dd/yyyy)" :text="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ):'' "/>
+                <check-box inline="inline" boxMargin="0" style="display:inline;" :check="hasAnotherAdult?'yes':''" text=" Other <i>(specify):</i>"/>               
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="full name of other person to be protected" :text="result.protectionWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.nameFull ):''"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="11rem" beforetext="," hint="date of birth of other person (mmm/dd/yyyy)" :text="result.protectionWhomSurvey.ApplicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ):'' "/>
                 <div style="text-indent:-18px;display:block;margin-top:0.5rem;"> Explain why you are applying for the other person:</div>
                 <div v-if="result.protectionFromWhomSurvey.ApplicantNeedsProtection == 'n'" class="answerbox"> {{result.protectionFromWhomSurvey.anotherAdultReasonForPO}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
@@ -744,6 +744,8 @@ export default class FormK extends Vue {
     applicantList = []
     serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
     serviceContact = {phone:"", fax:"", email:""}
+    
+    hasAnotherAdult = false;
     anotherAdult = {nameFull:'', dobBeauty:''}
     
     backgroundSurvey={protectedSpouse: '', liveTogetherDate:'', marriageDate: '', separationDate:''  }
@@ -758,6 +760,7 @@ export default class FormK extends Vue {
     }
 
     childrenItem = [{name:'', dob:'', relation:'',living:''}];
+    hasChildren = false
     childrenFields=[
         {key:"name",     label:"Child's full legal name",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
@@ -766,6 +769,7 @@ export default class FormK extends Vue {
     ]
 
     sharingAdultItem = [{name:'', dob:'', relation:''}]
+    hasSharingAdult = false
     sharingAdultFields = [
         {key:"name",     label:"Full name",                                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Date of birth (mmm/dd/yyyy)",              tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
@@ -802,33 +806,51 @@ export default class FormK extends Vue {
     }
 
     public getProtectingPeople(){
-        if(this.result.protectionFromWhomSurvey?.ApplicantNeedsProtection== "y"){
-            if(this.result.protectionFromWhomSurvey.childPO=='y'){
-                this.childrenItem = [];
-                for(const child of this.result.protectionFromWhomSurvey.allchildren){
-                    this.childrenItem.push({
-                        name:Vue.filter('getFullName')(child.childName), 
-                        dob:Vue.filter('beautify-date')(child.childDOB), 
-                        relation:child.childRelationship,
-                        living:child.childLivingWith
-                    })
-                }
-            }
-            if(this.result.protectionFromWhomSurvey?.anotherAdultSharingResi=='y'){
-                this.sharingAdultItem = [];
-                for(const sharingAdult of this.result.protectionFromWhomSurvey.allAnotherAdultsSharingResi){
-                    this.sharingAdultItem.push({
-                        name:Vue.filter('getFullName')(sharingAdult.anotherAdultSharingResiName), 
-                        dob:Vue.filter('beautify-date')(sharingAdult.anotheradultSharingResiDOB), 
-                        relation:sharingAdult.anotherAdultSharingResiRelation
-                    })
-                }
+        
+        this.hasChildren = false;
+        this.hasSharingAdult = false;
+        this.hasAnotherAdult = false;
+        
+        if( //Add Child info IF:
+           (this.result?.protectionWhomSurvey?.childPO=='y' && this.result?.protectionWhomSurvey?.ApplicantNeedsProtection== "y")
+        || (this.result?.protectionWhomSurvey?.childPO=='y' && this.result?.protectionWhomSurvey?.ApplicantNeedsProtection== "n" && this.result?.protectionWhomSurvey?.anotherAdultPO=='n')
+        ){            
+            this.childrenItem = [];
+            this.hasChildren = true;
+            for(const child of this.result.protectionWhomSurvey.allchildren){
+                this.childrenItem.push({
+                    name:Vue.filter('getFullName')(child.childName), 
+                    dob:Vue.filter('beautify-date')(child.childDOB), 
+                    relation:child.childRelationship,
+                    living:child.childLivingWith
+                })
             }
         }
-        else if(this.result.protectionFromWhomSurvey?.ApplicantNeedsProtection == "n"){
-            if(this.result.protectionFromWhomSurvey.anotherAdultPO=='y'){
-                this.anotherAdult = {nameFull:Vue.filter('getFullName')(this.result.protectionFromWhomSurvey.anotherAdultName),dobBeauty:Vue.filter('beautify-date')(this.result.protectionFromWhomSurvey.anotherAdultDOB)}
-            }
+
+        if( //Add Sharing resident's Adult info IF:
+            (this.result?.protectionWhomSurvey?.anotherAdultSharingResi=='y') && 
+            (this.result?.protectionWhomSurvey?.ApplicantNeedsProtection== 'y' || 
+             this.result?.protectionWhomSurvey?.anotherAdultPO=='y'            ||
+             this.result?.protectionWhomSurvey?.childPO=='y')
+        ){
+            this.sharingAdultItem = [];
+            this.hasSharingAdult = true;
+            for(const sharingAdult of this.result.protectionWhomSurvey.allAnotherAdultsSharingResi){
+                this.sharingAdultItem.push({
+                    name:Vue.filter('getFullName')(sharingAdult.anotherAdultSharingResiName), 
+                    dob:Vue.filter('beautify-date')(sharingAdult.anotheradultSharingResiDOB), 
+                    relation:sharingAdult.anotherAdultSharingResiRelation
+                })
+            }            
+        }
+
+
+        if(
+            this.result?.protectionWhomSurvey?.anotherAdultPO=='y' && 
+            this.result?.protectionWhomSurvey?.ApplicantNeedsProtection == "n"
+        ){
+            this.hasAnotherAdult = true;
+            this.anotherAdult = {nameFull:Vue.filter('getFullName')(this.result.protectionWhomSurvey.anotherAdultName),dobBeauty:Vue.filter('beautify-date')(this.result.protectionWhomSurvey.anotherAdultDOB)}            
         }
     }
 
