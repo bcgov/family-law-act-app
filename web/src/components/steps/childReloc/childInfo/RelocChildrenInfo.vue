@@ -58,6 +58,7 @@ import PageBase from "../../PageBase.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -138,9 +139,76 @@ export default class RelocChildrenInfo extends Vue {
     }
 
     created() {
+        console.log('created')
         if (this.step.result?.relocChildrenInfoSurvey) {
             this.childData = this.step.result.relocChildrenInfoSurvey.data;
-        }        
+        }
+
+        console.log(this.childData?.length)
+        this.searchForChildData() 
+    }
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+    @applicationState.State
+    public steps!: stepInfoType[];
+
+    public searchForChildData(){
+        
+        //if(PO)
+        //console.log(this.steps[this.stPgNo.PO._StepNo])
+        //PO.active ?
+        //PO.pages[this.stPgNo.PO.protectionFromWhomSurvey].active?
+        //PO.result.protectionFromWhomSurvey.data.allchildren.length>0
+        // childDOB: "2020-01-03"
+        // childLivingWith: "grandparent"
+        // childName: Object
+        // childRelationship: "father" //opRelation
+
+        //if(FLM)
+        //console.log(this.steps[this.stPgNo.FLM._StepNo])
+        //FLM.active ?
+        //FLM.pages[this.stPgNo.FLM.ChildrenInfo].active?
+        //FLM.result.childrenInfoSurvey.data.length>0
+        // currentLiving: "person"
+        // dob: "2017-07-07"
+        // id:1
+        // name: Object {first: (...)last: (...)middle: (...)}
+        // opRelation: "other party's relation"
+        // relation: "your relation "
+
+        //if(CM)
+        //console.log(this.steps[this.stPgNo.CM._StepNo])
+        //CM.active ?
+        //CM.pages[this.stPgNo.CM.CmChildrenInfo].active?
+        //CM.result.cmChildrenInfoSurvey.data.childData.length>0 &&
+        //CM.result.cmChildrenInfoSurvey.data.childRelatedType == "A party to the case and the case involves a child-related issue"
+        // dob: "2006-10-20"
+        // id:1
+        // name: Object
+
+        //if(PPM)
+        //console.log(this.steps[this.stPgNo.PPM._StepNo])
+        //PPM.active ?
+        //PPM.pages[this.stPgNo.PPM.PpmChildrenInfo].active?
+        //PPM.result.ppmChildrenInfoSurvey.data.length>0
+        // dob: "2021-01-01"
+        // id: 1
+        // name: Object
+        // opRelation: "describes itdescribes it"
+        // relation: "describes it"
+
+        //if(RELOC)
+        //console.log(this.steps[this.stPgNo.RELOC._StepNo])
+        //RELOC.active ?
+        //RELOC.pages[this.stPgNo.RELOC.RelocChildrenInfo].active?
+        //RELOC.result.relocChildrenInfoSurvey.data.length>0
+        // currentLiving: "living with"
+        // dob: "2020-02-02"
+        // id: 1
+        // name: Object
+
+        //console.log(this.stPgNo)
     }
 
     mounted(){

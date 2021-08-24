@@ -18,7 +18,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import { childInfoType } from '@/types/Application/CommonInformation';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-childInfo.json";
-import * as surveyEnv from "@/components/survey/survey-glossary"
+import * as surveyEnv from "@/components/survey/survey-glossary";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -93,24 +93,7 @@ export default class ChildrenSurvey extends Vue {
     }
     
     public saveChild() {
-        const p = this.stPgNo.FLM
-        const pages = [
-            p.ParentingArrangements,
-            p.ParentalResponsibilities,
-            p.ParentingTime,
-            p.ParentingOrderAgreement,
-            p.BestInterestsOfChild,
-            p.ChildSupportCurrentArrangements,
-            p.AboutChildSupportOrder,
-            p.SpecialAndExtraordinaryExpenses,
-            p.ContactWithChild,
-            p.ContactWithChildOrder,
-            p.AboutContactWithChildOrder,
-            p.ContactWithChildBestInterestsOfChild,
-            p.GuardianOfChild,
-            p.ReviewYourAnswersFLM
-        ]
-        Vue.filter('setProgressForPages')(this.currentStep, pages,50)
+        
         this.survey.completeLastPage();
     }
 

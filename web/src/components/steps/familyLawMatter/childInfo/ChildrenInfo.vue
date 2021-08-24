@@ -83,6 +83,7 @@ import PageBase from "../../PageBase.vue";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { stepsAndPagesNumberInfoType } from '@/types/Application/StepsAndPages';
 const applicationState = namespace("Application");
 
 @Component({
@@ -127,23 +128,30 @@ export default class ChildrenInfo extends Vue {
         }
     }
 
-    public childComponentData(value) {
+    public childComponentData(value) {       
         this.showTable = value;
     }
 
     public populateSurveyData(childValue) {
+
+        
+
+
         const currentIndexValue = this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newChild = { ...childValue, id };
         this.childData = [...this.childData, newChild];
 
         this.showTable = true; 
+        this.resetChildrenRelatedPages(this.childData);
     }
 
     public deleteRow(rowToBeDeleted) {
+       
         this.childData = this.childData.filter(data => {
             return data.id !== rowToBeDeleted;
-        });
+        }); 
+        this.resetChildrenRelatedPages(this.childData);
     }
 
     public editRow(editedRow) {
@@ -151,6 +159,8 @@ export default class ChildrenInfo extends Vue {
             return data.id === this.editId ? editedRow : data;
         });
         this.showTable = true;
+
+        this.resetChildrenRelatedPages(this.childData);
     }
 
     public onPrev() {
@@ -214,6 +224,31 @@ export default class ChildrenInfo extends Vue {
         }
         
         return resultString
+    }
+
+    public resetChildrenRelatedPages(childData?) {
+    
+        const stPgNo: stepsAndPagesNumberInfoType = this.$store.state.Application.stPgNo;   
+        const p = stPgNo.FLM;
+
+        const pages = [
+            p.ParentingArrangements,
+            p.ParentalResponsibilities,
+            p.ParentingTime,
+            p.ParentingOrderAgreement,
+            p.BestInterestsOfChild,
+            p.ChildSupportCurrentArrangements,
+            p.AboutChildSupportOrder,
+            p.SpecialAndExtraordinaryExpenses,
+            p.ContactWithChild,
+            p.ContactWithChildOrder,
+            p.AboutContactWithChildOrder,
+            p.ContactWithChildBestInterestsOfChild,
+            p.GuardianOfChild,
+            p.ReviewYourAnswersFLM
+        ]
+        Vue.filter('setProgressForPages')(p._StepNo, pages,50);    
+
     }
 };
 </script>

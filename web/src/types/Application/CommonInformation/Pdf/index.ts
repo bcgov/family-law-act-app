@@ -17,4 +17,5 @@ export interface yourInformationInfoDataInfoType {
     contact: contactInfoType;
     lawyerFiling: boolean;
     lawyerStatement: lawyerStatementInfoType;
+    occupation?: string;
 }
