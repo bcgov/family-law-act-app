@@ -1,0 +1,34 @@
+{
+  "title": "Determine Arrears",
+  "pages": [
+    {
+      "name": "Determine Arrears",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "determineArrearsPanel",
+          "elements": [
+            {
+              "type": "text",
+              "name": "existingDate",
+              "title": "Please provide the date the written agreement or court order about support was made.",
+              "description": "For a written agreement, provide the date the written agreement was signed. For an order, the date should be referenced in the preamble on the order. For example, “Before the Honourable Judge Jones on May 1, 2016”. The date on the court stamp doesn’t always match the date the order was made.",
+              "inputType": "date",
+              "isRequired": true
+            },
+            {
+              "type": "infotext",
+              "name": "RequiredDocumentsInfo",
+              "title": "You will need to include a copy of your support order or agreement when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        }
+      ],
+      "title": "Determine Arrears"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
