@@ -68,5 +68,19 @@ export interface appointedDeterminationDataInfoType {
     selected: string;
 }
 
+export interface detrermineArrearsSurveyInfoType {
+    data: detrermineArrearsSurveyDataInfoType[];
+    questions: questionInfoType[];
+    pageName: string;
+    currentStep: number;
+    currentPage: number;
+}
+
+export interface detrermineArrearsSurveyDataInfoType {
+    existingDate: string;   
+}
+
+
+
 
 

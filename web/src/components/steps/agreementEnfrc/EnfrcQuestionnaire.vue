@@ -215,28 +215,6 @@
         </template>
     </b-modal>
 
-    <b-modal size="xl" v-model="arrearsPopInfo" header-class="bg-white" no-close-on-backdrop hide-header>
-        
-        <div class="m-3">               
-            <p>
-                You will need to include a copy of your support order or agreement when you file your documents. You will be reminded to include a copy at the end of the service.                    
-            </p>                
-            <b-form-checkbox 
-                class="mt-4"
-                v-model="arrearsPopInfoUnderstand"               
-                value="understand"
-                unchecked-value="">
-                <h4 style="margin: 0.26rem 0.5rem;">
-                    I understand
-                </h4>
-            </b-form-checkbox>
-        </div>   
-
-        <template v-slot:modal-footer>
-            <b-button :disabled="arrearsPopInfoUnderstand != 'understand'" variant="success" @click="closeArrearsPopupConfirm();">Continue</b-button>
-        </template>
-    </b-modal>
-
     </page-base>
 </template>
 
@@ -283,12 +261,9 @@ export default class EnfrcQuestionnaire extends Vue {
     showLegalAssistance = false;
     showEnforceOrder = false;
     popInfo = false;
-    popInfoUnderstand = '';
+    popInfoUnderstand = '';    
 
-    arrearsPopInfo = false;
-    arrearsPopInfoUnderstand = '';
-
-    confirmedError = false
+    confirmedError = false;
 
     currentStep = 0;
     currentPage = 0;
@@ -333,7 +308,6 @@ export default class EnfrcQuestionnaire extends Vue {
 
         const p = this.stPgNo.ENFRC
         if (selectedEnforcementQuestionnaire) {
-
             
             // const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
             // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
@@ -343,6 +317,7 @@ export default class EnfrcQuestionnaire extends Vue {
                 
                 this.togglePages([p.AboutTheOrderEnforcement, p.ReviewYourAnswersENFRC],true)
                 this.togglePages([p.DetermineAnAmountOwingForExpenses], this.selectedEnforcementQuestionnaire.includes("expenses"));
+                this.togglePages([p.DetermineArrears], this.selectedEnforcementQuestionnaire.includes("arrears"));
                 this.togglePages([p.EnforceAgreementOrOrder], this.selectedEnforcementQuestionnaire.includes("writtenAgreementOrder"));
                 this.togglePages([p.EnforceChangeOrSetAsideDetermination], this.selectedEnforcementQuestionnaire.includes("parentingCoordinatorDetermination"));    
                 
@@ -351,7 +326,8 @@ export default class EnfrcQuestionnaire extends Vue {
                         Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceAgreementOrOrder, 50, false);
                                     
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.EnforceChangeOrSetAsideDetermination, 0, false); 
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.DetermineAnAmountOwingForExpenses, 0, false);           
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.DetermineAnAmountOwingForExpenses, 0, false);  
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.DetermineArrears, 0, false);         
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutTheOrderEnforcement, 0, false);                            
                     Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersENFRC, 0, false);
                 }
@@ -398,24 +374,12 @@ export default class EnfrcQuestionnaire extends Vue {
     }
 
     public onNext() {
-        if (this.selectedEnforcementQuestionnaire.includes('arrears')) { 
-            this.arrearsPopInfo = true;
-        }
-        else if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
+        if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
             this.popInfo = true;
         } else {
             this.UpdateGotoNextStepPage();
         }
     }
-
-    public closeArrearsPopupConfirm(){
-        this.arrearsPopInfo = false;
-        if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
-            this.popInfo = true;
-        } else {
-            this.UpdateGotoNextStepPage();
-        }              
-    }   
 
     public closePopupConfirm(){
         this.popInfo = false;
@@ -441,11 +405,7 @@ export default class EnfrcQuestionnaire extends Vue {
         
         let progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
   
-        if(surveyChanged || initProgress != 100){
-            if (this.selectedEnforcementQuestionnaire?.includes('arrears') && this.arrearsPopInfoUnderstand != 'understand'){
-                Vue.filter('surveyChanged')('agreementEnfrc')
-                progress = 50
-            }
+        if(surveyChanged || initProgress != 100){           
                 
             if (this.selectedEnforcementQuestionnaire?.includes('foreignSupport') && this.popInfoUnderstand != 'understand'){
                 Vue.filter('surveyChanged')('agreementEnfrc')
