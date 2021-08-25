@@ -53,7 +53,7 @@
                
             </div>
         </div>
-        <b-card v-if="childData && childData.length > 0" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
+        <b-card v-if="showTable && childData && childData.length > 0" class="mb-5" style="max-width: 950px; border-radius: 20px; border:2px solid #ccc;">
             <p>
                 The <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/family-law/parenting-apart/best-interests" target="_blank"
             >best interests of the child</a> is a test that the court uses to make decisions about children.  
@@ -72,6 +72,9 @@
             </div>
             
         </b-card>
+        <b-card v-if="incompleteError && showTable" name="incomplete-error" class="alert-danger p-3 my-4 " no-body>
+            <div>Required Child information is missing. Click the "Edit button <div class="d-inline fa fa-edit"></div> " to fix it. </div>
+        </b-card>   
     </page-base>
 </template>
 
@@ -80,6 +83,8 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
+
+import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -97,6 +102,9 @@ export default class ChildrenInfo extends Vue {
     @Prop({required: true})
     step!: stepInfoType
 
+    @applicationState.State
+    public steps!: stepInfoType[];
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -112,7 +120,8 @@ export default class ChildrenInfo extends Vue {
     childBestInterestUnderstanding = false;
     childData = [];
     anyRowToBeEdited = null;
-    editId = null;    
+    editId = null; 
+    incompleteError =  false;       
     
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
@@ -134,9 +143,6 @@ export default class ChildrenInfo extends Vue {
 
     public populateSurveyData(childValue) {
 
-        
-
-
         const currentIndexValue = this.childData?.length > 0 ? this.childData[this.childData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newChild = { ...childValue, id };
@@ -152,6 +158,7 @@ export default class ChildrenInfo extends Vue {
             return data.id !== rowToBeDeleted;
         }); 
         this.resetChildrenRelatedPages(this.childData);
+        this.surveyHasError();
     }
 
     public editRow(editedRow) {
@@ -159,7 +166,7 @@ export default class ChildrenInfo extends Vue {
             return data.id === this.editId ? editedRow : data;
         });
         this.showTable = true;
-
+        this.surveyHasError();
         this.resetChildrenRelatedPages(this.childData);
     }
 
@@ -179,13 +186,28 @@ export default class ChildrenInfo extends Vue {
         if (this.step.result?.childBestInterestAcknowledgement) {
             this.childBestInterestUnderstanding = this.step.result.childBestInterestAcknowledgement;
         }
+
+        if(this.childData?.length == 0){
+            this.childData= SearchForChildrenData('FLM');            
+        }
     }
 
     mounted(){
-        
-        const progress = this.childData?.length>0 && this.childBestInterestUnderstanding? 100 : 50;            
+        Vue.nextTick(()=>this.surveyHasError());
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
+    }
+
+    public surveyHasError(){
+        let progress = this.childData.length==0? 50 : 100;
+        this.incompleteError =  false;        
+        for(const child of this.childData){
+            if(child.dob == '' || child.relation == '' || child.opRelation == '' || child.currentLiving == ''){
+                this.incompleteError = true;  
+                progress = 50;    
+                break
+            }
+        }        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
@@ -194,9 +216,7 @@ export default class ChildrenInfo extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.childData?.length>0 && this.childBestInterestUnderstanding? 100 : 50;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
+        this.surveyHasError();        
         this.UpdateStepResultData({step:this.step, data: {childrenInfoSurvey: this.getChildrenResults(), childBestInterestAcknowledgement:this.childBestInterestUnderstanding}})       
     }
 

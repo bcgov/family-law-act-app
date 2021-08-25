@@ -48,7 +48,10 @@
                 </div>
                
             </div>
-        </div>       
+        </div>
+        <b-card v-if="incompleteError && showTable" name="incomplete-error" class="alert-danger p-3 my-4 " no-body>
+            <div>Required Child information is missing. Click the "Edit button <div class="d-inline fa fa-edit"></div> " to fix it. </div>
+        </b-card>       
     </page-base>
 </template>
 
@@ -57,6 +60,8 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
+
+import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -72,6 +77,9 @@ export default class PpmChildrenInfo extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType
+    
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -88,7 +96,8 @@ export default class PpmChildrenInfo extends Vue {
     childData = [];
     anyRowToBeEdited = null;
     editId = null;    
-    
+    incompleteError =  false; 
+
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
          Vue.nextTick(()=>{
@@ -121,6 +130,7 @@ export default class PpmChildrenInfo extends Vue {
         this.childData = this.childData.filter(data => {
             return data.id !== rowToBeDeleted;
         });
+        this.surveyHasError(); 
     }
 
     public editRow(editedRow) {
@@ -128,6 +138,7 @@ export default class PpmChildrenInfo extends Vue {
             return data.id === this.editId ? editedRow : data;
         });
         this.showTable = true;
+        this.surveyHasError(); 
     }
 
     public onPrev() {
@@ -141,13 +152,29 @@ export default class PpmChildrenInfo extends Vue {
     created() {
         if (this.step.result?.ppmChildrenInfoSurvey) {
             this.childData = this.step.result.ppmChildrenInfoSurvey.data;
-        }        
+        }  
+        
+        if(this.childData?.length == 0){
+            this.childData= SearchForChildrenData('PPM');            
+        }      
     }
 
     mounted(){
-        const progress = this.childData?.length>0? 100 : 50;            
+        Vue.nextTick(()=>this.surveyHasError());            
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;       
+    }
+    
+    public surveyHasError(){
+        let progress = this.childData.length==0? 50 : 100;
+        this.incompleteError =  false;        
+        for(const child of this.childData){            
+            if(child.dob == '' || child.relation == ''|| child.opRelation == ''){
+                this.incompleteError = true;  
+                progress = 50;    
+                break
+            }
+        }        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
@@ -156,9 +183,7 @@ export default class PpmChildrenInfo extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.childData?.length>0? 100 : 50;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
-
+        this.surveyHasError(); 
         this.UpdateStepResultData({step:this.step, data: {ppmChildrenInfoSurvey: this.getChildrenResults()}})       
     }
 
