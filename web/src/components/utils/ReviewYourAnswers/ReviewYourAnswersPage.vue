@@ -204,22 +204,32 @@ export default class ReviewYourAnswersPage extends Vue {
     }
 
     public getChildrenNames(selectedChildren){
-
+    
+    
         let result = ''
-    //     if (this.step.result?.ppmChildrenInfoSurvey) {
+        let childData = [];
 
-    //         const childData = this.step.result.ppmChildrenInfoSurvey.data;PPM
-    //         const childData = this.step.result.childrenInfoSurvey.data; FLM
-    //         const childData = this.step.result.relocChildrenInfoSurvey.data; RELOC
-    //         const childData = this.step.result.childrenInfoSurvey.data; CM
+        if (Number(this.step.id) == this.stPgNo.PPM._StepNo && this.step.result?.ppmChildrenInfoSurvey)
+            childData = this.step.result.ppmChildrenInfoSurvey.data;//PPM
 
-    //         for(const selectedChild of selectedChildren ){
-    //             if(!isNaN(Number(selectedChild.substring(6,7)))){
-    //                 const child = childData[Number(selectedChild.substring(6,7))]
-    //                 result += Vue.filter('getFullName')(child.name)+'\n'
-    //             }
-    //         }
-    //     }
+        else if(Number(this.step.id) == this.stPgNo.FLM._StepNo && this.step.result?.childrenInfoSurvey)
+            childData = this.step.result.childrenInfoSurvey.data; //FLM
+
+        else if(Number(this.step.id) == this.stPgNo.CM._StepNo && this.step.result?.childrenInfoSurvey)
+            childData = this.step.result.childrenInfoSurvey.data; //CM
+        
+        else if(Number(this.step.id) == this.stPgNo.RELOC._StepNo && this.step.result?.relocChildrenInfoSurvey)
+            childData = this.step.result.relocChildrenInfoSurvey.data; //RELOC
+
+
+        if(childData.length>0){
+            for(const selectedChild of selectedChildren ){
+                if(!isNaN(Number(selectedChild.substring(6,7)))){
+                    const child = childData[Number(selectedChild.substring(6,7))]
+                    result += Vue.filter('getFullName')(child.name)+'\n'
+                }
+            }
+        }
         return result
     }
 

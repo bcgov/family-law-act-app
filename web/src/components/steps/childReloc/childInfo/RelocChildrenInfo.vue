@@ -46,7 +46,10 @@
                 </div>
                
             </div>
-        </div>       
+        </div>
+        <b-card v-if="incompleteError && showTable" name="incomplete-error" class="alert-danger p-3 my-4 " no-body>
+            <div>Required Child information is missing. Click the "Edit button <div class="d-inline fa fa-edit"></div> " to fix it. </div>
+        </b-card>   
     </page-base>
 </template>
 
@@ -55,6 +58,8 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
+
+import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -71,6 +76,9 @@ export default class RelocChildrenInfo extends Vue {
     @Prop({required: true})
     step!: stepInfoType
 
+    @applicationState.State
+    public steps!: stepInfoType[];
+
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
 
@@ -80,12 +88,14 @@ export default class RelocChildrenInfo extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    currentStep =0;
-    currentPage =0;
+    currentStep = 0;
+    currentPage = 0;
     showTable = true;
     childData = [];
     anyRowToBeEdited = null;
-    editId = null;    
+    editId = null;
+    
+    incompleteError =  false;    
     
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
@@ -120,6 +130,7 @@ export default class RelocChildrenInfo extends Vue {
         this.childData = this.childData.filter(data => {
             return data.id !== rowToBeDeleted;
         });
+        this.surveyHasError();
     }
 
     public editRow(editedRow) {
@@ -127,6 +138,7 @@ export default class RelocChildrenInfo extends Vue {
             return data.id === this.editId ? editedRow : data;
         });
         this.showTable = true;
+        this.surveyHasError();
     }
 
     public onPrev() {
@@ -138,15 +150,32 @@ export default class RelocChildrenInfo extends Vue {
     }
 
     created() {
+        
         if (this.step.result?.relocChildrenInfoSurvey) {
             this.childData = this.step.result.relocChildrenInfoSurvey.data;
-        }        
+        }
+
+        if(this.childData?.length == 0){
+            this.childData= SearchForChildrenData('RELOC');            
+        }
     }
 
-    mounted(){
-        const progress = this.childData.length>0? 100 : 50;            
+    mounted(){        
+        Vue.nextTick(()=>this.surveyHasError());
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;       
+    }
+
+    public surveyHasError(){
+        let progress = this.childData.length==0? 50 : 100;
+        this.incompleteError =  false;        
+        for(const child of this.childData){
+            if(child.dob == '' || child.currentLiving == ''){
+                this.incompleteError = true;  
+                progress = 50;    
+                break
+            }
+        }        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
     }
 
@@ -155,8 +184,7 @@ export default class RelocChildrenInfo extends Vue {
     }
 
     beforeDestroy() {
-        const progress = this.childData.length>0? 100 : 50;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        this.surveyHasError();        
         this.UpdateStepResultData({step:this.step, data: {relocChildrenInfoSurvey: this.getChildrenResults()}})       
     }
 

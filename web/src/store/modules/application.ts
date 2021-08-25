@@ -960,13 +960,21 @@ class Application extends VuexModule {
         p = {} as pageInfoType;
         p.key = "3";
         p.name = "DetermineAnAmountOwingForExpenses";
-        p.label = "Determine an Amount Owing for Expenses ";
+        p.label = "Determine an Amount Owing for Expenses";
         p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "4";
+        p.name = "DetermineArrears";
+        p.label = "Determine Arrears";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "5";
         p.name = "AboutTheOrderEnforcement";
         p.label = "About the Order - Enforcement";
         p.active = false;
@@ -975,7 +983,7 @@ class Application extends VuexModule {
 
         //____________Review
         p = {} as pageInfoType;
-        p.key = "5";
+        p.key = "6";
         p.name = "ReviewYourAnswersENFRC";
         p.label = "Review Your Answers";
         p.active = false;
@@ -983,7 +991,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "6";
+        p.key = "7";
         p.name = "PreviewForm26ENFRC";
         p.label = "Preview Form 26";
         p.active = false;
@@ -991,7 +999,7 @@ class Application extends VuexModule {
         s.pages.push(p); 
         
         p = {} as pageInfoType;
-        p.key = "7";
+        p.key = "8";
         p.name = "PreviewForm27ENFRC";
         p.label = "Preview Form 27";
         p.active = false;
@@ -999,7 +1007,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "8";
+        p.key = "9";
         p.name = "PreviewForm28ENFRC";
         p.label = "Preview Form 28";
         p.active = false;
@@ -1007,7 +1015,7 @@ class Application extends VuexModule {
         s.pages.push(p);
 
         p = {} as pageInfoType;
-        p.key = "9";
+        p.key = "10";
         p.name = "PreviewForm29ENFRC";
         p.label = "Preview Form 29";
         p.active = false;

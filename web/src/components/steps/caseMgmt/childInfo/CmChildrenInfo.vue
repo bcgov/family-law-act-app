@@ -98,6 +98,8 @@ import ChildrenSurvey from "./ChildrenSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 
+import {SearchForChildrenData} from "@/components/utils/ChildrenData/SearchForChildrenData"
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -112,6 +114,9 @@ export default class CmChildrenInfo extends Vue {
 
     @Prop({required: true})
     step!: stepInfoType
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -190,6 +195,10 @@ export default class CmChildrenInfo extends Vue {
         if (this.step.result?.cmChildrenInfoSurvey?.data){
             this.childData = this.step.result.cmChildrenInfoSurvey.data.childData;
             this.selectedChildrenRelated = this.step.result.cmChildrenInfoSurvey.data.childRelatedType
+        }
+
+        if(this.childData?.length == 0){
+            this.childData= SearchForChildrenData('CM');            
         }
 
         this.dataReady = true;

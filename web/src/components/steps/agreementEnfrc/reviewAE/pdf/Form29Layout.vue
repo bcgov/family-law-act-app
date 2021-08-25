@@ -419,7 +419,7 @@ export default class Form29Layout extends Vue {
         let form29Information = {} as form29InformationDataInfoType;
         form29Information.orderList = [];
         form29Information.expenseList = [];
-        form29Information.arrearsDate = '?';
+        form29Information.arrearsDate = '';
         form29Information.foreignNotice = false;
         form29Information.otherPartyNotice = false;
         form29Information.attachRequiredDocuments = false;
@@ -440,9 +440,9 @@ export default class Form29Layout extends Vue {
                 form29Information.writtenAgreementOrderDate = Vue.filter('beautify-date')(this.result.enforceAgreementOrOrderSurvey.existingDate);
             }
 
-            if (enfrcQuest.includes('arrears')){
+            if (enfrcQuest.includes('arrears') && this.result.detrermineArrearsSurvey){                
                 form29Information.orderList.push('arrears');
-                form29Information.arrearsDate = '?';
+                form29Information.arrearsDate = Vue.filter('beautify-date')(this.result.detrermineArrearsSurvey.existingDate);
             }
 
             if (enfrcQuest.includes('expenses') && this.result?.determineAnAmountOwingForExpensesSurvey?.amountOwingActionType){
@@ -455,10 +455,9 @@ export default class Form29Layout extends Vue {
                 form29Information.attachRequiredDocuments = true;
             }
             // console.log(this.requiredDocuments?.agreementEnfrc?.required)
-            // if (enfrcQuest.includes('foreignSupport')){
-            //     form29Information.orderList.push('foreignSupport');
-            //     form29Information.foreignNotice = true;
-            // }
+            if (enfrcQuest.includes('foreignSupport')){
+                form29Information.orderList.push('foreignSupport');              
+            }
 
             if(enfrcQuest.includes('foreignSupport') && enfrcQuest.length==1){
                 form29Information.otherPartyNotice = false;

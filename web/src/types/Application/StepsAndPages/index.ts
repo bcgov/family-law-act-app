@@ -142,6 +142,7 @@ export interface ENFRCstPgTypes{
     
     EnfrcQuestionnaire: number;
     DetermineAnAmountOwingForExpenses: number;
+    DetermineArrears: number;
     EnforceAgreementOrOrder: number;
     EnforceChangeOrSetAsideDetermination: number;
     AboutTheOrderEnforcement: number;
