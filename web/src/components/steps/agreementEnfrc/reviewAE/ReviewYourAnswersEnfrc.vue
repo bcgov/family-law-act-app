@@ -70,7 +70,14 @@ export default class ReviewYourAnswersEnfrc extends Vue {
         this.form26 = requiredForm.includes('P26');
         this.form27 = requiredForm.includes('P27');
         this.form28 = requiredForm.includes('P28');
-        this.form29 = requiredForm.includes('P29');        
+        this.form29 = requiredForm.includes('P29');    
+
+        for(const form of ['26','27','28']){
+            if(requiredForm.includes('P'+form) == false){
+                Vue.filter('removeRequiredDocuments')('agreementEnfrc'+form)
+            }
+        }
+        
         this.reloadPageInformation();
         this.checkStepHasError();
     }

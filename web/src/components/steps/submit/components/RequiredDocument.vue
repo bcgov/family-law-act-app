@@ -15,11 +15,8 @@
             <ul>
                 <li><b class="text-danger"> The following additional documents are required as part of your filing:</b> </li>                   
                 <ul class="mt-3" v-for="requiredDocument,index in requiredDocumentLists" :key="index" >
-                    <li v-if="requiredDocument.required.length>0"  class="mb-2"> 
-                        For the Application About 
-                        <span v-if="requiredDocument.name[0]=='E'"> an </span>
-                        <span v-else> a </span> 
-                        {{requiredDocument.name}} :
+                    <li v-if="requiredDocument.required.length>0"  class="mb-2">
+                        {{requiredDocument.text}} {{requiredDocument.article}} {{requiredDocument.name}} :
                         <ul class="mt-3" v-for="requiredDoc,inx in requiredDocument.required" :key="inx">
                             <li class="mb-2 font-weight-normal" v-html="requiredDoc" >{{requiredDoc}}</li>
                         </ul>
@@ -86,13 +83,19 @@ export default class RequiredDocument extends Vue {
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
         this.isRequiredDocument = false;
-        for (const [key, value] of Object.entries(this.requiredDocuments)){
-           
-            if(key && value &&  this.$store.state.Application.steps[0].result?.selectedForms?.includes(key)){
-                this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})
+        for (const [key, value] of Object.entries(this.requiredDocuments)){           
+            if(key && value &&  (this.$store.state.Application.steps[0].result?.selectedForms?.includes(key) || this.$store.state.Application.steps[0].result?.selectedForms?.includes(key.slice(0,-2)))){
+                const name = Vue.filter('getFullOrderName')(key, '');
+                this.requiredDocumentLists.push({
+                    name:name, 
+                    required:value['required'], 
+                    reminder:value['reminder'],
+                    text:key.includes('agreementEnfrc2')?'For the Request to':'For the Application About',
+                    article:key.includes('agreementEnfrc2')? '':(['A','E','I','O','U'].includes(name.substring(0,1))?'an':'a')
+                })
                 if(value['required']?.length>0) this.isRequiredDocument = true;
             }
-        }
+        }        
     }
 }
 </script>
