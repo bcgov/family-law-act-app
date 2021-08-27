@@ -230,6 +230,9 @@ Vue.filter('getFullOrderName',function(orderName, specific){
 	else if (orderName == "priorityParenting") return "Priority Parenting Matter";
 	else if (orderName == "childReloc") return "Relocation of a Child";
 	else if (orderName == "agreementEnfrc") return "Enforcement";
+	else if (orderName == "agreementEnfrc26") return "File an Agreement";	
+	else if (orderName == "agreementEnfrc27") return "File a Determination of Parenting Coordinator";
+	else if (orderName == "agreementEnfrc28") return "File an Order";
 	else return "";
 })
 
@@ -393,7 +396,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "y")
 			requiredDocuments.push("Copy of filed written agreement or court order for enforcement")			
 		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "courtOrder")
-			requiredDocuments.push("Certified copy of order to your request for filing from the other court","Copy of court order for enforcement")		
+			requiredDocuments.push("Copy of court order for enforcement")		
 		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "writtenAgreement")
 			requiredDocuments.push("Copy of written agreement for enforcement")		
 		
@@ -405,14 +408,52 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "y")
 			requiredDocuments.push("Copy of determination of parenting coordinator")
 		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "n")
-			requiredDocuments.push("Copy of determination of parenting coordinator","Copy of written agreement to appoint a parenting coordinator")		
+			requiredDocuments.push("Copy of determination of parenting coordinator")		
 
+	}
+
+	if(type == 'agreementEnfrc26'){ //request to file an Agreement
+		const stPgENFRC = store.state.Application.stPgNo.ENFRC
+		const stepENFRC = store.state.Application.steps[stPgENFRC._StepNo]
+		
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "writtenAgreement")
+			requiredDocuments.push("Copy of written agreement");	
+		
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "n")
+			requiredDocuments.push("Copy of written agreement to appoint a parenting coordinator");		
+	}
+
+	if(type == 'agreementEnfrc28'){ //request to file an Order
+		const stPgENFRC = store.state.Application.stPgNo.ENFRC
+		const stepENFRC = store.state.Application.steps[stPgENFRC._StepNo]
+					
+		if(stepENFRC.pages[stPgENFRC.EnforceAgreementOrOrder].active && questions.enforceAgreementOrOrderSurvey?.enforceOrder == "n" && questions.enforceAgreementOrOrderSurvey?.filedOrder == "n" && questions.enforceAgreementOrOrderSurvey?.existingType == "courtOrder")
+			requiredDocuments.push("Certified copy of order")
+	}
+
+	if(type == 'agreementEnfrc27'){ //request to file a Determination
+		const stPgENFRC = store.state.Application.stPgNo.ENFRC
+		const stepENFRC = store.state.Application.steps[stPgENFRC._StepNo]
+		
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "courtOrder")
+			requiredDocuments.push("Copy of determination of parenting coordinator")		
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "y")
+			requiredDocuments.push("Copy of determination of parenting coordinator");
+		if(stepENFRC.pages[stPgENFRC.EnforceChangeOrSetAsideDetermination].active && questions.enforceChangeSetAsideDeterminationSurvey?.filedOrder == "n" && questions.enforceChangeSetAsideDeterminationSurvey?.appointedDetermination?.selected == "writtenAgreement" && questions.enforceChangeSetAsideDeterminationSurvey?.filedAgreement == "n")
+			requiredDocuments.push("Copy of determination of parenting coordinator");	
 	}
 
 	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:_.uniq(requiredDocuments), reminder:reminderDocuments} });	
 	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});
 	
 	return requiredDocuments;
+})
+
+Vue.filter('removeRequiredDocuments', function(type){
+	const requiredDocuments: string[] = [];
+	const reminderDocuments: string[] = [];
+	store.commit("Application/setRequiredDocumentsByType", {typeOfRequiredDocuments:type, requiredDocuments:{required:requiredDocuments, reminder:reminderDocuments} });	
+	store.commit("Application/setCommonStepResults",{data:{'requiredDocuments':store.state.Application.requiredDocuments}});	
 })
 
 Vue.filter('replaceRequiredDocuments', function(){

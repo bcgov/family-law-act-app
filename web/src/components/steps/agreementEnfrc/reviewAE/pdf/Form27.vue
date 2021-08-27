@@ -123,7 +123,7 @@ export default class Form27 extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
 
-        Vue.filter('extractRequiredDocuments')(result, 'agreementEnfrc')
+        Vue.filter('extractRequiredDocuments')(result, 'agreementEnfrc27')
 
         return result;
     }

@@ -11,6 +11,9 @@ export interface requiredDocumentsInfoType {
     priorityParenting?: requiredReminderInfoType;
     childReloc?: requiredReminderInfoType;
     agreementEnfrc?: requiredReminderInfoType;
+    agreementEnfrc26?: requiredReminderInfoType;
+	agreementEnfrc27?: requiredReminderInfoType;
+	agreementEnfrc28?: requiredReminderInfoType;
 }
 
 export interface requiredReminderInfoType {
