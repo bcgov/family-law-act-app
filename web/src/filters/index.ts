@@ -364,6 +364,9 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 
 	if(type == 'childReloc'){
 		if(questions.relocQuestionnaireSurvey?.ExistingParentingArrangements == "y" )
+			requiredDocuments.push("Copy of existing written agreement or court order about parenting arrangements.");
+
+		if(questions.relocQuestionnaireSurvey?.receiveNotice == "y")
 			requiredDocuments.push("Copy of the written notice of relocation");
 	}
 
