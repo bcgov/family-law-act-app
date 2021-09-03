@@ -1,6 +1,15 @@
 <template>
     <div>
         <h2 class="mt-4">Review Your Answers</h2>
+        <b-card bg-variant="primary" border-variant="primary" text-variant="white">
+            <b-icon-exclamation-circle-fill variant="info" scale="1.5" class="mr-2"></b-icon-exclamation-circle-fill>
+            Please review your answers to ensure all your information is correct.  
+            To make changes, select the edit icon to the right of the section you wish to make changes to.  
+            You will be taken back to that step in the service to make your edits.  
+            Depending on the type of edits you make, you may be required to navigate through other steps again to 
+            confirm your answers are still correct or to make other edits to related answers.
+
+        </b-card>
         <b-card
             v-for="section in questionResults"
             v-bind:key="section.name"
