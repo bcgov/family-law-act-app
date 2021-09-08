@@ -87,6 +87,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -104,13 +105,7 @@ export default class Form3 extends Vue {
     selectedSchedules!: string[];
    
     dataReady = false;
-    guardInfo = {};    
-   
-    mounted(){
-        this.dataReady = false;       
-        this.extractInfo();       
-        this.dataReady = true;      
-    }   
+    guardInfo = {} as schedule7DataInfoType;    
     
     childrenGuardianshipFields = [
         {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:30%;"},
@@ -118,39 +113,31 @@ export default class Form3 extends Vue {
         {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle text-center", thClass:"border-dark align-middle text-center", thStyle:"width:25%;"},
     ]
 
+   
+    mounted(){
+        this.dataReady = false;       
+        this.extractInfo();       
+        this.dataReady = true;      
+    }  
+
     public extractInfo(){   
 
-        if (this.selectedSchedules.includes('schedule7') || this.selectedSchedules.includes('schedule8')){
+        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
             this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
         }
     }   
 
     public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
-        let guardianshipInfo = {
-            guardian: guardian,
-            cancel: cancel, 
-            abtGuardian: {}, 
-            abtCancel: {}, 
-            indigenous: false, 
-            nonIndigenous: false,
-            unKnownAncestry: false, 
-            ancestry: {
-                firstNation: false,
-                nisga: false,
-                treatyFirstNation: false,
-                under12: false,
-                over12: false,
-                acknowledge: false                    
-            }
-        };
-        // console.log(this.result)
+        let guardianshipInfo = {} as schedule7DataInfoType;
 
         if (guardian){
             guardianshipInfo.abtGuardian = {
                 children: []
             }
-            if (this.result.GuardianOfChildSurvey){
-                guardianshipInfo.abtGuardian['children'] = this.result.GuardianOfChildSurvey.childrenList?this.result.GuardianOfChildSurvey.childrenList:[];               
+            if (this.result.guardianOfChildSurvey){
+                guardianshipInfo.abtGuardian = {
+                    children:this.result.guardianOfChildSurvey.childrenList? this.result.guardianOfChildSurvey.childrenList:[]  
+                }            
             }
         }
 
@@ -167,16 +154,17 @@ export default class Form3 extends Vue {
                 ]
             }
 
-            if (this.result.GuardianOfChildBestInterestOfChildSurvey){
-                const bestInterestInfo = this.result.GuardianOfChildBestInterestOfChildSurvey;
-                guardianshipInfo.abtCancel['bestInterest'] = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
+            if (this.result.guardianOfChildBestInterestsOfChildSurvey){
+                const bestInterestInfo = this.result.guardianOfChildBestInterestsOfChildSurvey;
+                guardianshipInfo.abtCancel.bestInterest = bestInterestInfo?.cancelGuradianChildBestInterest? bestInterestInfo.cancelGuradianChildBestInterest:''
             }
-            if (this.result.GuardianOfChildSurvey && this.result.GuardianOfChildSurvey.cancelGuardianDetails){
-                if (this.result.GuardianOfChildSurvey.cancelGuardianDetails.length > 0){
-                    guardianshipInfo.abtCancel['cancelDetails'] = [];
+
+            if (this.result.guardianOfChildSurvey?.cancelGuardianDetails){
+                if (this.result.guardianOfChildSurvey.cancelGuardianDetails?.length > 0){
+                    guardianshipInfo.abtCancel.cancelDetails = [];
                 }
-                for (const detail of this.result.GuardianOfChildSurvey.cancelGuardianDetails){
-                    guardianshipInfo.abtCancel['cancelDetails'].push({
+                for (const detail of this.result.guardianOfChildSurvey.cancelGuardianDetails){
+                    guardianshipInfo.abtCancel.cancelDetails.push({
                         guardianName: detail.nameOther, 
                         childName: detail.name,
                         guardianSince: Vue.filter('beautify-date')(detail.date),

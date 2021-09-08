@@ -33,7 +33,6 @@
 
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
-import { SessionManager } from "@/components/utils/utils";
 @Component
 export default class AvailableServices extends Vue {
   

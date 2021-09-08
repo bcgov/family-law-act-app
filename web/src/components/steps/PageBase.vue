@@ -46,7 +46,7 @@ export default class PageBase extends Vue {
     
     error: ""
  
-    public onPrev(event) {
+    public onPrev() {
         Vue.nextTick().then(()=>{this.saveChanges();});      
         if (this.$listeners && this.$listeners.onPrev) {
             this.$emit('onPrev');
@@ -56,7 +56,7 @@ export default class PageBase extends Vue {
         //window.scrollTo(0, 0);
     }
 
-    public onNext(event) {
+    public onNext() {
         if (!this.isDisableNext()) {
             Vue.nextTick().then(()=>{this.saveChanges();});
             if (this.$listeners && this.$listeners.onNext) {  
@@ -69,15 +69,11 @@ export default class PageBase extends Vue {
     }
 
     public hasPrevStepPage() {
-        //console.log("has previous")
         return this.$store.getters["Application/getPrevStepPage"] != null;
     }
 
     public hasNextStepPage() {
-        
-        //console.log("has next")
-        return this.$store.getters["Application/getNextStepPage"] != null;
-       
+        return this.$store.getters["Application/getNextStepPage"] != null;       
     }
 
     public isDisableNext() {
@@ -100,7 +96,6 @@ export default class PageBase extends Vue {
 
         this.$http.put("/app/"+ applicationId + "/", application, header)
         .then(res => {
-            //console.log(res.data);
             this.error = "";
         }, err => {
             console.error(err);

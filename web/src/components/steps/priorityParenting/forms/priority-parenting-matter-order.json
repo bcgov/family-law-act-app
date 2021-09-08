@@ -1,0 +1,538 @@
+{
+  "title": "Priority Parenting Matter",
+  "pages": [
+    {
+      "name": "Priority Parenting Matter",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "MedicalPanel",
+          "description": "</br>Under BC Law, a child under the age of 19 may consent to their own health care – if they understand the details of the treatment including the risks and benefits and the health treatment has been determined to be in their best interests. For more information on the Infants Act, <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96223_01#part2' target='blank'>visit BC Laws</a>.</br></br>When a minor does not have the capacity to consent, the consent of the child’s guardian is required. Normally, the guardian will instruct the medical, dental or other health care provider and give or refuse consent on behalf of the child.</br></br>Subject to <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96223_01#part2' target='blank'>s. 17 of the Infants Act</a>, the parental responsibility of giving, refusing or withdrawing consent to medical, dental or other health-related treatments for the child may be allocated to one or more of the child’s guardians under an agreement or court order. ",
+          "visible": false,
+          "visibleIf": "({medical})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "delayMedicalRisk",
+              "visible": false,
+              "visibleIf": "({medical})",
+              "isRequired": true,
+              "title": "Will a delay of the medical, dental or other health-related treatment or court decision result in a risk to the child’s health?"
+            },
+            {
+              "type": "helptext",
+              "name": "delayMedicalRiskFAQLegalAdvice",
+              "title": "I’m not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmMedicalRisk",
+              "visible": false,
+              "visibleIf": "({medical}) and ({delayMedicalRisk} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter because a guardian has given, refused or withdrawn consent to medical, dental or other health-related treatment for a child and delay will result in risk to the child’s health.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesDelayMedicalRiskInfo",
+              "visible": false,
+              "visibleIf": "{delayMedicalRisk} = 'y'",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including the allocation of parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter. The court can allocate parental responsibilities including that consent of only one guardian is required for these decisions about a child.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noDelayMedicalRiskInfo",
+              "visible": false,
+              "visibleIf": "{delayMedicalRisk} = 'n'",
+              "title": "This is a priority parenting matter only if a delay will result in risk to the child’s health. If you require an order about a health-related decision for a child, but it is not a priority parenting matter, you can apply for an order about parenting arrangements by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "PassportPanel",
+          "description": "</br>Depending on how the parental responsibility for applying for a passport, licence, permit, privilege or other thing for the child has been allocated, the consent and signature of each other guardian may be required.",
+          "visible": false,
+          "visibleIf": "({passport})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "delayPassportRisk",
+              "visible": false,
+              "visibleIf": "({passport})",
+              "isRequired": true,
+              "title": "Will a delay in applying for the passport, licence, permit, benefit, privilege or other thing for a child result in a risk of harm to the child’s physical, psychological or emotional safety, security or well-being?"
+            },
+            {
+              "type": "helptext",
+              "name": "delayPassportRiskFAQLegalAdvice",
+              "title": "I’m not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmDelayPassportRisk",
+              "visible": false,
+              "visibleIf": "({passport}) and ({delayPassportRisk} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter because a guardian needs to apply for a passport, licence, permit, benefit, privilege or other thing for a child and a delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesDelayPassportRiskInfo",
+              "visible": false,
+              "visibleIf": "{delayPassportRisk} = 'y'",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including the allocation of parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter. The court can allocate parental responsibilities including that one guardian be able to make these decisions about a child.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noDelayPassportRiskInfo",
+              "visible": false,
+              "visibleIf": "{delayPassportRisk} = 'n'",
+              "title": "This is a priority parenting matter only if a delay in the decision will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being. If you require an order about applying for a passport, licence, permit, privilege or other thing for a child, but it is not a priority parenting matter, you can apply for an order about parenting arrangements including the allocation of parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "TravelPanel",
+          "description": "</br>Depending on how the parental responsibility for decisions affecting a child have been allocated, the consent of all guardians may be required for a child to travel across an international border, for a child to travel with a school group or other group, or for a child to participate in an activity at school or an extracurricular activity. If you have full parental responsibility for these decisions set in a written agreement or court order, or if you are the only guardian for a child, you will usually need to show a copy of the paperwork you already have. Check with the appropriate authority, for example, Border Services, the child’s school or group coordinating the travel or activity to find out what they may need to see.",
+          "visible": false,
+          "visibleIf": "({travel})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "delayTravelRisk",
+              "visible": false,
+              "visibleIf": "({travel})",
+              "isRequired": true,
+              "title": "Is the consent of another guardian required for travel with a child or for the child to participate in an activity?"
+            },
+            {
+              "type": "infotext",
+              "name": "noDelayTravelRiskInfo",
+              "visible": false,
+              "visibleIf": "({travel}) and ({delayTravelRisk} = 'n')",
+              "title": "If consent of another guardian is not required, you may not need an order from the court for travel with a child or for a child to participate in an activity. Confirm with the appropriate authority, for example, Border Services, the child’s school or group coordinating the travel or activity. You may need to provide them with a copy of the written agreement or court order about parental responsibilities or guardianship of the child.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "yesno",
+              "name": "travelWrongfullyDenied",
+              "visible": false,
+              "visibleIf": "({travel}) and ({delayTravelRisk} = 'y')",
+              "isRequired": true,
+              "title": "Has the consent been wrongfully denied?",
+              "description": "Unless there is an agreement or order that says something different, each child’s guardian may exercise all parental responsibilities with respect to a child in consultation with the child’s other guardians, unless it is unreasonable or inappropriate in the circumstances to consult with them. Is the other guardian’s reason for not giving their consent wrong or unfair?"
+            },
+            {
+              "type": "helptext",
+              "name": "travelWrongfullyDeniedFAQLegalAdvice",
+              "visible": false,
+              "visibleIf": "{delayTravelRisk} = 'y'",
+              "title": "I’m not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmTravelWrongfullyDenied",
+              "visible": false,
+              "visibleIf": "({travel}) and ({delayTravelRisk} = 'y') and ({travelWrongfullyDenied} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter because a guardian wrongfully denied consent for travel with a child or participation by a child in an activity.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesTravelWrongfullyDeniedInfo",
+              "visible": false,
+              "visibleIf": "{delayTravelRisk} = 'y' and {travelWrongfullyDenied} = 'y'",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including the allocation of parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter. The court can allocate parental responsibilities including that consent of only one guardian is required for these decisions about a child.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noTravelWrongfullyDeniedInfo",
+              "visible": false,
+              "visibleIf": "{delayTravelRisk} = 'y' and {travelWrongfullyDenied} = 'n'",
+              "title": "This is a priority parenting matter only if consent is alleged to have been wrongfully denied. If you require an order about parental responsibilities, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "LocationChangePanel",
+          "description": "</br>Changing the location of a child’s residence can significantly impact the child’s relationship with another guardian. <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section46' target='blank'>Section 46 of the Family Law Act</a> sets out the process for the court to consider when an application is made about changes to a child’s residence and there is no court order or agreement about parenting arrangements in place.",
+          "visible": false,
+          "visibleIf": "({locationChange})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "existingParentingArrangements",
+              "visible": false,
+              "visibleIf": "({locationChange})",
+              "isRequired": true,
+              "title": "Is there a written agreement or order about parenting arrangements for the child?",
+              "description": "There are different processes depending on whether there is an agreement or court order in place. If parenting arrangements have already been formalized in a written agreement or court order, a guardian who disagrees with the change of residence for a child can instead make an Application for Order Prohibiting the Relocation of a Child."
+            },
+            {
+              "type": "infotext",
+              "name": "yesExistingParentingArrangementsInfo",
+              "visible": false,
+              "visibleIf": "{existingParentingArrangements} = 'y'",
+              "title": "If parenting arrangements have already been formalized in a written agreement or court order, the Family Law Act sets out specific processes about relocation.</br></br>Under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#division_d2e5455' target='blank'>s. 66 of the Family Law Act<a>, if a guardian plans to relocate, with or without the child, and the relocation can reasonably be expected to have a significant impact on the child’s relationship with a guardian, the child’s guardian who plans to relocate themselves or a child, or both, must give all other guardians at least 60 days’ written notice of the date of relocation and proposed location.</br></br>The other guardian can apply for an order to prohibit the relocation. You can apply for an order to prohibit the relocation by selecting relocation of a child on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "yesno",
+              "name": "impactOnRelationship",
+              "visible": false,
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n')",
+              "isRequired": true,
+              "title": "Can the change of residence reasonably be expected to have a significant impact on the child’s relationship with a guardian?"
+            },
+            {
+              "type": "helptext",
+              "name": "impactOnRelationshipFAQLegalAdvice",
+              "title": "I’m not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "visible": false,
+              "visibleIf": "{existingParentingArrangements} = 'n'",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmImpactOnRelationship",
+              "visible": false,
+              "visibleIf": "({locationChange}) and ({existingParentingArrangements} = 'n') and ({impactOnRelationship} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter because a change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesImpactOnRelationshipInfo",
+              "visible": false,
+              "visibleIf": "(({existingParentingArrangements} = 'y') and ({impactOnRelationship} = 'y')",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noImpactOnRelationshipInfo",
+              "visible": false,
+              "visibleIf": "{impactOnRelationship} = 'n'",
+              "title": "This is a priority parenting matter only if the change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence, can reasonably be expected to have a significant impact on the child’s relationship with another guardian. If you require an order about parental responsibilities, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "PreventRemovalPanel",
+          "description": "</br><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section64' target='blank'>Section 64 of the Family Law Act</a> provides for two types of orders about the removal of a child. The first type allows the court to order that a person not remove a child from a certain area. For example, an order might say that neither parent may take the child out of the Lower Mainland without the other parent’s consent. This type of order is usually about parenting together and making sure each guardian knows where the child is.</br></br>The second type is used where there is concern that a person may remove a child from BC and not return that child. In this situation, the court may order the person who may leave with the child to surrender their passport or give security (usually a specific amount of money) to the court to prevent them from leaving.",
+          "visible": false,
+          "visibleIf": "({preventRemoval})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "noReturnRisk",
+              "visible": false,
+              "visibleIf": "({preventRemoval})",
+              "isRequired": true,
+              "title": "Do you need an order to keep a person from taking a child out of a certain area in BC or believe that a person is planning to remove a child from BC and is unlikely to return the child to BC?"
+            },
+            {
+              "type": "helptext",
+              "name": "noReturnRiskFAQLegalAdvice",
+              "title": "I’m not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmNoReturnRisk",
+              "visible": false,
+              "visibleIf": "({preventRemoval}) and ({noReturnRisk} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter to prevent the removal of a child under section 64 of the Family Law Act.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesNoReturnRiskInfo",
+              "visible": false,
+              "visibleIf": "{noReturnRisk} = 'y'",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noNoReturnRiskInfo",
+              "visible": false,
+              "visibleIf": "{noReturnRisk} = 'n'",
+              "title": "This is a priority parenting matter only if you need a court order to restrict a person from taking a child out of a certain area in BC or you can satisfy the court that a person proposes to remove a child from BC and is unlikely to return the child to BC. If you require an order about parental responsibilities, you can apply for an order about parenting arrangements including parental responsibilities by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "InterjurisdictionalPanel",
+          "visible": false,
+          "visibleIf": "({interjurisdictional})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "childInBC",
+              "visible": false,
+              "visibleIf": "({interjurisdictional})",
+              "isRequired": true,
+              "title": "Is the child currently in BC?",
+              "description": "Sometimes a court order may be made in more than one jurisdiction, usually when the parents or guardians live in two different places. It could be two different provinces/territories or even two different countries. The Provincial Court of BC may make an order about parenting arrangements, contact with a child or guardianship of a child if the child is physically present in British Columbia when the application is filed."
+            },
+            {
+              "type": "infotext",
+              "name": "noChildInBCInfo",
+              "visible": false,
+              "visibleIf": "{childInBC} = 'n'",
+              "title": "An order can only be made under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section74' target='blank'>section 74(2)(c) of the Family Law Act</a> if the child is physically present in British Columbia. If the child is not currently in BC, you should get legal advice on how best to proceed.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "helptext",
+              "name": "noChildInBCFAQLegalAdvice",
+              "visible": false,
+              "visibleIf": "{childInBC} = 'n'",
+              "title": "Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "yesno",
+              "name": "harm",
+              "visible": false,
+              "visibleIf": "({interjurisdictional}) and ({childInBC} = 'y')",
+              "isRequired": true,
+              "title": "Do you believe the child would suffer serious harm if the child were to remain with, or be returned to, the child’s guardian or be removed from BC?"
+            },
+            {
+              "type": "helptext",
+              "name": "yesChildInBCFAQLegalAdvice",
+              "visible": false,
+              "visibleIf": "{childInBC} = 'y'",
+              "title": "I'm not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmHarm",
+              "visible": false,
+              "visibleIf": "({interjurisdictional}) and ({childInBC} = 'y') and ({harm} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter to determine matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act because you believe the child, currently in BC, would suffer serious harm if they were to remain with, or be returned to, the child’s guardian or be removed from BC.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesHarmInfo",
+              "visible": false,
+              "visibleIf": "{harm} = 'y'",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about parenting arrangements, contact with a child or guardianship of a child, you can apply for an order about a family law matter by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noHarmInfo",
+              "visible": false,
+              "visibleIf": "{harm} = 'n'",
+              "title": "This is a priority parenting matter only if you can satisfy the court that the child would suffer serious harm if the child were to remain with, or be returned to, the child’s guardian or be removed from BC. If you require an order about parenting arrangements, contact with a child or guardianship of a child, you can apply for an order about a family law matter by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "WrongfulRemovalPanel",
+          "visible": false,
+          "visibleIf": "({wrongfulRemoval})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "wrongfulInBC",
+              "visible": false,
+              "visibleIf": "({wrongfulRemoval})",
+              "isRequired": true,
+              "title": "Do you believe that the child has been wrongfully brought to BC or is being wrongfully kept in BC?",
+              "description": "If the court is satisfied that a child has been wrongfully removed to BC, or is being wrongfully retained in BC, the court may make an order under <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section77' target='blank' >section 77(2) of the Family Law Act</a>."
+            },
+            {
+              "type": "helptext",
+              "name": "wrongfulInBCFAQLegalAdvice",
+              "title": "I'm not sure. Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmWrongfulInBC",
+              "visible": false,
+              "visibleIf": "({wrongfulRemoval}) and ({wrongfulInBC} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter under section 77(2) of the Family Law Act because you believe a child has been wrongfully brought to or kept in BC.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesWrongfulInBCInfo",
+              "visible": false,
+              "visibleIf": "{wrongfulInBC} = 'y'",
+              "title": "If you do not want to apply for this order as a priority parenting matter, you can apply for an order about a family law matter including parenting arrangements by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noWrongfulInBCInfo",
+              "visible": false,
+              "visibleIf": "{wrongfulInBC} = 'n'",
+              "title": "This is a priority parenting matter only if you can satisfy the court that a child has been wrongfully removed to BC or is being wrongfully retained in BC. If you require an order about a family law matter including parenting arrangements, you can apply by selecting family law matter on the first step in this service. Remember to de-select priority parenting matter.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "ReturnOfChildPanel",
+          "visible": false,
+          "visibleIf": "({returnOfChild})",
+          "elements": [
+            {
+              "type": "yesno",
+              "name": "wrongfulReturn",
+              "visible": false,
+              "visibleIf": "({returnOfChild})",
+              "isRequired": true,
+              "title": "Do you believe that a child has been wrongfully removed to or retained in a <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/fr_hague' target='blank'>member country</a> under the `1980 Hague Convention`, either to BC or from BC?",
+              "description": "<a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section80' target='blank'>Section 80 of the Family Law Act</a> provides that the 1980 Hague <a href='http://www.hcch.net/index_en.php?act=conventions.text&cid=24' target='blank'>Convention on the Civil Aspects of International Child Abduction</a> has the force of law in B.C. The Hague Convention is an international treaty in force among some <a href='http://www.bclaws.ca/EPLibraries/bclaws_new/document/ID/freeside/fr_hague' target='blank'>90 countries</a>. Its goal is to help with the court process to return a child wrongfully removed or retained from their place of habitual residence.</br></br>The Convention applies to children under the age of 16. In most Convention cases, children are abducted by one of their parents."
+            },
+            {
+              "type": "helptext",
+              "name": "hagueConventionMatterFAQLegalAdvice",
+              "title": "Where can I get help with a Hague Convention matter?",
+              "titleLocation": "hidden",
+              "body": "BC has a central authority that assists parents whose children have been abducted across international borders, either to or from BC, and parents who are seeking contact or access to children in another country. The central authority provides information and support to parents directly, or assists their legal counsel in BC or in the other country.</br></br>For more information about BC’s central authority, <a href='https://www2.gov.bc.ca/gov/content?id=63DCD89D9A9C4E129F880D0AC15DA087' target='blank'>click here</a>.</br></br>BC’s central authority can be contacted by email at <a href='mailto:BCCentralAuthority@gov.bc.ca' target='blank'>BCCentralAuthority@gov.bc.ca</a> or by telephone at the contact numbers provided on the <a href='https://www2.gov.bc.ca/gov/content?id=63DCD89D9A9C4E129F880D0AC15DA087' target='blank'>BC Government website</a>.</br></br><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919"
+            },
+            {
+              "type": "checkbox",
+              "name": "confirmWrongfulReturn",
+              "visible": false,
+              "visibleIf": "({returnOfChild}) and ({wrongfulReturn} = 'y')",
+              "title": "Please confirm you are applying for an order about a priority parenting matter relating to the return of a child alleged to have been wrongfully removed or retained under the 1980 Hague Convention.",
+              "isRequired": true,
+              "choices": [
+                {
+                  "text": "I want to apply for this order about a priority parenting matter.",
+                  "value": "applyPPM"
+                }
+              ]
+            },
+            {
+              "type": "infotext",
+              "name": "yesWrongfulReturnInfo",
+              "visible": false,
+              "visibleIf": "{wrongfulReturn} = 'y'",
+              "title": "BC’s central authority can assist parents whose children have been abducted across international borders, either to or from BC, and parents who are seeking contact or access to children in another country. The central authority provides information and support to parents directly or assists their legal counsel in BC or in the other country.</br></br>For more information about BC’s central authority, <a href='https://www2.gov.bc.ca/gov/content?id=63DCD89D9A9C4E129F880D0AC15DA087' target='blank'>click here</a>. We recommend you contact the central authority before making any application to the court.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotext",
+              "name": "noWrongfulReturnInfo",
+              "visible": false,
+              "visibleIf": "{wrongfulReturn} = 'n'",
+              "title": "An order can only be made under section 80 of the Family Law Act if a child has been abducted across international borders, either to or from BC and the other country is a member country of the Hague Convention. If this does not apply, you should get legal advice on how best to proceed.",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "helptext",
+              "name": "noWrongfulReturnFAQLegalAdvice",
+              "visible": false,
+              "visibleIf": "{wrongfulReturn} = 'n'",
+              "title": "Where can I get legal assistance?",
+              "titleLocation": "hidden",
+              "body": "Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target='blank'>Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target=\"blank\">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target=\"blank\">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community"
+            }
+          ]
+        }
+      ],
+      "title": "Priority Parenting Matter"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

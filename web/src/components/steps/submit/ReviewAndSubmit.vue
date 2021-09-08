@@ -1,5 +1,5 @@
 <template>   
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         
         <h2 class="mt-4">Review and Submit</h2>
         <b-card style="border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
@@ -48,8 +48,6 @@
             <b-card style="border:1px solid #ddebed; border-radius:10px;" bg-variant="white" class="mt-4 mb-2">
 
                 <required-document type="Submit" title="Upload Documents:" />
-                
-                <!-- <b-img v-for="(supportingDocument,index) in supportingDocuments" :key="index" :src="supportingDocument.image" width="100" height="100"  /> -->
                 
                 <b-card id="drop-area" @click="uploadClicked">                    
                     <div style="padding:0; margin: 0 auto; width:33px;">
@@ -190,9 +188,7 @@
                 <b-button style="margin-left: 0;margin-right:auto;" variant="primary" @click="showTypeOfDocuments=false">Cancel</b-button>
                 <b-button style="margin-left: auto;margin-right:0;" variant="success" @click="addDocument()">Submit</b-button>
             </template>            
-            <!-- <template v-slot:modal-header-close>                 
-                <b-button variant="outline-dark" class="closeButton" @click="showTypeOfDocuments=false">&times;</b-button>
-            </template> -->
+          
         </b-modal>
 
     </page-base>
@@ -215,6 +211,7 @@
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
+import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -238,7 +235,7 @@
         public userLocation!: string;
 
         @commonState.State
-        public locationsInfo!: any[];
+        public locationsInfo!: locationsInfoType[];
 
         @applicationState.State
         public id!: string;
@@ -250,16 +247,14 @@
         public applicationLocation!: string;
 
         @applicationState.State
-        public protectedPartyName!: string;
-
-        @applicationState.State
         public currentStep!: number;
 
         @commonState.State
-        public documentTypesJson!: any;
+        public documentTypesJson!: documentTypesJsonInfoType[];
 
         @applicationState.State
         public supportingDocuments!: any;
+
         @applicationState.Action
         public UpdateSupportingDocuments!: (newSupportingDocuments) => void
 
@@ -284,18 +279,17 @@
         @applicationState.Action
         public UpdateLastFiled!: (newLastFiled) => void
 
-
         error = "";
         showGetHelpForPDF = false;
 
-        applicantLocation = {}        
+        applicantLocation = {} as locationsInfoType;        
         submissionInProgress = false;
         
         supportingFile = null;
         selectedDocumentTypeState = true;
         selectedSupportingDocumentState = true;
         fileType = "";
-        fileTypes = [];
+        fileTypes: documentTypesJsonInfoType[] = [];
 
         supportingDocumentFields = [
             { key: 'fileName', label: 'File Name',tdClass:'align-middle'},
@@ -305,33 +299,21 @@
         ];
        
         showTypeOfDocuments = false;
-
         submitEnable = true;
-        formsList = [];
         currentPage=0;
 
         mounted(){
 
             this.submitEnable =  true;
             const progress = 50;
-
-            //console.log(this.currentStep)
-            //console.log(this.steps[this.currentStep])
-            this.currentPage = this.steps[this.currentStep].currentPage
+            
+            this.currentPage = Number(this.steps[this.currentStep].currentPage)
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
        
             let location = this.applicationLocation
             if(!this.applicationLocation) location = this.userLocation;
 
-            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]
-            // console.log(this.applicantLocation)       
-
-            // if(location == 'Victoria'){
-            //     this.applicantLocation = {name:'Victoria Law Courts', address:'850 Burdett Avenue', cityStatePostcode:'Victoria, B.C.  V8W 9J2', email:'Victoria.CourtScheduling@gov.bc.ca'}
-            // } else if(location == 'Surrey'){
-            //     this.applicantLocation = {name:'Surrey Provincial Court', address:'14340 - 57 Avenue', cityStatePostcode:'Surrey, B.C.  V3X 1B2', email:'CSBSurreyProvincialCourt.FamilyRegistry@gov.bc.ca'}
-            // }
-            //TODO: use get api for document-types
+            this.applicantLocation = this.locationsInfo.filter(loc => {if (loc.name == location) return true})[0]              
            
             this.fileTypes = this.documentTypesJson;
            
@@ -352,7 +334,7 @@
             e.stopPropagation()
             const dt = e.dataTransfer
             const files = dt.files
-            // console.log(files)
+
             if (files && files[0]) 
             {
                 this.supportingFile = files;
@@ -361,16 +343,14 @@
         } 
 
         public uploadClicked(){
-            // console.log('click')
             const el = document.getElementById("inputfile");
             if(el) el.click();
         }
 
         public handleSelectedFile(event){
-            // console.log(event)
+
             event.preventDefault();
             event.stopPropagation();
-            // console.log(event.target.files[0])
             
             if (event.target.files && event.target.files[0]) 
             {
@@ -395,16 +375,13 @@
             
             const bodyFormData = new FormData();
             const docType = []
-
-            // console.log(this.supportingDocuments[this.supportingDocuments.length-1])
             const lastFileTypes = this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:0
-            
-            // console.log(lastFileTypes)
+          
             let fileIndex = 0;
             for(const filetype of lastFileTypes){
-                // console.log(filetype)
+            
                 const tempSupportingDocs = this.supportingDocuments.filter(doc=>{return(doc.documentType==filetype)})
-                // console.log(tempSupportingDocs)
+            
                 if(tempSupportingDocs.length>0){
                     const filesIndices = [];
                     const filesRotation = [];
@@ -419,22 +396,9 @@
             }
             
             docType.push({type:"FPO"})
-
-            // for(const index in this.supportingDocuments){//, files:[], rotations:[]
-            //     const supportingDoc = this.supportingDocuments[index]
-            //     bodyFormData.append('files',supportingDoc['file']); 
-                          
-            //     docType.push({type: supportingDoc['documentType'], files: [Number(index)], rotations:[supportingDoc['imageRotation']]})
-            //    // bodyFormData.append('documents', );
-            //    // console.log(supportingDoc['imageRotation'])
-            // }
-            // console.log(docType);
-            const docTypeJson = JSON.stringify(docType);
-            //const docTypeBlob = new Blob([docTypeJson], {type: 'application/json'});
-            bodyFormData.append('documents', docTypeJson);
             
-
-            // console.log(bodyFormData.get('documents'))
+            const docTypeJson = JSON.stringify(docType);
+            bodyFormData.append('documents', docTypeJson);          
 
             const url = "/efiling/"+this.id+"/submit/" 
             const header = {
@@ -449,13 +413,12 @@
             
             this.$http.post(url, bodyFormData, header)
             .then(res => {
-                // console.log(res)
-                if(res.data.message=="success")
+
+                if(res?.data?.message=="success")
                 {
                     this.generateUrl(res.data.redirectUrl)                   
                 }
             }, err => {
-                // console.error(err);
                 this.error = err.response.data.message;
                 this.submissionInProgress = false;
             });           
@@ -464,8 +427,7 @@
         public generateUrl(eFilingUrl) {            
             // redirect user to the generated url
             location.replace(eFilingUrl);        
-        }
-      
+        }      
 
         public removeDocument(index) {
             this.supportingDocuments.splice(index, 1);
@@ -483,7 +445,6 @@
                 let typeIndex =  this.supportingDocuments[this.supportingDocuments.length-1]?this.supportingDocuments[this.supportingDocuments.length-1].typeIndex:[]
                 if(!typeIndex.includes(this.fileType))
                     typeIndex.push(this.fileType)
-                // console.log(typeIndex)
                 
                 for(const supportingfile of this.supportingFile){
                
@@ -503,7 +464,6 @@
                 this.fileType = "";
                 Vue.nextTick(()=>{
                     const el = document.getElementById('drop-area');
-                    // console.log(el)
                     if(el) el.scrollIntoView();
                 })
             }
@@ -542,7 +502,5 @@
     #drop-area.highlight {
     border-color: purple;
     }
-   
-
 
 </style>

@@ -1,11 +1,11 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -27,7 +29,10 @@ const applicationState = namespace("Application");
 export default class ContactWithChildOrder extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;   
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -40,11 +45,8 @@ export default class ContactWithChildOrder extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;
-
-    additionalDocumentsPage = 38; 
-    reviewAnswersPage = 39;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -72,60 +74,66 @@ export default class ContactWithChildOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data);
-            // console.log(options)
+        
             this.setPages()
         })
     }    
             
     public setPages(){ 
-        this.togglePages([ this.reviewAnswersPage], true);           
-        if (this.survey.data.existingType == 'ExistingOrder') {
+
+        const p = this.stPgNo.FLM
+        const pgPages =    [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild]
+        const pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
+
+
+        this.togglePages([p.ReviewYourAnswersFLM], true);           
+        if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([24, 25], true);
-                // this.togglePages([25], false);
+                this.togglePages(pgPages, true);
+
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                this.togglePages([25], true);
-                this.togglePages([24], false);
+                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
+                this.togglePages([p.AboutContactWithChildOrder], false);
             }
-        } else if (this.survey.data.existingType == 'ExistingAgreement') {
+        } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([24, 25], true);
-                // this.togglePages([25], false);
+                this.togglePages(pgPages, true);
+                
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([25], true);
-                this.togglePages([24], false);
+                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
+                this.togglePages([p.AboutContactWithChildOrder], false);
             }
-        } else if (this.survey.data.existingType == 'Neither') {
+        } else if (this.survey.data?.existingType == 'Neither') {
             
-            this.togglePages([24, 25, this.additionalDocumentsPage, this.reviewAnswersPage], false);
+            this.togglePages(pgPagesAll, false);
             this.disableNextButton = true;            
         }
     }
     
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result['contactOrderSurvey'] && this.step.result['contactOrderSurvey'].data) {
-            this.survey.data = this.step.result['contactOrderSurvey'].data;
-            if (this.survey.data.existingType == 'Neither') {
+
+        this.currentStep = this.$store.state.Application.currentStep;
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
+
+        if (this.step.result?.contactWithChildOrderSurvey?.data) {
+            this.survey.data = this.step.result.contactWithChildOrderSurvey.data;
+            if (this.survey.data?.existingType == 'Neither') {
                 this.disableNextButton = true;
             }      
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);                  
         }
 
-        if (this.step.result && this.step.result['childData'] && this.step.result['childData'].data) {            
-            const childData = this.step.result['childData'].data;            
-            if (childData.length>1){
+        if (this.step.result?.childrenInfoSurvey?.data) {            
+            const childData = this.step.result.childrenInfoSurvey.data;            
+            if (childData?.length>1){
                 this.survey.setVariable("childWording", "children");                    
             } else {
                 this.survey.setVariable("childWording", "child");
             }
         }       
 
-        this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         this.setPages()
     }
@@ -153,13 +161,7 @@ export default class ContactWithChildOrder extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {contactOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
+        this.UpdateStepResultData({step:this.step, data: {contactWithChildOrderSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

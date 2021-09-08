@@ -1,6 +1,6 @@
 <template>
     <div v-if="dataReady" >
-        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+        <page-base :disableNext="disableNext" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
             <form3 v-if="requiredForm == 3" @enableNext="EnableNext"/>
             <form1 v-if="requiredForm == 1" @enableNext="EnableNext"/>
         </page-base>
@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import Form3 from  "./pdf/Form3.vue"
 import Form1 from  "./pdf/Form1.vue"
 import PageBase from "@/components/steps/PageBase.vue";
@@ -16,6 +16,7 @@ import PageBase from "@/components/steps/PageBase.vue";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -25,6 +26,9 @@ const applicationState = namespace("Application");
     }
 })
 export default class PreviewFormsFlm extends Vue {
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -47,33 +51,29 @@ export default class PreviewFormsFlm extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         this.determineRequiredForm();
-        if(this.checkErrorOnPages([2,3])) this.dataReady = true;
+        if(this.checkErrorOnPages([this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo])) this.dataReady = true;
+        window.scrollTo(0, 0);
     }
 
     public determineRequiredForm(){        
 
-        if(this.$store.state.Application.steps[2] && 
-            this.$store.state.Application.steps[2].result &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
-            const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
+        const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
+
+        if( stepCOM.result?.filingLocationSurvey?.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
             const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
     
             const location = filingLocationData.ExistingCourt;                            
 
-            if(courtsC.includes(location) && 
-                filingLocationData.MetEarlyResolutionRequirements == 'n'){
-                    this.requiredForm = 1;
-                
+            if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+                this.requiredForm = 1;                
             } else {
                 this.requiredForm = 3;
             }
         
         } else {
             this.requiredForm = 3;
-        }
-
-               
+        }               
     }
 
     public EnableNext(){

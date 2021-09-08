@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -10,10 +10,54 @@
                           they will need to be served with a copy of the application. 
                     </p>
                     <ul>
+                        <li>Add each party from your existing case if you already have a case with the same parties – be sure to copy the names from any filed court document</li>
                         <li>Add each parent and/or current guardian as a party if your case involves a child</li>
                         <li>Add only your <tooltip title="spouse" :index="0"/> as a party if your case does not involve children</li>
                         <li>Add any other adult as a party if your case is about them. For example a grandparent, elder, other family member or friend of the family.</li>
                     </ul>
+                    
+                    <div>
+                        <div class="m-4 text-primary" @click="showServeNoticeInfo= !showServeNoticeInfo" style="border-bottom:1px solid; width:19rem;">
+                            <span style='font-size:1.2rem;' class="fa fa-question-circle" /> How do I serve the other party? 
+                            <span v-if="showServeNoticeInfo" class='ml-2 fa fa-chevron-up'/>
+                            <span v-if="!showServeNoticeInfo" class='ml-2 fa fa-chevron-down'/>
+                        </div>
+                        <div v-if="showServeNoticeInfo" class="mx-4 mb-5 mt-3">
+                            <p>
+                                There are two types of service – personal service and ordinary service.
+                            </p>
+                            <p>
+                                Personal service means an adult person who is at least 19, other than you, must hand-deliver the documents directly 
+                                to the person being served. A party cannot personally serve a document on the other party.
+                            </p>
+                            <p>
+                                Some documents must be personally served, like the Application About a Family Law Matter and the Application About 
+                                a Protection Order.
+                            </p>
+                            <p>
+                                Ordinary service means that a party must be served to their address for service in one of the following ways:
+                                <ul>
+                                    <li>by leaving the documents at the party’s address for service</li>
+                                    <li>by mailing the documents by ordinary mail to the party’s address for service</li>
+                                    <li>by mailing the documents by registered mail to the party’s address for service</li>
+                                    <li>if the party’s address for service includes an email address, by emailing the documents to that email address</li>
+                                    <li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li>
+                                </ul>
+                            </p>
+                            <p>
+                                A party’s address for service is the address they have provided to the court. A party who does not have an address 
+                                for service must be served by personal service.
+                            </p>
+                            <p>
+                                The rules about service are found in <a target='blank' href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/120_2020#division_d1e12125">Part 12 Division 4</a> of the Provincial Court Family Rules.
+                            </p>
+                            <p>Depending on how the documents are served, what day of the week they are served on, and even what time of day they 
+                                are served, it might change how you count the notice period. Be sure to review the rules about service before 
+                                serving the other party to make sure you give them proper notice.
+                  
+                            </p>
+                        </div>
+                    </div>
                     <p>Please add the details of the other party in the fields below. </p>
                     <p>If you are done entering all the parties, click the ‘Next’ button.</p>
                    
@@ -23,10 +67,9 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">Other Party Name</th>
-                                    <th scope="col">Birthdate</th>
-                                    <!-- <th scope="col">Your relationship to the other party</th> -->
-                                    <th scope="col">Address Information</th>
-                                    <th scope="col">Contact Information</th>
+                                    <th v-if="!cmOnly" scope="col">Birthdate</th>
+                                    <th v-if="!cmOnly" scope="col">Address Information</th>
+                                    <th v-if="!cmOnly" scope="col">Contact Information</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -34,12 +77,11 @@
                                     <div></div>
                                     <tr v-for="op in otherPartyData" :key="op.id">
                                     <td>{{op.name.first}} {{op.name.middle}} {{op.name.last}}</td>
-                                    <td>{{op.dob | beautify-date}}</td>
-                                    <!-- <td>{{op.opRelation}}</td> -->
-                                    <td>{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
-                                    <td>{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
-                                    <td><a class="btn btn-light" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
-                                    <a class="btn btn-light" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
+                                    <td v-if="!cmOnly">{{op.dob | beautify-date}}</td>
+                                    <td v-if="!cmOnly">{{op.address.street}} {{op.address.city}} {{op.address.state}} {{op.address.country}} {{op.address.postcode}}</td>
+                                    <td v-if="!cmOnly">{{op.contactInfo.phone}} {{op.contactInfo.fax}} {{op.contactInfo.email}}</td>
+                                    <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(op.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
+                                    <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(op)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
                                     <tr class="clickableRow" @click="openForm()">
                                     <td colspan = "7">
@@ -60,41 +102,29 @@
             </div>
         </div>
 
-        <b-modal size="xl" v-model="flmInfo" header-class="bg-white" no-close-on-backdrop hide-header-close>
+        <b-card v-if="confirmedError"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
+
+        <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
-            <div class="m-3">
-               
-                <p>I understand the following people must be given notice of my application about a family law matter:</p>
-                <ul>
-                    <li>
-                        all parents and current guardians of each child who is the subject of the family law matter
-                    </li>
-                    <li>
-                        my spouse, if I am applying for spousal support
-                    </li>
-                    <li>
-                        each other adult who the application about a family law matter is about                       
-                    </li>                    
-                </ul>
-                <p>To give notice, they must each be served with a copy of this document and any supporting documents.</p>
-                <p>They are the other party/parties I added in this case.</p>
-            </div>
+            <other-party-popup />            
+
             <template v-slot:modal-footer>
-                <b-button variant="primary" @click="flmInfo=false">Go back so I can fix something</b-button>
-                <b-button variant="success" @click="closeFlmInfo">I agree</b-button>
+                <b-button variant="primary" @click="popInfo=false">Go back so I can fix something</b-button>
+                <b-button variant="success" @click="closePopInfo">I understand</b-button>                
             </template>            
-        </b-modal>
+        </b-modal>         
 
     </page-base>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-
 import OtherPartyCommonSurvey from "./OtherPartyCommonSurvey.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "../../PageBase.vue";
 import Tooltip from "@/components/survey/Tooltip.vue";
+
+import OtherPartyPopup from "./OtherPartyPopup.vue"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -104,7 +134,8 @@ const applicationState = namespace("Application");
     components:{
       OtherPartyCommonSurvey,
       PageBase,
-      Tooltip
+      Tooltip,
+      OtherPartyPopup
     }
 })
 export default class OtherPartyCommon extends Vue {
@@ -130,34 +161,68 @@ export default class OtherPartyCommon extends Vue {
 
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
-    {
-        this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.otherPartyData}})
-
-    }
-
-    currentStep=0;
-    currentPage=0;
-    showTable = true;
-    flmInfo = false;
-    otherPartyData = [];
-    anyRowToBeEdited = null;
-    editId = null;
- 
-    created() {
-        if (this.step.result && this.step.result["otherPartyCommonSurvey"]) {
-            this.otherPartyData = this.step.result["otherPartyCommonSurvey"].data;
+    {   if(this.dataReady){
+            this.confirmed = false;          
+            this.determineConfirmError();
+            this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
         }
     }
 
-    mounted(){    
-        this.flmInfo = false;    
-        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;            
+
+    currentStep=0;
+    currentPage=0;
+    showServeNoticeInfo = false;
+    showTable = true;
+    popInfo = false;
+
+    cmOnly = false;
+    otherPartyData = [];
+    anyRowToBeEdited = null;
+    editId = null;
+
+    dataReady = false;
+
+    confirmed = false;
+    confirmedError = false;
+ 
+    created() {
+        if (this.step.result?.otherPartyCommonSurvey) {
+            this.otherPartyData = this.step.result.otherPartyCommonSurvey.data;
+        }
+    }
+
+    mounted(){
+        this.dataReady = false;
+        this.confirmed = false;
+                
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+
+        this.cmOnly = (this.types?.length == 1 && this.types.includes("Case Management")); 
+
+        if(this.step.result?.otherPartyCommonConfirmationSurvey?.data?.confirmation == 'Confirmed'){
+            this.confirmed = true
+        }
+                 
+        this.determineConfirmError();
+
+        Vue.nextTick(()=>this.dataReady = true);
+    }
+
+    public determineConfirmError(){
+
+        this.confirmedError = this.needConfirmation() && !this.confirmed && this.otherPartyData?.length>0;
+        
+        const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+
+        if(this.needConfirmation())
+            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: this.getConfirmationResults(this.confirmed?'Confirmed':'')}})
+        else
+            this.UpdateStepResultData({step:this.step, data:{otherPartyCommonConfirmationSurvey: null}})
     }
     
-    public openForm(anyRowToBeEdited) {
+    public openForm(anyRowToBeEdited?) {
 
         this.showTable = false;
         Vue.nextTick(()=>{
@@ -171,7 +236,7 @@ export default class OtherPartyCommon extends Vue {
         } else {
             this.anyRowToBeEdited = null;
         }
-    }
+    }    
 
     public childComponentData(value) {
         this.showTable = value;
@@ -182,7 +247,8 @@ export default class OtherPartyCommon extends Vue {
             this.otherPartyData && this.otherPartyData.length > 0 ? this.otherPartyData[this.otherPartyData.length - 1].id : 0;
         const id = currentIndexValue + 1;
         const newParty = { ...opValue, id };
-        this.otherPartyData = [...this.otherPartyData, newParty];
+
+        this.otherPartyData = this.otherPartyData?[...this.otherPartyData, newParty]:[newParty];
 
         this.showTable = true; 
     }
@@ -203,43 +269,61 @@ export default class OtherPartyCommon extends Vue {
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
+    
+    public needConfirmation(){
+
+        if (this.types.includes("Family Law Matter") || 
+            this.types.includes("Priority Parenting Matter") || 
+            this.types.includes("Relocation of a Child") || 
+            this.types.includes("Enforcement")){          
+            
+            return true
+        }
+        else
+            return false
+    }
 
     public onNext() {
-        if (this.types.includes("Family Law Matter")){
-            this.flmInfo = true;
+        if(this.needConfirmation()){      
+            this.popInfo = true;
         } else {
+            this.popInfo = false;
             this.UpdateGotoNextStepPage();
         }        
     }
 
-    public closeFlmInfo(){
-        this.flmInfo = false;
-        this.UpdateGotoNextStepPage();
+    public closePopInfo() {
+        this.popInfo = false; 
+        this.confirmed = true;
+        this.UpdateGotoNextStepPage();        
     }
 
     public isDisableNext() {
-        // demo
         return this.otherPartyData? (this.otherPartyData.length <= 0): true;
     }
 
     public getDisableNextText() {
-        // demo
         return "You will need to add at least one other party to continue";
     }
 
     beforeDestroy() {
-
+        
         if(this.otherPartyData && this.otherPartyData.length>0){
             this.$store.commit("Application/setRespondentName", this.otherPartyData[0].name);
             const respondentName = this.otherPartyData.map(otherParty=>otherParty.name)
             this.UpdateCommonStepResults({data:{'respondentsCommon':respondentName}})
         }  
-        this.mergeRespondants()     
-        
-        const progress = this.otherPartyData && this.otherPartyData.length==0? 50 : 100;
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        this.mergeRespondants()    
 
+        this.determineConfirmError();
+       
         this.UpdateStepResultData({step:this.step, data:{otherPartyCommonSurvey: this.getOtherPartyResults()}})       
+    }
+
+    public getConfirmationResults( confirmation){
+        const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
+        questionResults.push({name:'otherPartyCommonSurveyConfirmation', value:confirmation, title:'I understand each other party must be given notice of my application', inputType:''})
+        return {data: {confirmation:confirmation}, questions:questionResults, pageName:'Other Party Confirmation', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
     public mergeRespondants(){
@@ -267,7 +351,6 @@ export default class OtherPartyCommon extends Vue {
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
 
-
     public getOtherPartyResults(){
         const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
         if(this.otherPartyData)
@@ -283,9 +366,9 @@ export default class OtherPartyCommon extends Vue {
         const resultString = [];
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(otherParty.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(otherParty.dob))
-        resultString.push(Vue.filter('styleTitle')("Address: ")+Vue.filter('getFullAddress')(otherParty.address))
-        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo)) 
-        //console.log(resultString)
+        resultString.push(Vue.filter('styleTitle')("Lawyer: ")+(otherParty.lawyer?otherParty.lawyer:''));
+        resultString.push(Vue.filter('styleTitle')("Address: ")+(otherParty.address?Vue.filter('getFullAddress')(otherParty.address):''))
+        resultString.push(Vue.filter('styleTitle')("Contact: ")+Vue.filter('getFullContactInfo')(otherParty.contactInfo))
         return resultString
     }
 

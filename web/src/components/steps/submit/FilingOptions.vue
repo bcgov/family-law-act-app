@@ -1,5 +1,5 @@
 <template>
-    <page-base  v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base  v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
         <b-card style="background-color: #f6e4e6; margin:4rem 0;" v-if="!allCompleted">
             The survey has some incomplete pages ( Forms have not been reviewed, Required questions left unanswered, ... ).
@@ -24,6 +24,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -34,6 +36,9 @@ export default class FilingOptions extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
     public allCompleted!: boolean
@@ -48,13 +53,12 @@ export default class FilingOptions extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     @Watch('allCompleted')
     statusChanged(newVal) 
-    {
-        //console.log(newVal)        
+    {       
         this.determineSelectedFilingType()       
     }
 
@@ -66,8 +70,7 @@ export default class FilingOptions extends Vue {
     mounted(){
         this.initializeSurvey();
         this.addSurveyListener();
-        this.reloadPageInformation()
-        //console.log(this.step)
+        this.reloadPageInformation();
     }
 
     public initializeSurvey(){
@@ -81,23 +84,20 @@ export default class FilingOptions extends Vue {
     public reloadPageInformation() {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result["filingOptions"]){
-            this.survey.data = this.step.result["filingOptions"];
+
+        if (this.step.result?.filingOptionsSurvey){
+            this.survey.data = this.step.result.filingOptionsSurvey;
         }
        
        this.allowEfiling();
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         
-        this.determineSelectedFilingType()
-        
+        this.determineSelectedFilingType();        
     }
 
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);
-            // console.log(options)
             this.resetReviewSteps()
             this.determineSelectedFilingType()
         })
@@ -114,42 +114,50 @@ export default class FilingOptions extends Vue {
     }
 
     public allowEfiling(){
-        //console.log(this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data)
-        if (!this.$store.state.Common.efilingEnabled || (this.$store.state.Application.steps[3].result &&
-            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey &&
-            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data &&
-            (this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.isFilingAdditionalDocs == "n"
-            ||            
-            this.$store.state.Application.steps[3].result.flmAdditionalDocsSurvey.data.criminalChecked == "n"))
+        const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
+        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
+        const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
+
+
+        if (
+            !this.$store.state.Common.efilingEnabled || 
+            (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
+            (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
+            (stepCM.active    && stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y') ||
+            (stepENFRC.active && stepENFRC.pages[this.stPgNo.ENFRC.EnforceAgreementOrOrder].active && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.enforceOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.filedOrder == "n" && stepENFRC.result?.enforceAgreementOrOrderSurvey?.data?.existingType == "courtOrder")
         )
-        this.survey.setVariable('efilingAllowed','n')
-        else this.survey.setVariable('efilingAllowed','y')
+                this.survey.setVariable('efilingAllowed','n')
+        else 
+                this.survey.setVariable('efilingAllowed','y')
     }
 
     public determineSelectedFilingType(){
+        const p = this.stPgNo.SUBMIT
+
         if(this.allCompleted && this.survey.data.selectedFilingType == 'byemail'){
-            this.togglePages([2,4], true);
-            this.togglePages([1,3], false);
+            this.togglePages([p.ReviewAndSave, p.NextSteps], true);
+            this.togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'inperson'){
-            this.togglePages([1,4], true);
-            this.togglePages([2,3], false);
+            this.togglePages([p.ReviewAndPrint, p.NextSteps], true);
+            this.togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
-            this.togglePages([3], true);
-            this.togglePages([1,2,4], false);
+            this.togglePages([p.ReviewAndSubmit], true);
+            this.togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false);
         }else{
-            this.togglePages([1,2,3,4], false);
+            this.togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false);
         }
     }
 
     public resetReviewSteps(){
-        for(let i=1; i<=4; i++)
-            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:i, progress:0 });
+        const p = this.stPgNo.SUBMIT
+        for(const pageIndex of [p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps])
+            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:pageIndex, progress:0 });
     }
     
     public checkErrorOnPages(){
-
+        const s = this.stPgNo
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-        for(const stepIndex of [1,2,3,4,5,6,7,8]){
+        for(const stepIndex of [s.PO._StepNo, s.COMMON._StepNo, s.FLM._StepNo, s.CM._StepNo, s.PPM._StepNo, s.RELOC._StepNo, s.ENFRC._StepNo, s.SUBMIT._StepNo]){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){
@@ -177,7 +185,7 @@ export default class FilingOptions extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {filingOptions: this.survey.data}})
+        this.UpdateStepResultData({step:this.step, data: {filingOptionsSurvey: this.survey.data}})
     }
 }
 </script>

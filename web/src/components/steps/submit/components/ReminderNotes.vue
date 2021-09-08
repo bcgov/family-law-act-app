@@ -18,6 +18,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { requiredDocumentsInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
 @Component
@@ -27,7 +28,7 @@ export default class ReminderNotes extends Vue {
     type!: string;
 
     @applicationState.State
-    public requiredDocuments!: any
+    public requiredDocuments!: requiredDocumentsInfoType;
 
     isReminder = false;
     requiredDocumentLists = [];
@@ -40,16 +41,12 @@ export default class ReminderNotes extends Vue {
         this.requiredDocumentLists = [];
         this.isReminder = false;
         for (const [key, value] of Object.entries(this.requiredDocuments)){
-            // console.log(key)
-            // console.log(value)
-            if(this.$store.state.Application.steps[0].result && 
-               this.$store.state.Application.steps[0].result.selectedForms &&
-               this.$store.state.Application.steps[0].result.selectedForms.includes(key)){
-                    this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})            
-                    if(value['reminder'].length>0) this.isReminder = true;
+
+            if(key && value && this.$store.state.Application.steps[0].result?.selectedForms?.includes(key)){
+                this.requiredDocumentLists.push({name:Vue.filter('getFullOrderName')(key, ''), required:value['required'], reminder:value['reminder']})            
+                if(value['reminder']?.length>0) this.isReminder = true;
             }
         }
-        //console.log(this.requiredDocumentLists)
     }
 }
 </script>

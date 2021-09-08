@@ -1,65 +1,55 @@
 <template>
     <step-base v-bind:step="step">
-        <flm-Questionnaire v-bind:step="step" v-if="step.currentPage == 0"/>
-        <flm-background v-bind:step="step" v-if="step.currentPage == 1"/>
-        <children-info v-bind:step="step" v-if="step.currentPage == 2"/>    
+        <flm-Questionnaire v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.FlmQuestionnaire"/>
+        <flm-background    v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.FlmBackground"/>
+        <children-info     v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ChildrenInfo"/>    
         
         
-        <parenting-arrangements v-bind:step="step" v-if="step.currentPage == 3"/>    
-        <parental-responsibilities v-bind:step="step" v-if="step.currentPage == 4"/> 
-        <parenting-time v-bind:step="step" v-if="step.currentPage == 5"/> 
-        <other-parenting-arrangements v-bind:step="step" v-if="step.currentPage == 6"/> 
-        
-        <parenting-order-agreement v-bind:step="step" v-if="step.currentPage == 7"/>
-        <about-parenting-arrangements v-bind:step="step" v-if="step.currentPage == 8"/>
-        <parenting-arrangement-changes v-bind:step="step" v-if="step.currentPage == 9"/>
-        <best-interests-of-child v-bind:step="step" v-if="step.currentPage == 10"/>
+        <parenting-arrangements        v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ParentingArrangements"/>    
+        <parental-responsibilities     v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ParentalResponsibilities"/> 
+        <parenting-time                v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ParentingTime"/> 
+        <other-parenting-arrangements  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.OtherParentingArrangements"/>         
+        <parenting-order-agreement     v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ParentingOrderAgreement"/>
+        <about-parenting-arrangements  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutParentingArrangements"/>
+        <parenting-arrangement-changes v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ParentingArrangementChanges"/>
+        <best-interests-of-child       v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.BestInterestsOfChild"/>
 
         
-        <child-support v-bind:step="step" v-if="step.currentPage == 11"/> 
-        <child-support-current-arrangements v-bind:step="step" v-if="step.currentPage == 12"/> 
-        <income-and-earning-potential v-bind:step="step" v-if="step.currentPage == 13"/> 
-        <about-child-support-order v-bind:step="step" v-if="step.currentPage == 14"/>
-       
-        <child-support-order-agreement v-bind:step="step" v-if="step.currentPage == 15"/>
-        <about-existing-child-support v-bind:step="step" v-if="step.currentPage == 16"/> 
+        <child-support                      v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ChildSupport"/> 
+        <child-support-current-arrangements v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ChildSupportCurrentArrangements"/> 
+        <income-and-earning-potential       v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.IncomeAndEarningPotential"/> 
+        <about-child-support-order          v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutChildSupportOrder"/>       
+        <child-support-order-agreement      v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ChildSupportOrderAgreement"/>
+        <about-existing-child-support       v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutExistingChildSupport"/>        
+        <calculating-child-support          v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.CalculatingChildSupport"/>
+        <undue-hardship                     v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.UndueHardship"/> 
+        <special-and-extraordinary-expenses v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.SpecialAndExtraordinaryExpenses"/> 
+        <about-child-support-changes        v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutChildSupportChanges"/> 
+        <unpaid-child-support               v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.UnpaidChildSupport"/>
+
+
+        <contact-with-child                         v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ContactWithChild"/>        
+        <contact-with-child-order                   v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ContactWithChildOrder"/>        
+        <about-contact-with-child-order             v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutContactWithChildOrder"/>
+        <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ContactWithChildBestInterestsOfChild"/>
         
-        <calculating-child-support v-bind:step="step" v-if="step.currentPage == 17"/>
-        <undue-hardship v-bind:step="step" v-if="step.currentPage == 18"/> 
-        <special-and-extraordinary-expenses v-bind:step="step" v-if="step.currentPage == 19"/> 
+        <guardian-of-child                          v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.GuardianOfChild"/>
+        <guardian-of-child-best-interests-of-child  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.GuardianOfChildBestInterestsOfChild"/>
+        <indigenous-ancestry-of-child               v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.IndigenousAncestryOfChild"/>
 
-        <about-child-support-changes v-bind:step="step" v-if="step.currentPage == 20"/> 
-        <unpaid-child-support v-bind:step="step" v-if="step.currentPage == 21"/>
+        <spousal-support                              v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.SpousalSupport"/>
+        <spousal-support-income-and-earning-potential v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.SpousalSupportIncomeAndEarningPotential"/> 
+        <about-spousal-support-order                  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutSpousalSupportOrder"/>
+        <existing-spousal-support-order-agreement     v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ExistingSpousalSupportOrderAgreement"/>
+        <existing-spousal-support-final-order         v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ExistingSpousalSupportFinalOrder"/>
+        <existing-spousal-support-agreement           v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ExistingSpousalSupportAgreement"/>        
+        <calculating-spousal-support                  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.CalculatingSpousalSupport"/> 
+        <about-existing-spousal-support-order         v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.AboutExistingSpousalSupportOrder"/>
+        <unpaid-spousal-support                       v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.UnpaidSpousalSupport"/>
 
-
-        <contact-with-child v-bind:step="step" v-if="step.currentPage == 22"/>
-        
-        <contact-with-child-order v-bind:step="step" v-if="step.currentPage == 23"/>
-        
-        <about-contact-with-child-order v-bind:step="step" v-if="step.currentPage == 24"/>
-        <contact-with-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 25"/>
-        
-        <guardian-of-child v-bind:step="step" v-if="step.currentPage == 26"/>
-        <guardian-of-child-best-interests-of-child v-bind:step="step" v-if="step.currentPage == 27"/>
-        <indigenous-ancestry-of-child v-bind:step="step" v-if="step.currentPage == 28"/>
-
-        <spousal-support v-bind:step="step" v-if="step.currentPage == 29"/>
-        <spousal-support-income-and-earning-potential v-bind:step="step" v-if="step.currentPage == 30"/> 
-        <about-spousal-support-order v-bind:step="step" v-if="step.currentPage == 31"/>
-
-        <existing-spousal-support-order-agreement v-bind:step="step" v-if="step.currentPage == 32"/>
-        <existing-spousal-support-final-order v-bind:step="step" v-if="step.currentPage == 33"/>
-        <existing-spousal-support-agreement v-bind:step="step" v-if="step.currentPage == 34"/>
-        
-        <calculating-spousal-support v-bind:step="step" v-if="step.currentPage == 35"/> 
-
-        <about-existing-spousal-support-order v-bind:step="step" v-if="step.currentPage == 36"/>
-        <unpaid-spousal-support v-bind:step="step" v-if="step.currentPage == 37"/>
-
-        <flm-additional-documents v-bind:step="step" v-if="step.currentPage == 38"/>
-
-        <review-your-answers-flm v-bind:step="step" v-if="step.currentPage == 39"/>
-        <preview-forms-flm v-bind:step="step" v-if="step.currentPage == 40"/>
+        <flm-additional-documents v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.FlmAdditionalDocuments"/>
+        <review-your-answers-flm  v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.ReviewYourAnswersFLM"/>
+        <preview-forms-flm        v-bind:step="step" v-if="step.currentPage == stPgNo.FLM.PreviewFormsFLM"/>
     </step-base>
 </template>
 
@@ -71,7 +61,6 @@ import { stepInfoType } from "@/types/Application";
 import FlmQuestionnaire from "./FlmQuestionnaire.vue";
 import FlmBackground from "./FlmBackground.vue";
 import ChildrenInfo from "./childInfo/ChildrenInfo.vue";
-
 
 import ParentingArrangements from "./parentingArrangements/ParentingArrangements.vue";
 import ParentalResponsibilities from "./parentingArrangements/ParentalResponsibilities.vue";
@@ -107,8 +96,6 @@ import SpousalSupport from "./spousalSupport/SpousalSupport.vue";
 import AboutSpousalSupportOrder from "./spousalSupport/AboutSpousalSupportOrder.vue";
 import CalculatingSpousalSupport from "./spousalSupport/CalculatingSpousalSupport.vue";
 import SpousalSupportIncomeAndEarningPotential from "./spousalSupport/SpousalSupportIncomeAndEarningPotential.vue";
-
-// import AboutExistingSpousalSupport from "./spousalSupport/AboutExistingSpousalSupport.vue";
 import ExistingSpousalSupportAgreement from "./spousalSupport/ExistingSpousalSupportAgreement.vue";
 import ExistingSpousalSupportFinalOrder from "./spousalSupport/ExistingSpousalSupportFinalOrder.vue";
 import AboutExistingSpousalSupportOrder from "./spousalSupport/AboutExistingSpousalSupportOrder.vue";
@@ -116,14 +103,18 @@ import ExistingSpousalSupportOrderAgreement from "./spousalSupport/ExistingSpous
 import UnpaidSpousalSupport from "./spousalSupport/UnpaidSpousalSupport.vue";
 
 import FlmAdditionalDocuments from "./FlmAdditionalDocuments.vue"
-
 import ReviewYourAnswersFlm from "./reviewFLM/ReviewYourAnswersFLM.vue"
 import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
+import { namespace } from "vuex-class";   
+import "@/store/modules/application";
+const applicationState = namespace("Application");
 
 @Component({
     components:{
-        StepBase,      
+        StepBase,     
 
 
         FlmQuestionnaire,
@@ -185,13 +176,11 @@ import PreviewFormsFlm from "./reviewFLM/PreviewFormsFLM.vue"
 export default class FamilyLawStep extends Vue {
 
     @Prop({required: true})
-    step!: stepInfoType | Object
+    step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
 };
 
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-    @import "../../../styles/survey";
-</style>

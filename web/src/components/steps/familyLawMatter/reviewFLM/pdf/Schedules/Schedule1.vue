@@ -123,6 +123,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { schedule1DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{
@@ -134,13 +136,11 @@ import CheckBox from "./components/CheckBox.vue";
 export default class Schedule1 extends Vue {
 
     @Prop({required:true})
-    result!: any;  
-    
+    result!: any;
 
     dataReady = false; 
-    childrenInfo = []   
-    
-    parentArrInfo = {}    
+    childrenInfo: childrenInfoSurveyInfoType[] = [];
+    parentArrInfo = {} as schedule1DataInfoType;   
    
     mounted(){
         this.dataReady = false;
@@ -149,7 +149,7 @@ export default class Schedule1 extends Vue {
     } 
 
     public extractInfo(){        
-        if (this.result.childData && this.result.childData.length > 0){            
+        if (this.result.childrenInfoSurvey?.length > 0){            
             this.childrenInfo = this.getChildrenInfo();                      
         } else {            
             this.childrenInfo = [];            
@@ -159,9 +159,9 @@ export default class Schedule1 extends Vue {
     
     public getChildrenInfo(){
 
-        const childrenInfo = [];
-        let childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        const childData = this.result.childData;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
+        const childData = this.result.childrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
@@ -177,9 +177,9 @@ export default class Schedule1 extends Vue {
     }
 
     public getParentingArrangementsInfo(){
-        let parentingArrangements = {parentResp: {}, parentTime: {}, parentalArr: {}, childBestInterest: ''};       
+        let parentingArrangements = {} as schedule1DataInfoType;       
 
-        if (this.result.parentalResponsibilitiesSurvey && this.result.parentalResponsibilitiesSurvey.parentalResponsibilitiesOrder == 'y'){
+        if (this.result.parentalResponsibilitiesSurvey?.parentalResponsibilitiesOrder == 'y'){
             const allResponsibilities = this.result.parentalResponsibilitiesSurvey.allResponsibilitiesOrder == 'y' && this.result.parentalResponsibilitiesSurvey.childrenRequestedResponsibilities;
             parentingArrangements.parentResp = {
                 applying: true,
@@ -190,12 +190,16 @@ export default class Schedule1 extends Vue {
             }
 
         } else {
-            parentingArrangements.parentResp = {
-                applying: false
+            parentingArrangements.parentResp= {
+                applying: false,
+                allResp: false,
+                children: [],
+                allKids: false,
+                expl: ''
             }
         }
 
-        if (this.result.parentingTimeSurvey && this.result.parentingTimeSurvey.parentingTimeOrder == 'y'){
+        if (this.result.parentingTimeSurvey?.parentingTimeOrder == 'y'){
             const parentingTime = this.result.parentingTimeSurvey
             parentingArrangements.parentTime = {
                 applying: true,
@@ -209,31 +213,36 @@ export default class Schedule1 extends Vue {
 
         } else {
             parentingArrangements.parentTime = {
-                applying: false
-            }
+                applying: false,
+                desired: '',
+                conditionMe: false,
+                myConditions: '',
+                conditionOp: false,
+                opConditions: '',
+                opDesired: ''    
+            }     
         }
 
-        if (this.result.parentalArrangementsSurvey && this.result.parentalArrangementsSurvey.parentalArrangements == 'y'){
-            const parentalArrangements = this.result.parentalArrangementsSurvey
+        if (this.result.otherParentingArrangementsSurvey?.parentalArrangements == 'y'){
+            const parentalArrangements = this.result.otherParentingArrangementsSurvey
             parentingArrangements.parentalArr = {
                 applying: true,
                 desc: parentalArrangements.parentalArrangementsDescription                
             }
         } else {
             parentingArrangements.parentalArr = {
-                applying: false
+                applying: false,
+                desc: ''                
             }
         }
         
-        if (this.result.bestInterestOfChildSurvey 
-            && this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription){
-                parentingArrangements.childBestInterest = this.result.bestInterestOfChildSurvey.newParentingArrangementsChildBestInterestDescription
+        if (this.result.bestInterestsOfChildSurvey?.newParentingArrangementsChildBestInterestDescription){
+            parentingArrangements.childBestInterest = this.result.bestInterestsOfChildSurvey.newParentingArrangementsChildBestInterestDescription
 
-        } else {
-            // console.log('here')
+        } else {            
             parentingArrangements.childBestInterest = '';
         }
-        //console.log(parentingArrangements)
+        
         return parentingArrangements;
     }
 }

@@ -18,9 +18,8 @@ class EFilingResources(EFilingHubCallerBase):
         EFilingHubCallerBase.__init__(self)
 
     def _get_api(self, url, headers):
-        if not self.access_token:
-            if not self._get_token():
-                raise Exception("EFHResources - Unable to get API Token")
+        if not self.access_token and not self._get_token():
+            raise Exception("EFHResources - Unable to get API Token")
 
         for try_number in range(1):
             if try_number > 0:
@@ -31,7 +30,7 @@ class EFilingResources(EFilingHubCallerBase):
                 "EFHResources - Get API %d %s", response.status_code, response.text
             )
             if response.status_code != 401:
-                return response
+                break
         return response
 
     def get_document_types(self):

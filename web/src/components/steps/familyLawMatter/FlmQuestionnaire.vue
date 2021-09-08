@@ -1,5 +1,5 @@
 <template>
-  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+  <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
     <div class="row">
       <div class="col-md-12 order-heading">
         <div>
@@ -13,7 +13,7 @@
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
             <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
+                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
             </div>
         </div>
         <div>
@@ -92,6 +92,7 @@ import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import Tooltip from "@/components/survey/Tooltip.vue";
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -103,6 +104,9 @@ export default class FlmQuestionnaire extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;
+
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -117,45 +121,16 @@ export default class FlmQuestionnaire extends Vue {
     public UpdatePathwayCompleted!: (changedpathway) => void
     
     selectedForm = [];
-    //returningUser = false
+
     showLegalAssistance = false
-    // preparationInfo = false
+
     currentStep = 0;
     currentPage = 0;
 
-    allPages = _.range(1,41)
-        
-    //childrenInfoPage = [2];
-    backgroundPage = 1
-    parentingOrderAgreementPage = 7
-    aboutParentingArrangementPage = 8
-    parentingArrangementsPage = 3
-    
-
-    aboutExistingChildSupportPage = 16
-
-    contactWithChildPage = 22
-    contactWithChildOrderPage = 23
-
-    guardianOfChildPage = 26
-
-
-    additionalDocumentsPage = 38
-    reviewYourAnswersPage = 39
-    formPreviewPage = 40
-
-    existingSpousalSupportOrderAgreementPage = 32
-
-    existingSpousalSupportAgreementPage = 34
-
-    existingSpousalSupportFinalOrderPage = 33
-
-
-    //review-answers page
-    commonPages = [39];
- 
+    allPages = []; 
 
     mounted(){
+        this.allPages = _.range(this.stPgNo.FLM.FlmBackground, Object.keys(this.stPgNo.FLM).length-1) 
         this.reloadPageInformation();
     }
 
@@ -163,8 +138,8 @@ export default class FlmQuestionnaire extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['flmSelectedForm']) {
-            this.selectedForm = this.step.result['flmSelectedForm'].data;
+        if (this.step.result?.flmQuestionnaireSurvey) {
+            this.selectedForm = this.step.result.flmQuestionnaireSurvey.data;
             this.determineSteps();
         }
         
@@ -177,88 +152,83 @@ export default class FlmQuestionnaire extends Vue {
         if(this.checkErrorOnPages())        
             this.setSteps(selectedForm);
         else{ 
-            this.selectedForm = [];            
-            //this.togglePages(this.allPages, false); 
+            this.selectedForm = [];                        
         }
-        Vue.filter('surveyChanged')('familyLawMatter')        
-       // console.log(selectedForm)
+        Vue.filter('surveyChanged')('familyLawMatter')               
     }
 
     public setSteps(selectedForm) {
-        // console.log(selectedForm)
+
+        const p = this.stPgNo.FLM
         if (selectedForm) {
             this.togglePages(this.allPages, false); 
             const progress = this.selectedForm.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
-
             if (selectedForm.length > 0){
 
                 this.determineSteps();                            
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.backgroundPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.backgroundPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.FlmBackground].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmBackground, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingOrderAgreementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingOrderAgreementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ParentingOrderAgreement].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ParentingOrderAgreement, 50, false);
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutParentingArrangementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutParentingArrangementPage, 50, false);
-            
-                //if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 0, false);
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.additionalDocumentsPage, 0, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutParentingArrangements].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutParentingArrangements, 50, false);
+                            
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 0, false);
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.FlmAdditionalDocuments, 0, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.parentingArrangementsPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.parentingArrangementsPage, 50, false);    
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ParentingArrangements].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ParentingArrangements, 50, false);    
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.aboutExistingChildSupportPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.aboutExistingChildSupportPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.AboutExistingChildSupport].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.AboutExistingChildSupport, 50, false);
             
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.contactWithChildPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.contactWithChildPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ContactWithChild].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactWithChild, 50, false);
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.contactWithChildOrderPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.contactWithChildOrderPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ContactWithChildOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactWithChildOrder, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.guardianOfChildPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.guardianOfChildPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.GuardianOfChild].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.GuardianOfChild, 50, false);
 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportOrderAgreementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportOrderAgreementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportOrderAgreement].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportOrderAgreement, 50, false);
               
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportFinalOrderPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportFinalOrderPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportFinalOrder].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportFinalOrder, 50, false);
                 
-                if(this.$store.state.Application.steps[this.currentStep].pages[this.existingSpousalSupportAgreementPage].progress==100)
-                    Vue.filter('setSurveyProgress')(null, this.currentStep, this.existingSpousalSupportAgreementPage, 50, false);
+                if(this.$store.state.Application.steps[this.currentStep].pages[p.ExistingSpousalSupportAgreement].progress==100)
+                    Vue.filter('setSurveyProgress')(null, this.currentStep, p.ExistingSpousalSupportAgreement, 50, false);
    
-            }   
-
+            }
         }
     }
 
     public determineSteps(){
         let formOneRequired = false;
+        const p = this.stPgNo.FLM
+        const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
 
-        if( this.$store.state.Application.steps[2].result &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey &&
-            this.$store.state.Application.steps[2].result.filingLocationSurvey.data){
-                const filingLocationData = this.$store.state.Application.steps[2].result.filingLocationSurvey.data;
-                formOneRequired = this.determineRequiredForm(filingLocationData);
+        if( stepCOM.result?.filingLocationSurvey?.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
+            formOneRequired = this.determineRequiredForm(filingLocationData);
         }
 
         if (!formOneRequired){
-            this.togglePages([this.backgroundPage], true);
-            // this.togglePages(this.commonPages, false);
-            this.togglePages([this.formPreviewPage], false);
+            this.togglePages([p.FlmBackground], true);
+            this.togglePages([p.PreviewFormsFLM], false);
             this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
-            if(this.$store.state.Application.steps[this.currentStep].pages[this.reviewYourAnswersPage].progress==100)
-                Vue.filter('setSurveyProgress')(null, this.currentStep, this.reviewYourAnswersPage, 50, false);
+            if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersFLM].progress==100)
+                Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 50, false);
 
         } else {
-            this.togglePages([this.backgroundPage], false);
-            this.togglePages(this.commonPages, true);//reviewAnswers
+            this.togglePages([p.FlmBackground], false);
+            this.togglePages([p.ReviewYourAnswersFLM], true);
         }   
     }
 
@@ -266,21 +236,17 @@ export default class FlmQuestionnaire extends Vue {
 
         const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         let location = ''
-
-        location = filingLocationData.ExistingCourt;                
+        location = filingLocationData?.ExistingCourt;                
         
-        if(courtsC.includes(location) && 
-            filingLocationData.MetEarlyResolutionRequirements == 'n'){
+        if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
             return true;
         } else {
             return false;
         }
-
     }
 
     public togglePages(pageArr, activeIndicator) {        
         for (let i = 0; i < pageArr.length; i++) {
-            //console.log('in step = '+this.currentStep+ ' and '+ i + ' page = '+pageArr[i])
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
                 currentPage: pageArr[i],
@@ -299,7 +265,7 @@ export default class FlmQuestionnaire extends Vue {
     public checkErrorOnPages(){
 
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-        for(const stepIndex of [2]){
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo]){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){
@@ -325,7 +291,6 @@ export default class FlmQuestionnaire extends Vue {
 
     public getSelectedFormsNames(){
         let result = ''
-        // console.log(this.selectedForm)
         for(const form of this.selectedForm){
             if(form=='parentingArrangements')   result+='Parenting Arrangements'+'\n';
             if(form=='childSupport')            result+='Child Support'+'\n';
@@ -340,7 +305,7 @@ export default class FlmQuestionnaire extends Vue {
         const progress = this.selectedForm.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
-        this.UpdateStepResultData({step:this.step, data: {flmSelectedForm: {data: this.selectedForm, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
+        this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
 };
 </script>

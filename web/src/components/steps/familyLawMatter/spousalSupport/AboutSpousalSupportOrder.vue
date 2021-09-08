@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -63,8 +63,6 @@ export default class AboutSpousalSupportOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {           
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.pages[0].questions)           
-            //console.log(this.survey.data)
         })
     }
     
@@ -73,8 +71,8 @@ export default class AboutSpousalSupportOrder extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutSpousalSupportOrderSurvey']) {
-            this.survey.data = this.step.result['aboutSpousalSupportOrderSurvey'].data;
+        if (this.step.result?.aboutSpousalSupportOrderSurvey) {
+            this.survey.data = this.step.result.aboutSpousalSupportOrderSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
@@ -98,8 +96,3 @@ export default class AboutSpousalSupportOrder extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

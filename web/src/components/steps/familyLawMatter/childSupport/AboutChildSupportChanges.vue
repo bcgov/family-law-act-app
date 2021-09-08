@@ -1,11 +1,11 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
@@ -30,7 +30,7 @@ export default class AboutChildSupportChanges extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any    
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -42,8 +42,8 @@ export default class AboutChildSupportChanges extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);   
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -67,10 +67,10 @@ export default class AboutChildSupportChanges extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')            
-            // console.log(options) 
+
             if(options.name == 'listOfSituations'){
                 if(options.value.includes('None of the above apply to my situation')){
-                    //console.log('clear')
+
                     Vue.nextTick(()=>
                         this.survey.setValue('listOfSituations',['None of the above apply to my situation'])
                     )
@@ -85,8 +85,8 @@ export default class AboutChildSupportChanges extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['aboutChildSupportChangesSurvey']) {
-            this.survey.data = this.step.result['aboutChildSupportChangesSurvey'].data; 
+        if (this.step.result?.aboutChildSupportChangesSurvey) {
+            this.survey.data = this.step.result.aboutChildSupportChangesSurvey.data; 
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
         
@@ -104,15 +104,8 @@ export default class AboutChildSupportChanges extends Vue {
     } 
     
     beforeDestroy() {
-
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {aboutChildSupportChangesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

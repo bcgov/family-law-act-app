@@ -48,8 +48,7 @@
                     <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td>Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td style="padding-left:50px"></td>
+                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
                     <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
@@ -104,7 +103,12 @@
                     <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
                     <table class="fullsize">
                         <tr style="border:1px solid #313132" >                        
-                            <td colspan="3">Lawyer (if applicable): </td>
+                            <td colspan="3">
+                                Lawyer (if applicable): 
+                                <div class="answer">
+                                    {{firstOtherParty.lawyer}}
+                                </div>
+                            </td>
                         </tr>
                         <tr style="border:1px solid #313132">          
                             <td colspan="3">Address: <div class="answer"> {{firstOtherParty.address?firstOtherParty.address.street:''}} </div> </td>
@@ -115,8 +119,7 @@
                             <td>Postal Code: <div class="answer">{{firstOtherParty.address?firstOtherParty.address.postcode:''}}</div> </td>
                         </tr>
                         <tr style="border:1px solid #313132">
-                            <td>Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
-                            <td style="padding-left:50px"></td>
+                            <td colspan="2">Email: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.email:''}}</div> </td>
                             <td>Telephone: <div class="answer">{{firstOtherParty.contact?firstOtherParty.contact.phone:''}}</div> </td>
                         </tr>
                     </table>
@@ -129,15 +132,19 @@
                     
                         <table class="fullsize">
                             <tr style="border:1px solid #313132">
-                                <td>Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Full name: <div class="answer">{{otherParty.name | getFullName}}</div> </td>                                
                                 <td>Date of birth: <div class="answer">{{otherParty.dob | beautify-date}}</div> </td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
                                 <td colspan="3">Contact information</td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
-                                <td colspan="3">Lawyer (if applicable): </td>
+                                <td colspan="3">
+                                    Lawyer (if applicable): 
+                                    <div class="answer">
+                                        {{otherParty.lawyer}}
+                                    </div>
+                                </td>
                             </tr>
                             <tr style="border:1px solid #313132">          
                                 <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -148,8 +155,7 @@
                                 <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                             </tr>
                             <tr style="border:1px solid #313132">
-                                <td>Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Email: <div class="answer">{{otherParty.contact?otherParty.contact.email:''}}</div> </td>
                                 <td>Telephone: <div class="answer">{{otherParty.contact?otherParty.contact.phone:''}}</div> </td>
                             </tr>
                         </table>                    
@@ -161,8 +167,7 @@
                     
                         <table class="fullsize">
                             <tr style="border:1px solid #313132">
-                                <td>Full name: <div class="answer"></div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Full name: <div class="answer"></div> </td>
                                 <td>Date of birth: <div class="answer"></div> </td>
                             </tr>
                             <tr style="border:1px solid #313132" >                        
@@ -180,8 +185,7 @@
                                 <td>Postal Code: <div class="answer"></div> </td>
                             </tr>
                             <tr style="border:1px solid #313132">
-                                <td>Email: <div class="answer"></div> </td>
-                                <td style="padding-left:50px"></td>
+                                <td colspan="2">Email: <div class="answer"></div> </td>
                                 <td>Telephone: <div class="answer"></div> </td>
                             </tr>
                         </table>                    
@@ -300,7 +304,8 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
 import CheckBox from "./Schedules/components/CheckBox.vue"
 import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
+import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 
 @Component({
     components:{
@@ -324,13 +329,12 @@ export default class Form1Layout extends Vue {
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
-    
     dataReady = false;   
 
     otherPartyInfo=[];
     additionalOtherParties = [];
-    firstOtherParty = {};
-    yourInfo;
+    firstOtherParty = {} as any;
+    yourInfo = {} as yourInformationInfoDataInfoType;
 
     applicantList = []
     
@@ -352,39 +356,25 @@ export default class Form1Layout extends Vue {
 
     public extractInfo(){        
         
-        if (this.result.filingLocationSurvey && this.result.filingLocationSurvey.registryLocationReason) {
+        if (this.result.filingLocationSurvey?.registryLocationReason) {
             this.filingLocationReason = this.result.filingLocationSurvey.registryLocationReason;
         }
         
         this.otherPartyInfo=this.getOtherPartyInfo()        
         this.firstOtherParty = this.otherPartyInfo[0];
-        if (this,this.otherPartyInfo.length > 1) {
+        if (this.otherPartyInfo?.length > 1) {
             this.otherPartyInfo.splice(0,1)
             this.additionalOtherParties = this.otherPartyInfo;
         }        
-        this.yourInfo = this.getYourInfo()       
-
+        this.yourInfo = this.getYourInfo();
     }    
 
     public getYourInfo(){
 
-        let yourInformation = {
-            dob: '',
-            name: '',
-            lawyer: false,
-            lawyerName: '',
-            address: {street:'', city: '', country: '', postcode: '', state: ''},
-            contact: {email:'',fax:'',phone:''},
-            lawyerFiling: false,
-            lawyerStatement: {lawyerName: '', clientName: ''}
-        }        
-
-        // console.log(this.result)
-
+        let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;
-            
+            const applicantInfo = this.result.yourInformationSurvey;            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
@@ -411,18 +401,20 @@ export default class Form1Layout extends Vue {
                 name: {'first': '','middle': '', 'last': ''},
                 address: '',
                 contactInfo: ''
+                
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];  
-            // console.log(this.result.otherPartyCommonSurvey)  
+ 
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
-                    contactInfo: ''
+                    contactInfo: '',
+                    lawyer:''
                 }                
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
@@ -436,6 +428,9 @@ export default class Form1Layout extends Vue {
                 
                 if (party['contactInfo'])
                     otherParty.contactInfo = party['contactInfo']
+                
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
                 
                 OpInformation.push(otherParty)
             }

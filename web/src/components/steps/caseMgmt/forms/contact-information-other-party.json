@@ -1,0 +1,90 @@
+{
+  "title": "Contact Information Other Party",
+  "pages": [
+    {
+      "name": "Contact Information Other Party", 
+              
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ContactInformationOtherPartyPanel",
+          "description": "<div style = 'margin: 2rem 0 -2rem 0' > Please add the details of the other party in the fields below. Complete as much information as you know.</b>",
+     
+          "elements": [
+            {
+              "type": "paneldynamic",
+              "name": "otherPartyInfo",
+              "title": " ",
+              "readOnly": false,
+
+              "templateElements": [
+              {
+                "type": "personname",
+                "name": "name",
+                "readOnly" : true,
+                "visible" :false,
+                "title": "The full name of the other party"
+              },                  
+              {
+                "type": "yesno",
+                "name": "knowDob",                
+                "title": "Do you know {panel.name}'s exact date of birth?",
+                "isRequired": true                
+              },              
+              {
+                "type": "text",
+                "name": "dob",
+                "visible": false,
+                "visibleIf": "{panel.knowDob} = 'y' ",
+                "title": "Date of Birth",
+                "inputType": "date",
+                "isRequired": true
+              },
+              {
+                "type": "html",
+                "name": "ContactInformationOtherPartyTitle",
+                "title": "address information",
+                "html": "<div style='margin: 2rem 0 -0.75rem 0'><div style='font-weight: bold;font-size: 1.5em;' class='sv_main sv_q_title'>Please provide the following address information for {panel.name} :</div></div>"
+              },
+              {
+                "type": "comment",
+                "name": "lawyer",
+                "title": "<div style = 'color:#444 ; font-size: 0.7em; font-weight: normal; margin: 2rem 0 -1rem 0'> Lawyer (if applicable):</b>",                
+                "rows": 1
+              },
+              {
+                "type": "html",
+                "name": "addressTitle",
+                "title": "address",
+                "html": "<div style='margin: 0rem 0 -1.0rem 0'><div style='font-weight: normal;font-size: 1.0em;' >Address:</div></div>"
+              },
+              {
+                "type": "address",
+                "name": "address",             
+                "title": "Please provide the following address information for {panel.name}.",
+                "titleLocation":"hidden"
+              },            
+              {
+                "type": "contactinfo",
+                "name": "contactInfo",              
+                "title": "Please provide contact information for {panel.name}.",
+                "titleLocation":"hidden"
+              },
+              {
+                "type": "helptext",
+                "name": "FAQdonthaveContact",              
+                "title": "What if I don't have contact information for the other party?",
+                "titleLocation": "hidden",
+                "body": "If you don't have contact information, you can leave any part of this section blank.  Provide as much information as you do have.  \n<br>\nYou will still be required to arrange for service of court documents on the other party but you don't always need a physical address to do that.  You might know a place where the person goes regularly like a gym or a coffee shop.\n<br>\n<br>\nYou also have options to apply to the court for an order allowing you to serve the other party in another way or the court registry can work with you to make a search request for information about where the other party may be located."
+              }
+            ]
+          }
+          ]
+        }        
+      ],
+      "title": "Contact Information Other Party"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

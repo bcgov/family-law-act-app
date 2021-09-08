@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -30,7 +30,7 @@ export default class ChildSupportCurrentArrangement extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -67,7 +67,6 @@ export default class ChildSupportCurrentArrangement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
         })
     }
     
@@ -75,14 +74,14 @@ export default class ChildSupportCurrentArrangement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['childSupportCurrentArrangementSurvey']) {
-            this.survey.data = this.step.result['childSupportCurrentArrangementSurvey'].data;
+        if (this.step.result?.childSupportCurrentArrangementsSurvey) {
+            this.survey.data = this.step.result.childSupportCurrentArrangementsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.step.result && this.step.result['childData']) {
-            const childData = this.step.result['childData'].data;            
-            if (childData.length>1){
+        if (this.step.result?.childrenInfoSurvey) {
+            const childData = this.step.result.childrenInfoSurvey.data;            
+            if (childData?.length>1){
                 this.survey.setVariable("childWordingSpend", "children spend");                    
             } else {
                 this.survey.setVariable("childWordingSpend", "child spends");
@@ -105,12 +104,7 @@ export default class ChildSupportCurrentArrangement extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
-        this.UpdateStepResultData({step:this.step, data: {childSupportCurrentArrangementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {childSupportCurrentArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

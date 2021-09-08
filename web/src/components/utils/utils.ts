@@ -34,13 +34,12 @@ export const SessionManager = {
                 store.commit("Application/setUserName", userName);
                 store.commit("Common/setUserId", userId);
                 store.commit("Common/setUserLocation",userLocation);
-                store.commit("Common/setEfilingEnabled", efilingEnabled);
-                //store.commit("Application/setApplicationLocation", userLocation);
+                store.commit("Common/setEfilingEnabled", efilingEnabled);               
             }
             return { userId, loginUrl };
         }
         catch (error) {
-            // console.log(error);  
+            console.log(error);  
         }
     }
 }

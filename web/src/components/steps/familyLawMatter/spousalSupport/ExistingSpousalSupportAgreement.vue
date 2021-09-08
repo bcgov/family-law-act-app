@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,6 +18,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 @Component({
     components:{
         PageBase
@@ -26,7 +28,10 @@ const applicationState = namespace("Application");
 export default class AboutExistingSpousalSupportAgreement extends Vue {
     
     @Prop({required: true})
-    step!: stepInfoType;       
+    step!: stepInfoType; 
+    
+    @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -38,9 +43,8 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     survey = new SurveyVue.Model(surveyJson);    
-    currentStep =0;
-    currentPage =0;
-    aboutSpousalSupportOrderPage = 36
+    currentStep = 0;
+    currentPage = 0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -64,18 +68,18 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')           
-            // console.log(this.survey.data)
+
             this.setPages()
         })
     }
 
     public setPages(){
-        if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-            this.togglePages([this.aboutSpousalSupportOrderPage ], true);
+        if(this.survey.data?.agreementDifferenceType == 'replacedAgreement'){
+            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder ], true);
             
-        } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+        } else if(this.survey.data?.agreementDifferenceType == 'setAsideAgreement') {
             
-            this.togglePages([this.aboutSpousalSupportOrderPage ], false);
+            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
         }         
     }  
 
@@ -94,8 +98,8 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['existingSpousalSupportAgreementSurvey']) {
-            this.survey.data = this.step.result['existingSpousalSupportAgreementSurvey'].data;
+        if (this.step.result?.existingSpousalSupportAgreementSurvey) {
+            this.survey.data = this.step.result.existingSpousalSupportAgreementSurvey.data;
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
@@ -122,8 +126,3 @@ export default class AboutExistingSpousalSupportAgreement extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

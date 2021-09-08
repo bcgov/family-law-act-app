@@ -1,0 +1,34 @@
+{
+    "title": "Child(ren) Information",
+    "pages": [
+        {
+            "name": "Child(ren) Information",
+            "description": "Please enter the details of each child in the fields below.",
+            "elements": [
+                {
+                    "type": "personname",
+                    "name": "childName",
+                    "title": "What is the name of the child?",
+                    "isRequired": true,
+                    "defaultSubstitution": "{ChildName}"
+                },
+                {
+                    "type": "text",
+                    "name": "childDateOfBirth",
+                    "title": "What is the child's date of birth?",
+                    "isRequired": true,
+                    "inputType": "date"
+                },
+                {
+                    "type": "text",
+                    "name": "childCurrentlyLivingWith",
+                    "title": "Who is the child currently living with?",
+                    "description": "You can use the name of the person or their relationship to the child.",
+                    "isRequired": true
+                }
+            ]
+        }
+    ],
+    "showQuestionNumbers": "off",
+    "requiredText": ""
+}

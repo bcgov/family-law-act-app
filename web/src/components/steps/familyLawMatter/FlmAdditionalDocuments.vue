@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">        
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" >        
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -18,7 +18,10 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
+import { requiredDocumentsInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -31,7 +34,10 @@ export default class FlmAdditionalDocuments extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -43,7 +49,7 @@ export default class FlmAdditionalDocuments extends Vue {
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     @applicationState.State
-    public requiredDocuments!: any
+    public requiredDocuments!: requiredDocumentsInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
     surveyJsonCopy; 
@@ -66,7 +72,6 @@ export default class FlmAdditionalDocuments extends Vue {
         this.initializeSurvey();
         this.addSurveyListener();
         this.reloadPageInformation();
-        //console.log(this.allPages)
     }
 
     public initializeSurvey(){
@@ -81,8 +86,6 @@ export default class FlmAdditionalDocuments extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(options)
-            // console.log(this.survey.data)
         })
     }
 
@@ -92,8 +95,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.surveyJsonCopy.pages[0].elements[0].elements[3]["choices"] = [];
         let descriptionHtml = "Based on your answers, you must file the following additional documents with your Application About a Family Law Matter:<br><br><ul>";
         for (const doc of this.requiredDocumentLists){
-            //console.log(doc)
-            //console.log(doc.includes('Form 5'))
+    
             if(doc.includes('Form 5'))
                 this.appointedAsGuardian = true;
             if(doc.includes('form') || doc.includes('Form')){
@@ -110,8 +112,8 @@ export default class FlmAdditionalDocuments extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['flmAdditionalDocsSurvey'] && this.step.result['flmAdditionalDocsSurvey'].data){
-            this.survey.data = this.step.result['flmAdditionalDocsSurvey'].data;
+        if (this.step.result?.flmAdditionalDocumentsSurvey?.data){
+            this.survey.data = this.step.result.flmAdditionalDocumentsSurvey.data;
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);
         }
 
@@ -122,26 +124,27 @@ export default class FlmAdditionalDocuments extends Vue {
 
     public getRequiredDocuments(){
         this.requiredDocumentLists = [];
-        if(this.requiredDocuments['familyLawMatter'] && this.requiredDocuments['familyLawMatter'].required){
-            this.requiredDocumentLists = this.requiredDocuments['familyLawMatter'].required
+        if(this.requiredDocuments?.familyLawMatter?.required){
+            this.requiredDocumentLists = this.requiredDocuments.familyLawMatter.required
             this.isRequiredDocument = true
-        }
-       // console.log(this.requiredDocuments['familyLawMatter'])
-       // console.log(this.requiredDocumentLists)
+        }       
     }
 
     public getFLMResultData() {         
-        
+        const steps = [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]
+
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=2;i<4; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
-            for(const stepResult in stepResults){
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+        for(const stepIndex of steps){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }
 
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[3].result.childBestInterestAcknowledgement};
+        const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
+
+        const childBestInterestAck = {childBestInterestAcknowledgement: stepFLM.result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
@@ -151,12 +154,8 @@ export default class FlmAdditionalDocuments extends Vue {
         else
             Object.assign(result, result,{applicationLocation: userLocation});
         
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
-
-        //return result;
     }    
 
     public onPrev() {
@@ -172,12 +171,7 @@ export default class FlmAdditionalDocuments extends Vue {
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
 
-        this.UpdateStepResultData({step:this.step, data: {flmAdditionalDocsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
+        this.UpdateStepResultData({step:this.step, data: {flmAdditionalDocumentsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

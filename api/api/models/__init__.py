@@ -19,9 +19,9 @@
     limitations under the License.
 """
 
-from .user import User
-from .survey_result import SurveyResult
-from .prepared_pdf import PreparedPdf
-from .application import Application
-from .efiling_submission import EFilingSubmission
-from .location import Location
+from api.models.user import User
+from api.models.survey_result import SurveyResult
+from api.models.prepared_pdf import PreparedPdf
+from api.models.application import Application
+from api.models.efiling_submission import EFilingSubmission
+from api.models.location import Location

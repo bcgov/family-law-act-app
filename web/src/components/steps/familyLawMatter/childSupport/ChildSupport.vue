@@ -1,5 +1,5 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -17,6 +17,8 @@ import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+
 
 @Component({
     components:{
@@ -30,7 +32,10 @@ export default class ChildSupport extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -73,11 +78,12 @@ export default class ChildSupport extends Vue {
 
     public adjustSurveyForOtherParties(){        
         this.surveyJsonCopy = JSON.parse(JSON.stringify(surveyJson));
+        const stepCOM = this.steps[this.stPgNo.COMMON._StepNo]
 
-        if (this.steps[2].result && this.steps[2].result['otherPartyCommonSurvey'] && this.steps[2].result['otherPartyCommonSurvey'].data) {
-            const otherPartyData = this.steps[2].result['otherPartyCommonSurvey'].data; 
+        if (stepCOM.result?.otherPartyCommonSurvey?.data) {
+            const otherPartyData = stepCOM.result.otherPartyCommonSurvey.data; 
             this.numberOfOtherParties = otherPartyData.length;           
-            // console.log(otherPartyData)            
+        
             const template = this.surveyJsonCopy.pages[0].elements[0].elements[2];
             const infoTemplate = this.surveyJsonCopy.pages[0].elements[0].elements[3];
             this.surveyJsonCopy.pages[0].elements[0].elements.pop()
@@ -92,7 +98,7 @@ export default class ChildSupport extends Vue {
                 this.surveyJsonCopy.pages[0].elements[0].elements.push(temp);
                 visibleCondition += "or {otherParty["+otherIndex+"]GuardianType} == 'appointedGuardian' "
             }
-            //console.log(visibleCondition)
+
             infoTemplate.visibleIf = visibleCondition
             this.surveyJsonCopy.pages[0].elements[0].elements.push(infoTemplate);
         }else{
@@ -103,7 +109,6 @@ export default class ChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            //console.log(this.survey.data)
         })
     }
     
@@ -111,11 +116,12 @@ export default class ChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
         
-        if (this.step.result && this.step.result['childSupportSurvey']) {
-            this.survey.data = this.step.result['childSupportSurvey'].data;
+        if (this.step.result?.childSupportSurvey) {
+            this.survey.data = this.step.result.childSupportSurvey.data;
            
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
+
         if(this.surveyHasError)
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
         else
@@ -143,8 +149,3 @@ export default class ChildSupport extends Vue {
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

@@ -1,22 +1,24 @@
 <template>
-    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
+import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/about-existing-child-support.json";
 
 import PageBase from "../../PageBase.vue";
-import { nameInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 @Component({
     components:{
@@ -30,10 +32,10 @@ export default class AboutExistingChildSupport extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public steps!: any
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
-    public applicantName!: nameInfoType;
+    public steps!: stepInfoType[];
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -46,8 +48,8 @@ export default class AboutExistingChildSupport extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);  
     
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
     existingType = "";
 
     beforeCreate() {
@@ -72,34 +74,33 @@ export default class AboutExistingChildSupport extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
-            // console.log(this.survey.data) 
-            
-            this.setPages();
-            
+
+            this.setPages();            
         })
     }
 
     public setPages(){            
             
+        const AboutCS = this.stPgNo.FLM.AboutChildSupportChanges
+
         if (this.existingType == 'ExistingOrder') {                
-            if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages([20], true);
+            if(this.survey.data?.orderDifferenceType == 'changeOrder'){
+                this.togglePages([AboutCS], true);
                 
-            } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
+            } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
                 
-                this.togglePages([20], false);
+                this.togglePages([AboutCS], false);
             }
         } else if (this.existingType == 'ExistingAgreement') {
             
-            if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([20], true);
+            if(this.survey.data?.agreementDifferenceType == 'replacedAgreement'){
+                this.togglePages([AboutCS], true);
                 
-            } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
+            } else if(this.survey.data?.agreementDifferenceType == 'setAsideAgreement') {
                 
-                this.togglePages([20], false);
+                this.togglePages([AboutCS], false);
             }
-        }    
-
+        }
     }
 
     public togglePages(pageArr, activeIndicator) {        
@@ -117,15 +118,15 @@ export default class AboutExistingChildSupport extends Vue {
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
 
-        if (this.step.result && this.step.result['childSupportOrderAgreementSurvey']) {
-            const existingTypeData = this.step.result['childSupportOrderAgreementSurvey'].data;
-            // console.log(existingTypeData)
+        if (this.step.result?.childSupportOrderAgreementSurvey) {
+            const existingTypeData = this.step.result.childSupportOrderAgreementSurvey.data;
+            
             this.survey.setVariable("existingType", existingTypeData.existingType)
             this.existingType = existingTypeData.existingType;
         }
 
-        if (this.step.result && this.step.result['aboutExistingChildSupportSurvey']) {
-            this.survey.data = this.step.result['aboutExistingChildSupportSurvey'].data;           
+        if (this.step.result?.aboutExistingChildSupportSurvey) {
+            this.survey.data = this.step.result.aboutExistingChildSupportSurvey.data;           
             
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }        
@@ -149,12 +150,6 @@ export default class AboutExistingChildSupport extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
         
         this.UpdateStepResultData({step:this.step, data: {aboutExistingChildSupportSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
-
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../../styles/survey";
-</style>

@@ -29,7 +29,7 @@
                                 <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="removeApplication(row.item, row.index)"
                                     v-b-tooltip.hover.noninteractive
-                                    title="Remove Application">
+                                    title="Delete Application">
                                     <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                                 </b-button>
 
@@ -156,8 +156,6 @@
             </template>
         </b-modal>
 
-
-
     </b-card>
 </template>
 
@@ -175,25 +173,21 @@ import { namespace } from "vuex-class";
 import "@/store/modules/common";
 const commonState = namespace("Common");
 import "@/store/modules/application";
+import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
+
+import {restoreCommonStep} from './restoreCommonStep'
+import {migrateStore} from './migrateStore'
+
 
 @Component
 export default class ApplicationStatus extends Vue {
 
     @commonState.Action
-    public UpdateDocumentTypesJson!: (newDocumentTypesJson) => void
+    public UpdateDocumentTypesJson!: (newDocumentTypesJson: documentTypesJsonInfoType[]) => void
 
     @commonState.Action
     public UpdateLocationsInfo!: (newLocationsInfo) => void
-
-    @applicationState.Action
-    public UpdatePathwayCompletedFull!: (newPathwayCompleted) => void
-
-    @applicationState.Action
-    public UpdateRequiredDocuments!: (newRequiredDocuments) => void
-
-    @applicationState.Action
-    public UpdateSupportingDocumentForm4!: (newSupportingDocumentForm4) => void
 
     @applicationState.Action
     public checkAllCompleted! :() => void
@@ -211,7 +205,7 @@ export default class ApplicationStatus extends Vue {
     ]
     confirmDelete = false;
     currentApplication = {} as applicationInfoType;
-    applicationToDelete = {}
+    applicationToDelete = {} as applicationJsonInfoType
     indexToDelete = -1 
     applicationId = ''
     error = ''
@@ -219,15 +213,25 @@ export default class ApplicationStatus extends Vue {
     deleteErrorMsgDesc = ''
     deleteError = false  
 
+    
+    //___________________________
+    //___________________________
+    //___________________________NEW VERSION goes here _________________
+    CURRENT_VERSION: string = "1.2.1.0";
+    //__________________________
+    //___________________________
+    //___________________________
+
     mounted() { 
         this.showDisclaimer = false;       
         this.loadDocumentTypes();
         this.extractFilingLocations();
         this.loadApplications();
+        console.log(new URL(location.href))
     }
 
     public openTerms() {
-    this.$router.push({name: "terms"})
+        this.$router.push({name: "terms"})
     }
 
     public loadApplications () {
@@ -235,9 +239,9 @@ export default class ApplicationStatus extends Vue {
     //TODO: read in the data required to navigate to the eFilingHub package page
         this.$http.get('/app-list/')
         .then((response) => {
-            //console.log(response)
+            
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}};
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
@@ -251,15 +255,13 @@ export default class ApplicationStatus extends Vue {
                 }
                 this.previousApplications.push(app);
             }
-            // console.log(this.previousApplications)
             if (this.previousApplications.length == 0){
                 this.showDisclaimer = true;
             } else {
                 this.showDisclaimer = false;
             }
             this.dataLoaded = true;       
-        },(err) => {            
-            //console.log(err)
+        },(err) => {
             this.dataLoaded = true;
             this.error = err;        
         });
@@ -267,7 +269,7 @@ export default class ApplicationStatus extends Vue {
 
     public beginApplication() {   
 
-        this.$store.commit("Application/init");
+        this.$store.dispatch("Application/UpdateInit", this.CURRENT_VERSION);
         const userId = store.state.Common.userId;
         store.commit("Application/setUserId", userId);
 
@@ -279,7 +281,7 @@ export default class ApplicationStatus extends Vue {
 
         const application = store.state.Application;
         application.type = store.state.Application.types.toString();
-        //console.log(application)
+
         const url = "/app/";
         const header = {
             responseType: "json",
@@ -293,6 +295,7 @@ export default class ApplicationStatus extends Vue {
             this.applicationId = res.data.app_id;  
             store.commit("Application/setApplicationId", this.applicationId);
             this.error = "";
+  
             this.$router.push({name: "flapp-surveys" }) 
         }, err => {
             console.error(err);
@@ -301,8 +304,6 @@ export default class ApplicationStatus extends Vue {
     }
 
     public navigateToEFilingHub(packageInfo) {
-        //console.log(packageInfo)        
-        //console.log("going to hub")
         location.replace(packageInfo.package_url)
     }
 
@@ -310,52 +311,26 @@ export default class ApplicationStatus extends Vue {
     
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
-            const applicationData = response.data
 
-            // console.log(applicationData)
+            const applicationData = response.data   
+            const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
-            this.currentApplication.id = applicationId;
-            this.currentApplication.currentStep = applicationData.currentStep;
-            this.currentApplication.lastUpdate = applicationData.lastUpdated;
-            this.currentApplication.lastPrinted = applicationData.lastPrinted;
-            this.currentApplication.applicationLocation = applicationData.applicationLocation;                        
-            this.currentApplication.types = (applicationData.type.length>0)?this.extractTypes(applicationData.type.split(',')):[];
-            this.currentApplication.userId = applicationData.userId;
-            this.currentApplication.userName = applicationData.userName;
-            this.currentApplication.userType = applicationData.userType;        
-            this.currentApplication.steps = applicationData.steps;
+            const storeMigrationFn = new migrateStore()           
+            this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
 
-            if(this.currentApplication.steps[0]['result']){
-                this.currentApplication.applicantName =  this.currentApplication.steps[0]['result']['applicantName'];
-                this.currentApplication.respondentName = this.currentApplication.steps[0]['result']['respondentsPO']?this.currentApplication.steps[0]['result']['respondentsPO'][0]:'';//applicationData.respondentName;
-                this.currentApplication.protectedPartyName = this.currentApplication.steps[0]['result']['protectedPartyName'];//applicationData.protectedPartyName;
-                this.currentApplication.protectedChildName = this.currentApplication.steps[0]['result']['protectedChildName'];//applicationData.protectedChildName;                
-            }
-
-            // console.log(this.currentApplication.types)
-            this.$store.commit("Application/setCurrentApplication", this.currentApplication);
-            this.$store.commit("Common/setExistingApplication", true);
-
-            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['requiredDocuments'])
-                this.UpdateRequiredDocuments(this.currentApplication.steps[0]['result']['requiredDocuments'])
- 
-            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['supportingDocumentForm4'])
-                this.UpdateSupportingDocumentForm4(this.currentApplication.steps[0]['result']['supportingDocumentForm4'])
-
-            if(this.currentApplication.steps[0]['result'] && this.currentApplication.steps[0]['result']['pathwayCompleted'])
-                this.UpdatePathwayCompletedFull(this.currentApplication.steps[0]['result']['pathwayCompleted'])           
-
+            const comStepFn = new restoreCommonStep()
+            comStepFn.restore(this.currentApplication)
+           
             this.checkAllCompleted();
+           
+            this.$router.push({name: "flapp-surveys" }) 
 
-            this.$router.push({name: "flapp-surveys" })        
         }, err => {
-            //console.log(err)
             this.error = err;        
         });
     }   
 
-    public extractTypes(applicationTypes: string) {
-
+    public extractTypes(applicationTypes: string[]) {
 
         let types = [];
 
@@ -363,25 +338,24 @@ export default class ApplicationStatus extends Vue {
             if (applicationType.includes("FPO")){
                 types.push(applicationType.replace("FPO", "Protection Order"));            
             }
-            if (applicationType.includes("FLC")){
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("familyLawMatter"))){
                 types.push("Family Law Matter");
             }
-            if (applicationType.includes("ACMO")){
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("caseMgmt"))){
                 types.push("Case Management");
             }
-            if (applicationType.includes("AXP")){
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("priorityParenting"))){
                 types.push("Priority Parenting Matter");
             }
-            if (applicationType.includes("APRC")){
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("childReloc"))){
                 types.push("Relocation of a Child");
             }
-            if (applicationType.includes("AFET")){
-                types.push("Enforcement of Agreements and Court Orders");
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("agreementEnfrc"))){
+                types.push("Enforcement");
             }
 
-            if (applicationType.includes("AAP")){
-                types.push("Protection Order"); 
-                //types.push("Enforcement of Agreements and Court Orders");            
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("protectionOrder"))){
+                types.push("Protection Order");     
             }
         }
         return types;
@@ -399,14 +373,11 @@ export default class ApplicationStatus extends Vue {
     public confirmRemoveApplication() {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
-            //console.log(response.data)
-            
             var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
             if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
             
         },err => {
             const errMsg = err.response.data.error;
-                    //console.log(err.response)
             this.deleteErrorMsg = errMsg.slice(0,60) + (errMsg.length>60?' ...':'');
             this.deleteErrorMsgDesc = errMsg;
             this.deleteError = true;            
@@ -415,11 +386,9 @@ export default class ApplicationStatus extends Vue {
     }
 
     printingApplicationId = 0;
-    printingListOfPdfs = [];
+    printingListOfPdfs: string[] = [];
     showSelectFileForPrint =  false;
     public viewApplicationPdf(applicationId, listOfPdfs) {
-        // console.log(applicationId)
-        // console.log(listOfPdfs)
         this.printingApplicationId = applicationId;
         this.printingListOfPdfs = listOfPdfs;
         this.showSelectFileForPrint =  true;
@@ -450,30 +419,23 @@ export default class ApplicationStatus extends Vue {
     }
 
     public loadDocumentTypes() {
-        const documentTypesJson = require("../home/forms/documentTypes.json");
-        //console.log(documentTypesJson)
-        this.UpdateDocumentTypesJson(documentTypesJson);
         this.$http.get('/efiling/document-types/')
         .then((response) => { 
-            if(response.data && response.data.length>0){
-                //console.log(response.data) 
+            if(response.data && response.data.length>0){                
                 this.UpdateDocumentTypesJson(response.data);
             }
         },(err) => {            
             console.log(err)
-            //this.error = err;        
         });
     }
 
     public extractFilingLocations() {
         this.$http.get('/efiling/locations/')
         .then((response) => {
-            // console.log(Object.keys(response.data))
             const locationsInfo = response.data 
             const locationNames = Object.keys(response.data);
             const locations = []
             for (const location of locationNames){
-                 // console.log(locationsInfo[location])
                 const locationInfo = locationsInfo[location];              
                 
                 const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
@@ -483,13 +445,12 @@ export default class ApplicationStatus extends Vue {
                                 (locationInfo.city?(locationInfo.city):'') +
                                 (locationInfo.province?(', ' + locationInfo.province):'');
                 const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-               // locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:''})
+               
                 const email = (locationInfo.email?(locationInfo.email):'');
                 const filingLocation = (locationInfo.in_person_filing_location_code?(locationInfo.in_person_filing_location_code):'');
                 locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:email, filingLocation: filingLocation});
             }
-            // console.log(locations)
-            //locations.push({id: 1, name: 'location', address: 'address'})
+
             this.UpdateLocationsInfo(locations); 
         
         },(err) => console.log(err));
@@ -512,26 +473,7 @@ export default class ApplicationStatus extends Vue {
     max-width: 950px;
     color: black;
 }
-hr.section {
-    border: 0.5px solid $gov-mid-blue;
-    margin-bottom: 1.5rem;
-}
-.section-heading {
-    color: $gov-mid-blue;
-    font-weight: 500;
-    padding: 0rem 2rem 0rem 2rem;
-}
-.intro {
-    font-size: 24px;
-    line-height: 1.6;
-    margin: 0.5rem auto 0.5rem;
-    p {
-        margin-bottom: 0.5rem;
-    }
-}
-.loginInfo-section {
-    margin-top: 2.5rem;
-}
+
 .register-button {
     color: $gov-white !important;
     border: 2px solid rgba($gov-mid-blue, 0.3);
@@ -540,17 +482,6 @@ hr.section {
     &:active {
         border: 2px solid rgba($gov-white, 0.8);
     }
-}
-.wrapper {
-    position: relative;
-    padding-left: 8rem;
-    width: 30px;
-    height: 200px;
-    margin: 10px;
-}
-
-.application-button {
-    margin-right: 2rem;
 }
 
 .terms{

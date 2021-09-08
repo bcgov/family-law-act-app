@@ -147,6 +147,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { schedule9DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -161,9 +162,7 @@ export default class Form3 extends Vue {
     result!: any;
   
     dataReady = false;
-    spsSupInfo = {}
-
-    
+    spsSupInfo = {} as schedule9DataInfoType;    
    
     mounted(){
         this.dataReady = false;        
@@ -176,43 +175,11 @@ export default class Form3 extends Vue {
     }
 
     public getNewSpousalSupportInfo(){
-        let newSpousalSupportInfo = {
-            current: {
-                adv: false,
-                share: false,
-                hardship: false,
-                bcmIndpndnt: false,
-                crntArrngmnt: '',
-                payors: ''
-            },
-            incomeInfo: {
-                myIncome: '',
-                knowOpIncome: false,
-                opIncome: '',
-                knowFacts: false,
-                facts: ''
-            },
-            payDetails:{
-                monthly: false,
-                start: '',
-                end: '',
-                rate: '',
-                lumpSum: false,
-                lumpSumAmount: '',
-                other: false,
-                otherComm: ''
-            },
-            calc: {
-                attaching: false,
-                reason: ''
-            },
-            applyForCaseManagement: false
-        }
 
-        // console.log(this.result)
-
+        let newSpousalSupportInfo = {} as schedule9DataInfoType;
+       
         if (this.result.spousalSupportSurvey){
-            const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons?this.result.spousalSupportSurvey.listOfReasons:[]
+            const entitlementReasons = this.result.spousalSupportSurvey.listOfReasons? this.result.spousalSupportSurvey.listOfReasons:[]
             if(entitlementReasons){
                 newSpousalSupportInfo.current = {
                     adv: entitlementReasons.includes('There are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship'),
@@ -230,8 +197,7 @@ export default class Form3 extends Vue {
                     hardship: false,
                     bcmIndpndnt: false,
                     crntArrngmnt: (this.result.spousalSupportSurvey.currentSupport)? this.result.spousalSupportSurvey.currentSupport:'',
-                    payors: (this.result.spousalSupportSurvey.listOfSupportPayors 
-                            && this.result.spousalSupportSurvey.listOfSupportPayors.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
+                    payors: (this.result.spousalSupportSurvey?.listOfSupportPayors?.length > 0)? this.result.spousalSupportSurvey.listOfSupportPayors:''
                 }
             }
 
@@ -245,16 +211,16 @@ export default class Form3 extends Vue {
                         && incomeEarning.knowIncome == 'y'),
                 opIncome: (incomeEarning.knowIncome
                         && incomeEarning.knowIncome == 'y'
-                        && incomeEarning.incomeAmount)?incomeEarning.incomeAmount:'',
+                        && incomeEarning.incomeAmount)? incomeEarning.incomeAmount:'',
                 knowFacts: (incomeEarning.knowFacts
                         && incomeEarning.knowFacts == 'y'),
                 facts: (incomeEarning.knowFacts
                         && incomeEarning.knowFacts == 'y'
-                        && incomeEarning.factsExplanation)?incomeEarning.factsExplanation:''                
+                        && incomeEarning.factsExplanation)? incomeEarning.factsExplanation:''                
             }
         }
 
-        if (this.result.aboutSpousalSupportOrderSurvey.howToPaySpousalSupport){ 
+        if (this.result.aboutSpousalSupportOrderSurvey?.howToPaySpousalSupport){ 
             const aboutSpousalSupport = this.result.aboutSpousalSupportOrderSurvey.howToPaySpousalSupport;           
             newSpousalSupportInfo.payDetails = {
                 monthly: aboutSpousalSupport.selected == 'monthly',
@@ -275,25 +241,23 @@ export default class Form3 extends Vue {
 
         if (this.result.calculatingSpousalSupportSurvey){
             newSpousalSupportInfo.calc = {
-                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
-                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
-                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations 
-                        && this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
-                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)?this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
+                attaching: (this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'y'),
+                reason: (this.result.calculatingSpousalSupportSurvey.attachingCalculations == 'n'
+                        && this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations)? this.result.calculatingSpousalSupportSurvey.whyNotAttachingCalculations:''
             }
         }
 
         let form4unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Financial Statement Form 4")){
                     form4unable = true;
                 }
             }   
         }
 
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form4unable){
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs =='n' && form4unable){
             newSpousalSupportInfo.applyForCaseManagement = true           
         }
 

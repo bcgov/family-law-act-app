@@ -14,6 +14,7 @@ import MultipleTextInput from "./components/MultipleTextInput.vue"
 import AdvancedRadioGroup from "./components/AdvancedRadioGroup.vue"
 import MultipleCommentCheckbox from "./components/MultipleCommentCheckbox.vue"
 import CustomButton from "./components/CustomButton.vue"
+import CustomDateTime from "./components/CustomDateTime.vue"
 
 function fixCheckboxes(Survey: any) {
   const widget = {
@@ -574,6 +575,36 @@ function initCustomButton(Survey: any) {
   Vue.component("CustomButton", CustomButton);
   Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
 }
+
+function initCustomDateTime(Survey: any) {
+  const widget = {
+    name: "CustomDateTime",
+    title: "Custom Date Time",
+    iconName: "icon-customdatetime",
+    widgetIsLoaded: function() {
+      return true;
+    },
+    isFit: function(question: any) {
+      return question.getType() === "customdatetime";
+    },
+    activatedByChanged: function(activatedBy: any) {
+      Survey.JsonObject.metaData.addClass("customdatetime",[],null,"empty");    
+      Survey.JsonObject.metaData.addProperties("customdatetime", [        
+        {
+          name: "dateYearsAhead:number",
+          default: 0
+        },
+        {
+          name: "dateYearsBehind:number",
+          default: 100
+        }
+      ]);
+    },
+  };
+
+  Vue.component("CustomDateTime", CustomDateTime);
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+}
 //__________________________________________________________________________________________________
 // Returns 'y' or 'n', or 'u' for undefined and 'e' for error
 function isChild(params: any) {
@@ -631,6 +662,7 @@ export function addQuestionTypes(Survey: any) {
   initAdvancedRadioGroup(Survey);
   initMultipleCommentCheckbox(Survey);
   initCustomButton(Survey);
+  initCustomDateTime(Survey);
 
   Survey.FunctionFactory.Instance.register("isChild", isChild);
 }
@@ -767,6 +799,18 @@ export function addToolboxOptions(editor: any) {
     iconName: "icon-panel",
     json: {
       type: "custombutton",
+      titleLocation: "hidden"
+    }
+  });
+
+  editor.toolbox.addItem({
+    name: "customdatetime",
+    title: "Custom Date Time",
+    category: "Custom",
+    isCopied: true,
+    iconName: "icon-panel",
+    json: {
+      type: "customdatetime",
       titleLocation: "hidden"
     }
   });

@@ -93,15 +93,10 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import UnderlineForm from "./components/UnderlineForm.vue"
 import CheckBox from "./components/CheckBox.vue"
-import moment from 'moment';
-import { nameInfoType } from '@/types/Application';
+
+import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -119,52 +114,35 @@ export default class Schedule7 extends Vue {
     selectedSchedules!: string[]; 
    
     dataReady = false; 
-    guardInfo = {}    
-   
-    mounted(){
-        this.dataReady = false;       
-        this.extractInfo();       
-        this.dataReady = true;
-    }
-  
+    guardInfo = {} as schedule7DataInfoType;    
+     
     childrenGuardianshipFields = [
         {key:"guardianName",  label:"Full name of guardian",                                tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
         {key:"childName",     label:"Name of child(ren)",                                   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:30%;"},
         {key:"guardianSince", label:"They have been a guardian of the child(ren) since:",   tdClass:"border-dark align-middle", thClass:"border-dark align-middle text-center align-middle", thStyle:"width:25%;"},
     ]
 
+    mounted(){
+        this.dataReady = false;       
+        this.extractInfo();       
+        this.dataReady = true;
+    }
+
     public extractInfo(){
-        if (this.selectedSchedules.includes('schedule7') || this.selectedSchedules.includes('schedule8')){
+        if (this.selectedSchedules?.includes('schedule7') || this.selectedSchedules?.includes('schedule8')){
             this.guardInfo = this.getGuardianshipOfChildInfo(this.selectedSchedules.includes('schedule7'), this.selectedSchedules.includes('schedule8'));
         }        
     }
 
     public getGuardianshipOfChildInfo(guardian:boolean, cancel: boolean){
-        let guardianshipInfo = {
-            guardian: guardian,
-            cancel: cancel, 
-            abtGuardian: {}, 
-            abtCancel: {}, 
-            indigenous: false, 
-            nonIndigenous: false,
-            unKnownAncestry: false, 
-            ancestry: {
-                firstNation: false,
-                nisga: false,
-                treatyFirstNation: false,
-                under12: false,
-                over12: false,
-                acknowledge: false                    
-            }
-        };
-        // console.log(this.result)
+        let guardianshipInfo = {} as schedule7DataInfoType;
 
         if (guardian){
             guardianshipInfo.abtGuardian = {
                 children: []
             }
-            if (this.result.GuardianOfChildSurvey){
-                guardianshipInfo.abtGuardian['children'] = this.result.GuardianOfChildSurvey.childrenList?this.result.GuardianOfChildSurvey.childrenList:[];               
+            if (this.result.guardianOfChildSurvey){
+                guardianshipInfo.abtGuardian.children = this.result.guardianOfChildSurvey.childrenList? this.result.guardianOfChildSurvey.childrenList:[];               
             }
         }
 
@@ -180,16 +158,16 @@ export default class Schedule7 extends Vue {
                 ]
             }
 
-            if (this.result.GuardianOfChildBestInterestOfChildSurvey){
-                const bestInterestInfo = this.result.GuardianOfChildBestInterestOfChildSurvey;
-                guardianshipInfo.abtCancel['bestInterest'] = (bestInterestInfo && bestInterestInfo.cancelGuradianChildBestInterest)?bestInterestInfo.cancelGuradianChildBestInterest:''
+            if (this.result.guardianOfChildBestInterestsOfChildSurvey){
+                const bestInterestInfo = this.result.guardianOfChildBestInterestsOfChildSurvey;
+                guardianshipInfo.abtCancel.bestInterest = bestInterestInfo?.cancelGuradianChildBestInterest? bestInterestInfo.cancelGuradianChildBestInterest:''
             }
-            if (this.result.GuardianOfChildSurvey && this.result.GuardianOfChildSurvey.cancelGuardianDetails){
-                if (this.result.GuardianOfChildSurvey.cancelGuardianDetails.length > 0){
-                    guardianshipInfo.abtCancel['cancelDetails'] = [];
+            if (this.result.guardianOfChildSurvey?.cancelGuardianDetails){
+                if (this.result.guardianOfChildSurvey.cancelGuardianDetails?.length > 0){
+                    guardianshipInfo.abtCancel.cancelDetails = [];
                 }
-                for (const detail of this.result.GuardianOfChildSurvey.cancelGuardianDetails){
-                    guardianshipInfo.abtCancel['cancelDetails'].push({
+                for (const detail of this.result.guardianOfChildSurvey.cancelGuardianDetails){
+                    guardianshipInfo.abtCancel.cancelDetails.push({
                         guardianName: detail.nameOther, 
                         childName: detail.name,
                         guardianSince: Vue.filter('beautify-date')(detail.date)
@@ -239,40 +217,35 @@ export default class Schedule7 extends Vue {
             } 
         }
 
-        if( this.result.GuardianOfChildSurvey && 
-            this.result.GuardianOfChildSurvey.applicantionType &&
-            this.result.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian')){
-                guardianshipInfo['becomeGuardian'] = true;
+        if(this.result.guardianOfChildSurvey?.applicationType?.includes('becomeGuardian')){
+            guardianshipInfo.becomeGuardian = true;
+        }else 
+            guardianshipInfo.becomeGuardian = false;
 
-        }else guardianshipInfo['becomeGuardian'] = false;
-
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.criminalChecked =='y' ){
-            guardianshipInfo['criminalCheck'] = true;
+        if(this.result.flmAdditionalDocumentsSurvey?.criminalChecked =='y' ){
+            guardianshipInfo.criminalCheck = true;
         }else {
-            guardianshipInfo['criminalCheck'] = false;
+            guardianshipInfo.criminalCheck = false;
         }
-
 
         let form5unable = false;
 
-        if(this.result.flmAdditionalDocsSurvey && this.result.flmAdditionalDocsSurvey.unableFileForms){
-            for(const form of this.result.flmAdditionalDocsSurvey.unableFileForms){
+        if(this.result.flmAdditionalDocumentsSurvey?.unableFileForms){
+            for(const form of this.result.flmAdditionalDocumentsSurvey.unableFileForms){
                 if(form.includes("Form 5")||form.includes("registry search")){
                     form5unable = true;
                 }
             }   
         }
 
-
-
-        if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='y' )){
-            guardianshipInfo['applyForCaseManagement'] = 'n'
-        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && form5unable){
-            guardianshipInfo['applyForCaseManagement'] = 'y'
-        }else if(this.result.flmAdditionalDocsSurvey && (this.result.flmAdditionalDocsSurvey.isFilingAdditionalDocs=='n' ) && !form5unable){
-            guardianshipInfo['applyForCaseManagement'] = 'n'
+        if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='y' ){
+            guardianshipInfo.applyForCaseManagement = 'n'
+        }else if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && form5unable){
+            guardianshipInfo.applyForCaseManagement = 'y'
+        }else if(this.result.flmAdditionalDocumentsSurvey?.isFilingAdditionalDocs=='n' && !form5unable){
+            guardianshipInfo.applyForCaseManagement = 'n'
         }else{
-            guardianshipInfo['applyForCaseManagement'] = ''
+            guardianshipInfo.applyForCaseManagement = ''
         }
         return guardianshipInfo;
     }  

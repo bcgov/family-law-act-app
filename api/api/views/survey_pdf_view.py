@@ -14,7 +14,7 @@ from api.models.prepared_pdf import PreparedPdf
 from api.utils import get_application_for_user
 
 LOGGER = logging.getLogger(__name__)
-
+no_record_found = "No record found."
 
 class SurveyPdfView(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -28,7 +28,7 @@ class SurveyPdfView(generics.GenericAPIView):
             pdf_result = PreparedPdf.objects.get(application_id=id, pdf_type=pdf_type)
             return pdf_result
         except (PreparedPdf.DoesNotExist, Application.DoesNotExist):
-            LOGGER.debug("No record found")
+            LOGGER.debug(no_record_found)
             return
 
     def create_download_response(self, pdf_content):
@@ -41,23 +41,23 @@ class SurveyPdfView(generics.GenericAPIView):
         user_id = request.user.id
         app = get_application_for_user(application_id, user_id)
         if not app:
-            return HttpResponseNotFound("No record found.")
+            return HttpResponseNotFound(no_record_found)
         pdf_type = request.query_params.get("pdf_type")
         if pdf_type is None:
             return HttpResponseBadRequest("Missing parameters.")
         prepared_pdf = self.get_pdf_by_application_id_and_type(application_id, pdf_type)
         if prepared_pdf is None:
-            return HttpResponseNotFound("No record found.")
+            return HttpResponseNotFound(no_record_found)
         pdf_content = settings.ENCRYPTOR.decrypt(prepared_pdf.key_id, prepared_pdf.data)
         return self.create_download_response(pdf_content)
 
-    def post(self, request, application_id, name=None):
+    def post(self, request, application_id):
         html = request.data['html']
         json_data = request.data['json_data']
         user_id = request.user.id
         app = get_application_for_user(application_id, user_id)
         if not app:
-            return HttpResponseNotFound("No record found.")
+            return HttpResponseNotFound(no_record_found)
 
         name = request.query_params.get("name")
         pdf_type = request.query_params.get("pdf_type")

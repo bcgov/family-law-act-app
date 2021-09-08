@@ -91,7 +91,7 @@
                     <div style="margin:0 3rem 2rem 1rem;">
                         <i>Complete only if applicable. You may leave this section blank.</i>
                         <div>I am applying to have the following conditions placed on the contact with the child(ren):</div>
-                        <div v-if="result.aboutContactWithChildSurvey && result.aboutContactWithChildSurvey.placeConditions == 'y'" 
+                        <div v-if="result.aboutContactWithChildOrderSurvey && result.aboutContactWithChildOrderSurvey.placeConditions == 'y'" 
                             class="answerbox">{{exChContInfo.abt.cond}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                     </div>
@@ -117,6 +117,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { schedule6DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
     components:{
@@ -131,7 +132,7 @@ export default class Schedule6 extends Vue {
     result!: any; 
    
     dataReady = false;
-    exChContInfo = {}
+    exChContInfo = {} as schedule6DataInfoType;
    
     mounted(){
         this.dataReady = false;      
@@ -139,65 +140,33 @@ export default class Schedule6 extends Vue {
         this.dataReady = true;        
     }    
 
-    public extractInfo(){       
-       
+    public extractInfo(){ 
         this.exChContInfo = this.getExistingChildContactInfo(); 
-
     }
 
     public getExistingChildContactInfo(){
 
-        let existingChildContactInfo = {
-            guardian: true, 
-            date: '', 
-            order: true, 
-            abtExOrdr: {
-                change: '',
-                ordrdiff: ''
-            }, 
-            abtExAgrmnt: {
-                change: '',
-                agrmntdiff: ''
-            }, 
-            abt:{
-                
-                conChList: [],
-                conType: {
-                    noContact: false,
-                    inPerson: false,
-                    tel: false,
-                    video: false,
-                    written:false,
-                    other: false
-                },
-                inPrsn: '',
-                otherComm: '',
-                cond: ''
-            
-            }, 
-            bstIntrst:''
-        };
-        // console.log(this.result)
+        let existingChildContactInfo = {} as schedule6DataInfoType;
 
-        if (this.result.contactOrderSurvey){
-            existingChildContactInfo.guardian = this.result.contactOrderSurvey.roleType != 'allowedContact';
-            if (this.result.contactOrderSurvey.existingType == "ExistingOrder"){
-                existingChildContactInfo.date = Vue.filter('beautify-date')(this.result.contactOrderSurvey.orderDate);
+        if (this.result.contactWithChildOrderSurvey){
+            existingChildContactInfo.guardian = this.result.contactWithChildOrderSurvey.roleType != 'allowedContact';
+            if (this.result.contactWithChildOrderSurvey.existingType == "ExistingOrder"){
+                existingChildContactInfo.date = Vue.filter('beautify-date')(this.result.contactWithChildOrderSurvey.orderDate);
                 existingChildContactInfo.order = true;
                 existingChildContactInfo.abtExOrdr = {
-                    change: this.result.contactOrderSurvey.changesSinceOrder,
-                    ordrdiff: this.result.contactOrderSurvey.orderDifferenceType                    
+                    change: this.result.contactWithChildOrderSurvey.changesSinceOrder,
+                    ordrdiff: this.result.contactWithChildOrderSurvey.orderDifferenceType                    
                 }
                 existingChildContactInfo.abtExAgrmnt = {
                     change: '',
                     agrmntdiff: ''
                 }
-            } else if (this.result.contactOrderSurvey.existingType == "ExistingAgreement") {
+            } else if (this.result.contactWithChildOrderSurvey.existingType == "ExistingAgreement") {
                 existingChildContactInfo.order = false;
-                existingChildContactInfo.date = Vue.filter('beautify-date')(this.result.contactOrderSurvey.agreementDate);                
+                existingChildContactInfo.date = Vue.filter('beautify-date')(this.result.contactWithChildOrderSurvey.agreementDate);                
                 existingChildContactInfo.abtExAgrmnt = {                    
-                    change: this.result.contactOrderSurvey.changesSinceAgreement,
-                    agrmntdiff: this.result.contactOrderSurvey.agreementDifferenceType                   
+                    change: this.result.contactWithChildOrderSurvey.changesSinceAgreement,
+                    agrmntdiff: this.result.contactWithChildOrderSurvey.agreementDifferenceType                   
                 }
                 existingChildContactInfo.abtExOrdr = {
                     change: '',
@@ -206,13 +175,13 @@ export default class Schedule6 extends Vue {
             }            
         }
 
-        if (this.result.aboutContactWithChildSurvey){
-            const contactChoices = this.result.aboutContactWithChildSurvey.contactTypeChoices?this.result.aboutContactWithChildSurvey.contactTypeChoices:[];
-            const changeOrReplaceCondition = ((this.result.contactOrderSurvey && this.result.contactOrderSurvey.existingType =='ExistingOrder' && this.result.contactOrderSurvey.orderDifferenceType == 'changeOrder') ||
-                                             ( this.result.contactOrderSurvey && this.result.contactOrderSurvey.existingType =='ExistingAgreement' && this.result.contactOrderSurvey.agreementDifferenceType == 'replacedAgreement'));
+        if (this.result.aboutContactWithChildOrderSurvey){
+            const contactChoices = this.result.aboutContactWithChildOrderSurvey.contactTypeChoices?this.result.aboutContactWithChildOrderSurvey.contactTypeChoices:[];
+            const changeOrReplaceCondition = ((this.result.contactWithChildOrderSurvey?.existingType =='ExistingOrder'     && this.result.contactWithChildOrderSurvey?.orderDifferenceType == 'changeOrder') ||
+                                             ( this.result.contactWithChildOrderSurvey?.existingType =='ExistingAgreement' && this.result.contactWithChildOrderSurvey?.agreementDifferenceType == 'replacedAgreement'));
                
             existingChildContactInfo.abt = {
-                conChList: this.result.aboutContactWithChildSurvey.childrenRequireContactChoices,
+                conChList: this.result.aboutContactWithChildOrderSurvey.childrenRequireContactChoices,
                 conType: changeOrReplaceCondition?
                 {
                     noContact: contactChoices.includes('No contact of any type'),
@@ -229,18 +198,17 @@ export default class Schedule6 extends Vue {
                     written:false,
                     other: false
                 },
-                inPrsn: changeOrReplaceCondition? (contactChoices.includes('In person'))? this.result.aboutContactWithChildSurvey.inPersonDetails:'':'',
-                otherComm: changeOrReplaceCondition? (contactChoices.includes('other'))? this.result.aboutContactWithChildSurvey.contactTypeChoicesComment:'':'',
-                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildSurvey && this.result.aboutContactWithChildSurvey.placeConditions == 'y')? this.result.aboutContactWithChildSurvey.conditionsDescription:'':''
+                inPrsn: changeOrReplaceCondition? (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'':'',
+                otherComm: changeOrReplaceCondition? (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'':'',
+                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildOrderSurvey?.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'':''
             }
         }
 
-        if (this.result.contactWithChildBestInterestOfChildSurvey){
-            existingChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestOfChildSurvey.existingChildBestInterestDescription;
+        if (this.result.contactWithChildBestInterestsOfChildSurvey){
+            existingChildContactInfo.bstIntrst = this.result.contactWithChildBestInterestsOfChildSurvey.existingChildBestInterestDescription;
         }
 
         return existingChildContactInfo;
-
     }  
 
 }

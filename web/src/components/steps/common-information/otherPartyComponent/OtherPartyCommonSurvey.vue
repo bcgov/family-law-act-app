@@ -15,14 +15,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-
+import { otherPartyInfoType, addressInfoType, contactInfoType} from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
 const applicationState = namespace("Application");
 
 @Component
@@ -40,38 +40,11 @@ export default class OtherPartyCommonSurvey extends Vue {
     @applicationState.Action
     public UpdateSurveyChangedPO!: (newSurveyChangedPO: boolean) => void
 
-    op= {
-        name: {
-            first: "",
-            middle: "",
-            last: ""
-        },
-        knowDob: "",
-        dob: "",
-        opRelation: "",
-        livedTogether: "",
-        dateOfLivedTogether: "",
-        married: "",
-        dateOfMarriage: "",
-        separated: "",
-        dateSeparated: "",
-        address: {
-            street: "",
-            city: "",
-            state: "",
-            country: "",
-            postcode: ""
-        },
-        contactInfo: {
-            phone: "",
-            fax: "",
-            email: ""
-        }
-    }
+    op = {} as otherPartyInfoType;
 
     survey = new SurveyVue.Model(surveyJson);
-    currentStep=0;
-    currentPage=0;
+    currentStep =0;
+    currentPage =0;
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -84,7 +57,6 @@ export default class OtherPartyCommonSurvey extends Vue {
         this.reloadPageInformation();
     }
 
-
     public initializeSurvey(){
         this.survey = new SurveyVue.Model(surveyJson);
         this.survey.commentPrefix = "Comment";
@@ -95,9 +67,8 @@ export default class OtherPartyCommonSurvey extends Vue {
     
     public addSurveyListener(){
         this.survey.onComplete.add((sender, options) => {
-            Vue.filter('surveyChanged')('familyLawMatter')
+            Vue.filter('surveyChanged')('allExPO')
 
-            //console.log(this.survey)
             this.populateOpModel(sender.data);
             let id = sender.getVariable("id");
             if (id == null || id == undefined) {
@@ -110,27 +81,26 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
     
     public reloadPageInformation() {
-        // console.log(this.types)
+       
         if (this.editRowProp != null) {
             this.populateFormWithPreExistingValues(this.editRowProp, this.survey);
         }
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
 
-        if (this.types.length == 1 && this.types[0] == "Case Management") {
-            //console.log('true')
+        if (this.types?.length == 1 && this.types[0] == "Case Management") {
             this.survey.setVariable("csOnly", true);
         } else {
             this.survey.setVariable("csOnly", false);
         }
 
         let progress = 50;
-        if(Object.keys(this.survey.data).length)
+        if(Object.keys(this.survey.data)?.length)
             progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
+        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
  
     public goBack() {
@@ -142,10 +112,8 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
 
     public populateOpModel(opData) {
-        this.op.name.first = opData.OtherPartyName.first;
-        this.op.name.middle = opData.OtherPartyName.middle;
-        this.op.name.last = opData.OtherPartyName.last;
-
+        this.op.name = opData.OtherPartyName;       
+        this.op.lawyer = opData.otherPartyLawyer;
         this.op.knowDob = opData.doYouKnowDOB;
         this.op.dob = opData.otherPartyDOB;
         this.op.opRelation = opData.relationWithOtherParty;
@@ -156,20 +124,19 @@ export default class OtherPartyCommonSurvey extends Vue {
         this.op.separated = opData.isSeperatedOtherParty;
         this.op.dateSeparated = opData.dateOfSeparation;
 
-        if(opData.otherPartyAddress)
+        if(opData?.otherPartyAddress)
         {
-            this.op.address.street = opData.otherPartyAddress.street;
-            this.op.address.city = opData.otherPartyAddress.city;
-            this.op.address.state = opData.otherPartyAddress.state;
-            this.op.address.country = opData.otherPartyAddress.country;
-            this.op.address.postcode = opData.otherPartyAddress.postcode;
+            this.op.address = opData.otherPartyAddress;          
         }
-        if(opData.otherPartyContact)
+        else
+            this.op.address = {} as addressInfoType
+
+        if(opData?.otherPartyContact)
         {
-            this.op.contactInfo.phone = opData.otherPartyContact.phone;
-            this.op.contactInfo.fax = opData.otherPartyContact.fax;
-            this.op.contactInfo.email = opData.otherPartyContact.email;
+            this.op.contactInfo = opData.otherPartyContact;
         }
+        else
+            this.op.contactInfo = {} as contactInfoType
     }
 
     public populateFormWithPreExistingValues(editRowProp, survey) {
@@ -188,6 +155,8 @@ export default class OtherPartyCommonSurvey extends Vue {
                 email: editRowProp.contactInfo.email
             }
         };
+        survey.setValue("otherPartyLawyer", editRowProp.lawyer);
+        
         survey.setValue("doYouKnowDOB", editRowProp.knowDob);
         survey.setValue("otherPartyDOB", editRowProp.dob);
         survey.setValue("relationWithOtherParty", editRowProp.opRelation);
@@ -201,20 +170,8 @@ export default class OtherPartyCommonSurvey extends Vue {
     }
         
     beforeDestroy() {
-
-        const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-        // const currPage = document.getElementById("step-" + this.currentStep+"-page-" + this.currentPage);
-        // if(currPage){
-        //     if(this.survey.isCurrentPageHasErrors)
-        //         currPage.style.color = "red";
-        //     else
-        //     {
-        //         currPage.style.color = "";
-        //         currPage.className="current";
-        //     }  
-        // }       
-    
+       // const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+       // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
     }
   
 };

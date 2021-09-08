@@ -60,8 +60,7 @@
                     <td>Postal Code: <div class="answer">{{yourInfo.address.postcode}}</div> </td>
                 </tr>
                 <tr style="border:1px solid #313132">
-                    <td>Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
-                    <td style="padding-left:50px"></td>
+                    <td colspan="2">Email: <div class="answer">{{yourInfo.contact.email}}</div> </td>
                     <td>Telephone: <div class="answer">{{yourInfo.contact.phone}}</div> </td>
                 </tr>
             </table>
@@ -85,7 +84,12 @@
                 <div style="text-indent:5px;display:inline;"> . Their contact information, as I know it, is:</div>
                 <table class="fullsize">
                     <tr style="border:1px solid #313132" >                        
-                        <td colspan="3">Lawyer (if applicable): </td>
+                        <td colspan="3">
+                            Lawyer (if applicable): 
+                            <div class="answer">
+                                {{otherParty.lawyer}}
+                            </div>
+                        </td>
                     </tr>
                     <tr style="border:1px solid #313132">          
                         <td colspan="3">Address: <div class="answer"> {{otherParty.address?otherParty.address.street:''}} </div> </td>
@@ -96,8 +100,7 @@
                         <td>Postal Code: <div class="answer">{{otherParty.address?otherParty.address.postcode:''}}</div> </td>
                     </tr>
                     <tr style="border:1px solid #313132">
-                        <td>Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
-                        <td style="padding-left:50px"></td>
+                        <td colspan="2">Email: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.email:''}}</div> </td>
                         <td>Telephone: <div class="answer">{{otherParty.contactInfo? otherParty.contactInfo.phone:''}}</div> </td>
                     </tr>
                 </table>
@@ -270,16 +273,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import moment from 'moment';
-import { nameInfoType } from '@/types/Application';
-import Schedule1 from './Schedule1.vue';
+import UnderlineForm from "./components/UnderlineForm.vue";
+import CheckBox from "./components/CheckBox.vue";
+import { nameInfoType } from "@/types/Application/CommonInformation";
+import { locationInfoDataInfoType, relationshipBetweenPartiesInfoType, existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
+import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
+
 
 @Component({
     components:{
@@ -287,7 +290,6 @@ import Schedule1 from './Schedule1.vue';
         CheckBox
     }
 })
-
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
@@ -301,20 +303,20 @@ export default class CommonSection extends Vue {
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
-
     
     dataReady = false;
     aboutChildren = false;
 
-    locationInfo = {};
+    locationInfo = {} as locationInfoDataInfoType;
 
     otherPartyInfo=[];
-    yourInfo;
+    yourInfo = {} as yourInformationInfoDataInfoType;
 
     applicantList = []
     
-    existingOrders = {}
-    relationshipBetweenParties = {}
+    existingOrders = {} as existingOrdersInfoType;
+    
+    relationshipBetweenParties = {} as relationshipBetweenPartiesInfoType;
     childrenInfo = []
     childBestInterestAcknowledmentCheck = false;
     culturalInfo = '';  
@@ -339,16 +341,16 @@ export default class CommonSection extends Vue {
         this.existingOrders = this.getExistingOrdersInfo();
         this.relationshipBetweenParties = this.getRelationshipBetweenPartiesInfo();
         const childRelatedApplication = ( 
-            this.selectedSchedules.includes('schedule1') ||
-            this.selectedSchedules.includes('schedule2') || 
-            this.selectedSchedules.includes('schedule3') ||
-            this.selectedSchedules.includes('schedule4') ||
-            this.selectedSchedules.includes('schedule5') || 
-            this.selectedSchedules.includes('schedule6') ||
-            this.selectedSchedules.includes('schedule7') || 
-            this.selectedSchedules.includes('schedule8')
+            this.selectedSchedules?.includes('schedule1') ||
+            this.selectedSchedules?.includes('schedule2') || 
+            this.selectedSchedules?.includes('schedule3') ||
+            this.selectedSchedules?.includes('schedule4') ||
+            this.selectedSchedules?.includes('schedule5') || 
+            this.selectedSchedules?.includes('schedule6') ||
+            this.selectedSchedules?.includes('schedule7') || 
+            this.selectedSchedules?.includes('schedule8')
         )
-        if (childRelatedApplication && this.result.childData && this.result.childData.length > 0){
+        if (childRelatedApplication && this.result.childrenInfoSurvey?.length > 0){
             this.aboutChildren = true;
             this.childrenInfo = this.getChildrenInfo();
             this.childBestInterestAcknowledmentCheck = this.result.childBestInterestAcknowledgement;            
@@ -358,31 +360,23 @@ export default class CommonSection extends Vue {
             this.childBestInterestAcknowledmentCheck = false;
         }
 
-        if (this.result.flmBackgroundSurvey.culturalExplain) {
+        if (this.result.flmBackgroundSurvey?.culturalExplain) {
             this.culturalInfo = this.result.flmBackgroundSurvey.culturalExplain;
         }       
         
-        this.otherPartyInfo=this.getOtherPartyInfo()
+        this.otherPartyInfo = this.getOtherPartyInfo()
         this.yourInfo = this.getYourInfo()     
         this.locationInfo = this.getLocationInfo();  
-
     }
 
     public getLocationInfo(){
 
-        let locationInformation = {
-            courtLocation: '',
-            existingFileNumber: '', 
-            educationRegistry: false,
-            familyJusticeRegistry: false,
-            earlyResolutionRegistry: false,
-            none: false
-        };
+        let locationInformation = {} as locationInfoDataInfoType;
         if (this.result.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;
            
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
-            locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
+            locationInformation.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.courtLocation = locationData?.ExistingCourt? locationData.ExistingCourt:'';
 
             locationInformation.earlyResolutionRegistry = locationData.earlyResolutionRegistry;
             locationInformation.familyJusticeRegistry = locationData.familyJusticeRegistry;
@@ -391,14 +385,13 @@ export default class CommonSection extends Vue {
                                         || locationInformation.familyJusticeRegistry
                                         || locationInformation.earlyResolutionRegistry);
         }
-
-        // console.log(locationInformation)
+        
         return locationInformation;
     }
 
     public getRelationshipBetweenPartiesInfo(){
 
-        let relationshipInfo = {description: '', spouses:false, startDate: '', marriageDate: '', separationDate: '', nameOfSpouse: ''};
+        let relationshipInfo = {} as relationshipBetweenPartiesInfoType;
         relationshipInfo.description = this.result.flmBackgroundSurvey.howPartiesRelated;
         relationshipInfo.spouses = this.result.flmBackgroundSurvey.werePOPartiesMarried == 'y';
         if (relationshipInfo.spouses){
@@ -412,9 +405,9 @@ export default class CommonSection extends Vue {
 
     public getChildrenInfo(){
 
-        const childrenInfo = [];
-        let childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
-        const childData = this.result.childData;
+        const childrenInfo: childrenInfoSurveyInfoType[] = [];
+        let childInfo = {} as childrenInfoSurveyInfoType;
+        const childData = this.result.childrenInfoSurvey;
        
         for (const child of childData){            
             childInfo = {fullName: '', dob:'', myRelationship: '', otherPartyRelationship: '', currentSituation: ''};
@@ -422,7 +415,7 @@ export default class CommonSection extends Vue {
             childInfo.dob = Vue.filter('beautify-date')(child.dob);
             childInfo.myRelationship = child.relation;
             childInfo.otherPartyRelationship = child.opRelation;
-            childInfo.currentSituation = (child.currentLiving == 'other')? child.currentLivingComment:child.currentLiving;
+            childInfo.currentSituation = child.currentLiving;
             childrenInfo.push(childInfo)
         }        
 
@@ -432,26 +425,15 @@ export default class CommonSection extends Vue {
     public getExistingOrdersInfo(){
         let existing = {existingFlm: false, existingPO: false}
 
-        existing.existingFlm = this.result.flmBackgroundSurvey.ExistingOrdersFLM == 'y';
-        existing.existingPO = this.result.flmBackgroundSurvey.existingPOOrders == 'y';
+        existing.existingFlm = this.result.flmBackgroundSurvey?.ExistingOrdersFLM == 'y';
+        existing.existingPO =  this.result.flmBackgroundSurvey?.existingPOOrders == 'y';
 
         return existing;
     }
 
     public getYourInfo(){
 
-        let yourInformation = {
-            dob: '',
-            name: '',
-            lawyer: false,
-            lawyerName: '',
-            address: {street:'', city: '', country: '', postcode: '', state: ''},
-            contact: {email:'',fax:'',phone:''},
-            lawyerFiling: false,
-            lawyerStatement: {lawyerName: '', clientName: ''}
-        }        
-
-        // console.log(this.result.filingLocationSurvey)
+        let yourInformation = {} as yourInformationInfoDataInfoType;       
 
         if(this.result.yourInformationSurvey){
 
@@ -486,14 +468,15 @@ export default class CommonSection extends Vue {
             }               
         ];        
 
-        if (this.result.otherPartyCommonSurvey && this.result.otherPartyCommonSurvey.length > 0){
+        if (this.result.otherPartyCommonSurvey?.length > 0){
             OpInformation = [];    
             for(const party of this.result.otherPartyCommonSurvey){
                 let otherParty = {            
                     dob: '',
                     name: {'first': '','middle': '', 'last': ''},
                     address: '',
-                    contactInfo: ''
+                    contactInfo: '',
+                    lawyer: ''
                 }                
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
@@ -507,6 +490,9 @@ export default class CommonSection extends Vue {
                 
                 if (party['contactInfo'])
                     otherParty.contactInfo = party['contactInfo']
+                
+                if (party.lawyer)
+                    otherParty.lawyer = party.lawyer
                 
                 OpInformation.push(otherParty)
             }

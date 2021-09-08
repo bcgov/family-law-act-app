@@ -39,9 +39,10 @@ import Schedule8 from "./Schedules/Schedule8.vue"
 import Schedule9 from "./Schedules/Schedule9.vue"
 import Schedule10 from "./Schedules/Schedule10.vue"
 
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
-import { nameInfoType } from '@/types/Application';
+import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{
@@ -63,15 +64,14 @@ import { nameInfoType } from '@/types/Application';
 export default class Form3 extends Vue {
 
     @applicationState.State
-    public applicantName!: nameInfoType;
+    public stPgNo!: stepsAndPagesNumberInfoType;
     
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
 
     result;
     dataReady = false; 
-    selectedSchedules = []
-
+    selectedSchedules: string[] = [];
    
     mounted(){
         this.dataReady = false;
@@ -79,22 +79,19 @@ export default class Form3 extends Vue {
         this.selectedSchedules = this.getSchedulesInfo();
         this.dataReady = true;
         Vue.nextTick(()=> this.onPrint())
-    }
-   
+    }   
            
     public onPrint() { 
-               
+
+        const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatter") 
+        const pdf_name = "application-about-a-family-law-matter";    
         const el= document.getElementById("print");
-        //console.log(el)
+
         const applicationId = this.$store.state.Application.id;
         const bottomLeftText = `"PFA 712   `+moment().format("MMMM D, YYYY")+` \\a           Form 3";`;
         const bottomRightText = `" "`
-        const url = '/survey-print/'+applicationId+'/?name=application-about-a-protection-order&pdf_type=FLC&version=1.0&noDownload=true'
+        const url = '/survey-print/'+applicationId+'/?name=' + pdf_name + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
-
-        // const body = new FormData();
-        // body.append('html',pdfhtml)
-        // body.append('json_data',null)
 
         const body = {
             'html':pdfhtml,
@@ -107,7 +104,7 @@ export default class Form3 extends Vue {
             "Content-Type": "application/json",
             }
         }  
-        //console.log(body)
+
         this.$http.post(url,body, options)
         .then(res => {
             const currentDate = moment().format();
@@ -119,9 +116,12 @@ export default class Form3 extends Vue {
         });
     }
 
-    public onPrintSave(){        
+    public onPrintSave(){  
+        
+        const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatter")             
         const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type=FLC'
+
+        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
         const options = {
             responseType: "blob",
             headers: {
@@ -141,97 +141,85 @@ export default class Form3 extends Vue {
             console.error(err);
         });
     }
-
  
     public getFLMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(let i=2;i<4; i++){
-            const stepResults = this.$store.state.Application.steps[i].result
-            for(const stepResult in stepResults){
-                //console.log(stepResults[stepResult])
-                //console.log(stepResults[stepResult].data)
-                if(stepResults[stepResult])
-                    result[stepResult]=stepResults[stepResult].data; 
+
+        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo]){
+            const stepResults = this.$store.state.Application.steps[stepIndex].result
+            for(const stepResultInx in stepResults){
+                if(stepResults[stepResultInx])
+                    result[stepResultInx]=stepResults[stepResultInx].data; 
             }
         }
 
-        //console.log(this.$store.state.Application.steps[0].result)
-    //     const protectedPartyName = {protectedPartyName: this.$store.state.Application.protectedPartyName}
-    //     Object.assign(result, result, protectedPartyName);
-
-        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[3].result.childBestInterestAcknowledgement};
+        const childBestInterestAck = {childBestInterestAcknowledgement:this.$store.state.Application.steps[this.stPgNo.FLM._StepNo].result.childBestInterestAcknowledgement};
         Object.assign(result, result, childBestInterestAck);
         
         const applicationLocation = this.$store.state.Application.applicationLocation;
         const userLocation = this.$store.state.Common.userLocation;
-        //console.log(applicationLocation)
-        //console.log(userLocation)
+       
         if(applicationLocation)
             Object.assign(result, result,{applicationLocation: applicationLocation}); 
         else
             Object.assign(result, result,{applicationLocation: userLocation});
-        
-        
-        //console.log(result)
 
         Vue.filter('extractRequiredDocuments')(result, 'familyLawMatter')
 
         return result;
     }
 
-    public getSchedulesInfo(){
-        // console.log(this.result)
+    public getSchedulesInfo(){       
 
-        let schedules = [];
-        const selectedFLMs = this.result.flmSelectedForm;
+        let schedules: string[] = [];
+        const selectedFLMs = this.result.flmQuestionnaireSurvey;
         const flmBackgroundInfo = this.result.flmBackgroundSurvey;
 
-        if (flmBackgroundInfo.ExistingOrdersFLM == 'n') {
+        if (flmBackgroundInfo?.ExistingOrdersFLM == 'n') {
             
-            if (selectedFLMs.includes("parentingArrangements")){
+            if (selectedFLMs?.includes("parentingArrangements")){
                 schedules.push("schedule1")
             }
-            if (selectedFLMs.includes("childSupport")){
+            if (selectedFLMs?.includes("childSupport")){
                 schedules.push("schedule3")
             }
-            if (selectedFLMs.includes("contactWithChild")){
+            if (selectedFLMs?.includes("contactWithChild")){
                 schedules.push("schedule5")
             }            
-            if (selectedFLMs.includes("spousalSupport")){
+            if (selectedFLMs?.includes("spousalSupport")){
                 schedules.push("schedule9")
             }
 
-        } else if (flmBackgroundInfo.ExistingOrdersFLM == 'y' && flmBackgroundInfo.existingOrdersListFLM && flmBackgroundInfo.existingOrdersListFLM.length > 0){
+        } else if (flmBackgroundInfo?.ExistingOrdersFLM == 'y' && flmBackgroundInfo?.existingOrdersListFLM?.length > 0){
 
-            if (selectedFLMs.includes("parentingArrangements")) {
+            if (selectedFLMs?.includes("parentingArrangements")) {
 
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){
-                    
+                if (flmBackgroundInfo.existingOrdersListFLM?.includes("Parenting Arrangements including `parental responsibilities` and `parenting time`")){                    
                     schedules.push("schedule2");
                 } else {
                     schedules.push("schedule1");
                 }
             }
 
-            if (selectedFLMs.includes("childSupport")){
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Child Support")){
+            if (selectedFLMs?.includes("childSupport")){
+                if (flmBackgroundInfo.existingOrdersListFLM?.includes("Child Support")){
                     schedules.push("schedule4");
                 } else {
                     schedules.push("schedule3")
                 }
             }
 
-            if (selectedFLMs.includes("contactWithChild")){
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Contact with a Child")){
+            if (selectedFLMs?.includes("contactWithChild")){
+                if (flmBackgroundInfo.existingOrdersListFLM?.includes("Contact with a Child")){
                     schedules.push("schedule6")
                 } else {
                     schedules.push("schedule5")
                 }
             }
 
-            if (selectedFLMs.includes("spousalSupport")){
-                if (flmBackgroundInfo.existingOrdersListFLM.includes("Spousal Support")){
+            if (selectedFLMs?.includes("spousalSupport")){
+                if (flmBackgroundInfo.existingOrdersListFLM?.includes("Spousal Support")){
                     schedules.push("schedule10")
                 } else {
                     schedules.push("schedule9");
@@ -240,23 +228,18 @@ export default class Form3 extends Vue {
         }
 
         if (selectedFLMs.includes("guardianOfChild")){
-            if (this.result.GuardianOfChildSurvey){
-                if (this.result.GuardianOfChildSurvey && 
-                    this.result.GuardianOfChildSurvey.applicantionType && 
-                    this.result.GuardianOfChildSurvey.applicantionType.includes('becomeGuardian')){
+            if (this.result.guardianOfChildSurvey){
+                if (this.result.guardianOfChildSurvey?.applicationType?.includes('becomeGuardian')){
                     schedules.push("schedule7")
                 }
-                if (this.result.GuardianOfChildSurvey && 
-                    this.result.GuardianOfChildSurvey.applicantionType && 
-                    this.result.GuardianOfChildSurvey.applicantionType.includes('cancelGuardian')){
+                if (this.result.guardianOfChildSurvey?.applicationType?.includes('cancelGuardian')){
                     schedules.push("schedule8")
                 }
             }            
         }        
-        // console.log(schedules)
+        
         return schedules;
     }
-
 }
 </script>
 <style scoped lang="scss" src="@/styles/_pdf.scss">

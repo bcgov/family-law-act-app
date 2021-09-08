@@ -2,8 +2,8 @@
     <div>
 
         <b-card v-for="(form,inx) in formsList" :key="inx" style="margin:1rem 0;border-radius:10px; border:2px solid #DDEEFF;">
-            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" > 
-                {{form.title}}
+            <div style="float:left; margin: 0.5rem 1rem;color:#5050AA; font-size:16px; font-weight:bold;" v-html="form.title" > 
+                
             </div>
             <b-button 
                 style="float:right; margin: 0.25rem 1rem;"                  
@@ -24,7 +24,11 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import moment from 'moment-timezone';
+import {whichCaseMgmtForm} from "../../caseMgmt/reviewCM/RequiredForm"
+import {whichAgreementEnfrcForm} from '../../agreementEnfrc/reviewAE/RequiredFormEnfrc'
+
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import { pathwayCompletedInfoType } from '@/types/Application';
 
 @Component({
     components:{
@@ -40,10 +44,13 @@ export default class FormList extends Vue {
     currentPage!: number;
 
     @applicationState.State
+    public stPgNo!: stepsAndPagesNumberInfoType;
+
+    @applicationState.State
     public generatedForms!: string[];
 
     @applicationState.State
-    public pathwayCompleted!: any
+    public pathwayCompleted!: pathwayCompletedInfoType;
 
     @applicationState.Action
     public UpdateGeneratedForms!: (newGeneratedForms) => void
@@ -54,23 +61,33 @@ export default class FormList extends Vue {
     showPDFformName = '';
     showPDFpreview = false;
 
-    formsListTemplate =[                
-        { name:'PK', appName:'protectionOrder', pdfType:'AAP',  chkSteps:[1],   color:"danger", title:"Application About a Protection Order (FORM 12)"},
-        { name:'P3', appName:'familyLawMatter', pdfType:'FLC',  chkSteps:[2,3], color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
-        { name:'P1', appName:'familyLawMatter', pdfType:'NTRF', chkSteps:[2,3], color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
-    ]
+    formsListTemplate =[]
 
     formsList=[];
 
     mounted(){
+
+        this.formsListTemplate =[                
+            { name:'PK',  appName:'protectionOrder',   pdfType: Vue.filter('getPathwayPdfType')("protectionOrder"),      chkSteps:[this.stPgNo.PO._StepNo],                                     color:"danger", title:"Application About a Protection Order (FORM 12)"},
+            { name:'P3',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatter"),      chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],         color:"danger", title:"Application About a Family Law Matter (FORM 3)"},        
+            { name:'P1',  appName:'familyLawMatter',   pdfType: Vue.filter('getPathwayPdfType')("familyLawMatterForm1"), chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.FLM._StepNo],         color:"danger", title:"Notice to Resolve a Family Law Matter (FORM 1)"},        
+            { name:'P15', appName:'priorityParenting', pdfType: Vue.filter('getPathwayPdfType')("priorityParenting"),    chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.PPM._StepNo],         color:"danger", title:"Application About Priority Parenting Matter (Form 15)"},        
+            { name:'P16', appName:'childReloc',        pdfType: Vue.filter('getPathwayPdfType')("childReloc"),           chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.RELOC._StepNo],       color:"danger", title:"Application for Order Prohibiting the Relocation of a Child (Form 16)"},
+            { name:'P10', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmt"),             chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],          color:"danger", title:"Application for Case Management Order (Form 10)"},
+            { name:'P11', appName:'caseMgmt',          pdfType: Vue.filter('getPathwayPdfType')("caseMgmtForm11"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.CM._StepNo],          color:"danger", title:"Application for Case Management Order  Without Notice or Attendance (Form 11)"},
+            { name:'P26', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc26"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File an Agreement (Form 26)"}, 
+            { name:'P27', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc27"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File a Determination of Parenting Coordinator (Form 27)"},        
+            { name:'P28', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc28"),     chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Request to File an Order (Form 28)"},        
+            { name:'P29', appName:'agreementEnfrc',    pdfType: Vue.filter('getPathwayPdfType')("agreementEnfrc"),       chkSteps:[this.stPgNo.COMMON._StepNo,this.stPgNo.ENFRC._StepNo],       color:"danger", title:"Application About Enforcement (Form 29)"},               
+        ]
+
         this.currentStep = this.$store.state.Application.currentStep;
         this.initFormsTitle();
-        Vue.nextTick(()=> this.setProgress());
-        //this.$emit('formsList',this.formsList)
+        Vue.nextTick(()=> this.setProgress());        
     } 
     
     public initFormsTitle(){
-        // console.log(this.pathwayCompleted)
+
         for(const form of this.formsListTemplate)        
         {
             if(this.pathwayCompleted[form.appName]){
@@ -79,7 +96,16 @@ export default class FormList extends Vue {
 
                 if(form.name=='P3' && this.isForm1()) continue
 
-                if(this.generatedForms.includes(form.name))
+                if(form.name=='P10' && !whichCaseMgmtForm().includes("P10")) continue
+                if(form.name=='P11' && !whichCaseMgmtForm().includes("P11")) continue
+
+                if(form.name=='P26' && !whichAgreementEnfrcForm().includes("P26")) continue
+                if(form.name=='P27' && !whichAgreementEnfrcForm().includes("P27")) continue
+                if(form.name=='P28' && !whichAgreementEnfrcForm().includes("P28")) continue
+                if(form.name=='P29' && !whichAgreementEnfrcForm().includes("P29")) continue
+
+
+                if(this.generatedForms?.includes(form.name))
                     form.color = "success"
 
                 this.formsList.push(form);
@@ -89,12 +115,12 @@ export default class FormList extends Vue {
 
     public isForm1(){
         const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-        const locationSurvey = this.$store.state.Application.steps[2].result
+        const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
-        if(locationSurvey && locationSurvey.filingLocationSurvey && locationSurvey.filingLocationSurvey.data){
-            //console.log(locationSurvey.filingLocationSurvey.data)
+        if(locationSurvey?.filingLocationSurvey?.data){
+            
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if(courtsC.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+            if(courtsC?.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
                 return true
             else 
                 return false
@@ -103,28 +129,11 @@ export default class FormList extends Vue {
     }
     
     public onDownload(formName, inx) {
-        // console.log("downloading"+inx)
-        // console.log(this.formsList[inx])
-        // console.log(formName)
-
-        
-        // this.showPDFformName = formName;
-        // this.showPDFpreview = true;
-
-        // if(!this.generatedForms.includes(formName))
-        // {
-        //     const forms= this.generatedForms;
-        //     forms.push(formName)
-        //     this.UpdateGeneratedForms(forms);
-        // }
-
-        // this.setProgress()
 
         if(this.checkErrorOnPages(this.formsList[inx].chkSteps)){             
             this.savePdf(this.formsList[inx].pdfType, inx);            
         }
     }
-
      
     public checkErrorOnPages(checkingSteps){
 
@@ -145,17 +154,13 @@ export default class FormList extends Vue {
     }
 
     public setProgress(){
-        // console.warn('Set Progress')
-        // console.log(this.currentStep)
-        // console.log(this.currentPage)
         if(this.currentPage <0) return
-        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.isFormReviewed()?100:50, false);
+        Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.isFormReviewed()? 100 : 50, false);
     }
 
     public isFormReviewed(){
         for(const form of this.formsList)
-            if(!this.generatedForms.includes(form.name)){
-                // console.log(form)
+            if(!this.generatedForms?.includes(form.name)){
                 return false
             }
         return true
@@ -186,6 +191,5 @@ export default class FormList extends Vue {
             console.error(err);
         });
     }
-
 }
 </script>

@@ -1,0 +1,76 @@
+{
+  "title": "Determine an Amount Owing for Expenses",
+  "pages": [
+    {
+      "name": "Determine an Amount Owing for Expenses",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "determineAmountPanel",
+          "elements": [
+            {
+              "type": "infotexttitle",
+              "name": "determineAmountDescription1",
+              "title": "Select each option that applies to the order you need the court to determine an amount for `expenses` owing.",
+              "body": "The court can set an amount of money owing for expenses for failure to comply or as a result of someone’s actions under one or more sections of the <a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_00' target='_blank'> Family Law Act</a>. If the court has determined that a person has failed to comply with an order or that a specific action must be taken, the court can make an order that the other person must pay you expenses. To enforce that order, you sometimes need to apply to the court to determine how much the expenses were so an amount can be set for them to pay. Sometimes you and the other party can agree on the amount.",              
+              "messageStyle": "inline"
+            },
+            {
+              "type": "infotext",
+              "name": "requiredCopyOfOrderReminder",
+              "title": "You will need to include a copy of your court order when you file your documents. You will be reminded to include a copy at the end of the service.",
+              "body": "",
+              "titleLocation": "hidden",
+              "messageStyle": "info"
+            },
+            {
+              "type": "infotexttitle",
+              "name": "determineAmountDescription2",
+              "title": " ",
+              "titleLocation": "hidden",
+              "body": "Look at the order that you want to enforce to see what it is about. You can select more than one option below if the other person failed to comply with more than one thing or an action needed to be taken.",              
+              "messageStyle": "inline"
+            },
+            {
+              "type": "checkbox",
+              "name": "amountOwingActionType", 
+              "titleLocation": "hidden",
+              "title": "Select each option that applies to the order you need the court to determine an amount for expenses owing",
+              
+              "choices": [
+                {
+                  "value": "section61",
+                  "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section61' target='_blank'>Section 61</a> [denial of parenting time or contact]</b></br><div style='font-size:12pt;'>If the court has been satisfied that you have been wrongfully denied parenting time or contact with a child by a child’s guardian, the court may require the guardian to reimburse you for expenses you had as a result of the denial, including travel expenses, lost wages and child care expenses.</br></br>"
+                },
+                {
+                  "value": "section63",
+                  "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_04#section63' target='_blank'>Section 63</a> [failure to exercise parenting time or contact]</b></br><div style='font-size:12pt;'>If a person fails repeatedly to exercise the parenting time or contact with the child to which they are entitled under an agreement or order, whether or not reasonable notice was given, the court may require the person to reimburse you for expenses you had as a result of the failure to exercise parenting time or contact with a child, including travel expenses, lost wages and child care expenses.</br></br>"
+                },
+                {
+                  "value": "section212",
+                  "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section212' target='_blank'>Section 212</a> [orders respecting disclosure]</b></br><div style='font-size:12pt;'>If the court makes an order for someone to give someone else information, the court may order a party to pay all or part of the expenses incurred to comply with the order.</br></br>"
+                },
+                {
+                  "value": "section213",
+                  "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section213' target='_blank'>Section 213</a> [enforcing orders respecting disclosure]</b></br><div style='font-size:12pt;'>If a person fails to comply with an order to give someone else information, the court may order the person to pay a party for all or part of the expenses incurred as a result of the non-disclosure of information or the incomplete, false or misleading disclosure, including fees and expenses related to family dispute resolution.</br></br>"
+                },
+                {
+                  "value": "section228",
+                  "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section228' target='_blank'>Section 228</a> [enforcing orders respecting conduct]</b></br><div style='font-size:12pt;'>If a party fails to comply with an order about conduct, the court may order the other party to pay you for all or part of the expenses incurred as a result of the non-compliance, including fees and expenses related to family dispute resolution.</br></br>"
+                },
+                {
+                  "value": "section230",
+                  "text": "<b><a href='https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/11025_10#section230' target='_blank'>Section 230</a> [enforcing orders generally]</b></br><div style='font-size:12pt;'>If no other provision under the Family Law Act applies, the court may make an order under section 230 to enforce an order made under the Family Law Act that the other party pay you for all or part of the expenses incurred as a result of their actions, including fees and expenses related to family dispute resolution.</br></br>"
+                }
+              ],
+              "isRequired": true
+            }
+          ]
+        }
+      ],
+      "title": "Determine an Amount Owing for Expenses"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

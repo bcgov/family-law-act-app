@@ -45,3 +45,4 @@ Temporary Items
 
 # Output files
 pdf/*.pdf
+/__pycache__

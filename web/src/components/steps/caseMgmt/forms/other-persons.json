@@ -1,0 +1,42 @@
+{
+  "title": "Other Persons",
+  "pages": [
+    {
+      "name": "Other Persons",      
+      "elements": [
+        {
+          "type": "panel",
+          "name": "otherPersonsPanel",
+          "elements": [
+            { 
+              "type":"infotexttitle",
+              "name":"otherPersonDescription1",
+              "title":"description1",
+              "body": "It is important that each other party, and any other person who may be directly affected by the order, know that you are making this application to the court and are given a chance to talk to the court.",
+              "titleLocation":"hidden",
+              "messageStyle":"inline"
+            },
+            {
+              "type": "yesno",
+              "name": "otherPersonsExist",
+              "isRequired": true,
+              "title": "Is there any `other person` who may be directly affected by the order?"
+            },            
+            {
+              "type": "comment",
+              "name": "otherPersonsList",
+              "visible": false,
+              "visibleIf": "{otherPersonsExist} = 'y'",
+              "description": "If there is more than one other person who may be directly affected by the order, include the names of each person in the field below. Separate the names with a comma.<br><br><div style='font-weight:bold; margin-bottom:-1.5rem;'>Other person(s):</div>",
+              "isRequired": true,
+              "title": "Provide the full name of each other person who may be directly affected by the order."
+            }
+          ]
+        }
+      ],
+      "title": "Other Persons"
+    }
+  ],
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}

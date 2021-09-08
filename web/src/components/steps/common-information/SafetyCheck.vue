@@ -1,5 +1,5 @@
 <template>
-    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" v-on:onComplete="onComplete()">
+    <page-base :disableNext="disableNextButton" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <survey v-bind:survey="survey"></survey>
     </page-base>
 </template>
@@ -40,14 +40,13 @@ export default class SafetyCheck extends Vue {
 
     survey = new SurveyVue.Model(surveyJson);
     disableNextButton = false;
-    currentStep=0;
-    currentPage=0;   
+    currentStep =0;
+    currentPage =0;   
 
     beforeCreate() {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
-
 
     mounted(){
         this.initializeSurvey();
@@ -70,9 +69,9 @@ export default class SafetyCheck extends Vue {
     }
 
     public reloadPageInformation() {
-        //console.log(this.step.result)
-        if (this.step.result && this.step.result["safetySurvey"]){
-            this.survey.data = this.step.result["safetySurvey"];
+
+        if (this.step.result?.safetyCheckSurvey){
+            this.survey.data = this.step.result.safetyCheckSurvey.data;
         }
         
         this.currentStep = this.$store.state.Application.currentStep;
@@ -92,12 +91,8 @@ export default class SafetyCheck extends Vue {
 
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
-        this.UpdateStepResultData({step:this.step, data: {safetySurvey: this.survey.data}});
+        
+        this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-@import "../../../styles/survey";
-</style>

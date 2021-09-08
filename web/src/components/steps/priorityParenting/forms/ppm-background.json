@@ -1,0 +1,50 @@
+{
+   "title": "Provincial Court Family Law Act Protection Order",
+   "pages": [
+      {
+         "name": "Background",
+         "elements": [
+            {
+               "type": "panel",
+               "name": "backgroundPanel",
+               "elements": [
+                  {
+                     "type": "yesno",
+                     "name": "ExistingOrdersFLM",
+                     "title": "Are there any existing written agreements or court `orders` about parenting arrangements, `child support`, contact with a child, guardianship of a child?",
+                     "description": "A written agreement includes a separation agreement or mediation agreement. A court order may be from any court in any place, including the Supreme Court.",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "infotext",
+                     "name": "attachCopyOfExistingOrders",
+                     "visible": false,
+                     "visibleIf": "{ExistingOrdersFLM} = 'y'",
+                     "title": "You will need to include a copy of your written agreement(s) or court order(s) when you file your documents. You will be reminded to include a copy at the end of the service.",
+                     "titleLocation": "hidden"
+                  },
+                  {
+                     "type": "yesno",
+                     "name": "existingCourtProceeding",
+                     "title": "Is there any other court proceeding that is pending or that has been initiated about parenting arrangements, contact with a child or guardianship of a child who is the subject of this application?",
+                     "description": "This includes:<ul><li>any court proceeding from the Provincial Court of BC including one from another court registry, child protection proceedings or criminal proceedings</li><li>any court proceeding from BC Supreme Court or BC Court of Appeal</li><li>any court proceeding from another province or territory in Canada</li><li>any court proceeding from another country</li></ul>",
+                     "isRequired": true
+                  },
+                  {
+                     "type": "comment",
+                     "name": "existingCourtProceedingDetails",
+                     "visible": false,
+                     "visibleIf": "{existingCourtProceeding} = 'y'",
+                     "title": "I know the following information about another court proceeding:",
+                     "description": "You do not need to use any special wording. Describe any details you know about the other court proceeding including the name of the court or type of court, the parties involved, what the court proceeding is about and what step it may be at.",
+                     "isRequired": true
+                  }
+               ]
+            }
+         ],
+         "title": "Background"
+      }
+   ],
+   "showQuestionNumbers": "off",
+   "requiredText": ""
+}
