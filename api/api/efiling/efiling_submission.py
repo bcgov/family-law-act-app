@@ -35,7 +35,7 @@ class EFilingSubmission(EFilingHubCallerBase):
             response = requests.post(url, headers=headers, json=data, files=files)
             logger.debug("EFH - Get API %d %s", response.status_code, response.text)
             if response.status_code != 401:
-                return response
+                break
         return response
 
     def upload_documents(self, bceid_guid, transaction_id, files):

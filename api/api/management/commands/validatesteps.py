@@ -17,10 +17,11 @@ from api.migrations.helpers import Migration_1_0_to_1_1, Migration_1_1_to_1_2_1
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("file_path")
+        parser.add_argument("write_to_file_boolean")
 
     def handle(self, *args, **options):
         file_path = options["file_path"]
-        write_to_file = True  # for testing.
+        write_to_file = bool(options["write_to_file_boolean"])  # for testing.
         print(f"Ensure generate_schema was recently ran, so your schema is up to date.")
         print(f"Reading schema from {file_path}")
         f = open(

@@ -144,7 +144,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = os.getenv("WEB_BASE_HREF", "/apply-for-family-order/")  + "/api/static/"
+DEFAULT_BASE_URL = "/apply-for-family-order/"
+
+STATIC_URL = os.getenv("WEB_BASE_HREF", DEFAULT_BASE_URL)  + "/api/static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -227,10 +229,10 @@ if OIDC_RP_PROVIDER_ENDPOINT:
     OIDC_RP_PROVIDER_SIGNATURE_ALG = "RS256"
     OIDC_RP_SCOPES = "openid profile email"  # address phone
     OIDC_RP_ID_TOKEN_INCLUDE_USERINFO = True
-    OIDC_RP_AUTHENTICATION_FAILURE_REDIRECT_URI = os.getenv("OIDC_RP_FAILURE_URI", "/apply-for-family-order/")
+    OIDC_RP_AUTHENTICATION_FAILURE_REDIRECT_URI = os.getenv("OIDC_RP_FAILURE_URI", DEFAULT_BASE_URL)
     OIDC_RP_USER_DETAILS_HANDLER = "core.auth.sync_keycloak_user"
     OIDC_RP_AUTHENTICATION_REDIRECT_URI = (
-        os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", "/apply-for-family-order/")
+        os.getenv("OIDC_RP_AUTHENTICATION_REDIRECT_URI", DEFAULT_BASE_URL)
     )
     OIDC_RP_KC_IDP_HINT = os.getenv("OIDC_RP_KC_IDP_HINT")
 
@@ -249,6 +251,7 @@ REST_FRAMEWORK = {
     )
 }
 
+
 EFILING_ENABLED = os.environ.get("EFILING_ENABLED", "false").lower() == "true"
 EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
 EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
@@ -261,6 +264,6 @@ EFILING_HUB_KEYCLOAK_REALM = os.environ.get("EFILING_HUB_KEYCLOAK_REALM", "")
 EFILING_HUB_KEYCLOAK_SECRET = os.environ.get("EFILING_HUB_KEYCLOAK_SECRET", "")
 
 ENCRYPTOR = Encryptor("DATA_SECURITY_KEY")
-FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", "/apply-for-family-order/")
-LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", "/apply-for-family-order/")
+FORCE_SCRIPT_NAME = os.getenv("WEB_BASE_HREF", DEFAULT_BASE_URL)
+LOGOUT_REDIRECT_URL = os.getenv("LOGOUT_REDIRECT_URL", DEFAULT_BASE_URL)
 SITEMINDER_LOGOFF_URL = os.getenv("SITEMINDER_LOGOFF_URL", "https://logontest.gov.bc.ca/clp-cgi/logoff.cgi")

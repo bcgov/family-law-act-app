@@ -7,6 +7,7 @@ manage.py test api/tests/ should run this.
 import django
 import json
 import jsonschema
+import os
 from api.migrations.helpers import Migration_1_0_to_1_1
 from django.test import TestCase
 
@@ -37,7 +38,7 @@ class SchemaTest(TestCase):
 
     # Uses real generated data.
     def test_schema_migration(self):
-        write_to_file = False # testing
+        write_to_file = os.environ.get('TEST_WRITE_TO_FILE', False)
         print('Using real application generated data for a test.')
         # load test_schema_data_1.1.json
         data_file_path = "./api/tests/data/test_schema_data_1.0.json"
