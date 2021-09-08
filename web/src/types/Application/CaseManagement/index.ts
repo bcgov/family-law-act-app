@@ -4,16 +4,16 @@ export interface cmQuestionnaireSurveyInfoType {
     data: string[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface otherPersonsSurveyInfoType {
     data: otherPersonsSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface otherPersonsSurveyDataInfoType {
@@ -25,8 +25,8 @@ export interface withoutNoticeOrAttendanceSurveyInfoType {
     data: withoutNoticeOrAttendanceSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface withoutNoticeOrAttendanceSurveyDataInfoType {
@@ -38,8 +38,8 @@ export interface byConsentSurveyInfoType {
     data: byConsentSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface byConsentSurveyDataInfoType {
@@ -51,8 +51,8 @@ export interface cmNoticeSurveyInfoType {
     data: cmNoticeSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface cmNoticeSurveyDataInfoType {
@@ -63,8 +63,8 @@ export interface schedulingSurveyInfoType {
     data: schedulingSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface schedulingSurveyDataInfoType {
@@ -76,8 +76,8 @@ export interface aboutCaseManagementOrderSurveyInfoType {
     data: aboutCaseManagementOrderSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface aboutCaseManagementOrderSurveyDataInfoType {
@@ -89,8 +89,8 @@ export interface cmChildrenInfoSurveyInfoType {
     data: {childData:cmChildrenInfoSurveyDataInfoType[], childRelatedType:string };
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface cmChildrenInfoSurveyDataInfoType {
@@ -103,8 +103,8 @@ export interface attendanceUsingElectronicCommunicationSurveyInfoType {
     data: attendanceUsingElectronicCommunicationSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface attendanceUsingElectronicCommunicationSurveyDataInfoType {
@@ -125,8 +125,8 @@ export interface changingOrCancellingAServiceOrNoticeSurveyInfoType {
     data: changingOrCancellingAServiceOrNoticeSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface changingOrCancellingAServiceOrNoticeSurveyDataInfoType{
@@ -145,8 +145,8 @@ export interface changingOrCancellingAnyOtherRequirementSurveyInfoType{
     data: changingOrCancellingAnyOtherRequirementSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface changingOrCancellingAnyOtherRequirementSurveyDataInfoType{
@@ -162,8 +162,8 @@ export interface requiringAccessToInformationSurveyInfoType{
     data: requiringAccessToInformationSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface requiringAccessToInformationSurveyDataInfoType{
@@ -176,8 +176,8 @@ export interface recognizingAnOrderFromOutsideBcSurveyInfoType{
     data: recognizingAnOrderFromOutsideBcSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface recognizingAnOrderFromOutsideBcSurveyDataInfoType{
@@ -191,8 +191,8 @@ export interface contactInformationOtherPartySurveyInfoType{
     data: contactInformationOtherPartySurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface contactInformationOtherPartySurveyDataInfoType{

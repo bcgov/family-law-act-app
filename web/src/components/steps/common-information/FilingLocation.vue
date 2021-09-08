@@ -239,7 +239,7 @@ export default class FilingLocation extends Vue {
     public reloadPageInformation() {
         
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.steps[this.currentStep].currentPage;
+        this.currentPage = Number(this.steps[this.currentStep].currentPage);
 
         if (this.step.result?.filingLocationSurvey){
             this.survey.data = this.step.result.filingLocationSurvey.data;

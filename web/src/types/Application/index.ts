@@ -16,14 +16,14 @@ import { aboutTheOrderEnforcementSurveyInfoType, determineAnAmountOwingForExpens
 //This is what our database saves.
 export interface applicationStepOnlyInfoType {
   steps: stepInfoType[];
-  types_version?: "1.1";
+  types_version?: "1.2.1";
 }
 
 export interface applicationInfoType extends applicationStepOnlyInfoType {   
     id?: string;
     types: string[];
     lastUpdate?: Date | null;
-    currentStep?: number;
+    currentStep?: number | string;
     allCompleted: boolean;
     lastPrinted: Date;
     userType: string;
@@ -45,7 +45,7 @@ export interface stepInfoType {
     icon: string;
     result?: resultInfoType;    
     pages?: pageInfoType[];
-    currentPage?: number;
+    currentPage?: number | string;
     active: boolean;
     lastUpdate?: Date | null;
   }

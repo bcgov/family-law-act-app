@@ -18,11 +18,11 @@ export interface otherPartyInfoType {
 }
 
 export interface otherPartyCommonSurveyInfoType {
-  data: otherPartyInfoType[];
+  data?: otherPartyInfoType[];
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface childInfoType {
@@ -44,9 +44,9 @@ export interface nameInfoType {
 }
 
 export interface contactInfoType {
-  phone: string;
-  fax: string;
-  email: string;
+  phone?: string;
+  fax?: string;
+  email?: string;
 }
 
 export interface addressInfoType {
@@ -85,8 +85,8 @@ export interface filingLocationSurveyInfoType {
   data: filingLocationDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface safetyCheckSurveyDataInfoType {
@@ -97,8 +97,8 @@ export interface safetyCheckSurveyInfoType {
   data: safetyCheckSurveyDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface yourInformationDataInfoType {
@@ -127,8 +127,8 @@ export interface yourInformationSurveyInfoType {
   data: yourInformationDataInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface noticeSurveyDataInfoType {
@@ -139,26 +139,26 @@ export interface noticeSurveyInfoType {
   data: noticeSurveyDataInfoType;
   questions: questionInfoType[];
   pageName: string;
-  currentStep: number;
-  currentPage: number;
+  currentStep: number | string;
+  currentPage: number | string;
 }
 
 export interface filingOptionsInfoType {
-  selectedFilingType: string;
+  selectedFilingType?: string;
 }
 
 export interface filingOptionsSurveyInfoType {
-  data: filingOptionsInfoType[];
+  data: filingOptionsInfoType;
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
 
 export interface otherPartyCommonConfirmationSurveyInfoType {
   data: {confirmation: string};
   questions?: questionInfoType[];
   pageName?: string;
-  currentStep?: number;
-  currentPage?: number;
+  currentStep?: number | string;
+  currentPage?: number | string;
 }
