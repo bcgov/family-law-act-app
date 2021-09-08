@@ -6,8 +6,8 @@ from api.migrations.helpers import Migration_1_0_to_1_1, Migration_1_1_to_1_2_1
 def update_survey_data(apps, schema_editor):
     migration_1 = Migration_1_0_to_1_1()
     migration_2 = Migration_1_1_to_1_2_1()
-    Application = apps.get_model("api", "Application")
-    for application in Application.objects.all():   
+    applications = apps.get_model("api", "Application")
+    for application in applications.objects.all():   
         print(f'Migrating application: {application.id}')
         steps_json = json.loads(
             settings.ENCRYPTOR.decrypt(

@@ -36,26 +36,30 @@ class Command(BaseCommand):
                     application.key_id, application.steps
                 ).decode("utf-8")
             )
-            # print('Before: ')
-            # print(json.dumps(steps_json, indent=4).replace('\r\n',''))
             if write_to_file:
                 filename = f"inspect\\before\\{application.id}.json"
                 os.makedirs(os.path.dirname(filename), exist_ok=True)
                 f = open(filename, "w")
                 json.dump(steps_json, skipkeys=False, fp=f, sort_keys=True, indent=4)
                 f.close()
+            else:
+                print('Before: ')
+                print(json.dumps(steps_json, indent=4).replace('\r\n',''))
+            
 
             print(f"Validating steps schema for application Id: {application.id}")
             steps_json = Migration_1_0_to_1_1().migrate(steps_json)
             steps_json = Migration_1_1_to_1_2_1().migrate(steps_json)
-            # print('After: ')
-            # print(json.dumps(steps_json, indent=4).replace('\r\n',''))
+
             if write_to_file:
                 filename = f"inspect\\after\\{application.id}.json"
                 os.makedirs(os.path.dirname(filename), exist_ok=True)
                 f = open(filename, "w")
                 json.dump(steps_json, fp=f, skipkeys=False, sort_keys=True, indent=4)
                 f.close()
+            else:
+                print('After: ')
+                print(json.dumps(steps_json, indent=4).replace('\r\n',''))
 
             validator = jsonschema.Draft7Validator(schema)
             errors = validator.iter_errors({"steps": steps_json})

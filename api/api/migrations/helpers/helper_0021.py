@@ -56,12 +56,11 @@ class Migration_1_0_to_1_1:
             if self._should_fields_be_migrated(result, 'safetyCheckSurvey', 'safetySurvey'):
                 result['safetyCheckSurvey'] = result.get('safetySurvey')
                 result.pop('safetySurvey', None)
-                if result.get('safetyCheckSurvey') is not None:
-                    if result['safetyCheckSurvey'].get('data') is None:
-                        move_to_data = copy.deepcopy(result['safetyCheckSurvey'])
-                        result['safetyCheckSurvey']['data'] = move_to_data
-                        result['safetyCheckSurvey'].pop('unsafe', None)
-                        result['safetyCheckSurvey']['data'].pop('questions', None)
+                if result.get('safetyCheckSurvey') is not None and result['safetyCheckSurvey'].get('data') is None:
+                    move_to_data = copy.deepcopy(result['safetyCheckSurvey'])
+                    result['safetyCheckSurvey']['data'] = move_to_data
+                    result['safetyCheckSurvey'].pop('unsafe', None)
+                    result['safetyCheckSurvey']['data'].pop('questions', None)
 
             if self._should_fields_be_migrated(result, 'flmQuestionnaireSurvey', 'flmSelectedForm'):
                 result['flmQuestionnaireSurvey'] = result.get('flmSelectedForm')
