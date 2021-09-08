@@ -4,24 +4,24 @@ export interface enfrcQuestionnaireSurveySurveyInfoType {
     data: string[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface determineAnAmountOwingForExpensesSurveyInfoType{
     data: string[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface aboutTheOrderEnforcementSurveyInfoType {
     data: aboutTheOrderEnforcementSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface aboutTheOrderEnforcementSurveyDataInfoType {
@@ -33,8 +33,8 @@ export interface enforceAgreementOrOrderSurveyInfoType {
     data: enforceAgreementOrOrderSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface enforceAgreementOrOrderSurveyDataInfoType {
@@ -50,8 +50,8 @@ export interface enforceChangeSetAsideDeterminationSurveyInfoType {
     data: enforceChangeSetAsideDeterminationSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface enforceChangeSetAsideDeterminationSurveyDataInfoType {
@@ -72,8 +72,8 @@ export interface detrermineArrearsSurveyInfoType {
     data: detrermineArrearsSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface detrermineArrearsSurveyDataInfoType {

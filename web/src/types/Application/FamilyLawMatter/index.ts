@@ -5,8 +5,8 @@ export interface flmQuestionnaireSurveyInfoType {
     data: string[];
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface flmBackgroundSurveyDataInfoType {
@@ -45,8 +45,8 @@ export interface flmBackgroundSurveyInfoType {
     data: flmBackgroundSurveyDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface childDetailsDataInfoType {
@@ -66,8 +66,8 @@ export interface childDetailsSurveyInfoType {
     data: childDetailsDataInfoType[];
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
 
 export interface flmAdditionalDocsDataInfoType {
@@ -81,6 +81,6 @@ export interface flmAdditionalDocumentsSurveyInfoType {
     data: flmAdditionalDocsDataInfoType;
     questions?: questionInfoType[];
     pageName?: string;
-    currentStep?: number;
-    currentPage?: number;
+    currentStep?: number | string;
+    currentPage?: number | string;
 }
