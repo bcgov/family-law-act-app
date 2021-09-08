@@ -212,6 +212,9 @@ configureEnvironment () {
   export WEB_BASE_HREF=${WEB_BASE_HREF:-/apply-for-family-order/}
   export IpFilterRules='#allow all; deny all;'
   export RealIpFrom='127.0.0.0/16'
+
+  #Docker Compose - Fix for i/o timeout
+  export COMPOSE_HTTP_TIMEOUT=300
 }
 
 getStartupParams() {
