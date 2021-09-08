@@ -19,7 +19,7 @@ class EFilingResources(EFilingHubCallerBase):
 
     def _get_api(self, url, headers):
         if not self.access_token and not self._get_token():
-                raise Exception("EFHResources - Unable to get API Token")
+            raise Exception("EFHResources - Unable to get API Token")
 
         for try_number in range(1):
             if try_number > 0:
