@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="dataReady">
 <!-- <Page 1> -->
 <!-- <HEADER> -->
         <div class="form-header-po"> 
@@ -125,15 +125,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-
+import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';
+import { urgencyInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -144,27 +140,28 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
-    result!: any;
+    result!: any;    
 
     otherPartyInfo=[]; 
     yourInfo = {} as yourInformationInfoDataInfoType;
+    urgency = {} as urgencyInfoType;
 
-    serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
-    serviceContact = {phone:"", fax:"", email:""}
+    serviceAddress = {} as addressInfoType;
+    serviceContact = {} as contactInfoType;
 
     existingFileNumber = '';
-    orderType = '';
-
-    urgency = {PORNoNotice:'', PORWhyNoNotice:''};
+    orderType = '';   
+    dataReady = false; 
 
     mounted(){
-       
+        this.dataReady = false;
         this.getServiceInfo();
         this.getOtherPartyInfo();
         this.getExistingFileNumber(this.result);
         this.yourInfo = this.getYourInfo() 
         this.orderType = this.getOrderType(); 
         this.urgency = this.getUrgencyInfo();
+        this.dataReady = true;
     }
 
     public getOrderType(){
@@ -296,13 +293,10 @@ export default class CommonSection extends Vue {
 
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
-            }
-                     
+            }                     
         }
-
         return yourInformation;
     }
-
 
 }
 </script>

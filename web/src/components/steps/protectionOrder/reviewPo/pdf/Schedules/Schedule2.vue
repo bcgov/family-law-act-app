@@ -2,7 +2,7 @@
 <!----------------------------------------------------------------  <CHANGE PO>   -------------------------------------------------------->  
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div>
+    <div v-if="dataReady">
         <div class="new-page" />
 
 
@@ -66,14 +66,11 @@
     </div>
 </template>
 
-
-
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-
+import { schedule2AboutOrderInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -86,11 +83,16 @@ export default class Schedule2 extends Vue {
     @Prop({required:true})
     result!: any;
 
+    aboutOrder = {} as schedule2AboutOrderInfoType;
+
+    dataReady = false;
+
     mounted(){
+        this.dataReady = false;
         this.getAboutOrder();
+        this.dataReady = true;
     }
     
-    aboutOrder = {dateOfPO:'', inCourtForPO:'', whyNotInCourt:'', kindOfParty:[], whatChangesNeeded:'', whyChangesNeeded:''};
     public getAboutOrder(){  
 
         this.aboutOrder = {dateOfPO:'', inCourtForPO:'', whyNotInCourt:'', kindOfParty:[], whatChangesNeeded:'', whyChangesNeeded:''};

@@ -2,7 +2,7 @@
 <!----------------------------------------------------------------  <NEED PO>   -------------------------------------------------------->
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div>
+    <div v-if="dataReady">
         <div class="new-page" />
 
         <div style="text-align:center;font-family:BCSans"><b> SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</b></div>
@@ -452,11 +452,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-
+import { contactInfoType, addressInfoType } from '@/types/Application/CommonInformation';
+import { schedule1ChildInfoType, schedule1AnotherAdultInfoType, schedule1OtherChildrenInfoType, schedule1SharingAdultInfoType, schedule1BackgroundInfoType, schedule1YourStoryInfoType, schedule1NoGoInfoType, schedule1NoContactInfoType, schedule1WeaponsFirearmsInfoType, schedule1RemovePersonInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -467,36 +467,41 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 export default class Schedule1 extends Vue {
 
     @Prop({required:true})
-    result!: any;
+    result!: any;    
 
     yourInfo = {} as yourInformationInfoDataInfoType;
-
-    applicantNeedsProtection = ''
+    anotherAdult = {} as schedule1AnotherAdultInfoType;
+    childrenItem: schedule1ChildInfoType[] = [];
+    sharingAdultItem: schedule1SharingAdultInfoType[] = [];
+    otherChildrenItem: schedule1OtherChildrenInfoType[] = [];
+    backgroundSurvey = {} as schedule1BackgroundInfoType;
+    yourStory = {} as schedule1YourStoryInfoType;
+    noGo = {} as schedule1NoGoInfoType;
+    noContact = {} as schedule1NoContactInfoType;
+    weaponsFirearms = {} as schedule1WeaponsFirearmsInfoType;
+    removePerson = {} as schedule1RemovePersonInfoType;
+    serviceAddress = {} as addressInfoType;
+    serviceContact = {} as contactInfoType;
     
-    serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
-    serviceContact = {phone:"", fax:"", email:""}
+    hasSharingAdult = false;     
+    hasAnotherAdult = false;    
+    hasChildren = false;
+    dataReady = false;
+    applicantNeedsProtection = '';
 
-    hasAnotherAdult = false;
-    anotherAdult = {nameFull:'', dobBeauty:'', reason:''}
-
-    childrenItem = [{name:'', dob:'', relation:'',living:''}];
-    hasChildren = false
-    childrenFields=[
+    childrenFields= [
         {key:"name",     label:"Child's full legal name",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
         {key:"relation", label:"Other party's relationship to the child",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:22%;"},
         {key:"living",   label:"Child is currently living with",         tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
     ]
-
-    sharingAdultItem = [{name:'', dob:'', relation:''}]
-    hasSharingAdult = false
+    
     sharingAdultFields = [
         {key:"name",     label:"Full name",                                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Date of birth (mmm/dd/yyyy)",              tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
         {key:"relation", label:"Relationship to other protected person(s)",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
-    ]
-
-    otherChildrenItem = [{name:'', dob:'', protectedRelation:'', otherRelation:'', livingWith:''}];
+    ]    
+    
     otherChildrenFields=[
         {key:"name", label:"Child's full legal name",                             tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
         {key:"dob", label:"Child's date of birth (mmm/dd/yyyy)",                  tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:14.5%;"},
@@ -505,7 +510,8 @@ export default class Schedule1 extends Vue {
         {key:"livingWith", label:"Child is currently living with",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:23%;"},
     ]
 
-    mounted(){        
+    mounted(){   
+        this.dataReady = false;     
         this.yourInfo = this.getYourInfo() 
         this.getServiceInfo();
         this.getProtectingPeople();
@@ -516,6 +522,7 @@ export default class Schedule1 extends Vue {
         this.getRemovePerson();
         this.getYourStory();
         this.getbackgroundSurvey();
+        this.dataReady = true;
     }
 
     public getYourInfo(){
@@ -605,7 +612,6 @@ export default class Schedule1 extends Vue {
                 nameFull:  Vue.filter('getFullName')(this.result.protectionFromWhomSurvey.anotherAdultName),
                 dobBeauty: Vue.filter('beautify-date')(this.result.protectionFromWhomSurvey.anotherAdultDOB),
                 reason:    this.result.protectionFromWhomSurvey.anotherAdultReasonForPO
-
             }            
         }
     }
@@ -625,8 +631,7 @@ export default class Schedule1 extends Vue {
             }
         }
     }
-
-    noGo = { places:[], otherComment:''};
+    
     public getNoGo(){        
         this.noGo = { places:[], otherComment:''};
 
@@ -637,8 +642,7 @@ export default class Schedule1 extends Vue {
                 this.noGo.otherComment = this.result.noGoSurvey.RespondentNoGoPlacesComment
         }
     }
-
-    noContact = {reasonForComm:[], otherComment:''};
+   
     public getNoContact(){
         this.noContact = {reasonForComm:[], otherComment:''};
 
@@ -650,7 +654,6 @@ export default class Schedule1 extends Vue {
         }
     }
 
-    weaponsFirearms = {firearms:'', firearmsReason:'', firearmsYes:'', firearmsYesReason:'', weapons:'', weaponsReasons:'', weaponsYes:'', weaponsYesReason:''}
     public getWeaponsFirearms(){
         this.weaponsFirearms = {firearms:'', firearmsReason:'', firearmsYes:'', firearmsYesReason:'', weapons:'', weaponsReasons:'', weaponsYes:'', weaponsYesReason:''}
 
@@ -682,8 +685,7 @@ export default class Schedule1 extends Vue {
                 this.weaponsFirearms.weaponsYesReason = this.result.weaponsFirearmsSurvey.weaponsYesReason
         }
     }
-
-    removePerson = {liveTogether:'', needPolice:[], needPoliceComment:''}
+    
     public getRemovePerson(){
         this.removePerson = {liveTogether:'', needPolice:[], needPoliceComment:''}
         if(this.result?.removePersonSurvey?.RespondentLiveTogether){
@@ -697,8 +699,7 @@ export default class Schedule1 extends Vue {
             }
         }
     }
-
-    yourStory = {isViolence:'', whatViolence:'', isConcerns:'', whatConcerns:'', recentIncidents:''}
+    
     public getYourStory(){
         this.yourStory = {isViolence:'', whatViolence:'', isConcerns:'', whatConcerns:'', recentIncidents:''}
         if(this.result?.yourStorySurvey?.isFamilyViolence){
@@ -716,8 +717,7 @@ export default class Schedule1 extends Vue {
         if(this.result?.yourStorySurvey?.recentIncidents)
             this.yourStory.recentIncidents = this.result.yourStorySurvey.recentIncidents
     }
-
-    backgroundSurvey;
+    
     public getbackgroundSurvey(){
         
         this.backgroundSurvey = {
@@ -815,10 +815,7 @@ export default class Schedule1 extends Vue {
             if(this.result.backgroundSurvey.reportedConcernsToSW == 'y' && this.result.backgroundSurvey.desrcibeSWAction)
                 this.backgroundSurvey.swAction = this.result.backgroundSurvey.desrcibeSWAction
         }
-
     }
-
-
 }
 </script>
 
