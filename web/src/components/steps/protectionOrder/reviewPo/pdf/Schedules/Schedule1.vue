@@ -193,9 +193,9 @@
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
                 <check-box style="" :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
-                <check-box style="marginTop:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
-                <check-box style="marginTop:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
-                <check-box style="marginTop:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
+                <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
+                <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
+                <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
                 
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="removePerson.needPolice.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="removePerson.needPoliceComment"/>
