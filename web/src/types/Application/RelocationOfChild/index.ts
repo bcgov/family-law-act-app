@@ -4,8 +4,8 @@ export interface relocChildrenInfoSurveyInfoType {
     data: relocChildrenInfoDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface relocChildrenInfoDataInfoType {
@@ -19,8 +19,8 @@ export interface relocQuestionnaireSurveyInfoType {
     data: relocQuestionnaireSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface relocQuestionnaireSurveyDataInfoType {
@@ -39,8 +39,8 @@ export interface relocChildBestInterestSurveyInfoType {
     data: relocChildBestInterestSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface relocChildBestInterestSurveyDataInfoType {
