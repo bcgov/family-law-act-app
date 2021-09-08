@@ -1,17 +1,6 @@
 import copy
+from api.migrations.helpers.clean_nones import clean_nones
 class Migration_1_1_to_1_2_1:
-    def clean_nones(self, value):
-        if isinstance(value, list):
-            return [self.clean_nones(x) for x in value if x is not None]
-        elif isinstance(value, dict):
-            return {
-                key: self.clean_nones(val)
-                for key, val in value.items()
-                if val is not None
-            }
-        else:
-            return value
-
     # Unfortunately can't easily use Typescript for this, because we need Python to interface with Django.
     # The plus side is we validate which should catch any typos.
 
@@ -64,4 +53,4 @@ class Migration_1_1_to_1_2_1:
                 result['otherPartyCommonSurvey'] = {}
                 result['otherPartyCommonSurvey']['data'] = move_to_data
 
-        return self.clean_nones(steps)
+        return clean_nones(steps)

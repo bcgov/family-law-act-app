@@ -1,19 +1,8 @@
 import copy
+from api.migrations.helpers.clean_nones import clean_nones
 class Migration_1_0_to_1_1:
     def _should_fields_be_migrated(self, result, destination, source):
         return result.get(destination) is None and result.get(source) is not None
-
-    def clean_nones(self, value):
-        if isinstance(value, list):
-            return [self.clean_nones(x) for x in value if x is not None]
-        elif isinstance(value, dict):
-            return {
-                key: self.clean_nones(val)
-                for key, val in value.items()
-                if val is not None
-            }
-        else:
-            return value
 
     # Unfortunately can't easily use Typescript for this, because we need Python to interface with Django.
     # The plus side is we validate which should catch any typos.
@@ -147,5 +136,4 @@ class Migration_1_0_to_1_1:
                 result['pathwayCompleted']['priorityParenting'] = result['pathwayCompleted']['priotityParenting']
                 result.get('pathwayCompleted').pop('priotityParenting', None)
             
-
-        return self.clean_nones(steps)
+        return clean_nones(steps)
