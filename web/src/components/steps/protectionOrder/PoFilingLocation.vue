@@ -125,7 +125,7 @@ export default class PoFilingLocation extends Vue {
         }
 
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.steps[this.currentStep].currentPage;
+        this.currentPage = Number(this.steps[this.currentStep].currentPage);
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 

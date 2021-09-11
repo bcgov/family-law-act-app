@@ -307,7 +307,7 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
             this.submitEnable =  true;
             const progress = 50;
             
-            this.currentPage = this.steps[this.currentStep].currentPage
+            this.currentPage = Number(this.steps[this.currentStep].currentPage)
             this.UpdatePageProgress({ currentStep: this.currentStep, currentPage: this.currentPage, progress: progress });
        
             let location = this.applicationLocation

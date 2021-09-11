@@ -4,8 +4,8 @@ export interface aboutPriorityParentingMatterOrderSurveyInfoType {
     data: aboutPriorityParentingMatterOrderSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface aboutPriorityParentingMatterOrderSurveyDataInfoType {
@@ -17,8 +17,8 @@ export interface ppmChildrenInfoSurveyInfoType {
     data: ppmChildrenInfoSurveyDataInfoType[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface ppmChildrenInfoSurveyDataInfoType {
@@ -33,8 +33,8 @@ export interface ppmBackgroundDataSurveyInfoType {
     data: ppmBackgroundDataSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface ppmBackgroundDataSurveyDataInfoType {
@@ -47,16 +47,16 @@ export interface ppmQuestionnaireSurveyInfoType {
     data: string[];
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface priorityParentingMatterOrderSurveyInfoType {
     data: priorityParentingMatterOrderSurveyDataInfoType;
     questions: questionInfoType[];
     pageName: string;
-    currentStep: number;
-    currentPage: number;
+    currentStep: number | string;
+    currentPage: number | string;
 }
 
 export interface priorityParentingMatterOrderSurveyDataInfoType {

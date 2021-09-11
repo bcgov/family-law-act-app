@@ -24,9 +24,8 @@ class EFilingSubmission(EFilingHubCallerBase):
         return message
 
     def _get_api(self, url, bceid_guid, data, headers, transaction_id=None, files=None):
-        if not self.access_token:
-            if not self._get_token():
-                raise Exception("EFH - Unable to get API Token")
+        if not self.access_token and not self._get_token():
+            raise Exception("EFH - Unable to get API Token")
 
         for try_number in range(1):
             if try_number > 0:
@@ -35,7 +34,7 @@ class EFilingSubmission(EFilingHubCallerBase):
             response = requests.post(url, headers=headers, json=data, files=files)
             logger.debug("EFH - Get API %d %s", response.status_code, response.text)
             if response.status_code != 401:
-                return response
+                break
         return response
 
     def upload_documents(self, bceid_guid, transaction_id, files):
