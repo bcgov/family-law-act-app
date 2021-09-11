@@ -307,10 +307,8 @@ export default class EnfrcQuestionnaire extends Vue {
     public setSteps(selectedEnforcementQuestionnaire, surveyChanged) {
 
         const p = this.stPgNo.ENFRC
-        if (selectedEnforcementQuestionnaire) {
-            
-            // const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
-            // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        if (selectedEnforcementQuestionnaire) {            
+           
             this.setProgress(surveyChanged)
 
             if (selectedEnforcementQuestionnaire.length > 0){

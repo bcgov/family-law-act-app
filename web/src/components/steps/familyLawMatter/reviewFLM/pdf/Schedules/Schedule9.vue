@@ -18,10 +18,10 @@
                 <div style="display:inline; margin:0 0 0 0.5rem;">I believe that I am, or the other party is, entitled to spousal support for the following reason(s):</div>
                 <div style="margin:0 0 0 1.5rem;">
                     <i style="margin:0 0 0 0rem;" >Select all options that apply</i>
-                    <check-box style="" :check="spsSupInfo.current.adv?'yes':''" text="there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
-                    <check-box style="" :check="spsSupInfo.current.share?'yes':''" text="to share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
-                    <check-box style="" :check="spsSupInfo.current.hardship?'yes':''" text="to relieve economic hardship of the spouses arising from the breakdown of the relationship"/>
-                    <check-box style="" :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="to help each spouse become financially independent within a reasonable period"/>                    
+                    <check-box  :check="spsSupInfo.current.adv?'yes':''" text="there are economic advantages or disadvantages to the spouses arising from the relationship or breakdown of the relationship"/>
+                    <check-box  :check="spsSupInfo.current.share?'yes':''" text="to share the financial consequences arising from caring for the children during the relationship, beyond the duty to provide support for the child"/>
+                    <check-box  :check="spsSupInfo.current.hardship?'yes':''" text="to relieve economic hardship of the spouses arising from the breakdown of the relationship"/>
+                    <check-box  :check="spsSupInfo.current.bcmIndpndnt?'yes':''" text="to help each spouse become financially independent within a reasonable period"/>                    
                 </div>            
             </section>
 
@@ -52,7 +52,7 @@
             <section>               
                 <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                 <div style="margin:0 0 0 1.25rem;">
-                    <check-box style="" :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the other party"/>
+                    <check-box  :check="!spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I do not know the income of the other party"/>
                     <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="spsSupInfo.incomeInfo.knowOpIncome?'yes':''" text="I believe the other party’s annual income is $"/>
                     <underline-form style="display:inline;margin:0 0 0 0.5rem;" textwidth="8rem" beforetext="" hint="" :text="spsSupInfo.incomeInfo.opIncome"/>
                 </div>
@@ -104,8 +104,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 0rem 1.25rem;">
-                        <check-box style="" :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
-                        <check-box style="" :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
+                        <check-box  :check="spsSupInfo.calc.attaching?'yes':''" text="I am attaching calculations showing how much spousal support I believe should be paid according to the Spousal Support Advisory Guidelines"/>
+                        <check-box  :check="!spsSupInfo.calc.attaching?'yes':''" text="I am not attaching calculations because:"/>
                     </div>
                     <div v-if="!spsSupInfo.calc.attaching" 
                         class="answerbox">{{spsSupInfo.calc.reason}}</div>
@@ -119,8 +119,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box style="" :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box style="" :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box  :check="!spsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box  :check="spsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>

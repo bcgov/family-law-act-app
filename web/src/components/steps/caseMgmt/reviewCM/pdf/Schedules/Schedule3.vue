@@ -22,14 +22,14 @@
                 </div>
 
                 <div style="margin-left:1.0rem;">
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Filing at a court registry other than the court registry required by Rule 7')?'yes':''" text="filing at a court registry other than the court registry required by Rule 7"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Attending a needs assessment')?'yes':''" text="attending a needs assessment"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Completing a parenting education program')?'yes':''" text="completing a parenting education program"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Participating in consensual dispute resolution')?'yes':''" text="participating in consensual dispute resolution"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Filing a completed financial statement with my application or reply')?'yes':''" text="filing a completed financial statement with my application, counter application or reply"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Filing the required documents for an application about guardianship of a child')?'yes':''" text="filing the required documents for an application about guardianship of a child"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Time to file a reply, including permission to file a reply after the time to reply has passed')?'yes':''" text="time to file a reply, including permission to file a reply after the time to reply has passed"/>
-                    <check-box style="" :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="time to provide/exchange document(s)"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Filing at a court registry other than the court registry required by Rule 7')?'yes':''" text="filing at a court registry other than the court registry required by Rule 7"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Attending a needs assessment')?'yes':''" text="attending a needs assessment"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Completing a parenting education program')?'yes':''" text="completing a parenting education program"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Participating in consensual dispute resolution')?'yes':''" text="participating in consensual dispute resolution"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Filing a completed financial statement with my application or reply')?'yes':''" text="filing a completed financial statement with my application, counter application or reply"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Filing the required documents for an application about guardianship of a child')?'yes':''" text="filing the required documents for an application about guardianship of a child"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Time to file a reply, including permission to file a reply after the time to reply has passed')?'yes':''" text="time to file a reply, including permission to file a reply after the time to reply has passed"/>
+                    <check-box  :check="modReqInfo.appliedRequirementsList.includes('Time to provide/exchange document(s)')?'yes':''" text="time to provide/exchange document(s)"/>
 
                     <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="modReqInfo.appliedRequirementsList.includes('Time limit set by an order or direction of a judge')?'yes':''" text="time limit set by an order or direction made on"/>
                     <underline-form style="text-indent:3px;display:inline-block;" textwidth="6rem" beforetext="" hint="mmm/dd/yyyy" :text="modReqInfo.dateOfOrder"/>                     

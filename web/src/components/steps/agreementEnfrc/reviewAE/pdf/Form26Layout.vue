@@ -101,7 +101,7 @@
                 </div>
                 <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
                         
-                <div v-if="additionalOtherParties.length>0" style=" ">
+                <div v-if="additionalOtherParties.length>0">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
@@ -348,10 +348,7 @@ export default class Form26Layout extends Vue {
 
         let form26Information = {} as form26InformationDataInfoType;
         form26Information.agreementList = [];
-        form26Information.agreementDate = '';
-
-        //console.log('FORM26')
-        //console.log(this.result)
+        form26Information.agreementDate = '';        
         
         if (this.result?.enfrcQuestionnaireSurvey?.includes('writtenAgreementOrder') && this.result?.enforceAgreementOrOrderSurvey) { 
 

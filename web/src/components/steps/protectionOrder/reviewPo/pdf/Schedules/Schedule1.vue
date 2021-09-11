@@ -36,8 +36,8 @@
             I am applying for a protection order for the following person(s) to be protected:           
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select and complete only those options that apply to your situation. You may select more than one.</i>
-                <check-box style="" :check="applicantNeedsProtection == 'y'?'yes':''" text="me"/>
-                <check-box style="" :check="hasChildren?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
+                <check-box  :check="applicantNeedsProtection == 'y'?'yes':''" text="me"/>
+                <check-box  :check="hasChildren?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
             </div>
 
             <b-table
@@ -56,7 +56,7 @@
             </b-table> 
 
             <div style="margin:0.25rem 0 0 2rem;" >
-                <check-box style="" :check="hasSharingAdult?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
+                <check-box  :check="hasSharingAdult?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
             </div>
 
             <b-table
@@ -106,10 +106,10 @@
             <div style="margin-left:1rem;"> I do not want the other party to be able to attend at, enter or be found at the following places:</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>
-                <check-box style="" :check="noGo.places.includes('Home')?'yes':''" text="Residence"/>
-                <check-box style="" :check="noGo.places.includes('School')?'yes':''" text="School"/>
-                <check-box style="" :check="noGo.places.includes('Workplace')?'yes':''" text="Place of Employment"/>
-                <check-box style="" :check="noGo.places.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
+                <check-box  :check="noGo.places.includes('Home')?'yes':''" text="Residence"/>
+                <check-box  :check="noGo.places.includes('School')?'yes':''" text="School"/>
+                <check-box  :check="noGo.places.includes('Workplace')?'yes':''" text="Place of Employment"/>
+                <check-box  :check="noGo.places.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="noGo.places.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noGo.otherComment"/>
             </div>
@@ -122,9 +122,9 @@
             <div style="margin-left:1rem;"> The protected party may need to communicate with the other party for the following reason(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="noContact.reasonForComm.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
-                <check-box style="" :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
-                <check-box style="" :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
+                <check-box  :check="noContact.reasonForComm.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
+                <check-box  :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
+                <check-box  :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="noContact.reasonForComm.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noContact.otherComment"/>
             </div>
@@ -192,7 +192,7 @@
             <div style="margin-left:1rem;"> I believe police assistance may be required for the following purpose(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
+                <check-box  :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
@@ -248,8 +248,8 @@
         <section>
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>
             <div style="margin:0 0 0 1rem;" >                    
-                <check-box style="" :check="backgroundSurvey.hasOtherChilderen=='n'?'yes':''" text="The protected party and the other party are a parent, or guardian only to the child(ren), if any, identified in paragraph 2 of this affidavit"/>
-                <check-box style="" :check="backgroundSurvey.hasOtherChilderen=='y'?'yes':''" text="The protected party and the other party are a parent, step-parent or guardian to the following child(ren) who is/are not identified in paragraph 2 of this affidavit:"/>
+                <check-box  :check="backgroundSurvey.hasOtherChilderen=='n'?'yes':''" text="The protected party and the other party are a parent, or guardian only to the child(ren), if any, identified in paragraph 2 of this affidavit"/>
+                <check-box  :check="backgroundSurvey.hasOtherChilderen=='y'?'yes':''" text="The protected party and the other party are a parent, step-parent or guardian to the following child(ren) who is/are not identified in paragraph 2 of this affidavit:"/>
             </div>
 
             <b-table

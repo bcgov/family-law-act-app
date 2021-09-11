@@ -72,10 +72,10 @@
 
             <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
                 <i>Select only one of the options below</i>
-                <check-box style="" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
-                <check-box style="" :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
-                <check-box style="" :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
-                <check-box style="" :check="ppmInfo.noticeType == 'haveOrderForWithoutOrUnder 7 DaysNotice'?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
+                <check-box  :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
+                <check-box  :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
+                <check-box  :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
+                <check-box  :check="ppmInfo.noticeType == 'haveOrderForWithoutOrUnder 7 DaysNotice'?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
             </div>
         </section>
         
@@ -220,14 +220,14 @@
 
             <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
                 <i>Select all options that apply</i>
-                <check-box style="" :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
+                <check-box  :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
+                <check-box  :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
+                <check-box  :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
+                <check-box  :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
+                <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
+                <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
+                <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
             </div>                  
         </section>
 

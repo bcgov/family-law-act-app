@@ -103,7 +103,7 @@
                 </div>
                 <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
                         
-                <div v-if="additionalOtherParties.length>0" style=" ">
+                <div v-if="additionalOtherParties.length>0">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
@@ -365,10 +365,10 @@ export default class Form27Layout extends Vue {
         let form27Information = {} as form27InformationDataInfoType;
 
         function splitNames(names: string): string[]{
-            const splitNames = names.split(',').map(item => {
+            const splitNamesList = names.split(',').map(item => {
                 return item.trim();
             });
-            return splitNames.filter(item=>{return(item)})
+            return splitNamesList.filter(item=>{return(item)})
         }
 
         if (this.result?.enforceChangeSetAsideDeterminationSurvey) {  

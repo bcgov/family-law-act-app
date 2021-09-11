@@ -200,13 +200,13 @@
                 <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
                 <div style="margin-left:1rem;">
                     <i>Select only one of the options below</i>
-                    <check-box style="" 
+                    <check-box  
                         :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
                         text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
-                    <check-box style="" 
+                    <check-box  
                         :check="(filingLocationReason == 'It is the court location closest to where I live, because my case does not involve a child-related issue')?'yes':''" 
                         text="closest to where I live, because my case does not involve a child-related issue"/>
-                    <check-box style="" 
+                    <check-box  
                         :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
                         text="where my existing case with the same party/parties is located"/>                    
                 </div>

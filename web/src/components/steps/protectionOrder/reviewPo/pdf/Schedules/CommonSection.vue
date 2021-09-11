@@ -61,7 +61,7 @@
             other party.
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select only one of the options below</i>
-                <check-box style="" :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
+                <check-box  :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
                 <check-box v-if="urgency.PORNoNotice == 'y'" style="" :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:10pt;line-height:1rem;\'>'+urgency.PORWhyNoNotice+'</div>'"/>
                 <check-box v-else style="" :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
             </div>
@@ -103,9 +103,9 @@
             I am applying for the following order:           
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select only one of the options below and complete the required schedule</i>
-                <check-box style="" :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
-                <check-box style="" :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
-                <check-box style="" :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
+                <check-box  :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
+                <check-box  :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
+                <check-box  :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
             </div>
         </section>
 

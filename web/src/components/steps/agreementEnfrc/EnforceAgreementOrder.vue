@@ -143,8 +143,7 @@ export default class EnforceAgreementOrder extends Vue {
         }
     }
     
-    public setProgress(){
-        //const initProgress = this.step.pages[this.currentPage].progress
+    public setProgress(){        
 
         if(this.survey?.data?.enforceOrder=="n" && this.survey?.data?.filedOrder=="n" && this.survey?.data?.existingType=="courtOrder" && this.popInfoUnderstand != 'understand'){
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
