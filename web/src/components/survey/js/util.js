@@ -23,7 +23,7 @@
       }
     }
   
-    TooltipMgr = function() {
+    var TooltipMgr = function() {
       this.init();
     }
     TooltipMgr.prototype = {
@@ -59,7 +59,7 @@
       tooltipMgr.register(target, content, params);
     }
   
-    Tooltip = function(target, content, params) {
+    var Tooltip = function(target, content, params) {
       this.init(target, content, params);
     }
     Tooltip.prototype = {

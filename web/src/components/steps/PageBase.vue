@@ -53,7 +53,7 @@ export default class PageBase extends Vue {
         } else {
             this.UpdateGotoPrevStepPage()
         }
-        //window.scrollTo(0, 0);
+        
     }
 
     public onNext() {
@@ -65,7 +65,7 @@ export default class PageBase extends Vue {
                 this.UpdateGotoNextStepPage()
             }
         }
-        //window.scrollTo(0, 0);
+        
     }
 
     public hasPrevStepPage() {

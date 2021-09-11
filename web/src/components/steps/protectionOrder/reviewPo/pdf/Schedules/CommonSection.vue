@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="dataReady">
 <!-- <Page 1> -->
 <!-- <HEADER> -->
         <div class="form-header-po"> 
@@ -61,7 +61,7 @@
             other party.
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select only one of the options below</i>
-                <check-box style="" :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
+                <check-box  :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
                 <check-box v-if="urgency.PORNoNotice == 'y'" style="" :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:10pt;line-height:1rem;\'>'+urgency.PORWhyNoNotice+'</div>'"/>
                 <check-box v-else style="" :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
             </div>
@@ -103,9 +103,9 @@
             I am applying for the following order:           
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select only one of the options below and complete the required schedule</i>
-                <check-box style="" :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
-                <check-box style="" :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
-                <check-box style="" :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
+                <check-box  :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
+                <check-box  :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
+                <check-box  :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
             </div>
         </section>
 
@@ -125,15 +125,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-
+import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';
+import { urgencyInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -144,27 +140,28 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
-    result!: any;
+    result!: any;    
 
     otherPartyInfo=[]; 
     yourInfo = {} as yourInformationInfoDataInfoType;
+    urgency = {} as urgencyInfoType;
 
-    serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
-    serviceContact = {phone:"", fax:"", email:""}
+    serviceAddress = {} as addressInfoType;
+    serviceContact = {} as contactInfoType;
 
     existingFileNumber = '';
-    orderType = '';
-
-    urgency = {PORNoNotice:'', PORWhyNoNotice:''};
+    orderType = '';   
+    dataReady = false; 
 
     mounted(){
-       
+        this.dataReady = false;
         this.getServiceInfo();
         this.getOtherPartyInfo();
         this.getExistingFileNumber(this.result);
         this.yourInfo = this.getYourInfo() 
         this.orderType = this.getOrderType(); 
         this.urgency = this.getUrgencyInfo();
+        this.dataReady = true;
     }
 
     public getOrderType(){
@@ -296,13 +293,10 @@ export default class CommonSection extends Vue {
 
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
-            }
-                     
+            }                     
         }
-
         return yourInformation;
     }
-
 
 }
 </script>

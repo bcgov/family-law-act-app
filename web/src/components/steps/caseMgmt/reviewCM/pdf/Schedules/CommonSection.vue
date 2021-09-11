@@ -119,12 +119,12 @@
                 <div style="display:inline; margin-left:0.15rem;"> I am applying for the following case management order(s): </div>
                 <div style="margin-left:1.1rem;"><i>Select all that apply and complete the required schedule(s)</i></div>
                 <div style="margin:0.25rem 0 0 1.7rem;font-size: 10pt;" >                    
-                    <check-box style="" :check="selectedSchedules.includes('schedule1')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video <i>[complete and attach Schedule 1]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule2')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for the service of a document <i>[complete and attach Schedule 2]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule3')?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
-                    <check-box style="" :check="selectedSchedules.includes('schedule4')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video <i>[complete and attach Schedule 1]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule2')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for the service of a document <i>[complete and attach Schedule 2]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule3')?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule4')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
                     
-                    <check-box style="" :check="selectedSchedules.includes('schedule5')?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule5')?'yes':''" text="recognizing an extraprovincial order other than a support order <i>[complete and attach Schedule 5]</i>"/>
                     
                 </div>                  
             </section>

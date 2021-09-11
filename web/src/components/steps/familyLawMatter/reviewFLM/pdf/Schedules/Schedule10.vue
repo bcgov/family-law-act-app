@@ -28,12 +28,12 @@
                         <check-box style="margin:0 0 0 0rem;" :check="exSpsSupInfo.current.order?'yes':''" text="I am applying for the existing final order about spousal support to be:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="exSpsSupInfo.orderInfo.change?'yes':''" text="changed"/>
-                        <check-box style="" :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="cancelled"/>
+                        <check-box  :check="exSpsSupInfo.orderInfo.change?'yes':''" text="changed"/>
+                        <check-box  :check="exSpsSupInfo.orderInfo.cancel?'yes':''" text="cancelled"/>
                         <div>Since the final order about spousal support was made, circumstances have changed as follows:</div>
                         <i class='marginleft-1vue' style="margin-left:0rem;">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="exSpsSupInfo.orderInfo.changes.myfin?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="exSpsSupInfo.orderInfo.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box  :check="exSpsSupInfo.orderInfo.changes.myfin?'yes':''" text="my financial situation has changed"/>
+                        <check-box  :check="exSpsSupInfo.orderInfo.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
                         
                         <check-box style="margin:0 0 -0.25rem 0;" :check="exSpsSupInfo.orderInfo.changes.myEmp?'yes':''" text="my employment, training, health and/or ability to work has changed as follows:"/>
                         <div v-if="exSpsSupInfo.orderInfo.changes.myEmp" 
@@ -71,8 +71,8 @@
                     <div>
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exSpsSupInfo.current.agreement?'yes':''" text="I am applying for the existing written agreement about spousal support to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="exSpsSupInfo.agreementInfo.setAside?'yes':''" text="set aside"/>
-                            <check-box style="" :check="exSpsSupInfo.agreementInfo.replace?'yes':''" text="replaced"/>
+                            <check-box  :check="exSpsSupInfo.agreementInfo.setAside?'yes':''" text="set aside"/>
+                            <check-box  :check="exSpsSupInfo.agreementInfo.replace?'yes':''" text="replaced"/>
                         </div>
                         <div style="margin:0 0 0 3rem;">I believe the agreement should be set aside or replaced because:</div>
                         <div style="margin:0 0 0 2rem;" v-if="exSpsSupInfo.agreementInfo.reason" 
@@ -166,8 +166,8 @@
                 <section>               
                     <i style="margin:0 0 0 0.5rem;" >Select only one of the options below</i>
                     <div style="margin:0 0 1rem 1.25rem;">
-                        <check-box style="" :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
-                        <check-box style="" :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
+                        <check-box  :check="!exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am filing a Financial Statement in Form 4 with this application"/>
+                        <check-box  :check="exSpsSupInfo.applyForCaseManagement?'yes':''" text="I am not able to complete a Financial Statement at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with a completed Financial Statement."/>
                     </div>
                 </section>
             </div>
