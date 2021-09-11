@@ -3,10 +3,10 @@
         <survey v-bind:survey="survey"></survey>
         <div class="row">
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="goBack()">Back</button>
+                <button type="button" class="btn btn-secondary" @click="goBack()">Cancel</button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="saveParty()">Save Changes</button>
+                <button type="button" class="btn btn-success" @click="saveParty()">Save</button>
             </div>
         </div>
         <br />

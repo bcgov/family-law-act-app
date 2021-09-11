@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <b-card v-if="confirmedError"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
+        <b-card v-if="confirmedError && showTable"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
 
         <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
@@ -300,10 +300,6 @@ export default class OtherPartyCommon extends Vue {
 
     public isDisableNext() {
         return this.otherPartyData? (this.otherPartyData.length <= 0): true;
-    }
-
-    public getDisableNextText() {
-        return "You will need to add at least one other party to continue";
     }
 
     beforeDestroy() {

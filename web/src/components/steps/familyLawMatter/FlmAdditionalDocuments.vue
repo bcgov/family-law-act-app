@@ -46,6 +46,9 @@ export default class FlmAdditionalDocuments extends Vue {
     public UpdateGotoNextStepPage!: () => void
 
     @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
+    @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
     @applicationState.State
@@ -86,7 +89,26 @@ export default class FlmAdditionalDocuments extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
+
+            this.determineCaseMgntNeeded();
         })
+    }
+
+    public determineCaseMgntNeeded(){
+       
+        if ((this.survey.data?.criminalChecked && this.survey.data.criminalChecked == 'n') 
+            || (this.survey.data?.isFilingAdditionalDocs && this.survey.data.isFilingAdditionalDocs == 'n')) {
+            
+                
+                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
+                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+               
+                if(selectedForms && !selectedForms.includes('caseMgmt')){
+                    selectedForms.push('caseMgmt')
+                }
+
+                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+        }
     }
 
     public adjustSurveyForAdditionalDocs(){  
@@ -120,6 +142,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.survey.setVariable('appointedAsGuardian', this.appointedAsGuardian);
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.determineCaseMgntNeeded(); 
     }
 
     public getRequiredDocuments(){
@@ -166,6 +189,13 @@ export default class FlmAdditionalDocuments extends Vue {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
         }
+    }
+
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
     }
   
     beforeDestroy() {

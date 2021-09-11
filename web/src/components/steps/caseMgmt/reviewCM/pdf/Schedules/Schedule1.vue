@@ -17,7 +17,7 @@
             <div style="display:inline; margin-left:0.15rem;"> I am applying for an order to allow: </div>
             <div style="margin-left:1.1rem;"><i>Select all options that apply</i></div>
             <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
-                <check-box style="" :check="scheduleInfo.attendees.includes('me')?'yes':''" text="me"/>                                
+                <check-box  :check="scheduleInfo.attendees.includes('me')?'yes':''" text="me"/>                                
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.attendees.includes('lawyer')?'yes':''" text="my lawyer, "/>
                 <underline-form style="margin-left:0.25rem; text-indent:3px;display:inline-block;" textwidth="16rem" beforetext="" hint="full name of lawyer" :text="scheduleInfo.lawyerName"/>
             </div>
@@ -26,10 +26,10 @@
             <div style="margin-left:1.1rem;"><i>Select only one of the options below</i></div>
 
             <div style="margin:0.25rem 0 0 1.1rem;font-size: 10pt;" >
-                <check-box style="" :check="scheduleInfo.eventType == 'familyManagementConference'?'yes':''" text="family management conference"/>
-                <check-box style="" :check="scheduleInfo.eventType == 'familySettlementConference'?'yes':''" text="family settlement conference"/>
-                <check-box style="" :check="scheduleInfo.eventType == 'trialPreparationConference'?'yes':''" text="trial preparation conference"/>
-                <check-box style="" :check="scheduleInfo.eventType == 'hearing'?'yes':''" text="hearing"/>
+                <check-box  :check="scheduleInfo.eventType == 'familyManagementConference'?'yes':''" text="family management conference"/>
+                <check-box  :check="scheduleInfo.eventType == 'familySettlementConference'?'yes':''" text="family settlement conference"/>
+                <check-box  :check="scheduleInfo.eventType == 'trialPreparationConference'?'yes':''" text="trial preparation conference"/>
+                <check-box  :check="scheduleInfo.eventType == 'hearing'?'yes':''" text="hearing"/>
                 <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.eventType == 'other'?'yes':''" text="Other <i>(specify):</i>"/>
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="scheduleInfo.eventTypeComment"/>                
             </div>   

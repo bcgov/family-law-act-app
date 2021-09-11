@@ -2,7 +2,7 @@
 <!----------------------------------------------------------------  <TERMINATE PO>   -------------------------------------------------------->
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div>
+    <div v-if="dataReady">
         <div class="new-page" />
 
 
@@ -26,8 +26,8 @@
         <section>  
             <i style="margin-left:.25rem;">Select only one of the options below</i>
             <div style="margin:0rem 0 0 1rem;" >                
-                <check-box style="" :check="aboutOrder.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
-                <check-box style="" :check="aboutOrder.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
+                <check-box  :check="aboutOrder.inCourtForPO == 'y' ?'yes':''" text="I was in court when the protection order was made"/>
+                <check-box  :check="aboutOrder.inCourtForPO == 'n' ?'yes':''" text="I was not in court when the protection order was made because:"/>                
             </div>
             <div style="margin-left:1rem;">
                 <i>Explain why you were not in court when the protection order was made</i>
@@ -42,9 +42,9 @@
             I am the:
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="aboutOrder.kindOfParty.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box style="" :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
-                <check-box style="" :check="aboutOrder.kindOfParty.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('protectedParty')?'yes':''" text="protected party"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>
 
@@ -63,9 +63,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import { schedule3AboutOrderInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -78,11 +78,15 @@ export default class Schedule3 extends Vue {
     @Prop({required:true})
     result!: any;
 
+    dataReady = false;
+    aboutOrder = {} as schedule3AboutOrderInfoType;
+
     mounted(){
+        this.dataReady = false;
         this.getAboutOrder();
+        this.dataReady = true;
     }
     
-    aboutOrder = {dateOfPO:'', inCourtForPO:'', whyNotInCourt:'', kindOfParty:[], whyTerminatePO:''};
     public getAboutOrder(){  
 
         this.aboutOrder = {dateOfPO:'', inCourtForPO:'', whyNotInCourt:'', kindOfParty:[], whyTerminatePO:''};

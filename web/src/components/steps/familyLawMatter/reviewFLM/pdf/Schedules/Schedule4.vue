@@ -18,7 +18,7 @@
                 
                 <div style="margin-left:1rem;">
                     <i>Select only one of the options below</i>
-                    <check-box style="" :check="exChSupInfo.abtEx.payor?'yes':''" text="make payments for support of a child or children"/>
+                    <check-box  :check="exChSupInfo.abtEx.payor?'yes':''" text="make payments for support of a child or children"/>
                     <check-box style="width:120%;" :check="exChSupInfo.abtEx.payee?'yes':''" text="receive payments for support of a child or children"/>
                     <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="exChSupInfo.abtEx.other?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="exChSupInfo.abtEx.otherComm"/>            
@@ -41,12 +41,12 @@
                         <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtEx.exstngOrdr?'yes':''" text="I am applying for the existing final order about child support to be:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="exChSupInfo.abtEx.changeOrdr?'yes':''" text="changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
+                        <check-box  :check="exChSupInfo.abtEx.changeOrdr?'yes':''" text="changed"/>
+                        <check-box  :check="exChSupInfo.abtEx.cancelOrdr?'yes':''" text="cancelled"/>
                         <div>Since the final order about child support was made, circumstances have changed as follows:</div>
                         <i class="marginleft-1vue">Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="exChSupInfo.abtEx.changes.myfin?'yes':''" text="my financial situation has changed"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
+                        <check-box  :check="exChSupInfo.abtEx.changes.myfin?'yes':''" text="my financial situation has changed"/>
+                        <check-box  :check="exChSupInfo.abtEx.changes.opfin?'yes':''" text="I believe the other party’s financial situation has changed"/>
                         <check-box style="margin:0 0 -0.25rem 0;" :check="exChSupInfo.abtEx.changes.spcl?'yes':''" text="the special and extraordinary expenses for the child(ren) have changed as follows:"/>
                         <div v-if="exChSupInfo.abtEx.changes.spcl" 
                              class="answerbox">{{exChSupInfo.abtEx.expChangeInfo}}</div>
@@ -79,8 +79,8 @@
                         <check-box style="margin:0 0 0 0rem;" :check="exChSupInfo.abtEx.exstngAgrmnt?'yes':''" text="I am applying for the existing agreement about child support to be:"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="exChSupInfo.abtEx.setAsideAgrmnt?'yes':''" text="set aside"/>
-                        <check-box style="" :check="exChSupInfo.abtEx.replaceAgrmnt?'yes':''" text="replaced"/>
+                        <check-box  :check="exChSupInfo.abtEx.setAsideAgrmnt?'yes':''" text="set aside"/>
+                        <check-box  :check="exChSupInfo.abtEx.replaceAgrmnt?'yes':''" text="replaced"/>
                         <div style="margin:0 0 -0.25rem 0;">I believe the agreement should be set aside or replaced because:</div>                    
                         <div v-if="exChSupInfo.abtEx.exstngAgrmnt" 
                             class="answerbox">{{exChSupInfo.abtEx.changesSinceAgrmnt}}</div>
@@ -191,13 +191,13 @@
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
                         <i>Select all options that apply</i>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payor?'yes':''" text="I am the payor"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.split?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.partyParentOfOther?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.payorEarnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.specialClaim?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box  :check="exChSupInfo.finStmnt.required && exChSupInfo.abtOrg.situation.undueHardship?'yes':''" text="I am claiming undue hardship"/>
                     </div>
                     <div style="margin:0.5rem 0 0 1.5rem;">
                         <check-box style="margin:0 0 0 0rem;" :check="!exChSupInfo.applyForCaseManagement && exChSupInfo.abtOrg.situation.none?'yes':''" text="I am not required to file a Financial Statement at this time as none of these situations apply to me"/> 

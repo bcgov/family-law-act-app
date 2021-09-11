@@ -46,7 +46,8 @@ export function SearchForChildrenData(stepName){
 
         if( stepPO.active && 
             stepPO.pages[stPgNo.PO.ProtectionFromWhom].active &&
-            stepPO.result?.protectionFromWhomSurvey?.data?.allchildren?.length>0
+            stepPO.result?.protectionFromWhomSurvey?.data?.allchildren?.length>0 &&
+            stepPO.result?.protectionFromWhomSurvey?.data?.allchildren[0]?.childName
         ){            
             const children = stepPO.result.protectionFromWhomSurvey.data.allchildren;
             let inx= 0;

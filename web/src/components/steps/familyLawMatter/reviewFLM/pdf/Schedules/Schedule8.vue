@@ -34,8 +34,8 @@
             <section>
                 <div style="display:inline; margin-left:0.35rem">I am: </div>
                 <div style="margin:0 0 0 1.35rem;">                    
-                    <check-box style="" :check="guardInfo.abtCancel.cancelDetails[0].relationship == 'Guardian'?'yes':''" text="a guardian of the child(ren)"/>
-                    <check-box style="" :check="guardInfo.abtCancel.cancelDetails[0].relationship != 'Guardian'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
+                    <check-box  :check="guardInfo.abtCancel.cancelDetails[0].relationship == 'Guardian'?'yes':''" text="a guardian of the child(ren)"/>
+                    <check-box  :check="guardInfo.abtCancel.cancelDetails[0].relationship != 'Guardian'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
 
@@ -50,11 +50,11 @@
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown"/>
                     <div style="margin:0 0 0 1.35rem;">
                         <i style="margin:0 0 0 -0.25rem;" >If yes, please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</i>
-                        <check-box style="" :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
-                        <check-box style="" :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
-                        <check-box style="" :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation"/>
-                        <check-box style="" :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-                        <check-box style="" :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+                        <check-box  :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
+                        <check-box  :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
+                        <check-box  :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation"/>
+                        <check-box  :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+                        <check-box  :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
                     </div>
                 </section>
             </div>
@@ -64,7 +64,7 @@
             <section>
                 <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisg̲a’a child or a Treaty First Nation child</i>
                 <div style="margin:0 0 0 1.35rem;">
-                    <check-box style="" :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
+                    <check-box  :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
                 </div>
             </section>
 
