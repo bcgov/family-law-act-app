@@ -433,14 +433,17 @@ export default class Form16Layout extends Vue {
         let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey;            
+            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey;  
+            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
+            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;          
+                      
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
                 lawyer: applicantInfo.Lawyer == 'y',
                 lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?Vue.filter('getFullName')(applicantInfo.LawyerName):'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:{} as addressInfoType),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact: {} as contactInfoType),
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((noLawyerAddressCondition)?applicantInfo.ApplicantAddress:{} as addressInfoType),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((noLawyerContactCondition)?applicantInfo.ApplicantContact: {} as contactInfoType),
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
             }                     

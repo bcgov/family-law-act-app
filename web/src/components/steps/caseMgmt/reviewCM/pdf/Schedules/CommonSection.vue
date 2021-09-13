@@ -92,9 +92,9 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
                  <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'Not a party to the case'?'yes':''" text="I am not a party to the case"/>
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'A party to the case and the case does not involve a child-related issue'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'Not a party to the case'?'yes':''" text="I am not a party to the case"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'A party to the case and the case does not involve a child-related issue'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
                  </div>
                 <b-table
                     :items="childrenInfo"
@@ -247,14 +247,16 @@ export default class CommonSection extends Vue {
         if(this.result?.yourInformationSurvey){
 
             const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey; 
+            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
+            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;          
             
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB :'',
                 name: applicantInfo.ApplicantName? Vue.filter('getFullName')(applicantInfo.ApplicantName) :'',
                 lawyer: applicantInfo.Lawyer == 'y',
                 lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)? Vue.filter('getFullName')(applicantInfo.LawyerName) :'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)? applicantInfo.LawyerAddress : ((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)? applicantInfo.ApplicantAddress :{} as addressInfoType),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)? applicantInfo.LawyerContact : ((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)? applicantInfo.ApplicantContact : {} as contactInfoType),
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)? applicantInfo.LawyerAddress : ((noLawyerAddressCondition)? applicantInfo.ApplicantAddress :{} as addressInfoType),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)? applicantInfo.LawyerContact : ((noLawyerContactCondition)? applicantInfo.ApplicantContact : {} as contactInfoType),
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
             }        

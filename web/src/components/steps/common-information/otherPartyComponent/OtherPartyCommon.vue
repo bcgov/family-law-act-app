@@ -227,7 +227,7 @@ export default class OtherPartyCommon extends Vue {
         this.showTable = false;
         Vue.nextTick(()=>{
             const el = document.getElementById('other-party-common-survey')
-            // console.log(el)
+            
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {

@@ -117,15 +117,10 @@ export default class ReviewYourAnswersPage extends Vue {
         const inputType = dataItem?dataItem['inputType']:""
         const inputName = dataItem?dataItem['name']:""
 
-        if(!value){
+        if(!value || this.errorQuestionNames.includes(inputName)){
             this.pageHasError = true;
             return "REQUIRED";
-        }
-        else if(this.errorQuestionNames.includes(inputName))
-        {
-            this.pageHasError = true;
-            return "REQUIRED";
-        }
+        }        
         else if(value?.['selected']){
             return this.getAdvancedRadioGroupResults(value)
         }

@@ -64,7 +64,7 @@ export default class SafetyCheck extends Vue {
     
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);            
+                       
         })   
     }
 
