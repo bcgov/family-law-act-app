@@ -27,7 +27,7 @@
                     </b-form-radio>
                     <b-form-radio v-if="hasOther" value="other"   style="margin:1rem 0;">
                         <div :class="textClass" :style="{display:'inline-block', margin:'0'}">{{otherText}}</div>
-                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control" style="" v-model="pendingValue['otherComment']" @change="inputChanged" />
+                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control"  v-model="pendingValue['otherComment']" @change="inputChanged" />
                     </b-form-radio>
                 </b-form-radio-group>                
             </b-form-group>                

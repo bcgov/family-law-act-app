@@ -859,14 +859,6 @@ class Application extends VuexModule {
         s.type = "stepReloc";
         s.pages = new Array<pageInfoType>();
         s.currentPage = 0;
-    
-        // p = {} as pageInfoType;
-        // p.key = "0";
-        // p.name = "RelocationOfChildForm";
-        // p.label = "Relocation of a child Form";
-        // p.active = true;
-        // p.progress = 0;    
-        // s.pages.push(p);
 
         p = {} as pageInfoType;
         p.key = "0";
@@ -922,16 +914,7 @@ class Application extends VuexModule {
         s.lastUpdate = null;
         s.type = "stepEnfrc";
         s.pages = new Array<pageInfoType>();
-        s.currentPage = 0;
-    
-        // p = {} as pageInfoType;
-        // p.key = "0";
-        // p.name = "EnforcementForms";
-        // p.label = "Agreement and Court Orders Forms";
-        // p.active = true;
-        // p.progress = 0;
-    
-        // s.pages.push(p);
+        s.currentPage = 0;        
 
         p = {} as pageInfoType;
         p.key = "0";

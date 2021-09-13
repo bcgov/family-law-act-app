@@ -104,13 +104,12 @@ export default class ChildSupportOrderAgreement extends Vue {
         const existingOrderAgreementPages =    [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM]
         const existingOrderAgreementPagesAll = [p.AboutExistingChildSupport, p.CalculatingChildSupport, p.AboutChildSupportChanges, p.UnpaidChildSupport, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
 
-        if (this.survey.data?.existingType == 'ExistingOrder') {
+        if ((this.survey.data?.existingType == 'ExistingOrder') ||
+             (this.survey.data?.existingType == 'ExistingAgreement')) {
+                 
             this.disableNextButton = false;
-            this.togglePages(existingOrderAgreementPages, true);
-            
-        } else if (this.survey.data?.existingType == 'ExistingAgreement') {
-            this.disableNextButton = false;
-            this.togglePages(existingOrderAgreementPages, true);                
+            this.togglePages(existingOrderAgreementPages, true);            
+                
         } else if (this.survey.data?.existingType == "Neither") {
             this.togglePages(existingOrderAgreementPagesAll, false);
             this.disableNextButton = true;

@@ -244,7 +244,7 @@
                 </div>
 
 
-                <ordered-check-box :order="2" style="" :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
+                <ordered-check-box :order="2"  :check="false?'yes':''" text="<b>Participate in a needs assessment</b>"/>
                 <div style="margin-left:3rem;margin-bottom:0.5rem">
                     A needs assessment is a one-on-one meeting with a needs assessor who is a neutral person trained
                     to help people understand this process and other ways that are available to resolve their family law
@@ -252,14 +252,14 @@
                     supports, including legal advice, and help identify the next steps that are right for you.
                 </div>
                 
-                <ordered-check-box :order="3" style="" :check="false?'yes':''" 
+                <ordered-check-box :order="3"  :check="false?'yes':''" 
                 text="<b>Complete a parenting education course</b>, unless you are exempt for one of the reasons identified in Rule 17."/>
                 <div style="margin-left:3rem;margin-bottom:0.5rem">
                     Your needs assessor will provide you with more information on the parenting education course right
                     for you and how to complete it.
                 </div>
 
-                <ordered-check-box :order="4" style="" :check="false?'yes':''" 
+                <ordered-check-box :order="4"  :check="false?'yes':''" 
                 text="<b>Participate in consensual dispute resolution</b>, unless your needs assessor determines that it is not appropriate."/>
                 <div style="margin-left:3rem;margin-bottom:0.25rem">
                     Your needs assessor will provide you with more information on what consensual dispute resolution
@@ -374,14 +374,17 @@ export default class Form1Layout extends Vue {
         let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result.yourInformationSurvey){
 
-            const applicantInfo = this.result.yourInformationSurvey;            
+            const applicantInfo = this.result.yourInformationSurvey;  
+            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
+            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;
+                      
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
                 lawyer: applicantInfo.Lawyer == 'y',
                 lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((noLawyerAddressCondition)?applicantInfo.ApplicantAddress:''),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((noLawyerContactCondition)?applicantInfo.ApplicantContact:''),
 
                 lawyerFiling: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerFillingOut == 'y')?true:false,
                 lawyerStatement: (applicantInfo.Lawyer == 'y' && 

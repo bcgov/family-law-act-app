@@ -216,7 +216,8 @@ export default class PoQuestionnaire extends Vue {
 
         let progress = 0;
         if(this.steps[this.currentStep].pages[pagenumber-1].progress >0 && this.step.result?.[pagename]) progress = 50;
-            this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: pagenumber, progress:progress });
+
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage: pagenumber, progress:progress });
     }
 
     public resetProgress(pages){

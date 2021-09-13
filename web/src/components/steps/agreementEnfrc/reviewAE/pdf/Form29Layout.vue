@@ -367,13 +367,16 @@ export default class Form29Layout extends Vue {
         if(this.result?.yourInformationSurvey){
 
             const applicantInfo = this.result.yourInformationSurvey;            
+            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
+            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;
+            
             yourInformation = {
                 dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
                 name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
                 lawyer: applicantInfo.Lawyer == 'y',
                 lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
+                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((noLawyerAddressCondition)?applicantInfo.ApplicantAddress:''),
+                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((noLawyerContactCondition)?applicantInfo.ApplicantContact:''),
                 lawyerFiling: false,
                 lawyerStatement: {lawyerName: '', clientName: ''}
             }                     
@@ -446,15 +449,14 @@ export default class Form29Layout extends Vue {
             }
 
             if (enfrcQuest.includes('expenses') && this.result?.determineAnAmountOwingForExpensesSurvey?.amountOwingActionType){
-                form29Information.orderList.push('expenses');
-                //console.log(this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType)
+                form29Information.orderList.push('expenses');                
                 form29Information.expenseList = this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType;
             }
 
             if (enfrcQuest.includes('foreignSupport') || this.requiredDocuments?.agreementEnfrc?.required?.length>0){
                 form29Information.attachRequiredDocuments = true;
             }
-            // console.log(this.requiredDocuments?.agreementEnfrc?.required)
+            
             if (enfrcQuest.includes('foreignSupport')){
                 form29Information.orderList.push('foreignSupport');              
             }
@@ -475,10 +477,6 @@ export default class Form29Layout extends Vue {
             form29Information.facts = abtOrdrEnfrc.applicationFacts;            
             form29Information.orderdesc = abtOrdrEnfrc.orderDescription;
         } 
-       
-       
-            
-        
        
         return form29Information;
     }
