@@ -71,7 +71,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 ROOT_URLCONF = "core.urls"
 
-# CORS_URLS_REGEX = r"^/api/v1/.*$"
 CORS_URLS_REGEX = r"^.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -204,7 +203,6 @@ OIDC_ENABLED = False
 # Settings for django-oidc-rp
 OIDC_RP_PROVIDER_ENDPOINT = os.getenv(
     "OIDC_RP_PROVIDER_ENDPOINT",
-    # FIXME no default here
     "https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w",
 )
 

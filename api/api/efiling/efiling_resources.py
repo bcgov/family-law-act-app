@@ -6,6 +6,7 @@ from django.conf import settings
 
 from django.core.cache import cache
 from .efiling_hub_caller_base import EFilingHubCallerBase
+from api.efiling.exceptions import KeycloakTokenError
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,7 @@ class EFilingResources(EFilingHubCallerBase):
 
     def _get_api(self, url, headers):
         if not self.access_token and not self._get_token():
-            raise Exception("EFHResources - Unable to get API Token")
+            raise KeycloakTokenError("EFH - Unable to get API Token")
 
         for try_number in range(1):
             if try_number > 0:

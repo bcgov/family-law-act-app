@@ -3,6 +3,7 @@ import json
 import logging
 import requests
 from .efiling_hub_caller_base import EFilingHubCallerBase
+from api.efiling.exceptions import KeycloakTokenError
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,7 @@ class EFilingSubmission(EFilingHubCallerBase):
 
     def _get_api(self, url, bceid_guid, data, headers, transaction_id=None, files=None):
         if not self.access_token and not self._get_token():
-            raise Exception("EFH - Unable to get API Token")
+            raise KeycloakTokenError("EFH - Unable to get API Token")
 
         for try_number in range(1):
             if try_number > 0:
