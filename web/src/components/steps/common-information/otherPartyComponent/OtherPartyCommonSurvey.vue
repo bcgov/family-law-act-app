@@ -167,11 +167,7 @@ export default class OtherPartyCommonSurvey extends Vue {
         survey.setValue("isSeperatedOtherParty", editRowProp.isSeperatedOtherParty);
         survey.setValue("dateOfSeparation", editRowProp.dateOfSeparation);
         survey.setVariable("id", editRowProp.id);
-    }
-        
-    beforeDestroy() {
-      
-    }
+    } 
   
 };
 </script>

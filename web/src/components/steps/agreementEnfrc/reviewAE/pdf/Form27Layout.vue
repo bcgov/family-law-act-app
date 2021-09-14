@@ -251,6 +251,7 @@ import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInfo
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { enforceChangeSetAsideDeterminationSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
 
 @Component({
     components:{
@@ -307,27 +308,13 @@ export default class Form27Layout extends Vue {
         this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey; 
-            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
-            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;
-                       
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((noLawyerAddressCondition)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((noLawyerContactCondition)?applicantInfo.ApplicantContact:''),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){

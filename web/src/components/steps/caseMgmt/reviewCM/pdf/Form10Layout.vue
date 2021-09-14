@@ -268,6 +268,7 @@ import { nameInfoType, yourInformationDataInfoType, addressInfoType, contactInfo
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
 import { cmChildrenInfoSurveyDataInfoType, byConsentSurveyDataInfoType, otherPersonsSurveyDataInfoType, schedulingSurveyDataInfoType, aboutCaseManagementOrderSurveyDataInfoType, cmNoticeSurveyDataInfoType } from '@/types/Application/CaseManagement';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
 
 @Component({
     components:{
@@ -352,28 +353,13 @@ export default class Form10Layout extends Vue {
         return childrenInfo;
     }
 
-    public getYourInfo(){
-
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
+    public getYourInfo(){           
 
         if(this.result?.yourInformationSurvey){
-
-            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey; 
-            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
-            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;          
-            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB :'',
-                name: applicantInfo.ApplicantName? Vue.filter('getFullName')(applicantInfo.ApplicantName) :'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)? Vue.filter('getFullName')(applicantInfo.LawyerName) :'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)? applicantInfo.LawyerAddress : ((noLawyerAddressCondition)? applicantInfo.ApplicantAddress :{} as addressInfoType),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)? applicantInfo.LawyerContact : ((noLawyerContactCondition)? applicantInfo.ApplicantContact : {} as contactInfoType),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }        
-        }
-        return yourInformation;
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){

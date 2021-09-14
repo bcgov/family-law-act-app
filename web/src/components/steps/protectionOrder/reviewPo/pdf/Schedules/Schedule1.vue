@@ -454,6 +454,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateYourInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { contactInfoType, addressInfoType } from '@/types/Application/CommonInformation';
 import { schedule1ChildInfoType, schedule1AnotherAdultInfoType, schedule1OtherChildrenInfoType, schedule1SharingAdultInfoType, schedule1BackgroundInfoType, schedule1YourStoryInfoType, schedule1NoGoInfoType, schedule1NoContactInfoType, schedule1WeaponsFirearmsInfoType, schedule1RemovePersonInfoType } from '@/types/Application/ProtectionOrder/PDF';
@@ -527,29 +528,11 @@ export default class Schedule1 extends Vue {
 
     public getYourInfo(){
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
-
         if(this.result?.yourinformationPOSurvey){
-
-            const applicantInfo = this.result.yourinformationPOSurvey;
-            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
-            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;          
-            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName? applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((noLawyerAddressCondition)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((noLawyerContactCondition)?applicantInfo.ApplicantContact:''),
-
-                occupation: applicantInfo.ApplicantOccupation? applicantInfo.ApplicantOccupation : '',
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
+            return getYourInformationResults(this.result.yourinformationPOSurvey);
         }
-        
-        return yourInformation;
+        else
+            return {} as yourInformationInfoDataInfoType;
     }
 
     public getServiceInfo(){
