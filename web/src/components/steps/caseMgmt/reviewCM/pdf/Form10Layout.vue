@@ -264,7 +264,7 @@ const applicationState = namespace("Application");
 import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
 import CheckBox from "./Schedules/components/CheckBox.vue"
 import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
-import { nameInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
+import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
 import { cmChildrenInfoSurveyDataInfoType, byConsentSurveyDataInfoType, otherPersonsSurveyDataInfoType, schedulingSurveyDataInfoType, aboutCaseManagementOrderSurveyDataInfoType, cmNoticeSurveyDataInfoType } from '@/types/Application/CaseManagement';
