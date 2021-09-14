@@ -127,6 +127,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateYourInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';
 import { urgencyInfoType } from '@/types/Application/ProtectionOrder/PDF';
@@ -277,27 +278,11 @@ export default class CommonSection extends Vue {
     
     public getYourInfo(){
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
-
         if(this.result?.yourinformationPOSurvey){
-
-            const applicantInfo = this.result.yourinformationPOSurvey;
-            const noLawyerAddressCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress;
-            const noLawyerContactCondition = applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact;  
-            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName? applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((noLawyerAddressCondition)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((noLawyerContactCondition)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
+            return getYourInformationResults(this.result.yourinformationPOSurvey);
         }
-        return yourInformation;
+        else
+            return {} as yourInformationInfoDataInfoType;
     }
 
 }
