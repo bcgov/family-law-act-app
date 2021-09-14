@@ -101,10 +101,7 @@ Vue.filter('getFullContactInfo',function(nameObject){
 		return pre+"Phone: "+post+
 			(nameObject.phone? nameObject.phone:' - ') +
 			" "+pre+"Email: "+post+
-			(nameObject.email? nameObject.email:' - ');
-			//  +
-			// " "+pre+"Fax: "+post+
-			// (nameObject.fax? nameObject.fax:' - ');
+			(nameObject.email? nameObject.email:' - ');			
 	} else{
 		return " "
 	}
@@ -134,10 +131,8 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	let flagForm4 = false;
 
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-	for(const question of survey.currentPage.questions){
+	for(const question of survey.currentPage.questions){		
 		
-		//console.log(question)
-
 		if(question.isVisible && question.name?.startsWith("parentFileForm4Info")){		
 			flagForm4 = true
 		}
@@ -159,23 +154,6 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		//__specialities
 		else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
 			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
-		
-		// if(question.isVisible && question.questionValue!=true){			
-		// 	if(question.processedTitle == 'I understand'){
-		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.otherText, inputType:question.inputType})
-		// 	}
-		// 	else if(survey.data[question.name]){			
-		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
-		// 	} else if(question.isRequired ){				
-		// 		questionResults.push({name:question.name, value: "", title:question.processedTitle, inputType:question.inputType})
-				
-		// 	}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
-		// 		questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.processedTitle, inputType:question.inputType})
-		// 	}	
-		// }
-		// //__specialities
-		// else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
-		// 	questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
 		
 	}
 

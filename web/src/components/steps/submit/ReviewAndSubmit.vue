@@ -57,7 +57,7 @@
                     </div>
                     <input id="inputfile" type="file" multiple style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
                     <p class="text-center m-0 text-info">Drag and Drop the PDF documents or JPG/PNG images here,</p>
-                    <p class="text-center m-0 text-info" style=""> or click here to Browse for files</p>
+                    <p class="text-center m-0 text-info" > or click here to Browse for files</p>
                 </b-card>
 
                 <b-card border-variant="white" body-class="mb-0 pb-0">

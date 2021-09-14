@@ -49,8 +49,7 @@ export default class SafetyCheck extends Vue {
     }
 
     mounted(){
-        this.initializeSurvey();
-        this.addSurveyListener();
+        this.initializeSurvey();       
         this.reloadPageInformation();
     }
 
@@ -60,13 +59,7 @@ export default class SafetyCheck extends Vue {
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }    
-    
-    public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);            
-        })   
-    }
+    } 
 
     public reloadPageInformation() {
 

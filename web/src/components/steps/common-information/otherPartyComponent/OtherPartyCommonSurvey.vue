@@ -167,12 +167,7 @@ export default class OtherPartyCommonSurvey extends Vue {
         survey.setValue("isSeperatedOtherParty", editRowProp.isSeperatedOtherParty);
         survey.setValue("dateOfSeparation", editRowProp.dateOfSeparation);
         survey.setVariable("id", editRowProp.id);
-    }
-        
-    beforeDestroy() {
-       // const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-       // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-    }
+    } 
   
 };
 </script>

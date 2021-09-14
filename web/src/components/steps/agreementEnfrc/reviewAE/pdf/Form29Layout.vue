@@ -302,6 +302,7 @@ import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInfo
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { requiredDocumentsInfoType } from '@/types/Common';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
 
 @Component({
     components:{
@@ -361,24 +362,13 @@ export default class Form29Layout extends Vue {
         this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }   
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result?.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){
@@ -446,15 +436,14 @@ export default class Form29Layout extends Vue {
             }
 
             if (enfrcQuest.includes('expenses') && this.result?.determineAnAmountOwingForExpensesSurvey?.amountOwingActionType){
-                form29Information.orderList.push('expenses');
-                //console.log(this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType)
+                form29Information.orderList.push('expenses');                
                 form29Information.expenseList = this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType;
             }
 
             if (enfrcQuest.includes('foreignSupport') || this.requiredDocuments?.agreementEnfrc?.required?.length>0){
                 form29Information.attachRequiredDocuments = true;
             }
-            // console.log(this.requiredDocuments?.agreementEnfrc?.required)
+            
             if (enfrcQuest.includes('foreignSupport')){
                 form29Information.orderList.push('foreignSupport');              
             }
@@ -475,10 +464,6 @@ export default class Form29Layout extends Vue {
             form29Information.facts = abtOrdrEnfrc.applicationFacts;            
             form29Information.orderdesc = abtOrdrEnfrc.orderDescription;
         } 
-       
-       
-            
-        
        
         return form29Information;
     }
