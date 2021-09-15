@@ -28,10 +28,9 @@ import Schedule3 from "./Schedules/Schedule3.vue"
 import Schedule4 from "./Schedules/Schedule4.vue"
 import Schedule5 from "./Schedules/Schedule5.vue"
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 import moment from 'moment';
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{

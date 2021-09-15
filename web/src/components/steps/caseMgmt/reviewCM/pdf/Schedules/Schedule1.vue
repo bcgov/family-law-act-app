@@ -45,7 +45,7 @@
                 <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="scheduleInfo.attendanceType == 'byTelephone'?'yes':''" text="telephone at "/>
                 <underline-form style="text-indent:5px;display:inline-block;" textwidth="19.5rem" beforetext="" hint="phone number" :text="scheduleInfo.phoneNumber"/>
   
-                 <div style=" margin:0.25rem 0 0.5rem 1.75rem;;">
+                 <div style=" margin:0.25rem 0 0.5rem 1.75rem;">
                     Is this a direct phone line? 
                     <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="scheduleInfo.attendanceType == 'byTelephone' && scheduleInfo.directLine?'yes':''"  text="Yes"/>                        
                     <check-box class="marginleft1vue" inline="inline" boxMargin="0" style="display:inline;" shift="-5" marginLeft="0.75rem" :check="scheduleInfo.attendanceType == 'byTelephone' && !scheduleInfo.directLine?'yes':''" text="No"/> 

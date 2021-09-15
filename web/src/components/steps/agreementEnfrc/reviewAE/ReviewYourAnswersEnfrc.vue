@@ -9,7 +9,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 import {whichAgreementEnfrcForm} from './RequiredFormEnfrc'
 
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
 
 import ReviewYourAnswersPage from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersPage.vue"

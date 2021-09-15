@@ -181,6 +181,6 @@ export default class FamilyLawStep extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-};
+}
 
 </script>
