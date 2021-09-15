@@ -42,7 +42,6 @@ import surveyJson from "./forms/special-and-extraordinary-expenses.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";

@@ -98,14 +98,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { namespace } from "vuex-class";   
+import { Component, Prop, Vue } from 'vue-property-decorator';  
 import "@/store/modules/application";
-const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 import { schedule3DataInfoType } from '@/types/Application/CaseManagement/PDF';
 
 @Component({

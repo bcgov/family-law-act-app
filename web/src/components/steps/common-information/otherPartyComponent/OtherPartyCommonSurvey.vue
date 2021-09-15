@@ -15,14 +15,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { otherPartyInfoType, addressInfoType, contactInfoType} from "@/types/Application/CommonInformation";
+import { otherPartyInfoType, addressInfoType, contactInfoType, nameInfoType} from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 const applicationState = namespace("Application");
 
 @Component

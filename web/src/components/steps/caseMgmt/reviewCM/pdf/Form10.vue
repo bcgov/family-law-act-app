@@ -12,17 +12,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
-
 import Form10Layout from "./Form10Layout.vue";
-
 import moment from 'moment';
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{

@@ -54,7 +54,6 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 import * as _ from 'underscore';
 
 import { namespace } from "vuex-class";

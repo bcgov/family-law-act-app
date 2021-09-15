@@ -36,7 +36,7 @@ export default class PageBase extends Vue {
     disableNext!: boolean;
 
     @Prop({required: false})
-    disableNextText!: String;
+    disableNextText!: string;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
