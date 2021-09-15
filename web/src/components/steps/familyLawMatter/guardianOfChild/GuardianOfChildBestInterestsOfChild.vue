@@ -23,7 +23,7 @@ const applicationState = namespace("Application");
         PageBase
     }
 })
-export default class GuardianOfChildBestInterestOfChild extends Vue {
+export default class GuardianOfChildBestInterestsOfChild extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;

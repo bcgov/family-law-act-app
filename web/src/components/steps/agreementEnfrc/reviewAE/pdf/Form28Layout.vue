@@ -200,7 +200,7 @@
         <!-- <For registery> -->
         <div class="print-block" style="margin-top: 1.25rem;">
             <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support Services staff only</i></div>
-            <div style="margin-left:0.85rem; width:96%; ;font-size: 9pt; border:1px solid;">
+            <div style="margin-left:0.85rem; width:96%; font-size: 9pt; border:1px solid;">
 
                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="false?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
                 <div></div>   
@@ -235,7 +235,6 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import CheckBoxII from "./components/CheckBoxII.vue";
 import OrderedCheckBox from "./components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
@@ -245,8 +244,7 @@ import { getYourInformationResults } from '@/components/utils/PopulateForms/Popu
 @Component({
     components:{
         UnderlineForm,
-        CheckBox, 
-        CheckBoxII,
+        CheckBox,
         OrderedCheckBox        
     }
 })

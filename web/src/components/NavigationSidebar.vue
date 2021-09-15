@@ -71,7 +71,7 @@ const applicationState = namespace("Application");
 export default class NavigationSidebar extends Vue {
     
     @applicationState.State
-    public currentStep!: Number;
+    public currentStep!: number;
     
     @applicationState.State
     public allCompleted!: boolean

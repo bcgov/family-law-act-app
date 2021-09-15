@@ -18,7 +18,6 @@ import Form16Layout from "./Form16Layout.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{        
