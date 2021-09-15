@@ -333,7 +333,7 @@ export default class OtherPartyCommon extends Vue {
             respondentName.push(...respondentCommon)
         }
         
-        //console.log(respondentName)
+        
         const fullNamesArray =[];
         for(const name of respondentName ){
             fullNamesArray.push(Vue.filter('getFullName')(name))
@@ -343,7 +343,7 @@ export default class OtherPartyCommon extends Vue {
             const fullName = Vue.filter('getFullName')(item)
             return fullNamesArray.indexOf(fullName) == index;
         })
-        //console.log(uniqueArray);
+        
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
 
@@ -354,7 +354,7 @@ export default class OtherPartyCommon extends Vue {
             {
                 questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
-        //console.log(questionResults)
+        
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
@@ -368,7 +368,7 @@ export default class OtherPartyCommon extends Vue {
         return resultString
     }
 
-};
+}
 </script>
 
 <style scoped lang="scss">

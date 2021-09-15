@@ -60,10 +60,9 @@ export default class FlappSurveys extends Vue {
         return this.$store.state.Application.currentStep;
     }
 
-    public getStep(stepIndex) {
-        const step = this.$store.state.Application.steps[stepIndex];
-        return step;
+    public getStep(stepIndex) {        
+        return this.$store.state.Application.steps[stepIndex];
     }
 
-};
+}
 </script>

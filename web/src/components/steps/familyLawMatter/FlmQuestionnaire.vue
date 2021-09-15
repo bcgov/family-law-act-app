@@ -307,7 +307,7 @@ export default class FlmQuestionnaire extends Vue {
         const questions = [{name:'FlmQuestionnaire',title:'I need help with the following family law matter:',value:this.getSelectedFormsNames()}]        
         this.UpdateStepResultData({step:this.step, data: {flmQuestionnaireSurvey: {data: this.selectedForm, questions: questions, pageName:"Family Law Matter Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
-};
+}
 </script>
 
 <style lang="scss">

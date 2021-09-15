@@ -63,5 +63,5 @@ export default {
     };
     this.updateContent();
   }
-};
+}
 </script>

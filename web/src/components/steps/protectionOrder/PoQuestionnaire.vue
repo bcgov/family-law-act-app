@@ -279,6 +279,6 @@ export default class PoQuestionnaire extends Vue {
         
         this.UpdateStepResultData({step:this.step, data: {poQuestionnaireSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage, {pageName:" Protection Order Questionnaire"})}})
     }
-};
+}
 </script>
 

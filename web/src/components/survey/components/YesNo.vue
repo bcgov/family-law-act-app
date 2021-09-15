@@ -60,5 +60,5 @@ export default {
       this.value = q.value;
     };
   }
-};
+}
 </script>

@@ -179,7 +179,9 @@ export default class Schedule6 extends Vue {
             const contactChoices = this.result.aboutContactWithChildOrderSurvey.contactTypeChoices?this.result.aboutContactWithChildOrderSurvey.contactTypeChoices:[];
             const changeOrReplaceCondition = ((this.result.contactWithChildOrderSurvey?.existingType =='ExistingOrder'     && this.result.contactWithChildOrderSurvey?.orderDifferenceType == 'changeOrder') ||
                                              ( this.result.contactWithChildOrderSurvey?.existingType =='ExistingAgreement' && this.result.contactWithChildOrderSurvey?.agreementDifferenceType == 'replacedAgreement'));
-               
+            const inPersonCondition = (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'';                                
+            const otherContactCommentCondition = (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'';   
+            const placeConditionsStatement = (this.result.aboutContactWithChildOrderSurvey?.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'';
             existingChildContactInfo.abt = {
                 conChList: this.result.aboutContactWithChildOrderSurvey.childrenRequireContactChoices,
                 conType: changeOrReplaceCondition?
@@ -198,9 +200,9 @@ export default class Schedule6 extends Vue {
                     written:false,
                     other: false
                 },
-                inPrsn: changeOrReplaceCondition? (contactChoices.includes('In person'))? this.result.aboutContactWithChildOrderSurvey.inPersonDetails:'':'',
-                otherComm: changeOrReplaceCondition? (contactChoices.includes('other'))? this.result.aboutContactWithChildOrderSurvey.contactTypeChoicesComment:'':'',
-                cond: changeOrReplaceCondition? (this.result.aboutContactWithChildOrderSurvey?.placeConditions == 'y')? this.result.aboutContactWithChildOrderSurvey.conditionsDescription:'':''
+                inPrsn: changeOrReplaceCondition? inPersonCondition:'',
+                otherComm: changeOrReplaceCondition? otherContactCommentCondition:'',
+                cond: changeOrReplaceCondition? placeConditionsStatement:''
             }
         }
 

@@ -43,5 +43,5 @@ export default class ChildRelocationStep extends Vue {
   public stPgNo!: stepsAndPagesNumberInfoType;
 
   
-};
+}
 </script>

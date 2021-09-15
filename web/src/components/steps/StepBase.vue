@@ -20,5 +20,5 @@ import PageBase from "./PageBase.vue";
 
 export default class StepBase extends Vue {
     
-};
+}
 </script>

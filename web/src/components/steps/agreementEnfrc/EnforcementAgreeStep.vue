@@ -60,7 +60,7 @@ export default class EnforcementAgreeStep extends Vue {
   @applicationState.State
   public stPgNo!: stepsAndPagesNumberInfoType;
 
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

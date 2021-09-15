@@ -182,5 +182,5 @@ export default class MultipleCommentCheckbox extends Vue {
             "isRequired": true
         },
     */
-};
+}
 </script>

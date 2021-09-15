@@ -81,5 +81,5 @@ export default class ProtectionOrder extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
     
-};
+}
 </script>

@@ -461,7 +461,7 @@ export default class ApplicationStatus extends Vue {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
-};
+}
 </script>
 
 <style scoped lang="scss">

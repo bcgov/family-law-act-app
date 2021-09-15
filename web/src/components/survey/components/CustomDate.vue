@@ -147,5 +147,5 @@ export default {
       this.value = pending;
     };
   }
-};
+}
 </script>

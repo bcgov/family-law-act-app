@@ -179,5 +179,5 @@ export default class About extends Vue {
             this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.COMMON._StepNo, this.stPgNo.COMMON.FilingLocation)}});
         }
     }
-};
+}
 </script>

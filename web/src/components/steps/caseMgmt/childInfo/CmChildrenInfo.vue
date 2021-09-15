@@ -243,7 +243,7 @@ export default class CmChildrenInfo extends Vue {
         
         return resultString
     }
-};
+}
 </script>
 
 <style scoped lang="scss">

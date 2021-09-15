@@ -101,5 +101,5 @@ export default class ParentingArrangementChanges extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {parentingArrangementChangesSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>
