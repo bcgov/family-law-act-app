@@ -39,7 +39,7 @@
 import { Component, Vue} from 'vue-property-decorator';
 
 @Component
-export default class terms extends Vue {
+export default class TermsConditions extends Vue {
   
 }
 </script>
