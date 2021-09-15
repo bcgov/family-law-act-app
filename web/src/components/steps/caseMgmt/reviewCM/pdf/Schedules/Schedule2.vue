@@ -227,6 +227,7 @@ export default class Schedule2 extends Vue {
         
         if(this.result?.changingOrCancellingAServiceOrNoticeSurvey){
             const chgSurvey = this.result.changingOrCancellingAServiceOrNoticeSurvey;
+            const namesOfNeedToBeServedCondition = chgSurvey.namesOfNeedToBeServed? chgSurvey.namesOfNeedToBeServed?.split(/[;,]+/).map(item => {return item.trim();}):[]
 
             waiveModifyRequirementsInfo.isWaiveOrModify =  (chgSurvey.changeOrCancelRequirementForService =='y');
             waiveModifyRequirementsInfo.isAltMethodService = (chgSurvey.anotherMethodOfService == 'y');
@@ -236,7 +237,7 @@ export default class Schedule2 extends Vue {
             waiveModifyRequirementsInfo.waiveChangeRequirementComment = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.documentListComment:'';
             waiveModifyRequirementsInfo.applicationFacts = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.applicationFacts:'';
 
-            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.namesOfNeedToBeServed? chgSurvey.namesOfNeedToBeServed?.split(/[;,]+/).map(item => {return item.trim();}):[]:[];
+            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService?namesOfNeedToBeServedCondition:[];
             waiveModifyRequirementsInfo.altMethodApplicationFacts = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.applicationFactsAltMethod:'';
             waiveModifyRequirementsInfo.altMethodServingDetails = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.altMethodServingDetails:''
             
