@@ -70,7 +70,7 @@ export default {
     };
     this.updateContent();
   }
-};
+}
 </script>
 
 <style type="css" scoped>

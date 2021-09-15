@@ -121,5 +121,5 @@ export default class ChildrenSurvey extends Vue {
         const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
     }
-};
+}
 </script>

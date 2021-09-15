@@ -6,8 +6,7 @@
         <div  class="form-one-header">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:11pt;"><b>Notice to Resolve a Family Law Matter</b></div>
-                <!-- <div style="font-size:11pt;"><b>a Family Law Matter</b></div> -->
+                <div style="font-size:11pt;"><b>Notice to Resolve a Family Law Matter</b></div>               
                 <div style="font-size:9pt;"><b>FORM 1</b></div>
                 <div style="font-size:8pt;">Provincial Court Family Rules</div>
                 <div style="font-size:8pt;">Rule 10</div>

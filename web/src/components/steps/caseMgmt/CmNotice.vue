@@ -100,5 +100,5 @@ export default class CmNotice extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
         this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

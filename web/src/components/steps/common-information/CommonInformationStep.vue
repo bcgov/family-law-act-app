@@ -43,5 +43,5 @@ export default class CommonInformationStep extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-};
+}
 </script>

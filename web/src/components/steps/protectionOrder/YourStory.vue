@@ -101,5 +101,5 @@ export default class YourStory extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {yourStorySurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

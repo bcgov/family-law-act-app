@@ -33,5 +33,5 @@ export default class TextBeforeInputNumber extends Vue {
         this.inputWidth = this.question.inputWidth;
         this.textClass = this.question.textClass;
     }
-};
+}
 </script>

@@ -264,5 +264,5 @@ export default class CustomDateTime extends Vue {
 
    
   
-};
+}
 </script>

@@ -1,18 +1,5 @@
 <template>
-    <div>
-    <!-- <b-form-group>
-        <b-form-checkbox-group
-            v-model="types"
-            @change="needConfirmation"
-        >
-            <b-form-checkbox value="Protection Order">PO</b-form-checkbox>
-            <b-form-checkbox value="Family Law Matter">FLM</b-form-checkbox>
-            <b-form-checkbox value="Case Management">CM</b-form-checkbox>
-            <b-form-checkbox value="Priority Parenting Matter">PPM</b-form-checkbox>
-            <b-form-checkbox value="Relocation of a Child">RELOC</b-form-checkbox>
-            <b-form-checkbox value="Enforcement">ENFRC</b-form-checkbox>
-        </b-form-checkbox-group>
-    </b-form-group> -->
+    <div>    
     
         <div class="m-3">
 

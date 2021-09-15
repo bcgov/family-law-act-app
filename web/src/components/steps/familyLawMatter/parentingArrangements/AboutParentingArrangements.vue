@@ -154,5 +154,5 @@ export default class AboutParentingArrangements extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {aboutParentingArrangementsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

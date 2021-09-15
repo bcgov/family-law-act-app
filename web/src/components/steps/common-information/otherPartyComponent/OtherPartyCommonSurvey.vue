@@ -99,8 +99,7 @@ export default class OtherPartyCommonSurvey extends Vue {
             progress = this.survey.isCurrentPageHasErrors? 50 : 100;
         
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;     
     }
  
     public goBack() {
@@ -169,5 +168,5 @@ export default class OtherPartyCommonSurvey extends Vue {
         survey.setVariable("id", editRowProp.id);
     } 
   
-};
+}
 </script>

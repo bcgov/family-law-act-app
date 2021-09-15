@@ -164,5 +164,5 @@ export default class OtherPartySurvey extends Vue {
         this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
     }
   
-};
+}
 </script>

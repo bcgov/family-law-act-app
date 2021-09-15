@@ -186,5 +186,5 @@ export default class AdvancedRadioGroup extends Vue {
               "isRequired": true
             },
             */     
-};
+}
 </script>

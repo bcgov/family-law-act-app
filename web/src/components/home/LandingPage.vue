@@ -186,7 +186,7 @@ export default class LandingPage extends Vue {
         this.$router.push({ name: "applicant-status" });       
     }
   
-};
+}
 </script>
 
 <style scoped lang="scss">

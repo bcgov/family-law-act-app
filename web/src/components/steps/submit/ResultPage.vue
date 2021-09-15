@@ -165,5 +165,5 @@ export default class ResultPage extends Vue {
         });    
     }
 
-};
+}
 </script>

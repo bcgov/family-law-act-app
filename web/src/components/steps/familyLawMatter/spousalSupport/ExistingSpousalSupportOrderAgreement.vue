@@ -80,7 +80,7 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
        
             this.setPages()
             
-            if (options.name = 'fillOutForm'){            
+            if (options.name == 'fillOutForm'){            
                 if (options.value == 'completeNow'){
                     window.open('https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178')
                 }

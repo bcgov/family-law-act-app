@@ -87,5 +87,5 @@ export default class SafetyCheck extends Vue {
         
         this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

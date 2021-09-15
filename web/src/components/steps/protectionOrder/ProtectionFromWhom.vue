@@ -229,5 +229,5 @@ export default class ProtectionFromWhom extends Vue {
         this.UpdateStepResultData({step:this.step, data: {protectionFromWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
-};
+}
 </script>

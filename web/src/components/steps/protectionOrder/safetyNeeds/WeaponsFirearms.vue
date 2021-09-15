@@ -102,5 +102,5 @@ export default class WeaponsFirearms extends Vue {
        
         this.UpdateStepResultData({step:this.step, data: {weaponsFirearmsSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>
