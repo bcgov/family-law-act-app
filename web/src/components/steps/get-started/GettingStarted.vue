@@ -349,7 +349,7 @@ export default class GettingStarted extends Vue {
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
         this.UpdateStepResultData({step:this.step, data: {selectedForms: this.selected}})
     }
-};
+}
 </script>
 
 <style lang="scss">

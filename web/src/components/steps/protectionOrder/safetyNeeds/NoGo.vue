@@ -101,5 +101,5 @@ export default class NoGo extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {noGoSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

@@ -426,7 +426,7 @@ export default class EnfrcQuestionnaire extends Vue {
         const questions = [{name:'EnfrcQuestionnaire',title:'I want to apply for the following Enforcement options:',value:this.getselectedEnforcementQuestionnaireNames()}]        
         this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: this.selectedEnforcementQuestionnaire, questions: questions, pageName:"Enforcement Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

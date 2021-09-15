@@ -279,7 +279,7 @@ export default class CmQuestionnaire extends Vue {
         const questions = [{name:'CmQuestionnaire',title:'What are you asking for (orders)?',value:this.getSelectedCaseManagementItems()}]        
         this.UpdateStepResultData({step:this.step, data: {cmQuestionnaireSurvey: {data: this.selectedCaseManagement, questions: questions, pageName:"Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

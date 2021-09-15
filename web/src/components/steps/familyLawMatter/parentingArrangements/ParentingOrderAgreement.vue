@@ -134,5 +134,5 @@ export default class ParentingOrderAgreement extends Vue {
     beforeDestroy() {
         this.UpdateStepResultData({step:this.step, data: {parentingOrderAgreementSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

@@ -106,9 +106,8 @@ export default class NavigationSidebar extends Vue {
         Vue.nextTick().then(()=>{this.saveChanges();});
     }
 
-    public getNavigation() {
-        const steps = this.$store.state.Application.steps;
-        return steps;
+    public getNavigation() {       
+        return this.$store.state.Application.steps;
     }
 
     public getStepDisplayNumber(stepIndex) {
@@ -180,7 +179,7 @@ export default class NavigationSidebar extends Vue {
         return this.$store.state.Application.steps[stepIndex].pages[pageIndex].progress
     }
 
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

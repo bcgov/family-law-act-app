@@ -2,7 +2,7 @@
     <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <div class="home-content">
             <div class="row">
-                <div class="col-md-12"> <!-- v-if="showTable" -->
+                <div class="col-md-12">
                     <h1>Children Details</h1>
                    
                     <p>Add each child who is the subject of your application. 
@@ -207,7 +207,7 @@ export default class RelocChildrenInfo extends Vue {
        
         return resultString
     }
-};
+}
 </script>
 
 <style scoped lang="scss">

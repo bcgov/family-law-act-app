@@ -128,5 +128,5 @@ export default class ContactInfo extends Vue {
             this.pendingValue['fax'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
         }
     }
-};
+}
 </script>

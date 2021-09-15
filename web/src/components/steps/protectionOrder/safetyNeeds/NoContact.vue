@@ -102,5 +102,5 @@ export default class NoContact extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {noContactSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

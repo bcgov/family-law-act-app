@@ -102,5 +102,5 @@ export default class RemovePerson extends Vue {
 
         this.UpdateStepResultData({step:this.step, data: {removePersonSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

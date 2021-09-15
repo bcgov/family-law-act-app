@@ -228,7 +228,7 @@ export default class OtherParty extends Vue {
         return resultString
     }
 
-};
+}
 </script>
 
 <style scoped lang="scss">

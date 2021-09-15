@@ -260,14 +260,8 @@ export default class CommonSection extends Vue {
                 } else {
                     this.existingFileNumber = '';
                 }
-            } else if (orderType == 'changePO'){
+            } else if (orderType == 'changePO' || orderType == 'terminatePO'){
                 if(result.aboutSurvey?.ExistingFileNumber){
-                    this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
-                } else {
-                    this.existingFileNumber = '';
-                }
-            } else if (orderType == 'terminatePO'){
-                if (result.aboutSurvey?.ExistingFileNumber){
                     this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
                 } else {
                     this.existingFileNumber = '';

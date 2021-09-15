@@ -34,5 +34,5 @@ export default class GetStarted extends Vue {
 
     forms = []
     selectedForms = []
-};
+}
 </script>
