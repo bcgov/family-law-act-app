@@ -464,8 +464,8 @@ Vue.filter('surveyChanged', function(type: string) {
 	
 	const steps = store.state.Application.steps
 
-	function getStepDetails(type){	
-	
+	function getStepDetails(typeName){	
+		
 		const stepPO = store.state.Application.stPgNo.PO;
 		const stepFLM = store.state.Application.stPgNo.FLM;
 		const stepPPM = store.state.Application.stPgNo.PPM;
@@ -477,32 +477,32 @@ Vue.filter('surveyChanged', function(type: string) {
 		let reviewPage = stepPO.ReviewYourAnswers; 
 		let previewPages = [];
 		
-		if(type == 'protectionOrder'){
+		if(typeName == 'protectionOrder'){
 			step = stepPO._StepNo; 
 			reviewPage = stepPO.ReviewYourAnswers; 
 			previewPages = [stepPO.PreviewForms];
 		}
-		else if(type == 'familyLawMatter'){
+		else if(typeName == 'familyLawMatter'){
 			step = stepFLM._StepNo; 
 			reviewPage = stepFLM.ReviewYourAnswersFLM; 
 			previewPages = [stepFLM.PreviewFormsFLM];	
 		}
-		else if(type == 'priorityParenting'){
+		else if(typeName == 'priorityParenting'){
 			step = stepPPM._StepNo; 
 			reviewPage = stepPPM.ReviewYourAnswersPPM; 
 			previewPages = [stepPPM.PreviewFormsPPM];	
 		}
-		else if(type == 'childReloc'){
+		else if(typeName == 'childReloc'){
 			step = stepRELOC._StepNo; 
 			reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
 			previewPages = [stepRELOC.PreviewFormsRELOC];	
 		}
-		else if(type == 'caseMgmt'){
+		else if(typeName == 'caseMgmt'){
 			step = stepCM._StepNo; 
 			reviewPage = stepCM.ReviewYourAnswersCM; 
 			previewPages = [stepCM.PreviewForm10CM, stepCM.PreviewForm11CM];
 		}
-		else if(type == 'agreementEnfrc'){
+		else if(typeName == 'agreementEnfrc'){
 			step = stepENFRC._StepNo; 
 			reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
 			previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
@@ -528,7 +528,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc'] // [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo,                stepCM._StepNo,                    stepENFRC];
+	const noPOstepsTypes = ['familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
 	
 	if(type == 'allExPO'){
         

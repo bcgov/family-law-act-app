@@ -42,7 +42,7 @@
             open = function(evt) { tip.show(); skip(evt); }.bind(this),
             close = function() { tip.hide(); return false; };
         target.addEventListener('click', open);
-        //target.addEventListener('mouseout', close);
+       
       },
       addEvents: function() {
         document.addEventListener('mousedown', function(evt) {

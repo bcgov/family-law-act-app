@@ -151,16 +151,16 @@ export default class AdvancedRadioGroup extends Vue {
         const fields = []
         const generalId = this.question.inputId;
         for(let j=0; j<this.numberOfRows; j++){
-            const fieldRow = [];
+            const fieldRows = [];
             const inputname = this.inputNames[j]
             for(let i=0; i<inputname.length;i++){
-                fieldRow.push(
+                fieldRows.push(
                 {
                     name: inputname[i],
                     id: generalId +"-"+inputname[i].toLowerCase() ,                
                 })            
             }
-            fields.push(fieldRow)
+            fields.push(fieldRows)
         } 
         const fieldRow = [{name:'selected', id:generalId +'-selected'}];
         if(this.hasOther) fieldRow.push({name:'otherComment', id:generalId +'-other-comment'})

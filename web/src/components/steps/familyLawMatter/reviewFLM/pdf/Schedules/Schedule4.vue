@@ -304,9 +304,10 @@ export default class Schedule4 extends Vue {
             const aboutChildSupportChanges = this.result.aboutChildSupportChangesSurvey;
             const changeCondition =  (existingChildSupportInfo?.abtEx?.['replaceAgrmnt'] || existingChildSupportInfo?.abtEx?.['changeOrdr'])
             const orgSituationList = (changeCondition && aboutChildSupportChanges.listOfSituations)? aboutChildSupportChanges.listOfSituations:[]
+            const orderStartCondition = aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment;
             existingChildSupportInfo.abtOrg = {                
                 newOrderDesc: changeCondition ?  aboutChildSupportChanges.orderDescription:'',
-                startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)? (aboutChildSupportChanges.orderStartingDate.selected == 'startingDate'?aboutChildSupportChanges.orderStartingDate.startingDate:aboutChildSupportChanges.orderStartingDate.otherComment):'',
+                startDate:   (changeCondition && aboutChildSupportChanges.orderStartingDate)? orderStartCondition:'',
                 startReason: (changeCondition && aboutChildSupportChanges.orderStartDateReason)? aboutChildSupportChanges.orderStartDateReason:'',
                 situationList: orgSituationList,                    
                 situation: {
