@@ -25,7 +25,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
         PageBase
     }
 })
-export default class AboutExistingSpousalSupportFinalOrder extends Vue {
+export default class ExistingSpousalSupportFinalOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType; 

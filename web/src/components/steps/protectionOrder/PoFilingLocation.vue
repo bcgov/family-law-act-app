@@ -13,7 +13,6 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";
 
@@ -24,7 +23,7 @@ import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{

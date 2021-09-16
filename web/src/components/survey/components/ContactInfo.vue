@@ -79,7 +79,7 @@ export default class ContactInfo extends Vue {
   
     public makeFields() {
         const q = this.question;
-        const fields = [
+        return [
             {
                 name: "phone",
                 label: q.labelPhone || "Phone",
@@ -99,7 +99,7 @@ export default class ContactInfo extends Vue {
             //     desc: q.descFax
             // }            
         ];
-        return fields;
+        
     }
 
     public updateValue() {

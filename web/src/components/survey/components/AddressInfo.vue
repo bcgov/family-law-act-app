@@ -254,14 +254,13 @@ export default class AddressInfo extends Vue {
 
     public loadValue(val) {
         val = val || {};
-        const pending = {
+        return {
             street: val.street || "",
             city: val.city || "",
             state: val.state || "BC",
             country: val.country || "CAN",
             postcode: val.postcode || ""
-        };
-        return pending;
+        };       
     }
 
     public copySelected() {       
