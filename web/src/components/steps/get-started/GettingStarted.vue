@@ -317,11 +317,11 @@ export default class GettingStarted extends Vue {
     }
 
     public togglePages(step, pages, activeIndicator) {
-        for(let i=0; i<pages.length; i++) {
+        for(const inx in pages) {
             
             this.$store.commit("Application/setPageActive", {
                 currentStep: step,
-                currentPage: pages[i],
+                currentPage: pages[inx],
                 active: (activeIndicator)
             });
         }

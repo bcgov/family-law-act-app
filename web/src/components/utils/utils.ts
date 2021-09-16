@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from "axios";
+import Axios from "axios";
 import Vue from "vue";
 
 export const SessionManager = {

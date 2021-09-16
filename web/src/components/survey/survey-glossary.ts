@@ -31,7 +31,7 @@ export function setGlossaryMarkdown(survey) {
     if (m) {
       str = m[1];
     }
-    // // convert <code> into glossary tags: TODO
+    
     str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
       if (hasTerm(m1)) {
         // note: m1 is already html format
@@ -45,10 +45,7 @@ export function setGlossaryMarkdown(survey) {
     });
     options.html = str;
   });
-
-  survey.onAfterRenderQuestion.add((sender, options) => {
-    // registerTargets(options.htmlElement);
-  });
+   
 }
 
 function getTerm(term, formatted?) {
@@ -108,7 +105,7 @@ function registerTargets(container?: HTMLElement) {
 function doRegisterTargets(container?: HTMLElement) {
   if (!container) container = document.body;
   let targets = container.querySelectorAll('[data-glossary]');
-  for (let idx = 0; idx < targets.length; idx++) {
+  for (const idx in targets) {
     let elt = targets[idx];
     let reg = elt.getAttribute('data-glossary-reg');
     if (!reg) {
