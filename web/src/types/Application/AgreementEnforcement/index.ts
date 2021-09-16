@@ -1,4 +1,4 @@
-import { nameInfoType, questionInfoType } from "../CommonInformation"; 
+import { questionInfoType } from "../CommonInformation"; 
   
 export interface enfrcQuestionnaireSurveySurveyInfoType {
     data: string[];
