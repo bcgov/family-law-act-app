@@ -236,7 +236,7 @@ export default class ApplicationStatus extends Vue {
 
     public loadApplications () {
     //TODO: when extending to use throughout the province, the timezone should be changed accordingly
-    //TODO: read in the data required to navigate to the eFilingHub package page
+    
         this.$http.get('/app-list/')
         .then((response) => {
             
