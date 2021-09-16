@@ -57,10 +57,10 @@ function togglePages(pageArr, activeIndicator) {
 
     const stPgNo: stepsAndPagesNumberInfoType = store.state.Application.stPgNo;
     
-    for (let i = 0; i < pageArr.length; i++) { 
+    for (const inx in pageArr) { 
         store.commit("Application/setPageActive", {
             currentStep: stPgNo.CM._StepNo,
-            currentPage: pageArr[i],
+            currentPage: pageArr[inx],
             active: activeIndicator
         });
     }

@@ -91,11 +91,7 @@ export default class OtherPartyCommonSurvey extends Vue {
             this.survey.setVariable("csOnly", true);
         } else {
             this.survey.setVariable("csOnly", false);
-        }
-
-        let progress = 50;
-        if(Object.keys(this.survey.data)?.length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        }        
         
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;     

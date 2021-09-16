@@ -176,8 +176,8 @@ import "@/store/modules/application";
 import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
-import {restoreCommonStep} from './restoreCommonStep'
-import {migrateStore} from './migrateStore'
+import {RestoreCommonStep} from './RestoreCommonStep'
+import {MigrateStore} from './MigrateStore'
 
 
 @Component
@@ -315,10 +315,10 @@ export default class ApplicationStatus extends Vue {
             const applicationData = response.data   
             const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
-            const storeMigrationFn = new migrateStore()           
+            const storeMigrationFn = new MigrateStore()           
             this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
 
-            const comStepFn = new restoreCommonStep()
+            const comStepFn = new RestoreCommonStep()
             comStepFn.restore(this.currentApplication)
            
             this.checkAllCompleted();

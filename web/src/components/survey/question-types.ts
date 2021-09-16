@@ -519,7 +519,7 @@ function isChild(params: any) {
 }
 
 export function addQuestionTypes(Survey: any) {
-  // fixCheckboxes(Survey);
+  
   initYesNo(Survey);
   initInfoText(Survey);  
   initHelpText(Survey);
