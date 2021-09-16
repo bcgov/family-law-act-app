@@ -1,9 +1,8 @@
-import Vue from "vue";
 import store from '@/store/index'
 import {applicationInfoType, stepInfoType, pageInfoType, resultInfoType, pathwayCompletedInfoType} from "@/types/Application"
 import { stepsAndPagesNumberInfoType } from "@/types/Application/StepsAndPages";
 
-export class migrateStore{
+export class MigrateStore{
  
     currentApplication = {} as applicationInfoType;
 

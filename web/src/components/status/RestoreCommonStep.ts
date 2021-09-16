@@ -1,6 +1,6 @@
 import store from '@/store/index'
 
-export class restoreCommonStep{
+export class RestoreCommonStep{
 
     public restore(currentApplication){
 

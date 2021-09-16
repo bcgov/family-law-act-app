@@ -366,36 +366,35 @@ $step-header-hover-color: #efefef;
     }
     &.current {
         .step-header {
-        background: $gov-gold;
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        width: 100%;
-        padding: 1em 1em;
-        .header-icon {
-            border-color: $gov-white;
-            color: $gov-white;
-        }
-        .header-text {
-            color: $gov-white;
+            background: $gov-gold;
             display: flex;
-            flex-flow: column nowrap;
-            color: $link-current-color;
-        }
+            list-style-type: none;
+            margin: 0;
+            width: 100%;
+            padding: 1em 1em;
+            .header-icon {
+                border-color: $gov-white;
+                color: $gov-white;
+            }
+            .header-text {
+                color: $gov-white;
+                display: flex;
+                flex-flow: column nowrap;
+            }
         }
     }
     &.separate {
         margin-top: 2em;
         margin-right: 3em;
         &::before {
-        display: block;
-        content: " ";
-        margin: 0 1.5em;
-        position: relative;
-        top: -0.75em;
-        height: 1px;
-        background: #25b;
-        width: 100%;
+            display: block;
+            content: " ";
+            margin: 0 1.5em;
+            position: relative;
+            top: -0.75em;
+            height: 1px;
+            background: #25b;
+            width: 100%;
         }
     }
 }

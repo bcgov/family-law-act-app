@@ -103,11 +103,11 @@ export default class FilingOptions extends Vue {
         })
     }
 
-    public togglePages(pageArr, activeIndicator) {
-        for (let i = 0; i < pageArr.length; i++) {
+    public togglePages(pageArr, activeIndicator) {        
+        for (const inx in pageArr) {
             this.$store.commit("Application/setPageActive", {
-                currentStep: this.step.id,
-                currentPage: pageArr[i],
+                currentStep: this.currentStep,
+                currentPage: pageArr[inx],
                 active: activeIndicator
             });
         }

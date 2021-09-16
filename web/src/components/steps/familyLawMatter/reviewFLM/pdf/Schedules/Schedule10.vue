@@ -203,7 +203,7 @@ import { schedule10DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf'
         CheckBox
     }
 })
-export default class Form3 extends Vue {
+export default class Schedule10 extends Vue {
 
     @Prop({required:true})
     result!: any; 

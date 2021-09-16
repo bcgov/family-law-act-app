@@ -51,6 +51,6 @@ export default class ParentingPriorityStep extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-};
+}
 
 </script>
