@@ -45,10 +45,7 @@ export function setGlossaryMarkdown(survey) {
     });
     options.html = str;
   });
-
-  survey.onAfterRenderQuestion.add((sender, options) => {
-    
-  });
+   
 }
 
 function getTerm(term, formatted?) {
