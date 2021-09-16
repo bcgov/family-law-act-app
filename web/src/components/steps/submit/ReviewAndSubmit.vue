@@ -196,22 +196,22 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import Tooltip from "@/components/survey/Tooltip.vue"
+    import Tooltip from "@/components/survey/Tooltip.vue";
     
     import { stepInfoType } from "@/types/Application";
     import PageBase from "@/components/steps/PageBase.vue";   
-    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
+    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
 
-    import FormList from "./components/FormList.vue"
-    import RequiredDocument from "./components/RequiredDocument.vue"
-    import ReminderNotes from "./components/ReminderNotes.vue"
+    import FormList from "./components/FormList.vue";
+    import RequiredDocument from "./components/RequiredDocument.vue";
+    import ReminderNotes from "./components/ReminderNotes.vue";
     
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
