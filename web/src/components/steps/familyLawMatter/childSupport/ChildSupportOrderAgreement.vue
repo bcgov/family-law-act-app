@@ -117,10 +117,10 @@ export default class ChildSupportOrderAgreement extends Vue {
     }
 
     public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
+        for (const inx in pageArr) {
             this.$store.commit("Application/setPageActive", {
                 currentStep: this.currentStep,
-                currentPage: pageArr[i],
+                currentPage: pageArr[inx],
                 active: activeIndicator
             });
         }

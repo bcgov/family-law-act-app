@@ -120,12 +120,14 @@ export default class ContactInfo extends Vue {
 
     public acceptNumber() {
         if(this.pendingValue['phone']){
-            var dgt = this.pendingValue['phone'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
-            this.pendingValue['phone'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
+            var dgt = this.pendingValue['phone'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            let thirdDigitCondition = dgt[3] ? '-' + dgt[3] : ''       
+            this.pendingValue['phone'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + thirdDigitCondition;
         }
         if(this.pendingValue['fax']){
-            var dgt = this.pendingValue['fax'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
-            this.pendingValue['fax'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
+            var faxDgt = this.pendingValue['fax'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/); 
+            let thirdFaxDigitCondition = faxDgt[3] ? '-' + faxDgt[3] : '';      
+            this.pendingValue['fax'] = !faxDgt[2] ? faxDgt[1] : '(' + faxDgt[1] + ') ' + faxDgt[2] + thirdFaxDigitCondition;
         }
     }
 }

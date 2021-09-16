@@ -156,7 +156,7 @@ import { schedule9DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
     }
 })
 
-export default class Form3 extends Vue {
+export default class Schedule9 extends Vue {
 
     @Prop({required:true})
     result!: any;

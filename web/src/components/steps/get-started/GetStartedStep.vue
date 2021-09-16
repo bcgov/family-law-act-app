@@ -24,7 +24,7 @@ const applicationState = namespace("Application");
     }
 })
 
-export default class GetStarted extends Vue {
+export default class GetStartedStep extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType;

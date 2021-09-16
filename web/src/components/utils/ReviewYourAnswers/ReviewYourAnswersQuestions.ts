@@ -10,8 +10,8 @@ export function getQuestionResults(stepNumbers, currentStep) {
         const stepResult = step.result
        
         if(stepResult)
-            for (const [key, value] of Object.entries(stepResult))
-            {                   
+            for (const [, value] of Object.entries(stepResult))
+            {                                 
                 if(value?.['data']?.length == 0){
                     const isPageActive = step.pages[value['currentPage']]? step.pages[value['currentPage']].active : false; 
                     value['questions'][0]= {name: "require", value: "", title: value['pageName'], inputType: ""}                 

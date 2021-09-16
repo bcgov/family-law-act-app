@@ -63,7 +63,6 @@ export default {
       if (bodyHtml !== null) {
         this.bodyHtml = q.getProcessedHtml(bodyHtml);
       } else {
-        // FIXME should use v-text not v-html for this one?
         this.bodyHtml = q.getProcessedHtml(bodyContent);
       }
     }

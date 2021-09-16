@@ -2,7 +2,7 @@
     <div class="fill-body" id="flapp-surveys">
         <main class="app-content">
             <navigation-sidebar />
-            <get-started v-if="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></get-started>
+            <get-started-step v-if="getCurrentStepIndex() == 0" v-bind:step="getStep(0)"></get-started-step>
             
             <protection-order v-if="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></protection-order>
             <common-information-step v-if="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></common-information-step>
@@ -23,7 +23,7 @@
 import { Component, Vue} from 'vue-property-decorator';
 import NavigationSidebar from "./NavigationSidebar.vue";
 
-import GetStarted from "./steps/get-started/GetStartedStep.vue";
+import GetStartedStep from "./steps/get-started/GetStartedStep.vue";
 import CommonInformationStep from "./steps/common-information/CommonInformationStep.vue";
 import ProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
 import FamilyLawStep from "./steps/familyLawMatter/FamilyLawStep.vue";
@@ -46,7 +46,7 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
         CaseManagementStep,
         ChildRelocationStep,
         EnforcementAgreeStep,
-        GetStarted
+        GetStartedStep
     }
 })
 
