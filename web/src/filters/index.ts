@@ -369,6 +369,9 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			requiredDocuments.push("Copy of support order or agreement")
 		}
 
+		if(questions.enfrcQuestionnaireSurvey?.includes('foreignSupport'))
+			requiredDocuments.push("Copy of the foreign order")
+
 		if(questions.enfrcQuestionnaireSurvey?.includes('expenses'))
 			requiredDocuments.push("Copy of court order for enforcement")
 		
