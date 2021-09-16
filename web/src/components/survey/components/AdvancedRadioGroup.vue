@@ -153,11 +153,11 @@ export default class AdvancedRadioGroup extends Vue {
         for(let j=0; j<this.numberOfRows; j++){
             const fieldRows = [];
             const inputname = this.inputNames[j]
-            for(let i=0; i<inputname.length;i++){
+            for(const inx in inputname){
                 fieldRows.push(
                 {
-                    name: inputname[i],
-                    id: generalId +"-"+inputname[i].toLowerCase() ,                
+                    name: inputname[inx],
+                    id: generalId +"-"+inputname[inx].toLowerCase() ,                
                 })            
             }
             fields.push(fieldRows)

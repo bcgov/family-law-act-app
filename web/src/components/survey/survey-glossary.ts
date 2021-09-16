@@ -108,7 +108,7 @@ function registerTargets(container?: HTMLElement) {
 function doRegisterTargets(container?: HTMLElement) {
   if (!container) container = document.body;
   let targets = container.querySelectorAll('[data-glossary]');
-  for (let idx = 0; idx < targets.length; idx++) {
+  for (const idx in targets) {
     let elt = targets[idx];
     let reg = elt.getAttribute('data-glossary-reg');
     if (!reg) {

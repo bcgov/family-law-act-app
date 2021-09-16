@@ -5,8 +5,8 @@ import FlappSurveys from "@/components/FlappSurveys.vue";
 import ApplicationStatus from "@/components/status/ApplicationStatus.vue";
 import TermsConditions from "@/components/status/TermsConditions.vue"
 import { SessionManager } from "@/components/utils/utils";
-import VueResource from 'vue-resource'
-import store from "@/store"
+import VueResource from 'vue-resource';
+import store from "@/store";
 
 
 async function authGuard(to: any, from: any, next: any) {

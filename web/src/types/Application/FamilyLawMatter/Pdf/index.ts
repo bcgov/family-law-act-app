@@ -1,4 +1,3 @@
-import { addressInfoType, contactInfoType, lawyerStatementInfoType, nameInfoType } from "../../CommonInformation";
 
 export interface locationInfoDataInfoType {
     courtLocation: string;
