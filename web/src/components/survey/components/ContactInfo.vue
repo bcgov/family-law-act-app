@@ -59,7 +59,7 @@ export default class ContactInfo extends Vue {
 
             let error = null 
             const contact =  Object.assign({}, this.pendingValue);    
-            const phoneFormat = /^\([0-9]{3}\) [0-9]{3}\-[0-9]{4}?$/;
+            const phoneFormat = /^\(\d{3}\) \d{3}\-\d{4}?$/;
             
             if(contact.phone){                
                 if(!phoneFormat.test(contact.phone)) error = new SurveyVue.SurveyError("Phone Number is invalid!");
@@ -68,7 +68,7 @@ export default class ContactInfo extends Vue {
                 if(!phoneFormat.test(contact.fax)) error = new SurveyVue.SurveyError("Fax Number is invalid!");
             }
             if(contact.email){ 
-                const emailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;               
+                const emailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;               
                 if(!emailFormat.test(contact.email)) error = new SurveyVue.SurveyError("Email format is invalid!");
             }
 

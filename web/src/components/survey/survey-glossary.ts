@@ -31,7 +31,7 @@ export function setGlossaryMarkdown(survey) {
     if (m) {
       str = m[1];
     }
-    // // convert <code> into glossary tags: TODO
+    
     str = str.replace(/<code>(.*?)<\/code>/g, (wholeMatch, m1) => {
       if (hasTerm(m1)) {
         // note: m1 is already html format
@@ -47,7 +47,7 @@ export function setGlossaryMarkdown(survey) {
   });
 
   survey.onAfterRenderQuestion.add((sender, options) => {
-    // registerTargets(options.htmlElement);
+    
   });
 }
 
