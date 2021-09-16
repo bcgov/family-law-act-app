@@ -48,4 +48,4 @@ export interface  applicationJsonInfoType {
         package_number?: string,
         package_url?: string
     }
-};
+}

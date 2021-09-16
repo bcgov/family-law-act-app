@@ -37,7 +37,7 @@
         }
     })
 
-    export default class submit extends Vue {
+    export default class StepSubmit extends Vue {
         
         @Prop({required: true})
         step!: stepInfoType;
