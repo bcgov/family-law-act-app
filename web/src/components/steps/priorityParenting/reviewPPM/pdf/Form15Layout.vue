@@ -328,9 +328,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import CheckBoxII from "./components/CheckBoxII.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import OrderedCheckBox from "./components/OrderedCheckBox.vue"
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
@@ -341,8 +340,7 @@ import { getYourInformationResults } from '@/components/utils/PopulateForms/Popu
 @Component({
     components:{
         UnderlineForm,
-        CheckBox, 
-        CheckBoxII,
+        CheckBox,
         OrderedCheckBox        
     }
 })
