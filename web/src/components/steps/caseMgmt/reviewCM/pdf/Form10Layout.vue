@@ -261,7 +261,7 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "./Schedules/components/CheckBox.vue"
 import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";

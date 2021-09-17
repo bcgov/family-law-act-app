@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UnderlineForm from "./components/UnderlineForm.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
 import { schedule5DataInfoType, schedule5outsideBcInfoType } from '@/types/Application/CaseManagement/PDF';
 
