@@ -13,6 +13,7 @@ import surveyJson from "./forms/parenting-arrangements.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -86,10 +87,10 @@ export default class ParentingArrangements extends Vue {
         if (this.survey.data?.applyingGuardianApplicant) {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
                 this.disableNextButton = true;
-                this.togglePages(agPages, false);
+                togglePages(agPages, false, this.currentStep);
             } else {
                 this.disableNextButton = false;
-                this.togglePages(agPages, true);
+                togglePages(agPages, true, this.currentStep);
             }
         }         
     }   
@@ -141,16 +142,6 @@ export default class ParentingArrangements extends Vue {
             this.UpdateGotoNextStepPage()
         }
     }  
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        

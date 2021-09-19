@@ -13,6 +13,7 @@ import surveyJson from "./forms/child-support-order-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -108,21 +109,11 @@ export default class ChildSupportOrderAgreement extends Vue {
              (this.survey.data?.existingType == 'ExistingAgreement')) {
                  
             this.disableNextButton = false;
-            this.togglePages(existingOrderAgreementPages, true);            
+            togglePages(existingOrderAgreementPages, true, this.currentStep);            
                 
         } else if (this.survey.data?.existingType == "Neither") {
-            this.togglePages(existingOrderAgreementPagesAll, false);
+            togglePages(existingOrderAgreementPagesAll, false, this.currentStep);
             this.disableNextButton = true;
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
         }
     }
 

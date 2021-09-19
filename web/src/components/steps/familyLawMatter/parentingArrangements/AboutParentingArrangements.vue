@@ -13,6 +13,7 @@ import surveyJson from "./forms/about-parenting-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -85,40 +86,29 @@ export default class AboutParentingArrangements extends Vue {
         const paPages =    [p.ParentingArrangementChanges, p.BestInterestsOfChild]
         const paPagesAll = [p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM]
 
-        this.togglePages([p.ReviewYourAnswersFLM], true);
+        togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages(paPages, true);
+                togglePages(paPages, true, this.currentStep);
 
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                this.togglePages([p.BestInterestsOfChild], true);
-                this.togglePages([p.ParentingArrangementChanges], false);
+                togglePages([p.BestInterestsOfChild], true, this.currentStep);
+                togglePages([p.ParentingArrangementChanges], false, this.currentStep);
             }
         } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages(paPages, true);
+                togglePages(paPages, true, this.currentStep);
 
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([p.BestInterestsOfChild], true);
-                this.togglePages([p.ParentingArrangementChanges], false);
+                togglePages([p.BestInterestsOfChild], true, this.currentStep);
+                togglePages([p.ParentingArrangementChanges], false, this.currentStep);
             }
         } else if (this.survey.data?.existingType == 'Neither') {
             this.disableNextButton = true;
-            this.togglePages(paPagesAll, false);
+            togglePages(paPagesAll, false, this.currentStep);
         }         
-    }     
-       
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
     }
 
     public reloadPageInformation() { 

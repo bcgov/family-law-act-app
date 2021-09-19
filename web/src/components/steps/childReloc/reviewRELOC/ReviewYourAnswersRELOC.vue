@@ -12,6 +12,7 @@ import PageBase from "@/components/steps/PageBase.vue";
 
 import ReviewYourAnswersPage from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersPage.vue"
 import {getQuestionResults} from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersQuestions"
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -52,7 +53,7 @@ export default class ReviewYourAnswersReloc extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        this.togglePages([this.stPgNo.RELOC.PreviewFormsRELOC], !this.pageHasError);
+        togglePages([this.stPgNo.RELOC.PreviewFormsRELOC], !this.pageHasError, this.currentStep);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"childReloc", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.RELOC.PreviewFormsRELOC,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
@@ -79,18 +80,8 @@ export default class ReviewYourAnswersReloc extends Vue {
         this.questionResults = getQuestionResults([this.stPgNo.COMMON._StepNo, this.stPgNo.RELOC._StepNo], this.currentStep)
            
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        this.togglePages([this.stPgNo.RELOC.PreviewFormsRELOC], !this.pageHasError); 
+        togglePages([this.stPgNo.RELOC.PreviewFormsRELOC], !this.pageHasError, this.currentStep); 
         
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
     }
     
     public onPrev() {

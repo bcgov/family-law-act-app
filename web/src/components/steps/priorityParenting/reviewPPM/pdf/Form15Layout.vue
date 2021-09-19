@@ -330,12 +330,12 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue"
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
-import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateYourInformation';
 
 @Component({
     components:{
@@ -396,13 +396,8 @@ export default class Form15Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.ppmInfo = this.getPpmInfo();
-        this.getLocationInfo()
-    } 
-    
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }   
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);        
+    }       
     
     public getChildrenInfo() {
 

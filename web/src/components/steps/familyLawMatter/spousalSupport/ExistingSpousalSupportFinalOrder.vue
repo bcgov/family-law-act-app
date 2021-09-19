@@ -13,6 +13,7 @@ import surveyJson from "./forms/existing-spousal-support-final-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -75,21 +76,11 @@ export default class ExistingSpousalSupportFinalOrder extends Vue {
 
     public setPages(){
         if(this.survey.data?.orderDifferenceType == 'changeOrder'){
-            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true);
+            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true, this.currentStep);
             
         } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
             
-            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
+            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false, this.currentStep);
         }
     }
     

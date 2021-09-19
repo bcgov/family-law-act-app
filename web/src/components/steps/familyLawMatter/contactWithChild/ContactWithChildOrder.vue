@@ -13,6 +13,7 @@ import surveyJson from "./forms/contact-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -86,28 +87,28 @@ export default class ContactWithChildOrder extends Vue {
         const pgPagesAll = [ p.AboutContactWithChildOrder,p.ContactWithChildBestInterestsOfChild, p.ReviewYourAnswersFLM, p.FlmAdditionalDocuments]
 
 
-        this.togglePages([p.ReviewYourAnswersFLM], true);           
+        togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);           
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
             if(this.survey.data.orderDifferenceType == 'changeOrder'){
-                this.togglePages(pgPages, true);
+                togglePages(pgPages, true, this.currentStep);
 
             } else if(this.survey.data.orderDifferenceType == 'cancelOrder') {
-                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
-                this.togglePages([p.AboutContactWithChildOrder], false);
+                togglePages([p.ContactWithChildBestInterestsOfChild], true, this.currentStep);
+                togglePages([p.AboutContactWithChildOrder], false, this.currentStep);
             }
         } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
             if(this.survey.data.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages(pgPages, true);
+                togglePages(pgPages, true, this.currentStep);
                 
             } else if(this.survey.data.agreementDifferenceType == 'setAsideAgreement') {
-                this.togglePages([p.ContactWithChildBestInterestsOfChild], true);
-                this.togglePages([p.AboutContactWithChildOrder], false);
+                togglePages([p.ContactWithChildBestInterestsOfChild], true, this.currentStep);
+                togglePages([p.AboutContactWithChildOrder], false, this.currentStep);
             }
         } else if (this.survey.data?.existingType == 'Neither') {
             
-            this.togglePages(pgPagesAll, false);
+            togglePages(pgPagesAll, false, this.currentStep);
             this.disableNextButton = true;            
         }
     }
@@ -145,16 +146,6 @@ export default class ContactWithChildOrder extends Vue {
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
-        }
-    }
-    
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
         }
     }
     
