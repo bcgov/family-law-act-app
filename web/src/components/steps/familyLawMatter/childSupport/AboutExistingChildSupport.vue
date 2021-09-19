@@ -11,6 +11,7 @@ import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/about-existing-child-support.json";
 import PageBase from "../../PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -82,31 +83,21 @@ export default class AboutExistingChildSupport extends Vue {
 
         if (this.existingType == 'ExistingOrder') {                
             if(this.survey.data?.orderDifferenceType == 'changeOrder'){
-                this.togglePages([AboutCS], true);
+                togglePages([AboutCS], true, this.currentStep);
                 
             } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
                 
-                this.togglePages([AboutCS], false);
+                togglePages([AboutCS], false, this.currentStep);
             }
         } else if (this.existingType == 'ExistingAgreement') {
             
             if(this.survey.data?.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([AboutCS], true);
+                togglePages([AboutCS], true, this.currentStep);
                 
             } else if(this.survey.data?.agreementDifferenceType == 'setAsideAgreement') {
                 
-                this.togglePages([AboutCS], false);
+                togglePages([AboutCS], false, this.currentStep);
             }
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
         }
     }
     

@@ -13,6 +13,7 @@ import surveyJson from "./forms/existing-spousal-support-order-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -95,25 +96,15 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
 
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true); 
-            this.togglePages([p.ExistingSpousalSupportAgreement], false);               
+            togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true, this.currentStep); 
+            togglePages([p.ExistingSpousalSupportAgreement], false, this.currentStep);               
         } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true); 
-            this.togglePages([p.ExistingSpousalSupportFinalOrder], false);                
+            togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true, this.currentStep); 
+            togglePages([p.ExistingSpousalSupportFinalOrder], false, this.currentStep);                
         } else if (this.survey.data?.existingType == "Neither") {
-            this.togglePages(existingSpousalSupportPages, false);
+            togglePages(existingSpousalSupportPages, false, this.currentStep);
             this.disableNextButton = true;
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
         }
     }
     

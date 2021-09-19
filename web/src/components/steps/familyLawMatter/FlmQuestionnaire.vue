@@ -12,9 +12,7 @@
                 <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
-            <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
-            </div>
+            <legal-assistance-faq v-if="showLegalAssistance"/>
         </div>
         <div>
             <b-form-group>
@@ -85,6 +83,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
+import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
@@ -97,7 +97,8 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 @Component({
     components:{
         PageBase,
-        Tooltip
+        Tooltip,
+        LegalAssistanceFaq
     }
 })
 export default class FlmQuestionnaire extends Vue {
@@ -161,7 +162,7 @@ export default class FlmQuestionnaire extends Vue {
 
         const p = this.stPgNo.FLM
         if (selectedForm) {
-            this.togglePages(this.allPages, false); 
+            togglePages(this.allPages, false, this.currentStep); 
             const progress = this.selectedForm.length==0? 50 : 100;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
 
@@ -220,15 +221,15 @@ export default class FlmQuestionnaire extends Vue {
         }
 
         if (!formOneRequired){
-            this.togglePages([p.FlmBackground], true);
-            this.togglePages([p.PreviewFormsFLM], false);
+            togglePages([p.FlmBackground], true, this.currentStep);
+            togglePages([p.PreviewFormsFLM], false, this.currentStep);
             this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
             if(this.$store.state.Application.steps[this.currentStep].pages[p.ReviewYourAnswersFLM].progress==100)
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersFLM, 50, false);
 
         } else {
-            this.togglePages([p.FlmBackground], false);
-            this.togglePages([p.ReviewYourAnswersFLM], true);
+            togglePages([p.FlmBackground], false, this.currentStep);
+            togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
         }   
     }
 
@@ -243,17 +244,7 @@ export default class FlmQuestionnaire extends Vue {
         } else {
             return false;
         }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
+    }    
 
     public toggleSteps(stepId, activeIndicator) {       
         this.$store.commit("Application/setStepActive", {
@@ -270,7 +261,7 @@ export default class FlmQuestionnaire extends Vue {
             if(step.active){
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                        this.togglePages(this.allPages, false); 
+                        togglePages(this.allPages, false, this.currentStep); 
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
                         return false;

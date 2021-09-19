@@ -51,6 +51,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/filing-location.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
+import { togglePages } from '@/components/utils/TogglePages';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -188,19 +189,19 @@ export default class FilingLocation extends Vue {
 
     public determineRegistry(location){
         this.form1Enabled = false;
-        if (this.courtsA?.includes(location)){           
+        if (this.courtsA?.includes(location)){
             this.survey.setValue("familyJusticeRegistry",   true);
             this.survey.setValue("familyEducationProgram",  false);
             this.survey.setValue("earlyResolutionRegistry", false);
-        } else if (this.courtsB?.includes(location)) {           
+        } else if (this.courtsB?.includes(location)) { 
             this.survey.setValue("familyJusticeRegistry",   false);           
             this.survey.setValue("familyEducationProgram",  true);  
             this.survey.setValue("earlyResolutionRegistry", false); 
-        } else if (this.courtsC?.includes(location)) {           
+        } else if (this.courtsC?.includes(location)) {
             this.survey.setValue("familyJusticeRegistry",   false);            
             this.survey.setValue("familyEducationProgram",  false);
-            if(this.survey.data?.MetEarlyResolutionRequirements == 'n'){                
-                this.togglePages(this.allPages,false);
+            if(this.survey.data?.MetEarlyResolutionRequirements == 'n'){
+                togglePages(this.allPages, false, this.stPgNo.FLM._StepNo);
                 this.form1Enabled = true;
             }          
         } else {                       
@@ -336,22 +337,10 @@ export default class FilingLocation extends Vue {
         this.UpdateCommonStepResults({data:{'existingOrders':newExistingOrders}});
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
-
-    beforeDestroy() {
-
-        this.determineRegistry(this.survey.data.ExistingCourt);
-        this.setExistingFileNumber();
-        
-        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);
+    beforeDestroy() {       
+        this.determineRegistry(this.survey.data.ExistingCourt);       
+        this.setExistingFileNumber();        
+        Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        
         this.UpdateStepResultData({step:this.step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
 }

@@ -8,6 +8,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 import {whichCaseMgmtForm} from "./RequiredForm";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
@@ -56,8 +57,8 @@ export default class ReviewYourAnswersCm extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        this.togglePages([this.stPgNo.CM.PreviewForm10CM], !this.pageHasError && this.form10);
-        this.togglePages([this.stPgNo.CM.PreviewForm11CM], !this.pageHasError && this.form11);
+        togglePages([this.stPgNo.CM.PreviewForm10CM], !this.pageHasError && this.form10, this.currentStep);
+        togglePages([this.stPgNo.CM.PreviewForm11CM], !this.pageHasError && this.form11, this.currentStep);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewForm10CM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.CM.PreviewForm11CM,  50, false);
@@ -105,18 +106,8 @@ export default class ReviewYourAnswersCm extends Vue {
         
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
        
-        this.togglePages([this.stPgNo.CM.PreviewForm10CM], !this.pageHasError && this.form10);
-        this.togglePages([this.stPgNo.CM.PreviewForm11CM], !this.pageHasError && this.form11);
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
+        togglePages([this.stPgNo.CM.PreviewForm10CM], !this.pageHasError && this.form10, this.currentStep);
+        togglePages([this.stPgNo.CM.PreviewForm11CM], !this.pageHasError && this.form11, this.currentStep);
     }
     
     public onPrev() {

@@ -13,6 +13,7 @@ import surveyJson from "./forms/by-consent.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -101,20 +102,10 @@ export default class ByConsent extends Vue {
             const givenConsent = this.survey.data.givenConsent;
             const direction = this.survey.data.giveConsentDirection;
             if (givenConsent == 'n' || (givenConsent == 'y' && direction == 'scheduleAppearance')) {
-                this.togglePages([this.stPgNo.CM.Scheduling], true); 
+                togglePages([this.stPgNo.CM.Scheduling], true, this.currentStep); 
             } else {
-                this.togglePages([this.stPgNo.CM.Scheduling], false);  
+                togglePages([this.stPgNo.CM.Scheduling], false, this.currentStep);  
             }
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
         }
     }
 

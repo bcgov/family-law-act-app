@@ -8,16 +8,17 @@
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
 import * as SurveyVue from "survey-vue";
-import * as surveyEnv from "@/components/survey/survey-glossary"
+import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/parenting-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{
@@ -80,10 +81,10 @@ export default class ParentingOrderAgreement extends Vue {
         const p = this.stPgNo.FLM
 
         if (this.survey.data?.applyingGuardianApplicant == 'n' && this.survey.data?.guardianApplicant == 'n') {
-            this.togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false);
+            togglePages([p.AboutParentingArrangements, p.ParentingArrangementChanges, p.BestInterestsOfChild, p.FlmAdditionalDocuments, p.ReviewYourAnswersFLM, p.PreviewFormsFLM], false, this.currentStep);
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
         } else {
-            this.togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true);
+            togglePages([p.AboutParentingArrangements, p.ReviewYourAnswersFLM], true, this.currentStep);
             Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
         }
  
@@ -118,16 +119,6 @@ export default class ParentingOrderAgreement extends Vue {
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
             this.UpdateGotoNextStepPage()
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
         }
     }
   
