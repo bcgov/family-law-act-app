@@ -24,7 +24,7 @@
     "core-js": "^3.6.4",
     "jquery": "^3.6.0",
     "moment-timezone": "^0.5.32",
-    "node-sass": "^4.13.1",
+    "node-sass": "^6.0.1",
     "popper.js": "^1.16.1",
     "sass-loader": "^8.0.2",
     "save": "^2.4.0",

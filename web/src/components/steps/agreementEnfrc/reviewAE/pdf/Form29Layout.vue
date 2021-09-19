@@ -296,12 +296,12 @@ const applicationState = namespace("Application");
 
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
-import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { requiredDocumentsInfoType } from '@/types/Common';
-import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateYourInformation';
 
 @Component({
     components:{
@@ -352,13 +352,8 @@ export default class Form29Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.form29Info = this.getForm29Info();
-        this.getLocationInfo()
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
     } 
-    
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }   
 
     public getYourInfo(){           
 

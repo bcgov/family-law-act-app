@@ -21,3 +21,7 @@ export function getYourInformationResults(applicantInfo) {
         
     return yourInformation;       
 }
+
+export function getLocationInfo(locationData){
+    return locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
+}   

@@ -19,6 +19,7 @@ import surveyJson from "./forms/filingOptions.json";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -103,16 +104,6 @@ export default class FilingOptions extends Vue {
         })
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
-
     public allowEfiling(){
         const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
@@ -135,16 +126,16 @@ export default class FilingOptions extends Vue {
         const p = this.stPgNo.SUBMIT
 
         if(this.allCompleted && this.survey.data.selectedFilingType == 'byemail'){
-            this.togglePages([p.ReviewAndSave, p.NextSteps], true);
-            this.togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false);
+            togglePages([p.ReviewAndSave, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'inperson'){
-            this.togglePages([p.ReviewAndPrint, p.NextSteps], true);
-            this.togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false);
+            togglePages([p.ReviewAndPrint, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
-            this.togglePages([p.ReviewAndSubmit], true);
-            this.togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false);
+            togglePages([p.ReviewAndSubmit], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);
         }else{
-            this.togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false, this.currentStep);
         }
     }
 

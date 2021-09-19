@@ -115,12 +115,11 @@
 
             <template v-slot:modal-title>
                 <h1 class="mb-0 text-primary">Navigation Tips</h1>
-            </template>
+            </template>           
 
-            <div class="m-3">
-                <p>Placeholder for navigation tips</p>
-                
-            </div>
+            <b-card no-body border-variant="white" class="m-3">
+                <navigation-tips></navigation-tips>                
+            </b-card>
 
             <template v-slot:modal-footer>
                 <b-button variant="primary" @click="tips = false">Close</b-button>
@@ -128,7 +127,7 @@
 
             <template v-slot:modal-header-close>
                 <b-button
-                    variant="outline-dark"
+                    variant="primary"
                     class="closeButton"
                     @click="tips = false"
                     >&times;
@@ -143,9 +142,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { SessionManager } from "@/components/utils/utils";
+import NavigationTips from "./NavigationTips.vue";
 import moment from "moment-timezone";
 
-@Component
+@Component({
+    components: {NavigationTips}
+})
 export default class NavigationTopbar extends Vue {
 
     error = "";

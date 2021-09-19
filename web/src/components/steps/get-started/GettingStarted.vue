@@ -16,9 +16,7 @@
                 <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
                 <span v-if="!showLegalAssistance" class='ml-2 fa fa-chevron-down'/>
             </div>
-            <div v-if="showLegalAssistance" class="mx-4 mb-5 mt-3">
-                Understanding the law and making sure you get correct information is important. If you get the wrong information or do not know how the law applies to your situation, it can be harder to resolve your case. Getting advice from a lawyer can help.<br/><br/><b>Lawyers:</b> To find a lawyer or to have a free consultation with a lawyer for up to 30 minutes, contact the <a href='https://www.cbabc.org/For-the-Public/Lawyer-Referral-Service' target="_blank">Lawyer Referral Service</a> at 1-800-663-1919<br/><br/><b>Legal Aid, Duty Counsel and Family Advice Lawyers:</b> To find out if you qualify for free legal advice or representation, contact <a href='https://lss.bc.ca/legal_aid/howToApply.php' target="_blank">Legal Aid BC</a> at <p style='display:inline-block'>1-866-577-2525.</p><br/><b>Legal Services and Resources:</b> Visit <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">Clicklaw</a> at <a href='https://www.clicklaw.bc.ca/helpmap' target="_blank">www.clicklaw.bc.ca/helpmap</a> to find other free and low-cost legal services in your community
-            </div>
+            <legal-assistance-faq v-if="showLegalAssistance"/>
         </div>
         <div>
             <b-form-group>
@@ -147,6 +145,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
+import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
@@ -160,7 +160,8 @@ import Tooltip from "@/components/survey/Tooltip.vue";
 @Component({
     components:{
         PageBase,
-        Tooltip
+        Tooltip,
+        LegalAssistanceFaq
     }
 })
 export default class GettingStarted extends Vue {
@@ -272,11 +273,11 @@ export default class GettingStarted extends Vue {
             this.toggleSteps(this.stPgNo.SUBMIT._StepNo, selectedForms.length>0);//Review And Submit
             
             this.toggleSteps(this.stPgNo.COMMON._StepNo, selectedForms.includes("familyLawMatter") || selectedForms.includes("priorityParenting") || selectedForms.includes("childReloc") || selectedForms.includes("caseMgmt") || selectedForms.includes("agreementEnfrc"));//Common Your Information
-            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.SafetyCheck], !this.poIncluded);//Safety Check
-            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"));//Notice
+            togglePages([this.stPgNo.COMMON.SafetyCheck], !this.poIncluded, this.stPgNo.COMMON._StepNo);//Safety Check
+            togglePages([this.stPgNo.COMMON.Notice], selectedForms.includes("priorityParenting"), this.stPgNo.COMMON._StepNo);//Notice
             
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.COMMON._StepNo, currentPage: (this.poIncluded? this.stPgNo.COMMON.YourInformation:this.stPgNo.COMMON.SafetyCheck) });//correct Safety Check page in sidebar
-            this.togglePages(this.stPgNo.COMMON._StepNo, [this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !this.poOnly);//Your Information, Other Party, Filing Location
+            togglePages([this.stPgNo.COMMON.YourInformation, this.stPgNo.COMMON.OtherPartyCommon, this.stPgNo.COMMON.FilingLocation], selectedForms.length>0 && !this.poOnly, this.stPgNo.COMMON._StepNo);//Your Information, Other Party, Filing Location
         
         }
     }
@@ -314,17 +315,6 @@ export default class GettingStarted extends Vue {
             currentStep: stepId,
             active: activeIndicator
         });
-    }
-
-    public togglePages(step, pages, activeIndicator) {
-        for(const inx in pages) {
-            
-            this.$store.commit("Application/setPageActive", {
-                currentStep: step,
-                currentPage: pages[inx],
-                active: (activeIndicator)
-            });
-        }
     }
 
     public onPrev() {

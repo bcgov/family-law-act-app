@@ -9,6 +9,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import ReviewYourAnswersPage from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersPage.vue"
 import {getQuestionResults} from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersQuestions"
@@ -51,7 +52,7 @@ export default class ReviewYourAnswersPpm extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        this.togglePages([this.stPgNo.PPM.PreviewFormsPPM], !this.pageHasError);
+        togglePages([this.stPgNo.PPM.PreviewFormsPPM], !this.pageHasError, this.currentStep);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"priorityParenting", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.PPM.PreviewFormsPPM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
@@ -91,20 +92,10 @@ export default class ReviewYourAnswersPpm extends Vue {
         this.questionResults = getQuestionResults([this.stPgNo.COMMON._StepNo, this.stPgNo.PPM._StepNo], this.currentStep)
            
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        this.togglePages([this.stPgNo.PPM.PreviewFormsPPM], !this.pageHasError); 
+        togglePages([this.stPgNo.PPM.PreviewFormsPPM], !this.pageHasError, this.currentStep); 
         
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
-    
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }

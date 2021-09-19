@@ -15,6 +15,7 @@ import * as _ from 'underscore';
 import surveyJson from "./forms/protectionFromWhom.json";
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -136,27 +137,17 @@ export default class ProtectionFromWhom extends Vue {
         const PoAllPages = _.range(p.PoFilingLocation, Object.keys(this.stPgNo.PO).length-1) 
 
         if(this.survey.data?.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages(PoAllPages, false);
+            togglePages(PoAllPages, false, this.currentStep);
             this.disableNextButton = true;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
         } else {
-            this.togglePages(needPoPages, true);   
+            togglePages(needPoPages, true, this.currentStep);   
             this.disableNextButton = false;         
             return true
         }
     }
     
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
-
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }
