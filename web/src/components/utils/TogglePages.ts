@@ -1,5 +1,4 @@
 import store from '@/store';
-import * as _ from 'underscore';
 
 export function togglePages(pageArr, activeIndicator, currentStep) {  
           

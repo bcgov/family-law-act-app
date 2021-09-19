@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
+import moment from 'moment';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -17,8 +17,7 @@ const applicationState = namespace("Application");
 import Form29Layout from "./Form29Layout.vue";
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
-
-import moment from 'moment';
+import { getEnforcementResultData } from '@/components/utils/PopulateForms/PopulateEnfrcInformation';
 
 @Component({
     components:{        
@@ -77,51 +76,11 @@ export default class Form29 extends Vue {
             console.error(err);        
         });
     }
-
-    public onPrintSave(){
-
-        const pdf_type = Vue.filter('getPathwayPdfType')("agreementEnfrc")
-        
-        const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        this.$http.get(url, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "Form29.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
-        },err => {
-            console.error(err);
-        });
-    }
  
     public getEnfrcResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.ENFRC._StepNo]){
-            const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResultInx in stepResults){
-                if(stepResults[stepResultInx])
-                    result[stepResultInx]=stepResults[stepResultInx].data; 
-            }
-        }        
-        
-        const applicationLocation = this.$store.state.Application.applicationLocation;
-        const userLocation = this.$store.state.Common.userLocation;
-       
-        if(applicationLocation)
-            Object.assign(result, result,{applicationLocation: applicationLocation}); 
-        else
-            Object.assign(result, result,{applicationLocation: userLocation});
+        result = getEnforcementResultData(result, this.stPgNo.COMMON._StepNo, this.stPgNo.ENFRC._StepNo)
 
         Vue.filter('extractRequiredDocuments')(result, 'agreementEnfrc')
 

@@ -250,7 +250,7 @@ import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInfo
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { enforceChangeSetAsideDeterminationSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
-import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{

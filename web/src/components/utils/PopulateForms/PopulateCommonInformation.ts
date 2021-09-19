@@ -24,4 +24,4 @@ export function getYourInformationResults(applicantInfo) {
 
 export function getLocationInfo(locationData){
     return locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-}   
+}
