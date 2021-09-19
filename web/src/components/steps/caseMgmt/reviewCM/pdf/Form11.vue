@@ -29,7 +29,7 @@ import Schedule4 from "./Schedules/Schedule4.vue"
 import Schedule5 from "./Schedules/Schedule5.vue"
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
-
+import { getCaseManagementResultData } from '@/components/utils/PopulateForms/PopulateCmInformation';
 import moment from 'moment';
 
 @Component({
@@ -98,55 +98,11 @@ export default class Form11 extends Vue {
             console.error(err);        
         });
     }
-
-    public onPrintSave(){  
-        
-        const pdf_type = Vue.filter('getPathwayPdfType')("caseMgmtForm11") 
-             
-        const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        this.$http.get(url, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "Form11.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
-        },err => {
-            console.error(err);
-        });
-    }
  
     public getCMResultData() {         
         
         let result = Object.assign({},this.$store.state.Application.steps[0].result); 
-        for(const stepIndex of [this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo]){
-            const stepResults = this.$store.state.Application.steps[stepIndex].result
-            for(const stepResultInx in stepResults){
-                if(stepResults[stepResultInx])
-                    result[stepResultInx]=stepResults[stepResultInx].data; 
-            }
-        }
-        
-        const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
-        const childRelatedType = {childRelatedTypeSurvey: stepCM.result.childRelatedTypeSurvey};
-        Object.assign(result, result, childRelatedType);
-
-        const applicationLocation = this.$store.state.Application.applicationLocation;
-        const userLocation = this.$store.state.Common.userLocation;
-       
-        if(applicationLocation)
-            Object.assign(result, result,{applicationLocation: applicationLocation}); 
-        else
-            Object.assign(result, result,{applicationLocation: userLocation});
+        result = getCaseManagementResultData(result, this.stPgNo.COMMON._StepNo, this.stPgNo.CM._StepNo);
 
         Vue.filter('extractRequiredDocuments')(result, 'caseMgmt')
 

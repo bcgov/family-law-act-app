@@ -268,7 +268,7 @@ import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInfo
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
 import { cmChildrenInfoSurveyDataInfoType, byConsentSurveyDataInfoType, otherPersonsSurveyDataInfoType, schedulingSurveyDataInfoType, aboutCaseManagementOrderSurveyDataInfoType, cmNoticeSurveyDataInfoType } from '@/types/Application/CaseManagement';
-import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{

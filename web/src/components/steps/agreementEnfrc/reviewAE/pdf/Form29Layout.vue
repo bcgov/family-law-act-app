@@ -301,7 +301,7 @@ import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInfo
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { requiredDocumentsInfoType } from '@/types/Common';
-import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{

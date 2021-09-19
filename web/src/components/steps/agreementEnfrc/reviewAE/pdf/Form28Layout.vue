@@ -239,7 +239,7 @@ import OrderedCheckBox from "@/components/utils/PopulateForms/components/Ordered
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form28InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
-import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{

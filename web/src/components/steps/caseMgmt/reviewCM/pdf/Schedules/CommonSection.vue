@@ -146,7 +146,7 @@ import { nameInfoType, otherPartyInfoType} from "@/types/Application/CommonInfor
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmChildrenInfoSurveyDataInfoType, withoutNoticeOrAttendanceSurveyDataInfoType } from '@/types/Application/CaseManagement';
 import { caseManagementOtherPartyDataInfoType, cmLocationInfoDataInfoType } from '@/types/Application/CaseManagement/PDF';
-import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 
 @Component({
