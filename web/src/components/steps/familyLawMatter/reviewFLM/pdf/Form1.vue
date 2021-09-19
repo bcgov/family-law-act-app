@@ -82,32 +82,6 @@ export default class Form1 extends Vue {
             console.error(err);        
         });
     }
-
-    public onPrintSave(){ 
-        
-        const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatterForm1")
-        
-        const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        this.$http.get(url, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "Form1.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
-        },err => {
-            console.error(err);
-        });
-    }
  
     public getFLMResultData() {         
         

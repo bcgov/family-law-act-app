@@ -276,7 +276,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
-import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateYourInformation";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";

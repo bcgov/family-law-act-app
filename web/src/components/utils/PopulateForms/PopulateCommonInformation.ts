@@ -1,4 +1,5 @@
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
+import store from '@/store';
 
 export function getYourInformationResults(applicantInfo) {
 
@@ -24,4 +25,4 @@ export function getYourInformationResults(applicantInfo) {
 
 export function getLocationInfo(locationData){
     return locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-}   
+}

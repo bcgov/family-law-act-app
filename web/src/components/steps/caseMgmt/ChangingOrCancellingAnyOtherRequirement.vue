@@ -87,16 +87,6 @@ export default class ChangingOrCancellingAnyOtherRequirement extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
     } 
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
-
     public onPrev() {
         this.UpdateGotoPrevStepPage()
     }

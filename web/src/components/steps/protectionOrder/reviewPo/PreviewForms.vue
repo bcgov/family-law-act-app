@@ -11,6 +11,7 @@ import { Component, Vue} from 'vue-property-decorator';
 import FormK from  "./pdf/FormK.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
+import { togglePages } from '@/components/utils/TogglePages';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -34,7 +35,6 @@ export default class PreviewForms extends Vue {
     @applicationState.Action
     public UpdateGotoNextStepPage!: () => void
 
-
     currentStep = 0;
     currentPage = 0;
     disableNext = true;
@@ -51,16 +51,6 @@ export default class PreviewForms extends Vue {
         window.scrollTo(0, 0);
 
     } 
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (const inx in pageArr) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[inx],
-                active: activeIndicator
-            });
-        }
-    }
 
     public checkErrorOnPages(steps){
 

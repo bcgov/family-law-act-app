@@ -304,7 +304,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateYourInformation';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{

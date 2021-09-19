@@ -127,7 +127,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateYourInformation";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';
 import { urgencyInfoType } from '@/types/Application/ProtectionOrder/PDF';

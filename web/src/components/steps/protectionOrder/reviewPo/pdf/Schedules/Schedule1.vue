@@ -454,7 +454,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
-import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateYourInformation";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { contactInfoType, addressInfoType } from '@/types/Application/CommonInformation';
 import { schedule1ChildInfoType, schedule1AnotherAdultInfoType, schedule1OtherChildrenInfoType, schedule1SharingAdultInfoType, schedule1BackgroundInfoType, schedule1YourStoryInfoType, schedule1NoGoInfoType, schedule1NoContactInfoType, schedule1WeaponsFirearmsInfoType, schedule1RemovePersonInfoType } from '@/types/Application/ProtectionOrder/PDF';
