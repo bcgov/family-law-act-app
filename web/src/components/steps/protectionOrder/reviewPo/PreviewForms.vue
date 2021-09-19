@@ -11,7 +11,6 @@ import { Component, Vue} from 'vue-property-decorator';
 import FormK from  "./pdf/FormK.vue"
 import PageBase from "@/components/steps/PageBase.vue";
 
-import { togglePages } from '@/components/utils/TogglePages';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");

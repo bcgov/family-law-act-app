@@ -1,5 +1,4 @@
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-import store from '@/store';
 
 export function getYourInformationResults(applicantInfo) {
 
