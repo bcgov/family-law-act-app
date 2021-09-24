@@ -1,15 +1,19 @@
 <template>
-    <b-card v-if="mountedData" style="width:50rem; margin:0 auto; border:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
+    <b-card v-if="mountedData" style="width:60rem; padding:0 5rem; margin:0 auto; border:1px solid; border-radius:10px;" bg-variant="white" class="mt-4 mb-3">
         <h2 :class="'mt-4 text-center '+headerColor">{{headerText}}</h2>
         <div class="my-2 font-weight-bold">{{message}}</div>
         <div v-if="packageNumber">
             <div class="mb-2"> Your CSO Online Package # is <b class="text-success"> {{packageNumber}} </b></div>
         
-            You can view the following items at any time:
-            <ul>
+            <div>
+                You can view the following items at any time:
+            </div>
+
+            <ul style="margin-top:.25rem">
                 <li><a :href="packageUrl" target="_blank">Your eFiling Receipt</a> on the CSO eFiling Hub</li>
                 <li><a :href="packageUrl" target="_blank">The package of all documents</a> you have submitted for filing</li>
             </ul>
+            
 
             <div style="font-size:19px; font-weight:normal;">
                 If you have any questions, concerns or mistakes about your initial filing, please contact CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> and include 
@@ -33,13 +37,31 @@
                     <li>
                         You will need a safe, quiet place where you can call into the court appearance.
                     </li>
+                </ul>                
+            </div>
+
+            <div class="mt-5" style="font-style:italic">
+                <h4 style="margin:0 0 0.5rem 1.5rem;">WHAT ARE MY NEXT STEPS WHEN MY DOCUMENTS ARE FILED?</h4>
+                <ul>
+                    <li>Have a viewable and printable checklist for users</li>
+                    <li>Multiple pathways – checklist forms for each pathway and titled.</li>
                 </ul>
             </div>
 
-            <div class="mt-5">
-                <h3>Haven’t Heard Back?</h3>
-                If you don’t hear back within 1 week from the court registry. Please contact CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> and include your <tooltip title="Court File Number" index="0"/>/ Filing Location or <span class="text-primary">Online Package Number ({{packageNumber}})</span>.
-            </div>
+            <div class="mt-2">
+                <p>
+                    Once your document has been processed by the registry you will receive a notification advising you that the document has been processed.  You will return to this application and can retrieve your filed document.  In addition, you need to complete the next steps outlined in the checklist(s) below.
+                </p>
+                <p>
+                    Please review and print the checklist(s) below so you understand the next steps:
+                </p>
+                <div @click="checklist=true;checklistType='FLM';" style="color:blue; cursor:pointer;">
+                    Checklist for Application About a Family Law Matter
+                </div>
+                <div @click="checklist=true;checklistType='PO';" style="color:blue; cursor:pointer;">
+                    Checklist for Application About a Protection Order
+                </div>
+            </div>           
 
             <div class="mt-5">
                 <h3>What happens if the Court Registry does not accept my package?</h3>
@@ -50,7 +72,7 @@
                     If you are not sure whether you’ve completed your application properly, you may want to get some legal advice before you submit your documents again for filing.
                 </div>
 
-                <div>
+                <div> 
                     <div class="m-4 text-primary" @click="showLegalAssistance= !showLegalAssistance" style="border-bottom:1px solid; width:19rem;">
                         <span style='font-size:1.2rem;' class="fa fa-question-circle" /> Where can I get legal assistance? 
                         <span v-if="showLegalAssistance" class='ml-2 fa fa-chevron-up'/>
@@ -61,11 +83,23 @@
 
             </div>
 
+            <div class="mt-5">
+                <h3>Haven’t Heard Back?</h3>
+                If you don’t hear back within 1 week from the court registry. Please contact CSO Online Support at <a href="mailto:Courts.CSO@gov.bc.ca">Courts.CSO@gov.bc.ca</a> and include your <tooltip title="Court File Number" index="0"/> / Filing Location or <span class="text-primary">Online Package Number (<strong>{{packageNumber}}</strong>)</span>.
+            </div>
+
         </div>
         <b-row class="mt-5">
             <b-button style="margin-left:1rem;" v-on:click="viewStatus()" variant="primary">Back to the Application Page</b-button>
             <b-button style="margin-left:auto;margin-right:1rem;" v-on:click="exitApplication()" variant="secondary">Exit Application</b-button>
         </b-row>
+
+        <b-modal size="xl" v-model="checklist" header-class="bg-white border-0" no-close-on-backdrop hide-footer>
+            <checklists :checklistType='checklistType' :applicationId='applicationId'/>            
+            <template v-slot:modal-header>                
+                <b-button style="margin-left:auto;" variant="dark" @click="checklist=false;">Close</b-button>
+            </template>
+        </b-modal>
 
     </b-card>  
 </template>
@@ -77,11 +111,14 @@ import {Component, Vue} from "vue-property-decorator"
 import { SessionManager } from "@/components/utils/utils";
 import Tooltip from "@/components/survey/Tooltip.vue";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
+import Checklists from "./checklists/Checklists.vue"
+
 
 @Component({
     components:{        
         Tooltip,
-        LegalAssistanceFaq
+        LegalAssistanceFaq,
+        Checklists,
     }
 })
 export default class ResultPage extends Vue {
@@ -94,6 +131,10 @@ export default class ResultPage extends Vue {
     error = ""; 
     mountedData = false;
     showLegalAssistance = false
+
+    checklist = false;
+    checklistType='';
+    applicationId = '';
         
     public viewStatus() {
         this.$router.push({ name: "applicant-status" });
@@ -109,7 +150,7 @@ export default class ResultPage extends Vue {
         this.error = "";
 
         const result = this.$route.params.result;
-        const ApplicationId = this.$route.params.id;        
+        this.applicationId = this.$route.params.id;        
         
         if (result == "success"){
             this.message = "You’ve successfully submitted your initial filing with the Court Registry."
@@ -124,7 +165,7 @@ export default class ResultPage extends Vue {
 
             this.packageNumber = urlParams.get('packageNo')
 
-            this.saveApplication(ApplicationId, this.packageNumber, this.packageUrl);
+            this.saveApplication(this.applicationId, this.packageNumber, this.packageUrl);
 
         } else if (result == "error") {
             const packageMessage = String(this.$route.query.message)
