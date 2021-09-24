@@ -6,6 +6,7 @@
         <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
             <flm-checklist v-if="checklistType=='FLM'" :applicationId='applicationId'/>
             <po-checklist v-else-if="checklistType=='PO'" :applicationId='applicationId'/>
+            <EarlyResolutionsChecklist v-else-if="checklistType=='RFC'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>
@@ -14,13 +15,15 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 import moment from 'moment';
-import PoChecklist from "./PoChecklist.vue"
-import FlmChecklist from "./FlmChecklist.vue"
+import PoChecklist from "./PoChecklist.vue";
+import FlmChecklist from "./FlmChecklist.vue";
+import EarlyResolutionsChecklist from "./EarlyResolutionsChecklist.vue";
 
 @Component({
     components:{        
         PoChecklist,
-        FlmChecklist
+        FlmChecklist,
+        EarlyResolutionsChecklist
     }
 })
 
@@ -33,14 +36,15 @@ export default class Checklists extends Vue {
     checklistType!: string;
 
     dataReady = false;
+    checklist;
+
     checklists=[
         {name:'FLM', title:'Application About a Family Law Matter', pdfName:'Checklist_for_Family_Law_Matter.pdf'},
-        {name:'PO', title:'Application about a Protection Order', pdfName:'Checklist_for_Protection_Order.pdf'}
-    ]
+        {name:'PO', title:'Application about a Protection Order', pdfName:'Checklist_for_Protection_Order.pdf'},
+        {name:'RFC', title:'Notice to Resolve Family Claim', pdfName:'Checklist_for_Notice_To_Resolve_Family_Claim.pdf'}
+    ]    
 
-    checklist
-
-    mounted(){        
+    mounted(){
         this.dataReady = false;
         this.checklist = this.checklists.filter(checklist=>checklist.name ==this.checklistType)[0];
         Vue.nextTick(()=> this.dataReady = true)

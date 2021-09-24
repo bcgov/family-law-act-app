@@ -55,11 +55,14 @@
                 <p>
                     Please review and print the checklist(s) below so you understand the next steps:
                 </p>
-                <div @click="checklist=true;checklistType='FLM';" style="color:blue; cursor:pointer;">
+                <div v-if="applicationDocumentTypes.includes('FLC')" @click="checklist=true;checklistType='FLM';" style="color:blue; cursor:pointer;">
                     Checklist for Application About a Family Law Matter
                 </div>
-                <div @click="checklist=true;checklistType='PO';" style="color:blue; cursor:pointer;">
+                <div v-if="applicationDocumentTypes.includes('AAP')" @click="checklist=true;checklistType='PO';" style="color:blue; cursor:pointer;">
                     Checklist for Application About a Protection Order
+                </div>
+                <div v-if="applicationDocumentTypes.includes('NTRF')" @click="checklist=true;checklistType='RFC';" style="color:blue; cursor:pointer;">
+                    Checklist for Notice to Resolve Family Claim
                 </div>
             </div>           
 
@@ -135,6 +138,7 @@ export default class ResultPage extends Vue {
     checklist = false;
     checklistType='';
     applicationId = '';
+    applicationDocumentTypes = [];
         
     public viewStatus() {
         this.$router.push({ name: "applicant-status" });
@@ -172,13 +176,15 @@ export default class ResultPage extends Vue {
             this.message = packageMessage? packageMessage: "An error occured while submitting your application, ...."
             this.headerText = "Failed";
             this.headerColor="text-danger";
+            this.mountedData = true;
         } else if (result == "cancel") {
             this.message = "Submission of your application has been canceled."
             this.headerText = "Canceled";
             this.headerColor="text-secondary";
+            this.mountedData = true;
         }
         
-        this.mountedData = true;
+        
     }
 
     public saveApplication(id, packagenumber, packageurl) {
@@ -200,10 +206,34 @@ export default class ResultPage extends Vue {
         this.$http.put(url, data, header)
         .then(res => {                            
             this.error = "";
+            this.getApplicationTypes(id);
         }, err => {
             console.error(err);
             this.error = err;
         });    
+    }
+
+    public getApplicationTypes(applicationId: string) {
+
+        const url = "/app-list/";
+
+        this.$http.get(url)
+        .then((response) => {
+
+            const preparedPdfs = response.data.filter(application=>application.id == applicationId)[0].prepared_pdfs;
+            // const preparedPdfs = [{"id":1,"pdf_type":"AAP","version":"1.0","created_date":"2021-09-24T20:29:05.601841Z"}];
+            // console.log(preparedPdfs)
+
+            for (const pdf of preparedPdfs){
+                this.applicationDocumentTypes.push(pdf.pdf_type);
+            }            
+            
+            this.mountedData = true;       
+        },(err) => {
+            this.mountedData = true;
+            this.error = err;        
+        });
+   
     }
 
 }
