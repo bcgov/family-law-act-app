@@ -5,14 +5,30 @@
 
 <!-- <Step 1> -->
         <div>
-            <b>Step 1: Complete the Application about a Protection Order form</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="'yes'" 
+                    text="Step 1: Complete the Application about a Protection Order form"/>               
+            </div>             
         </div>
 
         <div class="mt-2"></div>
 
 <!-- <Step 2> -->
         <div>
-            <b>Step 2: Determine if you should apply without notice</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="'yes'" 
+                    text="Step 2: Determine if you should apply without notice"/>               
+            </div>
             <p class="mb-2">
                 You normally need to give notice to the other party that you are applying for a court order. You give notice to the other party by having the application documents personally served on them.
             </p>
@@ -33,7 +49,15 @@
         <div class="mt-2"></div>
 <!-- <Step 3> -->
         <div>
-            <b>Step 3: If applicable, get the Schedule 1 affidavit sworn/affirmed and signed with a commissioner for taking affidavits</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 3: If applicable, get the Schedule 1 affidavit sworn/affirmed and signed with a commissioner for taking affidavits"/>               
+            </div>
             
             <p class="mb-2">
                 The Schedule 1 Affidavit must be signed with a commissioner for taking affidavits. They will need to see your photo ID and they will ask you to promise that the information in the application affidavit is true.
@@ -49,7 +73,15 @@
         <div class="mt-2"></div>
 <!-- <Step 4> -->
         <div>
-            <b>Step 4: File your application and any supporting materials</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 4: File your application and any supporting materials"/>               
+            </div>            
 
             <div style="margin:0;">
                 You must file at the <a target="_blank" href="https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96">Provincial Court Registry</a> :
@@ -77,8 +109,16 @@
         <div class="mt-2"></div>
 <!-- <Step 5> -->
         <div>
-            <b>Step 5: Unless you are making your application without notice to the other party, arrange for personal service of the Application About a Protection Order on each other party</b>
-            
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 5: Unless you are making your application without notice to the other party, arrange for personal service of the Application About a Protection Order on each other party"/>               
+            </div>  
+                       
             <p class="mb-2">
                 Service is the act of giving or leaving documents with the required person. It is important that each other party know that a case is going on, are aware of what step is being taken, and are given a chance to tell their side of the story to the court.
             </p>
@@ -99,7 +139,16 @@
         <div class="mt-2"></div>
 <!-- <Step 6> -->
         <div>
-            <b>Step 6: Attend the Court Appearance</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 6: Attend the Court Appearance"/>               
+            </div>  
+           
             <p class="mb-2">
                 A judge can make decisions based only on the information presented by the parties as evidence. Your evidence includes your application, any additional affidavit, and spoken evidence provided in court.
             </p>
@@ -156,13 +205,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 @Component({
     components:{
-
+        CheckBox
     }
 })
-
 export default class PoChecklist extends Vue {
 
 }

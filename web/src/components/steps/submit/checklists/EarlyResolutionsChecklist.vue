@@ -8,7 +8,15 @@
 
 <!-- <Step 1> -->
         <div>
-            <b>Step 1: Complete the Notice to Resolve a Family Law Matter form</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="'yes'" 
+                    text="Step 1: Complete the Notice to Resolve a Family Law Matter form"/>               
+            </div>   
             <p>
                 This form is available online at 
                 <a 
@@ -47,7 +55,16 @@
 
 <!-- <Step 2> -->
         <div>
-            <b>Step 2: File the Notice to Resolve a Family Law Matter form at the Provincial Court Registry</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="'yes'" 
+                    text="Step 2: File the Notice to Resolve a Family Law Matter form at the Provincial Court Registry"/>               
+            </div>   
+           
             <div style="margin:0;">
                 You must file at the 
                 <a 
@@ -88,7 +105,16 @@
 
 <!-- <Step 3> -->
         <div>
-            <b>Step 3: Give a filed copy of the Notice to Resolve a Family Law Matter form to each other party</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 3: Give a filed copy of the Notice to Resolve a Family Law Matter form to each other party"/>               
+            </div>   
+            
             <div style="margin:0;">
                 You can give each other party a copy using any way you believe will get it to them, including:
             </div>
@@ -106,7 +132,15 @@
 
 <!-- <Step 4> -->
         <div>
-            <b>Step 4: Complete the early resolution process outlined in the “What You Must Do” section of this form</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 4: Complete the early resolution process outlined in the “What You Must Do” section of this form"/>               
+            </div>
             
             <div style="margin:0;">
                 Before proceeding any further with your court case, you must meet the following early resolution requirements:
@@ -149,10 +183,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 @Component({
     components:{
-
+        CheckBox
     }
 })
 

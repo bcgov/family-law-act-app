@@ -5,7 +5,16 @@
 
 <!-- <Step 1> -->
         <div>
-            <b>Step 1: Complete the Application About a Family Law Matter form</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="'yes'" 
+                    text="Step 1: Complete the Application About a Family Law Matter form"/>               
+            </div>   
+           
             <p>
                 This form is available online at <a target="_blank" href="https://www2.gov.bc.ca/gov/content/justice/courthouse-services/documents-forms-records/court-forms">www.gov.bc.ca/cour-forms</a> or at any <a target="_blank" href="https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96">Provincial Court Registry</a>.
             </p>
@@ -38,7 +47,16 @@
 
 <!-- <Step 2> -->
         <div>
-            <b>Step 2: File the Application About a Family Law Matter form at the Provincial Court Registry</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="'yes'" 
+                    text="Step 2: File the Application About a Family Law Matter form at the Provincial Court Registry"/>               
+            </div>  
+           
             <div style="margin:0;">
                 You must file at the <a target="_blank" href="https://www2.gov.bc.ca/gov/content?id=5AD9441AEBD9428FA6EF86D6B1E39E96">Provincial Court Registry</a> :
             </div>
@@ -57,7 +75,16 @@
 
 <!-- <Step 3> -->
         <div>
-            <b>Step 3: Arrange for service of the Application About a Family Law Matter on each other party</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 3: Arrange for service of the Application About a Family Law Matter on each other party"/>               
+            </div>  
+            
             <div style="margin:0;">
                 Normally, each other party named in the Application About a Family Law Matter must be given a copy of the following documents by personal service:
             </div>
@@ -83,7 +110,16 @@
 
 <!-- <Step 4> -->
         <div>
-            <b>Step 4: Schedule your Family Management Conference</b>
+            <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 4: Schedule your Family Management Conference"/>               
+            </div>  
+           
             <p>
                 The other party has 30 days from the date they are served to file their reply.<br/>            
                 If the other party files a reply, the court registry will provide you with a copy of the reply along with instructions on how to schedule your family management conference. Your first step with the court will be to attend a family management conference.
@@ -95,7 +131,6 @@
                 <li>filing the Certificate of Service</li>
                 <li>following the scheduling instructions provided by the court registry</li>
             </ul>
-
            
             <p>
                 <b>Note:</b> You will need to be ready to provide your file number, the names of the parties in your case, your name, and your availability to attend court.
@@ -109,7 +144,16 @@
 
 <!-- <Step 5> -->
         <div>
-            <b>Step 5: Attend the Family Management Conference</b>
+             <div style="margin:0rem 0 0 0; display:inline;">
+                <check-box 
+                    inline="inline" 
+                    boxMargin="0" 
+                    shiftmark=0
+                    style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
+                    check="" 
+                    text="Step 5: Attend the Family Management Conference"/>               
+            </div>  
+            
             <div style="margin:0;">
                 A family management conference is an informal and time-limited process in which a judge or family justice manager:
             </div>
@@ -132,10 +176,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 @Component({
     components:{
-
+        CheckBox
     }
 })
 

@@ -226,7 +226,9 @@ export default class ResultPage extends Vue {
 
             for (const pdf of preparedPdfs){
                 this.applicationDocumentTypes.push(pdf.pdf_type);
-            }            
+            } 
+            
+            //this.applicationDocumentTypes = ["AAP", "NTRF", "FLC"]
             
             this.mountedData = true;       
         },(err) => {
