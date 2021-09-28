@@ -472,9 +472,10 @@ export default class Schedule1 extends Vue {
 
     yourInfo = {} as yourInformationInfoDataInfoType;
     anotherAdult = {} as schedule1AnotherAdultInfoType;
-    childrenItem: schedule1ChildInfoType[] = [];
-    sharingAdultItem: schedule1SharingAdultInfoType[] = [];
-    otherChildrenItem: schedule1OtherChildrenInfoType[] = [];
+    // Adding initial empty values to display an empty row in the table if no records exist
+    childrenItem: schedule1ChildInfoType[] = [{name:'', dob:'', relation:'', living:''}];
+    sharingAdultItem: schedule1SharingAdultInfoType[] = [{name:'', dob:'', relation: ''}];
+    otherChildrenItem: schedule1OtherChildrenInfoType[] = [{name:'', dob:'', protectedRelation:'', otherRelation:'', livingWith: ''}];
     backgroundSurvey = {} as schedule1BackgroundInfoType;
     yourStory = {} as schedule1YourStoryInfoType;
     noGo = {} as schedule1NoGoInfoType;

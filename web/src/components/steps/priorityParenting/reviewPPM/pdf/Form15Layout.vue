@@ -210,7 +210,7 @@
 
 
 <!-- <4> -->
-            <section>
+        <section>
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
