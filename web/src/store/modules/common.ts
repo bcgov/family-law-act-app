@@ -10,6 +10,7 @@ class Common extends VuexModule {
     public userId = '';
     public userLocation = '';
     public efilingEnabled = false;
+    public efilingStreams = [];
 
     public locationsInfo = [];
 
@@ -58,8 +59,13 @@ class Common extends VuexModule {
         this.context.commit('setLocationsInfo', newLocationsInfo)
     }
     @Mutation
-    public setEfilingEnabled(efilingEnabled): void {
+    public setEfilingEnabled(efilingEnabled: boolean): void {
         this.efilingEnabled = efilingEnabled;
+    }
+
+    @Mutation
+    public setEfilingStreams(efilingStreams: string[]): void {
+        this.efilingStreams = efilingStreams;
     }
 }
 
