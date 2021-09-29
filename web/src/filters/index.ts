@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
+import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
 
 
 Vue.filter('beautify-date-', function(date){
@@ -562,6 +563,20 @@ Vue.filter('surveyChanged', function(type: string) {
 		store.commit("Application/setPageActive",   { currentStep: submitStep, currentPage: i, active: false });
 		store.commit("Application/setPageProgress", { currentStep: submitStep, currentPage: i, progress:0 });
 	}	
+})
+
+Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {
+
+	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(locationName)){
+		return true;
+	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(locationName)){
+		return true;
+	} else if (registryType == 'family-justice' && FamilyJusticeRegistries.includes(locationName)){
+		return true;
+	} else {
+		return false;
+	}
+
 })
 
 Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){

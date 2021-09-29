@@ -55,8 +55,8 @@
                 <a href="https://www2.gov.bc.ca/assets/download/D6B5BF5B2ECB46B08BBC54808F4F7BB1"
                    target="_blank"
                     > Application for a Case Management Order without Notice or Appearance Form 11
-                </a>.
-
+                </a>
+                or complete the form using this application - Family Law Application.
             </p>
         </div>
 
@@ -203,7 +203,6 @@
                 hint="Street address or location, city, province, or email address or fax number where the document(s) were served." 
                 :italicHint="false" 
                 text=""/>
-            
             <div 
                 style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;">
                 with the following document(s):
@@ -215,7 +214,6 @@
             </div>
 
             <table>
-
                 <tr>
                     <td style="width: 20rem; display: inline-block;">
                         <div 
@@ -247,9 +245,6 @@
                         </div>  
                     </td>
                 </tr>
-                
-                   
-
             </table>
             <underline-form 
                 style="margin-top: 0.75rem;text-indent:1px;display:block;font-weight: 700;" 
@@ -386,12 +381,10 @@
                 beforetext="" 
                 hint="" 
                 :italicHint="false" 
-                text=""/>            
-                
+                text=""/>
         </div>
 
-        <div class="print-block">
-            
+        <div class="print-block">            
 
             <div style="margin:2rem 0 0 0">
                 <div style="height:3rem; width:19rem;border:1px solid #313132; display:inline-block;"></div>
@@ -404,10 +397,7 @@
             
         </div>
 
-        
-
     </div>
-    
 </template>
 
 <script lang="ts">

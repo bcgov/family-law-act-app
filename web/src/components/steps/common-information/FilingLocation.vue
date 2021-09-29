@@ -113,34 +113,7 @@ export default class FilingLocation extends Vue {
 
     allPages = [];
     form1Enabled = false;   
-    editButton = false
-
-    courtsA = [
-        "Kelowna Law Courts", 
-        "Nanaimo Law Courts", 
-        "Robson Square Provincial Court"
-    ];
-
-    courtsB = [
-        "Abbotsford Provincial Court", 
-        "Campbell River Court", 
-        "Chilliwack Law Courts",
-        "Courtenay Law Courts",
-        "Kamloops Court",
-        "New Westminster Law Courts",
-        "North Vancouver Court",
-        "Penticton Law Courts",
-        "Port Coquitlam Court",
-        "Prince George Law Courts",
-        "Richmond Court Small Claims and Family Court",
-        "Richmond Provincial Court",
-        "Vernon Law Courts"
-    ];
-
-    courtsC = [
-        "Victoria Law Courts",
-        "Surrey Provincial Court"
-    ];    
+    editButton = false;  
 
     beforeCreate() {
         const Survey = SurveyVue;
@@ -189,15 +162,16 @@ export default class FilingLocation extends Vue {
 
     public determineRegistry(location){
         this.form1Enabled = false;
-        if (this.courtsA?.includes(location)){
+        
+        if (Vue.filter('includedInRegistries')(location, 'family-justice')){
             this.survey.setValue("familyJusticeRegistry",   true);
             this.survey.setValue("familyEducationProgram",  false);
             this.survey.setValue("earlyResolutionRegistry", false);
-        } else if (this.courtsB?.includes(location)) { 
+        } else if (Vue.filter('includedInRegistries')(location, 'parenting-education')) { 
             this.survey.setValue("familyJusticeRegistry",   false);           
             this.survey.setValue("familyEducationProgram",  true);  
             this.survey.setValue("earlyResolutionRegistry", false); 
-        } else if (this.courtsC?.includes(location)) {
+        } else if (Vue.filter('includedInRegistries')(location, 'early-resolutions')) {
             this.survey.setValue("familyJusticeRegistry",   false);            
             this.survey.setValue("familyEducationProgram",  false);
             if(this.survey.data?.MetEarlyResolutionRequirements == 'n'){
@@ -292,10 +266,10 @@ export default class FilingLocation extends Vue {
 
         if (this.types.includes('Family Law Matter')){
 
-            if (this.courtsA?.includes(location)){
+            if (Vue.filter('includedInRegistries')(location, 'family-justice')){
                 this.messageA = true;
                 this.locationInfo = true;
-            } else if (this.courtsB?.includes(location)) {
+            } else if (Vue.filter('includedInRegistries')(location, 'parenting-education')) {
                 this.messageB = true;
                 this.locationInfo = true;                
             }
@@ -307,7 +281,7 @@ export default class FilingLocation extends Vue {
     public saveApplicationLocation(location){       
         this.$store.commit("Application/setApplicationLocation", location);
         this.survey.setVariable("registryLocation", location);
-        if(this.courtsC?.includes(location) && this.types?.includes('Family Law Matter')){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && this.types?.includes('Family Law Matter')){
             this.survey.setVariable("victoriaSurrey", true);
             this.survey.setValue("familyJusticeRegistry", false);
             this.survey.setValue("familyEducationProgram", false);
