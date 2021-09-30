@@ -1,9 +1,9 @@
 <template>
-    <div style="padding: 2rem; border: solid;"> 
+    <div style="padding: 1.75rem; margin:-3rem; border: solid; font-size:10pt;"> 
                
         
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
-        <div style="font-size:1rem; font-weight:700; display: block; margin-left: auto; margin-right: auto; text-align: center;text-decoration: underline;">
+        <div style="font-size:1rem; font-weight:700; display: block; margin:0 auto 0 auto; text-align: center;text-decoration: underline;">
             PARENTING AFTER SEPARATION (PAS) PROGRAM
         </div>  
 
@@ -14,20 +14,22 @@
                 issues. Its purpose is to help people make informed choices about family separation 
                 that take into account the best interests of children. 
             </p>
-            <p>
+           
+            <div style="margin:0;">
                 The PAS program provides information on:
-                <ul>                    
-                    <li>the process of separation</li>
-                    <li>the impact of separation on children of various ages</li>
-                    <li>strategies to help families adjust to change</li>
-                    <li>how to speak to children about separation</li>
-                    <li>effective ways to communicate to reduce conflict</li>
-                    <li>how to keep children out of the middle of conflict</li>
-                    <li>options for resolving family disputes, including mediation, counselling and the court process</li>
-                    <li>general information about the child support guidelines</li>
-                    <li>resources in the community for parents and children</li>
-                </ul>
-            </p> 
+            </div>
+            <ul>                    
+                <li>the process of separation</li>
+                <li>the impact of separation on children of various ages</li>
+                <li>strategies to help families adjust to change</li>
+                <li>how to speak to children about separation</li>
+                <li>effective ways to communicate to reduce conflict</li>
+                <li>how to keep children out of the middle of conflict</li>
+                <li>options for resolving family disputes, including mediation, counselling and the court process</li>
+                <li>general information about the child support guidelines</li>
+                <li>resources in the community for parents and children</li>
+            </ul>
+            
         </div>
 
         <div>              
@@ -50,8 +52,10 @@
             </p> 
 
             <p>
-                <b>Online PAS:</b> Alternatively, you may also complete the free online PAS program. Here’s how to register
-                and complete online PAS:
+                <div style="margin:0;">
+                    <b>Online PAS:</b> Alternatively, you may also complete the free online PAS program. Here’s how to register
+                    and complete online PAS:
+                </div>
                 <ol>
                     <li>
                         Type <u style="font-weight: 700;">www.familieschange.ca</u> in your web browser’s address bar
@@ -79,10 +83,22 @@
                     </li>
                 </ol>                
             </p> 
-            <p>
-                <b>Questions?</b> Contact your local court registry or Family Justice/Justice Access
-                Centre. Call Enquiry BC toll free at 1-800-663-7867 and ask to be connected.
-            </p>           
+            <div>
+                <div class="row">
+                    <div class="col-9 mr-0 pr-0">
+                        <p class="mt-1">
+                            <b>Questions?</b> Contact your local court registry or Family Justice/Justice Access
+                            Centre. Call Enquiry BC toll free at 1-800-663-7867 and ask to be connected.
+                        </p>
+                    </div>
+                    <div class="col">
+                        <img 
+                            style="display:block; width:9rem;"
+                            :src="image"
+                        />                                                
+                    </div>                    
+                </div>
+            </div>           
         </div> 
     </div>
     
@@ -91,10 +107,13 @@
 <script lang="ts">
 
 import { Component, Vue } from 'vue-property-decorator';
+import {image} from '../../../../public/images/ministryJusticeLogo'
 
 @Component
 export default class ParentingAfterSeparation extends Vue {
-
-
+image = image
 }
 </script>
+<style scoped lang="scss" src="@/styles/_pdf.scss">
+
+</style>

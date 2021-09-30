@@ -1,5 +1,5 @@
 <template>
-    <b-card v-if="dataReady" no-body bg-variant="white">
+    <b-card v-if="dataReady" no-body bg-variant="white" border-variant="white">
 
         <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>                           
                            
@@ -38,19 +38,27 @@
             style="border:1px solid; border-radius:5px; height: 400px; overflow-y: auto;" 
             bg-variant="info" 
             class="mt-4 mb-4">
-            <div style="width:10rem; display: block; margin-left: auto; margin-right: auto;">
-                <b-button 
+            <div style="width:10rem;  margin:0 auto;">
+                <b-button
                     variant="success" 
                     @click='onPrint("print-parenting-after-separation", "parenting-after-separation")'
                     >Save/Print 
-                    <span class="fa fa-print "/>
+                    <span class="ml-2 fa fa-print "/>
                 </b-button>
             </div>
+            <div>
+                <b-button 
+                    style="margin-top:-2.45rem; float: right;"
+                    variant="dark" 
+                    @click='displayParentingAfterSeparation = false;'
+                    >x
+                </b-button>
+            </div>            
             <b-card
                 style="border:1px solid; border-radius:5px;" 
                 bg-variant="white" 
                 border-variant="white"
-                class="mt-4 mb-4" 
+                class="mt-3 mb-4 container" 
                 id="print-parenting-after-separation">
                 <parenting-after-separation />                
             </b-card>
@@ -96,11 +104,19 @@
                     <span class="fa fa-print "/>
                 </b-button>
             </div>
+            <div>
+                <b-button 
+                    style="margin-top:-2.45rem; float: right;"
+                    variant="dark" 
+                    @click='displayInstructionsFile = false;'
+                    >x
+                </b-button>
+            </div>       
             <b-card
                 style="border:1px solid; border-radius:5px;" 
                 bg-variant="white" 
                 border-variant="white"
-                class="mt-4 mb-4" 
+                class="mt-3 mb-4 container" 
                 id="print-instructions">
                 <family-law-matter-instructions 
                     v-if="listOfPdfs.includes('NTRF')" 
@@ -160,11 +176,19 @@
                     <span class="fa fa-print "/>
                 </b-button>
             </div>
+            <div>
+                <b-button 
+                    style="margin-top:-2.45rem; float: right;"
+                    variant="dark" 
+                    @click='displayForm7 = false;'
+                    >x
+                </b-button>
+            </div>  
             <b-card
                 style="border:1px solid; border-radius:5px;" 
                 bg-variant="white" 
                 border-variant="white"
-                class="mt-4 mb-4" 
+                class="mt-3 mb-4 container" 
                 id="print-form7">
                 <form-7/>
             </b-card>
@@ -178,6 +202,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';  
 
 import { namespace } from "vuex-class";
+import moment from 'moment';
 
 import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
@@ -245,10 +270,13 @@ export default class Instructions extends Vue {
     public onPrint(printId: string, pdfName: string) { 
         const pdf_type = 'TEMP'; 
         const el= document.getElementById(printId);
-        const bottomLeftTextCondition = (printId == 'print-parenting-after-separation')?``:`"Ministry of Attorney General Court Services Branch  ";`;
-        const bottomLeftText = (printId == 'print-form7')?`"PFA 714    05/2021 \\a           Form 7";`:bottomLeftTextCondition;
-        const bottomRightTextCondition = (printId == 'print-parenting-after-separation')?``:`"Mailing address: \\a           Victoria"` //+ this.applicationLocationInfo.name + `", \\a"`;// + this.applicationLocationInfo.address;
+                
+        const bottomLeftTextCondition = (printId == 'print-parenting-after-separation')?``:`"Ministry of Attorney General \\a     Court Services Branch  ";`;
+        const bottomLeftText = (printId == 'print-form7')?`"PFA 714  `+moment().format("MMMM D, YYYY")+ `\\a              Form 7";`:bottomLeftTextCondition;
+        
+        const bottomRightTextCondition = (printId == 'print-parenting-after-separation')?``:`"Mailing address: ` + this.applicationLocationInfo.name +  `\\a ` + this.applicationLocationInfo.address +`\\a  "`;
         const bottomRightText = (printId == 'print-form7')?``:bottomRightTextCondition;
+        
         const url = '/survey-print/'+this.applicationId+'/?name=' + pdfName + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
         const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
         
@@ -296,10 +324,8 @@ export default class Instructions extends Vue {
 }
 </script>
 
-<style scoped>   
-    .card {
-        border: white;
-    }
+<style scoped lang="scss" src="@/styles/_pdf.scss">
+ 
     .center {
         display: block;
         margin-left: auto;

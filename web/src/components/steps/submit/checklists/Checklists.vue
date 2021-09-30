@@ -1,9 +1,9 @@
 <template>
     <div v-if="dataReady"> 
-        <div style="width:10rem; margin:-2.5rem auto; transform:translate(0, -1.9rem);">
-            <b-button variant="success" @click='onPrint()'>Save/Print <span class="fa fa-print "/></b-button>
+        <div style="width:10rem; margin:-2.5rem auto; transform:translate(0, -1.85rem);">
+            <b-button variant="success" @click='onPrint()'>Save/Print <span class="ml-2 fa fa-print "/></b-button>
         </div>
-        <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
+        <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-3 mb-4 container" no-body>
             <flm-checklist v-if="checklistType=='FLM'" :applicationId='applicationId'/>
             <po-checklist v-else-if="checklistType=='PO'" :applicationId='applicationId'/>
             <EarlyResolutionsChecklist v-else-if="checklistType=='RFC'" :applicationId='applicationId'/>

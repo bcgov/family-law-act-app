@@ -1,52 +1,59 @@
 <template>
-    <div style="margin:0; padding: 0; border-color: grey;">        
+    <div style="margin:-2rem; padding: 0; border-color: grey; font-size:9pt;">        
         
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
         <div 
-            style="font-size:1.75rem; font-weight:700; display: block; margin-left: auto; margin-right: auto; text-align: center;">
+            style="font-size:23pt; font-weight:800; display: block; margin:-3rem auto 0 auto; text-align: center;">
             Preparing a Certificate of Service
         </div>
         <div 
-            style="margin-bottom:1rem; font-size:1.25rem; font-weight:700; display: block; margin-left: auto; margin-right: auto; text-align: center;">
+            style="margin:0 auto .1rem auto; font-size:9pt; font-weight:700; display: block; text-align: center;">
             Form 7
         </div>
         <div 
-            style="margin-bottom:1rem; font-size: 20px; display: block; margin-left: auto; margin-right: auto; text-align: center;">
+            style="margin:0 auto 1rem auto; font-size:10pt; display: block; text-align: center;">
             Provincial Court Family Rules
         </div>
 
         <div>
-            <p>Complete this form to prove a document was served.</p>
-            <p>
+            <b>Complete this form to prove a document was served.</b>
+      
+            <div style="margin:0;">
                 Service is the act of giving or leaving documents with the required person. It is important that each other party:
-                <ul>
-                    <li>know that a case is going on,</li>
-                    <li>are aware of what step is being taken, and</li>
-                    <li>are given a chance to tell their side of the story to the court.</li>
-                </ul>
+            </div>
+            <ul class="mb-2">
+                <li>know that a case is going on,</li>
+                <li>are aware of what step is being taken, and</li>
+                <li>are given a chance to tell their side of the story to the court.</li>
+            </ul>
+            <p>
                 Different court documents must be served in different ways. It is important to make sure you are serving a document properly. Your
                 matter can be delayed if the other person is not properly served.
             </p>
-            <p>
+
+            <div style="margin:0;">
                 For some types of documents, the other person must be served personally. These include:
-                <ul>
-                    <li>an Application About a Family Law Matter</li>
-                    <li>an Application about a Protection Order</li>
-                    <li>a subpoena</li>
-                </ul>                 
-            </p>
+            </div>
+            <ul class="mb-2">
+                <li>an Application About a Family Law Matter</li>
+                <li>an Application about a Protection Order</li>
+                <li>a subpoena</li>
+            </ul>                 
+            
             <p>
                 Personal service requires an adult who is not a party to hand-deliver the documents directly to the person being served.
             </p>
-            <p>
+            <div style="margin:0;">
                 For most other documents, the documents can be served to the address for service in any of the following ways:
-                <ul>
-                    <li>by leaving the documents at the party’s address for service</li>
-                    <li>by mailing the documents by ordinary mail to the party’s address for service</li>
-                    <li>by mailing the documents by registered mail to the party’s address for service</li>
-                    <li>if the party’s address for service includes an email address, by emailing the documents to that email address</li>
-                    <li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li>
-                </ul>
+            </div>
+            <ul class="mb-2">
+                <li>by leaving the documents at the party’s address for service</li>
+                <li>by mailing the documents by ordinary mail to the party’s address for service</li>
+                <li>by mailing the documents by registered mail to the party’s address for service</li>
+                <li>if the party’s address for service includes an email address, by emailing the documents to that email address</li>
+                <li>if the party’s address for service includes a fax number, by faxing the documents to that fax number</li>
+            </ul>
+            <p>
                 A party’s address for service is the address they have provided to the court.
             </p>
             <p>
@@ -73,24 +80,27 @@
                     text="Step 1: Serve the documents"/>               
             </div>
             
-            <p>
+            <div style="margin:0;">
                Check the instructions for the document you are serving to confirm how to serve it. 
                Remember some documents must be personally served.<br/>
                If you are serving the Application About a Family Law Matter, you must give the other party:
-                <ul>
-                    <li>
-                        instructions about how to file a reply and obtaining a reply form,
-                    </li>
-                    <li>
-                        a copy of the Application About a Family Law Matter and any other documents you filed with it.
-                    </li>                    
-                </ul>
+            </div>
+            <ul class="mb-2">
+                <li>
+                    instructions about how to file a reply and obtaining a reply form,
+                </li>
+                <li>
+                    a copy of the Application About a Family Law Matter and any other documents you filed with it.
+                </li>                    
+            </ul>
+            <div style="margin:0 0 1.5rem 0;">
                 The court registry will usually give you the instruction sheet when you file your application but you can also print a copy from
                 <a
                     href="www.gov.bc.ca/court-forms/"
                     target="_blank">www.gov.bc.ca/court-forms/
                 </a>.
-            </p>            
+            </div>
+                        
         </div>
 
 <!-- <Step 2> -->
@@ -141,13 +151,13 @@
         </div>
         <div class="new-page" />
         <!-- <HEADER> -->
-        <div class="form-header-cm">
+        <div class="form-header-cs">
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">
-                <div style="font-size:1.75rem;"><b>Certificate of Service</b></div>                
-                <div style="font-size:1.25rem;"><b>Form 7</b></div>
-                <div>Provincial Court Family Rules</div>
-                <div>Rules 2, 27, 68, 77, 136 and 183</div>
+                <div style="font-size:18pt; line-height:1rem; margin-bottom:0.25rem;"><b>Certificate of Service</b></div>                
+                <div style="font-size:10pt; line-height:1rem;"><b>Form 7</b></div>
+                <div style=" line-height:1rem;">Provincial Court Family Rules</div>
+                <div style=" line-height:1rem;">Rules 2, 27, 68, 77, 136 and 183</div>
             </div>
             <div style="float:right;">
                 
@@ -165,61 +175,62 @@
         </div>
 
         <!-- <1> -->
-        <div style="display: block;margin-top: 2rem;">
-            <div style="text-indent:1px;display:block;font-weight: 700;">I certify that</div>
+        <div style="display: block;margin-top: 0rem;">
+            <div style="text-indent:1px;display:block;font-weight: 700; margin:0 0 0rem 0;">I certify that</div>
             <underline-form 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;" 
-                textwidth="35rem" 
-                beforetext="I," 
+                style="margin-top: 0.25rem; display:block; " 
+                textwidth="42rem" 
+                beforetext="<b>I,</b>" 
                 hint="Your full name" 
                 :italicHint="false" 
                 text=""/>
             <underline-form 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;" 
-                textwidth="32.5rem" 
-                beforetext="served" 
+                style="margin-top: 1rem;text-indent:1px;display:block;" 
+                textwidth="39.9rem" 
+                beforetext="<b>served</b>" 
                 hint="Full name of the person served (copy their name from the document you served them)" 
                 :italicHint="false" 
                 text=""/>
             <underline-form 
-                style="margin-top: 1rem;text-indent:1px;display:inline-block;font-weight: 700;" 
+                style="margin-top: 1rem;text-indent:1px;display:inline-block;" 
                 textwidth="15rem" 
-                beforetext="on" 
+                beforetext="<b>on</b>" 
                 hint="Date the document(s) were service (mmm/dd/yyyy)" 
                 :italicHint="false" 
                 text=""/>
             <underline-form 
-                style="margin-top: 1rem;text-indent:1px;display:inline-block;font-weight: 700;" 
+                style="margin-top: 1rem;text-indent:2px;display:inline-block;" 
                 textwidth="10rem" 
-                beforetext="at" 
+                beforetext="<b> at</b>" 
                 hint="Time the document(s) were served" 
                 :italicHint="false" 
                 text=""/>
-            <div style="text-indent:1px;display:inline;font-weight: 700;">a.m./p.m.</div>
+            <div style="margin-left:0.3rem;display:inline;font-weight: 700;">a.m./p.m.</div>
             <underline-form 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;" 
-                textwidth="34.5rem" 
-                beforetext="at" 
+                style="margin-top: 1rem;text-indent:1px;display:block;" 
+                textwidth="41.5rem" 
+                beforetext="<b>at</b>" 
                 hint="Street address or location, city, province, or email address or fax number where the document(s) were served." 
                 :italicHint="false" 
                 text=""/>
+<!-- <with the following document(s)> -->
             <div 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;">
+                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700; line-height:1rem;">
                 with the following document(s):
             </div>
             <div 
-                style="margin:0.25rem 0;text-indent:0px;font-style: italic;">
+                style="margin:0.25rem 0;text-indent:0px;font-style: italic; line-height:1rem;">
                 Select all options that apply. Attach a copy of each document you have selected 
                 below (except the blank reply) to this Certificate of Service.
             </div>
 
             <table>
                 <tr>
-                    <td style="width: 20rem; display: inline-block;">
+                    <td style="width: 19.8rem; display: inline-block;">
                         <div 
                             v-for="(rightDoc, rightDocIndex) in rightDocuments"           
                             v-bind:key="rightDocIndex" 
-                            style="margin:0rem 0 0 0; display:block;">
+                            style="margin:-.2rem 0; padding:0; display:block;">
                             <check-box 
                                 inline="inline" 
                                 boxMargin="0" 
@@ -230,11 +241,11 @@
                         </div>                        
                     </td>
                     
-                    <td style="width: 19rem; display: inline-block;">
+                    <td style="width: 24rem; display: inline-block;">
                         <div 
                             v-for="(leftDoc, leftDocIndex) in leftDocuments"           
                             v-bind:key="leftDocIndex" 
-                            style="margin:0 0 0 0; display:block;">
+                            style="margin:-.2rem 0; padding:0; display:block;">
                             <check-box 
                                 inline="inline" 
                                 boxMargin="0" 
@@ -248,25 +259,26 @@
             </table>
             <underline-form 
                 style="margin-top: 0.75rem;text-indent:1px;display:block;font-weight: 700;" 
-                textwidth="40rem" 
+                textwidth="42.7rem" 
                 beforetext="" 
                 hint="" 
                 :italicHint="false" 
                 text=""/>
+<!-- <by> -->
             <div 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;">
+                style="margin-top: 0.5rem;text-indent:1px;display:block;font-weight: 700;">
                 by:
             </div>
             <div 
-                style="margin:0.25rem 0;text-indent:0px;font-style: italic;">
+                style="margin:0rem 0;text-indent:0px;font-style: italic;">
                 Select the appropriate option for how you served the other party with the document(s)
             </div>
             <div 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;text-decoration: underline;">
+                style="margin-top: 0rem;text-indent:1px;display:block;font-weight: 700;text-decoration: underline;">
                 Personal service
             </div>
             <div 
-                style="margin:0.25rem 0;text-indent:0px;font-style: italic;">
+                style="margin:0rem 0;text-indent:0px;font-style: italic;">
                 Note: Application About a Family Law Matter or About a Protection Order can only be served this way.
             </div>
             <div style="margin:0 0 0 0; display:inline;">
@@ -288,15 +300,16 @@
                     text="alternative service method ordered by the court (specify the method or instructions you followed as ordered by the court):"/>               
             </div>
             <underline-form 
-                style="margin-top: 0.75rem;text-indent:1px;display:block;font-weight: 700;" 
-                textwidth="40rem" 
+                style="margin-top: 1.75rem;text-indent:1px;display:block;font-weight: 700;" 
+                textwidth="42.7rem" 
                 beforetext="" 
                 hint="" 
                 :italicHint="false" 
                 text=""/>
 
+<!-- <Ordinary service> -->
             <div 
-                style="margin-top: 1rem;text-indent:1px;display:block;font-weight: 700;text-decoration: underline;">
+                style="margin-top: 0.5rem;text-indent:1px;display:block;font-weight: 700;text-decoration: underline;">
                 Ordinary service
             </div>
             <div 
@@ -322,14 +335,14 @@
                     text="mailing the document(s) by ordinary mail to the person’s address for delivery on"/>
                 <underline-form 
                     style="margin-top: 0.75rem;text-indent:1px;display:inline;font-weight: 700;" 
-                    textwidth="6rem" 
+                    textwidth="12.5rem" 
                     beforetext="" 
                     hint="(mmm/dd/yyyy)" 
                     :italicHint="false" 
                     text=""/>
             </div>
             <div 
-                style="margin:0.25rem 0;text-indent:1.5rem;font-style: italic;">
+                style="margin:0.1rem 0 0.25rem 1.65rem;font-style: italic;">
                 Note: The date the document(s) were served is 14 days after the documents were mailed.
             </div>
             <div style="margin:0 0 0 0; display:inline;">
@@ -342,7 +355,7 @@
                     text="mailing the document(s) by registered mail to the person’s address for delivery"/>               
             </div>
             <div 
-                style="margin:0.25rem 0;text-indent:1.5rem;font-style: italic; display:inline-block;">
+                style="margin:0.1rem 0 0.25rem 1.65rem; font-style: italic;">
                 Note: The date the document(s) were served is the date the document(s) were 
                 confirmed to have been delivered by Canada Post. Attach a copy of the 
                 delivery confirmation from Canada Post.
@@ -376,23 +389,24 @@
                     method or instructions you followed as ordered by the court):"/>               
             </div>
             <underline-form 
-                style="margin-top: 0.75rem;text-indent:1px;display:block;font-weight: 700;" 
-                textwidth="40rem" 
+                style="margin-top: 1.75rem;text-indent:1px;display:block;font-weight: 700;" 
+                textwidth="42.7rem" 
                 beforetext="" 
                 hint="" 
                 :italicHint="false" 
                 text=""/>
         </div>
 
+<!-- <Signature> -->
         <div class="print-block">            
 
-            <div style="margin:2rem 0 0 0">
-                <div style="height:3rem; width:19rem;border:1px solid #313132; display:inline-block;"></div>
-                <div style="height:3rem; width:19rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
+            <div style="margin:1rem 0 0 0">
+                <div style="height:2rem; width:19rem;border:1px solid #313132; display:inline-block;"></div>
+                <div style="height:2rem; width:19rem;border:1px solid #313132; display:inline-block; margin-left:2rem;"></div>
             </div>
-            <div>
-                <div style="width:19rem; display:inline-block; font-size:9pt" >Signature of the person who served the document</div>
-                <div style="width:19rem; display:inline-block; font-size:9pt; margin-left: 2rem;">Date of signature (mmm/dd/yyyy)</div>
+            <div style="margin:0rem 0 0 0; line-height:0.25rem;">
+                <div style="width:19rem; display:inline-block; font-size:7pt" >Signature of the person who served the document</div>
+                <div style="width:19rem; display:inline-block; font-size:7pt; margin-left: 2rem;">Date of signature (mmm/dd/yyyy)</div>
             </div>
             
         </div>
