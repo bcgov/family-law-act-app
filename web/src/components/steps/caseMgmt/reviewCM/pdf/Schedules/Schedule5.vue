@@ -89,7 +89,7 @@ export default class Schedule5 extends Vue {
 
     dataReady = false;
        
-    otherParties: schedule5DataInfoType[]= []
+    otherParties: schedule5DataInfoType[]= [];
     outsideBCinfo = {} as schedule5outsideBcInfoType;
 
     mounted(){

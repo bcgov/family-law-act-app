@@ -19,6 +19,7 @@ table.compactfullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 .marginleft0p25vue{margin-left:0.25rem !important;}
 
 .margintop1vue{margin-top:1rem !important;}
+.margintop-1vue{margin-top:-1rem !important;}
 
 .answer{color: #000; display:inline; font-size:11pt;}
 .answerbox{color: #000; font-size:11pt; display:block;text-indent:0px; margin:0.5rem 0 0.5rem 0.1rem;}
@@ -31,6 +32,7 @@ table.compactfullsize >>> td{padding:0 0 0 .5rem; color: #313132;}
 .form-header-reloc{display:block; margin:0 0 5.25rem 0;}
 .form-header-ea{display:block; margin:0 0 6rem 0;}
 .form-header-enf{display:block; margin:0 0 4.5rem 0;}
+.form-header-cs{display:block; margin:0 0 4rem 0;}
 
 section{
     counter-increment: question-counter;         
