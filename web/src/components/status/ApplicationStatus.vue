@@ -378,6 +378,9 @@ export default class ApplicationStatus extends Vue {
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("familyLawMatter"))){
                 types.push("Family Law Matter");
             }
+            if (applicationType.includes(Vue.filter('getPathwayPdfType')("familyLawMatterForm1"))){
+                types.push("Notice to Resolve a Family Law Matter");
+            }
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("caseMgmt"))){
                 types.push("Case Management");
             }
@@ -394,6 +397,7 @@ export default class ApplicationStatus extends Vue {
             if (applicationType.includes(Vue.filter('getPathwayPdfType')("protectionOrder"))){
                 types.push("Protection Order");     
             }
+
         }
         return types;
     }
@@ -424,7 +428,7 @@ export default class ApplicationStatus extends Vue {
     
     public viewApplicationPdf(applicationId, listOfPdfs) {
         this.printingApplicationId = applicationId;
-        this.printingListOfPdfs = listOfPdfs;
+        this.printingListOfPdfs = listOfPdfs.filter(pdfname => pdfname != "TEMP");
         this.showSelectFileForPrint =  true;
     }
 

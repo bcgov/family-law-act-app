@@ -97,10 +97,10 @@
             <b-button style="margin-left:auto;margin-right:1rem;" v-on:click="exitApplication()" variant="secondary">Exit Application</b-button>
         </b-row>
 
-        <b-modal size="xl" v-model="checklist" header-class="bg-white border-0" no-close-on-backdrop hide-footer>
+        <b-modal size="lg" v-model="checklist" header-class="bg-white border-0" no-close-on-backdrop hide-footer>
             <checklists :checklistType='checklistType' :applicationId='applicationId'/>            
             <template v-slot:modal-header>                
-                <b-button style="margin-left:auto;" variant="dark" @click="checklist=false;">Close</b-button>
+                <b-button style="margin-left:auto; height:2rem; padding:0 0.65rem;" variant="dark" @click="checklist=false;">x</b-button>
             </template>
         </b-modal>
 
