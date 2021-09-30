@@ -6,6 +6,7 @@ import * as _ from 'underscore';
 
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
+import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
 
 
 Vue.filter('beautify-date-', function(date){
@@ -564,6 +565,20 @@ Vue.filter('surveyChanged', function(type: string) {
 	}	
 })
 
+Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {
+
+	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(locationName)){
+		return true;
+	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(locationName)){
+		return true;
+	} else if (registryType == 'family-justice' && FamilyJusticeRegistries.includes(locationName)){
+		return true;
+	} else {
+		return false;
+	}
+
+})
+
 Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 
 	const body = 
@@ -585,6 +600,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 				}
 				@bottom-right {
 					content:`+pageFooterRight+` "  Page " counter(page) " of " counter(pages);
+					white-space: pre;
 					font-size: 7pt;
 					color: #606060;
 				}
@@ -637,6 +653,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
+			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+
