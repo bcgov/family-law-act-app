@@ -53,9 +53,9 @@
                                     title="Navigate To Submitted Application">
                                     <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                                 </b-button>
-
-                                <b-button v-if="(row.item.lastFiled != 0) && row.item.app_type.includes('Family Law Matter')" size="sm" variant="transparent" class="my-0 py-0"
-                                    @click="viewInstructions(row.item.id, row.item.app_type, row.item.listOfPdfs)"
+<!-- v-if="(row.item.lastFiled != 0)" -->
+                                <b-button  size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="viewInstructions(row.item.id, row.item.app_type)"
                                     v-b-tooltip.hover.noninteractive
                                     title="View Instructions">
                                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
@@ -156,7 +156,7 @@
             </template>
 
             <b-card no-body border-variant="white" class="m-3">
-                <instructions :applicationId='instructionsApplicationId' :listOfPdfs='instructionListOfPdfs'></instructions>                
+                <instructions :applicationId='instructionsApplicationId' ></instructions>                
             </b-card>
             
             <template v-slot:modal-footer>                
@@ -247,7 +247,6 @@ export default class ApplicationStatus extends Vue {
     showSelectFileForPrint =  false;
 
     instructionsApplicationId = 0;
-    instructionListOfPdfs: string[] = [];
     applicationTypes: string[] = [];
     showInstructions =  false;
 
@@ -402,9 +401,8 @@ export default class ApplicationStatus extends Vue {
         this.showSelectFileForPrint =  true;
     }
 
-    public viewInstructions(applicationId, applicationType, listOfPdfs) {
+    public viewInstructions(applicationId, applicationType) {
         this.instructionsApplicationId = applicationId;
-        this.instructionListOfPdfs = listOfPdfs;
         this.applicationTypes = applicationType;
         this.showInstructions =  true;
 
