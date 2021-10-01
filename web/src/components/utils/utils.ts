@@ -25,7 +25,7 @@ export const SessionManager = {
             const loginUrl = response.data.login_uri;
             const userLocation = response.data.location;
             const efilingEnabled = response.data.efiling_enabled;
-            const efilingStreams = response.data.efiling_streams;
+            const efilingStreams = response.data.efiling_streams? response.data.efiling_streams.split(","): [];
             if (userId) {
                 const universalId = response.data.universal_id;
                 if (!universalId) {
