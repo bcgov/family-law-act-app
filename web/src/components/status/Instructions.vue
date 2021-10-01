@@ -14,7 +14,7 @@
             v-bind:applicationId="applicationId"/>
 
         <arrange-for-service-flm-instructions 
-            v-if="listOfselectedForms.includes('FLC') || listOfselectedForms.includes('NTRF')" 
+            v-if="includesFlm" 
             v-bind:step="stepNumFlmService"  
             v-bind:applicationId="applicationId"
             v-bind:listOfPdfs="listOfselectedForms"
@@ -82,6 +82,7 @@ export default class Instructions extends Vue {
 
     dataReady = false;
     includeParentingAfterSeparationStep = false;
+    includesFlm = false;
     error = ''
 
     mounted(){
@@ -105,18 +106,48 @@ export default class Instructions extends Vue {
             console.log(stepFLM)
             // if(stepGETSTART.selectedForms)
             //     this.listOfselectedForms = stepGETSTART.selectedForms;
-
+            this.includesFlm = this.listOfselectedForms.includes('FLC') 
+                || this.listOfselectedForms.includes('NTRF');
             const applicationLocationName = applicationData.applicationLocation?applicationData.applicationLocation:'';
             this.applicationLocationInfo = this.locationsInfo.filter(locationInfo => locationInfo.name == applicationLocationName)[0];
             this.includeParentingAfterSeparationStep = (   
                    Vue.filter('includedInRegistries')(applicationLocationName, 'early-resolutions')
                 || Vue.filter('includedInRegistries')(applicationLocationName, 'parenting-education')
                 || Vue.filter('includedInRegistries')(applicationLocationName, 'family-justice')
-                ) &&
-                (
-                   this.listOfselectedForms.includes('FLC') 
-                || this.listOfselectedForms.includes('NTRF')
-                );
+                ) && this.includesFlm;
+
+            if (!this.includesFlm
+                && this.listOfselectedForms.includes('AAP')){// only po
+                    this.stepNumPoService = 1;
+                    this.stepNumProofOfService = 2;
+                    this.stepNumPoAttend = 3;
+            } else if (this.includesFlm
+                && !this.listOfselectedForms.includes('AAP')){// only flm
+                    
+                    if (this.includeParentingAfterSeparationStep){
+                        this.stepNumFlmService = 2;
+                        this.stepNumProofOfService = 3;
+                    } else {
+                        this.stepNumFlmService = 1;
+                        this.stepNumProofOfService = 2;
+                    }
+
+            } else if (this.includesFlm
+                && this.listOfselectedForms.includes('AAP')){// inludes po and flm
+
+                if (this.includeParentingAfterSeparationStep){
+                        this.stepNumFlmService = 2;
+                        this.stepNumPoService = 3
+                        this.stepNumProofOfService = 4;
+                        this.stepNumPoAttend = 5;
+                    } else {
+                        this.stepNumFlmService = 1;
+                        this.stepNumPoService = 2;
+                        this.stepNumProofOfService = 3;
+                        this.stepNumPoAttend = 4;
+                    }
+
+            }
 
         }, err => {
             this.error = err;        
