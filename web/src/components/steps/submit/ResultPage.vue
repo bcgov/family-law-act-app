@@ -40,12 +40,8 @@
                 </ul>                
             </div>
 
-            <div class="mt-5" style="font-style:italic">
-                <h4 style="margin:0 0 0.5rem 1.5rem;">WHAT ARE MY NEXT STEPS WHEN MY DOCUMENTS ARE FILED?</h4>
-                <ul>
-                    <li>Have a viewable and printable checklist for users</li>
-                    <li>Multiple pathways – checklist forms for each pathway and titled.</li>
-                </ul>
+            <div class="mt-5">
+                <h3>What are my next steps when my documents are filed?</h3>                
             </div>
 
             <div class="mt-2">
