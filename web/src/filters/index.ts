@@ -4,6 +4,8 @@ import store from '@/store';
 
 import * as _ from 'underscore';
 
+import {FLA_Types} from './applicationTypes'
+
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
 import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
@@ -184,35 +186,33 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	return {data: survey.data, questions:questionResults, pageName:pageName, currentStep: currentStep, currentPage:currentPage}
 })
 
-Vue.filter('getPathwayPdfType',function(name){	
+Vue.filter('getPathwayPdfType',function(pathwayname){
+
+	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayname);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].pdfType;
+	else return ''
+})
+
+Vue.filter('getPathwayFamilyType',function(pathwayname){
 	
-	if (name == 'protectionOrder')        	return "AAP";
-	if (name == 'familyLawMatterForm1') 	return "NTRF";
-	if (name == 'familyLawMatter')   		return "FLC";
-	if (name == 'caseMgmt')          		return "ACMO";
-	if (name == 'caseMgmtForm11')          	return "ACMW";
-	if (name == 'priorityParenting') 		return "AXP";
-	if (name == 'childReloc')        		return "APRC";
-	if (name == 'agreementEnfrc')    		return "AFET";
-	if (name == 'agreementEnfrc26')    		return "RFA";
-	if (name == 'agreementEnfrc27')    		return "RDET";
-	if (name == 'agreementEnfrc28')    		return "RORD";
+	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayname);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].familyType;
+	else return ''
+})
+
+Vue.filter('pdfTypeToFullName',function(pdfType){
+	const pathwayInfo = FLA_Types.filter(type => type.pdfType == pdfType);	
+	if (pathwayInfo.length >0) return pathwayInfo[0].fullName;
+	else return ''
 })
 
 Vue.filter('getFullOrderName',function(orderName, specific){
-	if (orderName == "protectionOrder" && specific == '') return "Protection Order";
-	else if (orderName == "protectionOrder" && specific == 'needPO') return "New Protection Order";
-	else if (orderName == "protectionOrder" && specific == 'changePO') return "Change Protection Order";
-	else if (orderName == "protectionOrder" && specific == 'terminatePO') return "Terminate Protection Order";
-	else if (orderName == "familyLawMatter") return "Family Law Matter";
-	else if (orderName == "caseMgmt") return "Case Management";
-	else if (orderName == "priorityParenting") return "Priority Parenting Matter";
-	else if (orderName == "childReloc") return "Relocation of a Child";
-	else if (orderName == "agreementEnfrc") return "Enforcement";
-	else if (orderName == "agreementEnfrc26") return "File an Agreement";	
-	else if (orderName == "agreementEnfrc27") return "File a Determination of Parenting Coordinator";
-	else if (orderName == "agreementEnfrc28") return "File an Order";
-	else return "";
+
+	const pathwayName = orderName + specific;
+	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayName);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].fullName;
+	else return ''
+
 })
 
 Vue.filter('translateTypes',function(applicationTypes: string[]) {
@@ -220,27 +220,22 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 	let types = [];
 
 	for (const applicationType of applicationTypes){
-		if (applicationType.includes("Protection Order")){
-			types.push(applicationType.replace("Protection Order", "FPO"));
-		}
-		if (applicationType.includes("Family Law Matter")){
-			types.push("FLC");
-		}
-		if (applicationType.includes("Case Management")){
-			types.push("ACMO");
-		}
-		if (applicationType.includes("Priority Parenting Matter")){
-			types.push("AXP");
-		}
-		if (applicationType.includes("Relocation of a Child")){
-			types.push("APRC");
-		}
-		if (applicationType.includes("Enforcement")){
-			types.push("AFET");
-		}
+		const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
+		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].appType);
 	}
 
 	return types.toString();
+})
+
+Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
+
+	let types = [];
+
+	for (const applicationType of applicationTypes){
+		const pathwayInfo = FLA_Types.filter(type => type.appType == applicationType);
+		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].fullName);
+	}
+	return types;
 })
 
 Vue.filter('FLMform4Required', function(){

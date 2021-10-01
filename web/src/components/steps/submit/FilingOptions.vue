@@ -24,6 +24,8 @@ import { togglePages } from '@/components/utils/TogglePages';
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import "@/store/modules/common";
+const commonState = namespace("Common");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -38,11 +40,14 @@ export default class FilingOptions extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @commonState.State
+    public efilingStreams!: string[];
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
-    public allCompleted!: boolean
+    public allCompleted!: boolean;
 
     @applicationState.Action
     public UpdateGotoPrevStepPage!: () => void
@@ -109,8 +114,18 @@ export default class FilingOptions extends Vue {
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
         const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
 
+        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
+
+        let disableEfilingForStreams = false;
+        
+        for(const form of selectedForms)
+            if(!this.efilingStreams?.includes(Vue.filter('getPathwayFamilyType')(form))){
+                disableEfilingForStreams = true;
+                break;
+            }                        
 
         if (
+            disableEfilingForStreams ||
             !this.$store.state.Common.efilingEnabled || 
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
