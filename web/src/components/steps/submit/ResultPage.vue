@@ -211,27 +211,56 @@ export default class ResultPage extends Vue {
 
     public getApplicationTypes(applicationId: string) {
 
-        const url = "/app-list/";
-
-        this.$http.get(url)
+        this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
 
-            const preparedPdfs = response.data.filter(application=>application.id == applicationId)[0].prepared_pdfs;
-            // const preparedPdfs = [{"id":1,"pdf_type":"AAP","version":"1.0","created_date":"2021-09-24T20:29:05.601841Z"}];
-            // console.log(preparedPdfs)
+            const applicationData = response.data;
+            const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
+            const stepCOMM = this.getStepResultByName(applicationData, 'COMMON');
+            let pathways: string[] = [];
 
-            for (const pdf of preparedPdfs){
-                this.applicationDocumentTypes.push(pdf.pdf_type);
-            } 
-            
-            //this.applicationDocumentTypes = ["AAP", "NTRF", "FLC"]
-            
-            this.mountedData = true;       
-        },(err) => {
+            if (stepGETSTART?.selectedForms){
+                pathways = stepGETSTART.selectedForms;
+            }
+
+            const includesFlm = pathways.includes('familyLawMatter');
+
+            if (pathways.includes('protectionOrder')){
+                this.applicationDocumentTypes.push('AAP')
+            }
+
+            if (includesFlm){
+
+                const applicationLocationName = applicationData.applicationLocation?applicationData.applicationLocation:'';
+
+                if (Vue.filter('includedInRegistries')(applicationLocationName, 'early-resolutions')
+                    && (stepCOMM?.filingLocationSurvey?.data?.MetEarlyResolutionRequirements == 'n')){
+
+                    this.applicationDocumentTypes.push('NTRF');
+
+                } else if (includesFlm 
+                        && (stepCOMM?.filingLocationSurvey?.data?.MetEarlyResolutionRequirements == 'y')) {
+
+                    this.applicationDocumentTypes.push('FLC');
+
+                }
+            }
+
             this.mountedData = true;
-            this.error = err;        
-        });
+
+        }, err => {
+            this.error = err;
+            this.mountedData = true;        
+        });        
    
+    }
+
+    public getStepResultByName(applicationData, stepName){
+        if(applicationData?.steps){
+            const steps = applicationData.steps.filter(step => step.name == stepName);
+            if(steps.length == 1) return steps[0].result
+        }
+        return {}
     }
 
 }

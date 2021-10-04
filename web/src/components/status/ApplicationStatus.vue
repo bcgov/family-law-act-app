@@ -264,7 +264,6 @@ export default class ApplicationStatus extends Vue {
         this.loadDocumentTypes();
         this.extractFilingLocations();
         this.loadApplications();
-        console.log(new URL(location.href))
     }
 
     public openTerms() {
@@ -405,7 +404,6 @@ export default class ApplicationStatus extends Vue {
         this.instructionsApplicationId = applicationId;
         this.applicationTypes = applicationType;
         this.showInstructions =  true;
-
     }
 
     public downloadApplicationPdf(applicationId, pdf_type){

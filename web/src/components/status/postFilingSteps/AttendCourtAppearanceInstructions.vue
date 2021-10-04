@@ -21,8 +21,12 @@
             If you do not have a lawyer, you may find it helpful to bring a 
             trusted friend or family member with you to provide emotional support, 
             takenotes, and organize documents during your court appearance. 
-            The Provincial Court has adopted Support Person Guidelines that 
-            explain when you are permitted to have a support person help you, 
+            The Provincial Court has adopted 
+            <a 
+                target="_blank" 
+                href='https://www.provincialcourt.bc.ca/downloads/Practice%20Directions/Support%20Person%20Guidelines.pdf'>
+                Support Person Guidelines
+            </a> that explain when you are permitted to have a support person help you, 
             and what they can do.
         </p>
 

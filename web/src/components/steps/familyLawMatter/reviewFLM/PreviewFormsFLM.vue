@@ -60,12 +60,10 @@ export default class PreviewFormsFlm extends Vue {
         const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
 
         if( stepCOM.result?.filingLocationSurvey?.data){
-            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-            const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-    
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;    
             const location = filingLocationData.ExistingCourt;                            
 
-            if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+            if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
                 this.requiredForm = 1;                
             } else {
                 this.requiredForm = 3;

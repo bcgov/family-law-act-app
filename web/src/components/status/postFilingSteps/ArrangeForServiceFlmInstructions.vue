@@ -53,14 +53,9 @@
                 border-variant="white"
                 class="mt-3 mb-4 container" 
                 id="print-instructions">
-                <family-law-matter-instructions 
-                    v-if="listOfPdfs.includes('NTRF')" 
+                <family-law-matter-instructions                    
                     :locationInfo='applicationLocationInfo' 
-                    :earlyResolution='true'/>
-                <family-law-matter-instructions 
-                    v-if="listOfPdfs.includes('FLC')" 
-                    :locationInfo='applicationLocationInfo' 
-                    :earlyResolution='false'/>
+                    :earlyResolution='earlyResolution'/>               
             </b-card>
         </b-card>
 
@@ -102,7 +97,7 @@ export default class ArrangeForServiceFlmInstructions extends Vue {
     applicationId!: string;
 
     @Prop({required: true})
-    listOfPdfs!: string[];
+    earlyResolution!: boolean;
 
     @Prop({required: true})
     step!: string;
