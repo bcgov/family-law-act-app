@@ -13,7 +13,7 @@
         <div 
             v-if="earlyResolution" 
             style="margin-bottom:1rem; font-size:1.25rem; font-weight:700; display: block; margin-left: auto; margin-right: auto; text-align: center;"
-            >{{locationInfo.name}} PROVINCIAL COURT</div>
+            >{{locationNameHeading}}</div>
         <div 
             v-else
             style="margin-bottom:1rem; font-size:1.25rem; font-weight:700; display: block; margin-left: auto; margin-right: auto; text-align: center;"
@@ -186,10 +186,21 @@ export default class FamilyLawMatterInstructions extends Vue {
     earlyResolution!: boolean;
 
     bcLogo = bclogo;
+    locationNameHeading = '';
     dataReady = false;
 
     mounted(){        
         this.dataReady = false;
+        if (this.earlyResolution){
+
+            if (this.locationInfo.name.toLowerCase() == 'victoria law courts'){
+                this.locationNameHeading = 'Victoria Provincial Courts'
+
+            } else {
+                this.locationNameHeading = this.locationInfo.name;
+            }
+
+        }
 
         this.dataReady = true;
     }
