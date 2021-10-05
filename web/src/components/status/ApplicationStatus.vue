@@ -53,8 +53,7 @@
                                     title="Navigate To Submitted Application">
                                     <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                                 </b-button>
-<!-- v-if="(row.item.lastFiled != 0)" -->
-                                <b-button  size="sm" variant="transparent" class="my-0 py-0"
+                                <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="viewInstructions(row.item.id, row.item.app_type)"
                                     v-b-tooltip.hover.noninteractive
                                     title="View Instructions">
