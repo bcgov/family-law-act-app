@@ -1,223 +1,80 @@
 <template>
-    <b-card v-if="dataReady" no-body bg-variant="white" border-variant="white">
+    <div>    
+        <b-card v-if="dataReady" no-body bg-variant="white" border-variant="white">
 
-        <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>                           
-                           
-        <p>
-            If your document was accepted and stamped by the registry you will need to 
-            complete the following steps as outlined in your checklist:
-        </p>
+            <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>                           
+                            
+            <p>
+                If your document was accepted and stamped by the registry you will need to 
+                complete the following steps as outlined in your checklist:
+            </p>        
 
-        <p v-if="includeParentingAfterSeparationStep" style="font-weight: 700;">
-            Step 1. Requirement for Parenting After Separation Education:
-        </p>
+            <parenting-after-separation-instructions 
+                v-if="includeParentingAfterSeparationStep" 
+                v-bind:applicationId="applicationId"/>
 
-        <p v-if="includeParentingAfterSeparationStep">
-            The court rules require that you complete the 
-            <span 
-                style="color:blue; cursor:pointer;" 
-                @click="displayParentingAfterSeparation = true;">
-                PAS (Parenting After Separation) program
-            </span> 
-            before you go to Provincial Court to obtain or change an order for child 
-            support, guardianship, parenting arrangements or contact with a child. 
-        </p>
+            <arrange-for-service-flm-instructions 
+                v-if="includesFlm" 
+                v-bind:step="stepNumFlmService"  
+                v-bind:applicationId="applicationId"
+                v-bind:earlyResolution="earlyResolution"
+                v-bind:applicationLocationInfo="applicationLocationInfo"/>
 
-        <p v-if="includeParentingAfterSeparationStep">
-            Note:  In certain circumstances, you may be able to apply for an 
-            exemption from this requirement.  For further information or 
-            to apply for an exemption: download
-            <a 
-                href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa740.pdf?forcedownload=true"
-                target="_blank"> Form 20
-            </a>.    
-        </p>
+            <arrange-for-service-po-instructions 
+                v-if="includesPo && !urgentPO" 
+                v-bind:step='stepNumPoService'  
+            />
 
-        <b-card 
-            v-if="includeParentingAfterSeparationStep && displayParentingAfterSeparation"
-            style="border:1px solid; border-radius:5px; height: 400px; overflow-y: auto;" 
-            bg-variant="info" 
-            class="mt-4 mb-4">
-            <div style="width:10rem;  margin:0 auto;">
-                <b-button
-                    variant="success" 
-                    @click='onPrint("print-parenting-after-separation", "parenting-after-separation")'
-                    >Save/Print 
-                    <span class="ml-2 fa fa-print "/>
-                </b-button>
-            </div>
-            <div>
-                <b-button 
-                    style="margin-top:-2.45rem; float: right;"
-                    variant="dark" 
-                    @click='displayParentingAfterSeparation = false;'
-                    >x
-                </b-button>
-            </div>            
-            <b-card
-                style="border:1px solid; border-radius:5px;" 
-                bg-variant="white" 
-                border-variant="white"
-                class="mt-3 mb-4 container" 
-                id="print-parenting-after-separation">
-                <parenting-after-separation />                
-            </b-card>
+            <review-stamped-document-po-instructions 
+                v-if="includesPo && urgentPO" 
+                v-bind:step='stepNumReviewStampedDocument'  
+            />
+
+            <complete-provide-for-registry-po-instructions 
+                v-if="includesPo && urgentPO" 
+                v-bind:step='stepNumProvideForRegistryPo'  
+            />
+
+            <proof-of-service-instructions
+                v-if="!includesPo || (includesPo && !urgentPO)" 
+                v-bind:step="stepNumProofOfService"  
+                v-bind:applicationId="applicationId"/>
+            
+            <attend-court-appearance-instructions
+                v-if="includesPo" 
+                v-bind:step='stepNumPoAttend'  
+            />
+        
         </b-card>
-
-        <p style="font-weight: 700;">
-            Step 
-            <span v-if="includeParentingAfterSeparationStep">2. </span>
-            <span v-else>1. </span>
-            Arrange for service of the Application About a Family Law Matter on each other party
-        </p>  
-
-        <p>
-            Normally, each other party named in the Application About a Family 
-            Law Matter must be given a copy of the following documents by 
-            personal service:
-            <ul>
-                <li>
-                    The filed copy of your Application About a Family Law Matter;    
-                </li>
-                <li @click="displayInstructionsFile = true;"  style="color:blue; cursor:pointer;">
-                    Instructions about how to file a reply and 
-                    obtaining Form 6 for filing a reply, and;                    
-                </li>                
-                <li>
-                    Any other documents you filed with the 
-                    Application About a Family Law Matter, 
-                    including a Financial Statement if applicable.                    
-                </li>
-            </ul>
-        </p>        
-
-        <b-card 
-            v-if="displayInstructionsFile"
-            style="border:1px solid; border-radius:5px; height: 400px; overflow-y: auto;" 
-            bg-variant="info" 
-            class="mt-4 mb-4">
-            <div style="width:10rem; display: block; margin-left: auto; margin-right: auto;">
-                <b-button 
-                    variant="success" 
-                    @click='onPrint("print-instructions", "instructions-for-filing-a-reply")'
-                    >Save/Print 
-                    <span class="fa fa-print "/>
-                </b-button>
-            </div>
-            <div>
-                <b-button 
-                    style="margin-top:-2.45rem; float: right;"
-                    variant="dark" 
-                    @click='displayInstructionsFile = false;'
-                    >x
-                </b-button>
-            </div>       
-            <b-card
-                style="border:1px solid; border-radius:5px;" 
-                bg-variant="white" 
-                border-variant="white"
-                class="mt-3 mb-4 container" 
-                id="print-instructions">
-                <family-law-matter-instructions 
-                    v-if="listOfPdfs.includes('NTRF')" 
-                    :locationInfo='applicationLocationInfo' 
-                    :earlyResolution='true'/>
-                <family-law-matter-instructions 
-                    v-if="listOfPdfs.includes('FLC')" 
-                    :locationInfo='applicationLocationInfo' 
-                    :earlyResolution='false'/>
-            </b-card>
-        </b-card>
-
-        <p>
-            Personal service requires that an adult (at least 19 years old) 
-            who is not a party hand-deliver the documents to the party to be served.
-        </p>
-
-        <p>    
-            <b>Note:</b> 
-            If your application is to change, cancel, set aside or replace a written 
-            agreement about child support or spousal support that is filed with the 
-            Director of Maintenance Enforcement, you must serve a copy of the application 
-            on the director. The Director of Maintenance Enforcement can be served by 
-            mailing the documents to the postal address provided by the director. 
-            Contact the Family Maintenance Enforcement Program to find out how best to serve them.
-        </p>
-
-        <p style="font-weight: 700;">
-            Step
-            <span v-if="includeParentingAfterSeparationStep">3. </span>
-            <span v-else>2. </span>
-            Provide Proof of Service 
-        </p>
-
-        <p>
-            The court may need proof you had the documents personally served.
-            The person serving the documents must complete a 
-            <span 
-                @click="displayForm7 = true;"
-                style="color:blue; cursor:pointer;"> Certificate of Service Form 7
-            </span>
-             so that you can prove personal service of the 
-            documents to the Certificate of Service. Remember to make a 
-            copy before the documents are served.
-        </p>
-
-        <b-card 
-            v-if="displayForm7"
-            style="border:1px solid; border-radius:5px; height: 400px; overflow-y: auto;" 
-            bg-variant="info" 
-            class="mt-4 mb-4">
-            <div style="width:10rem; display: block; margin-left: auto; margin-right: auto;">
-                <b-button 
-                    variant="success" 
-                    @click='onPrint("print-form7", "certificate-of-service-form-7")'
-                    >Save/Print 
-                    <span class="fa fa-print "/>
-                </b-button>
-            </div>
-            <div>
-                <b-button 
-                    style="margin-top:-2.45rem; float: right;"
-                    variant="dark" 
-                    @click='displayForm7 = false;'
-                    >x
-                </b-button>
-            </div>  
-            <b-card
-                style="border:1px solid; border-radius:5px;" 
-                bg-variant="white" 
-                border-variant="white"
-                class="mt-3 mb-4 container" 
-                id="print-form7">
-                <form-7/>
-            </b-card>
-        </b-card>
-
-    </b-card>    
+        <loading-spinner v-else waitingText="Waiting for submitted information"/>  
+    </div>   
 </template>
 
-<script lang="ts">
-    
-import { Component, Prop, Vue } from 'vue-property-decorator';  
-
+<script lang="ts">    
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { namespace } from "vuex-class";
-import moment from 'moment';
 
 import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
-import FamilyLawMatterInstructions from "./files/FamilyLawMatterInstructions.vue";
-import Form7 from "./files/Form7.vue";
-import ParentingAfterSeparation from "./files/ParentingAfterSeparation.vue";
-
+import ParentingAfterSeparationInstructions from "./postFilingSteps/ParentingAfterSeparationInstructions.vue";
+import ProofOfServiceInstructions from "./postFilingSteps/ProofOfServiceInstructions.vue";
+import ArrangeForServiceFlmInstructions from "./postFilingSteps/ArrangeForServiceFlmInstructions.vue";
+import ArrangeForServicePoInstructions from "./postFilingSteps/ArrangeForServicePoInstructions.vue";
+import ReviewStampedDocumentPoInstructions from "./postFilingSteps/ReviewStampedDocumentPoInstructions.vue";
+import CompleteProvideForRegistryPoInstructions from "./postFilingSteps/CompleteProvideForRegistryPoInstructions.vue";
+import AttendCourtAppearanceInstructions from "./postFilingSteps/AttendCourtAppearanceInstructions.vue";
 
 @Component({
     components:{        
-        FamilyLawMatterInstructions,
-        Form7,
-        ParentingAfterSeparation
+        ArrangeForServiceFlmInstructions,
+        ProofOfServiceInstructions,
+        ParentingAfterSeparationInstructions,
+        ArrangeForServicePoInstructions,
+        ReviewStampedDocumentPoInstructions,
+        CompleteProvideForRegistryPoInstructions,
+        AttendCourtAppearanceInstructions
     }
 })
 export default class Instructions extends Vue {
@@ -225,111 +82,129 @@ export default class Instructions extends Vue {
     @Prop({required: true})
     applicationId!: string;
 
-    @Prop({required: true})
-    listOfPdfs!: string[];
-
     @commonState.State
     public locationsInfo!: locationsInfoType[];
 
     applicationLocationInfo = {} as locationsInfoType;
+    listOfselectedForms: string[] = [];
+    urgentPO = false;
+    earlyResolution = false;
+
+    stepNumPoService = 0;
+    stepNumReviewStampedDocument = 0;
+    stepNumProofOfService = 0;
+    stepNumProvideForRegistryPo = 0;
+    stepNumPoAttend = 0;
+    stepNumFlmService = 0;
 
     dataReady = false;
     includeParentingAfterSeparationStep = false;
-
-    displayInstructionsFile = false;
-    displayParentingAfterSeparation = false;
-    displayForm7 = false;
+    includesFlm = false;
+    includesPo = false;
     error = ''
 
     mounted(){
         this.dataReady = false;
         this.getApplicationInfo(this.applicationId);
         Vue.nextTick(()=> this.dataReady = true);
-    }    
-
+    } 
 
     public getApplicationInfo(applicationId) {      
     
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
 
-            const applicationData = response.data;           
+            const applicationData = response.data;  
+           
+            const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
+            const stepPO = this.getStepResultByName(applicationData, 'PO');
+            const stepCOMM = this.getStepResultByName(applicationData, 'COMMON');
+
+            if (stepGETSTART?.selectedForms){
+                this.listOfselectedForms = stepGETSTART.selectedForms;
+            }
+
+            this.includesFlm = this.listOfselectedForms.includes('familyLawMatter'); 
+            this.includesPo = this.listOfselectedForms.includes('protectionOrder');
             
+            if(this.includesPo && stepPO?.urgencySurvey?.data?.PORNoNotice ){
+                this.urgentPO = stepPO.urgencySurvey.data.PORNoNotice == "y";
+            } else {
+                this.urgentPO = false;
+            }
+
             const applicationLocationName = applicationData.applicationLocation?applicationData.applicationLocation:'';
-            this.applicationLocationInfo = this.locationsInfo.filter(locationInfo => locationInfo.name == applicationLocationName)[0];
-            this.includeParentingAfterSeparationStep = Vue.filter('includedInRegistries')(applicationLocationName, 'early-resolutions')
-                                                        || Vue.filter('includedInRegistries')(applicationLocationName, 'parenting-education')
-                                                        || Vue.filter('includedInRegistries')(applicationLocationName, 'family-justice');  
+
+            if (this.includesFlm 
+                    && Vue.filter('includedInRegistries')(applicationLocationName, 'early-resolutions')
+                    && (stepCOMM?.filingLocationSurvey?.data?.MetEarlyResolutionRequirements == 'n')){
+                this.earlyResolution = true;
+            } else {
+                this.earlyResolution = false;
+            }
+
             
+            this.applicationLocationInfo = this.locationsInfo.filter(locationInfo => locationInfo.name == applicationLocationName)[0];
+            this.includeParentingAfterSeparationStep = this.includesFlm && (   
+                   Vue.filter('includedInRegistries')(applicationLocationName, 'early-resolutions')
+                || Vue.filter('includedInRegistries')(applicationLocationName, 'parenting-education')
+                || Vue.filter('includedInRegistries')(applicationLocationName, 'family-justice')
+                );
+
+            if (!this.includesFlm
+                && this.includesPo){// only po
+                this.stepNumPoService = 1;
+                this.stepNumReviewStampedDocument = 1;
+                this.stepNumProofOfService = 2;
+                this.stepNumProvideForRegistryPo = 2;
+                this.stepNumPoAttend = 3;
+            } else if (this.includesFlm
+                && !this.includesPo){// only flm
+                    
+                if (this.includeParentingAfterSeparationStep){
+                    this.stepNumFlmService = 2;
+                    this.stepNumProofOfService = 3;
+                } else {
+                    this.stepNumFlmService = 1;
+                    this.stepNumProofOfService = 2;
+                }
+
+            } else if (this.includesFlm
+                && this.includesPo){// inludes po and flm
+
+                if (this.includeParentingAfterSeparationStep){
+                    this.stepNumFlmService = 2;
+                    this.stepNumPoService = 3;
+                    this.stepNumReviewStampedDocument = 3;
+                    this.stepNumProofOfService = 4;
+                    this.stepNumProvideForRegistryPo = 4;
+                    this.stepNumPoAttend = 5;
+                } else {
+                    this.stepNumFlmService = 1;
+                    this.stepNumPoService = 2;
+                    this.stepNumReviewStampedDocument = 2;
+                    this.stepNumProofOfService = 3;
+                    this.stepNumProvideForRegistryPo = 3;
+                    this.stepNumPoAttend = 4;
+                }
+            }
 
         }, err => {
             this.error = err;        
         });
-    }  
-    
-    public onPrint(printId: string, pdfName: string) { 
-        const pdf_type = 'TEMP'; 
-        const el= document.getElementById(printId);
-                
-        const bottomLeftTextCondition = (printId == 'print-parenting-after-separation')?``:`"Ministry of Attorney General \\a     Court Services Branch  ";`;
-        const bottomLeftText = (printId == 'print-form7')?`"PFA 714  `+moment().format("MMMM D, YYYY")+ `\\a              Form 7";`:bottomLeftTextCondition;
-        
-        const bottomRightTextCondition = (printId == 'print-parenting-after-separation')?``:`"Mailing address: ` + this.applicationLocationInfo.name +  `\\a ` + this.applicationLocationInfo.address +`\\a  "`;
-        const bottomRightText = (printId == 'print-form7')?``:bottomRightTextCondition;
-        
-        const url = '/survey-print/'+this.applicationId+'/?name=' + pdfName + '&pdf_type='+pdf_type+'&version=1.0&noDownload=true'
-        const pdfhtml = Vue.filter('printPdf')(el.innerHTML, bottomLeftText, bottomRightText );
-        
-        const body = {
-            'html':pdfhtml,
-            'json_data':null
-        }       
-        
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }  
-
-        this.$http.post(url,body, options)
-        .then(res => {
-                this.onPrintSave(pdfName)
-        },err => {
-            console.error(err);        
-        });
     }
-
-    public onPrintSave(pdfName: string){        
-        const url = '/survey-print/'+this.applicationId+'/?pdf_type=TEMP'
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
+    
+    public getStepResultByName(applicationData, stepName){
+        if(applicationData?.steps){
+            const steps = applicationData.steps.filter(step => step.name == stepName);
+            if(steps.length == 1) return steps[0].result
         }
-        this.$http.get(url, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = pdfName;
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
-        },err => {
-            console.error(err);
-        });
-    }    
+        return {}
+    }
+                
 }
 </script>
 
 <style scoped lang="scss" src="@/styles/_pdf.scss">
- 
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
    
 </style>

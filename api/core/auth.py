@@ -54,6 +54,14 @@ def sync_keycloak_user(oidc_user: OIDCUser, claims: dict):
     oidc_user.user.save()
 
 
+def get_efiling_streams(logged_in, request):
+    if logged_in and request.user.has_efiling_early_adopters:
+        return settings.EFILING_EARLY_ADOPTER_STREAMS
+    elif settings.EFILING_ENABLED:
+        return settings.EFILING_STREAMS
+    else:
+        return ""
+
 def build_get_user_object(logged_in, request):
     return {
         "accepted_terms_at": logged_in and request.user.accepted_terms_at or None,
@@ -66,5 +74,5 @@ def build_get_user_object(logged_in, request):
         "universal_id": logged_in and request.user.universal_id,
         "login_uri": get_login_uri(request),
         "logout_uri": get_logout_uri(request),
-        "efiling_enabled": settings.EFILING_ENABLED or (logged_in and request.user.has_efiling_early_adopters)
+        "efiling_streams": get_efiling_streams(logged_in, request)
     }

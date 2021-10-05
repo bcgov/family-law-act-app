@@ -114,13 +114,12 @@ export default class FormList extends Vue {
     }
 
     public isForm1(){
-        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
         if(locationSurvey?.filingLocationSurvey?.data){
             
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if(courtsC?.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
                 return true
             else 
                 return false
