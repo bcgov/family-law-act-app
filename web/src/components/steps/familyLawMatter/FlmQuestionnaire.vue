@@ -234,12 +234,11 @@ export default class FlmQuestionnaire extends Vue {
     }
 
     public determineRequiredForm(filingLocationData){
-
-        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
+        
         let location = ''
         location = filingLocationData?.ExistingCourt;                
         
-        if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
             return true;
         } else {
             return false;
