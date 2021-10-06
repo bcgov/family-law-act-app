@@ -238,8 +238,7 @@ export default class ResultPage extends Vue {
 
                     this.applicationDocumentTypes.push('NTRF');
 
-                } else if (includesFlm 
-                        && (stepCOMM?.filingLocationSurvey?.data?.MetEarlyResolutionRequirements == 'y')) {
+                } else {
 
                     this.applicationDocumentTypes.push('FLC');
 

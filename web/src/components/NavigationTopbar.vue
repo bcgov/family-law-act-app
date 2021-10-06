@@ -39,8 +39,8 @@
                                 <template #button-content style="background-color: #003366">
                                     <span class="fa fa-user"></span> {{ userName }}
                                 </template>
-                                <b-dropdown-item @click="logout(false)">Logout</b-dropdown-item>
-                                <b-dropdown-item @click="viewStatus()">Previous Applications</b-dropdown-item>
+                                <b-dropdown-item-button @click="logout(false)"><b-icon-box-arrow-left class="mr-2"/>Logout </b-dropdown-item-button>
+                                <b-dropdown-item-button @click="viewStatus()"><b-icon-card-list class="mr-2"/>Previous Applications </b-dropdown-item-button>
                             </b-dropdown>
                         </div>
                     </div>
