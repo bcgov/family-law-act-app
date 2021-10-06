@@ -10,13 +10,22 @@
             confirm your answers are still correct or to make other edits to related answers.
 
         </b-card>
+         
         <b-card
             v-for="section in questionResults"
-            v-bind:key="section.name"
-            :header="section.pageName"
+            v-bind:key="section.name" 
             header-class="h2"
-            header-bg-variant="info"
-            class="my-5">
+            header-bg-variant="info"                      
+            class="my-5"> 
+                <template #header>
+                    <b-row style="padding:0rem 1rem;">
+                        <div style="margin:auto 0;">{{section.pageName}}</div>                    
+                        <div v-if="!isPageComplete(section.currentStep, section.currentPage)" style="margin:0 0 0 auto;">
+                            <b-button variant="danger" @click="NavigateToPage(section.currentStep, section.currentPage)">This page requires review! </b-button>
+                        </div>
+                    </b-row>
+                </template>
+         
                 <b-table                    
                     :items="section.questions" 
                     :fields="fields"
@@ -337,7 +346,15 @@ export default class ReviewYourAnswersPage extends Vue {
         this.$store.commit("Application/setCurrentStepPage", {currentStep: section.currentStep, currentPage: section.currentPage });
         const currPage = document.getElementById(this.getStepPageId(section.currentStep, section.currentPage));
         currPage.className="current";
-    }    
+    }  
+    
+    public NavigateToPage(stepNo, pageNo){
+
+        this.$store.commit("Application/setCurrentStep", stepNo);
+        this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNo, currentPage: pageNo });
+        const currPage = document.getElementById(this.getStepPageId(stepNo, pageNo));
+        currPage.className="current";
+    } 
 
     public getStepId(stepIndex) {
         return "step-" + stepIndex;
@@ -366,6 +383,10 @@ export default class ReviewYourAnswersPage extends Vue {
                     return "PartiesHasOtherChilderen"
         }
         return ""
+    }
+
+    public isPageComplete(stepNo, pageNo){
+        return (this.$store.state.Application.steps[stepNo].pages[pageNo].progress ==100)
     }
 
 }
