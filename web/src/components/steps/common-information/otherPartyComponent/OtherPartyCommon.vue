@@ -161,7 +161,7 @@ export default class OtherPartyCommon extends Vue {
 
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
-    {   if(this.dataReady){
+    {   if(this.dataReady){            
             this.confirmed = false;          
             this.determineConfirmError();
             this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
@@ -184,6 +184,7 @@ export default class OtherPartyCommon extends Vue {
 
     confirmed = false;
     confirmedError = false;
+    tableIsEmpty = false;
  
     created() {
         if (this.step.result?.otherPartyCommonSurvey) {
@@ -194,6 +195,8 @@ export default class OtherPartyCommon extends Vue {
     mounted(){
         this.dataReady = false;
         this.confirmed = false;
+
+        this.tableIsEmpty = this.otherPartyData.length == 0 ;
                 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -211,7 +214,7 @@ export default class OtherPartyCommon extends Vue {
 
     public determineConfirmError(){
 
-        this.confirmedError = this.needConfirmation() && !this.confirmed && this.otherPartyData?.length>0;
+        this.confirmedError = this.needConfirmation() && !this.tableIsEmpty && !this.confirmed && this.otherPartyData?.length>0;
         
         const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
@@ -257,6 +260,7 @@ export default class OtherPartyCommon extends Vue {
         this.otherPartyData = this.otherPartyData.filter(data => {
         return data.id !== rowToBeDeleted;
         });
+        this.tableIsEmpty = this.otherPartyData.length == 0 ;
     }
 
     public editRow(editedRow) {
