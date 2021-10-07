@@ -756,7 +756,7 @@ export default class Schedule1 extends Vue {
             this.backgroundSurvey.hasOtherChilderen = this.result.backgroundSurvey.PartiesHasOtherChilderen;
         }
 
-        if(this.result?.backgroundSurvey?.ExistingOrders)
+        if(this.result?.backgroundSurvey?.ExistingOrders && (this.childrenItem[0]?.name || this.otherChildrenItem[0]?.name))
             this.backgroundSurvey.existingOrders = this.result.backgroundSurvey.ExistingOrders;
         
         if(this.result?.backgroundSurvey?.likeToAddCulturalExplanation == 'y' && this.result?.backgroundSurvey?.culturalExplain){

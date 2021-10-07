@@ -41,7 +41,7 @@
                                 </b-button>                                
 
                                 <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs, row.item.app_type)"
                                     v-b-tooltip.hover.noninteractive
                                     title="View the Submitted Application">
                                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
@@ -393,10 +393,19 @@ export default class ApplicationStatus extends Vue {
         this.confirmDelete=false;  
     }
     
-    public viewApplicationPdf(applicationId, listOfPdfs) {
+    public viewApplicationPdf(applicationId, listOfPdfs, app_type) {
         this.printingApplicationId = applicationId;
-        this.printingListOfPdfs = listOfPdfs.filter(pdfname => pdfname != "TEMP");
+        this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs, app_type);
         this.showSelectFileForPrint =  true;
+    }
+
+    public getListOfPdfs(listOfPdfs, app_type ){
+        
+        const listOfSelectedFormsFamily = Vue.filter('fullNamesToFamilyTypes')(app_type);
+        
+        return listOfPdfs.filter(pdfname => {
+            return ((pdfname != "TEMP") && listOfSelectedFormsFamily.includes(Vue.filter('pdfTypeToFamilyType')(pdfname)))
+        });
     }
 
     public viewInstructions(applicationId, applicationType) {

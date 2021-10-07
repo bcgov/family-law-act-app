@@ -211,7 +211,7 @@ export default class CommonSection extends Vue {
         let locationInformation = {} as cmLocationInfoDataInfoType;
         if (this.result?.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;           
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.existingFileNumber = locationData.ExistingFileNumber && locationData?.ExistingFamilyCase =='y'? locationData.ExistingFileNumber:'';
             locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
         }
         
