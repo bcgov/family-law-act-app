@@ -226,6 +226,7 @@ export default class CommonSection extends Vue {
                 name = ''
                 address = ''
                 contactInfo = ''
+                lawyer = ''
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
                     dob = party['dob']

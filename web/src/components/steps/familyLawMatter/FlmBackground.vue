@@ -88,7 +88,7 @@ export default class FlmBackground extends Vue {
 
     public initPageNumbers(){
         const p = this.stPgNo.FLM        
-        this.allPages = _.range(p.ParentingArrangements, Object.keys(this.stPgNo.PO).length-1) 
+        this.allPages = _.range(p.ParentingArrangements, Object.keys(this.stPgNo.FLM).length-1) 
 
         this.commonPages = [p.ReviewYourAnswersFLM];
 
