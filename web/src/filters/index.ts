@@ -227,6 +227,25 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 	return types.toString();
 })
 
+Vue.filter('fullNamesToFamilyTypes',function(applicationTypes: string[]) {
+
+	let types = [];
+
+	for (const applicationType of applicationTypes){
+		const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
+		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].familyType);
+	}
+
+	return types;
+})
+
+Vue.filter('pdfTypeToFamilyType',function(applicationType) {
+
+	const pathwayInfo = FLA_Types.filter(type => type.pdfType == applicationType);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].familyType;
+	else return ''
+})
+
 Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
 
 	let types = [];
