@@ -118,11 +118,9 @@ export default class ReviewAndPrint extends Vue {
     @applicationState.State
     public types!: string[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     error= "";
     currentStep =0;
@@ -163,11 +161,11 @@ export default class ReviewAndPrint extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()     
+        Vue.prototype.$UpdateGotoNextStepPage()     
     }
 
     public navigateToGuide(){

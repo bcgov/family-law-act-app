@@ -242,7 +242,7 @@ Vue.filter('fullNamesToFamilyTypes',function(applicationTypes: string[]) {
 Vue.filter('pdfTypeToFamilyType',function(applicationType) {
 
 	const pathwayInfo = FLA_Types.filter(type => type.pdfType == applicationType);
-	if (pathwayInfo.length == 1) return pathwayInfo[0].familyType;
+	if (pathwayInfo.length > 0 ) return pathwayInfo[0].familyType;
 	else return ''
 })
 

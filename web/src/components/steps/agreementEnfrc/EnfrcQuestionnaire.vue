@@ -245,11 +245,9 @@ export default class EnfrcQuestionnaire extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -359,20 +357,20 @@ export default class EnfrcQuestionnaire extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage();
+        Vue.prototype.$UpdateGotoPrevStepPage();
     }
 
     public onNext() {
         if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
             this.popInfo = true;
         } else {
-            this.UpdateGotoNextStepPage();
+            Vue.prototype.$UpdateGotoNextStepPage();
         }
     }
 
     public closePopupConfirm(){
         this.popInfo = false;
-        this.UpdateGotoNextStepPage();            
+        Vue.prototype.$UpdateGotoNextStepPage();            
     }
 
     public getselectedEnforcementQuestionnaireNames(){

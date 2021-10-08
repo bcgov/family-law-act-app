@@ -37,11 +37,9 @@ export default class ReviewYourAnswersEnfrc extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
@@ -132,11 +130,11 @@ export default class ReviewYourAnswersEnfrc extends Vue {
     }   
     
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()       
+        Vue.prototype.$UpdateGotoNextStepPage()       
     }
    
     beforeDestroy() {

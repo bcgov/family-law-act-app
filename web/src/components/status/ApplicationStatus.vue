@@ -41,7 +41,7 @@
                                 </b-button>                                
 
                                 <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs, row.item.app_type)"
+                                    @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
                                     v-b-tooltip.hover.noninteractive
                                     title="View the Submitted Application">
                                     <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
@@ -393,18 +393,41 @@ export default class ApplicationStatus extends Vue {
         this.confirmDelete=false;  
     }
     
-    public viewApplicationPdf(applicationId, listOfPdfs, app_type) {
+    public viewApplicationPdf(applicationId, listOfPdfs) {
         this.printingApplicationId = applicationId;
-        this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs, app_type);
-        this.showSelectFileForPrint =  true;
+        
+        let submittedPdfList = []
+        this.$http.get('/app/'+ applicationId + '/')
+        .then((response) => {
+
+            const applicationData = response.data;  
+            const appSteps = applicationData?.steps.filter(step => step.name == 'GETSTART');
+            if(appSteps.length == 1){ 
+                const stepGETSTART = appSteps[0].result;
+
+                if (stepGETSTART?.submittedPdfList){
+                    submittedPdfList = stepGETSTART.submittedPdfList;
+                } 
+            }
+            
+            this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);
+            this.showSelectFileForPrint =  true;
+
+        }, err => { 
+            this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);           
+            this.showSelectFileForPrint =  true;        
+        });
     }
 
-    public getListOfPdfs(listOfPdfs, app_type ){
-        
-        const listOfSelectedFormsFamily = Vue.filter('fullNamesToFamilyTypes')(app_type);
-        
+    public getListOfPdfs(listOfPdfs, submittedPdfList){
+
         return listOfPdfs.filter(pdfname => {
-            return ((pdfname != "TEMP") && listOfSelectedFormsFamily.includes(Vue.filter('pdfTypeToFamilyType')(pdfname)))
+            return (
+                (pdfname != "TEMP") && 
+                (submittedPdfList.includes(pdfname) ||
+                 submittedPdfList.length == 0
+                )
+            )
         });
     }
 

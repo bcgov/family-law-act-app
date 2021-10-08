@@ -41,11 +41,9 @@ export default class SpousalSupport extends Vue {
     @applicationState.State
     public applicantName!: nameInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -100,14 +98,32 @@ export default class SpousalSupport extends Vue {
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
 
-            if (this.survey.data?.listOfSupportPayors?.length > 0 && this.otherPartyNames?.length > 0){
-                for (const otherPartyName of this.otherPartyNames) {
-                    if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
-                        this.survey.setVariable("Payee", otherPartyName);
-                    }
-                }
-            }            
+            this.setPayeeNames();                      
         })
+    }
+
+    public setPayeeNames(){        
+        if (this.survey.data?.listOfSupportPayors?.length > 0 && this.otherPartyNames?.length > 0){
+
+            let payeeNames = ''
+            let numOfPayees = 0
+            
+            for (const otherPartyName of this.otherPartyNames) {
+                if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
+                    numOfPayees++;
+                    payeeNames += (numOfPayees>1?" and ":'') +otherPartyName;                    
+                }
+            }
+
+            if(!payeeNames) payeeNames = 'No one';
+
+            if(numOfPayees>1)
+                payeeNames += " are ";
+            else
+                payeeNames += " is ";
+
+            this.survey.setVariable("Payee", payeeNames );
+        } 
     }
     
     public reloadPageInformation() {
@@ -120,13 +136,7 @@ export default class SpousalSupport extends Vue {
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);            
         }
 
-        if (this.survey.data?.listOfSupportPayors?.length > 0 && this.otherPartyNames?.length > 0){
-            for (const otherPartyName of this.otherPartyNames) {
-                if (!this.survey.data.listOfSupportPayors.includes(otherPartyName)){
-                    this.survey.setVariable("Payee", otherPartyName);
-                }
-            }
-        }
+        this.setPayeeNames();        
 
         this.survey.setVariable("ApplicantName", Vue.filter('getFullName')(this.applicantName));
         
@@ -134,12 +144,12 @@ export default class SpousalSupport extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }  
     
