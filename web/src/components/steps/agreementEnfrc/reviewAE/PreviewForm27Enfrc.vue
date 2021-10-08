@@ -27,11 +27,9 @@ export default class PreviewForm27Enfrc extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     currentStep = 0;
     currentPage = 0;
@@ -56,11 +54,11 @@ export default class PreviewForm27Enfrc extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()
+        Vue.prototype.$UpdateGotoNextStepPage()
     }
 
     public checkErrorOnPages(steps){

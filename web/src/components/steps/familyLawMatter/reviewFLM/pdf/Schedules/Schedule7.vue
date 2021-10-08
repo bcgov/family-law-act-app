@@ -13,12 +13,12 @@
             </div>
 
 <!-- <1> -->
-            <section class="resetquestion">                
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.guardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 11 of"/>
+            <section class="resetquestion"> 
+                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 11 of"/>
                 <div style="margin:0 0 0 2.5rem; display:inline;">this application:</div>
                 <div style="margin: 0 0 1rem 3.5rem;">
                     <i>List the name of each child you want to be appointed as a guardian of</i>
-                    <ul v-if="guardInfo.guardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
+                    <ul v-if="guardInfo.becomeGuardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
                         <li v-for="(child,inx) of guardInfo.abtGuardian.children" :key="inx"><span class="mx-3">{{child}}</span></li>
                     </ul>                     
                 </div>                

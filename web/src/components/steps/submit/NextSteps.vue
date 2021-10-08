@@ -177,11 +177,11 @@
         }
 
         public onPrev() {
-            this.UpdateGotoPrevStepPage()
+            Vue.prototype.$UpdateGotoPrevStepPage()
         }
 
         public onNext() {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 </script>
