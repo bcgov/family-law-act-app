@@ -90,11 +90,9 @@ export default class FilingLocation extends Vue {
     @applicationState.State
     public types!: string[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -244,27 +242,29 @@ export default class FilingLocation extends Vue {
                     this.survey.setValue('ExistingFileNumber',stepPO.result.aboutSurvey.data.ExistingFileNumber);
             }
 
-            this.messageForLocation();
+            
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
         }
+
+        this.messageForLocation();
 
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);        
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage();                                 
+            Vue.prototype.$UpdateGotoNextStepPage();                                 
         }
     }
 
     public messageForLocation(){
-        const location = this.survey.data.ExistingCourt
+        const location = this.survey?.data?.ExistingCourt
 
-        if (this.types.includes('Family Law Matter')){
+        if (location && this.types.includes('Family Law Matter')){
 
             if (Vue.filter('includedInRegistries')(location, 'family-justice')){
                 this.messageA = true;

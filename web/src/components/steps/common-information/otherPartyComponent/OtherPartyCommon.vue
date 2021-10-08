@@ -146,11 +146,9 @@ export default class OtherPartyCommon extends Vue {
     @applicationState.State
     public types!: string[]
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -271,7 +269,7 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
     
     public needConfirmation(){
@@ -292,14 +290,14 @@ export default class OtherPartyCommon extends Vue {
             this.popInfo = true;
         } else {
             this.popInfo = false;
-            this.UpdateGotoNextStepPage();
+            Vue.prototype.$UpdateGotoNextStepPage();
         }        
     }
 
     public closePopInfo() {
         this.popInfo = false; 
         this.confirmed = true;
-        this.UpdateGotoNextStepPage();        
+        Vue.prototype.$UpdateGotoNextStepPage();        
     }
 
     public isDisableNext() {

@@ -55,6 +55,9 @@ export default class FormList extends Vue {
     @applicationState.Action
     public UpdateGeneratedForms!: (newGeneratedForms) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     selected=""
     currentStep = 0;
 
@@ -111,6 +114,8 @@ export default class FormList extends Vue {
                 this.formsList.push(form);
             }                           
         }
+        this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
 
     public isForm1(){

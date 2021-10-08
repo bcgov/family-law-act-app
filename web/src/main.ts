@@ -9,6 +9,8 @@ import http from "./plugins/http";
 import "./filters";
 import LoadingSpinner from "./components/utils/LoadingSpinner.vue";
 
+import UpdateGotoStep from "./prototypes/UpdateGotoStep"
+
 import "@/styles/index.scss";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
@@ -21,6 +23,7 @@ Vue.use(BootstrapVueIcons);
 Vue.use(VueRouter);
 Vue.use(VueCookies);
 Vue.use(http)
+Vue.use(UpdateGotoStep)
 Vue.component('loading-spinner', LoadingSpinner);
 
 const router = new VueRouter({

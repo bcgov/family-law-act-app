@@ -109,7 +109,7 @@ export default class ReviewYourAnswersPage extends Vue {
         adjQuestion = adjQuestion.replace(/{RespondentName}/g, Vue.filter('getFullName')(this.$store.state.Application.respondentName));
         adjQuestion = adjQuestion.replace(/{ProtectedPartyName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
         adjQuestion = adjQuestion.replace(/{anotherAdultName}/g, Vue.filter('getFullName')(this.$store.state.Application.protectedPartyName));
-        adjQuestion = adjQuestion.replace(/{Payee}/g, 'Payee(s)');
+        adjQuestion = adjQuestion.replace(/{Payee}/g, 'Payee(s) is/are ');
         adjQuestion = adjQuestion.replace(/{currentDate}/g, this.currentDate);
         adjQuestion = adjQuestion.replace(/<br>/g,'');
         adjQuestion = adjQuestion.replace(/<br\/>/g,'');

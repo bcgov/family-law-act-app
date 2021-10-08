@@ -51,11 +51,9 @@ export default class WithoutNoticeOrAttendance extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -119,7 +117,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
@@ -127,14 +125,14 @@ export default class WithoutNoticeOrAttendance extends Vue {
             if (this.survey.data?.needWithoutNotice == 'y' && this.needConsent()) {            
                 this.consentInfo = true;
             } else {
-                this.UpdateGotoNextStepPage();
+                Vue.prototype.$UpdateGotoNextStepPage();
             }                        
         }
     }
 
     public closeConsentInfo(){
         this.consentInfo = false;
-        this.UpdateGotoNextStepPage();            
+        Vue.prototype.$UpdateGotoNextStepPage();            
     }
 
     public getDescription() {

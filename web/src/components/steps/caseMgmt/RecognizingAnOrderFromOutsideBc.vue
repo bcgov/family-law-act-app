@@ -66,11 +66,9 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -120,7 +118,7 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
@@ -128,14 +126,14 @@ export default class RecognizingAnOrderFromOutsideBc extends Vue {
              if (this.survey.data?.outsideBcOrder == 'y') {            
                 this.outsideBcConfirm = true;
             } else {
-                this.UpdateGotoNextStepPage();
+                Vue.prototype.$UpdateGotoNextStepPage();
             }                        
         }
     }
 
     public closeOutsideBcConfirm(){
         this.outsideBcConfirm = false;
-        this.UpdateGotoNextStepPage();            
+        Vue.prototype.$UpdateGotoNextStepPage();            
     }
     
     beforeDestroy() {
