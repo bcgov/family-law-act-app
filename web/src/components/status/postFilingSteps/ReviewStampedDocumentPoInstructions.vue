@@ -2,7 +2,7 @@
     <b-card no-body bg-variant="white" border-variant="white">        
  
         <p style="font-weight: 700;">
-            Step {{step}}.             
+            Step {{instructionsStep}}.             
             Review the stamped document for a court date and time.
         </p>  
 
@@ -23,7 +23,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class ReviewStampedDocumentPoInstructions extends Vue {    
 
     @Prop({required: true})
-    step!: string;
+    instructionsStep!: string;
     
 }
 </script>

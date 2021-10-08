@@ -2,7 +2,7 @@
     <b-card no-body bg-variant="white" border-variant="white">        
  
         <p style="font-weight: 700;">
-            Step {{step}}.             
+            Step {{instructionsStep}}.             
             Complete and provide to the court registry
         </p>  
 
@@ -27,7 +27,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class CompleteProvideForRegistryPoInstructions extends Vue {    
 
     @Prop({required: true})
-    step!: string;
+    instructionsStep!: string;
     
 }
 </script>

@@ -63,6 +63,7 @@
                             </template>
                             <template v-slot:cell(app_type)="row">                  
                                 <span v-for="(appType,inx) in row.item.app_type" :key="inx" :class="row.item.lastFiled?'text-success':''">{{appType}}<br/></span>
+                                <span v-if="row.item.app_type.length==0">New application</span>
                             </template>
                             <template v-slot:cell(lastUpdated)="row">                  
                                 <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>

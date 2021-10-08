@@ -10,39 +10,55 @@
             </p>        
 
             <parenting-after-separation-instructions 
-                v-if="includeParentingAfterSeparationStep" 
-                v-bind:applicationId="applicationId"/>
+                v-if="conditionArray[0]"
+                v-bind:instructionsStep="instructionsStepArray[0]"
+                v-bind:applicationId="applicationId"
+            />
 
             <arrange-for-service-flm-instructions 
-                v-if="includesFlm" 
-                v-bind:step="stepNumFlmService"  
+                v-if="conditionArray[1]"
+                v-bind:instructionsStep="instructionsStepArray[1]"  
                 v-bind:applicationId="applicationId"
                 v-bind:earlyResolution="earlyResolution"
-                v-bind:applicationLocationInfo="applicationLocationInfo"/>
+                v-bind:applicationLocationInfo="applicationLocationInfo"
+            />
+
+            <give-filed-copy-of-notice-erp-instructions
+                v-if="conditionArray[2]"
+                v-bind:instructionsStep="instructionsStepArray[2]"  
+            />
+
+            <complete-early-resolution-process-erp-instructions
+                v-if="conditionArray[3]"
+                v-bind:instructionsStep="instructionsStepArray[3]"  
+                v-bind:applicationId="applicationId"
+                v-bind:earlyResolution="earlyResolution"
+                v-bind:applicationLocationInfo="applicationLocationInfo"
+            />    
 
             <arrange-for-service-po-instructions 
-                v-if="includesPo && !urgentPO" 
-                v-bind:step='stepNumPoService'  
+                v-if="conditionArray[4]"
+                v-bind:instructionsStep="instructionsStepArray[4]"  
             />
 
             <review-stamped-document-po-instructions 
-                v-if="includesPo && urgentPO" 
-                v-bind:step='stepNumReviewStampedDocument'  
+                v-if="conditionArray[5]"
+                v-bind:instructionsStep="instructionsStepArray[5]"  
             />
 
             <complete-provide-for-registry-po-instructions 
-                v-if="includesPo && urgentPO" 
-                v-bind:step='stepNumProvideForRegistryPo'  
+                v-if="conditionArray[6]"
+                v-bind:instructionsStep="instructionsStepArray[6]"  
             />
 
             <proof-of-service-instructions
-                v-if="!includesPo || (includesPo && !urgentPO)" 
-                v-bind:step="stepNumProofOfService"  
+                v-if="conditionArray[7]"
+                v-bind:instructionsStep="instructionsStepArray[7]"  
                 v-bind:applicationId="applicationId"/>
             
             <attend-court-appearance-instructions
-                v-if="includesPo" 
-                v-bind:step='stepNumPoAttend'  
+                v-if="conditionArray[8]"
+                v-bind:instructionsStep="instructionsStepArray[8]"  
             />
         
         </b-card>
@@ -61,6 +77,8 @@ const commonState = namespace("Common");
 import ParentingAfterSeparationInstructions from "./postFilingSteps/ParentingAfterSeparationInstructions.vue";
 import ProofOfServiceInstructions from "./postFilingSteps/ProofOfServiceInstructions.vue";
 import ArrangeForServiceFlmInstructions from "./postFilingSteps/ArrangeForServiceFlmInstructions.vue";
+import GiveFiledCopyOfNoticeErpInstructions from "./postFilingSteps/GiveFiledCopyOfNoticeErpInstructions.vue";
+import CompleteEarlyResolutionProcessErpInstructions from "./postFilingSteps/CompleteEarlyResolutionProcessErpInstructions.vue"
 import ArrangeForServicePoInstructions from "./postFilingSteps/ArrangeForServicePoInstructions.vue";
 import ReviewStampedDocumentPoInstructions from "./postFilingSteps/ReviewStampedDocumentPoInstructions.vue";
 import CompleteProvideForRegistryPoInstructions from "./postFilingSteps/CompleteProvideForRegistryPoInstructions.vue";
@@ -74,7 +92,9 @@ import AttendCourtAppearanceInstructions from "./postFilingSteps/AttendCourtAppe
         ArrangeForServicePoInstructions,
         ReviewStampedDocumentPoInstructions,
         CompleteProvideForRegistryPoInstructions,
-        AttendCourtAppearanceInstructions
+        AttendCourtAppearanceInstructions,
+        GiveFiledCopyOfNoticeErpInstructions,
+        CompleteEarlyResolutionProcessErpInstructions
     }
 })
 export default class Instructions extends Vue {
@@ -90,12 +110,8 @@ export default class Instructions extends Vue {
     urgentPO = false;
     earlyResolution = false;
 
-    stepNumPoService = 0;
-    stepNumReviewStampedDocument = 0;
-    stepNumProofOfService = 0;
-    stepNumProvideForRegistryPo = 0;
-    stepNumPoAttend = 0;
-    stepNumFlmService = 0;
+    conditionArray: boolean[] = [];
+    instructionsStepArray: number[] = [];
 
     dataReady = false;
     includeParentingAfterSeparationStep = false;
@@ -105,11 +121,16 @@ export default class Instructions extends Vue {
 
     mounted(){
         this.dataReady = false;
-        this.getApplicationInfo(this.applicationId);
-        Vue.nextTick(()=> this.dataReady = true);
+        this.getApplicationInfo(this.applicationId);        
     } 
 
-    public getApplicationInfo(applicationId) {      
+    public getApplicationInfo(applicationId) { 
+
+        this.includeParentingAfterSeparationStep = false;
+        this.includesFlm = false; 
+        this.earlyResolution = false;
+        this.includesPo = false;
+        this.urgentPO = false;     
     
         this.$http.get('/app/'+ applicationId + '/')
         .then((response) => {
@@ -151,47 +172,76 @@ export default class Instructions extends Vue {
                 || Vue.filter('includedInRegistries')(applicationLocationName, 'family-justice')
                 );
 
-            if (!this.includesFlm
-                && this.includesPo){// only po
-                this.stepNumPoService = 1;
-                this.stepNumReviewStampedDocument = 1;
-                this.stepNumProofOfService = 2;
-                this.stepNumProvideForRegistryPo = 2;
-                this.stepNumPoAttend = 3;
-            } else if (this.includesFlm
-                && !this.includesPo){// only flm
-                    
-                if (this.includeParentingAfterSeparationStep){
-                    this.stepNumFlmService = 2;
-                    this.stepNumProofOfService = 3;
-                } else {
-                    this.stepNumFlmService = 1;
-                    this.stepNumProofOfService = 2;
-                }
 
-            } else if (this.includesFlm
-                && this.includesPo){// inludes po and flm
+            //______TEMPORARY Check_________
+            //______________________________
+            // this.includeParentingAfterSeparationStep = true;
+            // this.includesFlm = true 
+            // this.earlyResolution = true
+            // this.includesPo = false
+            // this.urgentPO = false
 
-                if (this.includeParentingAfterSeparationStep){
-                    this.stepNumFlmService = 2;
-                    this.stepNumPoService = 3;
-                    this.stepNumReviewStampedDocument = 3;
-                    this.stepNumProofOfService = 4;
-                    this.stepNumProvideForRegistryPo = 4;
-                    this.stepNumPoAttend = 5;
-                } else {
-                    this.stepNumFlmService = 1;
-                    this.stepNumPoService = 2;
-                    this.stepNumReviewStampedDocument = 2;
-                    this.stepNumProofOfService = 3;
-                    this.stepNumProvideForRegistryPo = 3;
-                    this.stepNumPoAttend = 4;
-                }
-            }
+            // console.log("_new set__")
+            // console.log(this.includeParentingAfterSeparationStep);
+            // console.log(this.includesFlm); 
+            // console.log(this.earlyResolution);
+            // console.log(this.includesPo);
+            // console.log(this.urgentPO);
+
+            this.getConditionsSteps();
+            Vue.nextTick(()=> this.dataReady = true);
+            
 
         }, err => {
             this.error = err;        
         });
+    }
+
+    public getConditionsSteps(){
+
+        //parenting-after-separation-instructions 
+        this.conditionArray[0] = this.includeParentingAfterSeparationStep;
+        this.instructionsStepArray[0] = 0;     
+
+        //arrange-for-service-flm-instructions 
+        this.conditionArray[1] = this.includesFlm && !this.earlyResolution ;
+        this.instructionsStepArray[1] = 0;
+
+        //give-filed-copy-of-notice-erp-instructions
+        this.conditionArray[2] =  this.includesFlm && this.earlyResolution;
+        this.instructionsStepArray[2] = 0; 
+
+        //complete-early-resolution-process-erp-instructions        
+        this.conditionArray[3] =  this.includesFlm && this.earlyResolution;
+        this.instructionsStepArray[3] = 0; 
+               
+        //arrange-for-service-po-instructions 
+        this.conditionArray[4] =  this.includesPo && !this.urgentPO;
+        this.instructionsStepArray[4] = 0;
+
+        //review-stamped-document-po-instructions 
+        this.conditionArray[5] = this.includesPo && this.urgentPO;
+        this.instructionsStepArray[5] = 0;
+
+        //complete-provide-for-registry-po-instructions 
+        this.conditionArray[6] = this.includesPo && this.urgentPO;
+        this.instructionsStepArray[6] = 0;
+
+        //proof-of-service-instructions
+        this.conditionArray[7] = (this.includesFlm && !this.includesPo) || (this.includesPo && !this.urgentPO);
+        this.instructionsStepArray[7] = 0;
+        
+        //attend-court-appearance-instructions
+        this.conditionArray[8] = this.includesPo 
+        this.instructionsStepArray[8] = 0;
+        
+        let stepNum = 1;
+        for(let i =0; i<this.conditionArray.length; i++){
+            if(this.conditionArray[i]){
+                this.instructionsStepArray[i] = stepNum;
+                stepNum++;
+            }
+        }
     }
     
     public getStepResultByName(applicationData, stepName){
