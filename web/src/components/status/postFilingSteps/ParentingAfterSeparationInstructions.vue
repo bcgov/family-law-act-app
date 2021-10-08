@@ -2,7 +2,8 @@
     <b-card no-body bg-variant="white" border-variant="white">           
 
         <p style="font-weight: 700;">
-            Step 1. Requirement for Parenting After Separation Education:
+            Step {{instructionsStep}}. 
+            Requirement for Parenting After Separation Education:
         </p>
 
         <p>
@@ -74,6 +75,9 @@ export default class ParentingAfterSeparationInstructions extends Vue {
 
     @Prop({required: true})
     applicationId!: string;
+
+    @Prop({required: true})
+    instructionsStep!: string;
     
     displayParentingAfterSeparation = false;
     
