@@ -2,7 +2,7 @@
     <b-card no-body bg-variant="white" border-variant="white">        
  
         <p style="font-weight: 700;">
-            Step {{step}}.             
+            Step {{instructionsStep}}.             
             Arrange for service of the Application About a Family Law Matter on each other party
         </p>  
 
@@ -100,7 +100,7 @@ export default class ArrangeForServiceFlmInstructions extends Vue {
     earlyResolution!: boolean;
 
     @Prop({required: true})
-    step!: string;
+    instructionsStep!: string;
     
     @Prop({required: true})
     applicationLocationInfo!: locationsInfoType;

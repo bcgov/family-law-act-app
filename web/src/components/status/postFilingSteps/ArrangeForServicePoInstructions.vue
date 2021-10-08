@@ -2,7 +2,7 @@
     <b-card no-body bg-variant="white" border-variant="white">        
  
         <p style="font-weight: 700;">
-            Step {{step}}.             
+            Step {{instructionsStep}}.             
             Arrange for service of the Application About A Protection Order on each other party
         </p>  
 
@@ -53,7 +53,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class ArrangeForServicePoInstructions extends Vue {    
 
     @Prop({required: true})
-    step!: string;
+    instructionsStep!: string;
     
 }
 </script>

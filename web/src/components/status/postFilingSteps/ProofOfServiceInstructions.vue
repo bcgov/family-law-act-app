@@ -2,7 +2,7 @@
     <b-card no-body bg-variant="white" border-variant="white">                           
         
         <p style="font-weight: 700;">
-            Step {{step}}. 
+            Step {{instructionsStep}}. 
             Provide Proof of Service 
         </p>
 
@@ -69,7 +69,7 @@ export default class ProofOfServiceInstructions extends Vue {
     applicationId!: string;
 
     @Prop({required: true})
-    step!: string;    
+    instructionsStep!: string;    
     
     displayForm7 = false;
     
