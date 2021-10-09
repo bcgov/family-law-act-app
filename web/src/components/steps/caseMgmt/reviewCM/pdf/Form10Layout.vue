@@ -177,7 +177,7 @@
                                                                     an order or direction, even after the time limit has expired"/>
                     <check-box  :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video"/>
                     <check-box  :check="form10Info.caseList.includes('adjourningAppearance')?'yes':''" text="adjourning a court appearance"/>
-                    <check-box  :check="form10Info.caseList.includes('')?'yes':''" text="respecting the conduct of a party or management of a case"/>
+                    <check-box  :check="form10Info.caseList.includes('rule112')?'yes':''" text="respecting the conduct of a party or management of a case"/>
                     <check-box  :check="form10Info.caseList.includes('section211')?'yes':''" text="relating to a report under section 211 <i>[orders respecting reports]</i> of the Family Law Act, including requiring that a person who
                                                                     prepared the report attend a trial as a witness"/>
                     <check-box  :check="form10Info.caseList.includes('section204')?'yes':''" text="adding or removing a party to the case, including leave to intervene under section 204(2) <i>[intervention by Attorney General or
