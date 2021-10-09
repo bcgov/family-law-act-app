@@ -39,6 +39,5 @@ function saveChanges(){
         //this.error = "";
     }, err => {
         console.error(err);
-        //this.error = err;
     });    
 }
