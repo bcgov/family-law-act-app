@@ -227,6 +227,7 @@ export default class FlmQuestionnaire extends Vue {
 
         } else {
             togglePages([p.FlmBackground], false, this.currentStep);
+            togglePages([p.FlmAdditionalDocuments], false, this.currentStep);
             togglePages([p.ReviewYourAnswersFLM], true, this.currentStep);
         }   
     }

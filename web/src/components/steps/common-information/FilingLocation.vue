@@ -152,6 +152,14 @@ export default class FilingLocation extends Vue {
             if (options.name == 'ExistingCourt'){
                 this.saveApplicationLocation(this.survey.data.ExistingCourt);
                 this.messageForLocation();
+
+                // //___Reset FLM____
+                const p = this.stPgNo.FLM  
+                const allFLMPages = _.range(0, Object.keys(this.stPgNo.FLM).length-1)
+                
+                for(const FLMpage in allFLMPages)
+                    if(this.$store.state.Application.steps[p._StepNo].pages[FLMpage].progress==100)
+                        Vue.filter('setSurveyProgress')(null, p._StepNo, FLMpage, 50, false); 
             }
             //reset step FLM currentpage to 0
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.FLM._StepNo, currentPage: this.stPgNo.FLM.FlmQuestionnaire });
