@@ -58,7 +58,8 @@
                         <check-box  :check="modReqInfo.waiveChangeRequirementList.includes('Subpoena')?'yes':''" text="Subpoena"/>
                         <check-box  :check="modReqInfo.waiveChangeRequirementList.includes('Order')?'yes':''" text="Order"/>
                         <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="modReqInfo.waiveChangeRequirementList.includes('other')?'yes':''" text="other <i>(specify):</i>"/>
-                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="modReqInfo.waiveChangeRequirementComment"/>                     
+                        <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="modReqInfo.waiveChangeRequirementComment|truncate-word-after(70)"/>                     
+                        <div class="answer">{{modReqInfo.waiveChangeRequirementComment|truncate-word-before(70)}}</div>
                     </div>
                 </section>
             </div>
