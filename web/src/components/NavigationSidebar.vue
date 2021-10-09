@@ -60,7 +60,6 @@
 
 <script lang="ts">
 import { Component, Vue} from 'vue-property-decorator';
-import moment from 'moment-timezone';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
