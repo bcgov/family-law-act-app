@@ -29,11 +29,9 @@ export default class SafetyCheck extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -49,8 +47,7 @@ export default class SafetyCheck extends Vue {
     }
 
     mounted(){
-        this.initializeSurvey();
-        this.addSurveyListener();
+        this.initializeSurvey();       
         this.reloadPageInformation();
     }
 
@@ -60,13 +57,7 @@ export default class SafetyCheck extends Vue {
         this.survey.showQuestionNumbers = "off";
         this.survey.showNavigationButtons = false;
         surveyEnv.setGlossaryMarkdown(this.survey);
-    }    
-    
-    public addSurveyListener(){
-        this.survey.onValueChanged.add((sender, options) => {
-            // console.log(this.survey.data);            
-        })   
-    }
+    } 
 
     public reloadPageInformation() {
 
@@ -80,12 +71,12 @@ export default class SafetyCheck extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
@@ -94,5 +85,5 @@ export default class SafetyCheck extends Vue {
         
         this.UpdateStepResultData({step:this.step, data: {safetyCheckSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

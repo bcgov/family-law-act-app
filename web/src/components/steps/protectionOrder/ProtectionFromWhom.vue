@@ -15,6 +15,7 @@ import * as _ from 'underscore';
 import surveyJson from "./forms/protectionFromWhom.json";
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -43,11 +44,9 @@ export default class ProtectionFromWhom extends Vue {
     @commonState.State
     public locationsInfo!: locationsInfoType[];
     
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -136,34 +135,24 @@ export default class ProtectionFromWhom extends Vue {
         const PoAllPages = _.range(p.PoFilingLocation, Object.keys(this.stPgNo.PO).length-1) 
 
         if(this.survey.data?.ApplicantNeedsProtection == 'n' && this.survey.data.anotherAdultPO == 'n' && this.survey.data.childPO == 'n'){
-            this.togglePages(PoAllPages, false);
+            togglePages(PoAllPages, false, this.currentStep);
             this.disableNextButton = true;
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, true);
             return false
         } else {
-            this.togglePages(needPoPages, true);   
+            togglePages(needPoPages, true, this.currentStep);   
             this.disableNextButton = false;         
             return true
         }
     }
     
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
@@ -229,5 +218,5 @@ export default class ProtectionFromWhom extends Vue {
         this.UpdateStepResultData({step:this.step, data: {protectionFromWhomSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
 
     }
-};
+}
 </script>

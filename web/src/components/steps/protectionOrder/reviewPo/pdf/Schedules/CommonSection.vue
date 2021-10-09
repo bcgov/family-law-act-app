@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="dataReady">
 <!-- <Page 1> -->
 <!-- <HEADER> -->
         <div class="form-header-po"> 
@@ -61,9 +61,9 @@
             other party.
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select only one of the options below</i>
-                <check-box style="" :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
-                <check-box v-if="urgency.PORNoNotice == 'y'" style="" :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:10pt;line-height:1rem;\'>'+urgency.PORWhyNoNotice+'</div>'"/>
-                <check-box v-else style="" :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
+                <check-box  :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
+                <check-box v-if="urgency.PORNoNotice == 'y'"  :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:10pt;line-height:1rem;\'>'+urgency.PORWhyNoNotice+'</div>'"/>
+                <check-box v-else  :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i>'"/>
             </div>
         </section>
 
@@ -103,9 +103,9 @@
             I am applying for the following order:           
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select only one of the options below and complete the required schedule</i>
-                <check-box style="" :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
-                <check-box style="" :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
-                <check-box style="" :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
+                <check-box  :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
+                <check-box  :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
+                <check-box  :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
             </div>
         </section>
 
@@ -118,22 +118,19 @@
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin:0.5rem 0 0 1rem;; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-
+import { addressInfoType, contactInfoType } from '@/types/Application/CommonInformation';
+import { urgencyInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -144,27 +141,28 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 export default class CommonSection extends Vue {
 
     @Prop({required:true})
-    result!: any;
+    result!: any;    
 
     otherPartyInfo=[]; 
     yourInfo = {} as yourInformationInfoDataInfoType;
+    urgency = {} as urgencyInfoType;
 
-    serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
-    serviceContact = {phone:"", fax:"", email:""}
+    serviceAddress = {} as addressInfoType;
+    serviceContact = {} as contactInfoType;
 
     existingFileNumber = '';
-    orderType = '';
-
-    urgency = {PORNoNotice:'', PORWhyNoNotice:''};
+    orderType = '';   
+    dataReady = false; 
 
     mounted(){
-       
+        this.dataReady = false;
         this.getServiceInfo();
         this.getOtherPartyInfo();
         this.getExistingFileNumber(this.result);
         this.yourInfo = this.getYourInfo() 
         this.orderType = this.getOrderType(); 
         this.urgency = this.getUrgencyInfo();
+        this.dataReady = true;
     }
 
     public getOrderType(){
@@ -228,6 +226,7 @@ export default class CommonSection extends Vue {
                 name = ''
                 address = ''
                 contactInfo = ''
+                lawyer = ''
 
                 if (party['knowDob'] == 'y' &&  party['dob'])
                     dob = party['dob']
@@ -262,14 +261,8 @@ export default class CommonSection extends Vue {
                 } else {
                     this.existingFileNumber = '';
                 }
-            } else if (orderType == 'changePO'){
+            } else if (orderType == 'changePO' || orderType == 'terminatePO'){
                 if(result.aboutSurvey?.ExistingFileNumber){
-                    this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
-                } else {
-                    this.existingFileNumber = '';
-                }
-            } else if (orderType == 'terminatePO'){
-                if (result.aboutSurvey?.ExistingFileNumber){
                     this.existingFileNumber = result.aboutSurvey.ExistingFileNumber;
                 } else {
                     this.existingFileNumber = '';
@@ -280,29 +273,12 @@ export default class CommonSection extends Vue {
     
     public getYourInfo(){
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
-
         if(this.result?.yourinformationPOSurvey){
-
-            const applicantInfo = this.result.yourinformationPOSurvey;
-            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName? applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }
-                     
+            return getYourInformationResults(this.result.yourinformationPOSurvey);
         }
-
-        return yourInformation;
+        else
+            return {} as yourInformationInfoDataInfoType;
     }
-
 
 }
 </script>

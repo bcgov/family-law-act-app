@@ -29,11 +29,9 @@ export default class CmNotice extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -80,12 +78,12 @@ export default class CmNotice extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
@@ -100,5 +98,5 @@ export default class CmNotice extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true); 
         this.UpdateStepResultData({step:this.step, data: {cmNoticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

@@ -114,5 +114,5 @@ export default class MultipleTextInput extends Vue {
 
         return fields;
     }
-};
+}
 </script>

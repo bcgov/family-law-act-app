@@ -13,12 +13,12 @@
             </div>
 
 <!-- <1> -->
-            <section class="resetquestion">                
-                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.guardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 11 of"/>
+            <section class="resetquestion"> 
+                <check-box inline="inline" boxMargin="0" style="margin:0 0 0 0.5rem;display:inline;" :check="guardInfo.becomeGuardian?'yes':''" text="I am applying to be appointed as a guardian of the following child(ren) identified in section 11 of"/>
                 <div style="margin:0 0 0 2.5rem; display:inline;">this application:</div>
                 <div style="margin: 0 0 1rem 3.5rem;">
                     <i>List the name of each child you want to be appointed as a guardian of</i>
-                    <ul v-if="guardInfo.guardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
+                    <ul v-if="guardInfo.becomeGuardian && guardInfo.abtGuardian && guardInfo.abtGuardian.children">
                         <li v-for="(child,inx) of guardInfo.abtGuardian.children" :key="inx"><span class="mx-3">{{child}}</span></li>
                     </ul>                     
                 </div>                
@@ -35,11 +35,11 @@
                     <check-box inline="inline" boxMargin="0" shift="10" style="display:inline;margin-left:0rem;" :check="guardInfo.unKnownAncestry?'yes':''" text="Unknown"/>
                     <div style="margin:0 0 0 1.35rem;">
                         <i style="margin:0 0 0 -0.25rem;" >If yes, please select the option(s) below that best describe(s) the child(ren)’s Indigenous ancestry</i>
-                        <check-box style="" :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
-                        <check-box style="" :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
-                        <check-box style="" :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation"/>
-                        <check-box style="" :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
-                        <check-box style="" :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+                        <check-box  :check="guardInfo.ancestry.firstNation?'yes':''" text="First Nation"/>
+                        <check-box  :check="guardInfo.ancestry.nisga?'yes':''" text="Nisg̲a’a"/>
+                        <check-box  :check="guardInfo.ancestry.treatyFirstNation?'yes':''" text="Treaty First Nation"/>
+                        <check-box  :check="guardInfo.ancestry.under12?'yes':''" text="the child is under 12 years of age and has a biological parent who is of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
+                        <check-box  :check="guardInfo.ancestry.over12?'yes':''" text="the child is 12 years of age or older, of Indigenous ancestry, including Métis and Inuit, and self-identifies as Indigenous"/>
                     </div>
                 </section>
             </div>
@@ -49,7 +49,7 @@
             <section>
                 <i style="display:inline; margin:0 0 0 0.5rem;">Complete the following statement only if the child is a Nisg̲a’a child or a Treaty First Nation child</i>
                 <div style="margin:0 0 0 1.35rem;">
-                    <check-box style="" :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
+                    <check-box  :check="guardInfo.ancestry.acknowledge?'yes':''" text="I acknowledge that I must serve the Nisg̲a’a Lisims Government or the Treaty First Nation to which the child belongs with notice of this application as described in section 208 or 209 of the <i>Family Law Act</i>"/>
                 </div>
             </section>
 
@@ -74,14 +74,14 @@
             <section>
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>                
                 <div style="margin:0 0 0 1rem;">                     
-                    <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
+                    <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="I am filing the following required documents along with this application"/>
                 </div>
                 <div style="margin:0 0 0 3rem;">
-                   <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
-                   <check-box style="" :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
+                   <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a Consent for Child Protection Record Check in Form 5 under the <i>Family Law Act Regulation</i>"/>
+                   <check-box  :check="guardInfo.applyForCaseManagement=='n'?'yes':''" text="a request, in the form provided by the registry, to search the protection order registry"/>
                 </div>
                 <div style="margin:0.5rem 0 0 1rem;">                     
-                    <check-box style="" :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
+                    <check-box  :check="guardInfo.applyForCaseManagement=='y'?'yes':''" text="I am not able to complete the required documents at this time. I am filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement that this application be filed with the additional documents."/>
                 </div>
             </section>
         </div>
@@ -93,8 +93,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 
 import { schedule7DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 

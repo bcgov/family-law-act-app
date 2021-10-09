@@ -36,36 +36,32 @@ export default class PageBase extends Vue {
     disableNext!: boolean;
 
     @Prop({required: false})
-    disableNextText!: String;
+    disableNextText!: string;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
     
     error: ""
  
-    public onPrev() {
-        Vue.nextTick().then(()=>{this.saveChanges();});      
+    public onPrev() {             
         if (this.$listeners && this.$listeners.onPrev) {
             this.$emit('onPrev');
         } else {
-            this.UpdateGotoPrevStepPage()
+            Vue.prototype.$UpdateGotoPrevStepPage()
         }
-        //window.scrollTo(0, 0);
+        
     }
 
     public onNext() {
-        if (!this.isDisableNext()) {
-            Vue.nextTick().then(()=>{this.saveChanges();});
+        if (!this.isDisableNext()) {           
             if (this.$listeners && this.$listeners.onNext) {  
                 this.$emit('onNext');
             } else {
-                this.UpdateGotoNextStepPage()
+                Vue.prototype.$UpdateGotoNextStepPage()
             }
         }
-        //window.scrollTo(0, 0);
+        
     }
 
     public hasPrevStepPage() {
@@ -78,34 +74,9 @@ export default class PageBase extends Vue {
 
     public isDisableNext() {
         return this.disableNext;
-    }
-
-    public saveChanges() {
-        const lastUpdated = moment().format();
-        this.$store.commit("Application/setLastUpdated", lastUpdated); 
-        const application = this.$store.state.Application;
-        const applicationId = application.id;
-        application.type = Vue.filter('translateTypes')(this.$store.state.Application.types);
-        
-        const header = {
-            responseType: "json",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        }
-
-        this.$http.put("/app/"+ applicationId + "/", application, header)
-        .then(res => {
-            this.error = "";
-        }, err => {
-            console.error(err);
-            this.error = err;
-        });    
-    }
-
-    
+    }    
   
-};
+}
 </script>
 
 <style scoped lang="scss">

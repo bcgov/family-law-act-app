@@ -57,7 +57,7 @@
                     </div>
                     <input id="inputfile" type="file" multiple style="display: none;" accept="application/pdf,image/x-png,image/jpeg" @change="handleSelectedFile" onclick="this.value=null;">
                     <p class="text-center m-0 text-info">Drag and Drop the PDF documents or JPG/PNG images here,</p>
-                    <p class="text-center m-0 text-info" style=""> or click here to Browse for files</p>
+                    <p class="text-center m-0 text-info" > or click here to Browse for files</p>
                 </b-card>
 
                 <b-card border-variant="white" body-class="mb-0 pb-0">
@@ -196,22 +196,22 @@
 
 <script lang="ts">
     import { Component, Vue, Prop } from 'vue-property-decorator';
-    import Tooltip from "@/components/survey/Tooltip.vue"
+    import Tooltip from "@/components/survey/Tooltip.vue";
     
     import { stepInfoType } from "@/types/Application";
     import PageBase from "@/components/steps/PageBase.vue";   
-    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue"
+    import GetHelpForPdf from "./helpPages/GetHelpForPDF.vue";
 
-    import FormList from "./components/FormList.vue"
-    import RequiredDocument from "./components/RequiredDocument.vue"
-    import ReminderNotes from "./components/ReminderNotes.vue"
+    import FormList from "./components/FormList.vue";
+    import RequiredDocument from "./components/RequiredDocument.vue";
+    import ReminderNotes from "./components/ReminderNotes.vue";
     
     import { namespace } from "vuex-class";   
     import "@/store/modules/application";
     const applicationState = namespace("Application");
 
     import "@/store/modules/common";
-import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoType } from '@/types/Common';
+    import { documentTypesJsonInfoType, locationsInfoType } from '@/types/Common';
     const commonState = namespace("Common");
 
 
@@ -360,11 +360,11 @@ import { documentTypesJsonInfoType, locationsInfoType, supportingDocumentInfoTyp
         }
         
         public onPrev() {
-            this.UpdateGotoPrevStepPage()
+            Vue.prototype.$UpdateGotoPrevStepPage()
         }
 
         public onNext() {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }        
 
         public onSubmit() {            

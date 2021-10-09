@@ -27,7 +27,7 @@
                     </b-form-radio>
                     <b-form-radio v-if="hasOther" value="other"   style="margin:1rem 0;">
                         <div :class="textClass" :style="{display:'inline-block', margin:'0'}">{{otherText}}</div>
-                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control" style="" v-model="pendingValue['otherComment']" @change="inputChanged" />
+                        <textarea v-if="pendingValue['selected']=='other'" type="text" class="form-control"  v-model="pendingValue['otherComment']" @change="inputChanged" />
                     </b-form-radio>
                 </b-form-radio-group>                
             </b-form-group>                
@@ -151,16 +151,16 @@ export default class AdvancedRadioGroup extends Vue {
         const fields = []
         const generalId = this.question.inputId;
         for(let j=0; j<this.numberOfRows; j++){
-            const fieldRow = [];
+            const fieldRows = [];
             const inputname = this.inputNames[j]
-            for(let i=0; i<inputname.length;i++){
-                fieldRow.push(
+            for(const inx in inputname){
+                fieldRows.push(
                 {
-                    name: inputname[i],
-                    id: generalId +"-"+inputname[i].toLowerCase() ,                
+                    name: inputname[inx],
+                    id: generalId +"-"+inputname[inx].toLowerCase() ,                
                 })            
             }
-            fields.push(fieldRow)
+            fields.push(fieldRows)
         } 
         const fieldRow = [{name:'selected', id:generalId +'-selected'}];
         if(this.hasOther) fieldRow.push({name:'otherComment', id:generalId +'-other-comment'})
@@ -186,5 +186,5 @@ export default class AdvancedRadioGroup extends Vue {
               "isRequired": true
             },
             */     
-};
+}
 </script>

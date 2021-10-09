@@ -200,7 +200,7 @@
         <!-- <For registery> -->
         <div class="print-block" style="margin-top: 1.25rem;">
             <div style="margin:0 0 0 1rem; font-size: 9pt;"><i>For use by the Family Maintenance Enforcement Program or Interjurisdictional Support Services staff only</i></div>
-            <div style="margin-left:0.85rem; width:96%; ;font-size: 9pt; border:1px solid;">
+            <div style="margin-left:0.85rem; width:96%; font-size: 9pt; border:1px solid;">
 
                 <check-box :shift="10" :shiftmark="1" :boxMargin="0" style="margin:0.25rem 0 0 0rem;" :check="false?'yes':''" text="This request is being made and/or filed on behalf of the party by:"/>
                 <div></div>   
@@ -233,19 +233,18 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import CheckBoxII from "./components/CheckBoxII.vue";
-import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form28InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox, 
-        CheckBoxII,
+        CheckBox,
         OrderedCheckBox        
     }
 })
@@ -287,33 +286,17 @@ export default class Form28Layout extends Vue {
         }        
         
         this.yourInfo = this.getYourInfo();
-         this.form28Info = this.getForm28Info();
-        this.getLocationInfo()
+        this.form28Info = this.getForm28Info();
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
     } 
-    
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }   
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){

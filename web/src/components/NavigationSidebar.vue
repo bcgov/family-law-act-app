@@ -71,7 +71,7 @@ const applicationState = namespace("Application");
 export default class NavigationSidebar extends Vue {
     
     @applicationState.State
-    public currentStep!: Number;
+    public currentStep!: number;
     
     @applicationState.State
     public allCompleted!: boolean
@@ -92,7 +92,7 @@ export default class NavigationSidebar extends Vue {
         }
         
         this.$store.commit("Application/setCurrentStep", nextIndex);
-        Vue.nextTick().then(()=>{this.saveChanges();});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
    
     public onSelectPage(event) {
@@ -103,12 +103,11 @@ export default class NavigationSidebar extends Vue {
         if(this.$store.state.Application.steps[currStepIndex].pages[nextPageIndex].progress == 0) return
 
         this.$store.commit("Application/setCurrentStepPage", {currentStep: currStepIndex, currentPage: nextPageIndex });
-        Vue.nextTick().then(()=>{this.saveChanges();});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
 
-    public getNavigation() {
-        const steps = this.$store.state.Application.steps;
-        return steps;
+    public getNavigation() {       
+        return this.$store.state.Application.steps;
     }
 
     public getStepDisplayNumber(stepIndex) {
@@ -144,29 +143,6 @@ export default class NavigationSidebar extends Vue {
     public isPrintStep(step) {
         return step.type=='print';
     }
-
-    public saveChanges() {
-        const lastUpdated = moment().format();
-        this.$store.commit("Application/setLastUpdated", lastUpdated);
-        const application = this.$store.state.Application;      
-        const applicationId = application.id;      
-        application.type = Vue.filter('translateTypes')(this.$store.state.Application.types);
-        
-        const header = {
-            responseType: "json",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        } 
-
-        this.$http.put("/app/"+ applicationId + "/", application, header)
-        .then(res => {
-            this.error = "";
-        }, err => {
-            console.error(err);
-            this.error = err;
-        });        
-    }
     
     public isStepTouched(nextStepIndex){
         const selectedStep = this.$store.state.Application.steps[nextStepIndex];
@@ -180,7 +156,7 @@ export default class NavigationSidebar extends Vue {
         return this.$store.state.Application.steps[stepIndex].pages[pageIndex].progress
     }
 
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -367,36 +343,35 @@ $step-header-hover-color: #efefef;
     }
     &.current {
         .step-header {
-        background: $gov-gold;
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        width: 100%;
-        padding: 1em 1em;
-        .header-icon {
-            border-color: $gov-white;
-            color: $gov-white;
-        }
-        .header-text {
-            color: $gov-white;
+            background: $gov-gold;
             display: flex;
-            flex-flow: column nowrap;
-            color: $link-current-color;
-        }
+            list-style-type: none;
+            margin: 0;
+            width: 100%;
+            padding: 1em 1em;
+            .header-icon {
+                border-color: $gov-white;
+                color: $gov-white;
+            }
+            .header-text {
+                color: $gov-white;
+                display: flex;
+                flex-flow: column nowrap;
+            }
         }
     }
     &.separate {
         margin-top: 2em;
         margin-right: 3em;
         &::before {
-        display: block;
-        content: " ";
-        margin: 0 1.5em;
-        position: relative;
-        top: -0.75em;
-        height: 1px;
-        background: #25b;
-        width: 100%;
+            display: block;
+            content: " ";
+            margin: 0 1.5em;
+            position: relative;
+            top: -0.75em;
+            height: 1px;
+            background: #25b;
+            width: 100%;
         }
     }
 }

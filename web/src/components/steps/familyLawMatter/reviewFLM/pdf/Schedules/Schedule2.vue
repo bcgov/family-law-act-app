@@ -13,7 +13,7 @@
             <section class="resetquestion"> 
                 I am:
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
+                    <check-box  :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.guardianApplicant == 'y'?'yes':''" text="a guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="result.parentingOrderAgreementSurvey && result.parentingOrderAgreementSurvey.applyingGuardianApplicant == 'y'?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                 </div>
             </section>
@@ -35,8 +35,8 @@
                     <div>
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingOrder'?'yes':''" text="I am applying for the existing final order to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'changeOrder')?'yes':''" text="changed"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingOrder' && exParentArrInfo.subType == 'cancelOrder')?'yes':''" text="cancelled"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">Since the final order was made, needs or circumstances have changed as follows:</div>
                     
@@ -57,8 +57,8 @@
                     <div>
                         <check-box inline="inline" boxMargin="0" style="display:inline; margin:0 0 0 1rem;" :check="exParentArrInfo.type == 'ExistingAgreement'?'yes':''" text="I am applying for all or part of the existing agreement to be:"/>
                         <div style="margin:0 0 0 3rem;">
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside"/>
-                            <check-box style="" :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'setAsideAgreement')?'yes':''" text="set aside"/>
+                            <check-box  :check="(exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.subType == 'replacedAgreement')?'yes':''" text="replaced"/>
                         </div>
                         <div style="margin:0 0 0 1rem;">I believe the agreement is not in the best interests of the child(ren) because:</div>
                         <div v-if="exParentArrInfo.type == 'ExistingAgreement' && exParentArrInfo.changesSince" 
@@ -137,8 +137,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule2DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({

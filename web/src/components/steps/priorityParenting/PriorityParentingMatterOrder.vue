@@ -15,6 +15,7 @@ import * as _ from 'underscore';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -38,11 +39,9 @@ export default class PriorityParentingMatterOrder extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -77,7 +76,7 @@ export default class PriorityParentingMatterOrder extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('priorityParenting') 
-            this.togglePages(this.stPgNo.PPM._StepNo, this.PPMpages, this.isChildDetailsRequired());
+            togglePages(this.PPMpages, this.isChildDetailsRequired(), this.stPgNo.PPM._StepNo);
         })
     }
     
@@ -88,7 +87,7 @@ export default class PriorityParentingMatterOrder extends Vue {
            
         if (this.step.result?.priorityParentingMatterOrderSurvey?.data) {
             this.survey.data = this.step.result.priorityParentingMatterOrderSurvey.data; 
-            this.togglePages(this.stPgNo.PPM._StepNo, this.PPMpages, this.isChildDetailsRequired());
+            togglePages(this.PPMpages, this.isChildDetailsRequired(), this.stPgNo.PPM._StepNo);
         
             Vue.filter('scrollToLocation')(this.$store.state.Application.scrollToLocationName);        
         }
@@ -108,17 +107,6 @@ export default class PriorityParentingMatterOrder extends Vue {
         this.survey.setVariable("interjurisdictional", selectedPriorityParentingMatters.includes('interjurisdictional'));
         this.survey.setVariable("wrongfulRemoval", selectedPriorityParentingMatters.includes('wrongfulRemoval'));
         this.survey.setVariable("returnOfChild", selectedPriorityParentingMatters.includes('returnOfChild'));
-    }
-
-    public togglePages(step, pages, activeIndicator) {
-        for(let i=0; i<pages.length; i++) {
-            
-            this.$store.commit("Application/setPageActive", {
-                currentStep: step,
-                currentPage: pages[i],
-                active: (activeIndicator)
-            });
-        }
     }
 
     public isChildDetailsRequired() {
@@ -175,12 +163,12 @@ export default class PriorityParentingMatterOrder extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     } 
 
@@ -204,7 +192,7 @@ export default class PriorityParentingMatterOrder extends Vue {
         const allPages = _.range(this.stPgNo.PPM.PriorityParentingMatterOrder, Object.keys(this.stPgNo.PPM).length-1)
 
         if(this.PPMList.length<1){
-            this.togglePages(this.stPgNo.PPM._StepNo, allPages, false); 
+            togglePages(allPages, false, this.stPgNo.PPM._StepNo); 
             this.$store.commit("Application/setCurrentStepPage", {currentStep: this.stPgNo.PPM._StepNo, currentPage: this.stPgNo.PPM.PpmQuestionnaire });        
             Vue.filter('setSurveyProgress')(null, this.stPgNo.PPM._StepNo, this.stPgNo.PPM.PpmQuestionnaire, 50, true);
         }

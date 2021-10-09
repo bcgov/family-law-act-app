@@ -13,6 +13,7 @@ import surveyJson from "./forms/existing-spousal-support-final-order.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -25,7 +26,7 @@ import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
         PageBase
     }
 })
-export default class AboutExistingSpousalSupportFinalOrder extends Vue {
+export default class ExistingSpousalSupportFinalOrder extends Vue {
     
     @Prop({required: true})
     step!: stepInfoType; 
@@ -33,11 +34,9 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -75,21 +74,11 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
 
     public setPages(){
         if(this.survey.data?.orderDifferenceType == 'changeOrder'){
-            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true);
+            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], true, this.currentStep);
             
         } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
             
-            this.togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false);
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
+            togglePages([this.stPgNo.FLM.AboutSpousalSupportOrder], false, this.currentStep);
         }
     }
     
@@ -109,12 +98,12 @@ export default class AboutExistingSpousalSupportFinalOrder extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     

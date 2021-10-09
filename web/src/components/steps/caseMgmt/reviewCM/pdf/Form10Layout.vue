@@ -30,7 +30,7 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
+            <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline;"> . My contact information and address for service of court documents are:</div>
             <table class="fullsize" style="margin-top:0.5 !important">
@@ -108,18 +108,18 @@
                 </div>
 
                  <div style="margin-left:1rem;">                   
-                    <check-box style="" 
+                    <check-box  
                         :check="form10Info.givenConsent?'yes':''" 
                         text="Each party, including any person directly affected by the order, has consented to the case management order and:"/>
                 </div>
                     
                 <div style="margin-left:2.75rem;">
                     <i>Select only one of the following options</i>
-                    <check-box style="" 
+                    <check-box  
                         :check="form10Info.givenConsent && (form10Info.consentDirection == 'fileForm18')?'yes':''" 
                         text="a <b>draft Consent Order</b> in Form 18 signed by each party, and any other person directly affected by the order, or their
                         lawyer, is submitted with this application and supporting documents for review without attending before the court"/>          
-                    <check-box style="" 
+                    <check-box  
                         :check="form10Info.givenConsent && (form10Info.consentDirection == 'scheduleAppearance')?'yes':''" 
                         text="a court appearance is requested"/>                                   
                 </div>
@@ -162,31 +162,31 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem;"> I am applying for the following case management order(s): </div>
                 <div style="margin:0.25rem 0 0 2rem;font-size: 10pt;" >                    
-                    <check-box style="" :check="form10Info.caseList.includes('fileTransfer')?'yes':''" text="transferring the court file to another registry for all purposes or specific purposes"/>
-                    <check-box style="" :check="form10Info.caseList.includes('fileAccess')?'yes':''" text="relating to the management of a court record, file or document, including access to a court file"/>
-                    <check-box style="" :check="form10Info.caseList.includes('fileCorrection')?'yes':''" text="correcting or amending a filed document, including the correction of a name or date of birth"/>
-                    <check-box style="" :check="form10Info.caseList.includes('settingTime')?'yes':''" text="setting a specified period for the filing and exchanging of information or evidence, including a financial statement in Form 4
+                    <check-box  :check="form10Info.caseList.includes('fileTransfer')?'yes':''" text="transferring the court file to another registry for all purposes or specific purposes"/>
+                    <check-box  :check="form10Info.caseList.includes('fileAccess')?'yes':''" text="relating to the management of a court record, file or document, including access to a court file"/>
+                    <check-box  :check="form10Info.caseList.includes('fileCorrection')?'yes':''" text="correcting or amending a filed document, including the correction of a name or date of birth"/>
+                    <check-box  :check="form10Info.caseList.includes('settingTime')?'yes':''" text="setting a specified period for the filing and exchanging of information or evidence, including a financial statement in Form 4
                                                                     <i>[Financial Statement]</i>"/>
-                    <check-box style="" :check="form10Info.caseList.includes('nonPartyDisclosure')?'yes':''" text="specifying or requiring information that must be disclosed by a person who is not a party to the case"/>
-                    <check-box style="" :check="form10Info.caseList.includes('section33')?'yes':''" text="requiring that a parentage test be taken under section 33 <i>[parentage tests]</i> of the Family Law Act"/>
-                    <check-box style="" :check="form10Info.caseList.includes('section242')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the Family Law Act"/>
-                    <check-box style="" :check="form10Info.caseList.includes('otherProvinceOrder')?'yes':''" text="recognizing an extraprovincial order other than a support order"/>
-                    <check-box style="" :check="form10Info.caseList.includes('changeServiceRequirement')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for
+                    <check-box  :check="form10Info.caseList.includes('nonPartyDisclosure')?'yes':''" text="specifying or requiring information that must be disclosed by a person who is not a party to the case"/>
+                    <check-box  :check="form10Info.caseList.includes('section33')?'yes':''" text="requiring that a parentage test be taken under section 33 <i>[parentage tests]</i> of the Family Law Act"/>
+                    <check-box  :check="form10Info.caseList.includes('section242')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the Family Law Act"/>
+                    <check-box  :check="form10Info.caseList.includes('otherProvinceOrder')?'yes':''" text="recognizing an extraprovincial order other than a support order"/>
+                    <check-box  :check="form10Info.caseList.includes('changeServiceRequirement')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for
                                                                     the service of a document"/>
-                    <check-box style="" :check="form10Info.caseList.includes('changeRequirement')?'yes':''" text="waiving or modifying any other requirement under these rules, including a time limit set under these rules or a time limit set by
+                    <check-box  :check="form10Info.caseList.includes('changeRequirement')?'yes':''" text="waiving or modifying any other requirement under these rules, including a time limit set under these rules or a time limit set by
                                                                     an order or direction, even after the time limit has expired"/>
-                    <check-box style="" :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video"/>
-                    <check-box style="" :check="form10Info.caseList.includes('adjourningAppearance')?'yes':''" text="adjourning a court appearance"/>
-                    <check-box style="" :check="form10Info.caseList.includes('')?'yes':''" text="respecting the conduct of a party or management of a case"/>
-                    <check-box style="" :check="form10Info.caseList.includes('section211')?'yes':''" text="relating to a report under section 211 <i>[orders respecting reports]</i> of the Family Law Act, including requiring that a person who
+                    <check-box  :check="form10Info.caseList.includes('remoteAttendance')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video"/>
+                    <check-box  :check="form10Info.caseList.includes('adjourningAppearance')?'yes':''" text="adjourning a court appearance"/>
+                    <check-box  :check="form10Info.caseList.includes('')?'yes':''" text="respecting the conduct of a party or management of a case"/>
+                    <check-box  :check="form10Info.caseList.includes('section211')?'yes':''" text="relating to a report under section 211 <i>[orders respecting reports]</i> of the Family Law Act, including requiring that a person who
                                                                     prepared the report attend a trial as a witness"/>
-                    <check-box style="" :check="form10Info.caseList.includes('section204')?'yes':''" text="adding or removing a party to the case, including leave to intervene under section 204(2) <i>[intervention by Attorney General or
+                    <check-box  :check="form10Info.caseList.includes('section204')?'yes':''" text="adding or removing a party to the case, including leave to intervene under section 204(2) <i>[intervention by Attorney General or
                                                                     other person]</i> of the Family Law Act"/>
-                    <check-box style="" :check="form10Info.caseList.includes('lawyerAppointment')?'yes':''" text="respecting the appointment of a lawyer to represent" />
+                    <check-box  :check="form10Info.caseList.includes('lawyerAppointment')?'yes':''" text="respecting the appointment of a lawyer to represent" />
                     <ol style="margin:0 0 0 -0.5rem" class='resetcounterroman' > <li class='bracketroman'> the interests of a child or,</li><li class='bracketroman'>a party</li></ol>
-                    <check-box style="" :check="form10Info.caseList.includes('orderSettlement')?'yes':''" text="settling or correcting the terms of an order made under the rules"/>
-                    <check-box style="" :check="form10Info.caseList.includes('subpoenaCancelation')?'yes':''" text="cancelling a subpoena"/>
-                    <check-box style="" :check="form10Info.caseList.includes('orderOfAbsenceChange')?'yes':''" text="changing, suspending or cancelling an order made in my absence"/>                  
+                    <check-box  :check="form10Info.caseList.includes('orderSettlement')?'yes':''" text="settling or correcting the terms of an order made under the rules"/>
+                    <check-box  :check="form10Info.caseList.includes('subpoenaCancelation')?'yes':''" text="cancelling a subpoena"/>
+                    <check-box  :check="form10Info.caseList.includes('orderOfAbsenceChange')?'yes':''" text="changing, suspending or cancelling an order made in my absence"/>                  
                 </div>                  
             </section>
         </div>
@@ -211,9 +211,9 @@
             <section>
                 <div style="display:inline; margin-left:0.25rem; "><i>Select only one of the options below and complete the required information:</i></div>          
                 <div style="margin:0.25rem 0 0 1rem;font-size: 9.51pt;" >                    
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'Not a party to the case'?'yes':''" text="I am not a party to the case"/>
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'A party to the case and the case does not involve a child-related issue'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
-                    <check-box marginLeft="1.5rem" style="" :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'Not a party to the case'?'yes':''" text="I am not a party to the case"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'A party to the case and the case does not involve a child-related issue'?'yes':''" text="I am a party to the case and the case does not involve a child related issue"/>
+                    <check-box marginLeft="1.5rem"  :check="childRelatedType == 'A party to the case and the case involves a child-related issue'?'yes':''" text="I am a party to the case and the case involves a child-related issue about the following child or children:"/>
                 </div>
                 <b-table
                     :items="childrenInfo"
@@ -261,13 +261,14 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./Schedules/components/UnderlineForm.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "./Schedules/components/CheckBox.vue"
-import OrderedCheckBox from "./Schedules/components/OrderedCheckBox.vue"
-import { nameInfoType, yourInformationDataInfoType, addressInfoType, contactInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue"
+import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { cmLocationInfoDataInfoType, caseManagementOtherPartyDataInfoType, form10DataInfoType } from '@/types/Application/CaseManagement/PDF';
 import { cmChildrenInfoSurveyDataInfoType, byConsentSurveyDataInfoType, otherPersonsSurveyDataInfoType, schedulingSurveyDataInfoType, aboutCaseManagementOrderSurveyDataInfoType, cmNoticeSurveyDataInfoType } from '@/types/Application/CaseManagement';
+import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{
@@ -322,7 +323,7 @@ export default class Form10Layout extends Vue {
         let locationInformation = {} as cmLocationInfoDataInfoType;
         if (this.result?.filingLocationSurvey){
             const locationData = this.result.filingLocationSurvey;           
-            locationInformation.existingFileNumber = locationData.ExistingFileNumber? locationData.ExistingFileNumber:'';
+            locationInformation.existingFileNumber = locationData.ExistingFileNumber && locationData?.ExistingFamilyCase =='y'? locationData.ExistingFileNumber:'';
             locationInformation.courtLocation = locationData.ExistingCourt? locationData.ExistingCourt:'';
         }
         
@@ -352,26 +353,13 @@ export default class Form10Layout extends Vue {
         return childrenInfo;
     }
 
-    public getYourInfo(){
-
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
+    public getYourInfo(){           
 
         if(this.result?.yourInformationSurvey){
-
-            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey; 
-            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB :'',
-                name: applicantInfo.ApplicantName? Vue.filter('getFullName')(applicantInfo.ApplicantName) :'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)? Vue.filter('getFullName')(applicantInfo.LawyerName) :'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)? applicantInfo.LawyerAddress : ((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)? applicantInfo.ApplicantAddress :{} as addressInfoType),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)? applicantInfo.LawyerContact : ((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)? applicantInfo.ApplicantContact : {} as contactInfoType),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }        
-        }
-        return yourInformation;
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){

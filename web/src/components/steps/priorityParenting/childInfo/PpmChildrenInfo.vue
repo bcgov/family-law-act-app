@@ -2,7 +2,7 @@
     <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()" >
         <div class="home-content">
             <div class="row">
-                <div class="col-md-12"> <!-- v-if="showTable" -->
+                <div class="col-md-12">
                     <h1>Children Details</h1>
                    
                     <p>Add each child who is the subject of your priority parenting matter application. 
@@ -81,11 +81,9 @@ export default class PpmChildrenInfo extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -142,11 +140,11 @@ export default class PpmChildrenInfo extends Vue {
     }
 
     public onPrev() {
-       this.UpdateGotoPrevStepPage();
+       Vue.prototype.$UpdateGotoPrevStepPage();
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage();
+        Vue.prototype.$UpdateGotoNextStepPage();
     }
 
     created() {
@@ -207,7 +205,7 @@ export default class PpmChildrenInfo extends Vue {
         
         return resultString
     }
-};
+}
 </script>
 
 <style scoped lang="scss">

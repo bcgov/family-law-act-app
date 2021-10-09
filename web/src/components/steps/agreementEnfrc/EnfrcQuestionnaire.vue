@@ -221,6 +221,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import * as _ from 'underscore';
 import { namespace } from "vuex-class";   
@@ -244,11 +245,9 @@ export default class EnfrcQuestionnaire extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -294,7 +293,7 @@ export default class EnfrcQuestionnaire extends Vue {
     public onChange(selectedEnforcementQuestionnaire) {
         const p = this.stPgNo.ENFRC
         this.UpdatePathwayCompleted({pathway:"agreementEnfrc", isCompleted:false});
-        this.togglePages([p.PreviewForm26ENFRC, p.PreviewForm27ENFRC, p.PreviewForm28ENFRC, p.PreviewForm29ENFRC], false);
+        togglePages([p.PreviewForm26ENFRC, p.PreviewForm27ENFRC, p.PreviewForm28ENFRC, p.PreviewForm29ENFRC], false, this.currentStep);
         
         if(this.checkErrorOnPages())        
             this.setSteps(selectedEnforcementQuestionnaire, true);
@@ -307,19 +306,17 @@ export default class EnfrcQuestionnaire extends Vue {
     public setSteps(selectedEnforcementQuestionnaire, surveyChanged) {
 
         const p = this.stPgNo.ENFRC
-        if (selectedEnforcementQuestionnaire) {
-            
-            // const progress = this.selectedEnforcementQuestionnaire.length==0? 50 : 100;
-            // Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
+        if (selectedEnforcementQuestionnaire) {            
+           
             this.setProgress(surveyChanged)
 
             if (selectedEnforcementQuestionnaire.length > 0){
                 
-                this.togglePages([p.AboutTheOrderEnforcement, p.ReviewYourAnswersENFRC],true)
-                this.togglePages([p.DetermineAnAmountOwingForExpenses], this.selectedEnforcementQuestionnaire.includes("expenses"));
-                this.togglePages([p.DetermineArrears], this.selectedEnforcementQuestionnaire.includes("arrears"));
-                this.togglePages([p.EnforceAgreementOrOrder], this.selectedEnforcementQuestionnaire.includes("writtenAgreementOrder"));
-                this.togglePages([p.EnforceChangeOrSetAsideDetermination], this.selectedEnforcementQuestionnaire.includes("parentingCoordinatorDetermination"));    
+                togglePages([p.AboutTheOrderEnforcement, p.ReviewYourAnswersENFRC],true, this.currentStep)
+                togglePages([p.DetermineAnAmountOwingForExpenses], this.selectedEnforcementQuestionnaire.includes("expenses"), this.currentStep);
+                togglePages([p.DetermineArrears], this.selectedEnforcementQuestionnaire.includes("arrears"), this.currentStep);
+                togglePages([p.EnforceAgreementOrOrder], this.selectedEnforcementQuestionnaire.includes("writtenAgreementOrder"), this.currentStep);
+                togglePages([p.EnforceChangeOrSetAsideDetermination], this.selectedEnforcementQuestionnaire.includes("parentingCoordinatorDetermination"), this.currentStep);    
                 
                 if(surveyChanged){
                     if(this.$store.state.Application.steps[this.currentStep].pages[p.EnforceAgreementOrOrder].progress==100)
@@ -333,22 +330,12 @@ export default class EnfrcQuestionnaire extends Vue {
                 }
                 
             }else{
-                this.togglePages(this.allPages, false);  
+                togglePages(this.allPages, false, this.currentStep);  
                 this.confirmedError = false
             }   
 
         }
     }  
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
 
     public checkErrorOnPages(){
 
@@ -358,7 +345,7 @@ export default class EnfrcQuestionnaire extends Vue {
             if(step.active){
                 for(const page of step.pages){
                     if(page.active && page.progress!=100 && optionalLabels.indexOf(page.label) == -1){
-                        this.togglePages(this.allPages, false); 
+                        togglePages(this.allPages, false, this.currentStep); 
                         this.$store.commit("Application/setCurrentStep", step.id);
                         this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: page.key });                        
                         return false;
@@ -370,20 +357,20 @@ export default class EnfrcQuestionnaire extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage();
+        Vue.prototype.$UpdateGotoPrevStepPage();
     }
 
     public onNext() {
         if (this.selectedEnforcementQuestionnaire.includes('foreignSupport')) {            
             this.popInfo = true;
         } else {
-            this.UpdateGotoNextStepPage();
+            Vue.prototype.$UpdateGotoNextStepPage();
         }
     }
 
     public closePopupConfirm(){
         this.popInfo = false;
-        this.UpdateGotoNextStepPage();            
+        Vue.prototype.$UpdateGotoNextStepPage();            
     }
 
     public getselectedEnforcementQuestionnaireNames(){
@@ -428,7 +415,7 @@ export default class EnfrcQuestionnaire extends Vue {
         const questions = [{name:'EnfrcQuestionnaire',title:'I want to apply for the following Enforcement options:',value:this.getselectedEnforcementQuestionnaireNames()}]        
         this.UpdateStepResultData({step:this.step, data: {enfrcQuestionnaireSurvey: {data: this.selectedEnforcementQuestionnaire, questions: questions, pageName:"Enforcement Questionnaire", currentStep:this.currentStep, currentPage:this.currentPage}}});
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

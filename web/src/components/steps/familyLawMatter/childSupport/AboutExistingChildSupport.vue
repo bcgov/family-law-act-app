@@ -10,11 +10,9 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/about-existing-child-support.json";
-
 import PageBase from "../../PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -37,11 +35,9 @@ export default class AboutExistingChildSupport extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -85,31 +81,21 @@ export default class AboutExistingChildSupport extends Vue {
 
         if (this.existingType == 'ExistingOrder') {                
             if(this.survey.data?.orderDifferenceType == 'changeOrder'){
-                this.togglePages([AboutCS], true);
+                togglePages([AboutCS], true, this.currentStep);
                 
             } else if(this.survey.data?.orderDifferenceType == 'cancelOrder') {
                 
-                this.togglePages([AboutCS], false);
+                togglePages([AboutCS], false, this.currentStep);
             }
         } else if (this.existingType == 'ExistingAgreement') {
             
             if(this.survey.data?.agreementDifferenceType == 'replacedAgreement'){
-                this.togglePages([AboutCS], true);
+                togglePages([AboutCS], true, this.currentStep);
                 
             } else if(this.survey.data?.agreementDifferenceType == 'setAsideAgreement') {
                 
-                this.togglePages([AboutCS], false);
+                togglePages([AboutCS], false, this.currentStep);
             }
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
         }
     }
     
@@ -137,12 +123,12 @@ export default class AboutExistingChildSupport extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     } 
     

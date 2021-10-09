@@ -13,6 +13,7 @@ import surveyJson from "./forms/parenting-arrangements.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -33,11 +34,9 @@ export default class ParentingArrangements extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -86,10 +85,10 @@ export default class ParentingArrangements extends Vue {
         if (this.survey.data?.applyingGuardianApplicant) {
             if (this.survey.data.applyingGuardianApplicant == 'n' && this.survey.data.guardianApplicant == 'n') {
                 this.disableNextButton = true;
-                this.togglePages(agPages, false);
+                togglePages(agPages, false, this.currentStep);
             } else {
                 this.disableNextButton = false;
-                this.togglePages(agPages, true);
+                togglePages(agPages, true, this.currentStep);
             }
         }         
     }   
@@ -133,24 +132,14 @@ export default class ParentingArrangements extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }  
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
     
     beforeDestroy() {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);        

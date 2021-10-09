@@ -13,7 +13,6 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 import { namespace } from "vuex-class";
 
@@ -24,7 +23,7 @@ import "@/store/modules/common";
 import { locationsInfoType } from '@/types/Common';
 const commonState = namespace("Common");
 
-import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
+import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages";
 
 @Component({
     components:{
@@ -46,11 +45,9 @@ export default class PoFilingLocation extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -98,7 +95,7 @@ export default class PoFilingLocation extends Vue {
 
     public closeLocationInfo(){
         this.locationInfo = false;
-        this.UpdateGotoNextStepPage();
+        Vue.prototype.$UpdateGotoNextStepPage();
     }
 
     public adjustSurveyForLocations(){
@@ -130,12 +127,12 @@ export default class PoFilingLocation extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {           
-            this.UpdateGotoNextStepPage();                    
+            Vue.prototype.$UpdateGotoNextStepPage();                    
         }
     }
 
@@ -190,5 +187,5 @@ export default class PoFilingLocation extends Vue {
             this.UpdateStepResultData({step:step, data: {filingLocationSurvey: Vue.filter('getSurveyResults')(this.survey, this.stPgNo.COMMON._StepNo, this.stPgNo.COMMON.FilingLocation )}});
         }
     }
-};
+}
 </script>

@@ -1,7 +1,6 @@
 <template>
 <div v-if="dataReady"> 
-    <!-- <b-button @click="onPrint()">print</b-button>   -->
-    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->
+
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <common-section v-bind:result="result" />
         <schedule-1     v-bind:result="result" v-if="orderType == 'needPO'" />
@@ -89,30 +88,6 @@ export default class FormK extends Vue {
             this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        
-        });
-    }
-
-    public onPrintSave(){ 
-        const pdf_type = Vue.filter('getPathwayPdfType')("protectionOrder")//'AAP'
-        const applicationId = this.$store.state.Application.id;
-        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type;
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        this.$http.get(url, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "fpo.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
-        },err => {
-            console.error(err);
         });
     }
  

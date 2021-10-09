@@ -2,7 +2,7 @@
 <!----------------------------------------------------------------  <NEED PO>   -------------------------------------------------------->
 <!-- <Page 2> --> 
 <!-- <Header> -->
-    <div>
+    <div v-if="dataReady">
         <div class="new-page" />
 
         <div style="text-align:center;font-family:BCSans"><b> SCHEDULE 1 – AFFIDAVIT FOR PROTECTION ORDER</b></div>
@@ -36,8 +36,8 @@
             I am applying for a protection order for the following person(s) to be protected:           
             <div style="margin:0.25rem 0 0 2rem;" >
                 <i>Select and complete only those options that apply to your situation. You may select more than one.</i>
-                <check-box style="" :check="applicantNeedsProtection == 'y'?'yes':''" text="me"/>
-                <check-box style="" :check="hasChildren?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
+                <check-box  :check="applicantNeedsProtection == 'y'?'yes':''" text="me"/>
+                <check-box  :check="hasChildren?'yes':''" text=" the following child(ren) I am parent or guardian to:<br><i>Complete only if applicable. You may leave this section blank</i>"/>                
             </div>
 
             <b-table
@@ -56,7 +56,7 @@
             </b-table> 
 
             <div style="margin:0.25rem 0 0 2rem;" >
-                <check-box style="" :check="hasSharingAdult?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
+                <check-box  :check="hasSharingAdult?'yes':''" text="The following adult(s) sharing the residence with the other protected person(s):<br><i>Complete only if the adult family member sharing the residence with another protected person needs to also be protected. You may leave this section blank.</i>"/>               
             </div>
 
             <b-table
@@ -99,17 +99,17 @@
         <div class="new-page" />
 <!-- <Page 3> --> 
 <!-- <Header> -->
-        <div style=""><b> ABOUT THE PROTECTION ORDER</b></div>
+        <div ><b> ABOUT THE PROTECTION ORDER</b></div>
 <!-- <3> -->
         <section>  
             <i style="margin-left:.25rem;">Complete only if applicable. You may leave this section blank.</i>
             <div style="margin-left:1rem;"> I do not want the other party to be able to attend at, enter or be found at the following places:</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>
-                <check-box style="" :check="noGo.places.includes('Home')?'yes':''" text="Residence"/>
-                <check-box style="" :check="noGo.places.includes('School')?'yes':''" text="School"/>
-                <check-box style="" :check="noGo.places.includes('Workplace')?'yes':''" text="Place of Employment"/>
-                <check-box style="" :check="noGo.places.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
+                <check-box  :check="noGo.places.includes('Home')?'yes':''" text="Residence"/>
+                <check-box  :check="noGo.places.includes('School')?'yes':''" text="School"/>
+                <check-box  :check="noGo.places.includes('Workplace')?'yes':''" text="Place of Employment"/>
+                <check-box  :check="noGo.places.includes('ChildCareFacility')?'yes':''" text="Child care facility"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="noGo.places.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noGo.otherComment"/>
             </div>
@@ -122,9 +122,9 @@
             <div style="margin-left:1rem;"> The protected party may need to communicate with the other party for the following reason(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="noContact.reasonForComm.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
-                <check-box style="" :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
-                <check-box style="" :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
+                <check-box  :check="noContact.reasonForComm.includes('Consensual dispute resolution')?'yes':''" text="Consensual dispute resolution"/>
+                <check-box  :check="noContact.reasonForComm.includes('Parenting arrangements')?'yes':''" text="Parenting arrangements"/>
+                <check-box  :check="noContact.reasonForComm.includes('Ongoing court action')?'yes':''" text="Ongoing court action"/>
                 <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="noContact.reasonForComm.includes('other')?'yes':''" text="Other <i>(specify):</i>"/>
                 <underline-form style="text-indent:1px;display:inline-block;" textwidth="30rem" beforetext="" hint="" :text="noContact.otherComment"/>
             </div>
@@ -192,7 +192,7 @@
             <div style="margin-left:1rem;"> I believe police assistance may be required for the following purpose(s):</div>
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
-                <check-box style="" :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
+                <check-box  :check="removePerson.needPolice.includes('To remove the other party from the shared residence')?'yes':''" text="To remove the other party from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the protected party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the protected party's personal belongings from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the other party\'s personal belongings from the shared residence')?'yes':''" text="To supervise the removal of the other party's personal belongings from the shared residence"/>
                 <check-box style="margin-top:0rem;" :check="removePerson.needPolice.includes('To supervise the removal of the child(ren)\'s personal belongings from a residence')?'yes':''" text="To supervise the removal of the child(ren)'s personal belongings from a residence"/>
@@ -248,8 +248,8 @@
         <section>
             <i style="display:inline;margin-left:0.5rem;">Select whichever option is correct and complete the required information</i>
             <div style="margin:0 0 0 1rem;" >                    
-                <check-box style="" :check="backgroundSurvey.hasOtherChilderen=='n'?'yes':''" text="The protected party and the other party are a parent, or guardian only to the child(ren), if any, identified in paragraph 2 of this affidavit"/>
-                <check-box style="" :check="backgroundSurvey.hasOtherChilderen=='y'?'yes':''" text="The protected party and the other party are a parent, step-parent or guardian to the following child(ren) who is/are not identified in paragraph 2 of this affidavit:"/>
+                <check-box  :check="backgroundSurvey.hasOtherChilderen=='n'?'yes':''" text="The protected party and the other party are a parent, or guardian only to the child(ren), if any, identified in paragraph 2 of this affidavit"/>
+                <check-box  :check="backgroundSurvey.hasOtherChilderen=='y'?'yes':''" text="The protected party and the other party are a parent, step-parent or guardian to the following child(ren) who is/are not identified in paragraph 2 of this affidavit:"/>
             </div>
 
             <b-table
@@ -452,11 +452,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
 import UnderlineForm from "./components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue";
+import {getYourInformationResults} from "@/components/utils/PopulateForms/PopulateCommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
-
+import { contactInfoType, addressInfoType } from '@/types/Application/CommonInformation';
+import { schedule1ChildInfoType, schedule1AnotherAdultInfoType, schedule1OtherChildrenInfoType, schedule1SharingAdultInfoType, schedule1BackgroundInfoType, schedule1YourStoryInfoType, schedule1NoGoInfoType, schedule1NoContactInfoType, schedule1WeaponsFirearmsInfoType, schedule1RemovePersonInfoType } from '@/types/Application/ProtectionOrder/PDF';
 
 @Component({
     components:{
@@ -467,36 +468,42 @@ import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInfor
 export default class Schedule1 extends Vue {
 
     @Prop({required:true})
-    result!: any;
+    result!: any;    
 
     yourInfo = {} as yourInformationInfoDataInfoType;
-
-    applicantNeedsProtection = ''
+    anotherAdult = {} as schedule1AnotherAdultInfoType;
+    // Adding initial empty values to display an empty row in the table if no records exist
+    childrenItem: schedule1ChildInfoType[] = [{name:'', dob:'', relation:'', living:''}];
+    sharingAdultItem: schedule1SharingAdultInfoType[] = [{name:'', dob:'', relation: ''}];
+    otherChildrenItem: schedule1OtherChildrenInfoType[] = [{name:'', dob:'', protectedRelation:'', otherRelation:'', livingWith: ''}];
+    backgroundSurvey = {} as schedule1BackgroundInfoType;
+    yourStory = {} as schedule1YourStoryInfoType;
+    noGo = {} as schedule1NoGoInfoType;
+    noContact = {} as schedule1NoContactInfoType;
+    weaponsFirearms = {} as schedule1WeaponsFirearmsInfoType;
+    removePerson = {} as schedule1RemovePersonInfoType;
+    serviceAddress = {} as addressInfoType;
+    serviceContact = {} as contactInfoType;
     
-    serviceAddress = {street:'', city:'',country:'', postcode:'', state:''}
-    serviceContact = {phone:"", fax:"", email:""}
+    hasSharingAdult = false;     
+    hasAnotherAdult = false;    
+    hasChildren = false;
+    dataReady = false;
+    applicantNeedsProtection = '';
 
-    hasAnotherAdult = false;
-    anotherAdult = {nameFull:'', dobBeauty:'', reason:''}
-
-    childrenItem = [{name:'', dob:'', relation:'',living:''}];
-    hasChildren = false
-    childrenFields=[
+    childrenFields= [
         {key:"name",     label:"Child's full legal name",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
         {key:"relation", label:"Other party's relationship to the child",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:22%;"},
         {key:"living",   label:"Child is currently living with",         tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
     ]
-
-    sharingAdultItem = [{name:'', dob:'', relation:''}]
-    hasSharingAdult = false
+    
     sharingAdultFields = [
         {key:"name",     label:"Full name",                                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
         {key:"dob",      label:"Date of birth (mmm/dd/yyyy)",              tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:17%;"},
         {key:"relation", label:"Relationship to other protected person(s)",tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:20%;"},
-    ]
-
-    otherChildrenItem = [{name:'', dob:'', protectedRelation:'', otherRelation:'', livingWith:''}];
+    ]    
+    
     otherChildrenFields=[
         {key:"name", label:"Child's full legal name",                             tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:25%;"},
         {key:"dob", label:"Child's date of birth (mmm/dd/yyyy)",                  tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:14.5%;"},
@@ -505,7 +512,8 @@ export default class Schedule1 extends Vue {
         {key:"livingWith", label:"Child is currently living with",                tdClass:"border-dark text-center", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:23%;"},
     ]
 
-    mounted(){        
+    mounted(){   
+        this.dataReady = false;     
         this.yourInfo = this.getYourInfo() 
         this.getServiceInfo();
         this.getProtectingPeople();
@@ -516,31 +524,16 @@ export default class Schedule1 extends Vue {
         this.getRemovePerson();
         this.getYourStory();
         this.getbackgroundSurvey();
+        this.dataReady = true;
     }
 
     public getYourInfo(){
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;       
-
         if(this.result?.yourinformationPOSurvey){
-
-            const applicantInfo = this.result.yourinformationPOSurvey;
-           
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB? applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName? applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-
-                occupation: applicantInfo.ApplicantOccupation? applicantInfo.ApplicantOccupation : '',
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
+            return getYourInformationResults(this.result.yourinformationPOSurvey);
         }
-        
-        return yourInformation;
+        else
+            return {} as yourInformationInfoDataInfoType;
     }
 
     public getServiceInfo(){
@@ -605,7 +598,6 @@ export default class Schedule1 extends Vue {
                 nameFull:  Vue.filter('getFullName')(this.result.protectionFromWhomSurvey.anotherAdultName),
                 dobBeauty: Vue.filter('beautify-date')(this.result.protectionFromWhomSurvey.anotherAdultDOB),
                 reason:    this.result.protectionFromWhomSurvey.anotherAdultReasonForPO
-
             }            
         }
     }
@@ -625,8 +617,7 @@ export default class Schedule1 extends Vue {
             }
         }
     }
-
-    noGo = { places:[], otherComment:''};
+    
     public getNoGo(){        
         this.noGo = { places:[], otherComment:''};
 
@@ -637,8 +628,7 @@ export default class Schedule1 extends Vue {
                 this.noGo.otherComment = this.result.noGoSurvey.RespondentNoGoPlacesComment
         }
     }
-
-    noContact = {reasonForComm:[], otherComment:''};
+   
     public getNoContact(){
         this.noContact = {reasonForComm:[], otherComment:''};
 
@@ -650,7 +640,6 @@ export default class Schedule1 extends Vue {
         }
     }
 
-    weaponsFirearms = {firearms:'', firearmsReason:'', firearmsYes:'', firearmsYesReason:'', weapons:'', weaponsReasons:'', weaponsYes:'', weaponsYesReason:''}
     public getWeaponsFirearms(){
         this.weaponsFirearms = {firearms:'', firearmsReason:'', firearmsYes:'', firearmsYesReason:'', weapons:'', weaponsReasons:'', weaponsYes:'', weaponsYesReason:''}
 
@@ -682,8 +671,7 @@ export default class Schedule1 extends Vue {
                 this.weaponsFirearms.weaponsYesReason = this.result.weaponsFirearmsSurvey.weaponsYesReason
         }
     }
-
-    removePerson = {liveTogether:'', needPolice:[], needPoliceComment:''}
+    
     public getRemovePerson(){
         this.removePerson = {liveTogether:'', needPolice:[], needPoliceComment:''}
         if(this.result?.removePersonSurvey?.RespondentLiveTogether){
@@ -697,8 +685,7 @@ export default class Schedule1 extends Vue {
             }
         }
     }
-
-    yourStory = {isViolence:'', whatViolence:'', isConcerns:'', whatConcerns:'', recentIncidents:''}
+    
     public getYourStory(){
         this.yourStory = {isViolence:'', whatViolence:'', isConcerns:'', whatConcerns:'', recentIncidents:''}
         if(this.result?.yourStorySurvey?.isFamilyViolence){
@@ -716,8 +703,7 @@ export default class Schedule1 extends Vue {
         if(this.result?.yourStorySurvey?.recentIncidents)
             this.yourStory.recentIncidents = this.result.yourStorySurvey.recentIncidents
     }
-
-    backgroundSurvey;
+    
     public getbackgroundSurvey(){
         
         this.backgroundSurvey = {
@@ -770,7 +756,7 @@ export default class Schedule1 extends Vue {
             this.backgroundSurvey.hasOtherChilderen = this.result.backgroundSurvey.PartiesHasOtherChilderen;
         }
 
-        if(this.result?.backgroundSurvey?.ExistingOrders)
+        if(this.result?.backgroundSurvey?.ExistingOrders && (this.childrenItem[0]?.name || this.otherChildrenItem[0]?.name))
             this.backgroundSurvey.existingOrders = this.result.backgroundSurvey.ExistingOrders;
         
         if(this.result?.backgroundSurvey?.likeToAddCulturalExplanation == 'y' && this.result?.backgroundSurvey?.culturalExplain){
@@ -815,10 +801,7 @@ export default class Schedule1 extends Vue {
             if(this.result.backgroundSurvey.reportedConcernsToSW == 'y' && this.result.backgroundSurvey.desrcibeSWAction)
                 this.backgroundSurvey.swAction = this.result.backgroundSurvey.desrcibeSWAction
         }
-
     }
-
-
 }
 </script>
 

@@ -7,8 +7,9 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
-import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { stepInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import ReviewYourAnswersPage from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersPage.vue"
 import {getQuestionResults} from "@/components/utils/ReviewYourAnswers/ReviewYourAnswersQuestions"
@@ -34,11 +35,9 @@ export default class ReviewYourAnswersFlm extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdatePathwayCompleted!: (changedpathway) => void
@@ -51,7 +50,7 @@ export default class ReviewYourAnswersFlm extends Vue {
     @Watch('pageHasError')
     nextPageChange(newVal) 
     {
-        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError);
+        togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError, this.currentStep);
         if(this.pageHasError) this.UpdatePathwayCompleted({pathway:"familyLawMatter", isCompleted:false})
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.PreviewFormsFLM,  50, false);
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
@@ -91,25 +90,15 @@ export default class ReviewYourAnswersFlm extends Vue {
         this.questionResults = getQuestionResults([this.stPgNo.COMMON._StepNo, this.stPgNo.FLM._StepNo], this.currentStep)        
          
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, this.pageHasError? 50: 100, false);
-        this.togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError);         
-    }
-
-    public togglePages(pageArr, activeIndicator) {
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.step.id,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
+        togglePages([this.stPgNo.FLM.PreviewFormsFLM], !this.pageHasError, this.currentStep);         
     }
     
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()       
+        Vue.prototype.$UpdateGotoNextStepPage()       
     }
 
     beforeDestroy() {

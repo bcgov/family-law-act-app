@@ -1,7 +1,6 @@
 <template>
 <div v-if="dataReady">    
-    <!-- <b-button id="app-print" @click="onPrintSave()">Print</b-button>  -->
-    <!-- <b-button class="ml-2" @click="onPrintSave()">Print Save</b-button>   -->    
+   
     <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-4 mb-4 container" no-body>
         <common-section v-bind:result="result" v-bind:selectedSchedules="selectedSchedules"/>
         <schedule-1 v-bind:result="result"  v-if="selectedSchedules.includes('schedule1')" />
@@ -22,7 +21,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -42,7 +40,6 @@ import Schedule10 from "./Schedules/Schedule10.vue"
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
 import moment from 'moment';
-import { nameInfoType } from "@/types/Application/CommonInformation";
 
 @Component({
     components:{
@@ -113,32 +110,6 @@ export default class Form3 extends Vue {
             this.$emit('enableNext',true)                   
         },err => {
             console.error(err);        
-        });
-    }
-
-    public onPrintSave(){  
-        
-        const pdf_type = Vue.filter('getPathwayPdfType')("familyLawMatter")             
-        const applicationId = this.$store.state.Application.id;
-
-        const url = '/survey-print/'+applicationId+'/?pdf_type='+pdf_type
-        const options = {
-            responseType: "blob",
-            headers: {
-            "Content-Type": "application/json",
-            }
-        }
-        this.$http.get(url, options)
-        .then(res => {
-            const blob = res.data;
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.download = "Form3.pdf";
-            link.click();
-            setTimeout(() => URL.revokeObjectURL(link.href), 1000);            
-        },err => {
-            console.error(err);
         });
     }
  

@@ -60,10 +60,10 @@
                 <i>Select whichever option is correct</i>
             </div>
             <div style="margin:0rem 0 0 1.0rem;font-size: 9pt;" >
-                <check-box style="" :check="form29Info.otherPartyNotice?'yes':''" text="This application is about enforcement under Rule 135. I understand I must give notice of this application to each other party. To
+                <check-box  :check="form29Info.otherPartyNotice?'yes':''" text="This application is about enforcement under Rule 135. I understand I must give notice of this application to each other party. To
                     give notice, they must be served with the application and supporting documents at least 7 days before the date set for the court
                     appearance unless the court allows the application to be made without notice or with less than 7 days' notice."/>
-                <check-box style="" :check="form29Info.foreignNotice?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
+                <check-box  :check="form29Info.foreignNotice?'yes':''" text="This application is to set aside the registration of a foreign support order under the <i>Interjurisdictional Support Orders Act.</i> I
                     understand I must give notice of this application to the designated authority. To give notice, the designated authority must be
                     served with the application and supporting documents by registered mail at least 30 days before the application is to be heard
                     by the court." />
@@ -218,7 +218,7 @@
                 </div>
 
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box style="" :check="form29Info.orderList.includes('expenses')?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
+                    <check-box  :check="form29Info.orderList.includes('expenses')?'yes':''" text="to have reasonable and necessarily incurred expenses set under the following sections of the <i>Family Law Act</i>:"/>
                     <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section61')?'yes':''" text="section 61 <i>[denial of parenting time or contact]</i>"/>
                     <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section63')?'yes':''" text="section 63 <i>[failure to exercise parenting time or contact]</i>"/>
                     <check-box style="margin:0 0 0 1.75rem;" :check="form29Info.expenseList.includes('section212')?'yes':''" text="section 212 <i>[orders respecting disclosure]</i>"/>
@@ -233,7 +233,7 @@
                     <div style="text-indent:10px;display:inline-block;">make under the <i>Family Law Act</i>, and if so, the amount of arrears (unpaid support)</div>
                 </div>
                 <div  style="margin:0.2rem 0 0 0rem;">
-                    <check-box style="" :check="form29Info.orderList.includes('foreignSupport')?'yes':''" text="to set aside the registration of a foreign order under section 19(3) of the <i>Interjurisdictional Support Orders Act</i>"/>
+                    <check-box  :check="form29Info.orderList.includes('foreignSupport')?'yes':''" text="to set aside the registration of a foreign order under section 19(3) of the <i>Interjurisdictional Support Orders Act</i>"/>
                 </div>
                 
             </div>                  
@@ -294,20 +294,19 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import CheckBoxII from "./components/CheckBoxII.vue";
-import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { form29InformationDataInfoType, enfrcOtherPartyDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { requiredDocumentsInfoType } from '@/types/Common';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox, 
-        CheckBoxII,
+        CheckBox,
         OrderedCheckBox        
     }
 })
@@ -353,32 +352,16 @@ export default class Form29Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.form29Info = this.getForm29Info();
-        this.getLocationInfo()
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
     } 
-    
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }   
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
         if(this.result?.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){
@@ -446,15 +429,14 @@ export default class Form29Layout extends Vue {
             }
 
             if (enfrcQuest.includes('expenses') && this.result?.determineAnAmountOwingForExpensesSurvey?.amountOwingActionType){
-                form29Information.orderList.push('expenses');
-                //console.log(this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType)
+                form29Information.orderList.push('expenses');                
                 form29Information.expenseList = this.result.determineAnAmountOwingForExpensesSurvey.amountOwingActionType;
             }
 
             if (enfrcQuest.includes('foreignSupport') || this.requiredDocuments?.agreementEnfrc?.required?.length>0){
                 form29Information.attachRequiredDocuments = true;
             }
-            // console.log(this.requiredDocuments?.agreementEnfrc?.required)
+            
             if (enfrcQuest.includes('foreignSupport')){
                 form29Information.orderList.push('foreignSupport');              
             }
@@ -475,10 +457,6 @@ export default class Form29Layout extends Vue {
             form29Information.facts = abtOrdrEnfrc.applicationFacts;            
             form29Information.orderdesc = abtOrdrEnfrc.orderDescription;
         } 
-       
-       
-            
-        
        
         return form29Information;
     }

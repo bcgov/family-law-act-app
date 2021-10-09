@@ -38,7 +38,7 @@
                                     v-b-tooltip.hover.noninteractive
                                     title="Resume Application">
                                     <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
-                                </b-button>
+                                </b-button>                                
 
                                 <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
                                     @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
@@ -53,9 +53,17 @@
                                     title="Navigate To Submitted Application">
                                     <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                                 </b-button>
+                                <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
+                                    @click="viewInstructions(row.item.id, row.item.app_type)"
+                                    v-b-tooltip.hover.noninteractive
+                                    title="View Instructions">
+                                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
+                                </b-button>
+                                
                             </template>
                             <template v-slot:cell(app_type)="row">                  
-                                <span :class="row.item.lastFiled?'text-success':''">{{row.item.app_type}}</span>
+                                <span v-for="(appType,inx) in row.item.app_type" :key="inx" :class="row.item.lastFiled?'text-success':''">{{appType}}<br/></span>
+                                <span v-if="row.item.app_type.length==0">New application</span>
                             </template>
                             <template v-slot:cell(lastUpdated)="row">                  
                                 <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
@@ -107,7 +115,7 @@
             <template v-slot:modal-title>
                 <h2 class="mb-0 text-light">Confirm Delete Application</h2>                                  
             </template>
-            <h4 >Are you sure you want to delete your <b>"{{applicationToDelete.app_type}}"</b> application?</h4>            
+            <h4 >Are you sure you want to delete your <b class="text-primary" v-for="app,inx in applicationToDelete.app_type" :key="inx">"{{app}}"<b v-if="(inx+1)<applicationToDelete.app_type.length">, </b> </b> application?</h4>            
             <template v-slot:modal-footer>
                 <b-button variant="danger" @click="confirmRemoveApplication()">Confirm</b-button>
                 <b-button variant="primary" @click="$bvModal.hide('bv-modal-confirm-delete')">Cancel</b-button>
@@ -127,8 +135,8 @@
                 <b-button size="sm" variant="light" class="py-2 my-2 mx-auto px-5" style="width:20rem;"
                     @click="downloadApplicationPdf(printingApplicationId, pdf)"
                     >                    
-                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
-                    {{extractTypes([pdf])[0]}}
+                    <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>
+                    {{pdf | pdfTypeToFullName}}
                 </b-button>
             </b-row>
             
@@ -140,7 +148,25 @@
                 <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-select-pdf')"
                 >&times;</b-button>
             </template>
-        </b-modal> 
+        </b-modal>
+
+        <b-modal size="xl" v-model="showInstructions" id="bv-modal-show-instructions" header-class="bg-info">                        
+            <template v-slot:modal-title>
+                <h2 class="mb-0 text-primary">Instructions</h2>                                  
+            </template>
+
+            <b-card no-body border-variant="white" class="m-3">
+                <instructions :applicationId='instructionsApplicationId' ></instructions>                
+            </b-card>
+            
+            <template v-slot:modal-footer>                
+                <b-button variant="primary" @click="$bvModal.hide('bv-modal-show-instructions')">Close</b-button>
+            </template>            
+            <template v-slot:modal-header-close>                 
+                <b-button variant="outline-warning" class="text-light closeButton" @click="$bvModal.hide('bv-modal-show-instructions')"
+                >&times;</b-button>
+            </template>
+        </b-modal>  
 
         <b-modal size="xl" v-model="showDisclaimer" header-class="bg-white" no-close-on-backdrop hide-header-close>
             <template v-slot:modal-title>
@@ -176,11 +202,14 @@ import "@/store/modules/application";
 import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
 
-import {restoreCommonStep} from './restoreCommonStep'
-import {migrateStore} from './migrateStore'
+import {RestoreCommonStep} from './RestoreCommonStep'
+import {MigrateStore} from './MigrateStore'
+import Instructions from './Instructions.vue';
 
 
-@Component
+@Component({
+    components: {Instructions}
+})
 export default class ApplicationStatus extends Vue {
 
     @commonState.Action
@@ -211,7 +240,15 @@ export default class ApplicationStatus extends Vue {
     error = ''
     deleteErrorMsg = ''
     deleteErrorMsgDesc = ''
-    deleteError = false  
+    deleteError = false
+    
+    printingApplicationId = 0;
+    printingListOfPdfs: string[] = [];
+    showSelectFileForPrint =  false;
+
+    instructionsApplicationId = 0;
+    applicationTypes: string[] = [];
+    showInstructions =  false;
 
     
     //___________________________
@@ -227,7 +264,6 @@ export default class ApplicationStatus extends Vue {
         this.loadDocumentTypes();
         this.extractFilingLocations();
         this.loadApplications();
-        console.log(new URL(location.href))
     }
 
     public openTerms() {
@@ -236,19 +272,19 @@ export default class ApplicationStatus extends Vue {
 
     public loadApplications () {
     //TODO: when extending to use throughout the province, the timezone should be changed accordingly
-    //TODO: read in the data required to navigate to the eFilingHub package page
+    
         this.$http.get('/app-list/')
         .then((response) => {
             
             for (const appJson of response.data) {                
-                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:'', lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
+                const app = {lastUpdated:0, lastUpdatedDate:'', id:0, app_type:[], lastFiled:0, lastFiledDate:'', packageNum:'', listOfPdfs:[], last_efiling_submission:{package_number:'',package_url:''}} as applicationJsonInfoType;
                 app.lastUpdated = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastUpdatedDate = appJson.last_updated?moment(appJson.last_updated).tz("America/Vancouver").format():'';                
                 app.lastFiled = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").diff('2000-01-01','minutes'):0;
                 app.lastFiledDate = appJson.last_filed?moment(appJson.last_filed).tz("America/Vancouver").format():'';                
                 app.id = appJson.id;
                 app.listOfPdfs = appJson.prepared_pdfs?appJson.prepared_pdfs.map(pdf=>pdf.pdf_type) :[]
-                app.app_type = this.extractTypes(appJson.app_type.split(',')).toString();
+                app.app_type = this.extractTypes(appJson.app_type.split(','));
                 if(appJson.last_efiling_submission){
                     app.last_efiling_submission = {package_number:appJson.last_efiling_submission.package_number,package_url:appJson.last_efiling_submission.package_url}
                     if(appJson.last_efiling_submission.package_number) app.packageNum=appJson.last_efiling_submission.package_number;
@@ -315,10 +351,10 @@ export default class ApplicationStatus extends Vue {
             const applicationData = response.data   
             const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
-            const storeMigrationFn = new migrateStore()           
+            const storeMigrationFn = new MigrateStore()           
             this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
 
-            const comStepFn = new restoreCommonStep()
+            const comStepFn = new RestoreCommonStep()
             comStepFn.restore(this.currentApplication)
            
             this.checkAllCompleted();
@@ -331,34 +367,7 @@ export default class ApplicationStatus extends Vue {
     }   
 
     public extractTypes(applicationTypes: string[]) {
-
-        let types = [];
-
-        for (const applicationType of applicationTypes){
-            if (applicationType.includes("FPO")){
-                types.push(applicationType.replace("FPO", "Protection Order"));            
-            }
-            if (applicationType.includes(Vue.filter('getPathwayPdfType')("familyLawMatter"))){
-                types.push("Family Law Matter");
-            }
-            if (applicationType.includes(Vue.filter('getPathwayPdfType')("caseMgmt"))){
-                types.push("Case Management");
-            }
-            if (applicationType.includes(Vue.filter('getPathwayPdfType')("priorityParenting"))){
-                types.push("Priority Parenting Matter");
-            }
-            if (applicationType.includes(Vue.filter('getPathwayPdfType')("childReloc"))){
-                types.push("Relocation of a Child");
-            }
-            if (applicationType.includes(Vue.filter('getPathwayPdfType')("agreementEnfrc"))){
-                types.push("Enforcement");
-            }
-
-            if (applicationType.includes(Vue.filter('getPathwayPdfType')("protectionOrder"))){
-                types.push("Protection Order");     
-            }
-        }
-        return types;
+        return Vue.filter('typesToFullnames')(applicationTypes)
     }
 
     public removeApplication(application, index) {
@@ -384,14 +393,49 @@ export default class ApplicationStatus extends Vue {
         });
         this.confirmDelete=false;  
     }
-
-    printingApplicationId = 0;
-    printingListOfPdfs: string[] = [];
-    showSelectFileForPrint =  false;
+    
     public viewApplicationPdf(applicationId, listOfPdfs) {
         this.printingApplicationId = applicationId;
-        this.printingListOfPdfs = listOfPdfs;
-        this.showSelectFileForPrint =  true;
+        
+        let submittedPdfList = []
+        this.$http.get('/app/'+ applicationId + '/')
+        .then((response) => {
+
+            const applicationData = response.data;  
+            const appSteps = applicationData?.steps.filter(step => step.name == 'GETSTART');
+            if(appSteps.length == 1){ 
+                const stepGETSTART = appSteps[0].result;
+
+                if (stepGETSTART?.submittedPdfList){
+                    submittedPdfList = stepGETSTART.submittedPdfList;
+                } 
+            }
+            
+            this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);
+            this.showSelectFileForPrint =  true;
+
+        }, err => { 
+            this.printingListOfPdfs = this.getListOfPdfs(listOfPdfs,submittedPdfList);           
+            this.showSelectFileForPrint =  true;        
+        });
+    }
+
+    public getListOfPdfs(listOfPdfs, submittedPdfList){
+
+        return listOfPdfs.filter(pdfname => {
+            return (
+                (pdfname != "TEMP") && 
+                (submittedPdfList.includes(pdfname) ||
+                 submittedPdfList.length == 0
+                )
+            )
+        });
+    }
+
+    public viewInstructions(applicationId, applicationType) {
+        this.instructionsApplicationId = applicationId;
+        this.applicationTypes = applicationType;
+        this.showInstructions =  true;
     }
 
     public downloadApplicationPdf(applicationId, pdf_type){
@@ -461,7 +505,7 @@ export default class ApplicationStatus extends Vue {
         const Survey = SurveyVue;
         surveyEnv.setCss(Survey);
     }
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -470,7 +514,7 @@ export default class ApplicationStatus extends Vue {
 .home-content {
     padding-bottom: 20px;
     padding-top: 2rem;
-    max-width: 950px;
+    max-width: 1000px;
     color: black;
 }
 

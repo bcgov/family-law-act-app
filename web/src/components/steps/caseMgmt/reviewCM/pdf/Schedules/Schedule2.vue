@@ -22,8 +22,8 @@
                 </div>
 
                 <div style="margin-left:1.0rem;">
-                    <check-box style="" :check="modReqInfo.isWaiveOrModify?'yes':''" text="waive or modify a requirement related to service or giving notice <i>(complete Part 1 of this schedule)</i>"/>
-                    <check-box style="" :check="modReqInfo.isAltMethodService?'yes':''" text="allow service of a document using an alternative method <i>(complete Part 2 of this schedule)</i>"/>
+                    <check-box  :check="modReqInfo.isWaiveOrModify?'yes':''" text="waive or modify a requirement related to service or giving notice <i>(complete Part 1 of this schedule)</i>"/>
+                    <check-box  :check="modReqInfo.isAltMethodService?'yes':''" text="allow service of a document using an alternative method <i>(complete Part 2 of this schedule)</i>"/>
                 </div>
             </section>
 
@@ -53,10 +53,10 @@
                     </div>
 
                     <div style="margin-left:1.0rem;">
-                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
-                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Application About a Family Law Matter')?'yes':''" text="Application About a Family Law Matter"/>
-                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Subpoena')?'yes':''" text="Subpoena"/>
-                        <check-box style="" :check="modReqInfo.waiveChangeRequirementList.includes('Order')?'yes':''" text="Order"/>
+                        <check-box  :check="modReqInfo.waiveChangeRequirementList.includes('Application About Priority Parenting Matter')?'yes':''" text="Application About Priority Parenting Matter"/>
+                        <check-box  :check="modReqInfo.waiveChangeRequirementList.includes('Application About a Family Law Matter')?'yes':''" text="Application About a Family Law Matter"/>
+                        <check-box  :check="modReqInfo.waiveChangeRequirementList.includes('Subpoena')?'yes':''" text="Subpoena"/>
+                        <check-box  :check="modReqInfo.waiveChangeRequirementList.includes('Order')?'yes':''" text="Order"/>
                         <check-box marginLeft="1.65rem" class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="modReqInfo.waiveChangeRequirementList.includes('other')?'yes':''" text="other <i>(specify):</i>"/>
                         <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="modReqInfo.waiveChangeRequirementComment"/>                     
                     </div>
@@ -193,7 +193,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import UnderlineForm from "./components/UnderlineForm.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
 import CheckBox from "./components/CheckBox.vue"
 import { schedule2DataInfoType } from '@/types/Application/CaseManagement/PDF';
 
@@ -227,6 +227,7 @@ export default class Schedule2 extends Vue {
         
         if(this.result?.changingOrCancellingAServiceOrNoticeSurvey){
             const chgSurvey = this.result.changingOrCancellingAServiceOrNoticeSurvey;
+            const namesOfNeedToBeServedCondition = chgSurvey.namesOfNeedToBeServed? chgSurvey.namesOfNeedToBeServed?.split(/[;,]+/).map(item => {return item.trim();}):[]
 
             waiveModifyRequirementsInfo.isWaiveOrModify =  (chgSurvey.changeOrCancelRequirementForService =='y');
             waiveModifyRequirementsInfo.isAltMethodService = (chgSurvey.anotherMethodOfService == 'y');
@@ -236,7 +237,7 @@ export default class Schedule2 extends Vue {
             waiveModifyRequirementsInfo.waiveChangeRequirementComment = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.documentListComment:'';
             waiveModifyRequirementsInfo.applicationFacts = waiveModifyRequirementsInfo.isWaiveOrModify? chgSurvey.applicationFacts:'';
 
-            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.namesOfNeedToBeServed? chgSurvey.namesOfNeedToBeServed?.split(/[;,]+/).map(item => {return item.trim();}):[]:[];
+            waiveModifyRequirementsInfo.nameOfPersonToBeServed = waiveModifyRequirementsInfo.isAltMethodService?namesOfNeedToBeServedCondition:[];
             waiveModifyRequirementsInfo.altMethodApplicationFacts = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.applicationFactsAltMethod:'';
             waiveModifyRequirementsInfo.altMethodServingDetails = waiveModifyRequirementsInfo.isAltMethodService? chgSurvey.altMethodServingDetails:''
             

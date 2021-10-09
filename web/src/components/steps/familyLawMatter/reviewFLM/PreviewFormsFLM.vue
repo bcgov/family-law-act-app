@@ -30,11 +30,9 @@ export default class PreviewFormsFlm extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
 
     currentStep = 0;
@@ -60,12 +58,10 @@ export default class PreviewFormsFlm extends Vue {
         const stepCOM =  this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]   
 
         if( stepCOM.result?.filingLocationSurvey?.data){
-            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
-            const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
-    
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;    
             const location = filingLocationData.ExistingCourt;                            
 
-            if(courtsC?.includes(location) && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+            if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
                 this.requiredForm = 1;                
             } else {
                 this.requiredForm = 3;
@@ -82,11 +78,11 @@ export default class PreviewFormsFlm extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()
+        Vue.prototype.$UpdateGotoNextStepPage()
     }
 
     public checkErrorOnPages(steps){

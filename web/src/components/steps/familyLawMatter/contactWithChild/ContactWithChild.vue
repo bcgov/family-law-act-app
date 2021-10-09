@@ -13,6 +13,7 @@ import surveyJson from "./forms/contact-with-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -33,11 +34,9 @@ export default class ContactWithChild extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -82,10 +81,10 @@ export default class ContactWithChild extends Vue {
         if (this.survey.data?.parentGuardianApplicant) {
             if (this.survey.data.parentGuardianApplicant == 'y') {
                 this.disableNextButton = true;
-                this.togglePages(pgPagesAll, false);
+                togglePages(pgPagesAll, false, this.currentStep);
             } else {
                 this.disableNextButton = false;
-                this.togglePages(pgPages, true);
+                togglePages(pgPages, true, this.currentStep);
             }
         }             
     }
@@ -118,22 +117,12 @@ export default class ContactWithChild extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
-        }
-    }
-    
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     

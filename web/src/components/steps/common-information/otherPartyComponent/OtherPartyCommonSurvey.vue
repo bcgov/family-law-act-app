@@ -3,10 +3,10 @@
         <survey v-bind:survey="survey"></survey>
         <div class="row">
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="goBack()">Back</button>
+                <button type="button" class="btn btn-secondary" @click="goBack()">Cancel</button>
             </div>
             <div class="col-6">
-                <button type="button" class="btn btn-primary" @click="saveParty()">Save Changes</button>
+                <button type="button" class="btn btn-success" @click="saveParty()">Save</button>
             </div>
         </div>
         <br />
@@ -15,14 +15,13 @@
 
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
-import { otherPartyInfoType, addressInfoType, contactInfoType} from "@/types/Application/CommonInformation";
+import { otherPartyInfoType, addressInfoType, contactInfoType, nameInfoType} from "@/types/Application/CommonInformation";
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/survey-opInfo.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
-import { nameInfoType } from "@/types/Application/CommonInformation";
 const applicationState = namespace("Application");
 
 @Component
@@ -92,15 +91,10 @@ export default class OtherPartyCommonSurvey extends Vue {
             this.survey.setVariable("csOnly", true);
         } else {
             this.survey.setVariable("csOnly", false);
-        }
-
-        let progress = 50;
-        if(Object.keys(this.survey.data)?.length)
-            progress = this.survey.isCurrentPageHasErrors? 50 : 100;
+        }        
         
         this.currentStep = this.$store.state.Application.currentStep;
-        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        //this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
+        this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;     
     }
  
     public goBack() {
@@ -167,12 +161,7 @@ export default class OtherPartyCommonSurvey extends Vue {
         survey.setValue("isSeperatedOtherParty", editRowProp.isSeperatedOtherParty);
         survey.setValue("dateOfSeparation", editRowProp.dateOfSeparation);
         survey.setVariable("id", editRowProp.id);
-    }
-        
-    beforeDestroy() {
-       // const progress = this.survey.isCurrentPageHasErrors? 50 : 100;
-       // this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })
-    }
+    } 
   
-};
+}
 </script>

@@ -40,5 +40,5 @@ export default class CustomButton extends Vue {
         this.question.value = this.clickedNumber;
     }
 
-};
+}
 </script>

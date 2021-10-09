@@ -72,10 +72,10 @@
 
             <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
                 <i>Select only one of the options below</i>
-                <check-box style="" :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
-                <check-box style="" :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
-                <check-box style="" :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
-                <check-box style="" :check="ppmInfo.noticeType == 'haveOrderForWithoutOrUnder 7 DaysNotice'?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
+                <check-box  :check="ppmInfo.noticeType == 'givingOver 7 DaysNotice'?'yes':''" text="I am giving at least 7 days’ notice to the other party"/>
+                <check-box  :check="ppmInfo.noticeType == 'askingForWithoutNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to waive the requirement for notice of this application" />
+                <check-box  :check="ppmInfo.noticeType == 'askingForUnder 7 DaysNotice'?'yes':''" text="I am also filing an Application for Case Management Order Without Notice or Attendance in Form 11 requesting to modify the requirement for at least 7 days’ notice to the other party"/>
+                <check-box  :check="ppmInfo.noticeType == 'haveOrderForWithoutOrUnder 7 DaysNotice'?'yes':''" text="I have a court order that allows the application to be made without notice or with less than 7 days’ notice"/>
             </div>
         </section>
         
@@ -201,7 +201,7 @@
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
             </div>
-            <div style="margin:0.5rem 0 0 1rem;; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
         </div>
 
         <div class="print-block mt-5"></div>
@@ -210,7 +210,7 @@
 
 
 <!-- <4> -->
-            <section>
+        <section>
             <check-box 
                 inline="inline" 
                 boxMargin="0" 
@@ -220,14 +220,14 @@
 
             <div style="margin:0.25rem 0 0 3rem;font-size: 9pt;" >
                 <i>Select all options that apply</i>
-                <check-box style="" :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
-                <check-box style="" :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
+                <check-box  :check="ppmInfo.ppmList.includes('medical')?'yes':''" text="giving, refusing or withdrawing consent, by a guardian, to medical, dental, or other health-related treatments for a child, because delay will result in risk to the child’s health"/>
+                <check-box  :check="ppmInfo.ppmList.includes('passport')?'yes':''" text="applying, by a guardian, for a passport, licence, permit, benefit, privilege or other thing for a child, because delay will result in risk of harm to the child’s physical, psychological or emotional safety, security or well-being"/>
+                <check-box  :check="ppmInfo.ppmList.includes('travel')?'yes':''" text="applying, by a guardian, for travel with a child or participation by a child in an activity because consent to the travel or activity is required and is alleged to have been wrongfully denied"/>
+                <check-box  :check="ppmInfo.ppmList.includes('locationChange')?'yes':''" text="relating to change in location of a child’s residence, or a guardian’s plan to change the location of a child’s residence because no written agreement or order respecting parenting arrangements applies in respect of the child, and the change of residence can reasonably be expected to have a significant impact on the child’s relationship with another guardian"/>
+                <check-box  :check="ppmInfo.ppmList.includes('preventRemoval')?'yes':''" text="relating to the removal of a child under section 64 of the Family Law Act"/>
+                <check-box  :check="ppmInfo.ppmList.includes('interjurisdictional')?'yes':''" text="determining matters relating to interjurisdictional issues under section 74(2)(c) of the Family Law Act"/>
+                <check-box  :check="ppmInfo.ppmList.includes('wrongfulRemoval')?'yes':''" text="relating to the alleged wrongful removal of a child under section 77(2) of the Family Law Act"/>
+                <check-box  :check="ppmInfo.ppmList.includes('returnOfChild')?'yes':''" text="relating to the return of a child alleged to have been wrongfully removed or retained under the Convention on the Civil Aspects of International Child Abduction signed at the Hague on October 25, 1980"/>
             </div>                  
         </section>
 
@@ -328,20 +328,19 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import CheckBoxII from "./components/CheckBoxII.vue"
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue"
 import { nameInfoType, otherPartyInfoType, noticeSurveyDataInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { priorityParentingInformationDataInfoType, priorityParentingOtherPartyDataInfoType } from '@/types/Application/PriorityParentingMatter/PDF';
 import { priorityParentingMatterOrderSurveyDataInfoType, ppmBackgroundDataSurveyDataInfoType, aboutPriorityParentingMatterOrderSurveyDataInfoType } from '@/types/Application/PriorityParentingMatter';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox, 
-        CheckBoxII,
+        CheckBox,
         OrderedCheckBox        
     }
 })
@@ -397,13 +396,8 @@ export default class Form15Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.ppmInfo = this.getPpmInfo();
-        this.getLocationInfo()
-    } 
-    
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }   
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);        
+    }       
     
     public getChildrenInfo() {
 
@@ -423,24 +417,13 @@ export default class Form15Layout extends Vue {
         return childrenInfo;
     }
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){

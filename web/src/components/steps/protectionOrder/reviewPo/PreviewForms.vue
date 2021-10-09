@@ -28,12 +28,9 @@ export default class PreviewForms extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
-
+    
 
     currentStep = 0;
     currentPage = 0;
@@ -51,16 +48,6 @@ export default class PreviewForms extends Vue {
         window.scrollTo(0, 0);
 
     } 
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
 
     public checkErrorOnPages(steps){
 
@@ -86,11 +73,11 @@ export default class PreviewForms extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage()
+        Vue.prototype.$UpdateGotoNextStepPage()
     }
 
     beforeDestroy() {

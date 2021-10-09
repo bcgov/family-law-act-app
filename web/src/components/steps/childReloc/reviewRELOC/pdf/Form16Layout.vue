@@ -31,12 +31,12 @@
         
 <!-- <1> -->
         <section>
-            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name"/>
+            <underline-form style="text-indent:2px;display:inline-block; font-size: 9pt;" textwidth="17rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
             <underline-form style="display:inline;text-indent:2px; font-size: 9pt;" textwidth="8rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
             <div style="text-indent:5px;display:inline; font-size: 9pt;"> . My contact information and address for service of court documents are:</div>
             <table class="compactfullsize" style="margin-top:0.5 !important; font-size: 9pt;">
                 <tr style="border:1px solid #414142" >
-                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName}}</div></td>
+                    <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                     <td v-else  colspan="3">Lawyer (if applicable): </td>
                 </tr>
                 <tr style="border:1px solid #414142">          
@@ -333,18 +333,18 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue"
-import CheckBox from "./components/CheckBox.vue"
-import OrderedCheckBox from "./components/OrderedCheckBox.vue"
-import { nameInfoType, addressInfoType, contactInfoType, yourInformationDataInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
+import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType, childrenInfoSurveyInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { relocationOfChildInformationDataInfoType, relocationOfChildOtherPartyDataInfoType } from '@/types/Application/RelocationOfChild/PDF';
 import { relocChildrenInfoDataInfoType, relocQuestionnaireSurveyDataInfoType, relocChildBestInterestSurveyDataInfoType } from '@/types/Application/RelocationOfChild';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{
@@ -403,13 +403,8 @@ export default class Form16Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.relocInfo = this.getRelocInfo();
-        this.getLocationInfo()
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);
     } 
-    
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
-    }
     
     public getChildrenInfo(){
 
@@ -428,25 +423,14 @@ export default class Form16Layout extends Vue {
         return childrenInfo;
     }
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo: yourInformationDataInfoType = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?Vue.filter('getFullName')(applicantInfo.ApplicantName):'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?Vue.filter('getFullName')(applicantInfo.LawyerName):'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:{} as addressInfoType),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact: {} as contactInfoType),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
-    }
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
+    }    
 
     public getOtherPartyInfo(){
 

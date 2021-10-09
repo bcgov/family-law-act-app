@@ -13,6 +13,7 @@ import surveyJson from "./forms/by-consent.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -36,11 +37,9 @@ export default class ByConsent extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -101,30 +100,20 @@ export default class ByConsent extends Vue {
             const givenConsent = this.survey.data.givenConsent;
             const direction = this.survey.data.giveConsentDirection;
             if (givenConsent == 'n' || (givenConsent == 'y' && direction == 'scheduleAppearance')) {
-                this.togglePages([this.stPgNo.CM.Scheduling], true); 
+                togglePages([this.stPgNo.CM.Scheduling], true, this.currentStep); 
             } else {
-                this.togglePages([this.stPgNo.CM.Scheduling], false);  
+                togglePages([this.stPgNo.CM.Scheduling], false, this.currentStep);  
             }
         }
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {            
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     } 
     

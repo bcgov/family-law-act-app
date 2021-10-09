@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -73,11 +73,9 @@ export default class OtherParty extends Vue {
     @Prop({required: true})
     step!: stepInfoType
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -153,21 +151,17 @@ export default class OtherParty extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
-        this.UpdateGotoNextStepPage();
+        Vue.prototype.$UpdateGotoNextStepPage();
     }
 
     public isDisableNext() {    
         if(this.otherPartyData?.length > 0) return false;
         else return true;
-    }
-
-    public getDisableNextText() {
-        return "You will need to add at least one other party to continue";
-    }
+    }    
 
     beforeDestroy() {
 
@@ -232,7 +226,7 @@ export default class OtherParty extends Vue {
         return resultString
     }
 
-};
+}
 </script>
 
 <style scoped lang="scss">

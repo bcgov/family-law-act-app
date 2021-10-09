@@ -1,5 +1,5 @@
 <template>
-    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-bind:disableNextText="getDisableNextText()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
+    <page-base v-bind:hideNavButtons="!showTable" v-bind:disableNext="isDisableNext()" v-on:onPrev="onPrev()" v-on:onNext="onNext()">
         <div class="home-content">
             <div class="row">
                 <div class="col-md-12">
@@ -102,7 +102,7 @@
             </div>
         </div>
 
-        <b-card v-if="confirmedError"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
+        <b-card v-if="confirmedError && showTable"  class="alert-danger p-3 my-4 " no-body>You need to click the 'Next' button</b-card>
 
         <b-modal size="xl" v-model="popInfo" header-class="bg-white" no-close-on-backdrop hide-header>
             
@@ -146,11 +146,9 @@ export default class OtherPartyCommon extends Vue {
     @applicationState.State
     public types!: string[]
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -161,7 +159,7 @@ export default class OtherPartyCommon extends Vue {
 
     @Watch('otherPartyData')
     otherPartyDataChange(newVal) 
-    {   if(this.dataReady){
+    {   if(this.dataReady){            
             this.confirmed = false;          
             this.determineConfirmError();
             this.UpdateStepResultData({step:this.step, data: {otherPartyCommonSurvey: this.getOtherPartyResults()}})
@@ -184,6 +182,7 @@ export default class OtherPartyCommon extends Vue {
 
     confirmed = false;
     confirmedError = false;
+    tableIsEmpty = false;
  
     created() {
         if (this.step.result?.otherPartyCommonSurvey) {
@@ -194,6 +193,8 @@ export default class OtherPartyCommon extends Vue {
     mounted(){
         this.dataReady = false;
         this.confirmed = false;
+
+        this.tableIsEmpty = this.otherPartyData.length == 0 ;
                 
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
@@ -211,7 +212,7 @@ export default class OtherPartyCommon extends Vue {
 
     public determineConfirmError(){
 
-        this.confirmedError = this.needConfirmation() && !this.confirmed && this.otherPartyData?.length>0;
+        this.confirmedError = this.needConfirmation() && !this.tableIsEmpty && !this.confirmed && this.otherPartyData?.length>0;
         
         const progress = (this.needConfirmation()&& !this.confirmed)||(this.otherPartyData && this.otherPartyData.length==0)? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, true);
@@ -227,7 +228,7 @@ export default class OtherPartyCommon extends Vue {
         this.showTable = false;
         Vue.nextTick(()=>{
             const el = document.getElementById('other-party-common-survey')
-            // console.log(el)
+            
             if(el) el.scrollIntoView();
         })
         if(anyRowToBeEdited) {
@@ -257,6 +258,7 @@ export default class OtherPartyCommon extends Vue {
         this.otherPartyData = this.otherPartyData.filter(data => {
         return data.id !== rowToBeDeleted;
         });
+        this.tableIsEmpty = this.otherPartyData.length == 0 ;
     }
 
     public editRow(editedRow) {
@@ -267,7 +269,7 @@ export default class OtherPartyCommon extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
     
     public needConfirmation(){
@@ -288,22 +290,18 @@ export default class OtherPartyCommon extends Vue {
             this.popInfo = true;
         } else {
             this.popInfo = false;
-            this.UpdateGotoNextStepPage();
+            Vue.prototype.$UpdateGotoNextStepPage();
         }        
     }
 
     public closePopInfo() {
         this.popInfo = false; 
         this.confirmed = true;
-        this.UpdateGotoNextStepPage();        
+        Vue.prototype.$UpdateGotoNextStepPage();        
     }
 
     public isDisableNext() {
         return this.otherPartyData? (this.otherPartyData.length <= 0): true;
-    }
-
-    public getDisableNextText() {
-        return "You will need to add at least one other party to continue";
     }
 
     beforeDestroy() {
@@ -337,7 +335,7 @@ export default class OtherPartyCommon extends Vue {
             respondentName.push(...respondentCommon)
         }
         
-        //console.log(respondentName)
+        
         const fullNamesArray =[];
         for(const name of respondentName ){
             fullNamesArray.push(Vue.filter('getFullName')(name))
@@ -347,7 +345,7 @@ export default class OtherPartyCommon extends Vue {
             const fullName = Vue.filter('getFullName')(item)
             return fullNamesArray.indexOf(fullName) == index;
         })
-        //console.log(uniqueArray);
+        
         this.UpdateCommonStepResults({data:{'respondents':uniqueArray}})
     }
 
@@ -358,7 +356,7 @@ export default class OtherPartyCommon extends Vue {
             {
                 questionResults.push({name:'otherPartyCommonSurvey', value: this.getOtherPartyInfo(otherParty), title:'Other Party '+otherParty.id +' Information', inputType:''})
             }
-        //console.log(questionResults)
+        
         return {data: this.otherPartyData, questions:questionResults, pageName:'Other Party Information', currentStep: this.currentStep, currentPage:this.currentPage}
     }
 
@@ -372,7 +370,7 @@ export default class OtherPartyCommon extends Vue {
         return resultString
     }
 
-};
+}
 </script>
 
 <style scoped lang="scss">

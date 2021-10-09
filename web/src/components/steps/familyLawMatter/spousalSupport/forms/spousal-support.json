@@ -29,7 +29,7 @@
               "type": "checkbox",
               "name": "listOfReasons",
               "description": "Entitlement to spousal support is determined in consideration of the objectives under section 161 of the <a href=\"https://www.bclaws.gov.bc.ca/civix/document/id/lc/statreg/11025_07#section161\" target=\"blank\">Family Law Act</a> as listed below. Be prepared to provide evidence to help the court determine if a spouse is entitled to spousal support.<br><br>Select all options that apply. ",
-              "title": "I believe that {Payee} is entitled to spousal support for the following reason:",
+              "title": "I believe that {Payee} entitled to spousal support for the following reason:",
               "isRequired": true,
               "visible": false,
               "visibleIf": "{listOfSupportPayors} notempty",

@@ -19,10 +19,13 @@ import surveyJson from "./forms/filingOptions.json";
 
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
 import PageBase from "@/components/steps/PageBase.vue";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
+import "@/store/modules/common";
+const commonState = namespace("Common");
 
 import {stepsAndPagesNumberInfoType} from "@/types/Application/StepsAndPages"
 
@@ -37,17 +40,18 @@ export default class FilingOptions extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @commonState.State
+    public efilingStreams!: string[];
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
     @applicationState.State
-    public allCompleted!: boolean
+    public allCompleted!: boolean;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -103,24 +107,23 @@ export default class FilingOptions extends Vue {
         })
     }
 
-    public togglePages(pageArr, activeIndicator) {
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.step.id,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
     public allowEfiling(){
         const stepFLM = this.$store.state.Application.steps[this.stPgNo.FLM._StepNo]
         const stepCM = this.$store.state.Application.steps[this.stPgNo.CM._StepNo]
         const stepENFRC = this.$store.state.Application.steps[this.stPgNo.ENFRC._StepNo]
 
+        const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms;
+
+        let disableEfilingForStreams = false;
+        
+        for(const form of selectedForms)
+            if(!this.efilingStreams?.includes(Vue.filter('getPathwayFamilyType')(form))){
+                disableEfilingForStreams = true;
+                break;
+            }                        
 
         if (
-            !this.$store.state.Common.efilingEnabled || 
+            disableEfilingForStreams || 
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.isFilingAdditionalDocs == "n") ||            
             (stepFLM.active   && stepFLM.pages[this.stPgNo.FLM.FlmAdditionalDocuments].active && stepFLM.result?.flmAdditionalDocumentsSurvey?.data?.criminalChecked == "n") ||
             (stepCM.active    && stepCM.pages[this.stPgNo.CM.RecognizingAnOrderFromOutsideBc].active && stepCM.result?.recognizingAnOrderFromOutsideBcSurvey?.data?.outsideBcOrder == 'y') ||
@@ -135,16 +138,16 @@ export default class FilingOptions extends Vue {
         const p = this.stPgNo.SUBMIT
 
         if(this.allCompleted && this.survey.data.selectedFilingType == 'byemail'){
-            this.togglePages([p.ReviewAndSave, p.NextSteps], true);
-            this.togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false);
+            togglePages([p.ReviewAndSave, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'inperson'){
-            this.togglePages([p.ReviewAndPrint, p.NextSteps], true);
-            this.togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false);
+            togglePages([p.ReviewAndPrint, p.NextSteps], true, this.currentStep);
+            togglePages([p.ReviewAndSave, p.ReviewAndSubmit], false, this.currentStep);
         }else if(this.allCompleted && this.survey.data.selectedFilingType == 'byefiling'){
-            this.togglePages([p.ReviewAndSubmit], true);
-            this.togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false);
+            togglePages([p.ReviewAndSubmit], true, this.currentStep);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.NextSteps], false, this.currentStep);
         }else{
-            this.togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false);
+            togglePages([p.ReviewAndPrint, p.ReviewAndSave, p.ReviewAndSubmit, p.NextSteps], false, this.currentStep);
         }
     }
 
@@ -173,12 +176,12 @@ export default class FilingOptions extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 

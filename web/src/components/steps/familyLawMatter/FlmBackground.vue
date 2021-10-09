@@ -15,6 +15,7 @@ import surveyJson from "./forms/flm-background.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -38,11 +39,9 @@ export default class FlmBackground extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -87,7 +86,7 @@ export default class FlmBackground extends Vue {
 
     public initPageNumbers(){
         const p = this.stPgNo.FLM        
-        this.allPages = _.range(p.ParentingArrangements, Object.keys(this.stPgNo.PO).length-1) 
+        this.allPages = _.range(p.ParentingArrangements, Object.keys(this.stPgNo.FLM).length-1) 
 
         this.commonPages = [p.ReviewYourAnswersFLM];
 
@@ -170,66 +169,56 @@ export default class FlmBackground extends Vue {
 
         if (this.selectedForms) {
                         
-            this.togglePages(this.allPages, false);
+            togglePages(this.allPages, false, this.currentStep);
 
             if (this.selectedForms.length > 0){
-                this.togglePages(this.commonPages, true);
+                togglePages(this.commonPages, true, this.currentStep);
             }
 
             if (this.selectedForms.includes("parentingArrangements")){                
                 if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Parenting Arrangements including `parental responsibilities` and `parenting time`'))
-                    this.togglePages(this.parentingArrangementsExistingPages, true);
+                    togglePages(this.parentingArrangementsExistingPages, true, this.currentStep);
                 else    
-                    this.togglePages(this.parentingArrangementsNewPages, true);               
+                    togglePages(this.parentingArrangementsNewPages, true, this.currentStep);               
             } 
 
             if (this.selectedForms.includes("childSupport")) {
                 if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Child Support'))
-                    this.togglePages(this.childSupportExistingPages, true);
+                    togglePages(this.childSupportExistingPages, true, this.currentStep);
                 else
-                    this.togglePages(this.childSupportNewPages, true);
+                    togglePages(this.childSupportNewPages, true, this.currentStep);
             }
 
             if (this.selectedForms.includes("contactWithChild")) {
                 if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Contact with a Child')){
-                    this.togglePages(this.contactWithChildNewPages, false);
-                    this.togglePages(this.contactWithChildExistingPages, true);
+                    togglePages(this.contactWithChildNewPages, false, this.currentStep);
+                    togglePages(this.contactWithChildExistingPages, true, this.currentStep);
                 } else {
-                    this.togglePages(this.contactWithChildExistingPages, false);
-                    this.togglePages(this.contactWithChildNewPages, true);
+                    togglePages(this.contactWithChildExistingPages, false, this.currentStep);
+                    togglePages(this.contactWithChildNewPages, true, this.currentStep);
                 }                    
             }
 
             if (this.selectedForms.includes("guardianOfChild")) {                
-                this.togglePages(this.guardianOfChildNewPages, true);
+                togglePages(this.guardianOfChildNewPages, true, this.currentStep);
             }
 
             if (this.selectedForms.includes("spousalSupport")) {
                 if(this.survey.data?.ExistingOrdersFLM == 'y' && this.survey.data?.existingOrdersListFLM && this.survey.data?.existingOrdersListFLM?.includes('Spousal Support'))
-                    this.togglePages(this.spousalSupportExistingPages, true);
+                    togglePages(this.spousalSupportExistingPages, true, this.currentStep);
                 else
-                    this.togglePages(this.spousalSupportNewPages, true);
+                    togglePages(this.spousalSupportNewPages, true, this.currentStep);
             }
         }
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
   

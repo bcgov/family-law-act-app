@@ -71,7 +71,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 ROOT_URLCONF = "core.urls"
 
-# CORS_URLS_REGEX = r"^/api/v1/.*$"
 CORS_URLS_REGEX = r"^.*$"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -204,7 +203,6 @@ OIDC_ENABLED = False
 # Settings for django-oidc-rp
 OIDC_RP_PROVIDER_ENDPOINT = os.getenv(
     "OIDC_RP_PROVIDER_ENDPOINT",
-    # FIXME no default here
     "https://dev.oidc.gov.bc.ca/auth/realms/tz0e228w",
 )
 
@@ -251,8 +249,9 @@ REST_FRAMEWORK = {
     )
 }
 
-
 EFILING_ENABLED = os.environ.get("EFILING_ENABLED", "false").lower() == "true"
+EFILING_STREAMS = os.environ.get("EFILING_STREAMS", "")
+EFILING_EARLY_ADOPTER_STREAMS = os.environ.get("EFILING_EARLY_ADOPTER_STREAMS", "")
 EFILING_APP_NAME = os.environ.get("EFILING_APP_NAME", "Family Law Act App")
 EFILING_COURT_LEVEL = os.environ.get("EFILING_COURT_LEVEL", "P")
 EFILING_COURT_CLASS = os.environ.get("EFILING_COURT_CLASS", "F")  # https://bcgov.github.io/jag-file-submission/#/data?id=court-classification

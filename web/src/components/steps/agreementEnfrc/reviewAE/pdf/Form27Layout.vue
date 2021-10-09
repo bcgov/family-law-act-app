@@ -103,7 +103,7 @@
                 </div>
                 <div style="text-indent:5px; margin:0"><i>Additional party (Complete only if applicable. You may leave this section blank)</i></div>
                         
-                <div v-if="additionalOtherParties.length>0" style=" ">
+                <div v-if="additionalOtherParties.length>0">
 
                     <div v-for="(otherParty,inx) in additionalOtherParties" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                     
@@ -243,20 +243,19 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
-import CheckBoxII from "./components/CheckBoxII.vue";
-import OrderedCheckBox from "./components/OrderedCheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
+import OrderedCheckBox from "@/components/utils/PopulateForms/components/OrderedCheckBox.vue";
 import { nameInfoType, otherPartyInfoType } from "@/types/Application/CommonInformation";
 import { yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { enfrcOtherPartyDataInfoType, form27InformationDataInfoType } from '@/types/Application/AgreementEnforcement/PDF';
 import { enforceChangeSetAsideDeterminationSurveyDataInfoType } from '@/types/Application/AgreementEnforcement';
+import { getYourInformationResults, getLocationInfo } from '@/components/utils/PopulateForms/PopulateCommonInformation';
 
 @Component({
     components:{
         UnderlineForm,
-        CheckBox, 
-        CheckBoxII,
+        CheckBox,
         OrderedCheckBox        
     }
 })
@@ -299,32 +298,17 @@ export default class Form27Layout extends Vue {
         
         this.yourInfo = this.getYourInfo();
         this.form27Info = this.getForm27Info();
-        this.getLocationInfo()
-    } 
+        this.existingFileNumber = getLocationInfo(this.result.filingLocationSurvey);        
     
-    public getLocationInfo(){                
-        const locationData = this.result.filingLocationSurvey;           
-        this.existingFileNumber = locationData?.ExistingFileNumber? locationData.ExistingFileNumber:'';        
     }
 
-    public getYourInfo(){
+    public getYourInfo(){           
 
-        let yourInformation = {} as yourInformationInfoDataInfoType;
-        if(this.result.yourInformationSurvey){
-
-            const applicantInfo = this.result.yourInformationSurvey;            
-            yourInformation = {
-                dob: applicantInfo.ApplicantDOB?applicantInfo.ApplicantDOB:'',
-                name: applicantInfo.ApplicantName?applicantInfo.ApplicantName:'',
-                lawyer: applicantInfo.Lawyer == 'y',
-                lawyerName: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerName)?applicantInfo.LawyerName:'',
-                address: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerAddress)?applicantInfo.LawyerAddress:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantAddress)?applicantInfo.ApplicantAddress:''),
-                contact: (applicantInfo.Lawyer == 'y' && applicantInfo.LawyerContact)?applicantInfo.LawyerContact:((applicantInfo.Lawyer == 'n' && applicantInfo.ApplicantContact)?applicantInfo.ApplicantContact:''),
-                lawyerFiling: false,
-                lawyerStatement: {lawyerName: '', clientName: ''}
-            }                     
-        }
-        return yourInformation;
+        if(this.result?.yourInformationSurvey){
+            return getYourInformationResults(this.result?.yourInformationSurvey); 
+        } 
+        else
+            return {} as yourInformationInfoDataInfoType
     }
 
     public getOtherPartyInfo(){
@@ -365,10 +349,10 @@ export default class Form27Layout extends Vue {
         let form27Information = {} as form27InformationDataInfoType;
 
         function splitNames(names: string): string[]{
-            const splitNames = names.split(',').map(item => {
+            const splitNamesList = names.split(',').map(item => {
                 return item.trim();
             });
-            return splitNames.filter(item=>{return(item)})
+            return splitNamesList.filter(item=>{return(item)})
         }
 
         if (this.result?.enforceChangeSetAsideDeterminationSurvey) {  

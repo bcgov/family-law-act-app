@@ -25,6 +25,7 @@ import { Component, Vue, Prop} from 'vue-property-decorator';
 import * as SurveyVue from "survey-vue";
 import surveyJson from "./forms/without-notice-or-attendance.json";
 import * as surveyEnv from "@/components/survey/survey-glossary"
+import { togglePages } from '@/components/utils/TogglePages';
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
@@ -50,11 +51,9 @@ export default class WithoutNoticeOrAttendance extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -118,7 +117,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
@@ -126,14 +125,14 @@ export default class WithoutNoticeOrAttendance extends Vue {
             if (this.survey.data?.needWithoutNotice == 'y' && this.needConsent()) {            
                 this.consentInfo = true;
             } else {
-                this.UpdateGotoNextStepPage();
+                Vue.prototype.$UpdateGotoNextStepPage();
             }                        
         }
     }
 
     public closeConsentInfo(){
         this.consentInfo = false;
-        this.UpdateGotoNextStepPage();            
+        Vue.prototype.$UpdateGotoNextStepPage();            
     }
 
     public getDescription() {
@@ -180,9 +179,9 @@ export default class WithoutNoticeOrAttendance extends Vue {
             const needWithoutNotice = this.survey.data.needWithoutNotice;
 
             if (needWithoutNotice == 'n') {
-                this.togglePages([this.stPgNo.CM.ByConsent, this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], true); 
+                togglePages([this.stPgNo.CM.ByConsent, this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], true, this.currentStep); 
             } else{                              
-                this.togglePages([this.stPgNo.CM.ByConsent,this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], this.needConsent()); 
+                togglePages([this.stPgNo.CM.ByConsent,this.stPgNo.CM.CmNotice, this.stPgNo.CM.AboutCaseManagementOrder], this.needConsent(), this.currentStep); 
             }
 
             if(surveyChanged){
@@ -199,7 +198,7 @@ export default class WithoutNoticeOrAttendance extends Vue {
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.RecognizingAnOrderFromOutsideBc, 0, false);                                                       
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ContactInformationOtherParty, 0, false);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, p.ReviewYourAnswersCM, 0, false);
-                this.togglePages([p.Scheduling], false); 
+                togglePages([p.Scheduling], false, this.currentStep); 
             }
             
             //schedule 1..5
@@ -209,20 +208,10 @@ export default class WithoutNoticeOrAttendance extends Vue {
         }
     }
 
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {            
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
-        }
-    }
-
     beforeDestroy() {
         this.determinePages(false);
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {withoutNoticeOrAttendanceSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

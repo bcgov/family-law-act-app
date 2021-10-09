@@ -66,11 +66,9 @@ export default class EnforceAgreementOrder extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -125,12 +123,12 @@ export default class EnforceAgreementOrder extends Vue {
     }  
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public closePopup(){
         this.popInfo=false;
-        this.UpdateGotoNextStepPage()
+        Vue.prototype.$UpdateGotoNextStepPage()
     }
 
     public onNext() {
@@ -139,12 +137,11 @@ export default class EnforceAgreementOrder extends Vue {
             if(this.survey?.data?.enforceOrder=="n" && this.survey?.data?.filedOrder=="n" &&this.survey?.data?.existingType=="courtOrder" )
                 this.popInfo = true;            
             else
-               this.UpdateGotoNextStepPage()
+               Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     
-    public setProgress(){
-        //const initProgress = this.step.pages[this.currentPage].progress
+    public setProgress(){        
 
         if(this.survey?.data?.enforceOrder=="n" && this.survey?.data?.filedOrder=="n" && this.survey?.data?.existingType=="courtOrder" && this.popInfoUnderstand != 'understand'){
             Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);

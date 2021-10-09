@@ -46,11 +46,12 @@ export function SearchForChildrenData(stepName){
 
         if( stepPO.active && 
             stepPO.pages[stPgNo.PO.ProtectionFromWhom].active &&
-            stepPO.result?.protectionFromWhomSurvey?.data?.allchildren?.length>0
+            stepPO.result?.protectionFromWhomSurvey?.data?.allchildren?.length>0 &&
+            stepPO.result?.protectionFromWhomSurvey?.data?.allchildren[0]?.childName
         ){            
-            const children = stepPO.result.protectionFromWhomSurvey.data.allchildren;
+            const childrenPO = stepPO.result.protectionFromWhomSurvey.data.allchildren;
             let inx= 0;
-            for(const child of children){
+            for(const child of childrenPO){
                 childrenData.push({
                     name:          child.childName, 
                     dob:           child.childDOB, 
@@ -60,10 +61,6 @@ export function SearchForChildrenData(stepName){
                     id:            ++inx
                 })
             }
-            // childDOB: "2020-01-03"
-            // childLivingWith: "grandparent"
-            // childName: Object
-            // childRelationship: "father" //opRelation
         }
         return childrenData
     }
@@ -76,9 +73,9 @@ export function SearchForChildrenData(stepName){
             stepFLM.pages[stPgNo.FLM.ChildrenInfo].active &&
             stepFLM.result?.childrenInfoSurvey?.data?.length>0
         ){            
-            const children = stepFLM.result.childrenInfoSurvey.data;
+            const childrenFLM = stepFLM.result.childrenInfoSurvey.data;
             let inx= 0;
-            for(const child of children){
+            for(const child of childrenFLM){
                 childrenData.push({
                     name:          child.name, 
                     dob:           child.dob, 
@@ -87,13 +84,7 @@ export function SearchForChildrenData(stepName){
                     currentLiving: child.currentLiving,
                     id:            ++inx
                 })
-            }
-            // currentLiving: "person"
-            // dob: "2017-07-07"
-            // id:1
-            // name: Object {first: (...)last: (...)middle: (...)}
-            // opRelation: "other party's relation"
-            // relation: "your relation "
+            }            
         }
         return childrenData
     }
@@ -107,9 +98,9 @@ export function SearchForChildrenData(stepName){
             stepCM.result?.cmChildrenInfoSurvey?.data?.childData?.length>0 &&
             stepCM.result?.cmChildrenInfoSurvey?.data?.childRelatedType == "A party to the case and the case involves a child-related issue"
         ){            
-            const children = stepCM.result.cmChildrenInfoSurvey.data.childData;
+            const childrenCM = stepCM.result.cmChildrenInfoSurvey.data.childData;
             let inx = 0;
-            for(const child of children){
+            for(const child of childrenCM){
                 childrenData.push({
                     name:          child.name, 
                     dob:           child.dob, 
@@ -118,10 +109,7 @@ export function SearchForChildrenData(stepName){
                     currentLiving: '',
                     id:            ++inx
                 })
-            }
-            // dob: "2006-10-20"
-            // id:1
-            // name: Object
+            }            
         }
         return childrenData
     }
@@ -134,9 +122,9 @@ export function SearchForChildrenData(stepName){
             stepPPM.pages[stPgNo.PPM.PpmChildrenInfo].active &&
             stepPPM.result?.ppmChildrenInfoSurvey?.data?.length>0
         ){            
-            const children = stepPPM.result.ppmChildrenInfoSurvey.data;
+            const childrenPPM = stepPPM.result.ppmChildrenInfoSurvey.data;
             let inx = 0;
-            for(const child of children){
+            for(const child of childrenPPM){
                 childrenData.push({
                     name:          child.name, 
                     dob:           child.dob, 
@@ -145,12 +133,7 @@ export function SearchForChildrenData(stepName){
                     currentLiving: '', 
                     id:            ++inx
                 })
-            }
-            // dob: "2021-01-01"
-            // id: 1
-            // name: Object
-            // opRelation: "describes itdescribes it"
-            // relation: "describes it"
+            }            
         }
         return childrenData
     }
@@ -163,9 +146,9 @@ export function SearchForChildrenData(stepName){
             stepRELOC.pages[stPgNo.RELOC.RelocChildrenInfo].active &&
             stepRELOC.result?.relocChildrenInfoSurvey?.data?.length>0
         ){            
-            const children = stepRELOC.result.relocChildrenInfoSurvey.data;
+            const childrenRELOC = stepRELOC.result.relocChildrenInfoSurvey.data;
             let inx = 0;
-            for(const child of children){
+            for(const child of childrenRELOC){
                 childrenData.push({
                     name:          child.name, 
                     dob:           child.dob, 
@@ -174,11 +157,7 @@ export function SearchForChildrenData(stepName){
                     currentLiving: child.currentLiving,
                     id:            ++inx
                 })
-            }
-            // currentLiving: "living with"
-            // dob: "2020-02-02"
-            // id: 1
-            // name: Object
+            }            
         }
         return childrenData
     }

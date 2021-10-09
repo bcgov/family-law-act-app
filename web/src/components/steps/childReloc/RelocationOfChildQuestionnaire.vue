@@ -13,6 +13,7 @@ import surveyJson from "./forms/reloc-questionnaire.json";
 
 import PageBase from "../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -34,11 +35,9 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -100,11 +99,11 @@ export default class RelocationOfChildQuestionnaire extends Vue {
 
         if (this.survey.data?.ExistingParentingArrangements == 'n' || 
            (this.survey.data?.ExistingParentingArrangements == 'y' && this.survey.data?.impactOnChild == 'n')) {
-                this.togglePages(relocationOfChildPagesAll, false);
+                togglePages(relocationOfChildPagesAll, false, this.currentStep);
                 Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, 50, false);
                 this.disableNextButton = true;
         } else {
-            this.togglePages(relocationOfChildPagesAll, true);
+            togglePages(relocationOfChildPagesAll, true, this.currentStep);
             this.disableNextButton = false;
         }
     }
@@ -120,22 +119,12 @@ export default class RelocationOfChildQuestionnaire extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
-        }
-    }
-    
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     

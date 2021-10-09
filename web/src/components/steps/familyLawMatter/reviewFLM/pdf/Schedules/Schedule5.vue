@@ -37,14 +37,14 @@
                     <div style="display:inline; margin-left:0.35rem">I am applying for contact with the child(ren) as follows:</div>                   
                     <div style="margin:0 3rem 1rem 1rem;">
                         <i>Select all options that apply and complete the required information</i>
-                        <check-box style="" :check="chContInfo.abt.conType.inPerson?'yes':''" text="in person:"/>
+                        <check-box  :check="chContInfo.abt.conType.inPerson?'yes':''" text="in person:"/>
                         <i class='marginleft1vue' style="margin:0 0 -0.25rem 1.75rem;">Provide specific dates or events requested, or dates and times that would be most suitable</i>
                         <div v-if="chContInfo.abt.conType.inPerson" 
                             class="answerbox">{{chContInfo.abt.inPrsn}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
                         <check-box style="margin:0rem 0 0 0" :check="chContInfo.abt.conType.tel?'yes':''" text="telephone communication"/>
-                        <check-box style="" :check="chContInfo.abt.conType.video?'yes':''" text="video communication"/>
-                        <check-box style="" :check="chContInfo.abt.conType.written?'yes':''" text="written communication"/>
+                        <check-box  :check="chContInfo.abt.conType.video?'yes':''" text="video communication"/>
+                        <check-box  :check="chContInfo.abt.conType.written?'yes':''" text="written communication"/>
                         <check-box class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chContInfo.abt.conType.other?'yes':''" text="other method of communication <i>(specify):</i>"/>
                         <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext="" hint="" :text="chContInfo.abt.otherComm"/>            
                     </div>
@@ -80,8 +80,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { schedule5DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({

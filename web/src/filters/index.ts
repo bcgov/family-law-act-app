@@ -4,8 +4,11 @@ import store from '@/store';
 
 import * as _ from 'underscore';
 
+import {FLA_Types} from './applicationTypes'
+
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
+import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
 
 
 Vue.filter('beautify-date-', function(date){
@@ -101,10 +104,7 @@ Vue.filter('getFullContactInfo',function(nameObject){
 		return pre+"Phone: "+post+
 			(nameObject.phone? nameObject.phone:' - ') +
 			" "+pre+"Email: "+post+
-			(nameObject.email? nameObject.email:' - ');
-			//  +
-			// " "+pre+"Fax: "+post+
-			// (nameObject.fax? nameObject.fax:' - ');
+			(nameObject.email? nameObject.email:' - ');			
 	} else{
 		return " "
 	}
@@ -134,10 +134,8 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	let flagForm4 = false;
 
 	const questionResults: {name:string; value: any; title:string; inputType:string}[] =[];
-	for(const question of survey.currentPage.questions){
+	for(const question of survey.currentPage.questions){		
 		
-		//console.log(question)
-
 		if(question.isVisible && question.name?.startsWith("parentFileForm4Info")){		
 			flagForm4 = true
 		}
@@ -159,23 +157,6 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 		//__specialities
 		else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
 			questionResults.push({name:question.name, value: question.questionValue, title:question.title, inputType:question.inputType})
-		
-		// if(question.isVisible && question.questionValue!=true){			
-		// 	if(question.processedTitle == 'I understand'){
-		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.otherText, inputType:question.inputType})
-		// 	}
-		// 	else if(survey.data[question.name]){			
-		// 		questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
-		// 	} else if(question.isRequired ){				
-		// 		questionResults.push({name:question.name, value: "", title:question.processedTitle, inputType:question.inputType})
-				
-		// 	}else if(question.name=='extraordinaryExpensesTable' && question.isVisible){			
-		// 		questionResults.push({name:question.name, value: optionalArg?optionalArg:'$0', title:question.processedTitle, inputType:question.inputType})
-		// 	}	
-		// }
-		// //__specialities
-		// else if(question.name=='PartiesHasOtherChilderen' && question.isVisible)
-		// 	questionResults.push({name:question.name, value: question.questionValue, title:question.processedTitle, inputType:question.inputType})
 		
 	}
 
@@ -205,35 +186,33 @@ Vue.filter('getSurveyResults', function(survey, currentStep: number, currentPage
 	return {data: survey.data, questions:questionResults, pageName:pageName, currentStep: currentStep, currentPage:currentPage}
 })
 
-Vue.filter('getPathwayPdfType',function(name){	
+Vue.filter('getPathwayPdfType',function(pathwayname){
+
+	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayname);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].pdfType;
+	else return ''
+})
+
+Vue.filter('getPathwayFamilyType',function(pathwayname){
 	
-	if (name == 'protectionOrder')        	return "AAP";
-	if (name == 'familyLawMatterForm1') 	return "NTRF";
-	if (name == 'familyLawMatter')   		return "FLC";
-	if (name == 'caseMgmt')          		return "ACMO";
-	if (name == 'caseMgmtForm11')          	return "ACMW";
-	if (name == 'priorityParenting') 		return "AXP";
-	if (name == 'childReloc')        		return "APRC";
-	if (name == 'agreementEnfrc')    		return "AFET";
-	if (name == 'agreementEnfrc26')    		return "RFA";
-	if (name == 'agreementEnfrc27')    		return "RDET";
-	if (name == 'agreementEnfrc28')    		return "RORD";
+	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayname);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].familyType;
+	else return ''
+})
+
+Vue.filter('pdfTypeToFullName',function(pdfType){
+	const pathwayInfo = FLA_Types.filter(type => type.pdfType == pdfType);	
+	if (pathwayInfo.length >0) return pathwayInfo[0].fullName;
+	else return ''
 })
 
 Vue.filter('getFullOrderName',function(orderName, specific){
-	if (orderName == "protectionOrder" && specific == '') return "Protection Order";
-	else if (orderName == "protectionOrder" && specific == 'needPO') return "New Protection Order";
-	else if (orderName == "protectionOrder" && specific == 'changePO') return "Change Protection Order";
-	else if (orderName == "protectionOrder" && specific == 'terminatePO') return "Terminate Protection Order";
-	else if (orderName == "familyLawMatter") return "Family Law Matter";
-	else if (orderName == "caseMgmt") return "Case Management";
-	else if (orderName == "priorityParenting") return "Priority Parenting Matter";
-	else if (orderName == "childReloc") return "Relocation of a Child";
-	else if (orderName == "agreementEnfrc") return "Enforcement";
-	else if (orderName == "agreementEnfrc26") return "File an Agreement";	
-	else if (orderName == "agreementEnfrc27") return "File a Determination of Parenting Coordinator";
-	else if (orderName == "agreementEnfrc28") return "File an Order";
-	else return "";
+
+	const pathwayName = orderName + specific;
+	const pathwayInfo = FLA_Types.filter(type => type.pathway == pathwayName);
+	if (pathwayInfo.length == 1) return pathwayInfo[0].fullName;
+	else return ''
+
 })
 
 Vue.filter('translateTypes',function(applicationTypes: string[]) {
@@ -241,27 +220,41 @@ Vue.filter('translateTypes',function(applicationTypes: string[]) {
 	let types = [];
 
 	for (const applicationType of applicationTypes){
-		if (applicationType.includes("Protection Order")){
-			types.push(applicationType.replace("Protection Order", "FPO"));
-		}
-		if (applicationType.includes("Family Law Matter")){
-			types.push("FLC");
-		}
-		if (applicationType.includes("Case Management")){
-			types.push("ACMO");
-		}
-		if (applicationType.includes("Priority Parenting Matter")){
-			types.push("AXP");
-		}
-		if (applicationType.includes("Relocation of a Child")){
-			types.push("APRC");
-		}
-		if (applicationType.includes("Enforcement")){
-			types.push("AFET");
-		}
+		const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
+		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].appType);
 	}
 
 	return types.toString();
+})
+
+Vue.filter('fullNamesToFamilyTypes',function(applicationTypes: string[]) {
+
+	let types = [];
+
+	for (const applicationType of applicationTypes){
+		const pathwayInfo = FLA_Types.filter(type => type.fullName == applicationType);
+		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].familyType);
+	}
+
+	return types;
+})
+
+Vue.filter('pdfTypeToFamilyType',function(applicationType) {
+
+	const pathwayInfo = FLA_Types.filter(type => type.pdfType == applicationType);
+	if (pathwayInfo.length > 0 ) return pathwayInfo[0].familyType;
+	else return ''
+})
+
+Vue.filter('typesToFullnames',function(applicationTypes: string[]) {
+
+	let types = [];
+
+	for (const applicationType of applicationTypes){
+		const pathwayInfo = FLA_Types.filter(type => type.appType == applicationType);
+		if (pathwayInfo.length == 1) types.push(pathwayInfo[0].fullName);
+	}
+	return types;
 })
 
 Vue.filter('FLMform4Required', function(){
@@ -391,6 +384,9 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			requiredDocuments.push("Copy of support order or agreement")
 		}
 
+		if(questions.enfrcQuestionnaireSurvey?.includes('foreignSupport'))
+			requiredDocuments.push("Copy of the foreign order")
+
 		if(questions.enfrcQuestionnaireSurvey?.includes('expenses'))
 			requiredDocuments.push("Copy of court order for enforcement")
 		
@@ -486,8 +482,8 @@ Vue.filter('surveyChanged', function(type: string) {
 	
 	const steps = store.state.Application.steps
 
-	function getStepDetails(type){	
-	
+	function getStepDetails(typeName){	
+		
 		const stepPO = store.state.Application.stPgNo.PO;
 		const stepFLM = store.state.Application.stPgNo.FLM;
 		const stepPPM = store.state.Application.stPgNo.PPM;
@@ -499,32 +495,32 @@ Vue.filter('surveyChanged', function(type: string) {
 		let reviewPage = stepPO.ReviewYourAnswers; 
 		let previewPages = [];
 		
-		if(type == 'protectionOrder'){
+		if(typeName == 'protectionOrder'){
 			step = stepPO._StepNo; 
 			reviewPage = stepPO.ReviewYourAnswers; 
 			previewPages = [stepPO.PreviewForms];
 		}
-		else if(type == 'familyLawMatter'){
+		else if(typeName == 'familyLawMatter'){
 			step = stepFLM._StepNo; 
 			reviewPage = stepFLM.ReviewYourAnswersFLM; 
 			previewPages = [stepFLM.PreviewFormsFLM];	
 		}
-		else if(type == 'priorityParenting'){
+		else if(typeName == 'priorityParenting'){
 			step = stepPPM._StepNo; 
 			reviewPage = stepPPM.ReviewYourAnswersPPM; 
 			previewPages = [stepPPM.PreviewFormsPPM];	
 		}
-		else if(type == 'childReloc'){
+		else if(typeName == 'childReloc'){
 			step = stepRELOC._StepNo; 
 			reviewPage = stepRELOC.ReviewYourAnswersRELOC; 
 			previewPages = [stepRELOC.PreviewFormsRELOC];	
 		}
-		else if(type == 'caseMgmt'){
+		else if(typeName == 'caseMgmt'){
 			step = stepCM._StepNo; 
 			reviewPage = stepCM.ReviewYourAnswersCM; 
 			previewPages = [stepCM.PreviewForm10CM, stepCM.PreviewForm11CM];
 		}
-		else if(type == 'agreementEnfrc'){
+		else if(typeName == 'agreementEnfrc'){
 			step = stepENFRC._StepNo; 
 			reviewPage = stepENFRC.ReviewYourAnswersENFRC; 
 			previewPages = [stepENFRC.PreviewForm29ENFRC, stepENFRC.PreviewForm28ENFRC, stepENFRC.PreviewForm27ENFRC, stepENFRC.PreviewForm26ENFRC];
@@ -550,7 +546,7 @@ Vue.filter('surveyChanged', function(type: string) {
 		}
 	}
 	
-	const noPOstepsTypes = ['familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc'] // [stepFLM._StepNo,              stepPPM._StepNo,              stepRELOC._StepNo,                stepCM._StepNo,                    stepENFRC];
+	const noPOstepsTypes = ['familyLawMatter','priorityParenting','childReloc','caseMgmt','agreementEnfrc']
 	
 	if(type == 'allExPO'){
         
@@ -583,6 +579,20 @@ Vue.filter('surveyChanged', function(type: string) {
 	}	
 })
 
+Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {
+
+	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(locationName)){
+		return true;
+	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(locationName)){
+		return true;
+	} else if (registryType == 'family-justice' && FamilyJusticeRegistries.includes(locationName)){
+		return true;
+	} else {
+		return false;
+	}
+
+})
+
 Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 
 	const body = 
@@ -604,6 +614,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 				}
 				@bottom-right {
 					content:`+pageFooterRight+` "  Page " counter(page) " of " counter(pages);
+					white-space: pre;
 					font-size: 7pt;
 					color: #606060;
 				}
@@ -656,6 +667,7 @@ Vue.filter('printPdf', function(html, pageFooterLeft, pageFooterRight){
 			`.form-one-header{display:block; margin:0 0 3.25rem 0;}`+
 			`.form-header-ea{display:block; margin:0 0 6rem 0;}`+
 			`.form-header-enf{display:block; margin:0 0 4.5rem 0;}`+
+			`.form-header-cs{display:block; margin:-2rem 0 4rem 0;}`+
 			`.checkbox{margin:0 1rem 0 0;}`+
 			`.marginleft{margin:0 0 0 0.07rem;}`+
 			`.marginleftminus{margin:0 0 0 -1rem;}`+

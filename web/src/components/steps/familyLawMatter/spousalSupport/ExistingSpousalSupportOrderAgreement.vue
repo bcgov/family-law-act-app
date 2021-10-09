@@ -13,6 +13,7 @@ import surveyJson from "./forms/existing-spousal-support-order-agreement.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -37,11 +38,9 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -80,7 +79,7 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
        
             this.setPages()
             
-            if (options.name = 'fillOutForm'){            
+            if (options.name == 'fillOutForm'){            
                 if (options.value == 'completeNow'){
                     window.open('https://www2.gov.bc.ca/gov/content?id=8202AD1B22B4494099F14EF3095B3178')
                 }
@@ -95,25 +94,15 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
 
         if (this.survey.data?.existingType == 'ExistingOrder') {
             this.disableNextButton = false;
-            this.togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true); 
-            this.togglePages([p.ExistingSpousalSupportAgreement], false);               
+            togglePages([p.ExistingSpousalSupportFinalOrder, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport, p.ReviewYourAnswersFLM], true, this.currentStep); 
+            togglePages([p.ExistingSpousalSupportAgreement], false, this.currentStep);               
         } else if (this.survey.data?.existingType == 'ExistingAgreement') {
             this.disableNextButton = false;
-            this.togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true); 
-            this.togglePages([p.ExistingSpousalSupportFinalOrder], false);                
+            togglePages([p.ExistingSpousalSupportAgreement, p.CalculatingSpousalSupport, p.UnpaidSpousalSupport,  p.ReviewYourAnswersFLM], true, this.currentStep); 
+            togglePages([p.ExistingSpousalSupportFinalOrder], false, this.currentStep);                
         } else if (this.survey.data?.existingType == "Neither") {
-            this.togglePages(existingSpousalSupportPages, false);
+            togglePages(existingSpousalSupportPages, false, this.currentStep);
             this.disableNextButton = true;
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
         }
     }
     
@@ -137,12 +126,12 @@ export default class ExistingSpousalSupportOrderAgreement extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
     

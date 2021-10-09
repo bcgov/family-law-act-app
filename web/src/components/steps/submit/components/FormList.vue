@@ -55,6 +55,9 @@ export default class FormList extends Vue {
     @applicationState.Action
     public UpdateGeneratedForms!: (newGeneratedForms) => void
 
+    @applicationState.Action
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
+
     selected=""
     currentStep = 0;
 
@@ -111,16 +114,17 @@ export default class FormList extends Vue {
                 this.formsList.push(form);
             }                           
         }
+        this.UpdateCommonStepResults({data:{'submittedPdfList':this.formsList.map(form => form.pdfType)}});
+        Vue.nextTick().then(()=>{Vue.prototype.$saveChanges();});
     }
 
     public isForm1(){
-        const courtsC = ["Victoria Law Courts", "Surrey Provincial Court"];
         const locationSurvey = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo].result
        
         if(locationSurvey?.filingLocationSurvey?.data){
             
             const location = locationSurvey.filingLocationSurvey.data.ExistingCourt;
-            if(courtsC?.includes(location) && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
+            if( Vue.filter('includedInRegistries')(location, 'early-resolutions') && locationSurvey.filingLocationSurvey.data.MetEarlyResolutionRequirements == 'n')                    
                 return true
             else 
                 return false

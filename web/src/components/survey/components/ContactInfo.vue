@@ -59,7 +59,7 @@ export default class ContactInfo extends Vue {
 
             let error = null 
             const contact =  Object.assign({}, this.pendingValue);    
-            const phoneFormat = /^\([0-9]{3}\) [0-9]{3}\-[0-9]{4}?$/;
+            const phoneFormat = /^\(\d{3}\) \d{3}\-\d{4}?$/;
             
             if(contact.phone){                
                 if(!phoneFormat.test(contact.phone)) error = new SurveyVue.SurveyError("Phone Number is invalid!");
@@ -68,7 +68,7 @@ export default class ContactInfo extends Vue {
                 if(!phoneFormat.test(contact.fax)) error = new SurveyVue.SurveyError("Fax Number is invalid!");
             }
             if(contact.email){ 
-                const emailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;               
+                const emailFormat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ;               
                 if(!emailFormat.test(contact.email)) error = new SurveyVue.SurveyError("Email format is invalid!");
             }
 
@@ -79,7 +79,7 @@ export default class ContactInfo extends Vue {
   
     public makeFields() {
         const q = this.question;
-        const fields = [
+        return [
             {
                 name: "phone",
                 label: q.labelPhone || "Phone",
@@ -99,7 +99,7 @@ export default class ContactInfo extends Vue {
             //     desc: q.descFax
             // }            
         ];
-        return fields;
+        
     }
 
     public updateValue() {
@@ -120,13 +120,15 @@ export default class ContactInfo extends Vue {
 
     public acceptNumber() {
         if(this.pendingValue['phone']){
-            var dgt = this.pendingValue['phone'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
-            this.pendingValue['phone'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
+            var dgt = this.pendingValue['phone'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            let thirdDigitCondition = dgt[3] ? '-' + dgt[3] : ''       
+            this.pendingValue['phone'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + thirdDigitCondition;
         }
         if(this.pendingValue['fax']){
-            var dgt = this.pendingValue['fax'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);        
-            this.pendingValue['fax'] = !dgt[2] ? dgt[1] : '(' + dgt[1] + ') ' + dgt[2] + (dgt[3] ? '-' + dgt[3] : '');
+            var faxDgt = this.pendingValue['fax'].replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/); 
+            let thirdFaxDigitCondition = faxDgt[3] ? '-' + faxDgt[3] : '';      
+            this.pendingValue['fax'] = !faxDgt[2] ? faxDgt[1] : '(' + faxDgt[1] + ') ' + faxDgt[2] + thirdFaxDigitCondition;
         }
     }
-};
+}
 </script>

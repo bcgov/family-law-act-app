@@ -15,7 +15,7 @@
             <section class="resetquestion"> 
                 <div style="display:inline; margin-left:0.25rem">I am:</div>
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="chSupInfo.appType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
+                    <check-box  :check="chSupInfo.appType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="chSupInfo.appType.standing?'yes':''" text="applying to be appointed as a guardian of the child(ren)"/>
                     <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.appType.other?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.appType.otherCom"/>            
@@ -27,7 +27,7 @@
             <section> 
                 The other party is:
                 <div style="margin-left:1rem;">
-                    <check-box style="" :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
+                    <check-box  :check="chSupInfo.opType.guardian?'yes':''" text="a parent or guardian of the child(ren)"/>
                     <check-box style="width:120%;" :check="chSupInfo.opType.standing?'yes':''" text="a person standing in the place of a parent to the child(ren) <i>(for example, a step-parent)</i>"/>
                     <check-box  class="marginleft" checkbox="" inline="inline" boxMargin="0" style="display:inline;" :check="chSupInfo.opType.other?'yes':''" text="other <i>(specify):</i>"/>
                     <underline-form style="text-indent:1px;display:inline-block;" textwidth="33rem" beforetext="" hint="" :text="chSupInfo.opType.otherCom"/>            
@@ -96,7 +96,7 @@
                 <i style="display:inline; margin-left:0.35rem">Select only one of the options below</i>
                 <div style="margin:0 0 0 1rem;">
                     <check-box style="margin:0 0 0 0rem;" :check="!chSupInfo.desiredSup.over19?'yes':''" text="Each child I am applying for an order for child support for is under 19 years of age"/>
-                    <check-box style="" :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
+                    <check-box  :check="chSupInfo.desiredSup.over19?'yes':''" text="The following child(ren) is/are 19 years of age or older and need(s) child support because of illness, disability or because they are full-time students:"/>                    
                 </div>
                 <b-table
                     :items="over19ChildSupportDetails"
@@ -157,11 +157,11 @@
                         <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.ndHard.change?'yes':''" text="I am applying for an order to change the guideline amount payable because the guideline amount would cause me undue hardship for the following reason(s):<br/><i> Note:  If this option applies to your situation, you will need to complete the undue hardship portion of the Financial Statement, Part 4 and Part 5, in addition to any other required parts</i>"/>                    
                     </div>
                     <div style="margin:0 0 3rem 3.25rem;">
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.excessive?'yes':''" text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.high?'yes':''" text="I have unusually high expenses to exercise parenting time or contact with the child(ren)"/>
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.another?'yes':''" text="I have a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="I have a legal duty to support a dependent child from another relationship"/>
-                        <check-box style="" :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.excessive?'yes':''" text="I have an unusual or excessive amount of debt I incurred to support the family prior to separation or to earn a living"/>                    
+                        <check-box  :check="chSupInfo.ndHard.reasons.high?'yes':''" text="I have unusually high expenses to exercise parenting time or contact with the child(ren)"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.another?'yes':''" text="I have a legal duty to support another person, such as an ill or disabled person or a former spouse"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.dependent?'yes':''" text="I have a legal duty to support a dependent child from another relationship"/>
+                        <check-box  :check="chSupInfo.ndHard.reasons.other?'yes':''" text="other undue hardship circumstances <i>(specify):</i>"/>
                         <div v-if="chSupInfo.ndHard.reasons.other" 
                             class="answerbox">{{chSupInfo.ndHard.otherCom}}</div>
                         <div v-else style="margin-bottom:3rem;"></div>
@@ -206,13 +206,13 @@
                         <check-box style="margin:0 0 0 0rem;" :check="chSupInfo.finStmnt.required?'yes':''" text="I am filing a Financial Statement in Form 4 with this application because the following applies to my situation:	<br/><i>Select all options that apply</i>"/>                    
                     </div>
                     <div style="margin:0 0 0 3.25rem;">
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.opType.standing?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
-                        <check-box style="" :check="chSupInfo.finStmnt.required && chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.applicantPayor?'yes':''" text="I am the payor"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.currCond.splitShared?'yes':''" text="there is split or shared parenting time"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.over19?'yes':''" text="there is a child 19 years old or over for whom support is being applied for"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.opType.standing?'yes':''" text="a party has been acting as a parent to a child of the other party"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.desiredSup.payorErnsHigh?'yes':''" text="the paying parent earns more than $150,000 per year"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.specExp.applying?'yes':''" text="there is an application for special or extraordinary expenses for a child"/>
+                        <check-box  :check="chSupInfo.finStmnt.required && chSupInfo.ndHard.change?'yes':''" text="I am claiming undue hardship"/>
                     </div>
 
                     <div style="margin:0.5rem 0 0 1.5rem;">
@@ -246,8 +246,8 @@ import { namespace } from "vuex-class";
 import "@/store/modules/application";
 const applicationState = namespace("Application");
 
-import UnderlineForm from "./components/UnderlineForm.vue";
-import CheckBox from "./components/CheckBox.vue";
+import UnderlineForm from "@/components/utils/PopulateForms/components/UnderlineForm.vue";
+import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { schedule3DataInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 

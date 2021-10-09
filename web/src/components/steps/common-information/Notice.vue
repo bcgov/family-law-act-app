@@ -34,11 +34,9 @@ export default class Notice extends Vue {
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -94,51 +92,61 @@ export default class Notice extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
     }
 
     public determineCaseMgntNeeded(){
         if (this.survey.data?.noticeType) {
+
             const noticeType = this.survey.data.noticeType;
+
+            const stepNoCM = this.stPgNo.CM._StepNo;
+            const pageNoCMQ = this.stPgNo.CM.CmQuestionnaire;
+            const step = this.$store.state.Application.steps[stepNoCM];
+
+            const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+            const selectedCaseManagement = step.result?.cmQuestionnaireSurvey?.data? step.result.cmQuestionnaireSurvey.data : [];                
+
+
             if (noticeType == 'askingForWithoutNotice' || noticeType == 'askingForUnder 7 DaysNotice') {
                 
-                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
-                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+                this.toggleSteps(stepNoCM,  true);                
                
                 if(selectedForms && !selectedForms.includes('caseMgmt')){
                     selectedForms.push('caseMgmt')
-                }
-
-                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
-
+                }                
                 
-                //Case Management Pre Select    
-                let selectedCaseManagement = [];
-                const stepNO = this.stPgNo.CM._StepNo;
-                const pageNO = this.stPgNo.CM.CmQuestionnaire;
-                const step = this.$store.state.Application.steps[stepNO];
-
-                if (step.result?.cmQuestionnaireSurvey?.data) {
-                   selectedCaseManagement = step.result.cmQuestionnaireSurvey.data;
-                }
+                //Case Management Pre Select
                 if(!selectedCaseManagement.includes('changeServiceRequirement')){
                     selectedCaseManagement.push('changeServiceRequirement')                
-                    const allPages = _.range(pageNO, Object.keys(this.stPgNo.CM).length-1)
+                    const allPages = _.range(pageNoCMQ, Object.keys(this.stPgNo.CM).length-1)
                     for(const page of allPages)
-                        Vue.filter('setSurveyProgress')(null, stepNO, page, 0, false);
-                
+                        Vue.filter('setSurveyProgress')(null, stepNoCM, page, 0, false);
                 
                     this.UpdatePathwayCompleted({pathway:"caseMgmt", isCompleted:false});
-                    this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNO, currentPage: pageNO }); 
-                    this.UpdateStepResultData({step:step, data: {cmQuestionnaireSurvey: {data: selectedCaseManagement, questions: [], pageName:"Questionnaire", currentStep:stepNO, currentPage:pageNO}}});
+                    this.$store.commit("Application/setCurrentStepPage", {currentStep: stepNoCM, currentPage: pageNoCMQ }); 
+                    this.UpdateStepResultData({step:step, data: {cmQuestionnaireSurvey: {data: selectedCaseManagement, questions: [], pageName:"Questionnaire", currentStep:stepNoCM, currentPage:pageNoCMQ}}});
+                }                
+            } 
+            else if(selectedCaseManagement.length == 1 && selectedCaseManagement.includes('changeServiceRequirement')){
+                
+                this.toggleSteps(stepNoCM,  false);
+
+                if(selectedForms?.includes('caseMgmt')){
+                    selectedForms.splice(selectedForms.indexOf('caseMgmt'),1);                    
                 }
+
+                selectedCaseManagement.pop();                
+                this.UpdateStepResultData({step:step, data: {cmQuestionnaireSurvey: {data: selectedCaseManagement, questions: [], pageName:"Questionnaire", currentStep:stepNoCM, currentPage:pageNoCMQ}}});                
             }
+
+            this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
         }
     }
 
@@ -153,5 +161,5 @@ export default class Notice extends Vue {
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, true);       
         this.UpdateStepResultData({step:this.step, data: {noticeSurvey: Vue.filter('getSurveyResults')(this.survey, this.currentStep, this.currentPage)}})
     }
-};
+}
 </script>

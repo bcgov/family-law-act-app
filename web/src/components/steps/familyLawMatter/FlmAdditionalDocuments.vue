@@ -7,8 +7,6 @@
 <script lang="ts">
 import { Component, Vue, Prop} from 'vue-property-decorator';
 
-import * as _ from 'underscore';
-
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary";
 import surveyJson from "./forms/flm-additional-documents.json";
@@ -39,11 +37,12 @@ export default class FlmAdditionalDocuments extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
+
+    
 
     @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -86,7 +85,26 @@ export default class FlmAdditionalDocuments extends Vue {
     public addSurveyListener(){
         this.survey.onValueChanged.add((sender, options) => {
             Vue.filter('surveyChanged')('familyLawMatter')
+
+            this.determineCaseMgntNeeded();
         })
+    }
+
+    public determineCaseMgntNeeded(){
+       
+        if ((this.survey.data?.criminalChecked && this.survey.data.criminalChecked == 'n') 
+            || (this.survey.data?.isFilingAdditionalDocs && this.survey.data.isFilingAdditionalDocs == 'n')) {
+            
+                
+                this.toggleSteps(this.stPgNo.CM._StepNo,  true);
+                const selectedForms = this.$store.state.Application.steps[this.stPgNo.GETSTART._StepNo].result.selectedForms
+               
+                if(selectedForms && !selectedForms.includes('caseMgmt')){
+                    selectedForms.push('caseMgmt')
+                }
+
+                this.UpdateCommonStepResults({data:{'selectedForms':selectedForms}});
+        }
     }
 
     public adjustSurveyForAdditionalDocs(){  
@@ -120,6 +138,7 @@ export default class FlmAdditionalDocuments extends Vue {
         this.survey.setVariable('appointedAsGuardian', this.appointedAsGuardian);
         
         Vue.filter('setSurveyProgress')(this.survey, this.currentStep, this.currentPage, 50, false);
+        this.determineCaseMgntNeeded(); 
     }
 
     public getRequiredDocuments(){
@@ -159,13 +178,20 @@ export default class FlmAdditionalDocuments extends Vue {
     }    
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors) {
-            this.UpdateGotoNextStepPage()
+            Vue.prototype.$UpdateGotoNextStepPage()
         }
+    }
+
+    public toggleSteps(stepId, activeIndicator) {       
+        this.$store.commit("Application/setStepActive", {
+            currentStep: stepId,
+            active: activeIndicator
+        });
     }
   
     beforeDestroy() {

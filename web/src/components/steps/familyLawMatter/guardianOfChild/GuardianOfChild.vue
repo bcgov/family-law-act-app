@@ -116,6 +116,7 @@ import surveyJson from "./forms/guardian-of-child.json";
 
 import PageBase from "../../PageBase.vue";
 import { stepInfoType, stepResultInfoType } from "@/types/Application";
+import { togglePages } from '@/components/utils/TogglePages';
 
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
@@ -140,11 +141,9 @@ export default class GuardianOfChild extends Vue {
     @applicationState.State
     public steps!: stepInfoType[];    
 
-    @applicationState.Action
-    public UpdateGotoPrevStepPage!: () => void
+    
 
-    @applicationState.Action
-    public UpdateGotoNextStepPage!: () => void
+    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -236,7 +235,7 @@ export default class GuardianOfChild extends Vue {
             if((!this.applicationType || !this.applicationType?.includes("becomeGuardian")) && options.name == "applicationType" && options.value?.includes("becomeGuardian")){                
                 this.showPopup = true; 
 
-                this.togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], true);
+                togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], true, this.currentStep);
                 if(this.$store.state.Application.steps[this.currentStep].pages[this.stPgNo.FLM.FlmAdditionalDocuments].progress==100)
                     Vue.filter('setSurveyProgress')(null, this.currentStep, this.stPgNo.FLM.FlmAdditionalDocuments, 50, false);
             } 
@@ -260,23 +259,13 @@ export default class GuardianOfChild extends Vue {
     
     public setPages(){ 
         if (this.survey.data?.applicationType?.includes("cancelGuardian")) {                
-            this.togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], true);                
+            togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], true, this.currentStep);                
         } else {
-            this.togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], false);
+            togglePages([this.stPgNo.FLM.GuardianOfChildBestInterestsOfChild], false, this.currentStep);
         }
 
         if(!this.survey.data?.applicationType?.includes("becomeGuardian") && Vue.filter('FLMform4Required')()==false){
-            this.togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], false);
-        }
-    }
-
-    public togglePages(pageArr, activeIndicator) {        
-        for (let i = 0; i < pageArr.length; i++) {
-            this.$store.commit("Application/setPageActive", {
-                currentStep: this.currentStep,
-                currentPage: pageArr[i],
-                active: activeIndicator
-            });
+            togglePages([this.stPgNo.FLM.FlmAdditionalDocuments], false, this.currentStep);
         }
     }
     
@@ -334,12 +323,12 @@ export default class GuardianOfChild extends Vue {
     }
 
     public onPrev() {
-        this.UpdateGotoPrevStepPage()
+        Vue.prototype.$UpdateGotoPrevStepPage()
     }
 
     public onNext() {
         if(!this.survey.isCurrentPageHasErrors && !this.checkTableError()) {
-            this.UpdateGotoNextStepPage();
+            Vue.prototype.$UpdateGotoNextStepPage();
         }
     }  
 
