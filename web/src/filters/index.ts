@@ -289,9 +289,12 @@ Vue.filter('FLMform4Required', function(){
 
 Vue.filter('FLMform5Required', function(){
 	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
+	const guardianOfChildPage = store.state.Application.stPgNo.FLM.GuardianOfChild
 	const results = store.state.Application.steps[stepFLMnum].result
 	if( results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
-		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') ){
+		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') &&
+		store.state.Application.steps[stepFLMnum].pages[guardianOfChildPage].active
+		){
 			return true
 		}
 	else  return false
