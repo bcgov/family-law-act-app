@@ -20,7 +20,7 @@
         <p>    
             If you do not have a lawyer, you may find it helpful to bring a 
             trusted friend or family member with you to provide emotional support, 
-            takenotes, and organize documents during your court appearance. 
+            take notes, and organize documents during your court appearance. 
             The Provincial Court has adopted 
             <a 
                 target="_blank" 
@@ -32,7 +32,12 @@
 
         <p>
             If you are attending at the courthouse in person for your court 
-            appearance, make a safety plan. If the other party is also attending, 
+            appearance, 
+            <a 
+                target="_blank" 
+                href='https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc'>
+                make a safety plan
+            </a>. If the other party is also attending, 
             they will probably be close by. You can talk to a sheriff as part of 
             your safety planning. The sheriff’s office is available by phone.
         </p>
