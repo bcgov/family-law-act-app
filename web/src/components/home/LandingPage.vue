@@ -75,7 +75,7 @@
                         <div v-if="!isLoggedIn">
                             <div class="row justify-content-center">
                                 <a class="btn btn-primary text-white btn-lg survey-button" @click="navigate('new')">
-                                    Register for a <strong>BCeID</strong>
+                                    Register for a <strong>Basic BCeID</strong>
                                 </a>
                             </div>
 
@@ -85,7 +85,7 @@
                                     @click="navigate('returning')"
                                     >
                                     <div>
-                                        Login with my <strong>BCeID</strong>                                       
+                                        Login with my <strong>Basic BCeID</strong>                                       
                                     </div>
                                 </a>
                             </div>
