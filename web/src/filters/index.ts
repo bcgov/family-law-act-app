@@ -10,6 +10,21 @@ import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
 import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
 
+Vue.filter('truncate-word-after', function (text: string, stop: number) {
+	if(text){
+		return (stop < text.length) ? text.slice(0, text.indexOf(' ',stop)) : text
+	}
+	else
+		return ''
+})
+
+Vue.filter('truncate-word-before', function (text: string, stop: number) {
+	if(text){
+		return (stop < text.length) ? text.slice(text.indexOf(' ',stop)) : ''
+	}
+	else
+		return ''
+})
 
 Vue.filter('beautify-date-', function(date){
 	enum MonthList {'Jan' = 1, 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'}
@@ -274,9 +289,12 @@ Vue.filter('FLMform4Required', function(){
 
 Vue.filter('FLMform5Required', function(){
 	const stepFLMnum = store.state.Application.stPgNo.FLM._StepNo
+	const guardianOfChildPage = store.state.Application.stPgNo.FLM.GuardianOfChild
 	const results = store.state.Application.steps[stepFLMnum].result
 	if( results?.flmQuestionnaireSurvey?.data?.includes("guardianOfChild") && 		
-		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') ){
+		results?.guardianOfChildSurvey?.data?.applicationType?.includes('becomeGuardian') &&
+		store.state.Application.steps[stepFLMnum].pages[guardianOfChildPage].active
+		){
 			return true
 		}
 	else  return false

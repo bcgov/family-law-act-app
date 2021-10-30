@@ -20,11 +20,6 @@
 <script lang="ts">
 
 import {Component, Vue, Prop } from "vue-property-decorator"
-import moment from 'moment-timezone';
-
-import { namespace } from "vuex-class";   
-import "@/store/modules/application";
-const applicationState = namespace("Application");
 
 @Component
 export default class PageBase extends Vue {
@@ -37,10 +32,6 @@ export default class PageBase extends Vue {
 
     @Prop({required: false})
     disableNextText!: string;
-
-    
-
-    
     
     error: ""
  
