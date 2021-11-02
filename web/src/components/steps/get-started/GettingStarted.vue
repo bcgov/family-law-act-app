@@ -227,7 +227,7 @@ export default class GettingStarted extends Vue {
     public onChange(selectedForms) {
         
         const applicationTypes = [];       
-            
+        // TODO: add functionality to use the selected reply-orders as well     
         for (const form of selectedForms){                    
             applicationTypes.push(this.getApplicationType(form));
         }

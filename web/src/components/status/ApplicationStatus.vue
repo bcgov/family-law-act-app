@@ -4,7 +4,15 @@
             <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
             <b-row>
                 <b-col>
-                    <h1>Previous Applications</h1>
+                    <h1>Previous Activity</h1>
+                    <b-card no-body border-variant="white" bg-variant="white">
+                        <p class=" ml-0 mb-1">
+                            To resume a previous session, click the Resume button next to the activity. 
+                            To start a new session, click the Begin New Session button at the bottom 
+                            of the page.
+                        </p>
+                    </b-card>
+
                     <hr class="bg-light" style="height: 2px;"/>
 
                     <loading-spinner v-if="!dataLoaded" waitingText="Loading ..." /> 
@@ -81,7 +89,7 @@
                                     variant="success" 
                                     class="btn-lg register-button" 
                                     @click="beginApplication()"
-                                >Begin NEW Application</b-button>
+                                >Begin NEW Session</b-button>
                             </b-col>
                         </b-row>
                     </b-card>
@@ -226,7 +234,7 @@ export default class ApplicationStatus extends Vue {
 
     previousApplications = []
     previousApplicationFields = [
-        { key: 'app_type', label: 'Application Type', sortable:true, tdClass: 'border-top'},
+        { key: 'app_type', label: 'Activity Type', sortable:true, tdClass: 'border-top'},
         { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
         { key: 'lastFiled', label: 'Filed Date', sortable:true, tdClass: 'border-top'},
         { key: 'packageNum', label: 'CSO Package#', sortable:false, tdClass: 'border-top'},
@@ -254,7 +262,7 @@ export default class ApplicationStatus extends Vue {
     //___________________________
     //___________________________
     //___________________________NEW VERSION goes here _________________
-    CURRENT_VERSION: string = "1.2.1.0";
+    CURRENT_VERSION: string = "1.2.2.0";
     //__________________________
     //___________________________
     //___________________________

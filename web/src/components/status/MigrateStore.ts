@@ -133,7 +133,10 @@ export class MigrateStore{
         
         const pathwayCompleted = {} as pathwayCompletedInfoType;
         
-        pathwayCompleted.protectionOrder = false;        
+        pathwayCompleted.protectionOrder = false;
+        pathwayCompleted.replyFlm = false;
+        pathwayCompleted.writtenResponse = false;
+        pathwayCompleted.replyCounterApplication = false;        
         pathwayCompleted.familyLawMatter = false;        
         pathwayCompleted.caseMgmt = false;       
         pathwayCompleted.priorityParenting = false;       

@@ -1,7 +1,10 @@
 export interface stepsAndPagesNumberInfoType{
     GETSTART: GETSTARTstPgTypes;
     PO: POstPgTypes;
-    COMMON: COMMONstPgTypes;    
+    COMMON: COMMONstPgTypes;
+    RFLM: RFLMstPgTypes;
+    WR: WRstPgTypes;
+    CA: CAstPgTypes;    
     FLM: FLMstPgTypes;
     CM: CMstPgTypes
     PPM: PPMstPgTypes
@@ -9,12 +12,13 @@ export interface stepsAndPagesNumberInfoType{
     ENFRC: ENFRCstPgTypes;
     SUBMIT: SUBMITstPgTypes;
 }
-
  
 export interface GETSTARTstPgTypes{
     _StepNo: number;   
     
-    GettingStarted: number;
+    SelectActivity: number;
+    ReplyToApplication: number;
+    GettingStarted: number; // Apply for an order
 }
 
 export interface POstPgTypes{
@@ -45,6 +49,24 @@ export interface COMMONstPgTypes{
     YourInformation: number;
     OtherPartyCommon: number;
     FilingLocation: number;
+}
+
+export interface RFLMstPgTypes{
+    _StepNo: number;  
+
+    ReplyToFlmApplication: number;   
+}
+
+export interface WRstPgTypes{
+    _StepNo: number;  
+
+    WrittenResponseApplication: number;   
+}
+
+export interface CAstPgTypes{
+    _StepNo: number;  
+
+    CounterApplication: number;   
 }
 
 export interface FLMstPgTypes{

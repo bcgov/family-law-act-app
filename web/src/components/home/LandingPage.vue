@@ -3,24 +3,24 @@
         <b-container class="container home-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Apply for a Provincial Court Family Law Act (FLA) Order</h1>
+                    <h1>Complete your Provincial Court Family Law Act (FLA) Forms</h1>
                     <div class="intro">
                         <p>
-                            This service will help you fill out the forms needed to apply for family court orders:
+                            This service will help you fill out the application and reply forms needed for family court orders:
                         </p>
                         <div class="row">
                             <div class="col-md-6">
-                                <ul>
-                                    <li>Protection Orders</li>
+                                <ul>                                    
                                     <li>Parenting Arrangements</li>
                                     <li>Child Support</li>
                                     <li>Contact with a child</li>
                                     <li>Guardianship</li>
+                                    <li>Spousal Support</li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <ul>
-                                    <li>Spousal Support</li>
+                                    <li>Protection Orders</li>
                                     <li>Case Management</li>
                                     <li>Priority Parenting Matters</li>
                                     <li>Relocation of a child</li>
@@ -49,7 +49,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Application electronically</p>
+                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Form electronically</p>
                                     <p>
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 

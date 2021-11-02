@@ -18,4 +18,8 @@ export const FLA_Types = [
     {pathway:"agreementEnfrc26",            pdfType:"RFA",  appType:"RFA",           familyType:"ENFRC", fullName:"File an Agreement"},
     {pathway:"agreementEnfrc27",            pdfType:"RDET", appType:"RDET",          familyType:"ENFRC", fullName:"File a Determination of Parenting Coordinator"},
     {pathway:"agreementEnfrc28",            pdfType:"RORD", appType:"RORD",          familyType:"ENFRC", fullName:"File an Order"},
+
+    {pathway:"replyFlm",                    pdfType:"RFLM",  appType:"RFLM",  familyType:"RFLM",  fullName:"Reply to Family Law Matter"},
+    {pathway:"writtenResponse",             pdfType:"WR",    appType:"WR",    familyType:"WR",    fullName:"Written Response to Application"},
+    {pathway:"replyCounterApplication",     pdfType:"CA",    appType:"CA",    familyType:"CA",    fullName:"Reply to Counter Application"}
 ];

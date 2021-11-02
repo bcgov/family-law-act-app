@@ -38,7 +38,17 @@ class Application extends VuexModule {
     public supportingDocumentForm4: number[] = [];
 
     public allCompleted = false;
-    public pathwayCompleted = { protectionOrder:false, familyLawMatter:false, caseMgmt:false, priorityParenting:false, childReloc:false, agreementEnfrc:false} //{Protection Order, Family Law Matters, Case management, Priority parenting, Relocation of a child, Enforcement of agreements}
+    public pathwayCompleted = { 
+        protectionOrder:false, 
+        replyFlm: false, 
+        writtenResponse: false, 
+        replyCounterApplication: false, 
+        familyLawMatter:false, 
+        caseMgmt:false, 
+        priorityParenting:false, 
+        childReloc:false, 
+        agreementEnfrc:false
+    }
 
     public stPgNo = {} as stepsAndPagesNumberInfoType;
 
@@ -63,7 +73,7 @@ class Application extends VuexModule {
         s.id = "0";
         s.name = "GETSTART";
         s.label = "Get Started";
-        s.icon = "fa-users";
+        s.icon = "fa-rocket";
         s.lastUpdate = null;    
         s.type = "getInformationStep";
         s.pages = new Array<pageInfoType>();
@@ -71,9 +81,25 @@ class Application extends VuexModule {
     
         let p = {} as pageInfoType;
         p.key = "0";
-        p.name = "GettingStarted";
+        p.name = "SelectActivity";
         p.label = "Getting Started";
         p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "1";
+        p.name = "ReplyToApplication";
+        p.label = "Reply to an Application";
+        p.active = false;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        p = {} as pageInfoType;
+        p.key = "2";
+        p.name = "GettingStarted";
+        p.label = "Apply for an Order";
+        p.active = false;
         p.progress = 0;    
         s.pages.push(p);
 
@@ -271,10 +297,85 @@ class Application extends VuexModule {
 
         // Common Information STOP
 
+        // Reply Family Law Matter START
+        s = {} as stepInfoType;
+    
+        s.active = false;
+        s.id = "3";
+        s.name = "RFLM";
+        s.label = "Reply to Family Law Matter";
+        s.icon = "fa-reply-all";
+        s.lastUpdate = null;    
+        s.type = "stepRFLM";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "ReplyToFlmApplication";
+        p.label = "Reply to Family Law Matter";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+
+        this.steps.push(s);
+
+        // Reply Family Law Matter STOP
+
+        // Written Response to Application START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "4";
+        s.name = "WR";
+        s.label = "Written Response to Application";
+        s.icon = "fa-pencil";
+        s.lastUpdate = null;    
+        s.type = "stepWR";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "WrittenResponseApplication";
+        p.label = "Written Response to Application";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+ 
+        // Written Response to Application STOP
+
+        // Reply to Counter Application START
+        s = {} as stepInfoType;
+
+        s.active = false;
+        s.id = "5";
+        s.name = "CA";
+        s.label = "Reply to Counter Application";
+        s.icon = "fa-reply";
+        s.lastUpdate = null;    
+        s.type = "stepCA";
+        s.pages = new Array<pageInfoType>();
+        s.currentPage = 0;
+    
+        p = {} as pageInfoType;
+        p.key = "0";
+        p.name = "CounterApplication";
+        p.label = "Reply to Counter Application";
+        p.active = true;
+        p.progress = 0;    
+        s.pages.push(p);
+ 
+        this.steps.push(s);
+ 
+        // Reply to Counter Application STOP
+
         //Family Law Matter START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "3";
+        s.id = "6";
         s.name = "FLM";
         s.label = "Family Law Matter";
         s.icon = "fa-child";
@@ -628,7 +729,7 @@ class Application extends VuexModule {
         // Case Mgmt START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "4";
+        s.id = "7";
         s.name = "CM";
         s.label = "Case Management";
         s.icon = "fa-child";
@@ -780,7 +881,7 @@ class Application extends VuexModule {
         //Priority parenting matter START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "5";
+        s.id = "8";
         s.name = "PPM";
         s.label = "Priority parenting matter";
         s.icon = "fa-child";
@@ -851,7 +952,7 @@ class Application extends VuexModule {
         //Relocation of a child START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "6";
+        s.id = "9";
         s.name = "RELOC";
         s.label = "Relocation of a child";
         s.icon = "fa-child";
@@ -907,7 +1008,7 @@ class Application extends VuexModule {
         //Enforcement START
         s = {} as stepInfoType;    
         s.active = false;
-        s.id = "7";
+        s.id = "10";
         s.name = "ENFRC";
         s.label = "Enforcement";
         s.icon = "fa-child";
@@ -1012,7 +1113,7 @@ class Application extends VuexModule {
         s = {} as stepInfoType;
 
         s.active = false;
-        s.id = "8";
+        s.id = "11";
         s.name = "SUBMIT";
         s.label = "Review and File";
         s.icon = "fa-paper-plane";
@@ -1436,7 +1537,7 @@ class Application extends VuexModule {
     }
     @Action
     public UpdateStPgNo(newStPgNo) {
-        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
+        const stepsAndPagesNumber = {GETSTART: {}, PO: {}, COMMON: {}, RFLM:{}, WR:{}, CA:{}, FLM: {}, CM: {}, PPM: {}, RELOC: {}, ENFRC: {}, SUBMIT: {}} as stepsAndPagesNumberInfoType
         const steps = this.steps
         for(const step of steps){
             stepsAndPagesNumber[step.name]._StepNo = Number(step.id)           
