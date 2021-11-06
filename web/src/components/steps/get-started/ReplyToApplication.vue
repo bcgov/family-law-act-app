@@ -27,7 +27,7 @@
                         stacked
                         >
                         <div class="checkbox-border">
-                            <b-form-checkbox value="replyFamilyLawMatter">
+                            <b-form-checkbox value="replyFlm">
                                 <div class="checkbox-choices">Application About a Family Law Matter Form 3</div>
                                 <p>
                                     Family law matters include: parenting arrangements (<tooltip title="parental responsibilities" :index="0"/>
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="checkbox-border">
-                            <b-form-checkbox value="replyFamilyLawMatterCounter">
+                            <b-form-checkbox value="replyCounterApplication">
                                 <div class="checkbox-choices">Reply to an Application About a Family Law Matter with Counter Application Form 6</div>
                                 <p>
                                     As part of the Reply to an Application About a Family Law Matter, the other party may 
@@ -206,10 +206,16 @@ export default class ReplyToApplication extends Vue {
   
     public onChange(selectedReplyApplications) {
         
-        const applicationTypes = [];       
-        // TODO: add functionality to use the selected orders as well   
-        for (const form of selectedReplyApplications){                    
-            applicationTypes.push(Vue.filter('getFullOrderName')(form, ''));
+        let applicationTypes = []; 
+
+        if (this.steps[0].result?.selectedForms) {
+            for (const form of this.steps[0].result?.selectedForms){                    
+                applicationTypes.push(this.getApplicationType(form));
+            }
+        }
+
+        for (const replyForm of selectedReplyApplications){                    
+            applicationTypes.push(Vue.filter('getFullOrderName')(replyForm, ''));
         }
       
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));        
@@ -232,14 +238,14 @@ export default class ReplyToApplication extends Vue {
 
         if (selectedReplyApplications !== undefined) {       
         
-            const replyFlm = selectedReplyApplications.includes("replyFamilyLawMatter");
+            const replyFlm = selectedReplyApplications.includes("replyFlm");
             const writtenResponse = selectedReplyApplications.includes("replyCaseMgmt") || 
                                     selectedReplyApplications.includes("replyProtectionOrder") || 
                                     selectedReplyApplications.includes("replyPriorityParenting") ||
                                     selectedReplyApplications.includes("replyChildReloc") || 
                                     selectedReplyApplications.includes("replyAgreementEnfrc") || 
                                     selectedReplyApplications.includes("replyFamilyMaintenanceEnfrc");
-            const replyCounterApplication = selectedReplyApplications.includes("replyFamilyLawMatterCounter");
+            const replyCounterApplication = selectedReplyApplications.includes("replyCounterApplication");
                        
             this.toggleSteps(this.stPgNo.RFLM._StepNo, replyFlm);
             this.toggleSteps(this.stPgNo.WR._StepNo, writtenResponse);

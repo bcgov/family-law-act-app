@@ -227,7 +227,13 @@ export default class GettingStarted extends Vue {
     public onChange(selectedForms) {
         
         const applicationTypes = [];       
-        // TODO: add functionality to use the selected reply-orders as well     
+        
+        if (this.steps[0].result?.selectedReplyApplications){
+            for (const replyForm of this.steps[0].result?.selectedReplyApplications){                    
+                applicationTypes.push(Vue.filter('getFullOrderName')(replyForm, ''));
+            }
+        } 
+
         for (const form of selectedForms){                    
             applicationTypes.push(this.getApplicationType(form));
         }
@@ -311,9 +317,7 @@ export default class GettingStarted extends Vue {
 
     public onPrev() {
         Vue.prototype.$UpdateGotoPrevStepPage();
-    }
-
-    
+    }    
 
     public onNext() { 
 
