@@ -70,6 +70,7 @@ export interface stepInfoType {
     selectedActivity?: string[];
     selectedReplyApplications?: string[];
     selectedForms?: string[];
+    selectedReplyForms?: string[];
     pathwayCompleted?: pathwayCompletedInfoType;
     applicantName?: nameInfoType;
     respondentsCommon?: nameInfoType[];

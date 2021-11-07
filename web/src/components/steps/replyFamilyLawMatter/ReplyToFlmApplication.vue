@@ -95,6 +95,9 @@ export default class ReplyToFlmApplication extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;     
     
@@ -111,6 +114,7 @@ export default class ReplyToFlmApplication extends Vue {
         
         const progress = 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.UpdatePathwayCompleted({pathway:"replyFlm", isCompleted:true})
     }
 
     public onPrev() {

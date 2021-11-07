@@ -43,7 +43,9 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import PageBase from "../PageBase.vue";
-import { togglePages } from '@/components/utils/TogglePages';
+import { toggleAllSteps, togglePages } from '@/components/utils/TogglePages';
+import {incompleteProgressOfAllPages} from '@/components/utils/StepsAndPages/StepAndPageFunctions'
+
 import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
 import { namespace } from "vuex-class";   
@@ -146,6 +148,9 @@ export default class SelectActivity extends Vue {
         togglePages([this.stPgNo.GETSTART.ReplyToApplication], this.selectedActivity.includes('replyToApplication'), this.stPgNo.GETSTART._StepNo);
         this.disableNextButton = !(this.selectedActivity.length > 0)
         //TODO: Add functionality to handle already started steps and application types
+
+        toggleAllSteps([this.stPgNo.GETSTART._StepNo], false);
+        incompleteProgressOfAllPages()
     }  
 
     public onPrev() {

@@ -82,6 +82,9 @@ export default class WrittenResponseApplication extends Vue {
     @Prop({required: true})
     step!: stepInfoType;
 
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;     
     
@@ -99,6 +102,7 @@ export default class WrittenResponseApplication extends Vue {
         
         const progress = 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.UpdatePathwayCompleted({pathway:"writtenResponse", isCompleted:true})
     }
 
     public onPrev() {

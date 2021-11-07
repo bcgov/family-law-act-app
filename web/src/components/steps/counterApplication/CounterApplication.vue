@@ -67,7 +67,10 @@ export default class CounterApplication extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;     
+    public stPgNo!: stepsAndPagesNumberInfoType; 
+    
+    @applicationState.Action
+    public UpdatePathwayCompleted!: (changedpathway) => void
     
     currentStep = 0;
     currentPage = 0;
@@ -83,6 +86,7 @@ export default class CounterApplication extends Vue {
         
         const progress = 100;        
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+        this.UpdatePathwayCompleted({pathway:"replyCounterApplication", isCompleted:true})
     }
 
     public onPrev() {
