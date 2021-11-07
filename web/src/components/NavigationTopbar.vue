@@ -112,7 +112,7 @@
                     <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/jac"
                         target="_blank">Justice Access Centres
                     </a> and 
-                    <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
+                    <a href="https://www2.gov.bc.ca/gov/content?id=2E7DCCDAD5A94D61B777A80AE8639ABD"
                         target="_blank">Family Justice Centres
                     </a>
                     across BC have Family Justice Counsellors and Child Support Officers specially trained to 
@@ -201,7 +201,7 @@
                         <a href="https://www2.gov.bc.ca/gov/content/justice/about-bcs-justice-system/jac"
                         target="_blank">Justice Access Centres
                     </a> and 
-                    <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help/family-justice-counsellors"
+                    <a href="https://www2.gov.bc.ca/gov/content?id=2E7DCCDAD5A94D61B777A80AE8639ABD"
                         target="_blank">Family Justice Centres
                     </a>                         
                         can help answer questions about the forms but they cannot help complete your forms 
@@ -256,7 +256,7 @@
             <div class="mx-5 mb-5">
                 <p class="text-dark" style="font-weight: 700;">Other Support Resources</p>
                 <p>
-                    The B.C. Government website has a page that 
+                    The BC Government website has a page that 
                     <a href="https://www2.gov.bc.ca/gov/content/life-events/divorce/family-justice/who-can-help"
                         target="_blank">lists resources
                     </a>
@@ -289,13 +289,13 @@
                     <a href="http://www.justiceeducation.ca/"
                         target="_blank">Justice Education Society 
                     </a>
-                    or online legal information.                                       
+                     for online legal information.                                       
                 </p>
                 <p>
                     Amici Curiae Friendship Society (AC) provides legal assistance to individuals who 
                     require help drafting or filling out legal forms. Visit their website for more 
                     information:
-                    <a href=""
+                    <a href="https://www.legalformsbc.ca/about-acfs.html#/"
                         target="_blank">www.legalformsbc.ca/about-acfs.html#/ 
                     </a>                                       
                 </p>
