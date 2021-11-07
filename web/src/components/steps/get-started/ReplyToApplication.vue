@@ -133,6 +133,10 @@ import PageBase from "../PageBase.vue";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
 import { pathwayCompletedInfoType, stepInfoType, stepResultInfoType } from "@/types/Application";
 
+import {resetProgressOfAllPages} from '@/components/utils/StepsAndPages/StepAndPageFunctions'
+import { toggleStep} from '@/components/utils/TogglePages';
+import {resetAllPathwaysCompeleted} from '@/components/utils/Pathways/PathwayFunctions'
+
 import { namespace } from "vuex-class";   
 import "@/store/modules/application";
 const applicationState = namespace("Application");
@@ -168,16 +172,11 @@ export default class ReplyToApplication extends Vue {
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
 
-    @applicationState.State
-    public pathwayCompleted!: pathwayCompletedInfoType;
-    
     @applicationState.Action
-    public UpdatePathwayCompletedFull!: (changedpathway: pathwayCompletedInfoType) => void
-    
-    @applicationState.Action
-    public checkAllCompleted!: () => void
+    public UpdateCommonStepResults!: (newCommonStepResults) => void
   
-    selected = [];   
+    selected = []; 
+    selectedReplyForms = [];  
     showLegalAssistance = false;    
   
     currentStep =0;
@@ -197,9 +196,10 @@ export default class ReplyToApplication extends Vue {
             this.selected = this.steps[0].result.selectedReplyApplications;
         }
         
-
         const progress = this.selected.length==0? 50 : 100;
         Vue.filter('setSurveyProgress')(null, this.currentStep, this.currentPage, progress, false);
+
+        this.onChange(this.selected)
 
         this.dataReady = true;
     }
@@ -220,8 +220,10 @@ export default class ReplyToApplication extends Vue {
       
         this.UpdateApplicationType(Array.from(new Set(applicationTypes)));        
         this.setSteps(selectedReplyApplications);
-        // this.resetSelectedReplyApplicationsCompeleted();
-        // this.resetProgressOfAllPages(selectedReplyApplications);
+
+        resetAllPathwaysCompeleted();
+        resetProgressOfAllPages([], [this.stPgNo.GETSTART._StepNo]);
+
     }
 
     public getApplicationType(selectedOrder){
@@ -247,42 +249,16 @@ export default class ReplyToApplication extends Vue {
                                     selectedReplyApplications.includes("replyFamilyMaintenanceEnfrc");
             const replyCounterApplication = selectedReplyApplications.includes("replyCounterApplication");
                        
-            this.toggleSteps(this.stPgNo.RFLM._StepNo, replyFlm);
-            this.toggleSteps(this.stPgNo.WR._StepNo, writtenResponse);
-            this.toggleSteps(this.stPgNo.CA._StepNo, replyCounterApplication);             
+            toggleStep(this.stPgNo.RFLM._StepNo, replyFlm);
+            toggleStep(this.stPgNo.WR._StepNo, writtenResponse);
+            toggleStep(this.stPgNo.CA._StepNo, replyCounterApplication);
+
+            this.selectedReplyForms =[];
+            if(replyFlm) this.selectedReplyForms.push("replyFlm")
+            if(writtenResponse) this.selectedReplyForms.push("writtenResponse")
+            if(replyCounterApplication) this.selectedReplyForms.push("replyCounterApplication")
+            this.UpdateCommonStepResults({data:{'selectedReplyForms':this.selectedReplyForms}})
         }
-    }
-
-    public resetSelectedReplyApplicationsCompeleted(){
-
-        const pathwayCompleted = this.pathwayCompleted
-        
-        pathwayCompleted.replyFlm = false;        
-        pathwayCompleted.writtenResponse = false;        
-        pathwayCompleted.replyCounterApplication = false; 
-        this.UpdatePathwayCompletedFull(pathwayCompleted);
-        this.checkAllCompleted();
-    }
-
-    public resetProgressOfAllPages(selectedReplyApplications){
-
-        for(const step of this.$store.state.Application.steps){
-            if(step.id == this.stPgNo.COMMON._StepNo && selectedReplyApplications.includes("protectionOrder"))
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.YourInformation });   
-            else 
-                this.$store.commit("Application/setCurrentStepPage", {currentStep: step.id, currentPage: this.stPgNo.COMMON.SafetyCheck });               
-
-            for(const page of step.pages){           
-               this.$store.commit("Application/setPageProgress", { currentStep: step.id, currentPage:page.key, progress:0 });
-            }
-        }
-    }
-
-    public toggleSteps(stepId, activeIndicator) {       
-        this.$store.commit("Application/setStepActive", {
-            currentStep: stepId,
-            active: activeIndicator
-        });
     }
 
     public onPrev() {

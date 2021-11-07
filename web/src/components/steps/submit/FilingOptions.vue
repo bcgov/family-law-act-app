@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-
+import _ from 'underscore';
 import * as SurveyVue from "survey-vue";
 import * as surveyEnv from "@/components/survey/survey-glossary"
 import surveyJson from "./forms/filingOptions.json";
@@ -48,9 +48,6 @@ export default class FilingOptions extends Vue {
 
     @applicationState.State
     public allCompleted!: boolean;
-
-    
-
     
 
     @applicationState.Action
@@ -158,9 +155,10 @@ export default class FilingOptions extends Vue {
     }
     
     public checkErrorOnPages(){
-        const s = this.stPgNo
+
+        const stepsArr = _.range(0, Object.keys(this.stPgNo).length)  
         const optionalLabels = ["Next Steps", "Review and Print", "Review and Save", "Review and Submit"]
-        for(const stepIndex of [s.PO._StepNo, s.COMMON._StepNo, s.FLM._StepNo, s.CM._StepNo, s.PPM._StepNo, s.RELOC._StepNo, s.ENFRC._StepNo, s.SUBMIT._StepNo]){
+        for(const stepIndex of stepsArr){
             const step = this.$store.state.Application.steps[stepIndex]
             if(step.active){
                 for(const page of step.pages){

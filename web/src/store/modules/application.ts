@@ -1379,10 +1379,21 @@ class Application extends VuexModule {
     @Action
     public checkAllCompleted() {
         let newAllCompleted = false;
-        if(this.steps[0].result){
+        if(this.steps[0].result?.selectedForms){
             for(const selectedform of this.steps[0].result.selectedForms){
 
                 if(this.pathwayCompleted[selectedform]) 
+                    newAllCompleted = true;
+                else{
+                    newAllCompleted = false;
+                    break;
+                }
+            }            
+        }
+        if(this.steps[0].result?.selectedReplyForms){
+            for(const selectedReplyform of this.steps[0].result.selectedReplyForms){
+
+                if(this.pathwayCompleted[selectedReplyform]) 
                     newAllCompleted = true;
                 else{
                     newAllCompleted = false;
