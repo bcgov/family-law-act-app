@@ -60,6 +60,12 @@
                 <div v-if="applicationDocumentTypes.includes('NTRF')" @click="checklist=true;checklistType='RFC';" style="color:blue; cursor:pointer;">
                     Checklist for Notice to Resolve Family Claim
                 </div>
+                <div v-if="applicationDocumentTypes.includes('AXP')" @click="checklist=true;checklistType='PPM';" style="color:blue; cursor:pointer;">
+                    Checklist for Application About Priority Parenting Matter
+                </div>
+                <div v-if="applicationDocumentTypes.includes('APRC')" @click="checklist=true;checklistType='RELOC';" style="color:blue; cursor:pointer;">
+                    Checklist for for Order Prohibiting the Relocation of a Child
+                </div>
             </div>           
 
             <div class="mt-5">
@@ -224,9 +230,19 @@ export default class ResultPage extends Vue {
             }
 
             const includesFlm = pathways.includes('familyLawMatter');
+            const includesEnfrc = pathways.includes('agreementEnfrc');
+            const includesCm = pathways.includes('caseMgmt');
 
             if (pathways.includes('protectionOrder')){
                 this.applicationDocumentTypes.push('AAP')
+            }
+
+            if (pathways.includes('priorityParenting')){
+                this.applicationDocumentTypes.push('AXP')
+            }
+
+            if (pathways.includes('childReloc')){
+                this.applicationDocumentTypes.push('APRC')
             }
 
             if (includesFlm){
@@ -244,6 +260,7 @@ export default class ResultPage extends Vue {
 
                 }
             }
+            //TODO: add functionality to determine CM and Enfrc pdf types
 
             this.mountedData = true;
 

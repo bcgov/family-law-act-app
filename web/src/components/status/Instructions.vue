@@ -117,6 +117,10 @@ export default class Instructions extends Vue {
     includeParentingAfterSeparationStep = false;
     includesFlm = false;
     includesPo = false;
+    includesPp = false;
+    includesCm = false;
+    includesCr = false;
+    includesAe = false;
     error = ''
 
     mounted(){
@@ -147,6 +151,10 @@ export default class Instructions extends Vue {
 
             this.includesFlm = this.listOfselectedForms.includes('familyLawMatter'); 
             this.includesPo = this.listOfselectedForms.includes('protectionOrder');
+            this.includesPp = this.listOfselectedForms.includes('priorityParenting'); 
+            this.includesCm = this.listOfselectedForms.includes('caseMgmt');
+            this.includesCr = this.listOfselectedForms.includes('childReloc'); 
+            this.includesAe = this.listOfselectedForms.includes('agreementEnfrc');
             
             if(this.includesPo && stepPO?.urgencySurvey?.data?.PORNoNotice ){
                 this.urgentPO = stepPO.urgencySurvey.data.PORNoNotice == "y";

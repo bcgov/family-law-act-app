@@ -6,7 +6,9 @@
         <b-card id="print" style="border:1px solid; border-radius:5px;" bg-variant="white" class="mt-3 mb-4 container" no-body>
             <flm-checklist v-if="checklistType=='FLM'" :applicationId='applicationId'/>
             <po-checklist v-else-if="checklistType=='PO'" :applicationId='applicationId'/>
-            <EarlyResolutionsChecklist v-else-if="checklistType=='RFC'" :applicationId='applicationId'/>
+            <early-resolutions-checklist v-else-if="checklistType=='RFC'" :applicationId='applicationId'/>
+            <ppm-checklist v-else-if="checklistType=='PPM'" :applicationId='applicationId'/>
+            <reloc-checklist v-else-if="checklistType=='RELOC'" :applicationId='applicationId'/>
         </b-card>
     </div>
 </template>
@@ -17,12 +19,16 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import moment from 'moment';
 import PoChecklist from "./PoChecklist.vue";
 import FlmChecklist from "./FlmChecklist.vue";
+import PpmChecklist from "./PpmChecklist.vue";
+import RelocChecklist from "./RelocChecklist.vue";
 import EarlyResolutionsChecklist from "./EarlyResolutionsChecklist.vue";
 
 @Component({
     components:{        
         PoChecklist,
         FlmChecklist,
+        PpmChecklist,
+        RelocChecklist,
         EarlyResolutionsChecklist
     }
 })
@@ -41,10 +47,12 @@ export default class Checklists extends Vue {
     checklists=[
         {name:'FLM', title:'Application About a Family Law Matter', pdfName:'Checklist_for_Family_Law_Matter.pdf'},
         {name:'PO', title:'Application about a Protection Order', pdfName:'Checklist_for_Protection_Order.pdf'},
-        {name:'RFC', title:'Notice to Resolve Family Claim', pdfName:'Checklist_for_Notice_To_Resolve_Family_Claim.pdf'}
+        {name:'RFC', title:'Notice to Resolve Family Claim', pdfName:'Checklist_for_Notice_To_Resolve_Family_Claim.pdf'},
+        {name:'PPM', title:'Application About Priority Parenting Matter', pdfName:'Checklist_for_Priority_Parenting_Matter.pdf'},
+        {name:'RELOC', title:'Application for Order Prohibiting the Relocation of a Child', pdfName:'Checklist_for_Order_Prohibiting_the_Relocation_of_a_Child.pdf'}        
     ]    
 
-    mounted(){
+    mounted(){       
         this.dataReady = false;
         this.checklist = this.checklists.filter(checklist=>checklist.name ==this.checklistType)[0];
         Vue.nextTick(()=> this.dataReady = true)
