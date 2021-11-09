@@ -49,7 +49,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6" style="padding: 0rem 1rem 0rem 2rem;">
-                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Form electronically</p>
+                                    <p style="font-weight: bold;">3. Print Your Forms OR Submit Your Form Electronically</p>
                                     <p>
                                         Once you're done with the questions, you'll print your
                                         papers and file at your local court registry. 

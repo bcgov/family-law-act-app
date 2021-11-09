@@ -1,5 +1,5 @@
 <template>
-    <header class="app-header">
+    <header name="navigation-topbar" class="app-header">
 
         <nav class="navbar navbar-expand-lg navbar-dark">
         <!-- Navbar content -->
