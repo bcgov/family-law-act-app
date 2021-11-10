@@ -4,7 +4,7 @@
             <h1>Written Response to Application</h1>
             <p style="font-weight: 700;">
                 Complete the 
-                <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa715.pdf?forcedownload=true"
+                <a href="https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa731.pdf?forcedownload=true"
                 target="_blank">Written Response to Application Form 19</a> 
                 if you want to file a written response in reply to any of the following applications 
                 that have been <tooltip title="served" :index="0"/> to you:
