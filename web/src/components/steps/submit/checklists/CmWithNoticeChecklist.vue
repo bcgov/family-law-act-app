@@ -3,7 +3,7 @@
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
         <div 
             style="font-size:14pt;font-weight:600; margin-bottom:1rem;">
-            CHECKLIST FOR APPLICATION FOR ORDER PROHIBITING THE RELOCATION OF A CHILD
+            CHECKLIST FOR APPLICATION FOR CASE MANAGEMENT ORDER
         </div>
 
 <!-- <Step 1> -->
@@ -15,7 +15,7 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 1rem 0; font-weight: 600;" 
                     check="'yes'" 
-                    text="Step 1: Complete the Application for Order Prohibiting the Relocation of a Child form"/>               
+                    text="Step 1: Complete the Application for Case Management Order form"/>               
             </div>   
            
             <p style="margin:0.5rem 0 0.5rem 0;">
@@ -83,7 +83,7 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="'yes'" 
-                    text="Step 2: File the Application for Order Prohibiting the Relocation of a Child form at the Provincial Court Registry"/>               
+                    text="Step 2: File the Application for Case Management Order form at the Provincial Court Registry"/>               
             </div>  
            
             <div style="margin:0 0 0.5rem 0;">
@@ -96,8 +96,16 @@
             </div>
             <ul>
                <li>where the existing Provincial Court case with the same parties is filed, or</li>               
-               <li>nearest to where your child lives most of the time</li>
-            </ul>           
+               <li>nearest to where the child lives most of the time, if the case involves a child-related issue, or</li>
+               <li>nearest to where you live, if the case does not involve a child-related issue.</li>
+            </ul>
+            <div style="margin:0 0 0.5rem 0;">     
+                The registry clerk will review your package to make sure it is complete before filing it. 
+                You will be given a copy for your records.      
+            </div>
+            <div style="margin:0 0 0.5rem 0;">     
+                There are no fees for filing Provincial Court family documents.      
+            </div>           
         </div>
 
 <!-- <Step 3> -->
@@ -109,24 +117,28 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="" 
-                    text="Step 3: Serve the Application for Order Prohibiting the Relocation of a Child on each other party"/>               
+                    text="Step 3: Serve the Application for Case Management Order on each other party and every 
+                    other person who may be directly affected by the case management ordery"/>               
             </div>  
 
             <p style="margin:0.5rem 0 0.5rem 0;">
-                Service is the act of giving or leaving documents with the required person. It is important that each 
-                other party know that a case is going on, are aware of what step is being taken, and are given a 
-                chance to tell their side of the story to the court.
+                Service is the act of giving or leaving documents with the required person. It is important 
+                that each other party, and every other person who may be directly affected by the case 
+                management order, know that a case is going on, are aware of what step is being taken, 
+                and are given a chance to tell their side of the story to the court.
             </p>
 
             <p style="margin:0 0 0.5rem 0;">
-                You must serve the other party with at least 7 days' notice of the date and time of the court appearance, 
-                unless the court has ordered something else. This means there must be at least 7 days between the date 
-                the application is served on the other party and the date and time of the court appearance.
+                You must serve the other party and every other person who may be directly affected by 
+                the case management order with at least 7 days’ notice of the date and time of the 
+                court appearance, unless the court has ordered something else. This means there must 
+                be at least 7 days between the date the application document is served on the other 
+                party or person and the date and time of the court appearance.
             </p>
             
             <div style="margin:0 0 0.5rem 0;">
-                An Application for Order Prohibiting the Relocation of a Child must be served to the address of 
-                service of each other party in any of the following ways:
+                An Application for Case Management Order must be served to the address of service 
+                of each other party in any of the following ways:
             </div>
             <ul>
                 <li>by leaving the documents at the party’s address for service</li>
@@ -143,15 +155,23 @@
             </ul>
 
             <p>
-                A party's address for service is the address they have provided to the court. A party 
-                who does not have an address for service must be served by leaving a copy of the 
-                documents directly with the person (this is called personal service).
+                A party’s address for service is the address they have provided to the court. 
+                If a party does not have an address for service, the application must be served 
+                by personal service. 
             </p>
 
             <p>
-                Personal service requires that an adult (at least 19 years old) who is not a party 
-                hand deliver the documents to the party to be served.
+                Personal service requires that an adult (at least 19 years old) who is not a 
+                party hand deliver the documents to the party to be served.
             </p>
+
+            <div style="margin:0 0 0.5rem 0;">
+                A person, who is not a party may be served by:
+            </div>
+            <ul>
+                <li>mailing a copy of the application by ordinary mail or registered mail to the person’s postal address; or</li>
+                <li>leaving a copy of the application directly with the person (this is called personal service)</li>                
+            </ul>
 
             <p>
                 The court may need proof you had the documents personally served. The person serving 
@@ -176,14 +196,48 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="" 
-                    text="Step 4: Attend the Court Appearance"/>               
+                    text="Step 4:  If applicable, attend the Court Appearance"/>               
             </div>  
            
-            <p>
-                A judge can make decisions based only on the information presented by the parties 
-                as evidence. Your evidence includes your appliction, any additional affidavit(s), 
-                and spoken evidence provided in court.
+            <p style="margin:0.5rem 0 0.5rem 0;">
+                A judge can make decisions based only on the information presented by the 
+                parties as evidence. Your evidence includes your application, any additional
+                affidavit(s), and spoken evidence provided in court.
             </p>
+
+            <p style="margin:0.5rem 0 0.5rem 0;">
+                <b>Note</b> If you are making your application <b>by consent</b> and you have included 
+                a draft consent order, it usually means you can obtain the order without you
+                having to go to court. A judge reviews your application and unless the judge 
+                has any questions about what you are asking for, approves your order without 
+                a court hearing.
+            </p>
+
+            <div style="margin:0.5rem 0 0.5rem 0;">
+                A judge reviewing an application for a case management consent order may 
+                do any of the following:
+            </div>
+            <ul>
+                <li>approve and sign the order without the need for you to come to court</li>
+                <li>
+                    ask you to provide more information or evidence in writing or by coming 
+                    to court to give that information
+                </li>
+                <li>require notice to be given to any other party</li>
+                <li>
+                    make changes to the draft consent order and ask the parties to come 
+                    to court to review and sign the changes if approved
+                </li> 
+                <li>reject the application with an explanation</li>               
+            </ul>
+
+            <p>
+                Depending on what you are requesting on your application, it may take the 
+                judge a few days to review your application. The registry staff will let 
+                you know when you can expect to hear from them. If you have provided an 
+                email address in your address for service, they can usually let you know 
+                the results of your application by email.
+            </p>    
             
         </div>
 
@@ -201,7 +255,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
     }
 })
 
-export default class RelocChecklist extends Vue {
+export default class CmWithNoticeChecklist extends Vue {
 
 }
 </script>

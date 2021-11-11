@@ -3,7 +3,7 @@
         <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
         <div 
             style="font-size:14pt;font-weight:600; margin-bottom:1rem;">
-            CHECKLIST FOR APPLICATION FOR ORDER PROHIBITING THE RELOCATION OF A CHILD
+            CHECKLIST FOR APPLICATION ABOUT ENFORCEMENT
         </div>
 
 <!-- <Step 1> -->
@@ -15,7 +15,7 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 1rem 0; font-weight: 600;" 
                     check="'yes'" 
-                    text="Step 1: Complete the Application for Order Prohibiting the Relocation of a Child form"/>               
+                    text="Step 1: Complete the Application About Enforcement form"/>               
             </div>   
            
             <p style="margin:0.5rem 0 0.5rem 0;">
@@ -83,7 +83,7 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="'yes'" 
-                    text="Step 2: File the Application for Order Prohibiting the Relocation of a Child form at the Provincial Court Registry"/>               
+                    text="Step 2: File the Application About Enforcement form at the Provincial Court Registry"/>               
             </div>  
            
             <div style="margin:0 0 0.5rem 0;">
@@ -95,9 +95,17 @@
                 </a> :
             </div>
             <ul>
-               <li>where the existing Provincial Court case with the same parties is filed, or</li>               
-               <li>nearest to where your child lives most of the time</li>
-            </ul>           
+               <li>where the existing Provincial Court case with the same parties is filed</li>               
+               <li>nearest to where the child lives most of the time, if the case involves a child-related issue, or</li>
+               <li>nearest to where you live, if the case does not involve a child-related issue.</li>
+            </ul>
+            <div style="margin:0 0 0.5rem 0;">     
+                The registry clerk will review your package to make sure it is complete before filing it. 
+                You will be given a copy for your records.      
+            </div>
+            <div style="margin:0 0 0.5rem 0;">     
+                There are no fees for filing Provincial Court family documents.      
+            </div>           
         </div>
 
 <!-- <Step 3> -->
@@ -109,24 +117,27 @@
                     shiftmark=0
                     style="display:inline; margin:0 0.5rem 0 0; font-weight: 600;" 
                     check="" 
-                    text="Step 3: Serve the Application for Order Prohibiting the Relocation of a Child on each other party"/>               
+                    text="Step 3: Serve the Application About Enforcement on each other party"/>               
             </div>  
 
             <p style="margin:0.5rem 0 0.5rem 0;">
-                Service is the act of giving or leaving documents with the required person. It is important that each 
-                other party know that a case is going on, are aware of what step is being taken, and are given a 
-                chance to tell their side of the story to the court.
+                Service is the act of giving or leaving documents with the required person. It is important 
+                that each other party, and every other person who may be directly affected by the case 
+                management order, know that a case is going on, are aware of what step is being taken, 
+                and are given a chance to tell their side of the story to the court.
             </p>
 
             <p style="margin:0 0 0.5rem 0;">
-                You must serve the other party with at least 7 days' notice of the date and time of the court appearance, 
-                unless the court has ordered something else. This means there must be at least 7 days between the date 
-                the application is served on the other party and the date and time of the court appearance.
+                You must serve the other party and every other person who may be directly affected by 
+                the case management order with at least 7 days’ notice of the date and time of the 
+                court appearance, unless the court has ordered something else. This means there must 
+                be at least 7 days between the date the application document is served on the other 
+                party or person and the date and time of the court appearance.
             </p>
             
             <div style="margin:0 0 0.5rem 0;">
-                An Application for Order Prohibiting the Relocation of a Child must be served to the address of 
-                service of each other party in any of the following ways:
+                An Application About Enforcement must be served to the address of service of each 
+                other party in any of the following ways:
             </div>
             <ul>
                 <li>by leaving the documents at the party’s address for service</li>
@@ -143,15 +154,15 @@
             </ul>
 
             <p>
-                A party's address for service is the address they have provided to the court. A party 
-                who does not have an address for service must be served by leaving a copy of the 
-                documents directly with the person (this is called personal service).
+                A party’s address for service is the address they have provided to the court. 
+                If a party does not have an address for service, the application must be served 
+                by personal service. 
             </p>
 
             <p>
-                Personal service requires that an adult (at least 19 years old) who is not a party 
-                hand deliver the documents to the party to be served.
-            </p>
+                Personal service requires that an adult (at least 19 years old) who is not a 
+                party hand deliver the documents to the party to be served.
+            </p>           
 
             <p>
                 The court may need proof you had the documents personally served. The person serving 
@@ -179,14 +190,12 @@
                     text="Step 4: Attend the Court Appearance"/>               
             </div>  
            
-            <p>
-                A judge can make decisions based only on the information presented by the parties 
-                as evidence. Your evidence includes your appliction, any additional affidavit(s), 
-                and spoken evidence provided in court.
-            </p>
-            
+            <p style="margin:0.5rem 0 0.5rem 0;">
+                A judge can make decisions based only on the information presented by 
+                the parties as evidence. Your evidence includes your application, any 
+                additional affidavits, and spoken evidence provided in court.
+            </p>            
         </div>
-
 
     </div>
 </template>
@@ -201,7 +210,7 @@ import CheckBox from "@/components/utils/PopulateForms/components/CheckBox.vue";
     }
 })
 
-export default class RelocChecklist extends Vue {
+export default class EnfrcChecklist extends Vue {
 
 }
 </script>
