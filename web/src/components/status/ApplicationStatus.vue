@@ -1,101 +1,102 @@
 <template>
-    <b-card border-variant="white" bg-variant="white" :style="{minHeight:getHeight}" id="status">
-        <b-card no-body class="home-content border-white">
-            <div class="alert alert-danger mt-4" v-if="error">{{error}}</div>
-            <b-row>
-                <b-col>
-                    <div class="mt-4" name="info-content-header">
-                        <h1>Previous Activity</h1>
-                        <b-card no-body border-variant="white" bg-variant="white">
-                            <p class=" ml-0 mb-1">
-                                To resume a previous session, click the Resume button next to the activity. 
-                                To start a new session, click the Begin New Session button at the bottom 
-                                of the page.
-                            </p>
-                        </b-card>
+    <b-card no-body border-variant="white" bg-variant="white" :style="{minHeight:getHeight}" id="status">
+        <b-card no-body class="home-content border-white p-0">
+            <!-- <div class="alert alert-danger mt-4" v-if="error">{{error}}</div> -->
+            
+            <div class="pt-5" name="info-content-header">
+                <h1>Previous Activity</h1>
+                <b-card no-body border-variant="white" bg-variant="white">
+                    <p class=" ml-0 mb-1">
+                        To resume a previous session, click the Resume button next to the activity. 
+                        To start a new session, click the Begin New Session button at the bottom 
+                        of the page.
+                    </p>
+                </b-card>
 
-                        <hr class="bg-light" style="height: 2px;"/>
+                <div class="mb-4 border border-gray border-right-0 border-left-0 border-bottom-0">
+                </div>
+            </div>
+            
+            <loading-spinner v-if="!dataLoaded" waitingText="Loading ..." />
+            
+            <div :style="{height:getTableHeight}" v-if="dataLoaded"> 
 
-                        <loading-spinner v-if="!dataLoaded" waitingText="Loading ..." />
-                    </div>
+                <b-card no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
+                        <span class="text-muted ml-4 mb-5">No previous activity.</span>
+                </b-card>
 
-                    <div v-if="dataLoaded"> 
+                <b-card :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
+                    <b-table  :items="previousApplications"
+                        :fields="previousApplicationFields"
+                        class="mx-4"
+                        style="overflow-y: auto;"
+                        sort-by="lastUpdated"
+                        :sort-desc="true"
+                        borderless
+                        sort-icon-left
+                        striped
+                        small  
+                        head-variant="dark"                       
+                        responsive="sm"
+                        sticky-header="600px"
+                        >
+                        <template v-slot:cell(edit)="row">
+                            <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="removeApplication(row.item, row.index)"
+                                v-b-tooltip.hover.noninteractive
+                                title="Delete Application">
+                                <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
+                            </b-button>
 
-                        <b-card :style="{height:getTableHeight}" no-body border-variant="white" bg-variant="white" v-if="!previousApplications.length">
-                                <span class="text-muted ml-4 mb-5">No previous activity.</span>
-                        </b-card>
+                            <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="resumeApplication(row.item.id)"
+                                v-b-tooltip.hover.noninteractive
+                                title="Resume Application">
+                                <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
+                            </b-button>                                
 
-                        <b-card :style="{height:getTableHeight}" v-else no-body border-variant="light" bg-variant="white" >
-                            <b-table  :items="previousApplications"
-                                :fields="previousApplicationFields"
-                                class="mx-4"
-                                style="overflow-y: scroll;"
-                                sort-by="lastUpdated"
-                                :sort-desc="true"
-                                borderless
-                                sort-icon-left
-                                striped
-                                small 
-                                responsive="sm"
-                                >
-                                <template v-slot:cell(edit)="row">
-                                    <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
-                                        @click="removeApplication(row.item, row.index)"
-                                        v-b-tooltip.hover.noninteractive
-                                        title="Delete Application">
-                                        <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
-                                    </b-button>
+                            <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
+                                v-b-tooltip.hover.noninteractive
+                                title="View the Submitted Application">
+                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
+                            </b-button>
 
-                                    <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
-                                        @click="resumeApplication(row.item.id)"
-                                        v-b-tooltip.hover.noninteractive
-                                        title="Resume Application">
-                                        <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
-                                    </b-button>                                
-
-                                    <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                        @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                        v-b-tooltip.hover.noninteractive
-                                        title="View the Submitted Application">
-                                        <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
-                                    </b-button>
-
-                                    <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
-                                        @click="navigateToEFilingHub(row.item.last_efiling_submission)"
-                                        v-b-tooltip.hover.noninteractive
-                                        title="Navigate To Submitted Application">
-                                        <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
-                                    </b-button>
-                                    <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
-                                        @click="viewInstructions(row.item.id, row.item.app_type)"
-                                        v-b-tooltip.hover.noninteractive
-                                        title="View Instructions">
-                                        <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
-                                    </b-button>
-                                    
-                                </template>
-                                <template v-slot:cell(app_type)="row">                  
-                                    <ul style="list-style-type: '-  '; padding-inline-start: 20px;" :class="row.item.lastFiled?'text-success':''">
-                                        <li  v-for="(appType,inx) in row.item.app_type" :key="inx">{{appType}}</li>
-                                    </ul>
-                                    <span v-if="row.item.app_type.length==0">New application</span>
-                                </template>
-                                <template v-slot:cell(lastUpdated)="row">                  
-                                    <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
-                                </template>
-                                <template v-slot:cell(lastFiled)="row">                  
-                                    <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
-                                </template>
-                            </b-table>
-                        </b-card>
-                    </div>                 
-                </b-col>
-            </b-row>
+                            <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="navigateToEFilingHub(row.item.last_efiling_submission)"
+                                v-b-tooltip.hover.noninteractive
+                                title="Navigate To Submitted Application">
+                                <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
+                            </b-button>
+                            <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
+                                @click="viewInstructions(row.item.id, row.item.app_type)"
+                                v-b-tooltip.hover.noninteractive
+                                title="View Instructions">
+                                <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
+                            </b-button>
+                            
+                        </template>
+                        <template v-slot:cell(app_type)="row">                  
+                            <ul style="list-style-type: '-  '; padding-inline-start: 20px; margin:0" :class="row.item.lastFiled?'text-success':''">
+                                <li  v-for="(appType,inx) in row.item.app_type" :key="inx">{{appType}}</li>
+                            </ul>
+                            <span style="padding-inline-start: 7px; margin:0" v-if="row.item.app_type.length==0"><span class="mr-1" >-</span> New Application</span>
+                        </template>
+                        <template v-slot:cell(lastUpdated)="row">                  
+                            <span>{{ row.item.lastUpdatedDate | beautify-date-weekday}}</span>
+                        </template>
+                        <template v-slot:cell(lastFiled)="row">                  
+                            <b-badge variant="success" >{{ row.item.lastFiledDate | beautify-date-weekday}}</b-badge>
+                        </template>
+                    </b-table>
+                </b-card>
+            </div>                 
+              
         </b-card>
 
         <b-card name="button-menu" class="button-content" border-variant="white" bg-variant="white">                        
             <b-row>
-                <b-col cols="10">
+                <b-col class="m-0 p-0" cols="9">
                     <b-button 
                         variant="success" 
                         size="lg"
@@ -103,15 +104,14 @@
                         @click="beginApplication()"
                     >Begin NEW Session</b-button>
                 </b-col>
-                <b-col cols="2">                   
-                    <div class="my-2">
+                <b-col class="m-0 p-0" cols="3">                   
+                    <div class="my-2 ml-5">
                         <a class="terms" @click="openTerms()">
-                            <u>Terms and Conditions</u>
+                            <u style="cursor:pointer" >Terms and Conditions</u>
                         </a>
                     </div>
                 </b-col>
-            </b-row>
-           
+            </b-row>           
         </b-card>
 
         <b-modal v-model="confirmDelete" id="bv-modal-confirm-delete" header-class="bg-warning text-light">
@@ -139,7 +139,6 @@
                 >&times;</b-button>
             </template>
         </b-modal>
-
 
         <b-modal v-model="showSelectFileForPrint" id="bv-modal-select-pdf" header-class="bg-info">                        
             <template v-slot:modal-title>
@@ -246,11 +245,11 @@ export default class ApplicationStatus extends Vue {
 
     previousApplications = []
     previousApplicationFields = [
-        { key: 'app_type', label: 'Activity Type', sortable:true, tdClass: 'border-top'},
-        { key: 'lastUpdated', label: 'Last Updated', sortable:true, tdClass: 'border-top'},
-        { key: 'lastFiled', label: 'Filed Date', sortable:true, tdClass: 'border-top'},
-        { key: 'packageNum', label: 'CSO Package#', sortable:false, tdClass: 'border-top'},
-        { key: 'edit', thClass: 'd-none', sortable:false, tdClass: 'border-top'}
+        { key: 'app_type',    label: 'Activity Type', sortable:true,  tdClass: 'border-top', thStyle:'width:47%;'},
+        { key: 'lastUpdated', label: 'Last Updated',  sortable:true,  tdClass: 'border-top'},
+        { key: 'lastFiled',   label: 'Filed Date',    sortable:true,  tdClass: 'border-top'},
+        { key: 'packageNum',  label: 'CSO Package#',  sortable:false, tdClass: 'border-top'},
+        { key: 'edit',        label: '',              sortable:false, tdClass: 'border-top'}
     ]
     confirmDelete = false;
     currentApplication = {} as applicationInfoType;
@@ -281,11 +280,12 @@ export default class ApplicationStatus extends Vue {
 
     mounted() { 
         this.showDisclaimer = false;
-        window.addEventListener('resize', this.getWindowHeight);
-        this.getWindowHeight();       
+        window.addEventListener('resize', this.getWindowHeight);               
         this.loadDocumentTypes();
         this.extractFilingLocations();
         this.loadApplications();
+        this.getWindowHeight();
+
     }
 
     public getWindowHeight() {
@@ -294,6 +294,12 @@ export default class ApplicationStatus extends Vue {
         this.headerHeight = (document.getElementsByName("navigation-topbar")[0] as HTMLElement)?.clientHeight;
         this.buttonMenuHeight = (document.getElementsByName("button-menu")[0] as HTMLElement)?.clientHeight;
         this.infoContentHeaderHeight = (document.getElementsByName("info-content-header")[0] as HTMLElement)?.clientHeight;
+        console.log(this.windowHeight)
+        console.log(this.headerHeight)
+        console.log(this.footerHeight)
+        console.log(this.buttonMenuHeight)
+        console.log(this.infoContentHeaderHeight)
+
     }
 
     get getHeight() {        
@@ -553,7 +559,7 @@ export default class ApplicationStatus extends Vue {
     .home-content {
         padding-bottom: 20px;
         padding-top: 0rem;
-        width: 90%;
+        width: 80%;
         color: black;
         margin: 0 auto;
     }
