@@ -67,7 +67,10 @@ export interface stepInfoType {
   export interface resultInfoType{
 
     //______Step 0 GettingStarted
+    selectedActivity?: string[];
+    selectedReplyApplications?: string[];
     selectedForms?: string[];
+    selectedReplyForms?: string[];
     pathwayCompleted?: pathwayCompletedInfoType;
     applicantName?: nameInfoType;
     respondentsCommon?: nameInfoType[];
@@ -195,7 +198,10 @@ export interface stepInfoType {
   }
 
   export interface pathwayCompletedInfoType { 
-    protectionOrder?: boolean; 
+    protectionOrder?: boolean;
+    replyFlm?: boolean;
+    writtenResponse?: boolean;
+    replyCounterApplication?: boolean;    
     familyLawMatter?: boolean;
     caseMgmt?: boolean; 
     priorityParenting?: boolean; 
