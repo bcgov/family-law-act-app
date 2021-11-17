@@ -7,13 +7,17 @@
             <step-protection-order v-if="getCurrentStepIndex() == 1" v-bind:step="getStep(1)"></step-protection-order>
             <common-information-step v-if="getCurrentStepIndex() == 2" v-bind:step="getStep(2)"></common-information-step>
             
-            <family-law-step v-if="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></family-law-step>
-            <case-management-step v-if="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></case-management-step>
-            <parenting-priority-step v-if="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></parenting-priority-step>
-            <child-relocation-step v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></child-relocation-step>
-            <enforcement-agree-step v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></enforcement-agree-step>
+            <reply-family-law-step v-if="getCurrentStepIndex() == 3" v-bind:step="getStep(3)"></reply-family-law-step>
+            <written-response-step v-if="getCurrentStepIndex() == 4" v-bind:step="getStep(4)"></written-response-step>
+            <counter-application-step v-if="getCurrentStepIndex() == 5" v-bind:step="getStep(5)"></counter-application-step>
+
+            <family-law-step v-if="getCurrentStepIndex() == 6" v-bind:step="getStep(6)"></family-law-step>
+            <case-management-step v-if="getCurrentStepIndex() == 7" v-bind:step="getStep(7)"></case-management-step>
+            <parenting-priority-step v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></parenting-priority-step>
+            <child-relocation-step v-if="getCurrentStepIndex() == 9" v-bind:step="getStep(9)"></child-relocation-step>
+            <enforcement-agree-step v-if="getCurrentStepIndex() == 10" v-bind:step="getStep(10)"></enforcement-agree-step>
         
-            <step-submit v-if="getCurrentStepIndex() == 8" v-bind:step="getStep(8)"></step-submit>
+            <step-submit v-if="getCurrentStepIndex() == 11" v-bind:step="getStep(11)"></step-submit>
     
         </main>
     </div>
@@ -24,6 +28,9 @@ import { Component, Vue} from 'vue-property-decorator';
 import NavigationSidebar from "./NavigationSidebar.vue";
 
 import GetStartedStep from "./steps/get-started/GetStartedStep.vue";
+import ReplyFamilyLawStep from "./steps/replyFamilyLawMatter/ReplyFamilyLawStep.vue";
+import WrittenResponseStep from "./steps/writtenResponse/WrittenResponseStep.vue";
+import CounterApplicationStep from "./steps/counterApplication/CounterApplicationStep.vue";
 import CommonInformationStep from "./steps/common-information/CommonInformationStep.vue";
 import StepProtectionOrder from "./steps/protectionOrder/StepProtectionOrder.vue";
 import FamilyLawStep from "./steps/familyLawMatter/FamilyLawStep.vue";
@@ -33,7 +40,7 @@ import ChildRelocationStep from "./steps/childReloc/ChildRelocationStep.vue";
 import EnforcementAgreeStep from "./steps/agreementEnfrc/EnforcementAgreeStep.vue";
 import StepSubmit from "./steps/submit/StepSubmit.vue";
 
-import * as surveyEnv from "@/components/survey/survey-glossary"
+import * as surveyEnv from "@/components/survey/survey-glossary";
 
 @Component({
     components: {
@@ -46,7 +53,10 @@ import * as surveyEnv from "@/components/survey/survey-glossary"
         CaseManagementStep,
         ChildRelocationStep,
         EnforcementAgreeStep,
-        GetStartedStep
+        GetStartedStep,
+        ReplyFamilyLawStep,
+        WrittenResponseStep,
+        CounterApplicationStep
     }
 })
 
