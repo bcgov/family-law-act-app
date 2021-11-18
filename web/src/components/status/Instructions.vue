@@ -123,7 +123,7 @@ import AttendCourtAppearanceInstructions from "./postFilingSteps/AttendCourtAppe
 import ArrangeForServiceCmPpmRelocEnfrcInstructions from "./postFilingSteps/ArrangeForServiceCmPpmRelocEnfrcInstructions.vue"
 import WaitForJudgeToReview from "./postFilingSteps/WaitForJudgeToReview.vue"
 import ServeCopyOfOrderOnOtherParty from "./postFilingSteps/ServeCopyOfOrderOnOtherParty.vue"
-import {whichCaseMgmtForm} from "../steps/caseMgmt/reviewCM/RequiredForm"
+import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredForm"
 
 @Component({
     components:{        
@@ -193,9 +193,6 @@ export default class Instructions extends Vue {
             const stepPO = this.getStepResultByName(applicationData, 'PO');
             const stepCOMM = this.getStepResultByName(applicationData, 'COMMON');
             const stepCM = this.getStepResultByName(applicationData, 'CM');
-
-            
-            
 
             if (stepGETSTART?.selectedForms){
                 this.listOfselectedForms = stepGETSTART.selectedForms;

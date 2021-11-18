@@ -196,6 +196,9 @@ import Tooltip from "@/components/survey/Tooltip.vue";
 import LegalAssistanceFaq from "@/components/utils/LegalAssistanceFaq.vue";
 import Checklists from "./checklists/Checklists.vue";
 
+import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredForm"
+import {whichAgreementEnfrcForm} from '@/components/steps/agreementEnfrc/reviewAE/RequiredFormEnfrc'
+
 @Component({
     components:{        
         Tooltip,
@@ -299,6 +302,9 @@ export default class ResultPage extends Vue {
             const applicationData = response.data;
             const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
             const stepCOMM = this.getStepResultByName(applicationData, 'COMMON');
+            const stepCM = this.getStepResultByName(applicationData, 'CM');
+            const stepENFRC = this.getStepResultByName(applicationData, 'ENFRC');
+
             let pathways: string[] = [];
 
             if (stepGETSTART?.selectedForms){
@@ -337,18 +343,18 @@ export default class ResultPage extends Vue {
                 }
             }
 
-            //TODO: add functionality to determine CM and Enfrc pdf types
-
             if (includesCm){
-                this.applicationDocumentTypes.push('ACMO');
-                this.applicationDocumentTypes.push('ACMW');
+                const CMforms = whichCaseMgmtForm(stepCM);
+                if(CMforms?.includes("P10")) this.applicationDocumentTypes.push('ACMO');
+                if(CMforms?.includes("P11")) this.applicationDocumentTypes.push('ACMW');
             }
 
             if (includesEnfrc){
-                this.applicationDocumentTypes.push('AFET');
-                this.applicationDocumentTypes.push('RFA');
-                this.applicationDocumentTypes.push('RDET');
-                this.applicationDocumentTypes.push('RORD');
+                const EnfrcForm = whichAgreementEnfrcForm(stepENFRC);
+                if(EnfrcForm?.includes('P29')) this.applicationDocumentTypes.push('AFET');
+                if(EnfrcForm?.includes('P26')) this.applicationDocumentTypes.push('RFA');
+                if(EnfrcForm?.includes('P27')) this.applicationDocumentTypes.push('RDET');
+                if(EnfrcForm?.includes('P28')) this.applicationDocumentTypes.push('RORD');
             }            
 
             this.mountedData = true;
