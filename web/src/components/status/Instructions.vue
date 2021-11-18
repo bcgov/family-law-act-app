@@ -51,14 +51,50 @@
                 v-bind:instructionsStep="instructionsStepArray[6]"  
             />
 
-            <proof-of-service-instructions
+            <arrange-for-service-cm-ppm-reloc-enfrc-instructions
                 v-if="conditionArray[7]"
-                v-bind:instructionsStep="instructionsStepArray[7]"  
+                v-bind:instructionsStep="instructionsStepArray[7]"
+                applicationName="for Case Management Order"
+            />
+
+            <wait-for-judge-to-review
+                v-if="conditionArray[8]"
+                v-bind:instructionsStep="instructionsStepArray[8]"  
+            />
+
+            <serve-copy-of-order-on-other-party
+                v-if="conditionArray[9]"
+                v-bind:instructionsStep="instructionsStepArray[9]"  
+            />
+
+            <arrange-for-service-cm-ppm-reloc-enfrc-instructions
+                v-if="conditionArray[10]"
+                v-bind:instructionsStep="instructionsStepArray[10]"
+                applicationName="about Priority Parenting Matter"
+            />
+
+            <arrange-for-service-cm-ppm-reloc-enfrc-instructions
+                v-if="conditionArray[11]"
+                v-bind:instructionsStep="instructionsStepArray[11]"
+                applicationName="for Order Prohibiting the Relocation of a Child"
+            />
+
+            <arrange-for-service-cm-ppm-reloc-enfrc-instructions
+                v-if="conditionArray[12]"
+                v-bind:instructionsStep="instructionsStepArray[12]"
+                applicationName="about Enforcement"  
+            />
+
+
+            <proof-of-service-instructions
+                v-if="conditionArray[13]"
+                v-bind:instructionsStep="instructionsStepArray[13]"  
                 v-bind:applicationId="applicationId"/>
             
             <attend-court-appearance-instructions
-                v-if="conditionArray[8]"
-                v-bind:instructionsStep="instructionsStepArray[8]"  
+                v-if="conditionArray[14]"
+                v-bind:instructionsStep="instructionsStepArray[14]"
+                :byConsent="applicationByConsent"  
             />
         
         </b-card>
@@ -84,6 +120,11 @@ import ReviewStampedDocumentPoInstructions from "./postFilingSteps/ReviewStamped
 import CompleteProvideForRegistryPoInstructions from "./postFilingSteps/CompleteProvideForRegistryPoInstructions.vue";
 import AttendCourtAppearanceInstructions from "./postFilingSteps/AttendCourtAppearanceInstructions.vue";
 
+import ArrangeForServiceCmPpmRelocEnfrcInstructions from "./postFilingSteps/ArrangeForServiceCmPpmRelocEnfrcInstructions.vue"
+import WaitForJudgeToReview from "./postFilingSteps/WaitForJudgeToReview.vue"
+import ServeCopyOfOrderOnOtherParty from "./postFilingSteps/ServeCopyOfOrderOnOtherParty.vue"
+import {whichCaseMgmtForm} from "@/components/steps/caseMgmt/reviewCM/RequiredForm"
+
 @Component({
     components:{        
         ArrangeForServiceFlmInstructions,
@@ -94,7 +135,10 @@ import AttendCourtAppearanceInstructions from "./postFilingSteps/AttendCourtAppe
         CompleteProvideForRegistryPoInstructions,
         AttendCourtAppearanceInstructions,
         GiveFiledCopyOfNoticeErpInstructions,
-        CompleteEarlyResolutionProcessErpInstructions
+        CompleteEarlyResolutionProcessErpInstructions,
+        ArrangeForServiceCmPpmRelocEnfrcInstructions,
+        WaitForJudgeToReview,
+        ServeCopyOfOrderOnOtherParty
     }
 })
 export default class Instructions extends Vue {
@@ -117,6 +161,14 @@ export default class Instructions extends Vue {
     includeParentingAfterSeparationStep = false;
     includesFlm = false;
     includesPo = false;
+    includesPpm = false;
+    includesCm = false;
+    includesReloc = false;
+    includesEnfrc = false;
+    includeCmWithoutNotice = false;
+    includeCmWithNotice = false;
+    applicationByConsent = false;
+
     error = ''
 
     mounted(){
@@ -140,6 +192,7 @@ export default class Instructions extends Vue {
             const stepGETSTART = this.getStepResultByName(applicationData, 'GETSTART');
             const stepPO = this.getStepResultByName(applicationData, 'PO');
             const stepCOMM = this.getStepResultByName(applicationData, 'COMMON');
+            const stepCM = this.getStepResultByName(applicationData, 'CM');
 
             if (stepGETSTART?.selectedForms){
                 this.listOfselectedForms = stepGETSTART.selectedForms;
@@ -147,6 +200,10 @@ export default class Instructions extends Vue {
 
             this.includesFlm = this.listOfselectedForms.includes('familyLawMatter'); 
             this.includesPo = this.listOfselectedForms.includes('protectionOrder');
+            this.includesPpm = this.listOfselectedForms.includes('priorityParenting'); 
+            this.includesCm = this.listOfselectedForms.includes('caseMgmt');
+            this.includesReloc = this.listOfselectedForms.includes('childReloc'); 
+            this.includesEnfrc = this.listOfselectedForms.includes('agreementEnfrc');
             
             if(this.includesPo && stepPO?.urgencySurvey?.data?.PORNoNotice ){
                 this.urgentPO = stepPO.urgencySurvey.data.PORNoNotice == "y";
@@ -173,20 +230,37 @@ export default class Instructions extends Vue {
                 );
 
 
-            //______TEMPORARY Check_________
-            //______________________________
-            // this.includeParentingAfterSeparationStep = true;
-            // this.includesFlm = true 
-            // this.earlyResolution = true
+            // //______TEMPORARY Check_________
+            // //______________________________
+            // this.includeParentingAfterSeparationStep = false;
+            // this.includesFlm = false 
+            // this.earlyResolution = false
             // this.includesPo = false
             // this.urgentPO = false
 
-            // console.log("_new set__")
-            // console.log(this.includeParentingAfterSeparationStep);
-            // console.log(this.includesFlm); 
-            // console.log(this.earlyResolution);
-            // console.log(this.includesPo);
-            // console.log(this.urgentPO);
+            // this.includesCm = true
+            // this.includeCmWithoutNotice = true;
+            // this.includesPpm = true
+            // this.includesReloc = true
+            // this.includesEnfrc = false 
+
+            // console.error("_new set__")
+            // console.log('Separation',this.includeParentingAfterSeparationStep);
+            // console.log('FLM',this.includesFlm); 
+            // console.log('earlyResolu',this.earlyResolution);
+            // console.log('PO',this.includesPo);
+            // console.log('urgentPO',this.urgentPO);
+
+            // console.log('PPM',this.includesPpm)
+            // console.log('CM',this.includesCm)
+            // console.log('CMwithout',this.includeCmWithoutNotice)
+            // console.log('RELOC',this.includesReloc)
+            // console.log('ENFRC',this.includesEnfrc)
+            // //______________________________ 
+            const CMforms = whichCaseMgmtForm(stepCM);
+            this.includeCmWithNotice = CMforms?.includes("P10");
+            this.includeCmWithoutNotice = CMforms?.includes("P11");
+            this.applicationByConsent = this.includesCm && this.includeCmWithNotice;
 
             this.getConditionsSteps();
             Vue.nextTick(()=> this.dataReady = true);
@@ -225,15 +299,49 @@ export default class Instructions extends Vue {
 
         //complete-provide-for-registry-po-instructions 
         this.conditionArray[6] = this.includesPo && this.urgentPO;
-        this.instructionsStepArray[6] = 0;
+        this.instructionsStepArray[6] = 0;        
+
+        //arrange-for-service-cm-instructions
+        this.conditionArray[7] = this.includesCm && this.includeCmWithNotice;
+        this.instructionsStepArray[7] = 0;
+
+        //arrange-for-service-cm-without-notice-instructions
+        //wait-for-judge-to-review
+            this.conditionArray[8] = this.includesCm && this.includeCmWithoutNotice;
+            this.instructionsStepArray[8] = 0;
+        //serve-copy-of-order-on-other-party
+            this.conditionArray[9] = this.includesCm && this.includeCmWithoutNotice;
+            this.instructionsStepArray[9] = 0;
+
+        //arrange-for-service-ppm-instructions
+        this.conditionArray[10] = this.includesPpm ;
+        this.instructionsStepArray[10] = 0;
+
+        //arrange-for-service-reloc-instructions
+        this.conditionArray[11] = this.includesReloc ;
+        this.instructionsStepArray[11] = 0;
+
+        //arrange-for-service-enfrc-instructions
+        this.conditionArray[12] = this.includesEnfrc ;
+        this.instructionsStepArray[12] = 0;
 
         //proof-of-service-instructions
-        this.conditionArray[7] = (this.includesFlm && !this.includesPo) || (this.includesPo && !this.urgentPO);
-        this.instructionsStepArray[7] = 0;
+        this.conditionArray[13] =   (this.includesFlm && !this.includesPo) || 
+                                    (this.includesPo && !this.urgentPO)    ||
+                                    (this.includesCm && this.includeCmWithNotice) ||
+                                    this.includesPpm ||
+                                    this.includesReloc ||
+                                    this.includesEnfrc;
+                                    
+        this.instructionsStepArray[13] = 0;
         
         //attend-court-appearance-instructions
-        this.conditionArray[8] = this.includesPo 
-        this.instructionsStepArray[8] = 0;
+        this.conditionArray[14] = this.includesPo ||
+                                 (this.includesCm && this.includeCmWithNotice) ||
+                                  this.includesPpm ||
+                                  this.includesReloc ||
+                                  this.includesEnfrc;  
+        this.instructionsStepArray[14] = 0;
         
         let stepNum = 1;
         for(let i =0; i<this.conditionArray.length; i++){

@@ -147,7 +147,6 @@ export default class SelectActivity extends Vue {
         togglePages([this.stPgNo.GETSTART.GettingStarted], this.selectedActivity.includes('applyForOrder'), this.stPgNo.GETSTART._StepNo);
         togglePages([this.stPgNo.GETSTART.ReplyToApplication], this.selectedActivity.includes('replyToApplication'), this.stPgNo.GETSTART._StepNo);
         this.disableNextButton = !(this.selectedActivity.length > 0)
-        //TODO: Add functionality to handle already started steps and application types
 
         toggleAllSteps([this.stPgNo.GETSTART._StepNo], false);
         incompleteProgressOfAllPages()
