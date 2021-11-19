@@ -214,7 +214,7 @@ const commonState = namespace("Common");
 import "@/store/modules/application";
 import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
-
+import {GetFilingLocations} from './GetFilingLocations'
 import {RestoreCommonStep} from './RestoreCommonStep'
 import {MigrateStore} from './MigrateStore'
 import Instructions from './Instructions.vue';
@@ -251,6 +251,7 @@ export default class ApplicationStatus extends Vue {
         { key: 'packageNum',  label: 'CSO Package#',  sortable:false, tdClass: 'border-top'},
         { key: 'edit',        label: '',              sortable:false, tdClass: 'border-top'}
     ]
+
     confirmDelete = false;
     currentApplication = {} as applicationInfoType;
     applicationToDelete = {} as applicationJsonInfoType
@@ -268,15 +269,6 @@ export default class ApplicationStatus extends Vue {
     instructionsApplicationId = 0;
     applicationTypes: string[] = [];
     showInstructions =  false;
-
-    
-    //___________________________
-    //___________________________
-    //___________________________NEW VERSION goes here _________________
-    CURRENT_VERSION: string = "1.2.2.0";
-    //__________________________
-    //___________________________
-    //___________________________
 
     mounted() { 
         this.showDisclaimer = false;
@@ -343,7 +335,7 @@ export default class ApplicationStatus extends Vue {
 
     public beginApplication() {   
 
-        this.$store.dispatch("Application/UpdateInit", this.CURRENT_VERSION);
+        this.$store.dispatch("Application/UpdateInit", Vue.filter('get-current-version')());
         const userId = store.state.Common.userId;
         store.commit("Application/setUserId", userId);
 
@@ -390,7 +382,7 @@ export default class ApplicationStatus extends Vue {
             const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
             const storeMigrationFn = new MigrateStore()           
-            this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
+            this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, Vue.filter('get-current-version')())
 
             const comStepFn = new RestoreCommonStep()
             comStepFn.restore(this.currentApplication)
@@ -512,31 +504,7 @@ export default class ApplicationStatus extends Vue {
     }
 
     public extractFilingLocations() {
-        this.$http.get('/efiling/locations/')
-        .then((response) => {
-            const locationsInfo = response.data 
-            const locationNames = Object.keys(response.data);
-            const locations = []
-            for (const location of locationNames){
-                const locationInfo = locationsInfo[location];              
-                
-                const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
-                                (locationInfo.address_2?(', ' + locationInfo.address_2):'') + 
-                                (locationInfo.address_3?(', ' + locationInfo.address_3):'') +
-                                (((locationInfo.address_1 && locationInfo.address_1.trim()) || (locationInfo.address_2 && locationInfo.address_2.trim()) || (locationInfo.address_3 && locationInfo.address_3.trim()))?', ':'') +                               
-                                (locationInfo.city?(locationInfo.city):'') +
-                                (locationInfo.province?(', ' + locationInfo.province):'');
-                const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-               
-                const email = (locationInfo.email?(locationInfo.email):'');
-                const filingLocation = (locationInfo.in_person_filing_location_code?(locationInfo.in_person_filing_location_code):'');
-                locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:email, filingLocation: filingLocation});
-            }
-
-            this.UpdateLocationsInfo(locations); 
-        
-        },(err) => console.log(err));
-        
+        GetFilingLocations();       
     }
 
     beforeCreate() {
