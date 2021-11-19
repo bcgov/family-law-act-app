@@ -34,10 +34,19 @@
             </ul>
                    
             <b-row style="margin-top:4rem;">
-                <b-button style="width:12rem; margin-left:1rem;" v-on:click="viewStatus()" variant="primary">Back to the Application Page</b-button>
-                <b-button style="width:12rem; margin-left:auto;margin-right:1rem;" v-on:click="resubmitApplication()" variant="warning">Retry Submission</b-button>
+                <b-button style="width:12rem; margin-left:1rem;" 
+                    v-on:click="viewStatus()" 
+                    variant="primary">
+                        Back to the Application Page
+                </b-button>
+                <b-button 
+                    style="width:12rem; margin-left:auto;margin-right:1rem;" 
+                    v-on:click="resubmitApplication()" 
+                    variant="warning" 
+                    :disabled="disableResumeApplication">
+                        Retry Submission
+                </b-button>
             </b-row>
-
     </b-card>  
 </template>
 
@@ -63,6 +72,13 @@ export default class UnsuccessPage extends Vue {
     @applicationState.Action
     public checkAllCompleted! :() => void
 
+    disableResumeApplication = true;
+
+    mounted(){
+        this.disableResumeApplication = true;
+        this.getApplicationEfilingStatus()
+    }
+
     public viewStatus() {
         this.$router.push({ name: "applicant-status" });
     }
@@ -70,7 +86,7 @@ export default class UnsuccessPage extends Vue {
     public resubmitApplication() {
         if(this.packageInfo.fileNumber)
             this.resumeApplication(this.packageInfo.fileNumber)
-    }
+    }    
 
     public async resumeApplication(applicationId) { 
 
@@ -95,7 +111,26 @@ export default class UnsuccessPage extends Vue {
         }, err => {
             console.log(err)        
         });
-    }   
+    } 
+    
+    public getApplicationEfilingStatus() {
+   
+        this.$http.get('/app-list/')
+        .then((response) => {
+            
+            for (const appJson of response.data) {
+                const lastFiled = appJson.last_filed
+                const id = appJson.id;
+                if(this.packageInfo.fileNumber == id && !lastFiled){
+                    this.disableResumeApplication = false;
+                    break;
+                }
+            }
+                   
+        },(err) => {
+               console.log(err)    
+        });
+    }
 
 
 }

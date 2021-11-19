@@ -25,7 +25,7 @@
                         <span class="text-muted ml-4 mb-5">No previous activity.</span>
                 </b-card>
 
-                <b-card :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
+                <b-card :key="tableUpdated" :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
                     <b-table  :items="previousApplications"
                         :fields="previousApplicationFields"
                         class="mx-4"
@@ -43,7 +43,7 @@
                         <template v-slot:cell(edit)="row">
                             <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="removeApplication(row.item, row.index)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.noninteractive.v-danger
                                 title="Delete Application">
                                 <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                             </b-button>
@@ -57,20 +57,20 @@
 
                             <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                v-b-tooltip.hover.noninteractive
-                                title="View the Submitted Application">
+                                v-b-tooltip.hover.noninteractive.left.v-success
+                                title="View/Download the Submitted Application">
                                 <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
                             </b-button>
 
                             <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="navigateToEFilingHub(row.item.last_efiling_submission)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.noninteractive.left.v-info
                                 title="Navigate To Submitted Application">
                                 <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                             </b-button>
                             <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewInstructions(row.item.id, row.item.app_type)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.noninteractive.bottom
                                 title="View Instructions">
                                 <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
                             </b-button>
@@ -242,6 +242,7 @@ export default class ApplicationStatus extends Vue {
     headerHeight = 0;
     buttonMenuHeight = 0;
     infoContentHeaderHeight = 0;
+    tableUpdated = 0;
 
     previousApplications = []
     previousApplicationFields = [
@@ -413,7 +414,10 @@ export default class ApplicationStatus extends Vue {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
             var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
-            if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
+            if(indexToDelete>=0){
+                this.previousApplications.splice(indexToDelete, 1);  
+                this.tableUpdated++;
+            }
             
         },err => {
             const errMsg = err.response.data.error;
