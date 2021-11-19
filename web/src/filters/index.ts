@@ -10,6 +10,20 @@ import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
 import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
 
+
+
+Vue.filter('get-current-version', function(){	
+	//___________________________
+    //___________________________
+    //___________________________NEW VERSION goes here _________________
+    const CURRENT_VERSION: string = "1.2.2.0";
+    //__________________________
+    //___________________________
+    //___________________________
+	return CURRENT_VERSION
+})
+
+
 Vue.filter('truncate-word-after', function (text: string, stop: number) {
 	if(text){
 		return (stop < text.length) ? text.slice(0, text.indexOf(' ',stop)) : text

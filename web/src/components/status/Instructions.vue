@@ -257,7 +257,8 @@ export default class Instructions extends Vue {
             // console.log('RELOC',this.includesReloc)
             // console.log('ENFRC',this.includesEnfrc)
             // //______________________________ 
-            const CMforms = whichCaseMgmtForm(stepCM);
+            
+            const CMforms =  this.includesCm && stepCM? whichCaseMgmtForm(stepCM) : [];
             this.includeCmWithNotice = CMforms?.includes("P10");
             this.includeCmWithoutNotice = CMforms?.includes("P11");
             this.applicationByConsent = this.includesCm && this.includeCmWithNotice;
