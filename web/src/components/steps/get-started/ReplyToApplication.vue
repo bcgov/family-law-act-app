@@ -7,7 +7,7 @@
                     <p>
                         Please select each application you have been <tooltip title="served" index="0" /> with and want to file 
                         a reply to. You can find the name of the form and form number on the top 
-                        right corner of the first page.
+                        left corner of the first page.
                     </p>
                 </div>
                 <!-- <div>
