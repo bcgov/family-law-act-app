@@ -208,7 +208,7 @@ export default class ReplyToApplication extends Vue {
         
         let applicationTypes = []; 
 
-        if (this.steps[0].result?.selectedForms) {
+        if (this.steps[0].result?.selectedActivity?.includes('applyForOrder') && this.steps[0].result?.selectedForms) {
             for (const form of this.steps[0].result?.selectedForms){                    
                 applicationTypes.push(this.getApplicationType(form));
             }
