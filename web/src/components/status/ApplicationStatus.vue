@@ -25,7 +25,7 @@
                         <span class="text-muted ml-4 mb-5">No previous activity.</span>
                 </b-card>
 
-                <b-card :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
+                <b-card :key="tableUpdated" :style="{height:getTableHeight}" v-else no-body border-variant="white" bg-variant="white" >
                     <b-table  :items="previousApplications"
                         :fields="previousApplicationFields"
                         class="mx-4"
@@ -43,34 +43,34 @@
                         <template v-slot:cell(edit)="row">
                             <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="removeApplication(row.item, row.index)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.noninteractive.left.v-danger
                                 title="Delete Application">
                                 <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                             </b-button>
 
                             <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="resumeApplication(row.item.id)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.bottom.noninteractive
                                 title="Resume Application">
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                             </b-button>                                
 
                             <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewApplicationPdf(row.item.id, row.item.listOfPdfs)"
-                                v-b-tooltip.hover.noninteractive
-                                title="View the Submitted Application">
+                                v-b-tooltip.hover.noninteractive.left.v-success
+                                title="View/Download the Submitted Application">
                                 <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="far fa-file-pdf btn-icon-left text-primary"/>                    
                             </b-button>
 
                             <b-button v-if="row.item.lastFiled != 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="navigateToEFilingHub(row.item.last_efiling_submission)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.noninteractive.left.v-info
                                 title="Navigate To Submitted Application">
                                 <span class="fa fa-paper-plane btn-icon-left text-info"/>                    
                             </b-button>
                             <b-button v-if="(row.item.lastFiled != 0)" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="viewInstructions(row.item.id, row.item.app_type)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.noninteractive.bottom
                                 title="View Instructions">
                                 <span style="font-size:18px; padding:0; transform:translate(3px,1px);" class="fas fa-tasks btn-icon-left text-dark"/>                    
                             </b-button>
@@ -214,7 +214,7 @@ const commonState = namespace("Common");
 import "@/store/modules/application";
 import { documentTypesJsonInfoType, applicationJsonInfoType } from '@/types/Common';
 const applicationState = namespace("Application");
-
+import {GetFilingLocations} from './GetFilingLocations'
 import {RestoreCommonStep} from './RestoreCommonStep'
 import {MigrateStore} from './MigrateStore'
 import Instructions from './Instructions.vue';
@@ -242,6 +242,7 @@ export default class ApplicationStatus extends Vue {
     headerHeight = 0;
     buttonMenuHeight = 0;
     infoContentHeaderHeight = 0;
+    tableUpdated = 0;
 
     previousApplications = []
     previousApplicationFields = [
@@ -251,6 +252,7 @@ export default class ApplicationStatus extends Vue {
         { key: 'packageNum',  label: 'CSO Package#',  sortable:false, tdClass: 'border-top'},
         { key: 'edit',        label: '',              sortable:false, tdClass: 'border-top'}
     ]
+
     confirmDelete = false;
     currentApplication = {} as applicationInfoType;
     applicationToDelete = {} as applicationJsonInfoType
@@ -268,15 +270,6 @@ export default class ApplicationStatus extends Vue {
     instructionsApplicationId = 0;
     applicationTypes: string[] = [];
     showInstructions =  false;
-
-    
-    //___________________________
-    //___________________________
-    //___________________________NEW VERSION goes here _________________
-    CURRENT_VERSION: string = "1.2.2.0";
-    //__________________________
-    //___________________________
-    //___________________________
 
     mounted() { 
         this.showDisclaimer = false;
@@ -344,7 +337,7 @@ export default class ApplicationStatus extends Vue {
 
     public beginApplication() {   
 
-        this.$store.dispatch("Application/UpdateInit", this.CURRENT_VERSION);
+        this.$store.dispatch("Application/UpdateInit", Vue.filter('get-current-version')());
         const userId = store.state.Common.userId;
         store.commit("Application/setUserId", userId);
 
@@ -391,7 +384,7 @@ export default class ApplicationStatus extends Vue {
             const applicationType = (applicationData.type?.length>0)?this.extractTypes(applicationData.type.split(',')):[];          
             
             const storeMigrationFn = new MigrateStore()           
-            this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, this.CURRENT_VERSION)
+            this.currentApplication = storeMigrationFn.migrate(applicationData, applicationType, Vue.filter('get-current-version')())
 
             const comStepFn = new RestoreCommonStep()
             comStepFn.restore(this.currentApplication)
@@ -422,7 +415,10 @@ export default class ApplicationStatus extends Vue {
         this.$http.delete('/app/'+ this.applicationToDelete['id'] + '/')
         .then((response) => {
             var indexToDelete = this.previousApplications.findIndex((app) =>{if(app.id == this.applicationToDelete['id'])return true});
-            if(indexToDelete>=0)this.previousApplications.splice(indexToDelete, 1);  
+            if(indexToDelete>=0){
+                this.previousApplications.splice(indexToDelete, 1);  
+                this.tableUpdated++;
+            }
             
         },err => {
             const errMsg = err.response.data.error;
@@ -513,31 +509,7 @@ export default class ApplicationStatus extends Vue {
     }
 
     public extractFilingLocations() {
-        this.$http.get('/efiling/locations/')
-        .then((response) => {
-            const locationsInfo = response.data 
-            const locationNames = Object.keys(response.data);
-            const locations = []
-            for (const location of locationNames){
-                const locationInfo = locationsInfo[location];                
-                
-                const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
-                                (locationInfo.address_2?(', ' + locationInfo.address_2):'') + 
-                                (locationInfo.address_3?(', ' + locationInfo.address_3):'') +
-                                (((locationInfo.address_1 && locationInfo.address_1.trim()) || (locationInfo.address_2 && locationInfo.address_2.trim()) || (locationInfo.address_3 && locationInfo.address_3.trim()))?', ':'') +                               
-                                (locationInfo.city?(locationInfo.city):'') +
-                                (locationInfo.province?(', ' + locationInfo.province):'');
-                const postalCode = (locationInfo.postal?(locationInfo.postal):'');
-               
-                const email = (locationInfo.email?(locationInfo.email):'');
-                const filingLocation = (locationInfo.in_person_filing_location_code?(locationInfo.in_person_filing_location_code):'');
-                locations.push({id: locationInfo.location_code, name: location, address: address, postalCode: postalCode, email:email, filingLocation: filingLocation});
-            }
-
-            this.UpdateLocationsInfo(locations); 
-        
-        },(err) => console.log(err));
-        
+        GetFilingLocations();       
     }
 
     beforeCreate() {
