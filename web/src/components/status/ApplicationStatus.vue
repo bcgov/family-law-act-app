@@ -294,11 +294,6 @@ export default class ApplicationStatus extends Vue {
         this.headerHeight = (document.getElementsByName("navigation-topbar")[0] as HTMLElement)?.clientHeight;
         this.buttonMenuHeight = (document.getElementsByName("button-menu")[0] as HTMLElement)?.clientHeight;
         this.infoContentHeaderHeight = (document.getElementsByName("info-content-header")[0] as HTMLElement)?.clientHeight;
-        console.log(this.windowHeight)
-        console.log(this.headerHeight)
-        console.log(this.footerHeight)
-        console.log(this.buttonMenuHeight)
-        console.log(this.infoContentHeaderHeight)
 
     }
 
@@ -523,8 +518,12 @@ export default class ApplicationStatus extends Vue {
             const locationsInfo = response.data 
             const locationNames = Object.keys(response.data);
             const locations = []
-            for (const location of locationNames){
-                const locationInfo = locationsInfo[location];              
+            for (let location of locationNames){
+                const locationInfo = locationsInfo[location]; 
+                
+                if (location == 'Robson Square Provincial Court'){
+                    location = 'Vancouver - Robson Square Provincial Court';
+                }
                 
                 const address = (locationInfo.address_1?(locationInfo.address_1):'')  + 
                                 (locationInfo.address_2?(', ' + locationInfo.address_2):'') + 
