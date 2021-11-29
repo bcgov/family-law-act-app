@@ -613,11 +613,17 @@ Vue.filter('surveyChanged', function(type: string) {
 
 Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {
 
-	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(locationName)){
+	
+	const locationsInfo = store.state.Common.locationsInfo;
+	const location = locationsInfo.filter(locationInfo => locationInfo.name == locationName)[0];
+	
+	if (!location) return false;
+
+	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(location.id)){
 		return true;
-	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(locationName)){
+	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(location.id)){
 		return true;
-	} else if (registryType == 'family-justice' && FamilyJusticeRegistries.includes(locationName)){
+	} else if (registryType == 'family-justice' && FamilyJusticeRegistries.includes(location.id)){
 		return true;
 	} else {
 		return false;
