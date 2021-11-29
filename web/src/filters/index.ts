@@ -347,7 +347,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 			    questions.backgroundSurvey?.existingPOOrders=="y" ||
 				questions.backgroundSurvey?.ExistingOrders=="y" 
 			){
-				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+				requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");//TODO
 			}
 		}
 	}
@@ -355,7 +355,7 @@ Vue.filter('extractRequiredDocuments', function(questions, type){
 	if(type == 'familyLawMatter'){	
 
 		if(questions.flmBackgroundSurvey?.existingPOOrders == "y"|| questions.flmBackgroundSurvey?.ExistingOrdersFLM == "y")
-		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");
+		  	requiredDocuments.push("Copy of your existing written agreement(s) or court order(s)");//TODO
 			
 		if(Vue.filter('FLMform4Required')())		
 			requiredDocuments.push("Completed <a href='https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/courthouse-services/court-files-records/court-forms/family/pfa713.pdf?forcedownload=true' target='_blank' > Financial Statement Form 4 </a>");
@@ -613,7 +613,9 @@ Vue.filter('surveyChanged', function(type: string) {
 
 Vue.filter('includedInRegistries', function(locationName: string, registryType: string) {
 
-	if (registryType == 'parenting-education' && ParentingEducationRegistries.includes(locationName)){
+	if (registryType == 'parenting-education' 
+			&& !EarlyResolutionsRegistries.includes(locationName)
+			&& !FamilyJusticeRegistries.includes(locationName)){
 		return true;
 	} else if (registryType == 'early-resolutions' && EarlyResolutionsRegistries.includes(locationName)){
 		return true;
