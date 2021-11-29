@@ -288,8 +288,8 @@ export default class FilingLocation extends Vue {
 
     public messageForLocation(){
         const location = this.survey?.data?.ExistingCourt
-        this.messageA = false;
         this.messageB = false;
+        this.messageA = false;
 
         if (location && this.types.includes('Family Law Matter')){
 
