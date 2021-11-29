@@ -1,26 +1,26 @@
 export const FamilyJusticeRegistries = [
-    "Kelowna Law Courts", 
-    "Nanaimo Law Courts", 
-    "Robson Square Provincial Court"
+    "4801",//"Kelowna Law Courts", 
+    "1091", //"Nanaimo Law Courts", 
+    "2045",//"Robson Square Provincial Court"
 ];
 
 export const ParentingEducationRegistries = [
-    "Abbotsford Provincial Court", 
-    "Campbell River Court", 
-    "Chilliwack Law Courts",
-    "Courtenay Law Courts",
-    "Kamloops Court",
-    "New Westminster Law Courts",
-    "North Vancouver Court",
-    "Penticton Law Courts",
-    "Port Coquitlam Court",
-    "Prince George Law Courts",
-    "Richmond Court Small Claims and Family Court",
-    "Richmond Provincial Court",
-    "Vernon Law Courts"
+    "3561", //"Abbotsford Provincial Court", 
+    "1031",//"Campbell River Court", 
+    "3521",//"Chilliwack Law Courts",
+    "1041",//"Courtenay Law Courts",
+    "4781",//"Kamloops Court",
+    "3581", //New Westminster Law Courts",
+    "2011",//North Vancouver Court",
+    "4891", //"Penticton Law Courts",
+    "3531",//"Port Coquitlam Court",
+    "5891",//"Prince George Law Courts",
+    "2027",//"Richmond Court Small Claims and Family Court",
+    "2025",//"Richmond Provincial Court",
+    "4971"//"Vernon Law Courts"
 ];
 
 export const EarlyResolutionsRegistries = [
-    "Victoria Law Courts",
-    "Surrey Provincial Court"
+    "1201",//"Victoria Law Courts",
+    "3585"//"Surrey Provincial Court"
 ]; 
