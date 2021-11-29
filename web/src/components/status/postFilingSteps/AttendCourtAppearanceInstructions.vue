@@ -3,14 +3,40 @@
  
         <p style="font-weight: 700;">
             Step {{instructionsStep}}.             
-            Attend the Court Appearance
-        </p>  
+            <span v-if="byConsent">If applicable,  attend the Court Appearance</span>
+            <span v-else>Attend the Court Appearance</span>
+        </p>         
 
         <p>
             A judge can make decisions based only on the information presented 
             by the parties as evidence. Your evidence includes your application, 
             any additional affidavit, and spoken evidence provided in court.
-        </p> 
+        </p>
+
+        <div v-if="byConsent">
+            <p>
+                <b>Note: </b> If you are making your application <b>by consent</b> and you have included 
+                a draft consent order, it usually means you can obtain the order without you having to 
+                go to court. A judge reviews your application and unless the judge has any questions 
+                about what you are asking for, approves your order without a court hearing.
+            </p>
+            <p>
+                A judge reviewing an application for a case management consent order may do any of the following:
+            </p>
+            <ul style="margin-top:-0.75rem">
+                <li>approve and sign the order without the need for the parties to come to court</li>
+                <li>ask you to provide more information or evidence in writing or by coming to court to give that information</li>
+                <li>require notice to be given to any other party</li>
+                <li>make changes to the draft consent order and ask the parties to come to court to review and sign the changes if approved</li>
+                <li>reject the application with an explanation</li>
+            </ul>
+            <p style="margin-left:0.75rem">
+                Depending on what you are requesting on your application, it may take the judge a few days 
+                to review your application. The registry staff will let you know when you can expect to hear 
+                from them. If you have provided an email address in your address for service, they can usually 
+                let you know the results of your application by email.
+            </p>
+        </div> 
 
         <p>
             If you have a lawyer, they will come to court with you and assist 
@@ -66,6 +92,9 @@ export default class AttendCourtAppearanceInstructions extends Vue {
 
     @Prop({required: true})
     instructionsStep!: string;
+
+    @Prop({required: true})
+    byConsent!: boolean;
     
 }
 </script>
