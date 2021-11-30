@@ -8,7 +8,7 @@
             <div style="text-align:center;"><b>This is Schedule 5 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are <div class="uline">not a guardian</div> of the child or children and you are making a new application about contact with the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are <div class="uline">not a guardian</div> of the child or children and you are making a new application about contact with the child or children identified in section 12 of this application.</i>
                 <i style="display:block">Contact with a child is the time a child spends with a person who is not their guardian. </i>
             </div>
 
@@ -20,7 +20,7 @@
            <div style="margin-top:1rem;"></div>
 <!-- <2> -->
             <section>
-                <div style="display:inline; margin-left:0.35rem">I am applying for an order for contact with the following child(ren) identified in section 11 of this application:</div>
+                <div style="display:inline; margin-left:0.35rem">I am applying for an order for contact with the following child(ren) identified in section 12 of this application:</div>
                 
                 <div style="margin:0 0 1rem 1rem;">
                     <i>List the name of each child you want to have contact with</i>

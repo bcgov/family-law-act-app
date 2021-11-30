@@ -9,7 +9,7 @@
             <div style="text-align:center;"><b>This is Schedule 4 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about child support, or to set aside or replace all or part of an existing agreement about child support, for the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making an application to change or cancel all or part of an existing final order about child support, or to set aside or replace all or part of an existing agreement about child support, for the child or children identified in section 12 of this application.</i>
             </div>
 
 <!-- <1> -->

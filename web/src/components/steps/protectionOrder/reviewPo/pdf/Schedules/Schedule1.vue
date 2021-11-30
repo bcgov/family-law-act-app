@@ -76,8 +76,8 @@
 
             <div  style="margin:0.25rem 0 0 2rem;">
                 <check-box inline="inline" boxMargin="0" style="display:inline;" :check="hasAnotherAdult?'yes':''" text=" Other <i>(specify):</i>"/>               
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="19rem" beforetext=""  hint="full name of other person to be protected"   :text="applicantNeedsProtection == 'n'? (anotherAdult.nameFull ): ''"/>
-                <underline-form style="text-indent:1px;display:inline-block;" textwidth="11rem" beforetext="," hint="date of birth of other person (mmm/dd/yyyy)" :text="applicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ): '' "/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="18.5rem" beforetext="Name: "  hint="full name of other person to be protected"   :text="applicantNeedsProtection == 'n'? (anotherAdult.nameFull ): ''"/>
+                <underline-form style="text-indent:1px;display:inline-block;" textwidth="5.25rem" beforetext="Date of birth: " hint="(mmm/dd/yyyy)" :text="applicantNeedsProtection == 'n'?(anotherAdult.dobBeauty ): '' "/>
                 <div style="text-indent:-18px;display:block;margin-top:0.5rem;"> Explain why you are applying for the other person:</div>
                 <div v-if="applicantNeedsProtection == 'n'" class="answerbox"> {{anotherAdult.reason}}</div>
                 <div v-else style="margin-bottom:3rem;"></div>
@@ -89,12 +89,7 @@
                     person they need protection from.
                 </b>
             </div>
-        </section>
-
-    
-
-
-
+        </section> 
 
         <div class="new-page" />
 <!-- <Page 3> --> 
@@ -321,10 +316,17 @@
         <div style="margin-top:1rem;"></div>
 <!-- <18> -->
         <section>
-            <div style="display:inline;margin-left:.5rem;">There is an existing court order protecting one of the parties, the children, or restraining contact between the parties, including a protection order, child protection or supervision order, peace bond, restraining order, bail condition or other criminal orders</div>
+            <div style="display:inline;margin-left:.5rem;">
+                There is an existing court order, agreement or plan protecting one of the parties or the 
+                child(ren), or restraining contact between the parties, including a protection order, 
+                an order, agreement or plan involving child protection services, or a peace bond, restraining 
+                order, bail condition or other criminal order
+            </div>
+            <div style="display:block; margin-left:.5rem;">
             <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.existingPOOrders == 'y'?'yes':''" text="Yes"/>
             <check-box inline="inline" boxMargin="0" style="display:inline;" shift="10" :check="backgroundSurvey.existingPOOrders == 'n'?'yes':''" text="No"/>                       
-            <i style="text-indent:0rem;display:block;margin-left:.02rem;">If yes, attach a copy of the order(s) to your application</i>            
+            </div>
+            <i style="text-indent:0rem;display:block;margin-left:.02rem;">If yes, attach a copy of the order(s), agreement(s), or plan(s) to your application</i>            
         </section>
 
 

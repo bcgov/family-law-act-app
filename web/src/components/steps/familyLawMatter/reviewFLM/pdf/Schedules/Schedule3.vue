@@ -9,7 +9,7 @@
             <div style="text-align:center;"><b>This is Schedule 3 to the Application About a Family Law Matter</b></div>
 
             <div style="margin:1rem 0; text-align:justify">
-                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 11 of this application.</i>
+                <i>Complete this schedule only if you are making a new application for child support and/or special and extraordinary expenses for the child or children identified in section 12 of this application.</i>
             </div>
 <!-- <1> -->
             <section class="resetquestion"> 
@@ -83,7 +83,7 @@
             <section>
                 <check-box class="marginleft1p5vue" inline="inline" boxMargin="0" style="display:inline-block;margin-left:0.5rem" :check="chSupInfo.desiredSup.payor?'yes':''" text=""/>
                 <underline-form style="text-indent:0px;display:inline-block;" textwidth="15rem" beforetext="I am applying for an order for ongoing support to be paid by" hint="name of paying party" :text="chSupInfo.desiredSup.payor"/>
-                <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 11 of this application: </div>
+                <div style="display:block;text-indent:0px; margin-left:1.8rem;"> in the monthly amount set out in the child support guidelines table for the following child(ren) identified in section 12 of this application: </div>
                 <div style="margin-left:1.25rem;">
                     <i class="marginleft1p5vue" style="display:inline" >List the name of each child you are applying for support for</i>
                     <underline-form v-for="(payee,inx) in chSupInfo.desiredSup.payees" :key="inx" style="text-indent:3px;display:inline-block;" textwidth="16.85rem" beforetext="" hint="" :text="payee"/>                   
