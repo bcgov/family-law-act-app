@@ -227,8 +227,8 @@
                   {
                      "type": "yesno",
                      "name": "existingPOOrders",
-                     "title": "Are there any existing court `orders` protecting one of the parties or restraining contact between the parties, including protection orders, peace bonds, restraining orders, bail conditions or other criminal orders?",
-                     "description": "This includes:<ul><li>any family law protection order from Provincial Court, Supreme Court, or another jurisdiction</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
+                     "title": "Are there any existing court `orders`, agreements or plans protecting one of the parties, or the child(ren), or restraining contact between the parties, including a protection order, an order, agreement or plan involving child protection services, or a peace bond, restraining order, bail condition or other criminal order?",
+                     "description": "This includes:<ul><li>any family law protection order from Provincial Court, BC Supreme Court, or another jurisdiction</li><li>any order, agreement or plan involving child protection services including a Protective Intervention Order or Supervision Order under the <i>Child, Family and Community Service Act</i>.</li><li>any criminal order or conditions protecting a party or restraining/restricting contact between the parties</li><li>any peace bonds</li><li>any other order the court may need to know about that restricts or restrains contact, or protects one party and/or a child from another party</li></ul>",
                      "isRequired": true
                   },
                   {

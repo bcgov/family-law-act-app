@@ -17,9 +17,9 @@
                                     <tr>
                                     <th scope="col">Child's name</th>
                                     <th scope="col">Child's date of birth</th>
-                                    <th scope="col">Your relationship to the child</th>
-                                    <th scope="col">Other party's relationship to the child</th>
-                                    <th scope="col">Child is currently living with</th>
+                                    <th v-if="!formOneRequired" scope="col">Your relationship to the child</th>
+                                    <th v-if="!formOneRequired" scope="col">Other party's relationship to the child</th>
+                                    <th v-if="!formOneRequired" scope="col">Child is currently living with</th>
                                     <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -28,10 +28,10 @@
                                     <tr v-for="child in childData" :key="child.id">
                                     <td>{{child.name.first}} {{child.name.middle}} {{child.name.last}}</td>
                                     <td>{{child.dob | beautify-date}}</td>
-                                    <td>{{child.relation}}</td>
-                                    <td>{{child.opRelation}}</td>
-                                    <td v-if="child.currentLiving != 'other'">{{child.currentLiving}}</td>
-                                    <td v-else>{{child.currentLivingComment}}</td>
+                                    <td v-if="!formOneRequired">{{child.relation}}</td>
+                                    <td v-if="!formOneRequired">{{child.opRelation}}</td>
+                                    <td v-if="!formOneRequired && child.currentLiving != 'other'">{{child.currentLiving}}</td>
+                                    <td v-else-if="!formOneRequired && child.currentLiving == 'other'">{{child.currentLivingComment}}</td>
                                     <td><a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Delete" @click="deleteRow(child.id)"><i class="fa fa-trash"></i></a> &nbsp;&nbsp; 
                                     <a class="btn btn-light" v-b-tooltip.hover.noninteractive title="Edit" @click="openForm(child)"><i class="fa fa-edit"></i></a></td>
                                     </tr>
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-12" v-if="!showTable" id="child-info-survey">
-                    <Children-Survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" />
+                    <children-survey v-on:showTable="childComponentData" v-on:surveyData="populateSurveyData" v-on:editedData="editRow" :editRowProp="anyRowToBeEdited" :formOneRequired="formOneRequired" />
                 </div>
                
             </div>
@@ -103,11 +103,10 @@ export default class ChildrenInfo extends Vue {
     step!: stepInfoType
 
     @applicationState.State
-    public steps!: stepInfoType[];
+    public stPgNo!: stepsAndPagesNumberInfoType;
 
-    
-
-    
+    @applicationState.State
+    public steps!: stepInfoType[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void
@@ -119,7 +118,8 @@ export default class ChildrenInfo extends Vue {
     childData = [];
     anyRowToBeEdited = null;
     editId = null; 
-    incompleteError =  false;       
+    incompleteError =  false;  
+    formOneRequired = false;     
     
     public openForm(anyRowToBeEdited?) {
         this.showTable = false;
@@ -188,6 +188,15 @@ export default class ChildrenInfo extends Vue {
         if(this.childData?.length == 0){
             this.childData= SearchForChildrenData('FLM');            
         }
+
+        this.formOneRequired = false;
+
+        const stepCOM = this.$store.state.Application.steps[this.stPgNo.COMMON._StepNo]
+
+        if( stepCOM.result?.filingLocationSurvey?.data){
+            const filingLocationData = stepCOM.result.filingLocationSurvey.data;
+            this.formOneRequired = this.determineRequiredForm(filingLocationData);            
+        }
     }
 
     mounted(){
@@ -196,11 +205,24 @@ export default class ChildrenInfo extends Vue {
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;        
     }
 
+    public determineRequiredForm(filingLocationData){
+        
+        let location = ''
+        location = filingLocationData?.ExistingCourt;                
+        
+        if(Vue.filter('includedInRegistries')(location, 'early-resolutions') && filingLocationData?.MetEarlyResolutionRequirements == 'n'){
+            return true;
+        } else {
+            return false;
+        }
+    }   
+
     public surveyHasError(){
         let progress = this.childData.length==0? 50 : 100;
         this.incompleteError =  false;        
         for(const child of this.childData){
-            if(child.dob == '' || child.relation == '' || child.opRelation == '' || child.currentLiving == ''){
+            if ((this.formOneRequired && !child.dob) || 
+                (!this.formOneRequired && (!child.dob || !child.relation || !child.opRelation || !child.currentLiving))){            
                 this.incompleteError = true;  
                 progress = 50;    
                 break
@@ -233,13 +255,15 @@ export default class ChildrenInfo extends Vue {
 
         resultString.push(Vue.filter('styleTitle')("Name: ")+Vue.filter('getFullName')(child.name));
         resultString.push(Vue.filter('styleTitle')("Birthdate: ")+Vue.filter('beautify-date')(child.dob))
-        resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
-        resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)
-        if (child.currentLiving == 'other'){
-            resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)
-        } else {
-            resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
-        }
+        if (!this.formOneRequired){
+            resultString.push(Vue.filter('styleTitle')("Your relationship: ")+child.relation)
+            resultString.push(Vue.filter('styleTitle')("Other party’s relationship: ")+child.opRelation)
+            if (child.currentLiving == 'other'){
+                resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLivingComment)
+            } else {
+                resultString.push(Vue.filter('styleTitle')("Living with: ")+child.currentLiving)
+            }
+        }        
         
         return resultString
     }

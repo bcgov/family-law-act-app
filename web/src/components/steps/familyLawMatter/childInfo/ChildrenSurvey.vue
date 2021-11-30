@@ -32,6 +32,9 @@ export default class ChildrenSurvey extends Vue {
     @Prop({required: true})
     editRowProp!: Object;
 
+    @Prop({required: true})
+    formOneRequired!: boolean;
+
     @applicationState.State
     public stPgNo!: stepsAndPagesNumberInfoType;
     
@@ -85,7 +88,8 @@ export default class ChildrenSurvey extends Vue {
             
         this.currentStep = this.$store.state.Application.currentStep;
         this.currentPage = this.$store.state.Application.steps[this.currentStep].currentPage;
-        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })       
+        this.$store.commit("Application/setPageProgress", { currentStep: this.currentStep, currentPage:this.currentPage, progress:progress })   
+        this.survey.setVariable("formOneRequired", this.formOneRequired);    
     }
   
     public goBack() {

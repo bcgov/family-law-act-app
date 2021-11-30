@@ -84,6 +84,19 @@
                      "visibleIf": "{editButton}"
                   },
                   {
+                     "type": "radiogroup",
+                     "name": "filingLocationReason",
+                     "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
+                     "isRequired": true,
+                     "visible": false,
+                     "visibleIf": "{RequiresReasonInfo} and {ExistingFamilyCase} = 'n' and {selectedExistingCourt}",
+                     "choices": [
+                        "It is the court location closest to where the child lives, because my case involves a child-related issue",
+                        "It is the court location closest to where I live because my case does not involve a child-related issue",
+                        "The court made an order that allows me to"
+                     ]
+                  },
+                  {
                      "type": "helptext",
                      "name": "CourtLocationFAQ1",
                      "title": "There is more than one close court location, how do I know which court location is closest?",
@@ -110,7 +123,7 @@
                         {
                            "type": "infotext",
                            "name": "registriesExplanation",
-                           "title": "You are filing your application in an early resolution registry. Before filing your Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual needs assessment meeting with a Family Justice Counsellor</li><li>Completion of a Parenting After Separation online course, if applicable</li><li>Participation in a Consensual dispute resolution session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the needs assessor or the court from participating in any of these.<br><br>If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.",
+                           "title": "You are filing your application in an <a href='https://www2.gov.bc.ca/gov/content?id=065CC36FFE804085B96DF218DAB22AF3' target='_blank'>early resolution registry</a>. Before filing your Application About a Family Law Matter, you must meet the following early resolution requirements:<br><ul><li>Participation in an individual `needs assessment` meeting with a family justice counsellor</li><li>Completion of a <a href='https://www2.gov.bc.ca/gov/content?id=991A99470F9B4576B6BD3E97CB649B2A' target='_blank'>Parenting After Separation</a> online course, if applicable</li><li>Participation in a `Consensual dispute resolution` session, if appropriate</li></ul><br>You have met these requirements if you have participated in a needs assessment, parenting education course and consensual dispute resolution OR if you were exempt by the family justice counsellor or the court from participating in any of these.<br><br>If you do not resolve all issues during the early resolution process, either party can make an application to the Provincial Court for a court order by filing an Application About a Family Law Matter.",
                            "titleLocation": "hidden",
                            "messageStyle": "inline"
                         },
@@ -138,20 +151,7 @@
                            "messageStyle": "inline",
                            "visible": false,
                            "visibleIf": "{MetEarlyResolutionRequirements} = 'n'"
-                        },
-                        {
-                           "type": "radiogroup",
-                           "name": "registryLocationReason",
-                           "title": "Please select the reason you have chosen {registryLocation} as your filing location.",
-                           "isRequired": true,
-                           "visible": false,
-                           "visibleIf": "{MetEarlyResolutionRequirements} = 'n'",
-                           "choices": [
-                              "It is the court location where my existing case with the same party/parties is filed",
-                              "It is the court location closest to where the child lives, because my case involves a child-related issue",
-                              "It is the court location closest to where I live, because my case does not involve a child-related issue"
-                           ]
-                        }
+                        }                        
                      ]
                   }
                ]
