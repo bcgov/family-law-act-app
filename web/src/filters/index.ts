@@ -8,7 +8,7 @@ import {FLA_Types} from './applicationTypes'
 
 import {customCss} from './bootstrapCSS'
 import { pathwayCompletedInfoType } from '@/types/Application';
-import {EarlyResolutionsRegistries, FamilyJusticeRegistries, ParentingEducationRegistries} from './locationRegistries';
+import {EarlyResolutionsRegistries, FamilyJusticeRegistries} from './locationRegistries';
 
 
 
