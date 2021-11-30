@@ -108,10 +108,19 @@ export class MigrateStore{
             result.pathwayCompleted = pathwayCompleted;
 
             for(const selectedform of correspondingStep.result.selectedForms){                
-                if(pathwayCompleted[selectedform] == false){                    
+                if(pathwayCompleted[selectedform] == false){   // push only of pathway still exist in the new version                 
                     result.selectedForms.push(selectedform)
                 }
             }
+
+            // migrate selected Activity
+            result.selectedActivity = []
+            if (correspondingStep.result?.selectedForms?.length >0)            
+                result.selectedActivity.push('applyForOrder')
+
+            if (correspondingStep.result?.selectedReplyApplications?.length >0)            
+                result.selectedActivity.push('replyToApplication')
+
         }
         else{
             //other steps

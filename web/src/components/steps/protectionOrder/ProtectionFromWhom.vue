@@ -39,14 +39,10 @@ export default class ProtectionFromWhom extends Vue {
     step!: stepInfoType;
 
     @applicationState.State
-    public stPgNo!: stepsAndPagesNumberInfoType;
+    public stPgNo!: stepsAndPagesNumberInfoType;  
 
     @commonState.State
-    public locationsInfo!: locationsInfoType[];
-    
-    
-
-    
+    public locationsInfo!: locationsInfoType[];    
 
     @applicationState.Action
     public UpdateStepResultData!: (newStepResultData: stepResultInfoType) => void

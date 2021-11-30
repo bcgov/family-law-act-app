@@ -43,14 +43,14 @@
                         <template v-slot:cell(edit)="row">
                             <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="removeApplication(row.item, row.index)"
-                                v-b-tooltip.hover.noninteractive.v-danger
+                                v-b-tooltip.hover.noninteractive.left.v-danger
                                 title="Delete Application">
                                 <b-icon-trash-fill font-scale="1.25" variant="danger"></b-icon-trash-fill>                    
                             </b-button>
 
                             <b-button v-if="row.item.lastFiled == 0" size="sm" variant="transparent" class="my-0 py-0"
                                 @click="resumeApplication(row.item.id)"
-                                v-b-tooltip.hover.noninteractive
+                                v-b-tooltip.hover.bottom.noninteractive
                                 title="Resume Application">
                                 <b-icon-pencil-square font-scale="1.25" variant="primary"></b-icon-pencil-square>                    
                             </b-button>                                
@@ -287,6 +287,7 @@ export default class ApplicationStatus extends Vue {
         this.headerHeight = (document.getElementsByName("navigation-topbar")[0] as HTMLElement)?.clientHeight;
         this.buttonMenuHeight = (document.getElementsByName("button-menu")[0] as HTMLElement)?.clientHeight;
         this.infoContentHeaderHeight = (document.getElementsByName("info-content-header")[0] as HTMLElement)?.clientHeight;
+
     }
 
     get getHeight() {        

@@ -223,7 +223,7 @@ export default class GettingStarted extends Vue {
         
         const applicationTypes = [];       
         
-        if (this.steps[0].result?.selectedReplyApplications){
+        if (this.steps[0].result?.selectedActivity?.includes('replyToApplication') && this.steps[0].result?.selectedReplyApplications){
             for (const replyForm of this.steps[0].result?.selectedReplyApplications){                    
                 applicationTypes.push(Vue.filter('getFullOrderName')(replyForm, ''));
             }
