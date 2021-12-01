@@ -355,7 +355,7 @@ import OrderedCheckBox from "@/components/utils/PopulateForms/components/Ordered
 import { nameInfoType } from "@/types/Application/CommonInformation";
 import { childrenInfoSurveyInfoType, yourInformationInfoDataInfoType } from '@/types/Application/CommonInformation/Pdf';
 import { getYourInformationResults } from '@/components/utils/PopulateForms/PopulateCommonInformation';
-import { childDetailsDataInfoType, childDetailsSurveyInfoType } from '@/types/Application/FamilyLawMatter';
+import { childDetailsDataInfoType } from '@/types/Application/FamilyLawMatter';
 import { existingOrdersInfoType } from '@/types/Application/FamilyLawMatter/Pdf';
 
 @Component({
@@ -392,8 +392,8 @@ export default class Form1Layout extends Vue {
     existingOrders = {} as existingOrdersInfoType;
     
     childrenFields=[
-        {key:"fullName",               label:"Child's full name",                tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
-        {key:"dob",                    label:"Child's date of birth (mmm/dd/yyyy)",    tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"},
+        {key:"fullName", label:"Child's full name",                   tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:30%;"},
+        {key:"dob",      label:"Child's date of birth (mmm/dd/yyyy)", tdClass:"border-dark text-center align-middle", thClass:"border-dark text-center align-middle", thStyle:"font-size:8pt; width:15%;"}
     ]
    
     mounted(){
@@ -425,7 +425,7 @@ export default class Form1Layout extends Vue {
     }   
     
     public getChildrenInfo(){
-        console.log(this.result)
+        
         const selectedPathways = this.result?.flmQuestionnaireSurvey?this.result?.flmQuestionnaireSurvey:[];
         
         if (selectedPathways.includes("parentingArrangements") || 
