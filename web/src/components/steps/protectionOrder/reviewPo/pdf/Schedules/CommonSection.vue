@@ -55,7 +55,7 @@
 
 <!-- <2> -->
         <section>
-            The person I want protection from, or who had made an application for protection from me, is the other party. An application is
+            The person I want protection from, or who made an application for protection from me, is the other party. An application is
             usually made with notice to the other party. To give notice, they must be served with the application and supporting documents
             before the date set for the court appearance. An Application About a Protection Order can also be made without notice to the
             other party.
@@ -111,14 +111,24 @@
 
 <!-- <For registery> -->
         <div class="print-block">
-            <div style="margin:0.5rem 0 0 1rem;"><i>For registry use only</i></div>
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; padding:0.5rem;font-family:BCSans">
+                <div style="text-indent:4px; margin:0 0 0.5rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
+                
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="20.5rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>at</b>" hint="time" text=""/>
                 <div style="text-indent:5px;display:inline;"><b> a.m./p.m.</b></div>
+                <div style="margin:0.5rem 0 0 0.25rem;">
+                    <underline-form style="text-indent:0px;display:inline-block;margin:0.5rem 0 0.5rem 0;" textwidth="10rem" beforetext="<b>You must attend the court appearance</b>" hint="(method of attendance)" text=""/>
+                    <div style="text-indent:5px;display:inline;"><b>, unless otherwise allowed by the court.</b></div>
+                    <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
+                </div>
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court appearance, the court may make an order in your absence.</b></div>
+            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>
+                NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court 
+                appearance, the court may make an order in your absence. You may also choose to file a written 
+                response in reply to the application in Form 19 Written Response to Application.
+            </b></div>
         </div>
     </div>
 </template>

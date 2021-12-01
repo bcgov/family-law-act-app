@@ -110,16 +110,40 @@
                         </template>
                 </b-table> 
             </section>
-        </div> 
+        </div>
+
+        <div class="print-block mt-0">
+            <div style="margin-top:1rem;"><b>Filing location</b></div>  
 
 <!-- <5> -->
+            <section>
+                <div style="display:inline; margin:0 0 0 0.25rem">I am filing this form in the court registry:</div>
+                <div style="margin-left:1rem;">
+                    <i>Select only one of the options below</i>
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location where my existing case with the same party/parties is filed')?'yes':''" 
+                        text="where my existing case with the same party/parties is located"/> 
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where the child lives, because my case involves a child-related issue')?'yes':''" 
+                        text="closest to where the child lives most of the time, because my case involves a child-related issue"/>          
+                    <check-box  
+                        :check="(filingLocationReason == 'It is the court location closest to where I live because my case does not involve a child-related issue')?'yes':''" 
+                        text="closest to where I live because my case does not involve a child-related issue"/>
+                    <check-box  
+                        :check="(filingLocationReason == 'The court made an order that allows me to')?'yes':''" 
+                        text="permitted by court order"/>                    
+                </div>
+            </section>
+        </div>
+
+<!-- <6> -->
         <div class="print-block"> 
             <div style="margin-top:1rem;"><b>ABOUT THE ORDER</b></div>
             <section>
                 <div style="display:inline; margin-left:0.15rem;"> I am applying for the following case management order(s): </div>
                 <div style="margin-left:1.1rem;"><i>Select all that apply and complete the required schedule(s)</i></div>
                 <div style="margin:0.25rem 0 0 1.7rem;font-size: 10pt;" >                    
-                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="allowing a person to attend a conference or hearing using electronic communication, including by telephone or video <i>[complete and attach Schedule 1]</i>"/>
+                    <check-box  :check="selectedSchedules.includes('schedule1')?'yes':''" text="allowing a person to attend a court appearance using another method of attendance <i>[complete and attach Schedule 1]</i>"/>
                     <check-box  :check="selectedSchedules.includes('schedule2')?'yes':''" text="waiving or modifying any requirement related to service or giving notice to a person, including allowing an alternative method for the service of a document <i>[complete and attach Schedule 2]</i>"/>
                     <check-box  :check="selectedSchedules.includes('schedule3')?'yes':''" text="waiving or modifying any other requirement under the rules <i>[complete and attach Schedule 3]</i>"/>
                     <check-box  :check="selectedSchedules.includes('schedule4')?'yes':''" text="requiring access to information in accordance with section 242 <i>[orders respecting searchable information]</i> of the <i> Family Law Act [complete and attach Schedule 4]</i>"/>
@@ -178,7 +202,7 @@ export default class CommonSection extends Vue {
     
     childRelatedType: string = '';   
     childrenInfo: childrenInfoSurveyInfoType[] = [];  
-    
+    filingLocationReason = '';    
     understandWithoutNotice = false;
    
     childrenFields = [
@@ -203,7 +227,11 @@ export default class CommonSection extends Vue {
             this.understandWithoutNotice = withoutNoticeData.needWithoutNotice == 'y' && withoutNoticeData.orderWithoutNoticeAcknowledgement == 'I understand';
         } else {
             this.understandWithoutNotice = false;
-        }      
+        }  
+        if (this.result.filingLocationSurvey?.filingLocationReason) {
+            this.filingLocationReason = this.result.filingLocationSurvey.filingLocationReason;
+        }         
+        
     }
 
     public getLocationInfo(){
