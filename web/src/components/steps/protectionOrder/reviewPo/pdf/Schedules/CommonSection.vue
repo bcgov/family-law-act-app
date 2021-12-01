@@ -5,10 +5,10 @@
         <div class="form-header-po"> 
             <b style="color:#FFF; font-size:1px; width:0.1rem; height:0.1rem; margin:0; padding:0;">i</b>
             <div style="float:left; display: inline-block;">               
-                <div class="margintopminus" style="font-size:11pt;"><b>Application About a Protection Order</b></div>
-                <div style="font-size:9pt;"><b>FORM 12</b></div>
-                <div style="font-size:8pt;">Provincial Court Family Rules</div>
-                <div style="font-size:8pt;">Rules 67, 68 and 172</div>
+                <div class="margintopminus" style="font-size:13pt;"><b>Application About a Protection Order</b></div>
+                <div style="font-size:10pt;"><b>FORM 12</b></div>
+                <div>Provincial Court Family Rules</div>
+                <div>Rules 67, 68 and 172</div>
             </div>
             <div style="float:right;">
                 <b-table
@@ -32,7 +32,7 @@
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="16rem" beforetext="My name is" hint="full name of party" :italicHint="false" :text="yourInfo.name | getFullName"/>
                 <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". My date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="yourInfo.dob | beautify-date"/>
                 <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . My contact information and address for service of court documents by the other party and the court are:</div>
-                <table class="fullsize" style="margin-top:0.2rem !important;">
+                <table class="fullsize" style="margin:1rem 0 1rem 0;">
                     <tr style="border:1px solid #414142" >
                         <td v-if="yourInfo.lawyer" colspan="3">Lawyer (if applicable): <div class="answer"> {{yourInfo.lawyerName | getFullName}}</div></td>
                         <td v-else  colspan="3">Lawyer (if applicable): </td>
@@ -53,13 +53,15 @@
                 </table>
         </section>
 
+        <div style="margin-top:2rem;"></div>
+
 <!-- <2> -->
         <section>
             The person I want protection from, or who made an application for protection from me, is the other party. An application is
             usually made with notice to the other party. To give notice, they must be served with the application and supporting documents
             before the date set for the court appearance. An Application About a Protection Order can also be made without notice to the
             other party.
-            <div style="margin:0.25rem 0 0 2rem;" >
+            <div style="margin:0.75rem 0 0.75rem 2rem;" >
                 <i>Select only one of the options below</i>
                 <check-box  :check="urgency.PORNoNotice == 'n'?'yes':''" text="I am applying with notice to the other party"/>
                 <check-box v-if="urgency.PORNoNotice == 'y'"  :check="urgency.PORNoNotice == 'y'?'yes':''" :text="'I want to apply without notice to the other party because:<br><i style=\'font-size:11.5px;\' > Tell the court why the application or your situation is urgent and what you believe will happen if the other party is served with the application and given a chance to attend court so that you can both be heard at the same time.</i><br/><div style=\'color:#000;font-size:10pt;line-height:1rem;\'>'+urgency.PORWhyNoNotice+'</div>'"/>
@@ -67,13 +69,15 @@
             </div>
         </section>
 
+        <div style="margin-top:2rem;"></div>
+
 <!-- <3> -->
         <section> 
             <div v-for="(otherParty,inx) in otherPartyInfo" :key="inx" :style="inx==0?'display:inline;':'text-indent:-5px;margin-top:1rem;'">
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="14.5rem" beforetext="The other party's name is" hint="full name of the other party" :italicHint="false" :text="otherParty.name | getFullName"/>
                 <underline-form style="display:inline;text-indent:2px;" textwidth="7rem" beforetext=". Their date of birth is" hint="date of birth (mmm/dd/yyyy)" :italicHint="false" :text="otherParty.dob | beautify-date"/>
                 <div style="text-indent:5px;display:inline; line-height:1.5rem;"> . Their contact information, as I know it, is:</div>
-                <table class="fullsize" style="margin-top:0.2rem !important;">
+                <table class="fullsize" style="margin:1rem 0 1rem 0;">
                     <tr style="border:1px solid #313132">
                         <td colspan="3">
                             Lawyer (if applicable): 
@@ -99,20 +103,21 @@
         </section>
 
 <!-- <4> -->
-        <section>  
-            I am applying for the following order:           
-            <div style="margin:0.25rem 0 0 1rem;" >
-                <i>Select only one of the options below and complete the required schedule</i>
-                <check-box  :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
-                <check-box  :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
-                <check-box  :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
-            </div>
-        </section>
+        <div class="print-block">
+            <section>  
+                I am applying for the following order:           
+                <div style="margin:0.75rem 0 2rem 1rem;" >
+                    <i>Select only one of the options below and complete the required schedule</i>
+                    <check-box  :check="orderType == 'needPO'?'yes':''" text="Protection order <i>[Complete and attach Schedule 1]</i>"/>
+                    <check-box  :check="orderType == 'changePO'?'yes':''" text="Order to change an existing protection order <i>[Complete and attach Schedule 2]</i>"/>
+                    <check-box  :check="orderType == 'terminatePO'?'yes':''" text="Order to terminate and existing protection order <i>[Complete and attach Schedule 3]</i>"/>
+                </div>
+            </section>
 
 <!-- <For registery> -->
-        <div class="print-block">
+        
             <div style="margin-left:1rem; width:96.37%; border:1px solid; font-weight:bold; padding:0.5rem;font-family:BCSans">
-                <div style="text-indent:4px; margin:0 0 0.5rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
+                <div style="text-indent:4px; margin:0 0 1rem 0; font-weight:normal; font-size:12pt;"><i>For registry use only</i></div>
                 
                 <underline-form style="text-indent:2px;display:inline-block;margin:0 0 0.5rem 0;" textwidth="20.5rem" beforetext="<b>This application will be made to the court at</b>" hint="(court registry, street address, city)" text=""/>
                 <underline-form style="text-indent:2px;display:inline-block;" textwidth="10rem" beforetext="<b>on</b>" hint="date (mmm/dd/yyyy)" text=""/>
@@ -124,7 +129,7 @@
                     <check-box inline="inline" boxMargin="0" style="display:inline; font-weight:normal;" shift="10" :check="''" text="See attached for details"/>                        
                 </div>
             </div>
-            <div style="margin:0.5rem 0 0 1rem; font-family:BCSans; font-size:9pt;"><b>
+            <div style="margin:1rem 0 0 1rem; font-family:BCSans; font-size:12pt;"><b>
                 NOTICE TO THE OTHER PARTY: If you do not attend court on the date and time scheduled for the court 
                 appearance, the court may make an order in your absence. You may also choose to file a written 
                 response in reply to the application in Form 19 Written Response to Application.

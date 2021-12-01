@@ -42,7 +42,7 @@
             <div style="margin:0.25rem 0 0 1rem;" >
                 <i>Select all options that apply</i>                
                 <check-box  :check="aboutOrder.kindOfParty.includes('protectedParty')?'yes':''" text="protected party"/>
-                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of the protected party"/>
+                <check-box  :check="aboutOrder.kindOfParty.includes('parentGuardian')?'yes':''" text="parent or guardian of a protected party"/>
                 <check-box  :check="aboutOrder.kindOfParty.includes('restrainedParty')?'yes':''" text="person who the protection order is against"/>
             </div>
         </section>

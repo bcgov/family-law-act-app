@@ -405,31 +405,32 @@
             <div v-else style="margin-bottom:3rem;"></div>
         </section>
 
-        <div style="margin-top:1rem;"></div>
+        <!-- <div style="margin-top:1rem;"></div> -->
 <!-- <25> -->
-        <section>            
-            <div style="display:inline; margin-left:.15rem;">
-               Describe any recent incidents of Family Violence against the protected party and any child(ren).
-            </div>
-            <div style="margin:0.5rem 0 0 1.5rem;">
-                Includes:
-                <ul style="text-indent:0rem; font-style:italic;">
-                    <li>How the other party made the protected party and/or the child(ren) feel unsafe (describe examples of the other party’s behaviour that made you afraid)</li>
-                    <li>A description of the incident(s) (write as much detail as possible)</li>
-                    <li>Who was involved (include the police if they were involved at any time)</li>
-                    <li>Who witnessed it</li>
-                    <li>Any exposure the child or children have had to family violence or abuse</li>
-                    <li>Any injuries or trauma from the incident</li>
-                    <li>Any doctor’s notes, police reports or photos (you must refer to them here as exhibits and make copies of them for the court)</li>
-                </ul>
-                <div v-if="yourStory.recentIncidents" class="answerbox"> {{yourStory.recentIncidents}}</div>
-                <div v-else style="margin-bottom:2rem;"></div>
-            </div>
-        </section>
+        <div class="print-block">
+            <section>            
+                <div style="display:inline; margin-left:.15rem;">
+                Describe any recent incidents of Family Violence against the protected party and any child(ren).
+                </div>
+                <div style="margin:0.5rem 0 0 1.5rem;">
+                    Includes:
+                    <ul style="text-indent:0rem; font-style:italic;">
+                        <li>How the other party made the protected party and/or the child(ren) feel unsafe (describe examples of the other party’s behaviour that made you afraid)</li>
+                        <li>A description of the incident(s) (write as much detail as possible)</li>
+                        <li>Who was involved (include the police if they were involved at any time)</li>
+                        <li>Who witnessed it</li>
+                        <li>Any exposure the child or children have had to family violence or abuse</li>
+                        <li>Any injuries or trauma from the incident</li>
+                        <li>Any doctor’s notes, police reports or photos (you must refer to them here as exhibits and make copies of them for the court)</li>
+                    </ul>
+                    <div v-if="yourStory.recentIncidents" class="answerbox"> {{yourStory.recentIncidents}}</div>
+                    <div v-else style="margin-bottom:2rem;"></div>
+                </div>
+            </section>
 
 <!-- <SWEAR > -->
-        <div class="print-block">
-            <div style="margin:3rem 0 0 0">Sworn or affirmed before me</div>
+        
+            <div style="margin:1rem 0 0 0">Sworn or affirmed before me</div>
 
             <div style="margin:0.5rem 0 0 0">
                 <underline-form style="margin-top:0.2rem; text-indent:3px;display:inline;" textwidth="12rem" beforetext="at" hint="city" text="" />                        
